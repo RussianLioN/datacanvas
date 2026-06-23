@@ -30,4 +30,4 @@
 
 ## Ограничение
 
-PR #1 еще не смержен. Если branch head изменится после pilot evidence, `docs/release/commit-pr-evidence.md` нужно обновить.
+PR #1 еще не смержен. Если product/runtime artifacts изменятся после pilot evidence, `docs/release/commit-pr-evidence.md` нужно обновить.

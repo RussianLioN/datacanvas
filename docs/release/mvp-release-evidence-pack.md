@@ -31,8 +31,8 @@
 ## Ограничения
 
 - PR #1 еще не смержен; release evidence фиксирует reviewable PR state.
-- Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить.
+- Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить.
 
 ## Следующий Шаг
 
-Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence и release audit.
+Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence и release audit.

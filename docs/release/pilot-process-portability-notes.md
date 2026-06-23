@@ -49,4 +49,4 @@
 
 - Decision: `accepted`
 - Evidence: `docs/release/pilot-report.md`, `docs/release/commit-pr-evidence.md`, `docs/process/portability/process-portability-pack.json`
-- Follow-up: `Merge PR after review; update release audit if branch head changes`
+- Follow-up: `Merge PR after review; update release audit if product/runtime artifacts change`

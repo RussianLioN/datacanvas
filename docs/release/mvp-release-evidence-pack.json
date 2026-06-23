@@ -13,7 +13,7 @@
   ],
   "commit_sha": {
     "status": "captured",
-    "value": "306ba52819817d9c913ce467d2ca8afa5dfdb9e9",
+    "value": "3b690b956210015a0a642d0c90895296cb8603ba",
     "evidence": "docs/release/commit-pr-evidence.md"
   },
   "ci_evidence": [
@@ -106,7 +106,7 @@
   ],
   "rollback_forward_fix_plan": {
     "rollback": "Вернуться к последнему green evidence pack и исключить RC-2026-W26-G9-MVP-FIXTURE из release candidate.",
-    "forward_fix": "После review смерджить PR #1 или обновить evidence, если branch head изменится."
+    "forward_fix": "После review смерджить PR #1 или обновить evidence, если product/runtime artifacts изменятся."
   },
   "acceptance_decision": {
     "decision": "accepted_for_candidate",
@@ -146,7 +146,7 @@
   ],
   "known_limitations": [
     "PR #1 еще не смержен; release evidence фиксирует reviewable PR state.",
-    "Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить."
+    "Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить."
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
 }

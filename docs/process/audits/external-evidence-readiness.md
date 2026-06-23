@@ -4,7 +4,7 @@
 
 Этот dashboard показывает, какие внешние evidence закрыли completion audit, кто владел сбором и какой recorder использовался.
 
-Real UAT evidence, pilot report, portability notes и commit/PR evidence уже записаны. Документ нужен, чтобы сохранить audit trail и не потерять правило обновления evidence при изменении branch head.
+Real UAT evidence, pilot report, portability notes и commit/PR evidence уже записаны. Документ нужен, чтобы сохранить audit trail и не потерять правило обновления evidence при изменении product/runtime artifacts.
 
 ## Собранные Evidence
 
@@ -12,7 +12,7 @@ Real UAT evidence, pilot report, portability notes и commit/PR evidence уже 
 |---|---|---|---|
 | `docs/release/pilot-report.md` | Delivery/GitOps Lead | collected | `npm run pilot:record` |
 | `docs/release/pilot-process-portability-notes.md` | Process Owner | collected | `npm run pilot:record` |
-| `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | collected | PR #1 and commit `306ba52819817d9c913ce467d2ca8afa5dfdb9e9` |
+| `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | collected | PR #1 and commit `3b690b956210015a0a642d0c90895296cb8603ba` |
 
 ## Controlled Collection Command
 
@@ -46,4 +46,4 @@ npm test
 
 ## Следующий Безопасный Шаг
 
-Дождаться review и merge PR #1; при изменении branch head обновить `docs/release/commit-pr-evidence.md`.
+Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить `docs/release/commit-pr-evidence.md`.

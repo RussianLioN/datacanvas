@@ -8,7 +8,7 @@
 
 План имплементации DataCanvas покрыт текущими артефактами репозитория. Процессная система создана как управляемый Scrum-based продукт: есть process passport, registry, backlog, changelog, PCR flow, versioning, event log, metrics snapshot, portability pack и completion audit. Продуктовая основа DataCanvas также подготовлена: Vision, BMC, требования, backlog, roadmap, схемы, MVP renderer, traceability, security gates, evals, review runtime, real UAT, pilot gate, commit/PR evidence, pilot report и G11 portability review связаны воспроизводимым evidence.
 
-Открытое операционное ограничение не блокирует выполнение плана: PR #1 еще не смержен, поэтому release evidence фиксирует reviewable PR state. Если branch head изменится до merge, нужно обновить commit/PR evidence, release audit и metrics snapshot.
+Открытое операционное ограничение не блокирует выполнение плана: PR #1 еще не смержен, поэтому release evidence фиксирует reviewable PR state. Если product/runtime artifacts изменятся до merge, нужно обновить commit/PR evidence, release audit и metrics snapshot.
 
 ## Покрытие
 
@@ -34,4 +34,4 @@
 
 ## Следующий Безопасный Шаг
 
-Дождаться review и merge PR #1. Если branch head изменится до merge, обновить `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.json`, completion audit и metrics snapshot.
+Дождаться review и merge PR #1. Если product/runtime artifacts изменятся до merge, обновить `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.json`, completion audit и metrics snapshot.

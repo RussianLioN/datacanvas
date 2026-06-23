@@ -84,7 +84,7 @@
   ],
   "known_limitations": [
     "PR #1 еще не смержен; completion фиксирует реализованный и проверяемый PR state.",
-    "Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить."
+    "Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить."
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
 }

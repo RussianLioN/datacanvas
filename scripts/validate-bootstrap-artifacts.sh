@@ -1090,7 +1090,7 @@ jq -e '([.validation_commands[]] | index("npm run validate:commit-pr-evidence-te
   docs/release/pilot-execution-handoff.json >/dev/null \
   || fail "pilot execution handoff must require commit/PR evidence template validation"
 
-jq -e '.commit_sha.status == "captured" and .commit_sha.value == "306ba52819817d9c913ce467d2ca8afa5dfdb9e9"' \
+jq -e '.commit_sha.status == "captured" and .commit_sha.value == "3b690b956210015a0a642d0c90895296cb8603ba"' \
   docs/release/mvp-release-evidence-pack.json >/dev/null \
   || fail "release evidence pack must capture real commit SHA"
 

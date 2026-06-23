@@ -10,7 +10,7 @@
 
 ## Commit Evidence
 
-- Commit SHA: `306ba52819817d9c913ce467d2ca8afa5dfdb9e9`
+- Commit SHA: `3b690b956210015a0a642d0c90895296cb8603ba`
 - Commit URL or local verification command: `https://github.com/RussianLioN/datacanvas/pull/1`
 - Branch: `## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation`
 - Working tree status at release cut:
@@ -29,7 +29,7 @@
 ## Required Verification
 
 ```text
-git rev-parse HEAD: 306ba52819817d9c913ce467d2ca8afa5dfdb9e9
+release-cut git rev-parse HEAD: 3b690b956210015a0a642d0c90895296cb8603ba
 git status --short --branch:
 ## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation
 npm test: passed

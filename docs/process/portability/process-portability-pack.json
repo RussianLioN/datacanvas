@@ -55,7 +55,7 @@
   ],
   "known_limitations": [
     "Шаблоны требуют адаптации под домен следующего ИТ-проекта.",
-    "PR #1 еще не смержен; при изменении branch head нужно обновить commit/PR evidence."
+    "PR #1 еще не смержен; при изменении product/runtime artifacts нужно обновить commit/PR evidence."
   ],
   "next_safe_step": "Использовать docs/release/pilot-process-portability-notes.md как вход для следующей версии процесса."
 }
