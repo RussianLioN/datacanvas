@@ -10,7 +10,7 @@
 - Есть `docs/product/ux/human-review-session-real.json`, созданный через importer.
 - `docs/release/mvp-release-evidence-pack.json` обновлен после real UAT.
 - `docs/architecture/security/data-leakage-manifest.json` включает real UAT artifacts после их появления.
-- Есть commit SHA и PR evidence.
+- Есть `docs/release/commit-pr-evidence.md` с commit SHA и PR evidence.
 - Для заполнения commit/PR evidence использовать `docs/release/templates/commit-pr-evidence-template.md`.
 - `docs/process/portability/process-portability-pack.json` готов к проверке переносимости.
 

@@ -57,8 +57,11 @@ const readinessBlockers = manifest.blockers.map((blocker) => blocker.blocking_ev
 const auditBlockers = audit.blocking_external_evidence;
 const closureBlockers = closureMap.blockers.map((blocker) => blocker.blocking_evidence);
 
-if (!sameSet(readinessBlockers, auditBlockers)) {
+if (manifest.status === "ready_to_collect_external_evidence" && !sameSet(readinessBlockers, auditBlockers)) {
   fail("readiness blockers do not match completion audit blockers");
+}
+if (manifest.status === "external_evidence_collected" && auditBlockers.length !== 0) {
+  fail("collected external evidence readiness requires empty completion audit blockers");
 }
 if (!sameSet(readinessBlockers, closureBlockers)) {
   fail("readiness blockers do not match closure map blockers");
@@ -72,14 +75,20 @@ for (const blocker of manifest.blockers) {
   if (closure.owner_role !== blocker.owner_role) {
     fail(`owner role mismatch for blocker: ${blocker.blocking_evidence}`);
   }
-  if (closure.status !== "pending_external") {
+  if (manifest.status === "ready_to_collect_external_evidence" && closure.status !== "pending_external") {
     fail(`closure map must keep pending_external for blocker: ${blocker.blocking_evidence}`);
+  }
+  if (manifest.status === "external_evidence_collected" && closure.status !== "closed") {
+    fail(`closure map must close blocker after collection: ${blocker.blocking_evidence}`);
   }
   if (blocker.required_before_completion !== true) {
     fail(`blocker must be required before completion: ${blocker.blocking_evidence}`);
   }
-  if (isPathLike(blocker.blocking_evidence) && exists(blocker.blocking_evidence)) {
+  if (manifest.status === "ready_to_collect_external_evidence" && isPathLike(blocker.blocking_evidence) && exists(blocker.blocking_evidence)) {
     fail(`path-like blocker exists while readiness says missing_pending_external: ${blocker.blocking_evidence}`);
+  }
+  if (manifest.status === "external_evidence_collected" && isPathLike(blocker.blocking_evidence) && !exists(blocker.blocking_evidence)) {
+    fail(`path-like blocker is missing after collection: ${blocker.blocking_evidence}`);
   }
   for (const supportPath of blocker.supporting_artifacts) {
     if (!exists(supportPath)) {
@@ -109,7 +118,7 @@ for (const command of [
 }
 
 const dashboard = readText("docs/process/audits/external-evidence-readiness.md");
-for (const requiredText of ["missing pending external", "Stop Rules", "pilot report", "commit-sha-and-pr-evidence", "npm run pilot:record", "docs/release/commit-pr-evidence.md"]) {
+for (const requiredText of ["pilot report", "npm run pilot:record", "docs/release/commit-pr-evidence.md"]) {
   if (!dashboard.includes(requiredText)) {
     fail(`external evidence readiness dashboard is missing text: ${requiredText}`);
   }

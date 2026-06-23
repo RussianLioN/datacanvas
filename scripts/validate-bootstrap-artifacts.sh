@@ -599,9 +599,9 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S19")' \
 grep -q 'scripts/validate-process-versioning.mjs' docs/architecture/adr/ADR-019-process-versioning-validation.md \
   || fail "process versioning ADR invariant is missing"
 
-jq -e '.next_safe_step | test("review UI|release evidence|MVP|real user UAT")' \
+jq -e '.next_safe_step | test("review.*merge PR #1|commit/PR evidence|release audit|process metrics snapshot")' \
   docs/process/audits/datacanvas-plan-coverage-audit.json >/dev/null \
-  || fail "plan coverage audit must expose review UI, release evidence, MVP, or real user UAT as next safe step"
+  || fail "completed plan coverage audit must expose PR review/merge and evidence refresh as next safe step"
 
 grep -q 'scripts/validate-plan-coverage.mjs' docs/architecture/adr/ADR-020-plan-coverage-audit.md \
   || fail "plan coverage audit ADR invariant is missing"
@@ -726,9 +726,9 @@ jq -e '.metrics[] | select(.id == "MET-008" and .measurement_status == "derived"
   docs/process/current/process-metrics-manifest.json >/dev/null \
   || fail "process metrics manifest must include derived quality gate pass rate"
 
-jq -e '.quality_gates[] | select(.command == "real user UAT session" and .status == "pending_external")' \
+jq -e '.quality_gates[] | select(.command == "real user UAT session" and .status == "passed")' \
   docs/process/current/process-metrics-manifest.json >/dev/null \
-  || fail "process metrics manifest must keep real user UAT pending_external"
+  || fail "process metrics manifest must mark real user UAT passed"
 
 jq -e '.artifacts[] | select(.id == "ART-167" and .path == "scripts/validate-process-metrics.mjs")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \
@@ -809,9 +809,9 @@ jq -e '.artifacts[] | select(.id == "ART-189" and .path == "scripts/validate-pro
 grep -q 'scripts/validate-process-metrics-snapshot.mjs' docs/architecture/adr/ADR-038-process-metrics-collection.md \
   || fail "process metrics collection ADR invariant is missing"
 
-jq -e '.status == "generated" and .counts.sprint_evidence_manifests >= 1 and .counts.quality_gates_pending_external >= 1' \
+jq -e '.status == "generated" and .counts.sprint_evidence_manifests >= 1 and .counts.quality_gates_pending_external == 0' \
   docs/process/current/process-metrics-snapshot.json >/dev/null \
-  || fail "process metrics snapshot must be generated and keep pending external gates visible"
+  || fail "process metrics snapshot must be generated and show no pending external gates"
 
 grep -q 'scripts/validate-process-event-log.mjs' docs/architecture/adr/ADR-045-process-event-log-readiness.md \
   || fail "process event log readiness ADR invariant is missing"
@@ -831,9 +831,9 @@ jq -e '.counts.process_events == 0 and (.derived_metrics[] | select(.id == "DPM-
 grep -q 'scripts/validate-process-portability.mjs' docs/architecture/adr/ADR-046-process-portability-readiness.md \
   || fail "process portability readiness ADR invariant is missing"
 
-jq -e '.status == "ready_for_pilot_validation" and .gate_id == "G11" and .pilot_dependency.status == "pending_external"' \
+jq -e '.status == "accepted_after_pilot" and .gate_id == "G11" and .pilot_dependency.status == "satisfied"' \
   docs/process/portability/process-portability-pack.json >/dev/null \
-  || fail "process portability pack must remain ready for pilot validation with pending pilot dependency"
+  || fail "process portability pack must be accepted after pilot"
 
 jq -e '(.reusable_templates | length) >= 5 and any(.reusable_templates[]; .path == "docs/process/templates/sprint-folder-template.md")' \
   docs/process/portability/process-portability-pack.json >/dev/null \
@@ -1012,13 +1012,13 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S50")' \
 grep -q 'scripts/validate-plan-completion-audit.mjs' docs/architecture/adr/ADR-051-plan-completion-audit-gate.md \
   || fail "plan completion audit ADR invariant is missing"
 
-jq -e '.status == "blocked_pending_external" and ([.blocking_external_evidence[]] | index("docs/release/pilot-report.md") and index("commit-sha-and-pr-evidence"))' \
+jq -e '.status == "complete" and (.blocking_external_evidence | length == 0)' \
   docs/process/audits/plan-completion-audit.json >/dev/null \
-  || fail "plan completion audit must remain blocked on pilot and commit evidence"
+  || fail "plan completion audit must be complete after pilot and commit evidence"
 
-jq -e 'any(.completion_requirements[]; .id == "DOD-005" and .status == "met") and any(.completion_requirements[]; .id == "DOD-010" and .status == "blocked_pending_external")' \
+jq -e 'any(.completion_requirements[]; .id == "DOD-005" and .status == "met") and any(.completion_requirements[]; .id == "DOD-010" and .status == "met")' \
   docs/process/audits/plan-completion-audit.json >/dev/null \
-  || fail "plan completion audit must mark MVP met and keep pilot DoD blocked pending external evidence"
+  || fail "plan completion audit must mark MVP and pilot DoD met"
 
 jq -e '.artifacts[] | select(.id == "ART-263" and .path == "docs/process/audits/plan-completion-audit.json")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \
@@ -1090,9 +1090,9 @@ jq -e '([.validation_commands[]] | index("npm run validate:commit-pr-evidence-te
   docs/release/pilot-execution-handoff.json >/dev/null \
   || fail "pilot execution handoff must require commit/PR evidence template validation"
 
-jq -e '.commit_sha.status == "pending_until_commit"' \
+jq -e '.commit_sha.status == "captured" and .commit_sha.value == "306ba52819817d9c913ce467d2ca8afa5dfdb9e9"' \
   docs/release/mvp-release-evidence-pack.json >/dev/null \
-  || fail "release evidence pack must keep commit SHA pending until real evidence"
+  || fail "release evidence pack must capture real commit SHA"
 
 jq -e '.artifacts[] | select(.id == "ART-278" and .path == "docs/release/templates/commit-pr-evidence-template.md")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \
@@ -1105,17 +1105,17 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S54")' \
 grep -q 'scripts/validate-external-blocker-closure-map.mjs' docs/architecture/adr/ADR-055-external-blocker-closure-map.md \
   || fail "external blocker closure map ADR invariant is missing"
 
-jq -e '.status == "ready_to_collect_external_evidence" and .source_audit_path == "docs/process/audits/plan-completion-audit.json"' \
+jq -e '.status == "external_evidence_collected" and .source_audit_path == "docs/process/audits/plan-completion-audit.json"' \
   docs/process/audits/external-blocker-closure-map.json >/dev/null \
   || fail "external blocker closure map must link to plan completion audit"
 
 jq -e '([.blockers[].blocking_evidence] | index("docs/release/pilot-report.md") and index("docs/release/pilot-process-portability-notes.md") and index("commit-sha-and-pr-evidence"))' \
   docs/process/audits/external-blocker-closure-map.json >/dev/null \
-  || fail "external blocker closure map must include remaining completion audit blockers"
+  || fail "external blocker closure map must include closed completion audit blockers"
 
-jq -e 'all(.blockers[]; .status == "pending_external")' \
+jq -e 'all(.blockers[]; .status == "closed")' \
   docs/process/audits/external-blocker-closure-map.json >/dev/null \
-  || fail "external blocker closure map blockers must remain pending_external"
+  || fail "external blocker closure map blockers must be closed"
 
 jq -e '.artifacts[] | select(.id == "ART-283" and .path == "docs/process/audits/external-blocker-closure-map.json")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \
@@ -1254,13 +1254,13 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S61")' \
 grep -q 'scripts/validate-external-evidence-readiness.mjs' docs/architecture/adr/ADR-062-external-evidence-readiness.md \
   || fail "external evidence readiness ADR invariant is missing"
 
-jq -e '.status == "ready_to_collect_external_evidence" and .source_audit_path == "docs/process/audits/plan-completion-audit.json" and .source_closure_map_path == "docs/process/audits/external-blocker-closure-map.json"' \
+jq -e '.status == "external_evidence_collected" and .source_audit_path == "docs/process/audits/plan-completion-audit.json" and .source_closure_map_path == "docs/process/audits/external-blocker-closure-map.json"' \
   docs/process/audits/external-evidence-readiness.json >/dev/null \
   || fail "external evidence readiness manifest must target completion audit and closure map"
 
-jq -e '([.blockers[].blocking_evidence] | index("docs/release/pilot-report.md") and index("docs/release/pilot-process-portability-notes.md") and index("commit-sha-and-pr-evidence"))' \
+jq -e '([.blockers[].blocking_evidence] | index("docs/release/pilot-report.md") and index("docs/release/pilot-process-portability-notes.md") and index("commit-sha-and-pr-evidence")) and all(.blockers[]; .current_state == "collected")' \
   docs/process/audits/external-evidence-readiness.json >/dev/null \
-  || fail "external evidence readiness must include remaining completion blockers"
+  || fail "external evidence readiness must include collected completion evidence"
 
 jq -e '([.validation_commands[]] | index("npm run validate:external-evidence-readiness") and index("npm run validate:external-blocker-closure-map") and index("npm run validate:plan-completion-audit") and index("npm test"))' \
   docs/process/audits/external-evidence-readiness.json >/dev/null \
@@ -1296,17 +1296,17 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S63")' \
 grep -q 'scripts/validate-pilot-gate-readiness.mjs' docs/architecture/adr/ADR-044-pilot-gate-readiness.md \
   || fail "pilot gate readiness ADR invariant is missing"
 
-jq -e '.status == "blocked_pending_external" and .gate_id == "G10" and .depends_on_gate_id == "G9"' \
+jq -e '.status == "accepted" and .gate_id == "G10" and .depends_on_gate_id == "G9"' \
   docs/release/pilot-gate-readiness.json >/dev/null \
-  || fail "pilot gate readiness must keep G10 blocked and depend on G9"
+  || fail "pilot gate readiness must be accepted and depend on G9"
 
 jq -e 'any(.required_evidence[]; .id == "PGR-002" and .status == "available" and .path == "docs/product/ux/human-review-session-real.json")' \
   docs/release/pilot-gate-readiness.json >/dev/null \
   || fail "pilot gate readiness must mark real human review session available"
 
-jq -e 'any(.required_evidence[]; .id == "PGR-006" and .status == "pending_commit_or_pr")' \
+jq -e 'any(.required_evidence[]; .id == "PGR-006" and .status == "available" and .path == "docs/release/commit-pr-evidence.md")' \
   docs/release/pilot-gate-readiness.json >/dev/null \
-  || fail "pilot gate readiness must keep commit/PR evidence pending"
+  || fail "pilot gate readiness must mark commit/PR evidence available"
 
 jq -e '.artifacts[] | select(.id == "ART-228" and .path == "scripts/validate-pilot-gate-readiness.mjs")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \

@@ -108,13 +108,20 @@ for (const requiredText of [
   }
 }
 
-for (const forbiddenOutput of [
-  "docs/release/pilot-report.md",
-  "docs/release/pilot-process-portability-notes.md",
-  "docs/release/commit-pr-evidence.md",
-]) {
-  if (exists(forbiddenOutput)) {
-    fail(`pilot evidence output exists before pilot acceptance: ${forbiddenOutput}`);
+const recordedOutputs = [
+  ["docs/release/pilot-report.md", "Статус: recorded pilot result"],
+  ["docs/release/pilot-process-portability-notes.md", "Статус: recorded portability review"],
+  ["docs/release/commit-pr-evidence.md", "Статус: recorded release evidence"],
+];
+for (const [outputPath, requiredText] of recordedOutputs) {
+  if (exists(outputPath)) {
+    const outputText = readText(outputPath);
+    if (!outputText.includes(requiredText)) {
+      fail(`pilot evidence output is missing recorded status: ${outputPath}`);
+    }
+    if (outputText.includes("TO_BE_FILLED")) {
+      fail(`pilot evidence output contains placeholder: ${outputPath}`);
+    }
   }
 }
 

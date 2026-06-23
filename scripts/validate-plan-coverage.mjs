@@ -23,6 +23,7 @@ const audit = readJson("docs/process/audits/datacanvas-plan-coverage-audit.json"
 const schema = readJson("schemas/plan-coverage-audit.schema.json");
 const report = readText("docs/process/audits/datacanvas-plan-coverage-report.md");
 const plan = readText(audit.source_plan);
+const completionAudit = readJson("docs/process/audits/plan-completion-audit.json");
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
@@ -62,7 +63,15 @@ for (let sectionNumber = 1; sectionNumber <= 17; sectionNumber += 1) {
   }
 }
 
-if (!audit.sections.some((section) => section.status === "partial")) {
+if (completionAudit.status === "complete") {
+  const incompleteSections = audit.sections.filter((section) => section.status !== "covered");
+  if (incompleteSections.length > 0) {
+    fail(`completed plan coverage audit must mark every section covered: ${incompleteSections.map((section) => section.number).join(", ")}`);
+  }
+  if (audit.sections.some((section) => section.gaps.length > 0)) {
+    fail("completed plan coverage audit must not retain blocking gaps");
+  }
+} else if (!audit.sections.some((section) => section.status === "partial")) {
   fail("plan coverage audit must expose remaining gaps while objective is active");
 }
 

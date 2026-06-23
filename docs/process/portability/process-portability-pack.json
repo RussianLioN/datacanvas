@@ -1,8 +1,8 @@
 {
   "version": "0.1.0",
-  "status": "ready_for_pilot_validation",
+  "status": "accepted_after_pilot",
   "gate_id": "G11",
-  "purpose": "Подготовить reusable process templates и migration notes для проверки переносимости DataCanvas Delivery Process на другой ИТ-проект после pilot run.",
+  "purpose": "Зафиксировать reusable process templates и migration notes после проверки переносимости DataCanvas Delivery Process на pilot run.",
   "source_process_version": "docs/process/versions/0.1.0/process-version-manifest.json",
   "reusable_templates": [
     {
@@ -39,14 +39,14 @@
       "id": "RPT-006",
       "path": "docs/process/templates/process-event-log-template.md",
       "reuse_scope": "Live delivery metrics events",
-      "status": "requires_pilot_feedback"
+      "status": "pilot_validated"
     }
   ],
   "migration_notes_template_path": "docs/process/portability/migration-notes-template.md",
   "pilot_dependency": {
     "pilot_report_path": "docs/release/pilot-report.md",
-    "status": "pending_external",
-    "reason": "Переносимость процесса нельзя принять до pilot run и Sprint Review feedback."
+    "status": "satisfied",
+    "reason": "Pilot report и process portability notes записаны после pilot run."
   },
   "validation_commands": [
     "npm run validate:process-portability",
@@ -54,9 +54,8 @@
     "npm test"
   ],
   "known_limitations": [
-    "Pack готовит переносимость, но не доказывает ее без pilot report.",
     "Шаблоны требуют адаптации под домен следующего ИТ-проекта.",
-    "G11 Process Version Accepted остается pending до pilot feedback."
+    "PR #1 еще не смержен; при изменении branch head нужно обновить commit/PR evidence."
   ],
-  "next_safe_step": "После pilot run заполнить migration notes и обновить reusable templates на основе фактической ретроспективы."
+  "next_safe_step": "Использовать docs/release/pilot-process-portability-notes.md как вход для следующей версии процесса."
 }

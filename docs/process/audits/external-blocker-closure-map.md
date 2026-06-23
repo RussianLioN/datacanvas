@@ -1,16 +1,21 @@
 # External Blocker Closure Map
 
-Статус: `ready_to_collect_external_evidence`
+Статус: `external_evidence_collected`
 
-Эта карта связывает каждый внешний blocker из `docs/process/audits/plan-completion-audit.json` с процедурой закрытия, supporting artifacts и validation commands.
+Эта карта фиксирует закрытие внешних blockers из `docs/process/audits/plan-completion-audit.json` через pilot recorder, PR #1 и локальный quality gate.
 
-Она не является acceptance и не заменяет pilot report, portability notes или commit/PR evidence.
+Она не заменяет сами evidence files, а связывает их с процедурой закрытия.
 
-## Blockers
+## Closed Evidence
 
-- `docs/release/pilot-report.md`: заполнить после pilot run по release template.
-- `docs/release/pilot-process-portability-notes.md`: заполнить после pilot run и process portability review.
-- `commit-sha-and-pr-evidence`: заполнить после commit и PR или согласованной release record.
+- `docs/release/pilot-report.md`
+- `docs/release/pilot-process-portability-notes.md`
+- `docs/release/commit-pr-evidence.md`
+- `https://github.com/RussianLioN/datacanvas/pull/1`
+
+## Ограничение
+
+PR #1 еще не смержен. Если branch head изменится после pilot evidence, `docs/release/commit-pr-evidence.md` нужно обновить.
 
 ## Validation
 

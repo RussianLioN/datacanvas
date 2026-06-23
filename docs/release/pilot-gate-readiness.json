@@ -1,16 +1,16 @@
 {
   "version": "0.1.0",
-  "status": "blocked_pending_external",
+  "status": "accepted",
   "gate_id": "G10",
   "depends_on_gate_id": "G9",
-  "purpose": "Зафиксировать readiness и блокеры pilot gate DataCanvas без ложного принятия G10 до commit/PR evidence, pilot report и portability notes.",
+  "purpose": "Зафиксировать acceptance pilot gate DataCanvas после real UAT, commit/PR evidence, pilot report и portability notes.",
   "required_evidence": [
     {
       "id": "PGR-001",
       "path": "docs/release/mvp-release-evidence-pack.json",
       "status": "available",
       "required_for_gate": true,
-      "reason": "G9 release candidate evidence pack существует, но остается pre-commit candidate."
+      "reason": "G9 release evidence pack содержит real UAT, commit/PR evidence, pilot report и portability notes."
     },
     {
       "id": "PGR-002",
@@ -29,23 +29,23 @@
     {
       "id": "PGR-004",
       "path": "docs/release/pilot-report.md",
-      "status": "pending_external",
+      "status": "available",
       "required_for_gate": true,
-      "reason": "Pilot run еще не проведен и не описан."
+      "reason": "Pilot report записан recorder-ом после PR #1 и локального quality gate."
     },
     {
       "id": "PGR-005",
       "path": "docs/release/pilot-process-portability-notes.md",
-      "status": "pending_external",
+      "status": "available",
       "required_for_gate": true,
-      "reason": "Process portability notes должны быть написаны после пилота."
+      "reason": "Process portability notes записаны после pilot/process portability review."
     },
     {
       "id": "PGR-006",
-      "path": "commit-sha-and-pr-evidence",
-      "status": "pending_commit_or_pr",
+      "path": "docs/release/commit-pr-evidence.md",
+      "status": "available",
       "required_for_gate": true,
-      "reason": "Release train должен ссылаться на commit SHA и PR evidence."
+      "reason": "Commit SHA и PR URL записаны как release evidence."
     },
     {
       "id": "PGR-007",
@@ -62,12 +62,7 @@
       "reason": "Pilot execution handoff готовит G10/G11 runbook, но не является acceptance."
     }
   ],
-  "blocking_conditions": [
-    "G10 нельзя принять без commit SHA и PR evidence.",
-    "G10 нельзя принять без pilot report и portability notes.",
-    "G10 нельзя принять без full quality gate после real UAT evidence update.",
-    "G10 нельзя принять без release train record, связывающего проверенный repository state с pilot evidence."
-  ],
+  "blocking_conditions": [],
   "validation_commands": [
     "npm test",
     "npm run validate:release-pack",
@@ -85,9 +80,8 @@
     "docs/process/current/process-metrics-snapshot.json"
   ],
   "known_limitations": [
-    "Этот artifact не является pilot acceptance.",
-    "Gate намеренно заблокирован до pilot run и release evidence.",
-    "После pilot run этот manifest должен быть обновлен или заменен pilot evidence pack."
+    "PR #1 еще не смержен; acceptance фиксирует reviewable PR state и локальный quality gate.",
+    "Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить."
   ],
-  "next_safe_step": "Подготовить pilot report, portability notes и commit/PR evidence по pilot execution handoff."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
 }

@@ -15,24 +15,24 @@
 - Traceability: `tests/golden/trace-manifest-minimal.json`, `tests/golden/claim-map-minimal.json`.
 - Review UI: `artifacts/examples/review-ui-fixture.html`, `docs/product/ux/review-ui-fixture.json`.
 - Interactive review runtime: `artifacts/examples/review-runtime-interactive.html`, `docs/product/ux/review-runtime-interactive.json`.
-- Real UAT readiness: `docs/product/ux/real-uat-gate-readiness.json`, `docs/product/ux/human-review-session-real.template.json`.
+- Real UAT: `docs/product/ux/real-uat-gate-readiness.json`, `artifacts/manual/real-uat/review-runtime-state-export.json`, `docs/product/ux/human-review-session-real.json`.
 - Render/export: `artifacts/examples/presentation-minimal.html`, `artifacts/examples/export-smoke-manifest.json`, `artifacts/examples/renderer-regression-manifest.json`.
 - Security gates: `docs/architecture/security/data-leakage-manifest.json`.
 - Process metrics: `docs/process/current/process-metrics-snapshot.json`.
 - Registry snapshot: `docs/architecture/schemas/artifact-registry.json`.
 - Hash snapshot: `docs/architecture/schemas/artifact-hash-manifest.json`.
+- Commit/PR evidence: `docs/release/commit-pr-evidence.md`.
+- Pilot evidence: `docs/release/pilot-report.md`, `docs/release/pilot-process-portability-notes.md`.
 
 ## Acceptance Decision
 
-Текущий candidate принят только как pre-commit fixture: UAT approved, решение accepted, critical failures 0, unsupported claims 0, export blockers 0.
+Текущий candidate принят как reviewable PR state: real UAT approved, решение accepted, critical failures 0, unsupported claims 0, export blockers 0, pilot gate accepted, portability review accepted.
 
 ## Ограничения
 
-- Нет реальной пользовательской UAT-сессии.
-- Interactive review runtime готов как локальный fixture, но нет real user runtime session.
-- Real UAT readiness готов, но `human-review-session-real.json` еще не создан.
-- PR и commit SHA должны быть заполнены перед настоящим release tag.
+- PR #1 еще не смержен; release evidence фиксирует reviewable PR state.
+- Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить.
 
 ## Следующий Шаг
 
-Провести real user UAT session и сохранить `human-review-session-real.json` перед pilot gate.
+Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence и release audit.

@@ -39,20 +39,28 @@ const completionAudit = readJson(closureMap.source_audit_path);
 const auditBlockers = new Set(completionAudit.blocking_external_evidence);
 const mappedBlockers = new Set(closureMap.blockers.map((blocker) => blocker.blocking_evidence));
 
-for (const blocker of auditBlockers) {
-  if (!mappedBlockers.has(blocker)) {
-    fail(`completion audit blocker is missing from closure map: ${blocker}`);
+if (closureMap.status === "ready_to_collect_external_evidence") {
+  for (const blocker of auditBlockers) {
+    if (!mappedBlockers.has(blocker)) {
+      fail(`completion audit blocker is missing from closure map: ${blocker}`);
+    }
   }
+}
+if (closureMap.status === "external_evidence_collected" && auditBlockers.size !== 0) {
+  fail("collected closure map requires empty completion audit blockers");
 }
 
 for (const blocker of closureMap.blockers) {
-  if (!auditBlockers.has(blocker.blocking_evidence)) {
+  if (closureMap.status === "ready_to_collect_external_evidence" && !auditBlockers.has(blocker.blocking_evidence)) {
     fail(`closure map blocker is not present in completion audit: ${blocker.blocking_evidence}`);
   }
-  if (blocker.status !== "pending_external") {
+  if (closureMap.status === "ready_to_collect_external_evidence" && blocker.status !== "pending_external") {
     fail(`closure map blocker must remain pending_external: ${blocker.blocking_evidence}`);
   }
-  if (blocker.blocking_evidence !== "commit-sha-and-pr-evidence" && exists(blocker.blocking_evidence)) {
+  if (closureMap.status === "external_evidence_collected" && blocker.status !== "closed") {
+    fail(`closure map blocker must be closed after collection: ${blocker.blocking_evidence}`);
+  }
+  if (closureMap.status === "ready_to_collect_external_evidence" && blocker.blocking_evidence !== "commit-sha-and-pr-evidence" && exists(blocker.blocking_evidence)) {
     fail(`external blocker file exists but closure map still marks it pending: ${blocker.blocking_evidence}`);
   }
   for (const artifact of blocker.supporting_artifacts) {
@@ -81,9 +89,9 @@ for (const command of closureMap.validation_commands) {
 }
 
 const report = readText("docs/process/audits/external-blocker-closure-map.md");
-for (const blocker of auditBlockers) {
-  if (!report.includes(blocker)) {
-    fail(`closure map report is missing blocker: ${blocker}`);
+for (const blocker of closureMap.blockers) {
+  if (!report.includes(blocker.blocking_evidence) && blocker.blocking_evidence !== "commit-sha-and-pr-evidence") {
+    fail(`closure map report is missing evidence: ${blocker.blocking_evidence}`);
   }
 }
 

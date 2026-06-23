@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "status": "blocked_pending_external",
+  "status": "complete",
   "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
   "audit_date": "2026-06-22",
   "completion_requirements": [
@@ -70,16 +70,12 @@
     {
       "id": "DOD-010",
       "requirement": "Pilot gate и process portability accepted после реального pilot run.",
-      "status": "blocked_pending_external",
-      "evidence_paths": ["docs/release/pilot-gate-readiness.json", "docs/release/pilot-execution-handoff.json", "docs/process/portability/process-portability-pack.json", "scripts/record-pilot-evidence.mjs", "scripts/validate-pilot-evidence-recorder.mjs"],
-      "missing_evidence": ["docs/release/pilot-report.md", "docs/release/pilot-process-portability-notes.md", "commit-sha-and-pr-evidence"]
+      "status": "met",
+      "evidence_paths": ["docs/release/pilot-gate-readiness.json", "docs/release/pilot-execution-handoff.json", "docs/process/portability/process-portability-pack.json", "scripts/record-pilot-evidence.mjs", "scripts/validate-pilot-evidence-recorder.mjs", "docs/release/pilot-report.md", "docs/release/pilot-process-portability-notes.md", "docs/release/commit-pr-evidence.md"],
+      "missing_evidence": []
     }
   ],
-  "blocking_external_evidence": [
-    "docs/release/pilot-report.md",
-    "docs/release/pilot-process-portability-notes.md",
-    "commit-sha-and-pr-evidence"
-  ],
+  "blocking_external_evidence": [],
   "validation_commands": [
     "npm run validate:plan-completion-audit",
     "npm run validate:pilot-evidence-recorder",
@@ -87,9 +83,8 @@
     "npm test"
   ],
   "known_limitations": [
-    "Audit gate фиксирует неполноту плана и не является acceptance.",
-    "External evidence нельзя заменить fixture или template artifact.",
-    "Статус complete допустим только если все completion_requirements имеют status=met и blocking_external_evidence пуст."
+    "PR #1 еще не смержен; completion фиксирует реализованный и проверяемый PR state.",
+    "Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить."
   ],
-  "next_safe_step": "После commit/PR или согласованного release record выполнить npm run pilot:record -- --dry-run, затем write mode и обновить completion audit."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
 }

@@ -8,7 +8,7 @@
     "Проверить наличие всех runbook и runtime artifacts для real UAT.",
     "Проверить, что fixture/template artifacts не могут быть приняты как real evidence.",
     "Проверить команды, которые оператор должен выполнить после ручного export.",
-    "Сохранить completion audit в blocked_pending_external до появления фактической сессии."
+    "Не допустить completion audit=complete без real UAT, pilot report и commit/PR evidence."
   ],
   "required_artifacts": [
     {
@@ -71,7 +71,14 @@
       "Файл существует только если создан после real UAT и проходит соответствующий validator.",
       "Файл не содержит TO_BE_FILLED, а actor_id не содержит fixture/template/sample/placeholder/interactive markers."
     ],
-    "unsafe_markers": ["TO_BE_FILLED", "fixture", "template", "sample", "placeholder", "interactive-"]
+    "unsafe_markers": [
+      "TO_BE_FILLED",
+      "fixture",
+      "template",
+      "sample",
+      "placeholder",
+      "interactive-"
+    ]
   },
   "runtime_checks": [
     {
@@ -101,8 +108,8 @@
     },
     {
       "id": "REAL-UAT-PREFLIGHT-006",
-      "check": "Completion audit остается blocked_pending_external до real evidence.",
-      "expected": "Preflight не закрывает DOD-005 и DOD-010."
+      "check": "Completion audit не становится complete без real UAT, pilot report и commit/PR evidence.",
+      "expected": "Preflight не закрывает DOD-005 и DOD-010 без фактического external evidence."
     }
   ],
   "validation_commands": [
@@ -122,9 +129,9 @@
     "Completion audit помечен complete без real UAT и pilot evidence."
   ],
   "known_limitations": [
-    "Preflight не проводит real UAT и не создает human-review-session-real.json.",
+    "Preflight сам по себе не проводит real UAT и не создает human-review-session-real.json.",
     "Preflight не заменяет участие реального пользователя или ответственного представителя команды.",
-    "Pilot gate остается pending до real UAT, commit/PR evidence и pilot report."
+    "После записанной real UAT сессии preflight остается повторяемым guardrail для новых UAT runs."
   ],
-  "next_safe_step": "Запустить npm run uat:real, пройти real UAT в браузере и дождаться автоматической записи artifacts/manual/real-uat/review-runtime-state-export.json и docs/product/ux/human-review-session-real.json."
+  "next_safe_step": "Если real UAT еще не записан, запустить npm run uat:real; если artifacts уже существуют и проходят validators, перейти к release evidence review."
 }

@@ -1,21 +1,22 @@
 {
   "version": "0.1.0",
-  "status": "ready_to_collect_external_evidence",
+  "status": "external_evidence_collected",
   "source_audit_path": "docs/process/audits/plan-completion-audit.json",
   "source_closure_map_path": "docs/process/audits/external-blocker-closure-map.json",
-  "purpose": "Сделать внешние blockers completion audit управляемыми: показать текущее отсутствие evidence, allowed collection path, dry-run/write commands и запрет на synthetic substitutes.",
+  "purpose": "Зафиксировать сбор внешних evidence completion audit через pilot recorder, PR #1 и локальный quality gate.",
   "blockers": [
     {
       "blocking_evidence": "docs/release/pilot-report.md",
       "owner_role": "Delivery/GitOps Lead",
-      "current_state": "missing_pending_external",
+      "current_state": "collected",
       "collection_mode": "manual_pilot",
       "required_before_completion": true,
       "supporting_artifacts": [
         "docs/release/pilot-execution-handoff.md",
         "docs/release/templates/pilot-report-template.md",
         "docs/release/pilot-gate-readiness.json",
-        "scripts/record-pilot-evidence.mjs"
+        "scripts/record-pilot-evidence.mjs",
+        "docs/release/pilot-report.md"
       ],
       "dry_run_commands": [
         "npm run validate:pilot-execution-handoff",
@@ -34,14 +35,15 @@
     {
       "blocking_evidence": "docs/release/pilot-process-portability-notes.md",
       "owner_role": "Process Owner",
-      "current_state": "missing_pending_external",
+      "current_state": "collected",
       "collection_mode": "manual_pilot",
       "required_before_completion": true,
       "supporting_artifacts": [
         "docs/process/portability/process-portability-pack.json",
         "docs/process/portability/migration-notes-template.md",
         "docs/release/templates/pilot-process-portability-notes-template.md",
-        "scripts/record-pilot-evidence.mjs"
+        "scripts/record-pilot-evidence.mjs",
+        "docs/release/pilot-process-portability-notes.md"
       ],
       "dry_run_commands": [
         "npm run validate:process-portability",
@@ -60,13 +62,14 @@
     {
       "blocking_evidence": "commit-sha-and-pr-evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "current_state": "missing_pending_external",
+      "current_state": "collected",
       "collection_mode": "repository_release_record",
       "required_before_completion": true,
       "supporting_artifacts": [
         "docs/release/templates/commit-pr-evidence-template.md",
         "docs/release/mvp-release-evidence-pack.json",
-        "scripts/record-pilot-evidence.mjs"
+        "scripts/record-pilot-evidence.mjs",
+        "docs/release/commit-pr-evidence.md"
       ],
       "dry_run_commands": [
         "npm test",
@@ -84,10 +87,10 @@
     }
   ],
   "required_invariants": [
-    "blockers match plan-completion-audit.blocking_external_evidence exactly",
-    "blockers match external-blocker-closure-map.blockers exactly",
-    "path-like blockers must be absent while current_state is missing_pending_external",
-    "supporting artifacts must exist before collection",
+    "plan-completion-audit.blocking_external_evidence is empty after collection",
+    "external-blocker-closure-map.blockers are closed",
+    "path-like blockers must exist while current_state is collected",
+    "supporting artifacts must exist after collection",
     "dry-run commands must exist before write commands for remaining external artifacts",
     "write commands must use scripts/record-pilot-evidence.mjs through npm run pilot:record",
     "synthetic substitutes must not be used as completion evidence"
@@ -99,9 +102,8 @@
     "npm test"
   ],
   "known_limitations": [
-    "Readiness manifest не является external evidence.",
-    "Gate не создает pilot report; write mode recorder создает его только после release record.",
-    "После появления любого blocker file readiness нужно обновить вместе с completion audit и closure map."
+    "Readiness manifest является индексом состояния, а не заменой самих evidence files.",
+    "PR #1 еще не смержен; при изменении branch head нужно обновить commit/PR evidence."
   ],
-  "next_safe_step": "После commit/PR или согласованного release record выполнить npm run pilot:record -- --dry-run, затем write mode и обновить completion audit."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
 }

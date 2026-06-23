@@ -20,7 +20,7 @@ function exists(relativePath) {
 const templates = [
   {
     path: "docs/release/templates/pilot-report-template.md",
-    forbiddenOutput: "docs/release/pilot-report.md",
+    output: "docs/release/pilot-report.md",
     requiredText: [
       "Статус: template only",
       "Review Evidence",
@@ -34,7 +34,7 @@ const templates = [
   },
   {
     path: "docs/release/templates/pilot-process-portability-notes-template.md",
-    forbiddenOutput: "docs/release/pilot-process-portability-notes.md",
+    output: "docs/release/pilot-process-portability-notes.md",
     requiredText: [
       "Статус: template only",
       "Reusable Parts",
@@ -52,9 +52,6 @@ for (const template of templates) {
   if (!exists(template.path)) {
     fail(`template does not exist: ${template.path}`);
   }
-  if (exists(template.forbiddenOutput)) {
-    fail(`real external evidence path exists before pilot run: ${template.forbiddenOutput}`);
-  }
   const text = readText(template.path);
   for (const requiredText of template.requiredText) {
     if (!text.includes(requiredText)) {
@@ -63,6 +60,15 @@ for (const template of templates) {
   }
   if (/status:\s*(accepted|complete|met)/i.test(text)) {
     fail(`${template.path} must not claim accepted/complete/met status`);
+  }
+  if (exists(template.output)) {
+    const outputText = readText(template.output);
+    if (outputText.includes("TO_BE_FILLED")) {
+      fail(`${template.output} contains an unfilled placeholder`);
+    }
+    if (!/Статус: recorded (pilot result|portability review)/.test(outputText)) {
+      fail(`${template.output} must be a recorded pilot output`);
+    }
   }
 }
 

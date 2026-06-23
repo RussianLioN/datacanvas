@@ -34,4 +34,4 @@ Dashboard обновляется перед Sprint Review. Если метрик
 - `Repository-derived metrics snapshot`: `docs/process/current/process-metrics-snapshot.md`.
 - `Process event log`: `docs/process/current/process-event-log.json`.
 - Проверка event log: `npm run validate:process-events`.
-- `Real user UAT session` остается `pending_external` до появления `docs/product/ux/human-review-session-real.json`.
+- `Real user UAT session` закрыт после появления `docs/product/ux/human-review-session-real.json`.

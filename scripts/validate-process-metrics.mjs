@@ -71,9 +71,10 @@ for (const command of requiredCommands) {
 }
 
 const realUatGate = manifest.quality_gates.find((gate) => gate.command === "real user UAT session");
-if (!realUatGate || realUatGate.status !== "pending_external") {
-  fail("real user UAT session must remain pending_external until real evidence exists");
+if (!realUatGate || realUatGate.status !== "passed") {
+  fail("real user UAT session must be passed after real evidence exists");
 }
+requireFile("docs/product/ux/human-review-session-real.json");
 
 requireFile("docs/process/current/process-event-log.json");
 const eventLog = readJson("docs/process/current/process-event-log.json");

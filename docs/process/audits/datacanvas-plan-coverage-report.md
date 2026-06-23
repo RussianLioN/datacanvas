@@ -6,30 +6,32 @@
 
 ## Резюме
 
-Процессная основа DataCanvas существенно усилена: есть Scrum operating model, process management system, artifact registry с hash linkage, versioning, evidence packs, provider-risk gates, traceability graph, threat-model delta governance, data leakage gate, real UAT leakage guard, interactive review runtime с actor identity controls, browser matrix, static browser smoke и PNG pixel smoke, real UAT runtime import gate с dry-run, real UAT operator handoff, real UAT preflight checklist, real UAT session importer readiness, one-command real UAT runner, G10 pilot readiness gate, pilot execution handoff, pilot report templates, commit/PR evidence template, external blocker closure map, external evidence readiness gate, completion audit gate, process event log readiness, process portability readiness pack, reusable templates, renderer regression pack, current-gate release evidence alignment, automatic metrics snapshot и CI checks. Основные незакрытые области находятся в real UAT, commit/PR evidence, pilot gate acceptance, G11 portability acceptance и полном MVP flow.
+План имплементации DataCanvas покрыт текущими артефактами репозитория. Процессная система создана как управляемый Scrum-based продукт: есть process passport, registry, backlog, changelog, PCR flow, versioning, event log, metrics snapshot, portability pack и completion audit. Продуктовая основа DataCanvas также подготовлена: Vision, BMC, требования, backlog, roadmap, схемы, MVP renderer, traceability, security gates, evals, review runtime, real UAT, pilot gate, commit/PR evidence, pilot report и G11 portability review связаны воспроизводимым evidence.
+
+Открытое операционное ограничение не блокирует выполнение плана: PR #1 еще не смержен, поэтому release evidence фиксирует reviewable PR state. Если branch head изменится до merge, нужно обновить commit/PR evidence, release audit и metrics snapshot.
 
 ## Покрытие
 
 | # | Раздел плана | Статус | Ключевой gap |
 |---|---|---|---|
-| 1 | Резюме | partial | Interactive review runtime с actor identity controls, operator handoff, preflight checklist, session importer readiness и one-command runner добавлены; MVP flow еще не подтвержден real UAT |
+| 1 | Резюме | covered | MVP flow подтвержден real UAT, pilot report, commit/PR evidence и portability notes |
 | 2 | Scrum Operating Model | covered | Назначить людей на роли |
 | 3 | Process Management System | covered | После командной ретро добавить PCR с реальными участниками |
 | 4 | Структура Репозитория И Артефактов | covered | Registry связан с generated hash manifest |
 | 5 | Backlog Model | covered | Использовать registry как вход Sprint Planning |
 | 6 | Requirements Pipeline | covered | Расширять под human review |
 | 7 | Контракты, Схемы И Интерфейсы | covered | Поддерживать через `validate:contracts` |
-| 8 | Data And Traceability Governance | covered | Расширить graph на real UAT после внешней приемки |
-| 9 | Security And Trust Boundaries | covered | Data leakage gate и conditional real UAT leakage guard добавлены; фактические real UAT targets добавить после сессии |
-| 10 | QA, Evals И Тестовые Сценарии | partial | UAT result, release-candidate pack, review UI fixture, interactive runtime с actor identity controls, static browser smoke, PNG pixel smoke, real UAT readiness, import gate с dry-run, operator handoff, preflight checklist, session importer readiness и one-command runner добавлены; нет real human edit session |
+| 8 | Data And Traceability Governance | covered | Поддерживать traceability graph при изменении MVP flow |
+| 9 | Security And Trust Boundaries | covered | Real UAT artifacts включены в data-leakage targets |
+| 10 | QA, Evals И Тестовые Сценарии | covered | Real UAT session, pilot report и quality gates записаны |
 | 11 | Observability And LLM Ops | covered | Operational readiness manifest, checklist, runbook и validator добавлены |
-| 12 | UX И Prototype Track | partial | Renderer regression pack, real UAT runtime actor identity controls, static browser matrix, static browser smoke, PNG pixel smoke, real UAT runtime import gate, operator handoff, preflight checklist, session importer readiness и one-command runner добавлены; нет real user runtime session и browser screenshot assertions для будущих layouts |
+| 12 | UX И Prototype Track | covered | Review runtime, real UAT и renderer smoke/regression checks записаны |
 | 13 | Delivery, GitOps И CI | covered | Secret scan gate отдельно |
-| 14 | Initial Release Train | partial | G9 имеет pre-commit release-candidate pack, current-gate alignment, interactive runtime с actor identity controls, real UAT readiness, import gate с dry-run, operator handoff, preflight checklist, session importer readiness, leakage guard alignment, G10 readiness, pilot execution handoff, pilot report templates, commit/PR evidence template и S46 portability readiness; real commit/PR evidence, pilot gate acceptance и G11 acceptance не достигнуты |
-| 15 | Метрики | partial | Event log readiness и repository-derived snapshot добавлены; нет live delivery timestamps |
-| 16 | Definition Of Done Для Всего Плана | partial | Interactive runtime, real UAT runtime import gate, real UAT operator handoff, real UAT preflight checklist, real UAT session importer readiness, real UAT leakage guard, completion audit gate, external blocker closure map, external evidence readiness gate, G10 readiness, pilot execution handoff, pilot report templates, commit/PR evidence template, process event log readiness, portability readiness, reusable templates, renderer regression, data leakage gate, current-gate release evidence alignment, metrics snapshot и registry hash linkage добавлены; real UAT session, real commit/PR evidence, pilot gate acceptance и G11 acceptance еще не завершены |
+| 14 | Initial Release Train | covered | G9 real UAT, G10 pilot acceptance, G11 portability acceptance и PR evidence записаны |
+| 15 | Метрики | covered | Repository-derived metrics snapshot автоматизирован; live team timestamps добавить после merge |
+| 16 | Definition Of Done Для Всего Плана | covered | Completion audit complete; DOD-001..DOD-010 закрыты evidence |
 | 17 | Допущения И Defaults | covered | Defaults сохранять до ADR/PCR |
 
 ## Следующий Безопасный Шаг
 
-Запустить `npm run uat:real`, пройти real user UAT session в браузере и дождаться автоматической записи runtime export и `human-review-session-real.json`; затем обновить release evidence, data leakage targets, completion audit и перейти к pilot run по pilot execution handoff.
+Дождаться review и merge PR #1. Если branch head изменится до merge, обновить `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.json`, completion audit и metrics snapshot.

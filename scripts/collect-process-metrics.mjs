@@ -110,10 +110,9 @@ const snapshot = {
   ],
   known_limitations: [
     "Snapshot считает только данные, уже зафиксированные в репозитории.",
-    "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps.",
-    "Real user UAT остается pending_external и не может быть закрыт generated snapshot."
+    "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps."
   ],
-  next_safe_step: "После real UAT и первого командного Sprint Review добавить dated events для live delivery metrics."
+  next_safe_step: "После merge PR #1 добавить dated events для live delivery metrics."
 };
 
 const markdown = `# Process Metrics Snapshot

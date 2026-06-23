@@ -95,8 +95,8 @@ if (metricValues.get("DPM-004") !== `${expected.passed_evidence_checks}/${allChe
 if (metricValues.get("DPM-006") !== String(expected.process_events)) {
   fail("DPM-006 process event count is stale");
 }
-if (!snapshot.known_limitations.some((item) => item.includes("Real user UAT"))) {
-  fail("snapshot must keep real UAT limitation explicit");
+if (!snapshot.known_limitations.some((item) => item.includes("командных timestamps"))) {
+  fail("snapshot must keep live delivery timestamp limitation explicit");
 }
 
 const report = readText(snapshotReportPath);

@@ -43,12 +43,21 @@ for (const template of pack.reusable_templates) {
   requireFile(template.path);
 }
 
-if (pack.pilot_dependency.status !== "pending_external") {
-  fail("process portability pack must keep pilot dependency pending before pilot report exists");
+if (pack.status === "ready_for_pilot_validation") {
+  if (pack.pilot_dependency.status !== "pending_external") {
+    fail("process portability pack must keep pilot dependency pending before pilot report exists");
+  }
+  if (fs.existsSync(path.join(root, pack.pilot_dependency.pilot_report_path))) {
+    fail("pilot report exists while portability pack still marks pilot dependency pending");
+  }
 }
 
-if (fs.existsSync(path.join(root, pack.pilot_dependency.pilot_report_path))) {
-  fail("pilot report exists while portability pack still marks pilot dependency pending");
+if (pack.status === "accepted_after_pilot") {
+  if (pack.pilot_dependency.status !== "satisfied") {
+    fail("accepted process portability pack must mark pilot dependency satisfied");
+  }
+  requireFile(pack.pilot_dependency.pilot_report_path);
+  requireFile("docs/release/pilot-process-portability-notes.md");
 }
 
 for (const command of ["npm run validate:process-portability", "npm run validate:bootstrap", "npm test"]) {

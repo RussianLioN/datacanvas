@@ -43,7 +43,18 @@ if (/status:\s*(accepted|complete|met|captured)/i.test(text)) {
 }
 
 const releasePack = JSON.parse(readText("docs/release/mvp-release-evidence-pack.json"));
-if (releasePack.commit_sha.status !== "pending_until_commit") {
+const commitEvidencePath = "docs/release/commit-pr-evidence.md";
+if (exists(commitEvidencePath)) {
+  const evidenceText = readText(commitEvidencePath);
+  for (const requiredText of ["Статус: recorded release evidence", "Commit SHA:", "PR URL or identifier:", "CI status: `passed`", "npm test: passed"]) {
+    if (!evidenceText.includes(requiredText)) {
+      fail(`commit/PR evidence is missing required text: ${requiredText}`);
+    }
+  }
+  if (releasePack.commit_sha.status !== "captured") {
+    fail("release evidence pack must capture commit SHA after commit evidence exists");
+  }
+} else if (releasePack.commit_sha.status !== "pending_until_commit") {
   fail("release evidence pack must keep commit SHA pending until real commit evidence exists");
 }
 
@@ -53,7 +64,11 @@ if (!pilotHandoff.includes(templatePath)) {
 }
 
 const completionAudit = JSON.parse(readText("docs/process/audits/plan-completion-audit.json"));
-if (!completionAudit.blocking_external_evidence.includes("commit-sha-and-pr-evidence")) {
+if (exists(commitEvidencePath)) {
+  if (completionAudit.blocking_external_evidence.includes("commit-sha-and-pr-evidence")) {
+    fail("completion audit must not keep commit-sha-and-pr-evidence blocking after evidence exists");
+  }
+} else if (!completionAudit.blocking_external_evidence.includes("commit-sha-and-pr-evidence")) {
   fail("completion audit must keep commit-sha-and-pr-evidence as blocking external evidence");
 }
 

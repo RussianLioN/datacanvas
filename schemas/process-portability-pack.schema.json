@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "status": { "type": "string", "enum": ["ready_for_pilot_validation"] },
+    "status": { "type": "string", "enum": ["ready_for_pilot_validation", "accepted_after_pilot"] },
     "gate_id": { "type": "string", "const": "G11" },
     "purpose": { "type": "string", "minLength": 1 },
     "source_process_version": { "type": "string", "minLength": 1 },
@@ -22,7 +22,7 @@
           "id": { "type": "string", "minLength": 1 },
           "path": { "type": "string", "minLength": 1 },
           "reuse_scope": { "type": "string", "minLength": 1 },
-          "status": { "type": "string", "enum": ["template_ready", "requires_pilot_feedback"] }
+          "status": { "type": "string", "enum": ["template_ready", "requires_pilot_feedback", "pilot_validated"] }
         }
       }
     },
@@ -33,7 +33,7 @@
       "additionalProperties": false,
       "properties": {
         "pilot_report_path": { "type": "string", "minLength": 1 },
-        "status": { "type": "string", "enum": ["pending_external"] },
+        "status": { "type": "string", "enum": ["pending_external", "satisfied"] },
         "reason": { "type": "string", "minLength": 1 }
       }
     },

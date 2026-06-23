@@ -18,7 +18,7 @@
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "status": { "type": "string", "enum": ["ready_to_collect_external_evidence"] },
+    "status": { "type": "string", "enum": ["ready_to_collect_external_evidence", "external_evidence_collected"] },
     "source_audit_path": { "type": "string", "minLength": 1 },
     "source_closure_map_path": { "type": "string", "minLength": 1 },
     "purpose": { "type": "string", "minLength": 1 },
@@ -42,7 +42,7 @@
         "properties": {
           "blocking_evidence": { "type": "string", "minLength": 1 },
           "owner_role": { "type": "string", "minLength": 1 },
-          "current_state": { "type": "string", "enum": ["missing_pending_external"] },
+          "current_state": { "type": "string", "enum": ["missing_pending_external", "collected"] },
           "collection_mode": { "type": "string", "enum": ["manual_real_user", "manual_pilot", "repository_release_record"] },
           "required_before_completion": { "type": "boolean", "const": true },
           "supporting_artifacts": {

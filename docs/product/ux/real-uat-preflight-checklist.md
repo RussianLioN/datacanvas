@@ -10,7 +10,7 @@
 - Проверить, что runtime содержит `Actor ID`, `Real UAT` и `Сбросить session`.
 - Проверить `docs/product/ux/real-uat-operator-handoff.md`.
 - Проверить, что `human-review-session-real.json` отсутствует либо уже проходит real UAT validators.
-- Проверить, что completion audit остается `blocked_pending_external` до фактического evidence.
+- Проверить, что completion audit не становится `complete` без real UAT, pilot report и commit/PR evidence.
 
 ## Команды
 
@@ -39,4 +39,4 @@ npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-run
 
 ## Следующий Шаг
 
-Провести real UAT по `docs/product/ux/real-uat-operator-handoff.md`, сохранить exported state и запустить import validation с явным `--input`.
+Если требуется новая UAT-сессия, провести real UAT по `docs/product/ux/real-uat-operator-handoff.md`, сохранить exported state и запустить import validation с явным `--input`. Если `human-review-session-real.json` уже записан и проходит validators, повторять сессию не нужно.

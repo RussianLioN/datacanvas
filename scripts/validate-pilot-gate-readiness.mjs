@@ -40,8 +40,8 @@ if (!validate(manifest)) {
   fail("pilot gate readiness manifest does not match schema");
 }
 
-if (manifest.status !== "blocked_pending_external") {
-  fail("pilot gate readiness must remain blocked until real external evidence exists");
+if (!["blocked_pending_external", "accepted"].includes(manifest.status)) {
+  fail("pilot gate readiness status must be blocked_pending_external or accepted");
 }
 
 const evidenceById = new Map(manifest.required_evidence.map((item) => [item.id, item]));
@@ -52,22 +52,27 @@ for (const requiredId of ["PGR-001", "PGR-002", "PGR-003", "PGR-004", "PGR-005",
 }
 
 for (const item of manifest.required_evidence) {
-  if (item.status === "available" && item.path !== "commit-sha-and-pr-evidence") {
+  if (item.status === "available") {
     requireFile(item.path);
   }
 }
 
 const realSessionPath = evidenceById.get("PGR-002").path;
 const runtimeExportPath = evidenceById.get("PGR-003").path;
-for (const pendingPath of ["docs/release/pilot-report.md", "docs/release/pilot-process-portability-notes.md"]) {
-  if (fileExists(pendingPath)) {
-    fail(`pilot gate readiness still marks external evidence pending, but file exists: ${pendingPath}`);
+if (manifest.status === "blocked_pending_external") {
+  for (const pendingPath of ["docs/release/pilot-report.md", "docs/release/pilot-process-portability-notes.md"]) {
+    if (fileExists(pendingPath)) {
+      fail(`pilot gate readiness still marks external evidence pending, but file exists: ${pendingPath}`);
+    }
   }
 }
 
 const releasePack = readJson("docs/release/mvp-release-evidence-pack.json");
-if (releasePack.commit_sha.status !== "pending_until_commit") {
-  fail("pilot gate readiness expects release pack commit SHA to remain pending");
+if (manifest.status === "blocked_pending_external" && releasePack.commit_sha.status !== "pending_until_commit") {
+  fail("blocked pilot gate expects release pack commit SHA to remain pending");
+}
+if (manifest.status === "accepted" && releasePack.commit_sha.status !== "captured") {
+  fail("accepted pilot gate expects release pack commit SHA to be captured");
 }
 if (!releasePack.known_risks.some((risk) => risk.risk_id === "not-real-user-uat" && risk.status === "closed_by_real_uat")) {
   fail("release pack must mark not-real-user-uat risk closed by real UAT");
@@ -81,7 +86,7 @@ for (const command of ["npm test", "npm run validate:release-pack", "npm run val
 
 const pilotHandoff = readJson("docs/release/pilot-execution-handoff.json");
 if (pilotHandoff.status !== "ready_for_pilot_run_after_real_uat") {
-  fail("pilot execution handoff must remain readiness before pilot acceptance");
+  fail("pilot execution handoff must keep runbook status");
 }
 
 const leakageManifest = readJson("docs/architecture/security/data-leakage-manifest.json");
@@ -89,6 +94,19 @@ const leakageTargets = new Set(leakageManifest.scan_targets.map((target) => targ
 for (const realUatPath of [realSessionPath, runtimeExportPath]) {
   if (!leakageTargets.has(realUatPath)) {
     fail(`real UAT artifact is missing from data leakage targets: ${realUatPath}`);
+  }
+}
+
+if (manifest.status === "accepted") {
+  for (const acceptedPath of [
+    "docs/release/pilot-report.md",
+    "docs/release/pilot-process-portability-notes.md",
+    "docs/release/commit-pr-evidence.md",
+  ]) {
+    requireFile(acceptedPath);
+  }
+  if (manifest.blocking_conditions.length !== 0) {
+    fail("accepted pilot gate must not list blocking conditions");
   }
 }
 

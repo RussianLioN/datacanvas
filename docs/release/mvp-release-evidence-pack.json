@@ -6,15 +6,15 @@
   "release_goal": "Зафиксировать проверяемый release-candidate evidence pack для минимального DataCanvas MVP fixture: input -> normalized data -> PresentationSpec -> render -> human review -> UAT result -> PDF/PNG smoke export.",
   "accepted_prs": [
     {
-      "id": "local-artifact-increment",
-      "status": "not_applicable",
-      "evidence": "Репозиторий еще не имеет PR workflow для этого bootstrap-инкремента; пакет фиксирует локальный release candidate до первого PR."
+      "id": "PR-1",
+      "status": "accepted",
+      "evidence": "https://github.com/RussianLioN/datacanvas/pull/1"
     }
   ],
   "commit_sha": {
-    "status": "pending_until_commit",
-    "value": "",
-    "evidence": "Commit SHA должен быть заполнен после первого commit/release tag; текущий пакет валидирует pre-commit candidate evidence."
+    "status": "captured",
+    "value": "306ba52819817d9c913ce467d2ca8afa5dfdb9e9",
+    "evidence": "docs/release/commit-pr-evidence.md"
   },
   "ci_evidence": [
     {
@@ -100,13 +100,13 @@
     },
     {
       "risk_id": "pre-commit-sha",
-      "status": "accepted_for_candidate",
-      "mitigation": "Перед фактическим release tag заполнить commit SHA и PR evidence."
+      "status": "closed_by_commit_pr_evidence",
+      "mitigation": "Commit SHA и PR URL записаны в docs/release/commit-pr-evidence.md."
     }
   ],
   "rollback_forward_fix_plan": {
     "rollback": "Вернуться к последнему green evidence pack и исключить RC-2026-W26-G9-MVP-FIXTURE из release candidate.",
-    "forward_fix": "Провести real UAT session, добавить runtime review state при необходимости и заполнить commit/PR evidence."
+    "forward_fix": "После review смерджить PR #1 или обновить evidence, если branch head изменится."
   },
   "acceptance_decision": {
     "decision": "accepted_for_candidate",
@@ -139,12 +139,14 @@
     "docs/architecture/security/real-uat-leakage-guard.json",
     "docs/process/current/process-metrics-snapshot.json",
     "docs/architecture/schemas/artifact-registry.json",
-    "docs/architecture/schemas/artifact-hash-manifest.json"
+    "docs/architecture/schemas/artifact-hash-manifest.json",
+    "docs/release/commit-pr-evidence.md",
+    "docs/release/pilot-report.md",
+    "docs/release/pilot-process-portability-notes.md"
   ],
   "known_limitations": [
-    "Release evidence pack является pre-commit release candidate, а не опубликованным релизом.",
-    "Accepted PRs и commit SHA пока не могут быть заполнены, потому что bootstrap-инкремент еще не оформлен PR/commit.",
-    "Real UAT проведен и записан, но pilot report, portability notes, commit SHA и PR evidence еще не заполнены."
+    "PR #1 еще не смержен; release evidence фиксирует reviewable PR state.",
+    "Если branch head изменится после pilot evidence, commit/PR evidence нужно обновить."
   ],
-  "next_safe_step": "Подготовить pilot run по pilot execution handoff, заполнить pilot report, portability notes и commit/PR evidence."
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении branch head обновить commit/PR evidence."
 }

@@ -78,6 +78,16 @@ if (pack.known_risks.length < 3) {
   fail("release pack must document at least three known risks for this candidate");
 }
 
+if (pack.commit_sha.status === "captured") {
+  if (!/^[0-9a-f]{40}$/.test(pack.commit_sha.value)) {
+    fail("captured commit SHA must be a 40-character hex SHA");
+  }
+  requireFile(pack.commit_sha.evidence);
+  if (!pack.accepted_prs.some((pr) => pr.status === "accepted" && pr.evidence.includes("github.com/RussianLioN/datacanvas/pull/1"))) {
+    fail("captured release pack must include accepted PR #1 evidence");
+  }
+}
+
 const requiredEvidencePaths = new Set([
   "artifacts/examples/review-runtime-interactive.html",
   "docs/product/ux/review-runtime-interactive.json",
@@ -89,6 +99,16 @@ const requiredEvidencePaths = new Set([
   "docs/architecture/security/real-uat-leakage-guard.json",
   "docs/process/current/process-metrics-snapshot.json",
 ]);
+
+if (pack.commit_sha.status === "captured") {
+  for (const evidencePath of [
+    "docs/release/commit-pr-evidence.md",
+    "docs/release/pilot-report.md",
+    "docs/release/pilot-process-portability-notes.md",
+  ]) {
+    requiredEvidencePaths.add(evidencePath);
+  }
+}
 
 const actualEvidencePaths = new Set(pack.evidence_paths);
 for (const evidencePath of requiredEvidencePaths) {

@@ -2,17 +2,17 @@
 
 ## Назначение
 
-Этот dashboard показывает, какие внешние evidence всё ещё блокируют completion audit, кто владеет сбором, какие supporting artifacts уже готовы и какие действия запрещены.
+Этот dashboard показывает, какие внешние evidence закрыли completion audit, кто владел сбором и какой recorder использовался.
 
-Real UAT evidence уже записан. Документ показывает оставшиеся внешние blockers: pilot report, portability notes, commit SHA или PR evidence. Он нужен, чтобы команда не закрыла план fixture/template артефактами.
+Real UAT evidence, pilot report, portability notes и commit/PR evidence уже записаны. Документ нужен, чтобы сохранить audit trail и не потерять правило обновления evidence при изменении branch head.
 
-## Текущие Blockers
+## Собранные Evidence
 
-| Evidence | Owner | Состояние | Allowed collection |
+| Evidence | Owner | Состояние | Collection |
 |---|---|---|---|
-| `docs/release/pilot-report.md` | Delivery/GitOps Lead | missing pending external | real pilot after UAT and quality gate |
-| `docs/release/pilot-process-portability-notes.md` | Process Owner | missing pending external | real pilot retrospective notes |
-| `commit-sha-and-pr-evidence` | Delivery/GitOps Lead | missing pending external | verified commit/PR or release record |
+| `docs/release/pilot-report.md` | Delivery/GitOps Lead | collected | `npm run pilot:record` |
+| `docs/release/pilot-process-portability-notes.md` | Process Owner | collected | `npm run pilot:record` |
+| `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | collected | PR #1 and commit `306ba52819817d9c913ce467d2ca8afa5dfdb9e9` |
 
 ## Controlled Collection Command
 
@@ -23,7 +23,7 @@ npm run pilot:record -- --dry-run --pilot-owner Delivery/GitOps --release-owner 
 npm run pilot:record -- --pilot-owner Delivery/GitOps --release-owner Delivery/GitOps --reviewer ProcessOwner --target-reuse-context next-it-project --release-record commit-or-pr-url --follow-up none
 ```
 
-Write mode создает `docs/release/pilot-report.md`, `docs/release/pilot-process-portability-notes.md` и `docs/release/commit-pr-evidence.md`. До внешнего release record использовать только dry-run.
+Write mode создал `docs/release/pilot-report.md`, `docs/release/pilot-process-portability-notes.md` и `docs/release/commit-pr-evidence.md`.
 
 ## Stop Rules
 
@@ -46,4 +46,4 @@ npm test
 
 ## Следующий Безопасный Шаг
 
-После commit/PR или согласованного release record выполнить `npm run pilot:record -- --dry-run`, затем write mode и обновить completion audit.
+Дождаться review и merge PR #1; при изменении branch head обновить `docs/release/commit-pr-evidence.md`.

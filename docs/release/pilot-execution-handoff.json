@@ -37,7 +37,7 @@
     {
       "id": "PILOT-HANDOFF-ENTRY-005",
       "description": "Commit SHA и PR evidence доступны для release train.",
-      "evidence_path": "commit-sha-and-pr-evidence",
+      "evidence_path": "docs/release/commit-pr-evidence.md",
       "required_status": "recorded",
       "blocking": true
     },

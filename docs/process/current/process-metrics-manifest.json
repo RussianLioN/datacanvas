@@ -123,14 +123,13 @@
     },
     {
       "command": "real user UAT session",
-      "status": "pending_external",
-      "evidence": "Ожидает docs/product/ux/human-review-session-real.json."
+      "status": "passed",
+      "evidence": "docs/product/ux/human-review-session-real.json записан как recorded_real_user и accepted."
     }
   ],
   "known_limitations": [
     "Manifest и generated snapshot фиксируют derived repository metrics, но не заменяют live dashboard с реальными командными timestamps.",
-    "Командные delivery metrics остаются n/a до реального командного спринта.",
-    "Real user UAT остается внешним pending gate."
+    "Командные delivery metrics остаются n/a до реального командного спринта."
   ],
-  "next_safe_step": "После real UAT и первого командного Sprint Review добавить dated backlog/sprint events для live delivery metrics."
+  "next_safe_step": "После merge PR #1 добавить dated backlog/sprint events для live delivery metrics."
 }

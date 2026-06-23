@@ -65,18 +65,7 @@ for (const item of handoff.entry_criteria) {
   if (!item.blocking) {
     fail(`entry criterion must be blocking before pilot: ${item.id}`);
   }
-  if (item.evidence_path !== "commit-sha-and-pr-evidence") {
-    requireFile(item.evidence_path);
-  }
-}
-
-for (const pendingExternal of [
-  "docs/release/pilot-report.md",
-  "docs/release/pilot-process-portability-notes.md",
-]) {
-  if (fileExists(pendingExternal)) {
-    fail(`pilot execution handoff still expects external pilot evidence to be absent before run: ${pendingExternal}`);
-  }
+  requireFile(item.evidence_path);
 }
 
 const outputPaths = new Set(handoff.required_outputs.map((item) => item.path));
@@ -116,11 +105,16 @@ for (const requiredText of ["Entry Criteria", "Pilot Steps", "Required Outputs",
 }
 
 const completionAudit = readJson("docs/process/audits/plan-completion-audit.json");
-if (completionAudit.status !== "blocked_pending_external") {
-  fail("completion audit must remain blocked before external pilot evidence exists");
+if (!["blocked_pending_external", "complete"].includes(completionAudit.status)) {
+  fail("completion audit must be blocked before pilot or complete after pilot evidence exists");
 }
-if (!completionAudit.blocking_external_evidence.includes("docs/release/pilot-report.md")) {
-  fail("completion audit must keep pilot report as blocking external evidence");
+if (completionAudit.status === "blocked_pending_external" && !completionAudit.blocking_external_evidence.includes("docs/release/pilot-report.md")) {
+  fail("blocked completion audit must keep pilot report as blocking external evidence");
+}
+if (completionAudit.status === "complete") {
+  for (const outputPath of ["docs/release/pilot-report.md", "docs/release/pilot-process-portability-notes.md", "docs/release/commit-pr-evidence.md"]) {
+    requireFile(outputPath);
+  }
 }
 
 console.log("pilot execution handoff validation passed");

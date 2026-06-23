@@ -19,7 +19,7 @@
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "status": { "type": "string", "enum": ["blocked_pending_external"] },
+    "status": { "type": "string", "enum": ["blocked_pending_external", "accepted"] },
     "gate_id": { "type": "string", "const": "G10" },
     "depends_on_gate_id": { "type": "string", "const": "G9" },
     "purpose": { "type": "string", "minLength": 1 },
@@ -41,7 +41,7 @@
     },
     "blocking_conditions": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 0,
       "items": { "type": "string", "minLength": 1 }
     },
     "validation_commands": {

@@ -13,12 +13,12 @@
   "counts": {
     "sprint_folders": 64,
     "sprint_evidence_manifests": 64,
-    "artifact_registry_entries": 328,
+    "artifact_registry_entries": 331,
     "accepted_process_changes": 2,
     "passed_evidence_checks": 491,
     "pending_evidence_checks": 0,
-    "quality_gates_passed": 5,
-    "quality_gates_pending_external": 1,
+    "quality_gates_passed": 6,
+    "quality_gates_pending_external": 0,
     "process_events": 0
   },
   "derived_metrics": [
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "328",
+      "value": "331",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"
@@ -124,7 +124,7 @@
     {
       "id": "DPM-005",
       "name": "External gate backlog",
-      "value": "1",
+      "value": "0",
       "calculation": "count(process quality gates where status == pending_external)",
       "evidence_paths": [
         "docs/process/current/process-metrics-manifest.json"
@@ -142,8 +142,7 @@
   ],
   "known_limitations": [
     "Snapshot считает только данные, уже зафиксированные в репозитории.",
-    "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps.",
-    "Real user UAT остается pending_external и не может быть закрыт generated snapshot."
+    "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps."
   ],
-  "next_safe_step": "После real UAT и первого командного Sprint Review добавить dated events для live delivery metrics."
+  "next_safe_step": "После merge PR #1 добавить dated events для live delivery metrics."
 }

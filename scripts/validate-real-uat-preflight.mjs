@@ -140,8 +140,8 @@ if (!handoff.validation_commands.includes("npm run prepare:real-uat-session -- -
 }
 
 const completionAudit = readJson("docs/process/audits/plan-completion-audit.json");
-if (completionAudit.status !== "blocked_pending_external") {
-  fail("completion audit must remain blocked_pending_external before external evidence is complete");
+if (!["blocked_pending_external", "complete"].includes(completionAudit.status)) {
+  fail("completion audit must be blocked_pending_external before external evidence or complete after evidence is collected");
 }
 
 for (const externalPath of manifest.external_evidence_policy.must_not_create) {

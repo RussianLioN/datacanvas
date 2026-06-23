@@ -2633,6 +2633,30 @@
       "owner_role": "UX/Prototype Lead",
       "status": "active",
       "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-329",
+      "path": "docs/release/commit-pr-evidence.md",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-330",
+      "path": "docs/release/pilot-report.md",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-331",
+      "path": "docs/release/pilot-process-portability-notes.md",
+      "type": "evidence",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
     }
   ]
 }
