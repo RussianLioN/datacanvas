@@ -1,0 +1,12 @@
+{
+  "id": "PROC-023",
+  "title": "Добавить contract schemas",
+  "status": "accepted",
+  "source": "docs/process/audits/datacanvas-plan-coverage-audit.json",
+  "problem": "Не все контракты из плана имеют отдельные JSON Schema.",
+  "expected_effect": "Contract boundary становится проверяемым gate.",
+  "affected_artifacts": ["schemas/render-request.schema.json", "schemas/process-change-request.schema.json"],
+  "risks": ["schema_drift"],
+  "success_metric": "npm run validate:contracts проходит",
+  "decision": "accept"
+}

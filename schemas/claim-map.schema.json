@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/claim-map.schema.json",
+  "title": "ClaimMap",
+  "type": "object",
+  "required": ["spec_id", "source_package_id", "claims"],
+  "additionalProperties": false,
+  "properties": {
+    "spec_id": {
+      "type": "string",
+      "pattern": "^SPEC-[A-Za-z0-9_-]+$"
+    },
+    "source_package_id": {
+      "type": "string",
+      "pattern": "^PKG-[A-Za-z0-9_-]+$"
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["slide_id", "claim_text", "fact_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "slide_id": {
+            "type": "string",
+            "pattern": "^SLIDE-[0-9]+$"
+          },
+          "claim_text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fact_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^FACT-[0-9]+$"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

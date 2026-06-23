@@ -1,0 +1,76 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S42",
+  "sprint_name": "release-evidence-current-gates",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Актуализировать release evidence pack под текущие обязательные gates процесса DataCanvas.",
+  "created_artifacts": [
+    "docs/architecture/adr/ADR-042-release-evidence-current-gates.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/sprint-goal.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/sprint-backlog.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/planning.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/daily-notes.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/decisions.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/evidence-index.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/artifact-updates.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/process-change-candidates.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/review.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/retro.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/sprint-summary.md",
+    "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:release-pack",
+      "status": "passed",
+      "evidence": "release evidence pack validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed after hash manifest regeneration"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full quality gate passed, including release pack current-gate validation"
+    }
+  ],
+  "known_limitations": [
+    "Инкремент не закрывает real UAT и pilot gate.",
+    "Commit SHA и PR evidence остаются pending до фактического commit/PR.",
+    "Mandatory release gates пока продублированы в validator, а не вынесены в отдельный manifest."
+  ],
+  "next_safe_step": "Провести real user UAT session и сохранить exported runtime state как human-review-session-real.json."
+}

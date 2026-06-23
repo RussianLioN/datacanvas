@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "default_policy": "deny",
+  "providers": [
+    {
+      "id": "PROVIDER-001",
+      "name": "external_llm_provider_placeholder",
+      "status": "disabled",
+      "network_access": false,
+      "secret_source": "external_secret_manager_required",
+      "allowed_data_classes": [
+        "public",
+        "internal"
+      ],
+      "output_contract": "PresentationSpec",
+      "fallback": "scripts/llm-mock-adapter.mjs",
+      "owner": "SRE/LLM Ops Lead",
+      "activation_requires": [
+        "accepted_proc_007",
+        "accepted_adr",
+        "security_review",
+        "provider_specific_eval_pack",
+        "cost_latency_budget",
+        "trace_evidence"
+      ]
+    }
+  ]
+}

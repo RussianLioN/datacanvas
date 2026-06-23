@@ -1,0 +1,35 @@
+{
+  "version": "0.1.0",
+  "status": "fixture",
+  "gate_id": "G9",
+  "html_path": "artifacts/examples/review-ui-fixture.html",
+  "source_artifacts": [
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/uat-result-minimal.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "artifacts/examples/presentation-minimal.html"
+  ],
+  "required_controls": [
+    "submit_for_review",
+    "comment",
+    "record_decision",
+    "edit",
+    "export"
+  ],
+  "required_sections": [
+    "source-trace",
+    "claim-review",
+    "decision-log",
+    "export-readiness",
+    "known-limitations"
+  ],
+  "session_artifact_path": "docs/product/ux/human-review-session-minimal.json",
+  "known_limitations": [
+    "HTML является статическим fixture без сохранения пользовательских изменений.",
+    "Реальная пользовательская UAT-сессия еще должна быть проведена отдельно."
+  ],
+  "next_safe_step": "Провести реальную human review/UAT session и заменить fixture session_kind на real_user evidence."
+}

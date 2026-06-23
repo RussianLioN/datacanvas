@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/operational-readiness-manifest.schema.json",
+  "title": "OperationalReadinessManifest",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "checklist_path", "runbook_path", "trace_contract_path", "required_conditions", "smoke_check", "rollback_path", "incident_to_backlog"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active"] },
+    "gate_id": { "type": "string", "minLength": 1 },
+    "checklist_path": { "type": "string", "minLength": 1 },
+    "runbook_path": { "type": "string", "minLength": 1 },
+    "trace_contract_path": { "type": "string", "minLength": 1 },
+    "required_conditions": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "evidence_path", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "evidence_path": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["defined"] }
+        }
+      }
+    },
+    "smoke_check": {
+      "type": "object",
+      "required": ["command", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "command": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["defined"] }
+      }
+    },
+    "rollback_path": {
+      "type": "object",
+      "required": ["description", "evidence_path", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "evidence_path": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["defined"] }
+      }
+    },
+    "incident_to_backlog": {
+      "type": "object",
+      "required": ["required", "evidence_path"],
+      "additionalProperties": false,
+      "properties": {
+        "required": { "type": "boolean", "const": true },
+        "evidence_path": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

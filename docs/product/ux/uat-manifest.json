@@ -1,0 +1,21 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "gate_id": "G9",
+  "script_path": "docs/product/ux/uat-script.md",
+  "flow_path": "docs/product/ux/human-review-flow.json",
+  "scenario_ids": ["UAT-001", "UAT-002", "UAT-003", "UAT-004"],
+  "acceptance_thresholds": {
+    "critical_failures": 0,
+    "unsupported_claims": 0,
+    "review_completion": "required",
+    "export_blockers": 0
+  },
+  "evidence_required": [
+    "review_state",
+    "decision_log",
+    "claim_map",
+    "trace_manifest",
+    "export_sanitization_result"
+  ]
+}

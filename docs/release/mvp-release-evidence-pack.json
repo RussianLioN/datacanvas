@@ -1,0 +1,150 @@
+{
+  "version": "0.1.0",
+  "release_id": "RC-2026-W26-G9-MVP-FIXTURE",
+  "status": "release_candidate",
+  "gate_id": "G9",
+  "release_goal": "Зафиксировать проверяемый release-candidate evidence pack для минимального DataCanvas MVP fixture: input -> normalized data -> PresentationSpec -> render -> human review -> UAT result -> PDF/PNG smoke export.",
+  "accepted_prs": [
+    {
+      "id": "local-artifact-increment",
+      "status": "not_applicable",
+      "evidence": "Репозиторий еще не имеет PR workflow для этого bootstrap-инкремента; пакет фиксирует локальный release candidate до первого PR."
+    }
+  ],
+  "commit_sha": {
+    "status": "pending_until_commit",
+    "value": "",
+    "evidence": "Commit SHA должен быть заполнен после первого commit/release tag; текущий пакет валидирует pre-commit candidate evidence."
+  },
+  "ci_evidence": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полный локальный quality gate проходит для текущего release candidate."
+    },
+    {
+      "command": "npm run validate:uat-result",
+      "status": "passed",
+      "evidence": "G9 UAT result approved и accepted."
+    },
+    {
+      "command": "npm run validate:export-smoke",
+      "status": "passed",
+      "evidence": "PDF/PNG smoke artifacts присутствуют и проходят проверку."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Artifact hash manifest согласован с registry."
+    },
+    {
+      "command": "npm run validate:review-runtime-interactive",
+      "status": "passed",
+      "evidence": "Interactive review runtime fixture валидируется перед pilot readiness."
+    },
+    {
+      "command": "npm run validate:renderer-regression",
+      "status": "passed",
+      "evidence": "Renderer regression pack фиксирует deterministic HTML/PDF/PNG smoke baseline."
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "Selected runtime/export/trace/evidence sinks проходят leakage gate; real UAT artifacts включены как confidential scan targets."
+    },
+    {
+      "command": "npm run validate:real-uat-operator-handoff",
+      "status": "passed",
+      "evidence": "Operator handoff готовит воспроизводимый real UAT run без fixture acceptance."
+    },
+    {
+      "command": "npm run validate:real-uat-session-importer",
+      "status": "passed",
+      "evidence": "Session importer readiness проходит и не пишет real session artifact без явного --input."
+    },
+    {
+      "command": "npm run validate:real-uat-readiness",
+      "status": "passed",
+      "evidence": "Real UAT session artifact записан как recorded_real_user и accepted."
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "Repository-derived process metrics snapshot актуален для release evidence."
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed",
+      "evidence": "Secret scan не обнаружил запрещенных секретов."
+    }
+  ],
+  "artifact_registry_snapshot": {
+    "path": "docs/architecture/schemas/artifact-registry.json",
+    "hash_manifest_path": "docs/architecture/schemas/artifact-hash-manifest.json"
+  },
+  "known_risks": [
+    {
+      "risk_id": "not-real-user-uat",
+      "status": "closed_by_real_uat",
+      "mitigation": "docs/product/ux/human-review-session-real.json создан из exported runtime state."
+    },
+    {
+      "risk_id": "not-real-user-runtime-session",
+      "status": "closed_by_real_uat",
+      "mitigation": "artifacts/manual/real-uat/review-runtime-state-export.json сохранен после real UAT."
+    },
+    {
+      "risk_id": "real-uat-artifacts-not-yet-in-leakage-targets",
+      "status": "closed_by_leakage_gate",
+      "mitigation": "Real UAT artifacts добавлены в docs/architecture/security/data-leakage-manifest.json как confidential scan targets."
+    },
+    {
+      "risk_id": "pre-commit-sha",
+      "status": "accepted_for_candidate",
+      "mitigation": "Перед фактическим release tag заполнить commit SHA и PR evidence."
+    }
+  ],
+  "rollback_forward_fix_plan": {
+    "rollback": "Вернуться к последнему green evidence pack и исключить RC-2026-W26-G9-MVP-FIXTURE из release candidate.",
+    "forward_fix": "Провести real UAT session, добавить runtime review state при необходимости и заполнить commit/PR evidence."
+  },
+  "acceptance_decision": {
+    "decision": "accepted_for_candidate",
+    "review_state": "approved",
+    "source": "docs/product/ux/uat-result-minimal.json"
+  },
+  "evidence_paths": [
+    "docs/product/ux/uat-result-minimal.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/human-review-flow.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "tests/golden/claim-map-minimal.json",
+    "artifacts/examples/presentation-minimal.html",
+    "artifacts/examples/review-ui-fixture.html",
+    "artifacts/examples/review-runtime-interactive.html",
+    "docs/product/ux/review-ui-fixture.json",
+    "docs/product/ux/review-runtime-interactive.json",
+    "docs/product/ux/review-runtime-state-fixture.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "docs/product/ux/real-uat-gate-readiness.json",
+    "docs/product/ux/real-uat-runtime-import.json",
+    "docs/product/ux/real-uat-operator-handoff.json",
+    "docs/product/ux/real-uat-session-importer.json",
+    "docs/product/ux/human-review-session-real.template.json",
+    "artifacts/manual/real-uat/review-runtime-state-export.json",
+    "docs/product/ux/human-review-session-real.json",
+    "artifacts/examples/export-smoke-manifest.json",
+    "artifacts/examples/renderer-regression-manifest.json",
+    "docs/architecture/security/data-leakage-manifest.json",
+    "docs/architecture/security/real-uat-leakage-guard.json",
+    "docs/process/current/process-metrics-snapshot.json",
+    "docs/architecture/schemas/artifact-registry.json",
+    "docs/architecture/schemas/artifact-hash-manifest.json"
+  ],
+  "known_limitations": [
+    "Release evidence pack является pre-commit release candidate, а не опубликованным релизом.",
+    "Accepted PRs и commit SHA пока не могут быть заполнены, потому что bootstrap-инкремент еще не оформлен PR/commit.",
+    "Real UAT проведен и записан, но pilot report, portability notes, commit SHA и PR evidence еще не заполнены."
+  ],
+  "next_safe_step": "Подготовить pilot run по pilot execution handoff, заполнить pilot report, portability notes и commit/PR evidence."
+}

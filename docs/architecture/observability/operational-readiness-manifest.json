@@ -1,0 +1,65 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "gate_id": "G8",
+  "checklist_path": "docs/architecture/observability/operational-readiness-checklist.md",
+  "runbook_path": "docs/architecture/observability/runbook.md",
+  "trace_contract_path": "docs/architecture/observability/trace-contract.md",
+  "required_conditions": [
+    {
+      "id": "trace-spans",
+      "description": "Трассы или явное n/a решение определены для инкремента.",
+      "evidence_path": "docs/architecture/observability/trace-contract.md",
+      "status": "defined"
+    },
+    {
+      "id": "quality-cost-latency-metrics",
+      "description": "Метрики качества, стоимости и задержки зафиксированы или имеют n/a с причиной.",
+      "evidence_path": "docs/process/current/process-metrics-dashboard.md",
+      "status": "defined"
+    },
+    {
+      "id": "failure-modes",
+      "description": "Failure modes описаны до приемки инкремента.",
+      "evidence_path": "docs/architecture/observability/runbook.md",
+      "status": "defined"
+    },
+    {
+      "id": "rollback-disable-path",
+      "description": "Rollback или disable path определен до включения инкремента.",
+      "evidence_path": "docs/architecture/observability/runbook.md",
+      "status": "defined"
+    },
+    {
+      "id": "cost-latency-impact",
+      "description": "Cost/latency impact понятен до provider или export изменений.",
+      "evidence_path": "docs/architecture/llm/provider-budget.json",
+      "status": "defined"
+    },
+    {
+      "id": "smoke-synthetic-check",
+      "description": "Smoke или synthetic check определен для каждого готового инкремента.",
+      "evidence_path": "docs/architecture/observability/runbook.md",
+      "status": "defined"
+    },
+    {
+      "id": "incident-to-backlog-loop",
+      "description": "Инцидент должен создавать RCA, backlog item и regression check.",
+      "evidence_path": "docs/knowledge/rca/README.md",
+      "status": "defined"
+    }
+  ],
+  "smoke_check": {
+    "command": "npm test",
+    "status": "defined"
+  },
+  "rollback_path": {
+    "description": "Отключить инкремент через feature/provider disable path или revert последнего artifact increment до последнего green evidence pack.",
+    "evidence_path": "docs/architecture/observability/runbook.md",
+    "status": "defined"
+  },
+  "incident_to_backlog": {
+    "required": true,
+    "evidence_path": "docs/knowledge/rca/README.md"
+  }
+}

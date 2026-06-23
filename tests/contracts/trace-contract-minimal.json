@@ -1,0 +1,6 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "required_spans": ["input_validation", "normalization", "model_call", "presentation_spec_validation", "render", "export", "qa", "handoff"],
+  "required_fields": ["run_id", "sprint_id", "increment_id", "artifact_id", "status", "duration_ms", "cost_estimate", "model", "provider", "retry_count", "error_class", "schema_version"]
+}

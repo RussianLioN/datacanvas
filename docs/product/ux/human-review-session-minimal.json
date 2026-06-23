@@ -1,0 +1,68 @@
+{
+  "version": "0.1.0",
+  "session_id": "HRS-2026-W26-G9-FIXTURE",
+  "status": "recorded_fixture",
+  "gate_id": "G9",
+  "session_kind": "fixture",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "uat_manifest_path": "docs/product/ux/uat-manifest.json",
+  "uat_result_path": "docs/product/ux/uat-result-minimal.json",
+  "review_state": "approved",
+  "decision": "accepted",
+  "actor": {
+    "actor_id": "fixture-approver",
+    "role": "approver"
+  },
+  "audit_events": [
+    {
+      "actor_id": "fixture-author",
+      "role": "author",
+      "action": "submit_for_review",
+      "source_artifact_id": "tests/golden/presentation-spec-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "Передать минимальную презентацию на human review fixture.",
+      "timestamp": "2026-06-22T00:00:00Z"
+    },
+    {
+      "actor_id": "fixture-reviewer",
+      "role": "reviewer",
+      "action": "comment",
+      "source_artifact_id": "tests/golden/claim-map-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "Проверены claim/source links, unsupported claims не обнаружены.",
+      "timestamp": "2026-06-22T00:01:00Z"
+    },
+    {
+      "actor_id": "fixture-approver",
+      "role": "approver",
+      "action": "record_decision",
+      "source_artifact_id": "docs/product/ux/uat-result-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "UAT result approved, critical failures 0, export blockers 0.",
+      "timestamp": "2026-06-22T00:02:00Z"
+    },
+    {
+      "actor_id": "fixture-approver",
+      "role": "approver",
+      "action": "export",
+      "source_artifact_id": "artifacts/examples/export-smoke-manifest.json",
+      "changed_claim_ids": [],
+      "reason": "Export readiness подтвержден через PDF/PNG smoke manifest.",
+      "timestamp": "2026-06-22T00:03:00Z"
+    }
+  ],
+  "evidence_paths": [
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/uat-result-minimal.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "artifacts/examples/review-ui-fixture.html"
+  ],
+  "known_limitations": [
+    "Session artifact является fixture-записью, а не настоящей пользовательской UAT-сессией.",
+    "Перед pilot gate нужна запись real_user session с реальным actor_id и фактическими timestamps."
+  ],
+  "next_safe_step": "Провести реальную UAT-сессию с пользователем и сохранить human-review-session-real.json."
+}

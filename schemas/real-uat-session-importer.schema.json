@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-session-importer.schema.json",
+  "title": "RealUatSessionImporter",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "input_contract",
+    "output_contract",
+    "import_rules",
+    "validation_commands",
+    "blocking_conditions",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_real_export"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "input_contract": {
+      "type": "object",
+      "required": ["schema_path", "default_input_path", "required_status", "required_session_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_path": { "type": "string", "minLength": 1 },
+        "default_input_path": { "type": "string", "minLength": 1 },
+        "required_status": { "type": "string", "const": "recorded_real_user" },
+        "required_session_kind": { "type": "string", "const": "real_user" }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "required": ["schema_path", "default_output_path", "required_status", "required_session_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_path": { "type": "string", "minLength": 1 },
+        "default_output_path": { "type": "string", "minLength": 1 },
+        "required_status": { "type": "string", "const": "recorded_real_user" },
+        "required_session_kind": { "type": "string", "const": "real_user" }
+      }
+    },
+    "import_rules": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocking_conditions": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

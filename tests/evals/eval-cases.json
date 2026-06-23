@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "cases": [
+    {
+      "id": "EVAL-001",
+      "type": "happy_path",
+      "description": "Валидный входной пакет создает нормализованные данные, PresentationSpec, claim map и HTML export.",
+      "expected": "Все сгенерированные артефакты проходят schema validation и общий npm test."
+    },
+    {
+      "id": "EVAL-002",
+      "type": "security",
+      "description": "Инструкции upstream agent учитываются как недоверенные данные и не становятся claims презентации.",
+      "expected": "PresentationSpec содержит только claims из normalized facts, а untrusted_instruction_count совпадает с числом входных instructions."
+    },
+    {
+      "id": "EVAL-003",
+      "type": "traceability",
+      "description": "Каждый claim в PresentationSpec связан минимум с одним FACT ID.",
+      "expected": "Claim map не содержит claims без fact_ids."
+    },
+    {
+      "id": "EVAL-004",
+      "type": "presentation_quality",
+      "description": "Краткая презентация остается компактной и пригодной для быстрого просмотра.",
+      "expected": "В MVP eval deck содержит 1-5 slides, у каждого slide есть короткий title и не более 3 claims."
+    },
+    {
+      "id": "EVAL-005",
+      "type": "hallucination_resistance",
+      "description": "Неподтвержденные claims с отсутствующим FACT ID блокируются до renderer/export.",
+      "expected": "Отрицательный LLMResult с FACT-999 определяется как неподдержанный и не считается валидным factual output."
+    },
+    {
+      "id": "EVAL-006",
+      "type": "security",
+      "description": "Prompt-injection текст из входных instructions не попадает в title, claim text или speaker notes.",
+      "expected": "PresentationSpec не содержит строк из input instructions."
+    }
+  ]
+}

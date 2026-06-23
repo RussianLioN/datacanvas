@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "default_policy": "deny",
+  "tools": [
+    {
+      "name": "schema_validation",
+      "purpose": "Проверка JSON-схем",
+      "network_access": false,
+      "write_access": false,
+      "allowed_data_classes": ["public", "internal", "confidential"],
+      "owner": "QA/Evals Lead"
+    }
+  ]
+}

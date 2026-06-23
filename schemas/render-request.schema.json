@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/render-request.schema.json",
+  "title": "RenderRequest",
+  "type": "object",
+  "required": ["render_id", "schema_version", "source_spec_path", "source_spec_id", "formats", "output_dir", "sprint_id"],
+  "additionalProperties": false,
+  "properties": {
+    "render_id": { "type": "string", "pattern": "^RENDER-[A-Za-z0-9_-]+$" },
+    "schema_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "source_spec_path": { "type": "string", "minLength": 1 },
+    "source_spec_id": { "type": "string", "pattern": "^SPEC-[A-Za-z0-9_-]+$" },
+    "formats": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "enum": ["html", "pdf", "png"] }
+    },
+    "output_dir": { "type": "string", "minLength": 1 },
+    "sprint_id": { "type": "string", "pattern": "^SPRINT-[0-9]{4}-W[0-9]{2}(-S[0-9]+)?$" }
+  }
+}

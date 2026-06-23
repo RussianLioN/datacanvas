@@ -1,0 +1,57 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S15",
+  "sprint_name": "failure-risk-crosscheck",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить failure-rate rollback fixture и cross-check RiskTraceability against traceability matrix.",
+  "created_artifacts": [
+    "tests/provider/scenario-failure-overrun.json",
+    "tests/provider/provider-experiment-result-failure-rollback.json",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-goal.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-backlog.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/planning.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/review.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/retro.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/decisions.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/evidence-index.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/artifact-updates.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/process-change-candidates.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-summary.md",
+    "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:golden",
+      "status": "passed",
+      "evidence": "2026-06-22: generated failure-rate rollback provider scorer artifact."
+    },
+    {
+      "command": "npm run validate:provider-scorer",
+      "status": "passed",
+      "evidence": "2026-06-22: provider scorer validation passed with failure rollback and RiskTraceability cross-check."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "2026-06-22: failure rollback and Sprint 15 evidence manifest passed schema/cross-artifact validation."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:provider-experiment, validate:provider-evals, validate:provider-scorer, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Human-readable risk matrix report еще не создан.",
+    "RiskTraceability пока поддерживается вручную.",
+    "Реальный provider не подключался.",
+    "Командная приёмка Sprint 15 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 16: создать human-readable risk matrix report и generator/checker для risk traceability consistency."
+}

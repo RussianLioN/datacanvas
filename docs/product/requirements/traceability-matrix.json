@@ -1,0 +1,59 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "links": [
+    {
+      "requirement_id": "BT-001",
+      "source": "docs/product/vision/vision-v0.1.md",
+      "backlog_items": ["PBI-001", "TECH-005", "TECH-006"],
+      "tests": ["npm test", "tests/fixtures/input-package-minimal.json"],
+      "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "BT-003",
+      "source": "docs/product/vision/vision-v0.1.md",
+      "backlog_items": ["PBI-002", "PBI-003"],
+      "tests": ["tests/golden/trace-manifest-minimal.json"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "NFR-002",
+      "source": "docs/product/requirements/non-functional-requirements.md",
+      "backlog_items": ["TECH-006", "QA-003"],
+      "tests": ["tests/golden/trace-manifest-minimal.json", "npm test"],
+      "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "NFR-001",
+      "source": "docs/product/requirements/non-functional-requirements.md",
+      "backlog_items": ["QA-011", "QA-012"],
+      "tests": [
+        "tests/provider/provider-experiment-result-scored.json",
+        "tests/provider/provider-experiment-result-rollback.json",
+        "npm run validate:provider-scorer"
+      ],
+      "risks": ["unsupported_claims"],
+      "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "NFR-003",
+      "source": "docs/product/requirements/non-functional-requirements.md",
+      "backlog_items": ["SEC-011", "QA-013"],
+      "tests": ["docs/architecture/risks/risk-registry.json", "npm run validate:provider-scorer"],
+      "risks": ["prompt_injection_or_secret_leak"],
+      "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "NFR-004",
+      "source": "docs/product/requirements/non-functional-requirements.md",
+      "backlog_items": ["OPS-011", "QA-014"],
+      "tests": [
+        "docs/architecture/llm/provider-budget.json",
+        "tests/provider/provider-experiment-result-scored.json",
+        "npm run validate:provider-scorer"
+      ],
+      "risks": ["latency_budget_exceeded", "cost_budget_exceeded", "provider_unreliability"],
+      "status": "implemented_baseline"
+    }
+  ]
+}

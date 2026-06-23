@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/process-version-manifest.schema.json",
+  "title": "ProcessVersionManifest",
+  "type": "object",
+  "required": ["version", "status", "effective_date", "source_plan", "snapshot_path", "current_registry_path", "changelog_path", "applied_sprint_ids"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active", "superseded", "draft"] },
+    "effective_date": { "type": "string", "format": "date" },
+    "source_plan": { "type": "string", "minLength": 1 },
+    "snapshot_path": { "type": "string", "minLength": 1 },
+    "current_registry_path": { "type": "string", "minLength": 1 },
+    "changelog_path": { "type": "string", "minLength": 1 },
+    "applied_sprint_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^SPRINT-[0-9]{4}-W[0-9]{2}(-S[0-9]+)?$" }
+    }
+  }
+}

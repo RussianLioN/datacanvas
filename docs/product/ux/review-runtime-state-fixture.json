@@ -1,0 +1,98 @@
+{
+  "version": "0.1.0",
+  "state_id": "RRS-2026-W26-G9-FIXTURE",
+  "status": "fixture",
+  "gate_id": "G9",
+  "session_kind": "fixture",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "review_ui_fixture_path": "docs/product/ux/review-ui-fixture.json",
+  "session_artifact_path": "docs/product/ux/human-review-session-minimal.json",
+  "current_state": "approved",
+  "export_allowed": true,
+  "transition_history": [
+    {
+      "event_id": "RRS-EVT-001",
+      "from": "draft",
+      "action": "submit_for_review",
+      "to": "in_review",
+      "actor_id": "fixture-author",
+      "role": "author",
+      "timestamp": "2026-06-22T09:00:00Z",
+      "reason": "Минимальная презентация подготовлена для review."
+    },
+    {
+      "event_id": "RRS-EVT-002",
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "changes_requested",
+      "actor_id": "fixture-reviewer",
+      "role": "reviewer",
+      "timestamp": "2026-06-22T09:05:00Z",
+      "reason": "Проверяется блокировка export при requested changes."
+    },
+    {
+      "event_id": "RRS-EVT-003",
+      "from": "changes_requested",
+      "action": "edit",
+      "to": "draft",
+      "actor_id": "fixture-author",
+      "role": "author",
+      "timestamp": "2026-06-22T09:10:00Z",
+      "reason": "Автор вносит исправление перед повторным review."
+    },
+    {
+      "event_id": "RRS-EVT-004",
+      "from": "draft",
+      "action": "submit_for_review",
+      "to": "in_review",
+      "actor_id": "fixture-author",
+      "role": "author",
+      "timestamp": "2026-06-22T09:15:00Z",
+      "reason": "Исправленная версия повторно отправлена на review."
+    },
+    {
+      "event_id": "RRS-EVT-005",
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "approved",
+      "actor_id": "fixture-approver",
+      "role": "approver",
+      "timestamp": "2026-06-22T09:20:00Z",
+      "reason": "Критических ошибок, unsupported claims и export blockers нет."
+    },
+    {
+      "event_id": "RRS-EVT-006",
+      "from": "approved",
+      "action": "export",
+      "to": "approved",
+      "actor_id": "fixture-author",
+      "role": "author",
+      "timestamp": "2026-06-22T09:25:00Z",
+      "reason": "Export разрешен только после approved state."
+    }
+  ],
+  "persisted_fields": [
+    "state_id",
+    "current_state",
+    "export_allowed",
+    "transition_history",
+    "actor_id",
+    "role",
+    "timestamp",
+    "reason"
+  ],
+  "evidence_paths": [
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "docs/product/ux/uat-result-minimal.json",
+    "artifacts/examples/review-ui-fixture.html",
+    "artifacts/examples/export-smoke-manifest.json"
+  ],
+  "known_limitations": [
+    "Runtime state artifact является fixture, а не записью настоящего browser/session runtime.",
+    "Real user UAT остается pending_external.",
+    "Следующий runtime increment должен сохранять этот state из работающего UI, а не из статического fixture."
+  ],
+  "next_safe_step": "После реализации интерактивного UI сохранять review-runtime-state-real.json и связать его с human-review-session-real.json."
+}

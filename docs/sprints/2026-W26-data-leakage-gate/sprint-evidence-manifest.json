@@ -1,0 +1,79 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S41",
+  "sprint_name": "data-leakage-gate",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить security gate для PII/redaction и trace/log leakage на runtime/export/trace/evidence sinks.",
+  "created_artifacts": [
+    "schemas/data-leakage-manifest.schema.json",
+    "docs/architecture/security/data-leakage-manifest.json",
+    "scripts/validate-data-leakage.mjs",
+    "docs/architecture/adr/ADR-041-data-leakage-gate.md",
+    "docs/sprints/2026-W26-data-leakage-gate/sprint-goal.md",
+    "docs/sprints/2026-W26-data-leakage-gate/sprint-backlog.md",
+    "docs/sprints/2026-W26-data-leakage-gate/planning.md",
+    "docs/sprints/2026-W26-data-leakage-gate/daily-notes.md",
+    "docs/sprints/2026-W26-data-leakage-gate/decisions.md",
+    "docs/sprints/2026-W26-data-leakage-gate/evidence-index.md",
+    "docs/sprints/2026-W26-data-leakage-gate/artifact-updates.md",
+    "docs/sprints/2026-W26-data-leakage-gate/process-change-candidates.md",
+    "docs/sprints/2026-W26-data-leakage-gate/review.md",
+    "docs/sprints/2026-W26-data-leakage-gate/retro.md",
+    "docs/sprints/2026-W26-data-leakage-gate/sprint-summary.md",
+    "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "data leakage validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:security-foundation",
+      "status": "passed",
+      "evidence": "security foundation validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full test suite passed, including data leakage validation"
+    }
+  ],
+  "known_limitations": [
+    "Gate проверяет selected sinks, а не весь репозиторий.",
+    "Regex detection не заменяет ручную privacy review реальных пользовательских данных.",
+    "Real UAT artifacts еще не существуют и не включены в scan_targets."
+  ],
+  "next_safe_step": "После real UAT добавить exported runtime state и human-review-session-real.json в scan_targets."
+}

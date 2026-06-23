@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/review-runtime-state.schema.json",
+  "title": "ReviewRuntimeState",
+  "type": "object",
+  "required": [
+    "version",
+    "state_id",
+    "status",
+    "gate_id",
+    "session_kind",
+    "review_flow_path",
+    "review_ui_fixture_path",
+    "session_artifact_path",
+    "current_state",
+    "export_allowed",
+    "transition_history",
+    "persisted_fields",
+    "evidence_paths",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "state_id": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["fixture", "recorded_real_user"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "session_kind": { "type": "string", "enum": ["fixture", "real_user"] },
+    "review_flow_path": { "type": "string", "minLength": 1 },
+    "review_ui_fixture_path": { "type": "string", "minLength": 1 },
+    "session_artifact_path": { "type": "string", "minLength": 1 },
+    "current_state": { "type": "string", "minLength": 1 },
+    "export_allowed": { "type": "boolean" },
+    "transition_history": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["event_id", "from", "action", "to", "actor_id", "role", "timestamp", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": { "type": "string", "minLength": 1 },
+          "from": { "type": "string", "minLength": 1 },
+          "action": { "type": "string", "minLength": 1 },
+          "to": { "type": "string", "minLength": 1 },
+          "actor_id": { "type": "string", "minLength": 1 },
+          "role": { "type": "string", "minLength": 1 },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "persisted_fields": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "evidence_paths": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

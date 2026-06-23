@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "changelog_path": "docs/process/current/process-changelog.md",
+  "entries": [
+    {
+      "process_change_id": "PROC-001",
+      "title": "Принять процесс 0.1.0",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+      "pcr_path": "docs/process/change-requests/PROC-001-accept-process-v0.1.md",
+      "changelog_anchor": "PROC-001",
+      "affected_artifacts": [
+        "docs/process/current/process-passport.md",
+        "docs/process/current/process-registry.md",
+        "docs/process/current/process-changelog.md"
+      ],
+      "validation_commands": ["npm run validate:bootstrap"],
+      "migration_notes": "Первая версия процесса; миграция не требуется.",
+      "rollback": "До первого принятого Sprint Review можно удалить bootstrap process artifacts."
+    },
+    {
+      "process_change_id": "PROC-035",
+      "title": "Сделать threat-model-delta coverage обязательным gate",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/sprints/2026-W26-threat-model-delta-governance/process-change-candidates.md",
+      "pcr_path": "docs/process/change-requests/PROC-035-threat-model-delta-governance.md",
+      "changelog_anchor": "PROC-035",
+      "affected_artifacts": [
+        "docs/architecture/security/threat-model-delta-manifest.json",
+        "schemas/threat-model-delta-manifest.schema.json",
+        "scripts/validate-threat-model-delta.mjs",
+        ".github/workflows/docs-check.yml",
+        "package.json"
+      ],
+      "validation_commands": [
+        "npm run validate:threat-model-delta",
+        "npm run validate:bootstrap",
+        "npm test"
+      ],
+      "migration_notes": "Все существующие sprint folders получили coverage entry в manifest. Новый sprint folder обязан добавляться в manifest до закрытия Sprint Review.",
+      "rollback": "Удалить gate из npm test/CI, вернуть section 9 plan coverage в partial и оставить S21 explicit threat-model-delta как единственный обязательный artifact."
+    }
+  ],
+  "known_limitations": [
+    "Ledger проверяет lifecycle evidence, но не заменяет командное решение на ретроспективе.",
+    "PROC-007 остается draft и не включается как accepted managed improvement.",
+    "Новая версия процесса 0.2.0 должна быть создана отдельным PCR, если команда решит изменить cadence, роли или gates."
+  ],
+  "next_safe_step": "После первой командной ретроспективы добавить реальный PCR с actor/decision metadata и обновить ledger."
+}

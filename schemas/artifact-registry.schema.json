@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/artifact-registry.schema.json",
+  "title": "ArtifactRegistry",
+  "type": "object",
+  "required": ["version", "status", "hash_manifest_path", "hash_algorithm", "snapshot_policy", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string" },
+    "hash_manifest_path": { "type": "string", "minLength": 1 },
+    "hash_algorithm": { "type": "string", "enum": ["sha256"] },
+    "snapshot_policy": {
+      "type": "object",
+      "required": ["coverage", "self_reference_rule", "refresh_command", "validation_command"],
+      "additionalProperties": false,
+      "properties": {
+        "coverage": { "type": "string", "enum": ["all_registered_artifacts_except_declared_exclusions"] },
+        "self_reference_rule": { "type": "string", "minLength": 1 },
+        "refresh_command": { "type": "string", "minLength": 1 },
+        "validation_command": { "type": "string", "minLength": 1 }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "type", "owner_role", "status", "sprint_id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "type": { "type": "string" },
+          "owner_role": { "type": "string" },
+          "status": { "type": "string" },
+          "sprint_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}

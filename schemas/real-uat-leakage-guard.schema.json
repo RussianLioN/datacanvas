@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-leakage-guard.schema.json",
+  "title": "RealUatLeakageGuard",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "purpose",
+    "conditional_targets",
+    "validation_commands",
+    "blocking_conditions",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active_conditional_guard"] },
+    "purpose": { "type": "string", "minLength": 1 },
+    "conditional_targets": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "sink", "data_class", "required_when_exists"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "sink": { "type": "string", "enum": ["runtime_state", "evidence"] },
+          "data_class": { "type": "string", "enum": ["confidential"] },
+          "required_when_exists": { "type": "boolean", "const": true }
+        }
+      }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocking_conditions": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "version": "0.1.0",
+  "session_id": "TO_BE_FILLED_REAL_SESSION_ID",
+  "status": "template",
+  "gate_id": "G9",
+  "session_kind": "real_user",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "uat_manifest_path": "docs/product/ux/uat-manifest.json",
+  "uat_result_path": "docs/product/ux/uat-result-minimal.json",
+  "review_state": "approved",
+  "decision": "accepted",
+  "actor": {
+    "actor_id": "TO_BE_FILLED_REAL_ACTOR_ID",
+    "role": "approver"
+  },
+  "audit_events": [
+    {
+      "actor_id": "TO_BE_FILLED_REAL_ACTOR_ID",
+      "role": "author",
+      "action": "submit_for_review",
+      "source_artifact_id": "tests/golden/presentation-spec-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "TO_BE_FILLED_REAL_REASON",
+      "timestamp": "2026-06-22T00:00:00Z"
+    },
+    {
+      "actor_id": "TO_BE_FILLED_REAL_ACTOR_ID",
+      "role": "reviewer",
+      "action": "comment",
+      "source_artifact_id": "tests/golden/claim-map-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "TO_BE_FILLED_REAL_REASON",
+      "timestamp": "2026-06-22T00:01:00Z"
+    },
+    {
+      "actor_id": "TO_BE_FILLED_REAL_ACTOR_ID",
+      "role": "approver",
+      "action": "record_decision",
+      "source_artifact_id": "docs/product/ux/uat-result-minimal.json",
+      "changed_claim_ids": [],
+      "reason": "TO_BE_FILLED_REAL_REASON",
+      "timestamp": "2026-06-22T00:02:00Z"
+    },
+    {
+      "actor_id": "TO_BE_FILLED_REAL_ACTOR_ID",
+      "role": "approver",
+      "action": "export",
+      "source_artifact_id": "artifacts/examples/export-smoke-manifest.json",
+      "changed_claim_ids": [],
+      "reason": "TO_BE_FILLED_REAL_REASON",
+      "timestamp": "2026-06-22T00:03:00Z"
+    }
+  ],
+  "evidence_paths": [
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/uat-result-minimal.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "artifacts/examples/review-ui-fixture.html"
+  ],
+  "known_limitations": [
+    "Это template, а не запись проведенной real user UAT session.",
+    "Перед pilot gate нужно сохранить отдельный artifact human-review-session-real.json со status=recorded_real_user."
+  ],
+  "next_safe_step": "После реальной сессии сохранить docs/product/ux/human-review-session-real.json и валидировать его как recorded_real_user."
+}

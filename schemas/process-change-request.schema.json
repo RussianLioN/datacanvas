@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/process-change-request.schema.json",
+  "title": "ProcessChangeRequest",
+  "type": "object",
+  "required": ["id", "title", "status", "source", "problem", "expected_effect", "affected_artifacts", "risks", "success_metric", "decision"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^PROC-[0-9]{3}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["draft", "ready", "experiment", "accepted", "rejected", "deferred"] },
+    "source": { "type": "string", "minLength": 1 },
+    "problem": { "type": "string", "minLength": 1 },
+    "expected_effect": { "type": "string", "minLength": 1 },
+    "affected_artifacts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "risks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "success_metric": { "type": "string", "minLength": 1 },
+    "decision": { "type": "string", "enum": ["not_decided", "reject", "defer", "experiment", "accept"] }
+  }
+}

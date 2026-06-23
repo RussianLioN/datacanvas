@@ -1,0 +1,80 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S57",
+  "sprint_name": "real-uat-runtime-actor-identity",
+  "process_version": "0.1.0",
+  "status": "produced_pending_validation",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Устранить mismatch между interactive runtime actor_id и real UAT importer stop-rules без создания fake evidence.",
+  "created_artifacts": [
+    "docs/architecture/adr/ADR-057-real-uat-runtime-actor-identity.md",
+    "docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:review-runtime-interactive",
+      "status": "passed",
+      "evidence": "Проверяет actor input, Real UAT toggle, reset control, запрет генерации interactive-* actor ids и возможность explicit real_user export."
+    },
+    {
+      "command": "npm run validate:real-uat-preflight",
+      "status": "passed",
+      "evidence": "Проверяет, что real UAT preflight видит actor identity controls и сохраняет blocked completion audit."
+    },
+    {
+      "command": "npm run validate:real-uat-operator-handoff",
+      "status": "passed",
+      "evidence": "Проверяет обновленный operator handoff с явным reset session, Real UAT и actor_id шагом."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "Проверяет schema coverage для расширенного review-runtime-interactive manifest и S57 sprint evidence."
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "Проверяет ADR-057, runtime actor controls, registry entry ART-294 и process version SPRINT-2026-W26-S57."
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "Проверяет security delta coverage для S57 actor identity boundary."
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "Проверяет, что coverage audit отражает actor identity controls без снятия real UAT blocker."
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Проверяет registry coverage и hash coverage для S57 artifacts."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Проверяет актуальность artifact hash manifest после изменения runtime и validators."
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "Проверяет, что S57 включен в process version manifest."
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "Проверяет обновленный metrics snapshot с учетом нового sprint folder."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate прошел с обновленным interactive runtime, actor controls, preflight, operator handoff, schema/bootstrap/security/registry/hash/process checks."
+    }
+  ],
+  "known_limitations": [
+    "Real UAT export еще не создан.",
+    "human-review-session-real.json еще не создан.",
+    "Completion audit остается blocked_pending_external."
+  ],
+  "next_safe_step": "Запустить targeted validation, обновить registry/hash/metrics и провести real UAT вручную."
+}

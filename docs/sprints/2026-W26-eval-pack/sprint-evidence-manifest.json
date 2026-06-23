@@ -1,0 +1,49 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S7",
+  "sprint_name": "eval-pack",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать минимальный eval pack до подключения внешнего LLM provider: happy path, security, traceability, presentation quality, hallucination resistance и prompt-injection guard.",
+  "created_artifacts": [
+    "tests/evals/eval-cases.json",
+    "scripts/validate-eval-pack.mjs",
+    "docs/architecture/evals/eval-strategy.md",
+    "docs/architecture/adr/ADR-011-eval-pack-before-provider.md",
+    "docs/sprints/2026-W26-eval-pack/sprint-goal.md",
+    "docs/sprints/2026-W26-eval-pack/sprint-backlog.md",
+    "docs/sprints/2026-W26-eval-pack/planning.md",
+    "docs/sprints/2026-W26-eval-pack/review.md",
+    "docs/sprints/2026-W26-eval-pack/retro.md",
+    "docs/sprints/2026-W26-eval-pack/decisions.md",
+    "docs/sprints/2026-W26-eval-pack/evidence-index.md",
+    "docs/sprints/2026-W26-eval-pack/artifact-updates.md",
+    "docs/sprints/2026-W26-eval-pack/process-change-candidates.md",
+    "docs/sprints/2026-W26-eval-pack/sprint-summary.md",
+    "docs/sprints/2026-W26-eval-pack/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:evals",
+      "status": "passed",
+      "evidence": "2026-06-22: eval pack validation passed."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Eval pack пока structural и deterministic.",
+    "Реальное качество LLM output не измеряется.",
+    "Provider-specific latency, cost и failure rate не собираются.",
+    "Командная приёмка Sprint 7 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 8: подготовить controlled external LLM provider integration plan с Process Change Request, provider allowlist, cost/latency budget, tracing и offline fallback."
+}

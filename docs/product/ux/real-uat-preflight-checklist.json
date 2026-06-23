@@ -1,0 +1,130 @@
+{
+  "version": "0.1.0",
+  "status": "ready_before_real_session",
+  "gate_id": "G9",
+  "purpose": "Проверить перед real UAT, что операторский пакет, interactive runtime, importer и stop-rules готовы, не создавая фиктивное external evidence.",
+  "operator_role": "UX/Prototype Lead",
+  "preflight_scope": [
+    "Проверить наличие всех runbook и runtime artifacts для real UAT.",
+    "Проверить, что fixture/template artifacts не могут быть приняты как real evidence.",
+    "Проверить команды, которые оператор должен выполнить после ручного export.",
+    "Сохранить completion audit в blocked_pending_external до появления фактической сессии."
+  ],
+  "required_artifacts": [
+    {
+      "path": "artifacts/examples/review-runtime-interactive.html",
+      "purpose": "Интерактивный runtime для ручной review-сессии.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/real-uat-operator-handoff.md",
+      "purpose": "Runbook для оператора real UAT.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/real-uat-operator-handoff.json",
+      "purpose": "Машиночитаемый handoff manifest.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/real-uat-runtime-import.json",
+      "purpose": "Контракт проверки exported runtime state.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/real-uat-session-importer.json",
+      "purpose": "Контракт генерации human-review-session-real.json.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/human-review-session-real.template.json",
+      "purpose": "Шаблон, который нельзя считать acceptance evidence.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/product/ux/uat-script.md",
+      "purpose": "Сценарий пользовательской проверки.",
+      "required_before_session": true
+    },
+    {
+      "path": "docs/process/audits/external-blocker-closure-map.json",
+      "purpose": "Карта закрытия внешних blockers без fake evidence.",
+      "required_before_session": true
+    },
+    {
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "purpose": "Фактический runtime export после real UAT.",
+      "required_before_session": false
+    },
+    {
+      "path": "docs/product/ux/human-review-session-real.json",
+      "purpose": "Фактический human review session artifact после import.",
+      "required_before_session": false
+    }
+  ],
+  "external_evidence_policy": {
+    "must_not_create": [
+      "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "docs/product/ux/human-review-session-real.json"
+    ],
+    "allowed_if_already_exists": [
+      "Файл существует только если создан после real UAT и проходит соответствующий validator.",
+      "Файл не содержит TO_BE_FILLED, а actor_id не содержит fixture/template/sample/placeholder/interactive markers."
+    ],
+    "unsafe_markers": ["TO_BE_FILLED", "fixture", "template", "sample", "placeholder", "interactive-"]
+  },
+  "runtime_checks": [
+    {
+      "id": "REAL-UAT-PREFLIGHT-001",
+      "check": "HTML содержит download target review-runtime-state-export.json.",
+      "expected": "Оператор может экспортировать runtime state без ручного копирования JSON."
+    },
+    {
+      "id": "REAL-UAT-PREFLIGHT-002",
+      "check": "Initial runtime state остается fixture/session_kind=fixture.",
+      "expected": "Прототип сам по себе не является real UAT evidence."
+    },
+    {
+      "id": "REAL-UAT-PREFLIGHT-003",
+      "check": "Importer требует status=recorded_real_user и session_kind=real_user.",
+      "expected": "Fixture export не пройдет как acceptance evidence."
+    },
+    {
+      "id": "REAL-UAT-PREFLIGHT-004",
+      "check": "HTML содержит actor input, Real UAT toggle и reset control.",
+      "expected": "Оператор может получить real_user export без ручного редактирования JSON."
+    },
+    {
+      "id": "REAL-UAT-PREFLIGHT-005",
+      "check": "Operator handoff содержит команды validate/import с явным input path.",
+      "expected": "После ручного export есть воспроизводимый путь проверки."
+    },
+    {
+      "id": "REAL-UAT-PREFLIGHT-006",
+      "check": "Completion audit остается blocked_pending_external до real evidence.",
+      "expected": "Preflight не закрывает DOD-005 и DOD-010."
+    }
+  ],
+  "validation_commands": [
+    "npm run validate:real-uat-preflight",
+    "npm run validate:real-uat-operator-handoff",
+    "npm run validate:real-uat-import",
+    "npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm run validate:real-uat-session-importer",
+    "npm run validate:plan-completion-audit",
+    "npm test"
+  ],
+  "stop_conditions": [
+    "Interactive runtime недоступен или не содержит export control.",
+    "Initial runtime state выглядит как recorded_real_user.",
+    "Existing external evidence содержит TO_BE_FILLED или unsafe actor_id markers.",
+    "Operator handoff не содержит явной команды import с --input и --dry-run.",
+    "Completion audit помечен complete без real UAT и pilot evidence."
+  ],
+  "known_limitations": [
+    "Preflight не проводит real UAT и не создает human-review-session-real.json.",
+    "Preflight не заменяет участие реального пользователя или ответственного представителя команды.",
+    "Pilot gate остается pending до real UAT, commit/PR evidence и pilot report."
+  ],
+  "next_safe_step": "Запустить npm run uat:real, пройти real UAT в браузере и дождаться автоматической записи artifacts/manual/real-uat/review-runtime-state-export.json и docs/product/ux/human-review-session-real.json."
+}

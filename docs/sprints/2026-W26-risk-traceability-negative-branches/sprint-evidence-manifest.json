@@ -1,0 +1,63 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S14",
+  "sprint_name": "risk-traceability-negative-branches",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить typed RiskTraceability schema и negative fixtures для prompt-injection leakage, cost budget и latency budget branches.",
+  "created_artifacts": [
+    "schemas/risk-traceability.schema.json",
+    "docs/architecture/risks/risk-traceability.json",
+    "tests/provider/llm-result-prompt-injection-output.json",
+    "tests/provider/provider-experiment-result-security-rollback.json",
+    "tests/provider/provider-experiment-result-cost-rollback.json",
+    "tests/provider/provider-experiment-result-latency-rollback.json",
+    "tests/provider/scenario-cost-overrun.json",
+    "tests/provider/scenario-latency-overrun.json",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-goal.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-backlog.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/planning.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/review.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/retro.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/decisions.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/evidence-index.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/artifact-updates.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/process-change-candidates.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-summary.md",
+    "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:golden",
+      "status": "passed",
+      "evidence": "2026-06-22: generated positive, unsupported-claim, prompt-injection, cost-overrun and latency-overrun provider scorer artifacts."
+    },
+    {
+      "command": "npm run validate:provider-scorer",
+      "status": "passed",
+      "evidence": "2026-06-22: provider scorer validation passed for accept and rollback branches."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "2026-06-22: RiskTraceability, rollback results and Sprint 14 evidence manifest passed schema/cross-artifact validation."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:provider-experiment, validate:provider-evals, validate:provider-scorer, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Failure-rate rollback branch еще не покрыт отдельным fixture.",
+    "RiskTraceability пока не сравнивается автоматически с traceability matrix по всем полям.",
+    "Реальный provider не подключался.",
+    "Командная приёмка Sprint 14 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 15: добавить failure-rate rollback fixture и cross-check RiskTraceability against traceability matrix."
+}

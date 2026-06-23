@@ -1,0 +1,56 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S10",
+  "sprint_name": "provider-experiment-template",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать контракт результата и шаблон controlled LLM provider experiment с rollback decision, quality/cost/latency metrics и security evidence без запуска эксперимента.",
+  "created_artifacts": [
+    "schemas/provider-experiment-result.schema.json",
+    "docs/architecture/llm/provider-experiment-result-template.json",
+    "docs/process/experiments/EXP-001-controlled-llm-provider.md",
+    "docs/architecture/adr/ADR-014-provider-experiment-result-contract.md",
+    "scripts/validate-provider-experiment.mjs",
+    "docs/sprints/2026-W26-provider-experiment-template/sprint-goal.md",
+    "docs/sprints/2026-W26-provider-experiment-template/sprint-backlog.md",
+    "docs/sprints/2026-W26-provider-experiment-template/planning.md",
+    "docs/sprints/2026-W26-provider-experiment-template/review.md",
+    "docs/sprints/2026-W26-provider-experiment-template/retro.md",
+    "docs/sprints/2026-W26-provider-experiment-template/decisions.md",
+    "docs/sprints/2026-W26-provider-experiment-template/evidence-index.md",
+    "docs/sprints/2026-W26-provider-experiment-template/artifact-updates.md",
+    "docs/sprints/2026-W26-provider-experiment-template/process-change-candidates.md",
+    "docs/sprints/2026-W26-provider-experiment-template/sprint-summary.md",
+    "docs/sprints/2026-W26-provider-experiment-template/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:provider-experiment",
+      "status": "passed",
+      "evidence": "2026-06-22: provider experiment validation passed."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "2026-06-22: ProviderExperimentResult template and Sprint 10 evidence manifest passed schema validation."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:provider-experiment, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Реальный provider не выбран.",
+    "Фактические метрики не собраны.",
+    "Quality scoring rubric еще не формализован.",
+    "Provider-specific eval delta schema еще не создана.",
+    "Командная приёмка Sprint 10 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 11: создать ProviderSpecificEvalDelta schema и quality scoring rubric для воспроизводимой оценки provider output до запуска controlled experiment."
+}

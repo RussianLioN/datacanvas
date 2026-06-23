@@ -1,0 +1,25 @@
+{
+  "result_id": "LLMRES-unsupported-claim",
+  "schema_version": "0.1.0",
+  "status": "passed",
+  "presentation_spec": {
+    "spec_id": "SPEC-minimal",
+    "schema_version": "0.1.0",
+    "source_package_id": "PKG-minimal",
+    "title": "DataCanvas Demo",
+    "slides": [
+      {
+        "slide_id": "SLIDE-001",
+        "title": "DataCanvas",
+        "claims": [
+          {
+            "text": "This claim intentionally references a fact that is absent from normalized data.",
+            "fact_ids": [
+              "FACT-999"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

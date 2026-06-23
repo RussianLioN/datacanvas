@@ -1,0 +1,60 @@
+{
+  "version": "0.1.0",
+  "status": "generated",
+  "source_paths": [
+    "tests/golden/presentation-spec-minimal.json",
+    "artifacts/examples/render-result-minimal.json",
+    "artifacts/examples/export-smoke-manifest.json"
+  ],
+  "cases": [
+    {
+      "id": "RREG-HTML-001",
+      "format": "html",
+      "path": "artifacts/examples/presentation-minimal.html",
+      "sha256": "0a767a803a36094c03970daa4a87c07401dc9afccd935ba4ef149c98be63f5ee",
+      "min_bytes": 500,
+      "assertions": [
+        "starts_with_doctype",
+        "contains_data_source_spec_id",
+        "contains_slide_id",
+        "contains_fact_trace"
+      ]
+    },
+    {
+      "id": "RREG-PDF-001",
+      "format": "pdf",
+      "path": "artifacts/examples/presentation-smoke.pdf",
+      "sha256": "48afced0e9b2cd46549d59d708b4a6d9ee79809858da8ba8690a028719847297",
+      "min_bytes": 300,
+      "assertions": [
+        "starts_with_pdf_signature",
+        "hash_matches_export_smoke_manifest",
+        "non_empty_binary"
+      ]
+    },
+    {
+      "id": "RREG-PNG-001",
+      "format": "png",
+      "path": "artifacts/examples/presentation-smoke.png",
+      "sha256": "ec643b38c8bdaa10d9460deb46d42d0fb815c1852472106cc78ddccadcf94058",
+      "min_bytes": 50,
+      "assertions": [
+        "starts_with_png_signature",
+        "hash_matches_export_smoke_manifest",
+        "non_empty_binary"
+      ]
+    }
+  ],
+  "required_gates": [
+    "npm run validate:visual",
+    "npm run validate:export",
+    "npm run validate:export-smoke",
+    "npm run validate:renderer-regression"
+  ],
+  "known_limitations": [
+    "Regression pack проверяет deterministic fixture outputs, а не full browser rendering всех будущих layouts.",
+    "PDF/PNG остаются smoke fixtures до подключения полноценного renderer engine.",
+    "Real user UAT остается отдельным gate."
+  ],
+  "next_safe_step": "После real UAT расширить renderer regression на exported state и пользовательский сценарий review/export."
+}

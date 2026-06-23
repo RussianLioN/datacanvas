@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "status": "generated",
+  "source_html_path": "artifacts/examples/presentation-minimal.html",
+  "outputs": [
+    {
+      "artifact_id": "ART-export-smoke-pdf",
+      "format": "pdf",
+      "path": "artifacts/examples/presentation-smoke.pdf",
+      "sha256": "48afced0e9b2cd46549d59d708b4a6d9ee79809858da8ba8690a028719847297",
+      "signature": "%PDF-"
+    },
+    {
+      "artifact_id": "ART-export-smoke-png",
+      "format": "png",
+      "path": "artifacts/examples/presentation-smoke.png",
+      "sha256": "ec643b38c8bdaa10d9460deb46d42d0fb815c1852472106cc78ddccadcf94058",
+      "signature": "89504e470d0a1a0a"
+    }
+  ],
+  "required_gates": [
+    "npm run validate:export",
+    "npm run validate:visual",
+    "npm run validate:export-smoke",
+    "npm run validate:export-png-pixel-smoke"
+  ]
+}

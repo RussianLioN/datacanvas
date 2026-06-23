@@ -1,0 +1,1649 @@
+{
+  "version": "0.1.0",
+  "status": "generated",
+  "source_registry_path": "docs/architecture/schemas/artifact-registry.json",
+  "algorithm": "sha256",
+  "entries": [
+    {
+      "artifact_id": "ART-001",
+      "path": "docs/process/current/process-passport.md",
+      "sha256": "e166303f3ed308702a56b0dc6454fc0451b69ab4e132ef1f29e8023cac4b2afe"
+    },
+    {
+      "artifact_id": "ART-002",
+      "path": "docs/product/vision/vision-v0.1.md",
+      "sha256": "be99035bcd791a7a67f1e044963da50e9d2e0b4e3cebd7a8119b662b4830a659"
+    },
+    {
+      "artifact_id": "ART-003",
+      "path": "docs/product/bmc/bmc-v0.1.md",
+      "sha256": "c3280ef125be8eebf1a0108297e7411f9edcf31cdd3114270a2c62faf001e87f"
+    },
+    {
+      "artifact_id": "ART-004",
+      "path": "docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json",
+      "sha256": "1edde1c585ec04282798f56008c35062dc69fc2f609e045c5e4508f9e28ccaef"
+    },
+    {
+      "artifact_id": "ART-005",
+      "path": "scripts/validate-bootstrap-artifacts.sh",
+      "sha256": "84c30ef5d0540b12c33e030ec1b1d4996898b555cea5b5452e70586f1bf4e5dc"
+    },
+    {
+      "artifact_id": "ART-006",
+      "path": "docs/architecture/adr/ADR-004-bootstrap-validator.md",
+      "sha256": "1306c4c1558e0c35481505259d05064957eb26809742ed92a890db5ca0009ed7"
+    },
+    {
+      "artifact_id": "ART-007",
+      "path": "schemas/normalized-data.schema.json",
+      "sha256": "ba4cb4a41e97431896ca73cbfa4e373aede68ecf405aaace7f8917ef44b3818a"
+    },
+    {
+      "artifact_id": "ART-008",
+      "path": "scripts/normalize-input-package.mjs",
+      "sha256": "6d6838bcc4a647a6cc72ac348b4a236b6282772af34a66e7eed668dfbf867d37"
+    },
+    {
+      "artifact_id": "ART-009",
+      "path": "tests/golden/trace-manifest-minimal.json",
+      "sha256": "d600958d3725e3bc1a2b6074462d40d064464f9d52495b9b14d3247380be48fb"
+    },
+    {
+      "artifact_id": "ART-010",
+      "path": "docs/architecture/adr/ADR-005-deterministic-normalization.md",
+      "sha256": "9e713c3f4cc3a5bc657218a0a993a973092db209fc204a49d87df3f0f5c8328d"
+    },
+    {
+      "artifact_id": "ART-011",
+      "path": "scripts/generate-presentation-spec.mjs",
+      "sha256": "d3aae8be96ffdba679139bc4a73dad058fa4cce26a47c507baf0724f2c978aec"
+    },
+    {
+      "artifact_id": "ART-012",
+      "path": "tests/golden/claim-map-minimal.json",
+      "sha256": "ab4956a6d39bfb7ed271159cafc3582e34e4d90eeb0f10dbfb8aa368a3d3975b"
+    },
+    {
+      "artifact_id": "ART-013",
+      "path": "docs/architecture/adr/ADR-006-mock-presentation-spec-generator.md",
+      "sha256": "40b54cd7fdc7be7bc81da508fe1bedabf63b73e5ad4c59c7d1a1679163f516f3"
+    },
+    {
+      "artifact_id": "ART-014",
+      "path": "scripts/render-presentation.mjs",
+      "sha256": "8abef02e5f8898f8bcc0041921f7526dd04af46b7d2e5412736656536580b8f9"
+    },
+    {
+      "artifact_id": "ART-015",
+      "path": "artifacts/examples/presentation-minimal.html",
+      "sha256": "0a767a803a36094c03970daa4a87c07401dc9afccd935ba4ef149c98be63f5ee"
+    },
+    {
+      "artifact_id": "ART-016",
+      "path": "docs/architecture/adr/ADR-007-html-renderer-baseline.md",
+      "sha256": "0e9ca897da82c70de9e077f58690265ce8447852ca624a451cfc620d2c903afc"
+    },
+    {
+      "artifact_id": "ART-017",
+      "path": "scripts/validate-visual-baseline.mjs",
+      "sha256": "2e4bdb27e77d033a5adf89b42e31abc693566fdc441bc90ad06f87d37c9f348f"
+    },
+    {
+      "artifact_id": "ART-018",
+      "path": "docs/architecture/renderer/pdf-png-export-strategy.md",
+      "sha256": "1963e552d4499c26a1002c79753ae9b41e73ed7e7340509377c6d2634300f73c"
+    },
+    {
+      "artifact_id": "ART-019",
+      "path": "docs/architecture/llm/prompt-contract.md",
+      "sha256": "8b2d8f589890f3a9820ec9686ff313e829dc5277291cb96bdb6e575e6c8a51ff"
+    },
+    {
+      "artifact_id": "ART-020",
+      "path": "docs/architecture/adr/ADR-009-llm-schema-boundary.md",
+      "sha256": "e836c532286bcf9feba9d0ad515796846a6980010f9d3741ae3ac1ba65ebde3a"
+    },
+    {
+      "artifact_id": "ART-021",
+      "path": "scripts/llm-mock-adapter.mjs",
+      "sha256": "351492cc795992e33082c6226ca0e102fb6d6b44ab016355769af9a248fa1263"
+    },
+    {
+      "artifact_id": "ART-022",
+      "path": "scripts/validate-llm-guardrails.mjs",
+      "sha256": "7ed7e2ceea7cf5bd319897f1c79f4174755735b5b05204ca9b44e9b8f1c3f699"
+    },
+    {
+      "artifact_id": "ART-023",
+      "path": "docs/architecture/security/no-network-by-default.md",
+      "sha256": "59485ab78dda7748f23a0bcf1074bae2b487401abbc5d641a7c9bab25e3595d4"
+    },
+    {
+      "artifact_id": "ART-024",
+      "path": "docs/architecture/adr/ADR-010-llm-mock-guardrails.md",
+      "sha256": "ed703a4cd9526319c2394a4b369957b697b1ce14d8f0e8e432b1dd793dddf592"
+    },
+    {
+      "artifact_id": "ART-025",
+      "path": "scripts/validate-eval-pack.mjs",
+      "sha256": "b16c9e9e73891eac8f7fcb95cf746f5ad0e27c4887a4330b5a812fb6d74ab280"
+    },
+    {
+      "artifact_id": "ART-026",
+      "path": "docs/architecture/evals/eval-strategy.md",
+      "sha256": "d1ee2de24013d333df122bbf0975c81cbe6a4f2d8539d40e7c28ad06878fc844"
+    },
+    {
+      "artifact_id": "ART-027",
+      "path": "docs/architecture/adr/ADR-011-eval-pack-before-provider.md",
+      "sha256": "1b2e92480977eda3b57232691f4814dc56443d5872c0fd2112c0af2057128c60"
+    },
+    {
+      "artifact_id": "ART-028",
+      "path": "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md",
+      "sha256": "833471243e2b7a5f843369cb889e5466548206fe0c18912421952891ad1ecb1e"
+    },
+    {
+      "artifact_id": "ART-029",
+      "path": "docs/architecture/llm/provider-integration-plan.md",
+      "sha256": "c49abd68fa0bdb70061dd376931ff0429116689029dc127de3e8883921215127"
+    },
+    {
+      "artifact_id": "ART-030",
+      "path": "docs/architecture/llm/provider-allowlist.yaml",
+      "sha256": "cdaddd6fe4a597a4159e4cbc8451917de8ace7c42a382c10a258fe2b4276d8b8"
+    },
+    {
+      "artifact_id": "ART-031",
+      "path": "docs/architecture/llm/provider-budget.json",
+      "sha256": "d24447fddcb6e0b16f3ccd6202ec29655e0444ff812206f5c6223f827ad6d239"
+    },
+    {
+      "artifact_id": "ART-032",
+      "path": "scripts/validate-provider-readiness.mjs",
+      "sha256": "6dfbc507d641c896259f8170fa061936ef1ed613aa1360d384ee1eccf75785fc"
+    },
+    {
+      "artifact_id": "ART-033",
+      "path": "docs/architecture/adr/ADR-012-provider-readiness-before-network.md",
+      "sha256": "d1969afb1eada58e5417e72c83bbc0d965996072dbb97a52a0903cc0d3e8e452"
+    },
+    {
+      "artifact_id": "ART-034",
+      "path": "schemas/provider-allowlist.schema.json",
+      "sha256": "c3848981193cdb666d9e3c33787c075b54cbac38d2fb4cb363d74f8119afe3fe"
+    },
+    {
+      "artifact_id": "ART-035",
+      "path": "schemas/provider-budget.schema.json",
+      "sha256": "de324b6c51d1e1467335fb426f4a2512c1f3043967a587a8b648f1e428bd8bb9"
+    },
+    {
+      "artifact_id": "ART-036",
+      "path": "docs/architecture/llm/provider-allowlist.json",
+      "sha256": "40d22db66467e198e73cee2eedaf983621f01b56d7d5cc80213306839dc142f1"
+    },
+    {
+      "artifact_id": "ART-037",
+      "path": "docs/architecture/adr/ADR-013-structured-provider-readiness.md",
+      "sha256": "18e9720284de84cd5adbf45f5e235e535d7af86d178d9adf0ffd172f5cd27c04"
+    },
+    {
+      "artifact_id": "ART-038",
+      "path": "schemas/provider-experiment-result.schema.json",
+      "sha256": "7ba150e938d6c53b57676bd76ee7d75ee131dcee222fa8fd64d191a7d169af90"
+    },
+    {
+      "artifact_id": "ART-039",
+      "path": "docs/architecture/llm/provider-experiment-result-template.json",
+      "sha256": "ad6b3b2f039f44ae27957ce7930e539e3061e74124371f78405314a51d1f6855"
+    },
+    {
+      "artifact_id": "ART-040",
+      "path": "docs/process/experiments/EXP-001-controlled-llm-provider.md",
+      "sha256": "9560180f77bf634a0b048e2fabc5882b2d2083d0b48c324095afa90150b47e30"
+    },
+    {
+      "artifact_id": "ART-041",
+      "path": "scripts/validate-provider-experiment.mjs",
+      "sha256": "4a2fb6f57d6c982d9f5fc765467886d55d156e13a0894eb24afb4f4a666e74b4"
+    },
+    {
+      "artifact_id": "ART-042",
+      "path": "docs/architecture/adr/ADR-014-provider-experiment-result-contract.md",
+      "sha256": "651ad6f8ef46d2eca5be38b55b337ded10860ba4cde917c41f12462648bece29"
+    },
+    {
+      "artifact_id": "ART-043",
+      "path": "schemas/provider-specific-eval-delta.schema.json",
+      "sha256": "21974325c8c254751776a7ba5d20be95b383fb212952fbec1ec897812a261f1b"
+    },
+    {
+      "artifact_id": "ART-044",
+      "path": "tests/evals/provider-specific-eval-delta.json",
+      "sha256": "e6ef3fc8877e0f9b8400d8d679fa19832a5206edfd6492cf78a5f1edfef81182"
+    },
+    {
+      "artifact_id": "ART-045",
+      "path": "docs/architecture/evals/provider-quality-scoring-rubric.md",
+      "sha256": "0df76ebeb681f88045c1103e397998bddd21f24126dba681bd9248b76b3fc8b5"
+    },
+    {
+      "artifact_id": "ART-046",
+      "path": "scripts/validate-provider-eval-delta.mjs",
+      "sha256": "4ba5fefda1f663705f598809e5e2f7a6f8aaff5438fc15af2805d5cb4ca7e98b"
+    },
+    {
+      "artifact_id": "ART-047",
+      "path": "docs/architecture/adr/ADR-015-provider-specific-eval-delta.md",
+      "sha256": "889d6a8834e35bdf2b251df928d31b2b6a1d5fb9aca23a2d869d02123787de7a"
+    },
+    {
+      "artifact_id": "ART-048",
+      "path": "schemas/risk-registry.schema.json",
+      "sha256": "d024c30779297a35a911064f0ccb2ac5652ba17081b2f13fdd3d30526d94a96f"
+    },
+    {
+      "artifact_id": "ART-049",
+      "path": "docs/architecture/risks/risk-registry.json",
+      "sha256": "3529f1b866716504ce5e71f2c0aa0203dc270edb87597a305fc851e8676b7e09"
+    },
+    {
+      "artifact_id": "ART-050",
+      "path": "scripts/score-provider-output.mjs",
+      "sha256": "45c8a286b64821f627cbab4b24bc69bbff0299867adb9c6d480613c3950f85fa"
+    },
+    {
+      "artifact_id": "ART-051",
+      "path": "scripts/validate-provider-scorer.mjs",
+      "sha256": "257614180ee2be6f66635e69d50ec1458838c9b6bab2ec1d483e8528cf65e552"
+    },
+    {
+      "artifact_id": "ART-052",
+      "path": "tests/provider/provider-experiment-result-scored.json",
+      "sha256": "eb8185799fb7ea9b1aaa87a1b3b0c98381efeff9503a845e74c9f6e744f53a6c"
+    },
+    {
+      "artifact_id": "ART-053",
+      "path": "docs/architecture/adr/ADR-016-provider-output-scorer-and-risk-registry.md",
+      "sha256": "2d9919408d4eaf222ebf69a130804ff28ecdbb481cbb51945c7354e39583e5aa"
+    },
+    {
+      "artifact_id": "ART-054",
+      "path": "tests/provider/llm-result-unsupported-provider-output.json",
+      "sha256": "7eb31512bc690d2216be8750050e937c1492368978d6189b4a89dedfc6fd3752"
+    },
+    {
+      "artifact_id": "ART-055",
+      "path": "tests/provider/provider-experiment-result-rollback.json",
+      "sha256": "4a8714b09f7e039949aa053929c014fb123ecc392c243dda2f96464003def407"
+    },
+    {
+      "artifact_id": "ART-056",
+      "path": "schemas/risk-traceability.schema.json",
+      "sha256": "8ea463569ad296a43638b4947927a4bc6cd2f32ca31893349e317164fc04f564"
+    },
+    {
+      "artifact_id": "ART-057",
+      "path": "docs/architecture/risks/risk-traceability.json",
+      "sha256": "b8a79e54c6919139bc1ef5c15e7cf473be8bf05479509280748afe3dc04ec346"
+    },
+    {
+      "artifact_id": "ART-058",
+      "path": "tests/provider/provider-experiment-result-security-rollback.json",
+      "sha256": "4dfb30f8ad999872c57a0b9bc81c5e2730875d0f1248bbd0654f0046aa7a5b09"
+    },
+    {
+      "artifact_id": "ART-059",
+      "path": "tests/provider/provider-experiment-result-cost-rollback.json",
+      "sha256": "00b75390f4ebbb2bc9239b11d645ad0bc50d3e385083d6ca730dc707ce7f902e"
+    },
+    {
+      "artifact_id": "ART-060",
+      "path": "tests/provider/provider-experiment-result-latency-rollback.json",
+      "sha256": "9e0f7c08513a97fe5f8528892ae27a9b6633f8c540e0edff3e18a0dcc809df79"
+    },
+    {
+      "artifact_id": "ART-061",
+      "path": "tests/provider/provider-experiment-result-failure-rollback.json",
+      "sha256": "a06d59068f4dd5313ee7041c32c3a9c85c1f01fb5e16664929ece3ea1f9cc806"
+    },
+    {
+      "artifact_id": "ART-062",
+      "path": "tests/provider/scenario-failure-overrun.json",
+      "sha256": "b259289ce716a6f4fff24290281f6af6b16cc2acc85b1ddb4de57811aa8e8229"
+    },
+    {
+      "artifact_id": "ART-063",
+      "path": "docs/architecture/risks/risk-matrix.md",
+      "sha256": "f113b785074dd7bb34b7e44d0888e563f18a81291245f6ef9e5141c10622980f"
+    },
+    {
+      "artifact_id": "ART-064",
+      "path": "scripts/generate-risk-matrix-report.mjs",
+      "sha256": "de85f5b72f250bbdad94f977699720ce5cd66190e70f210d343196e6e3708d96"
+    },
+    {
+      "artifact_id": "ART-065",
+      "path": "scripts/validate-risk-matrix.mjs",
+      "sha256": "1bf676bb2add7400643c41f7823c7ddfd03b49dd3e84b33553f13dba4134dba5"
+    },
+    {
+      "artifact_id": "ART-066",
+      "path": "schemas/risk-evidence-map.schema.json",
+      "sha256": "f6fa927442a6edcd9b5cf803eff3862316c9f1ddd5265e427ced89a53d5e9a33"
+    },
+    {
+      "artifact_id": "ART-067",
+      "path": "docs/architecture/risks/risk-evidence-map.json",
+      "sha256": "a138b20d70c978fe0d23e85aace6b69a352cb2eba97bb094de4e67db0468dd1c"
+    },
+    {
+      "artifact_id": "ART-068",
+      "path": "scripts/generate-risk-traceability.mjs",
+      "sha256": "89c1320e51881e0fb46c68aa5910728d902f15cf28ae85d437e070f62a7f9419"
+    },
+    {
+      "artifact_id": "ART-069",
+      "path": "scripts/validate-risk-traceability.mjs",
+      "sha256": "38d7ac571ea7ff81ea014e7cc05e6785a0720757fd1a30ccae1e1f7736c86009"
+    },
+    {
+      "artifact_id": "ART-070",
+      "path": "docs/architecture/adr/ADR-017-generated-risk-traceability.md",
+      "sha256": "ef5c6d53ab8d99fcf2fed579258f823daac277f2b06c1271d1ed183ee662d1b6"
+    },
+    {
+      "artifact_id": "ART-071",
+      "path": "docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json",
+      "sha256": "c3dbeb53fd12561f817daba8dc735f12adc47d445bc95a8880f2b2435b0868c6"
+    },
+    {
+      "artifact_id": "ART-072",
+      "path": "scripts/validate-artifact-registry.mjs",
+      "sha256": "9f5cc78670b95b52fab559e741114fd800510f664e36d5da108ccf9db569f02c"
+    },
+    {
+      "artifact_id": "ART-073",
+      "path": "docs/architecture/adr/ADR-018-artifact-registry-validation.md",
+      "sha256": "38351a1748a428dd4ede4574970c96f8210c6b44cf0a7f77029244fb398bccc0"
+    },
+    {
+      "artifact_id": "ART-074",
+      "path": "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json",
+      "sha256": "060b0f81b2bb2924c7add57ddbb5e96234a90e279946aa28750b8213da3b82fb"
+    },
+    {
+      "artifact_id": "ART-075",
+      "path": "schemas/process-version-manifest.schema.json",
+      "sha256": "1eba75007557584a75cfa18ecc25ee19853248b5064cb66b67a4eafef51cd9e5"
+    },
+    {
+      "artifact_id": "ART-076",
+      "path": "docs/process/versions/0.1.0/process-version-manifest.json",
+      "sha256": "e2432cc38bb7ccb897aa0a5f2594df6b9ea922c1e846ff558a79fed4c5466441"
+    },
+    {
+      "artifact_id": "ART-077",
+      "path": "docs/process/versions/0.1.0/process-snapshot.md",
+      "sha256": "90ace80cf3c8d52830c9909d4abd6c7915a0e4eba711f1cd0892b7bab7d55427"
+    },
+    {
+      "artifact_id": "ART-078",
+      "path": "scripts/validate-process-versioning.mjs",
+      "sha256": "df30510205a78e74f3a64ba52ecd3706523ecad259bc107504e810f707e95375"
+    },
+    {
+      "artifact_id": "ART-079",
+      "path": "docs/architecture/adr/ADR-019-process-versioning-validation.md",
+      "sha256": "55acb20f1cf4221a854604e3e91bc96583589449eba4d5d02dd5bcaf5d6d546d"
+    },
+    {
+      "artifact_id": "ART-080",
+      "path": "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+      "sha256": "7ca1708833f73732695d177201f953ce92dbb97f77c7d7cf5bf11a4bb2e7f222"
+    },
+    {
+      "artifact_id": "ART-081",
+      "path": "schemas/plan-coverage-audit.schema.json",
+      "sha256": "154b80943b5a3b089c7813867e87a491e5a7df1c286390946e38db2c0e77a045"
+    },
+    {
+      "artifact_id": "ART-082",
+      "path": "docs/process/audits/datacanvas-plan-coverage-audit.json",
+      "sha256": "845e41b448896110dbf5f84df0658c431f12193b7d253ee592a30921f366f09b"
+    },
+    {
+      "artifact_id": "ART-083",
+      "path": "docs/process/audits/datacanvas-plan-coverage-report.md",
+      "sha256": "1d347695f0a0d4be597010c9b11cd3531385b50d904b30e3f5041fc15a614031"
+    },
+    {
+      "artifact_id": "ART-084",
+      "path": "scripts/validate-plan-coverage.mjs",
+      "sha256": "8b832a6cca32a2c86d91ea38fd16c2ea8e1d52ccdf4c5d0b19b3266c2f677870"
+    },
+    {
+      "artifact_id": "ART-085",
+      "path": "docs/architecture/adr/ADR-020-plan-coverage-audit.md",
+      "sha256": "be4f4f97befc6f886cb1644729cc540f7fd68c01ae1bf1f842e67529eba2891f"
+    },
+    {
+      "artifact_id": "ART-086",
+      "path": "docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json",
+      "sha256": "552e572ba8e4e689d3d4c0818340a4732bf47f6f5833abf0a49d17d1904fd79c"
+    },
+    {
+      "artifact_id": "ART-087",
+      "path": "schemas/security-foundation-manifest.schema.json",
+      "sha256": "0f6ac5f39ac51c6ac8a3bada719efe54512224a87d250676bee5ff27aa2a6c16"
+    },
+    {
+      "artifact_id": "ART-088",
+      "path": "docs/architecture/security/security-foundation-manifest.json",
+      "sha256": "0777b6fe415fe0020255b4ee83528c95d45829721c8d2ba0dc6b715c7acc270f"
+    },
+    {
+      "artifact_id": "ART-089",
+      "path": "docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md",
+      "sha256": "b25e96e61c01f1105d0b20a4ed3de82781fbd2aafcc85a6789d11ee8d082b77d"
+    },
+    {
+      "artifact_id": "ART-090",
+      "path": "scripts/scan-secrets.mjs",
+      "sha256": "f42bd10422681cc8fc223e9db2a0189ee6a553ab92dd07392a00e8364ac2f596"
+    },
+    {
+      "artifact_id": "ART-091",
+      "path": "scripts/validate-security-foundation.mjs",
+      "sha256": "8076ad7ff05ced42e444722836f7b7dfdf9fa37776094d6a6c502e9f89ffb59f"
+    },
+    {
+      "artifact_id": "ART-092",
+      "path": "docs/architecture/adr/ADR-021-security-foundation-gate.md",
+      "sha256": "ecd1522a47c3d793063be3a27d83bfb7561ea7b9533e2750528661b43c6b6990"
+    },
+    {
+      "artifact_id": "ART-093",
+      "path": "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json",
+      "sha256": "e6603dea86b7351dbd2004435897799e5d2a3a5f9a1d8e4ac8a4c9c9ef41d243"
+    },
+    {
+      "artifact_id": "ART-094",
+      "path": "schemas/backlog-registry.schema.json",
+      "sha256": "7089846cc68083256771067d08445e3d1179cd6a3ada69b96e6fd7f92b733a97"
+    },
+    {
+      "artifact_id": "ART-095",
+      "path": "docs/product/backlog/backlog-registry.json",
+      "sha256": "98455f9a699cb69c1843947772374d9219f328c76e2739581da8776fc907ecd1"
+    },
+    {
+      "artifact_id": "ART-096",
+      "path": "docs/product/backlog/technical-backlog.md",
+      "sha256": "bb77a08d50c4192e9e9bade0cf7abd6c42e317e8032e97bd4257c16d89b6b019"
+    },
+    {
+      "artifact_id": "ART-097",
+      "path": "docs/product/backlog/eval-backlog.md",
+      "sha256": "c08bc7121b5e989fc42df3baa82a93f1e577ff4c40c4a28a1a532a58dc28b37a"
+    },
+    {
+      "artifact_id": "ART-098",
+      "path": "scripts/validate-backlog-registry.mjs",
+      "sha256": "449e4786132c6a05c7747a1c5074304db3464ff0c6c24e5b6541df6af0622671"
+    },
+    {
+      "artifact_id": "ART-099",
+      "path": "docs/architecture/adr/ADR-022-backlog-registry.md",
+      "sha256": "95a96926fb93a4855aaa87484df300337f646fcc22b00c7cb6e505cc73e55acc"
+    },
+    {
+      "artifact_id": "ART-100",
+      "path": "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json",
+      "sha256": "fe6dda2eb41b6d81e9da5606c1b566fe898cf5ef916adeaefbd18f62c7688fcd"
+    },
+    {
+      "artifact_id": "ART-101",
+      "path": "schemas/render-request.schema.json",
+      "sha256": "1ab180df1a7141300335108be7efd8e571ceec4964608426e0d76e9c07f78431"
+    },
+    {
+      "artifact_id": "ART-102",
+      "path": "schemas/process-change-request.schema.json",
+      "sha256": "8b5fb0a1f1cfb770a44106a91eac1621a2546767188df08b05f1fd0e3f8efd2d"
+    },
+    {
+      "artifact_id": "ART-103",
+      "path": "schemas/tool-allowlist.schema.json",
+      "sha256": "2d4baf1fe765353bf31fb1f8733aa901318b6e5f5267a7473ed91adf5e28a5eb"
+    },
+    {
+      "artifact_id": "ART-104",
+      "path": "schemas/trace-contract.schema.json",
+      "sha256": "02223474d8ffe21aecf99900de2043238d3a3cb3add315c277a058599dacfc14"
+    },
+    {
+      "artifact_id": "ART-105",
+      "path": "scripts/validate-contract-schemas.mjs",
+      "sha256": "824e4313695427820b415c3b191128acac9b55f87d6b58b4460ded6e14bc27cf"
+    },
+    {
+      "artifact_id": "ART-106",
+      "path": "docs/architecture/adr/ADR-023-contract-schemas.md",
+      "sha256": "149679fb17eb31a237cdfeaeff697821dadfb9a317f678d17c2de6588d61ca87"
+    },
+    {
+      "artifact_id": "ART-107",
+      "path": "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json",
+      "sha256": "c4aac060338eff49ea959896f5a360103ba50e6a5e3093d4d070220d8ce73a16"
+    },
+    {
+      "artifact_id": "ART-108",
+      "path": "schemas/artifact-hash-manifest.schema.json",
+      "sha256": "c82f0d2f1a15cacd9dae51d2dd7bd7739fc711ff5b2da034f55f78e2de2dfe39"
+    },
+    {
+      "artifact_id": "ART-110",
+      "path": "scripts/generate-artifact-hash-manifest.mjs",
+      "sha256": "a8ef4039f7b382e513a37a52bf22897a631b3d45f7dfef42f58c6e57a901e57a"
+    },
+    {
+      "artifact_id": "ART-111",
+      "path": "scripts/validate-artifact-hash-manifest.mjs",
+      "sha256": "061ea4f9cecb7a7f238c62e2112c58fdee490243211be9cf2a49ec058be55b15"
+    },
+    {
+      "artifact_id": "ART-112",
+      "path": "docs/architecture/adr/ADR-024-artifact-hash-manifest.md",
+      "sha256": "6415f546c83d6ea59d825960af96b8b96f90a44830f9b98579cffbac4cf0c15e"
+    },
+    {
+      "artifact_id": "ART-113",
+      "path": "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
+      "sha256": "330a0591a814092fffe2a80e9623555aa6ed690e9ec51d40410cc7b2c45d46c2"
+    },
+    {
+      "artifact_id": "ART-114",
+      "path": "schemas/operational-readiness-manifest.schema.json",
+      "sha256": "88c84925951adc5ad90ee1aae4087a7fcfdb8e454e4977c279992b02bb05d289"
+    },
+    {
+      "artifact_id": "ART-115",
+      "path": "docs/architecture/observability/operational-readiness-checklist.md",
+      "sha256": "75ee2f0b0161c546d75f7b7117779d855c9e29ffb1a34bb131cedb6bc54dbd49"
+    },
+    {
+      "artifact_id": "ART-116",
+      "path": "docs/architecture/observability/operational-readiness-manifest.json",
+      "sha256": "c1b2536ea89de761bbb96890e13b273ae5d9acb803944f02f8441d5094350e2b"
+    },
+    {
+      "artifact_id": "ART-117",
+      "path": "docs/architecture/observability/runbook.md",
+      "sha256": "29b0c555a54bdd155a0d6251a9cbfc65d06b513cc3e030e047a4a4307b137035"
+    },
+    {
+      "artifact_id": "ART-118",
+      "path": "scripts/validate-operational-readiness.mjs",
+      "sha256": "00efd79dcf0f0d9074de33abd924d520a8117cecc5b4f3b949a844eadea3a310"
+    },
+    {
+      "artifact_id": "ART-119",
+      "path": "docs/architecture/adr/ADR-025-operational-readiness-gate.md",
+      "sha256": "ce63f0314e957232a6c5af87e0fe12e7c5ef688a12f307a9db186b41cdb4c4fb"
+    },
+    {
+      "artifact_id": "ART-120",
+      "path": "docs/sprints/2026-W26-operational-readiness-gate/sprint-evidence-manifest.json",
+      "sha256": "04721eebb98ee49c323ea669eb3c6f741e1020ad31dd705466ea73e05c2c203d"
+    },
+    {
+      "artifact_id": "ART-121",
+      "path": "schemas/human-review-flow.schema.json",
+      "sha256": "5f13692cec0d252450bb128491c907435075ff0718e4ee6e2296d9404634f924"
+    },
+    {
+      "artifact_id": "ART-122",
+      "path": "schemas/uat-manifest.schema.json",
+      "sha256": "d02d74f9556a7a8f3d1ada377e785254fdfaae2b6cb09de056db3dd7d481403e"
+    },
+    {
+      "artifact_id": "ART-123",
+      "path": "docs/product/ux/human-review-flow.md",
+      "sha256": "c05c95f4be4b2786beb3092055967dc7c8eb921951b408ff35300ebabbc1e7fc"
+    },
+    {
+      "artifact_id": "ART-124",
+      "path": "docs/product/ux/human-review-flow.json",
+      "sha256": "b38d36cad21185a93c944ec0a93753fd685075f8cd33c0ccddc5c8b7623f617a"
+    },
+    {
+      "artifact_id": "ART-125",
+      "path": "docs/product/ux/uat-script.md",
+      "sha256": "e7f467431d029dcf84e81f1959535ff2163fdbe74e61781fbb5a8b699570cd72"
+    },
+    {
+      "artifact_id": "ART-126",
+      "path": "docs/product/ux/uat-manifest.json",
+      "sha256": "039a2e89697abc691cf2e13cb3247d8e6ff686088e74691f28bbfa6c12350532"
+    },
+    {
+      "artifact_id": "ART-127",
+      "path": "scripts/validate-uat-human-review.mjs",
+      "sha256": "9031f6591467ca9941a1bd17a74c521964659149990413ebcb5b93cf72b76d65"
+    },
+    {
+      "artifact_id": "ART-128",
+      "path": "docs/architecture/adr/ADR-026-human-review-uat-gate.md",
+      "sha256": "7a08aba5f7a479133f378ef89d4c6c83c802685d9d6d9d3e1fc8daf4e6fc5713"
+    },
+    {
+      "artifact_id": "ART-129",
+      "path": "docs/sprints/2026-W26-human-review-uat-gate/sprint-evidence-manifest.json",
+      "sha256": "c8502e7efc7f265abb345493724284cb2e23ec0da8c08b3543fb693a18f807a3"
+    },
+    {
+      "artifact_id": "ART-130",
+      "path": "schemas/export-smoke-manifest.schema.json",
+      "sha256": "e75c8568bcb21634c7c7d235e7130ccfb103606ea13750b79b97a381d8949069"
+    },
+    {
+      "artifact_id": "ART-131",
+      "path": "scripts/generate-export-smoke-fixtures.mjs",
+      "sha256": "68044beafb5209861e246aee67498911df6eb36c1c93cf8352aee94289269ca2"
+    },
+    {
+      "artifact_id": "ART-132",
+      "path": "scripts/validate-export-smoke.mjs",
+      "sha256": "e311ccc96c3c4cf2786268f54ef7d818df47c95487e4ef54457aa2471e470c69"
+    },
+    {
+      "artifact_id": "ART-133",
+      "path": "artifacts/examples/presentation-smoke.pdf",
+      "sha256": "48afced0e9b2cd46549d59d708b4a6d9ee79809858da8ba8690a028719847297"
+    },
+    {
+      "artifact_id": "ART-134",
+      "path": "artifacts/examples/presentation-smoke.png",
+      "sha256": "ec643b38c8bdaa10d9460deb46d42d0fb815c1852472106cc78ddccadcf94058"
+    },
+    {
+      "artifact_id": "ART-135",
+      "path": "artifacts/examples/export-smoke-manifest.json",
+      "sha256": "43331dbebf4ecea4eabf12bd44161c61e7cec215ce463c12e7115f572e2c6559"
+    },
+    {
+      "artifact_id": "ART-136",
+      "path": "docs/architecture/adr/ADR-027-pdf-png-export-smoke.md",
+      "sha256": "68b0942eed1b2750bdc96622bcfbaaa48957236ccb930de05b93b6cf64a26dd4"
+    },
+    {
+      "artifact_id": "ART-137",
+      "path": "docs/sprints/2026-W26-pdf-png-export-smoke/sprint-evidence-manifest.json",
+      "sha256": "1c45fc4f2c7ff0681ced6e8ebd358a25bb3051bc41e02f98666942c36d4cd240"
+    },
+    {
+      "artifact_id": "ART-138",
+      "path": "schemas/uat-result.schema.json",
+      "sha256": "9a1def74fcd018f62d9697778741367a5a212883406e2b96e81874b65d00b18d"
+    },
+    {
+      "artifact_id": "ART-139",
+      "path": "docs/product/ux/uat-result.md",
+      "sha256": "7fae733bc469bcfbc50717255197bb7fc8c5cf58db0f450d6a4d5bda9d33e7ff"
+    },
+    {
+      "artifact_id": "ART-140",
+      "path": "docs/product/ux/uat-result-minimal.json",
+      "sha256": "973d335e741f83f056e7f4aeb46aee4977249bd1086ed07c853e04a8bba55186"
+    },
+    {
+      "artifact_id": "ART-141",
+      "path": "scripts/validate-uat-result.mjs",
+      "sha256": "23caab48f2114035a513c7943c806a0ebb67acd82e17cea4c6c5aa31a0b206c0"
+    },
+    {
+      "artifact_id": "ART-142",
+      "path": "docs/architecture/adr/ADR-028-uat-result-fixture.md",
+      "sha256": "19501ab0a38cb2f0aa5744fd88c30fe96a1427d723f8bbeca8f1e1fee87c55a3"
+    },
+    {
+      "artifact_id": "ART-143",
+      "path": "docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json",
+      "sha256": "86b2ee67220d542a5187994a8f49abf10f1cdacd1cc2a7d3933e2d7d945b06d3"
+    },
+    {
+      "artifact_id": "ART-144",
+      "path": "schemas/release-evidence-pack.schema.json",
+      "sha256": "c19088f5e136dc94e957635bc160c8953a35b01767e2a7123a983a7041c10ffb"
+    },
+    {
+      "artifact_id": "ART-145",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "sha256": "72a4349f3c2edba2bf851259b7941c7693debcac63ff9f9e96260c000413a1b7"
+    },
+    {
+      "artifact_id": "ART-146",
+      "path": "docs/release/mvp-release-evidence-pack.md",
+      "sha256": "bc00d75efa5b5df8e91c3d39fbed2b74c63a5e6a820b33ff75bd153bf260f614"
+    },
+    {
+      "artifact_id": "ART-147",
+      "path": "scripts/validate-release-evidence-pack.mjs",
+      "sha256": "938c06d03ff8072b7cfbee918ad92a8057daecccdc9cd5ade8586228a80309c6"
+    },
+    {
+      "artifact_id": "ART-148",
+      "path": "docs/architecture/adr/ADR-029-release-evidence-pack.md",
+      "sha256": "aa0df3a5c8ebce0be55ca60b6b4af605150921f3eded4328c2ee2ddccd0471b7"
+    },
+    {
+      "artifact_id": "ART-149",
+      "path": "docs/sprints/2026-W26-release-evidence-pack/sprint-evidence-manifest.json",
+      "sha256": "6e4a70a3477aae36aaab984f2055a6b951270616c233dd2c4dae1a920462054d"
+    },
+    {
+      "artifact_id": "ART-150",
+      "path": "schemas/review-ui-fixture.schema.json",
+      "sha256": "f27a573b393aa5101bbc293098c39ae5e449e00d3c950e56e3d6f5c58cf9836b"
+    },
+    {
+      "artifact_id": "ART-151",
+      "path": "schemas/human-review-session.schema.json",
+      "sha256": "d7177b8f3af8f39ba125ce13987af8ed0b5bed6c38b64015ff500584a84b2885"
+    },
+    {
+      "artifact_id": "ART-152",
+      "path": "docs/product/ux/review-ui-fixture.json",
+      "sha256": "1d3454141dce6b71911d82ab386ca60da42ecf910c824c397ea1ebc2e105a227"
+    },
+    {
+      "artifact_id": "ART-153",
+      "path": "docs/product/ux/human-review-session-minimal.json",
+      "sha256": "ed2d452e38dd5b27930d0acc2f19fc2ba45d7a7698fc8f37a72167c9231836ca"
+    },
+    {
+      "artifact_id": "ART-154",
+      "path": "artifacts/examples/review-ui-fixture.html",
+      "sha256": "4e4d4628249188c70dbef358e2e98a833d01db1cfbe720fd53ee4d0511c590fb"
+    },
+    {
+      "artifact_id": "ART-155",
+      "path": "scripts/validate-review-ui-fixture.mjs",
+      "sha256": "ca897137b4c8b7e0c66a150f8ad8607c5c67ed9815938329890a59d52f330fc1"
+    },
+    {
+      "artifact_id": "ART-156",
+      "path": "docs/architecture/adr/ADR-030-review-ui-fixture.md",
+      "sha256": "8fcff319e760178a872ef85146ebad8f7560bfb3120caee03d2e8893ec140739"
+    },
+    {
+      "artifact_id": "ART-157",
+      "path": "docs/sprints/2026-W26-review-ui-fixture/sprint-evidence-manifest.json",
+      "sha256": "4710a1621bd720b103dc0694be24bd7e2cea6b8899e7e6e1a388ffa07dc57b12"
+    },
+    {
+      "artifact_id": "ART-158",
+      "path": "schemas/real-uat-gate-readiness.schema.json",
+      "sha256": "e566401edce1035e69796c34c770bed7415cc2cde9cd512abfcc1694c89908a3"
+    },
+    {
+      "artifact_id": "ART-159",
+      "path": "docs/product/ux/real-uat-gate-readiness.json",
+      "sha256": "89f92396b0ddfebacdd06b1b484e28b6a81a5e3276bf2e52c3eebf8ace21d130"
+    },
+    {
+      "artifact_id": "ART-160",
+      "path": "docs/product/ux/human-review-session-real.template.json",
+      "sha256": "570310181d7c27ba5a27fd163ef05043ed46f26848fe2b80d10a9c9b41a8cfca"
+    },
+    {
+      "artifact_id": "ART-161",
+      "path": "docs/product/ux/real-uat-session-guide.md",
+      "sha256": "9b64da10c6e422bbd3ecd8851745685cb4c8b6b3ae0acddba86f554792ec11f3"
+    },
+    {
+      "artifact_id": "ART-162",
+      "path": "scripts/validate-real-uat-readiness.mjs",
+      "sha256": "8ba6b2808e8772a160a3f307769e72852122b248ebdf3eaeae010ab3170cf8b9"
+    },
+    {
+      "artifact_id": "ART-163",
+      "path": "docs/architecture/adr/ADR-031-real-uat-readiness-gate.md",
+      "sha256": "aaaf0bb58e448a598058b3ecc4e22bf90b55cf17cd8ad9ea0c58a822074b2155"
+    },
+    {
+      "artifact_id": "ART-164",
+      "path": "docs/sprints/2026-W26-real-uat-readiness/sprint-evidence-manifest.json",
+      "sha256": "61ede66b08529d5da0950ae99e0e5affa1a71f25d054dc417e3332c9967d7045"
+    },
+    {
+      "artifact_id": "ART-165",
+      "path": "schemas/process-metrics-manifest.schema.json",
+      "sha256": "766a19e772df7eb669134b0c252cb894bcefd34f4631d8f08a7b3ef4aec35e61"
+    },
+    {
+      "artifact_id": "ART-166",
+      "path": "docs/process/current/process-metrics-manifest.json",
+      "sha256": "6890d3078fba93c6d5e87afda4ed044f9d5556db4abc15a960deb21e677b2a65"
+    },
+    {
+      "artifact_id": "ART-167",
+      "path": "scripts/validate-process-metrics.mjs",
+      "sha256": "56c0d1c49a5dbc07d86e18995886cf4eb7981efe66914b84891bd35120e5a4dd"
+    },
+    {
+      "artifact_id": "ART-168",
+      "path": "docs/architecture/adr/ADR-032-process-metrics-manifest.md",
+      "sha256": "546e2aa87295c1f190ce7a12ce6a408c703714a5e735c6db7a30abdf26180801"
+    },
+    {
+      "artifact_id": "ART-169",
+      "path": "docs/sprints/2026-W26-process-metrics-manifest/sprint-evidence-manifest.json",
+      "sha256": "eedb2ae4717b29fa1287b08d355cf1ca944e264f9690cb8ac8a7f3a38feecaed"
+    },
+    {
+      "artifact_id": "ART-170",
+      "path": "schemas/traceability-graph.schema.json",
+      "sha256": "c1d8bf60f3d1f337be1143717583ce6a1694959904311b15a14bea0eadfe00c3"
+    },
+    {
+      "artifact_id": "ART-171",
+      "path": "docs/architecture/schemas/traceability-graph.json",
+      "sha256": "0bd694dfc24fb4997fd7a2666f571c8f6a85581f5436ddef51cfe8c21c5c8579"
+    },
+    {
+      "artifact_id": "ART-172",
+      "path": "scripts/validate-traceability-graph.mjs",
+      "sha256": "6cb7201812a94bd53ef02da67bf55cd8c594042df29b9a2f66de203a61a3347f"
+    },
+    {
+      "artifact_id": "ART-173",
+      "path": "docs/architecture/adr/ADR-033-traceability-graph-validation.md",
+      "sha256": "25c86ba96fef6bdd6db3983bdea15d0c83b824e4ac5964c09f783ffa0ada3c8e"
+    },
+    {
+      "artifact_id": "ART-174",
+      "path": "docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json",
+      "sha256": "05458ab5de94d6894db84d45e1fcd771feb0e8948bdb1261d3b4f894dea70a2e"
+    },
+    {
+      "artifact_id": "ART-175",
+      "path": "schemas/review-runtime-state.schema.json",
+      "sha256": "cf660a3d6cf1a8c938bf713470019bd5a8397a8a4e987f6324c547f1c133b91c"
+    },
+    {
+      "artifact_id": "ART-176",
+      "path": "docs/product/ux/review-runtime-state-fixture.json",
+      "sha256": "5f70915423f74471287d25dddd3e06526d709b39530f66aae29bdab4a05eb078"
+    },
+    {
+      "artifact_id": "ART-177",
+      "path": "docs/product/ux/review-runtime-state.md",
+      "sha256": "4aadd3e4a89be419e14d1a24e4ce67bd3342d2e0943520211d6ed4d3a1342744"
+    },
+    {
+      "artifact_id": "ART-178",
+      "path": "scripts/validate-review-runtime-state.mjs",
+      "sha256": "59c0be713554398694317c95e57cd57c334d7ff53eec34b69c31568e7d81f9bc"
+    },
+    {
+      "artifact_id": "ART-179",
+      "path": "docs/architecture/adr/ADR-034-review-runtime-state.md",
+      "sha256": "90cc1fdd5d9e5eb048c58266e88684f9436305ecf27bbe9e455c0ccfd5d48e51"
+    },
+    {
+      "artifact_id": "ART-180",
+      "path": "docs/sprints/2026-W26-review-runtime-state/sprint-evidence-manifest.json",
+      "sha256": "b253eb1cf27888255905cf40f166629b8b22129ea56573a48491f0b43d943f45"
+    },
+    {
+      "artifact_id": "ART-181",
+      "path": "schemas/threat-model-delta-manifest.schema.json",
+      "sha256": "2ec754fb32ee03bab60b092f58bf685eea2e94471204b92dd7af7525d89f100b"
+    },
+    {
+      "artifact_id": "ART-182",
+      "path": "docs/architecture/security/threat-model-delta-manifest.json",
+      "sha256": "cd1dab33285314c81fea217c30dc106ea398ddf6f581d6eb9971820a4904c8e1"
+    },
+    {
+      "artifact_id": "ART-183",
+      "path": "scripts/validate-threat-model-delta.mjs",
+      "sha256": "d5ccc75322169ed75da5956e66f7fd7dcb266a98de153a4b437a2baefe8dd0d5"
+    },
+    {
+      "artifact_id": "ART-184",
+      "path": "docs/architecture/adr/ADR-035-threat-model-delta-governance.md",
+      "sha256": "ab13bb579aa4ed020d6ed3fcb9f31e33087198bf72948708a3091aeb46f5f648"
+    },
+    {
+      "artifact_id": "ART-185",
+      "path": "docs/sprints/2026-W26-threat-model-delta-governance/sprint-evidence-manifest.json",
+      "sha256": "25cbec9e8c73dd15abf48e02e3d875755a618f16b06b4c2feb8306b1a5e36291"
+    },
+    {
+      "artifact_id": "ART-186",
+      "path": "schemas/process-change-ledger.schema.json",
+      "sha256": "585f85428aeac9b371ccdeeddf16aecbcae95e5ff77f259b4bc144409e245846"
+    },
+    {
+      "artifact_id": "ART-187",
+      "path": "docs/process/current/process-change-ledger.json",
+      "sha256": "4c577aa86886790c4d803899bc1f42d6b11ac0fcf8722f065dba0f13f8712505"
+    },
+    {
+      "artifact_id": "ART-188",
+      "path": "docs/process/change-requests/PROC-035-threat-model-delta-governance.md",
+      "sha256": "b4865d50621554be8070e67c7d3615e5f50b364e09e83bf97fcb57e02ecd9522"
+    },
+    {
+      "artifact_id": "ART-189",
+      "path": "scripts/validate-process-change-ledger.mjs",
+      "sha256": "1cc0c3bdbc574b4e3d944e45a2b49ec7925c884365aae78600bde43c69bd064b"
+    },
+    {
+      "artifact_id": "ART-190",
+      "path": "docs/architecture/adr/ADR-036-process-change-ledger.md",
+      "sha256": "0de27e0bf3fbcbe07caeecd7364c3129e38cab759af95f24eb9874429be44ae5"
+    },
+    {
+      "artifact_id": "ART-191",
+      "path": "docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json",
+      "sha256": "e868cbe59a39ddaf59f0adba3bf6801105ad4bd50469531b2335640e450b1688"
+    },
+    {
+      "artifact_id": "ART-192",
+      "path": "schemas/review-runtime-interactive.schema.json",
+      "sha256": "8733bc9591d57a93545965c74f59ba0c58791ee0cf49c7c7b1bbae716e32300a"
+    },
+    {
+      "artifact_id": "ART-193",
+      "path": "docs/product/ux/review-runtime-interactive.json",
+      "sha256": "4a2b1bff13a85d6b7627cd524e818de3ebc167010fdd57367cd69e85f0c71b50"
+    },
+    {
+      "artifact_id": "ART-194",
+      "path": "artifacts/examples/review-runtime-interactive.html",
+      "sha256": "f560e9fcaaaa70d255147be4a09b5bac1be685a8ce3bb4c23d34d149ec32bf5b"
+    },
+    {
+      "artifact_id": "ART-195",
+      "path": "scripts/validate-review-runtime-interactive.mjs",
+      "sha256": "8ae0e9dec99a615bce0d9d7185ec1585a1141a4d225a5ddd65f1809fb4ff2fa3"
+    },
+    {
+      "artifact_id": "ART-196",
+      "path": "docs/architecture/adr/ADR-037-interactive-review-runtime.md",
+      "sha256": "4b3eb18ca2b552c0b80076e270c78acd047d636cbdeb71b66ba8fb166480db69"
+    },
+    {
+      "artifact_id": "ART-197",
+      "path": "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json",
+      "sha256": "64a61da6f25444bc223a1a6f5eff82b07f58ffecbe7e3cb093f0f830833ce49b"
+    },
+    {
+      "artifact_id": "ART-198",
+      "path": "schemas/process-metrics-snapshot.schema.json",
+      "sha256": "b03bf097129ba96c4cbd8808d748c9569242af7ada91938a61447e6fe7df9428"
+    },
+    {
+      "artifact_id": "ART-199",
+      "path": "docs/process/current/process-metrics-snapshot.json",
+      "sha256": "6ead707d6c50dbb77d5c837670b0bd3035192f1ce99742dc9fbd67ffa9357aee"
+    },
+    {
+      "artifact_id": "ART-200",
+      "path": "docs/process/current/process-metrics-snapshot.md",
+      "sha256": "e63dc4e3481ae75cc008b92e4562548311dbdd17958df00208afb543afbfd02d"
+    },
+    {
+      "artifact_id": "ART-201",
+      "path": "scripts/collect-process-metrics.mjs",
+      "sha256": "ab520c5141e573f2c443feff86512e6e8363491de5157cd7db05567286f23ba2"
+    },
+    {
+      "artifact_id": "ART-202",
+      "path": "scripts/validate-process-metrics-snapshot.mjs",
+      "sha256": "17bbcec57d6ebd42a1aef3a82883b462db4122314860591517acc52d79a8e8b9"
+    },
+    {
+      "artifact_id": "ART-203",
+      "path": "docs/architecture/adr/ADR-038-process-metrics-collection.md",
+      "sha256": "eac3fe5adc6f95a1b5b6716227333f5c65a3f13413ea3368e1d269a371aaa8ee"
+    },
+    {
+      "artifact_id": "ART-204",
+      "path": "docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json",
+      "sha256": "306ed722c35ee061036e1c4d93704f1f517db0441d20fb332d694f4221ff621b"
+    },
+    {
+      "artifact_id": "ART-205",
+      "path": "docs/architecture/adr/ADR-039-artifact-registry-hash-linkage.md",
+      "sha256": "be893ff38ddbddc5d22baa8b07cb5dea63ad230762e21e5f8fb2277ae6078c90"
+    },
+    {
+      "artifact_id": "ART-206",
+      "path": "docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json",
+      "sha256": "c1a1aa30307cf83ae2a5ee1d47236f6f1b3bf0c812c16a5bf82e596eae25c633"
+    },
+    {
+      "artifact_id": "ART-207",
+      "path": "schemas/renderer-regression-manifest.schema.json",
+      "sha256": "bda45f03a77893d67599a4108973ab58afa3f2dc8ab1fc0f123ceee0b6dd7c96"
+    },
+    {
+      "artifact_id": "ART-208",
+      "path": "artifacts/examples/renderer-regression-manifest.json",
+      "sha256": "5b744423fe348312bfc077713b0cebf0e1f530ea0a1327b14371f6e600a0ed56"
+    },
+    {
+      "artifact_id": "ART-209",
+      "path": "scripts/generate-renderer-regression-manifest.mjs",
+      "sha256": "e48567528d8eaf1734bf9eab8f3059500e7817fbc2bbd3f683de7d7354f70ad4"
+    },
+    {
+      "artifact_id": "ART-210",
+      "path": "scripts/validate-renderer-regression.mjs",
+      "sha256": "edcf87a47d725f0bf47d4a4540463fbf90d7375d7e482fbb6d13b9dbaa659b7b"
+    },
+    {
+      "artifact_id": "ART-211",
+      "path": "docs/architecture/adr/ADR-040-renderer-regression-pack.md",
+      "sha256": "b13dff76b53e500cf8a8fe9e04520a6bb63314a5e7d0bce2496b3d3398947160"
+    },
+    {
+      "artifact_id": "ART-212",
+      "path": "docs/sprints/2026-W26-renderer-regression-pack/sprint-evidence-manifest.json",
+      "sha256": "b335b0847f7e9e07d4705f17566b1fca302f21e768d8415b85b4a4755bcad743"
+    },
+    {
+      "artifact_id": "ART-213",
+      "path": "schemas/data-leakage-manifest.schema.json",
+      "sha256": "07ed7a1003ef55e32815dab3456552801168982d70d22d27f012e0e57eff3680"
+    },
+    {
+      "artifact_id": "ART-214",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "sha256": "127c805edcc1abf92262dbe324d4b583414da02a8f210e4c185e0dd89a295c73"
+    },
+    {
+      "artifact_id": "ART-215",
+      "path": "scripts/validate-data-leakage.mjs",
+      "sha256": "2023c70a498f52aa66ed7c9726955cbf8481c73651d4db1fa381be34b99eed5d"
+    },
+    {
+      "artifact_id": "ART-216",
+      "path": "docs/architecture/adr/ADR-041-data-leakage-gate.md",
+      "sha256": "1d91b5b46109bda990a235342915f8bc54be5a00a4dd03f4bb49b5cff5e9e76a"
+    },
+    {
+      "artifact_id": "ART-217",
+      "path": "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json",
+      "sha256": "56fc42b67041dc0adf5e19171f0195e801ec4e3b36e3e6c45de27c47aabda07a"
+    },
+    {
+      "artifact_id": "ART-218",
+      "path": "docs/architecture/adr/ADR-042-release-evidence-current-gates.md",
+      "sha256": "3ef716caaae86791f0d9e64e28a4f3e012a45b9bfde829e432e75eca66366d14"
+    },
+    {
+      "artifact_id": "ART-219",
+      "path": "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json",
+      "sha256": "4da9dfa03b100586ddd8543649567dddacc6c6a57359793e6e2db448ea4b6d82"
+    },
+    {
+      "artifact_id": "ART-220",
+      "path": "schemas/real-uat-runtime-import.schema.json",
+      "sha256": "26a535f9108f12eed64a1cfe8312460979ab0c4dbfc6e9418ad37db694bbfe18"
+    },
+    {
+      "artifact_id": "ART-221",
+      "path": "docs/product/ux/real-uat-runtime-import.json",
+      "sha256": "27471b03047e2da40f5ab4fcc4f63d9f2d41d0e7bfc935a4f680691be9331a0c"
+    },
+    {
+      "artifact_id": "ART-222",
+      "path": "docs/product/ux/real-uat-runtime-import-guide.md",
+      "sha256": "bc1ccc075bd492c97f4eff82f53a9c0e1f988fb6bd8c01faedd89f9634b24e7a"
+    },
+    {
+      "artifact_id": "ART-223",
+      "path": "scripts/validate-real-uat-import.mjs",
+      "sha256": "4a1f7aa0f556a5c9a4744647183c15674cabf94439431c86026d5160703598c6"
+    },
+    {
+      "artifact_id": "ART-224",
+      "path": "docs/architecture/adr/ADR-043-real-uat-runtime-import-gate.md",
+      "sha256": "661f5298f509011dd83939aac47e9a2bd8fd1333762f040be75dc32a98037375"
+    },
+    {
+      "artifact_id": "ART-225",
+      "path": "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json",
+      "sha256": "165019d6d37c0d68906aaffaf1053c8fb9df99a8e9a8c0ed869e07a11fde7394"
+    },
+    {
+      "artifact_id": "ART-226",
+      "path": "schemas/pilot-gate-readiness.schema.json",
+      "sha256": "02ccc345321649d81ea1628bcc414f266e460d6ab38e0a137cce4081edc2043a"
+    },
+    {
+      "artifact_id": "ART-227",
+      "path": "docs/release/pilot-gate-readiness.json",
+      "sha256": "b2b5e53885bc2dd087fda3849fab2a3705223337dafb716ce96a678b9fa2cedb"
+    },
+    {
+      "artifact_id": "ART-228",
+      "path": "scripts/validate-pilot-gate-readiness.mjs",
+      "sha256": "f02b348281691dc99b1c3b1e43841025dbecc563fa36a2a0283ebe95e3265858"
+    },
+    {
+      "artifact_id": "ART-229",
+      "path": "docs/architecture/adr/ADR-044-pilot-gate-readiness.md",
+      "sha256": "a9de0451e2559e64c79a3cfc3d426ce48204638cbda7df31b340db3ed30e1f79"
+    },
+    {
+      "artifact_id": "ART-230",
+      "path": "docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json",
+      "sha256": "41a13610333081905a27e1e64174b97ef1347f226799fe5bd8df1eb4fd4f286e"
+    },
+    {
+      "artifact_id": "ART-231",
+      "path": "schemas/process-event-log.schema.json",
+      "sha256": "3daf16b3427af8db683e3b2b2f8d3c4b7cc8b85859740b475302ac5003ebd7d5"
+    },
+    {
+      "artifact_id": "ART-232",
+      "path": "docs/process/current/process-event-log.json",
+      "sha256": "11593a7bf7e6fc6f998bbf73a2fcd3793eba3689bd9bd60c87b1d77f8f32b420"
+    },
+    {
+      "artifact_id": "ART-233",
+      "path": "scripts/validate-process-event-log.mjs",
+      "sha256": "49113d14e355c90c41c31a82d6b8319bc79d51e0354bcb5fa0ab9a6d0c6b3613"
+    },
+    {
+      "artifact_id": "ART-234",
+      "path": "docs/architecture/adr/ADR-045-process-event-log-readiness.md",
+      "sha256": "9170700ff9996dcbda79b27ba8b9956c4a562a86d998938fd60f4b5f924bd85c"
+    },
+    {
+      "artifact_id": "ART-235",
+      "path": "docs/sprints/2026-W26-process-event-log-readiness/sprint-evidence-manifest.json",
+      "sha256": "d00aa1eb4375c16f17178d90b8c88dea7748e7e38b5962d263030d7cb5cc3bee"
+    },
+    {
+      "artifact_id": "ART-236",
+      "path": "schemas/process-portability-pack.schema.json",
+      "sha256": "d17d1da2add757a4b21cb4dd07124c3e8d863d5d60c8cff04bd42a0162d390b8"
+    },
+    {
+      "artifact_id": "ART-237",
+      "path": "docs/process/portability/process-portability-pack.json",
+      "sha256": "ae892abb9f5f4c582c03290bec348411621636e84a12f333fad4245b4becc825"
+    },
+    {
+      "artifact_id": "ART-238",
+      "path": "docs/process/portability/migration-notes-template.md",
+      "sha256": "b2bfe8bf2979cb4202116a0d671a7c415891ff8ea05781d893e5f204ada9037f"
+    },
+    {
+      "artifact_id": "ART-239",
+      "path": "scripts/validate-process-portability.mjs",
+      "sha256": "63ad2ffd12708772dbcc92a5ba4711f9a8ed8b7f820f531f9d873aacf95eae53"
+    },
+    {
+      "artifact_id": "ART-240",
+      "path": "docs/architecture/adr/ADR-046-process-portability-readiness.md",
+      "sha256": "e0dc3dcebb0e4d37ccb47fb1ef0a5fc8fa1f5ab1b4fc641453cc48ed45c3e8f0"
+    },
+    {
+      "artifact_id": "ART-241",
+      "path": "docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json",
+      "sha256": "0956ecc41669000d3ddc8a9b81f5f2218f5925f16f2c5d5410236dc493ad1f06"
+    },
+    {
+      "artifact_id": "ART-242",
+      "path": "schemas/real-uat-operator-handoff.schema.json",
+      "sha256": "a4881e1f1a69365ab1eddddb29929645c9c98dcf52b0421145a581e1923be1d7"
+    },
+    {
+      "artifact_id": "ART-243",
+      "path": "docs/product/ux/real-uat-operator-handoff.json",
+      "sha256": "dc6e36f5c8e4dc555111344398b42a8a7a8206bf61fa30d71ec4a07fcfba7ad8"
+    },
+    {
+      "artifact_id": "ART-244",
+      "path": "docs/product/ux/real-uat-operator-handoff.md",
+      "sha256": "d47337b94e5a03fb09830047bb9629b3d5ec747de989b39f18ce7067c1c56a7d"
+    },
+    {
+      "artifact_id": "ART-245",
+      "path": "scripts/validate-real-uat-operator-handoff.mjs",
+      "sha256": "c178affbdf1e7267b22d32c7ffeb5b361c7e59a60b300aab42957f569d693f70"
+    },
+    {
+      "artifact_id": "ART-246",
+      "path": "docs/architecture/adr/ADR-047-real-uat-operator-handoff.md",
+      "sha256": "ba96fff38628b138409c907415d5a7f8b19f4e15d40370b71678ccfeb0f436fd"
+    },
+    {
+      "artifact_id": "ART-247",
+      "path": "docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json",
+      "sha256": "a87da7a0c67b0a7f248b148864bbf618a47cb05c1b787cda15cfcace49e5eb66"
+    },
+    {
+      "artifact_id": "ART-248",
+      "path": "schemas/real-uat-session-importer.schema.json",
+      "sha256": "5b5a62706a04f4f1eaf7c2fb761fcb8bdb7afa3826737bdb49ec14c50cfb0cfa"
+    },
+    {
+      "artifact_id": "ART-249",
+      "path": "docs/product/ux/real-uat-session-importer.json",
+      "sha256": "e0930a7b0db7ee8c4a30541665fba54249c358575567eede0ec59478e3a36f63"
+    },
+    {
+      "artifact_id": "ART-250",
+      "path": "docs/product/ux/real-uat-session-importer.md",
+      "sha256": "cb79d928ffca1674b98a29467305fa649d14557a4f231f9dfdcf1677f208237d"
+    },
+    {
+      "artifact_id": "ART-251",
+      "path": "scripts/prepare-real-uat-session.mjs",
+      "sha256": "72dab138507c8405e8b4db2dcfd4e8052e0676dd1d4760962dc657ff8967640f"
+    },
+    {
+      "artifact_id": "ART-252",
+      "path": "scripts/validate-real-uat-session-importer.mjs",
+      "sha256": "a0b1edd44a8f0908f2174979931671667c2e6ecca58af487aabfc001251791ce"
+    },
+    {
+      "artifact_id": "ART-253",
+      "path": "docs/architecture/adr/ADR-048-real-uat-session-importer.md",
+      "sha256": "e22722ffe44a132c80ba222bc743b5a9c81f2d5b81ff80f3bf4e729ec1721f06"
+    },
+    {
+      "artifact_id": "ART-254",
+      "path": "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json",
+      "sha256": "2b424ddcaa832f8d1ed3cffdd27e5c752357c14e60f6fcb1b56c3e3c63195b06"
+    },
+    {
+      "artifact_id": "ART-255",
+      "path": "schemas/real-uat-leakage-guard.schema.json",
+      "sha256": "ea2755826dbada2f866da475d127189969f838dce8013e9dc26c21f825ea86d8"
+    },
+    {
+      "artifact_id": "ART-256",
+      "path": "docs/architecture/security/real-uat-leakage-guard.json",
+      "sha256": "5d930c4d111c716b31b8f4ce5d0bf2fd630c13c1b93c538f6527a673e1aba18c"
+    },
+    {
+      "artifact_id": "ART-257",
+      "path": "docs/architecture/adr/ADR-049-real-uat-leakage-guard.md",
+      "sha256": "382e80704e517ceb07654e534a6d9b995d10bdc0665bfb2aaf4c9ca5b0529dab"
+    },
+    {
+      "artifact_id": "ART-258",
+      "path": "docs/sprints/2026-W26-real-uat-leakage-guard/sprint-evidence-manifest.json",
+      "sha256": "0fe87551e7f5d285d0ff84197c23309d6a2ff38ce671df272049cbae39a0143a"
+    },
+    {
+      "artifact_id": "ART-259",
+      "path": "docs/architecture/adr/ADR-050-release-evidence-real-uat-alignment.md",
+      "sha256": "af6ac8de8957186e244f5abb96b7190f1c833731bf2385c0bba567c891b33b12"
+    },
+    {
+      "artifact_id": "ART-260",
+      "path": "docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json",
+      "sha256": "748ea8277216885893c85e5934c37f877e9a0f72863dbbe79800c9e30c8f96a5"
+    },
+    {
+      "artifact_id": "ART-261",
+      "path": "schemas/plan-completion-audit.schema.json",
+      "sha256": "b49059670bd0c8eb8bf7010ce65e770f4831158991ae2bcc5901bd492fc66f63"
+    },
+    {
+      "artifact_id": "ART-262",
+      "path": "docs/process/audits/plan-completion-audit.md",
+      "sha256": "c6a9f0eb185e76422859b4b5c1abef9b77cc751a169fb5dee8536908e8545533"
+    },
+    {
+      "artifact_id": "ART-263",
+      "path": "docs/process/audits/plan-completion-audit.json",
+      "sha256": "c92576552e48ec519c458463b662eb09ad89ca289a17795e915c74b23c9c5c09"
+    },
+    {
+      "artifact_id": "ART-264",
+      "path": "scripts/validate-plan-completion-audit.mjs",
+      "sha256": "1b9a41b889bd50ca7df3c8119b78b250c5e9213c5fd72e658644d95a6211f4b6"
+    },
+    {
+      "artifact_id": "ART-265",
+      "path": "docs/architecture/adr/ADR-051-plan-completion-audit-gate.md",
+      "sha256": "45518bd6c887675cb76dcce26eb9d5b72d6739c61fc0f29658f7f3107d119f6a"
+    },
+    {
+      "artifact_id": "ART-266",
+      "path": "docs/sprints/2026-W26-plan-completion-audit-gate/sprint-evidence-manifest.json",
+      "sha256": "18bfa1ecbff68d684490290694d28ca16d7707b77343f3bd3bff638e594bef55"
+    },
+    {
+      "artifact_id": "ART-267",
+      "path": "schemas/pilot-execution-handoff.schema.json",
+      "sha256": "e279d08bbbb40d2b9f96e8f0a6fd353fa30d4d3a2fe00bfae8b2a26b7f9b5275"
+    },
+    {
+      "artifact_id": "ART-268",
+      "path": "docs/release/pilot-execution-handoff.md",
+      "sha256": "9546f89d490f5da89c363ac1c9e492fcb1f50378b295693954e2dab1d653e25e"
+    },
+    {
+      "artifact_id": "ART-269",
+      "path": "scripts/validate-pilot-execution-handoff.mjs",
+      "sha256": "fc77bb056972210d8c091ac6924dca7b105bbe82f2e1f18197e7638fdbc12684"
+    },
+    {
+      "artifact_id": "ART-270",
+      "path": "docs/release/pilot-execution-handoff.json",
+      "sha256": "75235f982edd1bdd9573ad93bf2850a4563e926d14ea5635e1044e07f8effef0"
+    },
+    {
+      "artifact_id": "ART-271",
+      "path": "docs/architecture/adr/ADR-052-pilot-execution-handoff.md",
+      "sha256": "a359e85255fd1649775f61952940bd05c2fdaf168e98d66c890bdc0cbf25b058"
+    },
+    {
+      "artifact_id": "ART-272",
+      "path": "docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json",
+      "sha256": "d4e964d79d8d9267d08c9e41259c382898362c30d062cdf01314888861ba6e7b"
+    },
+    {
+      "artifact_id": "ART-273",
+      "path": "docs/release/templates/pilot-report-template.md",
+      "sha256": "578ba3f52b6642088f7dfb176e59a941e07c8e4ac35261d19fa335f01bb2700f"
+    },
+    {
+      "artifact_id": "ART-274",
+      "path": "docs/release/templates/pilot-process-portability-notes-template.md",
+      "sha256": "c488bfff41a7b8c30e35cb8683817f2bb1f275794122965b62bfef0335212d45"
+    },
+    {
+      "artifact_id": "ART-275",
+      "path": "scripts/validate-pilot-report-templates.mjs",
+      "sha256": "bc1e100dbea7ed0b31509d086be2358998ee8182f36211de53b41644a9d21192"
+    },
+    {
+      "artifact_id": "ART-276",
+      "path": "docs/architecture/adr/ADR-053-pilot-report-templates.md",
+      "sha256": "aaf0614c00276a0d8f02245f1aa3b14a4dee771b7b5adffcdc2cd707ec7c130c"
+    },
+    {
+      "artifact_id": "ART-277",
+      "path": "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json",
+      "sha256": "c5ab4dbdb0413cf5070b987e1d26a1540b398e9398f46c2ebac9cae66785575d"
+    },
+    {
+      "artifact_id": "ART-278",
+      "path": "docs/release/templates/commit-pr-evidence-template.md",
+      "sha256": "07443590f83389e52d56a0980c3649138890e4d3f75d1061e4c5a477c6ea8d39"
+    },
+    {
+      "artifact_id": "ART-279",
+      "path": "scripts/validate-commit-pr-evidence-template.mjs",
+      "sha256": "15fd2221d22f470938ed82f9dabd9470607f2328d25e30ca371618810e24da2e"
+    },
+    {
+      "artifact_id": "ART-280",
+      "path": "docs/architecture/adr/ADR-054-commit-pr-evidence-template.md",
+      "sha256": "7c71c6960db53fcdfd2534c3e957930c062cc7c4f2112fed9b549731e4f81d7a"
+    },
+    {
+      "artifact_id": "ART-281",
+      "path": "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
+      "sha256": "4f4837db7eb9216bebbd2d40dd6ee24a0cd26cad0221666d8a256266d5a4970d"
+    },
+    {
+      "artifact_id": "ART-282",
+      "path": "schemas/external-blocker-closure-map.schema.json",
+      "sha256": "4454e5338096fba48f7757331acd879f759c27f66ab57328beed014e5ae95bce"
+    },
+    {
+      "artifact_id": "ART-283",
+      "path": "docs/process/audits/external-blocker-closure-map.json",
+      "sha256": "501b76d864cafac21f52a720eaecb16e70c7c19ce8db4b700d61c8ad7f094e1e"
+    },
+    {
+      "artifact_id": "ART-284",
+      "path": "docs/process/audits/external-blocker-closure-map.md",
+      "sha256": "881f1d8d0c37916c3737cae86e43fd4ee0b4ba104e644fe58b979f80fff4596f"
+    },
+    {
+      "artifact_id": "ART-285",
+      "path": "scripts/validate-external-blocker-closure-map.mjs",
+      "sha256": "a917e29ae6bb893c90611dcc335aa844a0b828a2037c1a2b74772a783f38cd60"
+    },
+    {
+      "artifact_id": "ART-286",
+      "path": "docs/architecture/adr/ADR-055-external-blocker-closure-map.md",
+      "sha256": "32e5b085338876460c803e1be8411a21752e8cd52da9325d76995677e74dc3f4"
+    },
+    {
+      "artifact_id": "ART-287",
+      "path": "docs/sprints/2026-W26-external-blocker-closure-map/sprint-evidence-manifest.json",
+      "sha256": "1feeb3600fcf528d61c4a55c8bc1cf442d0c2f3a34300dbc166467d9e28790ee"
+    },
+    {
+      "artifact_id": "ART-288",
+      "path": "schemas/real-uat-preflight-checklist.schema.json",
+      "sha256": "fc6dfb133f286e35d82eab78f6086dedb3f8a84d921d09a5f68fc54dee7634c5"
+    },
+    {
+      "artifact_id": "ART-289",
+      "path": "docs/product/ux/real-uat-preflight-checklist.md",
+      "sha256": "fcaae920de18adc8e69073c86fdaaebadd60477bb9445bde58bbd748cfd13a83"
+    },
+    {
+      "artifact_id": "ART-290",
+      "path": "docs/product/ux/real-uat-preflight-checklist.json",
+      "sha256": "c51ea5bdda1e6ce4d22eb9dd242ed7a26715a4ac0389b317341436234fe5f0d1"
+    },
+    {
+      "artifact_id": "ART-291",
+      "path": "scripts/validate-real-uat-preflight.mjs",
+      "sha256": "917c00e4d9668567227043b80ab72eefe00e27ac1b9c8b3291248b445f46b10e"
+    },
+    {
+      "artifact_id": "ART-292",
+      "path": "docs/architecture/adr/ADR-056-real-uat-preflight-checklist.md",
+      "sha256": "eb883f8ed5e725a65976b6bcfb696b173104ca3d150782e776cef8951ff21d14"
+    },
+    {
+      "artifact_id": "ART-293",
+      "path": "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json",
+      "sha256": "69169af0645e26ea034e9c2f921b27689d983148a478ee668e1d3306590f8402"
+    },
+    {
+      "artifact_id": "ART-294",
+      "path": "docs/architecture/adr/ADR-057-real-uat-runtime-actor-identity.md",
+      "sha256": "dff31ea0529b7b7d0d730fafdd148ba484de0e2f7914421754d89f78e59d411a"
+    },
+    {
+      "artifact_id": "ART-295",
+      "path": "docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json",
+      "sha256": "c0dd58747ca429e6f491b1e8f3496199cc38277aa8569859cd5947097246dd82"
+    },
+    {
+      "artifact_id": "ART-296",
+      "path": "docs/architecture/adr/ADR-058-real-uat-import-dry-run.md",
+      "sha256": "a8ebdd1a23fb88069d47086df4b7eafaeb7766017d13a7bcd43ce306afe4c6a0"
+    },
+    {
+      "artifact_id": "ART-297",
+      "path": "docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json",
+      "sha256": "d25b3ef08559c644c53f154c8364f4ed1c315dea810fedd180f5fbfb7c04d0af"
+    },
+    {
+      "artifact_id": "ART-298",
+      "path": "schemas/review-runtime-browser-matrix.schema.json",
+      "sha256": "b50560fa05249218d14beefed5739fe6bad25cb76cfc3b4ee64b7619fd609eb6"
+    },
+    {
+      "artifact_id": "ART-299",
+      "path": "docs/product/ux/review-runtime-browser-matrix.json",
+      "sha256": "a1f90d073d5e2f27007b5abacf7822b3776fb91fa8c1a9d2102662fd33151ec0"
+    },
+    {
+      "artifact_id": "ART-300",
+      "path": "docs/product/ux/review-runtime-browser-matrix.md",
+      "sha256": "233114f43b34fd5000b1a60441a58087867ca66b37d66670442fc67680c9d32d"
+    },
+    {
+      "artifact_id": "ART-301",
+      "path": "scripts/validate-review-runtime-browser-matrix.mjs",
+      "sha256": "6b5c33f3d57ccde1095bafce8c3384fff3c05af494a3f01f23e6e6cee7cdedc8"
+    },
+    {
+      "artifact_id": "ART-302",
+      "path": "docs/architecture/adr/ADR-059-review-runtime-browser-matrix.md",
+      "sha256": "7b02299db7bd0b2e7255e7a0b759947e8577bd67e380b88e25aabb9bf2ff4a00"
+    },
+    {
+      "artifact_id": "ART-303",
+      "path": "docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json",
+      "sha256": "4a340687d230bfc3d40b082884cf05248ae5ad1622b216cb91b8568a21c7b67a"
+    },
+    {
+      "artifact_id": "ART-304",
+      "path": "schemas/review-runtime-browser-smoke.schema.json",
+      "sha256": "96583ef1822067846891a8bb0dcd430f169df4ec853585af7db8b3a78fe737e8"
+    },
+    {
+      "artifact_id": "ART-305",
+      "path": "docs/product/ux/review-runtime-browser-smoke.json",
+      "sha256": "63cef061c8775f85f1850f286e4a9ef0cfc26b5257351bd4867b9f235c0b02cb"
+    },
+    {
+      "artifact_id": "ART-306",
+      "path": "docs/product/ux/review-runtime-browser-smoke.md",
+      "sha256": "b7a1d20f7a4e9e86359f52ff9317160df08ba40a2802965feccb369d4bb33686"
+    },
+    {
+      "artifact_id": "ART-307",
+      "path": "scripts/validate-review-runtime-browser-smoke.mjs",
+      "sha256": "a269f183fb8db46cc2f47ad296e45e1dc9fbce5e6f9c5fa68572b144a07832e4"
+    },
+    {
+      "artifact_id": "ART-308",
+      "path": "docs/architecture/adr/ADR-060-review-runtime-browser-smoke.md",
+      "sha256": "cbb93e49d103a9eaa2313a07f9bcf4f60c0bcd81bbcd5547e11349bb492664b0"
+    },
+    {
+      "artifact_id": "ART-309",
+      "path": "docs/sprints/2026-W26-review-runtime-browser-smoke/sprint-evidence-manifest.json",
+      "sha256": "d29ce169351105510424f04f212d6cfd561055686a3aff9964038e8108d11a8a"
+    },
+    {
+      "artifact_id": "ART-310",
+      "path": "schemas/export-png-pixel-smoke.schema.json",
+      "sha256": "f81da5ac798e0460239ad2bd8e9aa5190b5e3ad592c6fba5cb11255f10cb0ef2"
+    },
+    {
+      "artifact_id": "ART-311",
+      "path": "docs/product/ux/export-png-pixel-smoke.json",
+      "sha256": "e9e76f0270d847e6d754c8d7cf628d7ecb16fed9ad4949e6bcebee621d11dca9"
+    },
+    {
+      "artifact_id": "ART-312",
+      "path": "docs/product/ux/export-png-pixel-smoke.md",
+      "sha256": "12a101f975dfcbc5d28d93bf5b528b972ff1810941a41bbf926d574a2c760466"
+    },
+    {
+      "artifact_id": "ART-313",
+      "path": "scripts/validate-export-png-pixel-smoke.mjs",
+      "sha256": "4543642d2175043da223e3998d940ef3f9725b604358a28bf0b6db37f1981d65"
+    },
+    {
+      "artifact_id": "ART-314",
+      "path": "docs/architecture/adr/ADR-061-export-png-pixel-smoke.md",
+      "sha256": "3c8438e2c1f086ff67e609e07a3517a542c45ea22543771ec552fb38f90de1c5"
+    },
+    {
+      "artifact_id": "ART-315",
+      "path": "docs/sprints/2026-W26-export-png-pixel-smoke/sprint-evidence-manifest.json",
+      "sha256": "cf584fcd172ba638a863d1ead88da1ef3f15af7e4b6543334d6890272a29a58d"
+    },
+    {
+      "artifact_id": "ART-316",
+      "path": "schemas/external-evidence-readiness.schema.json",
+      "sha256": "e0c1301f4be69ed37ea449f53ce1e06909cd843e35449d0052903eb2b5bfeb1f"
+    },
+    {
+      "artifact_id": "ART-317",
+      "path": "docs/process/audits/external-evidence-readiness.json",
+      "sha256": "8f7658a8761590bff535ac693152948e645199a11e524057fa6d35f3a29b6145"
+    },
+    {
+      "artifact_id": "ART-318",
+      "path": "docs/process/audits/external-evidence-readiness.md",
+      "sha256": "ab8533f248b5bc0dc30dfc5a5007ca36775d3b39c719f3548e2cac7e130da6b6"
+    },
+    {
+      "artifact_id": "ART-319",
+      "path": "scripts/validate-external-evidence-readiness.mjs",
+      "sha256": "9fe6f74f46517a23cd8cd91ab95c60d041d260a16a525e6e4267823d23021b3d"
+    },
+    {
+      "artifact_id": "ART-320",
+      "path": "docs/architecture/adr/ADR-062-external-evidence-readiness.md",
+      "sha256": "7efff29059dd4fd209ac262c35f54d3fc37659ccfd6cbe7686a19ebfaef0739d"
+    },
+    {
+      "artifact_id": "ART-321",
+      "path": "docs/sprints/2026-W26-external-evidence-readiness/sprint-evidence-manifest.json",
+      "sha256": "eb4228be99f60891c7d08d6922a6c0662d12c6b42ef4adb9481f6e9207489458"
+    },
+    {
+      "artifact_id": "ART-322",
+      "path": "schemas/real-uat-one-command-runner.schema.json",
+      "sha256": "7ab5c6637f78b1cf4f0d82c74bbb149c74bc8aac3e7754abef0cefbc6c84cefc"
+    },
+    {
+      "artifact_id": "ART-323",
+      "path": "docs/product/ux/real-uat-one-command-runner.json",
+      "sha256": "d9ad0e7e838d185d6a301d83f46af619345db20f1b134ee6d99851aec5074d25"
+    },
+    {
+      "artifact_id": "ART-324",
+      "path": "docs/product/ux/real-uat-one-command-runner.md",
+      "sha256": "b745cf8773416c3e42e6f5daaa6231c8c5138a29abd6723e9d38b70301eee407"
+    },
+    {
+      "artifact_id": "ART-325",
+      "path": "scripts/run-real-uat-session.mjs",
+      "sha256": "3963e3caf2e1071c3f20b51224c66672440fcdc458c7d2e7ea1513ae2daf7548"
+    },
+    {
+      "artifact_id": "ART-326",
+      "path": "scripts/validate-real-uat-one-command-runner.mjs",
+      "sha256": "bb3d26c8ea84c7330c6756a97982b22dd2490010f76736cabd226df91df19c22"
+    },
+    {
+      "artifact_id": "ART-327",
+      "path": "docs/architecture/adr/ADR-063-real-uat-one-command-runner.md",
+      "sha256": "ee21ac8ee84b1736bf9167ad09633d58c7c09950e658f0a5ed88856e48c05afd"
+    },
+    {
+      "artifact_id": "ART-328",
+      "path": "docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json",
+      "sha256": "cfbbdf71ada92dbf37c17e4b75c0b23b0a6e1b7a42299b30c3d135b8715221e9"
+    }
+  ],
+  "exclusions": [
+    {
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "reason": "self-referential generated manifest"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "normalized_id": "NORM-minimal",
+  "schema_version": "0.1.0",
+  "source_package_id": "PKG-minimal",
+  "data_class": "internal",
+  "sources": [
+    {
+      "source_id": "SRC-001",
+      "title": "Demo source",
+      "trust_level": "internal"
+    }
+  ],
+  "facts": [
+    {
+      "fact_id": "FACT-001",
+      "source_id": "SRC-001",
+      "claim": "DataCanvas creates short presentations from structured input packages.",
+      "confidence": "high",
+      "claim_length": 70
+    }
+  ],
+  "untrusted_instruction_count": 1
+}

@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "sources": [
+    {
+      "id": "SRC-001",
+      "name": "DataCanvas adaptive Scrum implementation plan",
+      "path": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+      "trust_level": "internal",
+      "owner_role": "Process Owner",
+      "usage": "source of truth for bootstrap implementation"
+    }
+  ]
+}
+

@@ -1,0 +1,91 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "policy_paths": [
+    "docs/architecture/security/data-classification-policy.md",
+    "docs/architecture/security/trust-boundaries.md",
+    "docs/architecture/security/export-sanitization-checklist.md"
+  ],
+  "scan_targets": [
+    {
+      "id": "DLT-001",
+      "path": "artifacts/examples/presentation-minimal.html",
+      "sink": "export",
+      "data_class": "public"
+    },
+    {
+      "id": "DLT-002",
+      "path": "artifacts/examples/render-result-minimal.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-003",
+      "path": "tests/golden/trace-manifest-minimal.json",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-004",
+      "path": "tests/golden/llm-result-minimal.json",
+      "sink": "prompt",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-005",
+      "path": "docs/product/ux/review-runtime-state-fixture.json",
+      "sink": "runtime_state",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-006",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-007",
+      "path": "artifacts/examples/export-smoke-manifest.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-008",
+      "path": "artifacts/examples/renderer-regression-manifest.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-009",
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "sink": "runtime_state",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-010",
+      "path": "docs/product/ux/human-review-session-real.json",
+      "sink": "evidence",
+      "data_class": "confidential"
+    }
+  ],
+  "forbidden_classes": [
+    "secret",
+    "pii",
+    "local_path",
+    "raw_trace",
+    "internal_prompt",
+    "tool_output"
+  ],
+  "required_gates": [
+    "npm run scan:secrets",
+    "npm run validate:export",
+    "npm run validate:data-leakage",
+    "npm run validate:security-foundation"
+  ],
+  "known_limitations": [
+    "Gate проверяет выбранные runtime/export/trace/evidence sinks, а не весь репозиторий, потому что policy docs легитимно содержат названия запрещенных классов.",
+    "PII detection является conservative regex gate и не заменяет ручную privacy review для реальных пользовательских данных.",
+    "Real UAT artifacts включены как confidential scan targets после фактической сессии."
+  ],
+  "next_safe_step": "После pilot run проверить pilot report и portability notes тем же leakage gate."
+}

@@ -1,0 +1,38 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S4",
+  "sprint_name": "renderer-baseline",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать deterministic HTML renderer из PresentationSpec и минимальные export checks.",
+  "created_artifacts": [
+    "schemas/render-result.schema.json",
+    "scripts/render-presentation.mjs",
+    "scripts/validate-export-sanitization.mjs",
+    "artifacts/examples/presentation-minimal.html",
+    "artifacts/examples/render-result-minimal.json",
+    "docs/architecture/adr/ADR-007-html-renderer-baseline.md",
+    "docs/sprints/2026-W26-renderer-baseline/sprint-goal.md",
+    "docs/sprints/2026-W26-renderer-baseline/sprint-backlog.md",
+    "docs/sprints/2026-W26-renderer-baseline/planning.md",
+    "docs/sprints/2026-W26-renderer-baseline/evidence-index.md"
+  ],
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "HTML export generated, RenderResult schema passed, export sanitization passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors reported"
+    }
+  ],
+  "known_limitations": [
+    "PDF/PNG export еще не реализован.",
+    "Screenshot-based visual regression еще не реализован.",
+    "Командная приемка Sprint 4 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 5: visual baseline checks, PDF/PNG export strategy и подготовка LLM integration behind schema boundary."
+}

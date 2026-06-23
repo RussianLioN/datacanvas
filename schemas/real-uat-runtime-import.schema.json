@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-runtime-import.schema.json",
+  "title": "RealUatRuntimeImport",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "runtime_export_contract",
+    "output_session_path",
+    "required_runtime_actions",
+    "required_validation_commands",
+    "blocking_conditions",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_real_runtime_import"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "runtime_export_contract": {
+      "type": "object",
+      "required": ["schema_path", "source_runtime_path", "expected_status", "expected_session_kind"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_path": { "type": "string", "minLength": 1 },
+        "source_runtime_path": { "type": "string", "minLength": 1 },
+        "expected_status": { "type": "string", "const": "recorded_real_user" },
+        "expected_session_kind": { "type": "string", "const": "real_user" }
+      }
+    },
+    "output_session_path": { "type": "string", "minLength": 1 },
+    "required_runtime_actions": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_validation_commands": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocking_conditions": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

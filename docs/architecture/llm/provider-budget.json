@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "default_policy": "disabled_until_proc_007_accepted",
+  "budgets": {
+    "max_cost_per_run_usd": 0.05,
+    "max_latency_ms_p95": 15000,
+    "max_retry_count": 1,
+    "max_failure_rate_percent": 5
+  },
+  "measurement_requirements": [
+    "cost_estimate",
+    "duration_ms",
+    "model",
+    "provider",
+    "retry_count",
+    "error_class"
+  ],
+  "fallback": {
+    "mode": "offline_mock_adapter",
+    "command": "npm run generate:golden"
+  }
+}

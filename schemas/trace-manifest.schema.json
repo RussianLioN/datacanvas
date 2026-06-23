@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/trace-manifest.schema.json",
+  "title": "TraceManifest",
+  "type": "object",
+  "required": ["run_id", "sprint_id", "process_version", "input_package", "outputs", "spans"],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^RUN-[A-Za-z0-9_-]+$"
+    },
+    "sprint_id": {
+      "type": "string",
+      "pattern": "^SPRINT-[0-9]{4}-W[0-9]{2}(-S[0-9]+)?$"
+    },
+    "process_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "input_package": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string" }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "path", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "artifact_id": { "type": "string" },
+          "path": { "type": "string" },
+          "sha256": { "type": "string" }
+        }
+      }
+    },
+    "spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": ["input_validation", "normalization", "model_call", "presentation_spec_validation", "render", "export", "qa", "handoff"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["passed", "failed", "skipped"]
+          },
+          "duration_ms": { "type": "number" },
+          "cost_estimate": { "type": "number" },
+          "model": { "type": "string" },
+          "provider": { "type": "string" },
+          "retry_count": { "type": "integer", "minimum": 0 },
+          "error_class": { "type": "string" },
+          "schema_version": { "type": "string" }
+        }
+      }
+    }
+  }
+}

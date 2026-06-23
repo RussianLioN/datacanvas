@@ -1,0 +1,80 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S23",
+  "sprint_name": "contract-schemas",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить недостающие contract schemas для RenderRequest, ProcessChangeRequest, ToolAllowlist и TraceContract.",
+  "created_artifacts": [
+    "schemas/render-request.schema.json",
+    "schemas/process-change-request.schema.json",
+    "schemas/tool-allowlist.schema.json",
+    "schemas/trace-contract.schema.json",
+    "tests/contracts/render-request-minimal.json",
+    "tests/contracts/process-change-request-minimal.json",
+    "tests/contracts/tool-allowlist-minimal.json",
+    "tests/contracts/trace-contract-minimal.json",
+    "scripts/validate-contract-schemas.mjs",
+    "docs/architecture/adr/ADR-023-contract-schemas.md",
+    "docs/sprints/2026-W26-contract-schemas/sprint-goal.md",
+    "docs/sprints/2026-W26-contract-schemas/sprint-backlog.md",
+    "docs/sprints/2026-W26-contract-schemas/planning.md",
+    "docs/sprints/2026-W26-contract-schemas/daily-notes.md",
+    "docs/sprints/2026-W26-contract-schemas/review.md",
+    "docs/sprints/2026-W26-contract-schemas/retro.md",
+    "docs/sprints/2026-W26-contract-schemas/decisions.md",
+    "docs/sprints/2026-W26-contract-schemas/evidence-index.md",
+    "docs/sprints/2026-W26-contract-schemas/artifact-updates.md",
+    "docs/sprints/2026-W26-contract-schemas/process-change-candidates.md",
+    "docs/sprints/2026-W26-contract-schemas/sprint-summary.md",
+    "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:contracts",
+      "status": "passed",
+      "evidence": "contract schema validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, secret scan, bootstrap, schemas, contracts, llm, evals, provider, backlog registry, security foundation, artifact registry, plan coverage, process versioning, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Runtime API для новых контрактов не реализован.",
+    "ToolAllowlist YAML проверяется через инвариант default_policy, без YAML parser dependency.",
+    "TraceContract schema не генерируется из Markdown автоматически."
+  ],
+  "next_safe_step": "Добавить hash manifest или расширить artifact registry для проверки SHA/hash артефактов."
+}

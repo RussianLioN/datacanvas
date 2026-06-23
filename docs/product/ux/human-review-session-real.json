@@ -1,0 +1,68 @@
+{
+  "version": "0.1.0",
+  "session_id": "HRS-2026-W26-G9-INTERACTIVE",
+  "status": "recorded_real_user",
+  "gate_id": "G9",
+  "session_kind": "real_user",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "uat_manifest_path": "docs/product/ux/uat-manifest.json",
+  "uat_result_path": "docs/product/ux/uat-result-minimal.json",
+  "review_state": "approved",
+  "decision": "accepted",
+  "actor": {
+    "actor_id": "uat-reviewer-001",
+    "role": "approver"
+  },
+  "audit_events": [
+    {
+      "actor_id": "uat-reviewer-001",
+      "role": "author",
+      "action": "submit_for_review",
+      "source_artifact_id": "docs/product/ux/review-ui-fixture.json",
+      "changed_claim_ids": [],
+      "reason": "Проверка интерактивного сохранения состояния review.",
+      "timestamp": "2026-06-23T13:11:41.854Z"
+    },
+    {
+      "actor_id": "uat-reviewer-001",
+      "role": "reviewer",
+      "action": "comment",
+      "source_artifact_id": "docs/product/ux/review-ui-fixture.json",
+      "changed_claim_ids": [],
+      "reason": "Проверка интерактивного сохранения состояния review.",
+      "timestamp": "2026-06-23T13:11:42.687Z"
+    },
+    {
+      "actor_id": "uat-reviewer-001",
+      "role": "approver",
+      "action": "record_decision",
+      "source_artifact_id": "docs/product/ux/review-ui-fixture.json",
+      "changed_claim_ids": [],
+      "reason": "Проверка интерактивного сохранения состояния review.",
+      "timestamp": "2026-06-23T13:11:47.955Z"
+    },
+    {
+      "actor_id": "uat-reviewer-001",
+      "role": "author",
+      "action": "export",
+      "source_artifact_id": "docs/product/ux/review-ui-fixture.json",
+      "changed_claim_ids": [],
+      "reason": "Проверка интерактивного сохранения состояния review.",
+      "timestamp": "2026-06-23T13:11:51.472Z"
+    }
+  ],
+  "evidence_paths": [
+    "artifacts/manual/real-uat/review-runtime-state-export.json",
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/uat-result-minimal.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/golden/trace-manifest-minimal.json"
+  ],
+  "known_limitations": [
+    "Real session artifact создан из exported runtime state и требует team review перед pilot gate.",
+    "После сохранения artifact нужно включить его и исходный runtime export в data leakage scan_targets."
+  ],
+  "next_safe_step": "Запустить npm run validate:real-uat-readiness, npm run validate:data-leakage и сформировать pilot gate cut."
+}

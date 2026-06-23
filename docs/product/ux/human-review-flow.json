@@ -1,0 +1,52 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "roles": ["author", "reviewer", "approver", "observer"],
+  "states": ["draft", "in_review", "changes_requested", "approved", "rejected"],
+  "actions": ["edit", "comment", "regenerate", "submit_for_review", "record_decision", "export"],
+  "transitions": [
+    {
+      "from": "draft",
+      "action": "submit_for_review",
+      "to": "in_review",
+      "allowed_roles": ["author"]
+    },
+    {
+      "from": "in_review",
+      "action": "comment",
+      "to": "in_review",
+      "allowed_roles": ["reviewer", "approver"]
+    },
+    {
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "changes_requested",
+      "allowed_roles": ["reviewer", "approver"]
+    },
+    {
+      "from": "changes_requested",
+      "action": "edit",
+      "to": "draft",
+      "allowed_roles": ["author"]
+    },
+    {
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "approved",
+      "allowed_roles": ["approver"]
+    },
+    {
+      "from": "approved",
+      "action": "export",
+      "to": "approved",
+      "allowed_roles": ["author", "approver"]
+    },
+    {
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "rejected",
+      "allowed_roles": ["approver"]
+    }
+  ],
+  "audit_fields": ["actor_id", "role", "action", "source_artifact_id", "changed_claim_ids", "reason", "timestamp"]
+}

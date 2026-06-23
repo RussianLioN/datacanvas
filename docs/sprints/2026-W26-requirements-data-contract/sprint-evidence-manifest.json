@@ -1,0 +1,39 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S2",
+  "sprint_name": "requirements-data-contract",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Реализовать первый вертикальный validation flow: input package -> normalized data -> trace manifest.",
+  "created_artifacts": [
+    "schemas/normalized-data.schema.json",
+    "scripts/normalize-input-package.mjs",
+    "docs/architecture/adr/ADR-005-deterministic-normalization.md",
+    "tests/golden/normalized-data-minimal.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "docs/architecture/schemas/traceability-graph.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/sprints/2026-W26-requirements-data-contract/sprint-goal.md",
+    "docs/sprints/2026-W26-requirements-data-contract/sprint-backlog.md",
+    "docs/sprints/2026-W26-requirements-data-contract/planning.md",
+    "docs/sprints/2026-W26-requirements-data-contract/evidence-index.md"
+  ],
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "generate:golden, bootstrap validator, AJV schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors reported"
+    }
+  ],
+  "known_limitations": [
+    "Нормализация покрывает только minimal fixture.",
+    "LLM, PresentationSpec generation и renderer еще не реализованы.",
+    "Командная приемка Sprint 2 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 3: mock PresentationSpec generation from normalized data, claim map и eval cases."
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/sprint-evidence-manifest.schema.json",
+  "title": "SprintEvidenceManifest",
+  "type": "object",
+  "required": ["sprint_id", "sprint_name", "process_version", "status", "source_plan", "goal", "created_artifacts", "checks", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "sprint_id": { "type": "string" },
+    "sprint_name": { "type": "string" },
+    "process_version": { "type": "string" },
+    "status": { "type": "string" },
+    "source_plan": { "type": "string" },
+    "goal": { "type": "string" },
+    "created_artifacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "command": { "type": "string" },
+          "status": { "type": "string" },
+          "evidence": { "type": "string" }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string" }
+  }
+}
+

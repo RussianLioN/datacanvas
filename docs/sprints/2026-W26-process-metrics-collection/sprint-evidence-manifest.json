@@ -1,0 +1,86 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S38",
+  "sprint_name": "process-metrics-collection",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить автоматический snapshot process metrics из текущих repository artifacts.",
+  "created_artifacts": [
+    "schemas/process-metrics-snapshot.schema.json",
+    "scripts/collect-process-metrics.mjs",
+    "scripts/validate-process-metrics-snapshot.mjs",
+    "docs/process/current/process-metrics-snapshot.json",
+    "docs/process/current/process-metrics-snapshot.md",
+    "docs/architecture/adr/ADR-038-process-metrics-collection.md",
+    "docs/sprints/2026-W26-process-metrics-collection/sprint-goal.md",
+    "docs/sprints/2026-W26-process-metrics-collection/sprint-backlog.md",
+    "docs/sprints/2026-W26-process-metrics-collection/planning.md",
+    "docs/sprints/2026-W26-process-metrics-collection/daily-notes.md",
+    "docs/sprints/2026-W26-process-metrics-collection/decisions.md",
+    "docs/sprints/2026-W26-process-metrics-collection/evidence-index.md",
+    "docs/sprints/2026-W26-process-metrics-collection/artifact-updates.md",
+    "docs/sprints/2026-W26-process-metrics-collection/process-change-candidates.md",
+    "docs/sprints/2026-W26-process-metrics-collection/review.md",
+    "docs/sprints/2026-W26-process-metrics-collection/retro.md",
+    "docs/sprints/2026-W26-process-metrics-collection/sprint-summary.md",
+    "docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "node scripts/collect-process-metrics.mjs",
+      "status": "passed",
+      "evidence": "process metrics snapshot written"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics",
+      "status": "passed",
+      "evidence": "process metrics validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full test suite passed, including process metrics snapshot validation"
+    }
+  ],
+  "known_limitations": [
+    "Snapshot не содержит real delivery timestamps.",
+    "Sprint predictability, spillover и cycle time остаются n/a до реального командного спринта.",
+    "Real user UAT остается pending_external."
+  ],
+  "next_safe_step": "После real UAT и первого командного Sprint Review добавить dated transition events для live metrics."
+}

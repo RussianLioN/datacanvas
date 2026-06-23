@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "risks": [
+    {
+      "id": "unsupported_claims",
+      "title": "Provider output содержит claim без подтверждения в NormalizedData",
+      "severity": "critical",
+      "owner": "QA/Evals Lead",
+      "mitigation": "Блокировать output через fact traceability и provider eval scorer."
+    },
+    {
+      "id": "prompt_injection_or_secret_leak",
+      "title": "Provider output содержит upstream instructions, raw traces или секреты",
+      "severity": "critical",
+      "owner": "Security/Privacy Lead",
+      "mitigation": "Проверять forbidden strings, export sanitization и no-network-by-default boundaries."
+    },
+    {
+      "id": "latency_budget_exceeded",
+      "title": "Provider p95 latency превышает budget",
+      "severity": "medium",
+      "owner": "SRE/LLM Ops Lead",
+      "mitigation": "Останавливать controlled experiment или откатывать на offline fallback."
+    },
+    {
+      "id": "cost_budget_exceeded",
+      "title": "Provider cost per run превышает budget",
+      "severity": "medium",
+      "owner": "Product Owner",
+      "mitigation": "Ограничивать retries, scope и provider usage до пересмотра budget."
+    },
+    {
+      "id": "provider_unreliability",
+      "title": "Provider failure rate превышает budget",
+      "severity": "high",
+      "owner": "SRE/LLM Ops Lead",
+      "mitigation": "Использовать offline fallback и не принимать provider без стабильности."
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_real_export",
+  "gate_id": "G9",
+  "purpose": "Отделить создание real human review session artifact от readiness validation и сделать импорт exported runtime state воспроизводимым.",
+  "input_contract": {
+    "schema_path": "schemas/review-runtime-state.schema.json",
+    "default_input_path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+    "required_status": "recorded_real_user",
+    "required_session_kind": "real_user"
+  },
+  "output_contract": {
+    "schema_path": "schemas/human-review-session.schema.json",
+    "default_output_path": "docs/product/ux/human-review-session-real.json",
+    "required_status": "recorded_real_user",
+    "required_session_kind": "real_user"
+  },
+  "import_rules": [
+    "Importer без --input выполняет только readiness validation и не пишет output.",
+    "Importer с --input принимает только status=recorded_real_user и session_kind=real_user.",
+    "Runtime export должен иметь current_state=approved и export_allowed=true.",
+    "Runtime export должен содержать submit_for_review, comment, record_decision и export.",
+    "Любой TO_BE_FILLED блокирует импорт; fixture/template/sample/placeholder/interactive markers запрещены в actor_id.",
+    "Output session artifact получает status=recorded_real_user и decision=accepted только из валидного runtime export."
+  ],
+  "validation_commands": [
+    "npm run validate:real-uat-session-importer",
+    "npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json",
+    "npm run validate:real-uat-readiness",
+    "npm run validate:data-leakage",
+    "npm test"
+  ],
+  "blocking_conditions": [
+    "Нет exported runtime state реальной UAT.",
+    "Runtime export содержит TO_BE_FILLED или unsafe actor_id markers.",
+    "Runtime export не approved или export_allowed=false.",
+    "Отсутствует одно из обязательных UAT actions.",
+    "Generated session artifact не проходит human-review-session schema."
+  ],
+  "known_limitations": [
+    "Readiness validation не создает real session artifact.",
+    "Команда prepare:real-uat-session с --input должна запускаться только после реальной UAT.",
+    "После создания real session artifact нужно обновить data leakage scan targets, release evidence и pilot gate."
+  ],
+  "next_safe_step": "После real UAT выполнить npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json."
+}

@@ -1,0 +1,55 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_static_browser_matrix",
+  "gate_id": "G9",
+  "purpose": "Задать проверяемую browser/viewport matrix для interactive review runtime перед real UAT без создания acceptance evidence.",
+  "html_path": "artifacts/examples/review-runtime-interactive.html",
+  "viewport_targets": [
+    {
+      "id": "mobile-small",
+      "width": 360,
+      "height": 740,
+      "class": "mobile"
+    },
+    {
+      "id": "tablet",
+      "width": 820,
+      "height": 1180,
+      "class": "tablet"
+    },
+    {
+      "id": "desktop",
+      "width": 1440,
+      "height": 900,
+      "class": "desktop"
+    }
+  ],
+  "required_static_checks": [
+    "HTML содержит responsive viewport meta.",
+    "CSS содержит mobile breakpoint для ширины 820px.",
+    "Main layout имеет constrained max-width.",
+    "Grid layout деградирует в single-column на mobile.",
+    "Control toolbar supports wrapping.",
+    "Runtime state JSON can wrap long content."
+  ],
+  "required_controls": [
+    "actor-id",
+    "real-uat-mode",
+    "reset-runtime",
+    "runtime-state-json",
+    "review-reason",
+    "state-json"
+  ],
+  "validation_commands": [
+    "npm run validate:review-runtime-browser-smoke",
+    "npm run validate:review-runtime-browser-matrix",
+    "npm run validate:review-runtime-interactive",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Static matrix и static browser smoke не заменяют ручную real UAT и не делают pixel screenshot.",
+    "Browser-specific rendering bugs нужно проверять отдельно после появления real UAT artifacts.",
+    "Matrix не создает review-runtime-state-export.json."
+  ],
+  "next_safe_step": "Перед real UAT запустить static browser smoke, открыть interactive runtime на mobile, tablet и desktop viewport targets и затем выполнить real UAT handoff."
+}

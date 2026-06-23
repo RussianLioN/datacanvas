@@ -1,0 +1,9 @@
+{
+  "render_id": "RENDER-minimal",
+  "schema_version": "0.1.0",
+  "source_spec_path": "tests/golden/presentation-spec-minimal.json",
+  "source_spec_id": "SPEC-minimal",
+  "formats": ["html"],
+  "output_dir": "artifacts/examples",
+  "sprint_id": "SPRINT-2026-W26-S23"
+}

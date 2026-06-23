@@ -1,0 +1,93 @@
+{
+  "version": "0.1.0",
+  "status": "blocked_pending_external",
+  "gate_id": "G10",
+  "depends_on_gate_id": "G9",
+  "purpose": "Зафиксировать readiness и блокеры pilot gate DataCanvas без ложного принятия G10 до commit/PR evidence, pilot report и portability notes.",
+  "required_evidence": [
+    {
+      "id": "PGR-001",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "G9 release candidate evidence pack существует, но остается pre-commit candidate."
+    },
+    {
+      "id": "PGR-002",
+      "path": "docs/product/ux/human-review-session-real.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Real user UAT session записана как recorded_real_user и accepted."
+    },
+    {
+      "id": "PGR-003",
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Исходный exported runtime state реальной UAT сохранен."
+    },
+    {
+      "id": "PGR-004",
+      "path": "docs/release/pilot-report.md",
+      "status": "pending_external",
+      "required_for_gate": true,
+      "reason": "Pilot run еще не проведен и не описан."
+    },
+    {
+      "id": "PGR-005",
+      "path": "docs/release/pilot-process-portability-notes.md",
+      "status": "pending_external",
+      "required_for_gate": true,
+      "reason": "Process portability notes должны быть написаны после пилота."
+    },
+    {
+      "id": "PGR-006",
+      "path": "commit-sha-and-pr-evidence",
+      "status": "pending_commit_or_pr",
+      "required_for_gate": true,
+      "reason": "Release train должен ссылаться на commit SHA и PR evidence."
+    },
+    {
+      "id": "PGR-007",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Data leakage gate включает real UAT artifacts как confidential scan targets."
+    },
+    {
+      "id": "PGR-008",
+      "path": "docs/release/pilot-execution-handoff.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Pilot execution handoff готовит G10/G11 runbook, но не является acceptance."
+    }
+  ],
+  "blocking_conditions": [
+    "G10 нельзя принять без commit SHA и PR evidence.",
+    "G10 нельзя принять без pilot report и portability notes.",
+    "G10 нельзя принять без full quality gate после real UAT evidence update.",
+    "G10 нельзя принять без release train record, связывающего проверенный repository state с pilot evidence."
+  ],
+  "validation_commands": [
+    "npm test",
+    "npm run validate:release-pack",
+    "npm run validate:real-uat-import",
+    "npm run validate:data-leakage",
+    "npm run validate:pilot-gate",
+    "npm run validate:pilot-execution-handoff"
+  ],
+  "pilot_artifacts": [
+    "docs/release/pilot-execution-handoff.json",
+    "docs/release/pilot-execution-handoff.md",
+    "docs/release/pilot-report.md",
+    "docs/release/pilot-process-portability-notes.md",
+    "docs/process/current/process-changelog.md",
+    "docs/process/current/process-metrics-snapshot.json"
+  ],
+  "known_limitations": [
+    "Этот artifact не является pilot acceptance.",
+    "Gate намеренно заблокирован до pilot run и release evidence.",
+    "После pilot run этот manifest должен быть обновлен или заменен pilot evidence pack."
+  ],
+  "next_safe_step": "Подготовить pilot report, portability notes и commit/PR evidence по pilot execution handoff."
+}

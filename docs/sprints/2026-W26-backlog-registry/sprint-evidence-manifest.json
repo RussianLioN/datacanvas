@@ -1,0 +1,76 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S22",
+  "sprint_name": "backlog-registry",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить machine-readable backlog registry и validator для Product, Requirements, Technical, Eval, Process и Sprint backlog-контуров.",
+  "created_artifacts": [
+    "schemas/backlog-registry.schema.json",
+    "docs/product/backlog/backlog-registry.json",
+    "docs/product/backlog/technical-backlog.md",
+    "docs/product/backlog/eval-backlog.md",
+    "scripts/validate-backlog-registry.mjs",
+    "docs/architecture/adr/ADR-022-backlog-registry.md",
+    "docs/sprints/2026-W26-backlog-registry/sprint-goal.md",
+    "docs/sprints/2026-W26-backlog-registry/sprint-backlog.md",
+    "docs/sprints/2026-W26-backlog-registry/planning.md",
+    "docs/sprints/2026-W26-backlog-registry/daily-notes.md",
+    "docs/sprints/2026-W26-backlog-registry/review.md",
+    "docs/sprints/2026-W26-backlog-registry/retro.md",
+    "docs/sprints/2026-W26-backlog-registry/decisions.md",
+    "docs/sprints/2026-W26-backlog-registry/evidence-index.md",
+    "docs/sprints/2026-W26-backlog-registry/artifact-updates.md",
+    "docs/sprints/2026-W26-backlog-registry/process-change-candidates.md",
+    "docs/sprints/2026-W26-backlog-registry/sprint-summary.md",
+    "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed",
+      "evidence": "backlog registry validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, secret scan, bootstrap, schemas, llm, evals, provider, backlog registry, security foundation, artifact registry, plan coverage, process versioning, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Validator пока не парсит каждую Markdown backlog-таблицу на item-level поля.",
+    "Kaiten/внешняя система управления задачами не подключалась.",
+    "Backlog registry не заменяет Product Owner приоритизацию."
+  ],
+  "next_safe_step": "Добавить недостающие contract schemas для RenderRequest, ProcessChangeRequest, ToolAllowlist и TraceContract."
+}

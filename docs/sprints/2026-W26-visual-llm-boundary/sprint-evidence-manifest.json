@@ -1,0 +1,41 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S5",
+  "sprint_name": "visual-llm-boundary",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить visual baseline checks, PDF/PNG strategy и LLM boundary contracts.",
+  "created_artifacts": [
+    "scripts/validate-visual-baseline.mjs",
+    "docs/architecture/renderer/pdf-png-export-strategy.md",
+    "docs/architecture/llm/prompt-contract.md",
+    "schemas/llm-request.schema.json",
+    "schemas/llm-result.schema.json",
+    "tests/fixtures/llm-request-minimal.json",
+    "tests/golden/llm-result-minimal.json",
+    "docs/architecture/adr/ADR-008-structural-visual-baseline.md",
+    "docs/architecture/adr/ADR-009-llm-schema-boundary.md",
+    "docs/sprints/2026-W26-visual-llm-boundary/sprint-goal.md",
+    "docs/sprints/2026-W26-visual-llm-boundary/sprint-backlog.md",
+    "docs/sprints/2026-W26-visual-llm-boundary/planning.md",
+    "docs/sprints/2026-W26-visual-llm-boundary/evidence-index.md"
+  ],
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "schema validation, export sanitization and structural visual baseline passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors reported"
+    }
+  ],
+  "known_limitations": [
+    "Visual baseline пока structural, без browser screenshot regression.",
+    "PDF/PNG export еще не реализован.",
+    "Реальный LLM еще не подключен."
+  ],
+  "next_safe_step": "Начать Sprint 6: LLM mock adapter behind schema boundary, unsupported-claim negative tests and no-network-by-default guardrails."
+}

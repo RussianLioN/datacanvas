@@ -1,0 +1,37 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_real_session",
+  "gate_id": "G9",
+  "purpose": "Подготовить управляемое проведение настоящей human review/UAT session без подмены ее fixture-артефактом.",
+  "required_inputs": [
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/uat-script.md",
+    "docs/product/ux/review-ui-fixture.json",
+    "artifacts/examples/review-ui-fixture.html",
+    "docs/product/ux/human-review-session-real.template.json"
+  ],
+  "session_template_path": "docs/product/ux/human-review-session-real.template.json",
+  "acceptance_rules": [
+    "Real session artifact должен иметь status=recorded_real_user.",
+    "Real session artifact должен иметь session_kind=real_user.",
+    "actor.actor_id должен указывать на реального участника, а не fixture или placeholder.",
+    "audit_events должны покрывать submit_for_review, comment, record_decision и export.",
+    "review_state должен быть approved, decision должен быть accepted для G9 acceptance."
+  ],
+  "blocking_conditions": [
+    "session_kind=fixture не принимается для pilot gate.",
+    "Любое поле TO_BE_FILLED блокирует acceptance.",
+    "Отсутствие export event или record_decision event блокирует acceptance."
+  ],
+  "validation_commands": [
+    "npm run validate:review-ui",
+    "npm run validate:real-uat-readiness",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Readiness artifact не доказывает, что реальная UAT-сессия проведена.",
+    "Реальный human-review-session-real.json должен быть создан после участия пользователя."
+  ],
+  "next_safe_step": "Провести real user UAT session и сохранить docs/product/ux/human-review-session-real.json."
+}

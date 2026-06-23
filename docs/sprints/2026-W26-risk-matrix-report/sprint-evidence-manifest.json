@@ -1,0 +1,52 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S16",
+  "sprint_name": "risk-matrix-report",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать human-readable risk matrix report и generator/checker для risk traceability consistency.",
+  "created_artifacts": [
+    "scripts/generate-risk-matrix-report.mjs",
+    "scripts/validate-risk-matrix.mjs",
+    "docs/architecture/risks/risk-matrix.md",
+    "docs/sprints/2026-W26-risk-matrix-report/sprint-goal.md",
+    "docs/sprints/2026-W26-risk-matrix-report/sprint-backlog.md",
+    "docs/sprints/2026-W26-risk-matrix-report/planning.md",
+    "docs/sprints/2026-W26-risk-matrix-report/review.md",
+    "docs/sprints/2026-W26-risk-matrix-report/retro.md",
+    "docs/sprints/2026-W26-risk-matrix-report/decisions.md",
+    "docs/sprints/2026-W26-risk-matrix-report/evidence-index.md",
+    "docs/sprints/2026-W26-risk-matrix-report/artifact-updates.md",
+    "docs/sprints/2026-W26-risk-matrix-report/process-change-candidates.md",
+    "docs/sprints/2026-W26-risk-matrix-report/sprint-summary.md",
+    "docs/sprints/2026-W26-risk-matrix-report/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:golden",
+      "status": "passed",
+      "evidence": "2026-06-22: generated risk matrix report from risk registry, risk traceability and traceability matrix."
+    },
+    {
+      "command": "npm run validate:risk-matrix",
+      "status": "passed",
+      "evidence": "2026-06-22: risk matrix validation passed."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:provider-experiment, validate:provider-evals, validate:provider-scorer, validate:risk-matrix, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "risk-traceability.json пока не генерируется автоматически.",
+    "Report не содержит агрегированного severity summary.",
+    "Командная приёмка Sprint 16 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 17: генерировать risk-traceability.json из registry и traceability matrix или добавить explicit source-of-truth decision для ручного сопровождения."
+}

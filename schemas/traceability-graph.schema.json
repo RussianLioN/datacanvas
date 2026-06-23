@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/traceability-graph.schema.json",
+  "title": "TraceabilityGraph",
+  "type": "object",
+  "required": ["version", "status", "scope", "source_plan", "nodes", "edges", "required_chains", "known_limitations"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "scope": { "type": "string" },
+    "source_plan": { "type": "string" },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "title", "artifact_path", "owner_role", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": [
+              "source",
+              "fact",
+              "requirement",
+              "backlog_item",
+              "slide_spec",
+              "rendered_artifact",
+              "test_eval",
+              "sprint_decision",
+              "process_change"
+            ]
+          },
+          "title": { "type": "string" },
+          "artifact_path": { "type": "string" },
+          "owner_role": { "type": "string" },
+          "status": { "type": "string" },
+          "evidence_paths": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": []
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "relationship", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "relationship": { "type": "string" },
+          "status": { "type": "string", "enum": ["active", "planned", "blocked"] },
+          "evidence_paths": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": []
+          }
+        }
+      }
+    },
+    "required_chains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "ordered_node_ids", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "ordered_node_ids": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string" }
+          },
+          "status": { "type": "string", "enum": ["covered", "partial", "blocked"] }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

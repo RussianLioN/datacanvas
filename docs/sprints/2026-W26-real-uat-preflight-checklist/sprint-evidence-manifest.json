@@ -1,0 +1,74 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S56",
+  "sprint_name": "real-uat-preflight-checklist",
+  "process_version": "0.1.0",
+  "status": "produced_pending_validation",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать проверяемый preflight перед real UAT без создания фиктивного external evidence.",
+  "created_artifacts": [
+    "schemas/real-uat-preflight-checklist.schema.json",
+    "docs/product/ux/real-uat-preflight-checklist.json",
+    "docs/product/ux/real-uat-preflight-checklist.md",
+    "scripts/validate-real-uat-preflight.mjs",
+    "docs/architecture/adr/ADR-056-real-uat-preflight-checklist.md",
+    "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:real-uat-preflight",
+      "status": "passed",
+      "evidence": "Проверяет preflight checklist, runtime fixture boundary, importer real_user requirements, handoff input command и blocked completion audit."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "Проверяет schema coverage для real-uat-preflight-checklist и sprint evidence manifest."
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "Проверяет обязательные S56 artifacts, ADR-056, registry entry ART-290 и process version SPRINT-2026-W26-S56."
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "Проверяет security delta coverage для S56."
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "Проверяет, что plan coverage отражает real UAT preflight без снятия external blockers."
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Проверяет registry coverage и hash manifest coverage для новых S56 artifacts."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Проверяет актуальность artifact hash manifest после добавления S56."
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "Проверяет, что S56 включен в process version manifest."
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "Проверяет обновленный metrics snapshot с учетом нового sprint folder."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate прошел с validate:real-uat-preflight, schema/bootstrap/threat-model/registry/hash/process checks и unchanged blocked completion audit."
+    }
+  ],
+  "known_limitations": [
+    "Preflight не проводит real UAT.",
+    "Preflight не создает review-runtime-state-export.json или human-review-session-real.json.",
+    "Completion audit остается blocked_pending_external."
+  ],
+  "next_safe_step": "Запустить targeted validation, обновить registry/hash/metrics и провести real UAT вручную."
+}

@@ -1,0 +1,59 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S63",
+  "sprint_name": "real-uat-one-command-runner",
+  "process_version": "0.1.0",
+  "status": "validated",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить one-command runner для real UAT без подмены реального пользователя.",
+  "created_artifacts": [
+    "schemas/real-uat-one-command-runner.schema.json",
+    "docs/product/ux/real-uat-one-command-runner.json",
+    "docs/product/ux/real-uat-one-command-runner.md",
+    "scripts/run-real-uat-session.mjs",
+    "scripts/validate-real-uat-one-command-runner.mjs",
+    "docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:real-uat-one-command-runner",
+      "status": "passed",
+      "evidence": "real UAT one-command runner validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:external-evidence-readiness",
+      "status": "passed",
+      "evidence": "external evidence readiness validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full quality gate passed"
+    }
+  ],
+  "known_limitations": [
+    "Runner не заменяет реального пользователя.",
+    "Runner не создает pilot report или commit/PR evidence.",
+    "Completion audit остается blocked до фактического UAT run."
+  ],
+  "next_safe_step": "Запустить npm run uat:real и пройти real UAT в браузере."
+}

@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_real_runtime_import",
+  "gate_id": "G9",
+  "purpose": "Описать безопасный импорт exported runtime state из interactive review runtime в real human review session artifact без подмены реальной UAT-сессии fixture-данными.",
+  "runtime_export_contract": {
+    "schema_path": "schemas/review-runtime-state.schema.json",
+    "source_runtime_path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+    "expected_status": "recorded_real_user",
+    "expected_session_kind": "real_user"
+  },
+  "output_session_path": "docs/product/ux/human-review-session-real.json",
+  "required_runtime_actions": [
+    "submit_for_review",
+    "comment",
+    "record_decision",
+    "export"
+  ],
+  "required_validation_commands": [
+    "npm run validate:review-runtime-interactive",
+    "npm run validate:real-uat-readiness",
+    "npm run validate:real-uat-import",
+    "npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm test"
+  ],
+  "blocking_conditions": [
+    "Runtime export со status=fixture не принимается.",
+    "Runtime export с session_kind=fixture не принимается.",
+    "Любое значение TO_BE_FILLED блокирует импорт.",
+    "Actor id с fixture или interactive placeholder блокирует импорт.",
+    "Отсутствие approved state, export_allowed=true или required runtime actions блокирует импорт."
+  ],
+  "known_limitations": [
+    "Manifest не доказывает, что real UAT уже проведена.",
+    "Validator по умолчанию проверяет только readiness; реальный import check без записи требует явного --input и --dry-run.",
+    "После создания human-review-session-real.json нужно добавить его в data leakage scan_targets отдельным security delta."
+  ],
+  "next_safe_step": "Провести real user UAT в interactive runtime, сохранить exported state и сначала запустить npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run."
+}
