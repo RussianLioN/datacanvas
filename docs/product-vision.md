@@ -1,4 +1,4 @@
-# DataCanvas Product Vision
+# Видение продукта DataCanvas
 
 Дата обновления: 2026-06-24
 
