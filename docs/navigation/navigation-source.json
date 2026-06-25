@@ -485,6 +485,24 @@
       "artifact_registry_required": true
     },
     {
+      "path": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+      "route_id": "business-technical-navigation-separation-plan",
+      "section": "plans",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Business and technical documentation navigation implementation changes.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/knowledge/README.md",
       "route_id": "knowledge-readme",
       "section": "knowledge",

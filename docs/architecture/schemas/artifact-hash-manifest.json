@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "0b02f9ad5e82af524ca36312914f10dfcd6308ed743bacc32a7736d87365ef13"
+      "sha256": "9d8c4a2a9ec7d8b0b967658209e3c9a04e607ea001c2373ca9e1b5889f1fe07c"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "f2dd107af35d3efe87eda8e484839ba53758472b4006bd50782b0514a23609ae"
+      "sha256": "f9bf0cfd80151ad1ce5edcd94470026bee01fb77bcd5ff200afdb246a01a69b9"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "76d97d2b912db9874170ba89998f47c251d5d2b0eb136a31389a08ec817984ba"
+      "sha256": "b7692f3829ba7a5cb014c8fa39a1820bfeaa60cfdbba63ee4a7990789aab8a4e"
     },
     {
       "artifact_id": "ART-411",
@@ -2113,6 +2113,11 @@
       "artifact_id": "ART-423",
       "path": "tests/docs-navigation/negative/cases.json",
       "sha256": "2ee6ea568becc49c60768bbcaba86b9f1fb54906fac38173f6aec6102e8bf7c1"
+    },
+    {
+      "artifact_id": "ART-424",
+      "path": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+      "sha256": "120fbb5d06e2e31d4d89627b241f80747b37091cd8ae67e3913b4844167f2ba8"
     }
   ],
   "exclusions": [

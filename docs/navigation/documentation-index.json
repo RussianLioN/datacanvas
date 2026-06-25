@@ -3159,6 +3159,46 @@
       "click_depth": 3
     },
     {
+      "path": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+      "title": "План имплементации: разделение бизнесовой и технической навигации DataCanvas",
+      "section": "plans",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-424",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-имплементации-разделение-бизнесовой-и-технической-навигации-datacanvas",
+        "summary",
+        "1-preflight",
+        "2-навигационная-таксономия-и-контракт",
+        "3-ручные-входы-навигации",
+        "4-navigation-source-и-generated-navigation",
+        "5-artifact-registry-и-hash-manifest",
+        "6-методика-и-процесс",
+        "7-validators-и-tests",
+        "8-validation",
+        "9-delivery-model",
+        "10-acceptance-criteria",
+        "assumptions"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
       "title": "План: Управляемая документация, навигация и индексация DataCanvas",
       "section": "plans",
@@ -3286,6 +3326,7 @@
       "outgoing_links": [
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
         "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
+        "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
         "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
@@ -26557,14 +26598,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1037,
-    "manual_entries": 1033,
+    "total_entries": 1038,
+    "manual_entries": 1034,
     "generated_entries": 4,
     "public_navigable_entries": 13,
-    "searchable_entries": 1013,
+    "searchable_entries": 1014,
     "confidential_or_sensitive_entries": 21,
     "unclassified_entries": 1,
-    "reachable_from_root": 48,
+    "reachable_from_root": 49,
     "orphan_entries": 0
   },
   "ignored_paths": [

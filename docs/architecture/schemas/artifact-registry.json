@@ -3625,6 +3625,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Navigation negative fixture coverage changes."
+    },
+    {
+      "id": "ART-424",
+      "path": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Business and technical documentation navigation implementation changes."
     }
   ]
 }
