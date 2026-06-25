@@ -1,0 +1,110 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_static_browser_smoke",
+  "gate_id": "G9",
+  "purpose": "Добавить воспроизводимый static browser smoke gate для interactive review runtime перед real UAT без создания фиктивного пользовательского evidence.",
+  "html_path": "artifacts/examples/review-runtime-interactive.html",
+  "browser_matrix_path": "docs/product/ux/review-runtime-browser-matrix.json",
+  "assertion_groups": [
+    {
+      "id": "BS-001",
+      "title": "Viewport readiness",
+      "required": [
+        "Есть responsive viewport meta.",
+        "Browser matrix содержит mobile, tablet и desktop targets.",
+        "HTML содержит mobile breakpoint для 820px."
+      ]
+    },
+    {
+      "id": "BS-002",
+      "title": "Layout stability",
+      "required": [
+        "Main layout ограничен max-width.",
+        "Grid layout использует minmax tracks.",
+        "Mobile layout переключает header и grid в block.",
+        "Toolbar поддерживает wrapping."
+      ]
+    },
+    {
+      "id": "BS-003",
+      "title": "Control availability",
+      "required": [
+        "Все mandatory review controls присутствуют в DOM.",
+        "Export link имеет download target.",
+        "State JSON area поддерживает перенос длинного содержимого."
+      ]
+    },
+    {
+      "id": "BS-004",
+      "title": "Runtime behavior hooks",
+      "required": [
+        "Runtime использует localStorage key из interactive manifest.",
+        "Runtime сохраняет state в localStorage.",
+        "Runtime обновляет body data attributes.",
+        "Runtime поддерживает explicit real UAT mode."
+      ]
+    },
+    {
+      "id": "BS-005",
+      "title": "Trust boundary",
+      "required": [
+        "HTML не содержит network URLs.",
+        "HTML не содержит iframe.",
+        "HTML не читает cookies.",
+        "HTML не использует eval."
+      ]
+    }
+  ],
+  "required_dom_ids": [
+    "state-label",
+    "export-label",
+    "review-controls",
+    "actor-id",
+    "real-uat-mode",
+    "reset-runtime",
+    "runtime-state-json",
+    "review-reason",
+    "event-list",
+    "state-json",
+    "initial-runtime-state"
+  ],
+  "required_css_rules": [
+    "meta viewport",
+    "max-width: 1180px",
+    "grid-template-columns: minmax(0, 1fr) minmax(320px, 420px)",
+    "flex-wrap: wrap",
+    "word-break: break-word",
+    "@media (max-width: 820px)",
+    "header, .grid { display: block; }"
+  ],
+  "required_script_behaviors": [
+    "const storageKey",
+    "localStorage.getItem(storageKey)",
+    "localStorage.setItem(storageKey",
+    "body.dataset.reviewState",
+    "body.dataset.exportEnabled",
+    "realUatMode.checked",
+    "status: \"recorded_real_user\"",
+    "session_kind: \"real_user\""
+  ],
+  "forbidden_patterns": [
+    "https?://",
+    "<iframe",
+    "document.cookie",
+    "eval(",
+    "interactive-approver",
+    "interactive-${transition.role}"
+  ],
+  "validation_commands": [
+    "npm run validate:review-runtime-browser-smoke",
+    "npm run validate:review-runtime-browser-matrix",
+    "npm run validate:review-runtime-interactive",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Static browser smoke не запускает реальный браузерный движок и не делает pixel screenshot.",
+    "Gate не заменяет manual real UAT на mobile, tablet и desktop.",
+    "Gate не создает review-runtime-state-export.json и human-review-session-real.json."
+  ],
+  "next_safe_step": "После static smoke открыть interactive runtime на viewport targets из browser matrix и провести real UAT по operator handoff."
+}

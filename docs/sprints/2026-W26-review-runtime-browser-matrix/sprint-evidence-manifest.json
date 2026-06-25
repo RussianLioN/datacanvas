@@ -1,0 +1,74 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S59",
+  "sprint_name": "review-runtime-browser-matrix",
+  "process_version": "0.1.0",
+  "status": "validated",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить browser/viewport matrix readiness gate для interactive review runtime без создания real UAT evidence.",
+  "created_artifacts": [
+    "schemas/review-runtime-browser-matrix.schema.json",
+    "docs/product/ux/review-runtime-browser-matrix.json",
+    "docs/product/ux/review-runtime-browser-matrix.md",
+    "scripts/validate-review-runtime-browser-matrix.mjs",
+    "docs/architecture/adr/ADR-059-review-runtime-browser-matrix.md",
+    "docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:review-runtime-browser-matrix",
+      "status": "passed",
+      "evidence": "review runtime browser matrix validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full quality gate passed"
+    }
+  ],
+  "known_limitations": [
+    "Static matrix не заменяет real UAT.",
+    "S59 не создает screenshot artifacts.",
+    "Completion audit остается blocked_pending_external."
+  ],
+  "next_safe_step": "Запустить targeted validation, обновить registry/hash/metrics и провести real UAT на viewport targets."
+}

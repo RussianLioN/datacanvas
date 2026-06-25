@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/plan-coverage-audit.schema.json",
+  "title": "PlanCoverageAudit",
+  "type": "object",
+  "required": ["version", "source_plan", "audit_date", "sections", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "source_plan": { "type": "string", "minLength": 1 },
+    "audit_date": { "type": "string", "format": "date" },
+    "sections": {
+      "type": "array",
+      "minItems": 17,
+      "items": {
+        "type": "object",
+        "required": ["number", "title", "status", "evidence_paths", "gaps", "next_actions"],
+        "additionalProperties": false,
+        "properties": {
+          "number": { "type": "integer", "minimum": 1, "maximum": 17 },
+          "title": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["covered", "partial", "not_started"] },
+          "evidence_paths": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "gaps": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "next_actions": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

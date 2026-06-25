@@ -1,0 +1,78 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S53",
+  "sprint_name": "pilot-report-templates",
+  "process_version": "0.1.0",
+  "status": "produced_blocked_pending_external",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Подготовить template artifacts для реального pilot report и portability notes без фиктивного evidence.",
+  "created_artifacts": [
+    "docs/release/templates/pilot-report-template.md",
+    "docs/release/templates/pilot-process-portability-notes-template.md",
+    "scripts/validate-pilot-report-templates.mjs",
+    "docs/architecture/adr/ADR-053-pilot-report-templates.md",
+    "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:pilot-report-templates",
+      "status": "passed",
+      "evidence": "pilot report templates validation passed"
+    },
+    {
+      "command": "npm run validate:pilot-execution-handoff",
+      "status": "passed",
+      "evidence": "pilot execution handoff validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate passed, including generated fixtures, secret scan, schemas, contracts, LLM guardrails, data leakage, evals, provider gates, release gates, pilot execution handoff, pilot report templates, process gates, traceability, risk matrix, export smoke, renderer regression, and visual baseline."
+    }
+  ],
+  "known_limitations": [
+    "Templates не являются pilot acceptance.",
+    "docs/release/pilot-report.md и docs/release/pilot-process-portability-notes.md остаются внешними блокерами.",
+    "Commit/PR evidence отсутствует."
+  ],
+  "next_safe_step": "После real UAT и pilot run заполнить реальные pilot artifacts по templates."
+}

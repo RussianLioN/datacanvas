@@ -1,0 +1,81 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S21",
+  "sprint_name": "security-foundation-pack",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Реализовать security foundation pack: data classification, threat model, incident response, export checklist и secret scan gate.",
+  "created_artifacts": [
+    "schemas/security-foundation-manifest.schema.json",
+    "docs/architecture/security/security-foundation-manifest.json",
+    "docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md",
+    "scripts/scan-secrets.mjs",
+    "scripts/validate-security-foundation.mjs",
+    "docs/architecture/adr/ADR-021-security-foundation-gate.md",
+    "docs/sprints/2026-W26-security-foundation-pack/sprint-goal.md",
+    "docs/sprints/2026-W26-security-foundation-pack/sprint-backlog.md",
+    "docs/sprints/2026-W26-security-foundation-pack/planning.md",
+    "docs/sprints/2026-W26-security-foundation-pack/daily-notes.md",
+    "docs/sprints/2026-W26-security-foundation-pack/review.md",
+    "docs/sprints/2026-W26-security-foundation-pack/retro.md",
+    "docs/sprints/2026-W26-security-foundation-pack/decisions.md",
+    "docs/sprints/2026-W26-security-foundation-pack/evidence-index.md",
+    "docs/sprints/2026-W26-security-foundation-pack/artifact-updates.md",
+    "docs/sprints/2026-W26-security-foundation-pack/process-change-candidates.md",
+    "docs/sprints/2026-W26-security-foundation-pack/sprint-summary.md",
+    "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed",
+      "evidence": "secret scan passed"
+    },
+    {
+      "command": "npm run validate:security-foundation",
+      "status": "passed",
+      "evidence": "security foundation validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, secret scan, bootstrap, schemas, llm, evals, provider, security foundation, artifact registry, plan coverage, process versioning, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Historical threat-model-delta для ранних спринтов не backfilled.",
+    "Secret scan локальный и базовый; внешний security scanner не подключался.",
+    "Внешние provider/network операции не выполнялись."
+  ],
+  "next_safe_step": "Добавить machine-readable backlog registry и validator для Product, Requirements, Technical, Eval, Process и Sprint backlog-контуров."
+}

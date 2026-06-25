@@ -1,0 +1,75 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S48",
+  "sprint_name": "real-uat-session-importer",
+  "process_version": "0.1.0",
+  "status": "produced_pending_real_uat_export",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Подготовить importer для создания human-review-session-real.json из реального exported runtime state без fixture.",
+  "created_artifacts": [
+    "schemas/real-uat-session-importer.schema.json",
+    "docs/product/ux/real-uat-session-importer.json",
+    "docs/product/ux/real-uat-session-importer.md",
+    "scripts/prepare-real-uat-session.mjs",
+    "scripts/validate-real-uat-session-importer.mjs",
+    "docs/architecture/adr/ADR-048-real-uat-session-importer.md",
+    "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:real-uat-session-importer",
+      "status": "passed",
+      "evidence": "real UAT session importer readiness validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed including real-uat-session-importer and S48 sprint evidence"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed after regenerating artifact hash manifest"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed after regenerating snapshot"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate passed, including validate:real-uat-session-importer."
+    }
+  ],
+  "known_limitations": [
+    "Real UAT export еще не создан.",
+    "human-review-session-real.json не создавался.",
+    "G9/G10/G11 acceptance остаются pending external."
+  ],
+  "next_safe_step": "После real UAT выполнить prepare:real-uat-session с явным --input."
+}

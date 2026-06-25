@@ -1,0 +1,60 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S17",
+  "sprint_name": "generated-risk-traceability",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Сделать risk-traceability.json генерируемым артефактом из управляемых source artifacts и подключить проверку к процессным gates.",
+  "created_artifacts": [
+    "schemas/risk-evidence-map.schema.json",
+    "docs/architecture/risks/risk-evidence-map.json",
+    "scripts/generate-risk-traceability.mjs",
+    "scripts/validate-risk-traceability.mjs",
+    "docs/architecture/adr/ADR-017-generated-risk-traceability.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/sprint-goal.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/sprint-backlog.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/planning.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/daily-notes.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/review.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/retro.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/decisions.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/evidence-index.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/artifact-updates.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/process-change-candidates.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/sprint-summary.md",
+    "docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:golden",
+      "status": "passed",
+      "evidence": "Пересобраны golden artifacts, provider scorer outputs, risk-traceability.json и risk-matrix.md."
+    },
+    {
+      "command": "npm run validate:risk-traceability",
+      "status": "passed",
+      "evidence": "risk traceability source validation passed"
+    },
+    {
+      "command": "npm run validate:risk-matrix",
+      "status": "passed",
+      "evidence": "risk matrix validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, bootstrap, schemas, llm, evals, provider, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "risk-evidence-map.json остается ручным source artifact для evidence paths.",
+    "Внешний LLM provider не включен; сетевые вызовы не выполнялись.",
+    "Генератор покрывает provider-risk traceability, но не является универсальным traceability engine для всех будущих доменов."
+  ],
+  "next_safe_step": "Добавить валидатор полноты artifact registry: уникальность ART-*, существование путей и связь новых артефактов со sprint evidence."
+}

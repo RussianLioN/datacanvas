@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-interview-runtime-state.schema.json",
+  "title": "BmcInterviewRuntimeState",
+  "type": "object",
+  "required": [
+    "version",
+    "session_id",
+    "interview_id",
+    "session_kind",
+    "status",
+    "selected_duration_minutes",
+    "selected_depth",
+    "interview_goal",
+    "respondent_role",
+    "setup_status",
+    "started_at",
+    "updated_at",
+    "completed_at",
+    "current_step",
+    "current_question_id",
+    "covered_bmc_blocks",
+    "remaining_bmc_blocks",
+    "asked_question_ids",
+    "answers",
+    "evidence_items",
+    "missing_evidence_notices",
+    "route_decisions",
+    "claims_snapshot",
+    "open_questions",
+    "transcript_path",
+    "route_decisions_path",
+    "completion_summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "session_id": { "type": "string", "pattern": "^BMC-RUN-" },
+    "interview_id": { "type": "string", "pattern": "^BMC-INT-" },
+    "session_kind": { "type": "string", "enum": ["runtime_fixture", "real_user_interview"] },
+    "status": {
+      "type": "string",
+      "enum": ["not_started", "in_progress", "paused", "ready_for_confirmation", "completed", "abandoned"]
+    },
+    "selected_duration_minutes": { "type": "integer", "minimum": 1 },
+    "selected_depth": { "type": "string", "enum": ["fast", "standard", "deep"] },
+    "interview_goal": {
+      "type": "string",
+      "enum": ["primary_bmc", "bmc_refinement", "hypothesis_check", "roadmap_preparation"]
+    },
+    "respondent_role": { "type": "string", "minLength": 1 },
+    "setup_status": { "type": "string", "enum": ["pending", "complete"] },
+    "started_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": ["string", "null"], "format": "date-time" },
+    "current_step": { "type": "integer", "minimum": 0 },
+    "current_question_id": { "type": "string" },
+    "covered_bmc_blocks": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] }
+    },
+    "remaining_bmc_blocks": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] }
+    },
+    "asked_question_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" }
+    },
+    "answers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "answer_id",
+          "question_id",
+          "bmc_block",
+          "selected_option_ids",
+          "custom_answer",
+          "normalized_answer",
+          "evidence_requested",
+          "evidence_ids",
+          "confidence",
+          "confirmation_status",
+          "notes",
+          "answered_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "answer_id": { "type": "string", "pattern": "^ANS-\\d{3}$" },
+          "question_id": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" },
+          "bmc_block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "selected_option_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "custom_answer": { "type": "string" },
+          "normalized_answer": { "type": "string" },
+          "evidence_requested": { "type": "boolean" },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EVD-" }
+          },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "confirmation_status": {
+            "type": "string",
+            "enum": ["confirmed", "unconfirmed", "assumption", "contradicted", "deprecated"]
+          },
+          "notes": { "type": "string" },
+          "answered_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "source_kind",
+          "provided_by",
+          "provided_at",
+          "data_class",
+          "trust_level",
+          "path_or_uri",
+          "redacted_excerpt",
+          "sha256",
+          "status",
+          "lifecycle_status",
+          "linked_answer_ids",
+          "linked_claim_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "evidence_id": { "type": "string", "pattern": "^EVD-\\d{3}$" },
+          "source_kind": { "type": "string", "enum": ["file", "link", "quote", "decision", "metric", "observation", "none"] },
+          "provided_by": { "type": "string", "minLength": 1 },
+          "provided_at": { "type": "string", "format": "date-time" },
+          "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] },
+          "trust_level": { "type": "string", "enum": ["unverified", "reviewed", "confirmed"] },
+          "path_or_uri": { "type": "string" },
+          "redacted_excerpt": { "type": "string" },
+          "sha256": { "type": "string" },
+          "status": { "type": "string", "enum": ["pending_review", "accepted", "rejected"] },
+          "lifecycle_status": { "type": "string", "enum": ["provided", "missing", "deferred", "rejected", "accepted"] },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "linked_claim_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+          }
+        }
+      }
+    },
+    "missing_evidence_notices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["notice_id", "linked_answer_ids", "linked_claim_ids", "reason", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "notice_id": { "type": "string", "pattern": "^ME-\\d{3}$" },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "linked_claim_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+          },
+          "reason": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["missing", "deferred"] }
+        }
+      }
+    },
+    "route_decisions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^RD-\\d{3}$" }
+    },
+    "claims_snapshot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["claim_id", "bmc_block", "statement", "status", "confidence", "linked_answer_ids", "evidence_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" },
+          "bmc_block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "statement": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["confirmed", "unconfirmed", "assumption", "contradicted", "deprecated"] },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EVD-" }
+          }
+        }
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^BMC-OQ-\\d{3}$" }
+    },
+    "transcript_path": { "type": "string" },
+    "route_decisions_path": { "type": "string" },
+    "completion_summary": { "type": "string" }
+  }
+}

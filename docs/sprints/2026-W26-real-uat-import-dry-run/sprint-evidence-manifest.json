@@ -1,0 +1,80 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S58",
+  "sprint_name": "real-uat-import-dry-run",
+  "process_version": "0.1.0",
+  "status": "produced_pending_validation",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Разделить real UAT import validation и запись acceptance artifact через dry-run guard.",
+  "created_artifacts": [
+    "docs/architecture/adr/ADR-058-real-uat-import-dry-run.md",
+    "docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:real-uat-import",
+      "status": "passed",
+      "evidence": "Проверяет readiness import gate; script поддерживает --dry-run для будущего real input без записи acceptance artifact."
+    },
+    {
+      "command": "npm run validate:real-uat-operator-handoff",
+      "status": "passed",
+      "evidence": "Проверяет, что operator handoff требует validate/import dry-run и prepare-session dry-run перед записью."
+    },
+    {
+      "command": "npm run validate:real-uat-preflight",
+      "status": "passed",
+      "evidence": "Проверяет, что preflight требует dry-run validation path и не создает external evidence."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "Проверяет schema coverage для обновленных manifests и S58 sprint evidence."
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "Проверяет ADR-058, --dry-run support, dry-run validation commands, registry entry ART-296 и process version SPRINT-2026-W26-S58."
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "Проверяет security delta coverage для S58 accidental-write/fake-evidence boundary."
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "Проверяет, что coverage audit отражает dry-run guard без снятия real UAT blocker."
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Проверяет registry coverage и hash coverage для S58 artifacts."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Проверяет актуальность artifact hash manifest после S58."
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "Проверяет, что S58 включен в process version manifest."
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "Проверяет обновленный metrics snapshot с учетом нового sprint folder."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate прошел с dry-run import guard, обновленным handoff/preflight, schema/bootstrap/security/registry/hash/process checks."
+    }
+  ],
+  "known_limitations": [
+    "Dry-run не создает real UAT evidence.",
+    "Real UAT export еще отсутствует.",
+    "Completion audit остается blocked_pending_external."
+  ],
+  "next_safe_step": "Запустить targeted validation, обновить registry/hash/metrics и провести real UAT вручную."
+}

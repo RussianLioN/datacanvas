@@ -1,0 +1,76 @@
+{
+  "version": "0.1.0",
+  "state_id": "RRS-2026-W26-G9-INTERACTIVE",
+  "status": "recorded_real_user",
+  "gate_id": "G9",
+  "session_kind": "real_user",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "review_ui_fixture_path": "docs/product/ux/review-ui-fixture.json",
+  "session_artifact_path": "docs/product/ux/human-review-session-real.json",
+  "current_state": "approved",
+  "export_allowed": true,
+  "transition_history": [
+    {
+      "event_id": "RRS-EVT-001",
+      "from": "draft",
+      "action": "submit_for_review",
+      "to": "in_review",
+      "actor_id": "uat-reviewer-001",
+      "role": "author",
+      "timestamp": "2026-06-23T13:11:41.854Z",
+      "reason": "Проверка интерактивного сохранения состояния review."
+    },
+    {
+      "event_id": "RRS-EVT-002",
+      "from": "in_review",
+      "action": "comment",
+      "to": "in_review",
+      "actor_id": "uat-reviewer-001",
+      "role": "reviewer",
+      "timestamp": "2026-06-23T13:11:42.687Z",
+      "reason": "Проверка интерактивного сохранения состояния review."
+    },
+    {
+      "event_id": "RRS-EVT-003",
+      "from": "in_review",
+      "action": "record_decision",
+      "to": "approved",
+      "actor_id": "uat-reviewer-001",
+      "role": "approver",
+      "timestamp": "2026-06-23T13:11:47.955Z",
+      "reason": "Проверка интерактивного сохранения состояния review."
+    },
+    {
+      "event_id": "RRS-EVT-004",
+      "from": "approved",
+      "action": "export",
+      "to": "approved",
+      "actor_id": "uat-reviewer-001",
+      "role": "author",
+      "timestamp": "2026-06-23T13:11:51.472Z",
+      "reason": "Проверка интерактивного сохранения состояния review."
+    }
+  ],
+  "persisted_fields": [
+    "state_id",
+    "current_state",
+    "export_allowed",
+    "transition_history",
+    "actor_id",
+    "role",
+    "timestamp",
+    "reason"
+  ],
+  "evidence_paths": [
+    "artifacts/examples/review-runtime-interactive.html",
+    "docs/product/ux/review-runtime-state-fixture.json",
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "scripts/validate-review-runtime-interactive.mjs"
+  ],
+  "known_limitations": [
+    "Интерактивный prototype сохраняет state в localStorage и требует real UAT evidence отдельно."
+  ],
+  "next_safe_step": "Экспортировать state JSON после real user UAT и связать с human-review-session-real.json."
+}

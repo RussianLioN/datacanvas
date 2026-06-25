@@ -1,0 +1,117 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_user_acceptance",
+  "generated_at": "2026-06-24T00:00:00Z",
+  "generated_by": "scripts/generate-bmc-artifacts.mjs",
+  "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+  "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
+  "source_trace_sha256": "e0c1496b7a0896e9caa603ba2f20c3e88851f1ef81b32f943e4ff854f45e8e6e",
+  "artifacts": [
+    {
+      "role": "package_readme",
+      "format": "markdown",
+      "path": "docs/product/bmc/README.md",
+      "sha256": "bf6efe5c339c279365dab58c6d52eb8e2801a063ef460d3b1d298b159de6351b"
+    },
+    {
+      "role": "clean_markdown",
+      "format": "markdown",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+    },
+    {
+      "role": "canonical_visual",
+      "format": "svg",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
+    },
+    {
+      "role": "portable_visual",
+      "format": "png",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "width": 3840,
+      "height": 2160,
+      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+    },
+    {
+      "role": "portable_document",
+      "format": "pdf",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+    },
+    {
+      "role": "engineering_view",
+      "format": "plantuml",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+    },
+    {
+      "role": "validation_companion",
+      "format": "json",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "sha256": "8e64110bc272fef1d9b70ed714e240aa8069b152ffb8d5ec66497da1f5424ec6"
+    },
+    {
+      "role": "derived_manifest",
+      "format": "json",
+      "path": "docs/product/bmc/bmc-derived-manifest.json",
+      "sha256": "30a3789c02733c4edc02856751547f0494d017b6b7403696ff8e2b48d603ed87"
+    },
+    {
+      "role": "source_map",
+      "format": "markdown",
+      "path": "docs/product/bmc/source-map.md",
+      "sha256": "6397e4e81a44b8d0eaa5aa9248109c553b983df78b9e4414d186bbc77538ae9b"
+    },
+    {
+      "role": "text_alternative",
+      "format": "markdown",
+      "path": "docs/product/bmc/text-alternative.md",
+      "sha256": "daca90a29914f154e05c009644c5e4ad3449aa71e9616457cba6696675e8d3af"
+    },
+    {
+      "role": "visual_review",
+      "format": "markdown",
+      "path": "docs/product/bmc/evidence/visual-review.md",
+      "sha256": "8efcd9a69f2ba4270aff06cdb58813472567f2764eb37f195319ad04ce9275c5"
+    },
+    {
+      "role": "visual_acceptance",
+      "format": "json",
+      "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+      "sha256": "b225c53369919f7df35af49686644aaf4b1c131e0169926c24c24bcf86fe989c"
+    },
+    {
+      "role": "designer_consilium",
+      "format": "json",
+      "path": "docs/product/bmc/evidence/designer-consilium.json",
+      "sha256": "bcba279cb9f4b0d9fbf48504be8d3f7929bf0dbc53a9f77d66462a2ab684cb9a"
+    },
+    {
+      "role": "design_philosophy",
+      "format": "markdown",
+      "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+      "sha256": "a79cd72b84636ed958975009f44a1040911d1a0a027da093e50bcb313a3a1138"
+    },
+    {
+      "role": "browser_smoke_screenshot",
+      "format": "png",
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "sha256": "6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8"
+    },
+    {
+      "role": "pdf_raster_smoke_screenshot",
+      "format": "png",
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "sha256": "efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83"
+    }
+  ],
+  "validators": [
+    "npm run validate:bmc-visual",
+    "npm run validate:bmc-render-parity",
+    "npm run validate:bmc-content-classic",
+    "npm run validate:bmc-package"
+  ]
+}

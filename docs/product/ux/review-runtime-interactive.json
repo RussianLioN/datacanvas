@@ -1,0 +1,51 @@
+{
+  "version": "0.1.0",
+  "status": "prototype",
+  "gate_id": "G9",
+  "html_path": "artifacts/examples/review-runtime-interactive.html",
+  "state_storage": {
+    "mechanism": "localStorage",
+    "key": "datacanvas.review.runtime.state.v0.1",
+    "export_control_id": "runtime-state-json"
+  },
+  "actor_controls": {
+    "actor_input_id": "actor-id",
+    "real_uat_toggle_id": "real-uat-mode",
+    "reset_control_id": "reset-runtime",
+    "forbidden_actor_markers": ["TO_BE_FILLED", "fixture", "template", "sample", "placeholder", "interactive-"]
+  },
+  "runtime_state_fixture_path": "docs/product/ux/review-runtime-state-fixture.json",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "required_actions": [
+    "submit_for_review",
+    "comment",
+    "record_decision",
+    "edit",
+    "export"
+  ],
+  "persisted_fields": [
+    "state_id",
+    "current_state",
+    "export_allowed",
+    "transition_history",
+    "actor_id",
+    "role",
+    "timestamp",
+    "reason"
+  ],
+  "evidence_paths": [
+    "artifacts/examples/review-runtime-interactive.html",
+    "docs/product/ux/review-runtime-state-fixture.json",
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "scripts/validate-review-runtime-interactive.mjs"
+  ],
+  "known_limitations": [
+    "Прототип сохраняет состояние в localStorage текущего браузера и не является записью реальной UAT-сессии.",
+    "Real UAT export требует явного включения Real UAT mode и actor_id без fixture/template/sample/placeholder markers.",
+    "Экспорт runtime state доступен как JSON download, но не заменяет human-review-session-real.json.",
+    "PDF/PNG renderer regression остается отдельным gate."
+  ],
+  "next_safe_step": "Провести real user UAT session: открыть интерактивный runtime, выполнить сценарий review, экспортировать state JSON и связать его с human-review-session-real.json."
+}

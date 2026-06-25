@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/external-evidence-readiness.schema.json",
+  "title": "ExternalEvidenceReadiness",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "source_audit_path",
+    "source_closure_map_path",
+    "purpose",
+    "blockers",
+    "required_invariants",
+    "validation_commands",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_to_collect_external_evidence", "external_evidence_collected"] },
+    "source_audit_path": { "type": "string", "minLength": 1 },
+    "source_closure_map_path": { "type": "string", "minLength": 1 },
+    "purpose": { "type": "string", "minLength": 1 },
+    "blockers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "blocking_evidence",
+          "owner_role",
+          "current_state",
+          "collection_mode",
+          "required_before_completion",
+          "supporting_artifacts",
+          "dry_run_commands",
+          "write_commands",
+          "forbidden_substitutes"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "blocking_evidence": { "type": "string", "minLength": 1 },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "current_state": { "type": "string", "enum": ["missing_pending_external", "collected"] },
+          "collection_mode": { "type": "string", "enum": ["manual_real_user", "manual_pilot", "repository_release_record"] },
+          "required_before_completion": { "type": "boolean", "const": true },
+          "supporting_artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "dry_run_commands": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "write_commands": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "forbidden_substitutes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "required_invariants": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

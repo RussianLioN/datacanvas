@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-route-decisions.schema.json",
+  "title": "BmcRouteDecisions",
+  "type": "object",
+  "required": ["version", "session_id", "interview_id", "status", "decisions"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "session_id": { "type": "string", "pattern": "^BMC-RUN-" },
+    "interview_id": { "type": "string", "pattern": "^BMC-INT-" },
+    "status": { "type": "string", "enum": ["runtime_fixture", "in_progress", "completed"] },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "route_decision_id",
+          "step_id",
+          "previous_question_id",
+          "selected_next_question_id",
+          "bmc_block",
+          "routing_reason",
+          "state_signals",
+          "llm_policy_checks",
+          "created_at"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "route_decision_id": { "type": "string", "pattern": "^RD-\\d{3}$" },
+          "step_id": { "type": "integer", "minimum": 1 },
+          "previous_question_id": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" },
+          "selected_next_question_id": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" },
+          "bmc_block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "routing_reason": { "type": "string", "minLength": 1 },
+          "state_signals": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "llm_policy_checks": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "created_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

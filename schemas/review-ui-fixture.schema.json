@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/review-ui-fixture.schema.json",
+  "title": "ReviewUiFixture",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "html_path", "source_artifacts", "required_controls", "required_sections", "session_artifact_path", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["fixture"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "html_path": { "type": "string", "minLength": 1 },
+    "source_artifacts": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_controls": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_sections": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "session_artifact_path": { "type": "string", "minLength": 1 },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

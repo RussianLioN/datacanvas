@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-gate-readiness.schema.json",
+  "title": "RealUatGateReadiness",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "purpose", "required_inputs", "session_template_path", "acceptance_rules", "blocking_conditions", "validation_commands", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_real_session"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "required_inputs": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "session_template_path": { "type": "string", "minLength": 1 },
+    "acceptance_rules": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocking_conditions": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-question-bank.schema.json",
+  "title": "BmcQuestionBank",
+  "type": "object",
+  "required": ["version", "status", "language", "default_modes", "questions"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["ready_for_interview"] },
+    "language": { "type": "string", "enum": ["ru"] },
+    "default_modes": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "duration_minutes", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "enum": ["light", "standard", "deep"] },
+          "duration_minutes": { "type": "integer", "minimum": 1 },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "required": [
+          "question_id",
+          "bmc_block",
+          "depth_modes",
+          "question_text",
+          "why_asked",
+          "answer_options",
+          "custom_answer_allowed",
+          "evidence_prompt"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "question_id": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" },
+          "bmc_block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "depth_modes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "enum": ["light", "standard", "deep"] }
+          },
+          "question_text": { "type": "string", "minLength": 1 },
+          "why_asked": { "type": "string", "minLength": 1 },
+          "answer_options": {
+            "type": "array",
+            "minItems": 6,
+            "items": {
+              "type": "object",
+              "required": ["id", "label", "kind"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "label": { "type": "string", "minLength": 1 },
+                "kind": { "type": "string", "enum": ["preset", "custom", "unknown", "skip"] }
+              }
+            }
+          },
+          "custom_answer_allowed": { "type": "boolean" },
+          "evidence_prompt": { "type": "string", "minLength": 1 },
+          "question_type": {
+            "type": "string",
+            "enum": [
+              "base",
+              "follow_up",
+              "evidence_request",
+              "clarification",
+              "contradiction_resolution",
+              "hypothesis_prioritization",
+              "validation_planning",
+              "closing_confirmation"
+            ]
+          },
+          "routing_triggers": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "max_depth": { "type": "string", "enum": ["fast", "standard", "deep"] },
+          "time_cost_level": { "type": "string", "enum": ["low", "medium", "high"] },
+          "claim_targets": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+          },
+          "follow_up_policy": { "type": "string" }
+        }
+      }
+    }
+  }
+}

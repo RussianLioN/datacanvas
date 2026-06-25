@@ -1,0 +1,170 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "scope": "Baseline governance graph for the DataCanvas bootstrap process and MVP fixture path.",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "nodes": [
+    {
+      "id": "SRC-001",
+      "type": "source",
+      "title": "DataCanvas adaptive Scrum implementation plan",
+      "artifact_path": "docs/architecture/schemas/source-registry.json",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "evidence_paths": ["docs/plans/datacanvas-adaptive-scrum-implementation-plan.md"]
+    },
+    {
+      "id": "FACT-001",
+      "type": "fact",
+      "title": "DataCanvas v1 uses one agent with tools by default.",
+      "artifact_path": "docs/architecture/schemas/fact-ledger.json",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "evidence_paths": ["docs/architecture/adr/ADR-002-one-agent-default.md"]
+    },
+    {
+      "id": "REQ-BT-001",
+      "type": "requirement",
+      "title": "Generate a short verifiable presentation from an input data package.",
+      "artifact_path": "docs/product/requirements/traceability-matrix.json",
+      "owner_role": "Product Owner",
+      "status": "implemented_baseline",
+      "evidence_paths": ["docs/product/requirements/business-requirements.md"]
+    },
+    {
+      "id": "PBI-001",
+      "type": "backlog_item",
+      "title": "Baseline product increment for input package to presentation artifact.",
+      "artifact_path": "docs/product/backlog/product-backlog.md",
+      "owner_role": "Product Owner",
+      "status": "implemented_baseline",
+      "evidence_paths": ["docs/product/backlog/backlog-registry.json"]
+    },
+    {
+      "id": "SLIDE-SPEC-MINIMAL",
+      "type": "slide_spec",
+      "title": "Minimal PresentationSpec golden artifact.",
+      "artifact_path": "tests/golden/presentation-spec-minimal.json",
+      "owner_role": "Development Team",
+      "status": "active",
+      "evidence_paths": ["scripts/generate-presentation-spec.mjs"]
+    },
+    {
+      "id": "ART-PRESENTATION-MINIMAL",
+      "type": "rendered_artifact",
+      "title": "Rendered minimal HTML presentation.",
+      "artifact_path": "artifacts/examples/presentation-minimal.html",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "evidence_paths": ["artifacts/examples/render-result-minimal.json"]
+    },
+    {
+      "id": "EVAL-VISUAL-BASELINE",
+      "type": "test_eval",
+      "title": "Visual and structural baseline validation.",
+      "artifact_path": "scripts/validate-visual-baseline.mjs",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "evidence_paths": ["tests/golden/trace-manifest-minimal.json", "tests/golden/claim-map-minimal.json"]
+    },
+    {
+      "id": "DEC-S8-001",
+      "type": "sprint_decision",
+      "title": "Sprint 8 prepares provider readiness without enabling an external provider.",
+      "artifact_path": "docs/sprints/2026-W26-provider-readiness/decisions.md",
+      "owner_role": "Scrum Master",
+      "status": "accepted",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-readiness/sprint-evidence-manifest.json"]
+    },
+    {
+      "id": "PROC-007",
+      "type": "process_change",
+      "title": "Controlled external LLM provider process change request.",
+      "artifact_path": "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "evidence_paths": ["docs/architecture/adr/ADR-012-provider-readiness-before-network.md"]
+    }
+  ],
+  "edges": [
+    {
+      "from": "SRC-001",
+      "to": "FACT-001",
+      "relationship": "states",
+      "status": "active",
+      "evidence_paths": ["docs/architecture/schemas/fact-ledger.json"]
+    },
+    {
+      "from": "FACT-001",
+      "to": "REQ-BT-001",
+      "relationship": "constrains",
+      "status": "active",
+      "evidence_paths": ["docs/product/requirements/traceability-matrix.json"]
+    },
+    {
+      "from": "REQ-BT-001",
+      "to": "PBI-001",
+      "relationship": "sliced_into",
+      "status": "active",
+      "evidence_paths": ["docs/product/requirements/traceability-matrix.json"]
+    },
+    {
+      "from": "PBI-001",
+      "to": "SLIDE-SPEC-MINIMAL",
+      "relationship": "implemented_by",
+      "status": "active",
+      "evidence_paths": ["tests/golden/presentation-spec-minimal.json"]
+    },
+    {
+      "from": "SLIDE-SPEC-MINIMAL",
+      "to": "ART-PRESENTATION-MINIMAL",
+      "relationship": "rendered_as",
+      "status": "active",
+      "evidence_paths": ["artifacts/examples/render-result-minimal.json"]
+    },
+    {
+      "from": "ART-PRESENTATION-MINIMAL",
+      "to": "EVAL-VISUAL-BASELINE",
+      "relationship": "validated_by",
+      "status": "active",
+      "evidence_paths": ["scripts/validate-visual-baseline.mjs"]
+    },
+    {
+      "from": "EVAL-VISUAL-BASELINE",
+      "to": "DEC-S8-001",
+      "relationship": "informs",
+      "status": "active",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-readiness/decisions.md"]
+    },
+    {
+      "from": "DEC-S8-001",
+      "to": "PROC-007",
+      "relationship": "creates_process_change_candidate",
+      "status": "active",
+      "evidence_paths": ["docs/process/change-requests/PROC-007-controlled-external-llm-provider.md"]
+    }
+  ],
+  "required_chains": [
+    {
+      "id": "CHAIN-001",
+      "description": "Source-to-process-change governance chain required by Data And Traceability Governance.",
+      "ordered_node_ids": [
+        "SRC-001",
+        "FACT-001",
+        "REQ-BT-001",
+        "PBI-001",
+        "SLIDE-SPEC-MINIMAL",
+        "ART-PRESENTATION-MINIMAL",
+        "EVAL-VISUAL-BASELINE",
+        "DEC-S8-001",
+        "PROC-007"
+      ],
+      "status": "covered"
+    }
+  ],
+  "known_limitations": [
+    "Граф покрывает bootstrap/MVP fixture path, а не все будущие product paths.",
+    "Real user UAT session не включена, потому что внешний артефакт еще не создан.",
+    "PROC-007 остается draft до решения Process Owner."
+  ]
+}

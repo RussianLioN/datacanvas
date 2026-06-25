@@ -1,0 +1,135 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_pilot_run_after_real_uat",
+  "gate_id": "G10",
+  "depends_on_gate_id": "G9",
+  "purpose": "Дать команде воспроизводимый порядок pilot run после real UAT без преждевременного acceptance G10/G11.",
+  "pilot_owner_role": "Delivery/GitOps Lead",
+  "entry_criteria": [
+    {
+      "id": "PILOT-HANDOFF-ENTRY-001",
+      "description": "Real UAT exported runtime state сохранен как внешний evidence.",
+      "evidence_path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "required_status": "recorded_real_user",
+      "blocking": true
+    },
+    {
+      "id": "PILOT-HANDOFF-ENTRY-002",
+      "description": "Real human review session artifact создан импортом из runtime export.",
+      "evidence_path": "docs/product/ux/human-review-session-real.json",
+      "required_status": "recorded_real_user",
+      "blocking": true
+    },
+    {
+      "id": "PILOT-HANDOFF-ENTRY-003",
+      "description": "Release evidence pack обновлен после real UAT.",
+      "evidence_path": "docs/release/mvp-release-evidence-pack.json",
+      "required_status": "accepted_after_real_uat",
+      "blocking": true
+    },
+    {
+      "id": "PILOT-HANDOFF-ENTRY-004",
+      "description": "Data leakage gate включает real UAT artifacts после их появления.",
+      "evidence_path": "docs/architecture/security/data-leakage-manifest.json",
+      "required_status": "real_uat_targets_included_after_files_exist",
+      "blocking": true
+    },
+    {
+      "id": "PILOT-HANDOFF-ENTRY-005",
+      "description": "Commit SHA и PR evidence доступны для release train.",
+      "evidence_path": "docs/release/commit-pr-evidence.md",
+      "required_status": "recorded",
+      "blocking": true
+    },
+    {
+      "id": "PILOT-HANDOFF-ENTRY-006",
+      "description": "Process portability pack готов для проверки на pilot feedback.",
+      "evidence_path": "docs/process/portability/process-portability-pack.json",
+      "required_status": "ready_for_pilot_validation",
+      "blocking": true
+    }
+  ],
+  "pilot_steps": [
+    {
+      "id": "PILOT-HANDOFF-STEP-001",
+      "action": "Провести Sprint Review с mvp-release-evidence-pack, real UAT session и exported runtime state.",
+      "expected_evidence": "В pilot-report.md есть секция Review Evidence со ссылками на real UAT artifacts и commit/PR evidence."
+    },
+    {
+      "id": "PILOT-HANDOFF-STEP-002",
+      "action": "Проверить end-to-end flow: input package, normalized data, PresentationSpec, renderer exports, trace manifest, human review decision.",
+      "expected_evidence": "В pilot-report.md есть явное решение accepted/rejected по каждому gate G1-G10."
+    },
+    {
+      "id": "PILOT-HANDOFF-STEP-003",
+      "action": "Провести process portability review для DataCanvas Delivery Process v0.1.",
+      "expected_evidence": "pilot-process-portability-notes.md содержит reusable parts, project-specific parts, migration risks и required adaptations."
+    },
+    {
+      "id": "PILOT-HANDOFF-STEP-004",
+      "action": "Запустить npm run pilot:record сначала в dry-run, затем в write mode после появления commit/PR или согласованного release record.",
+      "expected_evidence": "docs/release/pilot-report.md, docs/release/pilot-process-portability-notes.md и docs/release/commit-pr-evidence.md созданы recorder-ом на основании real UAT, release record и quality gate."
+    },
+    {
+      "id": "PILOT-HANDOFF-STEP-005",
+      "action": "Обновить process changelog, process metrics snapshot и completion audit по факту pilot.",
+      "expected_evidence": "Completion audit больше не содержит G10/G11 blockers только если все external evidence создано и проверено."
+    },
+    {
+      "id": "PILOT-HANDOFF-STEP-006",
+      "action": "Запустить full quality gate и приложить результаты в pilot-report.md.",
+      "expected_evidence": "pilot-report.md содержит команды npm test, validate:pilot-gate, validate:process-portability, validate:plan-completion-audit и результаты."
+    }
+  ],
+  "required_outputs": [
+    {
+      "path": "docs/release/commit-pr-evidence.md",
+      "status_before_pilot": "absent",
+      "status_after_pilot": "recorded_commit_pr_or_release_record"
+    },
+    {
+      "path": "docs/release/pilot-report.md",
+      "status_before_pilot": "absent",
+      "status_after_pilot": "recorded_pilot_result"
+    },
+    {
+      "path": "docs/release/pilot-process-portability-notes.md",
+      "status_before_pilot": "absent",
+      "status_after_pilot": "recorded_portability_review"
+    },
+    {
+      "path": "docs/process/audits/plan-completion-audit.json",
+      "status_before_pilot": "blocked_pending_external",
+      "status_after_pilot": "met_or_explicitly_blocked_with_new_reason"
+    },
+    {
+      "path": "docs/process/current/process-changelog.md",
+      "status_before_pilot": "active",
+      "status_after_pilot": "updated_if_process_changed"
+    }
+  ],
+  "validation_commands": [
+    "npm run validate:pilot-execution-handoff",
+    "npm run validate:pilot-evidence-recorder",
+    "npm run validate:pilot-report-templates",
+    "npm run validate:commit-pr-evidence-template",
+    "npm run validate:pilot-gate",
+    "npm run validate:process-portability",
+    "npm run validate:plan-completion-audit",
+    "npm test"
+  ],
+  "stop_conditions": [
+    "Real UAT artifacts отсутствуют или выглядят как fixture/template/sample.",
+    "Commit SHA или PR evidence отсутствуют.",
+    "Pilot report пытается принять G10 без real UAT и leakage re-scan.",
+    "Portability notes не содержат фактический feedback после pilot.",
+    "Любой quality gate из validation_commands не проходит."
+  ],
+  "known_limitations": [
+    "Handoff не доказывает, что pilot уже проведен.",
+    "G10/G11 acceptance остается внешним блокером до появления pilot report и portability notes.",
+    "Commit/PR evidence нельзя заменить локальным незакоммиченным состоянием; до commit/PR использовать только docs/release/templates/commit-pr-evidence-template.md как template.",
+    "npm run pilot:record является write path для внешних evidence, но не должен запускаться в write mode до commit/PR или явно согласованного release record."
+  ],
+  "next_safe_step": "После commit/PR или согласованного release record выполнить npm run pilot:record -- --dry-run, затем write mode и обновить completion audit."
+}

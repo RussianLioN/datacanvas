@@ -1,0 +1,36 @@
+{
+  "experiment_id": "EXP-provider-001",
+  "schema_version": "0.1.0",
+  "status": "completed",
+  "linked_proc_id": "PROC-007",
+  "provider_id": "PROVIDER-001",
+  "decision": "rollback",
+  "metrics": {
+    "quality_score": 0.6,
+    "cost_per_run_usd": 0,
+    "latency_ms_p95": 0,
+    "failure_rate_percent": 0
+  },
+  "quality_evidence": [
+    "tests/evals/eval-cases.json",
+    "tests/provider/llm-result-unsupported-provider-output.json",
+    "tests/evals/provider-specific-eval-delta.json",
+    "docs/architecture/evals/provider-quality-scoring-rubric.md"
+  ],
+  "security_evidence": [
+    "docs/architecture/security/no-network-by-default.md",
+    "docs/architecture/llm/provider-allowlist.json",
+    "docs/architecture/risks/risk-registry.json"
+  ],
+  "rollback": {
+    "available": true,
+    "fallback_command": "npm run generate:golden",
+    "decision_owner": "SRE/LLM Ops Lead"
+  },
+  "known_limitations": [
+    "Scored result uses frozen output from tests/provider/llm-result-unsupported-provider-output.json, not a live external provider.",
+    "Scored result uses default zero-cost offline scenario metrics.",
+    "Latency, cost and failure rate are zero because no network call is executed.",
+    "Decision is valid only as scorer validation evidence, not as team acceptance of an external provider."
+  ]
+}

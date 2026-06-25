@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "contours": [
+    {
+      "id": "product",
+      "name": "Product Backlog",
+      "source_path": "docs/product/backlog/product-backlog.md",
+      "owner_role": "Product Owner",
+      "item_prefixes": ["PBI-"],
+      "required_for_sprint_planning": true
+    },
+    {
+      "id": "requirements",
+      "name": "Requirements Backlog",
+      "source_path": "docs/product/requirements/traceability-matrix.json",
+      "owner_role": "Product Owner",
+      "item_prefixes": ["REQ-", "BT-", "NFR-", "US-"],
+      "required_for_sprint_planning": true
+    },
+    {
+      "id": "technical",
+      "name": "Technical Backlog",
+      "source_path": "docs/product/backlog/technical-backlog.md",
+      "owner_role": "Development Team",
+      "item_prefixes": ["TECH-"],
+      "required_for_sprint_planning": true
+    },
+    {
+      "id": "eval",
+      "name": "Eval Backlog",
+      "source_path": "docs/product/backlog/eval-backlog.md",
+      "owner_role": "QA/Evals Lead",
+      "item_prefixes": ["EVAL-"],
+      "required_for_sprint_planning": true
+    },
+    {
+      "id": "process",
+      "name": "Process Backlog",
+      "source_path": "docs/process/current/process-backlog.md",
+      "owner_role": "Process Owner",
+      "item_prefixes": ["PROC-"],
+      "required_for_sprint_planning": true
+    },
+    {
+      "id": "sprint",
+      "name": "Sprint Backlog",
+      "source_path": "docs/sprints",
+      "owner_role": "Scrum Master",
+      "item_prefixes": ["SPRINT-"],
+      "required_for_sprint_planning": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "facts": [
+    {
+      "id": "FACT-001",
+      "source_id": "SRC-001",
+      "claim": "DataCanvas v1 uses one agent with tools by default.",
+      "confidence": "high",
+      "status": "accepted"
+    },
+    {
+      "id": "FACT-002",
+      "source_id": "SRC-001",
+      "claim": "Human-readable artifacts are written in Russian by default.",
+      "confidence": "high",
+      "status": "accepted"
+    },
+    {
+      "id": "FACT-003",
+      "source_id": "SRC-001",
+      "claim": "The input from another agent is treated as untrusted.",
+      "confidence": "high",
+      "status": "accepted"
+    }
+  ]
+}

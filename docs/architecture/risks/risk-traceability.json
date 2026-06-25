@@ -1,0 +1,85 @@
+{
+  "version": "0.1.0",
+  "links": [
+    {
+      "risk_id": "unsupported_claims",
+      "nfr_ids": [
+        "NFR-001"
+      ],
+      "traceability_requirement_ids": [
+        "NFR-001"
+      ],
+      "eval_case_ids": [
+        "EVAL-101"
+      ],
+      "evidence_paths": [
+        "tests/provider/provider-experiment-result-rollback.json",
+        "docs/product/requirements/traceability-matrix.json"
+      ]
+    },
+    {
+      "risk_id": "prompt_injection_or_secret_leak",
+      "nfr_ids": [
+        "NFR-003"
+      ],
+      "traceability_requirement_ids": [
+        "NFR-003"
+      ],
+      "eval_case_ids": [
+        "EVAL-102"
+      ],
+      "evidence_paths": [
+        "tests/provider/provider-experiment-result-security-rollback.json",
+        "docs/product/requirements/non-functional-requirements.md"
+      ]
+    },
+    {
+      "risk_id": "latency_budget_exceeded",
+      "nfr_ids": [
+        "NFR-004"
+      ],
+      "traceability_requirement_ids": [
+        "NFR-004"
+      ],
+      "eval_case_ids": [
+        "EVAL-103"
+      ],
+      "evidence_paths": [
+        "tests/provider/provider-experiment-result-latency-rollback.json",
+        "docs/architecture/llm/provider-budget.json"
+      ]
+    },
+    {
+      "risk_id": "cost_budget_exceeded",
+      "nfr_ids": [
+        "NFR-004"
+      ],
+      "traceability_requirement_ids": [
+        "NFR-004"
+      ],
+      "eval_case_ids": [
+        "EVAL-104"
+      ],
+      "evidence_paths": [
+        "tests/provider/provider-experiment-result-cost-rollback.json",
+        "docs/architecture/llm/provider-budget.json"
+      ]
+    },
+    {
+      "risk_id": "provider_unreliability",
+      "nfr_ids": [
+        "NFR-004"
+      ],
+      "traceability_requirement_ids": [
+        "NFR-004"
+      ],
+      "eval_case_ids": [
+        "EVAL-105"
+      ],
+      "evidence_paths": [
+        "tests/provider/provider-experiment-result-failure-rollback.json",
+        "docs/architecture/llm/provider-budget.json"
+      ]
+    }
+  ]
+}

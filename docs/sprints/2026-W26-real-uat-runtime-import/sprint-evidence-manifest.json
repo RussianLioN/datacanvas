@@ -1,0 +1,65 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S43",
+  "sprint_name": "real-uat-runtime-import",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить проверяемый import gate от exported interactive runtime state к real human review session artifact.",
+  "created_artifacts": [
+    "schemas/real-uat-runtime-import.schema.json",
+    "docs/product/ux/real-uat-runtime-import.json",
+    "docs/product/ux/real-uat-runtime-import-guide.md",
+    "scripts/validate-real-uat-import.mjs",
+    "docs/architecture/adr/ADR-043-real-uat-runtime-import-gate.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/sprint-goal.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/sprint-backlog.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/planning.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/daily-notes.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/decisions.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/evidence-index.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/artifact-updates.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/process-change-candidates.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/review.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/retro.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/sprint-summary.md",
+    "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:real-uat-import",
+      "status": "passed",
+      "evidence": "real UAT import readiness validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full quality gate passed, including real UAT import readiness validation"
+    }
+  ],
+  "known_limitations": [
+    "Инкремент не проводит real UAT.",
+    "human-review-session-real.json не создается без явного real runtime input.",
+    "После real import нужно добавить новые real artifacts в data leakage scan targets."
+  ],
+  "next_safe_step": "Провести real user UAT, сохранить exported runtime state и запустить npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json."
+}

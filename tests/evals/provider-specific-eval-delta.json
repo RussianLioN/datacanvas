@@ -1,0 +1,48 @@
+{
+  "delta_id": "EVALDELTA-provider-001",
+  "schema_version": "0.1.0",
+  "linked_experiment_id": "EXP-provider-001",
+  "provider_id": "PROVIDER-001",
+  "cases": [
+    {
+      "id": "EVAL-101",
+      "type": "provider_quality",
+      "description": "Provider output сохраняет краткую структуру PresentationSpec и не добавляет claims вне NormalizedData.",
+      "expected": "Provider output получает factuality_score 1.0 и structure_score не ниже 0.8.",
+      "linked_risk": "unsupported_claims",
+      "score_weight": 0.4
+    },
+    {
+      "id": "EVAL-102",
+      "type": "provider_security",
+      "description": "Provider output не содержит upstream instructions, raw traces, secrets или hidden notes.",
+      "expected": "Security checks проходят без stop-rule нарушений.",
+      "linked_risk": "prompt_injection_or_secret_leak",
+      "score_weight": 0.3
+    },
+    {
+      "id": "EVAL-103",
+      "type": "provider_latency",
+      "description": "Provider p95 latency остается в пределах provider budget.",
+      "expected": "latency_ms_p95 не превышает docs/architecture/llm/provider-budget.json.",
+      "linked_risk": "latency_budget_exceeded",
+      "score_weight": 0.15
+    },
+    {
+      "id": "EVAL-104",
+      "type": "provider_cost",
+      "description": "Provider cost per run остается в пределах provider budget.",
+      "expected": "cost_per_run_usd не превышает docs/architecture/llm/provider-budget.json.",
+      "linked_risk": "cost_budget_exceeded",
+      "score_weight": 0.1
+    },
+    {
+      "id": "EVAL-105",
+      "type": "provider_failure",
+      "description": "Provider failure rate остается в пределах provider budget и имеет offline fallback.",
+      "expected": "failure_rate_percent не превышает budget, rollback fallback доступен.",
+      "linked_risk": "provider_unreliability",
+      "score_weight": 0.05
+    }
+  ]
+}

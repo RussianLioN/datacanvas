@@ -1,0 +1,777 @@
+import fs from "node:fs";
+import path from "node:path";
+import process from "node:process";
+import Ajv2020 from "ajv/dist/2020.js";
+import addFormats from "ajv-formats";
+
+const root = process.cwd();
+
+const cases = [
+  {
+    schema: "schemas/input-package.schema.json",
+    data: "tests/fixtures/input-package-minimal.json",
+  },
+  {
+    schema: "schemas/presentation-spec.schema.json",
+    data: "tests/golden/presentation-spec-minimal.json",
+  },
+  {
+    schema: "schemas/normalized-data.schema.json",
+    data: "tests/golden/normalized-data-minimal.json",
+  },
+  {
+    schema: "schemas/trace-manifest.schema.json",
+    data: "tests/golden/trace-manifest-minimal.json",
+  },
+  {
+    schema: "schemas/provider-allowlist.schema.json",
+    data: "docs/architecture/llm/provider-allowlist.json",
+  },
+  {
+    schema: "schemas/provider-budget.schema.json",
+    data: "docs/architecture/llm/provider-budget.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "docs/architecture/llm/provider-experiment-result-template.json",
+  },
+  {
+    schema: "schemas/provider-specific-eval-delta.schema.json",
+    data: "tests/evals/provider-specific-eval-delta.json",
+  },
+  {
+    schema: "schemas/backlog-registry.schema.json",
+    data: "docs/product/backlog/backlog-registry.json",
+  },
+  {
+    schema: "schemas/operational-readiness-manifest.schema.json",
+    data: "docs/architecture/observability/operational-readiness-manifest.json",
+  },
+  {
+    schema: "schemas/human-review-flow.schema.json",
+    data: "docs/product/ux/human-review-flow.json",
+  },
+  {
+    schema: "schemas/uat-manifest.schema.json",
+    data: "docs/product/ux/uat-manifest.json",
+  },
+  {
+    schema: "schemas/uat-result.schema.json",
+    data: "docs/product/ux/uat-result-minimal.json",
+  },
+  {
+    schema: "schemas/review-ui-fixture.schema.json",
+    data: "docs/product/ux/review-ui-fixture.json",
+  },
+  {
+    schema: "schemas/review-runtime-state.schema.json",
+    data: "docs/product/ux/review-runtime-state-fixture.json",
+  },
+  {
+    schema: "schemas/review-runtime-interactive.schema.json",
+    data: "docs/product/ux/review-runtime-interactive.json",
+  },
+  {
+    schema: "schemas/review-runtime-browser-matrix.schema.json",
+    data: "docs/product/ux/review-runtime-browser-matrix.json",
+  },
+  {
+    schema: "schemas/review-runtime-browser-smoke.schema.json",
+    data: "docs/product/ux/review-runtime-browser-smoke.json",
+  },
+  {
+    schema: "schemas/human-review-session.schema.json",
+    data: "docs/product/ux/human-review-session-minimal.json",
+  },
+  {
+    schema: "schemas/human-review-session.schema.json",
+    data: "docs/product/ux/human-review-session-real.template.json",
+  },
+  {
+    schema: "schemas/real-uat-gate-readiness.schema.json",
+    data: "docs/product/ux/real-uat-gate-readiness.json",
+  },
+  {
+    schema: "schemas/real-uat-runtime-import.schema.json",
+    data: "docs/product/ux/real-uat-runtime-import.json",
+  },
+  {
+    schema: "schemas/real-uat-operator-handoff.schema.json",
+    data: "docs/product/ux/real-uat-operator-handoff.json",
+  },
+  {
+    schema: "schemas/real-uat-preflight-checklist.schema.json",
+    data: "docs/product/ux/real-uat-preflight-checklist.json",
+  },
+  {
+    schema: "schemas/real-uat-session-importer.schema.json",
+    data: "docs/product/ux/real-uat-session-importer.json",
+  },
+  {
+    schema: "schemas/real-uat-one-command-runner.schema.json",
+    data: "docs/product/ux/real-uat-one-command-runner.json",
+  },
+  {
+    schema: "schemas/release-evidence-pack.schema.json",
+    data: "docs/release/mvp-release-evidence-pack.json",
+  },
+  {
+    schema: "schemas/pilot-gate-readiness.schema.json",
+    data: "docs/release/pilot-gate-readiness.json",
+  },
+  {
+    schema: "schemas/pilot-execution-handoff.schema.json",
+    data: "docs/release/pilot-execution-handoff.json",
+  },
+  {
+    schema: "schemas/export-smoke-manifest.schema.json",
+    data: "artifacts/examples/export-smoke-manifest.json",
+  },
+  {
+    schema: "schemas/export-png-pixel-smoke.schema.json",
+    data: "docs/product/ux/export-png-pixel-smoke.json",
+  },
+  {
+    schema: "schemas/renderer-regression-manifest.schema.json",
+    data: "artifacts/examples/renderer-regression-manifest.json",
+  },
+  {
+    schema: "schemas/artifact-hash-manifest.schema.json",
+    data: "docs/architecture/schemas/artifact-hash-manifest.json",
+  },
+  {
+    schema: "schemas/security-foundation-manifest.schema.json",
+    data: "docs/architecture/security/security-foundation-manifest.json",
+  },
+  {
+    schema: "schemas/threat-model-delta-manifest.schema.json",
+    data: "docs/architecture/security/threat-model-delta-manifest.json",
+  },
+  {
+    schema: "schemas/data-leakage-manifest.schema.json",
+    data: "docs/architecture/security/data-leakage-manifest.json",
+  },
+  {
+    schema: "schemas/real-uat-leakage-guard.schema.json",
+    data: "docs/architecture/security/real-uat-leakage-guard.json",
+  },
+  {
+    schema: "schemas/bmc-question-bank.schema.json",
+    data: "docs/product/bmc/bmc-interview-question-bank.json",
+  },
+  {
+    schema: "schemas/bmc-interview-runtime-state.schema.json",
+    data: "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+  },
+  {
+    schema: "schemas/bmc-route-decisions.schema.json",
+    data: "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+  },
+  {
+    schema: "schemas/bmc-interview-runtime-state.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+  },
+  {
+    schema: "schemas/bmc-route-decisions.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+  },
+  {
+    schema: "schemas/bmc-interview-answers.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+  },
+  {
+    schema: "schemas/bmc-user-evidence.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+  },
+  {
+    schema: "schemas/bmc-interview-results.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+  },
+  {
+    schema: "schemas/bmc-trace.schema.json",
+    data: "docs/product/bmc/bmc-trace.v0.1.json",
+  },
+  {
+    schema: "schemas/bmc-derived-manifest.schema.json",
+    data: "docs/product/bmc/bmc-derived-manifest.json",
+  },
+  {
+    schema: "schemas/bmc-package-manifest.schema.json",
+    data: "docs/product/bmc/manifest.json",
+  },
+  {
+    schema: "schemas/bmc-visual-acceptance.schema.json",
+    data: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+  },
+  {
+    schema: "schemas/bmc-validation-needs.schema.json",
+    data: "docs/product/bmc/bmc-validation-needs.json",
+  },
+  {
+    schema: "schemas/risk-registry.schema.json",
+    data: "docs/architecture/risks/risk-registry.json",
+  },
+  {
+    schema: "schemas/plan-coverage-audit.schema.json",
+    data: "docs/process/audits/datacanvas-plan-coverage-audit.json",
+  },
+  {
+    schema: "schemas/plan-completion-audit.schema.json",
+    data: "docs/process/audits/plan-completion-audit.json",
+  },
+  {
+    schema: "schemas/external-blocker-closure-map.schema.json",
+    data: "docs/process/audits/external-blocker-closure-map.json",
+  },
+  {
+    schema: "schemas/external-evidence-readiness.schema.json",
+    data: "docs/process/audits/external-evidence-readiness.json",
+  },
+  {
+    schema: "schemas/process-version-manifest.schema.json",
+    data: "docs/process/versions/0.1.0/process-version-manifest.json",
+  },
+  {
+    schema: "schemas/process-metrics-manifest.schema.json",
+    data: "docs/process/current/process-metrics-manifest.json",
+  },
+  {
+    schema: "schemas/process-event-log.schema.json",
+    data: "docs/process/current/process-event-log.json",
+  },
+  {
+    schema: "schemas/process-portability-pack.schema.json",
+    data: "docs/process/portability/process-portability-pack.json",
+  },
+  {
+    schema: "schemas/process-metrics-snapshot.schema.json",
+    data: "docs/process/current/process-metrics-snapshot.json",
+  },
+  {
+    schema: "schemas/process-change-ledger.schema.json",
+    data: "docs/process/current/process-change-ledger.json",
+  },
+  {
+    schema: "schemas/traceability-graph.schema.json",
+    data: "docs/architecture/schemas/traceability-graph.json",
+  },
+  {
+    schema: "schemas/risk-evidence-map.schema.json",
+    data: "docs/architecture/risks/risk-evidence-map.json",
+  },
+  {
+    schema: "schemas/risk-traceability.schema.json",
+    data: "docs/architecture/risks/risk-traceability.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-scored.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-rollback.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-security-rollback.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-cost-rollback.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-latency-rollback.json",
+  },
+  {
+    schema: "schemas/provider-experiment-result.schema.json",
+    data: "tests/provider/provider-experiment-result-failure-rollback.json",
+  },
+  {
+    schema: "schemas/claim-map.schema.json",
+    data: "tests/golden/claim-map-minimal.json",
+  },
+  {
+    schema: "schemas/eval-case.schema.json",
+    data: "tests/evals/eval-cases.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-product-goal-schema-validator/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-llm-mock-guardrails/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-eval-pack/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-provider-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-structured-provider-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-provider-experiment-template/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-provider-eval-rubric/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-provider-scorer-risk-registry/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-risk-matrix-report/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-operational-readiness-gate/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-human-review-uat-gate/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-pdf-png-export-smoke/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-release-evidence-pack/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-review-ui-fixture/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-metrics-manifest/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-review-runtime-state/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-renderer-regression-pack/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-event-log-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-leakage-guard/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-plan-completion-audit-gate/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-external-blocker-closure-map/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-review-runtime-browser-smoke/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-export-png-pixel-smoke/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-external-evidence-readiness/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-threat-model-delta-governance/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/artifact-registry.schema.json",
+    data: "docs/architecture/schemas/artifact-registry.json",
+  },
+  {
+    schema: "schemas/render-result.schema.json",
+    data: "artifacts/examples/render-result-minimal.json",
+  },
+  {
+    schema: "schemas/llm-request.schema.json",
+    data: "tests/fixtures/llm-request-minimal.json",
+  },
+  {
+    schema: "schemas/llm-result.schema.json",
+    data: "tests/golden/llm-result-minimal.json",
+  },
+  {
+    schema: "schemas/render-request.schema.json",
+    data: "tests/contracts/render-request-minimal.json",
+  },
+  {
+    schema: "schemas/process-change-request.schema.json",
+    data: "tests/contracts/process-change-request-minimal.json",
+  },
+  {
+    schema: "schemas/tool-allowlist.schema.json",
+    data: "tests/contracts/tool-allowlist-minimal.json",
+  },
+  {
+    schema: "schemas/trace-contract.schema.json",
+    data: "tests/contracts/trace-contract-minimal.json",
+  },
+  {
+    schema: "schemas/llm-result.schema.json",
+    data: "tests/fixtures/llm-result-unsupported-claim.json",
+  },
+];
+
+function readJson(relativePath) {
+  const absolutePath = path.join(root, relativePath);
+  return JSON.parse(fs.readFileSync(absolutePath, "utf8"));
+}
+
+const ajv = new Ajv2020({
+  allErrors: true,
+  strict: true,
+});
+addFormats(ajv);
+
+let failed = false;
+const validators = new Map();
+
+for (const testCase of cases) {
+  const data = readJson(testCase.data);
+  let validate = validators.get(testCase.schema);
+
+  if (!validate) {
+    const schema = readJson(testCase.schema);
+    validate = ajv.compile(schema);
+    validators.set(testCase.schema, validate);
+  }
+
+  const valid = validate(data);
+
+  if (!valid) {
+    failed = true;
+    console.error(`ERROR: ${testCase.data} does not match ${testCase.schema}`);
+    console.error(JSON.stringify(validate.errors, null, 2));
+  } else {
+    console.log(`schema validation passed: ${testCase.data}`);
+  }
+}
+
+if (failed) {
+  process.exit(1);
+}
+
+const inputPackage = readJson("tests/fixtures/input-package-minimal.json");
+const normalizedData = readJson("tests/golden/normalized-data-minimal.json");
+const traceManifest = readJson("tests/golden/trace-manifest-minimal.json");
+const presentationSpec = readJson("tests/golden/presentation-spec-minimal.json");
+const claimMap = readJson("tests/golden/claim-map-minimal.json");
+const renderResult = readJson("artifacts/examples/render-result-minimal.json");
+const llmResult = readJson("tests/golden/llm-result-minimal.json");
+const providerAllowlist = readJson("docs/architecture/llm/provider-allowlist.json");
+const providerBudget = readJson("docs/architecture/llm/provider-budget.json");
+const providerEvalDelta = readJson("tests/evals/provider-specific-eval-delta.json");
+const riskRegistry = readJson("docs/architecture/risks/risk-registry.json");
+const riskEvidenceMap = readJson("docs/architecture/risks/risk-evidence-map.json");
+const riskTraceability = readJson("docs/architecture/risks/risk-traceability.json");
+const scoredProviderResult = readJson("tests/provider/provider-experiment-result-scored.json");
+const rollbackProviderResult = readJson("tests/provider/provider-experiment-result-rollback.json");
+const securityRollbackResult = readJson("tests/provider/provider-experiment-result-security-rollback.json");
+const costRollbackResult = readJson("tests/provider/provider-experiment-result-cost-rollback.json");
+const latencyRollbackResult = readJson("tests/provider/provider-experiment-result-latency-rollback.json");
+const failureRollbackResult = readJson("tests/provider/provider-experiment-result-failure-rollback.json");
+const traceabilityMatrix = readJson("docs/product/requirements/traceability-matrix.json");
+
+if (normalizedData.source_package_id !== inputPackage.package_id) {
+  console.error("ERROR: normalized data is not linked to the input package");
+  process.exit(1);
+}
+
+if (!traceManifest.outputs.some((output) => output.path === "tests/golden/normalized-data-minimal.json")) {
+  console.error("ERROR: trace manifest does not reference normalized data output");
+  process.exit(1);
+}
+
+const modelCallSpan = traceManifest.spans.find((span) => span.name === "model_call");
+if (!modelCallSpan) {
+  console.error("ERROR: trace manifest does not include model_call span");
+  process.exit(1);
+}
+
+if (modelCallSpan.provider !== "local" || modelCallSpan.model !== "offline_mock_adapter") {
+  console.error("ERROR: trace manifest model_call span is not linked to offline provider fallback");
+  process.exit(1);
+}
+
+console.log("cross-artifact validation passed");
+
+const specClaims = presentationSpec.slides.flatMap((slide) =>
+  slide.claims.map((claim) => `${slide.slide_id}:${claim.text}`),
+);
+const mappedClaims = claimMap.claims.map((claim) => `${claim.slide_id}:${claim.claim_text}`);
+
+for (const specClaim of specClaims) {
+  if (!mappedClaims.includes(specClaim)) {
+    console.error(`ERROR: PresentationSpec claim is missing from claim map: ${specClaim}`);
+    process.exit(1);
+  }
+}
+
+console.log("claim-map validation passed");
+
+if (renderResult.source_spec_id !== presentationSpec.spec_id) {
+  console.error("ERROR: render result is not linked to PresentationSpec");
+  process.exit(1);
+}
+
+if (!renderResult.outputs.some((output) => output.path === "artifacts/examples/presentation-minimal.html")) {
+  console.error("ERROR: render result does not reference HTML export");
+  process.exit(1);
+}
+
+console.log("render-result validation passed");
+
+const validatePresentationSpec = validators.get("schemas/presentation-spec.schema.json");
+
+if (!validatePresentationSpec(llmResult.presentation_spec)) {
+  console.error("ERROR: LLMResult presentation_spec does not match PresentationSpec schema");
+  console.error(JSON.stringify(validatePresentationSpec.errors, null, 2));
+  process.exit(1);
+}
+
+console.log("llm-result nested PresentationSpec validation passed");
+
+const provider = providerAllowlist.providers[0];
+if (provider.status !== "disabled" || provider.network_access !== false) {
+  console.error("ERROR: provider allowlist must keep provider disabled and offline");
+  process.exit(1);
+}
+
+if (providerBudget.fallback.command !== "npm run generate:golden") {
+  console.error("ERROR: provider budget fallback command is not linked to golden generation");
+  process.exit(1);
+}
+
+console.log("provider readiness schema linkage validation passed");
+
+const riskIds = new Set(riskRegistry.risks.map((risk) => risk.id));
+const riskEvidenceIds = new Set(riskEvidenceMap.items.map((item) => item.risk_id));
+for (const riskId of riskIds) {
+  if (!riskEvidenceIds.has(riskId)) {
+    console.error(`ERROR: risk is missing from risk evidence map: ${riskId}`);
+    process.exit(1);
+  }
+}
+
+for (const testCase of providerEvalDelta.cases) {
+  if (!riskIds.has(testCase.linked_risk)) {
+    console.error(`ERROR: provider eval case references unknown risk: ${testCase.linked_risk}`);
+    process.exit(1);
+  }
+}
+
+if (scoredProviderResult.metrics.quality_score < 0.9) {
+  console.error("ERROR: scored provider result does not meet quality threshold");
+  process.exit(1);
+}
+
+if (rollbackProviderResult.decision !== "rollback" || rollbackProviderResult.metrics.quality_score >= 0.9) {
+  console.error("ERROR: rollback provider result does not demonstrate rollback decision below threshold");
+  process.exit(1);
+}
+
+for (const [label, result] of [
+  ["security", securityRollbackResult],
+  ["cost", costRollbackResult],
+  ["latency", latencyRollbackResult],
+  ["failure", failureRollbackResult],
+]) {
+  if (result.decision !== "rollback" || result.metrics.quality_score >= 0.9) {
+    console.error(`ERROR: ${label} rollback provider result does not demonstrate rollback decision below threshold`);
+    process.exit(1);
+  }
+}
+
+const traceabilityText = JSON.stringify(traceabilityMatrix);
+for (const riskId of riskIds) {
+  if (!traceabilityText.includes(riskId)) {
+    console.error(`ERROR: risk is missing from traceability matrix: ${riskId}`);
+    process.exit(1);
+  }
+}
+
+const riskTraceabilityIds = new Set(riskTraceability.links.map((link) => link.risk_id));
+for (const riskId of riskIds) {
+  if (!riskTraceabilityIds.has(riskId)) {
+    console.error(`ERROR: risk is missing from typed risk traceability: ${riskId}`);
+    process.exit(1);
+  }
+}
+
+const traceabilityByRequirement = new Map(traceabilityMatrix.links.map((link) => [link.requirement_id, link]));
+for (const link of riskTraceability.links) {
+  for (const requirementId of link.traceability_requirement_ids) {
+    const traceabilityLink = traceabilityByRequirement.get(requirementId);
+    if (!traceabilityLink?.risks?.includes(link.risk_id)) {
+      console.error(`ERROR: traceability matrix does not link ${requirementId} to risk ${link.risk_id}`);
+      process.exit(1);
+    }
+  }
+}
+
+console.log("provider scorer risk linkage validation passed");

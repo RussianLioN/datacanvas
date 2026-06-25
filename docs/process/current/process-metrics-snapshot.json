@@ -1,0 +1,149 @@
+{
+  "version": "0.1.0",
+  "status": "generated",
+  "period": "2026-W26",
+  "generated_at": "2026-06-22T00:00:00Z",
+  "source_paths": [
+    "docs/process/current/process-metrics-manifest.json",
+    "docs/sprints",
+    "docs/process/current/process-event-log.json",
+    "docs/architecture/schemas/artifact-registry.json",
+    "docs/process/current/process-change-ledger.json"
+  ],
+  "counts": {
+    "sprint_folders": 65,
+    "sprint_evidence_manifests": 65,
+    "artifact_registry_entries": 394,
+    "accepted_process_changes": 2,
+    "passed_evidence_checks": 506,
+    "pending_evidence_checks": 0,
+    "quality_gates_passed": 6,
+    "quality_gates_pending_external": 0,
+    "process_events": 0
+  },
+  "derived_metrics": [
+    {
+      "id": "DPM-001",
+      "name": "Sprint evidence coverage",
+      "value": "65/65",
+      "calculation": "sprint_evidence_manifests / sprint_folders",
+      "evidence_paths": [
+        "docs/sprints"
+      ]
+    },
+    {
+      "id": "DPM-002",
+      "name": "Artifact registry size",
+      "value": "394",
+      "calculation": "count(artifact_registry.artifacts)",
+      "evidence_paths": [
+        "docs/architecture/schemas/artifact-registry.json"
+      ]
+    },
+    {
+      "id": "DPM-003",
+      "name": "Accepted process changes",
+      "value": "2",
+      "calculation": "count(process_change_ledger.entries where status == accepted)",
+      "evidence_paths": [
+        "docs/process/current/process-change-ledger.json"
+      ]
+    },
+    {
+      "id": "DPM-004",
+      "name": "Evidence check pass ratio",
+      "value": "506/506",
+      "calculation": "passed sprint evidence checks / all sprint evidence checks",
+      "evidence_paths": [
+        "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-eval-pack/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-export-png-pixel-smoke/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-external-blocker-closure-map/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-external-evidence-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-failure-risk-crosscheck/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-human-review-uat-gate/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-llm-mock-guardrails/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-mock-presentation-spec/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-operational-readiness-gate/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pdf-png-export-smoke/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-plan-completion-audit-gate/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-event-log-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-metrics-manifest/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-product-goal-schema-validator/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-provider-eval-rubric/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-provider-experiment-template/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-provider-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-provider-scorer-risk-registry/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-leakage-guard/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-release-evidence-pack/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-renderer-baseline/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-renderer-regression-pack/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-requirements-data-contract/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-review-runtime-browser-smoke/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-review-runtime-state/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-review-ui-fixture/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-risk-matrix-report/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-structured-provider-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-threat-model-delta-governance/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-visual-llm-boundary/sprint-evidence-manifest.json"
+      ]
+    },
+    {
+      "id": "DPM-005",
+      "name": "External gate backlog",
+      "value": "0",
+      "calculation": "count(process quality gates where status == pending_external)",
+      "evidence_paths": [
+        "docs/process/current/process-metrics-manifest.json"
+      ]
+    },
+    {
+      "id": "DPM-006",
+      "name": "Process event log entries",
+      "value": "0",
+      "calculation": "count(process_event_log.events)",
+      "evidence_paths": [
+        "docs/process/current/process-event-log.json"
+      ]
+    }
+  ],
+  "known_limitations": [
+    "Snapshot считает только данные, уже зафиксированные в репозитории.",
+    "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps."
+  ],
+  "next_safe_step": "После merge PR #1 добавить dated events для live delivery metrics."
+}

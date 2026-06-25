@@ -1,0 +1,107 @@
+{
+  "version": "0.1.0",
+  "session_id": "BMC-RUN-ACTIVE-2026-W26-001",
+  "interview_id": "BMC-INT-ACTIVE-2026-W26-001",
+  "status": "completed",
+  "decisions": [
+    {
+      "route_decision_id": "RD-001",
+      "step_id": 2,
+      "previous_question_id": "B1-Q01",
+      "selected_next_question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "routing_reason": "Сегменты записаны; для полного покрытия BMC следующий блок - ценностное предложение.",
+      "state_signals": ["covered:B1", "remaining:B2", "missing_evidence:BMC-CLM-001"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:24:19Z"
+    },
+    {
+      "route_decision_id": "RD-002",
+      "step_id": 3,
+      "previous_question_id": "B2-Q01",
+      "selected_next_question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "routing_reason": "Ценность записана; для полного покрытия BMC следующий блок - каналы.",
+      "state_signals": ["covered:B2", "remaining:B3", "missing_evidence:BMC-CLM-002"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:28:01Z"
+    },
+    {
+      "route_decision_id": "RD-003",
+      "step_id": 4,
+      "previous_question_id": "B3-Q01",
+      "selected_next_question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "routing_reason": "Каналы записаны; следующий обязательный блок - взаимодействие с пользователем.",
+      "state_signals": ["covered:B3", "remaining:B4", "missing_evidence:BMC-CLM-003"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:37:55Z"
+    },
+    {
+      "route_decision_id": "RD-004",
+      "step_id": 5,
+      "previous_question_id": "B4-Q01",
+      "selected_next_question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "routing_reason": "Взаимодействие с пользователем записано; следующий блок - внутренняя польза и экономика.",
+      "state_signals": ["covered:B4", "remaining:B5", "missing_evidence:BMC-CLM-004"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:42:04Z"
+    },
+    {
+      "route_decision_id": "RD-005",
+      "step_id": 6,
+      "previous_question_id": "B5-Q01",
+      "selected_next_question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "routing_reason": "Внутренняя польза записана как допущение; следующий блок - ключевые ресурсы.",
+      "state_signals": ["covered:B5", "remaining:B6", "assumption:BMC-CLM-005"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:44:17Z"
+    },
+    {
+      "route_decision_id": "RD-006",
+      "step_id": 7,
+      "previous_question_id": "B6-Q01",
+      "selected_next_question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "routing_reason": "Ключевые ресурсы записаны; следующий блок - ключевые активности.",
+      "state_signals": ["covered:B6", "remaining:B7", "missing_evidence:BMC-CLM-006"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T14:57:02Z"
+    },
+    {
+      "route_decision_id": "RD-007",
+      "step_id": 8,
+      "previous_question_id": "B7-Q01",
+      "selected_next_question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "routing_reason": "Ключевые активности записаны; следующий блок - партнеры и зависимости.",
+      "state_signals": ["covered:B7", "remaining:B8", "partial_evidence:BMC-CLM-007"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T15:42:51Z"
+    },
+    {
+      "route_decision_id": "RD-008",
+      "step_id": 9,
+      "previous_question_id": "B8-Q01",
+      "selected_next_question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "routing_reason": "Партнеры и зависимости записаны; следующий обязательный блок - издержки и ограничения.",
+      "state_signals": ["covered:B8", "remaining:B9", "partial_evidence:BMC-CLM-008"],
+      "llm_policy_checks": ["one_question_only", "cover_all_blocks", "no_confirmation_without_evidence"],
+      "created_at": "2026-06-24T15:46:39Z"
+    },
+    {
+      "route_decision_id": "RD-009",
+      "step_id": 10,
+      "previous_question_id": "B9-Q01",
+      "selected_next_question_id": "B9-Q02",
+      "bmc_block": "B9",
+      "routing_reason": "Все 9 BMC-блоков покрыты; следующий шаг - финальное решение о чистовом BMC и отдельном companion JSON.",
+      "state_signals": ["covered:B9", "remaining:none", "assumption:BMC-CLM-009"],
+      "llm_policy_checks": ["one_question_only", "all_blocks_covered", "separate_clean_bmc_from_validation_metadata"],
+      "created_at": "2026-06-24T15:51:46Z"
+    }
+  ]
+}

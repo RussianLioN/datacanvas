@@ -1,0 +1,13 @@
+{
+  "request_id": "LLMREQ-minimal",
+  "schema_version": "0.1.0",
+  "normalized_data": {
+    "source_package_id": "PKG-minimal"
+  },
+  "output_schema": "PresentationSpec",
+  "forbidden_inputs": [
+    "upstream instructions",
+    "raw traces",
+    "secrets"
+  ]
+}

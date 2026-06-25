@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataCanvas Review Runtime</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #667085;
+      --line: #d9dee7;
+      --accent: #2563eb;
+      --ok: #0f766e;
+      --warn: #b45309;
+      --stop: #b91c1c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+    header, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    h1, h2, p { margin-top: 0; }
+    h1 { font-size: 24px; margin-bottom: 8px; }
+    h2 { font-size: 17px; margin-bottom: 12px; }
+    p, li { line-height: 1.5; }
+    .muted { color: var(--muted); }
+    .state {
+      min-width: 190px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+    .state strong {
+      display: block;
+      font-size: 20px;
+      margin-top: 4px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+      gap: 18px;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .identity {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 12px;
+    }
+    .checkbox-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      white-space: nowrap;
+    }
+    .checkbox-row input {
+      width: auto;
+    }
+    button, a.download {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #ffffff;
+      color: var(--ink);
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #ffffff; }
+    button:disabled, a[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+    textarea, input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      font: inherit;
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    .status-ok { color: var(--ok); }
+    .status-warn { color: var(--warn); }
+    .status-stop { color: var(--stop); }
+    .events {
+      margin: 0;
+      padding-left: 20px;
+    }
+    code {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 12px;
+    }
+    @media (max-width: 820px) {
+      main { padding: 14px; }
+      header, .grid { display: block; }
+      .state { margin-top: 14px; }
+    }
+  </style>
+</head>
+<body data-review-state="draft" data-export-enabled="false">
+  <main>
+    <header>
+      <div>
+        <h1>DataCanvas Review Runtime</h1>
+        <p class="muted">Интерактивный прототип G9: состояние review сохраняется локально и может быть экспортировано как JSON evidence.</p>
+      </div>
+      <div class="state">
+        <span>Текущее состояние</span>
+        <strong id="state-label">draft</strong>
+        <span id="export-label" class="status-stop">Export заблокирован</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section id="review-controls">
+        <h2>Управление Review</h2>
+        <div class="identity">
+          <label for="actor-id">Actor ID
+            <input id="actor-id" value="uat-reviewer-001" autocomplete="off">
+          </label>
+          <label class="checkbox-row" for="real-uat-mode">
+            <input id="real-uat-mode" type="checkbox">
+            Real UAT
+          </label>
+        </div>
+        <div class="toolbar">
+          <button class="primary" data-action="submit_for_review">Отправить на review</button>
+          <button data-action="comment">Добавить комментарий</button>
+          <button data-action="record_decision" data-decision="changes_requested">Запросить правки</button>
+          <button data-action="edit">Внести правку</button>
+          <button data-action="record_decision" data-decision="approved">Одобрить</button>
+          <button data-action="export">Export</button>
+          <button id="reset-runtime" type="button">Сбросить session</button>
+        </div>
+        <p class="muted">Доступность действий зависит от состояния: draft, in_review, changes_requested, approved.</p>
+        <label for="review-reason">Причина / комментарий</label>
+        <textarea id="review-reason">Проверка интерактивного сохранения состояния review.</textarea>
+      </section>
+
+      <section id="export-readiness">
+        <h2>Готовность К Export</h2>
+        <p id="export-rule" class="status-stop">Export разрешен только после approved.</p>
+        <a id="runtime-state-json" class="download" href="#" download="review-runtime-state-export.json" aria-disabled="true">Скачать state JSON</a>
+      </section>
+    </div>
+
+    <section id="decision-log">
+      <h2>Decision Log</h2>
+      <ol id="event-list" class="events"></ol>
+    </section>
+
+    <section id="runtime-state">
+      <h2>Runtime State</h2>
+      <code id="state-json"></code>
+    </section>
+  </main>
+
+  <script type="application/json" id="initial-runtime-state">
+{
+  "version": "0.1.0",
+  "state_id": "RRS-2026-W26-G9-INTERACTIVE",
+  "status": "fixture",
+  "gate_id": "G9",
+  "session_kind": "fixture",
+  "review_flow_path": "docs/product/ux/human-review-flow.json",
+  "review_ui_fixture_path": "docs/product/ux/review-ui-fixture.json",
+  "session_artifact_path": "docs/product/ux/human-review-session-minimal.json",
+  "current_state": "draft",
+  "export_allowed": false,
+  "transition_history": [],
+  "persisted_fields": ["state_id", "current_state", "export_allowed", "transition_history", "actor_id", "role", "timestamp", "reason"],
+  "evidence_paths": [
+    "artifacts/examples/review-runtime-interactive.html",
+    "docs/product/ux/review-runtime-state-fixture.json",
+    "docs/product/ux/human-review-flow.json",
+    "docs/product/ux/review-ui-fixture.json",
+    "docs/product/ux/human-review-session-minimal.json",
+    "scripts/validate-review-runtime-interactive.mjs"
+  ],
+  "known_limitations": ["Интерактивный prototype сохраняет state в localStorage и требует real UAT evidence отдельно."],
+  "next_safe_step": "Экспортировать state JSON после real user UAT и связать с human-review-session-real.json."
+}
+  </script>
+  <script>
+    const storageKey = "datacanvas.review.runtime.state.v0.1";
+    const allowedTransitions = {
+      draft: {
+        submit_for_review: { to: "in_review", role: "author" }
+      },
+      in_review: {
+        comment: { to: "in_review", role: "reviewer" },
+        record_decision_changes_requested: { to: "changes_requested", role: "reviewer" },
+        record_decision_approved: { to: "approved", role: "approver" }
+      },
+      changes_requested: {
+        edit: { to: "draft", role: "author" }
+      },
+      approved: {
+        export: { to: "approved", role: "author" }
+      }
+    };
+
+    const body = document.body;
+    const stateLabel = document.getElementById("state-label");
+    const exportLabel = document.getElementById("export-label");
+    const exportRule = document.getElementById("export-rule");
+    const downloadLink = document.getElementById("runtime-state-json");
+    const eventList = document.getElementById("event-list");
+    const stateJson = document.getElementById("state-json");
+    const reasonInput = document.getElementById("review-reason");
+    const actorInput = document.getElementById("actor-id");
+    const realUatMode = document.getElementById("real-uat-mode");
+    const resetButton = document.getElementById("reset-runtime");
+    const initialState = JSON.parse(document.getElementById("initial-runtime-state").textContent);
+
+    let runtimeState = loadState();
+    render();
+
+    document.querySelectorAll("[data-action]").forEach((button) => {
+      button.addEventListener("click", () => applyAction(button.dataset.action, button.dataset.decision));
+    });
+    resetButton.addEventListener("click", resetSession);
+
+    function loadState() {
+      const stored = localStorage.getItem(storageKey);
+      return stored ? JSON.parse(stored) : initialState;
+    }
+
+    function persist() {
+      localStorage.setItem(storageKey, JSON.stringify(runtimeState, null, 2));
+    }
+
+    function transitionKey(action, decision) {
+      return decision ? `${action}_${decision}` : action;
+    }
+
+    function actorId() {
+      return actorInput.value.trim();
+    }
+
+    function actorIdIsSafe(value) {
+      return value.length >= 3 && !/fixture|template|sample|placeholder|interactive-|TO_BE_FILLED/i.test(value);
+    }
+
+    function sessionPatch() {
+      if (!realUatMode.checked) return {};
+      return {
+        status: "recorded_real_user",
+        session_kind: "real_user",
+        session_artifact_path: "docs/product/ux/human-review-session-real.json"
+      };
+    }
+
+    function resetSession() {
+      runtimeState = initialState;
+      localStorage.removeItem(storageKey);
+      render();
+    }
+
+    function applyAction(action, decision) {
+      if (realUatMode.checked && !actorIdIsSafe(actorId())) return;
+      const current = runtimeState.current_state;
+      const transition = allowedTransitions[current]?.[transitionKey(action, decision)];
+      if (!transition) return;
+      const event = {
+        event_id: `RRS-EVT-${String(runtimeState.transition_history.length + 1).padStart(3, "0")}`,
+        from: current,
+        action,
+        to: transition.to,
+        actor_id: realUatMode.checked ? actorId() : `fixture-${transition.role}`,
+        role: transition.role,
+        timestamp: new Date().toISOString(),
+        reason: reasonInput.value.trim() || "Runtime action without comment."
+      };
+      runtimeState = {
+        ...runtimeState,
+        ...sessionPatch(),
+        current_state: transition.to,
+        export_allowed: transition.to === "approved",
+        transition_history: [...runtimeState.transition_history, event]
+      };
+      persist();
+      render();
+    }
+
+    function render() {
+      body.dataset.reviewState = runtimeState.current_state;
+      body.dataset.exportEnabled = String(runtimeState.export_allowed);
+      stateLabel.textContent = runtimeState.current_state;
+      exportLabel.textContent = runtimeState.export_allowed ? "Export разрешен" : "Export заблокирован";
+      exportLabel.className = runtimeState.export_allowed ? "status-ok" : "status-stop";
+      const actorSafe = !realUatMode.checked || actorIdIsSafe(actorId());
+      exportRule.textContent = actorSafe
+        ? (runtimeState.export_allowed ? "Approved state достигнут; export action доступен." : "Export разрешен только после approved.")
+        : "Для real UAT нужен непустой actor_id без fixture/template/sample/placeholder markers.";
+      exportRule.className = actorSafe ? (runtimeState.export_allowed ? "status-ok" : "status-stop") : "status-warn";
+      eventList.innerHTML = runtimeState.transition_history.map((event) => `<li>${event.timestamp}: ${event.from} -> ${event.to}, ${event.action}, ${event.role}</li>`).join("");
+      const json = JSON.stringify(runtimeState, null, 2);
+      stateJson.textContent = json;
+      const blob = new Blob([json], { type: "application/json" });
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.setAttribute("aria-disabled", String(!runtimeState.export_allowed));
+      document.querySelectorAll("[data-action]").forEach((button) => {
+        button.disabled = !actorSafe || !allowedTransitions[runtimeState.current_state]?.[transitionKey(button.dataset.action, button.dataset.decision)];
+      });
+    }
+
+    actorInput.addEventListener("input", render);
+    realUatMode.addEventListener("change", render);
+  </script>
+</body>
+</html>

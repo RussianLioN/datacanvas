@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/process-portability-pack.schema.json",
+  "title": "ProcessPortabilityPack",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "purpose", "source_process_version", "reusable_templates", "migration_notes_template_path", "pilot_dependency", "validation_commands", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_pilot_validation", "accepted_after_pilot"] },
+    "gate_id": { "type": "string", "const": "G11" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "source_process_version": { "type": "string", "minLength": 1 },
+    "reusable_templates": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "reuse_scope", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "reuse_scope": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["template_ready", "requires_pilot_feedback", "pilot_validated"] }
+        }
+      }
+    },
+    "migration_notes_template_path": { "type": "string", "minLength": 1 },
+    "pilot_dependency": {
+      "type": "object",
+      "required": ["pilot_report_path", "status", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "pilot_report_path": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["pending_external", "satisfied"] },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

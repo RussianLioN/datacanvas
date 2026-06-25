@@ -1,0 +1,57 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S18",
+  "sprint_name": "artifact-registry-validator",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить валидатор полноты artifact registry как process gate.",
+  "created_artifacts": [
+    "scripts/validate-artifact-registry.mjs",
+    "docs/architecture/adr/ADR-018-artifact-registry-validation.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/sprint-goal.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/sprint-backlog.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/planning.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/daily-notes.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/review.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/retro.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/decisions.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/evidence-index.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/artifact-updates.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/process-change-candidates.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/sprint-summary.md",
+    "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, bootstrap, schemas, llm, evals, provider, artifact registry, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Artifact registry пока сопровождается вручную.",
+    "Валидатор проверяет существование путей, но не вычисляет хэши артефактов.",
+    "Внешние provider/network операции не выполнялись."
+  ],
+  "next_safe_step": "Проверить версионирование process docs: current/versions/changelog должны доказывать, какая версия процесса применялась к каждому новому спринту."
+}

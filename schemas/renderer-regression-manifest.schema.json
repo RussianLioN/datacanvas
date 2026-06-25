@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/renderer-regression-manifest.schema.json",
+  "title": "RendererRegressionManifest",
+  "type": "object",
+  "required": ["version", "status", "source_paths", "cases", "required_gates", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["generated"] },
+    "source_paths": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "format", "path", "sha256", "min_bytes", "assertions"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "format": { "type": "string", "enum": ["html", "pdf", "png"] },
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "min_bytes": { "type": "integer", "minimum": 1 },
+          "assertions": {
+            "type": "array",
+            "minItems": 2,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "required_gates": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

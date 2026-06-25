@@ -1,0 +1,65 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S19",
+  "sprint_name": "process-versioning-validator",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Сделать версионирование процесса проверяемым через process version manifest, snapshot и validator.",
+  "created_artifacts": [
+    "schemas/process-version-manifest.schema.json",
+    "docs/process/versions/0.1.0/process-version-manifest.json",
+    "docs/process/versions/0.1.0/process-snapshot.md",
+    "scripts/validate-process-versioning.mjs",
+    "docs/architecture/adr/ADR-019-process-versioning-validation.md",
+    "docs/sprints/2026-W26-process-versioning-validator/sprint-goal.md",
+    "docs/sprints/2026-W26-process-versioning-validator/sprint-backlog.md",
+    "docs/sprints/2026-W26-process-versioning-validator/planning.md",
+    "docs/sprints/2026-W26-process-versioning-validator/daily-notes.md",
+    "docs/sprints/2026-W26-process-versioning-validator/review.md",
+    "docs/sprints/2026-W26-process-versioning-validator/retro.md",
+    "docs/sprints/2026-W26-process-versioning-validator/decisions.md",
+    "docs/sprints/2026-W26-process-versioning-validator/evidence-index.md",
+    "docs/sprints/2026-W26-process-versioning-validator/artifact-updates.md",
+    "docs/sprints/2026-W26-process-versioning-validator/process-change-candidates.md",
+    "docs/sprints/2026-W26-process-versioning-validator/sprint-summary.md",
+    "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, bootstrap, schemas, llm, evals, provider, artifact registry, process versioning, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Создана только активная версия процесса 0.1.0.",
+    "Новая версия процесса требует отдельного Process Change Request.",
+    "Validator проверяет связи версий и спринтов, но не сравнивает текстовый diff между current и snapshot."
+  ],
+  "next_safe_step": "Добавить audit report покрытия исходного плана: какие разделы плана уже закрыты артефактами/gates, какие остаются неполными и какой следующий product increment безопасен."
+}

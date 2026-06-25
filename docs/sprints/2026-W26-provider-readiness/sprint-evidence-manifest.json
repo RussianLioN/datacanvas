@@ -1,0 +1,51 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S8",
+  "sprint_name": "provider-readiness",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Подготовить controlled external LLM provider integration plan без включения сети: Process Change Request, provider allowlist, cost/latency budget, trace requirements, offline fallback и локальный readiness gate.",
+  "created_artifacts": [
+    "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md",
+    "docs/architecture/llm/provider-integration-plan.md",
+    "docs/architecture/llm/provider-allowlist.yaml",
+    "docs/architecture/llm/provider-budget.json",
+    "docs/architecture/adr/ADR-012-provider-readiness-before-network.md",
+    "scripts/validate-provider-readiness.mjs",
+    "docs/sprints/2026-W26-provider-readiness/sprint-goal.md",
+    "docs/sprints/2026-W26-provider-readiness/sprint-backlog.md",
+    "docs/sprints/2026-W26-provider-readiness/planning.md",
+    "docs/sprints/2026-W26-provider-readiness/review.md",
+    "docs/sprints/2026-W26-provider-readiness/retro.md",
+    "docs/sprints/2026-W26-provider-readiness/decisions.md",
+    "docs/sprints/2026-W26-provider-readiness/evidence-index.md",
+    "docs/sprints/2026-W26-provider-readiness/artifact-updates.md",
+    "docs/sprints/2026-W26-provider-readiness/process-change-candidates.md",
+    "docs/sprints/2026-W26-provider-readiness/sprint-summary.md",
+    "docs/sprints/2026-W26-provider-readiness/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:provider",
+      "status": "passed",
+      "evidence": "2026-06-22: provider readiness validation passed."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Provider не выбран.",
+    "Сетевые вызовы не выполняются.",
+    "Секреты не добавлены.",
+    "PROC-007 остается draft до командного решения."
+  ],
+  "next_safe_step": "Начать Sprint 9: добавить схемы ProviderAllowlist и ProviderBudget, заменить текстовые проверки provider readiness структурной schema validation и связать provider readiness с trace manifest."
+}

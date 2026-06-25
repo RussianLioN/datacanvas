@@ -1,0 +1,37 @@
+# Process Metrics Snapshot
+
+Статус: generated
+Период: 2026-W26
+Дата генерации: 2026-06-22T00:00:00Z
+
+| Метрика | Значение | Расчет |
+|---|---:|---|
+| Sprint evidence coverage | 65/65 | sprint_evidence_manifests / sprint_folders |
+| Artifact registry size | 394 | count(artifact_registry.artifacts) |
+| Accepted process changes | 2 | count(process_change_ledger.entries where status == accepted) |
+| Evidence check pass ratio | 506/506 | passed sprint evidence checks / all sprint evidence checks |
+| External gate backlog | 0 | count(process quality gates where status == pending_external) |
+| Process event log entries | 0 | count(process_event_log.events) |
+
+## Counts
+
+| Count | Value |
+|---|---:|
+| Sprint folders | 65 |
+| Sprint evidence manifests | 65 |
+| Artifact registry entries | 394 |
+| Accepted process changes | 2 |
+| Passed evidence checks | 506 |
+| Pending evidence checks | 0 |
+| Quality gates passed | 6 |
+| Quality gates pending external | 0 |
+| Process events | 0 |
+
+## Ограничения
+
+- Snapshot считает только данные, уже зафиксированные в репозитории.
+- Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps.
+
+## Следующий Безопасный Шаг
+
+После merge PR #1 добавить dated events для live delivery metrics.

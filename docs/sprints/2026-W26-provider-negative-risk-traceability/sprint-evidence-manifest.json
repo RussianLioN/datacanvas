@@ -1,0 +1,57 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S13",
+  "sprint_name": "provider-negative-risk-traceability",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить negative scored fixture для rollback decision и связать risk registry с traceability matrix/НФТ.",
+  "created_artifacts": [
+    "tests/provider/llm-result-unsupported-provider-output.json",
+    "tests/provider/provider-experiment-result-rollback.json",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-goal.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-backlog.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/planning.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/review.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/retro.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/decisions.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/evidence-index.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/artifact-updates.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/process-change-candidates.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-summary.md",
+    "docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:golden",
+      "status": "passed",
+      "evidence": "2026-06-22: generated positive scored provider result and rollback scored provider result."
+    },
+    {
+      "command": "npm run validate:provider-scorer",
+      "status": "passed",
+      "evidence": "2026-06-22: provider scorer validation passed for accept and rollback branches."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "2026-06-22: rollback result, traceability links and Sprint 13 manifest passed schema/cross-artifact validation."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:evals, validate:provider, validate:provider-experiment, validate:provider-evals, validate:provider-scorer, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Negative fixture покрывает unsupported claims, но не prompt-injection leakage и budget overruns.",
+    "Risk-to-requirement links пока не имеют отдельной схемы.",
+    "Реальный provider не подключался.",
+    "Командная приёмка Sprint 13 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 14: добавить typed RiskTraceability schema и negative fixtures для prompt-injection leakage, cost budget и latency budget branches."
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-interview-results.schema.json",
+  "title": "BmcInterviewResults",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "interview_id",
+    "session_kind",
+    "selected_mode",
+    "selected_duration_minutes",
+    "respondent_role",
+    "source_lock_path",
+    "question_bank_path",
+    "answers_path",
+    "user_evidence_path",
+    "bmc_trace_path",
+    "summary",
+    "covered_bmc_blocks",
+    "confirmed_claim_ids",
+    "unconfirmed_claim_ids",
+    "assumption_claim_ids",
+    "contradicted_claim_ids",
+    "decisions",
+    "evidence_requests",
+    "top_hypotheses",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["prepared_baseline", "completed", "draft_unvalidated"] },
+    "interview_id": { "type": "string", "pattern": "^BMC-INT-" },
+    "session_kind": { "type": "string", "enum": ["prepared_interview_baseline", "real_user_interview"] },
+    "selected_mode": { "type": "string", "enum": ["light", "standard", "deep"] },
+    "selected_duration_minutes": { "type": "integer", "minimum": 1 },
+    "respondent_role": { "type": "string", "minLength": 1 },
+    "source_lock_path": { "type": "string", "minLength": 1 },
+    "question_bank_path": { "type": "string", "minLength": 1 },
+    "answers_path": { "type": "string", "minLength": 1 },
+    "user_evidence_path": { "type": "string", "minLength": 1 },
+    "bmc_trace_path": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "covered_bmc_blocks": {
+      "type": "array",
+      "minItems": 9,
+      "items": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] }
+    },
+    "confirmed_claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+    },
+    "unconfirmed_claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+    },
+    "assumption_claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+    },
+    "contradicted_claim_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+    },
+    "decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "status", "summary"],
+        "additionalProperties": false,
+        "properties": {
+          "decision_id": { "type": "string", "pattern": "^BMC-DEC-\\d{3}$" },
+          "status": { "type": "string", "enum": ["accepted", "rejected", "deferred"] },
+          "summary": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evidence_requests": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^EVD-REQ-\\d{3}$" }
+    },
+    "top_hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/uat-result.schema.json",
+  "title": "UatResult",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "manifest_path", "executed_at", "review_state", "decision", "metrics", "scenario_results", "evidence_paths", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["completed"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "manifest_path": { "type": "string", "minLength": 1 },
+    "executed_at": { "type": "string", "format": "date-time" },
+    "review_state": { "type": "string", "enum": ["approved", "changes_requested", "rejected"] },
+    "decision": { "type": "string", "enum": ["accepted", "blocked", "rejected"] },
+    "metrics": {
+      "type": "object",
+      "required": ["critical_failures", "unsupported_claims", "export_blockers", "review_completion"],
+      "additionalProperties": false,
+      "properties": {
+        "critical_failures": { "type": "integer", "minimum": 0 },
+        "unsupported_claims": { "type": "integer", "minimum": 0 },
+        "export_blockers": { "type": "integer", "minimum": 0 },
+        "review_completion": { "type": "boolean" }
+      }
+    },
+    "scenario_results": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["scenario_id", "status", "evidence"],
+        "additionalProperties": false,
+        "properties": {
+          "scenario_id": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["passed", "failed", "blocked"] },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evidence_paths": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

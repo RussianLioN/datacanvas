@@ -1,0 +1,135 @@
+{
+  "version": "0.1.0",
+  "status": "baseline",
+  "period": "2026-W26",
+  "dashboard_path": "docs/process/current/process-metrics-dashboard.md",
+  "metrics": [
+    {
+      "id": "MET-001",
+      "name": "Sprint predictability",
+      "value": "n/a",
+      "target": ">= 80%",
+      "measurement_status": "not_available",
+      "reason": "Нужен завершенный командный спринт с committed и accepted scope.",
+      "evidence_paths": ["docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-002",
+      "name": "Spillover rate",
+      "value": "n/a",
+      "target": "<= 20%",
+      "measurement_status": "not_available",
+      "reason": "Нужен завершенный командный спринт с переносами backlog items.",
+      "evidence_paths": ["docs/product/backlog/backlog-registry.json", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-003",
+      "name": "Cycle time",
+      "value": "n/a",
+      "target": "trend down",
+      "measurement_status": "not_available",
+      "reason": "Нужны dated backlog item transitions.",
+      "evidence_paths": ["docs/product/backlog/backlog-registry.json", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-004",
+      "name": "Blocked time",
+      "value": "n/a",
+      "target": "trend down",
+      "measurement_status": "not_available",
+      "reason": "Нужны daily notes с blocked/unblocked timestamps.",
+      "evidence_paths": ["docs/sprints/2026-W26-process-bootstrap/daily-notes.md", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-005",
+      "name": "Process change lead time",
+      "value": "n/a",
+      "target": "<= 1 sprint",
+      "measurement_status": "not_available",
+      "reason": "Нужен полный PCR цикл от proposal до accepted/superseded.",
+      "evidence_paths": ["docs/process/change-requests/PROC-001-accept-process-v0.1.md", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-006",
+      "name": "Artifact completeness",
+      "value": "active gates passed",
+      "target": "100% required artifacts present",
+      "measurement_status": "derived",
+      "reason": "Проверяется через bootstrap, schema, artifact registry и hash gates.",
+      "evidence_paths": [
+        "scripts/validate-bootstrap-artifacts.sh",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ]
+    },
+    {
+      "id": "MET-007",
+      "name": "Decision latency",
+      "value": "n/a",
+      "target": "<= 1 sprint",
+      "measurement_status": "not_available",
+      "reason": "Нужны dated decision request и decision accepted timestamps.",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-readiness/decisions.md", "docs/process/current/process-event-log.json"]
+    },
+    {
+      "id": "MET-008",
+      "name": "Quality gate pass rate",
+      "value": "current suite passed",
+      "target": "100% blocking gates passed",
+      "measurement_status": "derived",
+      "reason": "Текущий local quality suite проходит через npm test.",
+      "evidence_paths": ["package.json", ".github/workflows/docs-check.yml"]
+    },
+    {
+      "id": "MET-009",
+      "name": "Repository-derived metrics snapshot",
+      "value": "generated",
+      "target": "snapshot regenerated before review",
+      "measurement_status": "derived",
+      "reason": "Snapshot создается из sprint evidence, artifact registry, process change ledger и quality gates.",
+      "evidence_paths": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md",
+        "scripts/collect-process-metrics.mjs",
+        "scripts/validate-process-metrics-snapshot.mjs"
+      ]
+    }
+  ],
+  "quality_gates": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полный локальный quality suite является главным blocking gate."
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "Проверяет наличие обязательных process/product/architecture/evidence artifacts."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "Проверяет JSON contracts и cross-artifact invariants."
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Проверяет registry completeness и ссылки на файлы."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Проверяет SHA-256 manifest зарегистрированных артефактов."
+    },
+    {
+      "command": "real user UAT session",
+      "status": "passed",
+      "evidence": "docs/product/ux/human-review-session-real.json записан как recorded_real_user и accepted."
+    }
+  ],
+  "known_limitations": [
+    "Manifest и generated snapshot фиксируют derived repository metrics, но не заменяют live dashboard с реальными командными timestamps.",
+    "Командные delivery metrics остаются n/a до реального командного спринта."
+  ],
+  "next_safe_step": "После merge PR #1 добавить dated backlog/sprint events для live delivery metrics."
+}

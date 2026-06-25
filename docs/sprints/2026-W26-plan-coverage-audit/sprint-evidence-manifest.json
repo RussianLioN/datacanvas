@@ -1,0 +1,70 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S20",
+  "sprint_name": "plan-coverage-audit",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать проверяемый audit покрытия исходного плана DataCanvas и зафиксировать следующий безопасный инкремент.",
+  "created_artifacts": [
+    "schemas/plan-coverage-audit.schema.json",
+    "docs/process/audits/datacanvas-plan-coverage-audit.json",
+    "docs/process/audits/datacanvas-plan-coverage-report.md",
+    "scripts/validate-plan-coverage.mjs",
+    "docs/architecture/adr/ADR-020-plan-coverage-audit.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/sprint-goal.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/sprint-backlog.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/planning.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/daily-notes.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/review.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/retro.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/decisions.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/evidence-index.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/artifact-updates.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/process-change-candidates.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/sprint-summary.md",
+    "docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полная цепочка generate, bootstrap, schemas, llm, evals, provider, artifact registry, plan coverage, process versioning, risk traceability, risk matrix, export и visual прошла."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Команда завершилась без вывода."
+    }
+  ],
+  "known_limitations": [
+    "Audit показывает partial gaps и не закрывает всю активную цель.",
+    "Security foundation pack еще не реализован.",
+    "MVP human review/export flow еще не завершен."
+  ],
+  "next_safe_step": "Реализовать security foundation pack: data classification, threat model, incident response, export checklist и secret scan gate."
+}

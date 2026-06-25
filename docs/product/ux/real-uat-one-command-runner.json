@@ -1,0 +1,49 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_single_command_real_uat",
+  "gate_id": "G9",
+  "purpose": "Свести проведение real UAT к одной команде: локальный runner открывает interactive runtime, принимает exported state, сохраняет evidence и запускает importer checks.",
+  "command": "npm run uat:real",
+  "server": {
+    "host": "127.0.0.1",
+    "default_port": 4177,
+    "routes": ["/", "/uat-export", "/status"]
+  },
+  "input_runtime_path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+  "output_session_path": "docs/product/ux/human-review-session-real.json",
+  "preflight_commands": [
+    "npm run validate:real-uat-preflight",
+    "npm run validate:real-uat-operator-handoff",
+    "npm run validate:review-runtime-interactive"
+  ],
+  "post_export_commands": [
+    "npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json"
+  ],
+  "operator_steps": [
+    "Запустить npm run uat:real.",
+    "В открытой странице нажать reset session.",
+    "Включить Real UAT и указать реальный Actor ID.",
+    "Выполнить submit_for_review, comment, record_decision approved и export.",
+    "Дождаться сообщения runner: real UAT session artifact written."
+  ],
+  "stop_conditions": [
+    "Actor ID содержит fixture/template/sample/placeholder/TO_BE_FILLED.",
+    "Runtime state не approved или export_allowed=false.",
+    "Не выполнены обязательные действия submit_for_review, comment, record_decision, export.",
+    "Скрипт пытается перезаписать существующий real evidence без --force.",
+    "Post-export dry-run importer checks не проходят."
+  ],
+  "validation_commands": [
+    "npm run validate:real-uat-one-command-runner",
+    "npm run validate:real-uat-preflight",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Runner минимизирует действия пользователя, но не заменяет участие реального человека.",
+    "Runner не заполняет pilot report и commit/PR evidence.",
+    "После успешной UAT нужно обновить release evidence, data leakage targets и completion audit отдельным инкрементом."
+  ],
+  "next_safe_step": "Запустить npm run uat:real, пройти real UAT в браузере и затем выполнить release evidence update."
+}

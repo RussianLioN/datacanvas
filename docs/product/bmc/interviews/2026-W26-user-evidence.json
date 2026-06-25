@@ -1,0 +1,123 @@
+{
+  "version": "0.1.0",
+  "status": "completed",
+  "interview_id": "BMC-INT-ACTIVE-2026-W26-001",
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "source_kind": "file",
+      "provided_by": "Sergey",
+      "provided_at": "2026-06-24T15:42:51Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "docs/product/vision/vision-v0.1.md",
+      "redacted_excerpt": "DataCanvas должен позволять команде быстро получать короткую, проверяемую и визуально пригодную презентацию из структурированного пакета данных другого агента, с явной трассировкой к исходным данным, минимальным ручным редактированием и измеримым качеством результата. Первый пользовательский контур: агент-источник данных передает структурированный пакет; DataCanvas валидирует и нормализует пакет; генерирует краткую презентацию через PresentationSpec; человек проверяет, утверждает или отправляет результат на доработку.",
+      "sha256": "be99035bcd791a7a67f1e044963da50e9d2e0b4e3cebd7a8119b662b4830a659",
+      "status": "accepted",
+      "linked_answer_ids": [
+        "ANS-002",
+        "ANS-004",
+        "ANS-006",
+        "ANS-007",
+        "ANS-008"
+      ],
+      "linked_claim_ids": [
+        "BMC-CLM-002",
+        "BMC-CLM-004",
+        "BMC-CLM-006",
+        "BMC-CLM-007",
+        "BMC-CLM-008"
+      ]
+    },
+    {
+      "evidence_id": "EVD-002",
+      "source_kind": "file",
+      "provided_by": "Sergey",
+      "provided_at": "2026-06-24T15:42:51Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "docs/product/requirements/user-stories.md",
+      "redacted_excerpt": "US-001: агент-источник передает DataCanvas структурированный пакет данных, чтобы он был проверен перед генерацией. US-002: ревьюер видит краткую презентацию и источники утверждений, чтобы принять или отклонить результат.",
+      "sha256": "78a7b34c41e04e99e2dfe89149180d59d15dfe9b070c06eb2640a9649bfaa598",
+      "status": "accepted",
+      "linked_answer_ids": [
+        "ANS-004",
+        "ANS-006",
+        "ANS-007",
+        "ANS-008"
+      ],
+      "linked_claim_ids": [
+        "BMC-CLM-004",
+        "BMC-CLM-006",
+        "BMC-CLM-007",
+        "BMC-CLM-008"
+      ]
+    }
+  ],
+  "missing_evidence_notices": [
+    {
+      "notice_id": "ME-001",
+      "linked_answer_ids": [
+        "ANS-001"
+      ],
+      "reason": "Нужно подтверждение, что текущие основные группы пользователей Лисы - КМ и CSM, а перспективный сегмент - любой пользователь Лисы. Linked claims: BMC-CLM-001"
+    },
+    {
+      "notice_id": "ME-002",
+      "linked_answer_ids": [
+        "ANS-002"
+      ],
+      "reason": "Вижн подтверждает общую продуктовую ценность DataCanvas, но отдельное подтверждение исследования на реальных пользователях и привязки ценности к КМ/CSM пока не предоставлено. Linked claims: BMC-CLM-002"
+    },
+    {
+      "notice_id": "ME-003",
+      "linked_answer_ids": [
+        "ANS-003"
+      ],
+      "reason": "Нужно подтверждение каналов запуска и доставки: решение по пользовательскому интерфейсу, контракт A2A/MCP, интеграционная заметка по Оркестратору или задача из бэклога. Linked claims: BMC-CLM-003"
+    },
+    {
+      "notice_id": "ME-004",
+      "linked_answer_ids": [
+        "ANS-004"
+      ],
+      "reason": "Вижн и истории подтверждают проверку человеком и доработку, но полный контур до генерации, после доставки и повторной генерации пока требует отдельного пользовательского сценария или задачи. Linked claims: BMC-CLM-004"
+    },
+    {
+      "notice_id": "ME-005",
+      "linked_answer_ids": [
+        "ANS-005"
+      ],
+      "reason": "Нужны базовый показатель, метрика времени, оценка ручной работы или пилотное наблюдение по экономическому эффекту. Linked claims: BMC-CLM-005"
+    },
+    {
+      "notice_id": "ME-006",
+      "linked_answer_ids": [
+        "ANS-006"
+      ],
+      "reason": "Вижн и истории подтверждают структурированный вход, PresentationSpec и проверяемую презентацию; шаблоны, модуль рендера и полный набор проверок качества требуют отдельного подтверждения. Linked claims: BMC-CLM-006"
+    },
+    {
+      "notice_id": "ME-007",
+      "linked_answer_ids": [
+        "ANS-007"
+      ],
+      "reason": "Вижн и истории подтверждают базовый контур проверки, генерации и доработки; полный цикл получения замечаний по доставленному файлу и повторной генерации требует отдельного сценария, задачи из бэклога или приемочного критерия. Linked claims: BMC-CLM-007"
+    },
+    {
+      "notice_id": "ME-008",
+      "linked_answer_ids": [
+        "ANS-008"
+      ],
+      "reason": "Вижн и истории подтверждают зависимость от агента-источника и структурированного входного пакета; Лиса, Оркестратор и канал доставки результата требуют отдельного подтверждения. Linked claims: BMC-CLM-008"
+    },
+    {
+      "notice_id": "ME-009",
+      "linked_answer_ids": [
+        "ANS-009"
+      ],
+      "reason": "Нужны базовая оценка стоимости поддержки, рендера, времени проверки результата, вызовов LLM и задержки ответа. Linked claims: BMC-CLM-009"
+    }
+  ],
+  "privacy_rule": "Store only sanitized evidence metadata; user answers are not evidence by themselves."
+}

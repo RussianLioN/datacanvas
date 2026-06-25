@@ -1,0 +1,32 @@
+{
+  "experiment_id": "EXP-provider-001",
+  "schema_version": "0.1.0",
+  "status": "planned",
+  "linked_proc_id": "PROC-007",
+  "provider_id": "PROVIDER-001",
+  "decision": "not_started",
+  "metrics": {
+    "quality_score": 0,
+    "cost_per_run_usd": 0,
+    "latency_ms_p95": 0,
+    "failure_rate_percent": 0
+  },
+  "quality_evidence": [
+    "tests/evals/eval-cases.json"
+  ],
+  "security_evidence": [
+    "docs/architecture/security/no-network-by-default.md",
+    "docs/architecture/llm/provider-allowlist.json"
+  ],
+  "rollback": {
+    "available": true,
+    "fallback_command": "npm run generate:golden",
+    "decision_owner": "SRE/LLM Ops Lead"
+  },
+  "known_limitations": [
+    "Эксперимент не запущен.",
+    "Внешний provider не выбран.",
+    "Сетевые вызовы не выполняются.",
+    "Метрики заполнены нулевыми planned значениями до controlled experiment."
+  ]
+}

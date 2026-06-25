@@ -1,0 +1,423 @@
+{
+  "version": "0.1.0",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "audit_date": "2026-06-22",
+  "sections": [
+    {
+      "number": 1,
+      "title": "Резюме",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/product/vision/vision-v0.1.md",
+        "docs/process/current/process-passport.md",
+        "docs/product/ux/human-review-flow.md",
+        "docs/product/ux/uat-script.md",
+        "docs/product/ux/review-runtime-interactive.json",
+        "docs/product/ux/real-uat-operator-handoff.json",
+        "docs/product/ux/real-uat-preflight-checklist.json",
+        "docs/product/ux/real-uat-session-importer.json",
+        "docs/product/ux/real-uat-one-command-runner.json",
+        "artifacts/examples/review-runtime-interactive.html",
+        "artifacts/manual/real-uat/review-runtime-state-export.json",
+        "docs/product/ux/human-review-session-real.json",
+        "docs/release/commit-pr-evidence.md",
+        "docs/release/pilot-report.md",
+        "docs/release/pilot-process-portability-notes.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "После review и merge PR #1 обновить release notes и commit/PR evidence, если product/runtime artifacts изменятся."
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Scrum Operating Model",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/process/current/process-passport.md",
+        "docs/process/versions/0.1.0/process-version-manifest.json"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Назначить людей на роли на реальном Sprint Planning."
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Process Management System",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/process/current/process-registry.md",
+        "docs/process/current/process-backlog.md",
+        "docs/process/change-requests/PROC-001-accept-process-v0.1.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Добавить первый реальный PCR после командной ретроспективы."
+      ]
+    },
+    {
+      "number": 4,
+      "title": "Структура Репозитория И Артефактов",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "scripts/validate-artifact-registry.mjs",
+        "scripts/validate-artifact-hash-manifest.mjs",
+        "docs/architecture/adr/ADR-039-artifact-registry-hash-linkage.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Поддерживать hash manifest regeneration перед review и release evidence."
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Backlog Model",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/product/backlog/backlog-registry.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/process/current/process-backlog.md",
+        "scripts/validate-backlog-registry.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Использовать registry как вход Sprint Planning."
+      ]
+    },
+    {
+      "number": 6,
+      "title": "Requirements Pipeline",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Расширять acceptance criteria при добавлении human review flow."
+      ]
+    },
+    {
+      "number": 7,
+      "title": "Контракты, Схемы И Интерфейсы",
+      "status": "covered",
+      "evidence_paths": [
+        "schemas/input-package.schema.json",
+        "schemas/presentation-spec.schema.json",
+        "schemas/render-result.schema.json",
+        "schemas/render-request.schema.json",
+        "schemas/process-change-request.schema.json",
+        "schemas/tool-allowlist.schema.json",
+        "schemas/trace-contract.schema.json",
+        "scripts/validate-contract-schemas.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Поддерживать новые контракты через validate:contracts."
+      ]
+    },
+    {
+      "number": 8,
+      "title": "Data And Traceability Governance",
+      "status": "covered",
+      "evidence_paths": [
+        "tests/golden/trace-manifest-minimal.json",
+        "tests/golden/claim-map-minimal.json",
+        "docs/architecture/risks/risk-traceability.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "scripts/validate-artifact-hash-manifest.mjs",
+        "docs/architecture/schemas/traceability-graph.json",
+        "schemas/traceability-graph.schema.json",
+        "scripts/validate-traceability-graph.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Поддерживать traceability graph и release evidence при изменении MVP flow."
+      ]
+    },
+    {
+      "number": 9,
+      "title": "Security And Trust Boundaries",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/architecture/security/security-foundation-manifest.json",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/architecture/security/data-leakage-manifest.json",
+        "docs/architecture/security/real-uat-leakage-guard.json",
+        "docs/architecture/security/threat-model.md",
+        "docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md",
+        "docs/architecture/security/threat-model-delta-manifest.json",
+        "schemas/threat-model-delta-manifest.schema.json",
+        "schemas/data-leakage-manifest.schema.json",
+        "schemas/real-uat-leakage-guard.schema.json",
+        "scripts/validate-threat-model-delta.mjs",
+        "scripts/validate-data-leakage.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Поддерживать real UAT artifacts в data-leakage scan_targets при изменении путей evidence."
+      ]
+    },
+    {
+      "number": 10,
+      "title": "QA, Evals И Тестовые Сценарии",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/architecture/evals/eval-strategy.md",
+        "tests/evals/eval-cases.json",
+        "scripts/validate-eval-pack.mjs",
+        "docs/product/ux/uat-script.md",
+        "docs/product/ux/uat-manifest.json",
+        "docs/product/ux/uat-result-minimal.json",
+        "scripts/validate-uat-human-review.mjs",
+        "scripts/validate-uat-result.mjs",
+        "docs/release/mvp-release-evidence-pack.json",
+        "scripts/validate-release-evidence-pack.mjs",
+        "docs/product/ux/review-ui-fixture.json",
+        "docs/product/ux/review-runtime-interactive.json",
+        "docs/product/ux/review-runtime-browser-smoke.json",
+        "docs/product/ux/export-png-pixel-smoke.json",
+        "docs/product/ux/human-review-session-minimal.json",
+        "docs/product/ux/real-uat-gate-readiness.json",
+        "docs/product/ux/real-uat-runtime-import.json",
+        "docs/product/ux/real-uat-operator-handoff.json",
+        "docs/product/ux/real-uat-preflight-checklist.json",
+        "docs/product/ux/real-uat-session-importer.json",
+        "docs/product/ux/real-uat-one-command-runner.json",
+        "scripts/validate-review-ui-fixture.mjs",
+        "scripts/validate-review-runtime-interactive.mjs",
+        "scripts/validate-review-runtime-browser-smoke.mjs",
+        "scripts/validate-export-png-pixel-smoke.mjs",
+        "scripts/validate-real-uat-readiness.mjs",
+        "scripts/validate-real-uat-import.mjs",
+        "scripts/validate-real-uat-operator-handoff.mjs",
+        "scripts/validate-real-uat-preflight.mjs",
+        "scripts/validate-real-uat-session-importer.mjs",
+        "scripts/validate-real-uat-one-command-runner.mjs",
+        "artifacts/manual/real-uat/review-runtime-state-export.json",
+        "docs/product/ux/human-review-session-real.json",
+        "docs/release/pilot-report.md",
+        "docs/release/commit-pr-evidence.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Расширять eval cases и browser checks при добавлении новых layouts или пользовательских сценариев."
+      ]
+    },
+    {
+      "number": 11,
+      "title": "Observability And LLM Ops",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/architecture/observability/trace-contract.md",
+        "tests/golden/trace-manifest-minimal.json",
+        "docs/architecture/llm/provider-budget.json",
+        "docs/architecture/observability/operational-readiness-checklist.md",
+        "docs/architecture/observability/operational-readiness-manifest.json",
+        "docs/architecture/observability/runbook.md",
+        "scripts/validate-operational-readiness.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Применять operational readiness gate к следующим product increments."
+      ]
+    },
+    {
+      "number": 12,
+      "title": "UX И Prototype Track",
+      "status": "covered",
+      "evidence_paths": [
+        "artifacts/examples/presentation-minimal.html",
+        "artifacts/examples/presentation-smoke.pdf",
+        "artifacts/examples/presentation-smoke.png",
+        "artifacts/examples/export-smoke-manifest.json",
+        "artifacts/examples/renderer-regression-manifest.json",
+        "artifacts/examples/review-ui-fixture.html",
+        "artifacts/examples/review-runtime-interactive.html",
+        "scripts/render-presentation.mjs",
+        "scripts/validate-visual-baseline.mjs",
+        "scripts/validate-export-smoke.mjs",
+        "scripts/validate-export-png-pixel-smoke.mjs",
+        "scripts/validate-renderer-regression.mjs",
+        "scripts/validate-review-ui-fixture.mjs",
+        "scripts/validate-review-runtime-interactive.mjs",
+        "scripts/validate-review-runtime-browser-matrix.mjs",
+        "scripts/validate-review-runtime-browser-smoke.mjs",
+        "scripts/validate-real-uat-import.mjs",
+        "scripts/validate-real-uat-operator-handoff.mjs",
+        "scripts/validate-real-uat-preflight.mjs",
+        "scripts/validate-real-uat-one-command-runner.mjs",
+        "scripts/prepare-real-uat-session.mjs",
+        "scripts/run-real-uat-session.mjs",
+        "docs/product/ux/human-review-flow.md",
+        "docs/product/ux/human-review-flow.json",
+        "docs/product/ux/uat-script.md",
+        "docs/product/ux/review-runtime-state-fixture.json",
+        "docs/product/ux/review-runtime-interactive.json",
+        "docs/product/ux/review-runtime-browser-matrix.json",
+        "docs/product/ux/review-runtime-browser-smoke.json",
+        "docs/product/ux/export-png-pixel-smoke.json",
+        "docs/product/ux/real-uat-runtime-import.json",
+        "docs/product/ux/real-uat-operator-handoff.json",
+        "docs/product/ux/real-uat-preflight-checklist.json",
+        "docs/product/ux/real-uat-session-importer.json",
+        "docs/product/ux/real-uat-one-command-runner.json",
+        "schemas/review-runtime-state.schema.json",
+        "schemas/review-runtime-interactive.schema.json",
+        "schemas/review-runtime-browser-matrix.schema.json",
+        "schemas/review-runtime-browser-smoke.schema.json",
+        "schemas/export-png-pixel-smoke.schema.json",
+        "schemas/real-uat-one-command-runner.schema.json",
+        "schemas/renderer-regression-manifest.schema.json",
+        "schemas/real-uat-runtime-import.schema.json",
+        "schemas/real-uat-operator-handoff.schema.json",
+        "schemas/real-uat-preflight-checklist.schema.json",
+        "schemas/real-uat-session-importer.schema.json",
+        "scripts/validate-review-runtime-state.mjs",
+        "artifacts/manual/real-uat/review-runtime-state-export.json",
+        "docs/product/ux/human-review-session-real.json",
+        "docs/release/pilot-report.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Для следующих layouts добавить отдельный browser screenshot gate как улучшение UX track."
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Delivery, GitOps И CI",
+      "status": "covered",
+      "evidence_paths": [
+        ".github/workflows/docs-check.yml",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        "scripts/validate-bootstrap-artifacts.sh"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Добавить secret scan gate отдельным security increment."
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Initial Release Train",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json",
+        "docs/release/mvp-release-evidence-pack.json",
+        "docs/release/pilot-gate-readiness.json",
+        "docs/release/pilot-execution-handoff.json",
+        "docs/release/templates/pilot-report-template.md",
+        "docs/release/templates/pilot-process-portability-notes-template.md",
+        "docs/release/templates/commit-pr-evidence-template.md",
+        "docs/process/portability/process-portability-pack.json",
+        "scripts/validate-release-evidence-pack.mjs",
+        "scripts/validate-real-uat-import.mjs",
+        "scripts/validate-real-uat-operator-handoff.mjs",
+        "scripts/validate-real-uat-preflight.mjs",
+        "scripts/validate-real-uat-session-importer.mjs",
+        "scripts/validate-pilot-gate-readiness.mjs",
+        "scripts/validate-pilot-execution-handoff.mjs",
+        "scripts/validate-pilot-report-templates.mjs",
+        "scripts/validate-commit-pr-evidence-template.mjs",
+        "scripts/validate-process-portability.mjs",
+        "artifacts/manual/real-uat/review-runtime-state-export.json",
+        "docs/product/ux/human-review-session-real.json",
+        "docs/release/commit-pr-evidence.md",
+        "docs/release/pilot-report.md",
+        "docs/release/pilot-process-portability-notes.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Метрики",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/process/current/process-metrics-dashboard.md",
+        "docs/process/current/process-metrics-manifest.json",
+        "docs/process/current/process-event-log.json",
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md",
+        "schemas/process-event-log.schema.json",
+        "scripts/collect-process-metrics.mjs",
+        "scripts/validate-process-metrics.mjs",
+        "scripts/validate-process-event-log.mjs",
+        "scripts/validate-process-metrics-snapshot.mjs",
+        "docs/architecture/llm/provider-budget.json",
+        "docs/release/pilot-report.md",
+        "docs/release/commit-pr-evidence.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "После merge PR #1 добавить dated team events для live delivery metrics."
+      ]
+    },
+    {
+      "number": 16,
+      "title": "Definition Of Done Для Всего Плана",
+      "status": "covered",
+      "evidence_paths": [
+        "docs/process/versions/0.1.0/process-version-manifest.json",
+        "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+        "docs/process/portability/process-portability-pack.json",
+        "docs/process/portability/migration-notes-template.md",
+        "docs/process/templates/sprint-folder-template.md",
+        "docs/product/ux/real-uat-operator-handoff.json",
+        "docs/product/ux/real-uat-preflight-checklist.json",
+        "docs/product/ux/real-uat-session-importer.json",
+        "docs/process/audits/plan-completion-audit.json",
+        "docs/process/audits/external-blocker-closure-map.json",
+        "docs/process/audits/external-evidence-readiness.json",
+        "scripts/validate-external-evidence-readiness.mjs",
+        "artifacts/manual/real-uat/review-runtime-state-export.json",
+        "docs/product/ux/human-review-session-real.json",
+        "docs/release/commit-pr-evidence.md",
+        "docs/release/pilot-report.md",
+        "docs/release/pilot-process-portability-notes.md",
+        "docs/release/pilot-gate-readiness.json",
+        "docs/release/pilot-execution-handoff.json",
+        "scripts/record-pilot-evidence.mjs",
+        "scripts/validate-pilot-evidence-recorder.mjs"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Не помечать релиз смерженным до review и merge PR #1; обновить evidence при изменении product/runtime artifacts."
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Допущения И Defaults",
+      "status": "covered",
+      "evidence_paths": [
+        "AGENTS.md",
+        "docs/architecture/adr/ADR-002-one-agent-default.md",
+        "docs/architecture/security/no-network-by-default.md"
+      ],
+      "gaps": [],
+      "next_actions": [
+        "Сохранять defaults до отдельного ADR/PCR."
+      ]
+    }
+  ],
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence, release audit и process metrics snapshot."
+}

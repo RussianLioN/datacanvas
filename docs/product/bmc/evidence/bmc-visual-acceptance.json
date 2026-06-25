@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "accepted",
+  "checked_at": "2026-06-24T00:00:00Z",
+  "command": "npm run generate:bmc",
+  "exit_code": 0,
+  "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+  "input_sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14",
+  "output_sha256": {
+    "png": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2",
+    "pdf": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3",
+    "plantuml": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+  },
+  "artifact_paths": [
+    "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+    "docs/product/bmc/source/derived/datacanvas-bmc.png",
+    "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+    "docs/product/bmc/evidence/browser-smoke.png",
+    "docs/product/bmc/evidence/pdf-raster-smoke.png"
+  ],
+  "checks": [
+    {
+      "id": "svg_contract",
+      "status": "passed",
+      "evidence": "SVG has 3840x2160 viewBox, role, title, desc and data-role markers."
+    },
+    {
+      "id": "classic_layout",
+      "status": "passed",
+      "evidence": "Layout is B8 | B7/B6 | B2 | B4/B3 | B1 with B9 | B5 bottom row."
+    },
+    {
+      "id": "png_dimensions",
+      "status": "passed",
+      "evidence": "3840x2160"
+    },
+    {
+      "id": "clean_public_surface",
+      "status": "passed",
+      "evidence": "Public BMC, SVG and PlantUML contain no validation/status markers."
+    },
+    {
+      "id": "browser_smoke",
+      "status": "passed",
+      "evidence": "Chrome headless screenshot captured: docs/product/bmc/evidence/browser-smoke.png"
+    },
+    {
+      "id": "pdf_raster_smoke",
+      "status": "passed",
+      "evidence": "PDF raster preview captured: docs/product/bmc/evidence/pdf-raster-smoke.png"
+    }
+  ]
+}

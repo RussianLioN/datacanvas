@@ -1,0 +1,39 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S3",
+  "sprint_name": "mock-presentation-spec",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Сгенерировать mock PresentationSpec из normalized data, добавить claim map и eval cases.",
+  "created_artifacts": [
+    "schemas/claim-map.schema.json",
+    "schemas/eval-case.schema.json",
+    "scripts/generate-presentation-spec.mjs",
+    "docs/architecture/adr/ADR-006-mock-presentation-spec-generator.md",
+    "tests/golden/presentation-spec-minimal.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/evals/eval-cases.json",
+    "docs/sprints/2026-W26-mock-presentation-spec/sprint-goal.md",
+    "docs/sprints/2026-W26-mock-presentation-spec/sprint-backlog.md",
+    "docs/sprints/2026-W26-mock-presentation-spec/planning.md",
+    "docs/sprints/2026-W26-mock-presentation-spec/evidence-index.md"
+  ],
+  "checks": [
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "generate:golden, bootstrap validation, schema validation, cross-artifact validation and claim-map validation passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors reported"
+    }
+  ],
+  "known_limitations": [
+    "Реальный LLM еще не подключен.",
+    "Renderer еще не реализован.",
+    "Командная приемка Sprint 3 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 4 renderer baseline: deterministic HTML export from PresentationSpec and visual/export checks."
+}

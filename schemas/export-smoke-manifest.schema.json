@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/export-smoke-manifest.schema.json",
+  "title": "ExportSmokeManifest",
+  "type": "object",
+  "required": ["version", "status", "source_html_path", "outputs", "required_gates"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["generated"] },
+    "source_html_path": { "type": "string", "minLength": 1 },
+    "outputs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "format", "path", "sha256", "signature"],
+        "additionalProperties": false,
+        "properties": {
+          "artifact_id": { "type": "string", "minLength": 1 },
+          "format": { "type": "string", "enum": ["pdf", "png"] },
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "signature": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "required_gates": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

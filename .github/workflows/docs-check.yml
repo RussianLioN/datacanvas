@@ -1,0 +1,110 @@
+name: docs-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  basic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - name: Install render tools
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate deterministic golden artifacts
+        run: npm run generate:golden
+      - name: Generate BMC visual package
+        run: npm run generate:bmc
+      - name: Check deterministic BMC generation
+        run: npm run generate:bmc -- --check
+      - name: Scan secrets
+        run: npm run scan:secrets
+      - name: Check required bootstrap artifacts
+        run: npm run validate:bootstrap
+      - name: Check JSON schemas
+        run: npm run validate:schemas
+      - name: Check contract schemas
+        run: npm run validate:contracts
+      - name: Check LLM guardrails
+        run: npm run validate:llm
+      - name: Check data leakage
+        run: npm run validate:data-leakage
+      - name: Check eval pack
+        run: npm run validate:evals
+      - name: Check provider readiness
+        run: npm run validate:provider
+      - name: Check backlog registry
+        run: npm run validate:backlog-registry
+      - name: Check security foundation
+        run: npm run validate:security-foundation
+      - name: Check threat model delta coverage
+        run: npm run validate:threat-model-delta
+      - name: Check operational readiness
+        run: npm run validate:ops-readiness
+      - name: Check UAT human review
+        run: npm run validate:uat-human-review
+      - name: Check UAT result
+        run: npm run validate:uat-result
+      - name: Check review UI fixture
+        run: npm run validate:review-ui
+      - name: Check review runtime state
+        run: npm run validate:review-runtime-state
+      - name: Check interactive review runtime
+        run: npm run validate:review-runtime-interactive
+      - name: Check real UAT readiness
+        run: npm run validate:real-uat-readiness
+      - name: Check release evidence pack
+        run: npm run validate:release-pack
+      - name: Check provider experiment contract
+        run: npm run validate:provider-experiment
+      - name: Check provider eval delta
+        run: npm run validate:provider-evals
+      - name: Check provider scorer
+        run: npm run validate:provider-scorer
+      - name: Check BMC contract
+        run: npm run validate:bmc
+      - name: Check BMC visual contract
+        run: npm run validate:bmc-visual
+      - name: Check BMC render parity
+        run: npm run validate:bmc-render-parity
+      - name: Check BMC package
+        run: npm run validate:bmc-package
+      - name: Check generated artifacts are committed
+        run: git diff --exit-code
+      - name: Check artifact registry
+        run: npm run validate:artifact-registry
+      - name: Check artifact hashes
+        run: npm run validate:artifact-hashes
+      - name: Check plan coverage
+        run: npm run validate:plan-coverage
+      - name: Check process versioning
+        run: npm run validate:process-versioning
+      - name: Check process metrics
+        run: npm run validate:process-metrics
+      - name: Check process metrics snapshot
+        run: npm run validate:process-metrics-snapshot
+      - name: Check process change ledger
+        run: npm run validate:process-change-ledger
+      - name: Check traceability graph
+        run: npm run validate:traceability-graph
+      - name: Check risk traceability
+        run: npm run validate:risk-traceability
+      - name: Check risk matrix
+        run: npm run validate:risk-matrix
+      - name: Check export sanitization
+        run: npm run validate:export
+      - name: Check PDF/PNG export smoke
+        run: npm run validate:export-smoke
+      - name: Check renderer regression pack
+        run: npm run validate:renderer-regression
+      - name: Check visual baseline
+        run: npm run validate:visual
+      - name: Check whitespace
+        run: git diff --check

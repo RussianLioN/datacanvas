@@ -1,0 +1,608 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "baseline_threat_model_path": "docs/architecture/security/threat-model.md",
+  "policy": {
+    "require_entry_for_every_sprint": true,
+    "allowed_delta_statuses": ["delta_recorded", "no_security_impact", "requires_review"],
+    "forward_rule": "Каждый новый sprint folder обязан иметь entry в этом manifest: delta_recorded, no_security_impact или requires_review."
+  },
+  "coverage": [
+    {
+      "sprint_path": "docs/sprints/2026-W26-artifact-hash-manifest",
+      "sprint_id": "SPRINT-2026-W26-S24",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json"],
+      "rationale": "Добавлен hash governance; новые trust boundaries, external tools или secrets не добавлялись.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-artifact-registry-hash-linkage",
+      "sprint_id": "SPRINT-2026-W26-S39",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json", "docs/architecture/schemas/artifact-registry.json"],
+      "rationale": "Registry hash linkage strengthens artifact integrity governance without adding runtime tools, network, product data handling or secrets.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-artifact-registry-validator",
+      "sprint_id": "SPRINT-2026-W26-S18",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json"],
+      "rationale": "Добавлена проверка artifact registry без изменения data boundaries.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-backlog-registry",
+      "sprint_id": "SPRINT-2026-W26-S22",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json"],
+      "rationale": "Backlog registry не добавляет runtime tools, external network или data export.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-bmc-interview",
+      "sprint_id": "SPRINT-2026-W26-S64",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": [
+        "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+        "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+        "docs/architecture/security/data-leakage-manifest.json"
+      ],
+      "rationale": "BMC interview introduces controlled user evidence intake and unconfirmed claim handling; generated artifacts are added to leakage scan coverage.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-contract-schemas",
+      "sprint_id": "SPRINT-2026-W26-S23",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json"],
+      "rationale": "Контракты усиливают boundaries и не расширяют разрешения.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-data-leakage-gate",
+      "sprint_id": "SPRINT-2026-W26-S41",
+      "delta_status": "delta_recorded",
+      "security_impact": "high",
+      "evidence_paths": ["docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json", "docs/architecture/security/data-leakage-manifest.json"],
+      "rationale": "Adds executable leakage gate for selected prompt, trace, export, runtime and evidence sinks without adding new data sinks.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-release-evidence-current-gates",
+      "sprint_id": "SPRINT-2026-W26-S42",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json", "docs/release/mvp-release-evidence-pack.json"],
+      "rationale": "Release evidence pack now requires current local gates; no new runtime, network, secret or real user data is introduced.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-runtime-import",
+      "sprint_id": "SPRINT-2026-W26-S43",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json", "docs/product/ux/real-uat-runtime-import.json"],
+      "rationale": "Import gate prepares handling of real UAT runtime export; no real user data is added yet, but future artifacts must pass leakage scanning.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-operator-handoff",
+      "sprint_id": "SPRINT-2026-W26-S47",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json", "docs/product/ux/real-uat-operator-handoff.json"],
+      "rationale": "Operator handoff prepares collection of real UAT runtime export; no real user data is added yet, but future session artifacts must avoid placeholders and pass leakage scanning.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-preflight-checklist",
+      "sprint_id": "SPRINT-2026-W26-S56",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json", "docs/product/ux/real-uat-preflight-checklist.json"],
+      "rationale": "Preflight checklist adds anti-fake-evidence and unsafe marker checks before real UAT; no real user data is added yet.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-runtime-actor-identity",
+      "sprint_id": "SPRINT-2026-W26-S57",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json", "artifacts/examples/review-runtime-interactive.html"],
+      "rationale": "Interactive runtime now captures explicit actor identity for real UAT and prevents interactive-* actor ids from being exported as real evidence.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-import-dry-run",
+      "sprint_id": "SPRINT-2026-W26-S58",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json", "scripts/validate-real-uat-import.mjs"],
+      "rationale": "Import validation now supports dry-run before writing real UAT acceptance artifact, reducing fake-evidence and accidental-write risk.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-session-importer",
+      "sprint_id": "SPRINT-2026-W26-S48",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json", "docs/product/ux/real-uat-session-importer.json"],
+      "rationale": "Importer prepares deterministic creation of real human-review-session artifact from real runtime export; no real user data is added yet, and placeholder/fixture markers are blocked.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-leakage-guard",
+      "sprint_id": "SPRINT-2026-W26-S49",
+      "delta_status": "delta_recorded",
+      "security_impact": "high",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-leakage-guard/sprint-evidence-manifest.json", "docs/architecture/security/real-uat-leakage-guard.json"],
+      "rationale": "Conditional leakage guard blocks real UAT artifacts if they appear without confidential data leakage scan coverage.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-release-evidence-real-uat-alignment",
+      "sprint_id": "SPRINT-2026-W26-S50",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json", "docs/release/mvp-release-evidence-pack.json"],
+      "rationale": "Release evidence pack now references existing real UAT readiness/security gates and does not add runtime, network, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-plan-completion-audit-gate",
+      "sprint_id": "SPRINT-2026-W26-S51",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-plan-completion-audit-gate/sprint-evidence-manifest.json", "docs/process/audits/plan-completion-audit.json"],
+      "rationale": "Completion audit gate records missing external evidence and does not add runtime, network, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-pilot-gate-readiness",
+      "sprint_id": "SPRINT-2026-W26-S44",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json", "docs/release/pilot-gate-readiness.json"],
+      "rationale": "Pilot readiness gate documents external blockers and does not add runtime, network, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-pilot-execution-handoff",
+      "sprint_id": "SPRINT-2026-W26-S52",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json", "docs/release/pilot-execution-handoff.json"],
+      "rationale": "Pilot execution handoff adds process stop conditions and validation expectations without runtime tools, network access, secrets or new real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-pilot-report-templates",
+      "sprint_id": "SPRINT-2026-W26-S53",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json", "docs/release/templates/pilot-report-template.md", "docs/release/templates/pilot-process-portability-notes-template.md"],
+      "rationale": "Pilot report templates add documentation-only structure and do not add runtime tools, network access, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-commit-pr-evidence-template",
+      "sprint_id": "SPRINT-2026-W26-S54",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json", "docs/release/templates/commit-pr-evidence-template.md"],
+      "rationale": "Commit/PR evidence template adds documentation-only release train structure and does not add runtime tools, network access, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-external-blocker-closure-map",
+      "sprint_id": "SPRINT-2026-W26-S55",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-external-blocker-closure-map/sprint-evidence-manifest.json", "docs/process/audits/external-blocker-closure-map.json"],
+      "rationale": "External blocker closure map adds process-only evidence tracking and does not add runtime tools, network access, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-event-log-readiness",
+      "sprint_id": "SPRINT-2026-W26-S45",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-process-event-log-readiness/sprint-evidence-manifest.json", "docs/process/current/process-event-log.json"],
+      "rationale": "Process event log readiness adds an empty timestamp log contract without real user data, secrets, network or runtime permissions.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-portability-readiness",
+      "sprint_id": "SPRINT-2026-W26-S46",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json", "docs/process/portability/process-portability-pack.json"],
+      "rationale": "Process portability readiness adds templates and migration notes without runtime, network, secrets or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-eval-pack",
+      "sprint_id": "SPRINT-2026-W26-S7",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-eval-pack/sprint-evidence-manifest.json"],
+      "rationale": "Eval pack добавляет prompt-injection checks, но не включает external provider.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-failure-risk-crosscheck",
+      "sprint_id": "SPRINT-2026-W26-S15",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-failure-risk-crosscheck/sprint-evidence-manifest.json"],
+      "rationale": "Добавлены negative risk fixtures; runtime permissions не расширялись.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-generated-risk-traceability",
+      "sprint_id": "SPRINT-2026-W26-S17",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json"],
+      "rationale": "Generated traceability усиливает risk evidence, но не меняет trust boundaries.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-human-review-uat-gate",
+      "sprint_id": "SPRINT-2026-W26-S26",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-human-review-uat-gate/sprint-evidence-manifest.json"],
+      "rationale": "Human review gate добавляет review states и audit requirements без real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-llm-mock-guardrails",
+      "sprint_id": "SPRINT-2026-W26-S6",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-llm-mock-guardrails/sprint-evidence-manifest.json", "docs/architecture/security/no-network-by-default.md"],
+      "rationale": "Зафиксирован no-network-by-default и mock-only LLM boundary.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-mock-presentation-spec",
+      "sprint_id": "SPRINT-2026-W26-S3",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-mock-presentation-spec/sprint-evidence-manifest.json"],
+      "rationale": "Mock PresentationSpec не добавляет network, secrets или external tools.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-operational-readiness-gate",
+      "sprint_id": "SPRINT-2026-W26-S25",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-operational-readiness-gate/sprint-evidence-manifest.json"],
+      "rationale": "Operational readiness добавляет runbook и checks, permissions не расширяются.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-pdf-png-export-smoke",
+      "sprint_id": "SPRINT-2026-W26-S27",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-pdf-png-export-smoke/sprint-evidence-manifest.json", "docs/architecture/security/export-sanitization-checklist.md"],
+      "rationale": "Export smoke меняет export surface; покрывается export sanitization gate.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-renderer-regression-pack",
+      "sprint_id": "SPRINT-2026-W26-S40",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-renderer-regression-pack/sprint-evidence-manifest.json", "artifacts/examples/renderer-regression-manifest.json"],
+      "rationale": "Renderer regression pack validates existing local fixture outputs and does not add network, secrets, user data or new export surface.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-plan-coverage-audit",
+      "sprint_id": "SPRINT-2026-W26-S20",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json"],
+      "rationale": "Audit artifact не меняет runtime или data handling.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-bootstrap",
+      "sprint_id": "SPRINT-2026-W26",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json", "docs/architecture/security/threat-model.md"],
+      "rationale": "Bootstrap создал baseline security artifacts и начальные trust boundaries.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-change-control-ledger",
+      "sprint_id": "SPRINT-2026-W26-S36",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json", "docs/process/current/process-change-ledger.json"],
+      "rationale": "Process change ledger adds governance evidence and does not change product data handling, external tools or secrets.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-metrics-manifest",
+      "sprint_id": "SPRINT-2026-W26-S32",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-process-metrics-manifest/sprint-evidence-manifest.json"],
+      "rationale": "Process metrics manifest не добавляет product data, external tools или secrets.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-metrics-collection",
+      "sprint_id": "SPRINT-2026-W26-S38",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json", "docs/process/current/process-metrics-snapshot.json"],
+      "rationale": "Metrics collection reads local repository artifacts only and does not add network, secrets, product data export or user tracking.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-process-versioning-validator",
+      "sprint_id": "SPRINT-2026-W26-S19",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json"],
+      "rationale": "Process versioning validator не меняет trust boundaries.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-product-goal-schema-validator",
+      "sprint_id": "SPRINT-2026-W26-S1",
+      "delta_status": "no_security_impact",
+      "security_impact": "none",
+      "evidence_paths": ["docs/sprints/2026-W26-product-goal-schema-validator/sprint-evidence-manifest.json"],
+      "rationale": "Schema validator для product goal не расширяет runtime surface.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-provider-eval-rubric",
+      "sprint_id": "SPRINT-2026-W26-S12",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-eval-rubric/sprint-evidence-manifest.json", "tests/evals/provider-specific-eval-delta.json"],
+      "rationale": "Provider eval rubric добавляет security scoring для будущего external provider gate.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-provider-experiment-template",
+      "sprint_id": "SPRINT-2026-W26-S10",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-experiment-template/sprint-evidence-manifest.json", "docs/architecture/llm/provider-experiment-result-template.json"],
+      "rationale": "Provider experiment template описывает future security evidence и rollback without enabling provider.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-provider-negative-risk-traceability",
+      "sprint_id": "SPRINT-2026-W26-S13",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-negative-risk-traceability/sprint-evidence-manifest.json", "tests/provider/provider-experiment-result-rollback.json"],
+      "rationale": "Negative provider traceability фиксирует rollback branch для unsupported claims.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-provider-readiness",
+      "sprint_id": "SPRINT-2026-W26-S8",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-readiness/sprint-evidence-manifest.json", "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md"],
+      "rationale": "Provider readiness меняет future trust boundary, но external provider остается disabled.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-provider-scorer-risk-registry",
+      "sprint_id": "SPRINT-2026-W26-S14",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-provider-scorer-risk-registry/sprint-evidence-manifest.json", "docs/architecture/risks/risk-registry.json"],
+      "rationale": "Provider scorer добавляет security stop-rule branches and risk linkage.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-readiness",
+      "sprint_id": "SPRINT-2026-W26-S31",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-readiness/sprint-evidence-manifest.json", "docs/product/ux/real-uat-gate-readiness.json"],
+      "rationale": "Readiness template добавлен без реальных пользовательских данных.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-release-evidence-pack",
+      "sprint_id": "SPRINT-2026-W26-S29",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-release-evidence-pack/sprint-evidence-manifest.json", "docs/release/mvp-release-evidence-pack.json"],
+      "rationale": "Release evidence pack фиксирует readiness без publish/deploy.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-renderer-baseline",
+      "sprint_id": "SPRINT-2026-W26-S4",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-renderer-baseline/sprint-evidence-manifest.json", "artifacts/examples/render-result-minimal.json"],
+      "rationale": "Renderer создает export artifact; covered by deterministic local renderer and later sanitization gates.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-requirements-data-contract",
+      "sprint_id": "SPRINT-2026-W26-S2",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-requirements-data-contract/sprint-evidence-manifest.json", "schemas/input-package.schema.json"],
+      "rationale": "Input package boundary formalized; external agent data remains untrusted.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-review-runtime-state",
+      "sprint_id": "SPRINT-2026-W26-S34",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-review-runtime-state/sprint-evidence-manifest.json", "docs/product/ux/review-runtime-state-fixture.json"],
+      "rationale": "Runtime state fixture has no real user data and remains local JSON evidence.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-interactive-review-runtime",
+      "sprint_id": "SPRINT-2026-W26-S37",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json", "artifacts/examples/review-runtime-interactive.html", "docs/product/ux/review-runtime-interactive.json"],
+      "rationale": "Interactive review runtime is local-only, uses browser localStorage, has no external network, no real user data, no cookies and no secrets.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-review-runtime-browser-matrix",
+      "sprint_id": "SPRINT-2026-W26-S59",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json", "docs/product/ux/review-runtime-browser-matrix.json"],
+      "rationale": "Static browser matrix adds local UX readiness checks without collecting real user data or enabling network access.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-review-runtime-browser-smoke",
+      "sprint_id": "SPRINT-2026-W26-S60",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-review-runtime-browser-smoke/sprint-evidence-manifest.json", "docs/product/ux/review-runtime-browser-smoke.json"],
+      "rationale": "Static browser smoke validates local HTML/CSS/JS readiness and trust-boundary markers without browser automation, network access or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-export-png-pixel-smoke",
+      "sprint_id": "SPRINT-2026-W26-S61",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-export-png-pixel-smoke/sprint-evidence-manifest.json", "docs/product/ux/export-png-pixel-smoke.json"],
+      "rationale": "PNG pixel smoke validates local generated fixture decoding and pixel bytes without network access, browser automation or real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-external-evidence-readiness",
+      "sprint_id": "SPRINT-2026-W26-S62",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-external-evidence-readiness/sprint-evidence-manifest.json", "docs/process/audits/external-evidence-readiness.json"],
+      "rationale": "External evidence readiness reads local audit metadata and stop rules without collecting real user data, secrets, network data or external release records.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-real-uat-one-command-runner",
+      "sprint_id": "SPRINT-2026-W26-S63",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json", "docs/product/ux/real-uat-one-command-runner.json", "scripts/run-real-uat-session.mjs"],
+      "rationale": "Runner starts a localhost-only HTTP server and accepts real UAT JSON over 127.0.0.1; no external network is enabled, but it can write real evidence artifacts after user actions.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-review-ui-fixture",
+      "sprint_id": "SPRINT-2026-W26-S30",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-review-ui-fixture/sprint-evidence-manifest.json", "artifacts/examples/review-ui-fixture.html"],
+      "rationale": "Static review fixture has no script and no real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-risk-matrix-report",
+      "sprint_id": "SPRINT-2026-W26-S16",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-risk-matrix-report/sprint-evidence-manifest.json", "docs/architecture/risks/risk-matrix.md"],
+      "rationale": "Risk matrix report summarizes existing risks without changing runtime behavior.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-risk-traceability-negative-branches",
+      "sprint_id": "SPRINT-2026-W26-S14B",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-risk-traceability-negative-branches/sprint-evidence-manifest.json", "tests/provider/provider-experiment-result-security-rollback.json"],
+      "rationale": "Security rollback fixture added for prompt-injection/secret-leak branch.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-security-foundation-pack",
+      "sprint_id": "SPRINT-2026-W26-S21",
+      "delta_status": "delta_recorded",
+      "security_impact": "high",
+      "evidence_paths": ["docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md", "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json"],
+      "rationale": "Security foundation pack added the first explicit threat-model delta and security gate.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-structured-provider-readiness",
+      "sprint_id": "SPRINT-2026-W26-S9",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-structured-provider-readiness/sprint-evidence-manifest.json", "docs/architecture/llm/provider-allowlist.json"],
+      "rationale": "Provider allowlist/budget created with disabled provider and no network enablement.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-threat-model-delta-governance",
+      "sprint_id": "SPRINT-2026-W26-S35",
+      "delta_status": "delta_recorded",
+      "security_impact": "high",
+      "evidence_paths": ["docs/sprints/2026-W26-threat-model-delta-governance/sprint-evidence-manifest.json", "docs/architecture/security/threat-model-delta-manifest.json"],
+      "rationale": "This increment adds historical backfill manifest and forward validation rule for threat-model deltas.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-traceability-graph",
+      "sprint_id": "SPRINT-2026-W26-S33",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json", "docs/architecture/schemas/traceability-graph.json"],
+      "rationale": "Traceability graph strengthens evidence chain without adding runtime tools.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-uat-result-fixture",
+      "sprint_id": "SPRINT-2026-W26-S28",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": ["docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json", "docs/product/ux/uat-result-minimal.json"],
+      "rationale": "UAT result fixture contains no real user data.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W26-visual-llm-boundary",
+      "sprint_id": "SPRINT-2026-W26-S5",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": ["docs/sprints/2026-W26-visual-llm-boundary/sprint-evidence-manifest.json", "docs/architecture/adr/ADR-009-llm-schema-boundary.md"],
+      "rationale": "LLM output boundary formalized: model returns PresentationSpec, not final HTML/PDF.",
+      "owner_role": "Security/Privacy Lead"
+    }
+  ],
+  "known_limitations": [
+    "Backfill manifest is based on existing sprint evidence, not on separate historical security meetings.",
+    "Future sprint folders must be added to this manifest before bootstrap validation can pass.",
+    "Real UAT security delta remains pending until real user session exists."
+  ],
+  "next_safe_step": "Add real UAT security delta after docs/product/ux/human-review-session-real.json is produced."
+}

@@ -1,0 +1,3166 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "hash_manifest_path": "docs/architecture/schemas/artifact-hash-manifest.json",
+  "hash_algorithm": "sha256",
+  "snapshot_policy": {
+    "coverage": "all_registered_artifacts_except_declared_exclusions",
+    "self_reference_rule": "Artifact registry links to the generated hash manifest; per-artifact hashes live in the hash manifest to avoid self-referential registry hashes.",
+    "refresh_command": "node scripts/generate-artifact-hash-manifest.mjs",
+    "validation_command": "npm run validate:artifact-hashes"
+  },
+  "artifacts": [
+    {
+      "id": "ART-001",
+      "path": "docs/process/current/process-passport.md",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-002",
+      "path": "docs/product/vision/vision-v0.1.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-003",
+      "path": "docs/product/bmc/bmc-v0.1.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-004",
+      "path": "docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "in_progress",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-005",
+      "path": "scripts/validate-bootstrap-artifacts.sh",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S1"
+    },
+    {
+      "id": "ART-006",
+      "path": "docs/architecture/adr/ADR-004-bootstrap-validator.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S1"
+    },
+    {
+      "id": "ART-007",
+      "path": "schemas/normalized-data.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S2"
+    },
+    {
+      "id": "ART-008",
+      "path": "scripts/normalize-input-package.mjs",
+      "type": "implementation",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S2"
+    },
+    {
+      "id": "ART-009",
+      "path": "tests/golden/trace-manifest-minimal.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S2"
+    },
+    {
+      "id": "ART-010",
+      "path": "docs/architecture/adr/ADR-005-deterministic-normalization.md",
+      "type": "architecture-decision",
+      "owner_role": "Data/Traceability Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S2"
+    },
+    {
+      "id": "ART-011",
+      "path": "scripts/generate-presentation-spec.mjs",
+      "type": "implementation",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S3"
+    },
+    {
+      "id": "ART-012",
+      "path": "tests/golden/claim-map-minimal.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S3"
+    },
+    {
+      "id": "ART-013",
+      "path": "docs/architecture/adr/ADR-006-mock-presentation-spec-generator.md",
+      "type": "architecture-decision",
+      "owner_role": "AI Agent Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S3"
+    },
+    {
+      "id": "ART-014",
+      "path": "scripts/render-presentation.mjs",
+      "type": "implementation",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S4"
+    },
+    {
+      "id": "ART-015",
+      "path": "artifacts/examples/presentation-minimal.html",
+      "type": "rendered-artifact",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S4"
+    },
+    {
+      "id": "ART-016",
+      "path": "docs/architecture/adr/ADR-007-html-renderer-baseline.md",
+      "type": "architecture-decision",
+      "owner_role": "AI Agent Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S4"
+    },
+    {
+      "id": "ART-017",
+      "path": "scripts/validate-visual-baseline.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S5"
+    },
+    {
+      "id": "ART-018",
+      "path": "docs/architecture/renderer/pdf-png-export-strategy.md",
+      "type": "architecture",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S5"
+    },
+    {
+      "id": "ART-019",
+      "path": "docs/architecture/llm/prompt-contract.md",
+      "type": "architecture",
+      "owner_role": "AI Agent Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S5"
+    },
+    {
+      "id": "ART-020",
+      "path": "docs/architecture/adr/ADR-009-llm-schema-boundary.md",
+      "type": "architecture-decision",
+      "owner_role": "AI Agent Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S5"
+    },
+    {
+      "id": "ART-021",
+      "path": "scripts/llm-mock-adapter.mjs",
+      "type": "implementation",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S6"
+    },
+    {
+      "id": "ART-022",
+      "path": "scripts/validate-llm-guardrails.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S6"
+    },
+    {
+      "id": "ART-023",
+      "path": "docs/architecture/security/no-network-by-default.md",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S6"
+    },
+    {
+      "id": "ART-024",
+      "path": "docs/architecture/adr/ADR-010-llm-mock-guardrails.md",
+      "type": "architecture-decision",
+      "owner_role": "AI Agent Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S6"
+    },
+    {
+      "id": "ART-025",
+      "path": "scripts/validate-eval-pack.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S7"
+    },
+    {
+      "id": "ART-026",
+      "path": "docs/architecture/evals/eval-strategy.md",
+      "type": "architecture",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S7"
+    },
+    {
+      "id": "ART-027",
+      "path": "docs/architecture/adr/ADR-011-eval-pack-before-provider.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S7"
+    },
+    {
+      "id": "ART-028",
+      "path": "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md",
+      "type": "process-change-request",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-029",
+      "path": "docs/architecture/llm/provider-integration-plan.md",
+      "type": "architecture",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-030",
+      "path": "docs/architecture/llm/provider-allowlist.yaml",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-031",
+      "path": "docs/architecture/llm/provider-budget.json",
+      "type": "observability",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-032",
+      "path": "scripts/validate-provider-readiness.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-033",
+      "path": "docs/architecture/adr/ADR-012-provider-readiness-before-network.md",
+      "type": "architecture-decision",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S8"
+    },
+    {
+      "id": "ART-034",
+      "path": "schemas/provider-allowlist.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S9"
+    },
+    {
+      "id": "ART-035",
+      "path": "schemas/provider-budget.schema.json",
+      "type": "schema",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S9"
+    },
+    {
+      "id": "ART-036",
+      "path": "docs/architecture/llm/provider-allowlist.json",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S9"
+    },
+    {
+      "id": "ART-037",
+      "path": "docs/architecture/adr/ADR-013-structured-provider-readiness.md",
+      "type": "architecture-decision",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S9"
+    },
+    {
+      "id": "ART-038",
+      "path": "schemas/provider-experiment-result.schema.json",
+      "type": "schema",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S10"
+    },
+    {
+      "id": "ART-039",
+      "path": "docs/architecture/llm/provider-experiment-result-template.json",
+      "type": "observability",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S10"
+    },
+    {
+      "id": "ART-040",
+      "path": "docs/process/experiments/EXP-001-controlled-llm-provider.md",
+      "type": "process-experiment",
+      "owner_role": "Process Owner",
+      "status": "planned",
+      "sprint_id": "SPRINT-2026-W26-S10"
+    },
+    {
+      "id": "ART-041",
+      "path": "scripts/validate-provider-experiment.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S10"
+    },
+    {
+      "id": "ART-042",
+      "path": "docs/architecture/adr/ADR-014-provider-experiment-result-contract.md",
+      "type": "architecture-decision",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S10"
+    },
+    {
+      "id": "ART-043",
+      "path": "schemas/provider-specific-eval-delta.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S11"
+    },
+    {
+      "id": "ART-044",
+      "path": "tests/evals/provider-specific-eval-delta.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S11"
+    },
+    {
+      "id": "ART-045",
+      "path": "docs/architecture/evals/provider-quality-scoring-rubric.md",
+      "type": "architecture",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S11"
+    },
+    {
+      "id": "ART-046",
+      "path": "scripts/validate-provider-eval-delta.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S11"
+    },
+    {
+      "id": "ART-047",
+      "path": "docs/architecture/adr/ADR-015-provider-specific-eval-delta.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S11"
+    },
+    {
+      "id": "ART-048",
+      "path": "schemas/risk-registry.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-049",
+      "path": "docs/architecture/risks/risk-registry.json",
+      "type": "risk-registry",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-050",
+      "path": "scripts/score-provider-output.mjs",
+      "type": "implementation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-051",
+      "path": "scripts/validate-provider-scorer.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-052",
+      "path": "tests/provider/provider-experiment-result-scored.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-053",
+      "path": "docs/architecture/adr/ADR-016-provider-output-scorer-and-risk-registry.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S12"
+    },
+    {
+      "id": "ART-054",
+      "path": "tests/provider/llm-result-unsupported-provider-output.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S13"
+    },
+    {
+      "id": "ART-055",
+      "path": "tests/provider/provider-experiment-result-rollback.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S13"
+    },
+    {
+      "id": "ART-056",
+      "path": "schemas/risk-traceability.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S14"
+    },
+    {
+      "id": "ART-057",
+      "path": "docs/architecture/risks/risk-traceability.json",
+      "type": "risk-traceability",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S14"
+    },
+    {
+      "id": "ART-058",
+      "path": "tests/provider/provider-experiment-result-security-rollback.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S14"
+    },
+    {
+      "id": "ART-059",
+      "path": "tests/provider/provider-experiment-result-cost-rollback.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S14"
+    },
+    {
+      "id": "ART-060",
+      "path": "tests/provider/provider-experiment-result-latency-rollback.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S14"
+    },
+    {
+      "id": "ART-061",
+      "path": "tests/provider/provider-experiment-result-failure-rollback.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S15"
+    },
+    {
+      "id": "ART-062",
+      "path": "tests/provider/scenario-failure-overrun.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S15"
+    },
+    {
+      "id": "ART-063",
+      "path": "docs/architecture/risks/risk-matrix.md",
+      "type": "risk-report",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S16"
+    },
+    {
+      "id": "ART-064",
+      "path": "scripts/generate-risk-matrix-report.mjs",
+      "type": "implementation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S16"
+    },
+    {
+      "id": "ART-065",
+      "path": "scripts/validate-risk-matrix.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S16"
+    },
+    {
+      "id": "ART-066",
+      "path": "schemas/risk-evidence-map.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-067",
+      "path": "docs/architecture/risks/risk-evidence-map.json",
+      "type": "risk-evidence-map",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-068",
+      "path": "scripts/generate-risk-traceability.mjs",
+      "type": "implementation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-069",
+      "path": "scripts/validate-risk-traceability.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-070",
+      "path": "docs/architecture/adr/ADR-017-generated-risk-traceability.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-071",
+      "path": "docs/sprints/2026-W26-generated-risk-traceability/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S17"
+    },
+    {
+      "id": "ART-072",
+      "path": "scripts/validate-artifact-registry.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S18"
+    },
+    {
+      "id": "ART-073",
+      "path": "docs/architecture/adr/ADR-018-artifact-registry-validation.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S18"
+    },
+    {
+      "id": "ART-074",
+      "path": "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S18"
+    },
+    {
+      "id": "ART-075",
+      "path": "schemas/process-version-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-076",
+      "path": "docs/process/versions/0.1.0/process-version-manifest.json",
+      "type": "process-version-manifest",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-077",
+      "path": "docs/process/versions/0.1.0/process-snapshot.md",
+      "type": "process-snapshot",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-078",
+      "path": "scripts/validate-process-versioning.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-079",
+      "path": "docs/architecture/adr/ADR-019-process-versioning-validation.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-080",
+      "path": "docs/sprints/2026-W26-process-versioning-validator/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S19"
+    },
+    {
+      "id": "ART-081",
+      "path": "schemas/plan-coverage-audit.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-082",
+      "path": "docs/process/audits/datacanvas-plan-coverage-audit.json",
+      "type": "process-audit",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-083",
+      "path": "docs/process/audits/datacanvas-plan-coverage-report.md",
+      "type": "process-audit",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-084",
+      "path": "scripts/validate-plan-coverage.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-085",
+      "path": "docs/architecture/adr/ADR-020-plan-coverage-audit.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-086",
+      "path": "docs/sprints/2026-W26-plan-coverage-audit/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S20"
+    },
+    {
+      "id": "ART-087",
+      "path": "schemas/security-foundation-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-088",
+      "path": "docs/architecture/security/security-foundation-manifest.json",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-089",
+      "path": "docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-090",
+      "path": "scripts/scan-secrets.mjs",
+      "type": "validation",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-091",
+      "path": "scripts/validate-security-foundation.mjs",
+      "type": "validation",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-092",
+      "path": "docs/architecture/adr/ADR-021-security-foundation-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "Security/Privacy Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-093",
+      "path": "docs/sprints/2026-W26-security-foundation-pack/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S21"
+    },
+    {
+      "id": "ART-094",
+      "path": "schemas/backlog-registry.schema.json",
+      "type": "schema",
+      "owner_role": "Scrum Master",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-095",
+      "path": "docs/product/backlog/backlog-registry.json",
+      "type": "backlog-registry",
+      "owner_role": "Scrum Master",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-096",
+      "path": "docs/product/backlog/technical-backlog.md",
+      "type": "backlog",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-097",
+      "path": "docs/product/backlog/eval-backlog.md",
+      "type": "backlog",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-098",
+      "path": "scripts/validate-backlog-registry.mjs",
+      "type": "validation",
+      "owner_role": "Scrum Master",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-099",
+      "path": "docs/architecture/adr/ADR-022-backlog-registry.md",
+      "type": "architecture-decision",
+      "owner_role": "Scrum Master",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-100",
+      "path": "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S22"
+    },
+    {
+      "id": "ART-101",
+      "path": "schemas/render-request.schema.json",
+      "type": "schema",
+      "owner_role": "Development Team",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-102",
+      "path": "schemas/process-change-request.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-103",
+      "path": "schemas/tool-allowlist.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-104",
+      "path": "schemas/trace-contract.schema.json",
+      "type": "schema",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-105",
+      "path": "scripts/validate-contract-schemas.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-106",
+      "path": "docs/architecture/adr/ADR-023-contract-schemas.md",
+      "type": "architecture-decision",
+      "owner_role": "Development Team",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-107",
+      "path": "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S23"
+    },
+    {
+      "id": "ART-108",
+      "path": "schemas/artifact-hash-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-109",
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "type": "artifact-hash-manifest",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-110",
+      "path": "scripts/generate-artifact-hash-manifest.mjs",
+      "type": "implementation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-111",
+      "path": "scripts/validate-artifact-hash-manifest.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-112",
+      "path": "docs/architecture/adr/ADR-024-artifact-hash-manifest.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-113",
+      "path": "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S24"
+    },
+    {
+      "id": "ART-114",
+      "path": "schemas/operational-readiness-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-115",
+      "path": "docs/architecture/observability/operational-readiness-checklist.md",
+      "type": "observability",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-116",
+      "path": "docs/architecture/observability/operational-readiness-manifest.json",
+      "type": "observability",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-117",
+      "path": "docs/architecture/observability/runbook.md",
+      "type": "runbook",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-118",
+      "path": "scripts/validate-operational-readiness.mjs",
+      "type": "validation",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-119",
+      "path": "docs/architecture/adr/ADR-025-operational-readiness-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "SRE/LLM Ops Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-120",
+      "path": "docs/sprints/2026-W26-operational-readiness-gate/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S25"
+    },
+    {
+      "id": "ART-121",
+      "path": "schemas/human-review-flow.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-122",
+      "path": "schemas/uat-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-123",
+      "path": "docs/product/ux/human-review-flow.md",
+      "type": "ux-flow",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-124",
+      "path": "docs/product/ux/human-review-flow.json",
+      "type": "ux-flow",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-125",
+      "path": "docs/product/ux/uat-script.md",
+      "type": "uat-script",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-126",
+      "path": "docs/product/ux/uat-manifest.json",
+      "type": "uat-manifest",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-127",
+      "path": "scripts/validate-uat-human-review.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-128",
+      "path": "docs/architecture/adr/ADR-026-human-review-uat-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-129",
+      "path": "docs/sprints/2026-W26-human-review-uat-gate/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S26"
+    },
+    {
+      "id": "ART-130",
+      "path": "schemas/export-smoke-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-131",
+      "path": "scripts/generate-export-smoke-fixtures.mjs",
+      "type": "implementation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-132",
+      "path": "scripts/validate-export-smoke.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-133",
+      "path": "artifacts/examples/presentation-smoke.pdf",
+      "type": "export-artifact",
+      "owner_role": "UX/Prototype Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-134",
+      "path": "artifacts/examples/presentation-smoke.png",
+      "type": "export-artifact",
+      "owner_role": "UX/Prototype Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-135",
+      "path": "artifacts/examples/export-smoke-manifest.json",
+      "type": "export-manifest",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-136",
+      "path": "docs/architecture/adr/ADR-027-pdf-png-export-smoke.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-137",
+      "path": "docs/sprints/2026-W26-pdf-png-export-smoke/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S27"
+    },
+    {
+      "id": "ART-138",
+      "path": "schemas/uat-result.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-139",
+      "path": "docs/product/ux/uat-result.md",
+      "type": "uat-result",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-140",
+      "path": "docs/product/ux/uat-result-minimal.json",
+      "type": "uat-result",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-141",
+      "path": "scripts/validate-uat-result.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-142",
+      "path": "docs/architecture/adr/ADR-028-uat-result-fixture.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-143",
+      "path": "docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S28"
+    },
+    {
+      "id": "ART-144",
+      "path": "schemas/release-evidence-pack.schema.json",
+      "type": "schema",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-145",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "type": "release-evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-146",
+      "path": "docs/release/mvp-release-evidence-pack.md",
+      "type": "release-evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-147",
+      "path": "scripts/validate-release-evidence-pack.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-148",
+      "path": "docs/architecture/adr/ADR-029-release-evidence-pack.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-149",
+      "path": "docs/sprints/2026-W26-release-evidence-pack/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S29"
+    },
+    {
+      "id": "ART-150",
+      "path": "schemas/review-ui-fixture.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-151",
+      "path": "schemas/human-review-session.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-152",
+      "path": "docs/product/ux/review-ui-fixture.json",
+      "type": "ux-fixture",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-153",
+      "path": "docs/product/ux/human-review-session-minimal.json",
+      "type": "uat-session",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-154",
+      "path": "artifacts/examples/review-ui-fixture.html",
+      "type": "rendered-artifact",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-155",
+      "path": "scripts/validate-review-ui-fixture.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-156",
+      "path": "docs/architecture/adr/ADR-030-review-ui-fixture.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-157",
+      "path": "docs/sprints/2026-W26-review-ui-fixture/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S30"
+    },
+    {
+      "id": "ART-158",
+      "path": "schemas/real-uat-gate-readiness.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-159",
+      "path": "docs/product/ux/real-uat-gate-readiness.json",
+      "type": "uat-readiness",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-160",
+      "path": "docs/product/ux/human-review-session-real.template.json",
+      "type": "uat-template",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-161",
+      "path": "docs/product/ux/real-uat-session-guide.md",
+      "type": "uat-guide",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-162",
+      "path": "scripts/validate-real-uat-readiness.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-163",
+      "path": "docs/architecture/adr/ADR-031-real-uat-readiness-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "QA/Evals Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-164",
+      "path": "docs/sprints/2026-W26-real-uat-readiness/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S31"
+    },
+    {
+      "id": "ART-165",
+      "path": "schemas/process-metrics-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S32"
+    },
+    {
+      "id": "ART-166",
+      "path": "docs/process/current/process-metrics-manifest.json",
+      "type": "process-metrics",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S32"
+    },
+    {
+      "id": "ART-167",
+      "path": "scripts/validate-process-metrics.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S32"
+    },
+    {
+      "id": "ART-168",
+      "path": "docs/architecture/adr/ADR-032-process-metrics-manifest.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S32"
+    },
+    {
+      "id": "ART-169",
+      "path": "docs/sprints/2026-W26-process-metrics-manifest/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S32"
+    },
+    {
+      "id": "ART-170",
+      "path": "schemas/traceability-graph.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S33"
+    },
+    {
+      "id": "ART-171",
+      "path": "docs/architecture/schemas/traceability-graph.json",
+      "type": "traceability",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S33"
+    },
+    {
+      "id": "ART-172",
+      "path": "scripts/validate-traceability-graph.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S33"
+    },
+    {
+      "id": "ART-173",
+      "path": "docs/architecture/adr/ADR-033-traceability-graph-validation.md",
+      "type": "architecture-decision",
+      "owner_role": "Data/Traceability Architect",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S33"
+    },
+    {
+      "id": "ART-174",
+      "path": "docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S33"
+    },
+    {
+      "id": "ART-175",
+      "path": "schemas/review-runtime-state.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-176",
+      "path": "docs/product/ux/review-runtime-state-fixture.json",
+      "type": "ux-runtime-state",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-177",
+      "path": "docs/product/ux/review-runtime-state.md",
+      "type": "ux",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-178",
+      "path": "scripts/validate-review-runtime-state.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-179",
+      "path": "docs/architecture/adr/ADR-034-review-runtime-state.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-180",
+      "path": "docs/sprints/2026-W26-review-runtime-state/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S34"
+    },
+    {
+      "id": "ART-181",
+      "path": "schemas/threat-model-delta-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S35"
+    },
+    {
+      "id": "ART-182",
+      "path": "docs/architecture/security/threat-model-delta-manifest.json",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S35"
+    },
+    {
+      "id": "ART-183",
+      "path": "scripts/validate-threat-model-delta.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S35"
+    },
+    {
+      "id": "ART-184",
+      "path": "docs/architecture/adr/ADR-035-threat-model-delta-governance.md",
+      "type": "architecture-decision",
+      "owner_role": "Security/Privacy Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S35"
+    },
+    {
+      "id": "ART-185",
+      "path": "docs/sprints/2026-W26-threat-model-delta-governance/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S35"
+    },
+    {
+      "id": "ART-186",
+      "path": "schemas/process-change-ledger.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-187",
+      "path": "docs/process/current/process-change-ledger.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-188",
+      "path": "docs/process/change-requests/PROC-035-threat-model-delta-governance.md",
+      "type": "process-change-request",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-189",
+      "path": "scripts/validate-process-change-ledger.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-190",
+      "path": "docs/architecture/adr/ADR-036-process-change-ledger.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-191",
+      "path": "docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S36"
+    },
+    {
+      "id": "ART-192",
+      "path": "schemas/review-runtime-interactive.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-193",
+      "path": "docs/product/ux/review-runtime-interactive.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-194",
+      "path": "artifacts/examples/review-runtime-interactive.html",
+      "type": "rendered-artifact",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-195",
+      "path": "scripts/validate-review-runtime-interactive.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-196",
+      "path": "docs/architecture/adr/ADR-037-interactive-review-runtime.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-197",
+      "path": "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S37"
+    },
+    {
+      "id": "ART-198",
+      "path": "schemas/process-metrics-snapshot.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-199",
+      "path": "docs/process/current/process-metrics-snapshot.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-200",
+      "path": "docs/process/current/process-metrics-snapshot.md",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-201",
+      "path": "scripts/collect-process-metrics.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-202",
+      "path": "scripts/validate-process-metrics-snapshot.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-203",
+      "path": "docs/architecture/adr/ADR-038-process-metrics-collection.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-204",
+      "path": "docs/sprints/2026-W26-process-metrics-collection/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S38"
+    },
+    {
+      "id": "ART-205",
+      "path": "docs/architecture/adr/ADR-039-artifact-registry-hash-linkage.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S39"
+    },
+    {
+      "id": "ART-206",
+      "path": "docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S39"
+    },
+    {
+      "id": "ART-207",
+      "path": "schemas/renderer-regression-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-208",
+      "path": "artifacts/examples/renderer-regression-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-209",
+      "path": "scripts/generate-renderer-regression-manifest.mjs",
+      "type": "implementation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-210",
+      "path": "scripts/validate-renderer-regression.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-211",
+      "path": "docs/architecture/adr/ADR-040-renderer-regression-pack.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-212",
+      "path": "docs/sprints/2026-W26-renderer-regression-pack/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S40"
+    },
+    {
+      "id": "ART-213",
+      "path": "schemas/data-leakage-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S41"
+    },
+    {
+      "id": "ART-214",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S41"
+    },
+    {
+      "id": "ART-215",
+      "path": "scripts/validate-data-leakage.mjs",
+      "type": "validation",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S41"
+    },
+    {
+      "id": "ART-216",
+      "path": "docs/architecture/adr/ADR-041-data-leakage-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "Security/Privacy Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S41"
+    },
+    {
+      "id": "ART-217",
+      "path": "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S41"
+    },
+    {
+      "id": "ART-218",
+      "path": "docs/architecture/adr/ADR-042-release-evidence-current-gates.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S42"
+    },
+    {
+      "id": "ART-219",
+      "path": "docs/sprints/2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S42"
+    },
+    {
+      "id": "ART-220",
+      "path": "schemas/real-uat-runtime-import.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-221",
+      "path": "docs/product/ux/real-uat-runtime-import.json",
+      "type": "process",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-222",
+      "path": "docs/product/ux/real-uat-runtime-import-guide.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-223",
+      "path": "scripts/validate-real-uat-import.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-224",
+      "path": "docs/architecture/adr/ADR-043-real-uat-runtime-import-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "Product Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-225",
+      "path": "docs/sprints/2026-W26-real-uat-runtime-import/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S43"
+    },
+    {
+      "id": "ART-226",
+      "path": "schemas/pilot-gate-readiness.schema.json",
+      "type": "schema",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S44"
+    },
+    {
+      "id": "ART-227",
+      "path": "docs/release/pilot-gate-readiness.json",
+      "type": "release",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S44"
+    },
+    {
+      "id": "ART-228",
+      "path": "scripts/validate-pilot-gate-readiness.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S44"
+    },
+    {
+      "id": "ART-229",
+      "path": "docs/architecture/adr/ADR-044-pilot-gate-readiness.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S44"
+    },
+    {
+      "id": "ART-230",
+      "path": "docs/sprints/2026-W26-pilot-gate-readiness/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S44"
+    },
+    {
+      "id": "ART-231",
+      "path": "schemas/process-event-log.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S45"
+    },
+    {
+      "id": "ART-232",
+      "path": "docs/process/current/process-event-log.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S45"
+    },
+    {
+      "id": "ART-233",
+      "path": "scripts/validate-process-event-log.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S45"
+    },
+    {
+      "id": "ART-234",
+      "path": "docs/architecture/adr/ADR-045-process-event-log-readiness.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S45"
+    },
+    {
+      "id": "ART-235",
+      "path": "docs/sprints/2026-W26-process-event-log-readiness/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S45"
+    },
+    {
+      "id": "ART-236",
+      "path": "schemas/process-portability-pack.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-237",
+      "path": "docs/process/portability/process-portability-pack.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-238",
+      "path": "docs/process/portability/migration-notes-template.md",
+      "type": "documentation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-239",
+      "path": "scripts/validate-process-portability.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-240",
+      "path": "docs/architecture/adr/ADR-046-process-portability-readiness.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-241",
+      "path": "docs/sprints/2026-W26-process-portability-readiness/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S46"
+    },
+    {
+      "id": "ART-242",
+      "path": "schemas/real-uat-operator-handoff.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-243",
+      "path": "docs/product/ux/real-uat-operator-handoff.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-244",
+      "path": "docs/product/ux/real-uat-operator-handoff.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-245",
+      "path": "scripts/validate-real-uat-operator-handoff.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-246",
+      "path": "docs/architecture/adr/ADR-047-real-uat-operator-handoff.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-247",
+      "path": "docs/sprints/2026-W26-real-uat-operator-handoff/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S47"
+    },
+    {
+      "id": "ART-248",
+      "path": "schemas/real-uat-session-importer.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-249",
+      "path": "docs/product/ux/real-uat-session-importer.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-250",
+      "path": "docs/product/ux/real-uat-session-importer.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-251",
+      "path": "scripts/prepare-real-uat-session.mjs",
+      "type": "implementation",
+      "owner_role": "Development Team",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-252",
+      "path": "scripts/validate-real-uat-session-importer.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-253",
+      "path": "docs/architecture/adr/ADR-048-real-uat-session-importer.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-254",
+      "path": "docs/sprints/2026-W26-real-uat-session-importer/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S48"
+    },
+    {
+      "id": "ART-255",
+      "path": "schemas/real-uat-leakage-guard.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S49"
+    },
+    {
+      "id": "ART-256",
+      "path": "docs/architecture/security/real-uat-leakage-guard.json",
+      "type": "security",
+      "owner_role": "Security/Privacy Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S49"
+    },
+    {
+      "id": "ART-257",
+      "path": "docs/architecture/adr/ADR-049-real-uat-leakage-guard.md",
+      "type": "architecture-decision",
+      "owner_role": "Security/Privacy Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S49"
+    },
+    {
+      "id": "ART-258",
+      "path": "docs/sprints/2026-W26-real-uat-leakage-guard/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S49"
+    },
+    {
+      "id": "ART-259",
+      "path": "docs/architecture/adr/ADR-050-release-evidence-real-uat-alignment.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S50"
+    },
+    {
+      "id": "ART-260",
+      "path": "docs/sprints/2026-W26-release-evidence-real-uat-alignment/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S50"
+    },
+    {
+      "id": "ART-261",
+      "path": "schemas/plan-completion-audit.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-262",
+      "path": "docs/process/audits/plan-completion-audit.md",
+      "type": "documentation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-263",
+      "path": "docs/process/audits/plan-completion-audit.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-264",
+      "path": "scripts/validate-plan-completion-audit.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-265",
+      "path": "docs/architecture/adr/ADR-051-plan-completion-audit-gate.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-266",
+      "path": "docs/sprints/2026-W26-plan-completion-audit-gate/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S51"
+    },
+    {
+      "id": "ART-267",
+      "path": "schemas/pilot-execution-handoff.schema.json",
+      "type": "schema",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-268",
+      "path": "docs/release/pilot-execution-handoff.md",
+      "type": "documentation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-269",
+      "path": "scripts/validate-pilot-execution-handoff.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-270",
+      "path": "docs/release/pilot-execution-handoff.json",
+      "type": "release",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-271",
+      "path": "docs/architecture/adr/ADR-052-pilot-execution-handoff.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-272",
+      "path": "docs/sprints/2026-W26-pilot-execution-handoff/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S52"
+    },
+    {
+      "id": "ART-273",
+      "path": "docs/release/templates/pilot-report-template.md",
+      "type": "documentation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "template",
+      "sprint_id": "SPRINT-2026-W26-S53"
+    },
+    {
+      "id": "ART-274",
+      "path": "docs/release/templates/pilot-process-portability-notes-template.md",
+      "type": "documentation",
+      "owner_role": "Process Owner",
+      "status": "template",
+      "sprint_id": "SPRINT-2026-W26-S53"
+    },
+    {
+      "id": "ART-275",
+      "path": "scripts/validate-pilot-report-templates.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S53"
+    },
+    {
+      "id": "ART-276",
+      "path": "docs/architecture/adr/ADR-053-pilot-report-templates.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S53"
+    },
+    {
+      "id": "ART-277",
+      "path": "docs/sprints/2026-W26-pilot-report-templates/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S53"
+    },
+    {
+      "id": "ART-278",
+      "path": "docs/release/templates/commit-pr-evidence-template.md",
+      "type": "documentation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "template",
+      "sprint_id": "SPRINT-2026-W26-S54"
+    },
+    {
+      "id": "ART-279",
+      "path": "scripts/validate-commit-pr-evidence-template.mjs",
+      "type": "validation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S54"
+    },
+    {
+      "id": "ART-280",
+      "path": "docs/architecture/adr/ADR-054-commit-pr-evidence-template.md",
+      "type": "architecture-decision",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S54"
+    },
+    {
+      "id": "ART-281",
+      "path": "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S54"
+    },
+    {
+      "id": "ART-282",
+      "path": "schemas/external-blocker-closure-map.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-283",
+      "path": "docs/process/audits/external-blocker-closure-map.json",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-284",
+      "path": "docs/process/audits/external-blocker-closure-map.md",
+      "type": "documentation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-285",
+      "path": "scripts/validate-external-blocker-closure-map.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-286",
+      "path": "docs/architecture/adr/ADR-055-external-blocker-closure-map.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-287",
+      "path": "docs/sprints/2026-W26-external-blocker-closure-map/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S55"
+    },
+    {
+      "id": "ART-288",
+      "path": "schemas/real-uat-preflight-checklist.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-289",
+      "path": "docs/product/ux/real-uat-preflight-checklist.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-290",
+      "path": "docs/product/ux/real-uat-preflight-checklist.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-291",
+      "path": "scripts/validate-real-uat-preflight.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-292",
+      "path": "docs/architecture/adr/ADR-056-real-uat-preflight-checklist.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-293",
+      "path": "docs/sprints/2026-W26-real-uat-preflight-checklist/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S56"
+    },
+    {
+      "id": "ART-294",
+      "path": "docs/architecture/adr/ADR-057-real-uat-runtime-actor-identity.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S57"
+    },
+    {
+      "id": "ART-295",
+      "path": "docs/sprints/2026-W26-real-uat-runtime-actor-identity/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S57"
+    },
+    {
+      "id": "ART-296",
+      "path": "docs/architecture/adr/ADR-058-real-uat-import-dry-run.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S58"
+    },
+    {
+      "id": "ART-297",
+      "path": "docs/sprints/2026-W26-real-uat-import-dry-run/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S58"
+    },
+    {
+      "id": "ART-298",
+      "path": "schemas/review-runtime-browser-matrix.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-299",
+      "path": "docs/product/ux/review-runtime-browser-matrix.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-300",
+      "path": "docs/product/ux/review-runtime-browser-matrix.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-301",
+      "path": "scripts/validate-review-runtime-browser-matrix.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-302",
+      "path": "docs/architecture/adr/ADR-059-review-runtime-browser-matrix.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-303",
+      "path": "docs/sprints/2026-W26-review-runtime-browser-matrix/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S59"
+    },
+    {
+      "id": "ART-304",
+      "path": "schemas/review-runtime-browser-smoke.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-305",
+      "path": "docs/product/ux/review-runtime-browser-smoke.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-306",
+      "path": "docs/product/ux/review-runtime-browser-smoke.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-307",
+      "path": "scripts/validate-review-runtime-browser-smoke.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-308",
+      "path": "docs/architecture/adr/ADR-060-review-runtime-browser-smoke.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-309",
+      "path": "docs/sprints/2026-W26-review-runtime-browser-smoke/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S60"
+    },
+    {
+      "id": "ART-310",
+      "path": "schemas/export-png-pixel-smoke.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-311",
+      "path": "docs/product/ux/export-png-pixel-smoke.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-312",
+      "path": "docs/product/ux/export-png-pixel-smoke.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-313",
+      "path": "scripts/validate-export-png-pixel-smoke.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-314",
+      "path": "docs/architecture/adr/ADR-061-export-png-pixel-smoke.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-315",
+      "path": "docs/sprints/2026-W26-export-png-pixel-smoke/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S61"
+    },
+    {
+      "id": "ART-316",
+      "path": "schemas/external-evidence-readiness.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-317",
+      "path": "docs/process/audits/external-evidence-readiness.json",
+      "type": "process-audit",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-318",
+      "path": "docs/process/audits/external-evidence-readiness.md",
+      "type": "documentation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-319",
+      "path": "scripts/validate-external-evidence-readiness.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-320",
+      "path": "docs/architecture/adr/ADR-062-external-evidence-readiness.md",
+      "type": "architecture-decision",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-321",
+      "path": "docs/sprints/2026-W26-external-evidence-readiness/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-322",
+      "path": "schemas/real-uat-one-command-runner.schema.json",
+      "type": "schema",
+      "owner_role": "UX/Prototype Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-323",
+      "path": "docs/product/ux/real-uat-one-command-runner.json",
+      "type": "product",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-324",
+      "path": "docs/product/ux/real-uat-one-command-runner.md",
+      "type": "documentation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-325",
+      "path": "scripts/run-real-uat-session.mjs",
+      "type": "automation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-326",
+      "path": "scripts/validate-real-uat-one-command-runner.mjs",
+      "type": "validation",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-327",
+      "path": "docs/architecture/adr/ADR-063-real-uat-one-command-runner.md",
+      "type": "architecture-decision",
+      "owner_role": "UX/Prototype Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-328",
+      "path": "docs/sprints/2026-W26-real-uat-one-command-runner/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "UX/Prototype Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S63"
+    },
+    {
+      "id": "ART-329",
+      "path": "docs/release/commit-pr-evidence.md",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-330",
+      "path": "docs/release/pilot-report.md",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-331",
+      "path": "docs/release/pilot-process-portability-notes.md",
+      "type": "evidence",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-332",
+      "path": "schemas/bmc-question-bank.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-333",
+      "path": "schemas/bmc-interview-answers.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-334",
+      "path": "schemas/bmc-user-evidence.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-335",
+      "path": "schemas/bmc-interview-results.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-336",
+      "path": "schemas/bmc-trace.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-337",
+      "path": "schemas/bmc-derived-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-338",
+      "path": "docs/product/bmc/source-lock.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-339",
+      "path": "docs/product/bmc/source-excerpts.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-340",
+      "path": "docs/product/bmc/bmc-interview-question-bank.json",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-341",
+      "path": "docs/product/bmc/interviews/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-342",
+      "path": "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-343",
+      "path": "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+      "type": "evidence",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-344",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-345",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-346",
+      "path": "docs/product/bmc/interviews/2026-W26-evidence-requests.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-347",
+      "path": "docs/product/bmc/interviews/2026-W26-decision-log.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-348",
+      "path": "docs/product/bmc/interviews/2026-W26-open-questions.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-349",
+      "path": "docs/product/bmc/bmc-trace.v0.1.json",
+      "type": "trace",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-350",
+      "path": "docs/product/bmc/bmc-derived-manifest.json",
+      "type": "evidence",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-351",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-352",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-353",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-354",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-355",
+      "path": "scripts/generate-bmc-artifacts.mjs",
+      "type": "automation",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-356",
+      "path": "scripts/validate-bmc-interview.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-357",
+      "path": "scripts/validate-bmc-trace.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-358",
+      "path": "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-359",
+      "path": "schemas/bmc-interview-runtime-state.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-360",
+      "path": "schemas/bmc-route-decisions.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-361",
+      "path": "docs/product/bmc/interview-runtime-protocol.md",
+      "type": "process",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-362",
+      "path": "docs/product/bmc/llm-router-policy.md",
+      "type": "policy",
+      "owner_role": "AI/Prompt Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-363",
+      "path": "docs/product/bmc/live-bmc-interview-user-guide.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-364",
+      "path": "docs/product/bmc/live-bmc-interview-operator-guide.md",
+      "type": "documentation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-365",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+      "type": "runtime-state",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-366",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-transcript.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-367",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+      "type": "runtime-state",
+      "owner_role": "Product Owner",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-368",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-369",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+      "type": "trace",
+      "owner_role": "AI/Prompt Lead",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-370",
+      "path": "scripts/validate-bmc-interview-runtime.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-371",
+      "path": "scripts/prepare-bmc-interview-artifacts.mjs",
+      "type": "automation",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-372",
+      "path": "scripts/validate-bmc-interview-replay.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-373",
+      "path": "scripts/validate-bmc-russian-language.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-374",
+      "path": "schemas/bmc-validation-needs.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-375",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-376",
+      "path": "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+      "type": "trace",
+      "owner_role": "AI/Prompt Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-377",
+      "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
+      "type": "plan",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-378",
+      "path": "schemas/bmc-visual-acceptance.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-379",
+      "path": "schemas/bmc-package-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-380",
+      "path": "docs/product/bmc/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-381",
+      "path": "docs/product/bmc/source-map.md",
+      "type": "trace",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-382",
+      "path": "docs/product/bmc/text-alternative.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-383",
+      "path": "docs/product/bmc/manifest.json",
+      "type": "evidence",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-384",
+      "path": "docs/product/bmc/evidence/visual-review.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-385",
+      "path": "docs/product/bmc/evidence/designer-consilium.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-386",
+      "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-387",
+      "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+      "type": "design",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-388",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-389",
+      "path": "scripts/validate-bmc-visual.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-390",
+      "path": "scripts/validate-bmc-render-parity.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-391",
+      "path": "scripts/validate-bmc-content-classic.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-392",
+      "path": "scripts/validate-bmc-package.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-393",
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-394",
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    }
+  ]
+}

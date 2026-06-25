@@ -1,0 +1,64 @@
+{
+  "version": "0.1.0",
+  "status": "accepted",
+  "checked_at": "2026-06-24T00:00:00Z",
+  "verdict": "ready_for_user_acceptance",
+  "severity_summary": {
+    "blocker": 0,
+    "major": 0,
+    "minor": 0
+  },
+  "roles": [
+    {
+      "role": "BMC method reviewer",
+      "verdict": "accepted",
+      "note": "The layout preserves the classical Business Model Canvas blocks and adapted B5 semantics."
+    },
+    {
+      "role": "Information designer",
+      "verdict": "accepted",
+      "note": "The hierarchy gives visual center to B2 while keeping partner, activity, channel and segment blocks readable."
+    },
+    {
+      "role": "Enterprise UX reviewer",
+      "verdict": "accepted",
+      "note": "The package is calm, operational and suitable for repeated product discussion."
+    },
+    {
+      "role": "Data traceability reviewer",
+      "verdict": "accepted",
+      "note": "Public statements stay clean while trace and validation needs remain in JSON evidence."
+    },
+    {
+      "role": "QA visual gate reviewer",
+      "verdict": "accepted",
+      "note": "SVG/PNG/PDF/PlantUML parity is covered by deterministic generation and validators."
+    }
+  ],
+  "checked_artifacts": [
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+    },
+    {
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "sha256": "6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8"
+    },
+    {
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "sha256": "efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83"
+    }
+  ]
+}

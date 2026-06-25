@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/uat-manifest.schema.json",
+  "title": "UatManifest",
+  "type": "object",
+  "required": ["version", "status", "gate_id", "script_path", "flow_path", "scenario_ids", "acceptance_thresholds", "evidence_required"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft"] },
+    "gate_id": { "type": "string", "minLength": 1 },
+    "script_path": { "type": "string", "minLength": 1 },
+    "flow_path": { "type": "string", "minLength": 1 },
+    "scenario_ids": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "acceptance_thresholds": {
+      "type": "object",
+      "required": ["critical_failures", "unsupported_claims", "review_completion", "export_blockers"],
+      "additionalProperties": false,
+      "properties": {
+        "critical_failures": { "type": "integer", "const": 0 },
+        "unsupported_claims": { "type": "integer", "const": 0 },
+        "review_completion": { "type": "string", "enum": ["required"] },
+        "export_blockers": { "type": "integer", "const": 0 }
+      }
+    },
+    "evidence_required": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

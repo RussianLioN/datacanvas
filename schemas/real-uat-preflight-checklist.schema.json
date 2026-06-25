@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-preflight-checklist.schema.json",
+  "title": "RealUatPreflightChecklist",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "operator_role",
+    "preflight_scope",
+    "required_artifacts",
+    "external_evidence_policy",
+    "runtime_checks",
+    "validation_commands",
+    "stop_conditions",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_before_real_session"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "operator_role": { "type": "string", "minLength": 1 },
+    "preflight_scope": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_artifacts": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": ["path", "purpose", "required_before_session"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 },
+          "required_before_session": { "type": "boolean" }
+        }
+      }
+    },
+    "external_evidence_policy": {
+      "type": "object",
+      "required": ["must_not_create", "allowed_if_already_exists", "unsafe_markers"],
+      "additionalProperties": false,
+      "properties": {
+        "must_not_create": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "allowed_if_already_exists": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "unsafe_markers": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "runtime_checks": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "check", "expected"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "check": { "type": "string", "minLength": 1 },
+          "expected": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

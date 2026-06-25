@@ -1,0 +1,77 @@
+{
+  "version": "0.1.0",
+  "status": "external_evidence_collected",
+  "source_audit_path": "docs/process/audits/plan-completion-audit.json",
+  "purpose": "Зафиксировать закрытие внешних blockers completion audit через pilot recorder, PR #1 и локальный quality gate.",
+  "blockers": [
+    {
+      "blocking_evidence": "docs/release/pilot-report.md",
+      "owner_role": "Delivery/GitOps Lead",
+      "closure_procedure": "После real UAT и pilot run заполнить real pilot report по template.",
+      "supporting_artifacts": [
+        "docs/release/pilot-execution-handoff.md",
+        "docs/release/templates/pilot-report-template.md",
+        "docs/release/pilot-report.md"
+      ],
+      "validation_commands": [
+        "npm run validate:pilot-execution-handoff",
+        "npm run validate:pilot-report-templates",
+        "npm test"
+      ],
+      "status": "closed",
+      "stop_conditions": [
+        "Pilot report создан до real UAT или без commit/PR evidence.",
+        "Quality gate results отсутствуют или не проходят."
+      ]
+    },
+    {
+      "blocking_evidence": "docs/release/pilot-process-portability-notes.md",
+      "owner_role": "Process Owner",
+      "closure_procedure": "После pilot run заполнить process portability notes по template и фактической ретроспективе.",
+      "supporting_artifacts": [
+        "docs/process/portability/process-portability-pack.json",
+        "docs/process/portability/migration-notes-template.md",
+        "docs/release/templates/pilot-process-portability-notes-template.md",
+        "docs/release/pilot-process-portability-notes.md"
+      ],
+      "validation_commands": [
+        "npm run validate:process-portability",
+        "npm run validate:pilot-report-templates"
+      ],
+      "status": "closed",
+      "stop_conditions": [
+        "Notes не содержат фактический pilot feedback.",
+        "G11 decision заполнен без real pilot report."
+      ]
+    },
+    {
+      "blocking_evidence": "commit-sha-and-pr-evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "closure_procedure": "После commit и PR или согласованной release record заполнить release train evidence по template.",
+      "supporting_artifacts": [
+        "docs/release/templates/commit-pr-evidence-template.md",
+        "docs/release/mvp-release-evidence-pack.json",
+        "docs/release/commit-pr-evidence.md"
+      ],
+      "validation_commands": [
+        "npm run validate:commit-pr-evidence-template",
+        "npm test"
+      ],
+      "status": "closed",
+      "stop_conditions": [
+        "Commit SHA отсутствует или не соответствует проверяемому repository state.",
+        "PR/release record отсутствует или не содержит CI status."
+      ]
+    }
+  ],
+  "validation_commands": [
+    "npm run validate:external-blocker-closure-map",
+    "npm run validate:plan-completion-audit",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Closure map является индексом закрытия, а не заменой самих evidence files.",
+    "PR #1 еще не смержен; при изменении product/runtime artifacts нужно обновить commit/PR evidence."
+  ],
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+}

@@ -1,0 +1,102 @@
+{
+  "sprint_id": "SPRINT-2026-W26",
+  "sprint_name": "process-bootstrap",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Создать управляемый baseline процесса DataCanvas.",
+  "created_artifacts": [
+    "AGENTS.md",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ".github/ISSUE_TEMPLATE/process-change-request.md",
+    ".github/workflows/docs-check.yml",
+    "docs/process/current/process-passport.md",
+    "docs/process/current/process-registry.md",
+    "docs/process/current/process-backlog.md",
+    "docs/process/current/process-changelog.md",
+    "docs/process/current/definition-of-ready.md",
+    "docs/process/current/definition-of-done.md",
+    "docs/process/current/process-metrics-dashboard.md",
+    "docs/process/change-requests/PROC-001-accept-process-v0.1.md",
+    "docs/product/vision/vision-v0.1.md",
+    "docs/product/bmc/bmc-v0.1.md",
+    "docs/product/hypotheses/hypothesis-board.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/non-functional-requirements.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/requirements/backlog-slicing-rules.md",
+    "docs/product/roadmap/roadmap-v0.1.md",
+    "docs/architecture/adr/ADR-001-weekly-scrum-process.md",
+    "docs/architecture/adr/ADR-002-one-agent-default.md",
+    "docs/architecture/adr/ADR-003-presentation-spec-boundary.md",
+    "docs/architecture/schemas/schema-registry.md",
+    "docs/architecture/schemas/source-registry.json",
+    "docs/architecture/schemas/fact-ledger.json",
+    "docs/architecture/schemas/artifact-registry.json",
+    "docs/architecture/schemas/traceability-graph.md",
+    "docs/architecture/schemas/slide-trace-map.json",
+    "docs/architecture/security/trust-boundaries.md",
+    "docs/architecture/security/data-classification-policy.md",
+    "docs/architecture/security/tool-allowlist.yaml",
+    "docs/architecture/security/threat-model.md",
+    "docs/architecture/security/export-sanitization-checklist.md",
+    "docs/architecture/security/incident-response.md",
+    "docs/architecture/observability/trace-contract.md",
+    "docs/architecture/observability/operational-readiness-checklist.md",
+    "schemas/input-package.schema.json",
+    "schemas/presentation-spec.schema.json",
+    "schemas/trace-manifest.schema.json",
+    "schemas/sprint-evidence-manifest.schema.json",
+    "schemas/artifact-registry.schema.json",
+    "tests/fixtures/input-package-minimal.json",
+    "tests/golden/presentation-spec-minimal.json",
+    "docs/sprints/2026-W26-process-bootstrap/sprint-goal.md",
+    "docs/sprints/2026-W26-process-bootstrap/sprint-backlog.md",
+    "docs/sprints/2026-W26-process-bootstrap/planning.md",
+    "docs/sprints/2026-W26-process-bootstrap/review.md",
+    "docs/sprints/2026-W26-process-bootstrap/retro.md",
+    "docs/sprints/2026-W26-process-bootstrap/evidence-index.md"
+  ],
+  "checks": [
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "evidence": "shows modified README.md and untracked bootstrap artifacts"
+    },
+    {
+      "command": "rg --files",
+      "status": "passed",
+      "evidence": "lists AGENTS.md, process, product, architecture, sprint, schema, test and artifact bootstrap files"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors reported"
+    },
+    {
+      "command": "jq empty docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json docs/product/requirements/traceability-matrix.json docs/architecture/schemas/artifact-registry.json docs/architecture/schemas/source-registry.json docs/architecture/schemas/fact-ledger.json docs/architecture/schemas/slide-trace-map.json",
+      "status": "passed",
+      "evidence": "all checked JSON files parse successfully"
+    },
+    {
+      "command": "jq empty schemas/input-package.schema.json schemas/presentation-spec.schema.json schemas/trace-manifest.schema.json schemas/sprint-evidence-manifest.schema.json schemas/artifact-registry.schema.json tests/fixtures/input-package-minimal.json tests/golden/presentation-spec-minimal.json docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json docs/product/requirements/traceability-matrix.json docs/architecture/schemas/artifact-registry.json docs/architecture/schemas/source-registry.json docs/architecture/schemas/fact-ledger.json docs/architecture/schemas/slide-trace-map.json",
+      "status": "passed",
+      "evidence": "all repository JSON artifacts parse successfully after schema bootstrap"
+    },
+    {
+      "command": "test -f AGENTS.md && test -f docs/process/current/process-passport.md && test -f docs/process/current/process-registry.md && test -f docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json && test -f docs/product/vision/vision-v0.1.md && test -f docs/architecture/security/trust-boundaries.md",
+      "status": "passed",
+      "evidence": "required bootstrap files exist"
+    }
+  ],
+  "known_limitations": [
+    "Команда и владельцы ролей еще не назначены.",
+    "Build/test toolchain отсутствует.",
+    "Продуктовая реализация еще не начата.",
+    "Схемы являются стартовыми draft-контрактами; полноценный schema validator еще не реализован."
+  ],
+  "next_safe_step": "Начать Sprint 1: уточнить Product Goal, BMC, hypothesis validation и добавить валидатор схем."
+}

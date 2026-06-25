@@ -1,0 +1,114 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_real_operator_run",
+  "gate_id": "G9",
+  "purpose": "Дать оператору воспроизводимый порядок проведения real UAT session в interactive review runtime без подмены реального участника fixture-данными.",
+  "operator_role": "UX/Prototype Lead",
+  "participant_constraints": [
+    "Участник должен быть реальным пользователем или представителем команды, принимающим MVP flow.",
+    "actor_id не должен содержать fixture, template, sample, placeholder или TO_BE_FILLED.",
+    "Решение accepted допускается только после просмотра результата, комментария и явного record_decision."
+  ],
+  "preflight_checks": [
+    {
+      "id": "UAT-HANDOFF-PRE-001",
+      "description": "Interactive runtime доступен как локальный HTML artifact.",
+      "evidence_path": "artifacts/examples/review-runtime-interactive.html",
+      "blocking": true
+    },
+    {
+      "id": "UAT-HANDOFF-PRE-002",
+      "description": "Runtime contract требует real_user export для настоящей сессии.",
+      "evidence_path": "docs/product/ux/real-uat-runtime-import.json",
+      "blocking": true
+    },
+    {
+      "id": "UAT-HANDOFF-PRE-003",
+      "description": "UAT script описывает сценарий и критерии приемки.",
+      "evidence_path": "docs/product/ux/uat-script.md",
+      "blocking": true
+    },
+    {
+      "id": "UAT-HANDOFF-PRE-004",
+      "description": "Шаблон real session artifact содержит placeholders и не должен считаться completed evidence.",
+      "evidence_path": "docs/product/ux/human-review-session-real.template.json",
+      "blocking": true
+    },
+    {
+      "id": "UAT-HANDOFF-PRE-005",
+      "description": "Real UAT readiness gate должен оставаться готовым, но не accepted до появления real session artifact.",
+      "evidence_path": "docs/product/ux/real-uat-gate-readiness.json",
+      "blocking": true
+    }
+  ],
+  "session_steps": [
+    {
+      "id": "UAT-HANDOFF-STEP-001",
+      "action": "Открыть artifacts/examples/review-runtime-interactive.html и загрузить fixture review state.",
+      "expected_evidence": "Runtime отображает presentation review state без ручного редактирования файлов."
+    },
+    {
+      "id": "UAT-HANDOFF-STEP-002",
+      "action": "Нажать reset session, включить Real UAT, указать actor_id реального участника и выполнить submit_for_review.",
+      "expected_evidence": "Exported runtime state содержит session_kind=real_user и action submit_for_review."
+    },
+    {
+      "id": "UAT-HANDOFF-STEP-003",
+      "action": "Попросить участника оставить комментарий по краткости, полезности и трассируемости презентации.",
+      "expected_evidence": "Exported runtime state содержит action comment с непустым текстом."
+    },
+    {
+      "id": "UAT-HANDOFF-STEP-004",
+      "action": "Попросить участника принять или отклонить MVP flow через record_decision.",
+      "expected_evidence": "Для G9 acceptance required review_state=approved и decision=accepted."
+    },
+    {
+      "id": "UAT-HANDOFF-STEP-005",
+      "action": "Экспортировать runtime state и проверить импорт командой validate:real-uat-import с явным --input и --dry-run.",
+      "expected_evidence": "artifacts/manual/real-uat/review-runtime-state-export.json проходит runtime import dry-run validation без записи acceptance artifact."
+    },
+    {
+      "id": "UAT-HANDOFF-STEP-006",
+      "action": "Создать docs/product/ux/human-review-session-real.json только из валидного exported runtime state.",
+      "expected_evidence": "human-review-session-real.json проходит validate:real-uat-readiness и не содержит TO_BE_FILLED."
+    }
+  ],
+  "required_outputs": [
+    {
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "status_before_session": "absent",
+      "status_after_session": "recorded_real_user"
+    },
+    {
+      "path": "docs/product/ux/human-review-session-real.json",
+      "status_before_session": "absent",
+      "status_after_session": "recorded_real_user"
+    },
+    {
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "status_before_session": "release_candidate",
+      "status_after_session": "accepted_after_real_uat"
+    }
+  ],
+  "validation_commands": [
+    "npm run validate:real-uat-operator-handoff",
+    "npm run validate:review-runtime-interactive",
+    "npm run validate:real-uat-readiness",
+    "npm run validate:real-uat-import -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm run prepare:real-uat-session -- --input artifacts/manual/real-uat/review-runtime-state-export.json --dry-run",
+    "npm test"
+  ],
+  "stop_conditions": [
+    "Участник не является реальным участником UAT или actor_id выглядит как fixture/template/sample.",
+    "Runtime export содержит TO_BE_FILLED или session_kind не равен real_user.",
+    "Нет comment, record_decision или export event.",
+    "Участник отклонил MVP flow или попросил существенную доработку перед acceptance.",
+    "validate:real-uat-import с явным --input и --dry-run не проходит."
+  ],
+  "known_limitations": [
+    "Handoff не доказывает, что real UAT уже проведена.",
+    "Команда validate:real-uat-import с --input станет обязательной только после появления exported runtime state.",
+    "После реальной сессии нужно обновить release evidence, data leakage scan targets и pilot gate."
+  ],
+  "next_safe_step": "Провести real UAT session по docs/product/ux/real-uat-operator-handoff.md и сохранить exported runtime state."
+}

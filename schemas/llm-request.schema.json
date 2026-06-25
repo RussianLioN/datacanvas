@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/llm-request.schema.json",
+  "title": "LLMRequest",
+  "type": "object",
+  "required": ["request_id", "schema_version", "normalized_data", "output_schema"],
+  "additionalProperties": false,
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "pattern": "^LLMREQ-[A-Za-z0-9_-]+$"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "normalized_data": {
+      "type": "object"
+    },
+    "output_schema": {
+      "type": "string",
+      "enum": ["PresentationSpec"]
+    },
+    "forbidden_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

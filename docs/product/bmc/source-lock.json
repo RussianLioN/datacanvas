@@ -1,0 +1,91 @@
+{
+  "version": "0.1.0",
+  "status": "partial_source_lock",
+  "created_at": "2026-06-24T00:00:00Z",
+  "purpose": "Lock source inputs for the DataCanvas BMC interview and derived BMC artifacts.",
+  "known_limitations": [
+    "The requested codex/datacanvas-stories-doc ref was not available in this checkout during implementation; its content is represented through a prior read-only inspection snapshot in source-excerpts.md.",
+    "Branch-backed source refs must be refreshed before promoting BMC v0.2 from draft_interview_ready to accepted.",
+    "AI-agent-platform is used as a local method reference only; DataCanvas product claims must come from DataCanvas sources or interview evidence."
+  ],
+  "sources": [
+    {
+      "id": "SRC-DC-VISION-CURRENT",
+      "kind": "repo_file",
+      "path": "docs/product/vision/vision-v0.1.md",
+      "status": "available",
+      "trust_level": "project_draft",
+      "allowed_use": "Current DataCanvas baseline context for product goal, first user contour, and non-goals."
+    },
+    {
+      "id": "SRC-DC-STORIES-CURRENT",
+      "kind": "repo_file",
+      "path": "docs/product/requirements/user-stories.md",
+      "status": "available",
+      "trust_level": "project_draft",
+      "allowed_use": "Current local stories baseline; lower priority than the richer branch snapshot for BMC interview prompts."
+    },
+    {
+      "id": "SRC-DC-BMC-CURRENT",
+      "kind": "repo_file",
+      "path": "docs/product/bmc/bmc-v0.1.md",
+      "status": "available",
+      "sha256": "c3280ef125be8eebf1a0108297e7411f9edcf31cdd3114270a2c62faf001e87f",
+      "trust_level": "project_draft",
+      "allowed_use": "Initial BMC seed only; claims remain unconfirmed until backed by interview evidence or project sources."
+    },
+    {
+      "id": "SRC-DC-VISION-BRANCH-SNAPSHOT",
+      "kind": "prior_readonly_snapshot",
+      "path": "codex/datacanvas-stories-doc:docs/product-vision.md",
+      "status": "unavailable_in_current_checkout",
+      "trust_level": "needs_refresh",
+      "allowed_use": "Interview question wording and provisional BMC hypotheses only."
+    },
+    {
+      "id": "SRC-DC-STORIES-BRANCH-SNAPSHOT",
+      "kind": "prior_readonly_snapshot",
+      "path": "codex/datacanvas-stories-doc:docs/stories.md",
+      "status": "unavailable_in_current_checkout",
+      "trust_level": "needs_refresh",
+      "allowed_use": "Interview question wording and provisional BMC hypotheses only."
+    },
+    {
+      "id": "SRC-AAP-BMC-CONTRACT",
+      "kind": "external_local_reference",
+      "path": "/Users/rl/coding/AI-agent-platform/docs/agent_factory/business-model-canvas/README.md",
+      "status": "available",
+      "sha256": "dd5a6b75ac9707bb0bf4fa9b4542cef093bc2a21e2ba93280bef4c5c236d31c2",
+      "trust_level": "method_reference",
+      "allowed_use": "BMC method and artifact contract pattern only; no DataCanvas product claims."
+    },
+    {
+      "id": "SRC-AAP-BMC-TRACE",
+      "kind": "external_local_reference",
+      "path": "/Users/rl/coding/AI-agent-platform/docs/agent_factory/business-model-canvas/business-model-canvas.trace.json",
+      "status": "available",
+      "sha256": "75a21d77e47e4fa41c33786583ce066a1898d9d7b12d82e340dd1d41ba1e0357",
+      "trust_level": "method_reference",
+      "allowed_use": "Trace JSON structure pattern only."
+    },
+    {
+      "id": "SRC-AAP-BMC-GENERATOR",
+      "kind": "external_local_reference",
+      "path": "/Users/rl/coding/AI-agent-platform/tools/generate-bmc-plantuml.py",
+      "status": "available",
+      "sha256": "5950384b7d621f110e4c0ffabb901311687ee24b4d71c50d17196a0d140d3d38",
+      "trust_level": "method_reference",
+      "allowed_use": "Visual generation pattern only."
+    },
+    {
+      "id": "SRC-AAP-BMC-VERIFIER",
+      "kind": "external_local_reference",
+      "path": "/Users/rl/coding/AI-agent-platform/tools/verify-bmc-traceability.py",
+      "status": "available",
+      "sha256": "268c52c5d740ba52e053f4d2f3aeb4367ef3748959cff7818bde34dd433b6091",
+      "trust_level": "method_reference",
+      "allowed_use": "Verifier pattern only."
+    }
+  ],
+  "next_refresh_step": "Restore or fetch codex/datacanvas-stories-doc, then update branch source hashes before accepting BMC v0.2."
+}

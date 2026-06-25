@@ -1,0 +1,38 @@
+{
+  "run_id": "RUN-minimal",
+  "sprint_id": "SPRINT-2026-W26-S2",
+  "process_version": "0.1.0",
+  "input_package": {
+    "path": "tests/fixtures/input-package-minimal.json",
+    "sha256": "b5b02144d54cd6a989ce5eff42e8a210311246704d7fd2aab96179fc21957149"
+  },
+  "outputs": [
+    {
+      "artifact_id": "ART-normalized-minimal",
+      "path": "tests/golden/normalized-data-minimal.json",
+      "sha256": "4532ff7a398ebff8bcdeaedde41f6a408470417e5b2f171d9a23cd74813cd46c"
+    }
+  ],
+  "spans": [
+    {
+      "name": "input_validation",
+      "status": "passed",
+      "schema_version": "0.1.0"
+    },
+    {
+      "name": "normalization",
+      "status": "passed",
+      "schema_version": "0.1.0"
+    },
+    {
+      "name": "model_call",
+      "status": "skipped",
+      "duration_ms": 0,
+      "cost_estimate": 0,
+      "model": "offline_mock_adapter",
+      "provider": "local",
+      "retry_count": 0,
+      "schema_version": "0.1.0"
+    }
+  ]
+}

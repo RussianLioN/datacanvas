@@ -1,0 +1,87 @@
+{
+  "version": "0.1.0",
+  "status": "accepted",
+  "gate_id": "G10",
+  "depends_on_gate_id": "G9",
+  "purpose": "Зафиксировать acceptance pilot gate DataCanvas после real UAT, commit/PR evidence, pilot report и portability notes.",
+  "required_evidence": [
+    {
+      "id": "PGR-001",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "G9 release evidence pack содержит real UAT, commit/PR evidence, pilot report и portability notes."
+    },
+    {
+      "id": "PGR-002",
+      "path": "docs/product/ux/human-review-session-real.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Real user UAT session записана как recorded_real_user и accepted."
+    },
+    {
+      "id": "PGR-003",
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Исходный exported runtime state реальной UAT сохранен."
+    },
+    {
+      "id": "PGR-004",
+      "path": "docs/release/pilot-report.md",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Pilot report записан recorder-ом после PR #1 и локального quality gate."
+    },
+    {
+      "id": "PGR-005",
+      "path": "docs/release/pilot-process-portability-notes.md",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Process portability notes записаны после pilot/process portability review."
+    },
+    {
+      "id": "PGR-006",
+      "path": "docs/release/commit-pr-evidence.md",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Commit SHA и PR URL записаны как release evidence."
+    },
+    {
+      "id": "PGR-007",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Data leakage gate включает real UAT artifacts как confidential scan targets."
+    },
+    {
+      "id": "PGR-008",
+      "path": "docs/release/pilot-execution-handoff.json",
+      "status": "available",
+      "required_for_gate": true,
+      "reason": "Pilot execution handoff готовит G10/G11 runbook, но не является acceptance."
+    }
+  ],
+  "blocking_conditions": [],
+  "validation_commands": [
+    "npm test",
+    "npm run validate:release-pack",
+    "npm run validate:real-uat-import",
+    "npm run validate:data-leakage",
+    "npm run validate:pilot-gate",
+    "npm run validate:pilot-execution-handoff"
+  ],
+  "pilot_artifacts": [
+    "docs/release/pilot-execution-handoff.json",
+    "docs/release/pilot-execution-handoff.md",
+    "docs/release/pilot-report.md",
+    "docs/release/pilot-process-portability-notes.md",
+    "docs/process/current/process-changelog.md",
+    "docs/process/current/process-metrics-snapshot.json"
+  ],
+  "known_limitations": [
+    "PR #1 еще не смержен; acceptance фиксирует reviewable PR state и локальный quality gate.",
+    "Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить."
+  ],
+  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+}

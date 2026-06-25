@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-interview-answers.schema.json",
+  "title": "BmcInterviewAnswers",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "interview_id",
+    "session_kind",
+    "selected_mode",
+    "selected_duration_minutes",
+    "respondent_role",
+    "captured_at",
+    "answers"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string" },
+    "interview_id": { "type": "string", "pattern": "^BMC-INT-" },
+    "session_kind": { "type": "string", "enum": ["prepared_interview_baseline", "real_user_interview"] },
+    "selected_mode": { "type": "string", "enum": ["light", "standard", "deep"] },
+    "selected_duration_minutes": { "type": "integer", "minimum": 1 },
+    "respondent_role": { "type": "string", "minLength": 1 },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "answers": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "type": "object",
+        "required": [
+          "answer_id",
+          "question_id",
+          "bmc_block",
+          "selected_option_ids",
+          "custom_answer",
+          "evidence_requested",
+          "evidence_ids",
+          "confidence",
+          "confirmation_status",
+          "notes"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "answer_id": { "type": "string", "pattern": "^ANS-\\d{3}$" },
+          "question_id": { "type": "string", "pattern": "^B[1-9]-Q\\d{2}$" },
+          "bmc_block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "selected_option_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "custom_answer": { "type": "string" },
+          "evidence_requested": { "type": "boolean" },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EVD-" }
+          },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "confirmation_status": {
+            "type": "string",
+            "enum": ["confirmed", "unconfirmed", "assumption", "contradicted", "deprecated"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

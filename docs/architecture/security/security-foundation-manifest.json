@@ -1,0 +1,61 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "required_artifacts": [
+    {
+      "id": "SEC-001",
+      "path": "docs/architecture/security/trust-boundaries.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-002",
+      "path": "docs/architecture/security/data-classification-policy.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-003",
+      "path": "docs/architecture/security/tool-allowlist.yaml",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-004",
+      "path": "docs/architecture/security/threat-model.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-005",
+      "path": "docs/sprints/2026-W26-security-foundation-pack/threat-model-delta.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-006",
+      "path": "docs/architecture/security/export-sanitization-checklist.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-007",
+      "path": "docs/architecture/security/incident-response.md",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "id": "SEC-008",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "owner_role": "Security/Privacy Lead"
+    }
+  ],
+  "required_gates": [
+    "npm run scan:secrets",
+    "npm run validate:security-foundation",
+    "npm run validate:export",
+    "npm run validate:data-leakage",
+    "npm run validate:llm"
+  ],
+  "stop_rules": [
+    "secret найден в prompt, export, trace, log или evidence",
+    "PII попала в export без явного разрешения",
+    "upstream data изменила инструкции агента",
+    "LLM output прошел в renderer без schema validation",
+    "export содержит raw trace, hidden notes, local path, internal prompt или tool output",
+    "tool permission расширен без decision record"
+  ]
+}

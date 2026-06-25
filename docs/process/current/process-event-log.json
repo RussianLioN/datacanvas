@@ -1,0 +1,97 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_live_events",
+  "period": "2026-W26",
+  "purpose": "Подготовить единый журнал dated delivery/process events для измерения sprint predictability, spillover, cycle time, blocked time, process change lead time и decision latency без выдумывания live metrics.",
+  "event_types": [
+    {
+      "id": "EVT-SPRINT-PLANNED",
+      "name": "Sprint scope committed",
+      "required_for_metrics": ["MET-001", "MET-002"]
+    },
+    {
+      "id": "EVT-SPRINT-REVIEWED",
+      "name": "Sprint review completed",
+      "required_for_metrics": ["MET-001", "MET-002"]
+    },
+    {
+      "id": "EVT-BACKLOG-STARTED",
+      "name": "Backlog item started",
+      "required_for_metrics": ["MET-003"]
+    },
+    {
+      "id": "EVT-BACKLOG-ACCEPTED",
+      "name": "Backlog item accepted",
+      "required_for_metrics": ["MET-003"]
+    },
+    {
+      "id": "EVT-BLOCKED",
+      "name": "Work blocked",
+      "required_for_metrics": ["MET-004"]
+    },
+    {
+      "id": "EVT-UNBLOCKED",
+      "name": "Work unblocked",
+      "required_for_metrics": ["MET-004"]
+    },
+    {
+      "id": "EVT-PCR-PROPOSED",
+      "name": "Process change proposed",
+      "required_for_metrics": ["MET-005"]
+    },
+    {
+      "id": "EVT-PCR-DECIDED",
+      "name": "Process change decided",
+      "required_for_metrics": ["MET-005"]
+    },
+    {
+      "id": "EVT-DECISION-REQUESTED",
+      "name": "Decision requested",
+      "required_for_metrics": ["MET-007"]
+    },
+    {
+      "id": "EVT-DECISION-ACCEPTED",
+      "name": "Decision accepted",
+      "required_for_metrics": ["MET-007"]
+    }
+  ],
+  "events": [],
+  "derived_metric_unlocks": [
+    {
+      "metric_id": "MET-001",
+      "required_event_type_ids": ["EVT-SPRINT-PLANNED", "EVT-SPRINT-REVIEWED"],
+      "status": "pending_events"
+    },
+    {
+      "metric_id": "MET-002",
+      "required_event_type_ids": ["EVT-SPRINT-PLANNED", "EVT-SPRINT-REVIEWED"],
+      "status": "pending_events"
+    },
+    {
+      "metric_id": "MET-003",
+      "required_event_type_ids": ["EVT-BACKLOG-STARTED", "EVT-BACKLOG-ACCEPTED"],
+      "status": "pending_events"
+    },
+    {
+      "metric_id": "MET-004",
+      "required_event_type_ids": ["EVT-BLOCKED", "EVT-UNBLOCKED"],
+      "status": "pending_events"
+    },
+    {
+      "metric_id": "MET-005",
+      "required_event_type_ids": ["EVT-PCR-PROPOSED", "EVT-PCR-DECIDED"],
+      "status": "pending_events"
+    },
+    {
+      "metric_id": "MET-007",
+      "required_event_type_ids": ["EVT-DECISION-REQUESTED", "EVT-DECISION-ACCEPTED"],
+      "status": "pending_events"
+    }
+  ],
+  "known_limitations": [
+    "Журнал пока не содержит live events, потому что реальный командный Sprint Review еще не проведен.",
+    "Измеримые delivery metrics нельзя переводить в measured до появления required_event_type_ids.",
+    "Event log фиксирует timestamps, но не заменяет Sprint Review и Retrospective."
+  ],
+  "next_safe_step": "После real UAT и Sprint Review добавить первые live events EVT-SPRINT-PLANNED, EVT-SPRINT-REVIEWED и связанные backlog transitions."
+}

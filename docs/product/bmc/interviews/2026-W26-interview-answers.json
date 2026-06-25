@@ -1,0 +1,192 @@
+{
+  "version": "0.1.0",
+  "status": "completed",
+  "interview_id": "BMC-INT-ACTIVE-2026-W26-001",
+  "session_kind": "real_user_interview",
+  "selected_mode": "light",
+  "selected_duration_minutes": 30,
+  "respondent_role": "Sergey",
+  "captured_at": "2026-06-24T16:01:33Z",
+  "answers": [
+    {
+      "answer_id": "ANS-001",
+      "question_id": "B1-Q01",
+      "bmc_block": "B1",
+      "selected_option_ids": [
+        "B1-Q01-CUSTOM"
+      ],
+      "custom_answer": "КМ это Клиентский менеджер, а не отдельная сущность. В перспективе DataCanvas может использовать любой пользователь мессенджера Лиса. Сейчас основные группы пользователей Лисы: КМ (Клиентский менеджер) и CSM (Customer Success Manager).",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Пользователь исправил терминологию: КМ = Клиентский менеджер. Подтверждение по текущим группам пользователей Лисы пока не предоставлено."
+    },
+    {
+      "answer_id": "ANS-002",
+      "question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "selected_option_ids": [
+        "B2-Q01-A",
+        "B2-Q01-B"
+      ],
+      "custom_answer": "",
+      "evidence_requested": true,
+      "evidence_ids": [
+        "EVD-001"
+      ],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн подтверждает продуктовую ценность: быстрая короткая проверяемая презентация, минимальное ручное редактирование и измеримое качество. Отдельное подтверждение исследования на реальных пользователях и привязки ценности к КМ/CSM пока не предоставлено."
+    },
+    {
+      "answer_id": "ANS-003",
+      "question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "selected_option_ids": [
+        "B3-Q01-A",
+        "B3-Q01-B",
+        "B3-Q01-C",
+        "B3-Q01-D",
+        "B3-Q01-E",
+        "B3-Q01-F"
+      ],
+      "custom_answer": "Вызов любым сервисом и АС напрямую через A2A или MCP. Запуск нашего агента другим агентом по протоколу A2A и вызов через Оркестратор. Результат работы агента доступен при диалоге с пользователем через чат мессенджера Лиса.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Пользователь уточнил, что доставка результата идет через чат Лисы, а не через электронную почту. Подтверждение по контрактам A2A/MCP и Оркестратору пока не предоставлено."
+    },
+    {
+      "answer_id": "ANS-004",
+      "question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "selected_option_ids": [
+        "B4-Q01-A",
+        "B4-Q01-B",
+        "B4-Q01-C",
+        "B4-Q01-D",
+        "B4-Q01-E"
+      ],
+      "custom_answer": "",
+      "evidence_requested": true,
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают проверку человеком, утверждение или отправку результата на доработку. Подтверждение полного контура до генерации и после доставки пока частичное."
+    },
+    {
+      "answer_id": "ANS-005",
+      "question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "selected_option_ids": [
+        "B5-Q01-A",
+        "B5-Q01-B"
+      ],
+      "custom_answer": "",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Пользователь выбрал экономию времени КМ и меньше ручной работы. Метрика, базовый показатель или пилотное наблюдение пока не предоставлены."
+    },
+    {
+      "answer_id": "ANS-006",
+      "question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "selected_option_ids": [
+        "B6-Q01-A",
+        "B6-Q01-C",
+        "B6-Q01-D",
+        "B6-Q01-E"
+      ],
+      "custom_answer": "",
+      "evidence_requested": true,
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают структурированный входной пакет, проверяемую презентацию и работу через PresentationSpec. Подтверждение шаблонов, модуля рендера и полного набора проверок качества пока частичное."
+    },
+    {
+      "answer_id": "ANS-007",
+      "question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "selected_option_ids": [
+        "B7-Q01-A",
+        "B7-Q01-B",
+        "B7-Q01-C",
+        "B7-Q01-D",
+        "B7-Q01-E",
+        "B7-Q01-CUSTOM"
+      ],
+      "custom_answer": "Получить замечания по доставленному файлу с презентацией и запустить цикл с уточнением данных на входе, уточняющими вопросами при необходимости, формированием описания презентации, приемом правок по описанию, повторной генерацией и доставкой исправленной презентации.",
+      "evidence_requested": true,
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают входной пакет, проверку перед генерацией, краткую презентацию, источники утверждений и доработку человеком. Полный цикл замечаний по доставленному файлу и повторной генерации подтвержден частично и требует отдельного сценария или задачи."
+    },
+    {
+      "answer_id": "ANS-008",
+      "question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "selected_option_ids": [
+        "B8-Q01-A",
+        "B8-Q01-B",
+        "B8-Q01-C",
+        "B8-Q01-E"
+      ],
+      "custom_answer": "",
+      "evidence_requested": true,
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают зависимость от агента-источника и структурированного входного пакета. Лиса, Оркестратор и канал доставки результата требуют отдельного подтверждения."
+    },
+    {
+      "answer_id": "ANS-009",
+      "question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "selected_option_ids": [
+        "B9-Q01-A",
+        "B9-Q01-B",
+        "B9-Q01-C",
+        "B9-Q01-D",
+        "B9-Q01-E"
+      ],
+      "custom_answer": "Приоритет стоимости и влияния: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM, задержка ответа.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Пользователь выбрал все пять ограничений и задал порядок приоритета. Базовая оценка стоимости, времени проверки, задержки или сопровождения пока не предоставлена."
+    },
+    {
+      "answer_id": "ANS-010",
+      "question_id": "B9-Q02",
+      "bmc_block": "B9",
+      "selected_option_ids": [
+        "B9-Q02-CUSTOM"
+      ],
+      "custom_answer": "Вывести финальный чистовой вариант BMC без отметок по неподтвержденным утверждениям. В отдельном машиночитаемом сопровождающем документе составить информацию о пунктах, требующих подтверждения, проверки или исследования. Финальный BMC и рендер должны быть чистыми.",
+      "evidence_requested": false,
+      "evidence_ids": [],
+      "confidence": "high",
+      "confirmation_status": "confirmed",
+      "notes": "Финальное пользовательское решение о разделении чистового BMC и companion JSON с проверочными потребностями."
+    }
+  ]
+}

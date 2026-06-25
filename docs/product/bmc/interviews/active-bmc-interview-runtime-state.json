@@ -1,0 +1,347 @@
+{
+  "version": "0.1.0",
+  "session_id": "BMC-RUN-ACTIVE-2026-W26-001",
+  "interview_id": "BMC-INT-ACTIVE-2026-W26-001",
+  "session_kind": "real_user_interview",
+  "status": "completed",
+  "selected_duration_minutes": 30,
+  "selected_depth": "fast",
+  "interview_goal": "primary_bmc",
+  "respondent_role": "Sergey",
+  "setup_status": "complete",
+  "started_at": "2026-06-24T00:00:00Z",
+  "updated_at": "2026-06-24T16:01:33Z",
+  "completed_at": "2026-06-24T16:01:33Z",
+  "current_step": 10,
+  "current_question_id": "B9-Q02",
+  "covered_bmc_blocks": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
+  "remaining_bmc_blocks": [],
+  "asked_question_ids": ["B1-Q01", "B2-Q01", "B3-Q01", "B4-Q01", "B5-Q01", "B6-Q01", "B7-Q01", "B8-Q01", "B9-Q01", "B9-Q02"],
+  "answers": [
+    {
+      "answer_id": "ANS-001",
+      "question_id": "B1-Q01",
+      "bmc_block": "B1",
+      "selected_option_ids": ["B1-Q01-CUSTOM"],
+      "custom_answer": "КМ это Клиентский менеджер, а не отдельная сущность. В перспективе DataCanvas может использовать любой пользователь мессенджера Лиса. Сейчас основные группы пользователей Лисы: КМ (Клиентский менеджер) и CSM (Customer Success Manager).",
+      "normalized_answer": "Текущие основные сегменты: КМ (Клиентский менеджер) и CSM (Customer Success Manager). Перспективный сегмент: любой пользователь мессенджера Лиса.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Пользователь исправил терминологию: КМ = Клиентский менеджер. Подтверждение по текущим группам пользователей Лисы пока не предоставлено.",
+      "answered_at": "2026-06-24T14:24:19Z"
+    },
+    {
+      "answer_id": "ANS-002",
+      "question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "selected_option_ids": ["B2-Q01-A", "B2-Q01-B"],
+      "custom_answer": "",
+      "normalized_answer": "Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию и снизить ручное копирование и верстку.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001"],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн подтверждает продуктовую ценность: быстрая короткая проверяемая презентация, минимальное ручное редактирование и измеримое качество. Отдельное подтверждение исследования на реальных пользователях и привязки ценности к КМ/CSM пока не предоставлено.",
+      "answered_at": "2026-06-24T14:28:01Z"
+    },
+    {
+      "answer_id": "ANS-003",
+      "question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "selected_option_ids": ["B3-Q01-A", "B3-Q01-B", "B3-Q01-C", "B3-Q01-D", "B3-Q01-E", "B3-Q01-F"],
+      "custom_answer": "Вызов любым сервисом и АС напрямую через A2A или MCP. Запуск нашего агента другим агентом по протоколу A2A и вызов через Оркестратор. Результат работы агента доступен при диалоге с пользователем через чат мессенджера Лиса.",
+      "normalized_answer": "Точки входа DataCanvas: текстовый запрос в Лисе, выбранные сообщения в Лисе, кнопка запуска, вызов через Оркестратор другим агентом по A2A, прямой вызов сервисом или АС через A2A/MCP. Результат возвращается в диалоге через чат Лисы.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Пользователь уточнил, что доставка результата идет через чат Лисы, а не через электронную почту. Подтверждение по контрактам A2A/MCP и Оркестратору пока не предоставлено.",
+      "answered_at": "2026-06-24T14:37:55Z"
+    },
+    {
+      "answer_id": "ANS-004",
+      "question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "selected_option_ids": ["B4-Q01-A", "B4-Q01-B", "B4-Q01-C", "B4-Q01-D", "B4-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "DataCanvas должен задавать уточняющие вопросы при нехватке данных, давать проверку описания презентации до генерации, принимать правки до генерации, поддерживать правки после получения результата и использовать ручное подтверждение перед выдачей результата.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001", "EVD-002"],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают проверку человеком, утверждение или отправку результата на доработку. Подтверждение полного контура до генерации и после доставки пока частичное.",
+      "answered_at": "2026-06-24T14:42:04Z"
+    },
+    {
+      "answer_id": "ANS-005",
+      "question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "selected_option_ids": ["B5-Q01-A", "B5-Q01-B"],
+      "custom_answer": "",
+      "normalized_answer": "Первой нужно проверять экономию времени КМ и снижение объема ручной работы.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Пользователь выбрал экономию времени КМ и меньше ручной работы. Метрика, базовый показатель или пилотное наблюдение пока не предоставлены.",
+      "answered_at": "2026-06-24T14:44:17Z"
+    },
+    {
+      "answer_id": "ANS-006",
+      "question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "selected_option_ids": ["B6-Q01-A", "B6-Q01-C", "B6-Q01-D", "B6-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Критичные ресурсы DataCanvas: входной контекст, описание презентации перед генерацией, шаблоны презентаций, модуль рендера, схемы и проверки качества.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001", "EVD-002"],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают структурированный входной пакет, проверяемую презентацию и работу через PresentationSpec. Подтверждение шаблонов, модуля рендера и полного набора проверок качества пока частичное.",
+      "answered_at": "2026-06-24T14:57:02Z"
+    },
+    {
+      "answer_id": "ANS-007",
+      "question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "selected_option_ids": ["B7-Q01-A", "B7-Q01-B", "B7-Q01-C", "B7-Q01-D", "B7-Q01-E", "B7-Q01-CUSTOM"],
+      "custom_answer": "Получить замечания по доставленному файлу с презентацией и запустить цикл с уточнением данных на входе, уточняющими вопросами при необходимости, формированием описания презентации, приемом правок по описанию, повторной генерацией и доставкой исправленной презентации.",
+      "normalized_answer": "Ключевые активности DataCanvas: проверить достаточность входа, задать уточняющие вопросы, сформировать описание презентации, принять правки, сгенерировать и доставить файл, получить замечания по доставленной презентации и запустить цикл повторного уточнения, правок, генерации и доставки исправленной презентации.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001", "EVD-002"],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают входной пакет, проверку перед генерацией, краткую презентацию, источники утверждений и доработку человеком. Полный цикл замечаний по доставленному файлу и повторной генерации подтвержден частично и требует отдельного сценария или задачи.",
+      "answered_at": "2026-06-24T15:42:51Z"
+    },
+    {
+      "answer_id": "ANS-008",
+      "question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "selected_option_ids": ["B8-Q01-A", "B8-Q01-B", "B8-Q01-C", "B8-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Ключевые партнеры и зависимости DataCanvas: Лиса, Оркестратор, предшествующие агенты и инструменты, канал доставки результата.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001", "EVD-002"],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Вижн и истории подтверждают зависимость от агента-источника и структурированного входного пакета. Лиса, Оркестратор и канал доставки результата требуют отдельного подтверждения.",
+      "answered_at": "2026-06-24T15:46:39Z"
+    },
+    {
+      "answer_id": "ANS-009",
+      "question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "selected_option_ids": ["B9-Q01-A", "B9-Q01-B", "B9-Q01-C", "B9-Q01-D", "B9-Q01-E"],
+      "custom_answer": "Приоритет стоимости и влияния: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM, задержка ответа.",
+      "normalized_answer": "Первые издержки и ограничения DataCanvas: стоимость вызовов LLM, стоимость рендера, время проверки результата, задержка ответа, поддержка и сопровождение. Приоритет: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM, задержка ответа.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Пользователь выбрал все пять ограничений и задал порядок приоритета. Базовая оценка стоимости, времени проверки, задержки или сопровождения пока не предоставлена.",
+      "answered_at": "2026-06-24T15:51:46Z"
+    },
+    {
+      "answer_id": "ANS-010",
+      "question_id": "B9-Q02",
+      "bmc_block": "B9",
+      "selected_option_ids": ["B9-Q02-CUSTOM"],
+      "custom_answer": "Вывести финальный чистовой вариант BMC без отметок по неподтвержденным утверждениям. В отдельном машиночитаемом сопровождающем документе составить информацию о пунктах, требующих подтверждения, проверки или исследования. Финальный BMC и рендер должны быть чистыми.",
+      "normalized_answer": "Сохранить чистовой BMC и чистый рендер без статусов доверия; все сведения о подтверждении, проверке и исследовании вынести в отдельный машиночитаемый сопровождающий документ.",
+      "evidence_requested": false,
+      "evidence_ids": [],
+      "confidence": "high",
+      "confirmation_status": "confirmed",
+      "notes": "Финальное пользовательское решение о разделении чистового BMC и companion JSON с проверочными потребностями.",
+      "answered_at": "2026-06-24T16:01:33Z"
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "source_kind": "file",
+      "provided_by": "Sergey",
+      "provided_at": "2026-06-24T15:42:51Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "docs/product/vision/vision-v0.1.md",
+      "redacted_excerpt": "DataCanvas должен позволять команде быстро получать короткую, проверяемую и визуально пригодную презентацию из структурированного пакета данных другого агента, с явной трассировкой к исходным данным, минимальным ручным редактированием и измеримым качеством результата. Первый пользовательский контур: агент-источник данных передает структурированный пакет; DataCanvas валидирует и нормализует пакет; генерирует краткую презентацию через PresentationSpec; человек проверяет, утверждает или отправляет результат на доработку.",
+      "sha256": "be99035bcd791a7a67f1e044963da50e9d2e0b4e3cebd7a8119b662b4830a659",
+      "status": "accepted",
+      "lifecycle_status": "accepted",
+      "linked_answer_ids": ["ANS-002", "ANS-004", "ANS-006", "ANS-007", "ANS-008"],
+      "linked_claim_ids": ["BMC-CLM-002", "BMC-CLM-004", "BMC-CLM-006", "BMC-CLM-007", "BMC-CLM-008"]
+    },
+    {
+      "evidence_id": "EVD-002",
+      "source_kind": "file",
+      "provided_by": "Sergey",
+      "provided_at": "2026-06-24T15:42:51Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "docs/product/requirements/user-stories.md",
+      "redacted_excerpt": "US-001: агент-источник передает DataCanvas структурированный пакет данных, чтобы он был проверен перед генерацией. US-002: ревьюер видит краткую презентацию и источники утверждений, чтобы принять или отклонить результат.",
+      "sha256": "78a7b34c41e04e99e2dfe89149180d59d15dfe9b070c06eb2640a9649bfaa598",
+      "status": "accepted",
+      "lifecycle_status": "accepted",
+      "linked_answer_ids": ["ANS-004", "ANS-006", "ANS-007", "ANS-008"],
+      "linked_claim_ids": ["BMC-CLM-004", "BMC-CLM-006", "BMC-CLM-007", "BMC-CLM-008"]
+    }
+  ],
+  "missing_evidence_notices": [
+    {
+      "notice_id": "ME-001",
+      "linked_answer_ids": ["ANS-001"],
+      "linked_claim_ids": ["BMC-CLM-001"],
+      "reason": "Нужно подтверждение, что текущие основные группы пользователей Лисы - КМ и CSM, а перспективный сегмент - любой пользователь Лисы.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-002",
+      "linked_answer_ids": ["ANS-002"],
+      "linked_claim_ids": ["BMC-CLM-002"],
+      "reason": "Вижн подтверждает общую продуктовую ценность DataCanvas, но отдельное подтверждение исследования на реальных пользователях и привязки ценности к КМ/CSM пока не предоставлено.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-003",
+      "linked_answer_ids": ["ANS-003"],
+      "linked_claim_ids": ["BMC-CLM-003"],
+      "reason": "Нужно подтверждение каналов запуска и доставки: решение по пользовательскому интерфейсу, контракт A2A/MCP, интеграционная заметка по Оркестратору или задача из бэклога.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-004",
+      "linked_answer_ids": ["ANS-004"],
+      "linked_claim_ids": ["BMC-CLM-004"],
+      "reason": "Вижн и истории подтверждают проверку человеком и доработку, но полный контур до генерации, после доставки и повторной генерации пока требует отдельного пользовательского сценария или задачи.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-005",
+      "linked_answer_ids": ["ANS-005"],
+      "linked_claim_ids": ["BMC-CLM-005"],
+      "reason": "Нужны базовый показатель, метрика времени, оценка ручной работы или пилотное наблюдение по экономическому эффекту.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-006",
+      "linked_answer_ids": ["ANS-006"],
+      "linked_claim_ids": ["BMC-CLM-006"],
+      "reason": "Вижн и истории подтверждают структурированный вход, PresentationSpec и проверяемую презентацию; шаблоны, модуль рендера и полный набор проверок качества требуют отдельного подтверждения.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-007",
+      "linked_answer_ids": ["ANS-007"],
+      "linked_claim_ids": ["BMC-CLM-007"],
+      "reason": "Вижн и истории подтверждают базовый контур проверки, генерации и доработки; полный цикл получения замечаний по доставленному файлу и повторной генерации требует отдельного сценария, задачи из бэклога или приемочного критерия.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-008",
+      "linked_answer_ids": ["ANS-008"],
+      "linked_claim_ids": ["BMC-CLM-008"],
+      "reason": "Вижн и истории подтверждают зависимость от агента-источника и структурированного входного пакета; Лиса, Оркестратор и канал доставки результата требуют отдельного подтверждения.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-009",
+      "linked_answer_ids": ["ANS-009"],
+      "linked_claim_ids": ["BMC-CLM-009"],
+      "reason": "Нужны базовая оценка стоимости поддержки, рендера, времени проверки результата, вызовов LLM и задержки ответа.",
+      "status": "missing"
+    }
+  ],
+  "route_decisions": ["RD-001", "RD-002", "RD-003", "RD-004", "RD-005", "RD-006", "RD-007", "RD-008", "RD-009"],
+  "claims_snapshot": [
+    {
+      "claim_id": "BMC-CLM-001",
+      "bmc_block": "B1",
+      "statement": "Текущие основные сегменты DataCanvas: КМ (Клиентский менеджер) и CSM (Customer Success Manager); перспективно - любой пользователь мессенджера Лиса.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-001"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-002",
+      "bmc_block": "B2",
+      "statement": "Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию и снизить ручное копирование и верстку.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-002"],
+      "evidence_ids": ["EVD-001"]
+    },
+    {
+      "claim_id": "BMC-CLM-003",
+      "bmc_block": "B3",
+      "statement": "Точки входа DataCanvas: текстовый запрос в Лисе, выбранные сообщения, кнопка запуска, Оркестратор/A2A и прямой вызов сервисом или АС через A2A/MCP; результат возвращается в чате Лисы.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-003"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-004",
+      "bmc_block": "B4",
+      "statement": "DataCanvas взаимодействует с пользователем через уточняющие вопросы, проверку описания до генерации, правки до и после результата и ручное подтверждение перед выдачей результата.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-004"],
+      "evidence_ids": ["EVD-001", "EVD-002"]
+    },
+    {
+      "claim_id": "BMC-CLM-005",
+      "bmc_block": "B5",
+      "statement": "Первый проверяемый внутренний эффект DataCanvas: экономия времени КМ и снижение объема ручной работы.",
+      "status": "assumption",
+      "confidence": "low",
+      "linked_answer_ids": ["ANS-005"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-006",
+      "bmc_block": "B6",
+      "statement": "Критичные ресурсы DataCanvas: входной контекст, описание презентации перед генерацией, шаблоны презентаций, модуль рендера, схемы и проверки качества.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-006"],
+      "evidence_ids": ["EVD-001", "EVD-002"]
+    },
+    {
+      "claim_id": "BMC-CLM-007",
+      "bmc_block": "B7",
+      "statement": "Ключевые активности DataCanvas: проверить достаточность входа, задать уточняющие вопросы, сформировать описание презентации, принять правки, сгенерировать и доставить файл, получить замечания по доставленной презентации и запустить цикл повторного уточнения, правок, генерации и доставки исправленной презентации.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-007"],
+      "evidence_ids": ["EVD-001", "EVD-002"]
+    },
+    {
+      "claim_id": "BMC-CLM-008",
+      "bmc_block": "B8",
+      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, Оркестратор, предшествующие агенты и инструменты, канал доставки результата.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-008"],
+      "evidence_ids": ["EVD-001", "EVD-002"]
+    },
+    {
+      "claim_id": "BMC-CLM-009",
+      "bmc_block": "B9",
+      "statement": "Первые издержки и ограничения DataCanvas: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM и задержка ответа; именно в таком порядке приоритета.",
+      "status": "assumption",
+      "confidence": "low",
+      "linked_answer_ids": ["ANS-009"],
+      "evidence_ids": []
+    }
+  ],
+  "open_questions": ["BMC-OQ-001", "BMC-OQ-002", "BMC-OQ-003", "BMC-OQ-004", "BMC-OQ-005", "BMC-OQ-006", "BMC-OQ-007", "BMC-OQ-008", "BMC-OQ-009"],
+  "transcript_path": "docs/product/bmc/interviews/active-bmc-interview-transcript.md",
+  "route_decisions_path": "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+  "completion_summary": "B1-B9 записаны. Финальное решение: чистовой BMC и рендер не показывают статусы доверия; подтверждения, проверки и исследования вынесены в отдельный машиночитаемый сопровождающий документ. Вижн и истории покрывают продуктовый контур, структурированный вход, проверяемую презентацию, PresentationSpec, проверку человеком, доработку и зависимость от агента-источника. Сегменты КМ/CSM, каналы Лисы/A2A/MCP, Оркестратор, канал доставки результата, экономический эффект, шаблоны, модуль рендера, полный цикл повторной генерации и порядок издержек требуют дополнительных подтверждений."
+}

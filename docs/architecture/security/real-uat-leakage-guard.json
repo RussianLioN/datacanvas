@@ -1,0 +1,37 @@
+{
+  "version": "0.1.0",
+  "status": "active_conditional_guard",
+  "purpose": "Заранее заблокировать ситуацию, когда real UAT artifacts появляются в репозитории, но не включаются в data leakage scan targets.",
+  "conditional_targets": [
+    {
+      "id": "RULG-001",
+      "path": "artifacts/manual/real-uat/review-runtime-state-export.json",
+      "sink": "runtime_state",
+      "data_class": "confidential",
+      "required_when_exists": true
+    },
+    {
+      "id": "RULG-002",
+      "path": "docs/product/ux/human-review-session-real.json",
+      "sink": "evidence",
+      "data_class": "confidential",
+      "required_when_exists": true
+    }
+  ],
+  "validation_commands": [
+    "npm run validate:data-leakage",
+    "npm run validate:schemas",
+    "npm test"
+  ],
+  "blocking_conditions": [
+    "Real UAT runtime export существует, но отсутствует в docs/architecture/security/data-leakage-manifest.json.",
+    "human-review-session-real.json существует, но отсутствует в docs/architecture/security/data-leakage-manifest.json.",
+    "Real UAT artifact добавлен как public/internal вместо confidential."
+  ],
+  "known_limitations": [
+    "Guard не создает real UAT artifacts.",
+    "Guard не заменяет ручную privacy review после реальной сессии.",
+    "До появления real UAT files conditional targets остаются ожидаемыми будущими sinks."
+  ],
+  "next_safe_step": "После real UAT добавить фактические artifacts в data-leakage-manifest.json как confidential scan targets."
+}

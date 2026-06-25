@@ -1,0 +1,77 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S54",
+  "sprint_name": "commit-pr-evidence-template",
+  "process_version": "0.1.0",
+  "status": "produced_blocked_pending_external",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Подготовить template для commit/PR evidence без фиктивного release evidence.",
+  "created_artifacts": [
+    "docs/release/templates/commit-pr-evidence-template.md",
+    "scripts/validate-commit-pr-evidence-template.mjs",
+    "docs/architecture/adr/ADR-054-commit-pr-evidence-template.md",
+    "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:commit-pr-evidence-template",
+      "status": "passed",
+      "evidence": "commit/PR evidence template validation passed"
+    },
+    {
+      "command": "npm run validate:pilot-execution-handoff",
+      "status": "passed",
+      "evidence": "pilot execution handoff validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full quality gate passed, including generated fixtures, secret scan, schemas, contracts, LLM guardrails, data leakage, evals, provider gates, release gates, pilot handoffs, commit/PR evidence template, process gates, traceability, risk matrix, export smoke, renderer regression, and visual baseline."
+    }
+  ],
+  "known_limitations": [
+    "Template не является commit/PR evidence.",
+    "Release pack остается pre-commit candidate.",
+    "Goal нельзя закрыть без реального commit/PR evidence."
+  ],
+  "next_safe_step": "После commit/PR заполнить release train evidence по template и обновить completion audit."
+}

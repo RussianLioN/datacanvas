@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/data-leakage-manifest.schema.json",
+  "title": "DataLeakageManifest",
+  "type": "object",
+  "required": ["version", "status", "policy_paths", "scan_targets", "forbidden_classes", "required_gates", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active"] },
+    "policy_paths": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "scan_targets": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "path", "sink", "data_class"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "sink": { "type": "string", "enum": ["prompt", "trace", "export", "evidence", "runtime_state"] },
+          "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] }
+        }
+      }
+    },
+    "forbidden_classes": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "enum": ["secret", "pii", "local_path", "raw_trace", "internal_prompt", "tool_output"] }
+    },
+    "required_gates": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/review-runtime-browser-matrix.schema.json",
+  "title": "ReviewRuntimeBrowserMatrix",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "html_path",
+    "viewport_targets",
+    "required_static_checks",
+    "required_controls",
+    "validation_commands",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_static_browser_matrix"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "html_path": { "type": "string", "minLength": 1 },
+    "viewport_targets": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "width", "height", "class"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "width": { "type": "integer", "minimum": 320 },
+          "height": { "type": "integer", "minimum": 568 },
+          "class": { "type": "string", "enum": ["mobile", "tablet", "desktop"] }
+        }
+      }
+    },
+    "required_static_checks": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_controls": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

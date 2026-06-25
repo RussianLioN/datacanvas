@@ -1,0 +1,40 @@
+{
+  "version": "0.1.0",
+  "status": "generated",
+  "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
+  "source_trace_sha256": "e0c1496b7a0896e9caa603ba2f20c3e88851f1ef81b32f943e4ff854f45e8e6e",
+  "generated_by": "scripts/generate-bmc-artifacts.mjs",
+  "generated_at": "2026-06-24T00:00:00Z",
+  "outputs": [
+    {
+      "format": "markdown",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+    },
+    {
+      "format": "plantuml",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+    },
+    {
+      "format": "svg",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
+    },
+    {
+      "format": "png",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+    },
+    {
+      "format": "pdf",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+    },
+    {
+      "format": "validation_needs_json",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "sha256": "8e64110bc272fef1d9b70ed714e240aa8069b152ffb8d5ec66497da1f5424ec6"
+    }
+  ]
+}

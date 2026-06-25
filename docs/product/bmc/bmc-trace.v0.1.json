@@ -1,0 +1,489 @@
+{
+  "schema_version": "1.0-datacanvas-bmc",
+  "artifact_id": "datacanvas-bmc",
+  "language": "ru",
+  "status": "draft_working",
+  "source_lock_path": "docs/product/bmc/source-lock.json",
+  "interview_result_paths": [
+    "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json"
+  ],
+  "derived_manifest_path": "docs/product/bmc/bmc-derived-manifest.json",
+  "blocks": [
+    {
+      "id": "B1",
+      "title": "Customer Segments"
+    },
+    {
+      "id": "B2",
+      "title": "Value Proposition"
+    },
+    {
+      "id": "B3",
+      "title": "Channels"
+    },
+    {
+      "id": "B4",
+      "title": "Customer Relationships"
+    },
+    {
+      "id": "B5",
+      "title": "Value Streams / Internal Benefits"
+    },
+    {
+      "id": "B6",
+      "title": "Key Resources"
+    },
+    {
+      "id": "B7",
+      "title": "Key Activities"
+    },
+    {
+      "id": "B8",
+      "title": "Key Partners"
+    },
+    {
+      "id": "B9",
+      "title": "Cost Structure"
+    }
+  ],
+  "items": [
+    {
+      "item_id": "BMC-CLM-001",
+      "block": "B1",
+      "statement": "Текущие основные сегменты DataCanvas: КМ (Клиентский менеджер) и CSM (Customer Success Manager); перспективно - любой пользователь мессенджера Лиса.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT",
+        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
+      ],
+      "interview_answer_ids": [
+        "ANS-001"
+      ],
+      "evidence_ids": [],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-001"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-002",
+      "block": "B2",
+      "statement": "Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию и снизить ручное копирование и верстку.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT",
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "interview_answer_ids": [
+        "ANS-002"
+      ],
+      "evidence_ids": [
+        "EVD-001"
+      ],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-002"
+      ],
+      "requirement_ids": [
+        "REQ-BT-001"
+      ],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-003",
+      "block": "B3",
+      "statement": "Точки входа DataCanvas: текстовый запрос в Лисе, выбранные сообщения, кнопка запуска, Оркестратор/A2A и прямой вызов сервисом или АС через A2A/MCP; результат возвращается в чате Лисы.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
+      ],
+      "interview_answer_ids": [
+        "ANS-003"
+      ],
+      "evidence_ids": [],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-003"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-004",
+      "block": "B4",
+      "statement": "DataCanvas взаимодействует с пользователем через уточняющие вопросы, проверку описания до генерации, правки до и после результата и ручное подтверждение перед выдачей результата.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "interview_answer_ids": [
+        "ANS-004"
+      ],
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-002"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-005",
+      "block": "B5",
+      "statement": "Первый проверяемый внутренний эффект DataCanvas: экономия времени КМ и снижение объема ручной работы.",
+      "status": "assumption",
+      "confidence": "low",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "interview_answer_ids": [
+        "ANS-005"
+      ],
+      "evidence_ids": [],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-004"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-006",
+      "block": "B6",
+      "statement": "Критичные ресурсы DataCanvas: входной контекст, описание презентации перед генерацией, шаблоны презентаций, модуль рендера, схемы и проверки качества.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Data/Traceability Architect",
+      "source_refs": [
+        "SRC-DC-VISION-CURRENT",
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "interview_answer_ids": [
+        "ANS-006"
+      ],
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [],
+      "requirement_ids": [
+        "REQ-BT-001"
+      ],
+      "backlog_item_ids": [
+        "PBI-001"
+      ],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-007",
+      "block": "B7",
+      "statement": "Ключевые активности DataCanvas: проверить достаточность входа, задать уточняющие вопросы, сформировать описание презентации, принять правки, сгенерировать и доставить файл, получить замечания по доставленной презентации и запустить цикл повторного уточнения, правок, генерации и доставки исправленной презентации.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Development Team",
+      "source_refs": [
+        "SRC-DC-VISION-CURRENT",
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "interview_answer_ids": [
+        "ANS-007"
+      ],
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [],
+      "requirement_ids": [
+        "REQ-BT-001"
+      ],
+      "backlog_item_ids": [
+        "PBI-001"
+      ],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-008",
+      "block": "B8",
+      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, Оркестратор, предшествующие агенты и инструменты, канал доставки результата.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "interview_answer_ids": [
+        "ANS-008"
+      ],
+      "evidence_ids": [
+        "EVD-001",
+        "EVD-002"
+      ],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-005"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    },
+    {
+      "item_id": "BMC-CLM-009",
+      "block": "B9",
+      "statement": "Первые издержки и ограничения DataCanvas: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM и задержка ответа; именно в таком порядке приоритета.",
+      "status": "assumption",
+      "confidence": "low",
+      "owner_role": "Product Owner",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "interview_answer_ids": [
+        "ANS-009"
+      ],
+      "evidence_ids": [],
+      "brainstorm_result_ids": [
+        "BMC-INT-ACTIVE-2026-W26-001"
+      ],
+      "hypothesis_ids": [
+        "HYP-BMC-004"
+      ],
+      "requirement_ids": [],
+      "backlog_item_ids": [],
+      "risk_ids": [],
+      "last_reviewed_at": "2026-06-24T16:01:33Z"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "BMC-CLM-001",
+      "item_id": "BMC-CLM-001",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT",
+        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-002",
+      "item_id": "BMC-CLM-002",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT",
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-003",
+      "item_id": "BMC-CLM-003",
+      "source_refs": [
+        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-004",
+      "item_id": "BMC-CLM-004",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-005",
+      "item_id": "BMC-CLM-005",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "assumption",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-006",
+      "item_id": "BMC-CLM-006",
+      "source_refs": [
+        "SRC-DC-VISION-CURRENT",
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-007",
+      "item_id": "BMC-CLM-007",
+      "source_refs": [
+        "SRC-DC-VISION-CURRENT",
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-008",
+      "item_id": "BMC-CLM-008",
+      "source_refs": [
+        "SRC-DC-VISION-BRANCH-SNAPSHOT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "unconfirmed",
+      "public_inclusion_policy": "include_clean_statement_only"
+    },
+    {
+      "claim_id": "BMC-CLM-009",
+      "item_id": "BMC-CLM-009",
+      "source_refs": [
+        "SRC-DC-BMC-CURRENT"
+      ],
+      "derivation": "derived_from_bmc_interview_source_lock_and_clean_content_model",
+      "introduced_in": "SPRINT-2026-W26-S64",
+      "validation_state": "assumption",
+      "public_inclusion_policy": "include_clean_statement_only"
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesis_id": "HYP-BMC-001",
+      "statement": "КМ is the primary high-value user segment.",
+      "status": "unconfirmed"
+    },
+    {
+      "hypothesis_id": "HYP-BMC-002",
+      "statement": "Review of the presentation description before generation is a key value driver.",
+      "status": "unconfirmed"
+    },
+    {
+      "hypothesis_id": "HYP-BMC-003",
+      "statement": "Email delivery is sufficient for the MVP result channel.",
+      "status": "unconfirmed"
+    },
+    {
+      "hypothesis_id": "HYP-BMC-004",
+      "statement": "Time saved per accepted presentation is the primary economic metric.",
+      "status": "assumption"
+    },
+    {
+      "hypothesis_id": "HYP-BMC-005",
+      "statement": "LISA and Orchestrator are required adoption partners.",
+      "status": "unconfirmed"
+    }
+  ],
+  "open_questions": [
+    "BMC-OQ-001",
+    "BMC-OQ-002",
+    "BMC-OQ-003",
+    "BMC-OQ-004",
+    "BMC-OQ-005"
+  ],
+  "unsupported_claims": [],
+  "evidence_requests": [
+    "EVD-REQ-001",
+    "EVD-REQ-002",
+    "EVD-REQ-003",
+    "EVD-REQ-004",
+    "EVD-REQ-005",
+    "EVD-REQ-006",
+    "EVD-REQ-007",
+    "EVD-REQ-008",
+    "EVD-REQ-009"
+  ],
+  "derived_artifacts": [
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "format": "markdown",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "format": "plantuml",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "format": "svg",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "format": "png",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "format": "pdf",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    },
+    {
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "format": "validation_needs_json",
+      "generated_by": "scripts/generate-bmc-artifacts.mjs"
+    }
+  ],
+  "audit": {
+    "prepared_by": "codex",
+    "prepared_at": "2026-06-24T00:00:00Z",
+    "real_user_interview_completed": true,
+    "next_safe_step": "Review missing evidence requests, then regenerate BMC artifacts."
+  }
+}

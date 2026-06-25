@@ -1,0 +1,52 @@
+{
+  "version": "0.1.0",
+  "status": "completed",
+  "gate_id": "G9",
+  "manifest_path": "docs/product/ux/uat-manifest.json",
+  "executed_at": "2026-06-22T00:00:00Z",
+  "review_state": "approved",
+  "decision": "accepted",
+  "metrics": {
+    "critical_failures": 0,
+    "unsupported_claims": 0,
+    "export_blockers": 0,
+    "review_completion": true
+  },
+  "scenario_results": [
+    {
+      "scenario_id": "UAT-001",
+      "status": "passed",
+      "evidence": "Claims сверены с tests/golden/claim-map-minimal.json; unsupported claims: 0."
+    },
+    {
+      "scenario_id": "UAT-002",
+      "status": "passed",
+      "evidence": "Состояние changes_requested блокирует export до возврата в approved по human-review-flow.json."
+    },
+    {
+      "scenario_id": "UAT-003",
+      "status": "passed",
+      "evidence": "Approval зафиксирован как review_state=approved и decision=accepted."
+    },
+    {
+      "scenario_id": "UAT-004",
+      "status": "passed",
+      "evidence": "Export readiness подтвержден: validate:export и validate:export-smoke проходят."
+    }
+  ],
+  "evidence_paths": [
+    "docs/product/ux/uat-script.md",
+    "docs/product/ux/uat-manifest.json",
+    "docs/product/ux/human-review-flow.json",
+    "tests/golden/claim-map-minimal.json",
+    "tests/golden/trace-manifest-minimal.json",
+    "artifacts/examples/presentation-minimal.html",
+    "artifacts/examples/export-smoke-manifest.json"
+  ],
+  "known_limitations": [
+    "UAT result является deterministic fixture, а не записью реальной пользовательской сессии.",
+    "Интерактивный review UI еще не реализован.",
+    "Полноценный release pack еще не собран."
+  ],
+  "next_safe_step": "Добавить interactive review UI fixture или release evidence pack для MVP Gate."
+}

@@ -1,0 +1,40 @@
+version: "0.1.0"
+status: draft
+default_policy: deny
+tools:
+  - name: local_file_read
+    purpose: "Чтение входного пакета и артефактов репозитория"
+    network_access: false
+    write_access: false
+    allowed_data_classes: ["public", "internal", "confidential"]
+    owner: "Security/Privacy Lead"
+  - name: schema_validation
+    purpose: "Проверка JSON-схем"
+    network_access: false
+    write_access: false
+    allowed_data_classes: ["public", "internal", "confidential"]
+    owner: "QA/Evals Lead"
+  - name: renderer
+    purpose: "Детерминированный render из PresentationSpec"
+    network_access: false
+    write_access: true
+    allowed_data_classes: ["public", "internal"]
+    owner: "Delivery/GitOps Lead"
+  - name: llm_mock_adapter
+    purpose: "Локальная детерминированная имитация LLM boundary для тестов и CI"
+    network_access: false
+    write_access: true
+    allowed_data_classes: ["public", "internal"]
+    owner: "AI Agent Architect"
+  - name: llm_guardrail_validation
+    purpose: "Проверка LLMResult, вложенного PresentationSpec, fact traceability и no-network-by-default"
+    network_access: false
+    write_access: false
+    allowed_data_classes: ["public", "internal", "confidential"]
+    owner: "QA/Evals Lead"
+  - name: eval_pack_validation
+    purpose: "Проверка обязательных eval cases, краткости презентации, hallucination resistance и prompt-injection guards"
+    network_access: false
+    write_access: false
+    allowed_data_classes: ["public", "internal", "confidential"]
+    owner: "QA/Evals Lead"

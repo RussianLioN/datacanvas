@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/process-metrics-manifest.schema.json",
+  "title": "ProcessMetricsManifest",
+  "type": "object",
+  "required": ["version", "status", "period", "dashboard_path", "metrics", "quality_gates", "known_limitations", "next_safe_step"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["baseline", "active"] },
+    "period": { "type": "string", "minLength": 1 },
+    "dashboard_path": { "type": "string", "minLength": 1 },
+    "metrics": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "value", "target", "measurement_status", "reason", "evidence_paths"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "value": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "measurement_status": { "type": "string", "enum": ["measured", "not_available", "derived"] },
+          "reason": { "type": "string", "minLength": 1 },
+          "evidence_paths": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["command", "status", "evidence"],
+        "additionalProperties": false,
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["passed", "pending_external"] },
+          "evidence": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

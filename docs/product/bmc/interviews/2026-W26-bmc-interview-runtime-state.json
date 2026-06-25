@@ -1,0 +1,312 @@
+{
+  "version": "0.1.0",
+  "session_id": "BMC-RUN-2026-W26-001",
+  "interview_id": "BMC-INT-2026-W26-001",
+  "session_kind": "runtime_fixture",
+  "status": "completed",
+  "selected_duration_minutes": 60,
+  "selected_depth": "standard",
+  "interview_goal": "primary_bmc",
+  "respondent_role": "fixture_user",
+  "setup_status": "complete",
+  "started_at": "2026-06-24T00:01:00Z",
+  "updated_at": "2026-06-24T00:10:00Z",
+  "completed_at": "2026-06-24T00:10:00Z",
+  "current_step": 9,
+  "current_question_id": "",
+  "covered_bmc_blocks": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"],
+  "remaining_bmc_blocks": [],
+  "asked_question_ids": ["B1-Q01", "B2-Q01", "B3-Q01", "B4-Q01", "B5-Q01", "B6-Q01", "B7-Q01", "B8-Q01", "B9-Q01"],
+  "answers": [
+    {
+      "answer_id": "ANS-001",
+      "question_id": "B1-Q01",
+      "bmc_block": "B1",
+      "selected_option_ids": ["B1-Q01-A", "B1-Q01-B"],
+      "custom_answer": "",
+      "normalized_answer": "КМ и сотрудники, работающие через Лису.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Сегмент требует подтверждения пользователем или проектным решением.",
+      "answered_at": "2026-06-24T00:01:30Z"
+    },
+    {
+      "answer_id": "ANS-002",
+      "question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "selected_option_ids": ["B2-Q01-A", "B2-Q01-B", "B2-Q01-D"],
+      "custom_answer": "",
+      "normalized_answer": "Быстрее получить рабочую презентацию, снизить ручную сборку и сохранить связь с источниками.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Value claim требует evidence по времени, ручной работе или качеству.",
+      "answered_at": "2026-06-24T00:02:30Z"
+    },
+    {
+      "answer_id": "ANS-003",
+      "question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "selected_option_ids": ["B3-Q01-A", "B3-Q01-B", "B3-Q01-C", "B3-Q01-D", "B3-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Лиса, Оркестратор, selected messages, кнопка запуска и доставка результата.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Channel claim требует подтверждения интеграционного контракта.",
+      "answered_at": "2026-06-24T00:03:30Z"
+    },
+    {
+      "answer_id": "ANS-004",
+      "question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "selected_option_ids": ["B4-Q01-A", "B4-Q01-B", "B4-Q01-C", "B4-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Уточняющие вопросы, review описания, правки и human approval перед export.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Human-in-the-loop flow требует подтверждения реальным UX.",
+      "answered_at": "2026-06-24T00:04:30Z"
+    },
+    {
+      "answer_id": "ANS-005",
+      "question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "selected_option_ids": ["B5-Q01-A", "B5-Q01-B"],
+      "custom_answer": "",
+      "normalized_answer": "Экономия времени и снижение ручной работы.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Economics claim требует метрики или пилотного наблюдения.",
+      "answered_at": "2026-06-24T00:05:30Z"
+    },
+    {
+      "answer_id": "ANS-006",
+      "question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "selected_option_ids": ["B6-Q01-A", "B6-Q01-B", "B6-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Входной контекст, schemas, renderer, evals и trace.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-001"],
+      "confidence": "high",
+      "confirmation_status": "confirmed",
+      "notes": "Подтверждено текущими project artifacts.",
+      "answered_at": "2026-06-24T00:06:30Z"
+    },
+    {
+      "answer_id": "ANS-007",
+      "question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "selected_option_ids": ["B7-Q01-A", "B7-Q01-C", "B7-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Validation, normalization, spec generation, rendering, review и export checks.",
+      "evidence_requested": true,
+      "evidence_ids": ["EVD-002"],
+      "confidence": "high",
+      "confirmation_status": "confirmed",
+      "notes": "Подтверждено текущими scripts и validators.",
+      "answered_at": "2026-06-24T00:07:30Z"
+    },
+    {
+      "answer_id": "ANS-008",
+      "question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "selected_option_ids": ["B8-Q01-A", "B8-Q01-B", "B8-Q01-C", "B8-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "Лиса, Оркестратор, upstream agents/tools и delivery channel.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "medium",
+      "confirmation_status": "unconfirmed",
+      "notes": "Partner ownership требует подтверждения.",
+      "answered_at": "2026-06-24T00:08:30Z"
+    },
+    {
+      "answer_id": "ANS-009",
+      "question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "selected_option_ids": ["B9-Q01-A", "B9-Q01-B", "B9-Q01-C", "B9-Q01-D", "B9-Q01-E"],
+      "custom_answer": "",
+      "normalized_answer": "LLM cost, rendering, review time, latency, support и maintenance.",
+      "evidence_requested": true,
+      "evidence_ids": [],
+      "confidence": "low",
+      "confirmation_status": "assumption",
+      "notes": "Cost claim требует cost baseline.",
+      "answered_at": "2026-06-24T00:09:30Z"
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "EVD-001",
+      "source_kind": "observation",
+      "provided_by": "codex",
+      "provided_at": "2026-06-24T00:06:40Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "docs/product/bmc/source-lock.json",
+      "redacted_excerpt": "Current repo has BMC source lock, schemas and trace artifacts.",
+      "sha256": "",
+      "status": "accepted",
+      "lifecycle_status": "accepted",
+      "linked_answer_ids": ["ANS-006"],
+      "linked_claim_ids": ["BMC-CLM-006"]
+    },
+    {
+      "evidence_id": "EVD-002",
+      "source_kind": "observation",
+      "provided_by": "codex",
+      "provided_at": "2026-06-24T00:07:40Z",
+      "data_class": "internal",
+      "trust_level": "reviewed",
+      "path_or_uri": "package.json",
+      "redacted_excerpt": "Project scripts include generation, validation, review and export checks.",
+      "sha256": "",
+      "status": "accepted",
+      "lifecycle_status": "accepted",
+      "linked_answer_ids": ["ANS-007"],
+      "linked_claim_ids": ["BMC-CLM-007"]
+    }
+  ],
+  "missing_evidence_notices": [
+    {
+      "notice_id": "ME-001",
+      "linked_answer_ids": ["ANS-001"],
+      "linked_claim_ids": ["BMC-CLM-001"],
+      "reason": "User segment needs interview, decision, backlog/story or usage metric.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-002",
+      "linked_answer_ids": ["ANS-002"],
+      "linked_claim_ids": ["BMC-CLM-002"],
+      "reason": "Value claim needs time, effort or quality evidence.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-003",
+      "linked_answer_ids": ["ANS-003"],
+      "linked_claim_ids": ["BMC-CLM-003"],
+      "reason": "Channel claim needs integration or UX decision evidence.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-004",
+      "linked_answer_ids": ["ANS-004"],
+      "linked_claim_ids": ["BMC-CLM-004"],
+      "reason": "Human review flow needs UAT, story or decision evidence.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-005",
+      "linked_answer_ids": ["ANS-005", "ANS-009"],
+      "linked_claim_ids": ["BMC-CLM-005", "BMC-CLM-009"],
+      "reason": "Economics and cost claims need metric or estimate evidence.",
+      "status": "missing"
+    },
+    {
+      "notice_id": "ME-006",
+      "linked_answer_ids": ["ANS-008"],
+      "linked_claim_ids": ["BMC-CLM-008"],
+      "reason": "Partner and ownership claim needs decision or integration evidence.",
+      "status": "missing"
+    }
+  ],
+  "route_decisions": ["RD-001", "RD-002", "RD-003", "RD-004", "RD-005", "RD-006", "RD-007", "RD-008"],
+  "claims_snapshot": [
+    {
+      "claim_id": "BMC-CLM-001",
+      "bmc_block": "B1",
+      "statement": "Основной сегмент: КМ и сотрудники, работающие через Лису.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-001"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-002",
+      "bmc_block": "B2",
+      "statement": "DataCanvas сокращает путь от данных до рабочей презентации и снижает ручную сборку.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-002"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-003",
+      "bmc_block": "B3",
+      "statement": "Основные каналы: Лиса, Оркестратор, selected messages, кнопка запуска и доставка результата.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-003"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-004",
+      "bmc_block": "B4",
+      "statement": "Отношения строятся через уточняющие вопросы, review описания и human-in-the-loop правки.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-004"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-005",
+      "bmc_block": "B5",
+      "statement": "Основная внутренняя польза: экономия времени и меньше ручной работы.",
+      "status": "assumption",
+      "confidence": "low",
+      "linked_answer_ids": ["ANS-005"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-006",
+      "bmc_block": "B6",
+      "statement": "Ключевые ресурсы: входной контекст, schemas, renderer, evals и trace.",
+      "status": "confirmed",
+      "confidence": "high",
+      "linked_answer_ids": ["ANS-006"],
+      "evidence_ids": ["EVD-001"]
+    },
+    {
+      "claim_id": "BMC-CLM-007",
+      "bmc_block": "B7",
+      "statement": "Ключевые активности: validation, normalization, spec generation, rendering, review и export checks.",
+      "status": "confirmed",
+      "confidence": "high",
+      "linked_answer_ids": ["ANS-007"],
+      "evidence_ids": ["EVD-002"]
+    },
+    {
+      "claim_id": "BMC-CLM-008",
+      "bmc_block": "B8",
+      "statement": "Ключевые партнеры: Лиса, Оркестратор, upstream agents/tools и delivery channel.",
+      "status": "unconfirmed",
+      "confidence": "medium",
+      "linked_answer_ids": ["ANS-008"],
+      "evidence_ids": []
+    },
+    {
+      "claim_id": "BMC-CLM-009",
+      "bmc_block": "B9",
+      "statement": "Ключевые издержки: LLM cost, rendering, review time, latency, support и maintenance.",
+      "status": "assumption",
+      "confidence": "low",
+      "linked_answer_ids": ["ANS-009"],
+      "evidence_ids": []
+    }
+  ],
+  "open_questions": ["BMC-OQ-001", "BMC-OQ-002", "BMC-OQ-003", "BMC-OQ-004", "BMC-OQ-005"],
+  "transcript_path": "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+  "route_decisions_path": "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+  "completion_summary": "Runtime fixture covers all 9 BMC blocks and demonstrates evidence handling, missing evidence notices and route decisions. It is not a real user interview."
+}

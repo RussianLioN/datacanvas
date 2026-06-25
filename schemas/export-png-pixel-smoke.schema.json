@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/export-png-pixel-smoke.schema.json",
+  "title": "ExportPngPixelSmoke",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "purpose",
+    "png_path",
+    "export_smoke_manifest_path",
+    "expected_png",
+    "required_assertions",
+    "validation_commands",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_pixel_smoke"] },
+    "purpose": { "type": "string", "minLength": 1 },
+    "png_path": { "type": "string", "minLength": 1 },
+    "export_smoke_manifest_path": { "type": "string", "minLength": 1 },
+    "expected_png": {
+      "type": "object",
+      "required": ["width", "height", "bit_depth", "color_type", "first_pixel_rgba"],
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "bit_depth": { "type": "integer", "const": 8 },
+        "color_type": { "type": "integer", "const": 6 },
+        "first_pixel_rgba": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "type": "integer", "minimum": 0, "maximum": 255 }
+        }
+      }
+    },
+    "required_assertions": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

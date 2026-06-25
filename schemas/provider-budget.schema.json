@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/provider-budget.schema.json",
+  "title": "ProviderBudget",
+  "type": "object",
+  "required": ["version", "status", "default_policy", "budgets", "measurement_requirements", "fallback"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "default_policy": { "type": "string", "enum": ["disabled_until_proc_007_accepted"] },
+    "budgets": {
+      "type": "object",
+      "required": ["max_cost_per_run_usd", "max_latency_ms_p95", "max_retry_count", "max_failure_rate_percent"],
+      "additionalProperties": false,
+      "properties": {
+        "max_cost_per_run_usd": { "type": "number", "exclusiveMinimum": 0 },
+        "max_latency_ms_p95": { "type": "integer", "exclusiveMinimum": 0 },
+        "max_retry_count": { "type": "integer", "minimum": 0 },
+        "max_failure_rate_percent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "measurement_requirements": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "string",
+        "enum": ["cost_estimate", "duration_ms", "model", "provider", "retry_count", "error_class"]
+      }
+    },
+    "fallback": {
+      "type": "object",
+      "required": ["mode", "command"],
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["offline_mock_adapter"] },
+        "command": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

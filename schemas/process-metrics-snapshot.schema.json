@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/process-metrics-snapshot.schema.json",
+  "title": "ProcessMetricsSnapshot",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "period",
+    "generated_at",
+    "source_paths",
+    "counts",
+    "derived_metrics",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["generated"] },
+    "period": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source_paths": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "sprint_folders",
+        "sprint_evidence_manifests",
+        "artifact_registry_entries",
+        "accepted_process_changes",
+        "passed_evidence_checks",
+        "pending_evidence_checks",
+        "quality_gates_passed",
+        "quality_gates_pending_external",
+        "process_events"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sprint_folders": { "type": "integer", "minimum": 0 },
+        "sprint_evidence_manifests": { "type": "integer", "minimum": 0 },
+        "artifact_registry_entries": { "type": "integer", "minimum": 0 },
+        "accepted_process_changes": { "type": "integer", "minimum": 0 },
+        "passed_evidence_checks": { "type": "integer", "minimum": 0 },
+        "pending_evidence_checks": { "type": "integer", "minimum": 0 },
+        "quality_gates_passed": { "type": "integer", "minimum": 0 },
+        "quality_gates_pending_external": { "type": "integer", "minimum": 0 },
+        "process_events": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "derived_metrics": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "value", "calculation", "evidence_paths"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "value": { "type": "string", "minLength": 1 },
+          "calculation": { "type": "string", "minLength": 1 },
+          "evidence_paths": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

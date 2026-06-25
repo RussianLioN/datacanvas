@@ -1,0 +1,80 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S37",
+  "sprint_name": "interactive-review-runtime",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Добавить интерактивный review runtime prototype с сохранением состояния и JSON export evidence.",
+  "created_artifacts": [
+    "schemas/review-runtime-interactive.schema.json",
+    "docs/product/ux/review-runtime-interactive.json",
+    "artifacts/examples/review-runtime-interactive.html",
+    "scripts/validate-review-runtime-interactive.mjs",
+    "docs/architecture/adr/ADR-037-interactive-review-runtime.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/sprint-goal.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/sprint-backlog.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/planning.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/daily-notes.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/decisions.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/evidence-index.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/artifact-updates.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/process-change-candidates.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/review.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/retro.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/sprint-summary.md",
+    "docs/sprints/2026-W26-interactive-review-runtime/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:review-runtime-interactive",
+      "status": "passed",
+      "evidence": "review runtime interactive validation passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation and cross-artifact validation passed"
+    },
+    {
+      "command": "npm run validate:bootstrap",
+      "status": "passed",
+      "evidence": "bootstrap artifact validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:threat-model-delta",
+      "status": "passed",
+      "evidence": "threat model delta validation passed"
+    },
+    {
+      "command": "npm run validate:plan-coverage",
+      "status": "passed",
+      "evidence": "plan coverage validation passed"
+    },
+    {
+      "command": "npm run validate:process-versioning",
+      "status": "passed",
+      "evidence": "process versioning validation passed"
+    },
+    {
+      "command": "Playwright runtime smoke via local http://127.0.0.1:4173/artifacts/examples/review-runtime-interactive.html",
+      "status": "passed",
+      "evidence": "draft -> in_review -> changes_requested -> draft -> in_review -> approved -> export; localStorage state approved; 6 events; lastAction export"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full test suite passed, including interactive review runtime validation"
+    }
+  ],
+  "known_limitations": [
+    "Prototype сохраняет state в localStorage и не является записью реальной UAT-сессии.",
+    "human-review-session-real.json еще не создан.",
+    "Pilot gate остается открытым до real user UAT."
+  ],
+  "next_safe_step": "Провести real user UAT session, экспортировать runtime state JSON и создать human-review-session-real.json."
+}

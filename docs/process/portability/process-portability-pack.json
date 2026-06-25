@@ -1,0 +1,61 @@
+{
+  "version": "0.1.0",
+  "status": "accepted_after_pilot",
+  "gate_id": "G11",
+  "purpose": "Зафиксировать reusable process templates и migration notes после проверки переносимости DataCanvas Delivery Process на pilot run.",
+  "source_process_version": "docs/process/versions/0.1.0/process-version-manifest.json",
+  "reusable_templates": [
+    {
+      "id": "RPT-001",
+      "path": "docs/process/change-requests/process-change-request-template.md",
+      "reuse_scope": "Управляемые изменения процесса",
+      "status": "template_ready"
+    },
+    {
+      "id": "RPT-002",
+      "path": "docs/process/experiments/process-experiment-template.md",
+      "reuse_scope": "Ограниченные процессные эксперименты",
+      "status": "template_ready"
+    },
+    {
+      "id": "RPT-003",
+      "path": "docs/process/templates/sprint-folder-template.md",
+      "reuse_scope": "Структура недельного спринта",
+      "status": "template_ready"
+    },
+    {
+      "id": "RPT-004",
+      "path": "docs/process/templates/release-evidence-template.md",
+      "reuse_scope": "Release evidence packet",
+      "status": "template_ready"
+    },
+    {
+      "id": "RPT-005",
+      "path": "docs/process/templates/pilot-readiness-template.md",
+      "reuse_scope": "G10/G11 readiness перед pilot",
+      "status": "template_ready"
+    },
+    {
+      "id": "RPT-006",
+      "path": "docs/process/templates/process-event-log-template.md",
+      "reuse_scope": "Live delivery metrics events",
+      "status": "pilot_validated"
+    }
+  ],
+  "migration_notes_template_path": "docs/process/portability/migration-notes-template.md",
+  "pilot_dependency": {
+    "pilot_report_path": "docs/release/pilot-report.md",
+    "status": "satisfied",
+    "reason": "Pilot report и process portability notes записаны после pilot run."
+  },
+  "validation_commands": [
+    "npm run validate:process-portability",
+    "npm run validate:bootstrap",
+    "npm test"
+  ],
+  "known_limitations": [
+    "Шаблоны требуют адаптации под домен следующего ИТ-проекта.",
+    "PR #1 еще не смержен; при изменении product/runtime artifacts нужно обновить commit/PR evidence."
+  ],
+  "next_safe_step": "Использовать docs/release/pilot-process-portability-notes.md как вход для следующей версии процесса."
+}

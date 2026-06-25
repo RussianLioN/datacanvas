@@ -1,0 +1,13 @@
+{
+  "spec_id": "SPEC-minimal",
+  "source_package_id": "PKG-minimal",
+  "claims": [
+    {
+      "slide_id": "SLIDE-001",
+      "claim_text": "DataCanvas creates short presentations from structured input packages.",
+      "fact_ids": [
+        "FACT-001"
+      ]
+    }
+  ]
+}

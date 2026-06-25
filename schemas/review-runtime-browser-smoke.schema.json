@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/review-runtime-browser-smoke.schema.json",
+  "title": "ReviewRuntimeBrowserSmoke",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "html_path",
+    "browser_matrix_path",
+    "assertion_groups",
+    "required_dom_ids",
+    "required_css_rules",
+    "required_script_behaviors",
+    "forbidden_patterns",
+    "validation_commands",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_static_browser_smoke"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "html_path": { "type": "string", "minLength": 1 },
+    "browser_matrix_path": { "type": "string", "minLength": 1 },
+    "assertion_groups": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "required"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "required": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "required_dom_ids": {
+      "type": "array",
+      "minItems": 8,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_css_rules": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_script_behaviors": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "forbidden_patterns": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

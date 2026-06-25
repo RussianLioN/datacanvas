@@ -1,0 +1,49 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S6",
+  "sprint_name": "llm-mock-guardrails",
+  "process_version": "0.1.0",
+  "status": "produced_pending_team_acceptance",
+  "source_plan": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+  "goal": "Сделать AI boundary воспроизводимым без сети: добавить локальный mock adapter для LLMResult, отрицательную проверку неподтвержденных claims и no-network-by-default guardrails как обязательную часть npm test.",
+  "created_artifacts": [
+    "scripts/llm-mock-adapter.mjs",
+    "scripts/validate-llm-guardrails.mjs",
+    "tests/fixtures/llm-result-unsupported-claim.json",
+    "docs/architecture/security/no-network-by-default.md",
+    "docs/architecture/adr/ADR-010-llm-mock-guardrails.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/sprint-goal.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/sprint-backlog.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/planning.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/review.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/retro.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/decisions.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/evidence-index.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/artifact-updates.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/process-change-candidates.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/sprint-summary.md",
+    "docs/sprints/2026-W26-llm-mock-guardrails/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:llm",
+      "status": "passed",
+      "evidence": "2026-06-22: llm guardrail validation passed."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "2026-06-22: generate:golden, validate:bootstrap, validate:schemas, validate:llm, validate:export and validate:visual passed."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "2026-06-22: command completed with exit code 0 and no whitespace errors."
+    }
+  ],
+  "known_limitations": [
+    "Реальный LLM provider не подключен.",
+    "Prompt quality, latency, cost и model failure modes не измеряются в этом инкременте.",
+    "Командная приёмка Sprint 6 еще не проведена."
+  ],
+  "next_safe_step": "Начать Sprint 7: добавить eval pack для качества структуры презентации, hallucination resistance и prompt-injection сценариев до подключения внешнего LLM provider."
+}

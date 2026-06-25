@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/provider-experiment-result.schema.json",
+  "title": "ProviderExperimentResult",
+  "type": "object",
+  "required": [
+    "experiment_id",
+    "schema_version",
+    "status",
+    "linked_proc_id",
+    "provider_id",
+    "decision",
+    "metrics",
+    "quality_evidence",
+    "security_evidence",
+    "rollback",
+    "known_limitations"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "experiment_id": {
+      "type": "string",
+      "pattern": "^EXP-[A-Za-z0-9_-]+$"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "running", "completed", "rolled_back", "rejected"]
+    },
+    "linked_proc_id": {
+      "type": "string",
+      "pattern": "^PROC-[0-9]+$"
+    },
+    "provider_id": {
+      "type": "string",
+      "pattern": "^PROVIDER-[0-9]+$"
+    },
+    "decision": {
+      "type": "string",
+      "enum": ["not_started", "accept", "extend", "rollback", "reject"]
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["quality_score", "cost_per_run_usd", "latency_ms_p95", "failure_rate_percent"],
+      "additionalProperties": false,
+      "properties": {
+        "quality_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "cost_per_run_usd": { "type": "number", "minimum": 0 },
+        "latency_ms_p95": { "type": "integer", "minimum": 0 },
+        "failure_rate_percent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "quality_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "security_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "rollback": {
+      "type": "object",
+      "required": ["available", "fallback_command", "decision_owner"],
+      "additionalProperties": false,
+      "properties": {
+        "available": { "type": "boolean" },
+        "fallback_command": { "type": "string", "minLength": 1 },
+        "decision_owner": { "type": "string", "minLength": 1 }
+      }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

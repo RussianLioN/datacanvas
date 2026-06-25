@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-user-evidence.schema.json",
+  "title": "BmcUserEvidence",
+  "type": "object",
+  "required": ["version", "status", "interview_id", "evidence_items", "missing_evidence_notices", "privacy_rule"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string" },
+    "interview_id": { "type": "string", "pattern": "^BMC-INT-" },
+    "evidence_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "source_kind",
+          "provided_by",
+          "provided_at",
+          "data_class",
+          "trust_level",
+          "path_or_uri",
+          "redacted_excerpt",
+          "sha256",
+          "status",
+          "linked_answer_ids",
+          "linked_claim_ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "evidence_id": { "type": "string", "pattern": "^EVD-\\d{3}$" },
+          "source_kind": { "type": "string", "enum": ["file", "link", "quote", "decision", "metric", "observation", "none"] },
+          "provided_by": { "type": "string", "minLength": 1 },
+          "provided_at": { "type": "string", "format": "date-time" },
+          "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] },
+          "trust_level": { "type": "string", "enum": ["unverified", "reviewed", "confirmed"] },
+          "path_or_uri": { "type": "string" },
+          "redacted_excerpt": { "type": "string" },
+          "sha256": { "type": "string" },
+          "status": { "type": "string", "enum": ["pending_review", "accepted", "rejected"] },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "linked_claim_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" }
+          }
+        }
+      }
+    },
+    "missing_evidence_notices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["notice_id", "linked_answer_ids", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "notice_id": { "type": "string", "pattern": "^ME-\\d{3}$" },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "privacy_rule": { "type": "string", "minLength": 1 }
+  }
+}

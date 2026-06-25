@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/real-uat-one-command-runner.schema.json",
+  "title": "RealUatOneCommandRunner",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "gate_id",
+    "purpose",
+    "command",
+    "server",
+    "input_runtime_path",
+    "output_session_path",
+    "preflight_commands",
+    "post_export_commands",
+    "operator_steps",
+    "stop_conditions",
+    "validation_commands",
+    "known_limitations",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready_for_single_command_real_uat"] },
+    "gate_id": { "type": "string", "const": "G9" },
+    "purpose": { "type": "string", "minLength": 1 },
+    "command": { "type": "string", "minLength": 1 },
+    "server": {
+      "type": "object",
+      "required": ["host", "default_port", "routes"],
+      "additionalProperties": false,
+      "properties": {
+        "host": { "type": "string", "const": "127.0.0.1" },
+        "default_port": { "type": "integer", "minimum": 1024 },
+        "routes": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "input_runtime_path": { "type": "string", "minLength": 1 },
+    "output_session_path": { "type": "string", "minLength": 1 },
+    "preflight_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "post_export_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "operator_steps": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "stop_conditions": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}
