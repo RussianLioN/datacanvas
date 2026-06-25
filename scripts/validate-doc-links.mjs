@@ -98,8 +98,14 @@ function localLinks(markdown) {
 function assertInsideRepo(resolvedPath, sourcePath, rawTarget) {
   const realRoot = fs.realpathSync(root);
   const existingPath = fs.existsSync(resolvedPath) ? resolvedPath : path.dirname(resolvedPath);
-  const realTargetParent = fs.realpathSync(existingPath);
-  if (!realTargetParent.startsWith(realRoot)) {
+  let realTargetParent;
+  try {
+    realTargetParent = fs.realpathSync(existingPath);
+  } catch {
+    return;
+  }
+  const relativeToRoot = path.relative(realRoot, realTargetParent);
+  if (relativeToRoot.startsWith("..") || path.isAbsolute(relativeToRoot)) {
     fail(`${sourcePath}: link escapes repository boundary: ${rawTarget}`);
   }
 }

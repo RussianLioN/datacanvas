@@ -2082,7 +2082,7 @@
     {
       "artifact_id": "ART-417",
       "path": "scripts/validate-doc-links.mjs",
-      "sha256": "55c05fca7a8cd3978d1cff0cce48a895f6ee2c0c9ad6d13b610def46af0dec28"
+      "sha256": "56780f460b414a7ebcc6bdcbf5b5850d2ee0475eef2c5c0305d73167909d0245"
     },
     {
       "artifact_id": "ART-418",
