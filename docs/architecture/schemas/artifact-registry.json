@@ -2657,6 +2657,510 @@
       "owner_role": "Process Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W26-S62"
+    },
+    {
+      "id": "ART-332",
+      "path": "schemas/bmc-question-bank.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-333",
+      "path": "schemas/bmc-interview-answers.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-334",
+      "path": "schemas/bmc-user-evidence.schema.json",
+      "type": "schema",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-335",
+      "path": "schemas/bmc-interview-results.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-336",
+      "path": "schemas/bmc-trace.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-337",
+      "path": "schemas/bmc-derived-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-338",
+      "path": "docs/product/bmc/source-lock.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-339",
+      "path": "docs/product/bmc/source-excerpts.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-340",
+      "path": "docs/product/bmc/bmc-interview-question-bank.json",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-341",
+      "path": "docs/product/bmc/interviews/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-342",
+      "path": "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-343",
+      "path": "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+      "type": "evidence",
+      "owner_role": "Security/Privacy Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-344",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-345",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-346",
+      "path": "docs/product/bmc/interviews/2026-W26-evidence-requests.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-347",
+      "path": "docs/product/bmc/interviews/2026-W26-decision-log.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-348",
+      "path": "docs/product/bmc/interviews/2026-W26-open-questions.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-349",
+      "path": "docs/product/bmc/bmc-trace.v0.1.json",
+      "type": "trace",
+      "owner_role": "Data/Traceability Architect",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-350",
+      "path": "docs/product/bmc/bmc-derived-manifest.json",
+      "type": "evidence",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-351",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-352",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-353",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-354",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-355",
+      "path": "scripts/generate-bmc-artifacts.mjs",
+      "type": "automation",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-356",
+      "path": "scripts/validate-bmc-interview.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-357",
+      "path": "scripts/validate-bmc-trace.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-358",
+      "path": "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+      "type": "evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-359",
+      "path": "schemas/bmc-interview-runtime-state.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-360",
+      "path": "schemas/bmc-route-decisions.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-361",
+      "path": "docs/product/bmc/interview-runtime-protocol.md",
+      "type": "process",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-362",
+      "path": "docs/product/bmc/llm-router-policy.md",
+      "type": "policy",
+      "owner_role": "AI/Prompt Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-363",
+      "path": "docs/product/bmc/live-bmc-interview-user-guide.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-364",
+      "path": "docs/product/bmc/live-bmc-interview-operator-guide.md",
+      "type": "documentation",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-365",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+      "type": "runtime-state",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-366",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-transcript.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-367",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+      "type": "runtime-state",
+      "owner_role": "Product Owner",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-368",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-369",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+      "type": "trace",
+      "owner_role": "AI/Prompt Lead",
+      "status": "fixture",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-370",
+      "path": "scripts/validate-bmc-interview-runtime.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-371",
+      "path": "scripts/prepare-bmc-interview-artifacts.mjs",
+      "type": "automation",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-372",
+      "path": "scripts/validate-bmc-interview-replay.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-373",
+      "path": "scripts/validate-bmc-russian-language.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-374",
+      "path": "schemas/bmc-validation-needs.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-375",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-376",
+      "path": "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+      "type": "trace",
+      "owner_role": "AI/Prompt Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-377",
+      "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
+      "type": "plan",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-378",
+      "path": "schemas/bmc-visual-acceptance.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-379",
+      "path": "schemas/bmc-package-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Data/Traceability Architect",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-380",
+      "path": "docs/product/bmc/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-381",
+      "path": "docs/product/bmc/source-map.md",
+      "type": "trace",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-382",
+      "path": "docs/product/bmc/text-alternative.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-383",
+      "path": "docs/product/bmc/manifest.json",
+      "type": "evidence",
+      "owner_role": "Data/Traceability Architect",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-384",
+      "path": "docs/product/bmc/evidence/visual-review.md",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-385",
+      "path": "docs/product/bmc/evidence/designer-consilium.json",
+      "type": "evidence",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-386",
+      "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-387",
+      "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+      "type": "design",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-388",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "type": "rendered-artifact",
+      "owner_role": "Product Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-389",
+      "path": "scripts/validate-bmc-visual.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-390",
+      "path": "scripts/validate-bmc-render-parity.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-391",
+      "path": "scripts/validate-bmc-content-classic.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-392",
+      "path": "scripts/validate-bmc-package.mjs",
+      "type": "validation",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-393",
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
+    },
+    {
+      "id": "ART-394",
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "type": "evidence",
+      "owner_role": "QA/Evals Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26-S64"
     }
   ]
 }

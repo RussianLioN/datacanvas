@@ -46,6 +46,19 @@
       "owner_role": "Security/Privacy Lead"
     },
     {
+      "sprint_path": "docs/sprints/2026-W26-bmc-interview",
+      "sprint_id": "SPRINT-2026-W26-S64",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": [
+        "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+        "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+        "docs/architecture/security/data-leakage-manifest.json"
+      ],
+      "rationale": "BMC interview introduces controlled user evidence intake and unconfirmed claim handling; generated artifacts are added to leakage scan coverage.",
+      "owner_role": "Security/Privacy Lead"
+    },
+    {
       "sprint_path": "docs/sprints/2026-W26-contract-schemas",
       "sprint_id": "SPRINT-2026-W26-S23",
       "delta_status": "no_security_impact",

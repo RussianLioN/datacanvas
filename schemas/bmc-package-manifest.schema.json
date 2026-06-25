@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-package-manifest.schema.json",
+  "title": "BmcPackageManifest",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "generated_at",
+    "generated_by",
+    "canonical_visual_path",
+    "source_trace_path",
+    "source_trace_sha256",
+    "artifacts",
+    "validators"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["ready_for_user_acceptance"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "generated_by": { "type": "string", "minLength": 1 },
+    "canonical_visual_path": { "type": "string", "minLength": 1 },
+    "source_trace_path": { "type": "string", "minLength": 1 },
+    "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "artifacts": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["role", "format", "path", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "role": { "type": "string", "minLength": 1 },
+          "format": { "type": "string", "enum": ["markdown", "svg", "png", "pdf", "plantuml", "json"] },
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "width": { "type": "integer", "minimum": 1 },
+          "height": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

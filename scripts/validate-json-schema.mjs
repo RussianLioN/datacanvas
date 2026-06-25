@@ -156,6 +156,58 @@ const cases = [
     data: "docs/architecture/security/real-uat-leakage-guard.json",
   },
   {
+    schema: "schemas/bmc-question-bank.schema.json",
+    data: "docs/product/bmc/bmc-interview-question-bank.json",
+  },
+  {
+    schema: "schemas/bmc-interview-runtime-state.schema.json",
+    data: "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+  },
+  {
+    schema: "schemas/bmc-route-decisions.schema.json",
+    data: "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+  },
+  {
+    schema: "schemas/bmc-interview-runtime-state.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+  },
+  {
+    schema: "schemas/bmc-route-decisions.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+  },
+  {
+    schema: "schemas/bmc-interview-answers.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+  },
+  {
+    schema: "schemas/bmc-user-evidence.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+  },
+  {
+    schema: "schemas/bmc-interview-results.schema.json",
+    data: "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+  },
+  {
+    schema: "schemas/bmc-trace.schema.json",
+    data: "docs/product/bmc/bmc-trace.v0.1.json",
+  },
+  {
+    schema: "schemas/bmc-derived-manifest.schema.json",
+    data: "docs/product/bmc/bmc-derived-manifest.json",
+  },
+  {
+    schema: "schemas/bmc-package-manifest.schema.json",
+    data: "docs/product/bmc/manifest.json",
+  },
+  {
+    schema: "schemas/bmc-visual-acceptance.schema.json",
+    data: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+  },
+  {
+    schema: "schemas/bmc-validation-needs.schema.json",
+    data: "docs/product/bmc/bmc-validation-needs.json",
+  },
+  {
     schema: "schemas/risk-registry.schema.json",
     data: "docs/architecture/risks/risk-registry.json",
   },
@@ -482,6 +534,10 @@ const cases = [
   {
     schema: "schemas/sprint-evidence-manifest.schema.json",
     data: "docs/sprints/2026-W26-process-change-control-ledger/sprint-evidence-manifest.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
   },
   {
     schema: "schemas/artifact-registry.schema.json",

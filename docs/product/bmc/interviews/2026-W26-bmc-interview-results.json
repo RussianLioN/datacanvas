@@ -1,0 +1,72 @@
+{
+  "version": "0.1.0",
+  "status": "completed",
+  "interview_id": "BMC-INT-ACTIVE-2026-W26-001",
+  "session_kind": "real_user_interview",
+  "selected_mode": "light",
+  "selected_duration_minutes": 30,
+  "respondent_role": "Sergey",
+  "source_lock_path": "docs/product/bmc/source-lock.json",
+  "question_bank_path": "docs/product/bmc/bmc-interview-question-bank.json",
+  "answers_path": "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+  "user_evidence_path": "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+  "bmc_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
+  "summary": "B1-B9 записаны. Финальное решение: чистовой BMC и рендер не показывают статусы доверия; подтверждения, проверки и исследования вынесены в отдельный машиночитаемый сопровождающий документ. Вижн и истории покрывают продуктовый контур, структурированный вход, проверяемую презентацию, PresentationSpec, проверку человеком, доработку и зависимость от агента-источника. Сегменты КМ/CSM, каналы Лисы/A2A/MCP, Оркестратор, канал доставки результата, экономический эффект, шаблоны, модуль рендера, полный цикл повторной генерации и порядок издержек требуют дополнительных подтверждений.",
+  "covered_bmc_blocks": [
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "B6",
+    "B7",
+    "B8",
+    "B9"
+  ],
+  "confirmed_claim_ids": [],
+  "unconfirmed_claim_ids": [
+    "BMC-CLM-001",
+    "BMC-CLM-002",
+    "BMC-CLM-003",
+    "BMC-CLM-004",
+    "BMC-CLM-006",
+    "BMC-CLM-007",
+    "BMC-CLM-008"
+  ],
+  "assumption_claim_ids": [
+    "BMC-CLM-005",
+    "BMC-CLM-009"
+  ],
+  "contradicted_claim_ids": [],
+  "decisions": [
+    {
+      "decision_id": "BMC-DEC-001",
+      "status": "accepted",
+      "summary": "BMC interview is conducted as a one-question-at-a-time Codex chat runtime."
+    },
+    {
+      "decision_id": "BMC-DEC-002",
+      "status": "accepted",
+      "summary": "User answers without evidence keep related claims unconfirmed or assumption."
+    }
+  ],
+  "evidence_requests": [
+    "EVD-REQ-001",
+    "EVD-REQ-002",
+    "EVD-REQ-003",
+    "EVD-REQ-004",
+    "EVD-REQ-005",
+    "EVD-REQ-006",
+    "EVD-REQ-007",
+    "EVD-REQ-008",
+    "EVD-REQ-009"
+  ],
+  "top_hypotheses": [
+    "BMC-CLM-001: Текущие основные сегменты DataCanvas: КМ (Клиентский менеджер) и CSM (Customer Success Manager); перспективно - любой пользователь мессенджера Лиса.",
+    "BMC-CLM-002: Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию и снизить ручное копирование и верстку.",
+    "BMC-CLM-003: Точки входа DataCanvas: текстовый запрос в Лисе, выбранные сообщения, кнопка запуска, Оркестратор/A2A и прямой вызов сервисом или АС через A2A/MCP; результат возвращается в чате Лисы.",
+    "BMC-CLM-004: DataCanvas взаимодействует с пользователем через уточняющие вопросы, проверку описания до генерации, правки до и после результата и ручное подтверждение перед выдачей результата.",
+    "BMC-CLM-005: Первый проверяемый внутренний эффект DataCanvas: экономия времени КМ и снижение объема ручной работы."
+  ],
+  "next_safe_step": "Review missing evidence requests, then regenerate BMC artifacts."
+}

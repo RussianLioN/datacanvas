@@ -1,0 +1,371 @@
+{
+  "version": "0.1.0",
+  "status": "ready_for_interview",
+  "language": "ru",
+  "default_modes": [
+    {
+      "id": "light",
+      "duration_minutes": 30,
+      "description": "Все 9 BMC-блоков, три главные гипотезы, отсутствующие подтверждения."
+    },
+    {
+      "id": "standard",
+      "duration_minutes": 60,
+      "description": "Все 9 BMC-блоков, сегменты, ценность, запросы подтверждений, базовая экономика."
+    },
+    {
+      "id": "deep",
+      "duration_minutes": 90,
+      "description": "Все из стандартного режима, плюс альтернативы, экономика одной единицы результата, дорожная карта проверки."
+    }
+  ],
+  "questions": [
+    {
+      "question_id": "B1-Q01",
+      "bmc_block": "B1",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Кто является основным пользователем или выгодополучателем DataCanvas?",
+      "why_asked": "Разделить пользователя, владельца внедрения, проверяющего, спонсора и оператора.",
+      "answer_options": [
+        { "id": "B1-Q01-A", "label": "КМ (Клиентский менеджер)", "kind": "preset" },
+        { "id": "B1-Q01-B", "label": "CSM (менеджер сопровождения клиентов)", "kind": "preset" },
+        { "id": "B1-Q01-C", "label": "Любой пользователь мессенджера Лиса", "kind": "preset" },
+        { "id": "B1-Q01-D", "label": "Руководитель или получатель презентации", "kind": "preset" },
+        { "id": "B1-Q01-E", "label": "Проверяющий или утверждающий результат", "kind": "preset" },
+        { "id": "B1-Q01-F", "label": "Владелец процесса или спонсор", "kind": "preset" },
+        { "id": "B1-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B1-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B1-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли подтверждение сегмента: интервью, решение команды, задача из бэклога, метрика использования или другой источник?",
+      "question_type": "base",
+      "routing_triggers": ["not_started", "uncovered_block:B1"],
+      "max_depth": "fast",
+      "time_cost_level": "low",
+      "claim_targets": ["BMC-CLM-001"],
+      "follow_up_policy": "Задавать как первый обязательный вопрос BMC. КМ означает Клиентский менеджер; не перечислять их как разные сущности."
+    },
+    {
+      "question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какая главная ценность DataCanvas для выбранного сегмента?",
+      "why_asked": "Сформулировать ценностное предложение без неподтвержденных обобщений.",
+      "answer_options": [
+        { "id": "B2-Q01-A", "label": "Быстрее получить рабочую презентацию", "kind": "preset" },
+        { "id": "B2-Q01-B", "label": "Снизить ручное копирование и верстку", "kind": "preset" },
+        { "id": "B2-Q01-C", "label": "Проверить описание до генерации", "kind": "preset" },
+        { "id": "B2-Q01-D", "label": "Сохранить связь с источниками", "kind": "preset" },
+        { "id": "B2-Q01-E", "label": "Получить результат в чате Лисы", "kind": "preset" },
+        { "id": "B2-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B2-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B2-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли подтверждение ценности: текущий процесс, пример ручной работы, метрика времени, жалоба пользователя или решение команды?"
+    },
+    {
+      "question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Через какие каналы пользователь должен запускать и получать результат DataCanvas?",
+      "why_asked": "Разделить каналы запуска, статуса, проверки и доставки файла.",
+      "answer_options": [
+        { "id": "B3-Q01-A", "label": "Текстовый запрос в Лисе", "kind": "preset" },
+        { "id": "B3-Q01-B", "label": "Выбранные сообщения в Лисе", "kind": "preset" },
+        { "id": "B3-Q01-C", "label": "Кнопка Сделать презентацию", "kind": "preset" },
+        { "id": "B3-Q01-D", "label": "Запуск через Оркестратор", "kind": "preset" },
+        { "id": "B3-Q01-E", "label": "Доставка результата в чате Лисы", "kind": "preset" },
+        { "id": "B3-Q01-F", "label": "Прямой вызов сервисом или АС через A2A или MCP", "kind": "preset" },
+        { "id": "B3-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B3-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B3-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли подтверждение канала: задача из бэклога, решение по интерфейсу, интеграционный контракт или пользовательское наблюдение?"
+    },
+    {
+      "question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Как DataCanvas должен взаимодействовать с пользователем до и после генерации?",
+      "why_asked": "Зафиксировать способ взаимодействия с пользователем и точки ручного контроля.",
+      "answer_options": [
+        { "id": "B4-Q01-A", "label": "Уточняющие вопросы при нехватке данных", "kind": "preset" },
+        { "id": "B4-Q01-B", "label": "Проверка описания презентации до генерации", "kind": "preset" },
+        { "id": "B4-Q01-C", "label": "Правки до генерации", "kind": "preset" },
+        { "id": "B4-Q01-D", "label": "Правки после получения файла", "kind": "preset" },
+        { "id": "B4-Q01-E", "label": "Ручное подтверждение перед выдачей результата", "kind": "preset" },
+        { "id": "B4-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B4-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B4-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли подтверждение нужного уровня контроля: приемочные испытания, задача из бэклога, журнал решений или пример ошибки?"
+    },
+    {
+      "question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какую внутреннюю пользу или экономику нужно проверять первой?",
+      "why_asked": "Отделить измеримую пользу от предположений.",
+      "answer_options": [
+        { "id": "B5-Q01-A", "label": "Экономия времени КМ", "kind": "preset" },
+        { "id": "B5-Q01-B", "label": "Меньше ручной работы", "kind": "preset" },
+        { "id": "B5-Q01-C", "label": "Меньше ошибок в презентации", "kind": "preset" },
+        { "id": "B5-Q01-D", "label": "Выше доля пригодных презентаций", "kind": "preset" },
+        { "id": "B5-Q01-E", "label": "Ниже стоимость проверки результата", "kind": "preset" },
+        { "id": "B5-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B5-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B5-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли исходная метрика, оценка времени, пилотное наблюдение или финансовый ориентир?"
+    },
+    {
+      "question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какие ресурсы критичны для работы DataCanvas?",
+      "why_asked": "Зафиксировать ключевые ресурсы для реализации и проверки.",
+      "answer_options": [
+        { "id": "B6-Q01-A", "label": "Входной контекст", "kind": "preset" },
+        { "id": "B6-Q01-B", "label": "Трассировка к источникам", "kind": "preset" },
+        { "id": "B6-Q01-C", "label": "Описание презентации перед генерацией", "kind": "preset" },
+        { "id": "B6-Q01-D", "label": "Шаблоны презентаций", "kind": "preset" },
+        { "id": "B6-Q01-E", "label": "Модуль рендера, схемы и проверки качества", "kind": "preset" },
+        { "id": "B6-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B6-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B6-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли артефакт, схема, проверка или файл реализации, подтверждающий ресурс?"
+    },
+    {
+      "question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какие активности DataCanvas обязан выполнять в основном сценарии?",
+      "why_asked": "Связать BMC с бэклогом, пользовательским путем и обязательными проверками качества.",
+      "answer_options": [
+        { "id": "B7-Q01-A", "label": "Проверить достаточность входа", "kind": "preset" },
+        { "id": "B7-Q01-B", "label": "Задать уточняющие вопросы", "kind": "preset" },
+        { "id": "B7-Q01-C", "label": "Сформировать описание презентации", "kind": "preset" },
+        { "id": "B7-Q01-D", "label": "Принять правки", "kind": "preset" },
+        { "id": "B7-Q01-E", "label": "Сгенерировать и доставить файл", "kind": "preset" },
+        { "id": "B7-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B7-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B7-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли задача из бэклога, критерии приемки, существующий скрипт или проверка, подтверждающие активность?"
+    },
+    {
+      "question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Кто является ключевым партнером или зависимостью DataCanvas?",
+      "why_asked": "Зафиксировать внешние и внутренние зависимости, а также владельцев ответственности.",
+      "answer_options": [
+        { "id": "B8-Q01-A", "label": "Лиса", "kind": "preset" },
+        { "id": "B8-Q01-B", "label": "Оркестратор", "kind": "preset" },
+        { "id": "B8-Q01-C", "label": "Предшествующие агенты и инструменты", "kind": "preset" },
+        { "id": "B8-Q01-D", "label": "Источники предметных знаний", "kind": "preset" },
+        { "id": "B8-Q01-E", "label": "Канал доставки результата", "kind": "preset" },
+        { "id": "B8-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B8-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B8-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли владелец, контракт, интеграционная заметка или решение дорожной карты?"
+    },
+    {
+      "question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какие издержки или ограничения нужно учитывать первыми?",
+      "why_asked": "Отделить предположения о затратах от проверенных ограничений.",
+      "answer_options": [
+        { "id": "B9-Q01-A", "label": "Стоимость вызовов LLM", "kind": "preset" },
+        { "id": "B9-Q01-B", "label": "Стоимость рендера", "kind": "preset" },
+        { "id": "B9-Q01-C", "label": "Время проверки результата", "kind": "preset" },
+        { "id": "B9-Q01-D", "label": "Задержка ответа", "kind": "preset" },
+        { "id": "B9-Q01-E", "label": "Поддержка и сопровождение", "kind": "preset" },
+        { "id": "B9-Q01-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B9-Q01-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B9-Q01-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли базовая оценка стоимости, задержки, времени проверки или сопровождения?"
+    },
+    {
+      "question_id": "B1-Q02",
+      "bmc_block": "B1",
+      "depth_modes": ["standard", "deep"],
+      "question_text": "Кого нужно считать владельцем внедрения или спонсором, если основной пользователь не принимает решение о запуске?",
+      "why_asked": "Разделить пользователя, покупателя и владельца внедрения.",
+      "answer_options": [
+        { "id": "B1-Q02-A", "label": "Руководитель клиентского направления", "kind": "preset" },
+        { "id": "B1-Q02-B", "label": "Владелец процесса", "kind": "preset" },
+        { "id": "B1-Q02-C", "label": "Владелец Лисы или Оркестратора", "kind": "preset" },
+        { "id": "B1-Q02-D", "label": "Команда продаж или клиентского сервиса", "kind": "preset" },
+        { "id": "B1-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B1-Q02-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B1-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли решение, заметка спонсора или подтверждение владельца ответственности?",
+      "question_type": "follow_up",
+      "routing_triggers": ["custom_answer", "deep_mode", "segment_without_buyer"],
+      "max_depth": "deep",
+      "time_cost_level": "medium",
+      "claim_targets": ["BMC-CLM-001"],
+      "follow_up_policy": "Задавать после B1-Q01, если выбран сегмент пользователя, но не понятен владелец внедрения или спонсор."
+    },
+    {
+      "question_id": "B2-Q02",
+      "bmc_block": "B2",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Как точнее сформулировать ценность DataCanvas одним предложением?",
+      "why_asked": "Нормализовать свободный ответ или расплывчатое ценностное предложение.",
+      "answer_options": [
+        { "id": "B2-Q02-A", "label": "Из данных в проверяемую презентацию быстрее", "kind": "preset" },
+        { "id": "B2-Q02-B", "label": "Меньше ручной сборки и ошибок", "kind": "preset" },
+        { "id": "B2-Q02-C", "label": "Презентация с трассировкой к источникам", "kind": "preset" },
+        { "id": "B2-Q02-D", "label": "Контролируемая генерация через проверку", "kind": "preset" },
+        { "id": "B2-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B2-Q02-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B2-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли пример текущего процесса или подтвержденная формулировка проблемы?",
+      "question_type": "clarification",
+      "routing_triggers": ["custom_answer", "low_confidence", "ambiguous_value"],
+      "max_depth": "standard",
+      "time_cost_level": "low",
+      "claim_targets": ["BMC-CLM-002"],
+      "follow_up_policy": "Задавать, если ценностное предложение не может быть записано одним проверяемым утверждением."
+    },
+    {
+      "question_id": "B3-Q02",
+      "bmc_block": "B3",
+      "depth_modes": ["standard", "deep"],
+      "question_text": "Какое подтверждение может доказать выбранные каналы запуска и доставки?",
+      "why_asked": "Отделить желаемые каналы от подтвержденных интеграционных решений.",
+      "answer_options": [
+        { "id": "B3-Q02-A", "label": "Задача из бэклога", "kind": "preset" },
+        { "id": "B3-Q02-B", "label": "Интеграционный контракт", "kind": "preset" },
+        { "id": "B3-Q02-C", "label": "Решение по интерфейсу", "kind": "preset" },
+        { "id": "B3-Q02-D", "label": "Пилотное наблюдение", "kind": "preset" },
+        { "id": "B3-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B3-Q02-UNKNOWN", "label": "Подтверждения пока нет", "kind": "unknown" },
+        { "id": "B3-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Можно дать ссылку, путь к артефакту или безопасную цитату.",
+      "question_type": "evidence_request",
+      "routing_triggers": ["no_evidence", "channel_claim", "deferred_evidence"],
+      "max_depth": "standard",
+      "time_cost_level": "low",
+      "claim_targets": ["BMC-CLM-003"],
+      "follow_up_policy": "Задавать, если B3 выбран, но подтверждение отсутствует или отложено."
+    },
+    {
+      "question_id": "B4-Q02",
+      "bmc_block": "B4",
+      "depth_modes": ["standard", "deep"],
+      "question_text": "Если скорость генерации конфликтует с ручным подтверждением, что важнее для первой версии продукта?",
+      "why_asked": "Разрешить противоречие между скоростью и контролем качества.",
+      "answer_options": [
+        { "id": "B4-Q02-A", "label": "Ручное подтверждение обязательно", "kind": "preset" },
+        { "id": "B4-Q02-B", "label": "Подтверждение нужно только для рискованных случаев", "kind": "preset" },
+        { "id": "B4-Q02-C", "label": "Скорость важнее, проверка после генерации", "kind": "preset" },
+        { "id": "B4-Q02-D", "label": "Нужен режим по настройке команды", "kind": "preset" },
+        { "id": "B4-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B4-Q02-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B4-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли подтверждение приемочных испытаний, пример ошибки или продуктовое решение?",
+      "question_type": "contradiction_resolution",
+      "routing_triggers": ["contradiction", "speed_vs_control", "human_review_unclear"],
+      "max_depth": "deep",
+      "time_cost_level": "medium",
+      "claim_targets": ["BMC-CLM-004"],
+      "follow_up_policy": "Задавать, если ответы одновременно требуют минимальной задержки и обязательной проверки."
+    },
+    {
+      "question_id": "B5-Q02",
+      "bmc_block": "B5",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Какую гипотезу ценности нужно проверить первой?",
+      "why_asked": "Выбрать главную гипотезу для проверки после BMC.",
+      "answer_options": [
+        { "id": "B5-Q02-A", "label": "Экономия времени на одну презентацию", "kind": "preset" },
+        { "id": "B5-Q02-B", "label": "Снижение числа ошибок", "kind": "preset" },
+        { "id": "B5-Q02-C", "label": "Рост доли пригодных презентаций", "kind": "preset" },
+        { "id": "B5-Q02-D", "label": "Снижение усилий на проверку", "kind": "preset" },
+        { "id": "B5-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B5-Q02-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B5-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли базовый показатель или способ быстро измерить эту гипотезу?",
+      "question_type": "hypothesis_prioritization",
+      "routing_triggers": ["assumption", "low_confidence", "closing_near"],
+      "max_depth": "standard",
+      "time_cost_level": "low",
+      "claim_targets": ["BMC-CLM-005"],
+      "follow_up_policy": "Задавать перед завершением, если много неподтвержденных ценностных утверждений."
+    },
+    {
+      "question_id": "B5-Q03",
+      "bmc_block": "B5",
+      "depth_modes": ["deep"],
+      "question_text": "Как проверить выбранную гипотезу ценности в ближайшем пилоте?",
+      "why_asked": "Связать BMC с дорожной картой проверки.",
+      "answer_options": [
+        { "id": "B5-Q03-A", "label": "Измерить время ручной сборки и генерации", "kind": "preset" },
+        { "id": "B5-Q03-B", "label": "Сравнить ошибки до и после", "kind": "preset" },
+        { "id": "B5-Q03-C", "label": "Измерить долю принятых результатов", "kind": "preset" },
+        { "id": "B5-Q03-D", "label": "Провести проверку с КМ", "kind": "preset" },
+        { "id": "B5-Q03-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B5-Q03-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B5-Q03-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли пилотный сценарий или владелец измерения?",
+      "question_type": "validation_planning",
+      "routing_triggers": ["deep_mode", "hypothesis_selected", "pilot_needed"],
+      "max_depth": "deep",
+      "time_cost_level": "high",
+      "claim_targets": ["BMC-CLM-005"],
+      "follow_up_policy": "Задавать только в глубоком режиме или при подготовке дорожной карты."
+    },
+    {
+      "question_id": "B9-Q02",
+      "bmc_block": "B9",
+      "depth_modes": ["light", "standard", "deep"],
+      "question_text": "Можно ли сохранить BMC как черновик с текущими неподтвержденными утверждениями?",
+      "why_asked": "Получить финальное подтверждение без превращения гипотез в факты.",
+      "answer_options": [
+        { "id": "B9-Q02-A", "label": "Да, сохранить как черновик", "kind": "preset" },
+        { "id": "B9-Q02-B", "label": "Да, но добавить запросы подтверждений", "kind": "preset" },
+        { "id": "B9-Q02-C", "label": "Нет, нужно уточнить один блок", "kind": "preset" },
+        { "id": "B9-Q02-D", "label": "Нет, остановить как незавершенное интервью", "kind": "preset" },
+        { "id": "B9-Q02-CUSTOM", "label": "Свой вариант", "kind": "custom" },
+        { "id": "B9-Q02-UNKNOWN", "label": "Не знаю", "kind": "unknown" },
+        { "id": "B9-Q02-SKIP", "label": "Пропустить", "kind": "skip" }
+      ],
+      "custom_answer_allowed": true,
+      "evidence_prompt": "Есть ли финальное подтверждение, какие утверждения оставить неподтвержденными?",
+      "question_type": "closing_confirmation",
+      "routing_triggers": ["all_blocks_covered", "ready_for_confirmation", "closing"],
+      "max_depth": "fast",
+      "time_cost_level": "low",
+      "claim_targets": ["BMC-CLM-009"],
+      "follow_up_policy": "Задавать после покрытия всех обязательных BMC-блоков."
+    }
+  ]
+}

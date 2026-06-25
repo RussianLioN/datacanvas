@@ -11,11 +11,11 @@
     "docs/process/current/process-change-ledger.json"
   ],
   "counts": {
-    "sprint_folders": 64,
-    "sprint_evidence_manifests": 64,
-    "artifact_registry_entries": 331,
+    "sprint_folders": 65,
+    "sprint_evidence_manifests": 65,
+    "artifact_registry_entries": 394,
     "accepted_process_changes": 2,
-    "passed_evidence_checks": 491,
+    "passed_evidence_checks": 506,
     "pending_evidence_checks": 0,
     "quality_gates_passed": 6,
     "quality_gates_pending_external": 0,
@@ -25,7 +25,7 @@
     {
       "id": "DPM-001",
       "name": "Sprint evidence coverage",
-      "value": "64/64",
+      "value": "65/65",
       "calculation": "sprint_evidence_manifests / sprint_folders",
       "evidence_paths": [
         "docs/sprints"
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "331",
+      "value": "394",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"
@@ -52,13 +52,14 @@
     {
       "id": "DPM-004",
       "name": "Evidence check pass ratio",
-      "value": "491/491",
+      "value": "506/506",
       "calculation": "passed sprint evidence checks / all sprint evidence checks",
       "evidence_paths": [
         "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-artifact-registry-hash-linkage/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-artifact-registry-validator/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-backlog-registry/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-commit-pr-evidence-template/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-contract-schemas/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-data-leakage-gate/sprint-evidence-manifest.json",

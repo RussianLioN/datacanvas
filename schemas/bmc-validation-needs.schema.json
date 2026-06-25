@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-validation-needs.schema.json",
+  "title": "BmcValidationNeeds",
+  "type": "object",
+  "required": ["version", "status", "source_trace_path", "generated_at", "summary", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["generated"] },
+    "source_trace_path": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "summary": {
+      "type": "object",
+      "required": ["total_items", "items_requiring_action", "evidence_request_ids", "open_question_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "total_items": { "type": "integer", "minimum": 0 },
+        "items_requiring_action": { "type": "integer", "minimum": 0 },
+        "evidence_request_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^EVD-REQ-\\d{3}$" }
+        },
+        "open_question_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^BMC-OQ-\\d{3}$" }
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "item_id",
+          "block",
+          "block_title",
+          "statement",
+          "validation_need",
+          "current_status",
+          "confidence",
+          "required_action",
+          "linked_answer_ids",
+          "evidence_ids",
+          "source_refs",
+          "owner_role"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "item_id": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" },
+          "block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
+          "block_title": { "type": "string", "minLength": 1 },
+          "statement": { "type": "string", "minLength": 1 },
+          "validation_need": { "type": "string", "enum": ["confirmation", "verification", "research", "investigation"] },
+          "current_status": {
+            "type": "string",
+            "enum": ["unconfirmed", "assumption", "unsupported", "contradicted", "deprecated"]
+          },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+          "required_action": { "type": "string", "minLength": 1 },
+          "linked_answer_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^ANS-\\d{3}$" }
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EVD-" }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "owner_role": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

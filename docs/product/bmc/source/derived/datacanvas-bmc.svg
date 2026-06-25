@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-role="bmc-root" role="img" width="3840" height="2160" viewBox="0 0 3840 2160">
+<title>DataCanvas Business Model Canvas</title>
+<desc>Классическая канва бизнес-модели DataCanvas: верхний ряд B8, B7/B6, B2, B4/B3, B1; нижний ряд B9 и B5.</desc>
+<rect data-role="bmc-background" width="3840" height="2160" fill="#f8fafc"/>
+<rect x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>
+<text data-role="bmc-title" x="174" y="158" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="820" fill="#111827">DataCanvas Business Model Canvas</text>
+<text data-role="bmc-subtitle" x="174" y="216" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="420" fill="#526174">Классическая структура: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5</text>
+<g data-role="bmc-top-row">
+<g data-role="bmc-block" data-block="B8" data-layout-slot="top-left" transform="translate(174 280)">
+<rect width="640" height="1120" rx="8" fill="#e8f2ed" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#047857" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#047857">B8</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="760" fill="#111827"><tspan x="34" y="122">Партнеры</tspan></text>
+<line x1="34" y1="182" x2="606" y2="182" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="400" fill="#26313f"><tspan x="42" y="238">Ключевые партнеры и зависимости:</tspan><tspan x="42" y="277">Лиса, Оркестратор, предшествующие</tspan><tspan x="42" y="316">агенты, поставщики данных,</tspan><tspan x="42" y="355">автоматизированные системы, A2A/MCP</tspan><tspan x="42" y="394">gateway, владельцы шаблонов и</tspan><tspan x="42" y="433">renderer/tooling.</tspan><tspan x="42" y="472">• Лиса и Оркестратор</tspan><tspan x="42" y="511">• Предшествующие агенты</tspan><tspan x="42" y="550">• Поставщики данных и АС</tspan><tspan x="42" y="589">• A2A/MCP gateway</tspan><tspan x="42" y="628">• Владельцы шаблонов и renderer</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B7" data-layout-slot="top-split-upper" transform="translate(842 280)">
+<rect width="640" height="546" rx="8" fill="#edf7f4" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#0f766e" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B7</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Активности</tspan></text>
+<line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Проверка достаточности входа</tspan><tspan x="42" y="259">• Уточнение данных</tspan><tspan x="42" y="296">• Описание и правки</tspan><tspan x="42" y="333">• Генерация и доставка</tspan><tspan x="42" y="370">• Повторный цикл по замечаниям</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B6" data-layout-slot="top-split-lower" transform="translate(842 854)">
+<rect width="640" height="546" rx="8" fill="#f4fbf9" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#0f766e" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B6</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Ресурсы</tspan></text>
+<line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Входной контекст</tspan><tspan x="42" y="259">• Описание и PresentationSpec</tspan><tspan x="42" y="296">• Шаблоны презентаций</tspan><tspan x="42" y="333">• Renderer и quality gates</tspan><tspan x="42" y="370">• Интеграции Лисы/A2A/MCP</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B2" data-layout-slot="top-center" transform="translate(1510 280)">
+<rect width="820" height="1120" rx="8" fill="#fff4cc" stroke="#243447" stroke-width="3"/>
+<rect width="820" height="16" rx="8" fill="#b45309" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#b45309">B2</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="760" fill="#111827"><tspan x="34" y="122">Ценность</tspan></text>
+<line x1="34" y1="182" x2="786" y2="182" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="400" fill="#26313f"><tspan x="42" y="238">DataCanvas сокращает путь от подготовленных</tspan><tspan x="42" y="277">данных до рабочей краткой презентации: уточняет</tspan><tspan x="42" y="316">недостающее, согласует описание, генерирует файл</tspan><tspan x="42" y="355">и поддерживает повторный цикл правок.</tspan><tspan x="42" y="394">• Быстрая рабочая презентация</tspan><tspan x="42" y="433">• Меньше копирования и ручной верстки</tspan><tspan x="42" y="472">• Согласование описания до генерации</tspan><tspan x="42" y="511">• Проверяемая итерация после замечаний</tspan><tspan x="42" y="550">• Единый путь от данных к файлу</tspan><tspan x="42" y="589">- Пользователь получает рабочую презентацию</tspan><tspan x="42" y="628">быстрее, чем при ручном переносе данных и</tspan><tspan x="42" y="667">самостоятельной верстке.</tspan><tspan x="42" y="706">- Перед генерацией DataCanvas формирует описание</tspan><tspan x="42" y="745">результата и принимает правки, чтобы снизить</tspan><tspan x="42" y="784">риск неверной презентации.</tspan><tspan x="42" y="823">- После доставки файла поддерживается цикл</tspan><tspan x="42" y="862">замечаний, уточнения входных данных, изменения</tspan><tspan x="42" y="901">описания и повторной генерации.</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B4" data-layout-slot="top-split-upper" transform="translate(2358 280)">
+<rect width="640" height="546" rx="8" fill="#eaf0fa" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#2563eb" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#2563eb">B4</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Отношения</tspan></text>
+<line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Уточняющее интервью</tspan><tspan x="42" y="259">• Human-in-the-loop</tspan><tspan x="42" y="296">• Подтверждение описания</tspan><tspan x="42" y="333">• Прием правок</tspan><tspan x="42" y="370">• Repair loop после доставки</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B3" data-layout-slot="top-split-lower" transform="translate(2358 854)">
+<rect width="640" height="546" rx="8" fill="#f2f6fd" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#2563eb" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#2563eb">B3</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Каналы</tspan></text>
+<line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Чат Лисы</tspan><tspan x="42" y="259">• Выбранные сообщения</tspan><tspan x="42" y="296">• Кнопка запуска</tspan><tspan x="42" y="333">• Оркестратор и A2A</tspan><tspan x="42" y="370">• Прямой MCP/A2A-вызов</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B1" data-layout-slot="top-right" transform="translate(3026 280)">
+<rect width="640" height="1120" rx="8" fill="#e9eff9" stroke="#243447" stroke-width="3"/>
+<rect width="640" height="16" rx="8" fill="#1d4ed8" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#1d4ed8">B1</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="760" fill="#111827"><tspan x="34" y="122">Сегменты</tspan></text>
+<line x1="34" y1="182" x2="606" y2="182" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="400" fill="#26313f"><tspan x="42" y="238">КМ и CSM являются первыми рабочими</tspan><tspan x="42" y="277">сегментами DataCanvas; перспективный</tspan><tspan x="42" y="316">контур расширяется до пользователей</tspan><tspan x="42" y="355">Лисы, которым нужно быстро собрать</tspan><tspan x="42" y="394">презентацию из уже подготовленных</tspan><tspan x="42" y="433">данных.</tspan><tspan x="42" y="472">• КМ и CSM как первый контур</tspan><tspan x="42" y="511">• Пользователи Лисы как расширение</tspan><tspan x="42" y="550">• Выгодополучатели выделяются</tspan><tspan x="42" y="589">отдельно</tspan><tspan x="42" y="628">• Спонсоры требуют отдельного</tspan><tspan x="42" y="667">подтверждения</tspan></text>
+</g>
+</g>
+<g data-role="bmc-bottom-row">
+<g data-role="bmc-block" data-block="B9" data-layout-slot="bottom-left" data-extra-role="bmc-cost-row" transform="translate(174 1490)">
+<rect width="1732" height="500" rx="8" fill="#f7e9e2" stroke="#243447" stroke-width="3"/>
+<rect width="1732" height="16" rx="8" fill="#c2410c" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#c2410c">B9</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Затраты</tspan></text>
+<line x1="34" y1="172" x2="1698" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">Структура затрат включает LLM-вызовы, renderer, human review, задержку, сопровождение, интеграции, шаблоны,</tspan><tspan x="42" y="259">эксплуатацию и обработку инцидентов.</tspan><tspan x="42" y="296">• LLM-вызовы и задержка</tspan><tspan x="42" y="333">• Renderer и шаблоны</tspan><tspan x="42" y="370">• Human review</tspan><tspan x="42" y="407">• Интеграции и сопровождение</tspan><tspan x="42" y="444">• Эксплуатация и инциденты</tspan></text>
+</g>
+<g data-role="bmc-block" data-block="B5" data-layout-slot="bottom-right" data-extra-role="bmc-value-stream-row" transform="translate(1934 1490)">
+<rect width="1732" height="500" rx="8" fill="#f8ede5" stroke="#243447" stroke-width="3"/>
+<rect width="1732" height="16" rx="8" fill="#9a3412" opacity="0.95"/>
+<text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#9a3412">B5</text>
+<text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Внутренняя польза</tspan></text>
+<line x1="34" y1="172" x2="1698" y2="172" stroke="#cbd5e1" stroke-width="2"/>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">Для внутреннего продукта блок B5 трактуется как поток пользы: экономия времени, снижение ручной работы, повторное</tspan><tspan x="42" y="259">использование шаблонов и измеримый эффект для владельца бюджета.</tspan><tspan x="42" y="296">• Экономия времени</tspan><tspan x="42" y="333">• Снижение ручной работы</tspan><tspan x="42" y="370">• Повторное использование шаблонов</tspan><tspan x="42" y="407">• Метрики принятого результата</tspan><tspan x="42" y="444">• Бюджетный владелец уточняется отдельно</tspan></text>
+</g>
+</g>
+<text data-role="bmc-footer" x="174" y="2054" font-family="Inter, Arial, sans-serif" font-size="24" fill="#64748b">SVG является каноническим визуальным источником; PNG и PDF генерируются из него.</text>
+</svg>

@@ -14,10 +14,16 @@ jobs:
         with:
           node-version: "24"
           cache: npm
+      - name: Install render tools
+        run: sudo apt-get update && sudo apt-get install -y librsvg2-bin
       - name: Install dependencies
         run: npm ci
       - name: Generate deterministic golden artifacts
         run: npm run generate:golden
+      - name: Generate BMC visual package
+        run: npm run generate:bmc
+      - name: Check deterministic BMC generation
+        run: npm run generate:bmc -- --check
       - name: Scan secrets
         run: npm run scan:secrets
       - name: Check required bootstrap artifacts
@@ -62,6 +68,16 @@ jobs:
         run: npm run validate:provider-evals
       - name: Check provider scorer
         run: npm run validate:provider-scorer
+      - name: Check BMC contract
+        run: npm run validate:bmc
+      - name: Check BMC visual contract
+        run: npm run validate:bmc-visual
+      - name: Check BMC render parity
+        run: npm run validate:bmc-render-parity
+      - name: Check BMC package
+        run: npm run validate:bmc-package
+      - name: Check generated artifacts are committed
+        run: git diff --exit-code
       - name: Check artifact registry
         run: npm run validate:artifact-registry
       - name: Check artifact hashes

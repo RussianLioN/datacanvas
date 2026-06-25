@@ -6,10 +6,10 @@
 
 | Метрика | Значение | Расчет |
 |---|---:|---|
-| Sprint evidence coverage | 64/64 | sprint_evidence_manifests / sprint_folders |
-| Artifact registry size | 331 | count(artifact_registry.artifacts) |
+| Sprint evidence coverage | 65/65 | sprint_evidence_manifests / sprint_folders |
+| Artifact registry size | 394 | count(artifact_registry.artifacts) |
 | Accepted process changes | 2 | count(process_change_ledger.entries where status == accepted) |
-| Evidence check pass ratio | 491/491 | passed sprint evidence checks / all sprint evidence checks |
+| Evidence check pass ratio | 506/506 | passed sprint evidence checks / all sprint evidence checks |
 | External gate backlog | 0 | count(process quality gates where status == pending_external) |
 | Process event log entries | 0 | count(process_event_log.events) |
 
@@ -17,11 +17,11 @@
 
 | Count | Value |
 |---|---:|
-| Sprint folders | 64 |
-| Sprint evidence manifests | 64 |
-| Artifact registry entries | 331 |
+| Sprint folders | 65 |
+| Sprint evidence manifests | 65 |
+| Artifact registry entries | 394 |
 | Accepted process changes | 2 |
-| Passed evidence checks | 491 |
+| Passed evidence checks | 506 |
 | Pending evidence checks | 0 |
 | Quality gates passed | 6 |
 | Quality gates pending external | 0 |

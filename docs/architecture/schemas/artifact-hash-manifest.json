@@ -382,7 +382,7 @@
     {
       "artifact_id": "ART-076",
       "path": "docs/process/versions/0.1.0/process-version-manifest.json",
-      "sha256": "e2432cc38bb7ccb897aa0a5f2594df6b9ea922c1e846ff558a79fed4c5466441"
+      "sha256": "e6d55c7663366cbab4cbccc76d7184dde7aa45b255e8a663b636c7c4e96a0f8a"
     },
     {
       "artifact_id": "ART-077",
@@ -907,7 +907,7 @@
     {
       "artifact_id": "ART-182",
       "path": "docs/architecture/security/threat-model-delta-manifest.json",
-      "sha256": "cd1dab33285314c81fea217c30dc106ea398ddf6f581d6eb9971820a4904c8e1"
+      "sha256": "992a916f6c23aa0fb5ed645967384a37e605ef803f25f423421581d0e0b3eacf"
     },
     {
       "artifact_id": "ART-183",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "83721d1e2d722eda93071e2681f76b3a850e5ea467970acf68a32202e53ef190"
+      "sha256": "aebedf80234759f9d00561a61a6246408bef976d68a63329a90cabdf4b49aa33"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "088c38a170d1fbe78092548e3c9847f2f3ae55bcb1582655637daa5b3daa5d64"
+      "sha256": "360a1fd4efb0020fa0fb7ca311633120a7e979bd431443ea91a2775627fa14b1"
     },
     {
       "artifact_id": "ART-201",
@@ -1067,7 +1067,7 @@
     {
       "artifact_id": "ART-214",
       "path": "docs/architecture/security/data-leakage-manifest.json",
-      "sha256": "127c805edcc1abf92262dbe324d4b583414da02a8f210e4c185e0dd89a295c73"
+      "sha256": "555915fcdc1fe1e8fccab41f897eb2a39f4f1fe3c083a93eddbde6fb51eaa007"
     },
     {
       "artifact_id": "ART-215",
@@ -1653,6 +1653,321 @@
       "artifact_id": "ART-331",
       "path": "docs/release/pilot-process-portability-notes.md",
       "sha256": "92a15a71df669fafd2aa166d37334967c3ff8e10cba3c3ccdb7160016653c3e1"
+    },
+    {
+      "artifact_id": "ART-332",
+      "path": "schemas/bmc-question-bank.schema.json",
+      "sha256": "f65929e4189acdab4a009f77a9a1d9f40c816ee9c411caaed3e14143b1ff9b7d"
+    },
+    {
+      "artifact_id": "ART-333",
+      "path": "schemas/bmc-interview-answers.schema.json",
+      "sha256": "805724a565f80ccd73064a7edf0c5f07055eb2411567a17a506927fd0999a9fb"
+    },
+    {
+      "artifact_id": "ART-334",
+      "path": "schemas/bmc-user-evidence.schema.json",
+      "sha256": "4982b0498b07cfa85a1fd6f6ccf5610ec53291ce02003173ce6c51ca66362cdc"
+    },
+    {
+      "artifact_id": "ART-335",
+      "path": "schemas/bmc-interview-results.schema.json",
+      "sha256": "bd55e19d2b4b5c60db64e4673b290000878a03b256c991f86d7be5bff924a412"
+    },
+    {
+      "artifact_id": "ART-336",
+      "path": "schemas/bmc-trace.schema.json",
+      "sha256": "7b6d68b9ebce0355bdc2f6bf34a6082ca3adadeab03fa97c440da41508be1119"
+    },
+    {
+      "artifact_id": "ART-337",
+      "path": "schemas/bmc-derived-manifest.schema.json",
+      "sha256": "cca2560408fbe84094776698add602869004dbebb2eeb22f78b71f670fe23705"
+    },
+    {
+      "artifact_id": "ART-338",
+      "path": "docs/product/bmc/source-lock.json",
+      "sha256": "20cd8a55580e0f3962ff3e7f3a54d83167fc196ab531a0d6b3cea2eda768e4f4"
+    },
+    {
+      "artifact_id": "ART-339",
+      "path": "docs/product/bmc/source-excerpts.md",
+      "sha256": "146c5b41607bd3b74cf239a108ff7f9ae9b3220c9613a350a1c46412e4faf9f2"
+    },
+    {
+      "artifact_id": "ART-340",
+      "path": "docs/product/bmc/bmc-interview-question-bank.json",
+      "sha256": "5160155f425038ea7ac145eb7f029f0fc9ccf7d1f3cdc58a6e0f489e0fcf2d6b"
+    },
+    {
+      "artifact_id": "ART-341",
+      "path": "docs/product/bmc/interviews/README.md",
+      "sha256": "1fe7412ccc4d794811cee1d33f98b57ea407356d440e69c6075beb0cb2479ea0"
+    },
+    {
+      "artifact_id": "ART-342",
+      "path": "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+      "sha256": "7268f0556910a910b8bce20de91b3c6a8c2231c3651aecaf7cb99b3c86989301"
+    },
+    {
+      "artifact_id": "ART-343",
+      "path": "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+      "sha256": "8fb5a12ed7bac799f6187c20759a652b52e59803da2c458f97e242e99707d3bc"
+    },
+    {
+      "artifact_id": "ART-344",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+      "sha256": "1c3c55e4ab640038b5f690a460bdc07cda42449b5c9213ba31e685fcdd162687"
+    },
+    {
+      "artifact_id": "ART-345",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.md",
+      "sha256": "be1689995cd8ec42710bec433a36830b9e878b2e509a0d8708e89688c8a6327e"
+    },
+    {
+      "artifact_id": "ART-346",
+      "path": "docs/product/bmc/interviews/2026-W26-evidence-requests.md",
+      "sha256": "aa19c1cb3ccd5503d5e0ece85303aeee1c68b48af1e78751530c463a1d87658f"
+    },
+    {
+      "artifact_id": "ART-347",
+      "path": "docs/product/bmc/interviews/2026-W26-decision-log.md",
+      "sha256": "23f9eabbe1d570b8bcbb308b535a17311f226daefdc08bcb2d8b996778f5df5a"
+    },
+    {
+      "artifact_id": "ART-348",
+      "path": "docs/product/bmc/interviews/2026-W26-open-questions.md",
+      "sha256": "c821ea7dde267f5b13faa1920642a666b2d15e30df5e20352962d255884db949"
+    },
+    {
+      "artifact_id": "ART-349",
+      "path": "docs/product/bmc/bmc-trace.v0.1.json",
+      "sha256": "e0c1496b7a0896e9caa603ba2f20c3e88851f1ef81b32f943e4ff854f45e8e6e"
+    },
+    {
+      "artifact_id": "ART-350",
+      "path": "docs/product/bmc/bmc-derived-manifest.json",
+      "sha256": "30a3789c02733c4edc02856751547f0494d017b6b7403696ff8e2b48d603ed87"
+    },
+    {
+      "artifact_id": "ART-351",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+    },
+    {
+      "artifact_id": "ART-352",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+    },
+    {
+      "artifact_id": "ART-353",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
+    },
+    {
+      "artifact_id": "ART-354",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+    },
+    {
+      "artifact_id": "ART-355",
+      "path": "scripts/generate-bmc-artifacts.mjs",
+      "sha256": "3f2aaef9949f680fd0501d29ac4a29c0ea21d302fc32088de0c30a3ced94d57e"
+    },
+    {
+      "artifact_id": "ART-356",
+      "path": "scripts/validate-bmc-interview.mjs",
+      "sha256": "661b3ef98d95b59663ef07dacea288c3f8a9c2d4ef83fcba22b78593d10c3037"
+    },
+    {
+      "artifact_id": "ART-357",
+      "path": "scripts/validate-bmc-trace.mjs",
+      "sha256": "36cce25244b7f8a6cb2c52f0c9c96a0682e154ce7018cba3e75c6574de91b148"
+    },
+    {
+      "artifact_id": "ART-358",
+      "path": "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+      "sha256": "efd69f5683bc7eae4d1f84f0ae2aae54e205cb17f02c4d7f5eb2188510e775d6"
+    },
+    {
+      "artifact_id": "ART-359",
+      "path": "schemas/bmc-interview-runtime-state.schema.json",
+      "sha256": "77be2d5738926c1b015cee1cd20f75187e330734b560bfaec3bc7fec92b3cdaa"
+    },
+    {
+      "artifact_id": "ART-360",
+      "path": "schemas/bmc-route-decisions.schema.json",
+      "sha256": "0ef339b61b55f30910148a28736a6119910908538e243c4ed5016594371e99fd"
+    },
+    {
+      "artifact_id": "ART-361",
+      "path": "docs/product/bmc/interview-runtime-protocol.md",
+      "sha256": "20f4addcb5d49e952feea70a476b826b47786a00e253aaa021e901a78897bb59"
+    },
+    {
+      "artifact_id": "ART-362",
+      "path": "docs/product/bmc/llm-router-policy.md",
+      "sha256": "0ae06e5c0eb28fe6337ec71226d378a5258a7ec2905b4ddc5a9f60e325f21594"
+    },
+    {
+      "artifact_id": "ART-363",
+      "path": "docs/product/bmc/live-bmc-interview-user-guide.md",
+      "sha256": "22ceebdec7f9b2d8205d0e478949b2a3c920c3289537a48b9c48926a45c52e38"
+    },
+    {
+      "artifact_id": "ART-364",
+      "path": "docs/product/bmc/live-bmc-interview-operator-guide.md",
+      "sha256": "f0e052a57c35727714aae6c38dc9b4010975b616e0805f307bb66cbba16d1e8a"
+    },
+    {
+      "artifact_id": "ART-365",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+      "sha256": "28db5c0b009f946c51a2b14534481be84b13a78ff4e3f32787ce2069e4cd11ec"
+    },
+    {
+      "artifact_id": "ART-366",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-transcript.md",
+      "sha256": "082410d41c51f0dee924f624e55aa2a719d4b2f986ba5540e2101e9e5d07f9a9"
+    },
+    {
+      "artifact_id": "ART-367",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+      "sha256": "fc2615655feb1557f559d501a84aa486f654a44ae364ed8cd96a3a155f9758fe"
+    },
+    {
+      "artifact_id": "ART-368",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+      "sha256": "fc045ddde9c4ace6d63c49c52f98e34470ea81850bdbd1f37181d43703ff0e5c"
+    },
+    {
+      "artifact_id": "ART-369",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+      "sha256": "bdf01a220ad5b070617474b68b35547e7c634bd7911900f56bf7765aecab5074"
+    },
+    {
+      "artifact_id": "ART-370",
+      "path": "scripts/validate-bmc-interview-runtime.mjs",
+      "sha256": "0bc3b1bbfaf363e4d36e28d702217a4189fc4dc4ddb8d6b6b4492e3048f8594c"
+    },
+    {
+      "artifact_id": "ART-371",
+      "path": "scripts/prepare-bmc-interview-artifacts.mjs",
+      "sha256": "c7d4a5abe85d152297b2bd727b275935e99452a9d9494469ab94f38643ec1186"
+    },
+    {
+      "artifact_id": "ART-372",
+      "path": "scripts/validate-bmc-interview-replay.mjs",
+      "sha256": "b104445484929d797b71adce30b669ff0dba8afac8b07f7543df3acd751995fc"
+    },
+    {
+      "artifact_id": "ART-373",
+      "path": "scripts/validate-bmc-russian-language.mjs",
+      "sha256": "624958bd5379a60bf31b1e47e71af5dfad6ab6d11ee1fb8917e96a5f49bf04aa"
+    },
+    {
+      "artifact_id": "ART-374",
+      "path": "schemas/bmc-validation-needs.schema.json",
+      "sha256": "a2b876b905cf8c0d5db5098195608085046f880dc6b75a13ab6cc5d4d570579c"
+    },
+    {
+      "artifact_id": "ART-375",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "sha256": "8e64110bc272fef1d9b70ed714e240aa8069b152ffb8d5ec66497da1f5424ec6"
+    },
+    {
+      "artifact_id": "ART-376",
+      "path": "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+      "sha256": "803f7c76bbb0fa8f1e14e8c8eb805e7b83f20968d6697750ae25f7caa1f53c12"
+    },
+    {
+      "artifact_id": "ART-377",
+      "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
+      "sha256": "c63012e48f9519ad59a5a7d4fcb2e3c481588018375938c6a4170175a6c3922a"
+    },
+    {
+      "artifact_id": "ART-378",
+      "path": "schemas/bmc-visual-acceptance.schema.json",
+      "sha256": "26b67af226abdcfb9ef2d67ac8054794bd364f5d095ac0d528cea9a047ce3f60"
+    },
+    {
+      "artifact_id": "ART-379",
+      "path": "schemas/bmc-package-manifest.schema.json",
+      "sha256": "76a45d95a73652a7085bdfa0dbb182a5b9a4f75366aa3ce41be665cf075177fc"
+    },
+    {
+      "artifact_id": "ART-380",
+      "path": "docs/product/bmc/README.md",
+      "sha256": "bf6efe5c339c279365dab58c6d52eb8e2801a063ef460d3b1d298b159de6351b"
+    },
+    {
+      "artifact_id": "ART-381",
+      "path": "docs/product/bmc/source-map.md",
+      "sha256": "6397e4e81a44b8d0eaa5aa9248109c553b983df78b9e4414d186bbc77538ae9b"
+    },
+    {
+      "artifact_id": "ART-382",
+      "path": "docs/product/bmc/text-alternative.md",
+      "sha256": "daca90a29914f154e05c009644c5e4ad3449aa71e9616457cba6696675e8d3af"
+    },
+    {
+      "artifact_id": "ART-383",
+      "path": "docs/product/bmc/manifest.json",
+      "sha256": "c88a077f11135aead3d08222c01dd492997b2ac4f701f3551549ec7bbe3ac765"
+    },
+    {
+      "artifact_id": "ART-384",
+      "path": "docs/product/bmc/evidence/visual-review.md",
+      "sha256": "8efcd9a69f2ba4270aff06cdb58813472567f2764eb37f195319ad04ce9275c5"
+    },
+    {
+      "artifact_id": "ART-385",
+      "path": "docs/product/bmc/evidence/designer-consilium.json",
+      "sha256": "bcba279cb9f4b0d9fbf48504be8d3f7929bf0dbc53a9f77d66462a2ab684cb9a"
+    },
+    {
+      "artifact_id": "ART-386",
+      "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+      "sha256": "b225c53369919f7df35af49686644aaf4b1c131e0169926c24c24bcf86fe989c"
+    },
+    {
+      "artifact_id": "ART-387",
+      "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+      "sha256": "a79cd72b84636ed958975009f44a1040911d1a0a027da093e50bcb313a3a1138"
+    },
+    {
+      "artifact_id": "ART-388",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+    },
+    {
+      "artifact_id": "ART-389",
+      "path": "scripts/validate-bmc-visual.mjs",
+      "sha256": "aec547436f99ff6f3c0feeb6a678885f4af54cc7bb5398ebff7a14d7d7adf4f9"
+    },
+    {
+      "artifact_id": "ART-390",
+      "path": "scripts/validate-bmc-render-parity.mjs",
+      "sha256": "5e09c8e51cc04b86bc9329a8a13dc4dbdbaf94505a35616ffe5ca48bea25594e"
+    },
+    {
+      "artifact_id": "ART-391",
+      "path": "scripts/validate-bmc-content-classic.mjs",
+      "sha256": "428f26ba81844b0e2610b37fbac083a81266f4430a73c4ef1a1b7344e43da5fa"
+    },
+    {
+      "artifact_id": "ART-392",
+      "path": "scripts/validate-bmc-package.mjs",
+      "sha256": "e4936be8668eeef1f6d786fd9504ce5ff7e28edf55eb86ea92d35fe712ecc676"
+    },
+    {
+      "artifact_id": "ART-393",
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "sha256": "6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8"
+    },
+    {
+      "artifact_id": "ART-394",
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "sha256": "efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83"
     }
   ],
   "exclusions": [

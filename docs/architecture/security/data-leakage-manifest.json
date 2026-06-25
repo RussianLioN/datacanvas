@@ -66,6 +66,156 @@
       "path": "docs/product/ux/human-review-session-real.json",
       "sink": "evidence",
       "data_class": "confidential"
+    },
+    {
+      "id": "DLT-011",
+      "path": "docs/product/bmc/bmc-trace.v0.1.json",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-012",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-013",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+      "sink": "evidence",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-014",
+      "path": "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+      "sink": "evidence",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-015",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "sink": "export",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-016",
+      "path": "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+      "sink": "runtime_state",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-017",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+      "sink": "runtime_state",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-018",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+      "sink": "evidence",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-019",
+      "path": "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-020",
+      "path": "docs/product/bmc/llm-router-policy.md",
+      "sink": "prompt",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-021",
+      "path": "docs/product/bmc/bmc-validation-needs.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-022",
+      "path": "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-023",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "sink": "export",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-024",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "sink": "export",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-025",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "sink": "export",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-026",
+      "path": "docs/product/bmc/README.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-027",
+      "path": "docs/product/bmc/source-map.md",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-028",
+      "path": "docs/product/bmc/text-alternative.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-029",
+      "path": "docs/product/bmc/manifest.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-030",
+      "path": "docs/product/bmc/evidence/visual-review.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-031",
+      "path": "docs/product/bmc/evidence/designer-consilium.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-032",
+      "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-033",
+      "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-034",
+      "path": "docs/product/bmc/evidence/browser-smoke.png",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-035",
+      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
+      "sink": "evidence",
+      "data_class": "internal"
     }
   ],
   "forbidden_classes": [
@@ -80,7 +230,10 @@
     "npm run scan:secrets",
     "npm run validate:export",
     "npm run validate:data-leakage",
-    "npm run validate:security-foundation"
+    "npm run validate:security-foundation",
+    "npm run validate:bmc-visual",
+    "npm run validate:bmc-render-parity",
+    "npm run validate:bmc-package"
   ],
   "known_limitations": [
     "Gate проверяет выбранные runtime/export/trace/evidence sinks, а не весь репозиторий, потому что policy docs легитимно содержат названия запрещенных классов.",

@@ -1,0 +1,96 @@
+{
+  "version": "0.1.0",
+  "session_id": "BMC-RUN-2026-W26-001",
+  "interview_id": "BMC-INT-2026-W26-001",
+  "status": "runtime_fixture",
+  "decisions": [
+    {
+      "route_decision_id": "RD-001",
+      "step_id": 2,
+      "previous_question_id": "B1-Q01",
+      "selected_next_question_id": "B2-Q01",
+      "bmc_block": "B2",
+      "routing_reason": "B1 is covered without evidence; continue baseline coverage before follow-up.",
+      "state_signals": ["covered:B1", "missing_evidence:BMC-CLM-001", "remaining:B2"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:02:00Z"
+    },
+    {
+      "route_decision_id": "RD-002",
+      "step_id": 3,
+      "previous_question_id": "B2-Q01",
+      "selected_next_question_id": "B3-Q01",
+      "bmc_block": "B3",
+      "routing_reason": "B2 value is captured as unconfirmed; continue to channels for full BMC coverage.",
+      "state_signals": ["covered:B2", "missing_evidence:BMC-CLM-002", "remaining:B3"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:03:00Z"
+    },
+    {
+      "route_decision_id": "RD-003",
+      "step_id": 4,
+      "previous_question_id": "B3-Q01",
+      "selected_next_question_id": "B4-Q01",
+      "bmc_block": "B4",
+      "routing_reason": "B3 channel answer lacks ownership evidence; continue to relationship checkpoints.",
+      "state_signals": ["covered:B3", "missing_evidence:BMC-CLM-003", "remaining:B4"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:04:00Z"
+    },
+    {
+      "route_decision_id": "RD-004",
+      "step_id": 5,
+      "previous_question_id": "B4-Q01",
+      "selected_next_question_id": "B5-Q01",
+      "bmc_block": "B5",
+      "routing_reason": "B4 human-in-the-loop answer is captured; move to measurable value and economics.",
+      "state_signals": ["covered:B4", "missing_evidence:BMC-CLM-004", "remaining:B5"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:05:00Z"
+    },
+    {
+      "route_decision_id": "RD-005",
+      "step_id": 6,
+      "previous_question_id": "B5-Q01",
+      "selected_next_question_id": "B6-Q01",
+      "bmc_block": "B6",
+      "routing_reason": "B5 economy is low-confidence assumption; keep coverage moving and record evidence request.",
+      "state_signals": ["covered:B5", "assumption:BMC-CLM-005", "remaining:B6"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:06:00Z"
+    },
+    {
+      "route_decision_id": "RD-006",
+      "step_id": 7,
+      "previous_question_id": "B6-Q01",
+      "selected_next_question_id": "B7-Q01",
+      "bmc_block": "B7",
+      "routing_reason": "B6 resources have project evidence; continue to core activities.",
+      "state_signals": ["covered:B6", "evidence:EVD-001", "remaining:B7"],
+      "llm_policy_checks": ["one_question_only", "evidence_required_for_confirmed", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:07:00Z"
+    },
+    {
+      "route_decision_id": "RD-007",
+      "step_id": 8,
+      "previous_question_id": "B7-Q01",
+      "selected_next_question_id": "B8-Q01",
+      "bmc_block": "B8",
+      "routing_reason": "B7 activities have project evidence; continue to partners and dependencies.",
+      "state_signals": ["covered:B7", "evidence:EVD-002", "remaining:B8"],
+      "llm_policy_checks": ["one_question_only", "evidence_required_for_confirmed", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:08:00Z"
+    },
+    {
+      "route_decision_id": "RD-008",
+      "step_id": 9,
+      "previous_question_id": "B8-Q01",
+      "selected_next_question_id": "B9-Q01",
+      "bmc_block": "B9",
+      "routing_reason": "B8 partner ownership is unconfirmed; finish mandatory BMC coverage with cost structure.",
+      "state_signals": ["covered:B8", "missing_evidence:BMC-CLM-008", "remaining:B9"],
+      "llm_policy_checks": ["one_question_only", "no_confirmation_without_evidence", "cover_all_blocks"],
+      "created_at": "2026-06-24T00:09:00Z"
+    }
+  ]
+}

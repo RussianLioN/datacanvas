@@ -1,0 +1,166 @@
+{
+  "sprint_id": "SPRINT-2026-W26-S64",
+  "sprint_name": "bmc-interview",
+  "process_version": "0.1.0",
+  "status": "validated",
+  "source_plan": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
+  "goal": "Внедрить контракт классического BMC DataCanvas: чистый BMC, SVG как канонический визуальный источник, PNG/PDF из SVG, PlantUML как вторичный инженерный артефакт, package evidence, traceability, leakage coverage и deterministic validation gates.",
+  "created_artifacts": [
+    "schemas/bmc-question-bank.schema.json",
+    "schemas/bmc-interview-answers.schema.json",
+    "schemas/bmc-user-evidence.schema.json",
+    "schemas/bmc-interview-results.schema.json",
+    "schemas/bmc-trace.schema.json",
+    "schemas/bmc-derived-manifest.schema.json",
+    "schemas/bmc-interview-runtime-state.schema.json",
+    "schemas/bmc-route-decisions.schema.json",
+    "schemas/bmc-validation-needs.schema.json",
+    "docs/product/bmc/source-lock.json",
+    "docs/product/bmc/source-excerpts.md",
+    "docs/product/bmc/bmc-interview-question-bank.json",
+    "docs/product/bmc/interview-runtime-protocol.md",
+    "docs/product/bmc/llm-router-policy.md",
+    "docs/product/bmc/live-bmc-interview-user-guide.md",
+    "docs/product/bmc/live-bmc-interview-operator-guide.md",
+    "docs/product/bmc/interviews/README.md",
+    "docs/product/bmc/interviews/active-bmc-interview-runtime-state.json",
+    "docs/product/bmc/interviews/active-bmc-interview-transcript.md",
+    "docs/product/bmc/interviews/active-bmc-route-decisions.json",
+    "docs/product/bmc/interviews/2026-W26-bmc-interview-runtime-state.json",
+    "docs/product/bmc/interviews/2026-W26-bmc-interview-transcript.md",
+    "docs/product/bmc/interviews/2026-W26-bmc-route-decisions.json",
+    "docs/product/bmc/interviews/2026-W26-interview-answers.json",
+    "docs/product/bmc/interviews/2026-W26-user-evidence.json",
+    "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json",
+    "docs/product/bmc/interviews/2026-W26-bmc-interview-results.md",
+    "docs/product/bmc/interviews/2026-W26-evidence-requests.md",
+    "docs/product/bmc/interviews/2026-W26-decision-log.md",
+    "docs/product/bmc/interviews/2026-W26-open-questions.md",
+    "docs/product/bmc/bmc-trace.v0.1.json",
+    "docs/product/bmc/bmc-derived-manifest.json",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/bmc/bmc-validation-needs.json",
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+    "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+    "docs/product/bmc/source/derived/datacanvas-bmc.png",
+    "scripts/generate-bmc-artifacts.mjs",
+    "scripts/validate-bmc-interview.mjs",
+    "scripts/validate-bmc-trace.mjs",
+    "scripts/validate-bmc-interview-runtime.mjs",
+    "scripts/validate-bmc-interview-replay.mjs",
+    "scripts/validate-bmc-russian-language.mjs",
+    "scripts/prepare-bmc-interview-artifacts.mjs",
+    "docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json",
+    "docs/sprints/2026-W26-bmc-interview/sprint-goal.md",
+    "docs/sprints/2026-W26-bmc-interview/sprint-backlog.md",
+    "docs/sprints/2026-W26-bmc-interview/planning.md",
+    "docs/sprints/2026-W26-bmc-interview/daily-notes.md",
+    "docs/sprints/2026-W26-bmc-interview/review.md",
+    "docs/sprints/2026-W26-bmc-interview/retro.md",
+    "docs/sprints/2026-W26-bmc-interview/decisions.md",
+    "docs/sprints/2026-W26-bmc-interview/evidence-index.md",
+    "docs/sprints/2026-W26-bmc-interview/artifact-updates.md",
+    "docs/sprints/2026-W26-bmc-interview/process-change-candidates.md",
+    "docs/sprints/2026-W26-bmc-interview/sprint-summary.md",
+    "schemas/bmc-visual-acceptance.schema.json",
+    "schemas/bmc-package-manifest.schema.json",
+    "docs/product/bmc/README.md",
+    "docs/product/bmc/source-map.md",
+    "docs/product/bmc/text-alternative.md",
+    "docs/product/bmc/manifest.json",
+    "docs/product/bmc/evidence/visual-review.md",
+    "docs/product/bmc/evidence/designer-consilium.json",
+    "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+    "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+    "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+    "scripts/validate-bmc-visual.mjs",
+    "scripts/validate-bmc-render-parity.mjs",
+    "scripts/validate-bmc-content-classic.mjs",
+    "scripts/validate-bmc-package.mjs",
+    "docs/product/bmc/evidence/browser-smoke.png",
+    "docs/product/bmc/evidence/pdf-raster-smoke.png"
+  ],
+  "checks": [
+    {
+      "command": "npm run generate:bmc",
+      "status": "passed",
+      "evidence": "Clean BMC Markdown, PlantUML, SVG, PNG preview, derived manifest and validation-needs companion JSON generated."
+    },
+    {
+      "command": "npm run validate:bmc-interview",
+      "status": "passed",
+      "evidence": "BMC interview validation passed."
+    },
+    {
+      "command": "npm run validate:bmc-russian-language",
+      "status": "passed",
+      "evidence": "BMC Russian language validation passed."
+    },
+    {
+      "command": "npm run validate:bmc-trace",
+      "status": "passed",
+      "evidence": "BMC trace validation passed."
+    },
+    {
+      "command": "rg -n \"не подтверждено|допущение|подтверждено|unconfirmed|assumption|confirmed|Confidence|Evidence Requests|Open Questions|Source refs\" docs/product/bmc/bmc-v0.2.md docs/product/bmc/source/derived/datacanvas-bmc.svg docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "status": "passed",
+      "evidence": "Clean BMC Markdown and render sources contain no visible validation markers."
+    },
+    {
+      "command": "npm run validate:bmc-interview-runtime",
+      "status": "passed",
+      "evidence": "BMC interview runtime validation passed."
+    },
+    {
+      "command": "npm run validate:bmc-interview-replay",
+      "status": "passed",
+      "evidence": "BMC interview replay validation passed."
+    },
+    {
+      "command": "npm run prepare:bmc-interview -- --dry-run",
+      "status": "passed",
+      "evidence": "BMC interview artifact preparation dry-run passed."
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed",
+      "evidence": "Covered by BMC visual contract implementation."
+    },
+    {
+      "command": "npm run validate:bmc-content-classic",
+      "status": "passed",
+      "evidence": "Covered by BMC visual contract implementation."
+    },
+    {
+      "command": "npm run validate:bmc-visual",
+      "status": "passed",
+      "evidence": "Covered by BMC visual contract implementation."
+    },
+    {
+      "command": "npm run validate:bmc-render-parity",
+      "status": "passed",
+      "evidence": "Covered by BMC visual contract implementation."
+    },
+    {
+      "command": "npm run validate:bmc-package",
+      "status": "passed",
+      "evidence": "Covered by BMC visual contract implementation."
+    },
+    {
+      "command": "Chrome headless browser smoke: SVG opened through local HTTP and screenshot captured",
+      "status": "passed",
+      "evidence": "docs/product/bmc/evidence/browser-smoke.png"
+    },
+    {
+      "command": "PDF raster smoke: PDF opened through local raster conversion and PNG preview captured",
+      "status": "passed",
+      "evidence": "docs/product/bmc/evidence/pdf-raster-smoke.png"
+    }
+  ],
+  "known_limitations": [
+    "Some BMC statements still require confirmation, verification or research; those follow-ups are intentionally kept outside the clean BMC in docs/product/bmc/bmc-validation-needs.json.",
+    "The requested branch source should be refreshed before using BMC v0.2 as externally baselined product evidence.",
+    "PNG is a deterministic raster preview; SVG is the readable one-page visual artifact."
+  ],
+  "next_safe_step": "Use the clean BMC visual package for product review and close remaining validation needs in docs/product/bmc/bmc-validation-needs.json."
+}
