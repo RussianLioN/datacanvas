@@ -1,55 +1,70 @@
-# datacanvas
+# DataCanvas
 
-Initial repository for the datacanvas project.
+DataCanvas - проект AI-агента, который формирует краткую презентацию на основе данных, подготовленных другим агентом или внешней системой. Репозиторий содержит продуктовые документы, адаптируемый процесс разработки, контракты, BMC-артефакты, проверки и evidence для подготовки продукта к review и pilot.
 
-## Current Bootstrap Artifacts
+## Ключевые документы
 
-- Contributor guide: `AGENTS.md`
-- Implementation source plan: `docs/plans/datacanvas-adaptive-scrum-implementation-plan.md`
-- Active process baseline: `docs/process/current/process-passport.md`
-- Sprint 0 evidence: `docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json`
+### Продукт
 
-## Validation
+- [Видение продукта DataCanvas](docs/product-vision.md)
+- [Каталог stories DataCanvas](docs/stories.md)
+- [План имплементации документации DataCanvas](docs/datacanvas-documentation-implementation-plan.md)
+- [Актуальное видение](docs/product/vision/vision-v0.1.md)
+- [Пользовательские истории](docs/product/requirements/user-stories.md)
+- [Product backlog](docs/product/backlog/product-backlog.md)
 
-Run the bootstrap artifact check before review:
+### Процесс
+
+- [Инструкции агента](AGENTS.md)
+- [План адаптивного Scrum-процесса](docs/plans/datacanvas-adaptive-scrum-implementation-plan.md)
+- [План умного слияния project docs](docs/plans/datacanvas-smart-docs-merge-plan.md)
+- [Паспорт текущего процесса](docs/process/current/process-passport.md)
+- [Definition of Ready](docs/process/current/definition-of-ready.md)
+- [Definition of Done](docs/process/current/definition-of-done.md)
+
+### BMC и визуальные артефакты
+
+- [BMC package](docs/product/bmc/README.md)
+- [BMC v0.2](docs/product/bmc/bmc-v0.2.md)
+- [План генерации классического BMC](docs/plans/datacanvas-bmc-classic-generation-contract-plan.md)
+- [Visual review](docs/product/bmc/evidence/visual-review.md)
+
+### Evidence и release
+
+- [Sprint evidence manifest](docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json)
+- [Release evidence pack](docs/release/mvp-release-evidence-pack.md)
+- [Commit and PR evidence](docs/release/commit-pr-evidence.md)
+- [Plan completion audit](docs/process/audits/plan-completion-audit.md)
+
+## Проверка перед review
+
+Quick gate для документационных изменений:
 
 ```sh
 scripts/validate-bootstrap-artifacts.sh
-npm run scan:secrets
-npm run validate:schemas
-npm run validate:contracts
-npm run validate:llm
-npm run validate:data-leakage
-npm run validate:evals
-npm run validate:provider
-npm run validate:backlog-registry
-npm run validate:security-foundation
-npm run validate:threat-model-delta
-npm run validate:ops-readiness
-npm run validate:uat-human-review
-npm run validate:uat-result
-npm run validate:review-ui
-npm run validate:review-runtime-state
-npm run validate:review-runtime-interactive
-npm run validate:real-uat-readiness
-npm run validate:release-pack
-npm run validate:provider-experiment
-npm run validate:provider-evals
-npm run validate:provider-scorer
-npm run validate:artifact-registry
-npm run validate:artifact-hashes
-npm run validate:plan-coverage
-npm run validate:process-versioning
-npm run validate:process-metrics
-npm run validate:process-metrics-snapshot
-npm run validate:process-change-ledger
-npm run validate:traceability-graph
-npm run validate:risk-traceability
-npm run validate:risk-matrix
-npm run validate:export
-npm run validate:export-smoke
-npm run validate:renderer-regression
-npm run validate:visual
-npm test
 git diff --check
 ```
+
+BMC gate для изменений в BMC и визуальных артефактах:
+
+```sh
+npm run generate:bmc -- --check
+npm run validate:bmc
+```
+
+Full gate перед merge:
+
+```sh
+npm test
+git diff --exit-code
+```
+
+Полный список команд находится в `package.json`.
+
+## Структура репозитория
+
+- `docs/` - продуктовая, процессная, архитектурная, sprint и release документация.
+- `schemas/` - JSON Schema и контракты артефактов.
+- `scripts/` - генераторы, валидаторы, UAT и release utilities.
+- `tests/` - fixtures, golden outputs, eval, provider, security и visual проверки.
+- `artifacts/` - generated outputs и ручные evidence exports.
