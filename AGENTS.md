@@ -27,6 +27,8 @@
 - `scripts/validate-bootstrap-artifacts.sh` или `npm run validate:bootstrap` - проверить обязательные bootstrap/process/product/evidence артефакты.
 - `npm run validate:schemas` - проверить sample artifacts по JSON Schema.
 - `npm run validate:visual` - проверить структурный visual baseline.
+- `npm run generate:docs-navigation -- --check` - проверить, что generated navigation artifacts актуальны.
+- `npm run validate:doc-links`, `npm run validate:docs-navigation` и `npm run validate:doc-stale-status` - проверить ссылки, навигационный контракт и устаревшие статусы.
 - `npm run generate:bmc -- --check` и `npm run validate:bmc` - проверить BMC package, render parity и classic content.
 - `npm test` - полный локальный gate, включая генерацию golden artifacts, security, process, BMC, export и visual проверки.
 - Полный список команд держи в `package.json`; не дублируй его целиком в документации без явной необходимости.
@@ -37,6 +39,10 @@
 - Сохраняй стабильные идентификаторы из проектных артефактов: `REQ-*`, `PBI-*`, `PROC-*`, `EVAL-*`, `ADR-*`.
 - При изменении контрактов синхронизируй связанные `docs/`, `schemas/`, fixtures, generated artifacts и evidence manifests.
 - Не редактируй generated artifacts вручную, если в проекте есть генератор или валидатор для этого слоя.
+- Центральные документы (`README.md`, `docs/README.md`, локальные `README.md`) маршрутизируют к источникам, а не дублируют подробности.
+- Новый документ обязан попасть в `docs/navigation/navigation-source.json` или в `ignored_paths` с причиной.
+- Ручные Markdown-документы, которые являются navigation entrypoint, должны иметь breadcrumb в начале.
+- Generated navigation files в `docs/navigation/` нельзя редактировать вручную; обновляй `docs/navigation/navigation-source.json`, затем запускай генератор.
 - Для visual/BMC изменений обновляй исходный источник, затем запускай генератор и проверяй рендер.
 
 ## Тестирование и evidence
@@ -46,6 +52,7 @@
 - Для BMC изменений минимум проверь `npm run generate:bmc -- --check` и `npm run validate:bmc`.
 - Перед PR handoff фиксируй, какие проверки запускались, какой результат получен и какие ограничения остались.
 - После генераторов проверяй `git diff --exit-code`, если ожидается полностью воспроизводимое состояние.
+- После генерации документов запускай docs navigation gate: `npm run generate:docs-navigation -- --check`, `npm run validate:doc-links`, `npm run validate:docs-navigation` и `npm run validate:doc-stale-status`.
 
 ## Security и границы доверия
 
@@ -53,6 +60,7 @@
 - Не коммить секреты, credentials, raw private data, hidden traces, internal prompts, local-only sensitive paths и sensitive exports.
 - Неизвестный класс данных считай конфиденциальным, пока проектный источник истины не говорит обратное.
 - LLM output, PresentationSpec и import/export payloads должны проходить schema validation до renderer/export.
+- Public navigation запрещена для sensitive/confidential evidence; такие paths допускаются только как redacted metadata.
 - По умолчанию не расширяй network, tools, publish или permission boundaries. Любое расширение оформляй как явное проектное решение с review trust boundaries.
 - Не ослабляй security validators, data-leakage guards или tool allowlists ради прохождения тестов.
 

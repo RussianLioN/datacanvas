@@ -26,13 +26,13 @@
 
 ## Acceptance Decision
 
-Текущий candidate принят как reviewable PR state: real UAT approved, решение accepted, critical failures 0, unsupported claims 0, export blockers 0, pilot gate accepted, portability review accepted.
+Текущий candidate принят как merged main state: real UAT approved, решение accepted, critical failures 0, unsupported claims 0, export blockers 0, pilot gate accepted, portability review accepted, PR #1 merged.
 
 ## Ограничения
 
-- PR #1 еще не смержен; release evidence фиксирует reviewable PR state.
-- Commit/PR evidence обновлен на merge-resolution SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить повторно.
+- Release evidence фиксирует current main commit `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`.
+- Если product/runtime artifacts изменятся после merge, evidence нужно обновить повторно.
 
 ## Следующий Шаг
 
-Дождаться remote PR checks и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence и release audit.
+Поддерживать release evidence, navigation index и artifact hashes при изменении product/runtime artifacts.

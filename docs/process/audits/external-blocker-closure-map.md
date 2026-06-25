@@ -2,7 +2,7 @@
 
 Статус: `external_evidence_collected`
 
-Эта карта фиксирует закрытие внешних blockers из `docs/process/audits/plan-completion-audit.json` через pilot recorder, PR #1 и локальный quality gate.
+Эта карта фиксирует закрытие внешних blockers из `docs/process/audits/plan-completion-audit.json` через pilot recorder, PR #1 evidence и локальный quality gate.
 
 Она не заменяет сами evidence files, а связывает их с процедурой закрытия.
 
@@ -15,7 +15,7 @@
 
 ## Ограничение
 
-PR #1 еще не смержен. Если product/runtime artifacts изменятся после pilot evidence, `docs/release/commit-pr-evidence.md` нужно обновить.
+PR #1 merged в `main`. Если product/runtime artifacts изменятся после pilot evidence, `docs/release/commit-pr-evidence.md`, release pack и navigation index нужно обновить.
 
 ## Validation
 

@@ -7,7 +7,7 @@
 | Метрика | Значение | Расчет |
 |---|---:|---|
 | Sprint evidence coverage | 65/65 | sprint_evidence_manifests / sprint_folders |
-| Artifact registry size | 394 | count(artifact_registry.artifacts) |
+| Artifact registry size | 423 | count(artifact_registry.artifacts) |
 | Accepted process changes | 2 | count(process_change_ledger.entries where status == accepted) |
 | Evidence check pass ratio | 506/506 | passed sprint evidence checks / all sprint evidence checks |
 | External gate backlog | 0 | count(process quality gates where status == pending_external) |
@@ -19,7 +19,7 @@
 |---|---:|
 | Sprint folders | 65 |
 | Sprint evidence manifests | 65 |
-| Artifact registry entries | 394 |
+| Artifact registry entries | 423 |
 | Accepted process changes | 2 |
 | Passed evidence checks | 506 |
 | Pending evidence checks | 0 |
@@ -34,4 +34,4 @@
 
 ## Следующий Безопасный Шаг
 
-После merge PR #1 добавить dated events для live delivery metrics.
+Поддерживать dated events для live delivery metrics после изменений delivery process.

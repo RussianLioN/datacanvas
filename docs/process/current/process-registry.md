@@ -18,6 +18,8 @@
 | Agent default | Один агент с инструментами по умолчанию | `ADR-002-one-agent-default.md` |
 | Trust boundary | Вход другого агента считается недоверенным | `trust-boundaries.md` |
 | Process versioning | Каждый sprint evidence должен ссылаться на известную версию процесса | `process-version-manifest.json` |
+| Documentation navigation | Центральные документы маршрутизируют, а `docs/navigation/navigation-source.json` управляет visibility/searchability | `PROC-036-documentation-navigation-governance.md` |
+| Generated navigation | `docs/navigation/documentation-index.json` и связанные reports обновляются только генератором | `ADR-064-documentation-navigation-indexing.md` |
 
 ## Активные Исключения
 

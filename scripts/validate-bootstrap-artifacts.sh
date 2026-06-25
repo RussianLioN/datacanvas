@@ -599,9 +599,9 @@ jq -e '.applied_sprint_ids[] | select(. == "SPRINT-2026-W26-S19")' \
 grep -q 'scripts/validate-process-versioning.mjs' docs/architecture/adr/ADR-019-process-versioning-validation.md \
   || fail "process versioning ADR invariant is missing"
 
-jq -e '.next_safe_step | test("review.*merge PR #1|commit/PR evidence|release audit|process metrics snapshot")' \
+jq -e '.next_safe_step | test("commit/PR evidence|release audit|navigation index|process metrics snapshot")' \
   docs/process/audits/datacanvas-plan-coverage-audit.json >/dev/null \
-  || fail "completed plan coverage audit must expose PR review/merge and evidence refresh as next safe step"
+  || fail "completed plan coverage audit must expose post-merge evidence refresh as next safe step"
 
 grep -q 'scripts/validate-plan-coverage.mjs' docs/architecture/adr/ADR-020-plan-coverage-audit.md \
   || fail "plan coverage audit ADR invariant is missing"

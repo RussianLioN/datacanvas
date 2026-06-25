@@ -5,34 +5,33 @@
 ## Metadata
 
 - Process version: `0.1.0`
-- Evidence date: `2026-06-25T08:32:22Z`
+- Evidence date: `2026-06-25T10:53:51Z`
 - Release owner: `Delivery/GitOps Lead`
 
 ## Commit Evidence
 
-- Commit SHA: `6504d816d26b45df17a2ad983fda1e25f0c36d75`
-- Commit URL or local verification command: `https://github.com/RussianLioN/datacanvas/pull/1`
-- Branch: `## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]`
+- Commit SHA: `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`
+- Commit URL or local verification command: `git rev-parse origin/main`
+- Branch: `main`
 - Working tree status at release cut:
 
 ```text
-## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]
+origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 ```
 
 ## Pull Request Evidence
 
 - PR URL or identifier: `https://github.com/RussianLioN/datacanvas/pull/1`
-- Review status: `pending_review`
+- Review status: `approved`
 - CI status: `passed`
-- Merge status: `not_merged`
+- Merge status: `merged`
 
 ## Required Verification
 
 ```text
-release-cut git rev-parse HEAD: 6504d816d26b45df17a2ad983fda1e25f0c36d75
-git status --short --branch:
-## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]
-npm test: passed
+git rev-parse origin/main: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
+GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
+npm test: passed before merge on PR #1
 npm run validate:pilot-gate: passed
 npm run validate:process-portability: passed
 npm run validate:plan-completion-audit: passed
@@ -45,3 +44,4 @@ npm run validate:bmc: passed
 - Release evidence pack: `docs/release/mvp-release-evidence-pack.json`
 - Pilot report: `docs/release/pilot-report.md`
 - Completion audit: `docs/process/audits/plan-completion-audit.json`
+- Documentation navigation index: `docs/navigation/documentation-index.json`

@@ -3,7 +3,7 @@
   "status": "external_evidence_collected",
   "source_audit_path": "docs/process/audits/plan-completion-audit.json",
   "source_closure_map_path": "docs/process/audits/external-blocker-closure-map.json",
-  "purpose": "Зафиксировать сбор внешних evidence completion audit через pilot recorder, PR #1 и локальный quality gate.",
+  "purpose": "Зафиксировать сбор внешних evidence completion audit через pilot recorder, PR #1 evidence и локальный quality gate.",
   "blockers": [
     {
       "blocking_evidence": "docs/release/pilot-report.md",
@@ -103,7 +103,7 @@
   ],
   "known_limitations": [
     "Readiness manifest является индексом состояния, а не заменой самих evidence files.",
-    "PR #1 еще не смержен; при изменении product/runtime artifacts нужно обновить commit/PR evidence."
+    "PR #1 merged; при изменении product/runtime artifacts нужно обновить commit/PR evidence, release pack и navigation index."
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+  "next_safe_step": "Поддерживать commit/PR evidence, release pack и navigation index при изменении product/runtime artifacts."
 }

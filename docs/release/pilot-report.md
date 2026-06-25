@@ -7,7 +7,7 @@
 - Process version: `0.1.0`
 - Pilot date: `2026-06-23T13:37:33.690Z`
 - Pilot owner: `Delivery/GitOps Lead`
-- Commit SHA: `3b690b956210015a0a642d0c90895296cb8603ba`
+- Commit SHA: `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`
 - PR evidence: `https://github.com/RussianLioN/datacanvas/pull/1`
 
 ## Review Evidence
@@ -47,7 +47,7 @@ npm run validate:plan-completion-audit: passed
 
 - Decision: `accepted`
 - Blocking issues: `none_recorded`
-- Required follow-up: `Merge PR after review; update release audit if product/runtime artifacts change`
+- Required follow-up: `Maintain release audit, navigation index and artifact hashes if product/runtime artifacts change`
 
 ## Completion Audit Update
 

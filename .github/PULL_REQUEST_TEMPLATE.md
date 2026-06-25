@@ -8,9 +8,23 @@
 
 ## Changed Artifacts
 
--
+- Affected `ART-*`:
+- Affected docs routes:
+- Navigation impact:
 
 ## Validation Evidence
+
+- Commands:
+- Evidence links:
+
+## Owner Sign-Off
+
+- Product:
+- Process:
+- Security/privacy:
+- Delivery:
+
+## Release Impact
 
 -
 

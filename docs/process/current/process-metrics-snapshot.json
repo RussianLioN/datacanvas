@@ -13,7 +13,7 @@
   "counts": {
     "sprint_folders": 65,
     "sprint_evidence_manifests": 65,
-    "artifact_registry_entries": 394,
+    "artifact_registry_entries": 423,
     "accepted_process_changes": 2,
     "passed_evidence_checks": 506,
     "pending_evidence_checks": 0,
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "394",
+      "value": "423",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"
@@ -145,5 +145,5 @@
     "Snapshot считает только данные, уже зафиксированные в репозитории.",
     "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps."
   ],
-  "next_safe_step": "После merge PR #1 добавить dated events для live delivery metrics."
+  "next_safe_step": "Поддерживать dated events для live delivery metrics после изменений delivery process."
 }

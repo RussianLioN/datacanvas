@@ -11,12 +11,14 @@
 - Нет открытых blocking stop rules.
 - Известные ограничения явно записаны.
 - Следующий безопасный шаг указан.
+- Если затронута документация, обновлен `docs/navigation/navigation-source.json` или explicit ignore, а docs navigation gate проходит.
 
 ## Для Процессных Артефактов
 
 - Обновлены `process-registry.md` или `process-changelog.md`, если изменение влияет на процесс.
 - Создан или обновлен `PROC-*`, если меняется правило процесса.
 - Сохранена связь с исходным планом или решением.
+- Generated navigation artifacts обновлены через `npm run generate:docs-navigation`, если менялись маршруты или visibility.
 
 ## Для Продуктовых Артефактов
 

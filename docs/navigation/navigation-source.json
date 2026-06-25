@@ -1,0 +1,842 @@
+{
+  "$schema": "../../schemas/docs-navigation-source.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "source_roots": [
+    {
+      "path": "README.md",
+      "formats": ["md"]
+    },
+    {
+      "path": "AGENTS.md",
+      "formats": ["md"]
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "formats": ["md"]
+    },
+    {
+      "path": "docs",
+      "formats": ["md", "json"]
+    }
+  ],
+  "required_entrypoints": [
+    {
+      "path": "README.md",
+      "reason": "Root route for humans and agents."
+    },
+    {
+      "path": "docs/README.md",
+      "reason": "Main documentation entrypoint."
+    },
+    {
+      "path": "docs/project-map.md",
+      "reason": "Layer map for the repository."
+    },
+    {
+      "path": "docs/product/README.md",
+      "reason": "Product documentation entrypoint."
+    },
+    {
+      "path": "docs/process/README.md",
+      "reason": "Process documentation entrypoint."
+    },
+    {
+      "path": "docs/architecture/README.md",
+      "reason": "Architecture documentation entrypoint."
+    },
+    {
+      "path": "docs/release/README.md",
+      "reason": "Release and review entrypoint."
+    },
+    {
+      "path": "docs/sprints/README.md",
+      "reason": "Sprint artifact entrypoint."
+    },
+    {
+      "path": "docs/plans/README.md",
+      "reason": "Plan catalog entrypoint."
+    },
+    {
+      "path": "docs/knowledge/README.md",
+      "reason": "Knowledge and evidence entrypoint."
+    }
+  ],
+  "section_rules": [
+    {
+      "id": "product-root-docs",
+      "path_prefix": "docs/product-vision.md",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Product scope or story catalog changes."
+      }
+    },
+    {
+      "id": "stories-root-docs",
+      "path_prefix": "docs/stories.md",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Story catalog or traceability source changes."
+      }
+    },
+    {
+      "id": "product",
+      "path_prefix": "docs/product",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner",
+        "lifecycle": "draft",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Product artifact changes."
+      }
+    },
+    {
+      "id": "bmc",
+      "path_prefix": "docs/product/bmc",
+      "defaults": {
+        "section": "bmc",
+        "owner_role": "Product Owner",
+        "lifecycle": "accepted",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "BMC source, interview, or generated package changes."
+      }
+    },
+    {
+      "id": "ux-uat",
+      "path_prefix": "docs/product/ux",
+      "defaults": {
+        "section": "ux-uat",
+        "owner_role": "QA/UAT Lead",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "UAT, review runtime, or operator handoff changes."
+      }
+    },
+    {
+      "id": "process",
+      "path_prefix": "docs/process",
+      "defaults": {
+        "section": "process",
+        "owner_role": "Process Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Process rule, evidence, or version changes."
+      }
+    },
+    {
+      "id": "architecture",
+      "path_prefix": "docs/architecture",
+      "defaults": {
+        "section": "architecture",
+        "owner_role": "AI Agent Architect",
+        "lifecycle": "accepted",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Architecture decision, schema, security, or runtime boundary changes."
+      }
+    },
+    {
+      "id": "security",
+      "path_prefix": "docs/architecture/security",
+      "defaults": {
+        "section": "security-trust",
+        "owner_role": "Security/Privacy Lead",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Threat model, leakage, allowlist, or trust boundary changes."
+      }
+    },
+    {
+      "id": "release",
+      "path_prefix": "docs/release",
+      "defaults": {
+        "section": "release-evidence",
+        "owner_role": "Delivery/GitOps Lead",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Release, pilot, CI, PR, or evidence state changes."
+      }
+    },
+    {
+      "id": "sprints",
+      "path_prefix": "docs/sprints",
+      "defaults": {
+        "section": "sprint-artifacts",
+        "owner_role": "Scrum Master",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Sprint planning, review, retrospective, or evidence manifest changes."
+      }
+    },
+    {
+      "id": "plans",
+      "path_prefix": "docs/plans",
+      "defaults": {
+        "section": "plans",
+        "owner_role": "Process Owner",
+        "lifecycle": "draft",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Planning artifact changes."
+      }
+    },
+    {
+      "id": "knowledge",
+      "path_prefix": "docs/knowledge",
+      "defaults": {
+        "section": "knowledge",
+        "owner_role": "Documentation Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Evidence, glossary, lessons, or RCA changes."
+      }
+    },
+    {
+      "id": "navigation",
+      "path_prefix": "docs/navigation",
+      "defaults": {
+        "section": "navigation",
+        "owner_role": "Documentation Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": "docs/navigation/navigation-source.json",
+        "generated_from": ["docs/navigation/navigation-source.json"],
+        "redaction_status": "not_required",
+        "update_trigger": "Navigation source, route, or document classification changes."
+      }
+    }
+  ],
+  "managed_entries": [
+    {
+      "path": "README.md",
+      "route_id": "root-readme",
+      "section": "root",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Any top-level route changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "AGENTS.md",
+      "route_id": "agent-rules",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Agent working agreement or repository rule changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "route_id": "pr-template",
+      "section": "process",
+      "owner_role": "Delivery/GitOps Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "PR handoff or evidence requirements change.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/README.md",
+      "route_id": "docs-readme",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Documentation route table changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/project-map.md",
+      "route_id": "project-map",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Repository layer or ownership changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/README.md",
+      "route_id": "product-readme",
+      "section": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product route or canonical product source changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/process/README.md",
+      "route_id": "process-readme",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Process route or process governance changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/architecture/README.md",
+      "route_id": "architecture-readme",
+      "section": "architecture",
+      "owner_role": "AI Agent Architect",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Architecture route or decision layer changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/release/README.md",
+      "route_id": "release-readme",
+      "section": "release-evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Release, PR, or evidence route changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/sprints/README.md",
+      "route_id": "sprints-readme",
+      "section": "sprint-artifacts",
+      "owner_role": "Scrum Master",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Sprint folder or sprint evidence route changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/plans/README.md",
+      "route_id": "plans-readme",
+      "section": "plans",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Plan catalog changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/knowledge/README.md",
+      "route_id": "knowledge-readme",
+      "section": "knowledge",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Knowledge, evidence, or lesson route changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/bmc/README.md",
+      "route_id": "bmc-readme",
+      "section": "bmc",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "BMC package route or accepted BMC changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/knowledge/evidence-index.md",
+      "route_id": "evidence-hub",
+      "section": "knowledge",
+      "owner_role": "Delivery/GitOps Lead",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Evidence hub or current pointer changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/navigation/navigation-source.json",
+      "route_id": "navigation-source",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Any route, section, sensitivity, or generated output rule changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/navigation/documentation-index.json",
+      "route_id": "documentation-index",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "generated_from": ["docs/navigation/navigation-source.json"],
+      "redaction_status": "not_required",
+      "update_trigger": "Run npm run generate:docs-navigation after source changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/navigation/navigation-map.md",
+      "route_id": "navigation-map",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "generated",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "generated_from": ["docs/navigation/navigation-source.json"],
+      "redaction_status": "not_required",
+      "update_trigger": "Run npm run generate:docs-navigation after source changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/navigation/orphan-docs-report.md",
+      "route_id": "orphan-docs-report",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "generated_from": ["docs/navigation/navigation-source.json"],
+      "redaction_status": "not_required",
+      "update_trigger": "Run npm run generate:docs-navigation after source changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/navigation/stale-status-report.md",
+      "route_id": "stale-status-report",
+      "section": "navigation",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "generated_from": ["docs/navigation/navigation-source.json"],
+      "redaction_status": "not_required",
+      "update_trigger": "Run npm run generate:docs-navigation after source changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    }
+  ],
+  "role_routes": [
+    {
+      "id": "role-product-owner",
+      "label": "Product Owner",
+      "role": "Product Owner",
+      "start_path": "docs/product/README.md",
+      "next_paths": ["docs/product/bmc/README.md", "docs/product/vision/vision-v0.1.md", "docs/stories.md"],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "role-process-owner",
+      "label": "Process Owner",
+      "role": "Process Owner",
+      "start_path": "docs/process/README.md",
+      "next_paths": ["docs/process/current/process-registry.md", "docs/process/current/definition-of-ready.md", "docs/process/current/definition-of-done.md"],
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "role-delivery-lead",
+      "label": "Delivery/GitOps Lead",
+      "role": "Delivery/GitOps Lead",
+      "start_path": "docs/release/README.md",
+      "next_paths": ["docs/release/commit-pr-evidence.md", "docs/release/mvp-release-evidence-pack.md", "docs/knowledge/evidence-index.md"],
+      "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "role-agent",
+      "label": "Agent",
+      "role": "AI systems engineer",
+      "start_path": "AGENTS.md",
+      "next_paths": ["docs/navigation/navigation-source.json", "docs/navigation/navigation-map.md", "docs/project-map.md"],
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    }
+  ],
+  "task_routes": [
+    {
+      "id": "task-understand-product",
+      "label": "Понять продукт",
+      "task": "Понять продукт",
+      "start_path": "docs/product/README.md",
+      "next_paths": ["docs/product-vision.md", "docs/product/bmc/README.md", "docs/stories.md"],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "task-find-process",
+      "label": "Найти текущий процесс",
+      "task": "Найти текущий процесс",
+      "start_path": "docs/process/README.md",
+      "next_paths": ["docs/process/current/process-passport.md", "docs/process/current/process-registry.md"],
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "task-work-with-bmc",
+      "label": "Работать с BMC",
+      "task": "Работать с BMC",
+      "start_path": "docs/product/bmc/README.md",
+      "next_paths": ["docs/product/bmc/bmc-v0.2.md", "docs/product/bmc/manifest.json"],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:bmc"
+    },
+    {
+      "id": "task-review-merge",
+      "label": "Подготовить review/merge",
+      "task": "Подготовить review/merge",
+      "start_path": "docs/release/README.md",
+      "next_paths": [".github/PULL_REQUEST_TEMPLATE.md", "docs/release/commit-pr-evidence.md"],
+      "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm test"
+    },
+    {
+      "id": "task-find-evidence",
+      "label": "Найти evidence/release",
+      "task": "Найти evidence/release",
+      "start_path": "docs/knowledge/evidence-index.md",
+      "next_paths": ["docs/release/mvp-release-evidence-pack.json", "docs/navigation/documentation-index.json"],
+      "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm run validate:docs-navigation"
+    }
+  ],
+  "ignored_paths": [
+    {
+      "path": "docs/product/bmc/source/derived",
+      "reason": "Derived BMC binary outputs are registered through artifact governance, not treated as source documents."
+    }
+  ],
+  "sensitive_path_rules": [
+    {
+      "id": "bmc-interviews",
+      "path_prefix": "docs/product/bmc/interviews",
+      "data_class": "confidential",
+      "reason": "Interview transcripts and active interview state can contain private user input.",
+      "validation_command": "npm run validate:data-leakage"
+    },
+    {
+      "id": "bmc-evidence",
+      "path_prefix": "docs/product/bmc/evidence",
+      "data_class": "confidential",
+      "reason": "Raw review evidence and design review exports are not public navigation targets.",
+      "validation_command": "npm run validate:data-leakage"
+    },
+    {
+      "id": "real-uat-session",
+      "path_prefix": "docs/product/ux/human-review-session-real.json",
+      "data_class": "confidential",
+      "reason": "Real UAT session artifact is scanned as confidential evidence.",
+      "validation_command": "npm run validate:data-leakage"
+    },
+    {
+      "id": "runtime-state",
+      "path_prefix": "docs/product/ux/review-runtime-state",
+      "data_class": "confidential",
+      "reason": "Runtime state exports are metadata-only for navigation.",
+      "validation_command": "npm run validate:data-leakage"
+    },
+    {
+      "id": "security-leakage-guards",
+      "path_prefix": "docs/architecture/security/real-uat-leakage-guard.json",
+      "data_class": "confidential",
+      "reason": "Leakage guard target inventory is not a public route.",
+      "validation_command": "npm run validate:data-leakage"
+    }
+  ],
+  "generated_output_paths": [
+    {
+      "path": "docs/navigation/documentation-index.json",
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "description": "Machine-readable generated documentation index."
+    },
+    {
+      "path": "docs/navigation/navigation-map.md",
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "description": "Human-readable generated navigation map."
+    },
+    {
+      "path": "docs/navigation/orphan-docs-report.md",
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "description": "Generated report for navigable docs not reachable from root."
+    },
+    {
+      "path": "docs/navigation/stale-status-report.md",
+      "canonical_source": "docs/navigation/navigation-source.json",
+      "description": "Generated stale status scan report."
+    }
+  ],
+  "current_pointers": {
+    "current_sprint": "SPRINT-2026-W26",
+    "current_release": "RC-2026-W26-G9-MVP-FIXTURE",
+    "current_process_version": "0.1.0",
+    "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
+    "current_uat_state": "accepted_real_uat",
+    "current_main_commit": "2c6858e4dc541c899b500edb5ebfb1ca9073c29d",
+    "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
+  },
+  "stale_status_checks": {
+    "scan_paths": [
+      "docs/release/commit-pr-evidence.md",
+      "docs/release/mvp-release-evidence-pack.md",
+      "docs/release/mvp-release-evidence-pack.json",
+      "docs/release/pilot-gate-readiness.json",
+      "docs/process/audits/plan-completion-audit.md",
+      "docs/process/audits/plan-completion-audit.json",
+      "docs/process/audits/datacanvas-plan-coverage-report.md",
+      "docs/process/audits/datacanvas-plan-coverage-audit.json",
+      "docs/process/audits/external-blocker-closure-map.md",
+      "docs/process/audits/external-blocker-closure-map.json",
+      "docs/process/audits/external-evidence-readiness.md",
+      "docs/process/audits/external-evidence-readiness.json",
+      "docs/process/current/process-metrics-snapshot.md",
+      "docs/process/current/process-metrics-snapshot.json",
+      "docs/knowledge/evidence-index.md"
+    ],
+    "forbidden_patterns": [
+      {
+        "id": "not-merged-status",
+        "pattern": "not_merged",
+        "reason": "PR #1 is already merged into main."
+      },
+      {
+        "id": "pending-review-status",
+        "pattern": "pending_review",
+        "reason": "Merged PR evidence must not remain pending review."
+      },
+      {
+        "id": "not-merged-prose",
+        "pattern": "PR #1 еще не смержен",
+        "reason": "Post-merge evidence must use merged-state language."
+      },
+      {
+        "id": "merge-pr-next-step",
+        "pattern": "merge PR #1",
+        "reason": "Merging PR #1 is no longer a next step."
+      },
+      {
+        "id": "old-process-branch",
+        "pattern": "process/datacanvas-delivery-implementation",
+        "reason": "Release evidence must point to the merged main commit, not the old branch."
+      },
+      {
+        "id": "reviewable-pr-state",
+        "pattern": "reviewable PR state",
+        "reason": "Release evidence now represents merged main state."
+      }
+    ]
+  }
+}

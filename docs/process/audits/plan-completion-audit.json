@@ -83,8 +83,8 @@
     "npm test"
   ],
   "known_limitations": [
-    "PR #1 еще не смержен; completion фиксирует реализованный и проверяемый PR state.",
-    "Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить."
+    "PR #1 merged; current main на 2c6858e4dc541c899b500edb5ebfb1ca9073c29d.",
+    "Commit/PR evidence фиксирует merged main SHA; если product/runtime artifacts изменятся после merge, evidence и navigation index нужно обновить."
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+  "next_safe_step": "Поддерживать commit/PR evidence, release pack, navigation index и artifact hashes при изменении product/runtime artifacts."
 }
