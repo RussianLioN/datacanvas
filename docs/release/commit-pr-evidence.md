@@ -21,8 +21,8 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Current `origin/main` for stale-status validation: `f643dcca1108c0fb92b76753c67b5a0479a0839d`
-- Current main verification date: `2026-06-25T13:24:57Z`
+- Current `origin/main` for stale-status validation: `d32af9ffed591f48f3beba8cc62186121529b9c1`
+- Current main verification date: `2026-06-25T15:17:31Z`
 
 ## Pull Request Evidence
 
@@ -35,7 +35,7 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: f643dcca1108c0fb92b76753c67b5a0479a0839d
+git rev-parse origin/main for stale-status validation: d32af9ffed591f48f3beba8cc62186121529b9c1
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 npm test: passed before merge on PR #1
 npm run validate:pilot-gate: passed
