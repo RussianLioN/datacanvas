@@ -1772,7 +1772,7 @@
     {
       "artifact_id": "ART-355",
       "path": "scripts/generate-bmc-artifacts.mjs",
-      "sha256": "3f2aaef9949f680fd0501d29ac4a29c0ea21d302fc32088de0c30a3ced94d57e"
+      "sha256": "1ce5892e14fd4c8f510255164e4acbb4f033ee66675ffa454369c7aed56b5ebf"
     },
     {
       "artifact_id": "ART-356",
@@ -1947,7 +1947,7 @@
     {
       "artifact_id": "ART-390",
       "path": "scripts/validate-bmc-render-parity.mjs",
-      "sha256": "5e09c8e51cc04b86bc9329a8a13dc4dbdbaf94505a35616ffe5ca48bea25594e"
+      "sha256": "cd6266be5b74f1ccd9f903513abd0faddc021ae589c8490eed8531ff6bafc837"
     },
     {
       "artifact_id": "ART-391",

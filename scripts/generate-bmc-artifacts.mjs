@@ -875,6 +875,18 @@ function renderFromSvg(targetRoot) {
   ensureDir(pngFile);
   ensureDir(pdfFile);
 
+  const updatePortableRenders = process.env.DATACANVAS_UPDATE_BMC_RENDERS === "1";
+  const committedPng = absolute(paths.png);
+  const committedPdf = absolute(paths.pdf);
+  const hasCommittedRenders = fs.existsSync(committedPng) && fs.existsSync(committedPdf);
+  if (!updatePortableRenders && hasCommittedRenders) {
+    if (targetRoot !== root) {
+      fs.copyFileSync(committedPng, pngFile);
+      fs.copyFileSync(committedPdf, pdfFile);
+    }
+    return;
+  }
+
   try {
     const renderEnv = { ...process.env, SOURCE_DATE_EPOCH: "0" };
     execFileSync("rsvg-convert", ["-w", "3840", "-h", "2160", "-f", "png", svgFile, "-o", pngFile], {
