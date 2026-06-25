@@ -3197,6 +3197,42 @@
       "click_depth": 2
     },
     {
+      "path": "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
+      "title": "План имплементации блица верхнеуровневых бизнес-требований DataCanvas MVP P1-P2",
+      "section": "plans",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-имплементации-блица-верхнеуровневых-бизнес-требований-datacanvas-mvp-p1-p2",
+        "1-цель-и-результат",
+        "2-исходные-решения-блица",
+        "3-обновленный-набор-bt-v02",
+        "4-матрица-покрытия-p1-p2",
+        "5-acceptance-сценарии",
+        "6-implementation-steps",
+        "7-validation-gate",
+        "8-assumptions"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-smart-docs-merge-plan.md",
       "title": "План умного смыслового слияния AGENTS.md и README.md",
       "section": "plans",
@@ -3251,6 +3287,7 @@
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
         "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
+        "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
         "docs/README.md",
         "README.md"
@@ -5362,7 +5399,7 @@
     },
     {
       "path": "docs/product/requirements/acceptance-criteria.md",
-      "title": "Acceptance Criteria v0.1",
+      "title": "Критерии приемки v0.2",
       "section": "product",
       "format": "md",
       "owner_role": "Product Owner",
@@ -5377,10 +5414,16 @@
       "generated_from": [],
       "parent_readme": "docs/product/README.md",
       "artifact_registry_id": null,
-      "outgoing_links": [],
+      "outgoing_links": [
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
       "anchors": [
-        "acceptance-criteria-v01",
-        "datacanvas-mvp"
+        "критерии-приемки-v02",
+        "базовый-mvp-gate",
+        "сценарии-приемки-p1-p2",
+        "открытые-решения-для-приемки"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -5411,7 +5454,7 @@
     },
     {
       "path": "docs/product/requirements/business-requirements.md",
-      "title": "Бизнес-Требования v0.1",
+      "title": "Бизнес-требования v0.2",
       "section": "product",
       "format": "md",
       "owner_role": "Product Owner",
@@ -5426,9 +5469,31 @@
       "generated_from": [],
       "parent_readme": "docs/product/README.md",
       "artifact_registry_id": null,
-      "outgoing_links": [],
+      "outgoing_links": [
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/architecture/security/threat-model.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/README.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/vision/vision-v0.1.md",
+        "docs/README.md",
+        "docs/stories.md",
+        "README.md"
+      ],
       "anchors": [
-        "бизнес-требования-v01"
+        "бизнес-требования-v02",
+        "исходные-источники",
+        "сохраненные-требования",
+        "новые-требования-mvp-p1-p2",
+        "покрытие-p1-p2-stories",
+        "допущения-и-открытые-решения",
+        "безопасность-и-доверительные-границы",
+        "метрики-успеха",
+        "нецели-mvp-p1-p2"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -6467,6 +6532,7 @@
         "commit-and-pr-evidence",
         "metadata",
         "commit-evidence",
+        "current-main-pointer",
         "pull-request-evidence",
         "required-verification",
         "release-evidence-links"
@@ -26486,19 +26552,19 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "2c6858e4dc541c899b500edb5ebfb1ca9073c29d",
+      "current_main_commit": "f643dcca1108c0fb92b76753c67b5a0479a0839d",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },
   "coverage": {
-    "total_entries": 1036,
-    "manual_entries": 1032,
+    "total_entries": 1037,
+    "manual_entries": 1033,
     "generated_entries": 4,
     "public_navigable_entries": 13,
-    "searchable_entries": 1012,
+    "searchable_entries": 1013,
     "confidential_or_sensitive_entries": 21,
     "unclassified_entries": 1,
-    "reachable_from_root": 47,
+    "reachable_from_root": 48,
     "orphan_entries": 0
   },
   "ignored_paths": [

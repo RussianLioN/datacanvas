@@ -1,11 +1,41 @@
-# Acceptance Criteria v0.1
+# Критерии приемки v0.2
 
-## DataCanvas MVP
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / Критерии приемки
 
-- Входной пакет валидируется по схеме.
+Статус: draft
+Владелец: Product Owner
+Область: MVP `P1-P2`
+Проверка: `npm run validate:doc-links`, `npm run validate:schemas`, `npm run scan:secrets`, `npm run validate:data-leakage`
+
+## Базовый MVP gate
+
+- Входной пакет валидируется по схеме и проходит data classification.
 - Нормализованные данные сохраняют ссылки на источники.
+- Недостаточный вход останавливает генерацию и приводит к уточняющим вопросам.
+- Описание презентации создано, доступно КМ и согласовано до генерации файла.
 - `PresentationSpec` проходит schema validation.
-- Renderer создает проверяемый HTML/PDF/PNG export.
+- Renderer создает проверяемый HTML/PDF/PNG export в текущем техническом baseline.
 - Каждый финальный claim связан с источником.
-- Export не содержит raw traces, hidden notes, local paths, secrets или PII.
+- Export, email metadata и evidence не содержат raw traces, hidden notes, local paths, secrets, PII, internal prompts или tool outputs.
 - Sprint evidence содержит input, output, checks, limitations и решение приемки.
+
+## Сценарии приемки P1-P2
+
+| Сценарий | Связанные BT | Ожидаемый результат | Ожидаемое доказательство |
+|---|---|---|---|
+| Успешный путь | `BT-005`, `BT-008`, `BT-009`, `BT-012`, `BT-014` | КМ запускает DataCanvas, вход достаточен, описание согласовано, export доставлен | Trace связывает request, input, description, approval, export и delivery status |
+| Недостаточный input | `BT-006`, `BT-007` | DataCanvas задает уточняющие вопросы и не генерирует файл | Evidence содержит missing fields, question set и отсутствие export |
+| Правка до генерации | `BT-010` | КМ дополняет, перемещает или удаляет блоки до генерации | Change log description фиксирует действия до approval |
+| Выбор формата и шаблона | `BT-011` | КМ выбирает формат и шаблон из предложенных вариантов | Evidence фиксирует выбранные format/template и открытое решение по каталогу |
+| Доставка по email | `BT-012`, `BT-014` | Export отправлен по email, статус доставки зафиксирован | Delivery status связан с request/export IDs; содержимое письма не раскрывает лишние данные |
+| Неподтвержденный claim | `BT-003`, `BT-013` | Неподтвержденный claim уточняется или исключается | Claim map показывает отсутствие unsupported claim в финальном результате |
+| Конфликтующие источники | `BT-003`, `BT-014` | Конфликтующие данные не становятся финальным claim без разрешения | Trace содержит конфликт и решение: уточнение, исключение или выбранный источник |
+| Prompt injection | `BT-006`, `BT-013` | Инструкции из входного текста, agent output или вложений не меняют правила DataCanvas | Правило остановки или sanitization evidence фиксирует обработку как данных |
+| Утечка secrets/PII | `BT-004`, `BT-013` | Секреты и PII не попадают в prompt, trace, evidence, email или export | Secret scan и data leakage checks проходят; evidence redacted |
+| Guard против P3-P5 | `BT-005` - `BT-014` | В MVP `P1-P2` не появляются будущие возможности | Требования и traceability покрывают только `DC-ST-01..DC-ST-09` |
+
+## Открытые решения для приемки
+
+- `PPTX/PDF` рассматриваются как продуктовое решение для проверки, но не как утвержденный технический контракт renderer.
+- Рабочая почта КМ рассматривается как продуктовое решение для проверки, но правила адресата и подтверждения доставки остаются открытыми.
+- `DC-ST-03/04` проходят приемку по действию с описанием презентации; бизнес-ценность не дописывается без отдельного источника.
