@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "draft",
   "links": [
     {
@@ -10,10 +10,228 @@
       "status": "implemented_baseline"
     },
     {
+      "requirement_id": "BT-002",
+      "source": "docs/product/vision/vision-v0.1.md",
+      "sources": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "acceptance_scenarios": ["happy_path"],
+      "evidence_expectations": [
+        "PresentationSpec, render result и review evidence связаны со сгенерированным export."
+      ],
+      "tests": [
+        "tests/golden/presentation-spec-minimal.json",
+        "artifacts/examples/render-result-minimal.json",
+        "npm run validate:visual"
+      ],
+      "status": "draft"
+    },
+    {
       "requirement_id": "BT-003",
       "source": "docs/product/vision/vision-v0.1.md",
       "backlog_items": ["PBI-002", "PBI-003"],
       "tests": ["tests/golden/trace-manifest-minimal.json"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-004",
+      "source": "docs/architecture/security/trust-boundaries.md",
+      "sources": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/architecture/security/threat-model.md"
+      ],
+      "acceptance_scenarios": ["secret_pii_leakage", "prompt_injection"],
+      "evidence_expectations": [
+        "Export, prompt, trace и evidence не содержат raw traces, internal prompts, local paths, secrets или PII."
+      ],
+      "tests": [
+        "npm run scan:secrets",
+        "npm run validate:data-leakage",
+        "npm run validate:export"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-005",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/stories.md",
+        "docs/product-vision.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-05", "DC-ST-07"],
+      "acceptance_scenarios": ["happy_path", "launch_from_agent_context", "launch_at_session_start"],
+      "evidence_expectations": [
+        "Trace фиксирует источник запроса, режим запуска и связанный входной контекст для обоих P2-контуров запуска."
+      ],
+      "tests": ["npm run validate:doc-links", "npm run validate:docs-navigation"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-006",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/vision/vision-v0.1.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-05", "DC-ST-06"],
+      "acceptance_scenarios": ["insufficient_input", "prompt_injection", "secret_pii_leakage"],
+      "evidence_expectations": [
+        "Невалидный, секретный или неклассифицированный input останавливается до генерации с redacted evidence."
+      ],
+      "tests": [
+        "npm run scan:secrets",
+        "npm run validate:data-leakage",
+        "npm run validate:llm"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-007",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/stories.md",
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-06", "DC-ST-07"],
+      "acceptance_scenarios": ["insufficient_input"],
+      "evidence_expectations": [
+        "Evidence фиксирует недостающие поля, уточняющие вопросы и отсутствие export до достаточного input."
+      ],
+      "tests": ["npm run validate:doc-links"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-008",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/stories.md",
+        "docs/product-vision.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-01"],
+      "acceptance_scenarios": ["happy_path"],
+      "evidence_expectations": [
+        "Artifact описания связан с request, input context, структурой слайдов/блоков и ссылками на источники."
+      ],
+      "tests": ["npm run validate:doc-links"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-009",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-01"],
+      "acceptance_scenarios": ["happy_path"],
+      "evidence_expectations": [
+        "Approval state и actor identity связаны с решением об export; до согласования export отсутствует."
+      ],
+      "tests": ["npm run validate:doc-links"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-010",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/stories.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-02", "DC-ST-03", "DC-ST-04"],
+      "acceptance_scenarios": ["edit_before_generation"],
+      "evidence_expectations": [
+        "Change log описания покрывает добавление, перемещение и удаление без выдуманной бизнес-ценности для DC-ST-03/04."
+      ],
+      "tests": ["npm run validate:doc-links"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-011",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/stories.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-08"],
+      "acceptance_scenarios": ["format_template_selection"],
+      "evidence_expectations": [
+        "Выбранные format/template зафиксированы до генерации; каталог шаблонов остается открытым решением."
+      ],
+      "tests": ["npm run validate:doc-links"],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-012",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/vision/vision-v0.1.md",
+        "docs/stories.md",
+        "docs/product-vision.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-09"],
+      "acceptance_scenarios": ["happy_path", "email_delivery"],
+      "evidence_expectations": [
+        "Export artifact, delivery status и sanitized email metadata связаны; PPTX/PDF и рабочая почта остаются помеченными как продуктовые решения."
+      ],
+      "tests": [
+        "npm run validate:export",
+        "npm run validate:export-smoke",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-013",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/architecture/security/threat-model.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "acceptance_scenarios": ["prompt_injection", "secret_pii_leakage", "unsupported_claim"],
+      "evidence_expectations": [
+        "Security checks покрывают prompt, trace, evidence, runtime state, email и export с redacted evidence."
+      ],
+      "tests": [
+        "npm run scan:secrets",
+        "npm run validate:data-leakage",
+        "npm run validate:llm",
+        "npm run validate:security-foundation"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-014",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-09"],
+      "acceptance_scenarios": ["happy_path", "email_delivery", "conflicting_sources"],
+      "evidence_expectations": [
+        "Lifecycle trace сохраняет стабильные IDs, hashes/statuses и связи между request, input, description, approval, export и delivery status."
+      ],
+      "tests": [
+        "tests/golden/trace-manifest-minimal.json",
+        "npm run validate:traceability-graph"
+      ],
       "status": "draft"
     },
     {
