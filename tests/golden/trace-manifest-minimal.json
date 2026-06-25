@@ -4,7 +4,7 @@
   "process_version": "0.1.0",
   "input_package": {
     "path": "tests/fixtures/input-package-minimal.json",
-    "sha256": "03820e12f5dbee5d5ada20f39af137338f0524f11fb213ae53cbcab3afe76bcd"
+    "sha256": "b5b02144d54cd6a989ce5eff42e8a210311246704d7fd2aab96179fc21957149"
   },
   "outputs": [
     {

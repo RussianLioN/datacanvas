@@ -7,17 +7,17 @@
     {
       "artifact_id": "ART-001",
       "path": "docs/process/current/process-passport.md",
-      "sha256": "e166303f3ed308702a56b0dc6454fc0451b69ab4e132ef1f29e8023cac4b2afe"
+      "sha256": "c5c03a4c90cc00c946fdf992ff36bb5a66334631cc99adac706adc59af85dba7"
     },
     {
       "artifact_id": "ART-002",
       "path": "docs/product/vision/vision-v0.1.md",
-      "sha256": "be99035bcd791a7a67f1e044963da50e9d2e0b4e3cebd7a8119b662b4830a659"
+      "sha256": "1049465c9bd12333cd3e0ccd665a90ed02f80bf297bf5d5bfd0b27b584a97dee"
     },
     {
       "artifact_id": "ART-003",
       "path": "docs/product/bmc/bmc-v0.1.md",
-      "sha256": "c3280ef125be8eebf1a0108297e7411f9edcf31cdd3114270a2c62faf001e87f"
+      "sha256": "fec7baed377622bd2c8efccdd202f53de454e4c0bad4c676581fc4105925c671"
     },
     {
       "artifact_id": "ART-004",
@@ -37,7 +37,7 @@
     {
       "artifact_id": "ART-007",
       "path": "schemas/normalized-data.schema.json",
-      "sha256": "ba4cb4a41e97431896ca73cbfa4e373aede68ecf405aaace7f8917ef44b3818a"
+      "sha256": "418595ab1ddf5ecc8270bd56c3c7e43cd86f9b7c46de7dd1bff12e19f630788a"
     },
     {
       "artifact_id": "ART-008",
@@ -47,7 +47,7 @@
     {
       "artifact_id": "ART-009",
       "path": "tests/golden/trace-manifest-minimal.json",
-      "sha256": "d600958d3725e3bc1a2b6074462d40d064464f9d52495b9b14d3247380be48fb"
+      "sha256": "ecc75006c7ee7b93b8bc0f1aac867cdbd52bc7eccf0ff70055198599d19765b8"
     },
     {
       "artifact_id": "ART-010",
@@ -57,7 +57,7 @@
     {
       "artifact_id": "ART-011",
       "path": "scripts/generate-presentation-spec.mjs",
-      "sha256": "d3aae8be96ffdba679139bc4a73dad058fa4cce26a47c507baf0724f2c978aec"
+      "sha256": "7984026ad4e41e38906e86c85dde430f1c6657777e60abfbf6bca3b25ed87e5d"
     },
     {
       "artifact_id": "ART-012",
@@ -67,12 +67,12 @@
     {
       "artifact_id": "ART-013",
       "path": "docs/architecture/adr/ADR-006-mock-presentation-spec-generator.md",
-      "sha256": "40b54cd7fdc7be7bc81da508fe1bedabf63b73e5ad4c59c7d1a1679163f516f3"
+      "sha256": "92711234f9836fb0536de076c9cc187a0fc2c58e6e4a5e31a99c93ea6891bef0"
     },
     {
       "artifact_id": "ART-014",
       "path": "scripts/render-presentation.mjs",
-      "sha256": "8abef02e5f8898f8bcc0041921f7526dd04af46b7d2e5412736656536580b8f9"
+      "sha256": "b053aa0a538fae3146810077196640b5c77528d8348fe39279094b43121cec64"
     },
     {
       "artifact_id": "ART-015",
@@ -82,27 +82,27 @@
     {
       "artifact_id": "ART-016",
       "path": "docs/architecture/adr/ADR-007-html-renderer-baseline.md",
-      "sha256": "0e9ca897da82c70de9e077f58690265ce8447852ca624a451cfc620d2c903afc"
+      "sha256": "61cad4605c700001d2504d064a02eac6d1427eaf4990691d2c026a2c3f20b654"
     },
     {
       "artifact_id": "ART-017",
       "path": "scripts/validate-visual-baseline.mjs",
-      "sha256": "2e4bdb27e77d033a5adf89b42e31abc693566fdc441bc90ad06f87d37c9f348f"
+      "sha256": "ee9a77378417c8dd6a767c7fa0a6aae122016f856b9692ba0d9615f34a8b867e"
     },
     {
       "artifact_id": "ART-018",
       "path": "docs/architecture/renderer/pdf-png-export-strategy.md",
-      "sha256": "1963e552d4499c26a1002c79753ae9b41e73ed7e7340509377c6d2634300f73c"
+      "sha256": "33f42e3172503f9b7d8780abd65ff39593add0468efb4a597230a6880b78baa2"
     },
     {
       "artifact_id": "ART-019",
       "path": "docs/architecture/llm/prompt-contract.md",
-      "sha256": "8b2d8f589890f3a9820ec9686ff313e829dc5277291cb96bdb6e575e6c8a51ff"
+      "sha256": "15e99c0b9be0fbeaa318fa65d108bded11ac1c8865a44b1fc737a08fb5f41d14"
     },
     {
       "artifact_id": "ART-020",
       "path": "docs/architecture/adr/ADR-009-llm-schema-boundary.md",
-      "sha256": "e836c532286bcf9feba9d0ad515796846a6980010f9d3741ae3ac1ba65ebde3a"
+      "sha256": "4e5f8752feab5b9beeeb2a25e4ca7410352ad4762ce662bfa26cefb368724763"
     },
     {
       "artifact_id": "ART-021",
@@ -117,12 +117,12 @@
     {
       "artifact_id": "ART-023",
       "path": "docs/architecture/security/no-network-by-default.md",
-      "sha256": "59485ab78dda7748f23a0bcf1074bae2b487401abbc5d641a7c9bab25e3595d4"
+      "sha256": "e9344ebf714cfacf4770f0b222ed982557ace768ca93d1237065ec251e6c41b7"
     },
     {
       "artifact_id": "ART-024",
       "path": "docs/architecture/adr/ADR-010-llm-mock-guardrails.md",
-      "sha256": "ed703a4cd9526319c2394a4b369957b697b1ce14d8f0e8e432b1dd793dddf592"
+      "sha256": "6e081f77be8ce888e078a2c71c1b7f84ff834ca53223624c8164605d6fe9bff6"
     },
     {
       "artifact_id": "ART-025",
@@ -132,22 +132,22 @@
     {
       "artifact_id": "ART-026",
       "path": "docs/architecture/evals/eval-strategy.md",
-      "sha256": "d1ee2de24013d333df122bbf0975c81cbe6a4f2d8539d40e7c28ad06878fc844"
+      "sha256": "d3f7c35f43a9cdedf4740235e430dd07e1e8b6a12210686d364ff393fa691395"
     },
     {
       "artifact_id": "ART-027",
       "path": "docs/architecture/adr/ADR-011-eval-pack-before-provider.md",
-      "sha256": "1b2e92480977eda3b57232691f4814dc56443d5872c0fd2112c0af2057128c60"
+      "sha256": "3529a61813adc3ff2ed4172c9e6fbb205ea74225b592172a8299c3ca9cee0a07"
     },
     {
       "artifact_id": "ART-028",
       "path": "docs/process/change-requests/PROC-007-controlled-external-llm-provider.md",
-      "sha256": "833471243e2b7a5f843369cb889e5466548206fe0c18912421952891ad1ecb1e"
+      "sha256": "d9ac8f888e71f24752e60e2d4991116997ba18bc6482fed5d294d9a328d013a3"
     },
     {
       "artifact_id": "ART-029",
       "path": "docs/architecture/llm/provider-integration-plan.md",
-      "sha256": "c49abd68fa0bdb70061dd376931ff0429116689029dc127de3e8883921215127"
+      "sha256": "9a00ab3cb53a6b157fa55f4f614c5de160fc5c01b1a7a3a9133fd929e43f08f5"
     },
     {
       "artifact_id": "ART-030",
@@ -167,7 +167,7 @@
     {
       "artifact_id": "ART-033",
       "path": "docs/architecture/adr/ADR-012-provider-readiness-before-network.md",
-      "sha256": "d1969afb1eada58e5417e72c83bbc0d965996072dbb97a52a0903cc0d3e8e452"
+      "sha256": "6d1e7f414b829fd8fea5e51d07c8989704a503e0941944e6e9fcb799936ff6af"
     },
     {
       "artifact_id": "ART-034",
@@ -187,7 +187,7 @@
     {
       "artifact_id": "ART-037",
       "path": "docs/architecture/adr/ADR-013-structured-provider-readiness.md",
-      "sha256": "18e9720284de84cd5adbf45f5e235e535d7af86d178d9adf0ffd172f5cd27c04"
+      "sha256": "ba534b4fd71654026baec3c9eadda734df8cbc4a7c25f0c7d183ba43f719a676"
     },
     {
       "artifact_id": "ART-038",
@@ -202,7 +202,7 @@
     {
       "artifact_id": "ART-040",
       "path": "docs/process/experiments/EXP-001-controlled-llm-provider.md",
-      "sha256": "9560180f77bf634a0b048e2fabc5882b2d2083d0b48c324095afa90150b47e30"
+      "sha256": "527db1de3f95880e5f53118b53495315dfe599ee91770022190f57eeff797f06"
     },
     {
       "artifact_id": "ART-041",
@@ -212,7 +212,7 @@
     {
       "artifact_id": "ART-042",
       "path": "docs/architecture/adr/ADR-014-provider-experiment-result-contract.md",
-      "sha256": "651ad6f8ef46d2eca5be38b55b337ded10860ba4cde917c41f12462648bece29"
+      "sha256": "000862655c79e2fc336f46be4e0b9b7f7d8d9de95f15b52d8f207dbe00b87ecd"
     },
     {
       "artifact_id": "ART-043",
@@ -227,7 +227,7 @@
     {
       "artifact_id": "ART-045",
       "path": "docs/architecture/evals/provider-quality-scoring-rubric.md",
-      "sha256": "0df76ebeb681f88045c1103e397998bddd21f24126dba681bd9248b76b3fc8b5"
+      "sha256": "a31ab0e912c68e6703b43e21cbd6b26ff476794b293eb3dd8c753191d272f4e4"
     },
     {
       "artifact_id": "ART-046",
@@ -237,7 +237,7 @@
     {
       "artifact_id": "ART-047",
       "path": "docs/architecture/adr/ADR-015-provider-specific-eval-delta.md",
-      "sha256": "889d6a8834e35bdf2b251df928d31b2b6a1d5fb9aca23a2d869d02123787de7a"
+      "sha256": "e33c18658f7926e1abac3ac892fb1ad92b4729447b2f7131efe689ec98295938"
     },
     {
       "artifact_id": "ART-048",
@@ -267,7 +267,7 @@
     {
       "artifact_id": "ART-053",
       "path": "docs/architecture/adr/ADR-016-provider-output-scorer-and-risk-registry.md",
-      "sha256": "2d9919408d4eaf222ebf69a130804ff28ecdbb481cbb51945c7354e39583e5aa"
+      "sha256": "d9cc98b098dc035f2041ef5aff03908692093bb645812ad0d97e45d75e12626b"
     },
     {
       "artifact_id": "ART-054",
@@ -937,7 +937,7 @@
     {
       "artifact_id": "ART-188",
       "path": "docs/process/change-requests/PROC-035-threat-model-delta-governance.md",
-      "sha256": "b4865d50621554be8070e67c7d3615e5f50b364e09e83bf97fcb57e02ecd9522"
+      "sha256": "9a348ecc4b2ba72385ff42151df901ea49c597742e21e8f449e0755e464e15f7"
     },
     {
       "artifact_id": "ART-189",
