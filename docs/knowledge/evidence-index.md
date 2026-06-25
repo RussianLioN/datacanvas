@@ -23,7 +23,7 @@
 | `docs/sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json` | sprint evidence manifests | Scrum Master | active | current process baseline |
 | `docs/release/mvp-release-evidence-pack.json` | release evidence | Delivery/GitOps Lead | release_candidate | current main `2c6858e4dc541c899b500edb5ebfb1ca9073c29d` |
 | `docs/release/commit-pr-evidence.md` | PR evidence | Delivery/GitOps Lead | merged | PR #1 merged to `main` |
-| `docs/product/ux/human-review-session-real.json` | UAT evidence | QA/UAT Lead | accepted | confidential, metadata-only navigation |
+| Redacted real UAT session metadata | UAT evidence | QA/UAT Lead | accepted | confidential, raw artifact path скрыт из public navigation |
 | `docs/architecture/schemas/artifact-hash-manifest.json` | artifact hash manifest | Delivery/GitOps Lead | generated | refresh through `npm run generate:golden` |
 | `docs/navigation/documentation-index.json` | navigation index | Documentation Owner | generated | refresh through `npm run generate:docs-navigation` |
 | `docs/process/audits/plan-completion-audit.json` | completion audit | Process Owner | complete | post-merge status synchronized |

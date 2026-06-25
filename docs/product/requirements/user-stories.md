@@ -1,6 +1,10 @@
-# User Stories v0.1
+# Пользовательские истории v0.1
+
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Требования](README.md) / Пользовательские истории
 
 Статус: draft
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 
 | ID | История | Acceptance Criteria | Статус |
 |---|---|---|---|

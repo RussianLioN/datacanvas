@@ -1,4 +1,10 @@
-# Hypothesis Board
+# Доска гипотез
+
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Гипотезы](README.md) / Доска гипотез
+
+Статус: draft
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 
 | ID | Тип | Гипотеза | Метрика | Статус |
 |---|---|---|---|---|

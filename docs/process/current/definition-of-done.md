@@ -12,6 +12,7 @@
 - Известные ограничения явно записаны.
 - Следующий безопасный шаг указан.
 - Если затронута документация, обновлен `docs/navigation/navigation-source.json` или explicit ignore, а docs navigation gate проходит.
+- Если затронута business navigation, root README, docs README и product README сохраняют business-first маршрут, а business docs достижимы из root максимум за 2 перехода.
 
 ## Для Процессных Артефактов
 
@@ -19,12 +20,14 @@
 - Создан или обновлен `PROC-*`, если меняется правило процесса.
 - Сохранена связь с исходным планом или решением.
 - Generated navigation artifacts обновлены через `npm run generate:docs-navigation`, если менялись маршруты или visibility.
+- При изменении `navigation_group` обновлены schema, generator, validator и generated navigation outputs.
 
 ## Для Продуктовых Артефактов
 
 - Обновлена traceability.
 - Обновлены backlog или roadmap при влиянии на scope.
 - Есть owner и статус.
+- Product backlog не смешан с technical, eval или process backlog.
 
 ## Для AI/LLM Инкрементов
 

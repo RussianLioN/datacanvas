@@ -8,6 +8,7 @@
     "status",
     "generated_by",
     "source_manifest_path",
+    "navigation_groups",
     "entries",
     "routes",
     "coverage",
@@ -21,6 +22,11 @@
     "status": { "type": "string", "const": "generated" },
     "generated_by": { "type": "string", "const": "scripts/generate-docs-navigation.mjs" },
     "source_manifest_path": { "type": "string", "const": "docs/navigation/navigation-source.json" },
+    "navigation_groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/navigationGroupDefinition" }
+    },
     "entries": {
       "type": "array",
       "items": { "$ref": "#/$defs/entry" }
@@ -111,6 +117,7 @@
         "path",
         "title",
         "section",
+        "navigation_group",
         "format",
         "owner_role",
         "lifecycle",
@@ -134,6 +141,7 @@
         "path": { "type": "string", "minLength": 1 },
         "title": { "type": "string", "minLength": 1 },
         "section": { "type": "string", "minLength": 1 },
+        "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "format": { "type": "string", "enum": ["md", "json"] },
         "owner_role": { "type": "string", "minLength": 1 },
         "lifecycle": { "type": "string", "minLength": 1 },
@@ -164,11 +172,12 @@
     },
     "route": {
       "type": "object",
-      "required": ["id", "label", "start_path", "next_paths", "owner_role", "validation_command"],
+      "required": ["id", "label", "navigation_group", "start_path", "next_paths", "owner_role", "validation_command"],
       "additionalProperties": true,
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "label": { "type": "string", "minLength": 1 },
+        "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "start_path": { "type": "string", "minLength": 1 },
         "next_paths": {
           "type": "array",
@@ -177,6 +186,20 @@
         "owner_role": { "type": "string", "minLength": 1 },
         "validation_command": { "type": "string", "minLength": 1 }
       }
+    },
+    "navigationGroupDefinition": {
+      "type": "object",
+      "required": ["id", "title", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/navigationGroup" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "navigationGroup": {
+      "type": "string",
+      "enum": ["business", "delivery", "technical", "governance", "evidence", "generated"]
     }
   }
 }

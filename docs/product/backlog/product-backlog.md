@@ -1,5 +1,11 @@
 # Product Backlog
 
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Backlog](README.md) / Product backlog
+
+Статус: draft
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
+
 | ID | Название | Связь | Приоритет | Статус |
 |---|---|---|---:|---|
 | PBI-001 | Валидировать входной пакет данных | HYP-002 | 1 | draft |

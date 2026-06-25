@@ -17,7 +17,9 @@
         "docs/process/current/process-registry.md",
         "docs/process/current/process-changelog.md"
       ],
-      "validation_commands": ["npm run validate:bootstrap"],
+      "validation_commands": [
+        "npm run validate:bootstrap"
+      ],
       "migration_notes": "Первая версия процесса; миграция не требуется.",
       "rollback": "До первого принятого Sprint Review можно удалить bootstrap process artifacts."
     },
@@ -43,6 +45,41 @@
       ],
       "migration_notes": "Все существующие sprint folders получили coverage entry в manifest. Новый sprint folder обязан добавляться в manifest до закрытия Sprint Review.",
       "rollback": "Удалить gate из npm test/CI, вернуть section 9 plan coverage в partial и оставить S21 explicit threat-model-delta как единственный обязательный artifact."
+    },
+    {
+      "process_change_id": "PROC-036",
+      "title": "Закрепить business-first navigation governance",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+      "pcr_path": "docs/process/change-requests/PROC-036-documentation-navigation-governance.md",
+      "changelog_anchor": "PROC-036",
+      "affected_artifacts": [
+        "README.md",
+        "docs/README.md",
+        "docs/product/README.md",
+        "docs/navigation/navigation-source.json",
+        "schemas/docs-navigation-source.schema.json",
+        "schemas/docs-navigation-index.schema.json",
+        "scripts/generate-docs-navigation.mjs",
+        "scripts/validate-docs-navigation.mjs",
+        "docs/process/current/process-registry.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md",
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        "AGENTS.md"
+      ],
+      "validation_commands": [
+        "npm run generate:docs-navigation",
+        "npm run check:docs-navigation",
+        "npm run validate:docs-navigation",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm run validate:process-change-ledger",
+        "npm test"
+      ],
+      "migration_notes": "Business-first routes, navigation_group contract, grouped generated navigation and business artifact registry entries are synchronized in one implementation PR.",
+      "rollback": "Revert navigation source, schemas, generator, validator, registry, generated outputs and business-first README changes, then rerun docs navigation, artifact and security gates."
     }
   ],
   "known_limitations": [

@@ -2,16 +2,20 @@
   "version": "0.1.0",
   "cases": [
     {
-      "id": "positive-basic-route",
-      "description": "Public active route has owner, lifecycle, visibility, update trigger, breadcrumb and root reachability.",
-      "source_path": "docs/README.md",
-      "expected_commands": ["npm run validate:doc-links", "npm run validate:docs-navigation"]
+      "id": "positive-business-route-to-requirements",
+      "description": "Business route ведет к БТ без перехода через technical plan."
     },
     {
-      "id": "positive-sensitive-metadata-only",
-      "description": "Confidential evidence is present only as metadata and is not searchable or navigable.",
-      "source_path": "docs/product/ux/human-review-session-real.json",
-      "expected_commands": ["npm run validate:docs-navigation", "npm run validate:data-leakage"]
+      "id": "positive-product-index-canonical-artifacts",
+      "description": "Product index содержит все канонические бизнесовые артефакты."
+    },
+    {
+      "id": "positive-generated-navigation-grouped",
+      "description": "Generated navigation строится группами из navigation_group."
+    },
+    {
+      "id": "positive-restricted-evidence-not-business-route",
+      "description": "Restricted evidence не становится business route."
     }
   ]
 }

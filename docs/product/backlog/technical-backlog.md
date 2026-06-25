@@ -1,7 +1,11 @@
 # Technical Backlog
 
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Backlog](README.md) / Technical backlog
+
 Версия процесса: 0.1.0
 Статус: active
+Владелец: Development Team
+Проверка: `npm run validate:docs-navigation`
 
 | ID | Название | Связь | Приоритет | Статус |
 |---|---|---|---:|---|

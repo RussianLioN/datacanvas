@@ -43,3 +43,21 @@ PCR: `PROC-001`
 #### Rollback
 
 Удалить gate из `npm test` и CI, вернуть section 9 plan coverage в `partial`, оставить S21 explicit `threat-model-delta.md` как единственный обязательный artifact до нового PCR.
+
+### PROC-036 - Documentation Navigation Governance
+
+Статус: accepted
+Дата: 2026-06-25
+Источник: `docs/process/change-requests/PROC-036-documentation-navigation-governance.md`
+
+#### Изменение
+
+Закреплен business-first порядок для `README.md`, `docs/README.md` и `docs/product/README.md`. В navigation contract добавлен `navigation_group`, а generated navigation строится группами: business, delivery, technical, governance, evidence и generated.
+
+#### Миграция
+
+Бизнесовые документы DataCanvas добавлены в product index, business routes, artifact registry и generated navigation. Technical backlog явно классифицирован как `technical`, а archived documentation implementation plan классифицирован как governance artifact.
+
+#### Rollback
+
+Откатить `docs/navigation/navigation-source.json`, schemas, generator, validator, registry, hash manifest, generated navigation outputs и business-first README changes одним PR, затем повторить docs navigation, artifact и security gates.
