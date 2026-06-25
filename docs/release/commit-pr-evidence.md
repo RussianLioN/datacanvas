@@ -5,18 +5,18 @@
 ## Metadata
 
 - Process version: `0.1.0`
-- Evidence date: `2026-06-23T13:37:33.690Z`
+- Evidence date: `2026-06-25T08:32:22Z`
 - Release owner: `Delivery/GitOps Lead`
 
 ## Commit Evidence
 
-- Commit SHA: `3b690b956210015a0a642d0c90895296cb8603ba`
+- Commit SHA: `6504d816d26b45df17a2ad983fda1e25f0c36d75`
 - Commit URL or local verification command: `https://github.com/RussianLioN/datacanvas/pull/1`
-- Branch: `## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation`
+- Branch: `## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]`
 - Working tree status at release cut:
 
 ```text
-## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation
+## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]
 ```
 
 ## Pull Request Evidence
@@ -29,13 +29,15 @@
 ## Required Verification
 
 ```text
-release-cut git rev-parse HEAD: 3b690b956210015a0a642d0c90895296cb8603ba
+release-cut git rev-parse HEAD: 6504d816d26b45df17a2ad983fda1e25f0c36d75
 git status --short --branch:
-## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation
+## process/datacanvas-delivery-implementation...origin/process/datacanvas-delivery-implementation [ahead 5]
 npm test: passed
 npm run validate:pilot-gate: passed
 npm run validate:process-portability: passed
 npm run validate:plan-completion-audit: passed
+npm run generate:bmc -- --check: passed
+npm run validate:bmc: passed
 ```
 
 ## Release Evidence Links

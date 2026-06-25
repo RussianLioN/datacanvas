@@ -1090,9 +1090,16 @@ jq -e '([.validation_commands[]] | index("npm run validate:commit-pr-evidence-te
   docs/release/pilot-execution-handoff.json >/dev/null \
   || fail "pilot execution handoff must require commit/PR evidence template validation"
 
-jq -e '.commit_sha.status == "captured" and .commit_sha.value == "3b690b956210015a0a642d0c90895296cb8603ba"' \
+jq -e '.commit_sha.status == "captured"' \
   docs/release/mvp-release-evidence-pack.json >/dev/null \
+  || fail "release evidence pack must capture commit SHA"
+
+release_commit_sha="$(jq -r '.commit_sha.value' docs/release/mvp-release-evidence-pack.json)"
+[[ "$release_commit_sha" =~ ^[0-9a-f]{40}$ ]] \
   || fail "release evidence pack must capture real commit SHA"
+
+grep -q "$release_commit_sha" docs/release/commit-pr-evidence.md \
+  || fail "commit/PR evidence must include captured release commit SHA"
 
 jq -e '.artifacts[] | select(.id == "ART-278" and .path == "docs/release/templates/commit-pr-evidence-template.md")' \
   docs/architecture/schemas/artifact-registry.json >/dev/null \

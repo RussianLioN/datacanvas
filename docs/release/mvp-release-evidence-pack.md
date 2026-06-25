@@ -31,8 +31,8 @@
 ## Ограничения
 
 - PR #1 еще не смержен; release evidence фиксирует reviewable PR state.
-- Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить.
+- Commit/PR evidence обновлен на merge-resolution SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить повторно.
 
 ## Следующий Шаг
 
-Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence и release audit.
+Дождаться remote PR checks и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence и release audit.

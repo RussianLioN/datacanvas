@@ -13,14 +13,14 @@
   ],
   "commit_sha": {
     "status": "captured",
-    "value": "3b690b956210015a0a642d0c90895296cb8603ba",
+    "value": "6504d816d26b45df17a2ad983fda1e25f0c36d75",
     "evidence": "docs/release/commit-pr-evidence.md"
   },
   "ci_evidence": [
     {
       "command": "npm test",
       "status": "passed",
-      "evidence": "Полный локальный quality gate проходит для текущего release candidate."
+      "evidence": "Полный локальный quality gate проходит для release candidate после merge-resolution PR #1."
     },
     {
       "command": "npm run validate:uat-result",
@@ -146,7 +146,7 @@
   ],
   "known_limitations": [
     "PR #1 еще не смержен; release evidence фиксирует reviewable PR state.",
-    "Commit/PR evidence фиксирует release-cut SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить."
+    "Commit/PR evidence обновлен на merge-resolution SHA; если product/runtime artifacts изменятся до merge, evidence нужно обновить повторно."
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+  "next_safe_step": "Дождаться remote PR checks и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
 }
