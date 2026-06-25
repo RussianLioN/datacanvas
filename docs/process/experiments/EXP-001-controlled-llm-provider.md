@@ -1,8 +1,8 @@
 # EXP-001: Controlled LLM Provider Experiment
 
-ID: `EXP-001`  
-Связанный `PROC-*`: `PROC-007`  
-Статус: planned  
+ID: `EXP-001`
+Связанный `PROC-*`: `PROC-007`
+Статус: planned
 Период проверки: 1 спринт после принятия `PROC-007`
 
 ## Гипотеза
@@ -11,8 +11,8 @@ ID: `EXP-001`
 
 ## Метрика
 
-Основная метрика: доля eval cases, прошедших provider-specific проверку.  
-Целевое значение: не ниже 0.90.  
+Основная метрика: доля eval cases, прошедших provider-specific проверку.
+Целевое значение: не ниже 0.90.
 Baseline: offline mock adapter проходит structural gates, но не измеряет качество реальной модели.
 
 ## Ограничения

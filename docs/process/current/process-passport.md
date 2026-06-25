@@ -65,4 +65,3 @@
 - G2 Strategy Ready: Product Goal, Process Goal, Vision, BMC и гипотезы созданы.
 - G3 Requirements Ready: БТ, НФТ, user stories и acceptance criteria готовы к спринтам.
 - G4+ используются для продуктовой реализации согласно плану.
-

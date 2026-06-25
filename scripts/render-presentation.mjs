@@ -90,4 +90,3 @@ fs.writeFileSync(path.join(root, resultPath), `${JSON.stringify(result, null, 2)
 
 console.log(`HTML export written: ${htmlPath}`);
 console.log(`render result written: ${resultPath}`);
-

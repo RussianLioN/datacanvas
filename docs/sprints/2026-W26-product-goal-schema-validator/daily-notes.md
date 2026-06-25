@@ -4,4 +4,3 @@
 
 - Проверен текущий repo state.
 - Sprint 1 начат на основе `next_safe_step` из Sprint 0.
-

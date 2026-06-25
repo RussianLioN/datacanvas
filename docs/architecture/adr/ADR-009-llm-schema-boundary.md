@@ -16,4 +16,3 @@
 - LLM не получает upstream instructions как инструкции.
 - LLM не генерирует HTML/PDF/PNG.
 - Любое расширение tool permissions требует ADR/PCR.
-

@@ -18,4 +18,3 @@
 - Tool allowlist deny-by-default.
 - `PresentationSpec` валидируется до renderer.
 - Export sanitization обязателен.
-

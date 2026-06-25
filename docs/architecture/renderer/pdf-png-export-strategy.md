@@ -33,4 +33,3 @@
 - Выбрать конкретный browser automation toolchain.
 - Определить размеры viewport для PNG baseline.
 - Определить, хранить ли PDF/PNG в git или только как release artifacts.
-

@@ -14,4 +14,3 @@
 | Sprint 7 | Security, QA и Ops gates встроены | G8 |
 | Sprint 8 | MVP flow принят через UAT/evidence | G9 |
 | Sprint 9 | Pilot и переносимость процесса проверены | G10/G11 |
-

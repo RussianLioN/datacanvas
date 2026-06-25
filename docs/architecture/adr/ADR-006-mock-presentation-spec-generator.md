@@ -16,4 +16,3 @@
 - `PresentationSpec` contract проверяется до LLM.
 - Каждый claim в mock spec связан с `FACT-*`.
 - Будущий LLM должен проходить те же schema и claim-map проверки.
-

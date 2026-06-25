@@ -29,4 +29,3 @@ if (!html.includes("data-fact-ids=")) {
 }
 
 console.log(`export sanitization passed: ${htmlPath}`);
-

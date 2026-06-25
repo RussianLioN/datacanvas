@@ -26,8 +26,8 @@ G0/G1 artifacts существуют и связаны со sprint evidence.
 
 ## Решение
 
-Статус решения: accepted.  
-Дата решения: 2026-06-22.  
+Статус решения: accepted.
+Дата решения: 2026-06-22.
 Решающий владелец: Process Owner.
 
 Accepted как bootstrap-изменение для запуска Sprint 0.

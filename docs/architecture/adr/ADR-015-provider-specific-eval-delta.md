@@ -1,7 +1,7 @@
 # ADR-015: Provider-Specific Eval Delta И Quality Rubric
 
-Дата: 2026-06-22  
-Статус: Accepted  
+Дата: 2026-06-22
+Статус: Accepted
 Версия процесса: 0.1.0
 
 ## Контекст

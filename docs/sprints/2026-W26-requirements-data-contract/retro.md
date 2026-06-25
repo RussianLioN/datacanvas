@@ -7,4 +7,3 @@
 - Достаточен ли текущий формат `InputPackageSchema`.
 - Достаточен ли `NormalizedDataSchema` для будущего `PresentationSpec`.
 - Какие поля trace нужны до подключения LLM.
-

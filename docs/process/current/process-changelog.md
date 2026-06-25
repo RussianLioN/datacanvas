@@ -28,8 +28,8 @@ PCR: `PROC-001`
 
 ### PROC-035 - Threat Model Delta Governance
 
-Статус: accepted  
-Дата: 2026-06-22  
+Статус: accepted
+Дата: 2026-06-22
 Источник: `docs/process/change-requests/PROC-035-threat-model-delta-governance.md`
 
 #### Изменение

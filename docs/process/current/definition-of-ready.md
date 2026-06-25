@@ -32,4 +32,3 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указаны eval cases.
 - Указаны forbidden behavior и fallback expectations.
 - Проверено, что tool permissions не расширяются без ADR/PCR.
-

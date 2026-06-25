@@ -12,4 +12,3 @@
 4. Добавить eval/regression case.
 5. Обновить threat model delta.
 6. Создать `PROC-*`, если требуется изменение процесса.
-

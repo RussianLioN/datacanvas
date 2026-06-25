@@ -16,4 +16,3 @@
 - Требуется строгий slicing backlog items.
 - Sprint Review и Retrospective должны быть короткими и evidence-based.
 - Повторяющийся spillover запускает процессный эксперимент или изменение cadence.
-

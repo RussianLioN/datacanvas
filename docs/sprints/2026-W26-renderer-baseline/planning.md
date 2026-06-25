@@ -14,4 +14,3 @@
 - PDF/PNG export не реализуется в этом спринте.
 - Visual checks ограничены HTML structure и sanitization.
 - Renderer остается deterministic и не вызывает LLM.
-

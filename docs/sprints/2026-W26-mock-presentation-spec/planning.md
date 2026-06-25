@@ -14,4 +14,3 @@
 - Реальный LLM не подключается.
 - Renderer не реализуется.
 - PresentationSpec создается deterministic mock generator.
-

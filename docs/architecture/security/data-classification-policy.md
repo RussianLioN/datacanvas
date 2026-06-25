@@ -9,4 +9,3 @@
 | secret | Секреты, ключи, токены | запрещены в prompt, trace, export, evidence |
 
 Если класс данных не определен, используется `confidential`.
-

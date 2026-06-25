@@ -9,4 +9,3 @@
 - Каждый финальный claim связан с источником.
 - Export не содержит raw traces, hidden notes, local paths, secrets или PII.
 - Sprint evidence содержит input, output, checks, limitations и решение приемки.
-

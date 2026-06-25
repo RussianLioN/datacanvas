@@ -38,4 +38,3 @@
 - Prompt injection input ignored.
 - JSON schema stability.
 - Claim map completeness.
-

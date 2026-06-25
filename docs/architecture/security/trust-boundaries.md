@@ -22,4 +22,3 @@
 - Данные upstream изменяют instructions агента.
 - LLM output попадает в renderer без schema validation.
 - Export содержит raw trace, hidden notes, local path, internal prompt, PII или secret.
-

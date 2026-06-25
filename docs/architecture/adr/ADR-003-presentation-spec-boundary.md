@@ -16,4 +16,3 @@ LLM генерирует только валидируемый `PresentationSpec
 - `PresentationSpec` становится центральным контрактом.
 - Renderer можно тестировать отдельно.
 - Claims и visual structure трассируются до входных данных.
-

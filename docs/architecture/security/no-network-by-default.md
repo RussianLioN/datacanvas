@@ -1,7 +1,7 @@
 # No-Network-By-Default Для LLM Boundary
 
-Статус: draft  
-Версия процесса: 0.1.0  
+Статус: draft
+Версия процесса: 0.1.0
 Владелец: Security/Privacy Lead
 
 ## Решение

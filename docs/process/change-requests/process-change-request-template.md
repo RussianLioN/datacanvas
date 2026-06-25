@@ -43,4 +43,3 @@ ID: `PROC-`
 Статус решения: rejected / deferred / experiment / accepted.
 Дата решения:
 Решающий владелец:
-

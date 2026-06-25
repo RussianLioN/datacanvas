@@ -25,4 +25,3 @@
 
 - HYP-003 имеет первый evidence cycle: создан Sprint 0 process bootstrap.
 - HYP-001 и HYP-002 требуют MVP/prototype flow и пока остаются draft.
-

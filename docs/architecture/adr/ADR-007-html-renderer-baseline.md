@@ -16,4 +16,3 @@
 - Renderer не вызывает LLM.
 - Export проходит sanitization check.
 - PDF/PNG и визуальные screenshot checks остаются следующим слоем.
-

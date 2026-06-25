@@ -15,4 +15,3 @@
 - Реальный LLM не подключается.
 - PDF/PNG export не реализуется; фиксируется стратегия и gates.
 - Visual baseline является структурной проверкой HTML, не screenshot regression.
-

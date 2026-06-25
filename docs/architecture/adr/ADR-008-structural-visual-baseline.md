@@ -16,4 +16,3 @@
 - Грубые ошибки renderer блокируются без browser dependency.
 - Screenshot regression остается следующим слоем.
 - Visual baseline включен в `npm test`.
-

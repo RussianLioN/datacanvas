@@ -8,4 +8,3 @@
 | Sprint Evidence Pack | Набор доказательств результата спринта | active |
 | PresentationSpec | Структурный контракт презентации между AI-частью и renderer | draft |
 | Claim Map | Связь утверждений на слайде с исходными фактами и источниками | draft |
-

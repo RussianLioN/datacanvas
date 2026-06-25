@@ -54,4 +54,3 @@ writeJson(claimMapPath, claimMap);
 
 console.log(`presentation spec written: ${specPath}`);
 console.log(`claim map written: ${claimMapPath}`);
-

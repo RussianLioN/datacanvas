@@ -59,4 +59,3 @@ for (const pattern of forbiddenHiddenPatterns) {
 }
 
 console.log(`visual baseline passed: ${htmlPath}`);
-

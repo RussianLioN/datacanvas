@@ -11,4 +11,3 @@
 - Нет tool outputs.
 - Нет неподтвержденных claims.
 - Все видимые claims связаны с claim map.
-
