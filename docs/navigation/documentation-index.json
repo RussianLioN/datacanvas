@@ -26552,7 +26552,7 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "d32af9ffed591f48f3beba8cc62186121529b9c1",
+      "current_main_commit": "059fc8ba6b503d87b2f349fd3977caa735192647",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },

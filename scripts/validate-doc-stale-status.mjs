@@ -31,6 +31,55 @@ function optionalGitRef(ref) {
   }
 }
 
+function optionalGitOutput(args) {
+  try {
+    return execFileSync("git", args, {
+      cwd: root,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    return null;
+  }
+}
+
+function isAncestor(ancestor, descendant) {
+  return optionalGitOutput(["merge-base", "--is-ancestor", ancestor, descendant]) === "";
+}
+
+function changedFiles(baseRef, headRef) {
+  const output = optionalGitOutput(["diff", "--name-only", `${baseRef}..${headRef}`]);
+  if (output === null) {
+    return null;
+  }
+  if (output === "") {
+    return [];
+  }
+  return output.split("\n").filter(Boolean);
+}
+
+const mainPointerRefreshPaths = new Set([
+  "docs/architecture/schemas/artifact-hash-manifest.json",
+  "docs/navigation/documentation-index.json",
+  "docs/navigation/navigation-map.md",
+  "docs/navigation/navigation-source.json",
+  "docs/navigation/stale-status-report.md",
+  "docs/release/commit-pr-evidence.md",
+  "scripts/validate-doc-stale-status.mjs",
+]);
+
+function isAllowedMainPointerSuccessor(pointerCommit, currentMainCommit) {
+  const head = optionalGitRef("HEAD");
+  if (!head || head !== currentMainCommit || !isAncestor(pointerCommit, currentMainCommit)) {
+    return false;
+  }
+  const files = changedFiles(pointerCommit, currentMainCommit);
+  if (!files) {
+    return false;
+  }
+  return files.every((filePath) => mainPointerRefreshPaths.has(filePath));
+}
+
 const source = readJson(sourcePath);
 const findings = [];
 
@@ -49,8 +98,13 @@ for (const scanPath of source.stale_status_checks.scan_paths) {
   }
 }
 
-const currentMain = optionalGitRef("origin/main") || optionalGitRef("main");
-if (currentMain && source.current_pointers.current_main_commit !== currentMain) {
+const currentMain = optionalGitRef("origin/main") || optionalGitRef("main") || optionalGitRef("HEAD");
+const recordedMain = source.current_pointers.current_main_commit;
+if (
+  currentMain &&
+  recordedMain !== currentMain &&
+  !isAllowedMainPointerSuccessor(recordedMain, currentMain)
+) {
   findings.push(`docs/navigation/navigation-source.json: current_main_commit is ${source.current_pointers.current_main_commit}, expected ${currentMain}`);
 }
 
