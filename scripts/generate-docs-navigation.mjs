@@ -189,6 +189,7 @@ function sectionRuleFor(source, relativePath) {
 function defaultMetadata(relativePath) {
   return {
     section: relativePath.startsWith("docs/") ? "knowledge" : "root",
+    navigation_group: "governance",
     owner_role: "Documentation Owner",
     lifecycle: "draft",
     data_class: "confidential",
@@ -210,6 +211,7 @@ function metadataFor(source, relativePath) {
   const base = exact || rule?.defaults || defaultMetadata(relativePath);
   const metadata = {
     section: base.section,
+    navigation_group: base.navigation_group,
     owner_role: base.owner_role,
     lifecycle: base.lifecycle,
     data_class: base.data_class,
@@ -301,6 +303,7 @@ function buildEntries(source) {
       path: filePath,
       title,
       section: metadata.section,
+      navigation_group: metadata.navigation_group,
       format,
       owner_role: metadata.owner_role,
       lifecycle: metadata.lifecycle,
@@ -388,6 +391,7 @@ function buildIndex(source) {
     status: "generated",
     generated_by: "scripts/generate-docs-navigation.mjs",
     source_manifest_path: sourcePath,
+    navigation_groups: source.navigation_groups,
     entries,
     routes: {
       role_routes: source.role_routes,
@@ -412,16 +416,61 @@ function link(label, target) {
 function renderRoutesTable(routes, routeField) {
   const rows = routes.map((route) => {
     const next = route.next_paths.map((target) => `\`${target}\``).join(", ");
-    return `| \`${route.id}\` | ${route[routeField]} | \`${route.start_path}\` | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
+    return `| \`${route.id}\` | ${route[routeField]} | \`${route.navigation_group}\` | \`${route.start_path}\` | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
   });
-  return ["| ID | Маршрут | Старт | Дальше | Владелец | Проверка |", "|---|---|---|---|---|---|", ...rows].join("\n");
+  return ["| ID | Маршрут | Группа | Старт | Дальше | Владелец | Проверка |", "|---|---|---|---|---|---|---|", ...rows].join("\n");
+}
+
+function navigationGroupSortKey(entry) {
+  if (entry.navigation_group !== "business") {
+    return entry.path;
+  }
+  const exactOrder = new Map([
+    ["docs/product/README.md", 10],
+    ["docs/product-vision.md", 20],
+    ["docs/product/bmc/README.md", 30],
+    ["docs/stories.md", 40],
+    ["docs/product/requirements/README.md", 50],
+    ["docs/product/requirements/business-requirements.md", 51],
+    ["docs/product/requirements/user-stories.md", 52],
+    ["docs/product/requirements/non-functional-requirements.md", 53],
+    ["docs/product/requirements/acceptance-criteria.md", 54],
+    ["docs/product/backlog/README.md", 60],
+    ["docs/product/backlog/product-backlog.md", 61],
+    ["docs/product/roadmap/README.md", 70],
+    ["docs/product/roadmap/roadmap-v0.1.md", 71],
+    ["docs/product/hypotheses/README.md", 80],
+    ["docs/product/hypotheses/hypothesis-board.md", 81],
+    ["docs/product/hypotheses/hypothesis-validation.md", 82],
+    ["docs/product/requirements/traceability-matrix.json", 90],
+  ]);
+  return `${String(exactOrder.get(entry.path) ?? 999).padStart(3, "0")}-${entry.path}`;
 }
 
 function renderNavigationMap(source, index) {
   const pointerRows = Object.entries(source.current_pointers).map(([key, value]) => `| \`${key}\` | \`${value}\` |`);
-  const publicEntries = index.entries
-    .filter((entry) => entry.visibility === "public" && entry.navigable)
-    .map((entry) => `- ${link(entry.title, entry.path)} - ${entry.owner_role}, \`${entry.lifecycle}\`.`);
+  const publicEntriesByGroup = new Map();
+  for (const group of source.navigation_groups) {
+    publicEntriesByGroup.set(group.id, []);
+  }
+  for (const entry of index.entries.filter((item) => item.visibility === "public" && item.navigable)) {
+    if (!publicEntriesByGroup.has(entry.navigation_group)) {
+      publicEntriesByGroup.set(entry.navigation_group, []);
+    }
+    publicEntriesByGroup.get(entry.navigation_group).push(entry);
+  }
+  const groupedEntries = source.navigation_groups
+    .map((group) => {
+      const rows = stableSort(publicEntriesByGroup.get(group.id).map((entry) => navigationGroupSortKey(entry)))
+        .map((key) => publicEntriesByGroup.get(group.id).find((entry) => navigationGroupSortKey(entry) === key))
+        .map((entry) => `- ${link(entry.title, entry.path)} - ${entry.owner_role}, \`${entry.lifecycle}\`.`);
+      return `### ${group.title}
+
+${group.description}
+
+${rows.length > 0 ? rows.join("\n") : "- Публичных navigable маршрутов нет."}`;
+    })
+    .join("\n\n");
   const sourceEntries = [
     "docs/navigation/navigation-source.json",
     "docs/architecture/schemas/artifact-registry.json",
@@ -439,7 +488,7 @@ function renderNavigationMap(source, index) {
 
 ## Быстрые Маршруты
 
-${publicEntries.join("\n")}
+${groupedEntries}
 
 ## Маршруты По Ролям
 

@@ -1,6 +1,10 @@
-# Hypothesis Validation
+# Проверка гипотез
+
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Гипотезы](README.md) / Проверка гипотез
 
 Статус: draft
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 Версия процесса: `0.1.0`
 
 ## Цель

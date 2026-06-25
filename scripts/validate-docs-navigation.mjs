@@ -45,6 +45,54 @@ function hasBreadcrumb(relativePath) {
   return /^Навигация:\s+/m.test(firstLines);
 }
 
+function matchesPrefix(relativePath, prefix) {
+  return relativePath === prefix || relativePath.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`);
+}
+
+function routeTargets(route) {
+  return [route.start_path, ...route.next_paths];
+}
+
+function isRestrictedForBusinessRoute(entry) {
+  return entry.visibility === "restricted" || ["confidential", "sensitive"].includes(entry.data_class);
+}
+
+function isTechnicalOrGovernancePath(relativePath) {
+  return [
+    ".github",
+    "AGENTS.md",
+    "docs/architecture",
+    "docs/navigation",
+    "docs/plans",
+    "docs/process",
+    "schemas",
+    "scripts",
+    "tests",
+  ].some((prefix) => matchesPrefix(relativePath, prefix));
+}
+
+function isBusinessRouteForbiddenPath(relativePath) {
+  return [
+    "docs/plans",
+    "schemas",
+    "scripts",
+    "tests",
+    ".github",
+    "AGENTS.md",
+  ].some((prefix) => matchesPrefix(relativePath, prefix));
+}
+
+function assertFixtureCases(label, fixturePath, handlers) {
+  const fixture = readJson(fixturePath);
+  for (const testCase of fixture.cases) {
+    const handler = handlers[testCase.id];
+    if (!handler) {
+      fail(`${label} fixture case has no executable assertion: ${testCase.id}`);
+    }
+    handler(testCase);
+  }
+}
+
 const source = readJson(sourcePath);
 const index = readJson(indexPath);
 const sourceSchema = readJson("schemas/docs-navigation-source.schema.json");
@@ -72,6 +120,23 @@ execFileSync("node", ["scripts/generate-docs-navigation.mjs", "--check"], {
 });
 
 const indexByPath = new Map(index.entries.map((entry) => [entry.path, entry]));
+const sourceManagedByPath = new Map(source.managed_entries.map((entry) => [entry.path, entry]));
+const configuredNavigationGroups = new Set(source.navigation_groups.map((group) => group.id));
+
+if (source.navigation_groups[0]?.id !== "business") {
+  fail("business navigation group must be configured first");
+}
+
+if (configuredNavigationGroups.size !== source.navigation_groups.length) {
+  fail("duplicate navigation group ids");
+}
+
+for (const group of source.navigation_groups) {
+  if (!readText("docs/navigation/navigation-map.md").includes(`### ${group.title}`)) {
+    fail(`generated navigation map is missing group: ${group.id}`);
+  }
+}
+
 for (const required of source.required_entrypoints) {
   requireFile(required.path);
   if (!indexByPath.has(required.path)) {
@@ -99,9 +164,35 @@ if (routeDuplicates.length > 0) {
   fail(`duplicate route ids: ${routeDuplicates.join(", ")}`);
 }
 
+for (const route of [...source.role_routes, ...source.task_routes]) {
+  for (const target of routeTargets(route)) {
+    requireFile(target);
+    const generatedEntry = indexByPath.get(target);
+    if (!generatedEntry) {
+      fail(`route target is missing from generated index: ${route.id} -> ${target}`);
+    }
+    if (route.navigation_group === "business") {
+      const ignored = source.ignored_paths.find((entry) => matchesPrefix(target, entry.path));
+      if (ignored) {
+        fail(`business route points to ignored path: ${route.id} -> ${target}`);
+      }
+      if (isRestrictedForBusinessRoute(generatedEntry)) {
+        fail(`business route points to restricted/confidential/sensitive path: ${route.id} -> ${target}`);
+      }
+      if (isBusinessRouteForbiddenPath(target)) {
+        fail(`business route points to non-business primary source: ${route.id} -> ${target}`);
+      }
+    }
+  }
+}
+
 for (const entry of index.entries) {
   if (!entry.owner_role || !entry.lifecycle || !entry.data_class || !entry.visibility) {
     fail(`navigation entry is missing required metadata: ${entry.path}`);
+  }
+
+  if (!configuredNavigationGroups.has(entry.navigation_group)) {
+    fail(`navigation entry has unknown group: ${entry.path}`);
   }
 
   if (["confidential", "sensitive"].includes(entry.data_class)) {
@@ -122,6 +213,19 @@ for (const entry of index.entries) {
       fail(`public active entry is not reachable from root within 3 clicks: ${entry.path}`);
     }
   }
+
+  if (entry.navigation_group === "business" && isTechnicalOrGovernancePath(entry.path)) {
+    fail(`technical/governance document cannot use business navigation group: ${entry.path}`);
+  }
+
+  if (entry.navigation_group === "business" && entry.visibility === "public" && entry.navigable) {
+    if (!entry.artifact_registry_id) {
+      fail(`public navigable business entry is missing artifact registry id: ${entry.path}`);
+    }
+    if (!entry.reachable_from_root || entry.click_depth === null || entry.click_depth > 2) {
+      fail(`business entry is not reachable from root within 2 clicks: ${entry.path}`);
+    }
+  }
 }
 
 for (const sourceEntry of source.managed_entries) {
@@ -135,6 +239,9 @@ for (const sourceEntry of source.managed_entries) {
         fail(`critical entry is missing ${key}: ${sourceEntry.path}`);
       }
     }
+  }
+  if (generatedEntry.navigation_group !== sourceEntry.navigation_group) {
+    fail(`managed entry has wrong navigation group in generated index: ${sourceEntry.path}`);
   }
   if (sourceEntry.breadcrumb_required && sourceEntry.path.endsWith(".md") && !generatedEntry.generated) {
     if (!hasBreadcrumb(sourceEntry.path)) {
@@ -167,6 +274,129 @@ const criticalWithoutRegistry = index.entries.filter(
 );
 if (criticalWithoutRegistry.length > 0) {
   fail(`public active entries missing artifact registry ids: ${criticalWithoutRegistry.map((entry) => entry.path).join(", ")}`);
+}
+
+const forbiddenPublicReachablePatterns = [
+  { id: "absolute-local-user-path", pattern: /\/Users\// },
+  { id: "file-url", pattern: /file:\/\//i },
+  { id: "raw-bmc-interview-path", pattern: /docs\/product\/bmc\/interviews/i },
+  { id: "raw-bmc-evidence-path", pattern: /docs\/product\/bmc\/evidence/i },
+  { id: "raw-uat-runtime-path", pattern: /docs\/product\/ux\/human-review-session-real/i },
+  { id: "security-leakage-inventory-path", pattern: /docs\/architecture\/security\/real-uat-leakage-guard/i },
+];
+for (const entry of index.entries) {
+  if (!entry.reachable_from_root || entry.visibility !== "public" || entry.format !== "md") {
+    continue;
+  }
+  const text = readText(entry.path);
+  for (const rule of forbiddenPublicReachablePatterns) {
+    if (rule.pattern.test(text)) {
+      fail(`public-reachable doc contains forbidden ${rule.id}: ${entry.path}`);
+    }
+  }
+}
+
+assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/cases.json", {
+  "positive-business-route-to-requirements": () => {
+    const route = source.task_routes.find((item) => item.id === "task-find-business-requirements");
+    if (!route || route.navigation_group !== "business") {
+      fail("positive fixture missing business requirements route");
+    }
+    if (!routeTargets(route).includes("docs/product/requirements/business-requirements.md")) {
+      fail("business requirements route must lead to BT");
+    }
+    if (routeTargets(route).some((target) => matchesPrefix(target, "docs/plans"))) {
+      fail("business requirements route must not pass through technical plans");
+    }
+  },
+  "positive-product-index-canonical-artifacts": () => {
+    const productIndex = readText("docs/product/README.md");
+    for (const requiredPath of [
+      "docs/product-vision.md",
+      "docs/stories.md",
+      "docs/product/bmc/README.md",
+      "docs/product/requirements/business-requirements.md",
+      "docs/product/requirements/user-stories.md",
+      "docs/product/requirements/non-functional-requirements.md",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/roadmap/roadmap-v0.1.md",
+      "docs/product/hypotheses/hypothesis-board.md",
+      "docs/product/requirements/traceability-matrix.json",
+    ]) {
+      const basename = path.posix.basename(requiredPath);
+      if (!productIndex.includes(basename) && !productIndex.includes(requiredPath.replace("docs/product/", ""))) {
+        fail(`product index is missing canonical business artifact: ${requiredPath}`);
+      }
+    }
+  },
+  "positive-generated-navigation-grouped": () => {
+    const map = readText("docs/navigation/navigation-map.md");
+    for (const group of source.navigation_groups) {
+      if (!map.includes(`### ${group.title}`)) {
+        fail(`navigation map is missing generated group section: ${group.id}`);
+      }
+    }
+  },
+  "positive-restricted-evidence-not-business-route": () => {
+    const businessTargets = new Set(source.task_routes.filter((route) => route.navigation_group === "business").flatMap(routeTargets));
+    for (const blocked of index.blocked_sensitive_paths) {
+      if (businessTargets.has(blocked.path)) {
+        fail(`restricted evidence is used as business route: ${blocked.path}`);
+      }
+    }
+  },
+});
+
+assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/cases.json", {
+  "negative-business-route-to-plan": () => {
+    for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
+      if (routeTargets(route).some((target) => matchesPrefix(target, "docs/plans"))) {
+        fail(`business route points to plan: ${route.id}`);
+      }
+    }
+  },
+  "negative-business-route-to-schema-or-script": () => {
+    for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
+      if (routeTargets(route).some((target) => matchesPrefix(target, "schemas") || matchesPrefix(target, "scripts"))) {
+        fail(`business route points to schema/script: ${route.id}`);
+      }
+    }
+  },
+  "negative-public-business-without-artifact-id": () => {
+    const offenders = index.entries.filter(
+      (entry) => entry.navigation_group === "business" && entry.visibility === "public" && entry.navigable && !entry.artifact_registry_id,
+    );
+    if (offenders.length > 0) {
+      fail(`public business entries missing artifact ids: ${offenders.map((entry) => entry.path).join(", ")}`);
+    }
+  },
+  "negative-technical-backlog-as-business": () => {
+    const entry = indexByPath.get("docs/product/backlog/technical-backlog.md");
+    if (!entry || entry.navigation_group === "business") {
+      fail("technical-backlog.md must not be classified as business");
+    }
+  },
+  "negative-public-reachable-local-path": () => {
+    for (const entry of index.entries.filter((item) => item.reachable_from_root && item.visibility === "public" && item.format === "md")) {
+      if (/\/Users\//.test(readText(entry.path))) {
+        fail(`public-reachable doc contains absolute local path: ${entry.path}`);
+      }
+    }
+  },
+  "negative-stale-generated-map": () => {
+    execFileSync("node", ["scripts/generate-docs-navigation.mjs", "--check"], {
+      cwd: root,
+      stdio: "inherit",
+    });
+  },
+});
+
+for (const [pathKey, sourceEntry] of sourceManagedByPath) {
+  const generatedEntry = indexByPath.get(pathKey);
+  if (generatedEntry && generatedEntry.navigation_group !== sourceEntry.navigation_group) {
+    fail(`source/index navigation group mismatch: ${pathKey}`);
+  }
 }
 
 console.log("docs navigation validation passed");

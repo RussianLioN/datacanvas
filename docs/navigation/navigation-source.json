@@ -5,19 +5,28 @@
   "source_roots": [
     {
       "path": "README.md",
-      "formats": ["md"]
+      "formats": [
+        "md"
+      ]
     },
     {
       "path": "AGENTS.md",
-      "formats": ["md"]
+      "formats": [
+        "md"
+      ]
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
-      "formats": ["md"]
+      "formats": [
+        "md"
+      ]
     },
     {
       "path": "docs",
-      "formats": ["md", "json"]
+      "formats": [
+        "md",
+        "json"
+      ]
     }
   ],
   "required_entrypoints": [
@@ -77,7 +86,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Product scope or story catalog changes."
+        "update_trigger": "Product scope or story catalog changes.",
+        "navigation_group": "business"
       }
     },
     {
@@ -94,7 +104,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Story catalog or traceability source changes."
+        "update_trigger": "Story catalog or traceability source changes.",
+        "navigation_group": "business"
       }
     },
     {
@@ -111,7 +122,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Product artifact changes."
+        "update_trigger": "Product artifact changes.",
+        "navigation_group": "business"
       }
     },
     {
@@ -128,7 +140,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "BMC source, interview, or generated package changes."
+        "update_trigger": "BMC source, interview, or generated package changes.",
+        "navigation_group": "business"
       }
     },
     {
@@ -145,7 +158,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "UAT, review runtime, or operator handoff changes."
+        "update_trigger": "UAT, review runtime, or operator handoff changes.",
+        "navigation_group": "delivery"
       }
     },
     {
@@ -162,7 +176,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Process rule, evidence, or version changes."
+        "update_trigger": "Process rule, evidence, or version changes.",
+        "navigation_group": "governance"
       }
     },
     {
@@ -179,7 +194,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Architecture decision, schema, security, or runtime boundary changes."
+        "update_trigger": "Architecture decision, schema, security, or runtime boundary changes.",
+        "navigation_group": "technical"
       }
     },
     {
@@ -196,7 +212,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Threat model, leakage, allowlist, or trust boundary changes."
+        "update_trigger": "Threat model, leakage, allowlist, or trust boundary changes.",
+        "navigation_group": "technical"
       }
     },
     {
@@ -213,7 +230,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Release, pilot, CI, PR, or evidence state changes."
+        "update_trigger": "Release, pilot, CI, PR, or evidence state changes.",
+        "navigation_group": "delivery"
       }
     },
     {
@@ -230,7 +248,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Sprint planning, review, retrospective, or evidence manifest changes."
+        "update_trigger": "Sprint planning, review, retrospective, or evidence manifest changes.",
+        "navigation_group": "delivery"
       }
     },
     {
@@ -247,7 +266,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Planning artifact changes."
+        "update_trigger": "Planning artifact changes.",
+        "navigation_group": "governance"
       }
     },
     {
@@ -264,7 +284,8 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Evidence, glossary, lessons, or RCA changes."
+        "update_trigger": "Evidence, glossary, lessons, or RCA changes.",
+        "navigation_group": "evidence"
       }
     },
     {
@@ -279,10 +300,45 @@
         "searchable": true,
         "navigable": false,
         "canonical_source": "docs/navigation/navigation-source.json",
-        "generated_from": ["docs/navigation/navigation-source.json"],
+        "generated_from": [
+          "docs/navigation/navigation-source.json"
+        ],
         "redaction_status": "not_required",
-        "update_trigger": "Navigation source, route, or document classification changes."
+        "update_trigger": "Navigation source, route, or document classification changes.",
+        "navigation_group": "generated"
       }
+    }
+  ],
+  "navigation_groups": [
+    {
+      "id": "business",
+      "title": "Бизнесовая карта продукта",
+      "description": "Vision, BMC, stories, требования, backlog, roadmap, гипотезы и traceability."
+    },
+    {
+      "id": "delivery",
+      "title": "Производственный контур",
+      "description": "Sprint, release, UAT, pilot, production/process evidence и PR handoff."
+    },
+    {
+      "id": "technical",
+      "title": "Техническая документация",
+      "description": "Архитектура, ADR, schemas, scripts, tests, security contracts и technical backlog."
+    },
+    {
+      "id": "governance",
+      "title": "Методика и governance",
+      "description": "Процесс документации, PROC, планы, DoR/DoD и методики."
+    },
+    {
+      "id": "evidence",
+      "title": "Evidence",
+      "description": "Evidence hub и generated/manual evidence exports без raw confidential данных."
+    },
+    {
+      "id": "generated",
+      "title": "Generated navigation",
+      "description": "Generated navigation и отчеты генераторов."
     }
   ],
   "managed_entries": [
@@ -302,7 +358,8 @@
       "update_trigger": "Any top-level route changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "AGENTS.md",
@@ -320,7 +377,8 @@
       "update_trigger": "Agent working agreement or repository rule changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
@@ -338,7 +396,8 @@
       "update_trigger": "PR handoff or evidence requirements change.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/README.md",
@@ -356,7 +415,8 @@
       "update_trigger": "Documentation route table changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/project-map.md",
@@ -374,7 +434,8 @@
       "update_trigger": "Repository layer or ownership changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/product/README.md",
@@ -392,7 +453,8 @@
       "update_trigger": "Product route or canonical product source changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "business"
     },
     {
       "path": "docs/process/README.md",
@@ -410,7 +472,8 @@
       "update_trigger": "Process route or process governance changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/architecture/README.md",
@@ -428,7 +491,8 @@
       "update_trigger": "Architecture route or decision layer changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "technical"
     },
     {
       "path": "docs/release/README.md",
@@ -446,7 +510,8 @@
       "update_trigger": "Release, PR, or evidence route changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "delivery"
     },
     {
       "path": "docs/sprints/README.md",
@@ -464,7 +529,8 @@
       "update_trigger": "Sprint folder or sprint evidence route changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "delivery"
     },
     {
       "path": "docs/plans/README.md",
@@ -482,7 +548,8 @@
       "update_trigger": "Plan catalog changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
@@ -500,7 +567,8 @@
       "update_trigger": "Business and technical documentation navigation implementation changes.",
       "critical": false,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "governance"
     },
     {
       "path": "docs/knowledge/README.md",
@@ -518,7 +586,8 @@
       "update_trigger": "Knowledge, evidence, or lesson route changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "evidence"
     },
     {
       "path": "docs/product/bmc/README.md",
@@ -536,7 +605,8 @@
       "update_trigger": "BMC package route or accepted BMC changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "business"
     },
     {
       "path": "docs/knowledge/evidence-index.md",
@@ -554,7 +624,8 @@
       "update_trigger": "Evidence hub or current pointer changes.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "evidence"
     },
     {
       "path": "docs/navigation/navigation-source.json",
@@ -572,7 +643,8 @@
       "update_trigger": "Any route, section, sensitivity, or generated output rule changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "generated"
     },
     {
       "path": "docs/navigation/documentation-index.json",
@@ -585,12 +657,15 @@
       "searchable": false,
       "navigable": false,
       "canonical_source": "docs/navigation/navigation-source.json",
-      "generated_from": ["docs/navigation/navigation-source.json"],
+      "generated_from": [
+        "docs/navigation/navigation-source.json"
+      ],
       "redaction_status": "not_required",
       "update_trigger": "Run npm run generate:docs-navigation after source changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "generated"
     },
     {
       "path": "docs/navigation/navigation-map.md",
@@ -603,12 +678,15 @@
       "searchable": true,
       "navigable": true,
       "canonical_source": "docs/navigation/navigation-source.json",
-      "generated_from": ["docs/navigation/navigation-source.json"],
+      "generated_from": [
+        "docs/navigation/navigation-source.json"
+      ],
       "redaction_status": "not_required",
       "update_trigger": "Run npm run generate:docs-navigation after source changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "generated"
     },
     {
       "path": "docs/navigation/orphan-docs-report.md",
@@ -621,12 +699,15 @@
       "searchable": false,
       "navigable": false,
       "canonical_source": "docs/navigation/navigation-source.json",
-      "generated_from": ["docs/navigation/navigation-source.json"],
+      "generated_from": [
+        "docs/navigation/navigation-source.json"
+      ],
       "redaction_status": "not_required",
       "update_trigger": "Run npm run generate:docs-navigation after source changes.",
       "critical": true,
       "breadcrumb_required": false,
-      "artifact_registry_required": true
+      "artifact_registry_required": true,
+      "navigation_group": "generated"
     },
     {
       "path": "docs/navigation/stale-status-report.md",
@@ -639,12 +720,338 @@
       "searchable": false,
       "navigable": false,
       "canonical_source": "docs/navigation/navigation-source.json",
-      "generated_from": ["docs/navigation/navigation-source.json"],
+      "generated_from": [
+        "docs/navigation/navigation-source.json"
+      ],
       "redaction_status": "not_required",
       "update_trigger": "Run npm run generate:docs-navigation after source changes.",
       "critical": true,
       "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_group": "generated"
+    },
+    {
+      "path": "docs/product-vision.md",
+      "route_id": "product-vision",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
       "artifact_registry_required": true
+    },
+    {
+      "path": "docs/stories.md",
+      "route_id": "stories-catalog",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/README.md",
+      "route_id": "requirements-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/business-requirements.md",
+      "route_id": "business-requirements",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "route_id": "user-stories",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "route_id": "non-functional-requirements",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "route_id": "acceptance-criteria",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "route_id": "traceability-matrix",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/backlog/README.md",
+      "route_id": "product-backlog-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/backlog/product-backlog.md",
+      "route_id": "product-backlog",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/roadmap/README.md",
+      "route_id": "product-roadmap-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "route_id": "product-roadmap-v0-1",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/hypotheses/README.md",
+      "route_id": "product-hypotheses-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "route_id": "hypothesis-board",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/hypotheses/hypothesis-validation.md",
+      "route_id": "hypothesis-validation",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product scope, requirement, backlog, roadmap, hypothesis, or traceability changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/backlog/technical-backlog.md",
+      "route_id": "technical-backlog",
+      "section": "product",
+      "navigation_group": "technical",
+      "owner_role": "Development Team",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Technical backlog changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/datacanvas-documentation-implementation-plan.md",
+      "route_id": "datacanvas-documentation-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Process Owner",
+      "lifecycle": "archived",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Archived documentation implementation plan changes.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
     }
   ],
   "role_routes": [
@@ -653,36 +1060,62 @@
       "label": "Product Owner",
       "role": "Product Owner",
       "start_path": "docs/product/README.md",
-      "next_paths": ["docs/product/bmc/README.md", "docs/product/vision/vision-v0.1.md", "docs/stories.md"],
+      "next_paths": [
+        "docs/product-vision.md",
+        "docs/product/bmc/README.md",
+        "docs/stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/hypotheses/hypothesis-board.md"
+      ],
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "business"
     },
     {
       "id": "role-process-owner",
       "label": "Process Owner",
       "role": "Process Owner",
       "start_path": "docs/process/README.md",
-      "next_paths": ["docs/process/current/process-registry.md", "docs/process/current/definition-of-ready.md", "docs/process/current/definition-of-done.md"],
+      "next_paths": [
+        "docs/process/current/process-registry.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md"
+      ],
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "governance"
     },
     {
       "id": "role-delivery-lead",
       "label": "Delivery/GitOps Lead",
       "role": "Delivery/GitOps Lead",
       "start_path": "docs/release/README.md",
-      "next_paths": ["docs/release/commit-pr-evidence.md", "docs/release/mvp-release-evidence-pack.md", "docs/knowledge/evidence-index.md"],
+      "next_paths": [
+        "docs/release/commit-pr-evidence.md",
+        "docs/release/mvp-release-evidence-pack.md",
+        "docs/knowledge/evidence-index.md"
+      ],
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "delivery"
     },
     {
       "id": "role-agent",
       "label": "Agent",
       "role": "AI systems engineer",
       "start_path": "AGENTS.md",
-      "next_paths": ["docs/navigation/navigation-source.json", "docs/navigation/navigation-map.md", "docs/project-map.md"],
+      "next_paths": [
+        "docs/navigation/navigation-source.json",
+        "docs/navigation/navigation-map.md",
+        "docs/project-map.md"
+      ],
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "governance"
     }
   ],
   "task_routes": [
@@ -691,44 +1124,131 @@
       "label": "Понять продукт",
       "task": "Понять продукт",
       "start_path": "docs/product/README.md",
-      "next_paths": ["docs/product-vision.md", "docs/product/bmc/README.md", "docs/stories.md"],
+      "next_paths": [
+        "docs/product-vision.md",
+        "docs/product/bmc/README.md",
+        "docs/stories.md",
+        "docs/product/requirements/README.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/hypotheses/hypothesis-board.md"
+      ],
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "business"
     },
     {
       "id": "task-find-process",
       "label": "Найти текущий процесс",
       "task": "Найти текущий процесс",
       "start_path": "docs/process/README.md",
-      "next_paths": ["docs/process/current/process-passport.md", "docs/process/current/process-registry.md"],
+      "next_paths": [
+        "docs/process/current/process-passport.md",
+        "docs/process/current/process-registry.md"
+      ],
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "governance"
     },
     {
       "id": "task-work-with-bmc",
       "label": "Работать с BMC",
       "task": "Работать с BMC",
       "start_path": "docs/product/bmc/README.md",
-      "next_paths": ["docs/product/bmc/bmc-v0.2.md", "docs/product/bmc/manifest.json"],
+      "next_paths": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/manifest.json"
+      ],
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:bmc"
+      "validation_command": "npm run validate:bmc",
+      "navigation_group": "business"
     },
     {
       "id": "task-review-merge",
       "label": "Подготовить review/merge",
       "task": "Подготовить review/merge",
       "start_path": "docs/release/README.md",
-      "next_paths": [".github/PULL_REQUEST_TEMPLATE.md", "docs/release/commit-pr-evidence.md"],
+      "next_paths": [
+        ".github/PULL_REQUEST_TEMPLATE.md",
+        "docs/release/commit-pr-evidence.md"
+      ],
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm test"
+      "validation_command": "npm test",
+      "navigation_group": "delivery"
     },
     {
       "id": "task-find-evidence",
       "label": "Найти evidence/release",
       "task": "Найти evidence/release",
       "start_path": "docs/knowledge/evidence-index.md",
-      "next_paths": ["docs/release/mvp-release-evidence-pack.json", "docs/navigation/documentation-index.json"],
+      "next_paths": [
+        "docs/release/mvp-release-evidence-pack.json",
+        "docs/navigation/documentation-index.json"
+      ],
       "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "evidence"
+    },
+    {
+      "id": "task-find-business-requirements",
+      "label": "Найти бизнес-требования",
+      "task": "Найти бизнес-требования",
+      "navigation_group": "business",
+      "start_path": "docs/product/requirements/README.md",
+      "next_paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "task-plan-product-work",
+      "label": "Планировать продуктовую работу",
+      "task": "Планировать продуктовую работу",
+      "navigation_group": "business",
+      "start_path": "docs/product/backlog/README.md",
+      "next_paths": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/hypotheses/hypothesis-board.md",
+        "docs/product/hypotheses/hypothesis-validation.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "task-find-technical-docs",
+      "label": "Найти техническую документацию",
+      "task": "Найти техническую документацию",
+      "navigation_group": "technical",
+      "start_path": "docs/architecture/README.md",
+      "next_paths": [
+        "docs/product/backlog/technical-backlog.md",
+        "docs/architecture/schemas/schema-registry.md",
+        "docs/architecture/security/trust-boundaries.md"
+      ],
+      "owner_role": "AI Agent Architect",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "id": "task-find-documentation-methodology",
+      "label": "Найти методику документации",
+      "task": "Найти методику документации",
+      "navigation_group": "governance",
+      "start_path": "docs/process/README.md",
+      "next_paths": [
+        "docs/process/change-requests/PROC-036-documentation-navigation-governance.md",
+        "docs/architecture/adr/ADR-064-documentation-navigation-indexing.md",
+        "docs/navigation/navigation-source.json"
+      ],
+      "owner_role": "Process Owner",
       "validation_command": "npm run validate:docs-navigation"
     }
   ],
@@ -803,7 +1323,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "059fc8ba6b503d87b2f349fd3977caa735192647",
+    "current_main_commit": "c95a58fef8c47f944be4240a7079b3c186603359",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

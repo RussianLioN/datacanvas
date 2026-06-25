@@ -1,6 +1,10 @@
 # Roadmap v0.1
 
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / [Roadmap](README.md) / Roadmap v0.1
+
 Статус: draft
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 
 | Этап | Outcome | Gate |
 |---|---|---|

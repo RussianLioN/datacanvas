@@ -40,6 +40,10 @@
 - При изменении контрактов синхронизируй связанные `docs/`, `schemas/`, fixtures, generated artifacts и evidence manifests.
 - Не редактируй generated artifacts вручную, если в проекте есть генератор или валидатор для этого слоя.
 - Центральные документы (`README.md`, `docs/README.md`, локальные `README.md`) маршрутизируют к источникам, а не дублируют подробности.
+- Business-first маршрут начинается с Vision, BMC, stories, требований, product backlog, roadmap, hypotheses и traceability; plans, PROC, ADR, schemas и scripts не должны быть первичным бизнесовым источником.
+- Бизнесовые утверждения нельзя выводить из ADR, schemas или scripts как из первичного источника.
+- Технические контракты нельзя выводить из BMC, stories или Vision без обновления ADR, schema или contract artifact.
+- Mixed/generated routes не являются источником истины; источником остаются ручные product/process/architecture artifacts и `docs/navigation/navigation-source.json`.
 - Новый документ обязан попасть в `docs/navigation/navigation-source.json` или в `ignored_paths` с причиной.
 - Ручные Markdown-документы, которые являются navigation entrypoint, должны иметь breadcrumb в начале.
 - Generated navigation files в `docs/navigation/` нельзя редактировать вручную; обновляй `docs/navigation/navigation-source.json`, затем запускай генератор.

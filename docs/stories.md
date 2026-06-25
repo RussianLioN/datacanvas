@@ -1,5 +1,10 @@
 # Каталог пользовательских историй DataCanvas
 
+Навигация: [DataCanvas](../README.md) / [Документация](README.md) / [Продукт](product/README.md) / Stories
+
+Статус: active
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 Дата обновления: 2026-06-24
 
 ## Назначение
@@ -10,9 +15,9 @@ DataCanvas в этих stories - отдельный продукт/сервис 
 
 ## Источники и правила слияния
 
-Основной источник: `/Users/rl/Downloads/bl-value-rm-data-canvas.xlsx`.
+Основной источник: локальный файл `bl-value-rm-data-canvas.xlsx`, переданный Product Owner.
 
-Исторический источник: `/Users/rl/Downloads/stories.opml`. Файл имеет расширение `.opml`, но фактически является RTF-файлом с вложенным OPML-текстом. OPML содержит 14 ранних верхнеуровневых stories.
+Исторический источник: локальный файл `stories.opml`, переданный Product Owner. Файл имеет расширение `.opml`, но фактически является RTF-файлом с вложенным OPML-текстом. OPML содержит 14 ранних верхнеуровневых stories.
 
 Правила:
 

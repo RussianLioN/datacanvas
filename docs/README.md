@@ -6,20 +6,39 @@
 Владелец: Documentation Owner
 Проверка: `npm run validate:docs-navigation`
 
-## Маршруты
+## Бизнесовая Карта Продукта
 
-| Задача пользователя | Стартовый документ | Следующий документ | Владелец | Проверка |
+Маршрут "Понять продукт" идет через:
+
+1. [Продуктовый индекс](product/README.md)
+2. [Текущее видение](product-vision.md)
+3. [BMC](product/bmc/README.md)
+4. [Каталог stories](stories.md)
+5. [БТ, пользовательские истории, НФТ и приемку](product/requirements/README.md)
+6. [Product backlog](product/backlog/product-backlog.md), [roadmap](product/roadmap/roadmap-v0.1.md) и [гипотезы](product/hypotheses/hypothesis-board.md)
+
+## Производственный Контур
+
+| Задача | Стартовый документ | Следующий документ | Владелец | Проверка |
 |---|---|---|---|---|
-| Понять продукт | [Продукт](product/README.md) | [BMC](product/bmc/README.md) | Product Owner | `npm run validate:docs-navigation` |
-| Найти текущий процесс | [Процесс](process/README.md) | [Реестр процесса](process/current/process-registry.md) | Process Owner | `npm run validate:docs-navigation` |
-| Работать с BMC | [BMC package](product/bmc/README.md) | [BMC v0.2](product/bmc/bmc-v0.2.md) | Product Owner | `npm run validate:bmc` |
 | Подготовить review/merge | [Release](release/README.md) | [Commit/PR evidence](release/commit-pr-evidence.md) | Delivery/GitOps Lead | `npm test` |
-| Найти evidence/release | [Evidence hub](knowledge/evidence-index.md) | [Release evidence pack](release/mvp-release-evidence-pack.json) | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
-| Открыть карту проекта | [Карта слоев](project-map.md) | [Generated navigation map](navigation/navigation-map.md) | Documentation Owner | `npm run generate:docs-navigation -- --check` |
-| Найти архитектурное решение | [Архитектура](architecture/README.md) | [Schema registry](architecture/schemas/schema-registry.md) | AI Agent Architect | `npm run validate:docs-navigation` |
 | Найти sprint artifacts | [Sprint artifacts](sprints/README.md) | [Sprint evidence manifest](sprints/2026-W26-process-bootstrap/sprint-evidence-manifest.json) | Scrum Master | `npm run validate:docs-navigation` |
-| Найти планы | [Планы](plans/README.md) | [Documentation navigation plan](plans/datacanvas-documentation-navigation-indexing-plan.md) | Process Owner | `npm run validate:docs-navigation` |
-| Найти lessons/RCA | [Knowledge base](knowledge/README.md) | [RCA index](knowledge/rca/README.md) | Documentation Owner | `npm run validate:docs-navigation` |
+| Найти evidence/release | [Evidence hub](knowledge/evidence-index.md) | [Release evidence pack](release/mvp-release-evidence-pack.json) | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
+
+## Техническая Документация
+
+| Задача | Стартовый документ | Следующий документ | Владелец | Проверка |
+|---|---|---|---|---|
+| Найти архитектурное решение | [Архитектура](architecture/README.md) | [Schema registry](architecture/schemas/schema-registry.md) | AI Agent Architect | `npm run validate:docs-navigation` |
+| Найти технический backlog | [Технический backlog](product/backlog/technical-backlog.md) | [ADR](architecture/README.md) | Development Team | `npm run validate:docs-navigation` |
+
+## Методика И Governance
+
+| Задача | Стартовый документ | Следующий документ | Владелец | Проверка |
+|---|---|---|---|---|
+| Найти текущий процесс | [Процесс](process/README.md) | [Реестр процесса](process/current/process-registry.md) | Process Owner | `npm run validate:docs-navigation` |
+| Открыть карту проекта | [Карта слоев](project-map.md) | [Generated navigation map](navigation/navigation-map.md) | Documentation Owner | `npm run generate:docs-navigation -- --check` |
+| Найти планы | [Планы](plans/README.md) | [Планы навигации](plans/README.md) | Process Owner | `npm run validate:docs-navigation` |
 
 ## Управляемые Источники
 

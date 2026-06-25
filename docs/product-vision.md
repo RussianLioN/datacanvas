@@ -1,5 +1,10 @@
 # Видение продукта DataCanvas
 
+Навигация: [DataCanvas](../README.md) / [Документация](README.md) / [Продукт](product/README.md) / Видение продукта
+
+Статус: active
+Владелец: Product Owner
+Проверка: `npm run validate:docs-navigation`
 Дата обновления: 2026-06-24
 
 ## Короткое видение

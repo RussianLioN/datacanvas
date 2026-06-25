@@ -12,6 +12,8 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Понятен способ проверки.
 - Оценено влияние на безопасность, качество, трассировку и документацию.
 - Для нового или существенно обновленного документа указан docs route: запись в `docs/navigation/navigation-source.json` или explicit ignore с причиной.
+- Для нового бизнесового документа указан `navigation_group: business`, product index route и связь с Vision, BMC, stories, требованиями, backlog, roadmap, hypotheses или traceability.
+- Для технического, process, ADR, schema, script или evidence документа явно указана небизнесовая группа.
 - Задача помещается в недельный спринт или оформлена как spike.
 
 ## Для Требований
@@ -27,6 +29,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Заполнен Process Change Request.
 - Указаны метрика успеха, срок проверки и rollback rule.
 - Если меняется маршрут документации или evidence, указан navigation impact и validation command.
+- Если меняется business-first порядок, указан cross-group source-of-truth impact.
 
 ## Для AI/LLM Работ
 
