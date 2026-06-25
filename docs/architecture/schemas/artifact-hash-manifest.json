@@ -2092,7 +2092,7 @@
     {
       "artifact_id": "ART-419",
       "path": "scripts/validate-doc-stale-status.mjs",
-      "sha256": "414ca17ac29fe85ab86a0da6aab5b8f5f742ee23d0557a9e6f25b8ceb39bf4b6"
+      "sha256": "82ad6c2ba1076856651c1bd671e5306f84f3fedffd58bddc76b45d19477ac877"
     },
     {
       "artifact_id": "ART-420",

@@ -59,6 +59,7 @@ function changedFiles(baseRef, headRef) {
 }
 
 const mainPointerRefreshPaths = new Set([
+  ".github/workflows/docs-check.yml",
   "docs/architecture/schemas/artifact-hash-manifest.json",
   "docs/navigation/documentation-index.json",
   "docs/navigation/navigation-map.md",
