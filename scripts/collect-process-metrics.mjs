@@ -112,7 +112,7 @@ const snapshot = {
     "Snapshot считает только данные, уже зафиксированные в репозитории.",
     "Sprint predictability, spillover, cycle time и blocked time остаются недоступны без реальных командных timestamps."
   ],
-  next_safe_step: "После merge PR #1 добавить dated events для live delivery metrics."
+  next_safe_step: "Поддерживать dated events для live delivery metrics после изменений delivery process."
 };
 
 const markdown = `# Process Metrics Snapshot

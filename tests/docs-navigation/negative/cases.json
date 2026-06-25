@@ -1,0 +1,77 @@
+{
+  "version": "0.1.0",
+  "cases": [
+    {
+      "id": "broken-relative-link",
+      "expected_failure": "validate-doc-links rejects a local link whose target does not exist."
+    },
+    {
+      "id": "bad-anchor",
+      "expected_failure": "validate-doc-links rejects a Markdown anchor missing from the target file."
+    },
+    {
+      "id": "duplicate-nav-id",
+      "expected_failure": "validate-docs-navigation rejects duplicate role or task route IDs."
+    },
+    {
+      "id": "missing-required-readme",
+      "expected_failure": "validate-docs-navigation rejects a required section README that is missing."
+    },
+    {
+      "id": "missing-h1",
+      "expected_failure": "navigation source fixtures require manual Markdown entrypoints to have an H1."
+    },
+    {
+      "id": "stale-generated-index",
+      "expected_failure": "generate-docs-navigation -- --check rejects stale generated outputs."
+    },
+    {
+      "id": "path-traversal",
+      "expected_failure": "validate-doc-links rejects a link that escapes the repository boundary."
+    },
+    {
+      "id": "absolute-local-path",
+      "expected_failure": "validate-doc-links rejects absolute local filesystem paths."
+    },
+    {
+      "id": "file-url",
+      "expected_failure": "validate-doc-links rejects file URL links."
+    },
+    {
+      "id": "symlink-escape",
+      "expected_failure": "validate-doc-links rejects links resolved through symlinks outside the repository."
+    },
+    {
+      "id": "secret-like-content",
+      "expected_failure": "sensitive content fixtures must remain synthetic and be caught by leakage or secret gates before indexing."
+    },
+    {
+      "id": "pii-like-content",
+      "expected_failure": "PII-like fixtures must not become public searchable navigation entries."
+    },
+    {
+      "id": "raw-trace",
+      "expected_failure": "Raw trace content is metadata-only and must not enter public navigation."
+    },
+    {
+      "id": "internal-prompt",
+      "expected_failure": "Internal prompt content is metadata-only and must not enter public navigation."
+    },
+    {
+      "id": "tool-output",
+      "expected_failure": "Tool output content is metadata-only and must not enter public navigation."
+    },
+    {
+      "id": "prompt-injection",
+      "expected_failure": "Document content is treated as data and cannot change indexing instructions."
+    },
+    {
+      "id": "confidential-searchable",
+      "expected_failure": "Confidential documents cannot be marked searchable or navigable."
+    },
+    {
+      "id": "generated-without-canonical-source",
+      "expected_failure": "Generated output cannot be indexed as source of truth without canonical_source."
+    }
+  ]
+}

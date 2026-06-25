@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/docs-navigation-index.schema.json",
+  "title": "DocsNavigationIndex",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "generated_by",
+    "source_manifest_path",
+    "entries",
+    "routes",
+    "coverage",
+    "ignored_paths",
+    "blocked_sensitive_paths",
+    "validation_summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "const": "generated" },
+    "generated_by": { "type": "string", "const": "scripts/generate-docs-navigation.mjs" },
+    "source_manifest_path": { "type": "string", "const": "docs/navigation/navigation-source.json" },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/entry" }
+    },
+    "routes": {
+      "type": "object",
+      "required": ["role_routes", "task_routes", "current_pointers"],
+      "additionalProperties": false,
+      "properties": {
+        "role_routes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/route" }
+        },
+        "task_routes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/route" }
+        },
+        "current_pointers": { "type": "object" }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "total_entries",
+        "manual_entries",
+        "generated_entries",
+        "public_navigable_entries",
+        "searchable_entries",
+        "confidential_or_sensitive_entries",
+        "unclassified_entries",
+        "reachable_from_root",
+        "orphan_entries"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "total_entries": { "type": "integer", "minimum": 0 },
+        "manual_entries": { "type": "integer", "minimum": 0 },
+        "generated_entries": { "type": "integer", "minimum": 0 },
+        "public_navigable_entries": { "type": "integer", "minimum": 0 },
+        "searchable_entries": { "type": "integer", "minimum": 0 },
+        "confidential_or_sensitive_entries": { "type": "integer", "minimum": 0 },
+        "unclassified_entries": { "type": "integer", "minimum": 0 },
+        "reachable_from_root": { "type": "integer", "minimum": 0 },
+        "orphan_entries": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "ignored_paths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "blocked_sensitive_paths": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "data_class", "reason", "validation_command"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "data_class": { "type": "string", "enum": ["confidential", "sensitive"] },
+          "reason": { "type": "string", "minLength": 1 },
+          "validation_command": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "validation_summary": {
+      "type": "object",
+      "required": ["deny_by_default", "network_used", "generated_outputs_excluded_from_source_scan"],
+      "additionalProperties": false,
+      "properties": {
+        "deny_by_default": { "type": "boolean", "const": true },
+        "network_used": { "type": "boolean", "const": false },
+        "generated_outputs_excluded_from_source_scan": { "type": "boolean", "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "path",
+        "title",
+        "section",
+        "format",
+        "owner_role",
+        "lifecycle",
+        "status",
+        "data_class",
+        "visibility",
+        "searchable",
+        "navigable",
+        "generated",
+        "canonical_source",
+        "generated_from",
+        "parent_readme",
+        "artifact_registry_id",
+        "outgoing_links",
+        "anchors",
+        "reachable_from_root",
+        "click_depth"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "section": { "type": "string", "minLength": 1 },
+        "format": { "type": "string", "enum": ["md", "json"] },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "lifecycle": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "minLength": 1 },
+        "data_class": { "type": "string", "minLength": 1 },
+        "visibility": { "type": "string", "minLength": 1 },
+        "searchable": { "type": "boolean" },
+        "navigable": { "type": "boolean" },
+        "generated": { "type": "boolean" },
+        "canonical_source": { "type": ["string", "null"] },
+        "generated_from": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "parent_readme": { "type": ["string", "null"] },
+        "artifact_registry_id": { "type": ["string", "null"], "pattern": "^ART-[0-9]{3}$" },
+        "outgoing_links": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "anchors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "reachable_from_root": { "type": "boolean" },
+        "click_depth": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "route": {
+      "type": "object",
+      "required": ["id", "label", "start_path", "next_paths", "owner_role", "validation_command"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "label": { "type": "string", "minLength": 1 },
+        "start_path": { "type": "string", "minLength": 1 },
+        "next_paths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "validation_command": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

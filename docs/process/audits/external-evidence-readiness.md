@@ -12,7 +12,7 @@ Real UAT evidence, pilot report, portability notes и commit/PR evidence уже 
 |---|---|---|---|
 | `docs/release/pilot-report.md` | Delivery/GitOps Lead | collected | `npm run pilot:record` |
 | `docs/release/pilot-process-portability-notes.md` | Process Owner | collected | `npm run pilot:record` |
-| `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | collected | PR #1 and commit `3b690b956210015a0a642d0c90895296cb8603ba` |
+| `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | collected | current main `2c6858e4dc541c899b500edb5ebfb1ca9073c29d` |
 
 ## Controlled Collection Command
 
@@ -46,4 +46,4 @@ npm test
 
 ## Следующий Безопасный Шаг
 
-Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить `docs/release/commit-pr-evidence.md`.
+Поддерживать `docs/release/commit-pr-evidence.md`, release pack и navigation index при изменении product/runtime artifacts.

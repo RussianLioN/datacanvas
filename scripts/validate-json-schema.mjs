@@ -544,6 +544,14 @@ const cases = [
     data: "docs/architecture/schemas/artifact-registry.json",
   },
   {
+    schema: "schemas/docs-navigation-source.schema.json",
+    data: "docs/navigation/navigation-source.json",
+  },
+  {
+    schema: "schemas/docs-navigation-index.schema.json",
+    data: "docs/navigation/documentation-index.json",
+  },
+  {
     schema: "schemas/render-result.schema.json",
     data: "artifacts/examples/render-result-minimal.json",
   },

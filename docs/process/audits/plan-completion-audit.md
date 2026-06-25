@@ -30,4 +30,4 @@
 
 ## Ограничение
 
-PR #1 еще не смержен. Если product/runtime artifacts изменятся после pilot evidence, `docs/release/commit-pr-evidence.md` нужно обновить.
+PR #1 merged; current `main` на `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`. Если product/runtime artifacts изменятся после merge, `docs/release/commit-pr-evidence.md`, release pack и navigation index нужно обновить.

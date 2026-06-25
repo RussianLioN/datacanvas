@@ -26,7 +26,7 @@
       ],
       "gaps": [],
       "next_actions": [
-        "После review и merge PR #1 обновить release notes и commit/PR evidence, если product/runtime artifacts изменятся."
+        "После PR #1 merge поддерживать release notes, commit/PR evidence и navigation index, если product/runtime artifacts изменятся."
       ]
     },
     {
@@ -345,7 +345,7 @@
       ],
       "gaps": [],
       "next_actions": [
-        "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence."
+        "Поддерживать commit/PR evidence и navigation index при изменении product/runtime artifacts."
       ]
     },
     {
@@ -369,7 +369,7 @@
       ],
       "gaps": [],
       "next_actions": [
-        "После merge PR #1 добавить dated team events для live delivery metrics."
+        "После PR #1 merge добавить dated team events для live delivery metrics."
       ]
     },
     {
@@ -401,7 +401,7 @@
       ],
       "gaps": [],
       "next_actions": [
-        "Не помечать релиз смерженным до review и merge PR #1; обновить evidence при изменении product/runtime artifacts."
+        "Релиз помечен merged после PR #1; обновлять evidence при изменении product/runtime artifacts."
       ]
     },
     {
@@ -419,5 +419,5 @@
       ]
     }
   ],
-  "next_safe_step": "Дождаться review и merge PR #1; при изменении product/runtime artifacts обновить commit/PR evidence, release audit и process metrics snapshot."
+  "next_safe_step": "Поддерживать commit/PR evidence, release audit, navigation index и process metrics snapshot при изменении product/runtime artifacts."
 }

@@ -20,6 +20,8 @@
 | EvalCaseSet | Набор eval cases | draft: `schemas/eval-case.schema.json` |
 | SprintEvidenceManifest | Evidence спринта | draft: `schemas/sprint-evidence-manifest.schema.json` |
 | ArtifactRegistry | Реестр артефактов | draft: `schemas/artifact-registry.schema.json` |
+| DocsNavigationSource | Источник истины для маршрутов, visibility и indexing rules | active: `schemas/docs-navigation-source.schema.json` |
+| DocsNavigationIndex | Generated индекс документации и reachability metadata | generated: `schemas/docs-navigation-index.schema.json` |
 
 Breaking change любой схемы требует ADR или Process Change Request и migration note.
 

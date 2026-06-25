@@ -27,15 +27,26 @@
         "type": "object",
         "required": ["id", "path", "type", "owner_role", "status", "sprint_id"],
         "additionalProperties": false,
-        "properties": {
-          "id": { "type": "string" },
-          "path": { "type": "string" },
-          "type": { "type": "string" },
-          "owner_role": { "type": "string" },
-          "status": { "type": "string" },
-          "sprint_id": { "type": "string" }
+          "properties": {
+            "id": { "type": "string" },
+            "path": { "type": "string" },
+            "type": { "type": "string" },
+            "owner_role": { "type": "string" },
+            "status": { "type": "string" },
+            "sprint_id": { "type": "string" },
+            "data_class": { "type": "string", "enum": ["public", "internal", "confidential", "sensitive"] },
+            "visibility": { "type": "string", "enum": ["public", "internal", "restricted"] },
+            "searchable": { "type": "boolean" },
+            "navigable": { "type": "boolean" },
+            "canonical_source": { "type": ["string", "null"] },
+            "generated_from": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "redaction_status": { "type": "string", "enum": ["not_required", "redacted", "metadata_only", "blocked"] },
+            "update_trigger": { "type": "string", "minLength": 1 }
+          }
         }
       }
-    }
   }
 }

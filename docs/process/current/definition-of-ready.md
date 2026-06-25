@@ -11,6 +11,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Есть acceptance criteria.
 - Понятен способ проверки.
 - Оценено влияние на безопасность, качество, трассировку и документацию.
+- Для нового или существенно обновленного документа указан docs route: запись в `docs/navigation/navigation-source.json` или explicit ignore с причиной.
 - Задача помещается в недельный спринт или оформлена как spike.
 
 ## Для Требований
@@ -25,6 +26,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Создан `PROC-*`.
 - Заполнен Process Change Request.
 - Указаны метрика успеха, срок проверки и rollback rule.
+- Если меняется маршрут документации или evidence, указан navigation impact и validation command.
 
 ## Для AI/LLM Работ
 
