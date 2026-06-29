@@ -3889,6 +3889,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Business navigation, product requirements, backlog, roadmap, hypothesis, or traceability changes."
+    },
+    {
+      "id": "ART-440",
+      "path": "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Backlog closure, validation, release evidence, or drift hardening implementation changes."
     }
   ]
 }

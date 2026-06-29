@@ -3270,6 +3270,43 @@
       "click_depth": 3
     },
     {
+      "path": "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
+      "title": "План имплементации: полная валидация, закрытие drift и улучшение DataCanvas",
+      "section": "plans",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-440",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-имплементации-полная-валидация-закрытие-drift-и-улучшение-datacanvas",
+        "summary",
+        "1-baseline-и-границы",
+        "2-backlog-и-traceability-closure",
+        "3-eval-и-validator-hardening",
+        "4-navigation-leakage-и-generated-integrity",
+        "5-evidence-sprint-package-и-release-sync",
+        "6-генерация-и-проверки",
+        "7-delivery-и-rollback"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
       "title": "План внедрения контракта классического BMC DataCanvas",
       "section": "plans",
@@ -3480,6 +3517,7 @@
       "artifact_registry_id": "ART-406",
       "outgoing_links": [
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+        "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
         "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
         "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
@@ -27967,14 +28005,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1042,
-    "manual_entries": 1038,
+    "total_entries": 1043,
+    "manual_entries": 1039,
     "generated_entries": 4,
     "public_navigable_entries": 27,
-    "searchable_entries": 1019,
+    "searchable_entries": 1020,
     "confidential_or_sensitive_entries": 20,
     "unclassified_entries": 0,
-    "reachable_from_root": 66,
+    "reachable_from_root": 67,
     "orphan_entries": 0
   },
   "ignored_paths": [
