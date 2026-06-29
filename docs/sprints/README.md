@@ -16,6 +16,7 @@
 
 ## Основной Evidence
 
+- [Backlog closure validation](2026-W27-backlog-closure/sprint-evidence-manifest.json)
 - [Process bootstrap sprint](2026-W26-process-bootstrap/sprint-evidence-manifest.json)
 - [Release evidence current gates](2026-W26-release-evidence-current-gates/sprint-evidence-manifest.json)
 - [BMC interview sprint](2026-W26-bmc-interview/sprint-evidence-manifest.json)

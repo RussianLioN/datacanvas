@@ -216,8 +216,15 @@
       "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
       "sink": "evidence",
       "data_class": "internal"
+    },
+    {
+      "id": "DLT-036",
+      "path": "docs/architecture/security/real-uat-leakage-guard.json",
+      "sink": "evidence",
+      "data_class": "confidential"
     }
   ],
+  "explicit_exclusions": [],
   "forbidden_classes": [
     "secret",
     "pii",

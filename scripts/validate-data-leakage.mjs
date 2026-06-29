@@ -27,6 +27,14 @@ function requireFile(relativePath) {
   }
 }
 
+function matchesPrefix(relativePath, prefix) {
+  return relativePath === prefix || relativePath.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`);
+}
+
+function matchesPathStem(relativePath, prefix) {
+  return matchesPrefix(relativePath, prefix) || relativePath.startsWith(prefix);
+}
+
 const forbiddenPatterns = [
   { class: "secret", name: "private_key", pattern: /-----BEGIN (?:RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----/ },
   { class: "secret", name: "openai_key", pattern: /sk-[A-Za-z0-9]{24,}/ },
@@ -105,7 +113,17 @@ for (const policyPath of manifest.policy_paths) {
 const enabledClasses = new Set(manifest.forbidden_classes);
 assertSyntheticCoverage(enabledClasses);
 
+const scanTargetIds = new Set();
+const scanTargetsByPath = new Map();
 for (const target of manifest.scan_targets) {
+  if (scanTargetIds.has(target.id)) {
+    fail(`duplicate data leakage scan target id: ${target.id}`);
+  }
+  scanTargetIds.add(target.id);
+  if (scanTargetsByPath.has(target.path)) {
+    fail(`duplicate data leakage scan target path: ${target.path}`);
+  }
+  scanTargetsByPath.set(target.path, target);
   requireFile(target.path);
   const text = readText(target.path);
   for (const forbidden of forbiddenPatterns) {
@@ -114,6 +132,35 @@ for (const target of manifest.scan_targets) {
     }
     if (forbidden.pattern.test(text)) {
       fail(`data leakage finding in ${target.path}: ${forbidden.class}/${forbidden.name}`);
+    }
+  }
+}
+
+const navigationSource = readJson("docs/navigation/navigation-source.json");
+const navigationIndex = readJson("docs/navigation/documentation-index.json");
+const explicitExclusions = manifest.explicit_exclusions ?? [];
+
+for (const rule of navigationSource.sensitive_path_rules) {
+  const coveredByScan = [...scanTargetsByPath.keys()].some((scanPath) => matchesPathStem(scanPath, rule.path_prefix));
+  const coveredByExclusion = explicitExclusions.some((exclusion) => matchesPathStem(rule.path_prefix, exclusion.path_prefix));
+  if (!coveredByScan && !coveredByExclusion) {
+    fail(`navigation sensitive path rule is missing leakage manifest coverage: ${rule.path_prefix}`);
+  }
+}
+
+const publicSurfaceClasses = new Set(["secret", "pii", "local_path"]);
+for (const entry of navigationIndex.entries) {
+  if (!entry.reachable_from_root || entry.visibility !== "public" || !["md", "json"].includes(entry.format)) {
+    continue;
+  }
+  requireFile(entry.path);
+  const text = readText(entry.path);
+  for (const forbidden of forbiddenPatterns) {
+    if (!publicSurfaceClasses.has(forbidden.class)) {
+      continue;
+    }
+    if (forbidden.pattern.test(text)) {
+      fail(`public navigation surface leakage finding in ${entry.path}: ${forbidden.class}/${forbidden.name}`);
     }
   }
 }

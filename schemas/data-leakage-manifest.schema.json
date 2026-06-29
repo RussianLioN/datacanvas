@@ -28,6 +28,19 @@
         }
       }
     },
+    "explicit_exclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path_prefix", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "path_prefix": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "forbidden_classes": {
       "type": "array",
       "minItems": 4,

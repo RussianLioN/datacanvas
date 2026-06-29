@@ -597,6 +597,20 @@
       "evidence_paths": ["docs/sprints/2026-W26-visual-llm-boundary/sprint-evidence-manifest.json", "docs/architecture/adr/ADR-009-llm-schema-boundary.md"],
       "rationale": "LLM output boundary formalized: model returns PresentationSpec, not final HTML/PDF.",
       "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W27-backlog-closure",
+      "sprint_id": "SPRINT-2026-W27",
+      "delta_status": "delta_recorded",
+      "security_impact": "medium",
+      "evidence_paths": [
+        "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json",
+        "docs/architecture/security/data-leakage-manifest.json",
+        "scripts/validate-data-leakage.mjs",
+        "scripts/validate-docs-navigation.mjs"
+      ],
+      "rationale": "Backlog closure strengthens navigation, leakage and hash guards without adding runtime v1, external provider, network, secrets, publish or deploy.",
+      "owner_role": "Security/Privacy Lead"
     }
   ],
   "known_limitations": [

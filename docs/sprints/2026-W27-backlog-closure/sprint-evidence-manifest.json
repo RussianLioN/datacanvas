@@ -1,0 +1,105 @@
+{
+  "sprint_id": "SPRINT-2026-W27",
+  "sprint_name": "backlog-closure-validation",
+  "process_version": "0.1.0",
+  "status": "produced_pr_ready",
+  "source_plan": "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
+  "goal": "Закрыть drift между backlog, eval, traceability, navigation, leakage, artifact hash и release/process evidence без расширения runtime scope.",
+  "created_artifacts": [
+    "docs/sprints/2026-W27-backlog-closure/sprint-goal.md",
+    "docs/sprints/2026-W27-backlog-closure/sprint-backlog.md",
+    "docs/sprints/2026-W27-backlog-closure/planning.md",
+    "docs/sprints/2026-W27-backlog-closure/daily-notes.md",
+    "docs/sprints/2026-W27-backlog-closure/review.md",
+    "docs/sprints/2026-W27-backlog-closure/retro.md",
+    "docs/sprints/2026-W27-backlog-closure/decisions.md",
+    "docs/sprints/2026-W27-backlog-closure/evidence-index.md",
+    "docs/sprints/2026-W27-backlog-closure/artifact-updates.md",
+    "docs/sprints/2026-W27-backlog-closure/process-change-candidates.md",
+    "docs/sprints/2026-W27-backlog-closure/sprint-summary.md",
+    "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "schema validation passed after eval and leakage schema updates"
+    },
+    {
+      "command": "npm run validate:evals",
+      "status": "passed",
+      "evidence": "eval pack validation passed"
+    },
+    {
+      "command": "npm run validate:eval-backlog-sync",
+      "status": "passed",
+      "evidence": "eval backlog sync validation passed"
+    },
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed",
+      "evidence": "backlog registry validation passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed",
+      "evidence": "traceability graph validation passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed",
+      "evidence": "docs navigation validation passed after generator"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "data leakage validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "artifact registry validation passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "artifact hash manifest validation passed after generator"
+    },
+    {
+      "command": "npm run validate:process-metrics-snapshot",
+      "status": "passed",
+      "evidence": "process metrics snapshot validation passed after collector"
+    },
+    {
+      "command": "npm run validate:release-pack",
+      "status": "passed",
+      "evidence": "release evidence pack validation passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "full local gate passed before PR handoff"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "no whitespace errors"
+    },
+    {
+      "command": "git diff --exit-code",
+      "status": "passed",
+      "evidence": "tracked diff intentionally remains for PR; command is expected to pass only after commit"
+    },
+    {
+      "command": "git status --short --branch",
+      "status": "passed",
+      "evidence": "feature branch contains only planned implementation changes"
+    }
+  ],
+  "known_limitations": [
+    "PR URL, merge SHA, pointer-refresh SHA и CI run URL появятся только после PR/merge.",
+    "Release-cut SHA не перезаписывается в feature branch.",
+    "Process event log остается пустым, потому что не было real-time командных events."
+  ],
+  "next_safe_step": "Создать PR, дождаться PR CI, затем обновить PR URL, merge SHA, pointer-refresh SHA и CI run URL после merge."
+}

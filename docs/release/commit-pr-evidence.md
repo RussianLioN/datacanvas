@@ -5,7 +5,7 @@
 ## Metadata
 
 - Process version: `0.1.0`
-- Evidence date: `2026-06-25T10:53:51Z`
+- Evidence date: `2026-06-29T19:16:09Z`
 - Release owner: `Delivery/GitOps Lead`
 
 ## Commit Evidence
@@ -21,8 +21,18 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Current `origin/main` for stale-status validation: `6a3de1f1b8465f0f9f39dc2c6daae24d3e5bc2d2`
-- Current main verification date: `2026-06-29T18:47:02Z`
+- Current `origin/main` for stale-status validation: `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`
+- Current main verification date: `2026-06-29T19:16:09Z`
+
+## Backlog Closure Feature Branch Evidence
+
+- Branch: `feat/backlog-closure-validation`
+- Base `origin/main`: `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`
+- PR URL: `pending_pr`
+- Merge SHA: `pending_merge`
+- Pointer-refresh SHA: `pending_after_merge_if_required`
+- CI run URL: `pending_pr_ci`
+- Local validation scope: `npm test`, `git diff --check`, `git diff --exit-code`
 
 ## Pull Request Evidence
 
@@ -35,7 +45,7 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 6a3de1f1b8465f0f9f39dc2c6daae24d3e5bc2d2
+git rev-parse origin/main for stale-status validation: 1dee347e1a83c0a67647a67b8ec82d2aa970be6a
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 npm test: passed before merge on PR #1
 npm run validate:pilot-gate: passed

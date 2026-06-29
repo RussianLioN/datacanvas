@@ -30,4 +30,6 @@
 
 ## Ограничение
 
-PR #1 merged; current `main` на `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`. Если product/runtime artifacts изменятся после merge, `docs/release/commit-pr-evidence.md`, release pack и navigation index нужно обновить.
+PR #1 merged; release-cut SHA остается `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`, current `origin/main` для stale-status validation обновлен до `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`.
+
+Backlog closure feature branch еще не имеет PR URL, merge SHA, pointer-refresh SHA или CI run URL. Эти значения нужно обновить после PR/merge, если stale-status или release evidence этого требуют.
