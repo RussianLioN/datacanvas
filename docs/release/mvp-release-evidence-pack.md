@@ -30,7 +30,9 @@
 
 ## Ограничения
 
-- Release evidence фиксирует current main commit `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`.
+- Release-cut SHA остается `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`.
+- Current main pointer для stale-status validation обновлен до `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`.
+- Backlog closure feature branch еще не имеет PR URL, merge SHA, pointer-refresh SHA или CI run URL.
 - Если product/runtime artifacts изменятся после merge, evidence нужно обновить повторно.
 
 ## Следующий Шаг

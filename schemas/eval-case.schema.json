@@ -14,13 +14,43 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "type", "description", "expected"],
+        "required": [
+          "id",
+          "title",
+          "type",
+          "category",
+          "status",
+          "required",
+          "requirement_id",
+          "executable_evidence",
+          "description",
+          "expected"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
+          "id": { "type": "string", "pattern": "^EVAL-[0-9]{3}$" },
+          "title": { "type": "string", "minLength": 1 },
           "type": {
             "type": "string",
             "enum": ["happy_path", "negative", "security", "traceability", "presentation_quality", "hallucination_resistance"]
+          },
+          "category": {
+            "type": "string",
+            "enum": ["happy_path", "negative", "security", "visual", "regression"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "draft"]
+          },
+          "required": { "type": "boolean" },
+          "requirement_id": {
+            "type": "string",
+            "pattern": "^(BT|NFR|US)-[0-9]{3}$"
+          },
+          "executable_evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
           },
           "description": { "type": "string" },
           "expected": { "type": "string" }

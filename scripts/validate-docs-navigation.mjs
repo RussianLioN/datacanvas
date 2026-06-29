@@ -73,7 +73,13 @@ function isTechnicalOrGovernancePath(relativePath) {
 
 function isBusinessRouteForbiddenPath(relativePath) {
   return [
+    "docs/architecture/adr",
+    "docs/architecture/schemas",
+    "docs/process",
     "docs/plans",
+    "docs/product/bmc/evidence",
+    "docs/product/bmc/interviews",
+    "artifacts/manual",
     "schemas",
     "scripts",
     "tests",
@@ -165,13 +171,22 @@ if (routeDuplicates.length > 0) {
 }
 
 for (const route of [...source.role_routes, ...source.task_routes]) {
+  if (!configuredNavigationGroups.has(route.navigation_group)) {
+    fail(`route uses unknown navigation group: ${route.id} -> ${route.navigation_group}`);
+  }
   for (const target of routeTargets(route)) {
     requireFile(target);
     const generatedEntry = indexByPath.get(target);
     if (!generatedEntry) {
       fail(`route target is missing from generated index: ${route.id} -> ${target}`);
     }
+    if (!configuredNavigationGroups.has(generatedEntry.navigation_group)) {
+      fail(`route target has unknown navigation group: ${route.id} -> ${target}`);
+    }
     if (route.navigation_group === "business") {
+      if (generatedEntry.navigation_group !== "business") {
+        fail(`business route points outside business navigation group: ${route.id} -> ${target}`);
+      }
       const ignored = source.ignored_paths.find((entry) => matchesPrefix(target, entry.path));
       if (ignored) {
         fail(`business route points to ignored path: ${route.id} -> ${target}`);
@@ -183,6 +198,23 @@ for (const route of [...source.role_routes, ...source.task_routes]) {
         fail(`business route points to non-business primary source: ${route.id} -> ${target}`);
       }
     }
+  }
+}
+
+const productReadme = readText("docs/product/README.md");
+for (const entry of index.entries) {
+  if (!matchesPrefix(entry.path, "docs/product") || entry.generated || entry.visibility !== "public") {
+    continue;
+  }
+  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  if (ignored) {
+    continue;
+  }
+  const productRelativePath = entry.path.replace("docs/product/", "");
+  const isManaged = sourceManagedByPath.has(entry.path);
+  const isProductReadmeLinked = productReadme.includes(productRelativePath) || productReadme.includes(path.posix.basename(entry.path));
+  if (!isManaged && !isProductReadmeLinked) {
+    fail(`public product document is missing from docs/product/README.md or managed navigation source: ${entry.path}`);
   }
 }
 
@@ -349,6 +381,13 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
 });
 
 assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/cases.json", {
+  "negative-route-group-not-configured": () => {
+    for (const route of [...source.role_routes, ...source.task_routes]) {
+      if (!configuredNavigationGroups.has(route.navigation_group)) {
+        fail(`route uses unknown navigation group: ${route.id}`);
+      }
+    }
+  },
   "negative-business-route-to-plan": () => {
     for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
       if (routeTargets(route).some((target) => matchesPrefix(target, "docs/plans"))) {
@@ -360,6 +399,13 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
     for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
       if (routeTargets(route).some((target) => matchesPrefix(target, "schemas") || matchesPrefix(target, "scripts"))) {
         fail(`business route points to schema/script: ${route.id}`);
+      }
+    }
+  },
+  "negative-business-route-to-adr-proc-or-raw-evidence": () => {
+    for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
+      if (routeTargets(route).some((target) => isBusinessRouteForbiddenPath(target))) {
+        fail(`business route points to forbidden non-business source: ${route.id}`);
       }
     }
   },
@@ -375,6 +421,27 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
     const entry = indexByPath.get("docs/product/backlog/technical-backlog.md");
     if (!entry || entry.navigation_group === "business") {
       fail("technical-backlog.md must not be classified as business");
+    }
+  },
+  "negative-public-confidential-evidence": () => {
+    const offenders = index.entries.filter(
+      (entry) =>
+        entry.visibility === "public" &&
+        (["confidential", "sensitive"].includes(entry.data_class) ||
+          matchesPrefix(entry.path, "docs/product/bmc/interviews") ||
+          matchesPrefix(entry.path, "docs/product/bmc/evidence") ||
+          matchesPrefix(entry.path, "artifacts/manual")),
+    );
+    if (offenders.length > 0) {
+      fail(`confidential/raw evidence exposed publicly: ${offenders.map((entry) => entry.path).join(", ")}`);
+    }
+  },
+  "negative-public-product-doc-not-routed": () => {
+    for (const entry of index.entries.filter((item) => matchesPrefix(item.path, "docs/product") && item.visibility === "public")) {
+      const productRelativePath = entry.path.replace("docs/product/", "");
+      if (!sourceManagedByPath.has(entry.path) && !productReadme.includes(productRelativePath) && !productReadme.includes(path.posix.basename(entry.path))) {
+        fail(`public product document is not routed: ${entry.path}`);
+      }
     }
   },
   "negative-public-reachable-local-path": () => {

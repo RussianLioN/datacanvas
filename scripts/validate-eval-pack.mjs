@@ -44,6 +44,17 @@ for (const requiredType of requiredTypes) {
   }
 }
 
+const requiredCategories = new Set(["happy_path", "negative", "security", "visual", "regression"]);
+const actualRequiredCategories = new Set(
+  evals.cases.filter((testCase) => testCase.required === true).map((testCase) => testCase.category),
+);
+
+for (const requiredCategory of requiredCategories) {
+  if (!actualRequiredCategories.has(requiredCategory)) {
+    fail(`missing required eval category: ${requiredCategory}`);
+  }
+}
+
 if (spec.slides.length < 1 || spec.slides.length > 5) {
   fail(`presentation quality failed: expected 1-5 slides, got ${spec.slides.length}`);
 }

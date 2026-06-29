@@ -6,8 +6,16 @@
       "expected_failure": "Business route указывает на docs/plans/*implementation-plan.md."
     },
     {
+      "id": "negative-route-group-not-configured",
+      "expected_failure": "Role/task route использует navigation_group вне configured groups."
+    },
+    {
       "id": "negative-business-route-to-schema-or-script",
       "expected_failure": "Business route указывает на schemas/ или scripts/ как primary product source."
+    },
+    {
+      "id": "negative-business-route-to-adr-proc-or-raw-evidence",
+      "expected_failure": "Business route указывает на ADR, PROC/process или raw evidence как primary product source."
     },
     {
       "id": "negative-public-business-without-artifact-id",
@@ -20,6 +28,14 @@
     {
       "id": "negative-public-reachable-local-path",
       "expected_failure": "Public-reachable doc содержит /Users/..."
+    },
+    {
+      "id": "negative-public-confidential-evidence",
+      "expected_failure": "Confidential/raw evidence становится public/reachable."
+    },
+    {
+      "id": "negative-public-product-doc-not-routed",
+      "expected_failure": "Public docs/product/** документ отсутствует в docs/product/README.md и managed navigation source."
     },
     {
       "id": "negative-stale-generated-map",
