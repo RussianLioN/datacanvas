@@ -65,7 +65,18 @@ const mainPointerRefreshPaths = new Set([
   "docs/navigation/navigation-map.md",
   "docs/navigation/navigation-source.json",
   "docs/navigation/stale-status-report.md",
+  "docs/process/audits/plan-completion-audit.json",
+  "docs/process/audits/plan-completion-audit.md",
   "docs/release/commit-pr-evidence.md",
+  "docs/release/mvp-release-evidence-pack.json",
+  "docs/release/mvp-release-evidence-pack.md",
+  "docs/sprints/2026-W27-backlog-closure/evidence-index.md",
+  "docs/sprints/2026-W27-backlog-closure/planning.md",
+  "docs/sprints/2026-W27-backlog-closure/review.md",
+  "docs/sprints/2026-W27-backlog-closure/sprint-backlog.md",
+  "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json",
+  "docs/sprints/2026-W27-backlog-closure/sprint-goal.md",
+  "docs/sprints/2026-W27-backlog-closure/sprint-summary.md",
   "scripts/validate-doc-stale-status.mjs",
 ]);
 

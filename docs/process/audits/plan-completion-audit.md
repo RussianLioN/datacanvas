@@ -30,6 +30,6 @@
 
 ## Ограничение
 
-PR #1 merged; release-cut SHA остается `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`, current `origin/main` для stale-status validation обновлен до `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`.
+PR #1 merged; release-cut SHA остается `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`, current `origin/main` для stale-status validation обновлен до `309f094b8ef7a3dc8d336886ad69f51fefc2d12e`.
 
-Backlog closure feature branch еще не имеет PR URL, merge SHA, pointer-refresh SHA или CI run URL. Эти значения нужно обновить после PR/merge, если stale-status или release evidence этого требуют.
+Backlog closure feature branch merged как PR #6 (`https://github.com/RussianLioN/datacanvas/pull/6`, merge SHA `f35092ce04df09428c42d2987e59a06be6445e30`). Pointer-refresh merged как PR #7 (`https://github.com/RussianLioN/datacanvas/pull/7`, merge SHA `309f094b8ef7a3dc8d336886ad69f51fefc2d12e`) и `docs-check` на `main` прошел.

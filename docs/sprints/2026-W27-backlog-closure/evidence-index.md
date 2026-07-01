@@ -39,3 +39,9 @@
 - `npm run validate:process-metrics-snapshot` passed.
 - `npm run validate:release-pack` passed.
 - Final gate: `npm test`, `git diff --check`, `git diff --exit-code`, `git status --short --branch`.
+
+## Post-Merge Evidence
+
+- Backlog closure PR: `https://github.com/RussianLioN/datacanvas/pull/6`, merge SHA `f35092ce04df09428c42d2987e59a06be6445e30`.
+- Pointer-refresh PR: `https://github.com/RussianLioN/datacanvas/pull/7`, merge SHA `309f094b8ef7a3dc8d336886ad69f51fefc2d12e`.
+- Pointer-refresh main `docs-check`: `https://github.com/RussianLioN/datacanvas/actions/runs/28542491610`, status `passed`.

@@ -7091,6 +7091,7 @@
         "commit-evidence",
         "current-main-pointer",
         "evidence-по-backlog-closure-feature-branch",
+        "evidence-по-backlog-closure-pointer-refresh",
         "pull-request-evidence",
         "required-verification",
         "release-evidence-links"
@@ -27769,7 +27770,8 @@
         "evidence-index-2026-w27-backlog-closure",
         "source",
         "измененные-контуры",
-        "проверки"
+        "проверки",
+        "post-merge-evidence"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -27984,6 +27986,7 @@
         "sprint-summary-2026-w27-backlog-closure",
         "metrics-delta",
         "failure-signal-matrix",
+        "post-merge-evidence",
         "rollback"
       ],
       "reachable_from_root": false,
@@ -28323,7 +28326,7 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "f35092ce04df09428c42d2987e59a06be6445e30",
+      "current_main_commit": "309f094b8ef7a3dc8d336886ad69f51fefc2d12e",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },

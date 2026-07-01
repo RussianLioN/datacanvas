@@ -6,7 +6,7 @@
 | TECH-004 | Усилить backlog registry validator | Markdown backlog, traceability links и sprint package проверяются | done |
 | TECH-W27-001 | Усилить navigation/leakage/hash validators | Navigation negative cases, leakage coverage и exact hash set проверяются | done |
 | PROC-W27-001 | Добавить sprint evidence package | Все обязательные sprint files и manifest существуют | done |
-| REL-W27-001 | Обновить release/process evidence pointers | Current main pointer отделен от release-cut SHA, PR state не выдуман | in_progress |
+| REL-W27-001 | Обновить release/process evidence pointers | Current main pointer отделен от release-cut SHA, PR state не выдуман | done |
 
 ## Примечание
 

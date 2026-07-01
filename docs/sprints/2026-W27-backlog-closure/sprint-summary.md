@@ -23,6 +23,12 @@
 | Sensitive route lacks leakage coverage | `npm run validate:data-leakage` |
 | Hash manifest contains extra/missing/stale entry | `npm run validate:artifact-hashes` |
 
+## Post-Merge Evidence
+
+- Backlog closure PR #6 merged: `https://github.com/RussianLioN/datacanvas/pull/6`, merge SHA `f35092ce04df09428c42d2987e59a06be6445e30`.
+- Pointer-refresh PR #7 merged: `https://github.com/RussianLioN/datacanvas/pull/7`, merge SHA `309f094b8ef7a3dc8d336886ad69f51fefc2d12e`.
+- Main `docs-check` после PR #7 прошел: `https://github.com/RussianLioN/datacanvas/actions/runs/28542491610`.
+
 ## Rollback
 
 До merge: revert feature branch changes or close/rewrite PR.
