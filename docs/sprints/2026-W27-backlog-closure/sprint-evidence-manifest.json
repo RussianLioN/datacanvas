@@ -2,7 +2,7 @@
   "sprint_id": "SPRINT-2026-W27",
   "sprint_name": "backlog-closure-validation",
   "process_version": "0.1.0",
-  "status": "produced_pr_ready",
+  "status": "post_merge_validated",
   "source_plan": "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
   "goal": "Закрыть drift между backlog, eval, traceability, navigation, leakage, artifact hash и release/process evidence без расширения runtime scope.",
   "created_artifacts": [
@@ -97,9 +97,10 @@
     }
   ],
   "known_limitations": [
-    "PR URL, merge SHA, pointer-refresh SHA и CI run URL появятся только после PR/merge.",
+    "Backlog closure feature branch merged как PR #6: https://github.com/RussianLioN/datacanvas/pull/6, merge SHA f35092ce04df09428c42d2987e59a06be6445e30.",
+    "Pointer-refresh merged как PR #7: https://github.com/RussianLioN/datacanvas/pull/7, merge SHA 309f094b8ef7a3dc8d336886ad69f51fefc2d12e; main docs-check passed.",
     "Release-cut SHA не перезаписывается в feature branch.",
     "Process event log остается пустым, потому что не было real-time командных events."
   ],
-  "next_safe_step": "Создать PR, дождаться PR CI, затем обновить PR URL, merge SHA, pointer-refresh SHA и CI run URL после merge."
+  "next_safe_step": "Поддерживать release/process evidence, navigation index и artifact hashes при последующих изменениях product/runtime artifacts; финальный self-reference текущего maintenance PR фиксировать в handoff после merge."
 }

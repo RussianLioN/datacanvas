@@ -1,6 +1,6 @@
 # Sprint Goal: 2026-W27 Backlog Closure
 
-Статус: in_progress
+Статус: done
 Владелец: Scrum Master
 Проверка: `npm run validate:backlog-registry`, `npm run validate:eval-backlog-sync`, `npm run validate:docs-navigation`, `npm run validate:data-leakage`
 

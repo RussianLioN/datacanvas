@@ -1342,7 +1342,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "f35092ce04df09428c42d2987e59a06be6445e30",
+    "current_main_commit": "309f094b8ef7a3dc8d336886ad69f51fefc2d12e",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {
@@ -1361,6 +1361,13 @@
       "docs/process/audits/external-evidence-readiness.json",
       "docs/process/current/process-metrics-snapshot.md",
       "docs/process/current/process-metrics-snapshot.json",
+      "docs/sprints/2026-W27-backlog-closure/sprint-goal.md",
+      "docs/sprints/2026-W27-backlog-closure/sprint-backlog.md",
+      "docs/sprints/2026-W27-backlog-closure/planning.md",
+      "docs/sprints/2026-W27-backlog-closure/review.md",
+      "docs/sprints/2026-W27-backlog-closure/evidence-index.md",
+      "docs/sprints/2026-W27-backlog-closure/sprint-summary.md",
+      "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json",
       "docs/knowledge/evidence-index.md"
     ],
     "forbidden_patterns": [
@@ -1393,6 +1400,31 @@
         "id": "reviewable-pr-state",
         "pattern": "reviewable PR state",
         "reason": "Release evidence now represents merged main state."
+      },
+      {
+        "id": "pending-pr-placeholder",
+        "pattern": "\\bpending_pr\\b",
+        "reason": "Post-merge backlog closure evidence must not keep pending PR placeholders."
+      },
+      {
+        "id": "pending-pr-ci-placeholder",
+        "pattern": "\\bpending_pr_ci\\b",
+        "reason": "Post-merge backlog closure evidence must not keep pending CI placeholders."
+      },
+      {
+        "id": "pending-merge-placeholder",
+        "pattern": "\\bpending_merge\\b",
+        "reason": "Post-merge backlog closure evidence must not keep pending merge placeholders."
+      },
+      {
+        "id": "pending-pointer-refresh-placeholder",
+        "pattern": "\\bpending_after_merge_if_required\\b",
+        "reason": "Post-merge backlog closure evidence must not keep pending pointer-refresh placeholders."
+      },
+      {
+        "id": "commit-template-placeholder",
+        "pattern": "\\bTO_BE_FILLED_AFTER_COMMIT\\b",
+        "reason": "Tracked current evidence must not contain unfilled commit placeholders."
       }
     ]
   }

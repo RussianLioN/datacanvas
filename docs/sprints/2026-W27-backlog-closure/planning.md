@@ -1,6 +1,6 @@
 # Planning: 2026-W27 Backlog Closure
 
-Статус: in_progress
+Статус: done
 
 ## План Работы
 
