@@ -21,17 +21,19 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Current `origin/main` for stale-status validation: `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`
-- Current main verification date: `2026-06-29T19:16:09Z`
+- Текущий `origin/main` для stale-status validation: `f35092ce04df09428c42d2987e59a06be6445e30`
+- Дата проверки текущего `main`: `2026-07-01T19:26:26Z`
 
-## Backlog Closure Feature Branch Evidence
+## Evidence по backlog-closure feature branch
 
 - Branch: `feat/backlog-closure-validation`
 - Base `origin/main`: `1dee347e1a83c0a67647a67b8ec82d2aa970be6a`
-- PR URL: `pending_pr`
-- Merge SHA: `pending_merge`
-- Pointer-refresh SHA: `pending_after_merge_if_required`
-- CI run URL: `pending_pr_ci`
+- PR URL: `https://github.com/RussianLioN/datacanvas/pull/6`
+- Merge SHA: `f35092ce04df09428c42d2987e59a06be6445e30`
+- PR CI run URL: `https://github.com/RussianLioN/datacanvas/actions/runs/28402608407`
+- PR CI job URL: `https://github.com/RussianLioN/datacanvas/actions/runs/28402608407/job/84157376421`
+- Main push CI run URL: `https://github.com/RussianLioN/datacanvas/actions/runs/28402695336`
+- Main push CI status: `failed` до обновления `current_main_commit`; текущий PR выполняет минимальный pointer-refresh.
 - Local validation scope: `npm test`, `git diff --check`, `git diff --exit-code`
 
 ## Pull Request Evidence
@@ -45,8 +47,10 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 1dee347e1a83c0a67647a67b8ec82d2aa970be6a
+git rev-parse origin/main for stale-status validation: f35092ce04df09428c42d2987e59a06be6445e30
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
+GitHub Actions docs-check PR #6 run: https://github.com/RussianLioN/datacanvas/actions/runs/28402608407
+GitHub Actions docs-check main run after PR #6 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28402695336
 npm test: passed before merge on PR #1
 npm run validate:pilot-gate: passed
 npm run validate:process-portability: passed
