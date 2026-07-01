@@ -1054,6 +1054,25 @@
       "artifact_registry_required": true
     },
     {
+      "path": "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
+      "route_id": "ba-sa-interview-change-order-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "BA/SA interview artifact factory, Product Change Order, or priority-change implementation planning changes.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/datacanvas-documentation-implementation-plan.md",
       "route_id": "datacanvas-documentation-implementation-plan",
       "section": "plans",

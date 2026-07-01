@@ -4113,6 +4113,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Backlog closure sprint package changes."
+    },
+    {
+      "id": "ART-454",
+      "path": "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "BA/SA interview artifact factory, Product Change Order, or priority-change implementation planning changes."
     }
   ]
 }
