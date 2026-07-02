@@ -208,6 +208,50 @@ const cases = [
     data: "docs/product/bmc/bmc-validation-needs.json",
   },
   {
+    schema: "schemas/interview-session.schema.json",
+    data: "docs/product/interviews/ba-sa/active-interview-runtime-state.json",
+  },
+  {
+    schema: "schemas/interview-answer-set.schema.json",
+    data: "docs/product/interviews/ba-sa/interview-answer-set.json",
+  },
+  {
+    schema: "schemas/ba-spec.schema.json",
+    data: "docs/product/analysis/ba/ba-spec.json",
+  },
+  {
+    schema: "schemas/sa-spec.schema.json",
+    data: "docs/architecture/system-analysis/sa-spec.json",
+  },
+  {
+    schema: "schemas/product-change-order.schema.json",
+    data: "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+  },
+  {
+    schema: "schemas/change-impact-assessment.schema.json",
+    data: "docs/product/change-orders/change-impact-assessment.json",
+  },
+  {
+    schema: "schemas/interview-derived-coverage.schema.json",
+    data: "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+  },
+  {
+    schema: "schemas/feature-spec.schema.json",
+    data: "docs/product/specs/feature-spec-a2a-launch.json",
+  },
+  {
+    schema: "schemas/task-spec.schema.json",
+    data: "docs/product/specs/task-spec-a2a-launch.json",
+  },
+  {
+    schema: "schemas/agent-prompt-spec.schema.json",
+    data: "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+  },
+  {
+    schema: "schemas/generated-spec-package-manifest.schema.json",
+    data: "docs/product/specs/generated-spec-package-manifest.json",
+  },
+  {
     schema: "schemas/risk-registry.schema.json",
     data: "docs/architecture/risks/risk-registry.json",
   },

@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/ba-spec.schema.json",
+  "title": "BusinessAnalysisSpec",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "source_interview_id",
+    "source_answer_set_path",
+    "source_policy",
+    "claims",
+    "stakeholders",
+    "needs",
+    "requirements",
+    "business_rules",
+    "acceptance_deltas",
+    "open_decisions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "source_interview_id": { "type": "string", "pattern": "^BA-SA-INT-[0-9]{4}-[0-9]{3}$" },
+    "source_answer_set_path": { "type": "string", "minLength": 1 },
+    "source_policy": { "type": "string", "enum": ["safe_summary_or_claim_only"] },
+    "claims": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "safe_summary",
+          "trust_status",
+          "data_class",
+          "evidence_refs",
+          "allowed_downstream_use",
+          "promoted_to_requirement"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" },
+          "safe_summary": { "type": "string", "minLength": 1 },
+          "trust_status": { "type": "string", "enum": ["confirmed", "unconfirmed", "assumption", "contradicted"] },
+          "data_class": { "type": "string", "enum": ["internal", "confidential"] },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "allowed_downstream_use": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["artifact_generation", "acceptance_gate", "evidence_request", "hypothesis_backlog", "none"]
+            }
+          },
+          "promoted_to_requirement": { "type": "boolean" }
+        }
+      }
+    },
+    "stakeholders": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["stakeholder_id", "role", "interest", "decision_right", "source_claim_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "stakeholder_id": { "type": "string", "pattern": "^STK-[0-9]{3}$" },
+          "role": { "type": "string", "minLength": 1 },
+          "interest": { "type": "string", "minLength": 1 },
+          "decision_right": { "type": "string", "minLength": 1 },
+          "source_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" } }
+        }
+      }
+    },
+    "needs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["need_id", "summary", "stakeholder_id", "source_claim_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "need_id": { "type": "string", "pattern": "^NEED-[0-9]{3}$" },
+          "summary": { "type": "string", "minLength": 1 },
+          "stakeholder_id": { "type": "string", "pattern": "^STK-[0-9]{3}$" },
+          "source_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" } }
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirement_id", "summary", "source_claim_ids", "acceptance_refs", "coverage_status"],
+        "additionalProperties": false,
+        "properties": {
+          "requirement_id": { "type": "string", "pattern": "^(BT|NFR)-[0-9]{3}(-DELTA)?$" },
+          "summary": { "type": "string", "minLength": 1 },
+          "source_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" } },
+          "acceptance_refs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "coverage_status": { "type": "string", "enum": ["covered", "deferred"] }
+        }
+      }
+    },
+    "business_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "summary", "owner_role", "verification", "source_claim_ids"],
+        "additionalProperties": false,
+        "properties": {
+          "rule_id": { "type": "string", "pattern": "^BRULE-[0-9]{3}$" },
+          "summary": { "type": "string", "minLength": 1 },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "verification": { "type": "string", "minLength": 1 },
+          "source_claim_ids": { "type": "array", "items": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" } }
+        }
+      }
+    },
+    "acceptance_deltas": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "open_decisions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

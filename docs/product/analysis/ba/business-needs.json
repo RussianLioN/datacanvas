@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_ba_spec_path": "docs/product/analysis/ba/ba-spec.json",
+  "needs": [
+    {
+      "need_id": "NEED-001",
+      "stakeholder_id": "STK-001",
+      "summary": "Получить проверяемый путь от интервью до Change Order и spec package.",
+      "source_claim_ids": ["BASA-CLM-002", "BASA-CLM-008"]
+    },
+    {
+      "need_id": "NEED-002",
+      "stakeholder_id": "STK-002",
+      "summary": "Не передавать агенту сырые ответы и не расширять tool/provider boundaries.",
+      "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"]
+    }
+  ]
+}

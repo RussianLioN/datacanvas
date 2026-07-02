@@ -1,0 +1,14 @@
+{
+  "fixture_id": "BASA-FIX-002",
+  "description": "Insufficient input creates clarification and blocks generation.",
+  "input": {
+    "source": "A2A envelope",
+    "missing_fields": ["actor_identity", "input_schema_version"],
+    "data_class": "internal"
+  },
+  "expected": {
+    "error_id": "ERR-001",
+    "state": "clarification",
+    "export_created": false
+  }
+}

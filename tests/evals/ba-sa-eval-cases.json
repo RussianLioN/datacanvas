@@ -1,0 +1,53 @@
+{
+  "version": "0.1.0",
+  "cases": [
+    {
+      "id": "BASA-EVAL-001",
+      "title": "A2A-first launch uses only confirmed claims",
+      "type": "traceability",
+      "category": "regression",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-005-DELTA",
+      "fixture_id": "BASA-FIX-001",
+      "executable_evidence": ["npm run validate:spec-task-prompt-readiness"],
+      "expected": "FeatureSpec references only confirmed claim IDs."
+    },
+    {
+      "id": "BASA-EVAL-002",
+      "title": "Insufficient A2A input blocks generation",
+      "type": "negative",
+      "category": "negative",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-006-DELTA",
+      "fixture_id": "BASA-FIX-002",
+      "executable_evidence": ["npm run validate:ba-sa-interview"],
+      "expected": "Lifecycle moves to clarification and no export is created."
+    },
+    {
+      "id": "BASA-EVAL-003",
+      "title": "Agent prompt contains safe context only",
+      "type": "security",
+      "category": "security",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "NFR-003-DELTA",
+      "fixture_id": "BASA-FIX-003",
+      "executable_evidence": ["npm run validate:spec-task-prompt-readiness", "npm run validate:data-leakage"],
+      "expected": "AgentPromptSpec has raw_transcript_included=false and no forbidden raw-answer fields."
+    },
+    {
+      "id": "BASA-EVAL-004",
+      "title": "Conflicting source creates open decision",
+      "type": "traceability",
+      "category": "regression",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-012-DELTA",
+      "fixture_id": "BASA-FIX-004",
+      "executable_evidence": ["npm run validate:change-impact"],
+      "expected": "Unconfirmed channel decision remains deferred and does not overwrite BT-012."
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "version": "0.1.0",
+  "session_id": "BA-SA-RUN-2026-001",
+  "interview_id": "BA-SA-INT-2026-001",
+  "status": "ready_for_confirmation",
+  "mode": "standard",
+  "started_at": "2026-07-02T00:00:00Z",
+  "updated_at": "2026-07-02T00:00:00Z",
+  "completed_at": null,
+  "current_step": 14,
+  "question_bank_path": "docs/product/interviews/ba-sa/question-bank.json",
+  "answer_set_path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+  "results_path": "docs/product/interviews/ba-sa/interview-results.json",
+  "raw_answer_policy": {
+    "raw_answers_storage": "not_captured",
+    "downstream_rule": "safe_summary_or_claim_only",
+    "data_class": "confidential",
+    "allowed_downstream_use": ["safe_summary", "claim_object", "evidence_metadata"]
+  },
+  "covered_domains": [
+    "stakeholders",
+    "current_process",
+    "target_outcome",
+    "value",
+    "constraints",
+    "policies",
+    "exceptions",
+    "channels",
+    "data",
+    "decision_roles",
+    "acceptance_examples",
+    "risks",
+    "metrics",
+    "rollback"
+  ],
+  "events": [
+    {
+      "event_id": "EVT-BA-SA-001",
+      "event_type_id": "EVT-INTERVIEW-STARTED",
+      "artifact_path": "docs/product/interviews/ba-sa/active-interview-runtime-state.json"
+    },
+    {
+      "event_id": "EVT-BA-SA-002",
+      "event_type_id": "EVT-EVIDENCE-REQUESTED",
+      "artifact_path": "docs/product/interviews/ba-sa/evidence-requests.md"
+    }
+  ],
+  "process_run_id": "PRUN-2026-001"
+}

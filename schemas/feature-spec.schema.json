@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/feature-spec.schema.json",
+  "title": "FeatureSpec",
+  "type": "object",
+  "required": [
+    "version",
+    "feature_id",
+    "status",
+    "priority",
+    "source_claim_ids",
+    "requirement_ids",
+    "human_intent",
+    "non_goals",
+    "acceptance",
+    "eval_cases",
+    "validation_commands",
+    "forbidden_behaviors"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "feature_id": { "type": "string", "pattern": "^FS-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "ready"] },
+    "priority": { "type": "string", "enum": ["P1", "P2", "P3", "P4", "P5"] },
+    "source_claim_ids": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" } },
+    "requirement_ids": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^(BT|NFR)-[0-9]{3}(-DELTA)?$" } },
+    "human_intent": { "type": "string", "minLength": 1 },
+    "non_goals": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "acceptance": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "eval_cases": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^BASA-EVAL-[0-9]{3}$" } },
+    "validation_commands": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "forbidden_behaviors": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  }
+}

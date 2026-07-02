@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "boundaries": [
+    {
+      "boundary_id": "BOUND-001",
+      "name": "Lisa launch",
+      "actor_identity": "operator",
+      "authn_authz": "existing workspace controls",
+      "allowed_data_classes": ["internal"],
+      "tool_scopes": ["offline generation"],
+      "retention": "project evidence policy",
+      "audit": "trace manifest",
+      "replay_rate_limits": "not applicable in offline baseline",
+      "stop_rules": ["schema validation failure"]
+    },
+    {
+      "boundary_id": "BOUND-002",
+      "name": "A2A launch",
+      "actor_identity": "upstream agent",
+      "authn_authz": "not enabled in baseline",
+      "allowed_data_classes": ["internal"],
+      "tool_scopes": ["none until ADR/PCR acceptance"],
+      "retention": "metadata only until accepted",
+      "audit": "process run ledger",
+      "replay_rate_limits": "required before live enablement",
+      "stop_rules": ["untrusted instruction", "missing schema", "missing actor identity"]
+    },
+    {
+      "boundary_id": "BOUND-003",
+      "name": "MCP context",
+      "actor_identity": "tool server",
+      "authn_authz": "not enabled in baseline",
+      "allowed_data_classes": ["internal"],
+      "tool_scopes": ["allowlisted read-only tools only after approval"],
+      "retention": "metadata only",
+      "audit": "tool call trace",
+      "replay_rate_limits": "required before live enablement",
+      "stop_rules": ["tool allowlist expansion without ADR/PCR"]
+    },
+    {
+      "boundary_id": "BOUND-004",
+      "name": "Delivery channel",
+      "actor_identity": "recipient",
+      "authn_authz": "deferred",
+      "allowed_data_classes": ["public", "internal"],
+      "tool_scopes": ["none in baseline"],
+      "retention": "deferred",
+      "audit": "sanitized delivery metadata",
+      "replay_rate_limits": "deferred",
+      "stop_rules": ["channel decision missing", "personal metadata not redacted"]
+    }
+  ]
+}

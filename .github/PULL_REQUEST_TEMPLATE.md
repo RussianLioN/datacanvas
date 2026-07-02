@@ -5,11 +5,15 @@
 - Sprint:
 - Backlog item:
 - Process item:
+- Product Change Order (`CO-*`):
+- Interview session ID:
 
 ## Changed Artifacts
 
 - Affected `ART-*`:
 - Affected docs routes:
+- Affected BA/SA artifacts:
+- Generated outputs:
 - Navigation impact:
 - Business navigation impact:
 - Technical/process navigation impact:
@@ -19,6 +23,8 @@
 
 - Commands:
 - Evidence links:
+- Post-merge freshness action:
+- Rollback validation command:
 
 ## Owner Sign-Off
 

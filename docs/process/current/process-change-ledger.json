@@ -80,6 +80,31 @@
       ],
       "migration_notes": "Business-first routes, navigation_group contract, grouped generated navigation and business artifact registry entries are synchronized in one implementation PR.",
       "rollback": "Revert navigation source, schemas, generator, validator, registry, generated outputs and business-first README changes, then rerun docs navigation, artifact and security gates."
+    },
+    {
+      "process_change_id": "PROC-037",
+      "title": "Ввести governed BA/SA discovery-to-refinement loop",
+      "status": "draft",
+      "decision": "not_decided",
+      "source": "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
+      "pcr_path": "docs/process/change-requests/PROC-037-governed-ba-sa-discovery-loop.md",
+      "changelog_anchor": "PROC-037",
+      "affected_artifacts": [
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md",
+        "docs/process/current/process-event-log.json",
+        "scripts/validate-process-event-log.mjs",
+        "scripts/validate-ba-sa-artifacts.mjs",
+        "package.json",
+        ".github/PULL_REQUEST_TEMPLATE.md"
+      ],
+      "validation_commands": [
+        "npm run validate:ba-sa",
+        "npm run validate:process-events",
+        "npm test"
+      ],
+      "migration_notes": "Draft process rule is documented and wired to validators, but it does not become accepted process policy until Process Owner decision.",
+      "rollback": "Revert DoR/DoD/process event additions and remove BA/SA gates from npm test."
     }
   ],
   "known_limitations": [

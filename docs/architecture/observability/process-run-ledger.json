@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "runs": [
+    {
+      "run_id": "PRUN-2026-001",
+      "command": "npm test",
+      "input_paths": [
+        "docs/product/interviews/ba-sa/interview-answer-set.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+        "docs/product/specs/generated-spec-package-manifest.json",
+        "package.json"
+      ],
+      "output_paths": [
+        "docs/product/interviews/ba-sa/interview-results.json",
+        "docs/product/specs/generated-spec-package-manifest.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "duration_ms": 14770,
+      "exit_code": 0,
+      "redacted_log_sha256": "affa3908fe24dba222c42d9302dd563f8d96f65d7164903a2e9bb504e2f3b2f4"
+    }
+  ]
+}

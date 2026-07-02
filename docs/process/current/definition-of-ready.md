@@ -22,6 +22,8 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указана связь с Vision, BMC, гипотезой или риском.
 - Указано влияние на БТ или НФТ.
 - Требование связано с traceability matrix.
+- Есть interview evidence или явное решение `интервью не требуется`.
+- Для interview-derived требования указан claim status, owner/date для open question, BA value check, SA contract/security/NFR check.
 
 ## Для Процессных Изменений
 
@@ -37,3 +39,4 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указаны eval cases.
 - Указаны forbidden behavior и fallback expectations.
 - Проверено, что tool permissions не расширяются без ADR/PCR.
+- AgentPromptSpec не содержит сырые ответы интервью и использует только safe context.

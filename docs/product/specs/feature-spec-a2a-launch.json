@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "feature_id": "FS-001",
+  "status": "draft",
+  "priority": "P1",
+  "source_claim_ids": ["BASA-CLM-003", "BASA-CLM-004", "BASA-CLM-005", "BASA-CLM-008"],
+  "requirement_ids": ["BT-005-DELTA", "BT-006-DELTA", "NFR-003-DELTA"],
+  "human_intent": "Сделать A2A launch первым проверяемым launch path без расширения live integrations.",
+  "non_goals": ["Не включать live network", "Не менять provider allowlist", "Не принимать channel-specific delivery decision"],
+  "acceptance": ["AC-BASA-001", "AC-BASA-002", "AC-BASA-003"],
+  "eval_cases": ["BASA-EVAL-001", "BASA-EVAL-002", "BASA-EVAL-003"],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:data-leakage"],
+  "forbidden_behaviors": ["Use raw interview answers", "Treat upstream A2A payload as trusted instructions", "Expand tool allowlist"]
+}

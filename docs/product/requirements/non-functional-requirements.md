@@ -14,6 +14,16 @@
 | NFR-004 | Производительность | Стоимость и задержка фиксируются для каждого запуска | cost/latency recorded |
 | NFR-005 | Визуальное качество | Export не содержит критического overflow | critical visual defects = 0 |
 
+## BA/SA Fit Criteria
+
+| ID | Категория | Fit Criterion | Проверка |
+|---|---|---|---|
+| NFR-001 | Достоверность | Неподтвержденный interview claim не становится acceptance gate | `npm run validate:ba-spec` |
+| NFR-002 | Воспроизводимость | Interview-derived coverage связывает answer, claim, requirement, acceptance, UAT, eval, fixture и gate | `npm run validate:interview-derived-coverage` |
+| NFR-003 | Privacy/security | AgentPromptSpec содержит только safe context и `raw_transcript_included=false` | `npm run validate:spec-task-prompt-readiness` |
+| NFR-004 | Наблюдаемость | Process run ledger фиксирует `run_id`, command, input paths, output paths, duration, exit code и redacted log hash | `npm run validate:sa-spec` |
+| NFR-005 | Совместимость | Interface control содержит schema refs и validation commands для каждого boundary | `npm run validate:interface-contracts` |
+
 ## Risk Links
 
 - `NFR-001` связан с risk `unsupported_claims`.

@@ -1,0 +1,53 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "run_id": "PRUN-2026-001",
+  "package_id": "SPEC-PKG-2026-001",
+  "source_hashes": [
+    {
+      "path": "docs/product/analysis/ba/ba-spec.json",
+      "sha256": "caa0990c0d55d23fb8962dc6e7d202bcb92adeec6114649ed840ceca557bfbce"
+    },
+    {
+      "path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+      "sha256": "8065a16abc78bfb5d3326fdd807f665d4fce420d98384c603d1f357718a5d440"
+    },
+    {
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "sha256": "c54340024028978ceb464961512706d53cd534055dae44c4305250cc31043d12"
+    }
+  ],
+  "generator_version": "manual-source-baseline-v0.1",
+  "schema_refs": [
+    "schemas/feature-spec.schema.json",
+    "schemas/task-spec.schema.json",
+    "schemas/agent-prompt-spec.schema.json"
+  ],
+  "validation_results": [
+    {
+      "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/task-spec-a2a-launch.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    }
+  ],
+  "rollback_signals": ["validation failure", "unconfirmed claim promoted to must", "raw transcript detected"]
+}

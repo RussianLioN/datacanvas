@@ -1,0 +1,92 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "interview_kind": "ba_sa_discovery",
+  "modes": ["light", "standard", "deep"],
+  "questions": [
+    {
+      "question_id": "BASA-Q001",
+      "domain": "stakeholders",
+      "prompt": "Какие роли получают ценность от изменения и кто принимает решение?",
+      "required_in_modes": ["light", "standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q002",
+      "domain": "current_process",
+      "prompt": "Как сейчас запускается подготовка презентации и где теряется управление?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q003",
+      "domain": "target_outcome",
+      "prompt": "Какой измеримый результат должен появиться после изменения приоритета?",
+      "required_in_modes": ["light", "standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q004",
+      "domain": "value",
+      "prompt": "Какую бизнес-ценность дает A2A-first запуск по сравнению с запуском из Лисы?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q005",
+      "domain": "constraints",
+      "prompt": "Какие ограничения по security, network, provider и tool allowlist нельзя менять?",
+      "required_in_modes": ["light", "standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q006",
+      "domain": "policies",
+      "prompt": "Какие правила DoR, DoD и source-of-truth должны остаться обязательными?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q007",
+      "domain": "exceptions",
+      "prompt": "Какие входы считаются недостаточными или противоречивыми?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q008",
+      "domain": "channels",
+      "prompt": "Какие каналы запуска и доставки должны быть подтверждены до implementation?",
+      "required_in_modes": ["light", "standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q009",
+      "domain": "data",
+      "prompt": "Какие классы данных допустимы на входе, в trace, evidence и export?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q010",
+      "domain": "decision_roles",
+      "prompt": "Кто утверждает Product Change Order, Sprint Goal test и rollback?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q011",
+      "domain": "acceptance_examples",
+      "prompt": "Какие acceptance examples доказывают готовность A2A-first запуска?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q012",
+      "domain": "risks",
+      "prompt": "Какие риски меняются из-за нового канала запуска?",
+      "required_in_modes": ["standard", "deep"]
+    },
+    {
+      "question_id": "BASA-Q013",
+      "domain": "metrics",
+      "prompt": "Какие метрики нужны для качества, задержки, стоимости и отказов?",
+      "required_in_modes": ["deep"]
+    },
+    {
+      "question_id": "BASA-Q014",
+      "domain": "rollback",
+      "prompt": "Как безопасно откатить приоритет и не потерять traceability?",
+      "required_in_modes": ["standard", "deep"]
+    }
+  ]
+}

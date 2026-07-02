@@ -61,3 +61,21 @@ PCR: `PROC-001`
 #### Rollback
 
 Откатить `docs/navigation/navigation-source.json`, schemas, generator, validator, registry, hash manifest, generated navigation outputs и business-first README changes одним PR, затем повторить docs navigation, artifact и security gates.
+
+### PROC-037 - Governed BA/SA Discovery Loop
+
+Статус: draft
+Дата: 2026-07-02
+Источник: `docs/process/change-requests/PROC-037-governed-ba-sa-discovery-loop.md`
+
+#### Изменение
+
+Предложено добавить BA/SA interview evidence, claim status, evidence requests, open question ownership, SA contract/security/NFR check и rollback signals в DoR, DoD и process event log.
+
+#### Миграция
+
+До Process Owner acceptance правило остается draft. Артефакты и валидаторы можно использовать как подготовленный gate, но они не меняют принятую версию процесса.
+
+#### Rollback
+
+Откатить DoR/DoD/process event additions и убрать BA/SA gates из `npm test`.

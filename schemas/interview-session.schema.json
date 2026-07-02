@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/interview-session.schema.json",
+  "title": "InterviewSession",
+  "type": "object",
+  "required": [
+    "version",
+    "session_id",
+    "interview_id",
+    "status",
+    "mode",
+    "started_at",
+    "updated_at",
+    "completed_at",
+    "current_step",
+    "question_bank_path",
+    "answer_set_path",
+    "results_path",
+    "raw_answer_policy",
+    "covered_domains",
+    "events",
+    "process_run_id"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "session_id": { "type": "string", "pattern": "^BA-SA-RUN-[0-9]{4}-[0-9]{3}$" },
+    "interview_id": { "type": "string", "pattern": "^BA-SA-INT-[0-9]{4}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["not_started", "in_progress", "paused", "ready_for_confirmation", "completed", "abandoned"] },
+    "mode": { "type": "string", "enum": ["light", "standard", "deep"] },
+    "started_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": ["string", "null"], "format": "date-time" },
+    "current_step": { "type": "integer", "minimum": 0 },
+    "question_bank_path": { "type": "string", "minLength": 1 },
+    "answer_set_path": { "type": "string", "minLength": 1 },
+    "results_path": { "type": "string", "minLength": 1 },
+    "raw_answer_policy": {
+      "type": "object",
+      "required": ["raw_answers_storage", "downstream_rule", "data_class", "allowed_downstream_use"],
+      "additionalProperties": false,
+      "properties": {
+        "raw_answers_storage": { "type": "string", "enum": ["not_captured", "external_confidential_store"] },
+        "downstream_rule": { "type": "string", "enum": ["safe_summary_or_claim_only"] },
+        "data_class": { "type": "string", "enum": ["confidential"] },
+        "allowed_downstream_use": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["safe_summary", "claim_object", "evidence_metadata"] }
+        }
+      }
+    },
+    "covered_domains": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "string",
+        "enum": [
+          "stakeholders",
+          "current_process",
+          "target_outcome",
+          "value",
+          "constraints",
+          "policies",
+          "exceptions",
+          "channels",
+          "data",
+          "decision_roles",
+          "acceptance_examples",
+          "risks",
+          "metrics",
+          "rollback"
+        ]
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["event_id", "event_type_id", "artifact_path"],
+        "additionalProperties": false,
+        "properties": {
+          "event_id": { "type": "string", "pattern": "^EVT-BA-SA-[0-9]{3}$" },
+          "event_type_id": { "type": "string", "pattern": "^EVT-" },
+          "artifact_path": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "process_run_id": { "type": "string", "pattern": "^PRUN-[0-9]{4}-[0-9]{3}$" }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/interview-derived-coverage.schema.json",
+  "title": "InterviewDerivedCoverage",
+  "type": "object",
+  "required": ["version", "status", "source_interview_id", "coverage_links", "known_gaps"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "source_interview_id": { "type": "string", "pattern": "^BA-SA-INT-[0-9]{4}-[0-9]{3}$" },
+    "coverage_links": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "answer_id",
+          "claim_id",
+          "requirement_id",
+          "acceptance_id",
+          "uat_id",
+          "eval_id",
+          "fixture_id",
+          "gate",
+          "status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "answer_id": { "type": "string", "pattern": "^BASA-ANS-[0-9]{3}$" },
+          "claim_id": { "type": "string", "pattern": "^BASA-CLM-[0-9]{3}$" },
+          "requirement_id": { "type": "string", "pattern": "^(BT|NFR)-[0-9]{3}(-DELTA)?$" },
+          "acceptance_id": { "type": "string", "minLength": 1 },
+          "uat_id": { "type": "string", "pattern": "^UAT-[0-9]{3}$" },
+          "eval_id": { "type": "string", "pattern": "^BASA-EVAL-[0-9]{3}$" },
+          "fixture_id": { "type": "string", "pattern": "^BASA-FIX-[0-9]{3}$" },
+          "gate": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["covered", "deferred"] }
+        }
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

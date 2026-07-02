@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "links": [
+    {
+      "claim_id": "BASA-CLM-003",
+      "feature_id": "FS-001",
+      "task_id": "TSK-001",
+      "prompt_id": "APS-001",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-004",
+      "feature_id": "FS-001",
+      "task_id": "TSK-001",
+      "prompt_id": "APS-001",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-009",
+      "feature_id": null,
+      "task_id": null,
+      "prompt_id": null,
+      "trust_status": "unconfirmed"
+    }
+  ]
+}

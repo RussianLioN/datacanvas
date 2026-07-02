@@ -1,0 +1,177 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_interview_id": "BA-SA-INT-2026-001",
+  "source_answer_set_path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+  "source_policy": "safe_summary_or_claim_only",
+  "claims": [
+    {
+      "claim_id": "BASA-CLM-001",
+      "safe_summary": "Product Owner, Process Owner, Security/Privacy Lead и Development Team имеют разные decision rights.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/product/README.md", "docs/process/current/definition-of-ready.md"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-002",
+      "safe_summary": "Фабрика БА/СА должна сохранять source-of-truth separation между product, process, architecture и generated outputs.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["AGENTS.md", "docs/navigation/navigation-source.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-003",
+      "safe_summary": "A2A-first меняет канал запуска, trust boundary, input envelope, status/callback, error taxonomy, trace и evals.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/product/change-orders/co-2026-001-a2a-first-priority.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-004",
+      "safe_summary": "Live network, MCP, provider и tool allowlist не расширяются без accepted ADR/PCR и отдельного approval.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/architecture/security/no-network-by-default.md", "docs/architecture/llm/provider-allowlist.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-005",
+      "safe_summary": "Недостаточный или противоречивый input создает clarification/open decision и не перезаписывает Vision/BMC/BT.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/architecture/security/trust-boundaries.md", "docs/product/requirements/acceptance-criteria.md"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-006",
+      "safe_summary": "Generated specs и prompts должны использовать только safe context без сырых ответов.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/product/specs/agent-prompt-spec-a2a-launch.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-007",
+      "safe_summary": "Run ledger фиксирует воспроизводимые process events и validation evidence.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/architecture/observability/process-run-ledger.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-008",
+      "safe_summary": "Acceptance, UAT, evals и fixtures должны быть связаны через interview-derived coverage.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": ["docs/product/analysis/ba-sa/interview-derived-coverage.json"],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-009",
+      "safe_summary": "Delivery channel для BT-012 еще не подтвержден.",
+      "trust_status": "unconfirmed",
+      "data_class": "internal",
+      "evidence_refs": [],
+      "allowed_downstream_use": ["evidence_request", "hypothesis_backlog"],
+      "promoted_to_requirement": false
+    },
+    {
+      "claim_id": "BASA-CLM-010",
+      "safe_summary": "Rollback rehearsal для A2A-first priority пока является предположением.",
+      "trust_status": "assumption",
+      "data_class": "internal",
+      "evidence_refs": [],
+      "allowed_downstream_use": ["hypothesis_backlog"],
+      "promoted_to_requirement": false
+    }
+  ],
+  "stakeholders": [
+    {
+      "stakeholder_id": "STK-001",
+      "role": "Product Owner",
+      "interest": "Управляемое изменение приоритета без разрыва product traceability.",
+      "decision_right": "Product Change Order и priority_after.",
+      "source_claim_ids": ["BASA-CLM-001"]
+    },
+    {
+      "stakeholder_id": "STK-002",
+      "role": "Security/Privacy Lead",
+      "interest": "Сохранить no-network-by-default и недоверенную классификацию внешних payloads.",
+      "decision_right": "Security boundary review.",
+      "source_claim_ids": ["BASA-CLM-004"]
+    }
+  ],
+  "needs": [
+    {
+      "need_id": "NEED-001",
+      "summary": "Повторяемо превращать БА/СА интервью в проверяемые product/system artifacts.",
+      "stakeholder_id": "STK-001",
+      "source_claim_ids": ["BASA-CLM-002", "BASA-CLM-008"]
+    },
+    {
+      "need_id": "NEED-002",
+      "summary": "Безопасно передавать agent-ready specs без сырых ответов.",
+      "stakeholder_id": "STK-002",
+      "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"]
+    }
+  ],
+  "requirements": [
+    {
+      "requirement_id": "BT-005-DELTA",
+      "summary": "A2A-first launch становится первым приоритетом, Lisa launch остается вторым.",
+      "source_claim_ids": ["BASA-CLM-003"],
+      "acceptance_refs": ["AC-BASA-001"],
+      "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-006-DELTA",
+      "summary": "Недоверенный или недостаточный input останавливается до генерации.",
+      "source_claim_ids": ["BASA-CLM-005"],
+      "acceptance_refs": ["AC-BASA-002"],
+      "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "NFR-003-DELTA",
+      "summary": "Spec/prompt package не содержит сырых ответов и не расширяет tool/provider boundaries.",
+      "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"],
+      "acceptance_refs": ["AC-BASA-003"],
+      "coverage_status": "covered"
+    }
+  ],
+  "business_rules": [
+    {
+      "rule_id": "BRULE-001",
+      "summary": "Только confirmed claim с evidence может стать acceptance gate.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:ba-spec",
+      "source_claim_ids": ["BASA-CLM-008"]
+    },
+    {
+      "rule_id": "BRULE-002",
+      "summary": "Unconfirmed channel decision не меняет BT-012.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-009"]
+    },
+    {
+      "rule_id": "BRULE-003",
+      "summary": "A2A/MCP payload считается недоверенными данными до validation.",
+      "owner_role": "Security/Privacy Lead",
+      "verification": "npm run validate:interface-contracts",
+      "source_claim_ids": ["BASA-CLM-004"]
+    }
+  ],
+  "acceptance_deltas": ["AC-BASA-001", "AC-BASA-002", "AC-BASA-003"],
+  "open_decisions": ["BASA-OQ-001", "BASA-OQ-002"]
+}

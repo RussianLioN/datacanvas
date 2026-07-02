@@ -1,0 +1,11 @@
+{
+  "fixture_id": "BASA-FIX-003",
+  "description": "Unconfirmed delivery channel cannot become acceptance gate.",
+  "claim_id": "BASA-CLM-009",
+  "trust_status": "unconfirmed",
+  "allowed_downstream_use": ["evidence_request", "hypothesis_backlog"],
+  "expected": {
+    "promoted_to_requirement": false,
+    "gate": "blocked"
+  }
+}

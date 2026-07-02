@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "change_order_id": "CO-2026-001",
+  "summary": "A2A-first priority changes launch channel, trust boundary, input envelope, callback/status contract, error taxonomy, trace and eval coverage.",
+  "priority_before": ["Lisa launch", "A2A launch"],
+  "priority_after": ["A2A launch", "Lisa launch"],
+  "affected_users": ["Product Owner", "operator", "upstream agent"],
+  "affected_artifacts": [
+    "docs/product/analysis/ba/ba-spec.json",
+    "docs/architecture/system-analysis/sa-spec.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/architecture/security/integration-boundary-matrix.json"
+  ],
+  "affected_requirements": ["BT-005", "BT-006", "BT-012", "BT-014", "NFR-003"],
+  "affected_ports_adapters": ["A2A input envelope", "status/callback adapter", "Lisa launch adapter", "evidence storage"],
+  "trust_boundary_delta": "Upstream agent output is treated as untrusted data and must pass validation before normalization or generation.",
+  "sprint_goal_impact": "Requires Product Owner Sprint Goal test before moving from draft to accepted.",
+  "rollback": "Restore previous priority order and remove draft spec package artifacts from implementation scope.",
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:interface-contracts",
+    "npm run validate:error-taxonomy"
+  ]
+}

@@ -28,6 +28,8 @@
 - Обновлены backlog или roadmap при влиянии на scope.
 - Есть owner и статус.
 - Product backlog не смешан с technical, eval или process backlog.
+- Закрыты или явно отложены interview evidence requests.
+- Синхронизированы requirements, backlog, acceptance, traceability и BA/SA evidence delta, если изменение derived из интервью.
 
 ## Для AI/LLM Инкрементов
 
@@ -37,6 +39,7 @@
 - Security checks не выявили утечек или unsafe export.
 - Claim map покрывает каждый generated claim.
 - LLM output не попадает в renderer без schema validation.
+- FeatureSpec, TaskSpec и AgentPromptSpec проходят `npm run validate:spec-task-prompt-readiness`.
 
 ## Для Renderer Инкрементов
 

@@ -222,6 +222,42 @@
       "path": "docs/architecture/security/real-uat-leakage-guard.json",
       "sink": "evidence",
       "data_class": "confidential"
+    },
+    {
+      "id": "DLT-037",
+      "path": "docs/product/interviews/ba-sa/active-interview-runtime-state.json",
+      "sink": "runtime_state",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-038",
+      "path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+      "sink": "evidence",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-039",
+      "path": "docs/product/interviews/ba-sa/interview-results.json",
+      "sink": "evidence",
+      "data_class": "confidential"
+    },
+    {
+      "id": "DLT-040",
+      "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+      "sink": "prompt",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-041",
+      "path": "docs/product/specs/generated-spec-package-manifest.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-042",
+      "path": "docs/architecture/security/integration-boundary-matrix.json",
+      "sink": "evidence",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],
