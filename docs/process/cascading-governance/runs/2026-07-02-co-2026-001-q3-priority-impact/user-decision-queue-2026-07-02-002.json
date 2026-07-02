@@ -35,7 +35,7 @@
         }
       ],
       "recommended_option_id": "OPT-DEFER-CO-2026-001",
-      "recommendation_rationale": "В репозитории нет Product Owner acceptance, а текущая заявка уже говорит deferred.",
+      "recommendation_rationale": "В репозитории нет принятия Product Owner, а текущая заявка уже говорит deferred.",
       "status": "pending",
       "blocking": true,
       "requested_at": "2026-07-02T00:00:00Z",
@@ -75,7 +75,7 @@
     },
     {
       "decision_id": "DEC-Q3-STORY-MOVE-LIST",
-      "question": "Какие DC-ST-* истории поднимаются в 2026-Q3 при accepted CO-2026-001?",
+      "question": "Какие DC-ST-* истории поднимаются в 2026-Q3 при принятом CO-2026-001?",
       "affected_artifacts": [
         "docs/stories.md",
         "docs/product/requirements/user-stories.md",
@@ -86,13 +86,13 @@
         {
           "option_id": "OPT-NO-CONFIRMED-MOVE-LIST",
           "label": "Нет списка",
-          "consequence": "Story moves не применяются, proposed_changes остается пустым.",
+          "consequence": "Переносы историй не применяются, proposed_changes остается пустым.",
           "recommended": true
         },
         {
           "option_id": "OPT-PROVIDE-MOVE-LIST",
           "label": "Дать список",
-          "consequence": "Each moved story needs ID, estimate, reason, target quarter and owner decision.",
+          "consequence": "Для каждой переносимой истории нужны ID, estimate, причина, целевой квартал и решение владельца.",
           "recommended": false
         }
       ],
@@ -107,7 +107,7 @@
     },
     {
       "decision_id": "DEC-Q3-DISPLACEMENT-RULE",
-      "question": "Как выбирать истории, вытесняемые из 2026-Q3, если accepted CO-2026-001 превышает доступную capacity?",
+      "question": "Как выбирать истории, вытесняемые из 2026-Q3, если принятый CO-2026-001 превышает доступную capacity?",
       "affected_artifacts": [
         "docs/product/backlog/product-backlog.md",
         "docs/product/roadmap/roadmap-v0.1.md",
@@ -134,7 +134,7 @@
         }
       ],
       "recommended_option_id": "OPT-DISPLACEMENT-PENDING",
-      "recommendation_rationale": "Правило вытеснения не подтверждено, а capacity missing.",
+      "recommendation_rationale": "Правило вытеснения не подтверждено, а capacity не задана.",
       "status": "pending",
       "blocking": true,
       "requested_at": "2026-07-02T00:00:00Z",
@@ -161,7 +161,7 @@
         {
           "option_id": "OPT-CHANNEL-LISA",
           "label": "Лиса",
-          "consequence": "Requirements и state model должны описать Lisa delivery/status behavior.",
+          "consequence": "Requirements и state model должны описать поведение доставки и статуса через Лису.",
           "recommended": false
         },
         {
@@ -172,7 +172,7 @@
         }
       ],
       "recommended_option_id": "OPT-CHANNEL-PENDING",
-      "recommendation_rationale": "BASA-CLM-009 говорит, что delivery channel для BT-012 не подтвержден.",
+      "recommendation_rationale": "BASA-CLM-009 говорит, что канал доставки для BT-012 не подтвержден.",
       "status": "pending",
       "blocking": true,
       "requested_at": "2026-07-02T00:00:00Z",
@@ -182,7 +182,7 @@
     },
     {
       "decision_id": "DEC-A2A-ROLLBACK-REHEARSAL",
-      "question": "Подтвержден ли rollback plan and rehearsal evidence for A2A-first priority?",
+      "question": "Подтверждены ли план отката и evidence репетиции для A2A-first priority?",
       "affected_artifacts": [
         "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
         "docs/product/specs/feature-spec-a2a-launch.json",
@@ -192,18 +192,18 @@
         {
           "option_id": "OPT-ROLLBACK-PENDING",
           "label": "Оставить pending",
-          "consequence": "A2A-first остается draft и не может быть приоритизирован как implementation readiness.",
+          "consequence": "A2A-first остается draft и не может быть приоритизирован как готовый к реализации.",
           "recommended": true
         },
         {
           "option_id": "OPT-ROLLBACK-CONFIRMED",
           "label": "Подтвердить откат",
-          "consequence": "Rollback evidence должен быть связан до применения Q3 priority.",
+          "consequence": "Evidence отката должен быть связан до применения Q3 priority.",
           "recommended": false
         }
       ],
       "recommended_option_id": "OPT-ROLLBACK-PENDING",
-      "recommendation_rationale": "BASA-CLM-010 marks rollback rehearsal as an assumption.",
+      "recommendation_rationale": "BASA-CLM-010 отмечает репетицию отката как предположение.",
       "status": "pending",
       "blocking": true,
       "requested_at": "2026-07-02T00:00:00Z",
@@ -224,18 +224,18 @@
         {
           "option_id": "OPT-KEEP-PROC-038-DRAFT",
           "label": "Оставить draft",
-          "consequence": "Этот run остается opt-in evidence и не делает PROC-038 обязательным.",
+          "consequence": "Этот run остается необязательным evidence и не делает PROC-038 обязательным.",
           "recommended": true
         },
         {
           "option_id": "OPT-ACCEPT-PROC-038",
           "label": "Принять PROC-038",
-          "consequence": "Требует решения Process Owner, обновления process version и расширения mandatory gates.",
+          "consequence": "Требует решения Process Owner, обновления process version и расширения обязательных проверок.",
           "recommended": false
         }
       ],
       "recommended_option_id": "OPT-KEEP-PROC-038-DRAFT",
-      "recommendation_rationale": "В репозитории нет Process Owner acceptance для PROC-038.",
+      "recommendation_rationale": "В репозитории нет принятия Process Owner для PROC-038.",
       "status": "pending",
       "blocking": true,
       "requested_at": "2026-07-02T00:00:00Z",

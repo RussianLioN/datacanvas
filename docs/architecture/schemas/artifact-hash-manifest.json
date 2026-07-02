@@ -2817,12 +2817,12 @@
     {
       "artifact_id": "ART-564",
       "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
-      "sha256": "1b75d289bf3f7db13601865e3098bb721f0bac6a37b9a7b5c559ff01f1610059"
+      "sha256": "6ec32cac4849a8e1ba61dec6a803e194093a21354316c6087bd58bda0d5fc571"
     },
     {
       "artifact_id": "ART-565",
       "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
-      "sha256": "273f20cdf03f4afbfb5b0d3e6dde454726a0d2b813e8304718ab815e73e4f41c"
+      "sha256": "4341f8e123a796c1856f3df7c9cba427af3d71326883aca1937b18bb2ddfb090"
     },
     {
       "artifact_id": "ART-566",

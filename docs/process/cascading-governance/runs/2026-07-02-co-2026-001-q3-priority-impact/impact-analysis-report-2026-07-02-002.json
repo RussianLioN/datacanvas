@@ -94,7 +94,7 @@
       "path": "docs/product/bmc/bmc-v0.2.md",
       "impact_types": ["semantic"],
       "required_edits": [],
-      "optional_edits": ["Проверить каналы и ключевые ресурсы после acceptance CO-2026-001."],
+      "optional_edits": ["Проверить каналы и ключевые ресурсы после принятия CO-2026-001."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "BMC уже содержит A2A/MCP как канал и ресурс, но не утверждает квартальную смену приоритета или канал результата.",
@@ -106,7 +106,7 @@
       "path": "docs/stories.md",
       "impact_types": ["semantic"],
       "required_edits": [],
-      "optional_edits": ["Проверить порядок DC-ST-01 - DC-ST-22 после acceptance CO-2026-001."],
+      "optional_edits": ["Проверить порядок DC-ST-01 - DC-ST-22 после принятия CO-2026-001."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "Канонический каталог stories остается без перестановки: CO-2026-001 deferred, список историй для переноса не подтвержден.",
@@ -121,7 +121,7 @@
       "optional_edits": ["Синхронизировать с story catalog после подтвержденной смены порядка."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
-        "rationale": "User stories не меняются, пока нет Product Owner acceptance и подтвержденных переносов.",
+        "rationale": "User stories не меняются, пока нет принятия Product Owner и подтвержденных переносов.",
         "confirmed_by": "Q3 impact route",
         "confirmed_at": "2026-07-02T00:00:00Z"
       }
@@ -130,7 +130,7 @@
       "path": "docs/product/requirements/business-requirements.md",
       "impact_types": ["semantic", "traceability"],
       "required_edits": [],
-      "optional_edits": ["Обновить BT-005, BT-006, BT-012 и BT-014 только после acceptance CO-2026-001."],
+      "optional_edits": ["Обновить BT-005, BT-006, BT-012 и BT-014 только после принятия CO-2026-001."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "Канонические BT уже покрывают запуск, недоверенный ввод, доставку по электронной почте и trace; A2A-first delta остается draft.",
@@ -157,7 +157,7 @@
       "optional_edits": ["Добавить acceptance для A2A-first только после принятия Product Owner и подтверждения отката."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
-        "rationale": "Acceptance criteria already guard MVP P1-P2 and do not admit P3-P5 future capabilities into MVP.",
+        "rationale": "Acceptance criteria уже защищают MVP P1-P2 и не допускают будущие возможности P3-P5 в MVP.",
         "confirmed_by": "Requirements route",
         "confirmed_at": "2026-07-02T00:00:00Z"
       }
@@ -281,7 +281,7 @@
       "optional_edits": ["Обновить boundary только после принятого ADR/PCR или новой live integration."],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
-        "rationale": "Boundary matrix already marks A2A launch as untrusted and disabled until ADR/PCR acceptance.",
+        "rationale": "Матрица границ уже отмечает A2A launch как недоверенный и отключенный до принятия ADR/PCR.",
         "confirmed_by": "Security route",
         "confirmed_at": "2026-07-02T00:00:00Z"
       }
