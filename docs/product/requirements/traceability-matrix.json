@@ -235,25 +235,6 @@
       "status": "draft"
     },
     {
-      "requirement_id": "NFR-006",
-      "source": "docs/product/requirements/non-functional-requirements.md",
-      "sources": [
-        "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
-        "docs/process/cascading-governance/README.md",
-        "docs/process/current/definition-of-ready.md",
-        "docs/process/current/definition-of-done.md"
-      ],
-      "acceptance_scenarios": ["cascading_documentation_governance"],
-      "evidence_expectations": [
-        "Cascade run содержит change request, impact analysis, decision queue, affected artifacts, no-change rationales и validation evidence."
-      ],
-      "tests": [
-        "npm run validate:cascading-governance",
-        "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json"
-      ],
-      "status": "draft"
-    },
-    {
       "requirement_id": "NFR-002",
       "source": "docs/product/requirements/non-functional-requirements.md",
       "backlog_items": ["TECH-001", "TECH-004", "EVAL-003"],

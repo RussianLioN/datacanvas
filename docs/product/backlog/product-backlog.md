@@ -14,7 +14,3 @@
 | PBI-004 | Отрендерить краткую презентацию из `PresentationSpec` | HYP-001 | 4 | draft |
 | PBI-005 | Поддержать human review flow | HYP-001 | 5 | draft |
 | PBI-006 | Проверить Product Goal через schema validator и hypothesis evidence | HYP-003 | 0 | in_progress |
-
-## Правило Каскадных Изменений
-
-Изменение приоритета, состава, квартального размещения или оценки элемента backlog требует `DocumentationChangeRequest` и `ReprioritizationImpactReport`. Если квартальная емкость превышена или отсутствует подтвержденный источник capacity, DataCanvas предлагает варианты компромисса, но не переносит stories и не меняет оценки ПШЕ без явного подтверждения пользователя.

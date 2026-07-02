@@ -30,7 +30,11 @@
               "rendered_artifact",
               "test_eval",
               "sprint_decision",
-              "process_change"
+              "process_change",
+              "architecture_decision",
+              "schema_contract",
+              "validator",
+              "evidence"
             ]
           },
           "title": { "type": "string" },

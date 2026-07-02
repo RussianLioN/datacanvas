@@ -21,7 +21,7 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
     "change_request_id": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
     "status": { "type": "string", "enum": ["draft", "ready", "confirmed", "in_progress", "blocked", "completed", "rejected"] },
     "initiator": {
@@ -33,7 +33,7 @@
         "source": { "type": "string", "minLength": 1 }
       }
     },
-    "target_artifact": { "$ref": "#/$defs/repoPath" },
+    "target_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "desired_change": { "type": "string", "minLength": 1 },
     "change_source": {
       "type": "string",

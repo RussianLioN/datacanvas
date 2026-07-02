@@ -20,4 +20,4 @@
 
 Изменение правила процесса оформляется через `PROC-*`, синхронизируется с реестром процесса и проходит navigation gate, если затрагивает документы или маршруты.
 
-Значимое изменение проектной документации оформляется как `DocumentationChangeRequest` и проходит cascade impact analysis до закрытия Done.
+Draft `PROC-038` предоставляет opt-in контракт `DocumentationChangeRequest` и cascade impact analysis для проверочных запусков. Он не является обязательным правилом процесса до отдельного решения Process Owner.

@@ -2,11 +2,15 @@
 
 Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / [Планы](README.md) / Контракт каскадного ведения проектной документации
 
-Статус: implemented
+Статус: draft
 Владелец: Process Owner
 Дата: 2026-07-02
 Проверка: `npm run validate:cascading-governance`, `npm run validate:docs-navigation`, `npm run validate:artifact-registry`, `npm run validate:artifact-hashes`
 Источник: пользовательское решение о строгом каскадном обновлении созависимых проектных артефактов и запрете неподтвержденных смысловых допущений.
+
+## Текущий Результат
+
+План реализован как подготовительная заготовка и требует корректировки перед acceptance. `PROC-038` остается `draft / not_decided`; текущие артефакты не должны трактоваться как принятый process gate или расширение продуктового scope.
 
 ## Summary
 

@@ -8,6 +8,7 @@ const root = process.cwd();
 const mode = process.argv[2] ?? "all";
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
+ajv.addSchema(JSON.parse(fs.readFileSync(path.join(root, "schemas/common-defs.schema.json"), "utf8")));
 const validators = new Map();
 
 const schemaCases = {
@@ -21,12 +22,27 @@ const schemaCases = {
   "impact-analysis": [
     ["schemas/impact-analysis-report.schema.json", "docs/process/cascading-governance/impact-analysis-report.json"],
     ["schemas/impact-analysis-report.schema.json", "tests/fixtures/cascading-governance/vision-impact-analysis-report.json"],
+    [
+      "schemas/impact-analysis-report.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/impact-complete-pending-artifacts.json",
+      { expect: "fail", phase: "invariant", reason: "complete impact with pending artifact" },
+    ],
   ],
   "decision-queue": [
     ["schemas/user-decision-queue.schema.json", "docs/process/cascading-governance/user-decision-queue.json"],
+    [
+      "schemas/user-decision-queue.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/decision-queue-closed-with-pending.json",
+      { expect: "fail", phase: "invariant", reason: "closed queue with pending decision" },
+    ],
   ],
   "capacity-plan": [
     ["schemas/capacity-plan.schema.json", "docs/process/cascading-governance/capacity-plan-2026-q3.json"],
+    [
+      "schemas/capacity-plan.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/capacity-active-null.json",
+      { expect: "fail", phase: "invariant", reason: "active capacity with null values" },
+    ],
   ],
   "reprioritization-impact": [
     ["schemas/reprioritization-impact-report.schema.json", "docs/process/cascading-governance/reprioritization-impact-report.json"],
@@ -35,15 +51,34 @@ const schemaCases = {
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/backlog-reprioritization-missing-capacity.json"],
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/user-rejects-story-move.json"],
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/user-confirms-story-move-q4.json"],
+    [
+      "schemas/reprioritization-impact-report.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/reprioritization-over-capacity-ready.json",
+      { expect: "fail", phase: "invariant", reason: "over capacity without confirmed trade-off" },
+    ],
   ],
   "cascading-update": [
     ["schemas/cascading-update-run.schema.json", "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json"],
-    ["schemas/cascading-update-run.schema.json", "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json", "negative"],
+    [
+      "schemas/cascading-update-run.schema.json",
+      "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
+      { expect: "fail", phase: "invariant", reason: "Done claimed with blocked decisions" },
+    ],
+    [
+      "schemas/cascading-update-run.schema.json",
+      "tests/fixtures/cascading-governance/negative/schema/cascading-update-path-traversal.json",
+      { expect: "fail", phase: "schema", reason: "path traversal" },
+    ],
   ],
   "jira-field-mapping": [
     ["schemas/jira-field-mapping-request.schema.json", "docs/process/cascading-governance/jira-field-mapping-request.json"],
     ["schemas/jira-import-package-manifest.schema.json", "docs/process/cascading-governance/jira-import-package-manifest.json"],
     ["schemas/jira-field-mapping-request.schema.json", "tests/fixtures/cascading-governance/jira-field-mapping-unresolved.json"],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-without-mapping.json",
+      { expect: "fail", phase: "invariant", reason: "ready package without approved mapping request" },
+    ],
   ],
 };
 
@@ -77,7 +112,18 @@ function requirePath(relativePath) {
   }
 }
 
-function validateWithSchema(schemaPath, dataPath) {
+function expectedPhase(expectation) {
+  if (expectation === "negative") {
+    return "invariant";
+  }
+  return expectation?.phase ?? null;
+}
+
+function isExpectedFailure(expectation) {
+  return expectation === "negative" || expectation?.expect === "fail";
+}
+
+function validateWithSchema(schemaPath, dataPath, expectation) {
   let validate = validators.get(schemaPath);
   if (!validate) {
     validate = ajv.compile(readJson(schemaPath));
@@ -85,10 +131,14 @@ function validateWithSchema(schemaPath, dataPath) {
   }
   const data = readJson(dataPath);
   if (!validate(data)) {
+    if (isExpectedFailure(expectation) && expectedPhase(expectation) === "schema") {
+      console.log(`negative schema fixture rejected as expected: ${dataPath}`);
+      return { data: null, schemaRejected: true };
+    }
     console.error(JSON.stringify(validate.errors, null, 2));
     fail(`${dataPath} does not match ${schemaPath}`);
   }
-  return data;
+  return { data, schemaRejected: false };
 }
 
 function approxEqual(left, right) {
@@ -115,9 +165,10 @@ function assertNoBlockingQueueDone(queue) {
   const openBlocking = queue.decisions.filter((decision) =>
     decision.blocking && ["pending", "deferred"].includes(decision.status),
   );
+  const openDecisions = queue.decisions.filter((decision) => ["pending", "deferred"].includes(decision.status));
 
-  if (queue.status === "closed" && openBlocking.length > 0) {
-    throw new Error(`closed decision queue has blocking decisions: ${openBlocking.map((item) => item.decision_id).join(", ")}`);
+  if (queue.status === "closed" && openDecisions.length > 0) {
+    throw new Error(`closed decision queue has open decisions: ${openDecisions.map((item) => item.decision_id).join(", ")}`);
   }
 
   if (queue.status !== "closed" && openBlocking.length === 0) {
@@ -225,8 +276,24 @@ function assertImpactReport(report) {
     }
   }
 
-  if (report.completion_status === "complete" && report.blocking_user_decisions.length > 0) {
-    throw new Error(`${report.impact_report_id} claims complete with blocking decisions`);
+  if (["ready", "applied"].includes(report.status) && report.blocking_user_decisions.length > 0) {
+    throw new Error(`${report.impact_report_id} is ${report.status} with blocking decisions`);
+  }
+
+  if (report.completion_status === "complete") {
+    if (report.blocking_user_decisions.length > 0) {
+      throw new Error(`${report.impact_report_id} claims complete with blocking decisions`);
+    }
+    const unresolved = report.affected_artifacts.filter((artifact) =>
+      ["pending", "blocked"].includes(artifact.update_status),
+    );
+    if (unresolved.length > 0) {
+      throw new Error(
+        `${report.impact_report_id} claims complete with unresolved artifacts: ${unresolved
+          .map((item) => item.path)
+          .join(", ")}`,
+      );
+    }
   }
 }
 
@@ -308,6 +375,28 @@ function assertCascadingUpdateRun(run) {
     requirePath(artifact.path);
   }
 
+  const changeRequest = readJson(run.change_request_path);
+  const impactReport = readJson(run.impact_report_path);
+  const decisionQueue = readJson(run.decision_queue_path);
+
+  if (impactReport.change_request_id !== changeRequest.change_request_id) {
+    throw new Error(`${run.run_id} links impact report to a different change request`);
+  }
+  if (decisionQueue.change_request_id !== changeRequest.change_request_id) {
+    throw new Error(`${run.run_id} links decision queue to a different change request`);
+  }
+
+  const decisionIds = new Set(decisionQueue.decisions.map((decision) => decision.decision_id));
+  for (const decisionId of impactReport.blocking_user_decisions) {
+    if (!decisionIds.has(decisionId)) {
+      throw new Error(`${run.run_id} impact report references unknown blocking decision: ${decisionId}`);
+    }
+  }
+
+  if (run.completion_claim.decision_queue_status !== decisionQueue.status) {
+    throw new Error(`${run.run_id} completion claim does not match linked decision queue status`);
+  }
+
   for (const artifact of run.changed_artifacts) {
     if (artifact.change_type === "semantic" && artifact.confirmation_status !== "confirmed") {
       throw new Error(`${run.run_id} has semantic update without confirmation: ${artifact.path}`);
@@ -321,15 +410,31 @@ function assertCascadingUpdateRun(run) {
   }
 
   if (run.status === "complete" || run.completion_claim.done_claimed) {
-    if (run.completion_claim.decision_queue_status !== "closed") {
+    if (decisionQueue.status !== "closed") {
       throw new Error(`${run.run_id} claims Done while decision queue is not closed`);
     }
     if (!run.completion_claim.all_affected_artifacts_resolved) {
       throw new Error(`${run.run_id} claims Done while affected artifacts are unresolved`);
     }
+    const unresolvedImpactArtifacts = impactReport.affected_artifacts.filter((artifact) =>
+      ["pending", "blocked"].includes(artifact.update_status),
+    );
+    if (unresolvedImpactArtifacts.length > 0 || impactReport.blocking_user_decisions.length > 0) {
+      throw new Error(`${run.run_id} claims Done while linked impact report is unresolved`);
+    }
     const nonPassed = run.validation_results.filter((result) => result.status !== "passed");
     if (nonPassed.length > 0) {
       throw new Error(`${run.run_id} claims Done before all validation results passed`);
+    }
+  } else if (run.status === "blocked") {
+    if (decisionQueue.status !== "blocked" || impactReport.completion_status !== "blocked") {
+      throw new Error(`${run.run_id} is blocked but linked impact/decision artifacts are not blocked`);
+    }
+    const openBlocking = decisionQueue.decisions.filter((decision) =>
+      decision.blocking && ["pending", "deferred"].includes(decision.status),
+    );
+    if (openBlocking.length === 0) {
+      throw new Error(`${run.run_id} is blocked without linked open blocking decisions`);
     }
   }
 }
@@ -347,8 +452,14 @@ function assertJiraMapping(data, dataPath) {
 
   if ("package_id" in data) {
     requirePath(data.mapping_request_path);
+    const mappingRequest = readJson(data.mapping_request_path);
     if (data.status === "ready" && data.field_mapping_status !== "approved") {
       throw new Error(`${dataPath} is ready without approved field mapping`);
+    }
+    if (["ready", "imported"].includes(data.status)) {
+      if (mappingRequest.status !== "approved" || mappingRequest.import_readiness_status !== "ready") {
+        throw new Error(`${dataPath} is ready/imported but linked mapping request is not approved`);
+      }
     }
     if (data.status === "imported" && data.import_completion_claim !== "imported_by_external_agent") {
       throw new Error(`${dataPath} claims imported without external import completion claim`);
@@ -374,7 +485,10 @@ for (const selectedMode of selectedModes) {
   }
 
   for (const [schemaPath, dataPath, expectation] of cases) {
-    const data = validateWithSchema(schemaPath, dataPath);
+    const { data, schemaRejected } = validateWithSchema(schemaPath, dataPath, expectation);
+    if (schemaRejected) {
+      continue;
+    }
     const assertInvariant = invariants[selectedMode];
     if (!assertInvariant) {
       continue;
@@ -382,12 +496,12 @@ for (const selectedMode of selectedModes) {
 
     try {
       assertInvariant(data, dataPath);
-      if (expectation === "negative") {
+      if (isExpectedFailure(expectation)) {
         fail(`negative fixture unexpectedly passed invariants: ${dataPath}`);
       }
     } catch (error) {
-      if (expectation === "negative") {
-        console.log(`negative fixture rejected as expected: ${dataPath}`);
+      if (isExpectedFailure(expectation) && expectedPhase(expectation) === "invariant") {
+        console.log(`negative invariant fixture rejected as expected: ${dataPath} (${expectation.reason ?? error.message})`);
         continue;
       }
       throw error;

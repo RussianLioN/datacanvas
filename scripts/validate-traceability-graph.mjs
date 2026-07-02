@@ -82,20 +82,28 @@ for (const edge of graph.edges) {
 }
 
 for (const chain of graph.required_chains) {
-  if (chain.status !== "covered") {
-    fail(`required chain must be covered: ${chain.id}`);
-  }
   for (const nodeId of chain.ordered_node_ids) {
     if (!nodeById.has(nodeId)) {
       fail(`required chain references missing node: ${nodeId}`);
     }
   }
+  const chainEdges = [];
   for (let index = 0; index < chain.ordered_node_ids.length - 1; index += 1) {
     const from = chain.ordered_node_ids[index];
     const to = chain.ordered_node_ids[index + 1];
     if (!edgeKeys.has(`${from}->${to}`)) {
       fail(`required chain is missing edge: ${from}->${to}`);
     }
+    chainEdges.push(graph.edges.find((edge) => edge.from === from && edge.to === to));
+  }
+  if (chain.status === "covered" && chainEdges.some((edge) => edge.status !== "active")) {
+    fail(`covered required chain has non-active edge: ${chain.id}`);
+  }
+  if (chain.status === "blocked" && !chainEdges.some((edge) => edge.status === "blocked")) {
+    fail(`blocked required chain must include at least one blocked edge: ${chain.id}`);
+  }
+  if (chain.status === "partial" && chainEdges.every((edge) => edge.status === "active")) {
+    fail(`partial required chain must include planned or blocked edge: ${chain.id}`);
   }
 }
 

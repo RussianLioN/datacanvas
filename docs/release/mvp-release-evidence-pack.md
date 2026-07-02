@@ -31,7 +31,7 @@
 ## Ограничения
 
 - Release-cut SHA остается `2c6858e4dc541c899b500edb5ebfb1ca9073c29d`.
-- Current main pointer для stale-status validation обновлен до `100a23d1fa60b0e0add3118fed414de389f72beb`.
+- Current main pointer для stale-status validation обновлен до `6c4d70a6c146922f1825549ba42dc4bb324a4d85`.
 - Backlog closure feature branch merged как PR #6: `https://github.com/RussianLioN/datacanvas/pull/6`, merge SHA `f35092ce04df09428c42d2987e59a06be6445e30`.
 - Pointer-refresh merged как PR #7: `https://github.com/RussianLioN/datacanvas/pull/7`, merge SHA `309f094b8ef7a3dc8d336886ad69f51fefc2d12e`, main `docs-check` passed.
 - Финальный self-reference текущего maintenance PR фиксируется в handoff после merge, а не в release candidate pack.

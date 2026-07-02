@@ -711,6 +711,7 @@ const ajv = new Ajv2020({
   strict: true,
 });
 addFormats(ajv);
+ajv.addSchema(readJson("schemas/common-defs.schema.json"));
 
 let failed = false;
 const validators = new Map();

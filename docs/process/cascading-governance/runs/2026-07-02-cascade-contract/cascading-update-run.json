@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "run_id": "CUR-2026-07-02-001",
-  "status": "complete",
+  "status": "blocked",
   "change_request_path": "docs/process/cascading-governance/documentation-change-request.json",
   "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
   "impact_report_path": "docs/process/cascading-governance/impact-analysis-report.json",
@@ -21,18 +21,18 @@
       "confirmation_status": "confirmed"
     },
     {
-      "path": "docs/product-vision.md",
-      "change_type": "semantic",
+      "path": "docs/process/current/definition-of-ready.md",
+      "change_type": "process",
       "confirmation_status": "confirmed"
     },
     {
-      "path": "docs/product/bmc/bmc-v0.2.md",
-      "change_type": "semantic",
+      "path": "docs/process/current/definition-of-done.md",
+      "change_type": "process",
       "confirmation_status": "confirmed"
     },
     {
-      "path": "docs/stories.md",
-      "change_type": "semantic",
+      "path": "docs/process/current/process-registry.md",
+      "change_type": "process",
       "confirmation_status": "confirmed"
     },
     {
@@ -47,6 +47,16 @@
     }
   ],
   "skipped_artifacts": [
+    {
+      "path": "docs/product-vision.md",
+      "no_change_rationale": "Draft PROC-038 не является продуктовым обещанием и не расширяет Vision.",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "no_change_rationale": "BMC остается продуктовой моделью презентационного сервиса; процессный scaffold не добавляется как key activity/resource.",
+      "confirmation_status": "confirmed"
+    },
     {
       "path": "docs/release/mvp-release-evidence-pack.json",
       "no_change_rationale": "Текущий run не меняет release acceptance и не утверждает новый release state.",
@@ -71,74 +81,74 @@
     {
       "command": "npm run validate:cascading-governance",
       "status": "passed",
-      "evidence": "Профильный cascade gate прошел; negative fixture с ложным Done отклонен.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "Профильный cascade gate прошел; negative schema и invariant fixtures отклонены ожидаемо.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run validate:schemas",
       "status": "passed",
-      "evidence": "Новые cascade schemas и fixtures прошли общий JSON Schema gate.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "Cascade schemas, common defs и связанные artifacts прошли общий JSON Schema gate.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
-      "command": "npm run generate:docs-navigation -- --check",
+      "command": "npm run generate:bmc -- --check",
       "status": "passed",
-      "evidence": "Generated docs navigation artifacts актуальны.",
-      "ran_at": "2026-07-02T09:32:10Z"
-    },
-    {
-      "command": "npm run validate:doc-links",
-      "status": "passed",
-      "evidence": "Documentation link validation passed.",
-      "ran_at": "2026-07-02T09:32:10Z"
-    },
-    {
-      "command": "npm run validate:docs-navigation",
-      "status": "passed",
-      "evidence": "Docs navigation validation passed after navigation source update.",
-      "ran_at": "2026-07-02T09:32:10Z"
-    },
-    {
-      "command": "npm run validate:doc-stale-status",
-      "status": "passed",
-      "evidence": "Stale-status pointer refreshed to current origin/main and validated.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "Generated BMC artifacts синхронизированы с source generator без cascade product-scope claims.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run validate:bmc",
       "status": "passed",
-      "evidence": "BMC package regenerated from generator source and validated.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "BMC package, render parity, visual и content checks прошли.",
+      "ran_at": "2026-07-02T11:45:31Z"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed",
+      "evidence": "Generated docs navigation artifacts актуальны после регистрации audit artifacts.",
+      "ran_at": "2026-07-02T11:45:31Z"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed",
+      "evidence": "Docs navigation validation passed, включая parent_readme guard.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run validate:artifact-registry",
       "status": "passed",
-      "evidence": "New cascade artifacts are registered and registry validation passed.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "New audit docs, common schema defs и negative fixtures зарегистрированы.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run validate:artifact-hashes",
       "status": "passed",
       "evidence": "Artifact hash manifest regenerated and validated.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "ran_at": "2026-07-02T11:45:31Z"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed",
+      "evidence": "Traceability graph includes blocked draft PROC-038 chain without claiming process acceptance.",
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run scan:secrets",
       "status": "passed",
       "evidence": "Secret scan passed.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm run validate:data-leakage",
       "status": "passed",
       "evidence": "Data leakage validation passed.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "ran_at": "2026-07-02T11:45:31Z"
     },
     {
       "command": "npm test",
       "status": "passed",
-      "evidence": "Full local gate passed after cascade governance integration.",
-      "ran_at": "2026-07-02T09:32:10Z"
+      "evidence": "Full local gate passed after generated artifacts were synchronized.",
+      "ran_at": "2026-07-02T11:45:31Z"
     }
   ],
   "evidence_paths": [
@@ -149,8 +159,8 @@
     "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json"
   ],
   "completion_claim": {
-    "done_claimed": true,
-    "decision_queue_status": "closed",
-    "all_affected_artifacts_resolved": true
+    "done_claimed": false,
+    "decision_queue_status": "blocked",
+    "all_affected_artifacts_resolved": false
   }
 }

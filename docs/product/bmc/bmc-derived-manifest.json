@@ -9,17 +9,17 @@
     {
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "c947dfcc903f13807fa4944a7cf88dde481fb90d9956e2f74566f79925ddf294"
+      "sha256": "88ee32b3375a3a0bec68f0c6e8f31d9b48404137c73813a30c3a8e9ee079febc"
     },
     {
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "05735318c2d6ea48c053374b47e3c974d80301f2ad67c7b50497f65bcd7b8f1f"
+      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
     },
     {
       "format": "svg",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "9611832ab13814cd1e90bb94de900daa09c11313e6665fed970bfe28fbc33dbf"
+      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
     },
     {
       "format": "png",

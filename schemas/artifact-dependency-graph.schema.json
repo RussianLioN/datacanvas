@@ -6,7 +6,7 @@
   "required": ["version", "status", "graph_id", "artifacts", "dependencies", "high_impact_sources"],
   "additionalProperties": false,
   "properties": {
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
     "status": { "type": "string", "enum": ["draft", "active"] },
     "graph_id": { "type": "string", "pattern": "^ADG-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
     "artifacts": {
@@ -21,7 +21,7 @@
     },
     "high_impact_sources": {
       "type": "array",
-      "items": { "$ref": "#/$defs/repoPath" }
+      "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
     }
   },
   "$defs": {
@@ -65,7 +65,7 @@
       "additionalProperties": false,
       "properties": {
         "artifact_id": { "type": "string", "pattern": "^DGA-[0-9]{3}$" },
-        "path": { "$ref": "#/$defs/repoPath" },
+        "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "layer": { "$ref": "#/$defs/layer" },
         "owner_role": { "type": "string", "minLength": 1 },
         "validation_command": { "type": "string", "minLength": 1 }
@@ -84,8 +84,8 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "upstream_artifact": { "$ref": "#/$defs/repoPath" },
-        "downstream_artifact": { "$ref": "#/$defs/repoPath" },
+        "upstream_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "downstream_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "relation_type": {
           "type": "string",
           "enum": ["semantic", "traceability", "navigation", "resource", "jira", "evidence", "generated", "process"]

@@ -1,0 +1,48 @@
+{
+  "version": "0.1.0",
+  "report_id": "RIR-2026-07-02-201",
+  "status": "ready",
+  "change_request_id": "DCR-2026-07-02-102",
+  "capacity_plan_id": "CAP-2026-Q3",
+  "quarter": "2026-Q3",
+  "capacity_status": "available",
+  "available_capacity_pse": 40,
+  "reserved_buffer_pse": 4,
+  "committed_items": [
+    {
+      "item_id": "DC-ST-01",
+      "title": "Описание презентации по слайдам и блокам",
+      "estimate_pse": 21.4,
+      "quarter": "2026-Q3"
+    },
+    {
+      "item_id": "DC-ST-09",
+      "title": "Получать готовую презентацию на почту",
+      "estimate_pse": 24.6,
+      "quarter": "2026-Q3"
+    }
+  ],
+  "proposed_changes": [
+    {
+      "item_id": "DC-ST-09",
+      "from_quarter": "2026-Q3",
+      "to_quarter": "2026-Q4",
+      "estimate_pse": 24.6,
+      "user_confirmation_status": "pending"
+    }
+  ],
+  "total_committed_pse": 46,
+  "capacity_delta_pse": -10,
+  "capacity_overrun": true,
+  "dependencies": [],
+  "trade_off_options": [
+    {
+      "option_id": "OPT-MOVE-DC-ST-09-Q4",
+      "description": "Перенести DC-ST-09 в Q4.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    }
+  ],
+  "blocking_decisions": [],
+  "validation_commands": ["npm run validate:reprioritization-impact"]
+}

@@ -8,13 +8,13 @@
 
 ## Назначение
 
-Этот каталог хранит исходные контракты и evidence для управляемого изменения проектной документации DataCanvas. Источником требований является [план каскадного ведения документации](../../plans/datacanvas-cascading-documentation-governance-plan.md); каталог не заменяет план и не пересказывает его полностью.
+Этот каталог хранит подготовительные контракты и evidence для управляемого изменения проектной документации DataCanvas. `PROC-038` имеет статус draft / not_decided, поэтому каталог работает как opt-in проверочная заготовка и не заменяет принятое правило процесса.
 
 ## Контракт
 
-- Значимая правка Vision, BMC, stories, requirements, backlog, capacity, sprint artifacts, roadmap или Jira import package начинается с `DocumentationChangeRequest`.
+- Opt-in проверка значимой правки Vision, BMC, stories, requirements, backlog, capacity, sprint artifacts, roadmap или Jira import package начинается с `DocumentationChangeRequest`.
 - Impact analysis строится по `artifact-dependency-graph.json` и не принимает бизнесовые решения за пользователя.
-- `user-decision-queue.json` блокирует завершение, пока есть blocking decision со статусом `pending` или `deferred`.
+- `user-decision-queue.json` блокирует Done claim внутри opt-in запуска, пока есть blocking decision со статусом `pending` или `deferred`.
 - Capacity и reprioritization фиксируются отдельно; конкретная емкость команды не заполняется без пользовательского или внешнего источника.
 - Jira custom fields согласуются через отдельный `JiraFieldMappingRequest`; import package не считается готовым без approved mapping или явного `pending_external`.
 - Generated navigation и hash artifacts обновляются только генераторами.

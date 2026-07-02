@@ -58,11 +58,11 @@
 
 Любое изменение процесса оформляется как `PROC-*` item и проходит через Process Change Request. Исключение допускается только при stop-rule, когда текущий процесс создает риск утечки, потери evidence, нарушения безопасности или невоспроизводимости.
 
-## Каскадное Ведение Документации
+## Подготовительный Контракт Каскадного Ведения Документации
 
-Значимые изменения проектной документации проходят через `DocumentationChangeRequest`, dependency graph, анализ влияния, очередь пользовательских решений и validation evidence. Правило действует для Vision, BMC, Product Goal, hypotheses, stories, requirements, backlog, roadmap, capacity, sprint artifacts, release evidence и Jira import package.
+`PROC-038` остается draft до решения Process Owner. Каталог `docs/process/cascading-governance/` хранит подготовительный opt-in контракт: `DocumentationChangeRequest`, dependency graph, анализ влияния, очередь пользовательских решений и validation evidence.
 
-Процесс запрещает закрывать работу, пока affected artifacts не обновлены или не имеют confirmed `no-change rationale`. DataCanvas не выдумывает за пользователя приоритеты, сроки, ресурсы, scope, регламенты или Jira field mapping; такие вопросы остаются блокирующими решениями.
+Этот контракт можно применять для проверки конкретной работы, но он не является обязательным правилом процесса `0.1.0` и не расширяет продуктовый scope. При opt-in запуске DataCanvas не выдумывает за пользователя приоритеты, сроки, ресурсы, scope, регламенты или Jira field mapping; такие вопросы остаются блокирующими решениями.
 
 ## Ворота Готовности
 

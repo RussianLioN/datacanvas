@@ -14,8 +14,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Для нового или существенно обновленного документа указан docs route: запись в `docs/navigation/navigation-source.json` или explicit ignore с причиной.
 - Для нового бизнесового документа указан `navigation_group: business`, product index route и связь с Vision, BMC, stories, требованиями, backlog, roadmap, hypotheses или traceability.
 - Для технического, process, ADR, schema, script или evidence документа явно указана небизнесовая группа.
-- Для значимой правки Vision, BMC, stories, requirements, backlog, roadmap, capacity, sprint artifacts или Jira import package создан `DocumentationChangeRequest`.
-- Для upstream artifact указан impact analysis по `docs/process/cascading-governance/artifact-dependency-graph.json`.
+- Для задач, явно исполняемых по draft `PROC-038`, подготовлены `DocumentationChangeRequest` и impact analysis по `docs/process/cascading-governance/artifact-dependency-graph.json`; это не является обязательным gate принятого процесса до решения Process Owner.
 - Задача помещается в недельный спринт или оформлена как spike.
 
 ## Для Требований
@@ -24,7 +23,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указана связь с Vision, BMC, гипотезой или риском.
 - Указано влияние на БТ или НФТ.
 - Требование связано с traceability matrix.
-- При изменении backlog priority, оценки ПШЕ, квартала или sprint scope указан capacity source и план `ReprioritizationImpactReport`.
+- При opt-in проверке draft `PROC-038` для изменения backlog priority, оценки ПШЕ, квартала или sprint scope указан capacity source либо явно зафиксирован блокирующий внешний ввод; `ReprioritizationImpactReport` не утверждает переносы без решения пользователя.
 - Есть interview evidence или явное решение `интервью не требуется`.
 - Для interview-derived требования указан claim status, owner/date для open question, BA value check, SA contract/security/NFR check.
 
@@ -35,7 +34,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указаны метрика успеха, срок проверки и rollback rule.
 - Если меняется маршрут документации или evidence, указан navigation impact и validation command.
 - Если меняется business-first порядок, указан cross-group source-of-truth impact.
-- Если изменение затрагивает Jira-bound package, создан `JiraFieldMappingRequest` или явно указан `pending_external` статус.
+- Если opt-in проверка draft `PROC-038` затрагивает Jira-bound package, создан `JiraFieldMappingRequest` или явно указан `pending_external` статус.
 
 ## Для AI/LLM Работ
 

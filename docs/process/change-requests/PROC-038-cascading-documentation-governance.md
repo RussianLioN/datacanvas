@@ -26,12 +26,12 @@ ID: `PROC-038`
 ## Влияние
 
 - Затронутые роли: Product Owner, Process Owner, Scrum Master, Delivery/GitOps Lead, QA/Evals Lead.
-- Затронутые артефакты: DoR, DoD, process passport, product docs, schemas, validators, navigation source, artifact registry и evidence.
+- Затронутые артефакты: DoR, DoD, process passport, schemas, validators, navigation source, artifact registry и evidence. Product docs не расширяются этим draft без отдельного решения Product Owner.
 - Риск для текущего Sprint Goal: средний, потому что добавляется новый gate, но без live integrations и без расширения tool/network permissions.
 
 ## Метрика Успеха
 
-`npm run validate:cascading-governance`, docs navigation, artifact registry/hash и полный `npm test` проходят; negative fixture с Done при blocking decisions отклоняется валидатором.
+`npm run validate:cascading-governance`, docs navigation, artifact registry/hash и полный `npm test` проходят; negative fixture с Done при blocking decisions отклоняется валидатором. Метрика подтверждает качество draft scaffold, но не acceptance процесса.
 
 ## План Проверки
 

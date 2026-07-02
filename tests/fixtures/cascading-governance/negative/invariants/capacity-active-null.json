@@ -1,0 +1,18 @@
+{
+  "version": "0.1.0",
+  "capacity_plan_id": "CAP-2026-Q3",
+  "status": "active",
+  "quarter": "2026-Q3",
+  "team_capacity_pse": null,
+  "capacity_unit": "PSE",
+  "role_or_team_contour": "DataCanvas delivery team",
+  "known_absences_constraints": [],
+  "committed_items": [],
+  "reserved_buffer_pse": null,
+  "data_source": {
+    "source_type": "pending_external",
+    "source_path": null,
+    "confirmation_status": "pending"
+  },
+  "notes": "Negative invariant fixture: active capacity cannot rely on missing external values."
+}

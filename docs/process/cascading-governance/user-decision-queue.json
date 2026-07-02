@@ -2,21 +2,21 @@
   "version": "0.1.0",
   "queue_id": "UDQ-2026-07-02-001",
   "change_request_id": "DCR-2026-07-02-001",
-  "status": "closed",
+  "status": "blocked",
   "requested_at": "2026-07-02T00:00:00Z",
   "decisions": [
     {
       "decision_id": "DEC-CASCADE-CONTRACT-SCOPE",
-      "question": "Применять план каскадного ведения документации как источник истины для новых схем, validators, tracking и evidence?",
+      "question": "Применять план каскадного ведения документации как источник для draft schemas, validators, tracking и evidence?",
       "affected_artifacts": [
         "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
         "docs/process/cascading-governance/README.md"
       ],
       "options": [
         {
-          "option_id": "OPT-IMPLEMENT-PLAN",
-          "label": "Реализовать план",
-          "consequence": "Контракт вводится без переноса неподтвержденного A2A runtime scope и без выдуманных capacity/Jira значений.",
+          "option_id": "OPT-IMPLEMENT-DRAFT",
+          "label": "Подготовить draft scaffold",
+          "consequence": "Контракт остается draft / not_decided и не расширяет продуктовый scope.",
           "recommended": true
         },
         {
@@ -26,13 +26,13 @@
           "recommended": false
         }
       ],
-      "recommended_option_id": "OPT-IMPLEMENT-PLAN",
-      "recommendation_rationale": "Опция прямо следует из пользовательского поручения и плана.",
+      "recommended_option_id": "OPT-IMPLEMENT-DRAFT",
+      "recommendation_rationale": "Опция следует из пользовательского поручения подготовить контракт, но не заменяет acceptance процесса.",
       "status": "confirmed",
       "blocking": false,
       "requested_at": "2026-07-02T00:00:00Z",
       "resolved_at": "2026-07-02T00:00:00Z",
-      "selected_option_id": "OPT-IMPLEMENT-PLAN",
+      "selected_option_id": "OPT-IMPLEMENT-DRAFT",
       "source": "Поручение пользователя и docs/plans/datacanvas-cascading-documentation-governance-plan.md"
     },
     {
@@ -94,6 +94,39 @@
       "resolved_at": "2026-07-02T00:00:00Z",
       "selected_option_id": "OPT-JIRA-PENDING-EXTERNAL",
       "source": "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    },
+    {
+      "decision_id": "DEC-PROCESS-OWNER-ACCEPTANCE",
+      "question": "Принимать ли PROC-038 как обязательное правило процесса DataCanvas?",
+      "affected_artifacts": [
+        "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+        "docs/process/current/process-change-ledger.json",
+        "docs/process/current/process-registry.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-KEEP-DRAFT",
+          "label": "Оставить draft",
+          "consequence": "Контракт доступен как opt-in scaffold, но не блокирует все документационные изменения.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-ACCEPT-PROC-038",
+          "label": "Принять правило",
+          "consequence": "Потребуется отдельное решение Process Owner, обновление версии процесса и расширение обязательных gates.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-KEEP-DRAFT",
+      "recommendation_rationale": "В репозитории нет решения Process Owner о принятии PROC-038; отсутствие решения нельзя заменить допущением.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md"
     }
   ]
 }

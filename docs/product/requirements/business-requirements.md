@@ -46,12 +46,6 @@
 | BT-013 | DataCanvas защищает prompt, trace, evidence, runtime state, email и export от prompt injection, секретов, PII, raw traces, internal prompts и tool outputs | КМ, Security/Privacy Lead, DataCanvas | Рабочий контур не раскрывает чувствительные данные и не исполняет недоверенные инструкции | `BT-004`, security docs, threat model | draft | Небезопасный input/output приводит к правилу остановки, а не к генерации или отправке | Security checks фиксируют redacted evidence и отсутствие forbidden data в sinks |
 | BT-014 | DataCanvas сохраняет связь между запросом, входным контекстом, описанием, согласованием, export и статусом доставки | КМ, Product Owner, Delivery/GitOps Lead | Команда может восстановить lifecycle результата и проверить качество | Vision, BMC, DoR/DoD | draft | Lifecycle trace покрывает request -> input -> description -> approval -> export -> delivery status | Traceability evidence содержит стабильные IDs, hashes/statuses и проверяемые ссылки |
 
-## Каскадное Управление Проектной Документацией
-
-DataCanvas ведет изменения продуктовой документации как отдельный управляемый жизненный цикл. Любая значимая правка Vision, BMC, stories, требований, backlog, roadmap, capacity или Jira import package требует `DocumentationChangeRequest`, анализа влияния, очереди решений и validation evidence.
-
-Этот раздел не добавляет новые пользовательские обещания по scope к MVP `P1-P2`. Он фиксирует правило управления требованиями: DataCanvas может вычислять последствия и предлагать варианты компромисса, но не утверждает за пользователя приоритеты, оценки ПШЕ, сроки, capacity, scope или Jira mapping.
-
 ## Покрытие P1-P2 stories
 
 | Story | Покрывающие BT | Проверка покрытия |

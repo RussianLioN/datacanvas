@@ -3842,6 +3842,7 @@
       ],
       "anchors": [
         "план-имплементации-контракт-каскадного-ведения-проектной-документации-datacanvas",
+        "текущий-результат",
         "summary",
         "core-contract",
         "dependency-graph",
@@ -4047,6 +4048,74 @@
       ],
       "reachable_from_root": true,
       "click_depth": 2
+    },
+    {
+      "path": "docs/process/audits/cascading-governance-correction-consilium.md",
+      "title": "Консилиум Оценки Фактов И Плана Исправления",
+      "section": "process",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-554",
+      "outgoing_links": [
+        "docs/process/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "консилиум-оценки-фактов-и-плана-исправления",
+        "назначение",
+        "состав-консилиума",
+        "подтвержденные-факты",
+        "план-исправления",
+        "финальные-gates"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/process/audits/cascading-governance-validation-consilium.md",
+      "title": "Консилиум Валидации Каскадного Governance",
+      "section": "process",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-553",
+      "outgoing_links": [
+        "docs/process/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "консилиум-валидации-каскадного-governance",
+        "назначение",
+        "состав-консилиума",
+        "подтвержденные-факты",
+        "блокеры-на-момент-консилиума",
+        "вердикт"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/process/audits/datacanvas-plan-coverage-audit.json",
@@ -4413,7 +4482,6 @@
       "parent_readme": "docs/process/README.md",
       "artifact_registry_id": "ART-520",
       "outgoing_links": [
-        "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
         "docs/process/cascading-governance/artifact-dependency-graph.json",
         "docs/process/cascading-governance/capacity-plan-2026-q3.json",
         "docs/process/cascading-governance/documentation-change-request.json",
@@ -4476,7 +4544,7 @@
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
-      "parent_readme": "docs/README.md",
+      "parent_readme": "docs/process/cascading-governance/README.md",
       "artifact_registry_id": "ART-529",
       "outgoing_links": [],
       "anchors": [],
@@ -5044,7 +5112,7 @@
         "scrum-cadence",
         "обязательные-артефакты-спринта",
         "правила-изменения-процесса",
-        "каскадное-ведение-документации",
+        "подготовительный-контракт-каскадного-ведения-документации",
         "ворота-готовности"
       ],
       "reachable_from_root": true,
@@ -5073,6 +5141,7 @@
         "реестр-процесса",
         "активные-правила",
         "активные-исключения",
+        "подготовительные-контракты",
         "активные-эксперименты",
         "владение"
       ],
@@ -5447,7 +5516,6 @@
         "пользователи-и-участники",
         "проблема",
         "решение",
-        "каскадное-ведение-документации",
         "основная-ценность",
         "основной-пользовательский-сценарий",
         "роли-систем",
@@ -5870,8 +5938,7 @@
         "README.md"
       ],
       "anchors": [
-        "product-backlog",
-        "правило-каскадных-изменений"
+        "product-backlog"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -7345,7 +7412,7 @@
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
-      "parent_readme": "docs/README.md",
+      "parent_readme": "docs/product/README.md",
       "artifact_registry_id": "ART-467",
       "outgoing_links": [
         "docs/product/interviews/ba-sa/decision-log.md",
@@ -7512,7 +7579,6 @@
         "исходные-источники",
         "сохраненные-требования",
         "новые-требования-mvp-p1-p2",
-        "каскадное-управление-проектной-документацией",
         "покрытие-p1-p2-stories",
         "допущения-и-открытые-решения",
         "безопасность-и-доверительные-границы",
@@ -7701,8 +7767,7 @@
         "README.md"
       ],
       "anchors": [
-        "roadmap-v01",
-        "правило-изменения-roadmap"
+        "roadmap-v01"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -8715,7 +8780,6 @@
         "vision-v01",
         "product-goal",
         "process-goal",
-        "documentation-lifecycle-goal",
         "первый-пользовательский-контур",
         "не-цель-v1"
       ],
@@ -8778,7 +8842,7 @@
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
-      "parent_readme": "docs/README.md",
+      "parent_readme": "README.md",
       "artifact_registry_id": "ART-399",
       "outgoing_links": [
         "docs/architecture/README.md",
@@ -30083,11 +30147,11 @@
     }
   },
   "coverage": {
-    "total_entries": 1117,
-    "manual_entries": 1113,
+    "total_entries": 1119,
+    "manual_entries": 1115,
     "generated_entries": 4,
     "public_navigable_entries": 27,
-    "searchable_entries": 1085,
+    "searchable_entries": 1087,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
     "reachable_from_root": 81,

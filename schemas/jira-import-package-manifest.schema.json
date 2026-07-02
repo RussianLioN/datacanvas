@@ -16,12 +16,12 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
     "package_id": { "type": "string", "pattern": "^JIP-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
     "status": { "type": "string", "enum": ["draft", "pending_external", "ready", "imported", "blocked"] },
     "target_project": { "type": "string", "minLength": 1 },
-    "csv_path": { "type": "string", "minLength": 1 },
-    "mapping_request_path": { "type": "string", "minLength": 1 },
+    "csv_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "mapping_request_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "field_mapping_status": { "type": "string", "enum": ["approved", "pending_external", "blocked"] },
     "import_completion_claim": { "type": "string", "enum": ["not_started", "prepared", "imported_by_external_agent"] },
     "validation_commands": {

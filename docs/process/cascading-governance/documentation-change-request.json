@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
   "change_request_id": "DCR-2026-07-02-001",
-  "status": "completed",
+  "status": "blocked",
   "initiator": {
     "actor_role": "User",
     "source": "Поручение: имплементировать docs/plans/datacanvas-cascading-documentation-governance-plan.md end-to-end."
   },
   "target_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
-  "desired_change": "Реализовать контракт каскадного ведения проектной документации DataCanvas со схемами, validators, tracking, navigation, registry/hash и evidence.",
+  "desired_change": "Подготовить draft-контракт каскадного ведения проектной документации DataCanvas со схемами, validators, tracking, navigation, registry/hash и evidence без acceptance PROC-038.",
   "change_source": "user_request",
   "impact_level": "high",
   "affected_period": "2026-W27",

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/common-defs.schema.json",
+  "title": "CommonDataCanvasSchemaDefinitions",
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "nullableRepoPath": {
+      "anyOf": [
+        { "$ref": "#/$defs/repoPath" },
+        { "type": "null" }
+      ]
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "quarter": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-Q[1-4]$"
+    },
+    "nullableQuarter": {
+      "anyOf": [
+        { "$ref": "#/$defs/quarter" },
+        { "type": "null" }
+      ]
+    }
+  }
+}
