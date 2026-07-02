@@ -3613,6 +3613,44 @@
       "click_depth": null
     },
     {
+      "path": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
+      "title": "План Проверки И Применения Смены Приоритетов На 3-Й Квартал По Графу Влияния",
+      "section": "plans",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-562",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-проверки-и-применения-смены-приоритетов-на-3-й-квартал-по-графу-влияния",
+        "кратко",
+        "правила-проверки-влияния",
+        "решения-перед-применением",
+        "изменения-в-артефактах",
+        "перепланирование-3-го-квартала",
+        "проверка-продукта-и-договоров",
+        "проверки",
+        "критерии-завершения",
+        "промпт-для-реализации"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
       "title": "План Имплементации: Адаптивный Scrum-Процесс Для DataCanvas",
       "section": "plans",
@@ -4028,6 +4066,7 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-406",
       "outgoing_links": [
+        "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
         "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
         "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
@@ -30147,14 +30186,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1119,
-    "manual_entries": 1115,
+    "total_entries": 1120,
+    "manual_entries": 1116,
     "generated_entries": 4,
     "public_navigable_entries": 27,
-    "searchable_entries": 1087,
+    "searchable_entries": 1088,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 81,
+    "reachable_from_root": 82,
     "orphan_entries": 0
   },
   "ignored_paths": [

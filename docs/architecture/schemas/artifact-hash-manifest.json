@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "fe13da6cba3a7df4ea95345a21d52517ffc02a8f3ed4289085cb303e65068019"
+      "sha256": "6d58b17880c0fcbb458eedbe34f81a8e47d8a5c55b3fb33ed2e476d172094bfa"
     },
     {
       "artifact_id": "ART-407",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "2fa143021460e0497fc1c4549212852036a4a6f4850a2c48306f10552811e169"
+      "sha256": "1ff76e64f117525aca157173cee6f7363f46f26a0f4ea53c8dea870945933580"
     },
     {
       "artifact_id": "ART-411",
@@ -2803,6 +2803,11 @@
       "artifact_id": "ART-561",
       "path": "tests/fixtures/cascading-governance/negative/invariants/reprioritization-over-capacity-ready.json",
       "sha256": "1f7fa9f89ba05871e6c54161f480f2bc340516f584e7acb8c3cc6231b4cc1579"
+    },
+    {
+      "artifact_id": "ART-562",
+      "path": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
+      "sha256": "e01e7fd68df4e92465a9aec2a65bfa0deca99d21480c79cbf1467d8fcc6dfbae"
     }
   ],
   "exclusions": [

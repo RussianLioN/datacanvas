@@ -5841,6 +5841,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Cascading governance negative invariant fixture coverage changes."
+    },
+    {
+      "id": "ART-562",
+      "path": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Q3 priority change, CO-2026-001, impact analysis, capacity, roadmap, backlog, or cascading governance planning changes."
     }
   ]
 }
