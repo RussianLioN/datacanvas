@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "report_id": "RIR-2026-07-02-001",
+  "status": "not_applicable",
+  "change_request_id": "DCR-2026-07-02-001",
+  "capacity_plan_id": "CAP-2026-Q3",
+  "quarter": "2026-Q3",
+  "capacity_status": "pending_external",
+  "available_capacity_pse": null,
+  "reserved_buffer_pse": null,
+  "committed_items": [],
+  "proposed_changes": [],
+  "total_committed_pse": 0,
+  "capacity_delta_pse": null,
+  "capacity_overrun": false,
+  "dependencies": [],
+  "trade_off_options": [],
+  "blocking_decisions": [],
+  "validation_commands": [
+    "npm run validate:reprioritization-impact"
+  ]
+}

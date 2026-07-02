@@ -13,6 +13,9 @@
 - Следующий безопасный шаг указан.
 - Если затронута документация, обновлен `docs/navigation/navigation-source.json` или explicit ignore, а docs navigation gate проходит.
 - Если затронута business navigation, root README, docs README и product README сохраняют business-first маршрут, а business docs достижимы из root максимум за 2 перехода.
+- Если затронута значимая проектная документация, запуск каскада содержит change request, анализ влияния, очередь решений, список измененных артефактов, no-change rationales, validation results и evidence paths.
+- Все affected artifacts обновлены или имеют confirmed `no-change rationale`.
+- Очередь решений закрыта; Done не заявляется при открытых блокирующих решениях.
 
 ## Для Процессных Артефактов
 
@@ -21,6 +24,7 @@
 - Сохранена связь с исходным планом или решением.
 - Generated navigation artifacts обновлены через `npm run generate:docs-navigation`, если менялись маршруты или visibility.
 - При изменении `navigation_group` обновлены schema, generator, validator и generated navigation outputs.
+- При изменении каскадного контракта проходят `npm run validate:cascading-governance`, artifact registry и hash manifest gates.
 
 ## Для Продуктовых Артефактов
 
@@ -30,6 +34,8 @@
 - Product backlog не смешан с technical, eval или process backlog.
 - Закрыты или явно отложены interview evidence requests.
 - Синхронизированы requirements, backlog, acceptance, traceability и BA/SA evidence delta, если изменение derived из интервью.
+- Resource impact закрыт: capacity/reprioritization report либо подтверждает резерв, либо фиксирует confirmed trade-off, либо блокирует Done до решения пользователя.
+- Jira-bound package не считается ready без approved mapping или явного `pending_external` handoff status.
 
 ## Для AI/LLM Инкрементов
 

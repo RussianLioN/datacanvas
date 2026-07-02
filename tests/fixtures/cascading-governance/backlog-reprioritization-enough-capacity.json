@@ -1,0 +1,33 @@
+{
+  "version": "0.1.0",
+  "report_id": "RIR-2026-07-02-102",
+  "status": "ready",
+  "change_request_id": "DCR-2026-07-02-103",
+  "capacity_plan_id": "CAP-2026-Q3",
+  "quarter": "2026-Q3",
+  "capacity_status": "available",
+  "available_capacity_pse": 80,
+  "reserved_buffer_pse": 8,
+  "committed_items": [
+    {
+      "item_id": "DC-ST-01",
+      "title": "Описание презентации по слайдам и блокам",
+      "estimate_pse": 21.4,
+      "quarter": "2026-Q3"
+    },
+    {
+      "item_id": "DC-ST-02",
+      "title": "Дополнять блоки информации",
+      "estimate_pse": 13.4,
+      "quarter": "2026-Q3"
+    }
+  ],
+  "proposed_changes": [],
+  "total_committed_pse": 34.8,
+  "capacity_delta_pse": 37.2,
+  "capacity_overrun": false,
+  "dependencies": [],
+  "trade_off_options": [],
+  "blocking_decisions": [],
+  "validation_commands": ["npm run validate:reprioritization-impact"]
+}

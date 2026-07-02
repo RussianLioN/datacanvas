@@ -21,6 +21,7 @@
 | Documentation navigation | Центральные документы работают business-first, а `docs/navigation/navigation-source.json` управляет visibility, data_class, searchability и `navigation_group` | `PROC-036-documentation-navigation-governance.md` |
 | Generated navigation | `docs/navigation/documentation-index.json` и связанные reports обновляются только генератором и группируются по `navigation_group` | `ADR-064-documentation-navigation-indexing.md` |
 | Cross-group source of truth | Бизнесовые утверждения идут из Vision, BMC, stories и требований; технические контракты идут из ADR, schemas и scripts | `AGENTS.md` |
+| Cascading documentation governance | Значимые правки проектной документации требуют `DocumentationChangeRequest`, impact analysis, decision queue, capacity/Jira guards и validation evidence | `PROC-038-cascading-documentation-governance.md` |
 
 ## Активные Исключения
 

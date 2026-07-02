@@ -58,6 +58,12 @@
 
 Любое изменение процесса оформляется как `PROC-*` item и проходит через Process Change Request. Исключение допускается только при stop-rule, когда текущий процесс создает риск утечки, потери evidence, нарушения безопасности или невоспроизводимости.
 
+## Каскадное Ведение Документации
+
+Значимые изменения проектной документации проходят через `DocumentationChangeRequest`, dependency graph, анализ влияния, очередь пользовательских решений и validation evidence. Правило действует для Vision, BMC, Product Goal, hypotheses, stories, requirements, backlog, roadmap, capacity, sprint artifacts, release evidence и Jira import package.
+
+Процесс запрещает закрывать работу, пока affected artifacts не обновлены или не имеют confirmed `no-change rationale`. DataCanvas не выдумывает за пользователя приоритеты, сроки, ресурсы, scope, регламенты или Jira field mapping; такие вопросы остаются блокирующими решениями.
+
 ## Ворота Готовности
 
 - G0 Repo Ready: структура репозитория и базовые инструкции существуют.

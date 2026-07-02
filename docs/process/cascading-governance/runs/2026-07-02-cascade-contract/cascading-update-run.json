@@ -1,0 +1,156 @@
+{
+  "version": "0.1.0",
+  "run_id": "CUR-2026-07-02-001",
+  "status": "complete",
+  "change_request_path": "docs/process/cascading-governance/documentation-change-request.json",
+  "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+  "impact_report_path": "docs/process/cascading-governance/impact-analysis-report.json",
+  "decision_queue_path": "docs/process/cascading-governance/user-decision-queue.json",
+  "capacity_plan_path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+  "reprioritization_report_path": "docs/process/cascading-governance/reprioritization-impact-report.json",
+  "jira_mapping_request_path": "docs/process/cascading-governance/jira-field-mapping-request.json",
+  "changed_artifacts": [
+    {
+      "path": "docs/process/cascading-governance/README.md",
+      "change_type": "process",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "change_type": "traceability",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product-vision.md",
+      "change_type": "semantic",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "change_type": "semantic",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/stories.md",
+      "change_type": "semantic",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/jira-field-mapping-request.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    }
+  ],
+  "skipped_artifacts": [
+    {
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "no_change_rationale": "Текущий run не меняет release acceptance и не утверждает новый release state.",
+      "confirmation_status": "confirmed"
+    }
+  ],
+  "generated_artifacts": [
+    {
+      "path": "docs/navigation/documentation-index.json",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/navigation/navigation-map.md",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "generator_command": "node scripts/generate-artifact-hash-manifest.mjs"
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "npm run validate:cascading-governance",
+      "status": "passed",
+      "evidence": "Профильный cascade gate прошел; negative fixture с ложным Done отклонен.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "Новые cascade schemas и fixtures прошли общий JSON Schema gate.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed",
+      "evidence": "Generated docs navigation artifacts актуальны.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed",
+      "evidence": "Documentation link validation passed.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed",
+      "evidence": "Docs navigation validation passed after navigation source update.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed",
+      "evidence": "Stale-status pointer refreshed to current origin/main and validated.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed",
+      "evidence": "BMC package regenerated from generator source and validated.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "New cascade artifacts are registered and registry validation passed.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Artifact hash manifest regenerated and validated.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed",
+      "evidence": "Secret scan passed.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "Data leakage validation passed.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full local gate passed after cascade governance integration.",
+      "ran_at": "2026-07-02T09:32:10Z"
+    }
+  ],
+  "evidence_paths": [
+    "docs/process/cascading-governance/documentation-change-request.json",
+    "docs/process/cascading-governance/impact-analysis-report.json",
+    "docs/process/cascading-governance/user-decision-queue.json",
+    "docs/process/cascading-governance/reprioritization-impact-report.json",
+    "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json"
+  ],
+  "completion_claim": {
+    "done_claimed": true,
+    "decision_queue_status": "closed",
+    "all_affected_artifacts_resolved": true
+  }
+}

@@ -232,6 +232,78 @@ const cases = [
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
   {
+    schema: "schemas/documentation-change-request.schema.json",
+    data: "docs/process/cascading-governance/documentation-change-request.json",
+  },
+  {
+    schema: "schemas/documentation-change-request.schema.json",
+    data: "tests/fixtures/cascading-governance/vision-change-request.json",
+  },
+  {
+    schema: "schemas/artifact-dependency-graph.schema.json",
+    data: "docs/process/cascading-governance/artifact-dependency-graph.json",
+  },
+  {
+    schema: "schemas/impact-analysis-report.schema.json",
+    data: "docs/process/cascading-governance/impact-analysis-report.json",
+  },
+  {
+    schema: "schemas/impact-analysis-report.schema.json",
+    data: "tests/fixtures/cascading-governance/vision-impact-analysis-report.json",
+  },
+  {
+    schema: "schemas/user-decision-queue.schema.json",
+    data: "docs/process/cascading-governance/user-decision-queue.json",
+  },
+  {
+    schema: "schemas/capacity-plan.schema.json",
+    data: "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "docs/process/cascading-governance/reprioritization-impact-report.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/backlog-reprioritization-over-capacity.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/backlog-reprioritization-enough-capacity.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/backlog-reprioritization-missing-capacity.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/user-rejects-story-move.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/user-confirms-story-move-q4.json",
+  },
+  {
+    schema: "schemas/cascading-update-run.schema.json",
+    data: "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+  },
+  {
+    schema: "schemas/cascading-update-run.schema.json",
+    data: "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
+  },
+  {
+    schema: "schemas/jira-field-mapping-request.schema.json",
+    data: "docs/process/cascading-governance/jira-field-mapping-request.json",
+  },
+  {
+    schema: "schemas/jira-field-mapping-request.schema.json",
+    data: "tests/fixtures/cascading-governance/jira-field-mapping-unresolved.json",
+  },
+  {
+    schema: "schemas/jira-import-package-manifest.schema.json",
+    data: "docs/process/cascading-governance/jira-import-package-manifest.json",
+  },
+  {
     schema: "schemas/interview-derived-coverage.schema.json",
     data: "docs/product/analysis/ba-sa/interview-derived-coverage.json",
   },

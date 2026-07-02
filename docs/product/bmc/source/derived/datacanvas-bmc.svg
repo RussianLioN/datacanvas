@@ -20,7 +20,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B7</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Активности</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Проверка достаточности входа</tspan><tspan x="42" y="259">• Уточнение данных</tspan><tspan x="42" y="296">• Описание и правки</tspan><tspan x="42" y="333">• Генерация и доставка</tspan><tspan x="42" y="370">• Повторный цикл по замечаниям</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Проверка достаточности входа</tspan><tspan x="42" y="259">• Уточнение данных</tspan><tspan x="42" y="296">• Описание и правки</tspan><tspan x="42" y="333">• Генерация и доставка</tspan><tspan x="42" y="370">• Каскадный анализ влияния</tspan><tspan x="42" y="407">• Повторный цикл по замечаниям</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B6" data-layout-slot="top-split-lower" transform="translate(842 854)">
 <rect width="640" height="546" rx="8" fill="#f4fbf9" stroke="#243447" stroke-width="3"/>
@@ -28,7 +28,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B6</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Ресурсы</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Входной контекст</tspan><tspan x="42" y="259">• Описание и PresentationSpec</tspan><tspan x="42" y="296">• Шаблоны презентаций</tspan><tspan x="42" y="333">• Renderer и quality gates</tspan><tspan x="42" y="370">• Интеграции Лисы/A2A/MCP</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Входной контекст</tspan><tspan x="42" y="259">• Описание и PresentationSpec</tspan><tspan x="42" y="296">• Шаблоны презентаций</tspan><tspan x="42" y="333">• Renderer и quality gates</tspan><tspan x="42" y="370">• Артефакты каскадного управления</tspan><tspan x="42" y="407">• Интеграции Лисы/A2A/MCP</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B2" data-layout-slot="top-center" transform="translate(1510 280)">
 <rect width="820" height="1120" rx="8" fill="#fff4cc" stroke="#243447" stroke-width="3"/>

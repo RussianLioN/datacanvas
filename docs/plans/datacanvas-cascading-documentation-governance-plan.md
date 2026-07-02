@@ -2,10 +2,10 @@
 
 Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / [Планы](README.md) / Контракт каскадного ведения проектной документации
 
-Статус: draft
+Статус: implemented
 Владелец: Process Owner
 Дата: 2026-07-02
-Проверка: `npm run validate:docs-navigation`, `npm run validate:artifact-registry`, `npm run validate:artifact-hashes`
+Проверка: `npm run validate:cascading-governance`, `npm run validate:docs-navigation`, `npm run validate:artifact-registry`, `npm run validate:artifact-hashes`
 Источник: пользовательское решение о строгом каскадном обновлении созависимых проектных артефактов и запрете неподтвержденных смысловых допущений.
 
 ## Summary

@@ -13,6 +13,7 @@
 | NFR-003 | Безопасность | Секреты и PII не попадают в prompt, trace, evidence или export | leakage count = 0 |
 | NFR-004 | Производительность | Стоимость и задержка фиксируются для каждого запуска | cost/latency recorded |
 | NFR-005 | Визуальное качество | Export не содержит критического overflow | critical visual defects = 0 |
+| NFR-006 | Согласованность документации | Upstream правка проектного артефакта не закрывается без анализа влияния, очереди решений и статуса по каждому affected artifact | cascade completeness validation passed |
 
 ## BA/SA Fit Criteria
 
@@ -23,6 +24,7 @@
 | NFR-003 | Privacy/security | AgentPromptSpec содержит только safe context и `raw_transcript_included=false` | `npm run validate:spec-task-prompt-readiness` |
 | NFR-004 | Наблюдаемость | Process run ledger фиксирует `run_id`, command, input paths, output paths, duration, exit code и redacted log hash | `npm run validate:sa-spec` |
 | NFR-005 | Совместимость | Interface control содержит schema refs и validation commands для каждого boundary | `npm run validate:interface-contracts` |
+| NFR-006 | Governance | Semantic documentation update не применяется без подтвержденного `DocumentationChangeRequest`; блокирующие решения останавливают Done | `npm run validate:cascading-governance` |
 
 ## Risk Links
 

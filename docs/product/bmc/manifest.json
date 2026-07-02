@@ -17,7 +17,7 @@
       "role": "clean_markdown",
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+      "sha256": "c947dfcc903f13807fa4944a7cf88dde481fb90d9956e2f74566f79925ddf294"
     },
     {
       "role": "canonical_visual",
@@ -25,7 +25,7 @@
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
       "width": 3840,
       "height": 2160,
-      "sha256": "2fe5f66a04aea8193c725a7cc7a2496b409b68bb9c4acb8c22931fef382c7d14"
+      "sha256": "9611832ab13814cd1e90bb94de900daa09c11313e6665fed970bfe28fbc33dbf"
     },
     {
       "role": "portable_visual",
@@ -45,7 +45,7 @@
       "role": "engineering_view",
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "2e85342e5349f03c505aa41a3c75925beb8f434b677dd61fd2782a23ad385674"
+      "sha256": "05735318c2d6ea48c053374b47e3c974d80301f2ad67c7b50497f65bcd7b8f1f"
     },
     {
       "role": "validation_companion",
@@ -57,37 +57,37 @@
       "role": "derived_manifest",
       "format": "json",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "30a3789c02733c4edc02856751547f0494d017b6b7403696ff8e2b48d603ed87"
+      "sha256": "897319664617483f5650c3fae83e4a87bcd676bef02718bfe869b8c60ac8bb6b"
     },
     {
       "role": "source_map",
       "format": "markdown",
       "path": "docs/product/bmc/source-map.md",
-      "sha256": "6397e4e81a44b8d0eaa5aa9248109c553b983df78b9e4414d186bbc77538ae9b"
+      "sha256": "7fa129425e867e5e9e7fdc767409eabfcb21189673cba777cb1ae8076a258075"
     },
     {
       "role": "text_alternative",
       "format": "markdown",
       "path": "docs/product/bmc/text-alternative.md",
-      "sha256": "daca90a29914f154e05c009644c5e4ad3449aa71e9616457cba6696675e8d3af"
+      "sha256": "620477bb798b028fb07a8436236c9b3e7b1105eb4da486b0296cedb788dddd1f"
     },
     {
       "role": "visual_review",
       "format": "markdown",
       "path": "docs/product/bmc/evidence/visual-review.md",
-      "sha256": "8efcd9a69f2ba4270aff06cdb58813472567f2764eb37f195319ad04ce9275c5"
+      "sha256": "98c5c2cffce47c5a9933b3785ed07a8700710e7bbc93af6b7e42e806bbe39cde"
     },
     {
       "role": "visual_acceptance",
       "format": "json",
       "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
-      "sha256": "b225c53369919f7df35af49686644aaf4b1c131e0169926c24c24bcf86fe989c"
+      "sha256": "9f96f4748f1fe6c1799ab2e8afda2dc08adc2a96951430a58bd51f21c6691606"
     },
     {
       "role": "designer_consilium",
       "format": "json",
       "path": "docs/product/bmc/evidence/designer-consilium.json",
-      "sha256": "bcba279cb9f4b0d9fbf48504be8d3f7929bf0dbc53a9f77d66462a2ab684cb9a"
+      "sha256": "7869e53d64526f34129d78077c4a7e3f1b96295d8d4e59ad20cf7decf91ed09c"
     },
     {
       "role": "design_philosophy",

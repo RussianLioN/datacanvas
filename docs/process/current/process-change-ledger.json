@@ -105,6 +105,34 @@
       ],
       "migration_notes": "Draft process rule is documented and wired to validators, but it does not become accepted process policy until Process Owner decision.",
       "rollback": "Revert DoR/DoD/process event additions and remove BA/SA gates from npm test."
+    },
+    {
+      "process_change_id": "PROC-038",
+      "title": "Ввести cascading documentation governance",
+      "status": "draft",
+      "decision": "not_decided",
+      "source": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+      "pcr_path": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+      "changelog_anchor": "PROC-038",
+      "affected_artifacts": [
+        "docs/process/cascading-governance/README.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md",
+        "docs/process/current/process-passport.md",
+        "scripts/validate-cascading-governance.mjs",
+        "scripts/run-cascading-update.mjs",
+        "package.json"
+      ],
+      "validation_commands": [
+        "npm run validate:cascading-governance",
+        "npm run validate:schemas",
+        "npm run validate:docs-navigation",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm test"
+      ],
+      "migration_notes": "Draft cascade rule is documented and wired to validators. It does not invent capacity, priorities, dates, scope, regulations or Jira mapping; unresolved values remain pending_external or blocking decisions.",
+      "rollback": "Revert cascade schemas, validators, source artifacts, fixtures, DoR/DoD/passport additions, navigation source and artifact registry entries, then regenerate navigation/hash artifacts."
     }
   ],
   "known_limitations": [

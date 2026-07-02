@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/impact-analysis-report.schema.json",
+  "title": "ImpactAnalysisReport",
+  "type": "object",
+  "required": [
+    "version",
+    "impact_report_id",
+    "change_request_id",
+    "status",
+    "generated_at",
+    "target_artifact",
+    "affected_artifacts",
+    "blocking_user_decisions",
+    "derived_facts",
+    "assumptions_forbidden",
+    "proposals",
+    "validation_plan",
+    "completion_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "impact_report_id": { "type": "string", "pattern": "^IAR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "change_request_id": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "blocked", "ready", "applied"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "target_artifact": { "$ref": "#/$defs/repoPath" },
+    "affected_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/affectedArtifact" }
+    },
+    "blocking_user_decisions": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^DEC-[A-Z0-9-]+$" }
+    },
+    "derived_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fact", "source_paths"],
+        "additionalProperties": false,
+        "properties": {
+          "fact": { "type": "string", "minLength": 1 },
+          "source_paths": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/repoPath" }
+          }
+        }
+      }
+    },
+    "assumptions_forbidden": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["proposal", "classification"],
+        "additionalProperties": false,
+        "properties": {
+          "proposal": { "type": "string", "minLength": 1 },
+          "classification": {
+            "type": "string",
+            "enum": ["derived_from_sources", "requires_user_confirmation", "blocked_missing_input", "not_applicable"]
+          }
+        }
+      }
+    },
+    "validation_plan": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "completion_status": { "type": "string", "enum": ["blocked", "pending", "complete"] }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "affectedArtifact": {
+      "type": "object",
+      "required": ["path", "impact_types", "required_edits", "optional_edits", "update_status", "no_change_rationale"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "impact_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "enum": ["semantic", "traceability", "navigation", "resource", "Jira", "evidence", "generated", "process", "schema", "validator"]
+          }
+        },
+        "required_edits": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "optional_edits": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "update_status": {
+          "type": "string",
+          "enum": ["pending", "applied", "no_change_confirmed", "not_applicable", "blocked"]
+        },
+        "no_change_rationale": {
+          "type": ["object", "null"],
+          "required": ["rationale", "confirmed_by", "confirmed_at"],
+          "additionalProperties": false,
+          "properties": {
+            "rationale": { "type": "string", "minLength": 1 },
+            "confirmed_by": { "type": "string", "minLength": 1 },
+            "confirmed_at": { "type": "string", "format": "date-time" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/jira-import-package-manifest.schema.json",
+  "title": "JiraImportPackageManifest",
+  "type": "object",
+  "required": [
+    "version",
+    "package_id",
+    "status",
+    "target_project",
+    "csv_path",
+    "mapping_request_path",
+    "field_mapping_status",
+    "import_completion_claim",
+    "validation_commands"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "package_id": { "type": "string", "pattern": "^JIP-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "pending_external", "ready", "imported", "blocked"] },
+    "target_project": { "type": "string", "minLength": 1 },
+    "csv_path": { "type": "string", "minLength": 1 },
+    "mapping_request_path": { "type": "string", "minLength": 1 },
+    "field_mapping_status": { "type": "string", "enum": ["approved", "pending_external", "blocked"] },
+    "import_completion_claim": { "type": "string", "enum": ["not_started", "prepared", "imported_by_external_agent"] },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

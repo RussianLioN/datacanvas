@@ -14,7 +14,10 @@
 - [Definition of Done](current/definition-of-done.md)
 - [Process backlog](current/process-backlog.md)
 - [Process change ledger](current/process-change-ledger.json)
+- [Каскадное ведение документации](cascading-governance/README.md)
 
 ## Изменение Процесса
 
 Изменение правила процесса оформляется через `PROC-*`, синхронизируется с реестром процесса и проходит navigation gate, если затрагивает документы или маршруты.
+
+Значимое изменение проектной документации оформляется как `DocumentationChangeRequest` и проходит cascade impact analysis до закрытия Done.

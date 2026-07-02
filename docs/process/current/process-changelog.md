@@ -79,3 +79,21 @@ PCR: `PROC-001`
 #### Rollback
 
 Откатить DoR/DoD/process event additions и убрать BA/SA gates из `npm test`.
+
+### PROC-038 - Cascading Documentation Governance
+
+Статус: draft
+Дата: 2026-07-02
+Источник: `docs/process/change-requests/PROC-038-cascading-documentation-governance.md`
+
+#### Изменение
+
+Предложено добавить `DocumentationChangeRequest`, artifact dependency graph, impact analysis, decision queue, capacity/reprioritization guards, Jira field mapping guards и cascade run evidence в DoR, DoD, process passport, schemas, validators и navigation/artifact tracking.
+
+#### Миграция
+
+До Process Owner acceptance правило остается draft. Артефакты и валидаторы можно использовать как подготовленный gate; concrete capacity, priorities, dates, scope и Jira custom fields не заполняются без отдельного источника.
+
+#### Rollback
+
+Откатить cascade schemas, validators, source artifacts, fixtures, DoR/DoD/passport additions, navigation source и artifact registry entries, затем повторить docs navigation, artifact hash и security gates.

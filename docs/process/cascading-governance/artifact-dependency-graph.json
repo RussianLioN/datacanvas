@@ -1,0 +1,340 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "graph_id": "ADG-2026-07-02-001",
+  "artifacts": [
+    {
+      "artifact_id": "DGA-001",
+      "path": "docs/product-vision.md",
+      "layer": "Vision",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-002",
+      "path": "docs/product/vision/vision-v0.1.md",
+      "layer": "Product Goal",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-003",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "layer": "BMC",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:bmc"
+    },
+    {
+      "artifact_id": "DGA-004",
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "layer": "hypotheses",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-005",
+      "path": "docs/stories.md",
+      "layer": "stories",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-006",
+      "path": "docs/product/requirements/user-stories.md",
+      "layer": "stories",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-007",
+      "path": "docs/product/requirements/business-requirements.md",
+      "layer": "business requirements",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "artifact_id": "DGA-008",
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "layer": "NFR",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "artifact_id": "DGA-009",
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "layer": "acceptance criteria",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:doc-links"
+    },
+    {
+      "artifact_id": "DGA-010",
+      "path": "docs/product/backlog/product-backlog.md",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:backlog-registry"
+    },
+    {
+      "artifact_id": "DGA-011",
+      "path": "docs/product/backlog/technical-backlog.md",
+      "layer": "technical/eval/process backlog",
+      "owner_role": "Development Team",
+      "validation_command": "npm run validate:backlog-registry"
+    },
+    {
+      "artifact_id": "DGA-012",
+      "path": "docs/product/backlog/eval-backlog.md",
+      "layer": "technical/eval/process backlog",
+      "owner_role": "QA/Evals Lead",
+      "validation_command": "npm run validate:eval-backlog-sync"
+    },
+    {
+      "artifact_id": "DGA-013",
+      "path": "docs/process/current/process-backlog.md",
+      "layer": "technical/eval/process backlog",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:process-change-ledger"
+    },
+    {
+      "artifact_id": "DGA-014",
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "layer": "roadmap",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-015",
+      "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "layer": "capacity plan",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:capacity-plan"
+    },
+    {
+      "artifact_id": "DGA-016",
+      "path": "docs/sprints",
+      "layer": "sprint artifacts",
+      "owner_role": "Scrum Master",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "artifact_id": "DGA-017",
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "layer": "release evidence",
+      "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm run validate:release-pack"
+    },
+    {
+      "artifact_id": "DGA-018",
+      "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "layer": "Jira import package",
+      "owner_role": "Delivery/GitOps Lead",
+      "validation_command": "npm run validate:jira-field-mapping"
+    },
+    {
+      "artifact_id": "DGA-019",
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "artifact_id": "DGA-020",
+      "path": "docs/navigation/navigation-source.json",
+      "layer": "navigation",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-021",
+      "path": "docs/process/cascading-governance/documentation-change-request.json",
+      "layer": "process",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:documentation-change-request"
+    }
+  ],
+  "dependencies": [
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/vision/vision-v0.1.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change triggers Product Goal snapshot review.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change triggers hypotheses review.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers BMC review.",
+      "validation_command": "npm run validate:bmc",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers story catalog review.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers business requirements review.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers NFR review.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers acceptance criteria review.",
+      "validation_command": "npm run validate:doc-links",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers product backlog review.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "semantic",
+      "update_rule": "Vision change always triggers roadmap review.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Vision change always triggers traceability matrix review.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "relation_type": "resource",
+      "update_rule": "Vision change triggers capacity source review; concrete capacity cannot be invented.",
+      "validation_command": "npm run validate:capacity-plan",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "relation_type": "jira",
+      "update_rule": "Vision change triggers Jira import package readiness review when Jira-bound outputs exist.",
+      "validation_command": "npm run validate:jira-field-mapping",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "when_jira_mapping_changes"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
+      "relation_type": "evidence",
+      "update_rule": "Release evidence cannot be marked accepted while blocking decisions remain open.",
+      "validation_command": "npm run validate:release-pack",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "docs/sprints",
+      "relation_type": "evidence",
+      "update_rule": "Sprint evidence must reference cascade run when sprint, backlog or roadmap artifacts change.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Scrum Master",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "update_rule": "Story priority or estimate change triggers backlog review.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "relation_type": "resource",
+      "update_rule": "Backlog reprioritization triggers quarter capacity recalculation.",
+      "validation_command": "npm run validate:reprioritization-impact",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "semantic",
+      "update_rule": "Backlog priority changes trigger roadmap review.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/sprints",
+      "relation_type": "evidence",
+      "update_rule": "Backlog priority changes trigger sprint planning and evidence review.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Scrum Master",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "relation_type": "jira",
+      "update_rule": "Jira-bound backlog package requires per-package field mapping request.",
+      "validation_command": "npm run validate:jira-field-mapping",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "when_jira_mapping_changes"
+    },
+    {
+      "upstream_artifact": "docs/process/cascading-governance/documentation-change-request.json",
+      "downstream_artifact": "docs/navigation/navigation-source.json",
+      "relation_type": "navigation",
+      "update_rule": "New manual docs must be classified in navigation source or explicitly ignored.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Process Owner",
+      "user_confirmation_required": "never"
+    }
+  ],
+  "high_impact_sources": [
+    "docs/product-vision.md",
+    "docs/product/vision/vision-v0.1.md"
+  ]
+}

@@ -98,6 +98,26 @@
       "id": "EVT-ROLLBACK-SIGNAL",
       "name": "Rollback signal recorded",
       "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-REQUESTED",
+      "name": "Documentation cascade requested",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-IMPACT-ANALYZED",
+      "name": "Documentation cascade impact analyzed",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-DECISION-BLOCKED",
+      "name": "Documentation cascade blocked on user decision",
+      "required_for_metrics": ["MET-007"]
+    },
+    {
+      "id": "EVT-CASCADE-VALIDATED",
+      "name": "Documentation cascade validated",
+      "required_for_metrics": []
     }
   ],
   "events": [],

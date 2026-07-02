@@ -1,0 +1,99 @@
+{
+  "version": "0.1.0",
+  "queue_id": "UDQ-2026-07-02-001",
+  "change_request_id": "DCR-2026-07-02-001",
+  "status": "closed",
+  "requested_at": "2026-07-02T00:00:00Z",
+  "decisions": [
+    {
+      "decision_id": "DEC-CASCADE-CONTRACT-SCOPE",
+      "question": "Применять план каскадного ведения документации как источник истины для новых схем, validators, tracking и evidence?",
+      "affected_artifacts": [
+        "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "docs/process/cascading-governance/README.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-IMPLEMENT-PLAN",
+          "label": "Реализовать план",
+          "consequence": "Контракт вводится без переноса неподтвержденного A2A runtime scope и без выдуманных capacity/Jira значений.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-DEFER",
+          "label": "Отложить",
+          "consequence": "Каскадные проверки останутся отсутствующими, а upstream правки продолжат зависеть от ручной дисциплины.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-IMPLEMENT-PLAN",
+      "recommendation_rationale": "Опция прямо следует из пользовательского поручения и плана.",
+      "status": "confirmed",
+      "blocking": false,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": "2026-07-02T00:00:00Z",
+      "selected_option_id": "OPT-IMPLEMENT-PLAN",
+      "source": "Поручение пользователя и docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    },
+    {
+      "decision_id": "DEC-CAPACITY-VALUES",
+      "question": "Заполнять ли конкретные значения capacity для Q3 без отдельного пользовательского источника?",
+      "affected_artifacts": [
+        "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+        "docs/process/cascading-governance/reprioritization-impact-report.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-PENDING-EXTERNAL",
+          "label": "Оставить pending_external",
+          "consequence": "Capacity source существует, но квартальная емкость не используется для утверждения scope до подтверждения.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-INVENT-CAPACITY",
+          "label": "Заполнить без источника",
+          "consequence": "Нарушает запрет плана на выдумывание ресурсов и сроков.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-PENDING-EXTERNAL",
+      "recommendation_rationale": "План разрешает создать источник capacity, но запрещает выдумывать значения.",
+      "status": "confirmed",
+      "blocking": false,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": "2026-07-02T00:00:00Z",
+      "selected_option_id": "OPT-PENDING-EXTERNAL",
+      "source": "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    },
+    {
+      "decision_id": "DEC-JIRA-MAPPING-VALUES",
+      "question": "Заполнять ли Jira custom field mapping без данных целевого Jira project?",
+      "affected_artifacts": [
+        "docs/process/cascading-governance/jira-field-mapping-request.json",
+        "docs/process/cascading-governance/jira-import-package-manifest.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-JIRA-PENDING-EXTERNAL",
+          "label": "Оставить pending_external",
+          "consequence": "Import package можно подготовить как handoff, но нельзя заявлять готовый импорт.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-GUESS-JIRA-FIELDS",
+          "label": "Угадать поля",
+          "consequence": "Нарушает запрет плана на глобальные и заранее угаданные custom fields.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-JIRA-PENDING-EXTERNAL",
+      "recommendation_rationale": "Jira field mapping по плану является per-package decision и требует внешних данных.",
+      "status": "confirmed",
+      "blocking": false,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": "2026-07-02T00:00:00Z",
+      "selected_option_id": "OPT-JIRA-PENDING-EXTERNAL",
+      "source": "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    }
+  ]
+}
