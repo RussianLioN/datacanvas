@@ -32,6 +32,26 @@
       "scenario_id": "UAT-004",
       "status": "passed",
       "evidence": "Export readiness подтвержден: validate:export и validate:export-smoke проходят."
+    },
+    {
+      "scenario_id": "UAT-005",
+      "status": "passed",
+      "evidence": "A2A-first readiness подтвержден как draft Change Order через npm run validate:product-change-orders и npm run validate:spec-task-prompt-readiness."
+    },
+    {
+      "scenario_id": "UAT-006",
+      "status": "passed",
+      "evidence": "Insufficient/untrusted input fixture связан с clarification и отсутствием export через npm run validate:ba-sa-interview."
+    },
+    {
+      "scenario_id": "UAT-007",
+      "status": "passed",
+      "evidence": "AgentPromptSpec содержит raw_transcript_included=false и проходит npm run validate:spec-task-prompt-readiness."
+    },
+    {
+      "scenario_id": "UAT-008",
+      "status": "passed",
+      "evidence": "Unconfirmed channel decision остается deferred и не становится acceptance gate через npm run validate:change-impact."
     }
   ],
   "evidence_paths": [
@@ -41,12 +61,16 @@
     "tests/golden/claim-map-minimal.json",
     "tests/golden/trace-manifest-minimal.json",
     "artifacts/examples/presentation-minimal.html",
-    "artifacts/examples/export-smoke-manifest.json"
+    "artifacts/examples/export-smoke-manifest.json",
+    "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+    "docs/product/specs/agent-prompt-spec-a2a-launch.json"
   ],
   "known_limitations": [
     "UAT result является deterministic fixture, а не записью реальной пользовательской сессии.",
     "Интерактивный review UI еще не реализован.",
-    "Полноценный release pack еще не собран."
+    "Полноценный release pack еще не собран.",
+    "BA/SA сценарии UAT-005 - UAT-008 подтверждают локальные validators, а не real A2A integration."
   ],
   "next_safe_step": "Добавить interactive review UI fixture или release evidence pack для MVP Gate."
 }

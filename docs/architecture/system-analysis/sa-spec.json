@@ -1,0 +1,153 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_ba_spec_path": "docs/product/analysis/ba/ba-spec.json",
+  "srs_path": "docs/architecture/system-analysis/srs-v0.1.json",
+  "requirements": [
+    {
+      "requirement_id": "BT-005-DELTA",
+      "verification_method": "A2A input envelope fixture and spec-task-prompt readiness validator.",
+      "source_claim_ids": ["BASA-CLM-003"]
+    },
+    {
+      "requirement_id": "BT-006-DELTA",
+      "verification_method": "Insufficient input and untrusted payload fixtures.",
+      "source_claim_ids": ["BASA-CLM-005"]
+    },
+    {
+      "requirement_id": "NFR-003-DELTA",
+      "verification_method": "Data leakage and prompt readiness validators.",
+      "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"]
+    }
+  ],
+  "interfaces": [
+    {
+      "interface_id": "IF-001",
+      "name": "Lisa launch adapter",
+      "trust_boundary": "trusted_operator_channel",
+      "input_schema": "schemas/input-package.schema.json",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "interface_id": "IF-002",
+      "name": "A2A launch envelope",
+      "trust_boundary": "untrusted_upstream_agent",
+      "input_schema": "schemas/input-package.schema.json",
+      "validation_command": "npm run validate:interface-contracts"
+    },
+    {
+      "interface_id": "IF-003",
+      "name": "MCP tool context",
+      "trust_boundary": "untrusted_tool_metadata",
+      "input_schema": "schemas/tool-allowlist.schema.json",
+      "validation_command": "npm run validate:interface-contracts"
+    },
+    {
+      "interface_id": "IF-004",
+      "name": "Renderer",
+      "trust_boundary": "validated_presentation_spec",
+      "input_schema": "schemas/presentation-spec.schema.json",
+      "validation_command": "npm run validate:visual"
+    },
+    {
+      "interface_id": "IF-005",
+      "name": "Evidence storage",
+      "trust_boundary": "internal_evidence",
+      "input_schema": "schemas/artifact-registry.schema.json",
+      "validation_command": "npm run validate:artifact-registry"
+    }
+  ],
+  "lifecycle_states": [
+    {
+      "state_id": "STATE-001",
+      "name": "intake",
+      "entry_condition": "Request received.",
+      "exit_condition": "Input envelope captured with data class."
+    },
+    {
+      "state_id": "STATE-002",
+      "name": "validation",
+      "entry_condition": "Input envelope exists.",
+      "exit_condition": "Schema and trust checks passed or blocked."
+    },
+    {
+      "state_id": "STATE-003",
+      "name": "clarification",
+      "entry_condition": "Input is insufficient or contradictory.",
+      "exit_condition": "Clarification answered or open decision recorded."
+    },
+    {
+      "state_id": "STATE-004",
+      "name": "normalization",
+      "entry_condition": "Validated input exists.",
+      "exit_condition": "Normalized facts and claim map generated."
+    },
+    {
+      "state_id": "STATE-005",
+      "name": "approval",
+      "entry_condition": "Description or spec is ready for review.",
+      "exit_condition": "Human approval decision recorded."
+    },
+    {
+      "state_id": "STATE-006",
+      "name": "render_export",
+      "entry_condition": "Approved PresentationSpec exists.",
+      "exit_condition": "Sanitized export evidence exists."
+    }
+  ],
+  "errors": [
+    {
+      "error_id": "ERR-001",
+      "summary": "Insufficient input.",
+      "retry_policy": "Ask one clarification question.",
+      "rollback_signal": "No export created.",
+      "redaction_rule": "Do not expose original untrusted payload."
+    },
+    {
+      "error_id": "ERR-002",
+      "summary": "Untrusted upstream instruction.",
+      "retry_policy": "Ignore instruction and keep as data.",
+      "rollback_signal": "Stop before generation if instruction changes behavior.",
+      "redaction_rule": "Log only safe summary."
+    },
+    {
+      "error_id": "ERR-003",
+      "summary": "Channel decision missing.",
+      "retry_policy": "Create evidence request.",
+      "rollback_signal": "Keep channel-neutral requirement.",
+      "redaction_rule": "No personal delivery metadata."
+    }
+  ],
+  "nfrs": [
+    {
+      "nfr_id": "NFR-001",
+      "category": "Достоверность",
+      "fit_criterion": "Unsupported claims count equals 0.",
+      "validation_command": "npm run validate:evals"
+    },
+    {
+      "nfr_id": "NFR-002",
+      "category": "Воспроизводимость",
+      "fit_criterion": "Input hash, schema version and output hash are recorded.",
+      "validation_command": "npm run validate:artifact-hashes"
+    },
+    {
+      "nfr_id": "NFR-003",
+      "category": "Безопасность",
+      "fit_criterion": "No secret, personal data or raw interview content in prompt/export/evidence.",
+      "validation_command": "npm run validate:data-leakage"
+    },
+    {
+      "nfr_id": "NFR-004",
+      "category": "Наблюдаемость",
+      "fit_criterion": "Run ledger records command, duration, exit code and redacted log hash.",
+      "validation_command": "npm run validate:sa-spec"
+    },
+    {
+      "nfr_id": "NFR-005",
+      "category": "Совместимость",
+      "fit_criterion": "Interface control keeps schema refs and validation commands for each boundary.",
+      "validation_command": "npm run validate:interface-contracts"
+    }
+  ]
+}

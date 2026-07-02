@@ -622,12 +622,12 @@
     {
       "artifact_id": "ART-125",
       "path": "docs/product/ux/uat-script.md",
-      "sha256": "e7f467431d029dcf84e81f1959535ff2163fdbe74e61781fbb5a8b699570cd72"
+      "sha256": "9b91bb404a21d015a335b97ac6c08342a1477e9c1aa936d9a4c7595c978cdb02"
     },
     {
       "artifact_id": "ART-126",
       "path": "docs/product/ux/uat-manifest.json",
-      "sha256": "039a2e89697abc691cf2e13cb3247d8e6ff686088e74691f28bbfa6c12350532"
+      "sha256": "31b7b92a6c917d23823b0f6b13603bd64acc1f8a8cce3207857537f25d9358d7"
     },
     {
       "artifact_id": "ART-127",
@@ -692,12 +692,12 @@
     {
       "artifact_id": "ART-139",
       "path": "docs/product/ux/uat-result.md",
-      "sha256": "7fae733bc469bcfbc50717255197bb7fc8c5cf58db0f450d6a4d5bda9d33e7ff"
+      "sha256": "7f8e8efe2b93cb7fce2f1cf2b0c1f631b5f73b8119ead18fb01d2f5faaf60d66"
     },
     {
       "artifact_id": "ART-140",
       "path": "docs/product/ux/uat-result-minimal.json",
-      "sha256": "973d335e741f83f056e7f4aeb46aee4977249bd1086ed07c853e04a8bba55186"
+      "sha256": "157d42c0a05eda1ab89220214194647b5817822f94c9205c0d1bea80eeca4a9a"
     },
     {
       "artifact_id": "ART-141",
@@ -722,12 +722,12 @@
     {
       "artifact_id": "ART-145",
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "sha256": "8fb3e88b15114415b4d4a3330c3c964b1c70ea8dea2a7e4dbeda7a6dba785547"
+      "sha256": "b85cfb8558b7fe4901ec212309da36830200c3fc874823adf74884d1f4700ce7"
     },
     {
       "artifact_id": "ART-146",
       "path": "docs/release/mvp-release-evidence-pack.md",
-      "sha256": "7221c3e74db03c27076c26bcf7318a676ecc0769397dae9f59d9fa8bcac670c8"
+      "sha256": "7d45bfe0adddfb5312f5363865f408c27d6e2dd63365ced47c8dde6daaa360c7"
     },
     {
       "artifact_id": "ART-147",
@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "8374cd5b28bd69446e5215f8c03a48b5d30455d8be312273ab3cb39532901a78"
+      "sha256": "5e5b1a449c0fe82f742ddde1f0f2da9b0cdc7265a512b8ac953725952d2fc4a9"
     },
     {
       "artifact_id": "ART-188",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "e59386a0e5e1d912a4eb2464944a250543dc5f52625614840a1682816a409af2"
+      "sha256": "5933fed9b8a8f46e86af540465c5eac27f7648f07329a0d143451f73ca97c02b"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "55f9656f34ad93345d4ebf85dcc2d1ffa5b5ee0024a48babe43afec662044116"
+      "sha256": "724515e2cd77391351436d874e25479f917914796d6b3612a2b9f67ffc76118f"
     },
     {
       "artifact_id": "ART-201",
@@ -1067,7 +1067,7 @@
     {
       "artifact_id": "ART-214",
       "path": "docs/architecture/security/data-leakage-manifest.json",
-      "sha256": "6295d360527431dff44cf4392112b04bba8cb739bb39747cc7ad691a368360f7"
+      "sha256": "23df4feaa26013ab2db17db25809115e8553d1385bc64cdb42aeafec79b17ce4"
     },
     {
       "artifact_id": "ART-215",
@@ -1157,12 +1157,12 @@
     {
       "artifact_id": "ART-232",
       "path": "docs/process/current/process-event-log.json",
-      "sha256": "11593a7bf7e6fc6f998bbf73a2fcd3793eba3689bd9bd60c87b1d77f8f32b420"
+      "sha256": "96f9d93849955395c1c472ffa8265f46bb140c6a5dc4eddfbb90a9b825d2142b"
     },
     {
       "artifact_id": "ART-233",
       "path": "scripts/validate-process-event-log.mjs",
-      "sha256": "49113d14e355c90c41c31a82d6b8319bc79d51e0354bcb5fa0ab9a6d0c6b3613"
+      "sha256": "8e41e77f1f4db8089a149f576c4910042cb87b8801100478b5eaf84154de1121"
     },
     {
       "artifact_id": "ART-234",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "d46593c97f434cf61d503d6f54ee8fa19c3017d04784ae1fa713160c22ea4ed0"
+      "sha256": "2f03e6659f0aef081660145ca224f8a8dd6d417132bbaca3ca727cdfc5f8d5c9"
     },
     {
       "artifact_id": "ART-330",
@@ -1982,7 +1982,7 @@
     {
       "artifact_id": "ART-397",
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
-      "sha256": "0f0afb83e27b90fbfed303da49b03df184f9280b7c1b152e010d4c6b3fe64418"
+      "sha256": "924dfd83c55f5323f78db47a73129a3f28823a57611de7270c4b07b5ceda0fa3"
     },
     {
       "artifact_id": "ART-398",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "b3fc13455c0470871c3b56d8ee24232ddef092013ed77d69a0cb01da3bb55942"
+      "sha256": "8acaca774d3e042d5f98ccb39d66a64acde63cee2fe73c1ee15c34920c4508c6"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "6dd3e5151fc9e24cf32efde60ac6a2eb14456fa702f160e1567b88d9f1f11d52"
+      "sha256": "33907a864a2b5779dc97468309db782d30f6fe7c92435521ed32eb07203ebc54"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "c8d6a7e4c797af4ea030760dd4cb8f78701518b0956b8843152c161dd9ef5eb2"
+      "sha256": "453b2a0780ce4b82cd46e557f706805b89c4f8947d9035e1a1e871e34750f610"
     },
     {
       "artifact_id": "ART-412",
@@ -2147,7 +2147,7 @@
     {
       "artifact_id": "ART-430",
       "path": "docs/product/requirements/non-functional-requirements.md",
-      "sha256": "20842cbd5172f046ff01cc1d346b66bc15af89c59b38c8e5ded2128d896fc681"
+      "sha256": "4fcca208437fbfb92bb720a6cd09481991a8908310da21e07f3cf30775456efc"
     },
     {
       "artifact_id": "ART-431",
@@ -2268,6 +2268,326 @@
       "artifact_id": "ART-454",
       "path": "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
       "sha256": "441479b5965cb64b2062fa30c73af656eaffdf673b44e425f88000f11b482e7b"
+    },
+    {
+      "artifact_id": "ART-455",
+      "path": "schemas/interview-session.schema.json",
+      "sha256": "9d488a87d75d4914d760386e3a260d9681cfa9fadb01e78dd2f2bb3e1fd616a9"
+    },
+    {
+      "artifact_id": "ART-456",
+      "path": "schemas/interview-answer-set.schema.json",
+      "sha256": "8e0e7490420205dfb6f5d10d0860c955e698d133f722c69ab9e57c9ed3b486cb"
+    },
+    {
+      "artifact_id": "ART-457",
+      "path": "schemas/ba-spec.schema.json",
+      "sha256": "25705d9868461c0010e4483e629b7834b742f5dc16e60f5cc2198c7b507da69d"
+    },
+    {
+      "artifact_id": "ART-458",
+      "path": "schemas/sa-spec.schema.json",
+      "sha256": "1ef588d5474516830f34af525bbf3a51b36d3c615b72ec6cccbdd0fa3086dbdc"
+    },
+    {
+      "artifact_id": "ART-459",
+      "path": "schemas/product-change-order.schema.json",
+      "sha256": "96ce64229d80864ec8443d9233a2e1c5e56fb966340d3d19e6ee0c96f2ce343f"
+    },
+    {
+      "artifact_id": "ART-460",
+      "path": "schemas/change-impact-assessment.schema.json",
+      "sha256": "bbec97b6f3ed423417fe139f3d754d1573c16fdde1109e4cd5c1aedea499a51e"
+    },
+    {
+      "artifact_id": "ART-461",
+      "path": "schemas/interview-derived-coverage.schema.json",
+      "sha256": "a1bb9a3421f19744631648b57860b24d70e09ac4c245376a8c56409fb6dbacba"
+    },
+    {
+      "artifact_id": "ART-462",
+      "path": "schemas/generated-spec-package-manifest.schema.json",
+      "sha256": "397e0dbb27784d2c2f5947e693b6633761dc7e2f55e2b6d819481513e0257e17"
+    },
+    {
+      "artifact_id": "ART-463",
+      "path": "schemas/feature-spec.schema.json",
+      "sha256": "9e99214a05fa528645d3950cd954b5debf0fb50eb20d22b35acf7d23862661a6"
+    },
+    {
+      "artifact_id": "ART-464",
+      "path": "schemas/task-spec.schema.json",
+      "sha256": "b22108fa3f9b5504ee556579f055294dff1c765ed29c06ac19d552662e387471"
+    },
+    {
+      "artifact_id": "ART-465",
+      "path": "schemas/agent-prompt-spec.schema.json",
+      "sha256": "473b6e1e4b2bf00c5b87ece10a2915a85753ecc1f1214ecfc62b8be564eb270c"
+    },
+    {
+      "artifact_id": "ART-466",
+      "path": "scripts/validate-ba-sa-artifacts.mjs",
+      "sha256": "966fb484033aaccf96557f77297b67f4066b38e4a8e219519662959994e6e006"
+    },
+    {
+      "artifact_id": "ART-467",
+      "path": "docs/product/interviews/ba-sa/README.md",
+      "sha256": "8d96e5c1ec501293938cdd8308b8280028523e411764dcdf18828d6a1095d186"
+    },
+    {
+      "artifact_id": "ART-468",
+      "path": "docs/product/interviews/ba-sa/interview-protocol.md",
+      "sha256": "927951114c87b18c3153b3261caa51f652107a5a4e907cd92d57f5ee062204a9"
+    },
+    {
+      "artifact_id": "ART-469",
+      "path": "docs/product/interviews/ba-sa/question-bank.json",
+      "sha256": "2570f1a86f453f407a7921594f6837d7a84cdc35b2eec2340d2dcec1729a5455"
+    },
+    {
+      "artifact_id": "ART-470",
+      "path": "docs/product/interviews/ba-sa/active-interview-runtime-state.json",
+      "sha256": "706ae7a16c0d4365c1a168deccdd55c152c64a799675b55c66f8311f4ed7d552"
+    },
+    {
+      "artifact_id": "ART-471",
+      "path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+      "sha256": "8065a16abc78bfb5d3326fdd807f665d4fce420d98384c603d1f357718a5d440"
+    },
+    {
+      "artifact_id": "ART-472",
+      "path": "docs/product/interviews/ba-sa/interview-results.json",
+      "sha256": "1f857438f66cb832a6bedec72de984b4439715dad19a0d9436a3367f171690c9"
+    },
+    {
+      "artifact_id": "ART-473",
+      "path": "docs/product/interviews/ba-sa/evidence-requests.md",
+      "sha256": "a136abe772616641c463b38f89198fdc7c9a1bbd810594946703fd9d42289fe2"
+    },
+    {
+      "artifact_id": "ART-474",
+      "path": "docs/product/interviews/ba-sa/decision-log.md",
+      "sha256": "a93706528e0b1f8a4dfcaf8bb04df69d7f71062a027a70758bd42a316bba3cf4"
+    },
+    {
+      "artifact_id": "ART-475",
+      "path": "docs/product/interviews/ba-sa/open-questions.md",
+      "sha256": "89c8ef8316613fb5712757a07b9dcffcc2b08906adc9b9bae76a8d0dcf406a2b"
+    },
+    {
+      "artifact_id": "ART-476",
+      "path": "docs/product/analysis/README.md",
+      "sha256": "0ab1099b9bf45e6c2c677ac336d2fb5e0c8efe79caee03fd12f0adf199ec5bac"
+    },
+    {
+      "artifact_id": "ART-477",
+      "path": "docs/product/analysis/ba/ba-spec.json",
+      "sha256": "caa0990c0d55d23fb8962dc6e7d202bcb92adeec6114649ed840ceca557bfbce"
+    },
+    {
+      "artifact_id": "ART-478",
+      "path": "docs/product/analysis/ba/stakeholder-register.json",
+      "sha256": "100a2c28b06727eb2780785776ea81cbd2307483ae590393bc23e9e4677f7b26"
+    },
+    {
+      "artifact_id": "ART-479",
+      "path": "docs/product/analysis/ba/stakeholder-register.md",
+      "sha256": "bca1e7d2fc42c7ac7366441354dcc7e16cb8ab3c9e6b5aedde7c7bae8511d68c"
+    },
+    {
+      "artifact_id": "ART-480",
+      "path": "docs/product/analysis/ba/business-needs.json",
+      "sha256": "e6273250fa7ef8e069a74419db1c2773ae6d3c6157b0b75b14b05c73eeb26483"
+    },
+    {
+      "artifact_id": "ART-481",
+      "path": "docs/product/analysis/ba/business-needs.md",
+      "sha256": "fc7efa15d570a4de825de72af0d810dc29f4306d2991d2202bd1fa3f4871da57"
+    },
+    {
+      "artifact_id": "ART-482",
+      "path": "docs/product/analysis/ba/business-rules.json",
+      "sha256": "59ff3a81b81f4495df63f4041b2abd1c0e154aa6b9b611b447116698387c8144"
+    },
+    {
+      "artifact_id": "ART-483",
+      "path": "docs/product/analysis/ba/business-rules.md",
+      "sha256": "73226b69c3fc2e4795ae4dcd2e5c03c3367abe73cd751a244cffcbe59a2375b9"
+    },
+    {
+      "artifact_id": "ART-484",
+      "path": "docs/product/analysis/ba/business-requirements-delta.md",
+      "sha256": "bc1e0e5f006cd8aaaeb5d7e3168fc1bcc155276a610ff42e0a9e3d2da5fe7f76"
+    },
+    {
+      "artifact_id": "ART-485",
+      "path": "docs/product/analysis/ba/acceptance-delta.md",
+      "sha256": "ffc21438b4f3278f3653d2dbdcf5897cd1758bfb845977d37af2b72a7fbd0bf4"
+    },
+    {
+      "artifact_id": "ART-486",
+      "path": "docs/product/analysis/ba/open-decisions-ledger.md",
+      "sha256": "ea5d3f1311ddce57b08c22fae0420450e1382e263b5c8ae961560b17652b8ec2"
+    },
+    {
+      "artifact_id": "ART-487",
+      "path": "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "sha256": "050f836154bd5c3e90aa1a8270accd7154bc8d0c0d0edb1f225b10dddfce2ad5"
+    },
+    {
+      "artifact_id": "ART-488",
+      "path": "docs/product/change-orders/README.md",
+      "sha256": "beddb5909914ef3896352f2cc37ac8a7682feedc9190cd3c3dd735b558b627e6"
+    },
+    {
+      "artifact_id": "ART-489",
+      "path": "docs/product/change-orders/product-change-order-template.md",
+      "sha256": "451b7581c4a647a18a25386be202c6194f3d3f7184baf902940c6b9695a7a47b"
+    },
+    {
+      "artifact_id": "ART-490",
+      "path": "docs/product/change-orders/product-change-order-ledger.json",
+      "sha256": "7f341fe772ac9573eff750e80a77cb849c4f4ac11d206305df970d2211152257"
+    },
+    {
+      "artifact_id": "ART-491",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "sha256": "b37ec038c710e98e5bf6de9318e15d37058c7131ded1a3b6f35119fe34260628"
+    },
+    {
+      "artifact_id": "ART-492",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "sha256": "a3c3ed79421fe7d81bf271349221c1fc8aab9fa4aa22c1ed73f5532c9ee43dcf"
+    },
+    {
+      "artifact_id": "ART-493",
+      "path": "docs/product/change-orders/change-impact-assessment.json",
+      "sha256": "d4d922a4958b136b6f0770c4a5c5d2a46d8124d03300eec69c2af3fef3945c88"
+    },
+    {
+      "artifact_id": "ART-494",
+      "path": "docs/product/specs/README.md",
+      "sha256": "0922cf71addfbc9224b53a64cee9aadc1e7d447a6f59406740fc3f2d4625be11"
+    },
+    {
+      "artifact_id": "ART-495",
+      "path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "sha256": "c414222c2ed2f1de152b9752292252f29917e5606ac0a69109f66914e82f2f93"
+    },
+    {
+      "artifact_id": "ART-496",
+      "path": "docs/product/specs/task-spec-a2a-launch.json",
+      "sha256": "6a54efaf3774516011e11c7233b71f1843c33dcf84224e535b28cb3391c25c9f"
+    },
+    {
+      "artifact_id": "ART-497",
+      "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+      "sha256": "464ddf13635377434f5c5a3fa9b17d7a28594184572a2a17f42893fa86ecfea3"
+    },
+    {
+      "artifact_id": "ART-498",
+      "path": "docs/product/specs/interview-to-spec-trace.json",
+      "sha256": "74d5a28d7fb8133fe110d0a950628c1d9718c88f4bd546d8a2cd75338019fb44"
+    },
+    {
+      "artifact_id": "ART-499",
+      "path": "docs/product/specs/generated-spec-package-manifest.json",
+      "sha256": "47cf95420efd7fa91e79fb4733b249966975da6cfb2be53d62892aa01fba44dd"
+    },
+    {
+      "artifact_id": "ART-500",
+      "path": "docs/architecture/system-analysis/README.md",
+      "sha256": "6bbd6ab335d6ac1cde8775ffcfb19e15588d32869d1bc3fbe9393cc6d859c994"
+    },
+    {
+      "artifact_id": "ART-501",
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "sha256": "c54340024028978ceb464961512706d53cd534055dae44c4305250cc31043d12"
+    },
+    {
+      "artifact_id": "ART-502",
+      "path": "docs/architecture/system-analysis/srs-v0.1.json",
+      "sha256": "dda8af0b8231260591400662bc26d52231a4974817db893cd284701405bbcba6"
+    },
+    {
+      "artifact_id": "ART-503",
+      "path": "docs/architecture/system-analysis/srs-v0.1.md",
+      "sha256": "524941f05eae3093ebdb2bdbba786dcd1c0cd603ff4a59cf6c292e30c87f6047"
+    },
+    {
+      "artifact_id": "ART-504",
+      "path": "docs/architecture/system-analysis/datacanvas-interface-control.md",
+      "sha256": "972b667a1bf3df791a870c2ac3f12a0bd604768290a1f096f903921c8cc470cc"
+    },
+    {
+      "artifact_id": "ART-505",
+      "path": "docs/architecture/system-analysis/data-contract-map.md",
+      "sha256": "49a48d56d36ab91a6cdf64f5251d933e858b44eae468196e48cad8599871b4d1"
+    },
+    {
+      "artifact_id": "ART-506",
+      "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+      "sha256": "b828794f71311b4d260b216b44e4a055ee3ce0897c511e3f6b17ceeb0f852392"
+    },
+    {
+      "artifact_id": "ART-507",
+      "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "sha256": "440422bc7f702e5356299ab28e4f6da9351a43ed050f93baac5a6f243190d0c1"
+    },
+    {
+      "artifact_id": "ART-508",
+      "path": "docs/architecture/system-analysis/error-taxonomy.json",
+      "sha256": "7420b90ef5f5d01862a1d3be1aa20847b80fffd5d3fff545a8bf3402f096848c"
+    },
+    {
+      "artifact_id": "ART-509",
+      "path": "docs/architecture/system-analysis/error-taxonomy.md",
+      "sha256": "45547ced66c51e0dce57985f16ca5012894307215fdff5c2d4155e7ecb57b1b9"
+    },
+    {
+      "artifact_id": "ART-510",
+      "path": "docs/architecture/security/integration-boundary-matrix.json",
+      "sha256": "19def05bf96ca762dc1eea67edf826d97b879d6228776e5b777843d1724309c0"
+    },
+    {
+      "artifact_id": "ART-511",
+      "path": "docs/architecture/security/integration-boundary-matrix.md",
+      "sha256": "08301be6297dd15239153a8a0eb3cef1834c1ba15dd3e7088d53e93b959e0002"
+    },
+    {
+      "artifact_id": "ART-512",
+      "path": "docs/architecture/observability/process-run-ledger.json",
+      "sha256": "f18753a8a419fdf272c2dd27abb03767d0044a3edd59b1b57243264d24a07204"
+    },
+    {
+      "artifact_id": "ART-513",
+      "path": "docs/process/change-requests/PROC-037-governed-ba-sa-discovery-loop.md",
+      "sha256": "8e4734503cde3f12162b1aac788580261f83088551196a9008a4d611f4604e73"
+    },
+    {
+      "artifact_id": "ART-514",
+      "path": "tests/evals/ba-sa-eval-cases.json",
+      "sha256": "6634c2af827968721bff3bf08dbbde652b08a91e9ca8b74570d01be4044ea681"
+    },
+    {
+      "artifact_id": "ART-515",
+      "path": "tests/fixtures/ba-sa-answers-minimal.json",
+      "sha256": "7276cc3e391bbe9904d3a544d7311bc5e2d4a37392d7df8dbaa45b167b571953"
+    },
+    {
+      "artifact_id": "ART-516",
+      "path": "tests/fixtures/ba-sa-insufficient-input.json",
+      "sha256": "9bce944d9a0a98bcdbea64112f803e31c63c512284c357fc256d782e220484e6"
+    },
+    {
+      "artifact_id": "ART-517",
+      "path": "tests/fixtures/ba-sa-unconfirmed-channel.json",
+      "sha256": "88973bf6c9316bfc99617c9756a2939dec3f46937ad09d2b291d99d263c2c662"
+    },
+    {
+      "artifact_id": "ART-518",
+      "path": "tests/fixtures/ba-sa-conflicting-sources.json",
+      "sha256": "abffeee999624518518a113b9c7b173adb7313c9e65e004b394b63542876480f"
     }
   ],
   "exclusions": [

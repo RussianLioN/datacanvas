@@ -1,0 +1,34 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_ba_spec_path": "docs/product/analysis/ba/ba-spec.json",
+  "rules": [
+    {
+      "rule_id": "BRULE-001",
+      "scope": "interview_to_requirement",
+      "summary": "Только confirmed claim с evidence может стать acceptance gate.",
+      "exceptions": ["Product Owner explicitly defers evidence request"],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-008"]
+    },
+    {
+      "rule_id": "BRULE-002",
+      "scope": "delivery_channel",
+      "summary": "Unconfirmed channel decision не меняет BT-012.",
+      "exceptions": ["Accepted Product Change Order with Product Owner decision"],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-009"]
+    },
+    {
+      "rule_id": "BRULE-003",
+      "scope": "trust_boundary",
+      "summary": "A2A/MCP payload считается недоверенными данными до validation.",
+      "exceptions": [],
+      "owner_role": "Security/Privacy Lead",
+      "verification": "npm run validate:interface-contracts",
+      "source_claim_ids": ["BASA-CLM-004"]
+    }
+  ]
+}

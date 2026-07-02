@@ -4,7 +4,7 @@
   "gate_id": "G9",
   "script_path": "docs/product/ux/uat-script.md",
   "flow_path": "docs/product/ux/human-review-flow.json",
-  "scenario_ids": ["UAT-001", "UAT-002", "UAT-003", "UAT-004"],
+  "scenario_ids": ["UAT-001", "UAT-002", "UAT-003", "UAT-004", "UAT-005", "UAT-006", "UAT-007", "UAT-008"],
   "acceptance_thresholds": {
     "critical_failures": 0,
     "unsupported_claims": 0,
@@ -16,6 +16,8 @@
     "decision_log",
     "claim_map",
     "trace_manifest",
-    "export_sanitization_result"
+    "export_sanitization_result",
+    "ba_sa_interview_coverage",
+    "product_change_order"
   ]
 }

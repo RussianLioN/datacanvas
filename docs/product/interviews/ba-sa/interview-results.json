@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "status": "prepared_baseline",
+  "interview_id": "BA-SA-INT-2026-001",
+  "session_id": "BA-SA-RUN-2026-001",
+  "answer_set_path": "docs/product/interviews/ba-sa/interview-answer-set.json",
+  "summary": "Baseline фиксирует governed BA/SA discovery flow для A2A-first Product Change Order без использования сырых ответов как требований.",
+  "confirmed_claim_ids": [
+    "BASA-CLM-001",
+    "BASA-CLM-002",
+    "BASA-CLM-003",
+    "BASA-CLM-004",
+    "BASA-CLM-005",
+    "BASA-CLM-006",
+    "BASA-CLM-007",
+    "BASA-CLM-008"
+  ],
+  "unconfirmed_claim_ids": ["BASA-CLM-009"],
+  "assumption_claim_ids": ["BASA-CLM-010"],
+  "contradicted_claim_ids": [],
+  "generated_ba_spec_path": "docs/product/analysis/ba/ba-spec.json",
+  "generated_sa_spec_path": "docs/architecture/system-analysis/sa-spec.json",
+  "change_order_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+  "next_safe_step": "Проверить BA/SA validators и не продвигать unconfirmed channel decision в acceptance gate."
+}

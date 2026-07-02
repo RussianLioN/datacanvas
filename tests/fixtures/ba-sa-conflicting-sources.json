@@ -1,0 +1,13 @@
+{
+  "fixture_id": "BASA-FIX-004",
+  "description": "Conflict with current product artifacts creates open decision instead of source overwrite.",
+  "conflict": {
+    "incoming_claim": "Replace Lisa launch with A2A launch only.",
+    "current_source": "docs/product/requirements/business-requirements.md",
+    "decision": "open_decision"
+  },
+  "expected": {
+    "open_decision_id": "BASA-OQ-001",
+    "source_overwritten": false
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "states": [
+    {
+      "state_id": "STATE-001",
+      "name": "intake",
+      "entry_condition": "Request received.",
+      "exit_condition": "Input envelope captured with data class."
+    },
+    {
+      "state_id": "STATE-002",
+      "name": "validation",
+      "entry_condition": "Input envelope exists.",
+      "exit_condition": "Schema and trust checks passed or blocked."
+    },
+    {
+      "state_id": "STATE-003",
+      "name": "clarification",
+      "entry_condition": "Input is insufficient or contradictory.",
+      "exit_condition": "Clarification answered or open decision recorded."
+    },
+    {
+      "state_id": "STATE-004",
+      "name": "normalization",
+      "entry_condition": "Validated input exists.",
+      "exit_condition": "Normalized facts and claim map generated."
+    },
+    {
+      "state_id": "STATE-005",
+      "name": "description",
+      "entry_condition": "Normalized facts exist.",
+      "exit_condition": "Description draft created from supported facts."
+    },
+    {
+      "state_id": "STATE-006",
+      "name": "approval",
+      "entry_condition": "Description draft exists.",
+      "exit_condition": "Human approval decision recorded."
+    },
+    {
+      "state_id": "STATE-007",
+      "name": "render_export",
+      "entry_condition": "Approved PresentationSpec exists.",
+      "exit_condition": "Sanitized export evidence exists."
+    },
+    {
+      "state_id": "STATE-008",
+      "name": "delivery_acceptance",
+      "entry_condition": "Export exists and channel decision is accepted.",
+      "exit_condition": "Delivery status and acceptance evidence recorded."
+    }
+  ]
+}

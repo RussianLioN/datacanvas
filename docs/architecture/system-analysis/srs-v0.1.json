@@ -1,0 +1,17 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "purpose": "Define the BA/SA interview-driven artifact factory and A2A-first change-order readiness boundary.",
+  "scope": "Documentation, schemas, validators and offline evidence only.",
+  "actors": ["Product Owner", "Process Owner", "Security/Privacy Lead", "Development Team", "upstream agent"],
+  "system_context": "DataCanvas keeps business sources, technical contracts, schemas, scripts and generated artifacts separated.",
+  "assumptions": ["A2A-first is a draft Product Change Order until Product Owner acceptance."],
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/product/change-orders/co-2026-001-a2a-first-priority.json"],
+  "functional_requirements": ["BT-005-DELTA", "BT-006-DELTA"],
+  "external_interfaces": ["IF-001", "IF-002", "IF-003", "IF-004", "IF-005"],
+  "data_requirements": ["safe_summary", "trust_status", "data_class", "allowed_downstream_use"],
+  "state_model_path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+  "error_taxonomy_path": "docs/architecture/system-analysis/error-taxonomy.json",
+  "nfr_ids": ["NFR-001", "NFR-002", "NFR-003", "NFR-004", "NFR-005"],
+  "verification_method": "npm run validate:sa-spec"
+}

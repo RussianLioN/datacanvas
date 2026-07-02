@@ -1,0 +1,35 @@
+{
+  "id": "CO-2026-001",
+  "title": "A2A-first priority for presentation launch",
+  "status": "draft",
+  "source": "docs/product/interviews/ba-sa/interview-results.json",
+  "reason": "A2A launch changes the primary launch channel and therefore needs explicit product impact review instead of a simple backlog reorder.",
+  "priority_before": ["Lisa launch", "A2A launch"],
+  "priority_after": ["A2A launch", "Lisa launch"],
+  "affected_users": ["Product Owner", "operator", "upstream agent"],
+  "affected_artifacts": [
+    "docs/product/analysis/ba/ba-spec.json",
+    "docs/architecture/system-analysis/sa-spec.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/architecture/security/integration-boundary-matrix.json"
+  ],
+  "affected_requirements": ["BT-005", "BT-006", "BT-012", "BT-014", "NFR-003"],
+  "affected_ports_adapters": ["A2A input envelope", "status/callback adapter", "Lisa launch adapter", "evidence storage"],
+  "adr_impact": "Нужен ADR перед live A2A/MCP/provider enablement; текущий draft не расширяет runtime boundary.",
+  "sprint_impact": "Требует Sprint Goal test и trade-off review до включения в Sprint scope.",
+  "sprint_goal_test": "Если A2A-first не поддерживает текущий Sprint Goal, Product Owner выбирает scope trade-off или replanning.",
+  "product_owner_decision": {
+    "decision": "deferred",
+    "decided_by_role": "Product Owner",
+    "decided_at": "2026-07-02T00:00:00Z",
+    "rationale": "Это пример Change Order из плана; canonical priority не меняется до явного Product Owner acceptance."
+  },
+  "rollback": "Вернуть priority order к Lisa launch first, удалить generated spec package draft и повторить BA/SA validators.",
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:spec-task-prompt-readiness",
+    "npm run validate:data-leakage"
+  ],
+  "impact_assessment_path": "docs/product/change-orders/change-impact-assessment.json"
+}

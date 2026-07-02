@@ -1,0 +1,9 @@
+{
+  "fixture_id": "BASA-FIX-001",
+  "description": "Minimal confirmed answer set for A2A-first launch readiness.",
+  "answer_ids": ["BASA-ANS-004", "BASA-ANS-005", "BASA-ANS-007"],
+  "expected": {
+    "promoted_claims": ["BASA-CLM-003", "BASA-CLM-004", "BASA-CLM-005"],
+    "blocked_claims": []
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "task_id": "TSK-001",
+  "status": "draft",
+  "feature_id": "FS-001",
+  "priority": "P1",
+  "owned_paths": [
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/product/specs/task-spec-a2a-launch.json",
+    "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+    "docs/product/specs/interview-to-spec-trace.json"
+  ],
+  "allowed_edit_scope": "Spec package and validators only; no live runtime, network, MCP, provider or tool allowlist expansion.",
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json"],
+  "done_when": [
+    "FeatureSpec references only confirmed claims",
+    "TaskSpec has eval cases and validation commands",
+    "AgentPromptSpec has no raw transcript"
+  ],
+  "rollback_or_forward_fix": "Revert spec package draft and rerun validate:spec-task-prompt-readiness.",
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness"],
+  "eval_cases": ["BASA-EVAL-001", "BASA-EVAL-002", "BASA-EVAL-003"]
+}

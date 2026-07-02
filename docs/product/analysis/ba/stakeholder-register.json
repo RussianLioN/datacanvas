@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_ba_spec_path": "docs/product/analysis/ba/ba-spec.json",
+  "stakeholders": [
+    {
+      "stakeholder_id": "STK-001",
+      "role": "Product Owner",
+      "interest": "Управляемое изменение приоритета и прозрачный product impact.",
+      "pain": "Изменение канала запуска может выглядеть как простая перестановка backlog без impact map.",
+      "decision_right": "Product Change Order",
+      "raci": "A",
+      "interview_status": "prepared_baseline"
+    },
+    {
+      "stakeholder_id": "STK-002",
+      "role": "Security/Privacy Lead",
+      "interest": "Не расширять trust boundaries без решения.",
+      "pain": "Внешний payload может быть ошибочно принят как инструкция.",
+      "decision_right": "Security review",
+      "raci": "C",
+      "interview_status": "prepared_baseline"
+    }
+  ]
+}

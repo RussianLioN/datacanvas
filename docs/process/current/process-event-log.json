@@ -53,6 +53,51 @@
       "id": "EVT-DECISION-ACCEPTED",
       "name": "Decision accepted",
       "required_for_metrics": ["MET-007"]
+    },
+    {
+      "id": "EVT-INTERVIEW-STARTED",
+      "name": "BA/SA interview started",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-INTERVIEW-SUMMARIZED",
+      "name": "Interview safe summary created",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-EVIDENCE-REQUESTED",
+      "name": "Evidence request created",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-EVIDENCE-DECIDED",
+      "name": "Evidence request decided",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-REFINEMENT-DECIDED",
+      "name": "Refinement outcome decided",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-DOR-READY",
+      "name": "Item reached Definition of Ready",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-GENERATOR-RUN",
+      "name": "Generator run recorded",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-VALIDATION-RUN",
+      "name": "Validation run recorded",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-ROLLBACK-SIGNAL",
+      "name": "Rollback signal recorded",
+      "required_for_metrics": []
     }
   ],
   "events": [],

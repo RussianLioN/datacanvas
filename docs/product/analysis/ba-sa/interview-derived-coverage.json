@@ -1,0 +1,54 @@
+{
+  "version": "0.1.0",
+  "status": "draft",
+  "source_interview_id": "BA-SA-INT-2026-001",
+  "coverage_links": [
+    {
+      "answer_id": "BASA-ANS-004",
+      "claim_id": "BASA-CLM-003",
+      "requirement_id": "BT-005-DELTA",
+      "acceptance_id": "AC-BASA-001",
+      "uat_id": "UAT-005",
+      "eval_id": "BASA-EVAL-001",
+      "fixture_id": "BASA-FIX-001",
+      "gate": "npm run validate:spec-task-prompt-readiness",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-007",
+      "claim_id": "BASA-CLM-005",
+      "requirement_id": "BT-006-DELTA",
+      "acceptance_id": "AC-BASA-002",
+      "uat_id": "UAT-006",
+      "eval_id": "BASA-EVAL-002",
+      "fixture_id": "BASA-FIX-002",
+      "gate": "npm run validate:ba-sa-interview",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-005",
+      "claim_id": "BASA-CLM-004",
+      "requirement_id": "NFR-003-DELTA",
+      "acceptance_id": "AC-BASA-003",
+      "uat_id": "UAT-007",
+      "eval_id": "BASA-EVAL-003",
+      "fixture_id": "BASA-FIX-003",
+      "gate": "npm run validate:data-leakage",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-009",
+      "requirement_id": "BT-012-DELTA",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-008",
+      "eval_id": "BASA-EVAL-004",
+      "fixture_id": "BASA-FIX-004",
+      "gate": "npm run validate:change-impact",
+      "status": "deferred"
+    }
+  ],
+  "known_gaps": [
+    "BASA-CLM-009 остается unconfirmed и не может стать acceptance gate до Product Owner channel decision."
+  ]
+}
