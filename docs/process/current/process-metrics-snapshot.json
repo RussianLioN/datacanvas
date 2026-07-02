@@ -15,8 +15,8 @@
     "sprint_evidence_manifests": 67,
     "artifact_registry_entries": 604,
     "accepted_process_changes": 3,
-    "passed_evidence_checks": 521,
-    "pending_evidence_checks": 3,
+    "passed_evidence_checks": 535,
+    "pending_evidence_checks": 0,
     "quality_gates_passed": 6,
     "quality_gates_pending_external": 0,
     "process_events": 0
@@ -52,7 +52,7 @@
     {
       "id": "DPM-004",
       "name": "Evidence check pass ratio",
-      "value": "521/524",
+      "value": "535/535",
       "calculation": "passed sprint evidence checks / all sprint evidence checks",
       "evidence_paths": [
         "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
