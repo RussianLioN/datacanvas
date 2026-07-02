@@ -7,7 +7,7 @@
     {
       "artifact_id": "ART-001",
       "path": "docs/process/current/process-passport.md",
-      "sha256": "16d42cde9cdc88f56b433a090bbdfabaed9aadb0a9a071b6e8225e131513c02b"
+      "sha256": "ac86567caf7c74b812eac2f3622d2e90ba98c7bd78eec14aac94dddc326d327d"
     },
     {
       "artifact_id": "ART-002",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "89b873a55f258fa72fa4bd19cb8ee3ec2ced3957e9e9fd6e0224b1e151dac491"
+      "sha256": "c632cc60aa90e1e0ff1895446e6cf34744a8a5eda09ce4a9009087b02c8fe5b7"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "59f458152e3f81b94fda08898aaff6bb6220b579fbac07cfea4736f3515c3ba8"
+      "sha256": "9770912747e018f7ba30f826979d231259571b709a93bb8e13b886bce312f8f8"
     },
     {
       "artifact_id": "ART-201",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "bbdcf458c2d9fe93058294ff0249b288006a648721c44c36c7c6056188644d79"
+      "sha256": "a711a8370d092c306dbb1b7a50ef5df2351b0e4b7d4a5b0f61b47019d7c993d5"
     },
     {
       "artifact_id": "ART-330",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "b0fdf5794fa5e6b87b989cb106b912a7cc1eb26f78211ccc18f1999859872b5f"
+      "sha256": "5d621e96c302651e44889d19326f53081a45242dcdbc860de924a786701b96dd"
     },
     {
       "artifact_id": "ART-400",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "857eec1e73a9b43c3a3ff9e06ce9a13340c9f648b5be2012bb07741e97a7949a"
+      "sha256": "8d2b4273885c98c3eb13f01c925c2f30f6b9181b600396b220ceaf57f79e3ffa"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "87365ff648ae811c7b711f5b13878d8a0de6fbf9803d736f298107ce3b794619"
+      "sha256": "a05810f19df073da80d03ad3ebb3732371d2bad389ab24d379a52b83e60370c3"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "272dd599b02f478cd0686a7dacf3593a8e23ae9df5173d2569f82e12b64862ed"
+      "sha256": "5dbbf014fb13f3646dabe86b443e8779c431de6c22ee2206e4e934243dcaecbb"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "d79a74dd1dc16a4d4c160b5cf7a948d2543dcd6b9056f7542268969e45b51d7b"
+      "sha256": "3126df299454320ca4efdff27fa0096fbbfffd7c6a0f8fe4069a985fd200d901"
     },
     {
       "artifact_id": "ART-412",
@@ -2347,7 +2347,7 @@
     {
       "artifact_id": "ART-470",
       "path": "docs/product/interviews/ba-sa/active-interview-runtime-state.json",
-      "sha256": "706ae7a16c0d4365c1a168deccdd55c152c64a799675b55c66f8311f4ed7d552"
+      "sha256": "a055467b55dbb1c3d10d908cc563ee73b084ce5f51a9f2ca76c51d6dfb3ca74d"
     },
     {
       "artifact_id": "ART-471",
@@ -2837,7 +2837,42 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "fa15c642de27444217c0b5438e73190261e0d6e3b6134f200cf70e3cfbd0d29d"
+      "sha256": "d7ab24a75b54cdb5079aa99106788bbe456d24f2cc8456efdd26ef56c09cda54"
+    },
+    {
+      "artifact_id": "ART-569",
+      "path": "docs/process/methodology/README.md",
+      "sha256": "c494f1670cb7c071c730c91f0c87fc4045366a5d1c12fc2d9e51389112cbe66b"
+    },
+    {
+      "artifact_id": "ART-570",
+      "path": "docs/process/methodology/babok-research-source.md",
+      "sha256": "4f44cd70e8bdb65171b2f33a34ee9c1b3cc2e94ec362b940ffb78219ed6cfe0f"
+    },
+    {
+      "artifact_id": "ART-571",
+      "path": "docs/process/methodology/project-documentation-methodology.md",
+      "sha256": "07f381b30ae0614dd1b0f36c7001b9c324023246135cd705dd511136392c22b2"
+    },
+    {
+      "artifact_id": "ART-572",
+      "path": "docs/process/methodology/documentation-methodology-policy.json",
+      "sha256": "02904b047aed077492b1ad76aaa6f9af9475f5125df1508faa16a1dfec9e6d5d"
+    },
+    {
+      "artifact_id": "ART-573",
+      "path": "schemas/documentation-methodology-policy.schema.json",
+      "sha256": "4dc19e9221977d6f327ece901cccedef8594fc54ff31c22252e46d9e6ffcc895"
+    },
+    {
+      "artifact_id": "ART-574",
+      "path": "scripts/validate-documentation-methodology.mjs",
+      "sha256": "5f89e2541c9b933f7b8adb4f6ad801e2715dbb30a2a81dfc8a45c13cfd0dbaf7"
+    },
+    {
+      "artifact_id": "ART-575",
+      "path": "docs/process/methodology/babok-methodology-mva-implementation-plan.md",
+      "sha256": "e839c4dd9193871432f503b5e1250ad5b881806a9f466625d88bc441115cc263"
     }
   ],
   "exclusions": [

@@ -10,6 +10,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Есть источник требования или решения.
 - Есть acceptance criteria.
 - Понятен способ проверки.
+- Для анализа, требований, backlog или AI-агентных изменений применена методика проектной документации: `docs/process/methodology/project-documentation-methodology.md`.
 - Оценено влияние на безопасность, качество, трассировку и документацию.
 - Для нового или существенно обновленного документа указан docs route: запись в `docs/navigation/navigation-source.json` или explicit ignore с причиной.
 - Для нового бизнесового документа указан `navigation_group: business`, product index route и связь с Vision, BMC, stories, требованиями, backlog, roadmap, hypotheses или traceability.
@@ -23,6 +24,7 @@ Backlog item можно брать в Sprint Backlog только если вы�
 - Указана связь с Vision, BMC, гипотезой или риском.
 - Указано влияние на БТ или НФТ.
 - Требование связано с traceability matrix.
+- Требование не выводится напрямую из backlog: указан upstream business need, business requirement, stakeholder requirement или confirmed interview claim.
 - При opt-in проверке draft `PROC-038` для изменения backlog priority, оценки ПШЕ, квартала или sprint scope указан capacity source либо явно зафиксирован блокирующий внешний ввод; `ReprioritizationImpactReport` не утверждает переносы без решения пользователя.
 - Есть interview evidence или явное решение `интервью не требуется`.
 - Для interview-derived требования указан claim status, owner/date для open question, BA value check, SA contract/security/NFR check.

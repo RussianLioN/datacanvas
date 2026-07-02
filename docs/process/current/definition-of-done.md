@@ -13,6 +13,7 @@
 - Следующий безопасный шаг указан.
 - Если затронута документация, обновлен `docs/navigation/navigation-source.json` или explicit ignore, а docs navigation gate проходит.
 - Если затронута business navigation, root README, docs README и product README сохраняют business-first маршрут, а business docs достижимы из root максимум за 2 перехода.
+- Если работа затрагивает методику документации, lifecycle policy, artifact policy, traceability policy или gates, проходит `npm run validate:documentation-methodology`.
 - Если работа явно заявляет opt-in исполнение draft `PROC-038`, cascade run содержит change request, анализ влияния, очередь решений, список измененных артефактов, no-change rationales, validation results и evidence paths.
 - Для opt-in исполнения draft `PROC-038` все affected artifacts обновлены или имеют confirmed `no-change rationale`; при открытых блокирующих решениях результат остается blocked и не заявляет Done.
 

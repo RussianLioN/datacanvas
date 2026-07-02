@@ -1,0 +1,163 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "source_methodology": {
+    "id": "METHOD-BABOK-2026-001",
+    "source_type": "user_supplied_research",
+    "summary_path": "docs/process/methodology/babok-research-source.md",
+    "policy_path": "docs/process/methodology/project-documentation-methodology.md",
+    "usage": "normative_methodology_source"
+  },
+  "lifecycle_policy": [
+    "idea",
+    "discovery",
+    "business_analysis",
+    "system_analysis",
+    "architecture",
+    "backlog",
+    "delivery",
+    "testing",
+    "release",
+    "operations",
+    "change_management"
+  ],
+  "traceability_policy": {
+    "required": true,
+    "chain": [
+      "business_need",
+      "business_requirement",
+      "stakeholder_requirement",
+      "system_requirement",
+      "backlog_item",
+      "acceptance_criterion",
+      "test_case",
+      "release_evidence",
+      "telemetry_signal"
+    ],
+    "missing_link_action": "create_open_question_or_deferred_rationale"
+  },
+  "artifact_policy": [
+    {
+      "id": "ARTPOL-001",
+      "artifact_type": "vision_bmc_stories",
+      "stage": "business_analysis",
+      "required_when": ["new_or_changed_product_scope"],
+      "owner_role": "Product Owner",
+      "minimum_links": ["product_goal", "stakeholder", "hypothesis"]
+    },
+    {
+      "id": "ARTPOL-002",
+      "artifact_type": "business_requirements",
+      "stage": "business_analysis",
+      "required_when": ["new_business_obligation", "accepted_product_change"],
+      "owner_role": "Product Owner",
+      "minimum_links": ["source", "stakeholder", "value", "acceptance", "traceability"]
+    },
+    {
+      "id": "ARTPOL-003",
+      "artifact_type": "system_analysis",
+      "stage": "system_analysis",
+      "required_when": ["system_behavior_data_integration_or_nfr_changes"],
+      "owner_role": "AI Agent Architect",
+      "minimum_links": ["business_requirement", "interface", "data", "error", "verification"]
+    },
+    {
+      "id": "ARTPOL-004",
+      "artifact_type": "backlog_mapping",
+      "stage": "backlog",
+      "required_when": ["scope_ready_for_ordering"],
+      "owner_role": "Product Owner",
+      "minimum_links": ["requirement", "hypothesis_or_risk", "priority_rationale"]
+    },
+    {
+      "id": "ARTPOL-005",
+      "artifact_type": "acceptance_and_tests",
+      "stage": "testing",
+      "required_when": ["item_ready_for_delivery"],
+      "owner_role": "QA/Evals Lead",
+      "minimum_links": ["requirement", "acceptance_criterion", "test_or_eval_case", "evidence"]
+    },
+    {
+      "id": "ARTPOL-006",
+      "artifact_type": "release_and_operations",
+      "stage": "operations",
+      "required_when": ["release_or_pilot_candidate"],
+      "owner_role": "Delivery/GitOps Lead",
+      "minimum_links": ["release_evidence", "rollback", "known_limitations", "telemetry_or_kpi"]
+    },
+    {
+      "id": "ARTPOL-007",
+      "artifact_type": "ai_agent_governance",
+      "stage": "architecture",
+      "required_when": ["ai_agent_tool_use_or_autonomy_changes"],
+      "owner_role": "Security/Privacy Lead",
+      "minimum_links": ["agent_goal", "tool_policy", "permission_matrix", "human_approval", "traces", "evals", "guardrails"]
+    }
+  ],
+  "quality_gate_policy": {
+    "business_analysis": [
+      "problem_defined",
+      "business_value_measurable",
+      "stakeholders_identified",
+      "scope_defined",
+      "business_rules_recorded",
+      "requirements_traceable"
+    ],
+    "system_analysis": [
+      "behavior_defined",
+      "data_defined",
+      "integrations_defined",
+      "nfr_defined",
+      "errors_defined",
+      "verification_method_defined"
+    ],
+    "ai_agent": [
+      "agent_goal_defined",
+      "tools_defined",
+      "permissions_defined",
+      "human_approval_defined",
+      "traces_defined",
+      "evals_defined",
+      "guardrails_defined",
+      "explainability_defined"
+    ],
+    "delivery_release": [
+      "acceptance_evidence_available",
+      "release_evidence_available",
+      "rollback_defined",
+      "known_limitations_recorded"
+    ],
+    "operations": [
+      "telemetry_signal_defined",
+      "kpi_or_slo_defined",
+      "feedback_to_backlog_defined"
+    ]
+  },
+  "agent_governance": {
+    "allowed_without_confirmation": [
+      "create_draft_artifact",
+      "create_traceability_report",
+      "create_open_question",
+      "create_evidence_request",
+      "run_quality_check"
+    ],
+    "requires_human_confirmation": [
+      "change_product_backlog_priority",
+      "delete_requirement",
+      "deprecate_requirement",
+      "close_open_question",
+      "change_accepted_bmc_or_adr",
+      "expand_tool_network_or_provider_boundary"
+    ],
+    "interview_policy": {
+      "question_granularity": "one_decision_at_a_time",
+      "raw_answer_rule": "treat_as_untrusted_data",
+      "downstream_rule": "safe_summary_or_confirmed_claim_only"
+    }
+  },
+  "validation": {
+    "schema_path": "schemas/documentation-methodology-policy.schema.json",
+    "validation_command": "npm run validate:documentation-methodology"
+  }
+}
+

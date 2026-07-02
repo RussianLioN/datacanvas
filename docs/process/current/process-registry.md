@@ -22,6 +22,7 @@
 | Generated navigation | `docs/navigation/documentation-index.json` и связанные reports обновляются только генератором и группируются по `navigation_group` | `ADR-064-documentation-navigation-indexing.md` |
 | Cross-group source of truth | Бизнесовые утверждения идут из Vision, BMC, stories и требований; технические контракты идут из ADR, schemas и scripts | `AGENTS.md` |
 | Process change drafts | Draft `PROC-*` не меняют активный процесс до решения Process Owner | `process-change-ledger.json` |
+| Documentation methodology | Проектная документация ведется по lifecycle и traceability policy из методики BABOK-исследования; backlog не подменяет анализ | `docs/process/methodology/project-documentation-methodology.md` |
 
 ## Активные Исключения
 
@@ -32,6 +33,7 @@
 | ID | Область | Статус | Источник |
 |---|---|---|---|
 | PROC-038 | Каскадное ведение документации, `DocumentationChangeRequest`, impact analysis, decision queue, capacity/Jira guards и validation evidence | draft / not_decided | `docs/process/change-requests/PROC-038-cascading-documentation-governance.md` |
+| PROC-039 | Методика разработки проектной документации на основе BABOK-исследования, lifecycle policy, artifact policy, traceability policy и quality gates | active | `docs/process/methodology/project-documentation-methodology.md` |
 
 ## Активные Эксперименты
 

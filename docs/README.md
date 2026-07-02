@@ -37,6 +37,7 @@
 | Задача | Стартовый документ | Следующий документ | Владелец | Проверка |
 |---|---|---|---|---|
 | Найти текущий процесс | [Процесс](process/README.md) | [Реестр процесса](process/current/process-registry.md) | Process Owner | `npm run validate:docs-navigation` |
+| Найти методику проектной документации | [Методика проектной документации](process/methodology/README.md) | [Методика ведения документации](process/methodology/project-documentation-methodology.md) | Process Owner | `npm run validate:documentation-methodology` |
 | Открыть карту проекта | [Карта слоев](project-map.md) | [Generated navigation map](navigation/navigation-map.md) | Documentation Owner | `npm run generate:docs-navigation -- --check` |
 | Найти планы | [Планы](plans/README.md) | [Планы навигации](plans/README.md) | Process Owner | `npm run validate:docs-navigation` |
 

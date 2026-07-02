@@ -689,6 +689,10 @@ const cases = [
     data: "docs/navigation/documentation-index.json",
   },
   {
+    schema: "schemas/documentation-methodology-policy.schema.json",
+    data: "docs/process/methodology/documentation-methodology-policy.json",
+  },
+  {
     schema: "schemas/render-result.schema.json",
     data: "artifacts/examples/render-result-minimal.json",
   },

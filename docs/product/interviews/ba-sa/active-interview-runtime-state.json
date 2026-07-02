@@ -2,10 +2,10 @@
   "version": "0.1.0",
   "session_id": "BA-SA-RUN-2026-001",
   "interview_id": "BA-SA-INT-2026-001",
-  "status": "ready_for_confirmation",
+  "status": "paused",
   "mode": "standard",
   "started_at": "2026-07-02T00:00:00Z",
-  "updated_at": "2026-07-02T00:00:00Z",
+  "updated_at": "2026-07-02T19:44:36Z",
   "completed_at": null,
   "current_step": 14,
   "question_bank_path": "docs/product/interviews/ba-sa/question-bank.json",
@@ -43,6 +43,11 @@
       "event_id": "EVT-BA-SA-002",
       "event_type_id": "EVT-EVIDENCE-REQUESTED",
       "artifact_path": "docs/product/interviews/ba-sa/evidence-requests.md"
+    },
+    {
+      "event_id": "EVT-BA-SA-003",
+      "event_type_id": "EVT-INTERVIEW-PAUSED",
+      "artifact_path": "docs/process/current/process-backlog.md"
     }
   ],
   "process_run_id": "PRUN-2026-001"

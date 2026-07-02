@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/documentation-methodology-policy.schema.json",
+  "title": "DocumentationMethodologyPolicy",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "source_methodology",
+    "lifecycle_policy",
+    "traceability_policy",
+    "artifact_policy",
+    "quality_gate_policy",
+    "agent_governance",
+    "validation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "source_methodology": {
+      "type": "object",
+      "required": ["id", "source_type", "summary_path", "policy_path", "usage"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^METHOD-[A-Z0-9-]+$" },
+        "source_type": { "type": "string", "enum": ["user_supplied_research"] },
+        "summary_path": { "$ref": "#/$defs/repoPath" },
+        "policy_path": { "$ref": "#/$defs/repoPath" },
+        "usage": { "type": "string", "enum": ["normative_methodology_source"] }
+      }
+    },
+    "lifecycle_policy": {
+      "type": "array",
+      "minItems": 11,
+      "items": { "$ref": "#/$defs/lifecycleStage" }
+    },
+    "traceability_policy": {
+      "type": "object",
+      "required": ["required", "chain", "missing_link_action"],
+      "additionalProperties": false,
+      "properties": {
+        "required": { "type": "boolean", "const": true },
+        "chain": {
+          "type": "array",
+          "minItems": 9,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "missing_link_action": {
+          "type": "string",
+          "enum": ["create_open_question_or_deferred_rationale"]
+        }
+      }
+    },
+    "artifact_policy": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "artifact_type", "stage", "required_when", "owner_role", "minimum_links"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^ARTPOL-\\d{3}$" },
+          "artifact_type": { "type": "string", "minLength": 1 },
+          "stage": { "$ref": "#/$defs/lifecycleStage" },
+          "required_when": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "minimum_links": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "quality_gate_policy": {
+      "type": "object",
+      "required": ["business_analysis", "system_analysis", "ai_agent", "delivery_release", "operations"],
+      "additionalProperties": false,
+      "properties": {
+        "business_analysis": { "$ref": "#/$defs/checkList" },
+        "system_analysis": { "$ref": "#/$defs/checkList" },
+        "ai_agent": { "$ref": "#/$defs/checkList" },
+        "delivery_release": { "$ref": "#/$defs/checkList" },
+        "operations": { "$ref": "#/$defs/checkList" }
+      }
+    },
+    "agent_governance": {
+      "type": "object",
+      "required": ["allowed_without_confirmation", "requires_human_confirmation", "interview_policy"],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_without_confirmation": { "$ref": "#/$defs/checkList" },
+        "requires_human_confirmation": { "$ref": "#/$defs/checkList" },
+        "interview_policy": {
+          "type": "object",
+          "required": ["question_granularity", "raw_answer_rule", "downstream_rule"],
+          "additionalProperties": false,
+          "properties": {
+            "question_granularity": { "type": "string", "enum": ["one_decision_at_a_time"] },
+            "raw_answer_rule": { "type": "string", "enum": ["treat_as_untrusted_data"] },
+            "downstream_rule": { "type": "string", "enum": ["safe_summary_or_confirmed_claim_only"] }
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["schema_path", "validation_command"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_path": { "type": "string", "const": "schemas/documentation-methodology-policy.schema.json" },
+        "validation_command": { "type": "string", "const": "npm run validate:documentation-methodology" }
+      }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "lifecycleStage": {
+      "type": "string",
+      "enum": [
+        "idea",
+        "discovery",
+        "business_analysis",
+        "system_analysis",
+        "architecture",
+        "backlog",
+        "delivery",
+        "testing",
+        "release",
+        "operations",
+        "change_management"
+      ]
+    },
+    "checkList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
+

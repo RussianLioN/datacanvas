@@ -46,6 +46,9 @@ Sprint, release, UAT, pilot, production/process evidence и PR handoff.
 Процесс документации, PROC, планы, DoR/DoD и методики.
 
 - [Планы DataCanvas](../plans/README.md) - Process Owner, `active`.
+- [Нормализованный Источник BABOK-Исследования](../process/methodology/babok-research-source.md) - Process Owner, `active`.
+- [Методика Ведения Проектной Документации DataCanvas](../process/methodology/project-documentation-methodology.md) - Process Owner, `active`.
+- [Методика Проектной Документации](../process/methodology/README.md) - Process Owner, `active`.
 - [Процесс DataCanvas](../process/README.md) - Process Owner, `active`.
 - [Карта Слоев DataCanvas](../project-map.md) - Documentation Owner, `active`.
 - [Документация DataCanvas](../README.md) - Documentation Owner, `active`.
@@ -104,7 +107,7 @@ Generated navigation и отчеты генераторов.
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `eb122f9d35a73ebf2dac6dfaa9f90ad428399ec6` |
+| `current_main_commit` | `7d74bc4638c141ccafa1ac7e6f63d789a925029b` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

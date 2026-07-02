@@ -9,6 +9,7 @@
 |---|---|---|---|---:|---|---|---|
 | PROC-001 | Принять процесс `0.1.0` | Зафиксировать управляемый стартовый процесс | governance | 1 | done | `docs/process/current/process-change-ledger.json` | `npm run validate:process-change-ledger` |
 | PROC-006 | Подключить bootstrap validator | Сделать базовый delivery gate исполняемым | automation | 1 | done | `scripts/validate-bootstrap-artifacts.sh` | `npm run validate:bootstrap` |
+| PROC-039 | Интегрировать методику разработки проектной документации | Встроить методику по итогам исследования до возобновления интервью по требованиям и переоприоритезации | governance | 1 | done | `docs/process/methodology/project-documentation-methodology.md` | `npm run validate:documentation-methodology` |
 
 ## Ready
 
