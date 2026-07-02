@@ -9,7 +9,7 @@
     {
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+      "sha256": "88ee32b3375a3a0bec68f0c6e8f31d9b48404137c73813a30c3a8e9ee079febc"
     },
     {
       "format": "plantuml",

@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/capacity-plan.schema.json",
+  "title": "CapacityPlan",
+  "type": "object",
+  "required": [
+    "version",
+    "capacity_plan_id",
+    "status",
+    "quarter",
+    "team_capacity_pse",
+    "capacity_unit",
+    "role_or_team_contour",
+    "known_absences_constraints",
+    "committed_items",
+    "reserved_buffer_pse",
+    "data_source",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
+    "capacity_plan_id": { "type": "string", "pattern": "^CAP-[0-9]{4}-Q[1-4]$" },
+    "status": { "type": "string", "enum": ["draft", "active", "pending_external"] },
+    "quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/quarter" },
+    "team_capacity_pse": { "type": ["number", "null"], "minimum": 0 },
+    "capacity_unit": { "type": "string", "enum": ["PSE"] },
+    "role_or_team_contour": { "type": "string", "minLength": 1 },
+    "known_absences_constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "committed_items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/committedItem" }
+    },
+    "reserved_buffer_pse": { "type": ["number", "null"], "minimum": 0 },
+    "data_source": {
+      "type": "object",
+      "required": ["source_type", "source_path", "confirmation_status"],
+      "additionalProperties": false,
+      "properties": {
+        "source_type": { "type": "string", "enum": ["user_confirmed", "external_document", "pending_external", "fixture"] },
+        "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+        "confirmation_status": { "type": "string", "enum": ["pending", "confirmed", "not_required"] }
+      }
+    },
+    "notes": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "committedItem": {
+      "type": "object",
+      "required": ["item_id", "title", "estimate_pse", "quarter", "source_path"],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": { "type": "string", "pattern": "^(PBI|US|TECH|EVAL|PROC)-[0-9]{3,}$|^DC-ST-[0-9]{2,}$" },
+        "title": { "type": "string", "minLength": 1 },
+        "estimate_pse": { "type": "number", "minimum": 0 },
+        "quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/quarter" },
+        "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+      }
+    }
+  }
+}

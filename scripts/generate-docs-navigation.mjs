@@ -146,16 +146,18 @@ function parentReadmeFor(relativePath) {
   if (directory === ".") {
     return "README.md";
   }
-  const ownReadme = `${directory}/README.md`;
-  if (relativePath !== ownReadme && fs.existsSync(absolute(ownReadme))) {
-    return ownReadme;
+  let current = path.posix.basename(relativePath) === "README.md"
+    ? path.posix.dirname(directory)
+    : directory;
+  if (current === ".") {
+    return "README.md";
   }
-  const parent = path.posix.dirname(directory);
-  if (parent && parent !== ".") {
-    const parentReadme = `${parent}/README.md`;
-    if (fs.existsSync(absolute(parentReadme))) {
-      return parentReadme;
+  while (current && current !== ".") {
+    const candidate = `${current}/README.md`;
+    if (candidate !== relativePath && fs.existsSync(absolute(candidate))) {
+      return candidate;
     }
+    current = path.posix.dirname(current);
   }
   return "docs/README.md";
 }

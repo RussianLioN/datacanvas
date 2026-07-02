@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "package_id": "JIP-2026-07-02-001",
+  "status": "pending_external",
+  "target_project": "pending_external",
+  "csv_path": "artifacts/manual/jira/pending-cascading-governance-import.csv",
+  "mapping_request_path": "docs/process/cascading-governance/jira-field-mapping-request.json",
+  "field_mapping_status": "pending_external",
+  "import_completion_claim": "not_started",
+  "validation_commands": [
+    "npm run validate:jira-field-mapping"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "version": "0.1.0",
+  "mapping_request_id": "JFMR-2026-07-02-001",
+  "status": "pending_external",
+  "target_project": "pending_external",
+  "issue_types": ["Story", "Task"],
+  "required_custom_fields": [
+    {
+      "field_name": "Target quarter",
+      "required": true,
+      "allowed_values": []
+    },
+    {
+      "field_name": "Capacity contour",
+      "required": true,
+      "allowed_values": []
+    }
+  ],
+  "csv_columns": ["Issue Type", "Summary", "Description", "Story ID", "Target quarter", "Capacity contour"],
+  "jira_field_mapping": [
+    {
+      "csv_column": "Issue Type",
+      "jira_field": "Issue Type",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Summary",
+      "jira_field": "Summary",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Description",
+      "jira_field": "Description",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Story ID",
+      "jira_field": null,
+      "status": "pending_external"
+    },
+    {
+      "csv_column": "Target quarter",
+      "jira_field": null,
+      "status": "pending_external"
+    },
+    {
+      "csv_column": "Capacity contour",
+      "jira_field": null,
+      "status": "pending_external"
+    }
+  ],
+  "unresolved_fields": ["Story ID", "Target quarter", "Capacity contour"],
+  "approving_stakeholder": null,
+  "import_readiness_status": "pending_external"
+}

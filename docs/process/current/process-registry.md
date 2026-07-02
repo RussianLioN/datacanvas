@@ -21,10 +21,17 @@
 | Documentation navigation | Центральные документы работают business-first, а `docs/navigation/navigation-source.json` управляет visibility, data_class, searchability и `navigation_group` | `PROC-036-documentation-navigation-governance.md` |
 | Generated navigation | `docs/navigation/documentation-index.json` и связанные reports обновляются только генератором и группируются по `navigation_group` | `ADR-064-documentation-navigation-indexing.md` |
 | Cross-group source of truth | Бизнесовые утверждения идут из Vision, BMC, stories и требований; технические контракты идут из ADR, schemas и scripts | `AGENTS.md` |
+| Process change drafts | Draft `PROC-*` не меняют активный процесс до решения Process Owner | `process-change-ledger.json` |
 
 ## Активные Исключения
 
 Исключений нет.
+
+## Подготовительные Контракты
+
+| ID | Область | Статус | Источник |
+|---|---|---|---|
+| PROC-038 | Каскадное ведение документации, `DocumentationChangeRequest`, impact analysis, decision queue, capacity/Jira guards и validation evidence | draft / not_decided | `docs/process/change-requests/PROC-038-cascading-documentation-governance.md` |
 
 ## Активные Эксперименты
 

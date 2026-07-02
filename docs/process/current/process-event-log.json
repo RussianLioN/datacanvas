@@ -98,6 +98,26 @@
       "id": "EVT-ROLLBACK-SIGNAL",
       "name": "Rollback signal recorded",
       "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-REQUESTED",
+      "name": "Documentation cascade requested",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-IMPACT-ANALYZED",
+      "name": "Documentation cascade impact analyzed",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-DECISION-BLOCKED",
+      "name": "Documentation cascade blocked on user decision",
+      "required_for_metrics": []
+    },
+    {
+      "id": "EVT-CASCADE-VALIDATED",
+      "name": "Documentation cascade validated",
+      "required_for_metrics": []
     }
   ],
   "events": [],
@@ -136,7 +156,8 @@
   "known_limitations": [
     "Журнал пока не содержит live events, потому что реальный командный Sprint Review еще не проведен.",
     "Измеримые delivery metrics нельзя переводить в measured до появления required_event_type_ids.",
-    "Event log фиксирует timestamps, но не заменяет Sprint Review и Retrospective."
+    "Event log фиксирует timestamps, но не заменяет Sprint Review и Retrospective.",
+    "Cascade event types являются подготовительными для draft PROC-038 и не разблокируют метрики до acceptance процесса."
   ],
   "next_safe_step": "После real UAT и Sprint Review добавить первые live events EVT-SPRINT-PLANNED, EVT-SPRINT-REVIEWED и связанные backlog transitions."
 }

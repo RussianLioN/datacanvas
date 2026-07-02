@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/documentation-change-request.schema.json",
+  "title": "DocumentationChangeRequest",
+  "type": "object",
+  "required": [
+    "version",
+    "change_request_id",
+    "status",
+    "initiator",
+    "target_artifact",
+    "desired_change",
+    "change_source",
+    "impact_level",
+    "affected_period",
+    "affected_backlog_story_ids",
+    "known_constraints",
+    "user_confirmation_status",
+    "semantic_change",
+    "requested_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
+    "change_request_id": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "ready", "confirmed", "in_progress", "blocked", "completed", "rejected"] },
+    "initiator": {
+      "type": "object",
+      "required": ["actor_role", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "actor_role": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 }
+      }
+    },
+    "target_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "desired_change": { "type": "string", "minLength": 1 },
+    "change_source": {
+      "type": "string",
+      "enum": [
+        "user_request",
+        "product_decision",
+        "process_decision",
+        "regulation_change",
+        "backlog_change",
+        "jira_import",
+        "technical_maintenance"
+      ]
+    },
+    "impact_level": { "type": "string", "enum": ["low", "medium", "high"] },
+    "affected_period": { "type": ["string", "null"] },
+    "affected_backlog_story_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(PBI|US|BT|NFR|TECH|EVAL|PROC)-[0-9]{3,}$|^DC-ST-[0-9]{2,}$" }
+    },
+    "known_constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "user_confirmation_status": {
+      "type": "string",
+      "enum": ["not_required", "pending", "confirmed", "rejected", "pending_external"]
+    },
+    "semantic_change": { "type": "boolean" },
+    "requested_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    }
+  }
+}

@@ -84,6 +84,70 @@
       "owner_role": "Process Owner",
       "status": "draft",
       "evidence_paths": ["docs/architecture/adr/ADR-012-provider-readiness-before-network.md"]
+    },
+    {
+      "id": "PLAN-CASCADE-001",
+      "type": "source",
+      "title": "Draft cascading documentation governance implementation plan.",
+      "artifact_path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "evidence_paths": ["docs/plans/datacanvas-cascading-governance-correction-plan.md"]
+    },
+    {
+      "id": "PROC-038",
+      "type": "process_change",
+      "title": "Cascading Documentation Governance draft process change.",
+      "artifact_path": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "evidence_paths": ["docs/process/current/process-change-ledger.json"]
+    },
+    {
+      "id": "ADR-065",
+      "type": "architecture_decision",
+      "title": "Cascading documentation governance preparatory architecture contract.",
+      "artifact_path": "docs/architecture/adr/ADR-065-cascading-documentation-governance.md",
+      "owner_role": "AI Agent Architect",
+      "status": "accepted_for_draft",
+      "evidence_paths": ["docs/process/cascading-governance/README.md"]
+    },
+    {
+      "id": "SCHEMA-CASCADE",
+      "type": "schema_contract",
+      "title": "Cascade governance schemas and shared definitions.",
+      "artifact_path": "schemas/common-defs.schema.json",
+      "owner_role": "Schema/API Architect",
+      "status": "draft",
+      "evidence_paths": [
+        "schemas/documentation-change-request.schema.json",
+        "schemas/impact-analysis-report.schema.json",
+        "schemas/cascading-update-run.schema.json"
+      ]
+    },
+    {
+      "id": "VALIDATOR-CASCADE",
+      "type": "validator",
+      "title": "Cascade governance validator and safe dry-run runner.",
+      "artifact_path": "scripts/validate-cascading-governance.mjs",
+      "owner_role": "QA/Evals Lead",
+      "status": "draft",
+      "evidence_paths": [
+        "scripts/run-cascading-update.mjs",
+        "tests/fixtures/cascading-governance/negative/invariants/decision-queue-closed-with-pending.json"
+      ]
+    },
+    {
+      "id": "RUN-CASCADE-001",
+      "type": "evidence",
+      "title": "Blocked cascade update run for draft PROC-038 scaffold.",
+      "artifact_path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+      "owner_role": "Process Owner",
+      "status": "blocked",
+      "evidence_paths": [
+        "docs/process/cascading-governance/impact-analysis-report.json",
+        "docs/process/cascading-governance/user-decision-queue.json"
+      ]
     }
   ],
   "edges": [
@@ -142,6 +206,41 @@
       "relationship": "creates_process_change_candidate",
       "status": "active",
       "evidence_paths": ["docs/process/change-requests/PROC-007-controlled-external-llm-provider.md"]
+    },
+    {
+      "from": "PLAN-CASCADE-001",
+      "to": "PROC-038",
+      "relationship": "proposes_process_change",
+      "status": "blocked",
+      "evidence_paths": ["docs/process/change-requests/PROC-038-cascading-documentation-governance.md"]
+    },
+    {
+      "from": "PROC-038",
+      "to": "ADR-065",
+      "relationship": "scoped_by_architecture_contract",
+      "status": "planned",
+      "evidence_paths": ["docs/architecture/adr/ADR-065-cascading-documentation-governance.md"]
+    },
+    {
+      "from": "ADR-065",
+      "to": "SCHEMA-CASCADE",
+      "relationship": "implemented_by_contracts",
+      "status": "planned",
+      "evidence_paths": ["schemas/common-defs.schema.json"]
+    },
+    {
+      "from": "SCHEMA-CASCADE",
+      "to": "VALIDATOR-CASCADE",
+      "relationship": "validated_by",
+      "status": "planned",
+      "evidence_paths": ["scripts/validate-cascading-governance.mjs"]
+    },
+    {
+      "from": "VALIDATOR-CASCADE",
+      "to": "RUN-CASCADE-001",
+      "relationship": "records_blocked_evidence",
+      "status": "blocked",
+      "evidence_paths": ["docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json"]
     }
   ],
   "required_chains": [
@@ -160,11 +259,25 @@
         "PROC-007"
       ],
       "status": "covered"
+    },
+    {
+      "id": "CHAIN-002",
+      "description": "Draft PROC-038 cascade scaffold chain must remain blocked until Process Owner accepts the process change.",
+      "ordered_node_ids": [
+        "PLAN-CASCADE-001",
+        "PROC-038",
+        "ADR-065",
+        "SCHEMA-CASCADE",
+        "VALIDATOR-CASCADE",
+        "RUN-CASCADE-001"
+      ],
+      "status": "blocked"
     }
   ],
   "known_limitations": [
     "Граф покрывает bootstrap/MVP fixture path, а не все будущие product paths.",
     "Real user UAT session не включена, потому что внешний артефакт еще не создан.",
-    "PROC-007 остается draft до решения Process Owner."
+    "PROC-007 остается draft до решения Process Owner.",
+    "PROC-038 остается draft / not_decided; cascade scaffold не является принятым process gate и не добавляет продуктовый scope."
   ]
 }

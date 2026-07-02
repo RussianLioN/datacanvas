@@ -53,6 +53,30 @@ function routeTargets(route) {
   return [route.start_path, ...route.next_paths];
 }
 
+function parentReadmeFor(relativePath) {
+  if (relativePath === "README.md") {
+    return null;
+  }
+  const directory = path.posix.dirname(relativePath);
+  if (directory === ".") {
+    return "README.md";
+  }
+  let current = path.posix.basename(relativePath) === "README.md"
+    ? path.posix.dirname(directory)
+    : directory;
+  if (current === ".") {
+    return "README.md";
+  }
+  while (current && current !== ".") {
+    const candidate = `${current}/README.md`;
+    if (candidate !== relativePath && fs.existsSync(path.join(root, candidate))) {
+      return candidate;
+    }
+    current = path.posix.dirname(current);
+  }
+  return "docs/README.md";
+}
+
 function isRestrictedForBusinessRoute(entry) {
   return entry.visibility === "restricted" || ["confidential", "sensitive"].includes(entry.data_class);
 }
@@ -128,6 +152,13 @@ execFileSync("node", ["scripts/generate-docs-navigation.mjs", "--check"], {
 const indexByPath = new Map(index.entries.map((entry) => [entry.path, entry]));
 const sourceManagedByPath = new Map(source.managed_entries.map((entry) => [entry.path, entry]));
 const configuredNavigationGroups = new Set(source.navigation_groups.map((group) => group.id));
+
+for (const entry of index.entries) {
+  const expectedParentReadme = parentReadmeFor(entry.path);
+  if (entry.parent_readme !== expectedParentReadme) {
+    fail(`generated parent_readme mismatch for ${entry.path}: expected ${expectedParentReadme}, got ${entry.parent_readme}`);
+  }
+}
 
 if (source.navigation_groups[0]?.id !== "business") {
   fail("business navigation group must be configured first");

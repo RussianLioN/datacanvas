@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0",
+  "run_id": "CUR-2026-07-02-201",
+  "status": "blocked",
+  "change_request_path": "../secrets.json",
+  "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+  "impact_report_path": "docs/process/cascading-governance/impact-analysis-report.json",
+  "decision_queue_path": "docs/process/cascading-governance/user-decision-queue.json",
+  "capacity_plan_path": null,
+  "reprioritization_report_path": null,
+  "jira_mapping_request_path": null,
+  "changed_artifacts": [],
+  "skipped_artifacts": [],
+  "generated_artifacts": [],
+  "validation_results": [
+    {
+      "command": "npm run validate:cascading-update",
+      "status": "not_run",
+      "evidence": "Negative schema fixture: path traversal must be rejected.",
+      "ran_at": "2026-07-02T00:00:00Z"
+    }
+  ],
+  "evidence_paths": ["docs/process/cascading-governance/impact-analysis-report.json"],
+  "completion_claim": {
+    "done_claimed": false,
+    "decision_queue_status": "blocked",
+    "all_affected_artifacts_resolved": false
+  }
+}

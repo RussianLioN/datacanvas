@@ -1,0 +1,24 @@
+{
+  "version": "0.1.0",
+  "change_request_id": "DCR-2026-07-02-001",
+  "status": "blocked",
+  "initiator": {
+    "actor_role": "User",
+    "source": "Поручение: имплементировать docs/plans/datacanvas-cascading-documentation-governance-plan.md end-to-end."
+  },
+  "target_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+  "desired_change": "Подготовить draft-контракт каскадного ведения проектной документации DataCanvas со схемами, validators, tracking, navigation, registry/hash и evidence без acceptance PROC-038.",
+  "change_source": "user_request",
+  "impact_level": "high",
+  "affected_period": "2026-W27",
+  "affected_backlog_story_ids": [],
+  "known_constraints": [
+    "План-артефакт остается источником истины.",
+    "Не переносить устаревший A2A runtime scope из других worktree.",
+    "Не выдумывать пользовательские решения, capacity, приоритеты, сроки, регламенты или Jira mapping.",
+    "Generated artifacts не редактировать вручную."
+  ],
+  "user_confirmation_status": "confirmed",
+  "semantic_change": true,
+  "requested_at": "2026-07-02T00:00:00Z"
+}

@@ -1,0 +1,138 @@
+{
+  "version": "0.1.0",
+  "impact_report_id": "IAR-2026-07-02-001",
+  "change_request_id": "DCR-2026-07-02-001",
+  "status": "blocked",
+  "generated_at": "2026-07-02T00:00:00Z",
+  "target_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+  "affected_artifacts": [
+    {
+      "path": "schemas/documentation-change-request.schema.json",
+      "impact_types": ["schema"],
+      "required_edits": ["Подготовить draft schema для входа значимых правок документации."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "impact_types": ["process", "traceability"],
+      "required_edits": ["Зафиксировать machine-readable dependency graph для opt-in impact analysis."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/README.md",
+      "impact_types": ["process"],
+      "required_edits": ["Маркировать каталог как draft opt-in scaffold, а не accepted process gate."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/current/definition-of-ready.md",
+      "impact_types": ["process"],
+      "required_edits": ["Ограничить cascade criteria opt-in использованием draft PROC-038."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/current/definition-of-done.md",
+      "impact_types": ["process"],
+      "required_edits": ["Запретить Done claim для blocked opt-in cascade run."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/current/process-registry.md",
+      "impact_types": ["process"],
+      "required_edits": ["Убрать PROC-038 из активных правил и оставить как подготовительный контракт."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product-vision.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Не добавлять cascade governance как продуктовую ценность без отдельного Product Owner решения."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Draft PROC-038 является процессной заготовкой и не расширяет Vision DataCanvas.",
+        "confirmed_by": "Correction plan scope",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Не добавлять cascade governance в BMC key resources/key activities без отдельного Product Owner решения."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "BMC остается источником продуктовой модели презентационного сервиса, а не процессного draft-контракта.",
+        "confirmed_by": "Correction plan scope",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/release/mvp-release-evidence-pack.json",
+      "impact_types": ["evidence"],
+      "required_edits": [],
+      "optional_edits": ["Release evidence review не утверждает acceptance PROC-038."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Текущий cascade scaffold не меняет release acceptance и не заявляет принятие release evidence.",
+        "confirmed_by": "Correction plan scope",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    }
+  ],
+  "blocking_user_decisions": ["DEC-PROCESS-OWNER-ACCEPTANCE"],
+  "derived_facts": [
+    {
+      "fact": "План требует запретить неподтвержденные смысловые допущения по scope, ресурсам, срокам, приоритетам и Jira mapping.",
+      "source_paths": ["docs/plans/datacanvas-cascading-documentation-governance-plan.md"]
+    },
+    {
+      "fact": "PROC-038 имеет статус draft / not_decided и не может стать обязательным gate без решения Process Owner.",
+      "source_paths": ["docs/process/change-requests/PROC-038-cascading-documentation-governance.md"]
+    }
+  ],
+  "assumptions_forbidden": [
+    "Нельзя автоматически принимать PROC-038 как правило процесса.",
+    "Нельзя автоматически менять приоритеты backlog.",
+    "Нельзя автоматически менять оценки ПШЕ.",
+    "Нельзя заполнять capacity без подтвержденного источника.",
+    "Нельзя угадывать Jira custom fields.",
+    "Нельзя расширять продуктовый scope через процессный draft."
+  ],
+  "proposals": [
+    {
+      "proposal": "Оставить PROC-038 как opt-in scaffold до отдельного решения Process Owner.",
+      "classification": "blocked_missing_input"
+    },
+    {
+      "proposal": "Оставить capacity plan и Jira mapping request со статусами pending_external до подтвержденных внешних источников.",
+      "classification": "derived_from_sources"
+    }
+  ],
+  "validation_plan": [
+    "npm run validate:cascading-governance",
+    "npm run validate:schemas",
+    "npm run generate:docs-navigation -- --check",
+    "npm run validate:doc-links",
+    "npm run validate:docs-navigation",
+    "npm run validate:doc-stale-status",
+    "npm run validate:bmc",
+    "npm run validate:artifact-registry",
+    "npm run validate:artifact-hashes",
+    "npm run scan:secrets",
+    "npm run validate:data-leakage",
+    "npm test"
+  ],
+  "completion_status": "blocked"
+}

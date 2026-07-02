@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/jira-field-mapping-request.schema.json",
+  "title": "JiraFieldMappingRequest",
+  "type": "object",
+  "required": [
+    "version",
+    "mapping_request_id",
+    "status",
+    "target_project",
+    "issue_types",
+    "required_custom_fields",
+    "csv_columns",
+    "jira_field_mapping",
+    "unresolved_fields",
+    "approving_stakeholder",
+    "import_readiness_status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
+    "mapping_request_id": { "type": "string", "pattern": "^JFMR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "pending_external", "approved", "blocked"] },
+    "target_project": { "type": "string", "minLength": 1 },
+    "issue_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "required_custom_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field_name", "required", "allowed_values"],
+        "additionalProperties": false,
+        "properties": {
+          "field_name": { "type": "string", "minLength": 1 },
+          "required": { "type": "boolean" },
+          "allowed_values": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "csv_columns": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "jira_field_mapping": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["csv_column", "jira_field", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "csv_column": { "type": "string", "minLength": 1 },
+          "jira_field": { "type": ["string", "null"] },
+          "status": { "type": "string", "enum": ["mapped", "unresolved", "pending_external"] }
+        }
+      }
+    },
+    "unresolved_fields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "approving_stakeholder": { "type": ["string", "null"] },
+    "import_readiness_status": { "type": "string", "enum": ["blocked", "pending_external", "ready"] }
+  }
+}

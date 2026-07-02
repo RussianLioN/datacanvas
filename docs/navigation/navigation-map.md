@@ -69,7 +69,7 @@ Generated navigation и отчеты генераторов.
 | ID | Маршрут | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|
 | `role-product-owner` | Product Owner | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
-| `role-process-owner` | Process Owner | `governance` | `docs/process/README.md` | `docs/process/current/process-registry.md`, `docs/process/current/definition-of-ready.md`, `docs/process/current/definition-of-done.md` | Process Owner | `npm run validate:docs-navigation` |
+| `role-process-owner` | Process Owner | `governance` | `docs/process/README.md` | `docs/process/current/process-registry.md`, `docs/process/current/definition-of-ready.md`, `docs/process/current/definition-of-done.md`, `docs/process/cascading-governance/README.md` | Process Owner | `npm run validate:docs-navigation` |
 | `role-delivery-lead` | Delivery/GitOps Lead | `delivery` | `docs/release/README.md` | `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.md`, `docs/knowledge/evidence-index.md` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
 | `role-agent` | AI systems engineer | `governance` | `AGENTS.md` | `docs/navigation/navigation-source.json`, `docs/navigation/navigation-map.md`, `docs/project-map.md` | Process Owner | `npm run validate:docs-navigation` |
 
@@ -78,7 +78,7 @@ Generated navigation и отчеты генераторов.
 | ID | Маршрут | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|
 | `task-understand-product` | Понять продукт | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/README.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
-| `task-find-process` | Найти текущий процесс | `governance` | `docs/process/README.md` | `docs/process/current/process-passport.md`, `docs/process/current/process-registry.md` | Process Owner | `npm run validate:docs-navigation` |
+| `task-find-process` | Найти текущий процесс | `governance` | `docs/process/README.md` | `docs/process/current/process-passport.md`, `docs/process/current/process-registry.md`, `docs/process/cascading-governance/README.md` | Process Owner | `npm run validate:docs-navigation` |
 | `task-work-with-bmc` | Работать с BMC | `business` | `docs/product/bmc/README.md` | `docs/product/bmc/bmc-v0.2.md`, `docs/product/bmc/manifest.json` | Product Owner | `npm run validate:bmc` |
 | `task-review-merge` | Подготовить review/merge | `delivery` | `docs/release/README.md` | `.github/PULL_REQUEST_TEMPLATE.md`, `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | `npm test` |
 | `task-find-evidence` | Найти evidence/release | `evidence` | `docs/knowledge/evidence-index.md` | `docs/release/mvp-release-evidence-pack.json`, `docs/navigation/documentation-index.json` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
@@ -104,7 +104,7 @@ Generated navigation и отчеты генераторов.
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `100a23d1fa60b0e0add3118fed414de389f72beb` |
+| `current_main_commit` | `6c4d70a6c146922f1825549ba42dc4bb324a4d85` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

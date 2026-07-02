@@ -1,0 +1,32 @@
+{
+  "version": "0.1.0",
+  "queue_id": "UDQ-2026-07-02-201",
+  "change_request_id": "DCR-2026-07-02-001",
+  "status": "closed",
+  "requested_at": "2026-07-02T00:00:00Z",
+  "decisions": [
+    {
+      "decision_id": "DEC-PROCESS-OWNER-ACCEPTANCE",
+      "question": "Принимать ли PROC-038 как обязательное правило процесса?",
+      "affected_artifacts": [
+        "docs/process/change-requests/PROC-038-cascading-documentation-governance.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-KEEP-DRAFT",
+          "label": "Оставить draft",
+          "consequence": "Правило не становится обязательным.",
+          "recommended": true
+        }
+      ],
+      "recommended_option_id": "OPT-KEEP-DRAFT",
+      "recommendation_rationale": "Нет решения Process Owner.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "Negative invariant fixture"
+    }
+  ]
+}

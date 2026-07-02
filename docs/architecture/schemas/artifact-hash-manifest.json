@@ -7,7 +7,7 @@
     {
       "artifact_id": "ART-001",
       "path": "docs/process/current/process-passport.md",
-      "sha256": "c5c03a4c90cc00c946fdf992ff36bb5a66334631cc99adac706adc59af85dba7"
+      "sha256": "16d42cde9cdc88f56b433a090bbdfabaed9aadb0a9a071b6e8225e131513c02b"
     },
     {
       "artifact_id": "ART-002",
@@ -722,12 +722,12 @@
     {
       "artifact_id": "ART-145",
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "sha256": "a618fb7f8b732256636e0cebe3c09f0b47050f30ba915640daa917508897b065"
+      "sha256": "fb4b7f01ce90d55f9881504b3a0268fd1939de67caf6e2e4108ac279d8846051"
     },
     {
       "artifact_id": "ART-146",
       "path": "docs/release/mvp-release-evidence-pack.md",
-      "sha256": "b923c6e33af7466c4aa70e3745e63ddb32735c535d8ac719b3a70bcca92b4837"
+      "sha256": "86d644e47795b0b9c2bbea46f455da5887aa21da6dd77ecbc7cd21314c43411d"
     },
     {
       "artifact_id": "ART-147",
@@ -847,17 +847,17 @@
     {
       "artifact_id": "ART-170",
       "path": "schemas/traceability-graph.schema.json",
-      "sha256": "c1d8bf60f3d1f337be1143717583ce6a1694959904311b15a14bea0eadfe00c3"
+      "sha256": "1d742f9600dd58a7cdecbd3767ce9906de1828ec80e0280a1e38fc965dd7c8f2"
     },
     {
       "artifact_id": "ART-171",
       "path": "docs/architecture/schemas/traceability-graph.json",
-      "sha256": "0bd694dfc24fb4997fd7a2666f571c8f6a85581f5436ddef51cfe8c21c5c8579"
+      "sha256": "4d5cd9bf722e4c33d0b35c9d7a8a19a9ffae21ac79317746e5d435e3f9a8e763"
     },
     {
       "artifact_id": "ART-172",
       "path": "scripts/validate-traceability-graph.mjs",
-      "sha256": "6cb7201812a94bd53ef02da67bf55cd8c594042df29b9a2f66de203a61a3347f"
+      "sha256": "3ab24e5bad601b63610a66d043d78ef505729d5ca364aa119d4d696400546121"
     },
     {
       "artifact_id": "ART-173",
@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "5e5b1a449c0fe82f742ddde1f0f2da9b0cdc7265a512b8ac953725952d2fc4a9"
+      "sha256": "b2003eee20f312f6883e0c58bd11b6c8329135eafe593d46ac3df0a41e194828"
     },
     {
       "artifact_id": "ART-188",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "5933fed9b8a8f46e86af540465c5eac27f7648f07329a0d143451f73ca97c02b"
+      "sha256": "22be2e8d3d5dcb201d79ebef424cb464c13d6a3e17d84f48e0631d9e63a3f7bb"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "724515e2cd77391351436d874e25479f917914796d6b3612a2b9f67ffc76118f"
+      "sha256": "af81213f839f77b0eeaf30bd64eba3c660f39d6444b33bb21bd26cee34bc1753"
     },
     {
       "artifact_id": "ART-201",
@@ -1157,7 +1157,7 @@
     {
       "artifact_id": "ART-232",
       "path": "docs/process/current/process-event-log.json",
-      "sha256": "96f9d93849955395c1c472ffa8265f46bb140c6a5dc4eddfbb90a9b825d2142b"
+      "sha256": "23ce10b9cf10a6974ef75bb40ba18764f4803163f657ea4868fe6a90c7e67350"
     },
     {
       "artifact_id": "ART-233",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "54447e03b31327594f2885c9a14ddc505a65ace18662eac7b7df4ad09613f066"
+      "sha256": "427d0f4d02a2b279e00f464d7eb0e52beff9fcbbb6afbea2488bf5bc934e1711"
     },
     {
       "artifact_id": "ART-330",
@@ -1747,12 +1747,12 @@
     {
       "artifact_id": "ART-350",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "30a3789c02733c4edc02856751547f0494d017b6b7403696ff8e2b48d603ed87"
+      "sha256": "5d9c9a389f4b27bbe9309bce85044464ec34bc3e77c7628e868f752ea6fa915f"
     },
     {
       "artifact_id": "ART-351",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+      "sha256": "88ee32b3375a3a0bec68f0c6e8f31d9b48404137c73813a30c3a8e9ee079febc"
     },
     {
       "artifact_id": "ART-352",
@@ -1772,7 +1772,7 @@
     {
       "artifact_id": "ART-355",
       "path": "scripts/generate-bmc-artifacts.mjs",
-      "sha256": "1ce5892e14fd4c8f510255164e4acbb4f033ee66675ffa454369c7aed56b5ebf"
+      "sha256": "10fc794860a5aa308f6f525bb8aa117eb2f5b1af3dcca18b86e9c3fcd52db78c"
     },
     {
       "artifact_id": "ART-356",
@@ -1912,7 +1912,7 @@
     {
       "artifact_id": "ART-383",
       "path": "docs/product/bmc/manifest.json",
-      "sha256": "c88a077f11135aead3d08222c01dd492997b2ac4f701f3551549ec7bbe3ac765"
+      "sha256": "87e3a39c6dc69f099c47254bcd4a6c6d4dfb7063cebe185535f1d9833a8f121e"
     },
     {
       "artifact_id": "ART-384",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "e90b976444c8d96c88915fc2c55cc725b0a026349689514140fc71b2cc5ffbc1"
+      "sha256": "857eec1e73a9b43c3a3ff9e06ce9a13340c9f648b5be2012bb07741e97a7949a"
     },
     {
       "artifact_id": "ART-403",
@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "603c682b71ab912ba5917baf2a4e677e86ad78d4e8677fabf3735def3e0702bc"
+      "sha256": "fe13da6cba3a7df4ea95345a21d52517ffc02a8f3ed4289085cb303e65068019"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "f8546633558d8cdc134022a551014c03db2b2427a15473c58c7c4a3603e28d8f"
+      "sha256": "f51e1ed7458a21711d860629ebb8b4581c95838836e1a194867fa8a381b77d81"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "0c0e750a49329fc43114045fd5ace5f200abf366b456d65648738c377c542250"
+      "sha256": "21d2b101e1ae124a27f1b395bc094f5ded37690f42a270ffa06e1328933aa745"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "11a757b1e9f867955d5c5f8d541a723d20fe0b15491d8ac2141da8d81bb45c55"
+      "sha256": "ad440ac1b835e72f8cce0799c0f41f1c0fa61297e893269a10bea7ff9f39898f"
     },
     {
       "artifact_id": "ART-412",
@@ -2077,7 +2077,7 @@
     {
       "artifact_id": "ART-416",
       "path": "scripts/generate-docs-navigation.mjs",
-      "sha256": "48493aabd8b0a30cf3347c12171af2e33bb5acb141c4b70235a237b5d24aaa7a"
+      "sha256": "0c7f433684f46cc9e334864ac403848b7d6f6f88e6b6b730d68e6b5829903050"
     },
     {
       "artifact_id": "ART-417",
@@ -2087,7 +2087,7 @@
     {
       "artifact_id": "ART-418",
       "path": "scripts/validate-docs-navigation.mjs",
-      "sha256": "9656edef8c77fb86d9df9c17b14ff6ad70930bae4dde4267e529a424bb1a1cbd"
+      "sha256": "8f03ec86032745b1d0d4658cbce941747b14027f951a385bb7f6761bba0e62d7"
     },
     {
       "artifact_id": "ART-419",
@@ -2588,6 +2588,221 @@
       "artifact_id": "ART-518",
       "path": "tests/fixtures/ba-sa-conflicting-sources.json",
       "sha256": "abffeee999624518518a113b9c7b173adb7313c9e65e004b394b63542876480f"
+    },
+    {
+      "artifact_id": "ART-519",
+      "path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+      "sha256": "358115e1fbcbe50a0c6dda268ac0c549942a2762383b4bcb86aed950b7ba42b2"
+    },
+    {
+      "artifact_id": "ART-520",
+      "path": "docs/process/cascading-governance/README.md",
+      "sha256": "744f576c39b08351d8a9383114b799279da4ce350b69af09a58254ec0d209da4"
+    },
+    {
+      "artifact_id": "ART-521",
+      "path": "docs/process/cascading-governance/documentation-change-request.json",
+      "sha256": "e563958782d1bde8e0298dd38d977a421039fef2fa3f70448c7f5a2faaea90ff"
+    },
+    {
+      "artifact_id": "ART-522",
+      "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "sha256": "e5bb8315822295f0f68e5a94eadadd2730831c09922a78bf774d031f87451844"
+    },
+    {
+      "artifact_id": "ART-523",
+      "path": "docs/process/cascading-governance/impact-analysis-report.json",
+      "sha256": "6fd78d1ca734f90bfda312c86d53c485a754b0d8e01c8baf66c4bd16ad5ce635"
+    },
+    {
+      "artifact_id": "ART-524",
+      "path": "docs/process/cascading-governance/user-decision-queue.json",
+      "sha256": "69d365fc027f3b46e623d55487210506ba6b6c0d77f1de3d7ac630314bb22ec6"
+    },
+    {
+      "artifact_id": "ART-525",
+      "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "sha256": "7e255418ec1272ea9a5d45c64521d133150ccedf5f2748f1bb474aff8881d1e8"
+    },
+    {
+      "artifact_id": "ART-526",
+      "path": "docs/process/cascading-governance/reprioritization-impact-report.json",
+      "sha256": "1c198f2582666756a5ae868dffa2c7d5e1d5f4069e9845a160789f0bf660938b"
+    },
+    {
+      "artifact_id": "ART-527",
+      "path": "docs/process/cascading-governance/jira-field-mapping-request.json",
+      "sha256": "415edaa8a351d3bf23d4441d80d97a33424219ef6e2fdc0530e9c59ec6656bac"
+    },
+    {
+      "artifact_id": "ART-528",
+      "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "sha256": "46892f6cb0b6f5b51102eb6c88124b236df60411352a6e80970a94d586aa556e"
+    },
+    {
+      "artifact_id": "ART-529",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+      "sha256": "4cc6e05d40dbaa9dd30bc87aa829357447850b71750eade83304636084bdcd76"
+    },
+    {
+      "artifact_id": "ART-530",
+      "path": "docs/architecture/adr/ADR-065-cascading-documentation-governance.md",
+      "sha256": "75f5e6fce2f168cfc469309d17dac50e9ed7325c9f0c68ad973820c90e921ebd"
+    },
+    {
+      "artifact_id": "ART-531",
+      "path": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+      "sha256": "17c27e8d18681ea66529437aefae40f2ef2b6ad2656e37b2c2a099e31c342876"
+    },
+    {
+      "artifact_id": "ART-532",
+      "path": "schemas/documentation-change-request.schema.json",
+      "sha256": "463490ee3bdb7c573569346e8e8fe857b98a4facdb6287b1b63f786c444bcf4c"
+    },
+    {
+      "artifact_id": "ART-533",
+      "path": "schemas/artifact-dependency-graph.schema.json",
+      "sha256": "ef80f37f72fb3c56cd48b8ee067a4fbe43e0a5567ca9fcc5a6c09e6caa37dbc7"
+    },
+    {
+      "artifact_id": "ART-534",
+      "path": "schemas/impact-analysis-report.schema.json",
+      "sha256": "ac6c835322c255f5ddba809e2540bcd92d554cb7a33aab167c896bc51b04f1b3"
+    },
+    {
+      "artifact_id": "ART-535",
+      "path": "schemas/user-decision-queue.schema.json",
+      "sha256": "0ad656763925dbcdb5705ff3b2adffa03914b1a58c19cc5a7862ae008c1e78e9"
+    },
+    {
+      "artifact_id": "ART-536",
+      "path": "schemas/capacity-plan.schema.json",
+      "sha256": "c84dc6fd2984bbe3639af5b747d10bf43e9407cb8e115638cf941b615e588bec"
+    },
+    {
+      "artifact_id": "ART-537",
+      "path": "schemas/reprioritization-impact-report.schema.json",
+      "sha256": "20d74feb9ec76d28a98a297d5d509a97f977bd07e8d341f98072258924a37d70"
+    },
+    {
+      "artifact_id": "ART-538",
+      "path": "schemas/cascading-update-run.schema.json",
+      "sha256": "f26179176629d6366287586c69ad14bfa34816ac1994671942e39b7f55d99224"
+    },
+    {
+      "artifact_id": "ART-539",
+      "path": "schemas/jira-field-mapping-request.schema.json",
+      "sha256": "56f14518cf790e79e83183c22f66b95c71bb12a22c4d30d3c0cce67d131812e6"
+    },
+    {
+      "artifact_id": "ART-540",
+      "path": "schemas/jira-import-package-manifest.schema.json",
+      "sha256": "2767b6b89f418845f8d9e5c08e723ae372d71c746a508047daf93d06af9efa70"
+    },
+    {
+      "artifact_id": "ART-541",
+      "path": "scripts/validate-cascading-governance.mjs",
+      "sha256": "e0fb88371e0305b6744f28b8baca2ff33a6fcd0768ddaf38c70aeee429e01d67"
+    },
+    {
+      "artifact_id": "ART-542",
+      "path": "scripts/run-cascading-update.mjs",
+      "sha256": "13258e2306318180a4c9fbcb0a852d02629c5d4a2e4445e8e9cc0b245fdb3094"
+    },
+    {
+      "artifact_id": "ART-543",
+      "path": "tests/fixtures/cascading-governance/vision-change-request.json",
+      "sha256": "92c5c35a3e38ef9749ed9f4da0b480579c302f26244458b5a7a347a89627e535"
+    },
+    {
+      "artifact_id": "ART-544",
+      "path": "tests/fixtures/cascading-governance/vision-impact-analysis-report.json",
+      "sha256": "c6cdfc47bf3d55018a5e6c9d040011b87d7238a7546484075d02dc54e9259aa7"
+    },
+    {
+      "artifact_id": "ART-545",
+      "path": "tests/fixtures/cascading-governance/backlog-reprioritization-over-capacity.json",
+      "sha256": "66bd0e92a227311a2f63d18ed0f569d31bdbf3cbe9fa8a769c7cd23a91b07c1b"
+    },
+    {
+      "artifact_id": "ART-546",
+      "path": "tests/fixtures/cascading-governance/backlog-reprioritization-enough-capacity.json",
+      "sha256": "12499c885ef63a33facd2f818e98c5191ff3908869cfca4db2c66325cb9c79a3"
+    },
+    {
+      "artifact_id": "ART-547",
+      "path": "tests/fixtures/cascading-governance/backlog-reprioritization-missing-capacity.json",
+      "sha256": "667b65efe5c8ffdcb3a5d891c050e70dafdb0bde59cfecc1ac59fb3284d852f4"
+    },
+    {
+      "artifact_id": "ART-548",
+      "path": "tests/fixtures/cascading-governance/jira-field-mapping-unresolved.json",
+      "sha256": "879a31b13ccfed61a8c99147ae59f24cb0207e287bd8096e9e418c266e2dd39b"
+    },
+    {
+      "artifact_id": "ART-549",
+      "path": "tests/fixtures/cascading-governance/user-rejects-story-move.json",
+      "sha256": "c8ef20fc30229587ffc63a330b523deab95e0aa5b4c94b12c4888b30b55b3811"
+    },
+    {
+      "artifact_id": "ART-550",
+      "path": "tests/fixtures/cascading-governance/user-confirms-story-move-q4.json",
+      "sha256": "026d3f877a62b77a2614ca54fade84ddfe9ef0940e6b0f6fbca23542f44a49b7"
+    },
+    {
+      "artifact_id": "ART-551",
+      "path": "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
+      "sha256": "04fa014853cd94e448e705dd029072756dfd606b3f26ad975ef61c3a59d9314e"
+    },
+    {
+      "artifact_id": "ART-552",
+      "path": "docs/plans/datacanvas-cascading-governance-correction-plan.md",
+      "sha256": "fa6c9fa61920c6bc1f478b61cf641cc495323bf2e2767163f48e16a3403eef13"
+    },
+    {
+      "artifact_id": "ART-553",
+      "path": "docs/process/audits/cascading-governance-validation-consilium.md",
+      "sha256": "1bfd181f4324c432a07658dd59bd13b57041e26e720b13d7b6dffe692e40bd6b"
+    },
+    {
+      "artifact_id": "ART-554",
+      "path": "docs/process/audits/cascading-governance-correction-consilium.md",
+      "sha256": "e96f79912a5118bce54d481b06b30d71717f91ff86b0a950d4a5d7446e29e47a"
+    },
+    {
+      "artifact_id": "ART-555",
+      "path": "schemas/common-defs.schema.json",
+      "sha256": "e80a30635d74e40c9501381275aafe9ac9ba5cc0792a9ec49a9fdbe9cadd43b1"
+    },
+    {
+      "artifact_id": "ART-556",
+      "path": "tests/fixtures/cascading-governance/negative/schema/cascading-update-path-traversal.json",
+      "sha256": "356875ab77963a4f9929e11695fa55d30fc2548f60fd2a9f1c3a16bf4359b896"
+    },
+    {
+      "artifact_id": "ART-557",
+      "path": "tests/fixtures/cascading-governance/negative/invariants/capacity-active-null.json",
+      "sha256": "21998450f27661ba3b6e55bca34199f24b4848d38a3e59597c28c69aae22f0d7"
+    },
+    {
+      "artifact_id": "ART-558",
+      "path": "tests/fixtures/cascading-governance/negative/invariants/decision-queue-closed-with-pending.json",
+      "sha256": "54904709320a00b0a43efbf7515ca1558139d3df597cd4e67b6dd5d03ea2eeba"
+    },
+    {
+      "artifact_id": "ART-559",
+      "path": "tests/fixtures/cascading-governance/negative/invariants/impact-complete-pending-artifacts.json",
+      "sha256": "f256052774e6e71b659b2db6b2b7ed5715add9bbbad126bd004761abe6028236"
+    },
+    {
+      "artifact_id": "ART-560",
+      "path": "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-without-mapping.json",
+      "sha256": "82f9d5d3d94a614db179cd16403037218a735cd37124abcfaae06dfb95926747"
+    },
+    {
+      "artifact_id": "ART-561",
+      "path": "tests/fixtures/cascading-governance/negative/invariants/reprioritization-over-capacity-ready.json",
+      "sha256": "1f7fa9f89ba05871e6c54161f480f2bc340516f584e7acb8c3cc6231b4cc1579"
     }
   ],
   "exclusions": [

@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "change_request_id": "DCR-2026-07-02-101",
+  "status": "ready",
+  "initiator": {
+    "actor_role": "Product Owner",
+    "source": "fixture: vision change impact"
+  },
+  "target_artifact": "docs/product-vision.md",
+  "desired_change": "Изменить Vision так, чтобы DataCanvas явно управлял lifecycle проектной документации.",
+  "change_source": "product_decision",
+  "impact_level": "high",
+  "affected_period": "2026-Q3",
+  "affected_backlog_story_ids": [],
+  "known_constraints": [
+    "Vision является high-impact source.",
+    "Смысловые изменения downstream artifacts требуют подтверждения пользователя."
+  ],
+  "user_confirmation_status": "pending",
+  "semantic_change": true,
+  "requested_at": "2026-07-02T00:00:00Z"
+}

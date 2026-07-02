@@ -1,0 +1,35 @@
+{
+  "version": "0.1.0",
+  "mapping_request_id": "JFMR-2026-07-02-101",
+  "status": "pending_external",
+  "target_project": "pending_external",
+  "issue_types": ["Story"],
+  "required_custom_fields": [
+    {
+      "field_name": "Business Value",
+      "required": true,
+      "allowed_values": []
+    }
+  ],
+  "csv_columns": ["Issue Type", "Summary", "Business Value"],
+  "jira_field_mapping": [
+    {
+      "csv_column": "Issue Type",
+      "jira_field": "Issue Type",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Summary",
+      "jira_field": "Summary",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Business Value",
+      "jira_field": null,
+      "status": "unresolved"
+    }
+  ],
+  "unresolved_fields": ["Business Value"],
+  "approving_stakeholder": null,
+  "import_readiness_status": "pending_external"
+}

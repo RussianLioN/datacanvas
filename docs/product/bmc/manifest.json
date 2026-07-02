@@ -17,7 +17,7 @@
       "role": "clean_markdown",
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "08120948a387fe0b9d89036e7cfd206071286e3a06a8e28d9ad1ff39c3eb46fa"
+      "sha256": "88ee32b3375a3a0bec68f0c6e8f31d9b48404137c73813a30c3a8e9ee079febc"
     },
     {
       "role": "canonical_visual",
@@ -57,7 +57,7 @@
       "role": "derived_manifest",
       "format": "json",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "30a3789c02733c4edc02856751547f0494d017b6b7403696ff8e2b48d603ed87"
+      "sha256": "5d9c9a389f4b27bbe9309bce85044464ec34bc3e77c7628e868f752ea6fa915f"
     },
     {
       "role": "source_map",
