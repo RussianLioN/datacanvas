@@ -1,0 +1,6 @@
+{
+  "base_policy_path": "docs/process/methodology/documentation-methodology-policy.json",
+  "mutation": "remove_gate",
+  "gate_group": "system_analysis",
+  "gate": "acceptance_criteria_defined"
+}

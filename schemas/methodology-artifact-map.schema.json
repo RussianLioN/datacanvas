@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/methodology-artifact-map.schema.json",
+  "title": "MethodologyArtifactMap",
+  "type": "object",
+  "required": ["version", "status", "entrypoints", "classification_values", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "entrypoints": {
+      "type": "object",
+      "required": ["primary", "templates", "machine_support_artifacts"],
+      "additionalProperties": false,
+      "properties": {
+        "primary": { "$ref": "#/$defs/repoPath" },
+        "templates": { "$ref": "#/$defs/repoPath" },
+        "machine_support_artifacts": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/repoPath" }
+        }
+      }
+    },
+    "classification_values": {
+      "type": "array",
+      "minItems": 6,
+      "items": { "$ref": "#/$defs/classification" }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "classification", "owner_role", "source_of_truth", "navigation_action"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "$ref": "#/$defs/repoPath" },
+          "classification": { "$ref": "#/$defs/classification" },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "source_of_truth": { "type": "boolean" },
+          "navigation_action": { "type": "string", "enum": ["managed_entry", "ignored_path", "section_rule", "generated_output"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "classification": {
+      "type": "string",
+      "enum": ["manual", "machine_readable", "template", "generated", "evidence", "reference"]
+    },
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    }
+  }
+}

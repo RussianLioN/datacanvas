@@ -611,6 +611,19 @@
       ],
       "rationale": "Backlog closure strengthens navigation, leakage and hash guards without adding runtime v1, external provider, network, secrets, publish or deploy.",
       "owner_role": "Security/Privacy Lead"
+    },
+    {
+      "sprint_path": "docs/sprints/2026-W27-babok-methodology-mva",
+      "sprint_id": "SPRINT-2026-W27-S1",
+      "delta_status": "no_security_impact",
+      "security_impact": "low",
+      "evidence_paths": [
+        "docs/sprints/2026-W27-babok-methodology-mva/sprint-evidence-manifest.json",
+        "docs/process/methodology/documentation-methodology-policy.json",
+        "scripts/validate-documentation-methodology.mjs"
+      ],
+      "rationale": "BABOK methodology MVA adds documentation policy, templates, schemas, fixtures and validators without runtime tools, network access, secrets, publish actions or new raw user data.",
+      "owner_role": "Security/Privacy Lead"
     }
   ],
   "known_limitations": [

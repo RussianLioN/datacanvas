@@ -1,0 +1,229 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "purpose": "Методическая модель трассировки DataCanvas. Она задает ожидаемую цепочку и проверки, но не заменяет проектные traceability artifacts.",
+  "chain": [
+    "business_goal",
+    "stakeholder_need",
+    "business_requirement",
+    "system_requirement",
+    "interface_requirement",
+    "data_requirement",
+    "nfr_requirement",
+    "error_requirement",
+    "backlog_item",
+    "acceptance_test",
+    "evidence",
+    "release_record",
+    "telemetry_or_feedback",
+    "improvement_item"
+  ],
+  "nodes": [
+    {
+      "id": "business_goal",
+      "title": "Бизнес-цель",
+      "artifact_scope": "Vision, BMC, strategy note или accepted Product Change Order",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "stakeholder_need",
+      "title": "Потребность заинтересованной стороны",
+      "artifact_scope": "stakeholder map, interview summary, decision log",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "business_requirement",
+      "title": "Бизнес-требование",
+      "artifact_scope": "BRD или product requirements",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "system_requirement",
+      "title": "Системное требование",
+      "artifact_scope": "SRS или system analysis artifact pack",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "interface_requirement",
+      "title": "Интерфейсное требование",
+      "artifact_scope": "interface contract, API/schema impact",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "data_requirement",
+      "title": "Требование к данным",
+      "artifact_scope": "domain-data-model, lifecycle, data class",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "nfr_requirement",
+      "title": "НФТ",
+      "artifact_scope": "nfr-profile, metric, verification method",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "error_requirement",
+      "title": "Требование к ошибкам и исключениям",
+      "artifact_scope": "error-catalog, stop rules, fallback behavior",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "backlog_item",
+      "title": "Backlog item",
+      "artifact_scope": "PBI, TECH, EVAL или PROC item",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "acceptance_test",
+      "title": "Acceptance и verification",
+      "artifact_scope": "acceptance criteria, test, eval, inspection или monitoring",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "evidence",
+      "title": "Evidence",
+      "artifact_scope": "validation output, UAT, release evidence, review note",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "release_record",
+      "title": "Release record",
+      "artifact_scope": "release pack, PR handoff, rollback note",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "telemetry_or_feedback",
+      "title": "Telemetry или feedback",
+      "artifact_scope": "KPI, SLO/SLI, pilot feedback, support signal",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "improvement_item",
+      "title": "Improvement item",
+      "artifact_scope": "backlog follow-up, hypothesis, process item или rollback decision",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    }
+  ],
+  "link_types": [
+    {
+      "id": "derives_from",
+      "meaning": "Нижележащий artifact или requirement выводится из указанного источника."
+    },
+    {
+      "id": "satisfies",
+      "meaning": "Artifact закрывает потребность или требование."
+    },
+    {
+      "id": "verifies",
+      "meaning": "Проверка доказывает выполнение acceptance, requirement или NFR."
+    },
+    {
+      "id": "implements",
+      "meaning": "Backlog или delivery artifact реализует требование."
+    },
+    {
+      "id": "impacts",
+      "meaning": "Изменение влияет на artifact, contract, тест или release."
+    },
+    {
+      "id": "supersedes",
+      "meaning": "Новое решение заменяет прежний baseline."
+    },
+    {
+      "id": "monitors",
+      "meaning": "Telemetry или feedback наблюдает фактический результат."
+    }
+  ],
+  "gate_levels": [
+    {
+      "id": "artifact-level",
+      "applies_to": [
+        "BRD",
+        "SRS",
+        "release_pack",
+        "solution_evaluation_report"
+      ]
+    },
+    {
+      "id": "requirement-level",
+      "applies_to": [
+        "business_requirement",
+        "system_requirement",
+        "NFR",
+        "error_requirement"
+      ]
+    },
+    {
+      "id": "backlog-item-level",
+      "applies_to": [
+        "PBI-*",
+        "TECH-*",
+        "EVAL-*",
+        "PROC-*"
+      ]
+    },
+    {
+      "id": "release-level",
+      "applies_to": [
+        "release_evidence",
+        "pilot_evidence",
+        "telemetry_or_feedback"
+      ]
+    }
+  ],
+  "coverage_report_expectations": [
+    {
+      "metric_id": "requirements_with_business_trace",
+      "description": "Доля требований со связью к business goal или stakeholder need.",
+      "first_rollout_level": "baseline"
+    },
+    {
+      "metric_id": "requirements_with_system_trace",
+      "description": "Доля требований со связью к system requirement или explicit not_applicable rationale.",
+      "first_rollout_level": "advisory"
+    },
+    {
+      "metric_id": "backlog_items_with_requirement_trace",
+      "description": "Доля backlog items со связью к business или system requirement.",
+      "first_rollout_level": "baseline"
+    },
+    {
+      "metric_id": "requirements_with_acceptance_criteria",
+      "description": "Доля требований с acceptance criteria.",
+      "first_rollout_level": "baseline"
+    },
+    {
+      "metric_id": "requirements_with_verification_method",
+      "description": "Доля требований с verification method.",
+      "first_rollout_level": "baseline"
+    },
+    {
+      "metric_id": "released_requirements_with_evidence",
+      "description": "Доля released requirements с release evidence.",
+      "first_rollout_level": "advisory"
+    },
+    {
+      "metric_id": "orphan_stale_missing_links",
+      "description": "Список orphan, stale и missing links для разборов и миграции legacy artifacts.",
+      "first_rollout_level": "advisory"
+    }
+  ],
+  "rollout_rule": {
+    "legacy_target": "advisory",
+    "new_or_changed_target": "strict_after_advisory_phase"
+  }
+}

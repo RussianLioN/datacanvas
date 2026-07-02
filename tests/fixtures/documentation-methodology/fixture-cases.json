@@ -1,0 +1,89 @@
+{
+  "version": "0.1.0",
+  "valid_cases": [
+    {
+      "id": "valid-policy",
+      "kind": "policy",
+      "path": "docs/process/methodology/documentation-methodology-policy.json"
+    },
+    {
+      "id": "valid-source-index",
+      "kind": "source_index",
+      "path": "docs/process/methodology/babok-research-source-index.json"
+    },
+    {
+      "id": "valid-traceability-model",
+      "kind": "traceability_model",
+      "path": "docs/process/methodology/traceability-model.json"
+    },
+    {
+      "id": "valid-brd-template-sample",
+      "kind": "template",
+      "template_type": "brd",
+      "path": "tests/fixtures/documentation-methodology/valid-brd-template-sample.md"
+    },
+    {
+      "id": "valid-srs-template-sample",
+      "kind": "template",
+      "template_type": "srs",
+      "path": "tests/fixtures/documentation-methodology/valid-srs-template-sample.md"
+    },
+    {
+      "id": "valid-story-readiness-template-sample",
+      "kind": "template",
+      "template_type": "story_readiness",
+      "path": "tests/fixtures/documentation-methodology/valid-story-readiness-report-sample.md"
+    }
+  ],
+  "negative_cases": [
+    {
+      "id": "invalid-policy-missing-success-metrics",
+      "kind": "policy_gate_removed",
+      "source_path": "docs/process/methodology/documentation-methodology-policy.json",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-policy-missing-success-metrics.json",
+      "gate_group": "business_analysis",
+      "gate": "success_metrics_defined",
+      "expected_check": "quality_gate_policy.business_analysis"
+    },
+    {
+      "id": "invalid-policy-missing-acceptance-criteria",
+      "kind": "policy_gate_removed",
+      "source_path": "docs/process/methodology/documentation-methodology-policy.json",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-policy-missing-acceptance-criteria.json",
+      "gate_group": "system_analysis",
+      "gate": "acceptance_criteria_defined",
+      "expected_check": "quality_gate_policy.system_analysis"
+    },
+    {
+      "id": "empty-source-index",
+      "kind": "source_index",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-empty-source-index.json",
+      "expected_check": "source_index.entries"
+    },
+    {
+      "id": "traceability-chain-missing-link",
+      "kind": "traceability_model",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-traceability-model-missing-link.json",
+      "expected_check": "traceability_model.chain"
+    },
+    {
+      "id": "srs-template-without-acceptance",
+      "kind": "template",
+      "template_type": "srs",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-srs-template-without-acceptance.md",
+      "expected_check": "template.srs"
+    },
+    {
+      "id": "nfr-without-metric",
+      "kind": "nfr_sample",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-nfr-without-metric.md",
+      "expected_check": "nfr.metric"
+    },
+    {
+      "id": "story-readiness-without-requirement-trace",
+      "kind": "story_readiness_sample",
+      "fixture_path": "tests/fixtures/documentation-methodology/negative-story-readiness-without-requirement-trace.md",
+      "expected_check": "story_readiness.requirement_trace"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "version": "0.1.0",
+  "diagnostics": [
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-policy-missing-success-metrics.json",
+      "check": "quality_gate_policy.business_analysis",
+      "missing_gate": "success_metrics_defined",
+      "remediation_hint": "Добавьте обязательный элемент success_metrics_defined в quality_gate_policy.business_analysis."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-policy-missing-acceptance-criteria.json",
+      "check": "quality_gate_policy.system_analysis",
+      "missing_gate": "acceptance_criteria_defined",
+      "remediation_hint": "Добавьте обязательный элемент acceptance_criteria_defined в quality_gate_policy.system_analysis."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-empty-source-index.json",
+      "check": "source_index.entries",
+      "remediation_hint": "Заполните source index нормализованными фрагментами с locator и content_hash."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-traceability-model-missing-link.json",
+      "check": "traceability_model.chain",
+      "missing_gate": "interface_requirement",
+      "remediation_hint": "Добавьте обязательный элемент interface_requirement в traceability_model.chain."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-srs-template-without-acceptance.md",
+      "check": "template.srs",
+      "missing_gate": "Acceptance Criteria",
+      "remediation_hint": "Добавьте обязательный раздел Acceptance Criteria в negative-srs-template-without-acceptance.md."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-nfr-without-metric.md",
+      "check": "nfr.metric",
+      "missing_gate": "nfr_metric",
+      "remediation_hint": "Укажите измеримую метрику для каждого NFR."
+    },
+    {
+      "severity": "error",
+      "artifact_path": "tests/fixtures/documentation-methodology/negative-story-readiness-without-requirement-trace.md",
+      "check": "story_readiness.requirement_trace",
+      "missing_gate": "requirement_trace",
+      "remediation_hint": "Добавьте связанный business/system requirement и trace link в story readiness report."
+    }
+  ]
+}

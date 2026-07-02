@@ -11,12 +11,12 @@
     "docs/process/current/process-change-ledger.json"
   ],
   "counts": {
-    "sprint_folders": 66,
-    "sprint_evidence_manifests": 66,
-    "artifact_registry_entries": 575,
+    "sprint_folders": 67,
+    "sprint_evidence_manifests": 67,
+    "artifact_registry_entries": 604,
     "accepted_process_changes": 3,
     "passed_evidence_checks": 521,
-    "pending_evidence_checks": 0,
+    "pending_evidence_checks": 3,
     "quality_gates_passed": 6,
     "quality_gates_pending_external": 0,
     "process_events": 0
@@ -25,7 +25,7 @@
     {
       "id": "DPM-001",
       "name": "Sprint evidence coverage",
-      "value": "66/66",
+      "value": "67/67",
       "calculation": "sprint_evidence_manifests / sprint_folders",
       "evidence_paths": [
         "docs/sprints"
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "575",
+      "value": "604",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"
@@ -52,7 +52,7 @@
     {
       "id": "DPM-004",
       "name": "Evidence check pass ratio",
-      "value": "521/521",
+      "value": "521/524",
       "calculation": "passed sprint evidence checks / all sprint evidence checks",
       "evidence_paths": [
         "docs/sprints/2026-W26-artifact-hash-manifest/sprint-evidence-manifest.json",
@@ -120,6 +120,7 @@
         "docs/sprints/2026-W26-traceability-graph/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-uat-result-fixture/sprint-evidence-manifest.json",
         "docs/sprints/2026-W26-visual-llm-boundary/sprint-evidence-manifest.json",
+        "docs/sprints/2026-W27-babok-methodology-mva/sprint-evidence-manifest.json",
         "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json"
       ]
     },

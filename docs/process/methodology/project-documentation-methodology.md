@@ -46,25 +46,39 @@ Backlog не подменяет анализ. Backlog отражает прин�
 
 ## Traceability Policy
 
-Обязательная цепочка:
+Обязательная методическая цепочка:
 
 ```text
-business need
+business goal
+-> stakeholder need
 -> business requirement
--> stakeholder requirement
 -> system requirement
+-> interface/data/nfr/error requirement
 -> backlog item
--> acceptance criterion
--> test case / eval case
--> release evidence
--> telemetry signal / KPI
+-> acceptance test
+-> evidence
+-> release record
+-> telemetry or feedback
+-> improvement item
 ```
+
+`traceability-model.json` описывает эту цепочку как методическую модель. Проектные traceability artifacts остаются источником фактических связей и не заменяются методическим файлом.
 
 Если связь отсутствует, агент не должен делать вид, что item готов. Нужно создать open question, evidence request, hypothesis или deferred rationale.
 
 ## Quality Gates
 
 ### Бизнес-Анализ
+
+Обязательные gate id:
+
+- `problem_defined`
+- `business_value_measurable`
+- `stakeholders_identified`
+- `scope_defined`
+- `success_metrics_defined`
+- `business_rules_recorded`
+- `business_requirements_traceable`
 
 - Реальная проблема или возможность описана отдельно от решения.
 - Пользователь, stakeholder и decision owner известны.
@@ -75,13 +89,36 @@ business need
 
 ### Системный Анализ
 
+Обязательные gate id:
+
+- `behavior_defined`
+- `data_defined`
+- `integrations_defined`
+- `nfr_defined`
+- `errors_defined`
+- `acceptance_criteria_defined`
+- `verification_method_defined`
+
 - Описаны основной сценарий, альтернативы, ошибки и stop rules.
 - Данные имеют владельца, класс, lifecycle и контракт проверки.
 - Интеграции имеют boundary, actor identity, authn/authz, timeout/retry/failure mode.
 - НФТ покрывают security, privacy, observability, reliability, performance, supportability и data quality.
 - Для каждого системного требования указан метод verification: review, test, analysis, inspection, monitoring или evaluation.
 
+SRS ссылается на `system-context`, `use-case/spec`, `domain-data-model`, `interface-contract`, `nfr-profile`, `error-catalog` и `acceptance-verification-map` либо явно отмечает `not_applicable` с rationale.
+
 ### AI-Агентные Решения
+
+Обязательные gate id:
+
+- `agent_goal_defined`
+- `tools_defined`
+- `permissions_defined`
+- `human_approval_defined`
+- `traces_defined`
+- `evals_defined`
+- `guardrails_defined`
+- `explainability_defined`
 
 - Цель агента выражена как бизнесовая задача, а не как общая способность отвечать.
 - Tool policy и permission matrix ограничивают действия агента.
@@ -120,4 +157,3 @@ business need
 3. Разделять факт, подтвержденный claim, предположение и open question.
 4. Не менять канонический backlog до accepted Product Change Order и закрытых blocking decisions.
 5. После интервью синхронизировать requirements, backlog, roadmap, acceptance, traceability и evidence либо зафиксировать confirmed `no-change rationale`.
-

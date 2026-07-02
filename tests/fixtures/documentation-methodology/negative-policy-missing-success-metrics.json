@@ -1,0 +1,6 @@
+{
+  "base_policy_path": "docs/process/methodology/documentation-methodology-policy.json",
+  "mutation": "remove_gate",
+  "gate_group": "business_analysis",
+  "gate": "success_metrics_defined"
+}

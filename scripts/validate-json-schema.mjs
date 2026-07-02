@@ -693,6 +693,26 @@ const cases = [
     data: "docs/process/methodology/documentation-methodology-policy.json",
   },
   {
+    schema: "schemas/babok-research-source-index.schema.json",
+    data: "docs/process/methodology/babok-research-source-index.json",
+  },
+  {
+    schema: "schemas/methodology-traceability-model.schema.json",
+    data: "docs/process/methodology/traceability-model.json",
+  },
+  {
+    schema: "schemas/methodology-artifact-map.schema.json",
+    data: "docs/process/methodology/methodology-artifact-map.json",
+  },
+  {
+    schema: "schemas/babok-coverage-map.schema.json",
+    data: "docs/process/methodology/babok-coverage-map.json",
+  },
+  {
+    schema: "schemas/sprint-evidence-manifest.schema.json",
+    data: "docs/sprints/2026-W27-babok-methodology-mva/sprint-evidence-manifest.json",
+  },
+  {
     schema: "schemas/render-result.schema.json",
     data: "artifacts/examples/render-result-minimal.json",
   },

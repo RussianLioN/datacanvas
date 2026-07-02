@@ -1,0 +1,120 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "source_file": "docs/process/methodology/babok-research-source.md",
+  "source_summary": "Нормализованный индекс правил BABOK-исследования для методики DataCanvas. Индекс хранит краткие проверяемые правила, locator и hash без raw-копии пользовательских материалов.",
+  "entries": [
+    {
+      "source_id": "BABOK-SRC-001",
+      "section_id": "BABOK-KA-BAPM",
+      "section_title": "Business Analysis Planning & Monitoring",
+      "topic": "planning_monitoring",
+      "applies_to": [
+        "methodology_policy",
+        "process_backlog",
+        "validation_levels"
+      ],
+      "rule_summary": "План бизнес-анализа определяет подход, роли, артефакты, gates и порядок подтверждения решений; backlog не подменяет анализ.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:e361930a4148c4c3dfb87f4ea4c0a75e3b8341cf8a84c107f3520168c7488f5f",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-002",
+      "section_id": "BABOK-KA-EC",
+      "section_title": "Elicitation & Collaboration",
+      "topic": "elicitation_collaboration",
+      "applies_to": [
+        "elicitation_log_template",
+        "stakeholder_map_template",
+        "agent_interview_policy"
+      ],
+      "rule_summary": "Требования принимаются только из подтвержденных источников: интервью, evidence, decision log или Product Change Order; неподтвержденные ответы остаются вопросами.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:21e87608bc87cb9aebfd9460c2a85e6fd95f44b1a9fb6bf748d007334230f1be",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-003",
+      "section_id": "BABOK-KA-RLCM",
+      "section_title": "Requirements Life Cycle Management",
+      "topic": "requirements_lifecycle",
+      "applies_to": [
+        "requirement_state_model",
+        "traceability_model",
+        "change_request_template"
+      ],
+      "rule_summary": "Каждое требование имеет состояние, источник, владельца, trace links, change status и правило not_applicable с rationale.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:563650f4bfc3f6e977d2b10ba042599df25ed1264d3de52361fabccf0075aba9",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-004",
+      "section_id": "BABOK-KA-SA",
+      "section_title": "Strategy Analysis",
+      "topic": "strategy_analysis",
+      "applies_to": [
+        "brd_template",
+        "business_analysis_gates",
+        "solution_evaluation_report"
+      ],
+      "rule_summary": "Проблема, бизнес-цель, измеримая ценность, заинтересованные стороны, границы и метрики успеха фиксируются до системного решения.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:16c6ec64531c8796fbb177add2fe303b6ca4cabcd54fda13955101987ee89a9b",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-005",
+      "section_id": "BABOK-KA-RADD",
+      "section_title": "Requirements Analysis & Design Definition",
+      "topic": "requirements_analysis_design_definition",
+      "applies_to": [
+        "srs_template",
+        "system_analysis_artifact_pack",
+        "architecture_handoff"
+      ],
+      "rule_summary": "Системный анализ обязан покрывать поведение, данные, интеграции, НФТ, ошибки, acceptance criteria, verification method и architecture handoff.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:41a33f140b7eaf0c69cb377debef5e3388904239e4b28225d881cc06d137ca2d",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-006",
+      "section_id": "BABOK-KA-SE",
+      "section_title": "Solution Evaluation",
+      "topic": "solution_evaluation",
+      "applies_to": [
+        "solution_evaluation_report",
+        "release_evidence",
+        "operations_feedback"
+      ],
+      "rule_summary": "Релиз оценивается через release evidence, telemetry/feedback, ожидаемую и фактическую ценность, gaps и improvement items.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:50064f28a0bf0784063fdc6653b341b5cd13632eb87c1a0a1bd05cbd3b3ff9b8",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    },
+    {
+      "source_id": "BABOK-SRC-007",
+      "section_id": "DATACANVAS-AI-AGENT",
+      "section_title": "AI-agent solution extension",
+      "topic": "ai_agent_governance",
+      "applies_to": [
+        "ai_agent_solution_gates",
+        "tool_permissions",
+        "evals_guardrails"
+      ],
+      "rule_summary": "Для AI-агента до расширения автономии фиксируются цель, tools, permissions, human approvals, traces, evals, guardrails и explainability.",
+      "locator": "docs/process/methodology/babok-research-source.md#ключевые-выводы",
+      "content_hash": "sha256:78a7d4aefc368cfd07b47e334ac2c948634f10af096db60772aca06b7d6deb90",
+      "source_file_reference": "docs/process/methodology/babok-research-source.md",
+      "source_date_or_version": "normalized-2026-07-02"
+    }
+  ]
+}

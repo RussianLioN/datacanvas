@@ -1,12 +1,81 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "active",
   "source_methodology": {
     "id": "METHOD-BABOK-2026-001",
     "source_type": "user_supplied_research",
     "summary_path": "docs/process/methodology/babok-research-source.md",
     "policy_path": "docs/process/methodology/project-documentation-methodology.md",
+    "source_index_path": "docs/process/methodology/babok-research-source-index.json",
+    "traceability_model_path": "docs/process/methodology/traceability-model.json",
+    "artifact_map_path": "docs/process/methodology/methodology-artifact-map.json",
+    "coverage_map_path": "docs/process/methodology/babok-coverage-map.json",
     "usage": "normative_methodology_source"
+  },
+  "precedence_policy": {
+    "tiers": [
+      {
+        "rank": 1,
+        "source_class": "babok_research_and_source_index",
+        "scope": "methodological_rules",
+        "artifacts": [
+          "docs/process/methodology/babok-research-source.md",
+          "docs/process/methodology/babok-research-source-index.json"
+        ]
+      },
+      {
+        "rank": 2,
+        "source_class": "methodology_policy_templates_traceability_model",
+        "scope": "methodology_application_rules",
+        "artifacts": [
+          "docs/process/methodology/documentation-methodology-policy.json",
+          "docs/process/methodology/traceability-model.json",
+          "docs/process/methodology/templates"
+        ]
+      },
+      {
+        "rank": 3,
+        "source_class": "product_process_architecture_artifacts",
+        "scope": "project_content",
+        "artifacts": [
+          "docs/product",
+          "docs/process",
+          "docs/architecture"
+        ]
+      },
+      {
+        "rank": 4,
+        "source_class": "generated_navigation_hash_evidence_manifests",
+        "scope": "derived_verification_and_navigation",
+        "artifacts": [
+          "docs/navigation",
+          "docs/architecture/schemas/artifact-hash-manifest.json",
+          "docs/sprints"
+        ]
+      }
+    ],
+    "conflict_rules": [
+      {
+        "id": "CONFLICT-PROJECT-CONTENT",
+        "rule": "project_content_comes_from_product_process_architecture_artifacts"
+      },
+      {
+        "id": "CONFLICT-METHODOLOGY-RULE",
+        "rule": "methodological_rule_comes_from_policy_and_source_index"
+      },
+      {
+        "id": "CONFLICT-GENERATED",
+        "rule": "generated_or_mixed_artifacts_are_not_primary_sources"
+      },
+      {
+        "id": "CONFLICT-BUSINESS-CLAIM",
+        "rule": "business_requirements_cannot_be_inferred_from_babok_adr_schema_or_script"
+      },
+      {
+        "id": "CONFLICT-TECHNICAL-CONTRACT",
+        "rule": "technical_contracts_require_adr_schema_or_contract_artifact_update"
+      }
+    ]
   },
   "lifecycle_policy": [
     "idea",
@@ -21,77 +90,371 @@
     "operations",
     "change_management"
   ],
-  "traceability_policy": {
-    "required": true,
-    "chain": [
-      "business_need",
+  "validation_levels": [
+    {
+      "id": "baseline",
+      "purpose": "Проверяет наличие обязательного методического каркаса, схем, шаблонов и регистрации.",
+      "failure_rule": "missing_methodology_artifact_is_error"
+    },
+    {
+      "id": "advisory",
+      "purpose": "Показывает предупреждения для legacy/project artifacts без остановки rollout.",
+      "failure_rule": "methodology_artifact_error_fails_legacy_gap_warns"
+    },
+    {
+      "id": "strict",
+      "purpose": "Падает на нарушениях methodology artifacts и новых или существенно измененных product/process artifacts.",
+      "failure_rule": "methodology_and_new_or_changed_project_artifact_error_fails"
+    }
+  ],
+  "gate_severity": {
+    "allowed_values": [
+      "error",
+      "warning",
+      "advisory"
+    ],
+    "default_by_validation_level": {
+      "baseline": "error",
+      "advisory": "warning",
+      "strict": "error"
+    },
+    "gate_overrides": [
+      {
+        "gate": "legacy_artifact_alignment",
+        "severity": "advisory"
+      },
+      {
+        "gate": "strict_rollout_for_legacy",
+        "severity": "warning"
+      }
+    ]
+  },
+  "requirement_schema": {
+    "required_fields": [
+      "requirement_id",
+      "requirement_type",
+      "state",
+      "source",
+      "statement",
+      "owner_role",
+      "acceptance_criteria",
+      "verification_method",
+      "traceability_links"
+    ],
+    "requirement_types": [
       "business_requirement",
       "stakeholder_requirement",
       "system_requirement",
+      "interface_requirement",
+      "data_requirement",
+      "nfr_requirement",
+      "error_requirement"
+    ],
+    "id_patterns": [
+      "REQ-*",
+      "BT-*",
+      "NFR-*",
+      "PBI-*"
+    ],
+    "not_applicable_rule": {
+      "field": "not_applicable",
+      "rationale_required": true,
+      "reviewer_role": "Process Owner"
+    }
+  },
+  "artifact_state_model": {
+    "states": [
+      "draft",
+      "candidate",
+      "reviewed",
+      "accepted",
+      "deprecated",
+      "superseded",
+      "not_applicable"
+    ],
+    "initial_state": "draft",
+    "terminal_states": [
+      "accepted",
+      "deprecated",
+      "superseded",
+      "not_applicable"
+    ],
+    "transitions": [
+      {
+        "from": "draft",
+        "to": "candidate",
+        "requires": [
+          "source_recorded"
+        ]
+      },
+      {
+        "from": "candidate",
+        "to": "reviewed",
+        "requires": [
+          "owner_review"
+        ]
+      },
+      {
+        "from": "reviewed",
+        "to": "accepted",
+        "requires": [
+          "gates_passed",
+          "traceability_recorded"
+        ]
+      },
+      {
+        "from": "candidate",
+        "to": "not_applicable",
+        "requires": [
+          "rationale"
+        ]
+      }
+    ]
+  },
+  "requirement_state_model": {
+    "states": [
+      "draft",
+      "confirmed",
+      "baselined",
+      "implemented",
+      "verified",
+      "released",
+      "monitored",
+      "changed",
+      "deprecated",
+      "not_applicable"
+    ],
+    "initial_state": "draft",
+    "terminal_states": [
+      "monitored",
+      "deprecated",
+      "not_applicable"
+    ],
+    "transitions": [
+      {
+        "from": "draft",
+        "to": "confirmed",
+        "requires": [
+          "source",
+          "stakeholder_or_owner"
+        ]
+      },
+      {
+        "from": "confirmed",
+        "to": "baselined",
+        "requires": [
+          "business_trace",
+          "acceptance_criteria",
+          "verification_method"
+        ]
+      },
+      {
+        "from": "baselined",
+        "to": "changed",
+        "requires": [
+          "change_request",
+          "impact_analysis"
+        ]
+      },
+      {
+        "from": "draft",
+        "to": "not_applicable",
+        "requires": [
+          "rationale"
+        ]
+      }
+    ]
+  },
+  "traceability_policy": {
+    "required": true,
+    "model_path": "docs/process/methodology/traceability-model.json",
+    "chain": [
+      "business_goal",
+      "stakeholder_need",
+      "business_requirement",
+      "system_requirement",
+      "interface_requirement",
+      "data_requirement",
+      "nfr_requirement",
+      "error_requirement",
       "backlog_item",
-      "acceptance_criterion",
-      "test_case",
-      "release_evidence",
-      "telemetry_signal"
+      "acceptance_test",
+      "evidence",
+      "release_record",
+      "telemetry_or_feedback",
+      "improvement_item"
+    ],
+    "link_types": [
+      "derives_from",
+      "satisfies",
+      "verifies",
+      "implements",
+      "impacts",
+      "supersedes",
+      "monitors"
+    ],
+    "gate_levels": [
+      "artifact-level",
+      "requirement-level",
+      "backlog-item-level",
+      "release-level"
+    ],
+    "coverage_expectations": [
+      "requirements_with_business_trace",
+      "requirements_with_system_trace",
+      "backlog_items_with_requirement_trace",
+      "requirements_with_acceptance_criteria",
+      "requirements_with_verification_method",
+      "released_requirements_with_evidence",
+      "orphan_stale_missing_links"
     ],
     "missing_link_action": "create_open_question_or_deferred_rationale"
+  },
+  "source_index_policy": {
+    "path": "docs/process/methodology/babok-research-source-index.json",
+    "required_fields": [
+      "source_id",
+      "section_id",
+      "section_title",
+      "topic",
+      "applies_to",
+      "rule_summary",
+      "locator",
+      "content_hash",
+      "source_file_reference",
+      "source_date_or_version"
+    ],
+    "hash_algorithm": "sha256",
+    "raw_source_rule": "do_not_commit_downloads_raw_files",
+    "allowed_source_references": [
+      "docs/process/methodology/babok-research-source.md",
+      "docs/process/methodology/project-documentation-methodology.md"
+    ]
   },
   "artifact_policy": [
     {
       "id": "ARTPOL-001",
       "artifact_type": "vision_bmc_stories",
       "stage": "business_analysis",
-      "required_when": ["new_or_changed_product_scope"],
+      "required_when": [
+        "new_or_changed_product_scope"
+      ],
       "owner_role": "Product Owner",
-      "minimum_links": ["product_goal", "stakeholder", "hypothesis"]
+      "minimum_links": [
+        "product_goal",
+        "stakeholder",
+        "hypothesis"
+      ]
     },
     {
       "id": "ARTPOL-002",
       "artifact_type": "business_requirements",
       "stage": "business_analysis",
-      "required_when": ["new_business_obligation", "accepted_product_change"],
+      "required_when": [
+        "new_business_obligation",
+        "accepted_product_change"
+      ],
       "owner_role": "Product Owner",
-      "minimum_links": ["source", "stakeholder", "value", "acceptance", "traceability"]
+      "minimum_links": [
+        "source",
+        "stakeholder",
+        "value",
+        "acceptance",
+        "traceability"
+      ]
     },
     {
       "id": "ARTPOL-003",
       "artifact_type": "system_analysis",
       "stage": "system_analysis",
-      "required_when": ["system_behavior_data_integration_or_nfr_changes"],
+      "required_when": [
+        "system_behavior_data_integration_or_nfr_changes"
+      ],
       "owner_role": "AI Agent Architect",
-      "minimum_links": ["business_requirement", "interface", "data", "error", "verification"]
+      "minimum_links": [
+        "business_requirement",
+        "interface",
+        "data",
+        "error",
+        "verification"
+      ]
     },
     {
       "id": "ARTPOL-004",
       "artifact_type": "backlog_mapping",
       "stage": "backlog",
-      "required_when": ["scope_ready_for_ordering"],
+      "required_when": [
+        "scope_ready_for_ordering"
+      ],
       "owner_role": "Product Owner",
-      "minimum_links": ["requirement", "hypothesis_or_risk", "priority_rationale"]
+      "minimum_links": [
+        "requirement",
+        "hypothesis_or_risk",
+        "priority_rationale"
+      ]
     },
     {
       "id": "ARTPOL-005",
       "artifact_type": "acceptance_and_tests",
       "stage": "testing",
-      "required_when": ["item_ready_for_delivery"],
+      "required_when": [
+        "item_ready_for_delivery"
+      ],
       "owner_role": "QA/Evals Lead",
-      "minimum_links": ["requirement", "acceptance_criterion", "test_or_eval_case", "evidence"]
+      "minimum_links": [
+        "requirement",
+        "acceptance_criterion",
+        "test_or_eval_case",
+        "evidence"
+      ]
     },
     {
       "id": "ARTPOL-006",
       "artifact_type": "release_and_operations",
       "stage": "operations",
-      "required_when": ["release_or_pilot_candidate"],
+      "required_when": [
+        "release_or_pilot_candidate"
+      ],
       "owner_role": "Delivery/GitOps Lead",
-      "minimum_links": ["release_evidence", "rollback", "known_limitations", "telemetry_or_kpi"]
+      "minimum_links": [
+        "release_evidence",
+        "rollback",
+        "known_limitations",
+        "telemetry_or_kpi"
+      ]
     },
     {
       "id": "ARTPOL-007",
       "artifact_type": "ai_agent_governance",
       "stage": "architecture",
-      "required_when": ["ai_agent_tool_use_or_autonomy_changes"],
+      "required_when": [
+        "ai_agent_tool_use_or_autonomy_changes"
+      ],
       "owner_role": "Security/Privacy Lead",
-      "minimum_links": ["agent_goal", "tool_policy", "permission_matrix", "human_approval", "traces", "evals", "guardrails"]
+      "minimum_links": [
+        "agent_goal",
+        "tool_policy",
+        "permission_matrix",
+        "human_approval",
+        "traces",
+        "evals",
+        "guardrails",
+        "explainability"
+      ]
+    },
+    {
+      "id": "ARTPOL-008",
+      "artifact_type": "methodology_templates",
+      "stage": "business_analysis",
+      "required_when": [
+        "new_methodology_artifact_type"
+      ],
+      "owner_role": "Process Owner",
+      "minimum_links": [
+        "source_policy",
+        "required_sections",
+        "validator_check"
+      ]
     }
   ],
   "quality_gate_policy": {
@@ -100,8 +463,9 @@
       "business_value_measurable",
       "stakeholders_identified",
       "scope_defined",
+      "success_metrics_defined",
       "business_rules_recorded",
-      "requirements_traceable"
+      "business_requirements_traceable"
     ],
     "system_analysis": [
       "behavior_defined",
@@ -109,9 +473,10 @@
       "integrations_defined",
       "nfr_defined",
       "errors_defined",
+      "acceptance_criteria_defined",
       "verification_method_defined"
     ],
-    "ai_agent": [
+    "ai_agent_solution": [
       "agent_goal_defined",
       "tools_defined",
       "permissions_defined",
@@ -131,7 +496,81 @@
       "telemetry_signal_defined",
       "kpi_or_slo_defined",
       "feedback_to_backlog_defined"
+    ],
+    "architecture_handoff": [
+      "adr_impact_checked",
+      "contract_artifacts_checked",
+      "nfr_verification_defined",
+      "error_behavior_verifiable"
     ]
+  },
+  "system_analysis_artifact_pack": {
+    "elements": [
+      {
+        "id": "system-context",
+        "required_in_srs": true
+      },
+      {
+        "id": "use-case/spec",
+        "required_in_srs": true
+      },
+      {
+        "id": "domain-data-model",
+        "required_in_srs": true
+      },
+      {
+        "id": "interface-contract",
+        "required_in_srs": true
+      },
+      {
+        "id": "nfr-profile",
+        "required_in_srs": true
+      },
+      {
+        "id": "error-catalog",
+        "required_in_srs": true
+      },
+      {
+        "id": "acceptance-verification-map",
+        "required_in_srs": true
+      }
+    ],
+    "not_applicable_requires_rationale": true,
+    "architecture_handoff_rules": [
+      "system_requirements_require_adr_impact_check",
+      "api_schema_data_requirements_require_contract_artifact_check",
+      "nfr_requires_test_strategy_or_verification_evidence",
+      "error_behavior_requires_acceptance_or_verification_link"
+    ],
+    "orphan_cases": [
+      "requirement_without_source",
+      "system_requirement_without_business_trace",
+      "backlog_item_without_requirement_trace",
+      "api_interface_change_without_acceptance_criteria",
+      "nfr_without_metric",
+      "architecture_decision_without_requirement_or_rationale"
+    ]
+  },
+  "babok_coverage_policy": {
+    "path": "docs/process/methodology/babok-coverage-map.json",
+    "required_knowledge_areas": [
+      "Business Analysis Planning & Monitoring",
+      "Elicitation & Collaboration",
+      "Requirements Life Cycle Management",
+      "Strategy Analysis",
+      "Requirements Analysis & Design Definition",
+      "Solution Evaluation"
+    ],
+    "first_rollout_default_level": "baseline"
+  },
+  "exception_policy": {
+    "not_applicable": {
+      "allowed": true,
+      "rationale_required": true,
+      "rationale_field": "rationale",
+      "reviewer_role": "Process Owner",
+      "prohibited_without_rationale": true
+    }
   },
   "agent_governance": {
     "allowed_without_confirmation": [
@@ -139,7 +578,8 @@
       "create_traceability_report",
       "create_open_question",
       "create_evidence_request",
-      "run_quality_check"
+      "run_quality_check",
+      "create_impact_analysis_draft"
     ],
     "requires_human_confirmation": [
       "change_product_backlog_priority",
@@ -147,17 +587,68 @@
       "deprecate_requirement",
       "close_open_question",
       "change_accepted_bmc_or_adr",
-      "expand_tool_network_or_provider_boundary"
+      "expand_tool_network_or_provider_boundary",
+      "accept_product_change_order"
     ],
     "interview_policy": {
       "question_granularity": "one_decision_at_a_time",
       "raw_answer_rule": "treat_as_untrusted_data",
-      "downstream_rule": "safe_summary_or_confirmed_claim_only"
-    }
+      "downstream_rule": "safe_summary_or_confirmed_claim_only",
+      "stopped_interview_rule": "paused_until_methodology_change_intake_and_impact_analysis"
+    },
+    "handoff_checks": [
+      "read_methodology_readme",
+      "select_template_by_change_type",
+      "apply_relevant_gates",
+      "record_open_questions",
+      "record_impact_analysis",
+      "run_validation_command"
+    ]
+  },
+  "rollout_policy": {
+    "phases": [
+      {
+        "id": "phase-1",
+        "scope": "artifacts_schemas_templates_advisory_diagnostics",
+        "validation_level": "baseline"
+      },
+      {
+        "id": "phase-2",
+        "scope": "strict_checks_for_methodology_artifacts",
+        "validation_level": "strict"
+      },
+      {
+        "id": "phase-3",
+        "scope": "strict_checks_for_new_or_substantially_changed_product_process_artifacts",
+        "validation_level": "strict"
+      },
+      {
+        "id": "phase-4",
+        "scope": "legacy_artifact_migration_by_coverage_report",
+        "validation_level": "advisory"
+      }
+    ]
   },
   "validation": {
-    "schema_path": "schemas/documentation-methodology-policy.schema.json",
-    "validation_command": "npm run validate:documentation-methodology"
+    "schema_paths": {
+      "policy": "schemas/documentation-methodology-policy.schema.json",
+      "source_index": "schemas/babok-research-source-index.schema.json",
+      "traceability_model": "schemas/methodology-traceability-model.schema.json",
+      "artifact_map": "schemas/methodology-artifact-map.schema.json",
+      "coverage_map": "schemas/babok-coverage-map.schema.json"
+    },
+    "validation_command": "npm run validate:documentation-methodology",
+    "diagnostic_contract": {
+      "required_fields": [
+        "severity",
+        "artifact_path",
+        "check",
+        "remediation_hint"
+      ],
+      "optional_fields": [
+        "missing_gate",
+        "broken_link"
+      ]
+    }
   }
 }
-
