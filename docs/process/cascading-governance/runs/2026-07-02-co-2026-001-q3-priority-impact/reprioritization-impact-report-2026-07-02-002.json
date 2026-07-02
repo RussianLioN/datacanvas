@@ -1,0 +1,138 @@
+{
+  "version": "0.1.0",
+  "report_id": "RIR-2026-07-02-002",
+  "status": "blocked",
+  "change_request_id": "DCR-2026-07-02-002",
+  "capacity_plan_id": "CAP-2026-Q3",
+  "quarter": "2026-Q3",
+  "capacity_status": "pending_external",
+  "available_capacity_pse": null,
+  "reserved_buffer_pse": null,
+  "committed_items": [
+    {
+      "item_id": "DC-ST-01",
+      "title": "Описание презентации по слайдам, блокам и информации",
+      "estimate_pse": 21.4,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-02",
+      "title": "Дополнять блоки информации в описании презентации",
+      "estimate_pse": 13.4,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-03",
+      "title": "Менять расположение блоков информации",
+      "estimate_pse": 13.4,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-04",
+      "title": "Удалять лишнюю информацию",
+      "estimate_pse": 13.4,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-05",
+      "title": "Запрос после диалога с другими агентами",
+      "estimate_pse": 6,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-06",
+      "title": "Уточняющие запросы при недостаточной информации",
+      "estimate_pse": 8,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-07",
+      "title": "Запуск в начале сессии с Лисой",
+      "estimate_pse": 8,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-08",
+      "title": "Выбор формата и шаблона презентации",
+      "estimate_pse": 6,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    },
+    {
+      "item_id": "DC-ST-09",
+      "title": "Готовая презентация по электронной почте",
+      "estimate_pse": 17,
+      "quarter": "2026-Q3",
+      "source_path": "docs/stories.md"
+    }
+  ],
+  "proposed_changes": [],
+  "total_committed_pse": 106.6,
+  "capacity_delta_pse": null,
+  "capacity_overrun": false,
+  "dependencies": [
+    {
+      "item_id": "CO-2026-001",
+      "depends_on": [
+        "DEC-CO-2026-001-ACCEPTANCE",
+        "DEC-Q3-CAPACITY-SOURCE",
+        "DEC-Q3-STORY-MOVE-LIST",
+        "DEC-Q3-DISPLACEMENT-RULE",
+        "DEC-Q3-RESULT-CHANNEL",
+        "DEC-A2A-ROLLBACK-REHEARSAL"
+      ]
+    }
+  ],
+  "trade_off_options": [
+    {
+      "option_id": "OPT-MOVE-LESS-IMPORTANT-STORIES",
+      "description": "Перенести менее важные истории из 2026-Q3 после решения Product Owner и расчета capacity.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    },
+    {
+      "option_id": "OPT-REDUCE-ACCEPTED-SCOPE",
+      "description": "Сократить состав принятого CO-2026-001 до доступной capacity.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    },
+    {
+      "option_id": "OPT-SPLIT-STORY",
+      "description": "Разбить историю перед переносом, если Product Owner и команда подтвердят split.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    },
+    {
+      "option_id": "OPT-INCREASE-CAPACITY",
+      "description": "Увеличить capacity только по подтвержденному внешнему источнику.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    },
+    {
+      "option_id": "OPT-BLOCK-CHANGE",
+      "description": "Оставить CO-2026-001 blocked, пока решения и источники недоступны.",
+      "requires_user_confirmation": true,
+      "status": "proposed"
+    }
+  ],
+  "blocking_decisions": [
+    "DEC-CO-2026-001-ACCEPTANCE",
+    "DEC-Q3-CAPACITY-SOURCE",
+    "DEC-Q3-STORY-MOVE-LIST",
+    "DEC-Q3-DISPLACEMENT-RULE",
+    "DEC-Q3-RESULT-CHANNEL",
+    "DEC-A2A-ROLLBACK-REHEARSAL"
+  ],
+  "validation_commands": [
+    "npm run validate:reprioritization-impact",
+    "npm run validate:capacity-plan",
+    "npm run validate:cascading-governance"
+  ]
+}

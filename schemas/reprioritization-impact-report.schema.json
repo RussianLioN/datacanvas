@@ -93,7 +93,8 @@
         "item_id": { "type": "string", "minLength": 1 },
         "title": { "type": "string", "minLength": 1 },
         "estimate_pse": { "type": "number", "minimum": 0 },
-        "quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/quarter" }
+        "quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/quarter" },
+        "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
       }
     },
     "proposedChange": {
@@ -105,7 +106,16 @@
         "from_quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableQuarter" },
         "to_quarter": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableQuarter" },
         "estimate_pse": { "type": "number", "minimum": 0 },
-        "user_confirmation_status": { "type": "string", "enum": ["pending", "confirmed", "rejected", "not_required"] }
+        "user_confirmation_status": { "type": "string", "enum": ["pending", "confirmed", "rejected", "not_required"] },
+        "title": { "type": "string", "minLength": 1 },
+        "change_type": {
+          "type": "string",
+          "enum": ["candidate_addition", "candidate_displacement", "already_committed", "not_applicable"]
+        },
+        "reason": { "type": "string", "minLength": 1 },
+        "owner_decision": { "type": "string", "minLength": 1 },
+        "decision_owner_role": { "type": "string", "minLength": 1 },
+        "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
       }
     }
   }

@@ -722,12 +722,12 @@
     {
       "artifact_id": "ART-145",
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "sha256": "e940738b825dd4ebbf8619c9986cc86d043f8ecdfeb4c1eccbec2e96c46005f5"
+      "sha256": "ffa4c45e45634b69cd7eee05fa2540d60726bcbdc1fcbb310a038e9c228687ba"
     },
     {
       "artifact_id": "ART-146",
       "path": "docs/release/mvp-release-evidence-pack.md",
-      "sha256": "fedf732eaad5278102aef4385ee1580fb0b9f0323eb7763b1b7c6c62a94419f5"
+      "sha256": "b8b335d04bc46a9322fc75cbff21195ceafbf1783bf7fb2a59f693d90605c413"
     },
     {
       "artifact_id": "ART-147",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "22be2e8d3d5dcb201d79ebef424cb464c13d6a3e17d84f48e0631d9e63a3f7bb"
+      "sha256": "89b873a55f258fa72fa4bd19cb8ee3ec2ced3957e9e9fd6e0224b1e151dac491"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "af81213f839f77b0eeaf30bd64eba3c660f39d6444b33bb21bd26cee34bc1753"
+      "sha256": "59f458152e3f81b94fda08898aaff6bb6220b579fbac07cfea4736f3515c3ba8"
     },
     {
       "artifact_id": "ART-201",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "91712cfa36d64617fe5cafdb65aba175179d34b317d8748bfb2ebde2211b1b60"
+      "sha256": "bbdcf458c2d9fe93058294ff0249b288006a648721c44c36c7c6056188644d79"
     },
     {
       "artifact_id": "ART-330",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "6f60e3f0a80d74f1d3792deef0c7d86690e558546709ef8e01c62f7ce738ee6d"
+      "sha256": "87365ff648ae811c7b711f5b13878d8a0de6fbf9803d736f298107ce3b794619"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "1ff76e64f117525aca157173cee6f7363f46f26a0f4ea53c8dea870945933580"
+      "sha256": "272dd599b02f478cd0686a7dacf3593a8e23ae9df5173d2569f82e12b64862ed"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "bf5db3766e6d5b72b93d6fcd0c74e736fccf6bb3679fe10177bb27adb2bb2ca4"
+      "sha256": "d79a74dd1dc16a4d4c160b5cf7a948d2543dcd6b9056f7542268969e45b51d7b"
     },
     {
       "artifact_id": "ART-412",
@@ -2597,7 +2597,7 @@
     {
       "artifact_id": "ART-520",
       "path": "docs/process/cascading-governance/README.md",
-      "sha256": "744f576c39b08351d8a9383114b799279da4ce350b69af09a58254ec0d209da4"
+      "sha256": "1bbb64545af7533178fa6cdd1a31eb37082060e9ffbfac5b52d156c7d84d1d68"
     },
     {
       "artifact_id": "ART-521",
@@ -2607,7 +2607,7 @@
     {
       "artifact_id": "ART-522",
       "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
-      "sha256": "e5bb8315822295f0f68e5a94eadadd2730831c09922a78bf774d031f87451844"
+      "sha256": "6380619e04c048162f130f43c4afd01b4d0d76e36d25c348e443012279ee146f"
     },
     {
       "artifact_id": "ART-523",
@@ -2682,7 +2682,7 @@
     {
       "artifact_id": "ART-537",
       "path": "schemas/reprioritization-impact-report.schema.json",
-      "sha256": "20d74feb9ec76d28a98a297d5d509a97f977bd07e8d341f98072258924a37d70"
+      "sha256": "bb3b50ceea5c65ac50f48e83feea9501dede7065b76c6cb6509d61fde414320d"
     },
     {
       "artifact_id": "ART-538",
@@ -2702,7 +2702,7 @@
     {
       "artifact_id": "ART-541",
       "path": "scripts/validate-cascading-governance.mjs",
-      "sha256": "e0fb88371e0305b6744f28b8baca2ff33a6fcd0768ddaf38c70aeee429e01d67"
+      "sha256": "741fc9b2253bb261f7537d12de2aff329da499476110ccfacb7e16ef4e61707d"
     },
     {
       "artifact_id": "ART-542",
@@ -2808,6 +2808,36 @@
       "artifact_id": "ART-562",
       "path": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
       "sha256": "e01e7fd68df4e92465a9aec2a65bfa0deca99d21480c79cbf1467d8fcc6dfbae"
+    },
+    {
+      "artifact_id": "ART-563",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
+      "sha256": "621d1e887ca2c47242c4134c3c462012b016b9ab5b2e03dfdfc2afdbf17f8472"
+    },
+    {
+      "artifact_id": "ART-564",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+      "sha256": "1b75d289bf3f7db13601865e3098bb721f0bac6a37b9a7b5c559ff01f1610059"
+    },
+    {
+      "artifact_id": "ART-565",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+      "sha256": "273f20cdf03f4afbfb5b0d3e6dde454726a0d2b813e8304718ab815e73e4f41c"
+    },
+    {
+      "artifact_id": "ART-566",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
+      "sha256": "7ac0da2eb94193c177546ab5d1e6f39796be5f397a3523a06f920329302e8c91"
+    },
+    {
+      "artifact_id": "ART-567",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
+      "sha256": "b8e38bf7c2a80e4ab88f7104b5cfe52832e8816900e82a954b33f078d87a9b03"
+    },
+    {
+      "artifact_id": "ART-568",
+      "path": "scripts/validate-json-schema.mjs",
+      "sha256": "fa15c642de27444217c0b5438e73190261e0d6e3b6134f200cf70e3cfbd0d29d"
     }
   ],
   "exclusions": [

@@ -30,6 +30,7 @@
 - [jira-field-mapping-request.json](jira-field-mapping-request.json)
 - [jira-import-package-manifest.json](jira-import-package-manifest.json)
 - [runs/2026-07-02-cascade-contract/cascading-update-run.json](runs/2026-07-02-cascade-contract/cascading-update-run.json)
+- [runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json](runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json)
 
 ## Проверки
 

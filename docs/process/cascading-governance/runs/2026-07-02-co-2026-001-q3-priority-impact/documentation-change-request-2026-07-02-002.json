@@ -1,0 +1,50 @@
+{
+  "version": "0.1.0",
+  "change_request_id": "DCR-2026-07-02-002",
+  "status": "blocked",
+  "initiator": {
+    "actor_role": "User",
+    "source": "Поручение реализовать docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md до проверяемого результата."
+  },
+  "target_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+  "desired_change": "Проверить влияние CO-2026-001 со статусом draft на квартальный порядок 2026-Q3 и не применять приоритеты, сроки или переносы без принятия Product Owner.",
+  "change_source": "backlog_change",
+  "impact_level": "high",
+  "affected_period": "2026-Q3",
+  "affected_backlog_story_ids": [
+    "DC-ST-01",
+    "DC-ST-02",
+    "DC-ST-03",
+    "DC-ST-04",
+    "DC-ST-05",
+    "DC-ST-06",
+    "DC-ST-07",
+    "DC-ST-08",
+    "DC-ST-09",
+    "DC-ST-10",
+    "DC-ST-11",
+    "DC-ST-12",
+    "DC-ST-13",
+    "DC-ST-14",
+    "DC-ST-15",
+    "DC-ST-16",
+    "DC-ST-17",
+    "DC-ST-18",
+    "DC-ST-19",
+    "DC-ST-20",
+    "DC-ST-21",
+    "DC-ST-22"
+  ],
+  "known_constraints": [
+    "CO-2026-001 имеет статус draft, а решение Product Owner равно deferred.",
+    "Канонический порядок работ, сроки и переносы не меняются до явного принятия Product Owner.",
+    "Емкость команды, резерв, ограничения и уже обещанные работы не заполнены подтвержденным источником.",
+    "Канал результата не подтвержден: Лиса, электронная почта, обратный вызов или сочетание требуют решения.",
+    "Репетиция отката для A2A-first priority остается предположением до подтверждения.",
+    "PROC-038 остается draft / not_decided до отдельного Process Owner решения.",
+    "Производные navigation, hash manifest и BMC artifacts обновляются только генераторами."
+  ],
+  "user_confirmation_status": "pending",
+  "semantic_change": true,
+  "requested_at": "2026-07-02T00:00:00Z"
+}

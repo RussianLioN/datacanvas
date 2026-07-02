@@ -149,9 +149,131 @@
       "layer": "process",
       "owner_role": "Process Owner",
       "validation_command": "npm run validate:documentation-change-request"
+    },
+    {
+      "artifact_id": "DGA-022",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-change-orders"
+    },
+    {
+      "artifact_id": "DGA-023",
+      "path": "docs/product/change-orders/change-impact-assessment.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:change-impact"
     }
   ],
   "dependencies": [
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/change-orders/change-impact-assessment.json",
+      "relation_type": "traceability",
+      "update_rule": "Product Change Order требует impact assessment до канонических изменений backlog или roadmap.",
+      "validation_command": "npm run validate:change-impact",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "Смена приоритета launch channel запускает review каналов, партнеров и ресурсов BMC без выдумывания acceptance.",
+      "validation_command": "npm run validate:bmc",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Смена приоритета Q3 запускает полный review порядка DC-ST stories.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "A2A-first launch влияет на review BT-005, BT-006, BT-012 и BT-014.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "A2A-first launch запускает NFR/security review, особенно по недоверенному input и leakage guards.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Security/Privacy Lead",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "A2A-first launch меняет acceptance только после принятия Product Owner и подтверждения rollback.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "update_rule": "Принятая смена приоритета запускает backlog reprioritization и trade-off review.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "semantic",
+      "update_rule": "Принятая смена приоритета запускает roadmap review после решений по capacity и displacement.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Requirements и story moves запускают обновление traceability после acceptance.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "relation_type": "resource",
+      "update_rule": "Смена приоритета Q3 требует capacity source, buffer и constraints до применения story moves.",
+      "validation_command": "npm run validate:capacity-plan",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/sprints",
+      "relation_type": "evidence",
+      "update_rule": "Принятая смена приоритета Q3 запускает sprint planning и evidence review.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Scrum Master",
+      "user_confirmation_required": "semantic_change"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
+      "relation_type": "evidence",
+      "update_rule": "Release evidence не может заявлять A2A-first readiness, пока открыты решения Product Owner, capacity, channel или rollback.",
+      "validation_command": "npm run validate:release-pack",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "semantic_change"
+    },
     {
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/vision/vision-v0.1.md",
@@ -335,6 +457,7 @@
   ],
   "high_impact_sources": [
     "docs/product-vision.md",
-    "docs/product/vision/vision-v0.1.md"
+    "docs/product/vision/vision-v0.1.md",
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.json"
   ]
 }
