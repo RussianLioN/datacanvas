@@ -3789,6 +3789,51 @@
       "click_depth": 3
     },
     {
+      "path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+      "title": "План Имплементации: Контракт Каскадного Ведения Проектной Документации DataCanvas",
+      "section": "plans",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-519",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-имплементации-контракт-каскадного-ведения-проектной-документации-datacanvas",
+        "summary",
+        "core-contract",
+        "dependency-graph",
+        "impact-analysis",
+        "user-decision-queue",
+        "capacity-and-reprioritization",
+        "cascading-update-runner",
+        "artifact-update-rules",
+        "jira-custom-field-process",
+        "schemas",
+        "validators",
+        "documentation-updates",
+        "evidence",
+        "test-plan",
+        "acceptance-criteria",
+        "assumptions"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
       "title": "План: Управляемая документация, навигация и индексация DataCanvas",
       "section": "plans",
@@ -3923,6 +3968,7 @@
         "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
         "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
         "docs/plans/datacanvas-business-technical-navigation-separation-implementation-plan.md",
+        "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
         "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
@@ -29676,14 +29722,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1103,
-    "manual_entries": 1099,
+    "total_entries": 1104,
+    "manual_entries": 1100,
     "generated_entries": 4,
     "public_navigable_entries": 27,
-    "searchable_entries": 1071,
+    "searchable_entries": 1072,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 69,
+    "reachable_from_root": 70,
     "orphan_entries": 0
   },
   "ignored_paths": [

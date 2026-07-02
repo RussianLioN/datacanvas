@@ -1073,6 +1073,25 @@
       "artifact_registry_required": true
     },
     {
+      "path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+      "route_id": "cascading-documentation-governance-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Cascading documentation governance, dependency graph, impact analysis, decision queue, capacity or Jira field mapping planning changes.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/datacanvas-documentation-implementation-plan.md",
       "route_id": "datacanvas-documentation-implementation-plan",
       "section": "plans",
