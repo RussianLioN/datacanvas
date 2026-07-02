@@ -1,0 +1,477 @@
+{
+  "version": "0.1.0",
+  "impact_report_id": "IAR-2026-07-02-002",
+  "change_request_id": "DCR-2026-07-02-002",
+  "status": "blocked",
+  "generated_at": "2026-07-02T00:00:00Z",
+  "target_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+  "affected_artifacts": [
+    {
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "impact_types": ["semantic", "traceability"],
+      "required_edits": [],
+      "optional_edits": ["Принять или отклонить CO-2026-001 отдельным решением Product Owner."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Заявка уже зафиксирована как draft с решением Product Owner = deferred; применять priority_after без принятия нельзя.",
+        "confirmed_by": "CO-2026-001",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/change-orders/change-impact-assessment.json",
+      "impact_types": ["traceability"],
+      "required_edits": [],
+      "optional_edits": ["Расширить отчет влияния только после принятия Product Owner и подтвержденных переносов."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Отчет влияния уже фиксирует канал, trust boundary, input envelope, status/callback, error taxonomy и trace impact; статус остается draft.",
+        "confirmed_by": "CO-2026-001 impact review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/change-orders/product-change-order-ledger.json",
+      "impact_types": ["traceability"],
+      "required_edits": [],
+      "optional_edits": ["Обновить ledger только если Product Owner изменит статус CO-2026-001."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Журнал содержит CO-2026-001 в статусе draft; это соответствует решению deferred.",
+        "confirmed_by": "CO-2026-001 impact review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/analysis/ba/ba-spec.json",
+      "impact_types": ["semantic", "traceability"],
+      "required_edits": [],
+      "optional_edits": ["Перевести delta в каноническое требование только после review Product Owner."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "BASA-CLM-003 подтверждает влияние A2A-first, BASA-CLM-009 оставляет канал результата неподтвержденным, BASA-CLM-010 оставляет репетицию отката предположением.",
+        "confirmed_by": "BA/SA claim review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/analysis/ba/business-requirements-delta.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Не заменять канонические требования до review Product Owner и обновления traceability."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Файл явно говорит, что delta entries не заменяют канонические требования до review Product Owner.",
+        "confirmed_by": "BA/SA delta review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Оставить spec в статусе draft до принятия CO-2026-001."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "FeatureSpec уже ограничивает A2A-first проверяемым launch path без live network, provider allowlist или отдельного решения по каналу доставки.",
+        "confirmed_by": "Spec readiness review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Оставить prompt spec на safe context без raw interview answers."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Prompt spec уже запрещает raw transcript, расширение network/MCP/provider/tool allowlist и неподтвержденное требование к каналу доставки.",
+        "confirmed_by": "Spec readiness review",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Проверить каналы и ключевые ресурсы после принятия CO-2026-001."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "BMC уже содержит A2A/MCP как канал и ресурс, но не утверждает квартальную смену приоритета или канал результата.",
+        "confirmed_by": "Q3 impact route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/stories.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Проверить порядок DC-ST-01 - DC-ST-22 после принятия CO-2026-001."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Канонический каталог stories остается без перестановки: CO-2026-001 deferred, список историй для переноса не подтвержден.",
+        "confirmed_by": "Q3 impact route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Синхронизировать с story catalog после подтвержденной смены порядка."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "User stories не меняются, пока нет принятия Product Owner и подтвержденных переносов.",
+        "confirmed_by": "Q3 impact route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/requirements/business-requirements.md",
+      "impact_types": ["semantic", "traceability"],
+      "required_edits": [],
+      "optional_edits": ["Обновить BT-005, BT-006, BT-012 и BT-014 только после принятия CO-2026-001."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Канонические BT уже покрывают запуск, недоверенный ввод, доставку по электронной почте и trace; A2A-first delta остается draft.",
+        "confirmed_by": "Requirements route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Расширять NFR только после принятого изменения границы."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "NFR-003 уже требует отсутствие секретов и PII в prompt, trace, evidence или export; boundary не расширяется.",
+        "confirmed_by": "Requirements route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Добавить acceptance для A2A-first только после принятия Product Owner и подтверждения отката."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Acceptance criteria уже защищают MVP P1-P2 и не допускают будущие возможности P3-P5 в MVP.",
+        "confirmed_by": "Requirements route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "impact_types": ["traceability"],
+      "required_edits": [],
+      "optional_edits": ["Обновить matrix после подтвержденных переносов stories и обновления требований."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Traceability не меняется, потому что канонические требования и порядок stories не меняются.",
+        "confirmed_by": "Traceability route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/backlog/product-backlog.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Менять порядок backlog только после принятия CO-2026-001 и решения по capacity trade-off."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Product backlog не меняется, пока открыты решение Product Owner, capacity, список переносов и правило вытеснения.",
+        "confirmed_by": "Backlog route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Обновить roadmap только после подтверждения scope и capacity для Q3."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Roadmap остается без изменений, потому что Q3 capacity и scope trade-off не подтверждены.",
+        "confirmed_by": "Roadmap route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "impact_types": ["resource"],
+      "required_edits": ["Оставить status pending_external до подтвержденного источника capacity, buffer, constraints и committed work."],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
+      "impact_types": ["resource", "traceability"],
+      "required_edits": ["Зафиксировать текущие committed stories для Q3 и оставить proposed story moves пустыми до подтвержденного списка."],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/architecture/system-analysis/datacanvas-interface-control.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Создать новый ADR только при принятом изменении network, channel, tool или trust boundary."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Interface control уже разделяет Lisa launch adapter и недоверенный A2A launch envelope; live boundary не расширяется.",
+        "confirmed_by": "Contract route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Обновить state model после подтверждения status/callback channel."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Status/callback channel не выбран, поэтому lifecycle state model не меняется.",
+        "confirmed_by": "Contract route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Синхронизировать с markdown state model только после подтверждения channel."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "JSON state model остается согласованной с неизмененной markdown state model.",
+        "confirmed_by": "Contract route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/system-analysis/error-taxonomy.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Обновить taxonomy после подтверждения callback/status error behavior."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Error taxonomy не меняется, пока status/callback behavior и план отката не подтверждены.",
+        "confirmed_by": "Contract route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/system-analysis/error-taxonomy.json",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Синхронизировать с markdown taxonomy только после подтверждения behavior."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "JSON taxonomy остается согласованной с неизмененной markdown taxonomy.",
+        "confirmed_by": "Contract route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/security/integration-boundary-matrix.md",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Обновить boundary только после принятого ADR/PCR или новой live integration."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "Матрица границ уже отмечает A2A launch как недоверенный и отключенный до принятия ADR/PCR.",
+        "confirmed_by": "Security route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/architecture/security/integration-boundary-matrix.json",
+      "impact_types": ["semantic"],
+      "required_edits": [],
+      "optional_edits": ["Синхронизировать с markdown boundary matrix только после принятого изменения boundary."],
+      "update_status": "no_change_confirmed",
+      "no_change_rationale": {
+        "rationale": "JSON boundary matrix остается согласованной с неизмененной markdown boundary matrix.",
+        "confirmed_by": "Security route",
+        "confirmed_at": "2026-07-02T00:00:00Z"
+      }
+    },
+    {
+      "path": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+      "impact_types": ["process"],
+      "required_edits": ["Process Owner отдельно решает, становится ли PROC-038 обязательным правилом."],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
+      "impact_types": ["process", "evidence"],
+      "required_edits": ["Создать отдельный DocumentationChangeRequest для CO-2026-001."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+      "impact_types": ["process", "evidence"],
+      "required_edits": ["Зафиксировать открытые решения по принятию CO, capacity, channel, rollback, displacement и PROC-038."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
+      "impact_types": ["process", "evidence"],
+      "required_edits": ["Связать evidence и validation results для CO-2026-001 в отдельный run."],
+      "optional_edits": [],
+      "update_status": "applied",
+      "no_change_rationale": null
+    }
+  ],
+  "blocking_user_decisions": [
+    "DEC-CO-2026-001-ACCEPTANCE",
+    "DEC-Q3-CAPACITY-SOURCE",
+    "DEC-Q3-STORY-MOVE-LIST",
+    "DEC-Q3-DISPLACEMENT-RULE",
+    "DEC-Q3-RESULT-CHANNEL",
+    "DEC-A2A-ROLLBACK-REHEARSAL",
+    "DEC-PROC-038-REQUIRED-RULE"
+  ],
+  "derived_facts": [
+    {
+      "fact": "CO-2026-001 имеет статус draft, а решение Product Owner равно deferred; priority_after не является каноническим.",
+      "source_paths": ["docs/product/change-orders/co-2026-001-a2a-first-priority.json"]
+    },
+    {
+      "fact": "A2A-first меняет launch channel, trust boundary, input envelope, status/callback, error taxonomy, trace и evals.",
+      "source_paths": [
+        "docs/product/change-orders/change-impact-assessment.json",
+        "docs/product/analysis/ba/ba-spec.json"
+      ]
+    },
+    {
+      "fact": "Канал доставки для BT-012 не подтвержден, а репетиция отката для A2A-first priority остается предположением.",
+      "source_paths": ["docs/product/analysis/ba/ba-spec.json"]
+    },
+    {
+      "fact": "Текущий Q3 story catalog включает DC-ST-01 - DC-ST-09; список переноса более поздних stories не подтвержден.",
+      "source_paths": ["docs/stories.md"]
+    },
+    {
+      "fact": "PROC-038 остается draft / not_decided и не становится обязательным без решения Process Owner.",
+      "source_paths": ["docs/process/change-requests/PROC-038-cascading-documentation-governance.md"]
+    }
+  ],
+  "assumptions_forbidden": [
+    "Нельзя принимать CO-2026-001 за Product Owner.",
+    "Нельзя менять канонический backlog order, story dates, roadmap или traceability без принятия.",
+    "Нельзя заполнять capacity, buffer, constraints или committed work без подтвержденного источника.",
+    "Нельзя выбирать канал результата без решения: Лиса, электронная почта, callback или сочетание.",
+    "Нельзя считать репетицию отката подтвержденной без evidence.",
+    "Нельзя принимать PROC-038 как обязательное правило без Process Owner decision.",
+    "Нельзя расширять live network, MCP, provider или tool allowlist в рамках этой проверки."
+  ],
+  "proposals": [
+    {
+      "proposal": "Оставить канонические product artifacts без изменения, пока CO-2026-001 имеет решение Product Owner = deferred.",
+      "classification": "derived_from_sources"
+    },
+    {
+      "proposal": "Оставить capacity plan pending_external до подтвержденного источника capacity, buffer, constraints и committed work.",
+      "classification": "blocked_missing_input"
+    },
+    {
+      "proposal": "Подготовить decision queue для Product Owner перед любым Q3 reprioritization или displacement.",
+      "classification": "requires_user_confirmation"
+    }
+  ],
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:documentation-change-request",
+    "npm run validate:artifact-dependency-graph",
+    "npm run validate:impact-analysis",
+    "npm run validate:decision-queue",
+    "npm run validate:capacity-plan",
+    "npm run validate:reprioritization-impact",
+    "npm run validate:cascading-governance",
+    "npm run validate:schemas",
+    "npm run validate:backlog-registry",
+    "npm run validate:traceability-graph",
+    "npm run validate:ba-sa",
+    "npm run validate:interface-contracts",
+    "npm run validate:state-model",
+    "npm run validate:error-taxonomy",
+    "npm run generate:docs-navigation -- --check",
+    "npm run validate:doc-links",
+    "npm run validate:docs-navigation",
+    "npm run validate:doc-stale-status",
+    "npm run validate:artifact-registry",
+    "npm run validate:artifact-hashes",
+    "npm run scan:secrets",
+    "npm run validate:data-leakage",
+    "npm test"
+  ],
+  "blocked_reasons": [
+    "Решение Product Owner по CO-2026-001 равно deferred.",
+    "Источник Q3 capacity, buffer, constraints и committed work имеет состояние pending_external.",
+    "Подтвержденный список story moves и правило displacement отсутствуют.",
+    "Канал результата и репетиция отката не подтверждены.",
+    "PROC-038 не принят как обязательное правило процесса."
+  ],
+  "edge_decisions": [
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/change-orders/change-impact-assessment.json",
+      "relation_type": "traceability",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-CO-2026-001-ACCEPTANCE"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/stories.md",
+      "relation_type": "semantic",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-CO-2026-001-ACCEPTANCE"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-Q3-STORY-MOVE-LIST"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "semantic",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-Q3-DISPLACEMENT-RULE"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      "relation_type": "resource",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-Q3-CAPACITY-SOURCE"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/architecture/system-analysis/datacanvas-interface-control.md",
+      "relation_type": "semantic",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-A2A-ROLLBACK-REHEARSAL"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+      "relation_type": "process",
+      "requires_user_confirmation": true,
+      "blocking_decision_id": "DEC-PROC-038-REQUIRED-RULE"
+    }
+  ],
+  "completion_status": "blocked"
+}

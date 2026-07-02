@@ -10,11 +10,16 @@ const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 ajv.addSchema(JSON.parse(fs.readFileSync(path.join(root, "schemas/common-defs.schema.json"), "utf8")));
 const validators = new Map();
+const co2026001RunRoot = "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact";
 
 const schemaCases = {
   "documentation-change-request": [
     ["schemas/documentation-change-request.schema.json", "docs/process/cascading-governance/documentation-change-request.json"],
     ["schemas/documentation-change-request.schema.json", "tests/fixtures/cascading-governance/vision-change-request.json"],
+    [
+      "schemas/documentation-change-request.schema.json",
+      `${co2026001RunRoot}/documentation-change-request-2026-07-02-002.json`,
+    ],
   ],
   "artifact-dependency-graph": [
     ["schemas/artifact-dependency-graph.schema.json", "docs/process/cascading-governance/artifact-dependency-graph.json"],
@@ -22,6 +27,7 @@ const schemaCases = {
   "impact-analysis": [
     ["schemas/impact-analysis-report.schema.json", "docs/process/cascading-governance/impact-analysis-report.json"],
     ["schemas/impact-analysis-report.schema.json", "tests/fixtures/cascading-governance/vision-impact-analysis-report.json"],
+    ["schemas/impact-analysis-report.schema.json", `${co2026001RunRoot}/impact-analysis-report-2026-07-02-002.json`],
     [
       "schemas/impact-analysis-report.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/impact-complete-pending-artifacts.json",
@@ -30,6 +36,7 @@ const schemaCases = {
   ],
   "decision-queue": [
     ["schemas/user-decision-queue.schema.json", "docs/process/cascading-governance/user-decision-queue.json"],
+    ["schemas/user-decision-queue.schema.json", `${co2026001RunRoot}/user-decision-queue-2026-07-02-002.json`],
     [
       "schemas/user-decision-queue.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/decision-queue-closed-with-pending.json",
@@ -46,6 +53,10 @@ const schemaCases = {
   ],
   "reprioritization-impact": [
     ["schemas/reprioritization-impact-report.schema.json", "docs/process/cascading-governance/reprioritization-impact-report.json"],
+    [
+      "schemas/reprioritization-impact-report.schema.json",
+      `${co2026001RunRoot}/reprioritization-impact-report-2026-07-02-002.json`,
+    ],
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/backlog-reprioritization-over-capacity.json"],
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/backlog-reprioritization-enough-capacity.json"],
     ["schemas/reprioritization-impact-report.schema.json", "tests/fixtures/cascading-governance/backlog-reprioritization-missing-capacity.json"],
@@ -59,6 +70,7 @@ const schemaCases = {
   ],
   "cascading-update": [
     ["schemas/cascading-update-run.schema.json", "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json"],
+    ["schemas/cascading-update-run.schema.json", `${co2026001RunRoot}/cascading-update-run-2026-07-02-002.json`],
     [
       "schemas/cascading-update-run.schema.json",
       "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
@@ -161,6 +173,15 @@ function transitiveDownstream(graph, sourcePath) {
   return downstream;
 }
 
+function assertAffectedArtifacts(report, requiredPaths, label) {
+  const affected = new Set(report.affected_artifacts.map((artifact) => artifact.path));
+  for (const requiredPath of requiredPaths) {
+    if (!affected.has(requiredPath)) {
+      throw new Error(`${label} impact report is missing affected artifact: ${requiredPath}`);
+    }
+  }
+}
+
 function assertNoBlockingQueueDone(queue) {
   const openBlocking = queue.decisions.filter((decision) =>
     decision.blocking && ["pending", "deferred"].includes(decision.status),
@@ -244,9 +265,8 @@ function assertDependencyGraph(graph) {
 
 function assertImpactReport(report) {
   requirePath(report.target_artifact);
-  const affected = new Set(report.affected_artifacts.map((artifact) => artifact.path));
   if (report.target_artifact === "docs/product-vision.md") {
-    for (const requiredPath of [
+    assertAffectedArtifacts(report, [
       "docs/product/bmc/bmc-v0.2.md",
       "docs/stories.md",
       "docs/product/requirements/business-requirements.md",
@@ -259,11 +279,31 @@ function assertImpactReport(report) {
       "docs/process/cascading-governance/jira-import-package-manifest.json",
       "docs/release/mvp-release-evidence-pack.json",
       "docs/sprints",
-    ]) {
-      if (!affected.has(requiredPath)) {
-        throw new Error(`Vision impact report is missing affected artifact: ${requiredPath}`);
-      }
-    }
+    ], "Vision");
+  }
+
+  if (report.target_artifact === "docs/product/change-orders/co-2026-001-a2a-first-priority.json") {
+    assertAffectedArtifacts(report, [
+      "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "docs/product/change-orders/change-impact-assessment.json",
+      "docs/product/change-orders/product-change-order-ledger.json",
+      "docs/product/analysis/ba/ba-spec.json",
+      "docs/product/bmc/bmc-v0.2.md",
+      "docs/stories.md",
+      "docs/product/requirements/business-requirements.md",
+      "docs/product/requirements/non-functional-requirements.md",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/roadmap/roadmap-v0.1.md",
+      "docs/product/requirements/traceability-matrix.json",
+      "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+      `${co2026001RunRoot}/reprioritization-impact-report-2026-07-02-002.json`,
+      "docs/architecture/system-analysis/datacanvas-interface-control.md",
+      "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "docs/architecture/system-analysis/error-taxonomy.md",
+      "docs/architecture/security/integration-boundary-matrix.md",
+      "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+    ], "CO-2026-001");
   }
 
   for (const artifact of report.affected_artifacts) {
@@ -352,6 +392,43 @@ function assertReprioritizationReport(report) {
     const pendingChange = report.proposed_changes.find((change) => change.user_confirmation_status !== "confirmed");
     if (pendingChange) {
       throw new Error(`${report.report_id} confirmed report has unconfirmed proposed change: ${pendingChange.item_id}`);
+    }
+  }
+
+  if (report.change_request_id === "DCR-2026-07-02-002") {
+    const committedIds = new Set(report.committed_items.map((item) => item.item_id));
+    for (const storyId of [
+      "DC-ST-01",
+      "DC-ST-02",
+      "DC-ST-03",
+      "DC-ST-04",
+      "DC-ST-05",
+      "DC-ST-06",
+      "DC-ST-07",
+      "DC-ST-08",
+      "DC-ST-09",
+    ]) {
+      if (!committedIds.has(storyId)) {
+        throw new Error(`${report.report_id} is missing current Q3 committed story: ${storyId}`);
+      }
+    }
+
+    for (const decisionId of [
+      "DEC-CO-2026-001-ACCEPTANCE",
+      "DEC-Q3-CAPACITY-SOURCE",
+      "DEC-Q3-STORY-MOVE-LIST",
+      "DEC-Q3-DISPLACEMENT-RULE",
+      "DEC-Q3-RESULT-CHANNEL",
+      "DEC-A2A-ROLLBACK-REHEARSAL",
+    ]) {
+      if (!report.blocking_decisions.includes(decisionId)) {
+        throw new Error(`${report.report_id} is missing blocking decision: ${decisionId}`);
+      }
+    }
+
+    const unconfirmedMove = report.proposed_changes.find((change) => change.user_confirmation_status === "confirmed");
+    if (unconfirmedMove) {
+      throw new Error(`${report.report_id} must not confirm story moves while CO-2026-001 is deferred`);
     }
   }
 }

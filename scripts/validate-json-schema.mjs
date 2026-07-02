@@ -5,6 +5,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const root = process.cwd();
+const co2026001RunRoot = "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact";
 
 const cases = [
   {
@@ -237,6 +238,10 @@ const cases = [
   },
   {
     schema: "schemas/documentation-change-request.schema.json",
+    data: `${co2026001RunRoot}/documentation-change-request-2026-07-02-002.json`,
+  },
+  {
+    schema: "schemas/documentation-change-request.schema.json",
     data: "tests/fixtures/cascading-governance/vision-change-request.json",
   },
   {
@@ -249,11 +254,19 @@ const cases = [
   },
   {
     schema: "schemas/impact-analysis-report.schema.json",
+    data: `${co2026001RunRoot}/impact-analysis-report-2026-07-02-002.json`,
+  },
+  {
+    schema: "schemas/impact-analysis-report.schema.json",
     data: "tests/fixtures/cascading-governance/vision-impact-analysis-report.json",
   },
   {
     schema: "schemas/user-decision-queue.schema.json",
     data: "docs/process/cascading-governance/user-decision-queue.json",
+  },
+  {
+    schema: "schemas/user-decision-queue.schema.json",
+    data: `${co2026001RunRoot}/user-decision-queue-2026-07-02-002.json`,
   },
   {
     schema: "schemas/capacity-plan.schema.json",
@@ -262,6 +275,10 @@ const cases = [
   {
     schema: "schemas/reprioritization-impact-report.schema.json",
     data: "docs/process/cascading-governance/reprioritization-impact-report.json",
+  },
+  {
+    schema: "schemas/reprioritization-impact-report.schema.json",
+    data: `${co2026001RunRoot}/reprioritization-impact-report-2026-07-02-002.json`,
   },
   {
     schema: "schemas/reprioritization-impact-report.schema.json",
@@ -286,6 +303,10 @@ const cases = [
   {
     schema: "schemas/cascading-update-run.schema.json",
     data: "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+  },
+  {
+    schema: "schemas/cascading-update-run.schema.json",
+    data: `${co2026001RunRoot}/cascading-update-run-2026-07-02-002.json`,
   },
   {
     schema: "schemas/cascading-update-run.schema.json",

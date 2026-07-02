@@ -1,0 +1,224 @@
+{
+  "version": "0.1.0",
+  "run_id": "CUR-2026-07-02-002",
+  "status": "blocked",
+  "change_request_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
+  "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+  "impact_report_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+  "decision_queue_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+  "capacity_plan_path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+  "reprioritization_report_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
+  "jira_mapping_request_path": null,
+  "changed_artifacts": [
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
+      "change_type": "evidence",
+      "confirmation_status": "confirmed"
+    }
+  ],
+  "skipped_artifacts": [
+    {
+      "path": "docs/stories.md",
+      "no_change_rationale": "CO-2026-001 имеет состояние deferred, и список story moves не подтвержден.",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/backlog/product-backlog.md",
+      "no_change_rationale": "Backlog order остается без изменений, пока не подтверждены принятие Product Owner, capacity и displacement rule.",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "no_change_rationale": "Roadmap остается без изменений, пока Q3 scope и capacity имеют состояние pending.",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "no_change_rationale": "Traceability остается без изменений, потому что канонические requirements и story moves не применялись.",
+      "confirmation_status": "confirmed"
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "no_change_rationale": "BMC уже включает A2A/MCP как channels/resources, но не утверждает принятую смену Q3 priority.",
+      "confirmation_status": "confirmed"
+    }
+  ],
+  "generated_artifacts": [
+    {
+      "path": "docs/navigation/documentation-index.json",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/navigation/navigation-map.md",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/navigation/orphan-docs-report.md",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/navigation/stale-status-report.md",
+      "generator_command": "npm run generate:docs-navigation"
+    },
+    {
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "generator_command": "node scripts/generate-artifact-hash-manifest.mjs"
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "npm run validate:product-change-orders",
+      "status": "passed",
+      "evidence": "Product Change Order gate прошел; CO-2026-001 остается draft/deferred.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:change-impact",
+      "status": "passed",
+      "evidence": "Change impact gate прошел; A2A-first impact остается draft без канонического reprioritization.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:cascading-governance",
+      "status": "passed",
+      "evidence": "Cascade gate прошел, включая новый CO-2026-001 run и negative invariant fixtures.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "JSON Schema gate прошел, включая DCR/IAR/UDQ/RIR/CUR files для CO-2026-001.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed",
+      "evidence": "Backlog registry прошел; канонический backlog order не менялся.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed",
+      "evidence": "Traceability graph прошел без неподтвержденных story moves.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed",
+      "evidence": "BA/SA gate прошел; открытые решения по channel и rollback зафиксированы явно.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:interface-contracts",
+      "status": "passed",
+      "evidence": "Interface contracts прошли; A2A envelope остается недоверенным, live boundary не расширяется.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:state-model",
+      "status": "passed",
+      "evidence": "State model прошел без неподтвержденных изменений callback/status channel.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:error-taxonomy",
+      "status": "passed",
+      "evidence": "Error taxonomy прошел без неподтвержденных изменений callback/status behavior.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed",
+      "evidence": "BMC generated artifacts были актуальны; изменение BMC source не применялось.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed",
+      "evidence": "BMC validation прошел без добавления принятых утверждений о Q3 priority.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed",
+      "evidence": "Generated docs navigation artifacts актуальны после регистрации run evidence для CO-2026-001.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed",
+      "evidence": "Documentation links validation прошел.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed",
+      "evidence": "Docs navigation validation прошел.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed",
+      "evidence": "Stale-status validation прошел после обновления current_main_commit pointer.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Artifact registry validation прошел с ART-563 - ART-568.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Artifact hash manifest validation прошел после regeneration.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed",
+      "evidence": "Secret scan прошел.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "Data leakage validation прошел.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Полный локальный gate прошел после синхронизации generated artifacts.",
+      "ran_at": "2026-07-02T13:21:07Z"
+    }
+  ],
+  "evidence_paths": [
+    "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
+    "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+    "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+    "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
+    "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
+    "docs/process/cascading-governance/capacity-plan-2026-q3.json"
+  ],
+  "completion_claim": {
+    "done_claimed": false,
+    "decision_queue_status": "blocked",
+    "all_affected_artifacts_resolved": false
+  }
+}

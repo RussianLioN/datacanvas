@@ -1,0 +1,247 @@
+{
+  "version": "0.1.0",
+  "queue_id": "UDQ-2026-07-02-002",
+  "change_request_id": "DCR-2026-07-02-002",
+  "status": "blocked",
+  "requested_at": "2026-07-02T00:00:00Z",
+  "decisions": [
+    {
+      "decision_id": "DEC-CO-2026-001-ACCEPTANCE",
+      "question": "Принимать или отклонять CO-2026-001 как смену приоритета 2026-Q3?",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+        "docs/product/change-orders/product-change-order-ledger.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-DEFER-CO-2026-001",
+          "label": "Оставить deferred",
+          "consequence": "Канонический priority, roadmap и story order остаются без изменений.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-ACCEPT-CO-2026-001",
+          "label": "Принять CO",
+          "consequence": "Потребуется подтвердить scope, capacity, displacement rule, channel, rollback и обновления traceability.",
+          "recommended": false
+        },
+        {
+          "option_id": "OPT-REJECT-CO-2026-001",
+          "label": "Отклонить CO",
+          "consequence": "A2A-first остается draft analysis; Q3 priority остается Lisa-first.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-DEFER-CO-2026-001",
+      "recommendation_rationale": "В репозитории нет принятия Product Owner, а текущая заявка уже говорит deferred.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/product/change-orders/co-2026-001-a2a-first-priority.json"
+    },
+    {
+      "decision_id": "DEC-Q3-CAPACITY-SOURCE",
+      "question": "Какой подтвержденный источник задает capacity, reserve, constraints и committed work для 2026-Q3?",
+      "affected_artifacts": [
+        "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+        "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-CAPACITY-PENDING-EXTERNAL",
+          "label": "Оставить pending_external",
+          "consequence": "Q3 reprioritization остается blocked, и ни один story move не подтверждается.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-CAPACITY-USER-CONFIRMED",
+          "label": "Подтвердить источник",
+          "consequence": "Capacity plan может стать active после заполнения source path, buffer, constraints и committed items.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-CAPACITY-PENDING-EXTERNAL",
+      "recommendation_rationale": "План запрещает выдумывать capacity и reserve без источника.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/process/cascading-governance/capacity-plan-2026-q3.json"
+    },
+    {
+      "decision_id": "DEC-Q3-STORY-MOVE-LIST",
+      "question": "Какие DC-ST-* истории поднимаются в 2026-Q3 при принятом CO-2026-001?",
+      "affected_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-NO-CONFIRMED-MOVE-LIST",
+          "label": "Нет списка",
+          "consequence": "Переносы историй не применяются, proposed_changes остается пустым.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-PROVIDE-MOVE-LIST",
+          "label": "Дать список",
+          "consequence": "Для каждой переносимой истории нужны ID, estimate, причина, целевой квартал и решение владельца.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-NO-CONFIRMED-MOVE-LIST",
+      "recommendation_rationale": "В источниках нет подтвержденного списка историй, поднимаемых из более позднего периода.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md"
+    },
+    {
+      "decision_id": "DEC-Q3-DISPLACEMENT-RULE",
+      "question": "Как выбирать истории, вытесняемые из 2026-Q3, если принятый CO-2026-001 превышает доступную capacity?",
+      "affected_artifacts": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-DISPLACEMENT-PENDING",
+          "label": "Оставить pending",
+          "consequence": "Q3 displacement не применяется.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-MOVE-LOWER-PRIORITY",
+          "label": "Перенести ниже",
+          "consequence": "Product Owner должен выбрать lower-priority stories и новые целевые периоды.",
+          "recommended": false
+        },
+        {
+          "option_id": "OPT-REDUCE-SCOPE",
+          "label": "Сократить scope",
+          "consequence": "Принятый Q3 scope сокращается до обновления roadmap и backlog.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-DISPLACEMENT-PENDING",
+      "recommendation_rationale": "Правило вытеснения не подтверждено, а capacity не задана.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md"
+    },
+    {
+      "decision_id": "DEC-Q3-RESULT-CHANNEL",
+      "question": "Какой канал результата применять для A2A-first path: Лиса, электронная почта, callback или сочетание?",
+      "affected_artifacts": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+        "docs/architecture/system-analysis/error-taxonomy.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-CHANNEL-PENDING",
+          "label": "Оставить pending",
+          "consequence": "BT-012 и status/callback contracts остаются без изменений.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-CHANNEL-LISA",
+          "label": "Лиса",
+          "consequence": "Requirements и state model должны описать поведение доставки и статуса через Лису.",
+          "recommended": false
+        },
+        {
+          "option_id": "OPT-CHANNEL-CALLBACK-OR-EMAIL",
+          "label": "Callback/email",
+          "consequence": "Requirements, state model, error taxonomy и leakage guards потребуют точечных обновлений.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-CHANNEL-PENDING",
+      "recommendation_rationale": "BASA-CLM-009 говорит, что канал доставки для BT-012 не подтвержден.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/product/analysis/ba/ba-spec.json"
+    },
+    {
+      "decision_id": "DEC-A2A-ROLLBACK-REHEARSAL",
+      "question": "Подтверждены ли план отката и evidence репетиции для A2A-first priority?",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/architecture/security/integration-boundary-matrix.json"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-ROLLBACK-PENDING",
+          "label": "Оставить pending",
+          "consequence": "A2A-first остается draft и не может быть приоритизирован как готовый к реализации.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-ROLLBACK-CONFIRMED",
+          "label": "Подтвердить откат",
+          "consequence": "Evidence отката должен быть связан до применения Q3 priority.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-ROLLBACK-PENDING",
+      "recommendation_rationale": "BASA-CLM-010 отмечает репетицию отката как предположение.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/product/analysis/ba/ba-spec.json"
+    },
+    {
+      "decision_id": "DEC-PROC-038-REQUIRED-RULE",
+      "question": "Должен ли PROC-038 стать обязательным правилом процесса для всех значимых документационных изменений?",
+      "affected_artifacts": [
+        "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
+        "docs/process/current/process-registry.md",
+        "docs/process/current/definition-of-ready.md",
+        "docs/process/current/definition-of-done.md"
+      ],
+      "options": [
+        {
+          "option_id": "OPT-KEEP-PROC-038-DRAFT",
+          "label": "Оставить draft",
+          "consequence": "Этот run остается необязательным evidence и не делает PROC-038 обязательным.",
+          "recommended": true
+        },
+        {
+          "option_id": "OPT-ACCEPT-PROC-038",
+          "label": "Принять PROC-038",
+          "consequence": "Требует решения Process Owner, обновления process version и расширения обязательных проверок.",
+          "recommended": false
+        }
+      ],
+      "recommended_option_id": "OPT-KEEP-PROC-038-DRAFT",
+      "recommendation_rationale": "В репозитории нет принятия Process Owner для PROC-038.",
+      "status": "pending",
+      "blocking": true,
+      "requested_at": "2026-07-02T00:00:00Z",
+      "resolved_at": null,
+      "selected_option_id": null,
+      "source": "docs/process/change-requests/PROC-038-cascading-documentation-governance.md"
+    }
+  ]
+}
