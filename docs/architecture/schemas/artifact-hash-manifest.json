@@ -382,7 +382,7 @@
     {
       "artifact_id": "ART-076",
       "path": "docs/process/versions/0.1.0/process-version-manifest.json",
-      "sha256": "f26de7d45cb5418b599687f6f9355831c6688c3fcf24d2125f752d28939b0593"
+      "sha256": "89bf6cba66ba92ee2d0590beb7a355881a19dc995d537ae0aead65800aa2d329"
     },
     {
       "artifact_id": "ART-077",
@@ -907,7 +907,7 @@
     {
       "artifact_id": "ART-182",
       "path": "docs/architecture/security/threat-model-delta-manifest.json",
-      "sha256": "6a329b7ef731d5078c2eeeb3e92b7264a95a2977b4ceca62b8d787a6fd6ea4fa"
+      "sha256": "06d73f3bddaaf473282cd24e3078046c9b82081bb17216b39411e0328bb58919"
     },
     {
       "artifact_id": "ART-183",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "c632cc60aa90e1e0ff1895446e6cf34744a8a5eda09ce4a9009087b02c8fe5b7"
+      "sha256": "5ba97f3c06eec48235081855add6038d4a0fa7b8c7c18f4fd2fc723ba679af61"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "9770912747e018f7ba30f826979d231259571b709a93bb8e13b886bce312f8f8"
+      "sha256": "d709b714a158c586869302ec7c3491cfb6a309476747bb551c7124c28a8825f8"
     },
     {
       "artifact_id": "ART-201",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "a711a8370d092c306dbb1b7a50ef5df2351b0e4b7d4a5b0f61b47019d7c993d5"
+      "sha256": "9e2a1db3d414afb0af0bd916696009d32f30819b36a34a29e71a2bc1f0d575fe"
     },
     {
       "artifact_id": "ART-330",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "8d2b4273885c98c3eb13f01c925c2f30f6b9181b600396b220ceaf57f79e3ffa"
+      "sha256": "143a91b710dc3f6b31bcedd0511150e9ccc40ba820eb436f6971042fa810c750"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "a05810f19df073da80d03ad3ebb3732371d2bad389ab24d379a52b83e60370c3"
+      "sha256": "2a3b8d85ddcf5d2afd43459707e6df2477923f7446cde8bc819beb3c34663a98"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "5dbbf014fb13f3646dabe86b443e8779c431de6c22ee2206e4e934243dcaecbb"
+      "sha256": "05e54ce3d58eed0bb2470efeb9028abe659e7790945acf67f3bb7b0be03fac07"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "3126df299454320ca4efdff27fa0096fbbfffd7c6a0f8fe4069a985fd200d901"
+      "sha256": "cbda651c3d049e2791d1434af0118db4d4da50ebbcb19ab0257463f7a13ab3cd"
     },
     {
       "artifact_id": "ART-412",
@@ -2837,42 +2837,187 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "d7ab24a75b54cdb5079aa99106788bbe456d24f2cc8456efdd26ef56c09cda54"
+      "sha256": "70cb38569b405d6c41fb9309601115caecef988dc3c07f05719f6d07038fa8a7"
     },
     {
       "artifact_id": "ART-569",
       "path": "docs/process/methodology/README.md",
-      "sha256": "c494f1670cb7c071c730c91f0c87fc4045366a5d1c12fc2d9e51389112cbe66b"
+      "sha256": "7c51b25683ff825854c79ee5c6d68bd99964611814330e45fd9595f0ac7b7fb3"
     },
     {
       "artifact_id": "ART-570",
       "path": "docs/process/methodology/babok-research-source.md",
-      "sha256": "4f44cd70e8bdb65171b2f33a34ee9c1b3cc2e94ec362b940ffb78219ed6cfe0f"
+      "sha256": "6615cd39c49ed214ddb27f8833994f533ad786df07a7794fb675ce083e19579f"
     },
     {
       "artifact_id": "ART-571",
       "path": "docs/process/methodology/project-documentation-methodology.md",
-      "sha256": "07f381b30ae0614dd1b0f36c7001b9c324023246135cd705dd511136392c22b2"
+      "sha256": "28a5a03c2e501bde5a568b9e28c870ddcf3cfe133ff3bc89aa1124bf5ac5675c"
     },
     {
       "artifact_id": "ART-572",
       "path": "docs/process/methodology/documentation-methodology-policy.json",
-      "sha256": "02904b047aed077492b1ad76aaa6f9af9475f5125df1508faa16a1dfec9e6d5d"
+      "sha256": "cb2e598ea93f65c2dc4864e9be0239f722121557f6ed955a2cc80aa090aaf36e"
     },
     {
       "artifact_id": "ART-573",
       "path": "schemas/documentation-methodology-policy.schema.json",
-      "sha256": "4dc19e9221977d6f327ece901cccedef8594fc54ff31c22252e46d9e6ffcc895"
+      "sha256": "2c00a571978f8ccc76836b31c53627bd7eefd69e7d37facb1086662e7ac7e737"
     },
     {
       "artifact_id": "ART-574",
       "path": "scripts/validate-documentation-methodology.mjs",
-      "sha256": "5f89e2541c9b933f7b8adb4f6ad801e2715dbb30a2a81dfc8a45c13cfd0dbaf7"
+      "sha256": "664711c773ed2a578e6036ccd8e4e37d8d378963f0a5130af2c4c5f1febdc2a5"
     },
     {
       "artifact_id": "ART-575",
       "path": "docs/process/methodology/babok-methodology-mva-implementation-plan.md",
       "sha256": "e839c4dd9193871432f503b5e1250ad5b881806a9f466625d88bc441115cc263"
+    },
+    {
+      "artifact_id": "ART-576",
+      "path": "docs/process/methodology/babok-research-source-index.json",
+      "sha256": "0e694ebf27885477371427fcb925d42bc14b207e0a74c95752f43521313fb78a"
+    },
+    {
+      "artifact_id": "ART-577",
+      "path": "docs/process/methodology/traceability-model.json",
+      "sha256": "55db48287d8eb1c64b76dffb6c86354c8fc2336302b091daca5259a215ca3242"
+    },
+    {
+      "artifact_id": "ART-578",
+      "path": "docs/process/methodology/methodology-artifact-map.json",
+      "sha256": "0045581a01e40d30aa9c27ca48218cbe7c5e11c2c2b306042f81ac86e942342f"
+    },
+    {
+      "artifact_id": "ART-579",
+      "path": "docs/process/methodology/babok-coverage-map.json",
+      "sha256": "0c612369866bef2b89af73af926632c94ceb537c4ca51860149e4907507b3034"
+    },
+    {
+      "artifact_id": "ART-580",
+      "path": "docs/process/methodology/templates/brd-template.md",
+      "sha256": "90f2fa99f7c438b60fe184fa6fdc77288a60f5e3f5b2b714ca25130a1e428c8a"
+    },
+    {
+      "artifact_id": "ART-581",
+      "path": "docs/process/methodology/templates/srs-template.md",
+      "sha256": "559c19c51126a2334580311e984726b233585ed03769fa7e14668139b7ed79b0"
+    },
+    {
+      "artifact_id": "ART-582",
+      "path": "docs/process/methodology/templates/stakeholder-map-template.md",
+      "sha256": "4ec9a860440f7c33819cdd0828aaecb16b65be7212934aff4a4befec386d9e8b"
+    },
+    {
+      "artifact_id": "ART-583",
+      "path": "docs/process/methodology/templates/elicitation-log-template.md",
+      "sha256": "e9318c06ced3493fc6b85c3342df26148bb0c3dac645356c0c7ec3618a7930b3"
+    },
+    {
+      "artifact_id": "ART-584",
+      "path": "docs/process/methodology/templates/change-request-impact-analysis-template.md",
+      "sha256": "161c3f57cec63fc943238959c10b31ff22b1d5ff4dff54d9f30a1c50f8ad8efe"
+    },
+    {
+      "artifact_id": "ART-585",
+      "path": "docs/process/methodology/templates/story-readiness-report-template.md",
+      "sha256": "78d0c41d9e2f280f63838dc5df953f857b571ffefcbd2f1db69e112b2e872c6c"
+    },
+    {
+      "artifact_id": "ART-586",
+      "path": "docs/process/methodology/templates/solution-evaluation-report-template.md",
+      "sha256": "e04d7f28f9b4e9135906539cd71f7e90da8367f30a188bb7f079620478994be1"
+    },
+    {
+      "artifact_id": "ART-587",
+      "path": "schemas/babok-research-source-index.schema.json",
+      "sha256": "f752ca72dc7e75fd02d63b42761100c4f8e7282bb2612ab9a52414dd8838c6a7"
+    },
+    {
+      "artifact_id": "ART-588",
+      "path": "schemas/methodology-traceability-model.schema.json",
+      "sha256": "21532e848b41cb04f19ba151c923e3adf9283ddcd6df51c23d583659a6adef0c"
+    },
+    {
+      "artifact_id": "ART-589",
+      "path": "schemas/methodology-artifact-map.schema.json",
+      "sha256": "2e5965f1b20f0abff0d6ec812705f84abce1cea005766ce8c540071aa887e8b5"
+    },
+    {
+      "artifact_id": "ART-590",
+      "path": "schemas/babok-coverage-map.schema.json",
+      "sha256": "625d5941860459fec2bb8d7ab809a129728e8c3d10d6fee9782056f141c42721"
+    },
+    {
+      "artifact_id": "ART-591",
+      "path": "tests/fixtures/documentation-methodology/fixture-cases.json",
+      "sha256": "be543accda10eb77b6ee9ab1baec8ebe7abad3bcfe0dc1981b0fb0cbbc28be08"
+    },
+    {
+      "artifact_id": "ART-592",
+      "path": "tests/fixtures/documentation-methodology/valid-brd-template-sample.md",
+      "sha256": "e52d031dc8b69e89010c1c0962da952155c66fcab55ff609d339c504312f5837"
+    },
+    {
+      "artifact_id": "ART-593",
+      "path": "tests/fixtures/documentation-methodology/valid-srs-template-sample.md",
+      "sha256": "37e41ec64db2a6267b168a6ab23d65e2385ee2fd4bcbf1af9f64410fc5af7675"
+    },
+    {
+      "artifact_id": "ART-594",
+      "path": "tests/fixtures/documentation-methodology/valid-story-readiness-report-sample.md",
+      "sha256": "36dbc03d58966b0db309d1e281442c40f9184130472a0bcc4c95f46ceb6a11c0"
+    },
+    {
+      "artifact_id": "ART-595",
+      "path": "tests/fixtures/documentation-methodology/negative-policy-missing-success-metrics.json",
+      "sha256": "073703d8c8cdd3bc25705fd35d7802386b0b31b4b72357797a3b4cc8480294e9"
+    },
+    {
+      "artifact_id": "ART-596",
+      "path": "tests/fixtures/documentation-methodology/negative-policy-missing-acceptance-criteria.json",
+      "sha256": "b70a56b279d108da280e0b9be336a4ba1ebbfdd38477a0cc34f4ba1887a2dae7"
+    },
+    {
+      "artifact_id": "ART-597",
+      "path": "tests/fixtures/documentation-methodology/negative-empty-source-index.json",
+      "sha256": "ccb0aeefa6d323e53ca28cbfbd2c69bb9091099266ce0945f2e8063c016128f1"
+    },
+    {
+      "artifact_id": "ART-598",
+      "path": "tests/fixtures/documentation-methodology/negative-traceability-model-missing-link.json",
+      "sha256": "e492f2f59f93cfe2de0dc0bbf321924d30025da357543f4a9a2552ad01811a43"
+    },
+    {
+      "artifact_id": "ART-599",
+      "path": "tests/fixtures/documentation-methodology/negative-srs-template-without-acceptance.md",
+      "sha256": "85e09fcfe9e2bcb52dd1292bb9a2bb70cae180463310950d2c35c9e136e5d28f"
+    },
+    {
+      "artifact_id": "ART-600",
+      "path": "tests/fixtures/documentation-methodology/negative-nfr-without-metric.md",
+      "sha256": "0c909676561a12dfc2518a8d4810c587c640c903aab56d6574b8144be22dff33"
+    },
+    {
+      "artifact_id": "ART-601",
+      "path": "tests/fixtures/documentation-methodology/negative-story-readiness-without-requirement-trace.md",
+      "sha256": "f167ab778cd2a1be17c65f62fcdd774e193af41a773cca3e6ec51d07afbdadd3"
+    },
+    {
+      "artifact_id": "ART-602",
+      "path": "tests/fixtures/documentation-methodology/golden-diagnostic-report.json",
+      "sha256": "31243956c8ad05e442759d8296694ed23776dbe11f6eab895ee63f02bc0ef443"
+    },
+    {
+      "artifact_id": "ART-603",
+      "path": "docs/sprints/2026-W27-babok-methodology-mva/sprint-evidence-manifest.json",
+      "sha256": "33fd9ccda29cad6cbc6649d3d8011fe0f327cc458c4c221ccb65f390e191a583"
+    },
+    {
+      "artifact_id": "ART-604",
+      "path": "docs/sprints/2026-W27-babok-methodology-mva/sprint-backlog.md",
+      "sha256": "503f816aba3a1fa65e09bd0b4554d8a38f143006beebbbf87016b37ed3333ec2"
     }
   ],
   "exclusions": [

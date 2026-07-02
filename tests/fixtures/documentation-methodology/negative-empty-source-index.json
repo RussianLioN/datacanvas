@@ -1,0 +1,7 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "source_file": "docs/process/methodology/babok-research-source.md",
+  "source_summary": "Пустой negative fixture для проверки диагностики source index.",
+  "entries": []
+}

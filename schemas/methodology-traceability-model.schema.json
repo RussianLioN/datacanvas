@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/methodology-traceability-model.schema.json",
+  "title": "MethodologyTraceabilityModel",
+  "type": "object",
+  "required": ["version", "status", "purpose", "chain", "nodes", "link_types", "gate_levels", "coverage_report_expectations", "rollout_rule"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "purpose": { "type": "string", "minLength": 1 },
+    "chain": {
+      "type": "array",
+      "minItems": 10,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "artifact_scope", "required_for_new_artifacts", "not_applicable_allowed"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "artifact_scope": { "type": "string", "minLength": 1 },
+          "required_for_new_artifacts": { "type": "boolean" },
+          "not_applicable_allowed": { "type": "boolean" }
+        }
+      }
+    },
+    "link_types": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "required": ["id", "meaning"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "meaning": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "gate_levels": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["id", "applies_to"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "applies_to": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "coverage_report_expectations": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["metric_id", "description", "first_rollout_level"],
+        "additionalProperties": false,
+        "properties": {
+          "metric_id": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "first_rollout_level": { "type": "string", "enum": ["baseline", "advisory", "strict"] }
+        }
+      }
+    },
+    "rollout_rule": {
+      "type": "object",
+      "required": ["legacy_target", "new_or_changed_target"],
+      "additionalProperties": false,
+      "properties": {
+        "legacy_target": { "type": "string", "enum": ["advisory"] },
+        "new_or_changed_target": { "type": "string", "enum": ["strict_after_advisory_phase"] }
+      }
+    }
+  }
+}

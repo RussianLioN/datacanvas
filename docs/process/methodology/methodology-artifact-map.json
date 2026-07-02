@@ -1,0 +1,144 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "entrypoints": {
+    "primary": "docs/process/methodology/README.md",
+    "templates": "docs/process/methodology/templates",
+    "machine_support_artifacts": [
+      "docs/process/methodology/documentation-methodology-policy.json",
+      "docs/process/methodology/babok-research-source-index.json",
+      "docs/process/methodology/traceability-model.json",
+      "docs/process/methodology/methodology-artifact-map.json",
+      "docs/process/methodology/babok-coverage-map.json"
+    ]
+  },
+  "classification_values": [
+    "manual",
+    "machine_readable",
+    "template",
+    "generated",
+    "evidence",
+    "reference"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/process/methodology/README.md",
+      "classification": "manual",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/project-documentation-methodology.md",
+      "classification": "manual",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/babok-research-source.md",
+      "classification": "reference",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/documentation-methodology-policy.json",
+      "classification": "machine_readable",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/babok-research-source-index.json",
+      "classification": "machine_readable",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/traceability-model.json",
+      "classification": "machine_readable",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/methodology-artifact-map.json",
+      "classification": "machine_readable",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/babok-coverage-map.json",
+      "classification": "machine_readable",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/brd-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/srs-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/stakeholder-map-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/elicitation-log-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/change-request-impact-analysis-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/story-readiness-report-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/process/methodology/templates/solution-evaluation-report-template.md",
+      "classification": "template",
+      "owner_role": "Process Owner",
+      "source_of_truth": true,
+      "navigation_action": "managed_entry"
+    },
+    {
+      "path": "docs/navigation/documentation-index.json",
+      "classification": "generated",
+      "owner_role": "Documentation Owner",
+      "source_of_truth": false,
+      "navigation_action": "generated_output"
+    },
+    {
+      "path": "docs/sprints/2026-W27-babok-methodology-mva/sprint-evidence-manifest.json",
+      "classification": "evidence",
+      "owner_role": "Process Owner",
+      "source_of_truth": false,
+      "navigation_action": "section_rule"
+    }
+  ]
+}

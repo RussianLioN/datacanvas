@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/babok-coverage-map.schema.json",
+  "title": "BabokCoverageMap",
+  "type": "object",
+  "required": ["version", "status", "purpose", "knowledge_areas"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active"] },
+    "purpose": { "type": "string", "minLength": 1 },
+    "knowledge_areas": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "knowledge_area",
+          "datacanvas_artifacts",
+          "policy_sections",
+          "validator_checks",
+          "required_artifacts",
+          "applicable_gates",
+          "expected_evidence",
+          "validation_level"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "knowledge_area": { "type": "string", "minLength": 1 },
+          "datacanvas_artifacts": { "$ref": "#/$defs/nonEmptyStringList" },
+          "policy_sections": { "$ref": "#/$defs/nonEmptyStringList" },
+          "validator_checks": { "$ref": "#/$defs/nonEmptyStringList" },
+          "required_artifacts": { "$ref": "#/$defs/nonEmptyStringList" },
+          "applicable_gates": { "$ref": "#/$defs/nonEmptyStringList" },
+          "expected_evidence": { "$ref": "#/$defs/nonEmptyStringList" },
+          "validation_level": { "type": "string", "enum": ["baseline", "advisory", "strict"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

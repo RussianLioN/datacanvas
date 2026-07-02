@@ -1,0 +1,214 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "purpose": "Карта соответствия BABOK knowledge areas методическим artifacts DataCanvas, policy sections и validator checks.",
+  "knowledge_areas": [
+    {
+      "knowledge_area": "Business Analysis Planning & Monitoring",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/documentation-methodology-policy.json",
+        "docs/process/current/process-backlog.md",
+        "docs/process/methodology/methodology-artifact-map.json"
+      ],
+      "policy_sections": [
+        "precedence_policy",
+        "validation_levels",
+        "rollout_policy"
+      ],
+      "validator_checks": [
+        "schema.policy",
+        "required_gates",
+        "navigation_registration"
+      ],
+      "required_artifacts": [
+        "methodology README",
+        "policy",
+        "artifact map"
+      ],
+      "applicable_gates": [
+        "problem_defined",
+        "scope_defined",
+        "business_requirements_traceable"
+      ],
+      "expected_evidence": [
+        "process backlog follow-up items",
+        "sprint evidence manifest",
+        "validation output"
+      ],
+      "validation_level": "baseline"
+    },
+    {
+      "knowledge_area": "Elicitation & Collaboration",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/templates/stakeholder-map-template.md",
+        "docs/process/methodology/templates/elicitation-log-template.md",
+        "docs/product/interviews/ba-sa/README.md"
+      ],
+      "policy_sections": [
+        "agent_governance",
+        "source_index_policy",
+        "exception_policy"
+      ],
+      "validator_checks": [
+        "template.stakeholder-map",
+        "template.elicitation-log",
+        "source_index"
+      ],
+      "required_artifacts": [
+        "stakeholder map",
+        "elicitation log",
+        "open question или decision record"
+      ],
+      "applicable_gates": [
+        "stakeholders_identified",
+        "business_rules_recorded",
+        "human_approval_defined"
+      ],
+      "expected_evidence": [
+        "confirmed source",
+        "decision owner",
+        "unresolved clarification"
+      ],
+      "validation_level": "baseline"
+    },
+    {
+      "knowledge_area": "Requirements Life Cycle Management",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/traceability-model.json",
+        "docs/process/methodology/templates/change-request-impact-analysis-template.md",
+        "docs/process/methodology/templates/story-readiness-report-template.md"
+      ],
+      "policy_sections": [
+        "requirement_state_model",
+        "traceability_policy",
+        "artifact_state_model"
+      ],
+      "validator_checks": [
+        "traceability_model.chain",
+        "template.change-request-impact-analysis",
+        "template.story-readiness-report"
+      ],
+      "required_artifacts": [
+        "traceability links",
+        "change request / impact analysis",
+        "story readiness report"
+      ],
+      "applicable_gates": [
+        "business_requirements_traceable",
+        "acceptance_criteria_defined",
+        "verification_method_defined"
+      ],
+      "expected_evidence": [
+        "requirement source",
+        "baseline/change status",
+        "missing gate list"
+      ],
+      "validation_level": "baseline"
+    },
+    {
+      "knowledge_area": "Strategy Analysis",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/templates/brd-template.md",
+        "docs/product/vision/vision-v0.1.md",
+        "docs/product/bmc/README.md"
+      ],
+      "policy_sections": [
+        "quality_gate_policy.business_analysis",
+        "requirement_schema",
+        "precedence_policy"
+      ],
+      "validator_checks": [
+        "template.brd",
+        "quality_gate_policy.business_analysis"
+      ],
+      "required_artifacts": [
+        "BRD",
+        "business goal",
+        "success metrics"
+      ],
+      "applicable_gates": [
+        "problem_defined",
+        "business_value_measurable",
+        "success_metrics_defined",
+        "scope_defined"
+      ],
+      "expected_evidence": [
+        "business value metric",
+        "stakeholder confirmation",
+        "open questions"
+      ],
+      "validation_level": "baseline"
+    },
+    {
+      "knowledge_area": "Requirements Analysis & Design Definition",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/templates/srs-template.md",
+        "docs/architecture/system-analysis/README.md",
+        "docs/process/methodology/traceability-model.json"
+      ],
+      "policy_sections": [
+        "quality_gate_policy.system_analysis",
+        "system_analysis_artifact_pack",
+        "quality_gate_policy.architecture_handoff"
+      ],
+      "validator_checks": [
+        "template.srs",
+        "system_analysis_artifact_pack",
+        "orphan_cases"
+      ],
+      "required_artifacts": [
+        "SRS",
+        "system analysis artifact pack",
+        "architecture handoff"
+      ],
+      "applicable_gates": [
+        "behavior_defined",
+        "data_defined",
+        "integrations_defined",
+        "nfr_defined",
+        "errors_defined",
+        "acceptance_criteria_defined",
+        "verification_method_defined"
+      ],
+      "expected_evidence": [
+        "contract impact",
+        "NFR metric",
+        "verification method"
+      ],
+      "validation_level": "baseline"
+    },
+    {
+      "knowledge_area": "Solution Evaluation",
+      "datacanvas_artifacts": [
+        "docs/process/methodology/templates/solution-evaluation-report-template.md",
+        "docs/release/README.md",
+        "docs/architecture/observability/process-run-ledger.json"
+      ],
+      "policy_sections": [
+        "quality_gate_policy.delivery_release",
+        "quality_gate_policy.operations",
+        "traceability_policy.coverage_expectations"
+      ],
+      "validator_checks": [
+        "template.solution-evaluation-report",
+        "traceability_model.coverage_report_expectations"
+      ],
+      "required_artifacts": [
+        "solution evaluation report",
+        "release evidence",
+        "telemetry или feedback"
+      ],
+      "applicable_gates": [
+        "release_evidence_available",
+        "telemetry_signal_defined",
+        "feedback_to_backlog_defined"
+      ],
+      "expected_evidence": [
+        "expected value",
+        "actual metric or signal",
+        "gap/improvement item"
+      ],
+      "validation_level": "advisory"
+    }
+  ]
+}

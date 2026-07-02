@@ -1,0 +1,105 @@
+{
+  "sprint_id": "SPRINT-2026-W27-S1",
+  "sprint_name": "babok-methodology-mva",
+  "process_version": "0.1.0",
+  "status": "validated",
+  "source_plan": "docs/process/methodology/babok-methodology-mva-implementation-plan.md",
+  "goal": "Довести BABOK-методику DataCanvas до минимально полного проверяемого контура: policy, source index, traceability model, coverage map, templates, validator diagnostics, fixtures, navigation и registry/hash registration.",
+  "created_artifacts": [
+    "docs/process/methodology/babok-research-source-index.json",
+    "docs/process/methodology/traceability-model.json",
+    "docs/process/methodology/methodology-artifact-map.json",
+    "docs/process/methodology/babok-coverage-map.json",
+    "docs/process/methodology/templates/brd-template.md",
+    "docs/process/methodology/templates/srs-template.md",
+    "docs/process/methodology/templates/stakeholder-map-template.md",
+    "docs/process/methodology/templates/elicitation-log-template.md",
+    "docs/process/methodology/templates/change-request-impact-analysis-template.md",
+    "docs/process/methodology/templates/story-readiness-report-template.md",
+    "docs/process/methodology/templates/solution-evaluation-report-template.md",
+    "schemas/babok-research-source-index.schema.json",
+    "schemas/methodology-traceability-model.schema.json",
+    "schemas/methodology-artifact-map.schema.json",
+    "schemas/babok-coverage-map.schema.json",
+    "tests/fixtures/documentation-methodology/fixture-cases.json",
+    "tests/fixtures/documentation-methodology/golden-diagnostic-report.json",
+    "docs/sprints/2026-W27-babok-methodology-mva/sprint-backlog.md"
+  ],
+  "checks": [
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed",
+      "evidence": "Documentation methodology validation passed; policy, source index, traceability model, artifact map, coverage map, templates, navigation registration and negative fixtures validated."
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed",
+      "evidence": "New methodology schemas and data artifacts passed JSON Schema validation."
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed",
+      "evidence": "Generated navigation outputs are current after navigation-source changes."
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed",
+      "evidence": "Docs navigation validation passed with new methodology entries."
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed",
+      "evidence": "Documentation link validation passed for new templates and methodology links."
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed",
+      "evidence": "Stale-status validation passed after current_main_commit pointer refresh."
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed",
+      "evidence": "BA/SA artifacts remained valid; methodology change did not alter business content."
+    },
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed",
+      "evidence": "Process backlog follow-up items and sprint backlog passed registry validation."
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed",
+      "evidence": "Secret scan passed; no raw Downloads research files or credentials added."
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed",
+      "evidence": "Data leakage validation passed; new artifacts are methodology metadata/templates."
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed",
+      "evidence": "Artifact registry validation passed with new methodology and fixture artifacts."
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed",
+      "evidence": "Artifact hash manifest validation passed after generator refresh."
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed",
+      "evidence": "Whitespace check passed before final npm test."
+    },
+    {
+      "command": "npm test",
+      "status": "passed",
+      "evidence": "Full local gate passed after threat-model delta and process-version linkage updates."
+    }
+  ],
+  "known_limitations": [
+    "Текущий этап не меняет бизнес-содержание требований, product backlog или ADR; он добавляет методику, шаблоны и проверки.",
+    "Legacy artifacts переводятся в strict coverage отдельными follow-up items PROC-044 и PROC-045."
+  ],
+  "next_safe_step": "Использовать methodology README как вход агента и выполнять follow-up items PROC-041..PROC-045 отдельными изменениями."
+}

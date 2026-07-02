@@ -1,0 +1,145 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "purpose": "Negative fixture с пропущенным mandatory link.",
+  "chain": [
+    "business_goal",
+    "stakeholder_need",
+    "business_requirement",
+    "system_requirement",
+    "backlog_item",
+    "acceptance_test",
+    "evidence",
+    "release_record",
+    "telemetry_or_feedback",
+    "improvement_item"
+  ],
+  "nodes": [
+    {
+      "id": "business_goal",
+      "title": "Бизнес-цель",
+      "artifact_scope": "Vision",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "stakeholder_need",
+      "title": "Потребность",
+      "artifact_scope": "Stakeholder map",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "business_requirement",
+      "title": "Бизнес-требование",
+      "artifact_scope": "BRD",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "system_requirement",
+      "title": "Системное требование",
+      "artifact_scope": "SRS",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "interface_requirement",
+      "title": "Интерфейсное требование",
+      "artifact_scope": "Interface",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "data_requirement",
+      "title": "Требование к данным",
+      "artifact_scope": "Data",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "nfr_requirement",
+      "title": "НФТ",
+      "artifact_scope": "NFR",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "error_requirement",
+      "title": "Требование к ошибкам",
+      "artifact_scope": "Errors",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "backlog_item",
+      "title": "Backlog item",
+      "artifact_scope": "PBI",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "acceptance_test",
+      "title": "Acceptance",
+      "artifact_scope": "Test",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "evidence",
+      "title": "Evidence",
+      "artifact_scope": "Evidence",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": false
+    },
+    {
+      "id": "release_record",
+      "title": "Release",
+      "artifact_scope": "Release",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "telemetry_or_feedback",
+      "title": "Feedback",
+      "artifact_scope": "Telemetry",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    },
+    {
+      "id": "improvement_item",
+      "title": "Improvement",
+      "artifact_scope": "Backlog follow-up",
+      "required_for_new_artifacts": true,
+      "not_applicable_allowed": true
+    }
+  ],
+  "link_types": [
+    { "id": "derives_from", "meaning": "source" },
+    { "id": "satisfies", "meaning": "satisfies" },
+    { "id": "verifies", "meaning": "verifies" },
+    { "id": "implements", "meaning": "implements" },
+    { "id": "impacts", "meaning": "impacts" },
+    { "id": "supersedes", "meaning": "supersedes" },
+    { "id": "monitors", "meaning": "monitors" }
+  ],
+  "gate_levels": [
+    { "id": "artifact-level", "applies_to": ["artifact"] },
+    { "id": "requirement-level", "applies_to": ["requirement"] },
+    { "id": "backlog-item-level", "applies_to": ["backlog"] },
+    { "id": "release-level", "applies_to": ["release"] }
+  ],
+  "coverage_report_expectations": [
+    { "metric_id": "requirements_with_business_trace", "description": "x", "first_rollout_level": "baseline" },
+    { "metric_id": "requirements_with_system_trace", "description": "x", "first_rollout_level": "advisory" },
+    { "metric_id": "backlog_items_with_requirement_trace", "description": "x", "first_rollout_level": "baseline" },
+    { "metric_id": "requirements_with_acceptance_criteria", "description": "x", "first_rollout_level": "baseline" },
+    { "metric_id": "requirements_with_verification_method", "description": "x", "first_rollout_level": "baseline" },
+    { "metric_id": "released_requirements_with_evidence", "description": "x", "first_rollout_level": "advisory" },
+    { "metric_id": "orphan_stale_missing_links", "description": "x", "first_rollout_level": "advisory" }
+  ],
+  "rollout_rule": {
+    "legacy_target": "advisory",
+    "new_or_changed_target": "strict_after_advisory_phase"
+  }
+}

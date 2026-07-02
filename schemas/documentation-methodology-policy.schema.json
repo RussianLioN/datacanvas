@@ -7,11 +7,22 @@
     "version",
     "status",
     "source_methodology",
+    "precedence_policy",
     "lifecycle_policy",
+    "validation_levels",
+    "gate_severity",
+    "requirement_schema",
+    "artifact_state_model",
+    "requirement_state_model",
     "traceability_policy",
+    "source_index_policy",
     "artifact_policy",
     "quality_gate_policy",
+    "system_analysis_artifact_pack",
+    "babok_coverage_policy",
+    "exception_policy",
     "agent_governance",
+    "rollout_policy",
     "validation"
   ],
   "additionalProperties": false,
@@ -20,14 +31,45 @@
     "status": { "type": "string", "enum": ["draft", "active"] },
     "source_methodology": {
       "type": "object",
-      "required": ["id", "source_type", "summary_path", "policy_path", "usage"],
+      "required": [
+        "id",
+        "source_type",
+        "summary_path",
+        "policy_path",
+        "source_index_path",
+        "traceability_model_path",
+        "artifact_map_path",
+        "coverage_map_path",
+        "usage"
+      ],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^METHOD-[A-Z0-9-]+$" },
         "source_type": { "type": "string", "enum": ["user_supplied_research"] },
         "summary_path": { "$ref": "#/$defs/repoPath" },
         "policy_path": { "$ref": "#/$defs/repoPath" },
+        "source_index_path": { "$ref": "#/$defs/repoPath" },
+        "traceability_model_path": { "$ref": "#/$defs/repoPath" },
+        "artifact_map_path": { "$ref": "#/$defs/repoPath" },
+        "coverage_map_path": { "$ref": "#/$defs/repoPath" },
         "usage": { "type": "string", "enum": ["normative_methodology_source"] }
+      }
+    },
+    "precedence_policy": {
+      "type": "object",
+      "required": ["tiers", "conflict_rules"],
+      "additionalProperties": false,
+      "properties": {
+        "tiers": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/precedenceTier" }
+        },
+        "conflict_rules": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "$ref": "#/$defs/idRule" }
+        }
       }
     },
     "lifecycle_policy": {
@@ -35,86 +77,260 @@
       "minItems": 11,
       "items": { "$ref": "#/$defs/lifecycleStage" }
     },
+    "validation_levels": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "failure_rule"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "enum": ["baseline", "advisory", "strict"] },
+          "purpose": { "type": "string", "minLength": 1 },
+          "failure_rule": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "gate_severity": {
+      "type": "object",
+      "required": ["allowed_values", "default_by_validation_level", "gate_overrides"],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_values": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/severity" }
+        },
+        "default_by_validation_level": {
+          "type": "object",
+          "required": ["baseline", "advisory", "strict"],
+          "additionalProperties": false,
+          "properties": {
+            "baseline": { "$ref": "#/$defs/severity" },
+            "advisory": { "$ref": "#/$defs/severity" },
+            "strict": { "$ref": "#/$defs/severity" }
+          }
+        },
+        "gate_overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["gate", "severity"],
+            "additionalProperties": false,
+            "properties": {
+              "gate": { "type": "string", "minLength": 1 },
+              "severity": { "$ref": "#/$defs/severity" }
+            }
+          }
+        }
+      }
+    },
+    "requirement_schema": {
+      "type": "object",
+      "required": ["required_fields", "requirement_types", "id_patterns", "not_applicable_rule"],
+      "additionalProperties": false,
+      "properties": {
+        "required_fields": { "$ref": "#/$defs/nonEmptyStringList" },
+        "requirement_types": { "$ref": "#/$defs/nonEmptyStringList" },
+        "id_patterns": { "$ref": "#/$defs/nonEmptyStringList" },
+        "not_applicable_rule": { "$ref": "#/$defs/notApplicableRule" }
+      }
+    },
+    "artifact_state_model": { "$ref": "#/$defs/stateModel" },
+    "requirement_state_model": { "$ref": "#/$defs/stateModel" },
     "traceability_policy": {
       "type": "object",
-      "required": ["required", "chain", "missing_link_action"],
+      "required": [
+        "required",
+        "model_path",
+        "chain",
+        "link_types",
+        "gate_levels",
+        "coverage_expectations",
+        "missing_link_action"
+      ],
       "additionalProperties": false,
       "properties": {
         "required": { "type": "boolean", "const": true },
-        "chain": {
-          "type": "array",
-          "minItems": 9,
-          "items": { "type": "string", "minLength": 1 }
-        },
+        "model_path": { "$ref": "#/$defs/repoPath" },
+        "chain": { "$ref": "#/$defs/nonEmptyStringList" },
+        "link_types": { "$ref": "#/$defs/nonEmptyStringList" },
+        "gate_levels": { "$ref": "#/$defs/nonEmptyStringList" },
+        "coverage_expectations": { "$ref": "#/$defs/nonEmptyStringList" },
         "missing_link_action": {
           "type": "string",
           "enum": ["create_open_question_or_deferred_rationale"]
         }
       }
     },
+    "source_index_policy": {
+      "type": "object",
+      "required": ["path", "required_fields", "hash_algorithm", "raw_source_rule", "allowed_source_references"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "required_fields": { "$ref": "#/$defs/nonEmptyStringList" },
+        "hash_algorithm": { "type": "string", "enum": ["sha256"] },
+        "raw_source_rule": { "type": "string", "enum": ["do_not_commit_downloads_raw_files"] },
+        "allowed_source_references": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
+    },
     "artifact_policy": {
       "type": "array",
       "minItems": 7,
-      "items": {
-        "type": "object",
-        "required": ["id", "artifact_type", "stage", "required_when", "owner_role", "minimum_links"],
-        "additionalProperties": false,
-        "properties": {
-          "id": { "type": "string", "pattern": "^ARTPOL-\\d{3}$" },
-          "artifact_type": { "type": "string", "minLength": 1 },
-          "stage": { "$ref": "#/$defs/lifecycleStage" },
-          "required_when": {
-            "type": "array",
-            "minItems": 1,
-            "items": { "type": "string", "minLength": 1 }
-          },
-          "owner_role": { "type": "string", "minLength": 1 },
-          "minimum_links": {
-            "type": "array",
-            "minItems": 1,
-            "items": { "type": "string", "minLength": 1 }
+      "items": { "$ref": "#/$defs/artifactPolicyItem" }
+    },
+    "quality_gate_policy": {
+      "type": "object",
+      "required": [
+        "business_analysis",
+        "system_analysis",
+        "ai_agent_solution",
+        "delivery_release",
+        "operations",
+        "architecture_handoff"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "business_analysis": { "$ref": "#/$defs/nonEmptyStringList" },
+        "system_analysis": { "$ref": "#/$defs/nonEmptyStringList" },
+        "ai_agent_solution": { "$ref": "#/$defs/nonEmptyStringList" },
+        "delivery_release": { "$ref": "#/$defs/nonEmptyStringList" },
+        "operations": { "$ref": "#/$defs/nonEmptyStringList" },
+        "architecture_handoff": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
+    },
+    "system_analysis_artifact_pack": {
+      "type": "object",
+      "required": [
+        "elements",
+        "not_applicable_requires_rationale",
+        "architecture_handoff_rules",
+        "orphan_cases"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "elements": {
+          "type": "array",
+          "minItems": 7,
+          "items": {
+            "type": "object",
+            "required": ["id", "required_in_srs"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "required_in_srs": { "type": "boolean" }
+            }
+          }
+        },
+        "not_applicable_requires_rationale": { "type": "boolean", "const": true },
+        "architecture_handoff_rules": { "$ref": "#/$defs/nonEmptyStringList" },
+        "orphan_cases": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
+    },
+    "babok_coverage_policy": {
+      "type": "object",
+      "required": ["path", "required_knowledge_areas", "first_rollout_default_level"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "required_knowledge_areas": { "$ref": "#/$defs/nonEmptyStringList" },
+        "first_rollout_default_level": { "type": "string", "enum": ["baseline", "advisory", "strict"] }
+      }
+    },
+    "exception_policy": {
+      "type": "object",
+      "required": ["not_applicable"],
+      "additionalProperties": false,
+      "properties": {
+        "not_applicable": {
+          "type": "object",
+          "required": [
+            "allowed",
+            "rationale_required",
+            "rationale_field",
+            "reviewer_role",
+            "prohibited_without_rationale"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "allowed": { "type": "boolean", "const": true },
+            "rationale_required": { "type": "boolean", "const": true },
+            "rationale_field": { "type": "string", "const": "rationale" },
+            "reviewer_role": { "type": "string", "minLength": 1 },
+            "prohibited_without_rationale": { "type": "boolean", "const": true }
           }
         }
       }
     },
-    "quality_gate_policy": {
-      "type": "object",
-      "required": ["business_analysis", "system_analysis", "ai_agent", "delivery_release", "operations"],
-      "additionalProperties": false,
-      "properties": {
-        "business_analysis": { "$ref": "#/$defs/checkList" },
-        "system_analysis": { "$ref": "#/$defs/checkList" },
-        "ai_agent": { "$ref": "#/$defs/checkList" },
-        "delivery_release": { "$ref": "#/$defs/checkList" },
-        "operations": { "$ref": "#/$defs/checkList" }
-      }
-    },
     "agent_governance": {
       "type": "object",
-      "required": ["allowed_without_confirmation", "requires_human_confirmation", "interview_policy"],
+      "required": ["allowed_without_confirmation", "requires_human_confirmation", "interview_policy", "handoff_checks"],
       "additionalProperties": false,
       "properties": {
-        "allowed_without_confirmation": { "$ref": "#/$defs/checkList" },
-        "requires_human_confirmation": { "$ref": "#/$defs/checkList" },
+        "allowed_without_confirmation": { "$ref": "#/$defs/nonEmptyStringList" },
+        "requires_human_confirmation": { "$ref": "#/$defs/nonEmptyStringList" },
         "interview_policy": {
           "type": "object",
-          "required": ["question_granularity", "raw_answer_rule", "downstream_rule"],
+          "required": ["question_granularity", "raw_answer_rule", "downstream_rule", "stopped_interview_rule"],
           "additionalProperties": false,
           "properties": {
             "question_granularity": { "type": "string", "enum": ["one_decision_at_a_time"] },
             "raw_answer_rule": { "type": "string", "enum": ["treat_as_untrusted_data"] },
-            "downstream_rule": { "type": "string", "enum": ["safe_summary_or_confirmed_claim_only"] }
+            "downstream_rule": { "type": "string", "enum": ["safe_summary_or_confirmed_claim_only"] },
+            "stopped_interview_rule": { "type": "string", "enum": ["paused_until_methodology_change_intake_and_impact_analysis"] }
+          }
+        },
+        "handoff_checks": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
+    },
+    "rollout_policy": {
+      "type": "object",
+      "required": ["phases"],
+      "additionalProperties": false,
+      "properties": {
+        "phases": {
+          "type": "array",
+          "minItems": 4,
+          "items": {
+            "type": "object",
+            "required": ["id", "scope", "validation_level"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "pattern": "^phase-\\d+$" },
+              "scope": { "type": "string", "minLength": 1 },
+              "validation_level": { "type": "string", "enum": ["baseline", "advisory", "strict"] }
+            }
           }
         }
       }
     },
     "validation": {
       "type": "object",
-      "required": ["schema_path", "validation_command"],
+      "required": ["schema_paths", "validation_command", "diagnostic_contract"],
       "additionalProperties": false,
       "properties": {
-        "schema_path": { "type": "string", "const": "schemas/documentation-methodology-policy.schema.json" },
-        "validation_command": { "type": "string", "const": "npm run validate:documentation-methodology" }
+        "schema_paths": {
+          "type": "object",
+          "required": ["policy", "source_index", "traceability_model", "artifact_map", "coverage_map"],
+          "additionalProperties": false,
+          "properties": {
+            "policy": { "type": "string", "const": "schemas/documentation-methodology-policy.schema.json" },
+            "source_index": { "type": "string", "const": "schemas/babok-research-source-index.schema.json" },
+            "traceability_model": { "type": "string", "const": "schemas/methodology-traceability-model.schema.json" },
+            "artifact_map": { "type": "string", "const": "schemas/methodology-artifact-map.schema.json" },
+            "coverage_map": { "type": "string", "const": "schemas/babok-coverage-map.schema.json" }
+          }
+        },
+        "validation_command": { "type": "string", "const": "npm run validate:documentation-methodology" },
+        "diagnostic_contract": {
+          "type": "object",
+          "required": ["required_fields", "optional_fields"],
+          "additionalProperties": false,
+          "properties": {
+            "required_fields": { "$ref": "#/$defs/nonEmptyStringList" },
+            "optional_fields": { "$ref": "#/$defs/nonEmptyStringList" }
+          }
+        }
       }
     }
   },
@@ -129,6 +345,15 @@
           { "pattern": "\\.\\.(?:/|$)" }
         ]
       }
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["error", "warning", "advisory"]
+    },
+    "nonEmptyStringList": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
     },
     "lifecycleStage": {
       "type": "string",
@@ -146,11 +371,72 @@
         "change_management"
       ]
     },
-    "checkList": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "type": "string", "minLength": 1 }
+    "precedenceTier": {
+      "type": "object",
+      "required": ["rank", "source_class", "scope", "artifacts"],
+      "additionalProperties": false,
+      "properties": {
+        "rank": { "type": "integer", "minimum": 1 },
+        "source_class": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 },
+        "artifacts": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
+    },
+    "idRule": {
+      "type": "object",
+      "required": ["id", "rule"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "rule": { "type": "string", "minLength": 1 }
+      }
+    },
+    "notApplicableRule": {
+      "type": "object",
+      "required": ["field", "rationale_required", "reviewer_role"],
+      "additionalProperties": false,
+      "properties": {
+        "field": { "type": "string", "const": "not_applicable" },
+        "rationale_required": { "type": "boolean", "const": true },
+        "reviewer_role": { "type": "string", "minLength": 1 }
+      }
+    },
+    "stateModel": {
+      "type": "object",
+      "required": ["states", "initial_state", "terminal_states", "transitions"],
+      "additionalProperties": false,
+      "properties": {
+        "states": { "$ref": "#/$defs/nonEmptyStringList" },
+        "initial_state": { "type": "string", "minLength": 1 },
+        "terminal_states": { "$ref": "#/$defs/nonEmptyStringList" },
+        "transitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["from", "to", "requires"],
+            "additionalProperties": false,
+            "properties": {
+              "from": { "type": "string", "minLength": 1 },
+              "to": { "type": "string", "minLength": 1 },
+              "requires": { "$ref": "#/$defs/nonEmptyStringList" }
+            }
+          }
+        }
+      }
+    },
+    "artifactPolicyItem": {
+      "type": "object",
+      "required": ["id", "artifact_type", "stage", "required_when", "owner_role", "minimum_links"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^ARTPOL-\\d{3}$" },
+        "artifact_type": { "type": "string", "minLength": 1 },
+        "stage": { "$ref": "#/$defs/lifecycleStage" },
+        "required_when": { "$ref": "#/$defs/nonEmptyStringList" },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "minimum_links": { "$ref": "#/$defs/nonEmptyStringList" }
+      }
     }
   }
 }
-

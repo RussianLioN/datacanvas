@@ -25,4 +25,4 @@ Draft `PROC-038` предоставляет opt-in контракт `Documentati
 
 ## Методика Документации
 
-`PROC-039` подключает BABOK-исследование как методическое ядро проектной документации. Методика описывает lifecycle, artifact policy, traceability policy, quality gates и правила возобновления интервью по одному решению за шаг.
+`PROC-039` подключает BABOK-исследование как baseline методического ядра. `PROC-040` фиксирует минимально полный контур: policy, source index, traceability model, coverage map, templates, validator diagnostics, fixtures и navigation/hash registration. Этот этап не меняет бизнес-содержание требований; он добавляет правила применения, шаблоны и проверки.
