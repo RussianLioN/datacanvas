@@ -60,13 +60,17 @@ function changedFiles(baseRef, headRef) {
 
 const mainPointerRefreshPaths = new Set([
   ".github/workflows/docs-check.yml",
+  "docs/README.md",
   "docs/architecture/schemas/artifact-hash-manifest.json",
   "docs/navigation/documentation-index.json",
   "docs/navigation/navigation-map.md",
   "docs/navigation/navigation-source.json",
   "docs/navigation/stale-status-report.md",
+  "docs/process/current/process-metrics-snapshot.json",
+  "docs/process/current/process-metrics-snapshot.md",
   "docs/process/audits/plan-completion-audit.json",
   "docs/process/audits/plan-completion-audit.md",
+  "docs/product/backlog/product-backlog.md",
   "docs/release/commit-pr-evidence.md",
   "docs/release/mvp-release-evidence-pack.json",
   "docs/release/mvp-release-evidence-pack.md",

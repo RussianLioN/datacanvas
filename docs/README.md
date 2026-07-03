@@ -38,14 +38,21 @@
 |---|---|---|---|---|
 | Найти текущий процесс | [Процесс](process/README.md) | [Реестр процесса](process/current/process-registry.md) | Process Owner | `npm run validate:docs-navigation` |
 | Найти методику проектной документации | [Методика проектной документации](process/methodology/README.md) | [Методика ведения документации](process/methodology/project-documentation-methodology.md) | Process Owner | `npm run validate:documentation-methodology` |
-| Открыть карту проекта | [Карта слоев](project-map.md) | [Generated navigation map](navigation/navigation-map.md) | Documentation Owner | `npm run generate:docs-navigation -- --check` |
+| Открыть карту слоев проекта | [Карта слоев](project-map.md) | [Процесс](process/README.md) | Documentation Owner | `npm run validate:docs-navigation` |
 | Найти планы | [Планы](plans/README.md) | [Планы навигации](plans/README.md) | Process Owner | `npm run validate:docs-navigation` |
 
-## Управляемые Источники
+## Генерируемые Артефакты
+
+| Задача | Стартовый документ | Следующий документ | Владелец | Проверка |
+|---|---|---|---|---|
+| Открыть автоматически созданную карту | [Карта навигации](navigation/navigation-map.md) | `docs/navigation/documentation-index.json` | Documentation Owner | `npm run generate:docs-navigation -- --check` |
+| Проверить служебные отчеты генератора | `docs/navigation/orphan-docs-report.md` | `docs/navigation/stale-status-report.md` | Documentation Owner | `npm run validate:docs-navigation` |
+
+## Откуда Обновляется Навигация
 
 - Ручной источник навигации: `docs/navigation/navigation-source.json`.
-- Generated index: `docs/navigation/documentation-index.json`.
-- Generated map: `docs/navigation/navigation-map.md`.
-- Artifact registry: `docs/architecture/schemas/artifact-registry.json`.
+- Автоматически созданный индекс: `docs/navigation/documentation-index.json`.
+- Автоматически созданная карта: `docs/navigation/navigation-map.md`.
+- Реестр артефактов: `docs/architecture/schemas/artifact-registry.json`.
 
 Новые документы должны попадать в `docs/navigation/navigation-source.json` или в явный ignore с причиной.

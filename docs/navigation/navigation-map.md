@@ -61,9 +61,9 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 - [Evidence Hub DataCanvas](../knowledge/evidence-index.md) - Delivery/GitOps Lead, `active`.
 - [Knowledge Base DataCanvas](../knowledge/README.md) - Documentation Owner, `active`.
 
-### Generated navigation
+### Генерируемые артефакты
 
-Generated navigation и отчеты генераторов.
+Автоматически созданные карты, индексы и отчеты проверок; методика и ручные источники остаются в governance.
 
 - [Карта Навигации Документации](navigation-map.md) - Documentation Owner, `generated`.
 
@@ -74,7 +74,7 @@ Generated navigation и отчеты генераторов.
 | `role-product-owner` | Product Owner | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
 | `role-process-owner` | Process Owner | `governance` | `docs/process/README.md` | `docs/process/current/process-registry.md`, `docs/process/current/definition-of-ready.md`, `docs/process/current/definition-of-done.md`, `docs/process/cascading-governance/README.md` | Process Owner | `npm run validate:docs-navigation` |
 | `role-delivery-lead` | Delivery/GitOps Lead | `delivery` | `docs/release/README.md` | `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.md`, `docs/knowledge/evidence-index.md` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
-| `role-agent` | AI systems engineer | `governance` | `AGENTS.md` | `docs/navigation/navigation-source.json`, `docs/navigation/navigation-map.md`, `docs/project-map.md` | Process Owner | `npm run validate:docs-navigation` |
+| `role-agent` | AI systems engineer | `governance` | `AGENTS.md` | `docs/process/methodology/README.md`, `docs/navigation/navigation-source.json`, `docs/project-map.md` | Process Owner | `npm run validate:docs-navigation` |
 
 ## Маршруты По Задачам
 
@@ -88,7 +88,8 @@ Generated navigation и отчеты генераторов.
 | `task-find-business-requirements` | Найти бизнес-требования | `business` | `docs/product/requirements/README.md` | `docs/product/requirements/business-requirements.md`, `docs/product/requirements/user-stories.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/requirements/traceability-matrix.json` | Product Owner | `npm run validate:docs-navigation` |
 | `task-plan-product-work` | Планировать продуктовую работу | `business` | `docs/product/backlog/README.md` | `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md`, `docs/product/hypotheses/hypothesis-validation.md` | Product Owner | `npm run validate:docs-navigation` |
 | `task-find-technical-docs` | Найти техническую документацию | `technical` | `docs/architecture/README.md` | `docs/product/backlog/technical-backlog.md`, `docs/architecture/schemas/schema-registry.md`, `docs/architecture/security/trust-boundaries.md` | AI Agent Architect | `npm run validate:docs-navigation` |
-| `task-find-documentation-methodology` | Найти методику документации | `governance` | `docs/process/README.md` | `docs/process/change-requests/PROC-036-documentation-navigation-governance.md`, `docs/architecture/adr/ADR-064-documentation-navigation-indexing.md`, `docs/navigation/navigation-source.json` | Process Owner | `npm run validate:docs-navigation` |
+| `task-find-documentation-methodology` | Найти методику документации | `governance` | `docs/process/methodology/README.md` | `docs/process/methodology/project-documentation-methodology.md`, `docs/process/methodology/documentation-methodology-policy.json`, `docs/process/methodology/traceability-model.json` | Process Owner | `npm run validate:docs-navigation` |
+| `task-find-generated-artifacts` | Найти генерируемые артефакты | `generated` | `docs/navigation/navigation-map.md` | `docs/navigation/documentation-index.json`, `docs/navigation/orphan-docs-report.md`, `docs/navigation/stale-status-report.md` | Documentation Owner | `npm run generate:docs-navigation -- --check` |
 
 ## Источники Истины
 
@@ -107,7 +108,7 @@ Generated navigation и отчеты генераторов.
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `159a0d6a7c9ea9564ce9fac8ba5ff26ac06e1ce3` |
+| `current_main_commit` | `04299474c07d1d426dbb110aef5de0fa69397478` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry
