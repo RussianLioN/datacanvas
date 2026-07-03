@@ -27,6 +27,7 @@ Vision, BMC, stories, требования, backlog, roadmap, гипотезы �
 - [Гипотезы DataCanvas](../product/hypotheses/README.md) - Product Owner, `active`.
 - [Доска гипотез](../product/hypotheses/hypothesis-board.md) - Product Owner, `draft`.
 - [Проверка гипотез](../product/hypotheses/hypothesis-validation.md) - Product Owner, `draft`.
+- [Исходные Документы Продукта DataCanvas](../product/sources/README.md) - Product Owner, `draft`.
 
 ### Производственный контур
 
@@ -71,7 +72,9 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 
 | ID | Маршрут | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|
-| `role-product-owner` | Product Owner | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
+| `role-product-owner` | Product Owner | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/sources/README.md`, `docs/product/change-orders/README.md`, `docs/product/revisions/co-2026-001-source-revision/revision-ledger.md`, `docs/product/analysis/README.md`, `docs/product/specs/README.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
+| `role-business-analyst` | Business Analyst | `business` | `docs/product/analysis/README.md` | `docs/product/sources/README.md`, `docs/product/change-orders/README.md`, `docs/product/analysis/ba/business-needs.md`, `docs/product/analysis/ba/business-rules.md`, `docs/product/analysis/ba/business-requirements-delta.md`, `docs/product/requirements/business-requirements.md` | Product Owner | `npm run validate:docs-navigation` |
+| `role-system-analyst` | System Analyst | `technical` | `docs/architecture/system-analysis/README.md` | `docs/product/sources/README.md`, `docs/product/specs/README.md`, `docs/architecture/system-analysis/srs-v0.1.md`, `docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md`, `docs/architecture/system-analysis/data-contract-map.md`, `docs/architecture/system-analysis/error-taxonomy.md` | AI Agent Architect | `npm run validate:docs-navigation` |
 | `role-process-owner` | Process Owner | `governance` | `docs/process/README.md` | `docs/process/current/process-registry.md`, `docs/process/current/definition-of-ready.md`, `docs/process/current/definition-of-done.md`, `docs/process/cascading-governance/README.md` | Process Owner | `npm run validate:docs-navigation` |
 | `role-delivery-lead` | Delivery/GitOps Lead | `delivery` | `docs/release/README.md` | `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.md`, `docs/knowledge/evidence-index.md` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
 | `role-agent` | AI systems engineer | `governance` | `AGENTS.md` | `docs/process/methodology/README.md`, `docs/navigation/navigation-source.json`, `docs/project-map.md` | Process Owner | `npm run validate:docs-navigation` |
@@ -81,6 +84,12 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | ID | Маршрут | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|
 | `task-understand-product` | Понять продукт | `business` | `docs/product/README.md` | `docs/product-vision.md`, `docs/product/bmc/README.md`, `docs/stories.md`, `docs/product/requirements/README.md`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md` | Product Owner | `npm run validate:docs-navigation` |
+| `task-find-product-sources` | Найти исходные документы продукта | `business` | `docs/product/sources/README.md` | `docs/product/sources/product-source-registry.json`, `docs/product/sources/source-audit.md`, `docs/product-vision.md`, `docs/product/change-orders/co-2026-001-a2a-first-priority.md`, `docs/stories.md` | Product Owner | `npm run validate:product-sources` |
+| `task-review-source-revision` | Проверить ревизию исходных документов | `business` | `docs/product/revisions/co-2026-001-source-revision/revision-ledger.md` | `docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json`, `docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json`, `docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md`, `docs/product/sources/source-audit.md` | Product Owner | `npm run validate:change-set-approval` |
+| `task-approve-proposed-edit` | Согласовать предложенную правку | `business` | `docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md` | `docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json`, `docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json` | Product Owner | `npm run validate:revision-approval-state` |
+| `task-check-accepted-change-order-impact` | Проверить влияние принятого изменения | `business` | `docs/product/change-orders/co-2026-001-a2a-first-priority.md` | `docs/product/sources/source-audit.md`, `docs/product/revisions/co-2026-001-source-revision/revision-ledger.md`, `docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json` | Product Owner | `npm run validate:accepted-change-order-impact` |
+| `task-find-co-2026-001-priority-context` | Найти контекст приоритета CO-2026-001 | `business` | `docs/product/change-orders/co-2026-001-a2a-first-priority.md` | `docs/product-vision.md`, `docs/stories.md`, `docs/product/revisions/co-2026-001-source-revision/revision-ledger.md`, `docs/product/requirements/business-requirements.md` | Product Owner | `npm run validate:accepted-change-order-impact` |
+| `task-find-current-source-of-truth` | Найти текущий источник истины | `business` | `docs/product/sources/README.md` | `docs/product/sources/product-source-registry.json`, `docs/product/change-orders/co-2026-001-a2a-first-priority.md`, `docs/product-vision.md`, `docs/stories.md` | Product Owner | `npm run validate:product-source-consistency` |
 | `task-find-process` | Найти текущий процесс | `governance` | `docs/process/README.md` | `docs/process/current/process-passport.md`, `docs/process/current/process-registry.md`, `docs/process/cascading-governance/README.md` | Process Owner | `npm run validate:docs-navigation` |
 | `task-work-with-bmc` | Работать с BMC | `business` | `docs/product/bmc/README.md` | `docs/product/bmc/bmc-v0.2.md`, `docs/product/bmc/manifest.json` | Product Owner | `npm run validate:bmc` |
 | `task-review-merge` | Подготовить review/merge | `delivery` | `docs/release/README.md` | `.github/PULL_REQUEST_TEMPLATE.md`, `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | `npm test` |
@@ -108,7 +117,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `04299474c07d1d426dbb110aef5de0fa69397478` |
+| `current_main_commit` | `61485994566b3196a8ec3f9ba0388db245f68c84` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

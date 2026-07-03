@@ -237,6 +237,18 @@ const cases = [
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
   {
+    schema: "schemas/product-source-registry.schema.json",
+    data: "docs/product/sources/product-source-registry.json",
+  },
+  {
+    schema: "schemas/proposed-change-set.schema.json",
+    data: "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+  },
+  {
+    schema: "schemas/revision-approval-state.schema.json",
+    data: "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+  },
+  {
     schema: "schemas/documentation-change-request.schema.json",
     data: "docs/process/cascading-governance/documentation-change-request.json",
   },

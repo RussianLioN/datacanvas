@@ -2972,8 +2972,8 @@
       "anchors": [
         "data-contract-map-datacanvas"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/datacanvas-interface-control.md",
@@ -3002,8 +3002,8 @@
       "anchors": [
         "interface-control-datacanvas"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
@@ -3056,8 +3056,8 @@
         "lifecycle-state-model-datacanvas",
         "states"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/error-taxonomy.json",
@@ -3109,8 +3109,8 @@
       "anchors": [
         "error-taxonomy-datacanvas"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/README.md",
@@ -3144,8 +3144,8 @@
         "системный-анализ-datacanvas",
         "документы"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/architecture/system-analysis/sa-spec.json",
@@ -3223,8 +3223,8 @@
         "scope",
         "verification"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/datacanvas-documentation-implementation-plan.md",
@@ -6365,8 +6365,8 @@
       "anchors": [
         "acceptance-delta-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/ba-spec.json",
@@ -6441,8 +6441,8 @@
       "anchors": [
         "business-needs-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/business-requirements-delta.md",
@@ -6471,8 +6471,8 @@
       "anchors": [
         "business-requirements-delta-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/business-rules.json",
@@ -6524,8 +6524,8 @@
       "anchors": [
         "business-rules-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/open-decisions-ledger.md",
@@ -6554,8 +6554,8 @@
       "anchors": [
         "open-decisions-ledger-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/stakeholder-register.json",
@@ -6607,8 +6607,8 @@
       "anchors": [
         "stakeholder-register-баса"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/README.md",
@@ -6644,8 +6644,8 @@
         "назначение",
         "документы"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
@@ -7816,7 +7816,7 @@
         "проверка"
       ],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
@@ -7852,7 +7852,7 @@
         "дальнейшие-задачи"
       ],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
@@ -7930,7 +7930,7 @@
         "правило-решения"
       ],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
@@ -8003,7 +8003,7 @@
         "артефакты"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/hypotheses/hypothesis-board.md",
@@ -8374,13 +8374,16 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-401",
       "outgoing_links": [
+        "docs/architecture/system-analysis/README.md",
         "docs/process/current/process-backlog.md",
         "docs/product-vision.md",
+        "docs/product/analysis/README.md",
         "docs/product/backlog/eval-backlog.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/technical-backlog.md",
         "docs/product/bmc/README.md",
+        "docs/product/change-orders/README.md",
         "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/hypotheses/README.md",
         "docs/product/requirements/acceptance-criteria.md",
@@ -8389,8 +8392,11 @@
         "docs/product/requirements/README.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/requirements/user-stories.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
         "docs/product/roadmap/README.md",
         "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/sources/README.md",
+        "docs/product/specs/README.md",
         "docs/README.md",
         "docs/stories.md",
         "README.md"
@@ -8399,6 +8405,7 @@
         "продукт-datacanvas",
         "порядок-чтения",
         "индексы-слоев",
+        "если-нужно-понять-изменения-и-ревизию",
         "разделение-источников",
         "backlog-контуры",
         "когда-обновлять"
@@ -8633,6 +8640,119 @@
       "click_depth": 2
     },
     {
+      "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "title": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-609",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "title": "Журнал Ревизии Исходных Документов `CO-2026-001`",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-611",
+      "outgoing_links": [
+        "docs/product/README.md",
+        "docs/product/sources/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "журнал-ревизии-исходных-документов-co-2026-001",
+        "текущее-состояние",
+        "правила-продолжения",
+        "сводка-правок",
+        "следующее-действие"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+      "title": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-610",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+      "title": "Ledger Ревизии Исходных Документов `CO-2026-001`",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-612",
+      "outgoing_links": [
+        "docs/product/README.md",
+        "docs/product/sources/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "ledger-ревизии-исходных-документов-co-2026-001",
+        "назначение",
+        "статусы",
+        "текущий-блокер"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/product/roadmap/README.md",
       "title": "Roadmap DataCanvas",
       "section": "product",
@@ -8693,6 +8813,108 @@
       ],
       "reachable_from_root": true,
       "click_depth": 1
+    },
+    {
+      "path": "docs/product/sources/product-source-registry.json",
+      "title": "docs/product/sources/product-source-registry.json",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/sources/README.md",
+      "artifact_registry_id": "ART-608",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
+      "path": "docs/product/sources/README.md",
+      "title": "Исходные Документы Продукта DataCanvas",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-606",
+      "outgoing_links": [
+        "docs/architecture/system-analysis/README.md",
+        "docs/product-vision.md",
+        "docs/product/analysis/README.md",
+        "docs/product/bmc/README.md",
+        "docs/product/change-orders/README.md",
+        "docs/product/README.md",
+        "docs/product/requirements/README.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/specs/README.md",
+        "docs/product/vision/vision-v0.1.md",
+        "docs/README.md",
+        "docs/stories.md",
+        "README.md"
+      ],
+      "anchors": [
+        "исходные-документы-продукта-datacanvas",
+        "назначение",
+        "текущий-порядок-доверия",
+        "основные-источники",
+        "машинный-реестр",
+        "ревизия-по-co-2026-001"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/product/sources/source-audit.md",
+      "title": "Аудит Исходных Документов DataCanvas",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/sources/README.md",
+      "artifact_registry_id": "ART-607",
+      "outgoing_links": [
+        "docs/product/README.md",
+        "docs/product/sources/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "аудит-исходных-документов-datacanvas",
+        "назначение",
+        "вывод",
+        "текущее-покрытие",
+        "следующий-шаг"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
@@ -8814,8 +9036,8 @@
         "назначение",
         "правило"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/specs/task-spec-a2a-launch.json",
@@ -30927,6 +31149,11 @@
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/non-functional-requirements.md",
           "docs/product/requirements/acceptance-criteria.md",
+          "docs/product/sources/README.md",
+          "docs/product/change-orders/README.md",
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+          "docs/product/analysis/README.md",
+          "docs/product/specs/README.md",
           "docs/product/backlog/product-backlog.md",
           "docs/product/roadmap/roadmap-v0.1.md",
           "docs/product/hypotheses/hypothesis-board.md"
@@ -30934,6 +31161,40 @@
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:docs-navigation",
         "navigation_group": "business"
+      },
+      {
+        "id": "role-business-analyst",
+        "label": "Business Analyst",
+        "role": "Business Analyst",
+        "start_path": "docs/product/analysis/README.md",
+        "next_paths": [
+          "docs/product/sources/README.md",
+          "docs/product/change-orders/README.md",
+          "docs/product/analysis/ba/business-needs.md",
+          "docs/product/analysis/ba/business-rules.md",
+          "docs/product/analysis/ba/business-requirements-delta.md",
+          "docs/product/requirements/business-requirements.md"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:docs-navigation",
+        "navigation_group": "business"
+      },
+      {
+        "id": "role-system-analyst",
+        "label": "System Analyst",
+        "role": "System Analyst",
+        "start_path": "docs/architecture/system-analysis/README.md",
+        "next_paths": [
+          "docs/product/sources/README.md",
+          "docs/product/specs/README.md",
+          "docs/architecture/system-analysis/srs-v0.1.md",
+          "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+          "docs/architecture/system-analysis/data-contract-map.md",
+          "docs/architecture/system-analysis/error-taxonomy.md"
+        ],
+        "owner_role": "AI Agent Architect",
+        "validation_command": "npm run validate:docs-navigation",
+        "navigation_group": "technical"
       },
       {
         "id": "role-process-owner",
@@ -31000,6 +31261,94 @@
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:docs-navigation",
         "navigation_group": "business"
+      },
+      {
+        "id": "task-find-product-sources",
+        "label": "Найти исходные документы продукта",
+        "task": "Найти исходные документы продукта",
+        "navigation_group": "business",
+        "start_path": "docs/product/sources/README.md",
+        "next_paths": [
+          "docs/product/sources/product-source-registry.json",
+          "docs/product/sources/source-audit.md",
+          "docs/product-vision.md",
+          "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+          "docs/stories.md"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:product-sources"
+      },
+      {
+        "id": "task-review-source-revision",
+        "label": "Проверить ревизию исходных документов",
+        "task": "Проверить ревизию исходных документов",
+        "navigation_group": "business",
+        "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "next_paths": [
+          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+          "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+          "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+          "docs/product/sources/source-audit.md"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:change-set-approval"
+      },
+      {
+        "id": "task-approve-proposed-edit",
+        "label": "Согласовать предложенную правку",
+        "task": "Согласовать предложенную правку",
+        "navigation_group": "business",
+        "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+        "next_paths": [
+          "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:revision-approval-state"
+      },
+      {
+        "id": "task-check-accepted-change-order-impact",
+        "label": "Проверить влияние принятого изменения",
+        "task": "Проверить влияние принятого изменения",
+        "navigation_group": "business",
+        "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "next_paths": [
+          "docs/product/sources/source-audit.md",
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:accepted-change-order-impact"
+      },
+      {
+        "id": "task-find-co-2026-001-priority-context",
+        "label": "Найти контекст приоритета CO-2026-001",
+        "task": "Найти контекст приоритета CO-2026-001",
+        "navigation_group": "business",
+        "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "next_paths": [
+          "docs/product-vision.md",
+          "docs/stories.md",
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+          "docs/product/requirements/business-requirements.md"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:accepted-change-order-impact"
+      },
+      {
+        "id": "task-find-current-source-of-truth",
+        "label": "Найти текущий источник истины",
+        "task": "Найти текущий источник истины",
+        "navigation_group": "business",
+        "start_path": "docs/product/sources/README.md",
+        "next_paths": [
+          "docs/product/sources/product-source-registry.json",
+          "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+          "docs/product-vision.md",
+          "docs/stories.md"
+        ],
+        "owner_role": "Product Owner",
+        "validation_command": "npm run validate:product-source-consistency"
       },
       {
         "id": "task-find-process",
@@ -31134,19 +31483,19 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "04299474c07d1d426dbb110aef5de0fa69397478",
+      "current_main_commit": "61485994566b3196a8ec3f9ba0388db245f68c84",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },
   "coverage": {
-    "total_entries": 1149,
-    "manual_entries": 1145,
+    "total_entries": 1156,
+    "manual_entries": 1152,
     "generated_entries": 4,
-    "public_navigable_entries": 30,
-    "searchable_entries": 1117,
+    "public_navigable_entries": 31,
+    "searchable_entries": 1124,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 101,
+    "reachable_from_root": 118,
     "orphan_entries": 0
   },
   "ignored_paths": [

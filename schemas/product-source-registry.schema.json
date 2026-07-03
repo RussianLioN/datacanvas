@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/product-source-registry.schema.json",
+  "title": "ProductSourceRegistry",
+  "type": "object",
+  "required": [
+    "version",
+    "registry_id",
+    "status",
+    "owner_role",
+    "updated_at",
+    "precedence_order",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "registry_id": { "type": "string", "pattern": "^PSR-[A-Z0-9-]+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "superseded"] },
+    "owner_role": { "type": "string", "minLength": 1 },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "precedence_order": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceRole" }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/source" }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "sourceRole": {
+      "type": "string",
+      "enum": [
+        "accepted_product_decision",
+        "current_vision",
+        "accepted_bmc",
+        "story_catalog",
+        "formalized_requirements",
+        "analysis_source",
+        "technical_spec",
+        "evidence",
+        "generated_output",
+        "historical_snapshot"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "source_id",
+        "path",
+        "source_role",
+        "owner_role",
+        "lifecycle",
+        "trust_level",
+        "effective_date",
+        "upstream_decision",
+        "allowed_downstream_use",
+        "affected_artifacts",
+        "notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_id": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
+        "path": { "$ref": "#/$defs/repoPath" },
+        "source_role": { "$ref": "#/$defs/sourceRole" },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "lifecycle": {
+          "type": "string",
+          "enum": ["draft", "active", "accepted", "historical", "superseded", "deprecated"]
+        },
+        "trust_level": {
+          "type": "string",
+          "enum": [
+            "accepted_current",
+            "current",
+            "historical",
+            "needs_revision",
+            "internal_evidence",
+            "superseded_by_co_acceptance"
+          ]
+        },
+        "effective_date": { "type": "string", "format": "date" },
+        "upstream_decision": { "type": ["string", "null"] },
+        "allowed_downstream_use": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "affected_artifacts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/repoPath" }
+        },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

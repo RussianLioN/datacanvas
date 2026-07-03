@@ -1206,6 +1206,139 @@
       "artifact_registry_required": true
     },
     {
+      "path": "docs/product/sources/README.md",
+      "route_id": "product-sources-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product source registry, source audit, source precedence or CO impact changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/sources/source-audit.md",
+      "route_id": "product-source-audit",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product source audit or revision findings change.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/sources/product-source-registry.json",
+      "route_id": "product-source-registry",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product source registry, source precedence, lifecycle or downstream source use changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "route_id": "co-2026-001-proposed-change-set",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "CO-2026-001 proposed edits, acceptance records, apply status or downstream impact changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+      "route_id": "co-2026-001-revision-approval-state",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Revision approval state, current edit or resume point changes.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "route_id": "co-2026-001-revision-approval-log",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Revision approval log or Product Owner edit decisions change.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+      "route_id": "co-2026-001-revision-ledger",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Revision ledger, affected source docs or no-change rationales change.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/product/backlog/README.md",
       "route_id": "product-backlog-readme",
       "section": "product",
@@ -1827,6 +1960,11 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/sources/README.md",
+        "docs/product/change-orders/README.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/analysis/README.md",
+        "docs/product/specs/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/roadmap/roadmap-v0.1.md",
         "docs/product/hypotheses/hypothesis-board.md"
@@ -1834,6 +1972,40 @@
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
       "navigation_group": "business"
+    },
+    {
+      "id": "role-business-analyst",
+      "label": "Business Analyst",
+      "role": "Business Analyst",
+      "start_path": "docs/product/analysis/README.md",
+      "next_paths": [
+        "docs/product/sources/README.md",
+        "docs/product/change-orders/README.md",
+        "docs/product/analysis/ba/business-needs.md",
+        "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/ba/business-requirements-delta.md",
+        "docs/product/requirements/business-requirements.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "business"
+    },
+    {
+      "id": "role-system-analyst",
+      "label": "System Analyst",
+      "role": "System Analyst",
+      "start_path": "docs/architecture/system-analysis/README.md",
+      "next_paths": [
+        "docs/product/sources/README.md",
+        "docs/product/specs/README.md",
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+        "docs/architecture/system-analysis/data-contract-map.md",
+        "docs/architecture/system-analysis/error-taxonomy.md"
+      ],
+      "owner_role": "AI Agent Architect",
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_group": "technical"
     },
     {
       "id": "role-process-owner",
@@ -1900,6 +2072,94 @@
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
       "navigation_group": "business"
+    },
+    {
+      "id": "task-find-product-sources",
+      "label": "Найти исходные документы продукта",
+      "task": "Найти исходные документы продукта",
+      "navigation_group": "business",
+      "start_path": "docs/product/sources/README.md",
+      "next_paths": [
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/source-audit.md",
+        "docs/product-vision.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/stories.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-sources"
+    },
+    {
+      "id": "task-review-source-revision",
+      "label": "Проверить ревизию исходных документов",
+      "task": "Проверить ревизию исходных документов",
+      "navigation_group": "business",
+      "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+      "next_paths": [
+        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+        "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+        "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+        "docs/product/sources/source-audit.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:change-set-approval"
+    },
+    {
+      "id": "task-approve-proposed-edit",
+      "label": "Согласовать предложенную правку",
+      "task": "Согласовать предложенную правку",
+      "navigation_group": "business",
+      "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "next_paths": [
+        "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
+        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:revision-approval-state"
+    },
+    {
+      "id": "task-check-accepted-change-order-impact",
+      "label": "Проверить влияние принятого изменения",
+      "task": "Проверить влияние принятого изменения",
+      "navigation_group": "business",
+      "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "next_paths": [
+        "docs/product/sources/source-audit.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:accepted-change-order-impact"
+    },
+    {
+      "id": "task-find-co-2026-001-priority-context",
+      "label": "Найти контекст приоритета CO-2026-001",
+      "task": "Найти контекст приоритета CO-2026-001",
+      "navigation_group": "business",
+      "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "next_paths": [
+        "docs/product-vision.md",
+        "docs/stories.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/requirements/business-requirements.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:accepted-change-order-impact"
+    },
+    {
+      "id": "task-find-current-source-of-truth",
+      "label": "Найти текущий источник истины",
+      "task": "Найти текущий источник истины",
+      "navigation_group": "business",
+      "start_path": "docs/product/sources/README.md",
+      "next_paths": [
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product-vision.md",
+        "docs/stories.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-source-consistency"
     },
     {
       "id": "task-find-process",
@@ -2106,7 +2366,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "04299474c07d1d426dbb110aef5de0fa69397478",
+    "current_main_commit": "61485994566b3196a8ec3f9ba0388db245f68c84",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

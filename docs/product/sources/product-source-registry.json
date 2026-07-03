@@ -1,0 +1,175 @@
+{
+  "$schema": "../../../schemas/product-source-registry.schema.json",
+  "version": "0.1.0",
+  "registry_id": "PSR-DC-2026-07-03-001",
+  "status": "active",
+  "owner_role": "Product Owner",
+  "updated_at": "2026-07-03T12:00:00Z",
+  "precedence_order": [
+    "accepted_product_decision",
+    "current_vision",
+    "accepted_bmc",
+    "story_catalog",
+    "formalized_requirements",
+    "analysis_source",
+    "technical_spec",
+    "evidence",
+    "generated_output",
+    "historical_snapshot"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-DC-CO-2026-001",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["product_scope", "priority_order", "requirements_delta", "traceability"],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/stories.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Канонический источник смены приоритета: запуск другим агентом первый, диалоговый режим в Лисе второй."
+    },
+    {
+      "source_id": "SRC-DC-PRODUCT-VISION-CURRENT",
+      "path": "docs/product-vision.md",
+      "source_role": "current_vision",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["product_scope", "requirements_delta", "bmc_review", "traceability"],
+      "affected_artifacts": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Текущий Vision частично обновлен; основной пользовательский сценарий требует согласования."
+    },
+    {
+      "source_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",
+      "path": "docs/product/vision/vision-v0.1.md",
+      "source_role": "historical_snapshot",
+      "owner_role": "Product Owner",
+      "lifecycle": "historical",
+      "trust_level": "historical",
+      "effective_date": "2026-06-01",
+      "upstream_decision": null,
+      "allowed_downstream_use": ["comparison", "audit"],
+      "affected_artifacts": [],
+      "notes": "Исторический snapshot, не конкурирует с текущим Vision."
+    },
+    {
+      "source_id": "SRC-DC-STORIES-CATALOG",
+      "path": "docs/stories.md",
+      "source_role": "story_catalog",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["requirements_delta", "backlog", "traceability"],
+      "affected_artifacts": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Содержит candidate stories DC-ST-23..DC-ST-28."
+    },
+    {
+      "source_id": "SRC-DC-BMC-CURRENT",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "source_role": "accepted_bmc",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-06-26",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["business_model", "requirements_delta"],
+      "affected_artifacts": ["docs/product/requirements/business-requirements.md"],
+      "notes": "Требует правки по разделению агентского запуска и диалогового режима."
+    },
+    {
+      "source_id": "SRC-DC-BMC-SOURCE-LOCK",
+      "path": "docs/product/bmc/source-lock.json",
+      "source_role": "evidence",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "internal_evidence",
+      "effective_date": "2026-06-26",
+      "upstream_decision": null,
+      "allowed_downstream_use": ["bmc_claim_trace"],
+      "affected_artifacts": ["docs/product/bmc/bmc-v0.2.md"],
+      "notes": "Специализированный внутренний source lock BMC; raw/local детали не выводятся в публичный маршрут."
+    },
+    {
+      "source_id": "SRC-DC-REQUIREMENTS-BUSINESS",
+      "path": "docs/product/requirements/business-requirements.md",
+      "source_role": "formalized_requirements",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["acceptance", "traceability", "spec_delta"],
+      "affected_artifacts": [
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Требует разделить approval gate по агентскому запуску и Лисе."
+    },
+    {
+      "source_id": "SRC-DC-ANALYSIS-BA",
+      "path": "docs/product/analysis/ba/ba-spec.json",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["requirements_delta", "spec_delta"],
+      "affected_artifacts": ["docs/product/specs/feature-spec-a2a-launch.json"],
+      "notes": "Содержит claim о неподтвержденном delivery channel, который требует пересмотра."
+    },
+    {
+      "source_id": "SRC-DC-SYSTEM-ANALYSIS",
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "source_role": "technical_spec",
+      "owner_role": "AI Agent Architect",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["implementation_context", "verification"],
+      "affected_artifacts": ["docs/product/specs/task-spec-a2a-launch.json"],
+      "notes": "Требует альтернативный путь без пользовательского approval для запуска другим агентом."
+    },
+    {
+      "source_id": "SRC-DC-CASCADE-2026-07-02",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
+      "source_role": "evidence",
+      "owner_role": "Process Owner",
+      "lifecycle": "historical",
+      "trust_level": "superseded_by_co_acceptance",
+      "effective_date": "2026-07-02",
+      "upstream_decision": null,
+      "allowed_downstream_use": ["historical_audit"],
+      "affected_artifacts": [],
+      "notes": "Исторический blocked evidence до принятия PO-решения 2026-07-03."
+    }
+  ]
+}

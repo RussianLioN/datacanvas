@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/proposed-change-set.schema.json",
+  "title": "ProposedChangeSet",
+  "type": "object",
+  "required": [
+    "version",
+    "change_set_id",
+    "status",
+    "change_order_id",
+    "source_registry_path",
+    "revision_state_path",
+    "ledger_path",
+    "created_at",
+    "updated_at",
+    "acceptance_records",
+    "proposed_edits"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "change_set_id": { "type": "string", "pattern": "^PCS-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "awaiting_product_owner", "partially_approved", "approved", "applied", "superseded"] },
+    "change_order_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}$" },
+    "source_registry_path": { "$ref": "#/$defs/repoPath" },
+    "revision_state_path": { "$ref": "#/$defs/repoPath" },
+    "ledger_path": { "$ref": "#/$defs/repoPath" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "acceptance_records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/acceptanceRecord" }
+    },
+    "proposed_edits": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/proposedEdit" }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "changeKind": {
+      "type": "string",
+      "enum": [
+        "mechanical",
+        "navigation_only",
+        "point_semantic",
+        "cross_artifact_semantic",
+        "conceptual_product",
+        "conceptual_process",
+        "security_boundary",
+        "generated_sync",
+        "no_change_rationale"
+      ]
+    },
+    "acceptanceRecord": {
+      "type": "object",
+      "required": [
+        "acceptance_id",
+        "accepted_by_role",
+        "actor_identity",
+        "acceptance_channel",
+        "source_trust_level",
+        "interaction_id",
+        "accepted_at",
+        "selected_option_id",
+        "evidence_path",
+        "original_user_answer_hash",
+        "related_edit_ids",
+        "safe_summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_id": { "type": "string", "pattern": "^AR-[A-Z0-9-]+$" },
+        "accepted_by_role": { "type": "string", "minLength": 1 },
+        "actor_identity": { "type": "string", "minLength": 1 },
+        "acceptance_channel": { "type": "string", "enum": ["codex_chat", "artifact_import", "manual_record"] },
+        "source_trust_level": {
+          "type": "string",
+          "enum": ["direct_product_owner_answer", "direct_process_owner_answer", "manual_evidence", "untrusted_data"]
+        },
+        "interaction_id": { "type": "string", "minLength": 1 },
+        "accepted_at": { "type": "string", "format": "date-time" },
+        "selected_option_id": { "type": "string", "minLength": 1 },
+        "evidence_path": { "$ref": "#/$defs/repoPath" },
+        "original_user_answer_hash": { "type": "string", "minLength": 1 },
+        "related_edit_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^EDIT-[0-9]{3}$" }
+        },
+        "safe_summary": { "type": "string", "minLength": 1 }
+      }
+    },
+    "proposedEdit": {
+      "type": "object",
+      "required": [
+        "edit_id",
+        "artifact_path",
+        "section_or_anchor",
+        "change_kind",
+        "current_excerpt",
+        "proposed_text",
+        "rationale",
+        "affected_claims",
+        "downstream_paths",
+        "required_owner",
+        "approval_status",
+        "apply_status",
+        "validation_status",
+        "acceptance_record_id",
+        "rollback_or_forward_fix"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "edit_id": { "type": "string", "pattern": "^EDIT-[0-9]{3}$" },
+        "artifact_path": { "$ref": "#/$defs/repoPath" },
+        "section_or_anchor": { "type": "string", "minLength": 1 },
+        "change_kind": { "$ref": "#/$defs/changeKind" },
+        "current_excerpt": { "type": "string", "minLength": 1 },
+        "proposed_text": { "type": "string", "minLength": 1 },
+        "rationale": { "type": "string", "minLength": 1 },
+        "affected_claims": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "downstream_paths": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/repoPath" }
+        },
+        "required_owner": { "type": "string", "minLength": 1 },
+        "approval_status": {
+          "type": "string",
+          "enum": ["pending", "approved", "rejected", "edited", "deferred", "not_required"]
+        },
+        "apply_status": { "type": "string", "enum": ["not_applied", "applied", "skipped"] },
+        "validation_status": { "type": "string", "enum": ["not_run", "passed", "failed"] },
+        "acceptance_record_id": { "type": ["string", "null"], "pattern": "^AR-[A-Z0-9-]+$" },
+        "rollback_or_forward_fix": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

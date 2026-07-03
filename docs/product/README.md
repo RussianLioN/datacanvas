@@ -24,10 +24,19 @@
 
 ## Индексы Слоев
 
+- [Исходные документы](sources/README.md)
 - [Требования](requirements/README.md)
 - [Backlog](backlog/README.md)
 - [Roadmap](roadmap/README.md)
 - [Гипотезы](hypotheses/README.md)
+
+## Если Нужно Понять Изменения И Ревизию
+
+- [Change Orders](change-orders/README.md) - принятые и обсуждаемые изменения продукта.
+- [Бизнес-анализ](analysis/README.md) - business needs, business rules, deltas и открытые решения.
+- [System analysis](../architecture/system-analysis/README.md) - системные сценарии, состояния и ошибки.
+- [Specs](specs/README.md) - спецификации и безопасный контекст для реализации.
+- [Ревизия CO-2026-001](revisions/co-2026-001-source-revision/revision-ledger.md) - пакет предложенных правок по новым приоритетам.
 
 ## Разделение Источников
 
@@ -35,6 +44,7 @@
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
 - `docs/stories.md` - каталог исходных stories.
 - `docs/product/requirements/user-stories.md` - формализованные пользовательские истории.
+- `docs/product/sources/product-source-registry.json` - машинный реестр источников и их статусов.
 
 ## Backlog Контуры
 
