@@ -17,7 +17,7 @@
 
 `EDIT-002` принят Product Owner и применен через BMC-генератор.
 
-Продолжать с `EDIT-003`: разделить business requirements по запуску другим агентом и диалоговому режиму в Лисе.
+Продолжать с `EDIT-003` — правки бизнес-требований по разделению режимов: уточнить финальный текст по запуску другим агентом и диалоговому режиму в Лисе.
 
 ## Журнал Решений
 
@@ -25,6 +25,12 @@
 |---|---|---|---|---|
 | 2026-07-03T12:29:47Z | `EDIT-001` | accepted, variant 1 | `AR-CO-2026-001-EDIT-001` | Product Owner согласовал разделение основного сценария Vision на запуск другим агентом и диалоговый режим в Лисе. |
 | 2026-07-03T12:45:00Z | `EDIT-002` | accepted, variant 1 | `AR-CO-2026-001-EDIT-002` | Product Owner согласовал стейкхолдерскую формулировку BMC с разделением запуска другим агентом, режима Лисы и доставки файла по электронной почте. |
+
+## Журнал Уточнений
+
+| Время UTC | Правка | Статус | Краткое содержание |
+|---|---|---|---|
+| 2026-07-03T13:05:00Z | `EDIT-003` — правка бизнес-требований по разделению режимов | awaiting_final_text_approval | Product Owner уточнил: в Лисе явное обязательное согласование не требуется; пользователь после запроса получает описание структуры презентации и выбирает изготовление презентации или редактирование структуры. При вызове другим агентом подтверждение невозможно и не требуется. |
 
 ## Правила Продолжения
 
@@ -41,7 +47,7 @@
 |---|---|---|---|
 | `EDIT-001` | `docs/product-vision.md` | conceptual_product | applied |
 | `EDIT-002` | `docs/product/bmc/bmc-v0.2.md` | conceptual_product | applied |
-| `EDIT-003` | `docs/product/requirements/business-requirements.md` | cross_artifact_semantic | pending |
+| `EDIT-003` — правка бизнес-требований по разделению режимов | `docs/product/requirements/business-requirements.md` | cross_artifact_semantic | pending |
 | `EDIT-004` | `docs/product/requirements/acceptance-criteria.md` | cross_artifact_semantic | pending |
 | `EDIT-005` | `docs/product/analysis/ba/ba-spec.json` | point_semantic | pending |
 | `EDIT-006` | `docs/architecture/system-analysis/sa-spec.json` | cross_artifact_semantic | pending |
@@ -51,4 +57,4 @@
 
 ## Следующее Действие
 
-Вывести Product Owner текущие релевантные фрагменты `BT-009`, `BT-012` и `BT-014` из `docs/product/requirements/business-requirements.md`, затем предложить правку `EDIT-003` на согласование.
+Вывести Product Owner обновленный финальный текст для `EDIT-003` — правки бизнес-требований по разделению режимов, затем запросить финальное согласование.
