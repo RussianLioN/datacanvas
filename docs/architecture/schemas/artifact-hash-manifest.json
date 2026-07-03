@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "6d58b17880c0fcbb458eedbe34f81a8e47d8a5c55b3fb33ed2e476d172094bfa"
+      "sha256": "fdcf9a4802f09d470468a5f161ff0c665b451176a05ab60f2cccee1e95a99185"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "f487e8c723f879b66232aa7ce8c7b7874acb5264124fb42c6f7e5a1422761864"
+      "sha256": "61616463d6582f84ea3130d67da4083bba435d134d82d843d63965b8a7eb616e"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "0f2571838711b70fa86a3cc5de4ca5f4a66fcd50647b1fcaaaa97ba852f54a3f"
+      "sha256": "639bf493ab454f551b2f79688e0228311174d213b80ebc6f895a4f199b67c931"
     },
     {
       "artifact_id": "ART-411",
@@ -3018,6 +3018,11 @@
       "artifact_id": "ART-604",
       "path": "docs/sprints/2026-W27-babok-methodology-mva/sprint-backlog.md",
       "sha256": "503f816aba3a1fa65e09bd0b4554d8a38f143006beebbbf87016b37ed3333ec2"
+    },
+    {
+      "artifact_id": "ART-605",
+      "path": "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
+      "sha256": "72cbae7d7cb43855dc93168618c117e850bc055b01b4197620902e002b467b3c"
     }
   ],
   "exclusions": [

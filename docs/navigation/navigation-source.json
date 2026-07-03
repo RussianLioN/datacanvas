@@ -1510,6 +1510,25 @@
       "artifact_registry_required": true
     },
     {
+      "path": "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
+      "route_id": "source-documents-revision-and-approval-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Ревизия исходных документов DataCanvas, принятие правок, source registry, CO-2026-001 impact или навигация по источникам меняются.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/process/cascading-governance/README.md",
       "route_id": "cascading-governance-readme",
       "section": "process",

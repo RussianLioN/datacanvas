@@ -19,6 +19,7 @@
 - [Cascading documentation governance plan](datacanvas-cascading-documentation-governance-plan.md)
 - [Cascading governance correction plan](datacanvas-cascading-governance-correction-plan.md)
 - [План проверки и применения смены приоритетов на 3-й квартал](datacanvas-2026-q3-priority-impact-implementation-plan.md)
+- [План ревизии исходных документов и принятия правок](datacanvas-source-documents-revision-and-approval-implementation-plan.md)
 
 ## Правило
 

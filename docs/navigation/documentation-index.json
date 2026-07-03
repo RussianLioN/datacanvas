@@ -4048,6 +4048,51 @@
       "click_depth": 3
     },
     {
+      "path": "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
+      "title": "Ревизия Исходных Документов DataCanvas И Управляемое Принятие Правок",
+      "section": "plans",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-605",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "ревизия-исходных-документов-datacanvas-и-управляемое-принятие-правок",
+        "1-цель",
+        "2-границы-работы",
+        "3-инвентаризация-исходных-документов",
+        "4-реестр-источников-продукта",
+        "5-набор-предложенных-правок",
+        "6-классы-правок",
+        "7-запись-принятия",
+        "8-процесс-согласования-правок",
+        "9-первый-пакет-миграции-по-co-2026-001",
+        "10-навигация",
+        "11-реестр-и-хеши",
+        "12-валидаторы",
+        "13-безопасность",
+        "14-порядок-проверок",
+        "15-приемочные-критерии",
+        "16-передача-результата"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/README.md",
       "title": "Планы DataCanvas",
       "section": "plans",
@@ -4077,6 +4122,7 @@
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
         "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
+        "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
         "docs/README.md",
         "README.md"
       ],
@@ -31093,14 +31139,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1148,
-    "manual_entries": 1144,
+    "total_entries": 1149,
+    "manual_entries": 1145,
     "generated_entries": 4,
     "public_navigable_entries": 30,
-    "searchable_entries": 1116,
+    "searchable_entries": 1117,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 100,
+    "reachable_from_root": 101,
     "orphan_entries": 0
   },
   "ignored_paths": [
