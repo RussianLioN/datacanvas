@@ -59,7 +59,7 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Текущий Vision частично обновлен; основной пользовательский сценарий требует согласования."
+      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",

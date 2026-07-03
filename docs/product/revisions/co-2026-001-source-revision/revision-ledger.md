@@ -14,7 +14,7 @@ Ledger фиксирует, какие ранее выпущенные докум
 
 | Документ | Статус До Ревизии | Требуемое Действие | Статус Решения |
 |---|---|---|---|
-| `docs/product-vision.md` | active, частично обновлен | Разделить основной сценарий по двум режимам | pending |
+| `docs/product-vision.md` | active, частично обновлен | Разделить основной сценарий по двум режимам | applied |
 | `docs/product/bmc/bmc-v0.2.md` | accepted, needs_revision | Убрать технические обозначения из стейкхолдерского текста и развести каналы | pending |
 | `docs/product/requirements/business-requirements.md` | draft, needs_revision | Разделить approval gate для Лисы и агентского запуска | pending |
 | `docs/product/requirements/acceptance-criteria.md` | draft, needs_revision | Добавить отдельный acceptance path для агентского запуска | pending |
@@ -26,6 +26,6 @@ Ledger фиксирует, какие ранее выпущенные докум
 
 ## Текущий Блокер
 
-Смысловые правки `EDIT-001..EDIT-008` ожидают принятия Product Owner.
+Смысловые правки `EDIT-002..EDIT-008` ожидают принятия Product Owner.
 
 До принятия они не должны попадать в рабочие документы как примененные изменения.

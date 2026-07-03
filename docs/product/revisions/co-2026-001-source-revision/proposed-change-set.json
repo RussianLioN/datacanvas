@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-03T12:00:00Z",
+  "updated_at": "2026-07-03T12:29:47Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -23,6 +23,20 @@
       "original_user_answer_hash": "not_recorded_in_current_artifact",
       "related_edit_ids": [],
       "safe_summary": "Product Owner принял CO-2026-001 как смену продуктового приоритета."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-001",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-001",
+      "accepted_at": "2026-07-03T12:29:47Z",
+      "selected_option_id": "variant_1_recommended",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "related_edit_ids": ["EDIT-001"],
+      "safe_summary": "Product Owner выбрал вариант 1 для EDIT-001: разделить основной сценарий Vision на запуск другим агентом и диалоговый режим в Лисе."
     }
   ],
   "proposed_edits": [
@@ -31,7 +45,7 @@
       "artifact_path": "docs/product-vision.md",
       "section_or_anchor": "Основной пользовательский сценарий",
       "change_kind": "conceptual_product",
-      "current_excerpt": "1. Пользователь получает или собирает данные в Лисе через диалог, сообщения, агентов или инструменты.",
+      "current_excerpt": "DataCanvas работает в двух режимах.",
       "proposed_text": "Разделить сценарий на два маршрута: запуск другим агентом без подтверждения после проверки достаточности и безопасности данных; диалоговый режим в Лисе с уточняющими вопросами, просмотром структуры и правками до генерации.",
       "rationale": "Текущий сценарий смешивает агентский запуск и режим Лисы, хотя CO-2026-001 разделил эти маршруты.",
       "affected_claims": ["CO-2026-001", "PRODUCT-21"],
@@ -41,10 +55,10 @@
         "docs/product/requirements/traceability-matrix.json"
       ],
       "required_owner": "Product Owner",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-001",
       "rollback_or_forward_fix": "Если PO отклонит разделение, сохранить no-change rationale и пересмотреть CO impact."
     },
     {

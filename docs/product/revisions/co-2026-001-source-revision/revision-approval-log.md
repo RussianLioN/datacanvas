@@ -11,9 +11,17 @@
 
 Ревизия исходных документов подготовлена как пакет предложенных правок.
 
-Смысловые правки не применены без принятия Product Owner.
+Смысловые правки применяются только после принятия Product Owner.
 
-Продолжать с `EDIT-001`: разделить основной пользовательский сценарий Vision на запуск другим агентом и диалоговый режим в Лисе.
+`EDIT-001` принят Product Owner и применен в `docs/product-vision.md`.
+
+Продолжать с `EDIT-002`: уточнить BMC по режимам, убрать технические обозначения из стейкхолдерского текста и развести каналы.
+
+## Журнал Решений
+
+| Время UTC | Правка | Решение | AcceptanceRecord | Краткое содержание |
+|---|---|---|---|---|
+| 2026-07-03T12:29:47Z | `EDIT-001` | accepted, variant 1 | `AR-CO-2026-001-EDIT-001` | Product Owner согласовал разделение основного сценария Vision на запуск другим агентом и диалоговый режим в Лисе. |
 
 ## Правила Продолжения
 
@@ -28,7 +36,7 @@
 
 | Правка | Документ | Тип | Статус |
 |---|---|---|---|
-| `EDIT-001` | `docs/product-vision.md` | conceptual_product | pending |
+| `EDIT-001` | `docs/product-vision.md` | conceptual_product | applied |
 | `EDIT-002` | `docs/product/bmc/bmc-v0.2.md` | conceptual_product | pending |
 | `EDIT-003` | `docs/product/requirements/business-requirements.md` | cross_artifact_semantic | pending |
 | `EDIT-004` | `docs/product/requirements/acceptance-criteria.md` | cross_artifact_semantic | pending |
@@ -40,4 +48,4 @@
 
 ## Следующее Действие
 
-Вывести Product Owner текущий раздел `Основной пользовательский сценарий` из `docs/product-vision.md`, затем предложить правку `EDIT-001` на согласование.
+Вывести Product Owner текущие релевантные фрагменты BMC из `docs/product/bmc/bmc-v0.2.md`, затем предложить правку `EDIT-002` на согласование.

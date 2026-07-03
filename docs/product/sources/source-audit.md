@@ -21,7 +21,7 @@
 
 | Документ | Роль | Состояние |
 |---|---|---|
-| `docs/product-vision.md` | Текущий Vision | Частично обновлен; раздел основного сценария требует согласования |
+| `docs/product-vision.md` | Текущий Vision | `EDIT-001` применен: основной сценарий разделен на запуск другим агентом и диалоговый режим в Лисе |
 | `docs/product/vision/vision-v0.1.md` | Исторический snapshot | Используется для сравнения, не конкурирует с текущим Vision |
 | `docs/stories.md` | Каталог stories | Содержит `DC-ST-23..DC-ST-28` как candidate stories |
 | `docs/product/backlog/product-backlog.md` | Product backlog | Содержит кандидаты `DC-ST-23..DC-ST-28`; состав backlog требует отдельного PO-согласования |
