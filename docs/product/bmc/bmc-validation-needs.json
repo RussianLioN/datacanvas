@@ -5,10 +5,9 @@
   "generated_at": "2026-06-24T00:00:00Z",
   "summary": {
     "total_items": 9,
-    "items_requiring_action": 9,
+    "items_requiring_action": 4,
     "evidence_request_ids": [
       "EVD-REQ-001",
-      "EVD-REQ-002",
       "EVD-REQ-003",
       "EVD-REQ-004",
       "EVD-REQ-005",
@@ -67,45 +66,6 @@
       "owner_role": "Product Owner"
     },
     {
-      "item_id": "BMC-CLM-003",
-      "block": "B3",
-      "block_title": "Каналы",
-      "statement": "Точки входа DataCanvas: текстовый запрос в Лисе, выбранные сообщения, кнопка запуска, Оркестратор/A2A и прямой вызов сервисом или АС через A2A/MCP; результат возвращается в чате Лисы.",
-      "validation_need": "confirmation",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Предоставить материал для блока \"Каналы\": файл, ссылку, решение, метрику или безопасную цитату.",
-      "linked_answer_ids": [
-        "ANS-003"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-004",
-      "block": "B4",
-      "block_title": "Взаимодействие с пользователем",
-      "statement": "DataCanvas взаимодействует с пользователем через уточняющие вопросы, проверку описания до генерации, правки до и после результата и ручное подтверждение перед выдачей результата.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Взаимодействие с пользователем\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-004"
-      ],
-      "evidence_ids": [
-        "EVD-001",
-        "EVD-002"
-      ],
-      "source_refs": [
-        "SRC-DC-VISION-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
       "item_id": "BMC-CLM-005",
       "block": "B5",
       "block_title": "Потоки внутренней пользы",
@@ -120,71 +80,6 @@
       "evidence_ids": [],
       "source_refs": [
         "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-006",
-      "block": "B6",
-      "block_title": "Ключевые ресурсы",
-      "statement": "Критичные ресурсы DataCanvas: входной контекст, описание презентации перед генерацией, шаблоны презентаций, модуль рендера, схемы и проверки качества.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Ключевые ресурсы\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-006"
-      ],
-      "evidence_ids": [
-        "EVD-001",
-        "EVD-002"
-      ],
-      "source_refs": [
-        "SRC-DC-VISION-CURRENT",
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Data/Traceability Architect"
-    },
-    {
-      "item_id": "BMC-CLM-007",
-      "block": "B7",
-      "block_title": "Ключевые активности",
-      "statement": "Ключевые активности DataCanvas: проверить достаточность входа, задать уточняющие вопросы, сформировать описание презентации, принять правки, сгенерировать и доставить файл, получить замечания по доставленной презентации и запустить цикл повторного уточнения, правок, генерации и доставки исправленной презентации.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Ключевые активности\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-007"
-      ],
-      "evidence_ids": [
-        "EVD-001",
-        "EVD-002"
-      ],
-      "source_refs": [
-        "SRC-DC-VISION-CURRENT",
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Development Team"
-    },
-    {
-      "item_id": "BMC-CLM-008",
-      "block": "B8",
-      "block_title": "Ключевые партнеры",
-      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, Оркестратор, предшествующие агенты и инструменты, канал доставки результата.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Ключевые партнеры\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-008"
-      ],
-      "evidence_ids": [
-        "EVD-001",
-        "EVD-002"
-      ],
-      "source_refs": [
-        "SRC-DC-VISION-BRANCH-SNAPSHOT"
       ],
       "owner_role": "Product Owner"
     },

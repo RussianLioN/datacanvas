@@ -12,7 +12,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#047857">B8</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="760" fill="#111827"><tspan x="34" y="122">Партнеры</tspan></text>
 <line x1="34" y1="182" x2="606" y2="182" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="400" fill="#26313f"><tspan x="42" y="238">Ключевые партнеры и зависимости:</tspan><tspan x="42" y="277">Лиса, Оркестратор, предшествующие</tspan><tspan x="42" y="316">агенты, поставщики данных,</tspan><tspan x="42" y="355">автоматизированные системы, A2A/MCP</tspan><tspan x="42" y="394">gateway, владельцы шаблонов и</tspan><tspan x="42" y="433">renderer/tooling.</tspan><tspan x="42" y="472">• Лиса и Оркестратор</tspan><tspan x="42" y="511">• Предшествующие агенты</tspan><tspan x="42" y="550">• Поставщики данных и АС</tspan><tspan x="42" y="589">• A2A/MCP gateway</tspan><tspan x="42" y="628">• Владельцы шаблонов и renderer</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="29" font-weight="400" fill="#26313f"><tspan x="42" y="238">Ключевые партнеры и зависимости:</tspan><tspan x="42" y="277">Лиса, другой агент, источники</tspan><tspan x="42" y="316">данных, владельцы шаблонов, средство</tspan><tspan x="42" y="355">подготовки файла и почтовый канал</tspan><tspan x="42" y="394">доставки.</tspan><tspan x="42" y="433">• Лиса</tspan><tspan x="42" y="472">• Другой агент</tspan><tspan x="42" y="511">• Источники данных</tspan><tspan x="42" y="550">• Владельцы шаблонов</tspan><tspan x="42" y="589">• Почтовый канал доставки</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B7" data-layout-slot="top-split-upper" transform="translate(842 280)">
 <rect width="640" height="546" rx="8" fill="#edf7f4" stroke="#243447" stroke-width="3"/>
@@ -20,7 +20,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B7</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Активности</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Проверка достаточности входа</tspan><tspan x="42" y="259">• Уточнение данных</tspan><tspan x="42" y="296">• Описание и правки</tspan><tspan x="42" y="333">• Генерация и доставка</tspan><tspan x="42" y="370">• Повторный цикл по замечаниям</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Проверка входных данных</tspan><tspan x="42" y="259">• Подготовка презентации</tspan><tspan x="42" y="296">• Email-доставка файла</tspan><tspan x="42" y="333">• Уточнения в Лисе</tspan><tspan x="42" y="370">• Связь контекста и результата</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B6" data-layout-slot="top-split-lower" transform="translate(842 854)">
 <rect width="640" height="546" rx="8" fill="#f4fbf9" stroke="#243447" stroke-width="3"/>
@@ -28,7 +28,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#0f766e">B6</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Ресурсы</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Входной контекст</tspan><tspan x="42" y="259">• Описание и PresentationSpec</tspan><tspan x="42" y="296">• Шаблоны презентаций</tspan><tspan x="42" y="333">• Renderer и quality gates</tspan><tspan x="42" y="370">• Интеграции Лисы/A2A/MCP</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Подготовленный контекст</tspan><tspan x="42" y="259">• Проверка достаточности</tspan><tspan x="42" y="296">• Проверка безопасности</tspan><tspan x="42" y="333">• Шаблоны презентаций</tspan><tspan x="42" y="370">• Почтовая доставка</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B2" data-layout-slot="top-center" transform="translate(1510 280)">
 <rect width="820" height="1120" rx="8" fill="#fff4cc" stroke="#243447" stroke-width="3"/>
@@ -44,7 +44,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#2563eb">B4</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Отношения</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Уточняющее интервью</tspan><tspan x="42" y="259">• Human-in-the-loop</tspan><tspan x="42" y="296">• Подтверждение описания</tspan><tspan x="42" y="333">• Прием правок</tspan><tspan x="42" y="370">• Repair loop после доставки</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Без подтверждения при запуске</tspan><tspan x="42" y="259">агентом</tspan><tspan x="42" y="296">• Уточнения только в Лисе</tspan><tspan x="42" y="333">• Проверка описания в Лисе</tspan><tspan x="42" y="370">• Правки до генерации в Лисе</tspan><tspan x="42" y="407">• Самостоятельные правки файла</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B3" data-layout-slot="top-split-lower" transform="translate(2358 854)">
 <rect width="640" height="546" rx="8" fill="#f2f6fd" stroke="#243447" stroke-width="3"/>
@@ -52,7 +52,7 @@
 <text data-role="bmc-block-number" x="34" y="70" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800" fill="#2563eb">B3</text>
 <text data-role="bmc-block-title" font-family="Inter, Arial, sans-serif" font-size="33" font-weight="760" fill="#111827"><tspan x="34" y="122">Каналы</tspan></text>
 <line x1="34" y1="172" x2="606" y2="172" stroke="#cbd5e1" stroke-width="2"/>
-<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Чат Лисы</tspan><tspan x="42" y="259">• Выбранные сообщения</tspan><tspan x="42" y="296">• Кнопка запуска</tspan><tspan x="42" y="333">• Оркестратор и A2A</tspan><tspan x="42" y="370">• Прямой MCP/A2A-вызов</tspan></text>
+<text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">• Запуск другим агентом</tspan><tspan x="42" y="259">• Диалоговый режим в Лисе</tspan><tspan x="42" y="296">• Проверка данных перед подготовкой</tspan><tspan x="42" y="333">• Доставка по электронной почте</tspan><tspan x="42" y="370">• Редактируемый формат результата</tspan></text>
 </g>
 <g data-role="bmc-block" data-block="B1" data-layout-slot="top-right" transform="translate(3026 280)">
 <rect width="640" height="1120" rx="8" fill="#e9eff9" stroke="#243447" stroke-width="3"/>

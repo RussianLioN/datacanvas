@@ -30,7 +30,7 @@
 | `docs/product/hypotheses/hypothesis-board.md` | Гипотезы | Прямое расхождение с `CO-2026-001` в первом пакете ревизии не зафиксировано |
 | `docs/product/hypotheses/hypothesis-validation.md` | Проверка гипотез | План проверки гипотез; прямое расхождение с `CO-2026-001` в первом пакете ревизии не зафиксировано |
 | `docs/product/change-orders/co-2026-001-a2a-first-priority.md` | Принятое изменение | Accepted, источник нового приоритета |
-| `docs/product/bmc/bmc-v0.2.md` | BMC | Требует разделить агентский запуск и диалоговый режим |
+| `docs/product/bmc/bmc-v0.2.md` | BMC | `EDIT-002` применен: BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте |
 | `docs/product/requirements/business-requirements.md` | Бизнес-требования | Требует разделить общий approval gate по режимам |
 | `docs/product/requirements/acceptance-criteria.md` | Критерии приемки | Требует отдельный сценарий для запуска другим агентом |
 | `docs/product/analysis/ba/ba-spec.json` | BA claims | Содержит устаревшее утверждение о неподтвержденном delivery channel |

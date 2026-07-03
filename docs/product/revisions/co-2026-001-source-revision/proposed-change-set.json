@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-03T12:29:47Z",
+  "updated_at": "2026-07-03T12:45:00Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -37,6 +37,20 @@
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
       "related_edit_ids": ["EDIT-001"],
       "safe_summary": "Product Owner выбрал вариант 1 для EDIT-001: разделить основной сценарий Vision на запуск другим агентом и диалоговый режим в Лисе."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-002",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-002",
+      "accepted_at": "2026-07-03T12:45:00Z",
+      "selected_option_id": "variant_1_recommended",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "7f0e5b138ea611a617611881298b4e90332485d6c7ae7f73454f63c0bcc12557",
+      "related_edit_ids": ["EDIT-002"],
+      "safe_summary": "Product Owner принял вариант 1 для EDIT-002: переписать BMC на стейкхолдерском языке, разделив запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте."
     }
   ],
   "proposed_edits": [
@@ -66,16 +80,16 @@
       "artifact_path": "docs/product/bmc/bmc-v0.2.md",
       "section_or_anchor": "B3/B4/B6/B7/B8",
       "change_kind": "conceptual_product",
-      "current_excerpt": "DataCanvas запускается из Лисы, выбранных сообщений, кнопки действия, Оркестратора/A2A, прямого A2A/MCP-вызова или сервисного вызова от автоматизированной системы.",
+      "current_excerpt": "DataCanvas запускается двумя основными способами: другим агентом по подготовленному контексту или пользователем в Лисе через диалоговый режим.",
       "proposed_text": "В стейкхолдерском BMC использовать формулировку \"другой агент\" и разделить каналы: запуск другим агентом, подтверждения только в Лисе, файл по электронной почте, статусы через обратный вызов.",
       "rationale": "BMC содержит технические обозначения и универсальный human-in-the-loop, что противоречит согласованной стейкхолдерской формулировке.",
       "affected_claims": ["CO-2026-001", "PRODUCT-07", "PRODUCT-17", "PRODUCT-19"],
       "downstream_paths": ["docs/product/requirements/business-requirements.md"],
       "required_owner": "Product Owner",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-002",
       "rollback_or_forward_fix": "При отклонении оставить BMC как historical/current needs_revision и не использовать его как единственный источник для CO-2026-001."
     },
     {

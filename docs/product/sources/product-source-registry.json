@@ -178,12 +178,12 @@
       "source_role": "accepted_bmc",
       "owner_role": "Product Owner",
       "lifecycle": "accepted",
-      "trust_level": "needs_revision",
+      "trust_level": "accepted_current",
       "effective_date": "2026-06-26",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["business_model", "requirements_delta"],
       "affected_artifacts": ["docs/product/requirements/business-requirements.md"],
-      "notes": "Требует правки по разделению агентского запуска и диалогового режима."
+      "notes": "Обновлен по EDIT-002: стейкхолдерский BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте."
     },
     {
       "source_id": "SRC-DC-BMC-SOURCE-LOCK",

@@ -26,6 +26,30 @@
       "allowed_use": "Current local stories baseline; lower priority than the richer branch snapshot for BMC interview prompts."
     },
     {
+      "id": "SRC-DC-VISION-ACTIVE",
+      "kind": "repo_file",
+      "path": "docs/product-vision.md",
+      "status": "available",
+      "trust_level": "accepted_current",
+      "allowed_use": "Current DataCanvas Vision after CO-2026-001 and source revision acceptance."
+    },
+    {
+      "id": "SRC-DC-CO-2026-001",
+      "kind": "repo_file",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "status": "available",
+      "trust_level": "accepted_current",
+      "allowed_use": "Accepted product decision for agent-first launch priority, Lisa dialog mode, and email delivery."
+    },
+    {
+      "id": "SRC-DC-REVISION-EDIT-002",
+      "kind": "repo_file",
+      "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
+      "status": "available",
+      "trust_level": "direct_product_owner_acceptance",
+      "allowed_use": "Acceptance evidence for stakeholder BMC wording after EDIT-002."
+    },
+    {
       "id": "SRC-DC-BMC-CURRENT",
       "kind": "repo_file",
       "path": "docs/product/bmc/bmc-v0.1.md",
