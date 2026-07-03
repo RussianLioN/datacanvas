@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-03T12:00:00Z",
+  "updated_at": "2026-07-03T13:20:00Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -204,7 +204,7 @@
       "source_role": "formalized_requirements",
       "owner_role": "Product Owner",
       "lifecycle": "draft",
-      "trust_level": "needs_revision",
+      "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["acceptance", "traceability", "spec_delta"],
@@ -213,7 +213,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Требует разделить approval gate по агентскому запуску и Лисе."
+      "notes": "Обновлен по EDIT-003 — правке бизнес-требований по разделению режимов: бизнес-требования разделяют запуск другим агентом без подтверждения и диалоговый режим в Лисе с выбором действия после описания структуры."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-ACCEPTANCE",

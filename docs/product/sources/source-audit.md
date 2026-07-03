@@ -15,7 +15,7 @@
 
 `CO-2026-001` принят как смена продуктового приоритета: первым направлением становится запуск DataCanvas другим агентом, вторым - диалоговый режим в Лисе.
 
-Часть документов уже отражает новое решение, но downstream-слой требует ревизии. Смысловые правки вынесены в пакет согласования и не применяются без решения Product Owner.
+Часть документов уже отражает новое решение, но последующие документы требуют ревизии. Смысловые правки вынесены в пакет согласования и не применяются без решения Product Owner.
 
 ## Текущее Покрытие
 
@@ -31,13 +31,13 @@
 | `docs/product/hypotheses/hypothesis-validation.md` | Проверка гипотез | План проверки гипотез; прямое расхождение с `CO-2026-001` в первом пакете ревизии не зафиксировано |
 | `docs/product/change-orders/co-2026-001-a2a-first-priority.md` | Принятое изменение | Accepted, источник нового приоритета |
 | `docs/product/bmc/bmc-v0.2.md` | BMC | `EDIT-002` применен: BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте |
-| `docs/product/requirements/business-requirements.md` | Бизнес-требования | Требует разделить общий approval gate по режимам |
+| `docs/product/requirements/business-requirements.md` | Бизнес-требования | `EDIT-003` — правка бизнес-требований по разделению режимов — применен: запуск другим агентом идет без подтверждения, а в Лисе пользователь выбирает изготовление или редактирование после описания структуры |
 | `docs/product/requirements/acceptance-criteria.md` | Критерии приемки | Требует отдельный сценарий для запуска другим агентом |
-| `docs/product/analysis/ba/ba-spec.json` | BA claims | Содержит устаревшее утверждение о неподтвержденном delivery channel |
-| `docs/architecture/system-analysis/sa-spec.json` | Системный анализ | Требует альтернативный путь без пользовательского approval для агентского запуска |
-| `docs/product/specs/feature-spec-a2a-launch.json` | FeatureSpec | Требует обновить delivery decision после принятия `CO-2026-001` |
-| `docs/product/requirements/traceability-matrix.json` | Traceability | Требует связать новый приоритет с requirements/specs/acceptance |
-| `docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/` | Исторический cascade evidence | Должен остаться historical/blocked или быть перекрыт новой ревизией |
+| `docs/product/analysis/ba/ba-spec.json` | BA-утверждения | Содержит устаревшее утверждение о неподтвержденном канале доставки |
+| `docs/architecture/system-analysis/sa-spec.json` | Системный анализ | Требует альтернативный путь без пользовательского подтверждения для запуска другим агентом |
+| `docs/product/specs/feature-spec-a2a-launch.json` | FeatureSpec | Требует обновить решение о доставке после принятия `CO-2026-001` |
+| `docs/product/requirements/traceability-matrix.json` | Трассировка | Требует связать новый приоритет с требованиями, спецификациями и критериями приемки |
+| `docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/` | Историческое доказательство каскадной проверки | Должен остаться historical/blocked или быть перекрыт новой ревизией |
 
 ## Следующий Шаг
 

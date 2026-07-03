@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-03T13:05:00Z",
+  "updated_at": "2026-07-03T13:20:00Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -51,6 +51,20 @@
       "original_user_answer_hash": "7f0e5b138ea611a617611881298b4e90332485d6c7ae7f73454f63c0bcc12557",
       "related_edit_ids": ["EDIT-002"],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-002: переписать BMC на стейкхолдерском языке, разделив запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-003",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-003",
+      "accepted_at": "2026-07-03T13:20:00Z",
+      "selected_option_id": "variant_1_with_po_clarification",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "c977dbe785221d34114d345fdf8ff4e18bb4af66750751dbea29407f9738735f",
+      "related_edit_ids": ["EDIT-003"],
+      "safe_summary": "Product Owner принял финальный текст для EDIT-003 — правки бизнес-требований по разделению режимов: в Лисе пользователь после описания структуры выбирает изготовление презентации или редактирование структуры; при запуске другим агентом подтверждение невозможно и не требуется."
     }
   ],
   "proposed_edits": [
@@ -97,9 +111,9 @@
       "artifact_path": "docs/product/requirements/business-requirements.md",
       "section_or_anchor": "BT-009, BT-012, BT-014",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "| BT-009 | DataCanvas требует согласования описания презентации КМ до генерации файла |",
+      "current_excerpt": "| BT-009 | В диалоговом режиме в Лисе DataCanvas показывает пользователю описание структуры будущей презентации и предлагает выбрать: сразу изготовить презентацию или перейти к редактированию структуры |",
       "proposed_text": "Для режима Лисы заменить обязательное согласование на пользовательский выбор после показа описания структуры: сразу изготовить презентацию или перейти к редактированию структуры. Для запуска другим агентом зафиксировать, что подтверждение невозможно и не требуется: после проверки достаточности и безопасности данных DataCanvas готовит презентацию и доставляет файл по электронной почте.",
-      "rationale": "Требования сейчас задают подтверждение до генерации как общий gate, но CO-2026-001 разделил режимы: при запуске другим агентом подтверждения нет, а в Лисе пользователь выбирает изготовление или редактирование структуры после просмотра описания.",
+      "rationale": "Требования сейчас задают подтверждение до генерации как общее правило, но CO-2026-001 разделил режимы: при запуске другим агентом подтверждения нет, а в Лисе пользователь выбирает изготовление или редактирование структуры после просмотра описания.",
       "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
       "downstream_paths": [
         "docs/product/requirements/acceptance-criteria.md",
@@ -107,11 +121,11 @@
         "docs/architecture/system-analysis/sa-spec.json"
       ],
       "required_owner": "Product Owner",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
-      "rollback_or_forward_fix": "Если PO оставляет общий approval gate, CO-2026-001 должен быть уточнен."
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-003",
+      "rollback_or_forward_fix": "Если Product Owner оставляет общее правило подтверждения, CO-2026-001 должен быть уточнен."
     },
     {
       "edit_id": "EDIT-004",
@@ -119,8 +133,8 @@
       "section_or_anchor": "Базовый MVP gate / Сценарии приемки P1-P2",
       "change_kind": "cross_artifact_semantic",
       "current_excerpt": "- Описание презентации создано, доступно КМ и согласовано до генерации файла.",
-      "proposed_text": "Разделить критерии приемки на сценарий Лисы с согласованием описания и сценарий запуска другим агентом без пользовательского подтверждения перед генерацией.",
-      "rationale": "Acceptance сейчас требует согласования до генерации для всех режимов.",
+      "proposed_text": "Разделить критерии приемки на сценарий Лисы с выбором действия после описания структуры и сценарий запуска другим агентом без пользовательского подтверждения перед подготовкой презентации.",
+      "rationale": "Критерии приемки сейчас требуют согласования до генерации для всех режимов.",
       "affected_claims": ["BT-009", "BT-012", "CO-2026-001"],
       "downstream_paths": ["docs/product/requirements/traceability-matrix.json"],
       "required_owner": "Product Owner",
@@ -191,7 +205,7 @@
       "change_kind": "cross_artifact_semantic",
       "current_excerpt": "Approval state и actor identity связаны с решением об export; до согласования export отсутствует.",
       "proposed_text": "Добавить traceability для двух режимов: Лиса требует approval до export, запуск другим агентом после validation идет к export/email delivery без approval.",
-      "rationale": "Traceability сейчас наследует общий approval gate.",
+      "rationale": "Трассировка сейчас наследует общее правило подтверждения.",
       "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
       "downstream_paths": [],
       "required_owner": "Product Owner",
