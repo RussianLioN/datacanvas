@@ -10,7 +10,9 @@
     "current_vision",
     "accepted_bmc",
     "story_catalog",
+    "product_planning",
     "formalized_requirements",
+    "traceability",
     "analysis_source",
     "technical_spec",
     "evidence",
@@ -90,6 +92,87 @@
       "notes": "Содержит candidate stories DC-ST-23..DC-ST-28."
     },
     {
+      "source_id": "SRC-DC-PRODUCT-BACKLOG",
+      "path": "docs/product/backlog/product-backlog.md",
+      "source_role": "product_planning",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["backlog", "priority_review", "planning_trace"],
+      "affected_artifacts": [
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/roadmap/roadmap-v0.1.md"
+      ],
+      "notes": "Содержит кандидаты DC-ST-23..DC-ST-28 после CO-2026-001; не заменяет отдельное PO-согласование состава backlog."
+    },
+    {
+      "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "source_role": "story_catalog",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["candidate_story_source", "backlog", "traceability"],
+      "affected_artifacts": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-28 для backlog и переноса в табличный формат после оценки."
+    },
+    {
+      "source_id": "SRC-DC-ROADMAP-V0-1",
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "source_role": "product_planning",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["roadmap_context", "capacity_review"],
+      "affected_artifacts": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Плановый источник для проверки влияния CO-2026-001 на порядок работ; смысловые изменения в roadmap требуют отдельного решения PO."
+    },
+    {
+      "source_id": "SRC-DC-HYPOTHESIS-BOARD",
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "source_role": "product_planning",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": null,
+      "allowed_downstream_use": ["hypothesis_review", "backlog_context"],
+      "affected_artifacts": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/hypotheses/hypothesis-validation.md"
+      ],
+      "notes": "Текущий источник гипотез; прямое расхождение с CO-2026-001 в первом пакете ревизии не зафиксировано."
+    },
+    {
+      "source_id": "SRC-DC-HYPOTHESIS-VALIDATION",
+      "path": "docs/product/hypotheses/hypothesis-validation.md",
+      "source_role": "product_planning",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-03",
+      "upstream_decision": null,
+      "allowed_downstream_use": ["hypothesis_review", "validation_planning", "evidence_expectations"],
+      "affected_artifacts": [
+        "docs/product/hypotheses/hypothesis-board.md",
+        "docs/product/backlog/product-backlog.md"
+      ],
+      "notes": "План проверки гипотез; прямое расхождение с CO-2026-001 в первом пакете ревизии не зафиксировано."
+    },
+    {
       "source_id": "SRC-DC-BMC-CURRENT",
       "path": "docs/product/bmc/bmc-v0.2.md",
       "source_role": "accepted_bmc",
@@ -133,6 +216,38 @@
       "notes": "Требует разделить approval gate по агентскому запуску и Лисе."
     },
     {
+      "source_id": "SRC-DC-REQUIREMENTS-ACCEPTANCE",
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "source_role": "formalized_requirements",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["acceptance", "traceability", "validation_gate"],
+      "affected_artifacts": [
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/specs/feature-spec-a2a-launch.json"
+      ],
+      "notes": "Требует отдельный сценарий приемки для запуска другим агентом без общего пользовательского подтверждения структуры."
+    },
+    {
+      "source_id": "SRC-DC-REQUIREMENTS-TRACEABILITY",
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "source_role": "traceability",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["traceability", "impact_analysis", "release_evidence"],
+      "affected_artifacts": [
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Требует связать CO-2026-001, DC-ST-23..DC-ST-28, affected BT, specs и acceptance."
+    },
+    {
       "source_id": "SRC-DC-ANALYSIS-BA",
       "path": "docs/product/analysis/ba/ba-spec.json",
       "source_role": "analysis_source",
@@ -157,6 +272,22 @@
       "allowed_downstream_use": ["implementation_context", "verification"],
       "affected_artifacts": ["docs/product/specs/task-spec-a2a-launch.json"],
       "notes": "Требует альтернативный путь без пользовательского approval для запуска другим агентом."
+    },
+    {
+      "source_id": "SRC-DC-SPEC-A2A-LAUNCH",
+      "path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "source_role": "technical_spec",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "trust_level": "needs_revision",
+      "effective_date": "2026-07-03",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["spec_delta", "verification", "implementation_context"],
+      "affected_artifacts": [
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Требует обновить delivery decision без расширения live integrations."
     },
     {
       "source_id": "SRC-DC-CASCADE-2026-07-02",

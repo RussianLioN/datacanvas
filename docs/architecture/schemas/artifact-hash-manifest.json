@@ -3032,12 +3032,12 @@
     {
       "artifact_id": "ART-607",
       "path": "docs/product/sources/source-audit.md",
-      "sha256": "55e2b5d274977001c63bfa235a275e74ae98f64f2ecab7c9a4ee9acdc9a7db3b"
+      "sha256": "edf5c83e7d8dcd9eba82658402f7ce6807823186882c2bee0f59b4c71e250399"
     },
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "dc6ea6c2ee5adb3a162211720961c03099e577c47cd3097ab68e6e150977f335"
+      "sha256": "4366d4bdef1462eafe5c16e41b7cc4d43d7dd025759a6ef14296549235c959b1"
     },
     {
       "artifact_id": "ART-609",
@@ -3062,7 +3062,7 @@
     {
       "artifact_id": "ART-613",
       "path": "schemas/product-source-registry.schema.json",
-      "sha256": "49a55456f47ae34a98d0c20662f6afc92fc1cd713972ca77f30c9456313085ce"
+      "sha256": "c36ee360287fe57edcb218351439751d115bd2609be6b73668216df5e121ae09"
     },
     {
       "artifact_id": "ART-614",
@@ -3077,7 +3077,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "61019add10db5e53c7c9808af1f5b80a575c611ec891238dc076b9f3770ce003"
+      "sha256": "6c2625955d1094343613d33db5ad999f9e4b227316bc00c9a1a4a458bb63a353"
     },
     {
       "artifact_id": "ART-617",

@@ -24,6 +24,11 @@
 | `docs/product-vision.md` | Текущий Vision | Частично обновлен; раздел основного сценария требует согласования |
 | `docs/product/vision/vision-v0.1.md` | Исторический snapshot | Используется для сравнения, не конкурирует с текущим Vision |
 | `docs/stories.md` | Каталог stories | Содержит `DC-ST-23..DC-ST-28` как candidate stories |
+| `docs/product/backlog/product-backlog.md` | Product backlog | Содержит кандидаты `DC-ST-23..DC-ST-28`; состав backlog требует отдельного PO-согласования |
+| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Истории-кандидаты | Непосредственный источник строк `DC-ST-23..DC-ST-28` для backlog |
+| `docs/product/roadmap/roadmap-v0.1.md` | Roadmap | Используется как плановый контекст для проверки влияния `CO-2026-001`; смысловые изменения требуют отдельного решения PO |
+| `docs/product/hypotheses/hypothesis-board.md` | Гипотезы | Прямое расхождение с `CO-2026-001` в первом пакете ревизии не зафиксировано |
+| `docs/product/hypotheses/hypothesis-validation.md` | Проверка гипотез | План проверки гипотез; прямое расхождение с `CO-2026-001` в первом пакете ревизии не зафиксировано |
 | `docs/product/change-orders/co-2026-001-a2a-first-priority.md` | Принятое изменение | Accepted, источник нового приоритета |
 | `docs/product/bmc/bmc-v0.2.md` | BMC | Требует разделить агентский запуск и диалоговый режим |
 | `docs/product/requirements/business-requirements.md` | Бизнес-требования | Требует разделить общий approval gate по режимам |

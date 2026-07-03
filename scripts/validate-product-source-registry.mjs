@@ -88,10 +88,18 @@ try {
     "SRC-DC-CO-2026-001",
     "SRC-DC-PRODUCT-VISION-CURRENT",
     "SRC-DC-STORIES-CATALOG",
+    "SRC-DC-PRODUCT-BACKLOG",
+    "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
+    "SRC-DC-ROADMAP-V0-1",
+    "SRC-DC-HYPOTHESIS-BOARD",
+    "SRC-DC-HYPOTHESIS-VALIDATION",
     "SRC-DC-BMC-CURRENT",
     "SRC-DC-REQUIREMENTS-BUSINESS",
+    "SRC-DC-REQUIREMENTS-ACCEPTANCE",
+    "SRC-DC-REQUIREMENTS-TRACEABILITY",
     "SRC-DC-ANALYSIS-BA",
     "SRC-DC-SYSTEM-ANALYSIS",
+    "SRC-DC-SPEC-A2A-LAUNCH",
     "SRC-DC-CASCADE-2026-07-02",
   ];
   for (const sourceId of requiredSources) {
@@ -121,8 +129,16 @@ try {
       "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
       "docs/product/bmc/bmc-v0.2.md",
       "docs/product/requirements/business-requirements.md",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/requirements/traceability-matrix.json",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "docs/product/roadmap/roadmap-v0.1.md",
+      "docs/product/hypotheses/hypothesis-board.md",
+      "docs/product/hypotheses/hypothesis-validation.md",
       "docs/product/analysis/ba/ba-spec.json",
       "docs/architecture/system-analysis/sa-spec.json",
+      "docs/product/specs/feature-spec-a2a-launch.json",
     ]) {
       if (!paths.has(requiredPath)) {
         throw new Error(`required path is missing from source registry: ${requiredPath}`);
