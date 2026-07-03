@@ -117,7 +117,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `61485994566b3196a8ec3f9ba0388db245f68c84` |
+| `current_main_commit` | `04837eb9460376cc7571b13a0bb7704995119229` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry
