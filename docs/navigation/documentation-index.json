@@ -4926,6 +4926,39 @@
       "click_depth": null
     },
     {
+      "path": "docs/process/change-requests/PROC-046-product-change-questionnaire-state.md",
+      "title": "PROC-046: Product Change Questionnaire State",
+      "section": "process",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [
+        "proc-046-product-change-questionnaire-state",
+        "проблема",
+        "причина-изменения",
+        "предлагаемое-изменение",
+        "влияние",
+        "метрика-успеха",
+        "план-проверки",
+        "rollback",
+        "решение"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/process/change-requests/process-change-request-template.md",
       "title": "Шаблон Process Change Request",
       "section": "process",
@@ -5110,7 +5143,11 @@
         "proc-038---cascading-documentation-governance",
         "изменение-3",
         "миграция-3",
-        "rollback-3"
+        "rollback-3",
+        "proc-046---product-change-questionnaire-state",
+        "изменение-4",
+        "миграция-4",
+        "rollback-4"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -5570,7 +5607,8 @@
         "ai-агентные-решения",
         "режимы-работы-агента",
         "права-агента",
-        "возобновление-остановленного-интервью"
+        "возобновление-остановленного-интервью",
+        "контракт-po-опросника"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -5605,6 +5643,7 @@
         "docs/process/methodology/templates/stakeholder-map-template.md",
         "docs/process/methodology/templates/story-readiness-report-template.md",
         "docs/process/README.md",
+        "docs/product/change-orders/product-change-questionnaire-protocol.md",
         "docs/README.md",
         "README.md"
       ],
@@ -5985,6 +6024,7 @@
         "docs/process/current/process-passport.md",
         "docs/process/current/process-registry.md",
         "docs/process/methodology/README.md",
+        "docs/product/change-orders/product-change-questionnaire-protocol.md",
         "docs/README.md",
         "README.md"
       ],
@@ -6562,6 +6602,42 @@
       "click_depth": null
     },
     {
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "title": "Пользовательские Истории-Кандидаты Для Запуска DataCanvas Другим Агентом",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/backlog/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/backlog/README.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "пользовательские-истории-кандидаты-для-запуска-datacanvas-другим-агентом",
+        "назначение",
+        "правила-строк",
+        "истории-кандидаты",
+        "csv",
+        "открыто-до-продолжения-опроса"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/product/backlog/backlog-registry.json",
       "title": "docs/product/backlog/backlog-registry.json",
       "section": "product",
@@ -6629,13 +6705,15 @@
       "parent_readme": "docs/product/backlog/README.md",
       "artifact_registry_id": "ART-434",
       "outgoing_links": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
-        "product-backlog"
+        "product-backlog",
+        "истории-кандидаты-после-co-2026-001"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -6659,6 +6737,7 @@
       "parent_readme": "docs/product/README.md",
       "artifact_registry_id": "ART-433",
       "outgoing_links": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/backlog-registry.json",
         "docs/product/backlog/eval-backlog.md",
         "docs/product/backlog/product-backlog.md",
@@ -7659,7 +7738,7 @@
     },
     {
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-      "title": "CO-2026-001: A2A-first Priority",
+      "title": "CO-2026-001: Приоритет Запуска DataCanvas Другим Агентом",
       "section": "product",
       "navigation_group": "business",
       "format": "md",
@@ -7682,12 +7761,73 @@
         "README.md"
       ],
       "anchors": [
-        "co-2026-001-a2a-first-priority",
+        "co-2026-001-приоритет-запуска-datacanvas-другим-агентом",
         "причина",
         "изменение-приоритета",
         "статус-решения",
+        "продуктовые-правила",
+        "согласованные-артефакты",
         "проверка"
       ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
+      "title": "Журнал PO-Опросника `CO-2026-001`",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/change-orders/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/change-orders/README.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "журнал-po-опросника-co-2026-001",
+        "текущее-состояние",
+        "правила-продолжения",
+        "согласованные-решения",
+        "обновлённые-артефакты-в-этой-остановке",
+        "контрольный-список-продолжения",
+        "дальнейшие-задачи"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+      "title": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "schemas/product-change-questionnaire-state.schema.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/change-orders/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
       "reachable_from_root": false,
       "click_depth": null
     },
@@ -7743,8 +7883,45 @@
         "поля",
         "правило-решения"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
+      "path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
+      "title": "Протокол PO-Опросника Product Change Order",
+      "section": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/change-orders/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/change-orders/README.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "протокол-po-опросника-product-change-order",
+        "назначение",
+        "обязательные-артефакты",
+        "правила-сохранения",
+        "правила-возобновления",
+        "правила-вопросов",
+        "язык-и-формулировки",
+        "рабочее-правило-co-2026-001"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/README.md",
@@ -7766,7 +7943,9 @@
       "artifact_registry_id": "ART-488",
       "outgoing_links": [
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
         "docs/product/change-orders/product-change-order-template.md",
+        "docs/product/change-orders/product-change-questionnaire-protocol.md",
         "docs/product/README.md",
         "docs/README.md",
         "README.md"
@@ -7777,8 +7956,8 @@
         "правило",
         "артефакты"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/hypotheses/hypothesis-board.md",
@@ -30628,6 +30807,7 @@
         "подача-данных-на-вход",
         "уточнение-вида-презентации",
         "получение-результата",
+        "проверяемость-и-трассировка",
         "исправление-результата",
         "трассировка-excelopml",
         "открытые-продуктовые-решения",
@@ -30893,19 +31073,19 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "ffb2e8aa433f05050157514c63388e7bce66821f",
+      "current_main_commit": "159a0d6a7c9ea9564ce9fac8ba5ff26ac06e1ce3",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },
   "coverage": {
-    "total_entries": 1143,
-    "manual_entries": 1139,
+    "total_entries": 1148,
+    "manual_entries": 1144,
     "generated_entries": 4,
     "public_navigable_entries": 30,
-    "searchable_entries": 1111,
+    "searchable_entries": 1116,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 94,
+    "reachable_from_root": 100,
     "orphan_entries": 0
   },
   "ignored_paths": [

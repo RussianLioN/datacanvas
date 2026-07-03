@@ -71,6 +71,7 @@
     "validate:business-rules": "node scripts/validate-ba-sa-artifacts.mjs business-rules",
     "validate:interview-derived-coverage": "node scripts/validate-ba-sa-artifacts.mjs interview-derived-coverage",
     "validate:product-change-orders": "node scripts/validate-ba-sa-artifacts.mjs product-change-orders",
+    "validate:co-questionnaire": "node scripts/validate-product-change-questionnaire-state.mjs",
     "validate:change-impact": "node scripts/validate-ba-sa-artifacts.mjs change-impact",
     "validate:spec-task-prompt-readiness": "node scripts/validate-ba-sa-artifacts.mjs spec-task-prompt-readiness",
     "validate:interface-contracts": "node scripts/validate-ba-sa-artifacts.mjs interface-contracts",

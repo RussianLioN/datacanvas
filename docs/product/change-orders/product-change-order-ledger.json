@@ -1,15 +1,15 @@
 {
   "version": "0.1.0",
-  "status": "draft",
+  "status": "active",
   "entries": [
     {
       "id": "CO-2026-001",
-      "title": "A2A-first priority for presentation launch",
-      "status": "draft",
+      "title": "Priority for DataCanvas launch by another agent",
+      "status": "accepted",
       "order_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "impact_assessment_path": "docs/product/change-orders/change-impact-assessment.json",
       "owner_role": "Product Owner",
-      "validation_commands": ["npm run validate:product-change-orders", "npm run validate:change-impact"]
+      "validation_commands": ["npm run validate:product-change-orders", "npm run validate:change-impact", "npm run validate:co-questionnaire"]
     }
   ]
 }

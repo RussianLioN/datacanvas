@@ -107,7 +107,7 @@ Generated navigation и отчеты генераторов.
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `ffb2e8aa433f05050157514c63388e7bce66821f` |
+| `current_main_commit` | `159a0d6a7c9ea9564ce9fac8ba5ff26ac06e1ce3` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

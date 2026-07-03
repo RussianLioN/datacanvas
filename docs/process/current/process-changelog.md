@@ -97,3 +97,21 @@ PCR: `PROC-001`
 #### Rollback
 
 Откатить cascade schemas, validators, source artifacts, fixtures, DoR/DoD/passport additions, navigation source и artifact registry entries, затем повторить docs navigation, artifact hash и security gates.
+
+### PROC-046 - Product Change Questionnaire State
+
+Статус: accepted
+Дата: 2026-07-03
+Источник: `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md`
+
+#### Изменение
+
+Введён контракт сохранения PO-опросника: JSON-состояние, Markdown-журнал, лёгкая проверка `npm run validate:co-questionnaire`, контрольная остановка каждые 5 ответов и обязательное возобновление с вопроса, записанного в state.
+
+#### Миграция
+
+Для `CO-2026-001` создано состояние `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json` и журнал `docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md`. Следующий вопрос сохранён как `PRODUCT-21`.
+
+#### Rollback
+
+Пометить questionnaire artifacts как superseded и удалить `validate:co-questionnaire` из промежуточных validation plans. Продуктовые решения `CO-2026-001` не откатываются без отдельного решения Product Owner.

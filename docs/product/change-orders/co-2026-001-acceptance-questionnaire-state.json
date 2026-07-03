@@ -1,0 +1,315 @@
+{
+  "$schema": "../../../schemas/product-change-questionnaire-state.schema.json",
+  "version": "0.1.0",
+  "questionnaire_id": "CO-2026-001-PO-ACCEPTANCE",
+  "change_order_id": "CO-2026-001",
+  "status": "paused",
+  "mode": "product_owner_acceptance",
+  "owner_role": "Product Owner",
+  "started_at": "2026-07-03T09:00:00Z",
+  "updated_at": "2026-07-03T09:00:00Z",
+  "paused_at": "2026-07-03T09:00:00Z",
+  "completed_at": null,
+  "current_question": {
+    "question_id": "PRODUCT-21",
+    "title": "Основной пользовательский сценарий",
+    "state": "next",
+    "next_action": "Перед вопросом вывести текущий раздел «Основной пользовательский сценарий», дать простой комментарий и спросить Product Owner, как разделить агентский запуск и диалоговый режим в Лисе."
+  },
+  "save_policy": {
+    "save_after_each_answer": true,
+    "pause_every_answers": 5,
+    "resume_from_state_required": true,
+    "show_existing_section_before_question": true
+  },
+  "validation_policy": {
+    "light_validation_command": "npm run validate:co-questionnaire",
+    "final_validation_rule": "Полная методологическая валидация выполняется только после завершения всего PO-опросника.",
+    "final_validation_commands": [
+      "npm run validate:product-change-orders",
+      "npm run validate:change-impact",
+      "npm run validate:co-questionnaire",
+      "npm run validate:documentation-methodology",
+      "npm run validate:schemas",
+      "npm run validate:data-leakage",
+      "npm run generate:docs-navigation -- --check",
+      "npm run validate:doc-links",
+      "npm run validate:docs-navigation",
+      "npm run validate:doc-stale-status"
+    ]
+  },
+  "artifact_paths": {
+    "state_path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+    "log_path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
+    "questionnaire_protocol_path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
+    "change_order_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+    "vision_path": "docs/product-vision.md",
+    "stories_path": "docs/stories.md",
+    "candidate_stories_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "candidate_stories_csv_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv"
+  },
+  "answered_questions": [
+    {
+      "question_id": "PRODUCT-01",
+      "title": "Принятие CO-2026-001",
+      "status": "confirmed",
+      "safe_summary": "Product Owner принимает CO-2026-001 как продуктовую смену приоритета: запуск DataCanvas другим агентом становится первым направлением, сценарий через Лису - вторым.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-02",
+      "title": "Ёмкость Q3",
+      "status": "deferred",
+      "safe_summary": "Оценка ёмкости и ресурсов Q3 остаётся pending; переприоритизация выполняется после оценки.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-03",
+      "title": "Перенос существующих stories",
+      "status": "confirmed",
+      "safe_summary": "Существующие stories пока не переносятся; сначала добавляются новые candidate stories, затем выполняется оценка и переприоритизация.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-04",
+      "title": "Новые строки для запуска другим агентом",
+      "status": "confirmed",
+      "safe_summary": "Новые строки фиксируются как candidate stories для product backlog.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-05",
+      "title": "Формат шаблона строк",
+      "status": "confirmed",
+      "safe_summary": "Шаблон новых строк ведётся в product backlog в Markdown и CSV.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-06",
+      "title": "Вытеснение существующих задач",
+      "status": "deferred",
+      "safe_summary": "Displacement rule: решать после оценки ёмкости и ресурсов.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-07",
+      "title": "Канал результата",
+      "status": "confirmed",
+      "safe_summary": "Вызывающий агент получает статусы и сведения о результате через обратный вызов; готовый файл презентации доставляется пользователю по электронной почте.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-08",
+      "title": "Rollback rehearsal",
+      "status": "deferred",
+      "safe_summary": "Rollback rehearsal остаётся pending, потому что проект находится на стадии подготовки документации и будущего детализированного спринта, а не фактического включения интеграции.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-09",
+      "title": "PROC-038 и impact graph",
+      "status": "confirmed",
+      "safe_summary": "PROC-038 остаётся инструментом проверки влияния изменений документации, но не становится обязательным процессным правилом сейчас.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-10",
+      "title": "Количество candidate stories",
+      "status": "confirmed",
+      "safe_summary": "Зафиксировано 6 новых candidate stories из-за согласованных смысловых разделений.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-11",
+      "title": "Приоритет candidate stories",
+      "status": "confirmed",
+      "safe_summary": "Новые строки получают приоритет P1 candidate.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-12",
+      "title": "Статус candidate stories",
+      "status": "confirmed",
+      "safe_summary": "Новые строки получают статус требует оценки.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-13",
+      "title": "Период candidate stories",
+      "status": "confirmed",
+      "safe_summary": "Новые строки помечаются как кандидат на 2026-Q3.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-14",
+      "title": "Идентификаторы candidate stories",
+      "status": "confirmed",
+      "safe_summary": "Используются идентификаторы DC-ST-23..DC-ST-28.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-15",
+      "title": "Канонический каталог stories",
+      "status": "confirmed",
+      "safe_summary": "Candidate stories добавляются сразу в docs/stories.md, не ожидая оценки.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-16",
+      "title": "Короткое видение",
+      "status": "confirmed",
+      "safe_summary": "Vision обновляется: DataCanvas готовит рабочие презентации из проверенного контекста, первым направлением становится запуск другим агентом, вторым - запрос через Лису; DataCanvas проверяет контекст от агента на достаточность и безопасность.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-17",
+      "title": "Техническая оговорка в Vision",
+      "status": "confirmed",
+      "safe_summary": "В Vision не добавляется техническая оговорка про live A2A/MCP/network/provider.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-18",
+      "title": "Область репозитория",
+      "status": "confirmed",
+      "safe_summary": "Правило о том, что репозиторий ведёт проектную документацию и документальное сопровождение, фиксируется только в процессных правилах, не в Vision.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-19",
+      "title": "Раздел «Решение»",
+      "status": "confirmed",
+      "safe_summary": "Раздел «Решение» переписывается с двумя маршрутами: запуск другим агентом без подтверждения после проверки данных и диалоговый режим в Лисе с возможностью сразу заказать презентацию, посмотреть структуру, внести правки и получить уточняющие вопросы при нехватке данных.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-20",
+      "title": "Раздел «Основная ценность»",
+      "status": "confirmed",
+      "safe_summary": "Раздел «Основная ценность» обновляется: добавляется быстрое изготовление презентации по контексту от другого агента и получение результата в редактируемом формате.",
+      "answered_at": "2026-07-03T09:00:00Z"
+    }
+  ],
+  "agreed_decisions": [
+    {
+      "decision_id": "DEC-001",
+      "question_id": "PRODUCT-01",
+      "decision_status": "confirmed",
+      "safe_summary": "CO-2026-001 принят Product Owner как смена продуктового приоритета.",
+      "affected_artifacts": ["docs/product/change-orders/co-2026-001-a2a-first-priority.json"]
+    },
+    {
+      "decision_id": "DEC-002",
+      "question_id": "PRODUCT-02",
+      "decision_status": "deferred",
+      "safe_summary": "Ёмкость Q3 и ресурсы остаются открытыми до оценки.",
+      "affected_artifacts": ["docs/process/current/process-backlog.md"]
+    },
+    {
+      "decision_id": "DEC-003",
+      "question_id": "PRODUCT-07",
+      "decision_status": "confirmed",
+      "safe_summary": "Статусы и сведения о результате идут через обратный вызов, готовый файл доставляется по электронной почте.",
+      "affected_artifacts": ["docs/stories.md", "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md"]
+    },
+    {
+      "decision_id": "DEC-004",
+      "question_id": "PRODUCT-15",
+      "decision_status": "confirmed",
+      "safe_summary": "DC-ST-23..28 добавляются в канонический каталог stories как candidate stories.",
+      "affected_artifacts": ["docs/stories.md", "docs/product/backlog/product-backlog.md"]
+    },
+    {
+      "decision_id": "DEC-005",
+      "question_id": "PRODUCT-16",
+      "decision_status": "confirmed",
+      "safe_summary": "Короткое Vision обновлено с проверкой достаточности и безопасности контекста от агента.",
+      "affected_artifacts": ["docs/product-vision.md"]
+    },
+    {
+      "decision_id": "DEC-006",
+      "question_id": "PRODUCT-18",
+      "decision_status": "confirmed",
+      "safe_summary": "Документационный характер проекта фиксируется в процессных правилах, не в Vision.",
+      "affected_artifacts": ["AGENTS.md", "docs/process/methodology/project-documentation-methodology.md"]
+    },
+    {
+      "decision_id": "DEC-007",
+      "question_id": "PRODUCT-19",
+      "decision_status": "confirmed",
+      "safe_summary": "Раздел «Решение» обновлён с разделением агентского и диалогового маршрута.",
+      "affected_artifacts": ["docs/product-vision.md"]
+    },
+    {
+      "decision_id": "DEC-008",
+      "question_id": "PRODUCT-20",
+      "decision_status": "confirmed",
+      "safe_summary": "Основная ценность обновлена: быстрый агентский запуск и редактируемый итоговый файл.",
+      "affected_artifacts": ["docs/product-vision.md"]
+    }
+  ],
+  "remaining_checklist": [
+    {
+      "item_id": "PRODUCT-21",
+      "title": "Основной пользовательский сценарий",
+      "status": "paused"
+    },
+    {
+      "item_id": "PRODUCT-22",
+      "title": "Роли систем",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-23",
+      "title": "Входные данные",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-24",
+      "title": "Жизненный цикл презентации",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-25",
+      "title": "MVP и ближайшее ядро",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-26",
+      "title": "Нецели и границы",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-27",
+      "title": "Риски и доверительные границы",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-28",
+      "title": "Метрики успеха",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-29",
+      "title": "Открытые продуктовые решения",
+      "status": "pending"
+    },
+    {
+      "item_id": "PRODUCT-30",
+      "title": "Stories, requirements, BMC и traceability после финализации Vision",
+      "status": "pending"
+    }
+  ],
+  "periodic_stop": {
+    "last_stop_after_answer_count": 20,
+    "reason": "Контрольная остановка после 20-го продуктового ответа для обработки документов и сохранения состояния.",
+    "next_stop_after_answer_count": 25
+  },
+  "resume_instructions": [
+    "Перед продолжением прочитать state и log артефакты.",
+    "Показать краткое резюме согласованных решений и оставшийся checklist.",
+    "Продолжить с PRODUCT-21.",
+    "Если вопрос касается существующего раздела, сначала вывести текущий текст раздела.",
+    "После каждого ответа обновлять state и log и запускать npm run validate:co-questionnaire."
+  ]
+}

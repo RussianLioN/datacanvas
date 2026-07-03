@@ -35,6 +35,7 @@
 |---|---|
 | Manual | [Нормализованный источник BABOK-исследования](babok-research-source.md) |
 | Manual | [Методика ведения проектной документации](project-documentation-methodology.md) |
+| Manual | [Протокол PO-опросника Product Change Order](../../product/change-orders/product-change-questionnaire-protocol.md) |
 | Machine-readable | `documentation-methodology-policy.json` |
 | Machine-readable | `babok-research-source-index.json` |
 | Machine-readable | `traceability-model.json` |
@@ -133,6 +134,8 @@ SRS должен ссылаться на:
 ## Режим Остановленного Интервью
 
 BA/SA интервью остается `paused`. Новое требование заказчика сначала проходит methodology/change intake и impact analysis. Возобновление интервью возможно только после регистрации методического follow-up и impact analysis; агент задает один вопрос за шаг и не меняет accepted backlog без решения Product Owner.
+
+PO-опросник по Product Change Order ведётся через сохраняемые state/log артефакты. Для `CO-2026-001` активное состояние находится в `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json`, журнал - в `docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md`. При продолжении агент обязан вернуться к вопросу, указанному в state.
 
 ## Проверки
 

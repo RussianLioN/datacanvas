@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/product-change-questionnaire-state.schema.json",
+  "title": "ProductChangeQuestionnaireState",
+  "type": "object",
+  "required": [
+    "version",
+    "questionnaire_id",
+    "change_order_id",
+    "status",
+    "mode",
+    "owner_role",
+    "started_at",
+    "updated_at",
+    "paused_at",
+    "completed_at",
+    "current_question",
+    "save_policy",
+    "validation_policy",
+    "artifact_paths",
+    "answered_questions",
+    "agreed_decisions",
+    "remaining_checklist",
+    "periodic_stop",
+    "resume_instructions"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "questionnaire_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}-PO-ACCEPTANCE$" },
+    "change_order_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["not_started", "in_progress", "paused", "completed", "abandoned"] },
+    "mode": { "type": "string", "enum": ["product_owner_acceptance"] },
+    "owner_role": { "type": "string", "minLength": 1 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "paused_at": { "type": ["string", "null"], "format": "date-time" },
+    "completed_at": { "type": ["string", "null"], "format": "date-time" },
+    "current_question": {
+      "type": "object",
+      "required": ["question_id", "title", "state", "next_action"],
+      "additionalProperties": false,
+      "properties": {
+        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "title": { "type": "string", "minLength": 1 },
+        "state": { "type": "string", "enum": ["next", "blocked", "not_applicable"] },
+        "next_action": { "type": "string", "minLength": 1 }
+      }
+    },
+    "save_policy": {
+      "type": "object",
+      "required": ["save_after_each_answer", "pause_every_answers", "resume_from_state_required", "show_existing_section_before_question"],
+      "additionalProperties": false,
+      "properties": {
+        "save_after_each_answer": { "type": "boolean", "const": true },
+        "pause_every_answers": { "type": "integer", "minimum": 1 },
+        "resume_from_state_required": { "type": "boolean", "const": true },
+        "show_existing_section_before_question": { "type": "boolean", "const": true }
+      }
+    },
+    "validation_policy": {
+      "type": "object",
+      "required": ["light_validation_command", "final_validation_rule", "final_validation_commands"],
+      "additionalProperties": false,
+      "properties": {
+        "light_validation_command": { "type": "string", "minLength": 1 },
+        "final_validation_rule": { "type": "string", "minLength": 1 },
+        "final_validation_commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "artifact_paths": {
+      "type": "object",
+      "required": [
+        "state_path",
+        "log_path",
+        "questionnaire_protocol_path",
+        "change_order_path",
+        "vision_path",
+        "stories_path",
+        "candidate_stories_path",
+        "candidate_stories_csv_path"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "state_path": { "$ref": "#/$defs/repoPath" },
+        "log_path": { "$ref": "#/$defs/repoPath" },
+        "questionnaire_protocol_path": { "$ref": "#/$defs/repoPath" },
+        "change_order_path": { "$ref": "#/$defs/repoPath" },
+        "vision_path": { "$ref": "#/$defs/repoPath" },
+        "stories_path": { "$ref": "#/$defs/repoPath" },
+        "candidate_stories_path": { "$ref": "#/$defs/repoPath" },
+        "candidate_stories_csv_path": { "$ref": "#/$defs/repoPath" }
+      }
+    },
+    "answered_questions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/questionRecord" }
+    },
+    "agreed_decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/decisionRecord" }
+    },
+    "remaining_checklist": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/checklistItem" }
+    },
+    "periodic_stop": {
+      "type": "object",
+      "required": ["last_stop_after_answer_count", "reason", "next_stop_after_answer_count"],
+      "additionalProperties": false,
+      "properties": {
+        "last_stop_after_answer_count": { "type": "integer", "minimum": 0 },
+        "reason": { "type": "string", "minLength": 1 },
+        "next_stop_after_answer_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "resume_instructions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "questionRecord": {
+      "type": "object",
+      "required": ["question_id", "title", "status", "safe_summary", "answered_at"],
+      "additionalProperties": false,
+      "properties": {
+        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "title": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["confirmed", "deferred", "not_applicable"] },
+        "safe_summary": { "type": "string", "minLength": 1 },
+        "answered_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "decisionRecord": {
+      "type": "object",
+      "required": ["decision_id", "question_id", "decision_status", "safe_summary", "affected_artifacts"],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": { "type": "string", "pattern": "^DEC-[0-9]{3}$" },
+        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "decision_status": { "type": "string", "enum": ["confirmed", "deferred", "open"] },
+        "safe_summary": { "type": "string", "minLength": 1 },
+        "affected_artifacts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/repoPath" }
+        }
+      }
+    },
+    "checklistItem": {
+      "type": "object",
+      "required": ["item_id", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "item_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "title": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["pending", "paused", "completed", "deferred"] }
+      }
+    }
+  }
+}

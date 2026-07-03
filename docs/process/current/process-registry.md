@@ -23,6 +23,7 @@
 | Cross-group source of truth | Бизнесовые утверждения идут из Vision, BMC, stories и требований; технические контракты идут из ADR, schemas и scripts | `AGENTS.md` |
 | Process change drafts | Draft `PROC-*` не меняют активный процесс до решения Process Owner | `process-change-ledger.json` |
 | Documentation methodology | Проектная документация ведется по lifecycle и traceability policy из методики BABOK-исследования; backlog не подменяет анализ | `docs/process/methodology/project-documentation-methodology.md` |
+| PO-опросник | Product Change Order опросник сохраняет JSON-состояние и Markdown-журнал после каждого ответа и возобновляется с вопроса, записанного в state | `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md` |
 
 ## Активные Исключения
 
@@ -34,6 +35,7 @@
 |---|---|---|---|
 | PROC-038 | Каскадное ведение документации, `DocumentationChangeRequest`, impact analysis, decision queue, capacity/Jira guards и validation evidence | draft / not_decided | `docs/process/change-requests/PROC-038-cascading-documentation-governance.md` |
 | PROC-039 | Методика разработки проектной документации на основе BABOK-исследования, lifecycle policy, artifact policy, traceability policy и quality gates | active | `docs/process/methodology/project-documentation-methodology.md` |
+| PROC-046 | Сохраняемое состояние PO-опросника Product Change Order, журнал и лёгкая проверка возобновления | active | `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md` |
 
 ## Активные Эксперименты
 

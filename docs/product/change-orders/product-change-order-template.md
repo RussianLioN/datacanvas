@@ -25,7 +25,10 @@
 - Rollback.
 - Validation plan.
 - Impact assessment path.
+- Questionnaire state/log paths, если решение принимается через PO-опросник.
 
 ## Правило Решения
 
 `accepted` Change Order должен иметь Product Owner decision, rollback, Sprint Goal test и validation evidence. `draft` Change Order не меняет canonical requirements.
+
+Если Change Order принимается через PO-опросник, после каждого ответа Product Owner должны обновляться JSON-состояние и Markdown-журнал опросника.

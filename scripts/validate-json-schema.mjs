@@ -229,6 +229,10 @@ const cases = [
     data: "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
   },
   {
+    schema: "schemas/product-change-questionnaire-state.schema.json",
+    data: "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+  },
+  {
     schema: "schemas/change-impact-assessment.schema.json",
     data: "docs/product/change-orders/change-impact-assessment.json",
   },

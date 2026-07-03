@@ -11,6 +11,7 @@
 | PROC-006 | Подключить bootstrap validator | Сделать базовый delivery gate исполняемым | automation | 1 | done | `scripts/validate-bootstrap-artifacts.sh` | `npm run validate:bootstrap` |
 | PROC-039 | Интегрировать методику разработки проектной документации | Встроить методику по итогам исследования до возобновления интервью по требованиям и переоприоритезации | governance | 1 | done | `docs/process/methodology/project-documentation-methodology.md` | `npm run validate:documentation-methodology` |
 | PROC-040 | Довести BABOK methodology MVA до минимально полного контура | Добавить policy, source index, traceability model, coverage map, templates, fixtures, navigation и diagnostics без изменения бизнес-содержания требований | governance | 1 | done | `docs/process/methodology/README.md` | `npm run validate:documentation-methodology` |
+| PROC-046 | Внедрить контракт сохранения PO-опросника | Сохранять состояние, журнал и точку продолжения после каждого ответа Product Owner | governance | 1 | done | `docs/product/change-orders/product-change-questionnaire-protocol.md` | `npm run validate:co-questionnaire` |
 
 ## Ready
 
@@ -21,6 +22,7 @@
 | PROC-041 | Развернуть SA artifact pack в проектных SRS artifacts | Применить `system-context`, `use-case/spec`, `domain-data-model`, `interface-contract`, `nfr-profile`, `error-catalog` и `acceptance-verification-map` к новым или изменяемым SRS | governance | 2 | ready | `docs/process/methodology/templates/srs-template.md` | `npm run validate:documentation-methodology` |
 | PROC-042 | Подготовить traceability validator and coverage report | Расширить проектные traceability checks до coverage report по требованиям, backlog, acceptance, evidence и orphan links | automation | 2 | ready | `docs/process/methodology/traceability-model.json` | `npm run validate:documentation-methodology` |
 | PROC-043 | Внедрить architecture handoff rules | Связать system requirements с ADR impact, contract artifacts, NFR verification и error behavior acceptance | governance | 2 | ready | `docs/process/methodology/documentation-methodology-policy.json` | `npm run validate:documentation-methodology` |
+| PROC-047 | Продолжить PO-опросник `CO-2026-001` с Продукта 21 | Завершить сверку Vision и downstream product artifacts после сохранённой остановки | governance | 1 | ready | `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json` | `npm run validate:co-questionnaire` |
 
 ## Draft
 

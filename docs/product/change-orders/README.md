@@ -14,10 +14,15 @@
 
 Product Change Order должен содержать source, reason, `priority_before`, `priority_after`, affected users, affected artifacts, affected requirements, affected ports/adapters, ADR impact, Sprint impact, rollback и validation plan.
 
+Если Change Order принимается через PO-опросник, состояние опросника должно сохраняться в JSON и Markdown-журнале после каждого ответа Product Owner.
+
 ## Артефакты
 
 - [Шаблон Product Change Order](product-change-order-template.md)
+- [Протокол PO-опросника Product Change Order](product-change-questionnaire-protocol.md)
 - `product-change-order-ledger.json`
-- [CO-2026-001 A2A-first priority](co-2026-001-a2a-first-priority.md)
+- [CO-2026-001: приоритет запуска DataCanvas другим агентом](co-2026-001-a2a-first-priority.md)
 - `co-2026-001-a2a-first-priority.json`
 - `change-impact-assessment.json`
+- [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
+- `co-2026-001-acceptance-questionnaire-state.json`
