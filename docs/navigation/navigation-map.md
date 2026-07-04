@@ -58,6 +58,7 @@ Sprint, release, UAT, pilot, production/process evidence и PR handoff.
 - [Нормализованный Источник BABOK-Исследования](../process/methodology/babok-research-source.md) - Process Owner, `active`.
 - [Методика Ведения Проектной Документации DataCanvas](../process/methodology/project-documentation-methodology.md) - Process Owner, `active`.
 - [Методика Проектной Документации](../process/methodology/README.md) - Process Owner, `active`.
+- [Prompt-Only Согласование Артефактов Проектной Документации](../process/prompt-only-artifact-review/README.md) - Process Owner, `active`.
 - [Процесс DataCanvas](../process/README.md) - Process Owner, `active`.
 - [Карта Слоев DataCanvas](../project-map.md) - Documentation Owner, `active`.
 - [Документация DataCanvas](../README.md) - Documentation Owner, `active`.

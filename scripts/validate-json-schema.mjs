@@ -353,6 +353,14 @@ const cases = [
     data: "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
   },
   {
+    schema: "schemas/prompt-only-artifact-link-catalog.schema.json",
+    data: "docs/process/prompt-only-artifact-review/artifact-link-catalog.json",
+  },
+  {
+    schema: "schemas/prompt-only-artifact-review-session-state.schema.json",
+    data: "docs/process/prompt-only-artifact-review/artifact-review-session-state.json",
+  },
+  {
     schema: "schemas/feature-spec.schema.json",
     data: "docs/product/specs/feature-spec-a2a-launch.json",
   },

@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "5a8d6595b47bb8dac68bbb0c9b6101c1067218287f6a41299ddc40cb8e48a402"
+      "sha256": "ddf491dadb8beac7b5587ca2edcecd4cc912f8e5ca505eb48025bec7b154c73d"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "79afdd1ed9ddcca4bd259df6de03144e017df63dfaf81fb6ab152f19fc3067a1"
+      "sha256": "73eb89b0cc2e95a8c4ddb61fd171fcad555a24389a41eeb18ba39208d82ddf68"
     },
     {
       "artifact_id": "ART-201",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "f04f0dd496b042d3bda566476067d3511d1f466b8d8233bd3f8fd21142ef2228"
+      "sha256": "eacbff62bac2b5dd394f336c8f6ee93e07e7baee9e9f797185cf94e90bc38b6c"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "94b0ef4c646b6396ab007fb978e62d84a35a27718bc9721a9668aa01f94aa007"
+      "sha256": "7f004fa3a8a06551befcf1dcf173c00518af2bbf5bfd55b4d69d108a93f666f7"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "903886928d8eb795376b796fa4a20d3413ad475b110c0f01a165eeeebc684427"
+      "sha256": "a0a9cc8be5d4d6383464f3e6e8a4f6d3fb0d3ca742add002a8bbb69a6fc6f301"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "1fe82bd4c9b04e7a4f9c2d4a0d376cbc75cb2cc80e52761c9cad775304d86da6"
+      "sha256": "7bc0226ed7fefb2f8c4e4592d27ab94c11e11f77754de81be98d27f4581aae8d"
     },
     {
       "artifact_id": "ART-412",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "23f37773bf2f3bab568df4b89e97835a8c355e7be3786639169941bfa6e64da2"
+      "sha256": "c013bcf2c67983efd790bffd704b3bddda2dca9be75a7f3237fc4288e201bf30"
     },
     {
       "artifact_id": "ART-569",
@@ -3163,6 +3163,46 @@
       "artifact_id": "ART-633",
       "path": "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
       "sha256": "2ec3dbf2c83119dbd8021a7c293702689d0d177ee09b30d157d50e055553782e"
+    },
+    {
+      "artifact_id": "ART-634",
+      "path": "docs/process/prompt-only-artifact-review/README.md",
+      "sha256": "967a51948264a83b2e4b9a41247f313a63fb6437f9d8a700908698b3876b7c15"
+    },
+    {
+      "artifact_id": "ART-635",
+      "path": "docs/process/prompt-only-artifact-review/prompt-only-runbook.md",
+      "sha256": "7d384e700bee0986d3e637623983c3c13be8453970ef3651717fdaeb8d3e43d2"
+    },
+    {
+      "artifact_id": "ART-636",
+      "path": "docs/process/prompt-only-artifact-review/artifact-link-catalog.json",
+      "sha256": "11cbf8ef4f6b404e1d802fbf1f6876a3c46ab587274eec0102c14d8b3f5d69a4"
+    },
+    {
+      "artifact_id": "ART-637",
+      "path": "docs/process/prompt-only-artifact-review/artifact-review-session-state.json",
+      "sha256": "7dcd0dc1f54a59b0a9d21639eb4549d75b42129caa4e858aacc9de687266d54a"
+    },
+    {
+      "artifact_id": "ART-638",
+      "path": "docs/process/prompt-only-artifact-review/artifact-edit-decision-ledger.md",
+      "sha256": "96083c0f082d9dbe3424327a1dea84f7c903387ab75306afaa3675600627df25"
+    },
+    {
+      "artifact_id": "ART-639",
+      "path": "schemas/prompt-only-artifact-link-catalog.schema.json",
+      "sha256": "90e3fab4457984902f78bcdf7b7722ac02dff5a49dd586f7055e28e4d74b6cb4"
+    },
+    {
+      "artifact_id": "ART-640",
+      "path": "schemas/prompt-only-artifact-review-session-state.schema.json",
+      "sha256": "9539838349ec79dd69e30430772607bda37de60e6df2af70a235e54d73f9910f"
+    },
+    {
+      "artifact_id": "ART-641",
+      "path": "scripts/validate-prompt-only-artifact-review.mjs",
+      "sha256": "3755946c0f17fc65c1e146b9fd7001cee6e51b765e1ef173284ee888f77f198d"
     }
   ],
   "exclusions": [

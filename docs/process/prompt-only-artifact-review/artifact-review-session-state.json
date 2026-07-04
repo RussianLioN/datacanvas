@@ -1,0 +1,49 @@
+{
+  "$schema": "../../../schemas/prompt-only-artifact-review-session-state.schema.json",
+  "version": "0.1.0",
+  "status": "ready",
+  "workflow_id": "prompt-only-documentation-artifact-review",
+  "session_id": "prompt-only-review-2026-07-05-001",
+  "created_on": "2026-07-05",
+  "scope": {
+    "plan_path": "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
+    "catalog_path": "docs/process/prompt-only-artifact-review/artifact-link-catalog.json",
+    "runbook_path": "docs/process/prompt-only-artifact-review/prompt-only-runbook.md",
+    "ledger_path": "docs/process/prompt-only-artifact-review/artifact-edit-decision-ledger.md",
+    "boundary": "project_documentation_only"
+  },
+  "current_step": "awaiting_prompt",
+  "current_artifact_path": null,
+  "pending_decision": null,
+  "displayed_link_sets": [
+    {
+      "group_id": "business-model-canvas",
+      "path_set_key": "bmc-source-derived-evidence",
+      "shown_in_chat": false,
+      "artifact_paths": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json"
+      ]
+    }
+  ],
+  "decisions": [],
+  "generated_artifacts_pending_regeneration": [],
+  "last_validation_results": [
+    {
+      "command": "npm run validate:prompt-only-artifact-review",
+      "status": "not_run",
+      "finished_at": null,
+      "notes": "Initial state before first prompt-only session."
+    }
+  ],
+  "continuation": {
+    "state_path": "docs/process/prompt-only-artifact-review/artifact-review-session-state.json",
+    "ledger_path": "docs/process/prompt-only-artifact-review/artifact-edit-decision-ledger.md",
+    "resume_rule": "Read state, ledger and catalog before asking the next review question."
+  }
+}
