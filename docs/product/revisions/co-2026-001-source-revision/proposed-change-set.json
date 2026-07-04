@@ -2,13 +2,13 @@
   "$schema": "../../../../schemas/proposed-change-set.schema.json",
   "version": "0.1.0",
   "change_set_id": "PCS-2026-07-03-001",
-  "status": "awaiting_product_owner",
+  "status": "applied",
   "change_order_id": "CO-2026-001",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T14:46:58Z",
+  "updated_at": "2026-07-04T15:06:52Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -121,6 +121,20 @@
       "original_user_answer_hash": "43a4e3906d9a836cf6ba6623ad179124aef987ad55be9d741ea1294c3e611dd1",
       "related_edit_ids": ["EDIT-007"],
       "safe_summary": "Product Owner принял EDIT-007 — правку feature spec по решению о доставке: основной текст фиксирует принятое решение о доставке без перегруженной технической оговорки, а граница по реальным сетевым, почтовым интеграциям и интеграциям инструментов сохраняется в технических ограничениях пакета спецификаций."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-008",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-008",
+      "accepted_at": "2026-07-04T15:06:52Z",
+      "selected_option_id": "variant_3_recommended",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "ae347f0c7028acbf9bfef705b87806451125b155a3afa658ce222681de2d2140",
+      "related_edit_ids": ["EDIT-008"],
+      "safe_summary": "Product Owner принял вариант 3 для EDIT-008 — правки матрицы трассировки по двум режимам: для BT-009, BT-012 и BT-014 добавляются отдельные связи по режиму Лисы и запуску другим агентом."
     }
   ],
   "proposed_edits": [
@@ -264,16 +278,16 @@
       "artifact_path": "docs/product/requirements/traceability-matrix.json",
       "section_or_anchor": "BT-009/BT-012/BT-014 traceability",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "Approval state и actor identity связаны с решением об export; до согласования export отсутствует.",
-      "proposed_text": "Добавить трассировку для двух режимов: в Лисе фиксируется выбор пользователя после описания структуры, а запуск другим агентом после проверки идет к подготовке презентации и доставке по электронной почте без пользовательского подтверждения.",
+      "current_excerpt": "В Лисе сохраняется выбор пользователя после описания структуры презентации",
+      "proposed_text": "Для BT-009 — бизнес-требования о выборе перед изготовлением, BT-012 — бизнес-требования о доставке результата, и BT-014 — бизнес-требования о трассировке жизненного цикла — добавить отдельные связи по двум режимам: в Лисе сохраняется выбор пользователя после описания структуры презентации, а запуск другим агентом после проверки достаточности и безопасности данных ведет к изготовлению презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя.",
       "rationale": "Трассировка сейчас наследует общее правило подтверждения.",
       "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
       "downstream_paths": [],
       "required_owner": "Product Owner",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-008",
       "rollback_or_forward_fix": "Если не применять, traceability остается needs_revision."
     },
     {

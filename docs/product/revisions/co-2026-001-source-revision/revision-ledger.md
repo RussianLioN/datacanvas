@@ -21,11 +21,11 @@ Ledger фиксирует, какие ранее выпущенные докум
 | `docs/product/analysis/ba/ba-spec.json` | draft, needs_revision | Закрыть устаревшее утверждение о канале доставки | applied |
 | `docs/architecture/system-analysis/sa-spec.json` | draft, needs_revision | Добавить альтернативный путь без пользовательского подтверждения | applied |
 | `docs/product/specs/feature-spec-a2a-launch.json` | draft, needs_revision | Обновить решение о доставке без расширения рабочих интеграций | applied |
-| `docs/product/requirements/traceability-matrix.json` | draft, needs_revision | Разделить трассировку по двум режимам | pending |
+| `docs/product/requirements/traceability-matrix.json` | draft, needs_revision | Разделить трассировку по двум режимам | applied |
 | `docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/` | historical blocked evidence | Не переписывать; оставить историческим доказательством | not_required |
 
-## Текущий Блокер
+## Текущий Статус
 
-Смысловая правка `EDIT-008` — трассировка по двум режимам ожидает принятия Product Owner.
+Все смысловые правки ревизии `CO-2026-001` — изменения приоритета продукта и маршрута DataCanvas — применены или признаны не требующими изменения.
 
-До принятия она не должна попадать в рабочие документы как примененное изменение.
+Следующий шаг — финальная валидация процесса и сохранение evidence.

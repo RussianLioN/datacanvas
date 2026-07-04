@@ -132,9 +132,9 @@
         "docs/product/requirements/acceptance-criteria.md"
       ],
       "story_ids": ["DC-ST-01"],
-      "acceptance_scenarios": ["happy_path"],
+      "acceptance_scenarios": ["lisa_structure_choice"],
       "evidence_expectations": [
-        "Approval state и actor identity связаны с решением об export; до согласования export отсутствует."
+        "В Лисе сохраняется выбор пользователя после описания структуры презентации: изготовить презентацию или перейти к редактированию структуры. Для запуска другим агентом это требование не создает пользовательского подтверждения."
       ],
       "tests": ["npm run validate:doc-links"],
       "status": "draft"
@@ -180,9 +180,9 @@
         "docs/product/requirements/acceptance-criteria.md"
       ],
       "story_ids": ["DC-ST-09"],
-      "acceptance_scenarios": ["happy_path", "email_delivery"],
+      "acceptance_scenarios": ["agent_launch_without_user_confirmation", "lisa_structure_choice", "email_delivery"],
       "evidence_expectations": [
-        "Export artifact, delivery status и sanitized email metadata связаны; PPTX/PDF и рабочая почта остаются помеченными как продуктовые решения."
+        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas переходит к изготовлению презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовый файл, статус доставки и очищенные метаданные письма связаны с исходным запросом."
       ],
       "tests": [
         "npm run validate:export",
@@ -224,9 +224,14 @@
         "docs/product/requirements/acceptance-criteria.md"
       ],
       "story_ids": ["DC-ST-09"],
-      "acceptance_scenarios": ["happy_path", "email_delivery", "conflicting_sources"],
+      "acceptance_scenarios": [
+        "agent_launch_without_user_confirmation",
+        "lisa_structure_choice",
+        "email_delivery",
+        "conflicting_sources"
+      ],
       "evidence_expectations": [
-        "Lifecycle trace сохраняет стабильные IDs, hashes/statuses и связи между request, input, description, approval, export и delivery status."
+        "Трассировка жизненного цикла сохраняет стабильные идентификаторы, хэши, статусы и связи между запросом, режимом запуска, входным контекстом, результатом проверки, описанием структуры при наличии, выбором пользователя при наличии, готовой презентацией и статусом доставки."
       ],
       "tests": [
         "tests/golden/trace-manifest-minimal.json",

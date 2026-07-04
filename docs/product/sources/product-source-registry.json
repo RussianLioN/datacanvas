@@ -237,7 +237,7 @@
       "source_role": "traceability",
       "owner_role": "Product Owner",
       "lifecycle": "draft",
-      "trust_level": "needs_revision",
+      "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["traceability", "impact_analysis", "release_evidence"],
@@ -245,7 +245,7 @@
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Требует связать CO-2026-001, DC-ST-23..DC-ST-28, affected BT, specs и acceptance."
+      "notes": "Обновлен по EDIT-008 — правке матрицы трассировки по двум режимам: BT-009, BT-012 и BT-014 разделяют режим Лисы и запуск другим агентом; подтверждение пользователя не применяется к маршруту запуска другим агентом."
     },
     {
       "source_id": "SRC-DC-ANALYSIS-BA",

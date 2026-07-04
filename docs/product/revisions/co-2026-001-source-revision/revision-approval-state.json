@@ -2,7 +2,7 @@
   "$schema": "../../../../schemas/revision-approval-state.schema.json",
   "version": "0.1.0",
   "revision_id": "REV-CO-2026-001-SOURCE-2026-07-03",
-  "status": "paused",
+  "status": "completed",
   "mode": "source_document_revision_approval",
   "owner_role": "Product Owner",
   "change_order_id": "CO-2026-001",
@@ -11,14 +11,14 @@
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
   "started_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T14:46:58Z",
-  "paused_at": "2026-07-04T14:46:58Z",
-  "completed_at": null,
+  "updated_at": "2026-07-04T15:06:52Z",
+  "paused_at": null,
+  "completed_at": "2026-07-04T15:06:52Z",
   "current_edit": {
     "edit_id": "EDIT-008",
     "title": "Обновить трассировку по двум режимам",
-    "state": "next",
-    "next_action": "Вывести текущий фрагмент docs/product/requirements/traceability-matrix.json для EDIT-008 — правки трассировки по двум режимам, простым языком объяснить проблему и запросить у Product Owner согласование варианта правки."
+    "state": "not_applicable",
+    "next_action": "Смысловые правки ревизии закрыты; выполнить финальную валидацию процесса и зафиксировать результат."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -50,7 +50,7 @@
     { "edit_id": "EDIT-005", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-006", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-007", "status": "applied", "blocking": false },
-    { "edit_id": "EDIT-008", "status": "pending", "blocking": true },
+    { "edit_id": "EDIT-008", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-009", "status": "not_required", "blocking": false }
   ],
   "resume_instructions": [
