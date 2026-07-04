@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "ea970b97c7f4c128fbdb08868d46e2e1723400a323900d8c643c549784020aad"
+      "sha256": "5a8d6595b47bb8dac68bbb0c9b6101c1067218287f6a41299ddc40cb8e48a402"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "29d7cea2d9f2a5d60a32426634a7fa766aefdc2a7e7ec0327fd08f47e943151b"
+      "sha256": "79afdd1ed9ddcca4bd259df6de03144e017df63dfaf81fb6ab152f19fc3067a1"
     },
     {
       "artifact_id": "ART-201",
@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "01b572294524afbd8daca7ae0aa41f5e95bb2112baf6d3341ac0b8c522fc5095"
+      "sha256": "63bc146542e746c2d3ec2b34007ece4e60c09bae15518637fbf489bef37bd5f6"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "6f242c22038106355e45ce7d95c4d17e912965d76b83f5e85bdd446445f660af"
+      "sha256": "94b0ef4c646b6396ab007fb978e62d84a35a27718bc9721a9668aa01f94aa007"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "2db8855329d2fbeafec912b043fb5b814675cfddf9fa1c0fd9c0696c659b6501"
+      "sha256": "903886928d8eb795376b796fa4a20d3413ad475b110c0f01a165eeeebc684427"
     },
     {
       "artifact_id": "ART-411",
@@ -3158,6 +3158,11 @@
       "artifact_id": "ART-632",
       "path": "scripts/validate-agent-launch-requirements-analysis.mjs",
       "sha256": "c089a8b32f03a61036da4141ee73c722a2c44b8ff9407afc81b1b5465453d6c0"
+    },
+    {
+      "artifact_id": "ART-633",
+      "path": "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
+      "sha256": "2ec3dbf2c83119dbd8021a7c293702689d0d177ee09b30d157d50e055553782e"
     }
   ],
   "exclusions": [

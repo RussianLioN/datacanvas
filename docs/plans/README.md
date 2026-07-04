@@ -21,6 +21,7 @@
 - [План проверки и применения смены приоритетов на 3-й квартал](datacanvas-2026-q3-priority-impact-implementation-plan.md)
 - [План ревизии исходных документов и принятия правок](datacanvas-source-documents-revision-and-approval-implementation-plan.md)
 - [План документационного бизнес-анализа историй запуска DataCanvas другим агентом](datacanvas-agent-launch-requirements-analysis-implementation-plan.md)
+- [План prompt-only согласования и редактирования артефактов проектной документации](datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md)
 
 ## Правило
 

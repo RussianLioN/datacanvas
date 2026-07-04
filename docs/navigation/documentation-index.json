@@ -4211,6 +4211,41 @@
       "click_depth": 2
     },
     {
+      "path": "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
+      "title": "План Prompt-Only Согласования И Редактирования Артефактов Проектной Документации",
+      "section": "plans",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-633",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-prompt-only-согласования-и-редактирования-артефактов-проектной-документации",
+        "назначение",
+        "ключевые-изменения",
+        "граница-разделения",
+        "план-проверки",
+        "допущения"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/plans/datacanvas-smart-docs-merge-plan.md",
       "title": "План умного смыслового слияния AGENTS.md и README.md",
       "section": "plans",
@@ -4324,6 +4359,7 @@
         "docs/plans/datacanvas-cascading-governance-correction-plan.md",
         "docs/plans/datacanvas-documentation-navigation-indexing-plan.md",
         "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
+        "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
         "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
         "docs/README.md",
@@ -33052,14 +33088,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1166,
-    "manual_entries": 1162,
+    "total_entries": 1167,
+    "manual_entries": 1163,
     "generated_entries": 4,
     "public_navigable_entries": 31,
-    "searchable_entries": 1134,
+    "searchable_entries": 1135,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 124,
+    "reachable_from_root": 125,
     "orphan_entries": 0
   },
   "ignored_paths": [
