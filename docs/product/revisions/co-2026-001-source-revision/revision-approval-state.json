@@ -11,14 +11,14 @@
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
   "started_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T15:06:52Z",
+  "updated_at": "2026-07-04T15:34:45Z",
   "paused_at": null,
-  "completed_at": "2026-07-04T15:06:52Z",
+  "completed_at": "2026-07-04T15:34:45Z",
   "current_edit": {
-    "edit_id": "EDIT-008",
-    "title": "Обновить трассировку по двум режимам",
+    "edit_id": "EDIT-011",
+    "title": "Синхронизировать SRS с принятым статусом CO-2026-001",
     "state": "not_applicable",
-    "next_action": "Смысловые правки ревизии закрыты; выполнить финальную валидацию процесса и зафиксировать результат."
+    "next_action": "Все смысловые и синхронизационные правки ревизии закрыты; выполнить финальную валидацию процесса и зафиксировать результат."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -34,12 +34,25 @@
       "npm run validate:change-set-approval",
       "npm run validate:product-sources",
       "npm run validate:accepted-change-order-impact",
+      "npm run validate:co-questionnaire",
+      "npm run validate:product-change-orders",
+      "npm run validate:change-impact",
+      "npm run validate:cascading-governance",
       "npm run validate:schemas",
-      "npm run validate:data-leakage",
+      "npm run validate:bmc",
+      "npm run validate:ba-sa",
+      "npm run generate:docs-navigation",
       "npm run generate:docs-navigation -- --check",
       "npm run validate:doc-links",
       "npm run validate:docs-navigation",
-      "npm run validate:doc-stale-status"
+      "npm run validate:doc-stale-status",
+      "npm run validate:artifact-registry",
+      "node scripts/generate-artifact-hash-manifest.mjs",
+      "npm run validate:artifact-hashes",
+      "npm run scan:secrets",
+      "npm run validate:data-leakage",
+      "npm test",
+      "git diff --check"
     ]
   },
   "edit_statuses": [
@@ -51,7 +64,9 @@
     { "edit_id": "EDIT-006", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-007", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-008", "status": "applied", "blocking": false },
-    { "edit_id": "EDIT-009", "status": "not_required", "blocking": false }
+    { "edit_id": "EDIT-009", "status": "not_required", "blocking": false },
+    { "edit_id": "EDIT-010", "status": "applied", "blocking": false },
+    { "edit_id": "EDIT-011", "status": "applied", "blocking": false }
   ],
   "resume_instructions": [
     "Прочитать это состояние, proposed-change-set и revision log.",

@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T15:06:52Z",
+  "updated_at": "2026-07-04T15:34:45Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -135,6 +135,34 @@
       "original_user_answer_hash": "ae347f0c7028acbf9bfef705b87806451125b155a3afa658ce222681de2d2140",
       "related_edit_ids": ["EDIT-008"],
       "safe_summary": "Product Owner принял вариант 3 для EDIT-008 — правки матрицы трассировки по двум режимам: для BT-009, BT-012 и BT-014 добавляются отдельные связи по режиму Лисы и запуску другим агентом."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-010",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "manual_record",
+      "source_trust_level": "manual_evidence",
+      "interaction_id": "CO-2026-001-REVISION-FINAL-AUDIT-EDIT-010",
+      "accepted_at": "2026-07-04T15:34:45Z",
+      "selected_option_id": "derived_consistency_sync_from_accepted_co_2026_001",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "derived-from-ar-co-2026-001-po-001",
+      "related_edit_ids": ["EDIT-010"],
+      "safe_summary": "EDIT-010 — правка модели жизненного цикла — зафиксирован как синхронизация downstream-системного документа с уже принятым CO-2026-001: канал доставки принят как электронная почта, а запуск другим агентом не требует ручного подтверждения."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-011",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "manual_record",
+      "source_trust_level": "manual_evidence",
+      "interaction_id": "CO-2026-001-REVISION-FINAL-AUDIT-EDIT-011",
+      "accepted_at": "2026-07-04T15:34:45Z",
+      "selected_option_id": "derived_consistency_sync_from_accepted_co_2026_001",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "derived-from-ar-co-2026-001-po-001",
+      "related_edit_ids": ["EDIT-011"],
+      "safe_summary": "EDIT-011 — правка SRS по принятому статусу CO-2026-001 — зафиксирован как синхронизация системной спецификации с уже принятым решением Product Owner."
     }
   ],
   "proposed_edits": [
@@ -306,6 +334,40 @@
       "validation_status": "passed",
       "acceptance_record_id": null,
       "rollback_or_forward_fix": "Если нужен новый current run, создать отдельный run вместо изменения historical evidence."
+    },
+    {
+      "edit_id": "EDIT-010",
+      "artifact_path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "section_or_anchor": "Состояния / delivery_acceptance",
+      "change_kind": "cross_artifact_semantic",
+      "current_excerpt": "Для `CO-2026-001` — принятого изменения приоритета продукта — канал доставки файла принят: готовая презентация отправляется пользователю по электронной почте.",
+      "proposed_text": "Синхронизировать текстовую и машинную модель жизненного цикла: состояние approval применяется только к Лисе; запуск другим агентом после проверки достаточности и безопасности данных идет к подготовке презентации без ручного подтверждения; delivery_acceptance закрывается после отправки файла по электронной почте и фиксации очищенного статуса доставки.",
+      "rationale": "Финальный аудит обнаружил, что текстовая модель жизненного цикла сохраняла устаревшую фразу о непринятом канале, хотя CO-2026-001 уже подтвердил электронную почту как канал доставки файла.",
+      "affected_claims": ["CO-2026-001", "BT-012", "BT-014"],
+      "downstream_paths": ["docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
+      "required_owner": "Product Owner / AI Agent Architect",
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-010",
+      "rollback_or_forward_fix": "Если CO-2026-001 будет пересмотрен, вернуть модель жизненного цикла в состояние needs_revision и обновить state-model validators."
+    },
+    {
+      "edit_id": "EDIT-011",
+      "artifact_path": "docs/architecture/system-analysis/srs-v0.1.json",
+      "section_or_anchor": "purpose / assumptions",
+      "change_kind": "cross_artifact_semantic",
+      "current_excerpt": "CO-2026-001 принят Product Owner; этот SRS описывает документальный и проверочный контур без включения реальных сетевых, почтовых интеграций или интеграций инструментов.",
+      "proposed_text": "Синхронизировать SRS с принятым статусом CO-2026-001: документ описывает текущий проверочный контур запуска другим агентом, а не черновик до принятия Product Owner; при этом реальные сетевые, почтовые интеграции и интеграции инструментов не включаются в этот репозиторий.",
+      "rationale": "Финальный аудит обнаружил, что SRS продолжал считать A2A-first change order черновиком до принятия Product Owner, хотя CO-2026-001 уже принят.",
+      "affected_claims": ["CO-2026-001", "BT-012", "BT-014"],
+      "downstream_paths": ["docs/architecture/system-analysis/srs-v0.1.md", "docs/architecture/system-analysis/sa-spec.json"],
+      "required_owner": "Product Owner / AI Agent Architect",
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-011",
+      "rollback_or_forward_fix": "Если CO-2026-001 будет пересмотрен, вернуть SRS в состояние needs_revision и обновить SA validators."
     }
   ]
 }

@@ -99,6 +99,8 @@ try {
     "SRC-DC-REQUIREMENTS-TRACEABILITY",
     "SRC-DC-ANALYSIS-BA",
     "SRC-DC-SYSTEM-ANALYSIS",
+    "SRC-DC-LIFECYCLE-STATE-MODEL",
+    "SRC-DC-SRS-V0-1",
     "SRC-DC-SPEC-A2A-LAUNCH",
     "SRC-DC-CASCADE-2026-07-02",
   ];
@@ -138,6 +140,8 @@ try {
       "docs/product/hypotheses/hypothesis-validation.md",
       "docs/product/analysis/ba/ba-spec.json",
       "docs/architecture/system-analysis/sa-spec.json",
+      "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "docs/architecture/system-analysis/srs-v0.1.json",
       "docs/product/specs/feature-spec-a2a-launch.json",
     ]) {
       if (!paths.has(requiredPath)) {

@@ -22,6 +22,8 @@ Ledger фиксирует, какие ранее выпущенные докум
 | `docs/architecture/system-analysis/sa-spec.json` | draft, needs_revision | Добавить альтернативный путь без пользовательского подтверждения | applied |
 | `docs/product/specs/feature-spec-a2a-launch.json` | draft, needs_revision | Обновить решение о доставке без расширения рабочих интеграций | applied |
 | `docs/product/requirements/traceability-matrix.json` | draft, needs_revision | Разделить трассировку по двум режимам | applied |
+| `docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md` | draft, needs_revision | Убрать устаревшую блокировку delivery_acceptance по непринятому каналу доставки | applied |
+| `docs/architecture/system-analysis/srs-v0.1.json` | draft, needs_revision | Убрать устаревшее предположение о черновом статусе CO до принятия Product Owner | applied |
 | `docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/` | historical blocked evidence | Не переписывать; оставить историческим доказательством | not_required |
 
 ## Текущий Статус

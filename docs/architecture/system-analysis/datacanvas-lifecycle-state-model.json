@@ -47,7 +47,7 @@
     {
       "state_id": "STATE-008",
       "name": "delivery_acceptance",
-      "entry_condition": "Export exists and channel decision is accepted.",
+      "entry_condition": "Экспорт готов, канал доставки файла по CO-2026-001 принят как электронная почта.",
       "exit_condition": "Файл презентации отправлен пользователю по электронной почте; при запуске другим агентом статус доставки и сведения о результате возвращены вызывающему агенту."
     }
   ]

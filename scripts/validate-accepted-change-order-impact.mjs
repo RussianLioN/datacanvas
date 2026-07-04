@@ -10,6 +10,8 @@ const paths = {
   sourceRegistry: "docs/product/sources/product-source-registry.json",
   changeSet: "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
   vision: "docs/product-vision.md",
+  lifecycleStateModel: "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+  srs: "docs/architecture/system-analysis/srs-v0.1.json",
 };
 
 const requiredArtifacts = new Set([
@@ -19,6 +21,8 @@ const requiredArtifacts = new Set([
   "docs/product/requirements/acceptance-criteria.md",
   "docs/product/analysis/ba/ba-spec.json",
   "docs/architecture/system-analysis/sa-spec.json",
+  "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+  "docs/architecture/system-analysis/srs-v0.1.json",
   "docs/product/specs/feature-spec-a2a-launch.json",
   "docs/product/requirements/traceability-matrix.json",
 ]);
@@ -79,6 +83,37 @@ try {
   ]) {
     if (!vision.includes(phrase)) {
       throw new Error(`Vision is missing accepted CO-2026-001 phrase: ${phrase}`);
+    }
+  }
+
+  const lifecycleStateModel = readText(paths.lifecycleStateModel);
+  for (const phrase of [
+    "канал доставки файла принят",
+    "готовая презентация отправляется пользователю по электронной почте",
+    "запуске другим агентом вызывающий агент получает статусы",
+  ]) {
+    if (!lifecycleStateModel.includes(phrase)) {
+      throw new Error(`Lifecycle state model is missing accepted CO-2026-001 phrase: ${phrase}`);
+    }
+  }
+
+  const srs = readJson(paths.srs);
+  if (!srs.assumptions?.some((assumption) => assumption.includes("CO-2026-001 принят Product Owner"))) {
+    throw new Error("SRS must state that CO-2026-001 is accepted by Product Owner");
+  }
+
+  const forbiddenCurrentPhrases = [
+    "delivery_acceptance` остается blocked, если channel decision не принят",
+    "A2A-first is a draft Product Change Order until Product Owner acceptance",
+  ];
+  for (const [artifactPath, artifactText] of [
+    [paths.lifecycleStateModel, lifecycleStateModel],
+    [paths.srs, JSON.stringify(srs)],
+  ]) {
+    for (const phrase of forbiddenCurrentPhrases) {
+      if (artifactText.includes(phrase)) {
+        throw new Error(`current artifact still contains stale CO-2026-001 phrase: ${artifactPath}: ${phrase}`);
+      }
     }
   }
 

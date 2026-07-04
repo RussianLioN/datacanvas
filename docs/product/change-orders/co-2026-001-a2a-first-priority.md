@@ -38,6 +38,14 @@ Product Owner decision: `accepted`.
 - `docs/stories.md`
 - `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`
 - `docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv`
+- `docs/product/bmc/bmc-v0.2.md`
+- `docs/product/requirements/business-requirements.md`
+- `docs/product/requirements/acceptance-criteria.md`
+- `docs/product/requirements/traceability-matrix.json`
+- `docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md`
+- `docs/architecture/system-analysis/srs-v0.1.md`
+- `docs/product/revisions/co-2026-001-source-revision/revision-ledger.md`
+- `docs/product/sources/product-source-registry.json`
 - `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json`
 - `docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md`
 

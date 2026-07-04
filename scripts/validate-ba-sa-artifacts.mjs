@@ -259,6 +259,13 @@ function validateSaSpec() {
   for (const requiredPath of [saSpec.source_ba_spec_path, saSpec.srs_path, paths.srs, paths.runLedger]) {
     requireFile(requiredPath);
   }
+  const srs = readJson(paths.srs);
+  if (!srs.assumptions?.some((assumption) => assumption.includes("CO-2026-001 принят Product Owner"))) {
+    fail("SRS must reflect accepted CO-2026-001 status");
+  }
+  if (JSON.stringify(srs).includes("A2A-first is a draft Product Change Order until Product Owner acceptance")) {
+    fail("SRS must not keep stale draft Product Change Order assumption after CO-2026-001 acceptance");
+  }
   for (const item of [...saSpec.interfaces, ...saSpec.nfrs]) {
     validateCommand(item.validation_command);
   }
@@ -277,10 +284,14 @@ function validateSaSpec() {
 function validateStateModel() {
   const stateModel = readJson(paths.stateModel);
   const stateIds = ids(stateModel.states, "state_id");
-  for (const requiredState of ["STATE-001", "STATE-002", "STATE-003", "STATE-004", "STATE-005", "STATE-006", "STATE-007"]) {
+  for (const requiredState of ["STATE-001", "STATE-002", "STATE-003", "STATE-004", "STATE-005", "STATE-006", "STATE-007", "STATE-008"]) {
     if (!stateIds.has(requiredState)) {
       fail(`state model is missing state: ${requiredState}`);
     }
+  }
+  const deliveryState = stateModel.states.find((state) => state.name === "delivery_acceptance");
+  if (!deliveryState?.entry_condition?.includes("канал доставки файла по CO-2026-001 принят")) {
+    fail("delivery_acceptance must reflect accepted CO-2026-001 delivery channel");
   }
   console.log("state model validation passed");
 }

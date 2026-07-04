@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "fabfbe9585fb6e3c0dc9569fba220da6ce2448981a65826bc6d0713889a3b7a4"
+      "sha256": "89ff84eb5655d4b2d836cf51d36c5849c3e88ed29ed430ebfb7a3facd3a24c43"
     },
     {
       "artifact_id": "ART-411",
@@ -2327,7 +2327,7 @@
     {
       "artifact_id": "ART-466",
       "path": "scripts/validate-ba-sa-artifacts.mjs",
-      "sha256": "966fb484033aaccf96557f77297b67f4066b38e4a8e219519662959994e6e006"
+      "sha256": "3bb9b55752cbd933b3d993ee4d5cbf5fcbd6f4f81db9cced3222722a39f5da97"
     },
     {
       "artifact_id": "ART-467",
@@ -2452,17 +2452,17 @@
     {
       "artifact_id": "ART-491",
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
-      "sha256": "c9522a9ab2fef39d8c4ac0f21088778e32c4fb8423b761f7ccb7355b6464acd4"
+      "sha256": "39ae2fae2205950adc9cd098377b24162f28969a329015eb3981d6365dffbaca"
     },
     {
       "artifact_id": "ART-492",
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-      "sha256": "5f4316025378d6448f8724e375a460636af974bc2d17700464c8e3bb601d1eb9"
+      "sha256": "8d5f19a83f256df639ba634837203866727d9cc616f49732774c474e222f77fc"
     },
     {
       "artifact_id": "ART-493",
       "path": "docs/product/change-orders/change-impact-assessment.json",
-      "sha256": "8940f02f73284c638dd1d4085223ee57920b3603be861adca327ae4dbd2b1700"
+      "sha256": "09d43a480911e14dabd0fc102dc1652a81f7964f80462978cc2aa2f799c50875"
     },
     {
       "artifact_id": "ART-494",
@@ -2507,12 +2507,12 @@
     {
       "artifact_id": "ART-502",
       "path": "docs/architecture/system-analysis/srs-v0.1.json",
-      "sha256": "dda8af0b8231260591400662bc26d52231a4974817db893cd284701405bbcba6"
+      "sha256": "8e45890b2de8b55531680ef3453ed85d6bb72652ffda438d90fb1a85e003b53b"
     },
     {
       "artifact_id": "ART-503",
       "path": "docs/architecture/system-analysis/srs-v0.1.md",
-      "sha256": "524941f05eae3093ebdb2bdbba786dcd1c0cd603ff4a59cf6c292e30c87f6047"
+      "sha256": "f9a5799b11851c373f73d78fdb613cf367d277cbdc588c4aa1abe6eab1617525"
     },
     {
       "artifact_id": "ART-504",
@@ -2527,12 +2527,12 @@
     {
       "artifact_id": "ART-506",
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
-      "sha256": "3ae15fdb3fffbc2f56b43da9861bb31589dd413f3bad989f1d4fbf047760b178"
+      "sha256": "09a44e21d0dd1f7dacba0cfab734d280efc9dfe2cf4a6db93cb805742cf8d1c8"
     },
     {
       "artifact_id": "ART-507",
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
-      "sha256": "440422bc7f702e5356299ab28e4f6da9351a43ed050f93baac5a6f243190d0c1"
+      "sha256": "b9327bab6795c09c3e32ced099bb8b81f3fa3b9a6dab13096ae19cef422916cc"
     },
     {
       "artifact_id": "ART-508",
@@ -3032,32 +3032,32 @@
     {
       "artifact_id": "ART-607",
       "path": "docs/product/sources/source-audit.md",
-      "sha256": "d47b2416ba05211700c742977958c06d9198e57aff79ff71342191874e6a5f5c"
+      "sha256": "56f1cdb7368a2c75e0dade88a2640476aa71fbc8a864430dcbb80e4138237247"
     },
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "c201226045d08684d1ffc7cefafaea39f6e0236979a3e4751e76fba98104c15c"
+      "sha256": "03ac0ad57032fe71e1d70f8bd537bdc33725f6cfc18f41ead5c48f1d7a45dc30"
     },
     {
       "artifact_id": "ART-609",
       "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
-      "sha256": "843b272bb5acba76dc2ac02adfcee4b299cf876ae9047a93fe07f1f1aa2fad39"
+      "sha256": "4dbc0dc06ccc008cc0e7185ab2483826714107fd51ae663dac74bacc60d7a8eb"
     },
     {
       "artifact_id": "ART-610",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
-      "sha256": "4419a67ee811620fca75858f3d9057bc2d5ef200031205f6a2ae8b4bb845881b"
+      "sha256": "7d0310c92f09b21259364c72be23ba68f4db46c93feadb5ae72743f23467d368"
     },
     {
       "artifact_id": "ART-611",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
-      "sha256": "91402fa1a70f037dc4726c7a4f8200e7e485580f889dc4cb69f9a13d25aca489"
+      "sha256": "2397834ed2a1c08d5a0ba7199bc020cfe1acd1280596894cd8c6ddbcad54eab8"
     },
     {
       "artifact_id": "ART-612",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-      "sha256": "3d88b2e8c777bf00fc9d0d7aa84e732ddae106c458e2c0e27fd86959a5925834"
+      "sha256": "6a21ecda3788256ac1d533234e01b720a3abe819da876d47c6cdc8e5bf4e07d8"
     },
     {
       "artifact_id": "ART-613",
@@ -3077,12 +3077,12 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "6c2625955d1094343613d33db5ad999f9e4b227316bc00c9a1a4a458bb63a353"
+      "sha256": "2d7d532e9bef3b807404d5acf3a9b4fa44d2951b01915ddcab4c99a21bf11037"
     },
     {
       "artifact_id": "ART-617",
       "path": "scripts/validate-change-set-approval.mjs",
-      "sha256": "ce604cd53fc465895b97b9a444835ec1417867a950b4cab2f6ec98d21b74df8a"
+      "sha256": "6b4b64864c6e6b3d584490e57cda89a151fb8819b107458fba5a6be93b76cc30"
     },
     {
       "artifact_id": "ART-618",
@@ -3092,7 +3092,7 @@
     {
       "artifact_id": "ART-619",
       "path": "scripts/validate-accepted-change-order-impact.mjs",
-      "sha256": "2a39b591d8375d8e75107485226b6336e8ddfab94f2a65129a9d3ff8ec9a9e94"
+      "sha256": "408db0d0aea597eb7f6bfd171e69e6a0f06739ef355cf59798871717ad24945c"
     }
   ],
   "exclusions": [

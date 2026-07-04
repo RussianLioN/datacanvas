@@ -3054,7 +3054,7 @@
       ],
       "anchors": [
         "lifecycle-state-model-datacanvas",
-        "states"
+        "состояния"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -3219,9 +3219,9 @@
       ],
       "anchors": [
         "srs-v01-баса-artifact-factory",
-        "purpose",
-        "scope",
-        "verification"
+        "назначение",
+        "область-действия",
+        "проверка"
       ],
       "reachable_from_root": true,
       "click_depth": 3

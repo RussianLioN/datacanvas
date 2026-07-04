@@ -99,7 +99,19 @@ try {
     }
   }
 
-  for (const requiredEdit of ["EDIT-001", "EDIT-002", "EDIT-003", "EDIT-004", "EDIT-005", "EDIT-006", "EDIT-007", "EDIT-008", "EDIT-009"]) {
+  for (const requiredEdit of [
+    "EDIT-001",
+    "EDIT-002",
+    "EDIT-003",
+    "EDIT-004",
+    "EDIT-005",
+    "EDIT-006",
+    "EDIT-007",
+    "EDIT-008",
+    "EDIT-009",
+    "EDIT-010",
+    "EDIT-011",
+  ]) {
     if (!editIds.has(requiredEdit)) {
       throw new Error(`required proposed edit is missing: ${requiredEdit}`);
     }

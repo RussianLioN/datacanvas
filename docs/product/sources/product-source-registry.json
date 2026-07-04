@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-04T13:18:29Z",
+  "updated_at": "2026-07-04T15:34:45Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -38,6 +38,10 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/analysis/ba/ba-spec.json",
         "docs/architecture/system-analysis/sa-spec.json",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/srs-v0.1.json",
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/product/requirements/traceability-matrix.json"
       ],
@@ -270,8 +274,40 @@
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["implementation_context", "verification"],
-      "affected_artifacts": ["docs/product/specs/task-spec-a2a-launch.json"],
+      "affected_artifacts": [
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/srs-v0.1.json",
+        "docs/product/specs/task-spec-a2a-launch.json"
+      ],
       "notes": "Обновлен по EDIT-006 — правке системного анализа по маршруту без подтверждения: запуск другим агентом после проверки достаточности и безопасности данных идет к нормализации, изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры."
+    },
+    {
+      "source_id": "SRC-DC-LIFECYCLE-STATE-MODEL",
+      "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+      "source_role": "technical_spec",
+      "owner_role": "AI Agent Architect",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-04",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["implementation_context", "verification", "state_traceability"],
+      "affected_artifacts": ["docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
+      "notes": "Обновлен по EDIT-010 — правке модели жизненного цикла по принятому каналу доставки: delivery_acceptance больше не блокируется непринятым каналом для CO-2026-001, а закрывается после отправки файла по электронной почте и фиксации очищенного статуса доставки."
+    },
+    {
+      "source_id": "SRC-DC-SRS-V0-1",
+      "path": "docs/architecture/system-analysis/srs-v0.1.json",
+      "source_role": "technical_spec",
+      "owner_role": "AI Agent Architect",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-04",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": ["implementation_context", "verification", "system_requirements"],
+      "affected_artifacts": ["docs/architecture/system-analysis/srs-v0.1.md", "docs/architecture/system-analysis/sa-spec.json"],
+      "notes": "Обновлен по EDIT-011 — правке SRS по принятому статусу CO-2026-001: SRS описывает текущий документальный и проверочный контур принятого маршрута запуска другим агентом, без включения реальных интеграций в этом репозитории."
     },
     {
       "source_id": "SRC-DC-SPEC-A2A-LAUNCH",

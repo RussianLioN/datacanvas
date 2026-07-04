@@ -1,11 +1,11 @@
 {
   "version": "0.1.0",
   "status": "draft",
-  "purpose": "Define the BA/SA interview-driven artifact factory and A2A-first change-order readiness boundary.",
+  "purpose": "Определить повторяемый контур БА/СА-артефактов и границу готовности принятого маршрута запуска DataCanvas другим агентом.",
   "scope": "Documentation, schemas, validators and offline evidence only.",
   "actors": ["Product Owner", "Process Owner", "Security/Privacy Lead", "Development Team", "upstream agent"],
   "system_context": "DataCanvas keeps business sources, technical contracts, schemas, scripts and generated artifacts separated.",
-  "assumptions": ["A2A-first is a draft Product Change Order until Product Owner acceptance."],
+  "assumptions": ["CO-2026-001 принят Product Owner; этот SRS описывает документальный и проверочный контур без включения реальных сетевых, почтовых интеграций или интеграций инструментов."],
   "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/product/change-orders/co-2026-001-a2a-first-priority.json"],
   "functional_requirements": ["BT-005-DELTA", "BT-006-DELTA"],
   "external_interfaces": ["IF-001", "IF-002", "IF-003", "IF-004", "IF-005"],
