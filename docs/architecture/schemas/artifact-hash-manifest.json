@@ -1977,7 +1977,7 @@
     {
       "artifact_id": "ART-396",
       "path": "AGENTS.md",
-      "sha256": "c0a25d93dde61241f96580925ea8d442835dca4ed203df030664d1ac9c7a8160"
+      "sha256": "8d300725dbd99c40535a463765f73857ae8ef2879166ce7a3f28e82ff66fa7b5"
     },
     {
       "artifact_id": "ART-397",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "6d74858b7449cfe6a6e1ca10574d9f7d84239646e684338d64e9d320fd54366d"
+      "sha256": "012a177cbd64ef262d3acca6d2481c74a844d14fea52f52f5d641da6fda35e16"
     },
     {
       "artifact_id": "ART-411",
@@ -3022,7 +3022,7 @@
     {
       "artifact_id": "ART-605",
       "path": "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
-      "sha256": "72cbae7d7cb43855dc93168618c117e850bc055b01b4197620902e002b467b3c"
+      "sha256": "a733426751462095ff4699357cdb4dc4e70691fb85f512712ae548c8f9bc272c"
     },
     {
       "artifact_id": "ART-606",
