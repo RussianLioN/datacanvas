@@ -5470,7 +5470,11 @@
         "proc-046---product-change-questionnaire-state",
         "изменение-4",
         "миграция-4",
-        "rollback-4"
+        "rollback-4",
+        "proc-047-закрыть-возобновление-po-опросника-co-2026-001-изменения-приоритета-запуска-datacanvas-другим-агентом",
+        "изменение-5",
+        "миграция-5",
+        "rollback-5"
       ],
       "reachable_from_root": false,
       "click_depth": null
