@@ -6549,6 +6549,22 @@
       "update_trigger": "Ревизия исходных документов DataCanvas, принятие правок, source registry, CO-2026-001 impact или навигация по источникам меняются."
     },
     {
+      "id": "ART-620",
+      "path": "docs/plans/datacanvas-agent-launch-requirements-analysis-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Документационный бизнес-анализ DC-ST-23..DC-ST-28, решение по BT-* требованиям, BA/SA artifacts, specs, traceability или разделение навигации меняются."
+    },
+    {
       "id": "ART-606",
       "path": "docs/product/sources/README.md",
       "type": "product-doc",

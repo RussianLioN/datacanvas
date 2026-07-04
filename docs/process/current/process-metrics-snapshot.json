@@ -13,7 +13,7 @@
   "counts": {
     "sprint_folders": 67,
     "sprint_evidence_manifests": 67,
-    "artifact_registry_entries": 619,
+    "artifact_registry_entries": 620,
     "accepted_process_changes": 4,
     "passed_evidence_checks": 535,
     "pending_evidence_checks": 0,
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "619",
+      "value": "620",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"

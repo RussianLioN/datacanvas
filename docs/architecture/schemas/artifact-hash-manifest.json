@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "74829acd20f41f298cb3044a1dc53bd3d77c5f5ebb0cef16d7107b30db7a73f5"
+      "sha256": "519eb1922dfef553993d2d3a48b9b8741ffb1887a1e4b7a9b293fc6e7a3d79e1"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "102c8877dc6be9b4e397f9b228359e4088d84bc86c10635bcf52a8d0662dbaad"
+      "sha256": "55f38ba54efec14f8c9238c989cb29f29c5c09e91a71b1ab3506ac17a77664a8"
     },
     {
       "artifact_id": "ART-201",
@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "fdcf9a4802f09d470468a5f161ff0c665b451176a05ab60f2cccee1e95a99185"
+      "sha256": "01b572294524afbd8daca7ae0aa41f5e95bb2112baf6d3341ac0b8c522fc5095"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "332e633114fa32db82f432eb21fb4e465d6facceb7d9c7693993b9c038e114b2"
+      "sha256": "0627a04b84e550376a067202c991e13039edba9e45163932f56d5a584b92ea49"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "7a77b084a35ea891850e374c0f04b4b3151de8efac14adb12680e9008c39298c"
+      "sha256": "09fa4eea5e8ed60a11bbcca9c0ba6de799396da260757019412c721861a91cb2"
     },
     {
       "artifact_id": "ART-411",
@@ -3023,6 +3023,11 @@
       "artifact_id": "ART-605",
       "path": "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
       "sha256": "a733426751462095ff4699357cdb4dc4e70691fb85f512712ae548c8f9bc272c"
+    },
+    {
+      "artifact_id": "ART-620",
+      "path": "docs/plans/datacanvas-agent-launch-requirements-analysis-implementation-plan.md",
+      "sha256": "0341f438147b2499a6885e5cbf6872b3f730942c2e3c7d16747ada89665bd186"
     },
     {
       "artifact_id": "ART-606",

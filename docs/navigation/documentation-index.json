@@ -3693,6 +3693,47 @@
       "click_depth": 3
     },
     {
+      "path": "docs/plans/datacanvas-agent-launch-requirements-analysis-implementation-plan.md",
+      "title": "План Имплементации: Документационный Бизнес-Анализ Историй Запуска DataCanvas Другим Агентом",
+      "section": "plans",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-620",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-имплементации-документационный-бизнес-анализ-историй-запуска-datacanvas-другим-агентом",
+        "1-цель-и-границы",
+        "2-предварительный-аудит-без-изменений",
+        "3-новый-пакет-состояния-и-согласований",
+        "4-рабочий-протокол-согласования",
+        "5-контрольные-точки-решений",
+        "6-анализ-историй-кандидатов",
+        "7-проверка-и-обновление-цепочки-артефактов",
+        "8-навигация-с-двумя-верхними-контурами",
+        "9-реестр-хеши-и-источники",
+        "10-стоп-условия",
+        "11-валидация",
+        "12-критерии-готовности"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
       "title": "План имплементации БА/СА interview-driven artifact factory и управляемого изменения приоритетов DataCanvas",
       "section": "plans",
@@ -4114,6 +4155,7 @@
       "outgoing_links": [
         "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
+        "docs/plans/datacanvas-agent-launch-requirements-analysis-implementation-plan.md",
         "docs/plans/datacanvas-ba-sa-interview-change-order-implementation-plan.md",
         "docs/plans/datacanvas-backlog-closure-validation-implementation-plan.md",
         "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
@@ -31493,14 +31535,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1156,
-    "manual_entries": 1152,
+    "total_entries": 1157,
+    "manual_entries": 1153,
     "generated_entries": 4,
     "public_navigable_entries": 31,
-    "searchable_entries": 1124,
+    "searchable_entries": 1125,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 118,
+    "reachable_from_root": 119,
     "orphan_entries": 0
   },
   "ignored_paths": [
