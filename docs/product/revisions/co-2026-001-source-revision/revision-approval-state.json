@@ -11,14 +11,14 @@
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
   "started_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-03T13:20:00Z",
-  "paused_at": "2026-07-03T13:20:00Z",
+  "updated_at": "2026-07-04T12:06:44Z",
+  "paused_at": "2026-07-04T12:06:44Z",
   "completed_at": null,
   "current_edit": {
-    "edit_id": "EDIT-004",
-    "title": "Разделить критерии приемки по двум маршрутам",
+    "edit_id": "EDIT-005",
+    "title": "Закрыть устаревшее BA-утверждение по каналу доставки",
     "state": "next",
-    "next_action": "Вывести текущий текст разделов acceptance-criteria для EDIT-004 — правки критериев приемки по двум маршрутам — затем предложить Product Owner варианты финального текста: запуск другим агентом без подтверждения после проверки достаточности и безопасности данных; диалоговый режим в Лисе с выбором изготовления презентации или редактирования структуры после описания структуры."
+    "next_action": "Вывести текущий фрагмент docs/product/analysis/ba/ba-spec.json для EDIT-005 — правки BA-утверждений по каналу доставки — затем предложить Product Owner варианты финального текста: файл доставляется пользователю по электронной почте, а статусы и сведения о результате возвращаются вызывающему агенту через обратный вызов."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -46,7 +46,7 @@
     { "edit_id": "EDIT-001", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-002", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-003", "status": "applied", "blocking": false },
-    { "edit_id": "EDIT-004", "status": "pending", "blocking": true },
+    { "edit_id": "EDIT-004", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-005", "status": "pending", "blocking": true },
     { "edit_id": "EDIT-006", "status": "pending", "blocking": true },
     { "edit_id": "EDIT-007", "status": "pending", "blocking": true },

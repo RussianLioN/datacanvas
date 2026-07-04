@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-03T13:20:00Z",
+  "updated_at": "2026-07-04T12:06:44Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -65,6 +65,20 @@
       "original_user_answer_hash": "c977dbe785221d34114d345fdf8ff4e18bb4af66750751dbea29407f9738735f",
       "related_edit_ids": ["EDIT-003"],
       "safe_summary": "Product Owner принял финальный текст для EDIT-003 — правки бизнес-требований по разделению режимов: в Лисе пользователь после описания структуры выбирает изготовление презентации или редактирование структуры; при запуске другим агентом подтверждение невозможно и не требуется."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-004",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-004",
+      "accepted_at": "2026-07-04T12:06:44Z",
+      "selected_option_id": "variant_1_recommended",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "related_edit_ids": ["EDIT-004"],
+      "safe_summary": "Product Owner принял вариант 1 для EDIT-004 — правки критериев приемки по двум маршрутам: явно разделить запуск другим агентом без подтверждения после проверок и диалоговый режим в Лисе с выбором изготовления или редактирования структуры."
     }
   ],
   "proposed_edits": [
@@ -132,17 +146,17 @@
       "artifact_path": "docs/product/requirements/acceptance-criteria.md",
       "section_or_anchor": "Базовый MVP gate / Сценарии приемки P1-P2",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "- Описание презентации создано, доступно КМ и согласовано до генерации файла.",
-      "proposed_text": "Разделить критерии приемки на сценарий Лисы с выбором действия после описания структуры и сценарий запуска другим агентом без пользовательского подтверждения перед подготовкой презентации.",
+      "current_excerpt": "- При запуске другим агентом DataCanvas после проверки достаточности и безопасности данных готовит презентацию без пользовательского подтверждения и отправляет файл по электронной почте.",
+      "proposed_text": "Разделить критерии приемки на два явных маршрута: запуск другим агентом без пользовательского подтверждения после проверки достаточности и безопасности данных; диалоговый режим в Лисе с показом описания структуры и выбором пользователя: изготовить презентацию или перейти к редактированию структуры.",
       "rationale": "Критерии приемки сейчас требуют согласования до генерации для всех режимов.",
       "affected_claims": ["BT-009", "BT-012", "CO-2026-001"],
       "downstream_paths": ["docs/product/requirements/traceability-matrix.json"],
       "required_owner": "Product Owner",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
-      "rollback_or_forward_fix": "При отклонении сохранить текущий gate и пометить agent launch как blocked."
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-004",
+      "rollback_or_forward_fix": "При отклонении сохранить текущие критерии и пометить запуск другим агентом как blocked."
     },
     {
       "edit_id": "EDIT-005",
@@ -204,7 +218,7 @@
       "section_or_anchor": "BT-009/BT-012/BT-014 traceability",
       "change_kind": "cross_artifact_semantic",
       "current_excerpt": "Approval state и actor identity связаны с решением об export; до согласования export отсутствует.",
-      "proposed_text": "Добавить traceability для двух режимов: Лиса требует approval до export, запуск другим агентом после validation идет к export/email delivery без approval.",
+      "proposed_text": "Добавить трассировку для двух режимов: в Лисе фиксируется выбор пользователя после описания структуры, а запуск другим агентом после проверки идет к подготовке презентации и доставке по электронной почте без пользовательского подтверждения.",
       "rationale": "Трассировка сейчас наследует общее правило подтверждения.",
       "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
       "downstream_paths": [],

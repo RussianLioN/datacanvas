@@ -2152,7 +2152,7 @@
     {
       "artifact_id": "ART-431",
       "path": "docs/product/requirements/acceptance-criteria.md",
-      "sha256": "21c18557f835fa5a1969d05c43edd493712dcdd653347b999aec6c6352ba737d"
+      "sha256": "2496089a3691484c0a843c90d547347597cc1acef8aded0b8a35639debb3ec88"
     },
     {
       "artifact_id": "ART-432",
@@ -3032,32 +3032,32 @@
     {
       "artifact_id": "ART-607",
       "path": "docs/product/sources/source-audit.md",
-      "sha256": "402fae79780a3ac0d4d36da7768be98e766e9b4ac69d5fab952e4c4ef36d1e79"
+      "sha256": "c51ef16dbe091b1b08407e1ecbb521d557813c0ddf751b21657abe86e03fb26d"
     },
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "bbe0775f86acf8825bf1496ae22cb33ebfaf0e14baa8fc880cede51506823e66"
+      "sha256": "48c40c803cf5e3ab8e229494b4ed058ea52449556fa767ea20ffb1f0f5f8d53a"
     },
     {
       "artifact_id": "ART-609",
       "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
-      "sha256": "f6c465f21cb1c422a25973a38271c21d68b65738166910f0ba41949c8697a946"
+      "sha256": "e876ce1fbdac57f8445fbeb76e0c3cd47cddd53b1bbd4a93b17a928d4bc181eb"
     },
     {
       "artifact_id": "ART-610",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
-      "sha256": "a2e4a25a2b3e85b9b2769d7c244f87becbba6e57d35162223c41e2e1e5251d83"
+      "sha256": "32c0076e20043e04e3ff0684b9939be5243a253e9e39f4d9b60989d10337fa12"
     },
     {
       "artifact_id": "ART-611",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
-      "sha256": "fc25c2219873c2b0753a6e02439fc1c29eaacfed377e538ece2fe5242c31442b"
+      "sha256": "9d7083466ccea8cec1c10ef592500ca06bea3ca061e57ad22e9960bfbc446632"
     },
     {
       "artifact_id": "ART-612",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-      "sha256": "753700b8c56244ac30c27be5ed4a19b4ca87fdfcfe5cd7610a04c1863f3ace27"
+      "sha256": "fba8e94b7de8f966fe33b0d9bbecfbbdba08377a6778e9ad67e07dbc688e788e"
     },
     {
       "artifact_id": "ART-613",
