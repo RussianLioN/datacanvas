@@ -39,15 +39,15 @@
     },
     {
       "id": "BASA-EVAL-004",
-      "title": "Conflicting source creates open decision",
+      "title": "Confirmed delivery decision stays inside documented scope",
       "type": "traceability",
       "category": "regression",
       "status": "draft",
       "required": true,
       "requirement_id": "BT-012-DELTA",
       "fixture_id": "BASA-FIX-004",
-      "executable_evidence": ["npm run validate:change-impact"],
-      "expected": "Unconfirmed channel decision remains deferred and does not overwrite BT-012."
+      "executable_evidence": ["npm run validate:spec-task-prompt-readiness", "npm run validate:change-impact"],
+      "expected": "Confirmed delivery decision is reflected in the spec package without enabling runtime mail, network or callback integrations."
     }
   ]
 }

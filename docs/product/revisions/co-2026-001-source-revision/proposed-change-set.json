@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T13:18:29Z",
+  "updated_at": "2026-07-04T14:46:58Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -107,6 +107,20 @@
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
       "related_edit_ids": ["EDIT-006"],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-006 — правки системного анализа по маршруту без подтверждения: запуск другим агентом после проверки достаточности и безопасности данных идет к изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-007",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-007",
+      "accepted_at": "2026-07-04T14:46:58Z",
+      "selected_option_id": "accepted_recommended_main_text_with_technical_boundary_in_non_goals",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "43a4e3906d9a836cf6ba6623ad179124aef987ad55be9d741ea1294c3e611dd1",
+      "related_edit_ids": ["EDIT-007"],
+      "safe_summary": "Product Owner принял EDIT-007 — правку feature spec по решению о доставке: основной текст фиксирует принятое решение о доставке без перегруженной технической оговорки, а граница по реальным сетевым, почтовым интеграциям и интеграциям инструментов сохраняется в технических ограничениях пакета спецификаций."
     }
   ],
   "proposed_edits": [
@@ -225,19 +239,24 @@
       "artifact_path": "docs/product/specs/feature-spec-a2a-launch.json",
       "section_or_anchor": "non_goals / forbidden_behaviors",
       "change_kind": "point_semantic",
-      "current_excerpt": "\"Не принимать channel-specific delivery decision\"",
-      "proposed_text": "Обновить specs: delivery decision принят для документации CO-2026-001 как email для файла и callback для статусов; live integrations и tool/network boundaries не расширяются.",
+      "current_excerpt": "Сделать запуск другим агентом первым проверяемым маршрутом",
+      "proposed_text": "Обновить пакет спецификаций: решение о доставке принято для CO-2026-001 — изменения приоритета продукта и маршрута DataCanvas: готовая презентация направляется пользователю по электронной почте, а при запуске другим агентом DataCanvas после проверки достаточности и безопасности данных готовит и отправляет результат без дополнительного подтверждения пользователя. Техническая граница о невключении реальных сетевых, почтовых интеграций и интеграций инструментов сохраняется в non_goals и prompt constraints.",
       "rationale": "Spec слой должен отличать принятое продуктовое решение от технического включения интеграций.",
-      "affected_claims": ["PRODUCT-07", "CO-2026-001"],
+      "affected_claims": ["PRODUCT-07", "CO-2026-001", "BASA-CLM-009", "BT-012"],
       "downstream_paths": [
         "docs/product/specs/task-spec-a2a-launch.json",
-        "docs/product/specs/agent-prompt-spec-a2a-launch.json"
+        "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+        "docs/product/specs/interview-to-spec-trace.json",
+        "tests/evals/ba-sa-eval-cases.json",
+        "docs/product/analysis/ba/acceptance-delta.md",
+        "docs/product/analysis/ba/open-decisions-ledger.md",
+        "docs/product/ux/uat-script.md"
       ],
       "required_owner": "Product Owner / AI Agent Architect",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-007",
       "rollback_or_forward_fix": "Если specs не меняются, оставить no-change rationale и не использовать их как current source по delivery."
     },
     {

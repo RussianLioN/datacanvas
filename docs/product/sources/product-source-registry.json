@@ -279,7 +279,7 @@
       "source_role": "technical_spec",
       "owner_role": "Product Owner",
       "lifecycle": "draft",
-      "trust_level": "needs_revision",
+      "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["spec_delta", "verification", "implementation_context"],
@@ -287,7 +287,7 @@
         "docs/architecture/system-analysis/sa-spec.json",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Требует обновить delivery decision без расширения live integrations."
+      "notes": "Обновлен по EDIT-007 — правке feature spec по решению о доставке: пакет спецификаций отражает принятое решение о доставке по электронной почте и возврате статусов вызывающему агенту, но не включает реальные сетевые, почтовые интеграции или интеграции инструментов."
     },
     {
       "source_id": "SRC-DC-CASCADE-2026-07-02",

@@ -10,14 +10,15 @@
     "docs/product/specs/agent-prompt-spec-a2a-launch.json",
     "docs/product/specs/interview-to-spec-trace.json"
   ],
-  "allowed_edit_scope": "Spec package and validators only; no live runtime, network, MCP, provider or tool allowlist expansion.",
+  "allowed_edit_scope": "Разрешенная область правки: пакет спецификаций и валидаторы; без включения рабочего исполнения, сетевых вызовов, MCP, provider allowlist (списка разрешенных провайдеров) или tool allowlist (списка разрешенных инструментов).",
   "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json"],
   "done_when": [
-    "FeatureSpec references only confirmed claims",
-    "TaskSpec has eval cases and validation commands",
-    "AgentPromptSpec has no raw transcript"
+    "FeatureSpec ссылается только на подтвержденные утверждения, включая BASA-CLM-009 — BA/SA-утверждение о канале доставки",
+    "TaskSpec содержит eval cases (проверочные сценарии) и команды валидации",
+    "AgentPromptSpec не содержит сырые ответы интервью",
+    "Решение о доставке отражено без включения реальных почтовых или сетевых интеграций"
   ],
-  "rollback_or_forward_fix": "Revert spec package draft and rerun validate:spec-task-prompt-readiness.",
+  "rollback_or_forward_fix": "Откатить черновик пакета спецификаций и повторить npm run validate:spec-task-prompt-readiness.",
   "validation_commands": ["npm run validate:spec-task-prompt-readiness"],
-  "eval_cases": ["BASA-EVAL-001", "BASA-EVAL-002", "BASA-EVAL-003"]
+  "eval_cases": ["BASA-EVAL-001", "BASA-EVAL-002", "BASA-EVAL-003", "BASA-EVAL-004"]
 }

@@ -17,11 +17,25 @@
       "trust_status": "confirmed"
     },
     {
+      "claim_id": "BASA-CLM-005",
+      "feature_id": "FS-001",
+      "task_id": "TSK-001",
+      "prompt_id": "APS-001",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-008",
+      "feature_id": "FS-001",
+      "task_id": "TSK-001",
+      "prompt_id": "APS-001",
+      "trust_status": "confirmed"
+    },
+    {
       "claim_id": "BASA-CLM-009",
-      "feature_id": null,
-      "task_id": null,
-      "prompt_id": null,
-      "trust_status": "unconfirmed"
+      "feature_id": "FS-001",
+      "task_id": "TSK-001",
+      "prompt_id": "APS-001",
+      "trust_status": "confirmed"
     }
   ]
 }

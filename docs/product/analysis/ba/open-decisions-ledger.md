@@ -8,5 +8,5 @@
 
 | ID | Decision | Status | Owner | Blocks |
 |---|---|---|---|---|
-| `BASA-OQ-001` | Delivery channel для `BT-012`: email, chat или callback | open | Product Owner | Channel-specific acceptance |
-| `BASA-OQ-002` | Rollback rehearsal evidence для A2A-first priority | open | Delivery/GitOps Lead | Change Order closure |
+| `BASA-OQ-001` — открытый вопрос BA/SA о канале доставки | Канал доставки для `BT-012` — бизнес-требования о доставке результата: электронная почта пользователю, уведомления в Лисе и обратный вызов для статусов | Закрыт через `EDIT-005` — правку BA-утверждений по каналу доставки и `EDIT-007` — правку feature spec по решению о доставке | Product Owner | Закрытое решение используется в пакете спецификаций |
+| `BASA-OQ-002` — открытый вопрос BA/SA о репетиции отката | Доказательство по репетиции отката для приоритета запуска другим агентом | open | Delivery/GitOps Lead | Закрытие change order |
