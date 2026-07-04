@@ -15,7 +15,7 @@
 
 | ID | Гипотеза | Связь С BMC | Проверка | Метрика | Текущий Статус |
 |---|---|---|---|---|---|
-| HYP-001 | Краткая проверяемая презентация снижает ручную подготовку артефакта | Ценность, издержки | MVP flow на golden input | time from input to accepted deck | draft |
+| HYP-001 | Краткая проверяемая презентация снижает ручную подготовку артефакта и нагрузку на разбор длинного ответа другого агента в Лисе | Ценность, издержки | MVP flow на агентском ответе как входном контексте | time from agent answer to accepted deck | draft |
 | HYP-002 | Трассировка claims повышает доверие к результату | Ценность, отношения | Review с claim map | presentation acceptance rate | draft |
 | HYP-003 | Недельный Scrum ускоряет получение evidence без перегруза команды | Ключевые активности | 2 спринта process metrics | sprint predictability, spillover rate | active |
 

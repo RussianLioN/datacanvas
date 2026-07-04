@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "questionnaire_id": "CO-2026-001-PO-ACCEPTANCE",
   "change_order_id": "CO-2026-001",
-  "status": "paused",
+  "status": "completed",
   "mode": "product_owner_acceptance",
   "owner_role": "Product Owner",
   "started_at": "2026-07-03T09:00:00Z",
-  "updated_at": "2026-07-03T09:00:00Z",
+  "updated_at": "2026-07-04T22:10:04Z",
   "paused_at": "2026-07-03T09:00:00Z",
-  "completed_at": null,
+  "completed_at": "2026-07-04T22:10:04Z",
   "current_question": {
-    "question_id": "PRODUCT-21",
-    "title": "Основной пользовательский сценарий",
-    "state": "next",
-    "next_action": "Перед вопросом вывести текущий раздел «Основной пользовательский сценарий», дать простой комментарий и спросить Product Owner, как разделить агентский запуск и диалоговый режим в Лисе."
+    "question_id": "PRODUCT-31",
+    "title": "Опросник завершен",
+    "state": "not_applicable",
+    "next_action": "Все продуктовые вопросы CO-2026-001 закрыты утвержденным планом имплементации; дальнейшие изменения оформлять отдельным Product Change Order или impact review."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -188,6 +188,76 @@
       "status": "confirmed",
       "safe_summary": "Раздел «Основная ценность» обновляется: добавляется быстрое изготовление презентации по контексту от другого агента и получение результата в редактируемом формате.",
       "answered_at": "2026-07-03T09:00:00Z"
+    },
+    {
+      "question_id": "PRODUCT-21",
+      "title": "Основной пользовательский сценарий",
+      "status": "confirmed",
+      "safe_summary": "Основной пользовательский сценарий сохраняет два маршрута: запуск другим агентом после проверки достаточности и безопасности данных идет к изготовлению и доставке без дополнительного подтверждения; диалоговый режим в Лисе сохраняет описание структуры и выбор пользователя.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-22",
+      "title": "Роли систем",
+      "status": "confirmed",
+      "safe_summary": "Раздел ролей систем оставляет только участников, значимых для стейкхолдерского сценария: Лиса, Оркестратор, DataCanvas и электронная почта; служебное упоминание исторического ориентира результата удаляется.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-23",
+      "title": "Входные данные",
+      "status": "confirmed",
+      "safe_summary": "Во входных данных фиксируется объемный ответ другого агента в Лисе как подготовленный контекст, но сырой чат не объявляется техническим контрактом входного пакета.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-24",
+      "title": "Жизненный цикл презентации",
+      "status": "confirmed",
+      "safe_summary": "Жизненный цикл сохраняет разделение запроса, описания презентации, файла презентации и исправленной версии; изменение текста не требуется.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-25",
+      "title": "MVP и ближайшее ядро",
+      "status": "confirmed",
+      "safe_summary": "MVP сохраняет P1-P2 stories как ближайшее ядро; DC-ST-23..DC-ST-28 остаются историями-кандидатами запуска другим агентом до оценки ёмкости, ресурсов и вытеснения.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-26",
+      "title": "Нецели и границы",
+      "status": "confirmed",
+      "safe_summary": "Раздел нецелей сохраняет продуктовые границы DataCanvas; служебное упоминание исторического ориентира результата удаляется как неценное для стейкхолдеров.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-27",
+      "title": "Риски и доверительные границы",
+      "status": "confirmed",
+      "safe_summary": "Риски и доверительные границы уже покрывают недоверенные входы от пользователей, агентов, инструментов, Оркестратора и почты; изменение текста не требуется.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-28",
+      "title": "Метрики успеха",
+      "status": "confirmed",
+      "safe_summary": "Метрики успеха дополняются временем от ответа другого агента до готовой презентации, долей сценариев без ручного копирования из Лисы и оценкой удобства презентации по сравнению с длинной чатовой лентой.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-29",
+      "title": "Открытые продуктовые решения",
+      "status": "confirmed",
+      "safe_summary": "Открытые продуктовые решения остаются без смысловой правки: новая формулировка проблемы не закрывает формат файла, правила получателя, каталог шаблонов, версионирование и границы правок.",
+      "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-30",
+      "title": "Stories, requirements, BMC и traceability после финализации Vision",
+      "status": "confirmed",
+      "safe_summary": "Каскадная проверка выполнена: stories и текущие продуктовые тексты очищены от служебного упоминания исторического ориентира результата; BMC, гипотезы и business requirements синхронизированы; новые BT не требуются.",
+      "answered_at": "2026-07-04T22:10:04Z"
     }
   ],
   "agreed_decisions": [
@@ -246,70 +316,95 @@
       "decision_status": "confirmed",
       "safe_summary": "Основная ценность обновлена: быстрый агентский запуск и редактируемый итоговый файл.",
       "affected_artifacts": ["docs/product-vision.md"]
+    },
+    {
+      "decision_id": "DEC-009",
+      "question_id": "PRODUCT-22",
+      "decision_status": "confirmed",
+      "safe_summary": "Vision и текущие стейкхолдерские продуктовые артефакты очищаются от служебного упоминания исторического ориентира результата.",
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/stories.md",
+        "docs/product/bmc/source-excerpts.md",
+        "docs/datacanvas-documentation-implementation-plan.md"
+      ]
+    },
+    {
+      "decision_id": "DEC-010",
+      "question_id": "PRODUCT-30",
+      "decision_status": "confirmed",
+      "safe_summary": "Новая проблема длинной чатовой ленты Лисы протянута в Vision, BMC, гипотезы, business requirements и source audit без добавления новых BT.",
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/hypotheses/hypothesis-board.md",
+        "docs/product/hypotheses/hypothesis-validation.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/source-audit.md"
+      ]
     }
   ],
   "remaining_checklist": [
     {
       "item_id": "PRODUCT-21",
       "title": "Основной пользовательский сценарий",
-      "status": "paused"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-22",
       "title": "Роли систем",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-23",
       "title": "Входные данные",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-24",
       "title": "Жизненный цикл презентации",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-25",
       "title": "MVP и ближайшее ядро",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-26",
       "title": "Нецели и границы",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-27",
       "title": "Риски и доверительные границы",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-28",
       "title": "Метрики успеха",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-29",
       "title": "Открытые продуктовые решения",
-      "status": "pending"
+      "status": "completed"
     },
     {
       "item_id": "PRODUCT-30",
       "title": "Stories, requirements, BMC и traceability после финализации Vision",
-      "status": "pending"
+      "status": "completed"
     }
   ],
   "periodic_stop": {
-    "last_stop_after_answer_count": 20,
-    "reason": "Контрольная остановка после 20-го продуктового ответа для обработки документов и сохранения состояния.",
-    "next_stop_after_answer_count": 25
+    "last_stop_after_answer_count": 30,
+    "reason": "Опросник завершен после утвержденного плана имплементации и каскадной обработки оставшихся продуктовых разделов.",
+    "next_stop_after_answer_count": 35
   },
   "resume_instructions": [
-    "Перед продолжением прочитать state и log артефакты.",
-    "Показать краткое резюме согласованных решений и оставшийся checklist.",
-    "Продолжить с PRODUCT-21.",
-    "Если вопрос касается существующего раздела, сначала вывести текущий текст раздела.",
-    "После каждого ответа обновлять state и log и запускать npm run validate:co-questionnaire."
+    "Опросник CO-2026-001 завершен.",
+    "Новые продуктовые изменения оформлять отдельным Product Change Order или impact review.",
+    "Перед дальнейшими правками Vision проверять source registry, change-order ledger и связанные product artifacts."
   ]
 }
