@@ -2362,7 +2362,7 @@
     {
       "artifact_id": "ART-473",
       "path": "docs/product/interviews/ba-sa/evidence-requests.md",
-      "sha256": "a136abe772616641c463b38f89198fdc7c9a1bbd810594946703fd9d42289fe2"
+      "sha256": "c70236ec68306bb305517543424fee461164c3005d997f6627bbf906fc135355"
     },
     {
       "artifact_id": "ART-474",
@@ -2372,7 +2372,7 @@
     {
       "artifact_id": "ART-475",
       "path": "docs/product/interviews/ba-sa/open-questions.md",
-      "sha256": "89c8ef8316613fb5712757a07b9dcffcc2b08906adc9b9bae76a8d0dcf406a2b"
+      "sha256": "ac6187894785ceab73023d5373bab21af7c0cc1f93bde5a4ae66f589f52cc069"
     },
     {
       "artifact_id": "ART-476",
@@ -2382,7 +2382,7 @@
     {
       "artifact_id": "ART-477",
       "path": "docs/product/analysis/ba/ba-spec.json",
-      "sha256": "caa0990c0d55d23fb8962dc6e7d202bcb92adeec6114649ed840ceca557bfbce"
+      "sha256": "865ae97f0fd90d4988bc7d769959efc315740bcc9ec125cf9dfcc31ec545cad9"
     },
     {
       "artifact_id": "ART-478",
@@ -2407,12 +2407,12 @@
     {
       "artifact_id": "ART-482",
       "path": "docs/product/analysis/ba/business-rules.json",
-      "sha256": "59ff3a81b81f4495df63f4041b2abd1c0e154aa6b9b611b447116698387c8144"
+      "sha256": "c6bc22fd6ccc9b422dd3a4dd83551c2bd47277f59d0f10df5c41b733e004496e"
     },
     {
       "artifact_id": "ART-483",
       "path": "docs/product/analysis/ba/business-rules.md",
-      "sha256": "73226b69c3fc2e4795ae4dcd2e5c03c3367abe73cd751a244cffcbe59a2375b9"
+      "sha256": "a1904e33312b808e13781787ff43fcbdaa2892dced66132355ef5d8d41f934a7"
     },
     {
       "artifact_id": "ART-484",
@@ -2432,7 +2432,7 @@
     {
       "artifact_id": "ART-487",
       "path": "docs/product/analysis/ba-sa/interview-derived-coverage.json",
-      "sha256": "050f836154bd5c3e90aa1a8270accd7154bc8d0c0d0edb1f225b10dddfce2ad5"
+      "sha256": "cfc3be654b1af34c547635e6f80d3b41d9aa1393b3a6b62828ddc52ea7a8edca"
     },
     {
       "artifact_id": "ART-488",
@@ -3032,32 +3032,32 @@
     {
       "artifact_id": "ART-607",
       "path": "docs/product/sources/source-audit.md",
-      "sha256": "c51ef16dbe091b1b08407e1ecbb521d557813c0ddf751b21657abe86e03fb26d"
+      "sha256": "d58566953a63a6a1bb1fed54ddec69a14184e46f74a0b24682bfa24c5411c5a8"
     },
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "48c40c803cf5e3ab8e229494b4ed058ea52449556fa767ea20ffb1f0f5f8d53a"
+      "sha256": "c9a14084341b8e26c29d66e949d3ee8ccca323293fc6621fb210b03871f2ce34"
     },
     {
       "artifact_id": "ART-609",
       "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
-      "sha256": "d7c79b6ea7ded785fdf1cc48099f1ec26b6d76b178313b6e60dcfebb80663db8"
+      "sha256": "5239af6bf685f3bdd8c4e169efbd46a560763a67f47fa469e89165c016d3d0c6"
     },
     {
       "artifact_id": "ART-610",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
-      "sha256": "0c961bd676cd6b82f8fcd3d33983efb2006dc4f1dc993bb67338ed9d5ff4d6cd"
+      "sha256": "32becd0d18e18432216af8d7a70b635a54a0881dc6418ae723c1f346f2eb9a81"
     },
     {
       "artifact_id": "ART-611",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
-      "sha256": "1b89f699515554d5f69a103e52cb7785179fbf3ebe22abe0da0a3b2d0bbe012a"
+      "sha256": "404deb271b7d8a0433f0b757ce46fc5184a52eb9a0fabbc56613750134bc3f4d"
     },
     {
       "artifact_id": "ART-612",
       "path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-      "sha256": "8b93afb9c064a37a5930c2ac2f370098f9efb0e9aecca69e73a7dd1775b53001"
+      "sha256": "f456c25353e0c9f23996b84941eda603012c7b3c3443b9ee7c63d3e17e00756b"
     },
     {
       "artifact_id": "ART-613",

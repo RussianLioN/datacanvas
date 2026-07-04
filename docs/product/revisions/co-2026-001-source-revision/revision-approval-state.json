@@ -11,14 +11,14 @@
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
   "started_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T12:18:53Z",
-  "paused_at": "2026-07-04T12:18:53Z",
+  "updated_at": "2026-07-04T12:52:48Z",
+  "paused_at": "2026-07-04T12:52:48Z",
   "completed_at": null,
   "current_edit": {
-    "edit_id": "EDIT-005",
-    "title": "Закрыть устаревшее BA-утверждение по каналу доставки",
+    "edit_id": "EDIT-006",
+    "title": "Добавить маршрут без пользовательского подтверждения в системный анализ",
     "state": "next",
-    "next_action": "Вывести обновленный финальный текст для EDIT-005 — правки BA-утверждений по каналу доставки — с учетом уточнения Product Owner: при запуске другим агентом файл отправляется пользователю по электронной почте, вызывающий агент получает статусы и сведения о результате; в Лисе пользователь после выбора изготовления видит срок доставки до 30 минут и получает уведомление после отправки файла."
+    "next_action": "Вывести текущий фрагмент docs/architecture/system-analysis/sa-spec.json для EDIT-006 — правки системного анализа по маршруту без подтверждения, простым языком объяснить проблему и запросить у Product Owner согласование варианта правки."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -47,7 +47,7 @@
     { "edit_id": "EDIT-002", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-003", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-004", "status": "applied", "blocking": false },
-    { "edit_id": "EDIT-005", "status": "pending", "blocking": true },
+    { "edit_id": "EDIT-005", "status": "applied", "blocking": false },
     { "edit_id": "EDIT-006", "status": "pending", "blocking": true },
     { "edit_id": "EDIT-007", "status": "pending", "blocking": true },
     { "edit_id": "EDIT-008", "status": "pending", "blocking": true },

@@ -8,6 +8,6 @@
 
 | ID | Область | Правило | Owner | Проверка |
 |---|---|---|---|---|
-| `BRULE-001` | interview_to_requirement | Только confirmed claim с evidence может стать acceptance gate | Product Owner | `npm run validate:business-rules` |
-| `BRULE-002` | delivery_channel | Unconfirmed channel decision не меняет `BT-012` | Product Owner | `npm run validate:business-rules` |
-| `BRULE-003` | trust_boundary | A2A/MCP payload считается недоверенными данными до validation | Security/Privacy Lead | `npm run validate:interface-contracts` |
+| `BRULE-001` — правило продвижения утверждений в требования | interview_to_requirement | Только подтвержденное утверждение с подтверждающим материалом может стать критерием приемки | Product Owner | `npm run validate:business-rules` |
+| `BRULE-002` — правило канала доставки для `BT-012` (бизнес-требование о доставке результата) | delivery_channel | Подтвержденный канал доставки меняет `BT-012` (бизнес-требование о доставке результата): готовый файл отправляется пользователю по электронной почте, а уведомления в Лисе фиксируются отдельно для текущей и будущей реализации | Product Owner | `npm run validate:business-rules` |
+| `BRULE-003` — правило доверительной границы | trust_boundary | A2A/MCP payload (данные от внешнего агента или инструмента) считается недоверенными данными до validation | Security/Privacy Lead | `npm run validate:interface-contracts` |

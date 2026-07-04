@@ -79,12 +79,16 @@
     },
     {
       "claim_id": "BASA-CLM-009",
-      "safe_summary": "Delivery channel для BT-012 еще не подтвержден.",
-      "trust_status": "unconfirmed",
+      "safe_summary": "Канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден: при запуске другим агентом файл презентации отправляется пользователю по электронной почте, а вызывающий агент получает статусы и сведения о результате через обратный вызов; в Лисе после выбора изготовления презентации пользователь получает сообщение о доставке на электронную почту в течение 30 минут и уведомление после отправки файла.",
+      "trust_status": "confirmed",
       "data_class": "internal",
-      "evidence_refs": [],
-      "allowed_downstream_use": ["evidence_request", "hypothesis_backlog"],
-      "promoted_to_requirement": false
+      "evidence_refs": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md"
+      ],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
     },
     {
       "claim_id": "BASA-CLM-010",
@@ -147,19 +151,26 @@
       "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"],
       "acceptance_refs": ["AC-BASA-003"],
       "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-012-DELTA",
+      "summary": "Канал доставки результата подтвержден: готовый файл отправляется пользователю по электронной почте; при запуске другим агентом статусы и сведения о результате возвращаются вызывающему агенту; в Лисе пользователь получает сообщение о доставке в течение 30 минут и уведомление после отправки.",
+      "source_claim_ids": ["BASA-CLM-009"],
+      "acceptance_refs": ["AC-BASA-004"],
+      "coverage_status": "covered"
     }
   ],
   "business_rules": [
     {
       "rule_id": "BRULE-001",
-      "summary": "Только confirmed claim с evidence может стать acceptance gate.",
+      "summary": "Только подтвержденное утверждение с подтверждающим материалом может стать критерием приемки.",
       "owner_role": "Product Owner",
       "verification": "npm run validate:ba-spec",
       "source_claim_ids": ["BASA-CLM-008"]
     },
     {
       "rule_id": "BRULE-002",
-      "summary": "Unconfirmed channel decision не меняет BT-012.",
+      "summary": "Подтвержденный канал доставки меняет BT-012 (бизнес-требование о доставке результата): готовый файл отправляется пользователю по электронной почте, а уведомления в Лисе фиксируются отдельно для текущей и будущей реализации.",
       "owner_role": "Product Owner",
       "verification": "npm run validate:business-rules",
       "source_claim_ids": ["BASA-CLM-009"]
@@ -172,6 +183,6 @@
       "source_claim_ids": ["BASA-CLM-004"]
     }
   ],
-  "acceptance_deltas": ["AC-BASA-001", "AC-BASA-002", "AC-BASA-003"],
-  "open_decisions": ["BASA-OQ-001", "BASA-OQ-002"]
+  "acceptance_deltas": ["AC-BASA-001", "AC-BASA-002", "AC-BASA-003", "AC-BASA-004"],
+  "open_decisions": ["BASA-OQ-002"]
 }

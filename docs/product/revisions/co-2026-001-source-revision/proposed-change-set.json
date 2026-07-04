@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T12:18:53Z",
+  "updated_at": "2026-07-04T12:52:48Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -79,6 +79,20 @@
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
       "related_edit_ids": ["EDIT-004"],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-004 — правки критериев приемки по двум маршрутам: явно разделить запуск другим агентом без подтверждения после проверок и диалоговый режим в Лисе с выбором изготовления или редактирования структуры."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-005",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-005",
+      "accepted_at": "2026-07-04T12:52:48Z",
+      "selected_option_id": "variant_5_with_po_lisa_notification_clarification",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "dfb7d3244d829dad4eced5a9d012671b6f814c0501f27171251c95df680d13d6",
+      "related_edit_ids": ["EDIT-005"],
+      "safe_summary": "Product Owner согласовал EDIT-005 — правку BA-утверждений по каналу доставки: файл доставляется пользователю по электронной почте; при запуске другим агентом вызывающий агент получает статусы и сведения о результате; в Лисе пользователь получает сообщение о сроке доставки до 30 минут и уведомление после отправки файла."
     }
   ],
   "proposed_edits": [
@@ -163,16 +177,16 @@
       "artifact_path": "docs/product/analysis/ba/ba-spec.json",
       "section_or_anchor": "BASA-CLM delivery channel",
       "change_kind": "point_semantic",
-      "current_excerpt": "Delivery channel для BT-012 еще не подтвержден.",
+      "current_excerpt": "Канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден: при запуске другим агентом файл презентации отправляется пользователю по электронной почте, а вызывающий агент получает статусы и сведения о результате через обратный вызов; в Лисе после выбора изготовления презентации пользователь получает сообщение о доставке на электронную почту в течение 30 минут и уведомление после отправки файла.",
       "proposed_text": "Пометить старое BA-утверждение как устаревшее и зафиксировать подтвержденный маршрут доставки: при запуске другим агентом файл презентации отправляется пользователю по электронной почте, а вызывающий агент получает статусы и сведения о результате через обратный вызов; в Лисе после выбора изготовления презентации пользователь получает сообщение, что презентация будет отправлена на электронную почту в течение 30 минут, а после отправки файла получает уведомление в Лисе: в текущей реализации — метку о непрочитанных сообщениях в статусе Лисы, в будущих реализациях — пуш-уведомление и метку о непрочитанных сообщениях.",
       "rationale": "Product Owner уточнил разные уведомления для запуска другим агентом и диалогового режима в Лисе: файл доставляется по электронной почте, а пользователь в Лисе дополнительно информируется о сроке доставки и получает уведомление после отправки.",
       "affected_claims": ["PRODUCT-07", "BT-012"],
       "downstream_paths": ["docs/product/specs/feature-spec-a2a-launch.json"],
       "required_owner": "Product Owner",
-      "approval_status": "edited",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-005",
       "rollback_or_forward_fix": "Если не применять, BA spec остается needs_revision в source registry."
     },
     {

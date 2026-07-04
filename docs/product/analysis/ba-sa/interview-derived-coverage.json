@@ -45,10 +45,10 @@
       "eval_id": "BASA-EVAL-004",
       "fixture_id": "BASA-FIX-004",
       "gate": "npm run validate:change-impact",
-      "status": "deferred"
+      "status": "covered"
     }
   ],
   "known_gaps": [
-    "BASA-CLM-009 остается unconfirmed и не может стать acceptance gate до Product Owner channel decision."
+    "BASA-CLM-010 (BA/SA-предположение о репетиции отката) остается предположением до подтвержденной репетиции отката."
   ]
 }

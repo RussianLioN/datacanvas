@@ -15,7 +15,7 @@
     {
       "rule_id": "BRULE-002",
       "scope": "delivery_channel",
-      "summary": "Unconfirmed channel decision не меняет BT-012.",
+      "summary": "Подтвержденный канал доставки меняет BT-012 (бизнес-требование о доставке результата): готовый файл отправляется пользователю по электронной почте, а уведомления в Лисе фиксируются отдельно для текущей и будущей реализации.",
       "exceptions": ["Accepted Product Change Order with Product Owner decision"],
       "owner_role": "Product Owner",
       "verification": "npm run validate:business-rules",

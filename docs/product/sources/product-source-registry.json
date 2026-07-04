@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-04T12:06:44Z",
+  "updated_at": "2026-07-04T12:52:48Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -253,12 +253,12 @@
       "source_role": "analysis_source",
       "owner_role": "Product Owner",
       "lifecycle": "draft",
-      "trust_level": "needs_revision",
+      "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["requirements_delta", "spec_delta"],
       "affected_artifacts": ["docs/product/specs/feature-spec-a2a-launch.json"],
-      "notes": "Содержит claim о неподтвержденном delivery channel, который требует пересмотра."
+      "notes": "Обновлен по EDIT-005 — правке BA-утверждений по каналу доставки: канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден; файл отправляется пользователю по электронной почте; статусы и сведения о результате возвращаются вызывающему агенту; уведомления в Лисе зафиксированы для текущей и будущей реализации."
     },
     {
       "source_id": "SRC-DC-SYSTEM-ANALYSIS",

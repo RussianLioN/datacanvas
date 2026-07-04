@@ -18,7 +18,7 @@ Ledger фиксирует, какие ранее выпущенные докум
 | `docs/product/bmc/bmc-v0.2.md` | accepted, needs_revision | Убрать технические обозначения из стейкхолдерского текста и развести каналы | applied |
 | `docs/product/requirements/business-requirements.md` | draft, needs_revision | Разделить правило подтверждения для Лисы и запуска другим агентом | applied |
 | `docs/product/requirements/acceptance-criteria.md` | draft, needs_revision | Добавить отдельный сценарий приемки для запуска другим агентом | applied |
-| `docs/product/analysis/ba/ba-spec.json` | draft, needs_revision | Закрыть устаревшее утверждение о канале доставки | edited |
+| `docs/product/analysis/ba/ba-spec.json` | draft, needs_revision | Закрыть устаревшее утверждение о канале доставки | applied |
 | `docs/architecture/system-analysis/sa-spec.json` | draft, needs_revision | Добавить альтернативный путь без пользовательского подтверждения | pending |
 | `docs/product/specs/feature-spec-a2a-launch.json` | draft, needs_revision | Обновить решение о доставке без расширения рабочих интеграций | pending |
 | `docs/product/requirements/traceability-matrix.json` | draft, needs_revision | Разделить трассировку по двум режимам | pending |
@@ -26,6 +26,6 @@ Ledger фиксирует, какие ранее выпущенные докум
 
 ## Текущий Блокер
 
-Смысловые правки `EDIT-005` — BA-утверждения по каналу доставки, `EDIT-006` — системный анализ, `EDIT-007` — feature spec и `EDIT-008` — трассировка ожидают принятия Product Owner.
+Смысловые правки `EDIT-006` — системный анализ по маршруту без подтверждения, `EDIT-007` — feature spec по решению о доставке и `EDIT-008` — трассировка по двум режимам ожидают принятия Product Owner.
 
 До принятия они не должны попадать в рабочие документы как примененные изменения.
