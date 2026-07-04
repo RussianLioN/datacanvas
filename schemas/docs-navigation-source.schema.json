@@ -9,6 +9,7 @@
     "source_roots",
     "required_entrypoints",
     "section_rules",
+    "navigation_domains",
     "navigation_groups",
     "managed_entries",
     "role_routes",
@@ -38,6 +39,11 @@
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/sectionRule" }
+    },
+    "navigation_domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/navigationDomainDefinition" }
     },
     "navigation_groups": {
       "type": "array",
@@ -145,6 +151,7 @@
       "type": "object",
       "required": [
         "section",
+        "navigation_domain",
         "navigation_group",
         "owner_role",
         "lifecycle",
@@ -160,6 +167,7 @@
       "additionalProperties": false,
       "properties": {
         "section": { "$ref": "#/$defs/section" },
+        "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "owner_role": { "type": "string", "minLength": 1 },
         "lifecycle": { "$ref": "#/$defs/lifecycle" },
@@ -192,6 +200,7 @@
         "path",
         "route_id",
         "section",
+        "navigation_domain",
         "navigation_group",
         "owner_role",
         "lifecycle",
@@ -212,6 +221,7 @@
         "path": { "$ref": "#/$defs/repoPath" },
         "route_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "section": { "$ref": "#/$defs/section" },
+        "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "owner_role": { "type": "string", "minLength": 1 },
         "lifecycle": { "$ref": "#/$defs/lifecycle" },
@@ -242,12 +252,13 @@
     },
     "route": {
       "type": "object",
-      "required": ["id", "label", "role", "navigation_group", "start_path", "next_paths", "owner_role", "validation_command"],
+      "required": ["id", "label", "role", "navigation_domain", "navigation_group", "start_path", "next_paths", "owner_role", "validation_command"],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "label": { "type": "string", "minLength": 1 },
         "role": { "type": "string", "minLength": 1 },
+        "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "start_path": { "$ref": "#/$defs/repoPath" },
         "next_paths": {
@@ -260,12 +271,13 @@
     },
     "taskRoute": {
       "type": "object",
-      "required": ["id", "label", "task", "navigation_group", "start_path", "next_paths", "owner_role", "validation_command"],
+      "required": ["id", "label", "task", "navigation_domain", "navigation_group", "start_path", "next_paths", "owner_role", "validation_command"],
       "additionalProperties": false,
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
         "label": { "type": "string", "minLength": 1 },
         "task": { "type": "string", "minLength": 1 },
+        "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "navigation_group": { "$ref": "#/$defs/navigationGroup" },
         "start_path": { "$ref": "#/$defs/repoPath" },
         "next_paths": {
@@ -328,13 +340,28 @@
     },
     "navigationGroupDefinition": {
       "type": "object",
-      "required": ["id", "title", "description"],
+      "required": ["id", "navigation_domain", "title", "description"],
       "additionalProperties": false,
       "properties": {
         "id": { "$ref": "#/$defs/navigationGroup" },
+        "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "title": { "type": "string", "minLength": 1 },
         "description": { "type": "string", "minLength": 1 }
       }
+    },
+    "navigationDomainDefinition": {
+      "type": "object",
+      "required": ["id", "title", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/navigationDomain" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "navigationDomain": {
+      "type": "string",
+      "enum": ["product", "documentation_operations"]
     },
     "navigationGroup": {
       "type": "string",

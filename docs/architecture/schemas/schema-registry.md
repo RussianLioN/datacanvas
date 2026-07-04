@@ -31,6 +31,8 @@
 | CascadingUpdateRun | Evidence одного cascade run | draft: `schemas/cascading-update-run.schema.json` |
 | JiraFieldMappingRequest | Per-package запрос согласования Jira custom fields | draft: `schemas/jira-field-mapping-request.schema.json` |
 | JiraImportPackageManifest | Manifest Jira import package readiness | draft: `schemas/jira-import-package-manifest.schema.json` |
+| AgentLaunchRequirementsAnalysisState | Состояние анализа `DC-ST-23..DC-ST-28` — пользовательских историй запуска другим агентом — и правило продолжения после обрыва | active: `schemas/agent-launch-requirements-analysis-state.schema.json` |
+| AgentLaunchRequirementsImpactMap | Карта влияния `DC-ST-23..DC-ST-28` — пользовательских историй запуска другим агентом — на `BT-*` — бизнес-требования | active: `schemas/agent-launch-requirements-impact-map.schema.json` |
 
 Breaking change любой схемы требует ADR или Process Change Request и migration note.
 

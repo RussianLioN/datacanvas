@@ -345,6 +345,14 @@ const cases = [
     data: "docs/product/analysis/ba-sa/interview-derived-coverage.json",
   },
   {
+    schema: "schemas/agent-launch-requirements-analysis-state.schema.json",
+    data: "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+  },
+  {
+    schema: "schemas/agent-launch-requirements-impact-map.schema.json",
+    data: "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+  },
+  {
     schema: "schemas/feature-spec.schema.json",
     data: "docs/product/specs/feature-spec-a2a-launch.json",
   },

@@ -151,6 +151,7 @@ execFileSync("node", ["scripts/generate-docs-navigation.mjs", "--check"], {
 
 const indexByPath = new Map(index.entries.map((entry) => [entry.path, entry]));
 const sourceManagedByPath = new Map(source.managed_entries.map((entry) => [entry.path, entry]));
+const configuredNavigationDomains = new Set(source.navigation_domains.map((domain) => domain.id));
 const configuredNavigationGroups = new Set(source.navigation_groups.map((group) => group.id));
 
 for (const entry of index.entries) {
@@ -164,8 +165,28 @@ if (source.navigation_groups[0]?.id !== "business") {
   fail("business navigation group must be configured first");
 }
 
+if (source.navigation_domains[0]?.id !== "product") {
+  fail("product navigation domain must be configured first");
+}
+
+if (configuredNavigationDomains.size !== source.navigation_domains.length) {
+  fail("duplicate navigation domain ids");
+}
+
 if (configuredNavigationGroups.size !== source.navigation_groups.length) {
   fail("duplicate navigation group ids");
+}
+
+for (const group of source.navigation_groups) {
+  if (!configuredNavigationDomains.has(group.navigation_domain)) {
+    fail(`navigation group uses unknown domain: ${group.id} -> ${group.navigation_domain}`);
+  }
+}
+
+for (const domain of source.navigation_domains) {
+  if (!readText("docs/navigation/navigation-map.md").includes(`## ${domain.title}`)) {
+    fail(`generated navigation map is missing domain: ${domain.id}`);
+  }
 }
 
 for (const group of source.navigation_groups) {
@@ -202,6 +223,9 @@ if (routeDuplicates.length > 0) {
 }
 
 for (const route of [...source.role_routes, ...source.task_routes]) {
+  if (!configuredNavigationDomains.has(route.navigation_domain)) {
+    fail(`route uses unknown navigation domain: ${route.id} -> ${route.navigation_domain}`);
+  }
   if (!configuredNavigationGroups.has(route.navigation_group)) {
     fail(`route uses unknown navigation group: ${route.id} -> ${route.navigation_group}`);
   }
@@ -258,6 +282,10 @@ for (const entry of index.entries) {
     fail(`navigation entry has unknown group: ${entry.path}`);
   }
 
+  if (!configuredNavigationDomains.has(entry.navigation_domain)) {
+    fail(`navigation entry has unknown domain: ${entry.path}`);
+  }
+
   if (["confidential", "sensitive"].includes(entry.data_class)) {
     if (entry.visibility === "public" || entry.searchable || entry.navigable) {
       fail(`sensitive/confidential path is exposed in public navigation: ${entry.path}`);
@@ -279,6 +307,10 @@ for (const entry of index.entries) {
 
   if (entry.navigation_group === "business" && isTechnicalOrGovernancePath(entry.path)) {
     fail(`technical/governance document cannot use business navigation group: ${entry.path}`);
+  }
+
+  if (entry.navigation_group === "business" && entry.navigation_domain !== "product") {
+    fail(`business navigation group must stay in product domain: ${entry.path}`);
   }
 
   if (entry.navigation_group === "business" && entry.visibility === "public" && entry.navigable) {
@@ -305,6 +337,9 @@ for (const sourceEntry of source.managed_entries) {
   }
   if (generatedEntry.navigation_group !== sourceEntry.navigation_group) {
     fail(`managed entry has wrong navigation group in generated index: ${sourceEntry.path}`);
+  }
+  if (generatedEntry.navigation_domain !== sourceEntry.navigation_domain) {
+    fail(`managed entry has wrong navigation domain in generated index: ${sourceEntry.path}`);
   }
   if (sourceEntry.breadcrumb_required && sourceEntry.path.endsWith(".md") && !generatedEntry.generated) {
     if (!hasBreadcrumb(sourceEntry.path)) {
@@ -494,6 +529,9 @@ for (const [pathKey, sourceEntry] of sourceManagedByPath) {
   const generatedEntry = indexByPath.get(pathKey);
   if (generatedEntry && generatedEntry.navigation_group !== sourceEntry.navigation_group) {
     fail(`source/index navigation group mismatch: ${pathKey}`);
+  }
+  if (generatedEntry && generatedEntry.navigation_domain !== sourceEntry.navigation_domain) {
+    fail(`source/index navigation domain mismatch: ${pathKey}`);
   }
 }
 

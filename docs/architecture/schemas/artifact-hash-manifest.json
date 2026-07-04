@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "519eb1922dfef553993d2d3a48b9b8741ffb1887a1e4b7a9b293fc6e7a3d79e1"
+      "sha256": "ea970b97c7f4c128fbdb08868d46e2e1723400a323900d8c643c549784020aad"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "55f38ba54efec14f8c9238c989cb29f29c5c09e91a71b1ab3506ac17a77664a8"
+      "sha256": "29d7cea2d9f2a5d60a32426634a7fa766aefdc2a7e7ec0327fd08f47e943151b"
     },
     {
       "artifact_id": "ART-201",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "88a0311c7a8d2620425d12856f269e77f2bf269ccc46f24281d3cb540f4dafa1"
+      "sha256": "7a00b434c47f189125e9655cdf982afd4ced760116a1b5a80829a75adac3a4d2"
     },
     {
       "artifact_id": "ART-330",
@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "a86270a3b70b812bd6d74c3c9631e07738c4651c1ae5cebbc721f1142cde8cc1"
+      "sha256": "a3d27cd59097bcaa1a7b071314add62e6d90096df2449502a6354b500fac3335"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "246c48c4a0f546bfb845d8fc851df26dbfec79ad6f3d69ac296ea87bb558c788"
+      "sha256": "aa4e3a9020c112b66641d35d76785d5800140a0d7d64d99e3e8b8dbddae7c7d2"
     },
     {
       "artifact_id": "ART-400",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "0627a04b84e550376a067202c991e13039edba9e45163932f56d5a584b92ea49"
+      "sha256": "6f242c22038106355e45ce7d95c4d17e912965d76b83f5e85bdd446445f660af"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "09fa4eea5e8ed60a11bbcca9c0ba6de799396da260757019412c721861a91cb2"
+      "sha256": "2db8855329d2fbeafec912b043fb5b814675cfddf9fa1c0fd9c0696c659b6501"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "808b016a97d71850757fc777e82d7fade90469ee8511e20f8a8e39588c37303d"
+      "sha256": "1fe82bd4c9b04e7a4f9c2d4a0d376cbc75cb2cc80e52761c9cad775304d86da6"
     },
     {
       "artifact_id": "ART-412",
@@ -2067,17 +2067,17 @@
     {
       "artifact_id": "ART-414",
       "path": "schemas/docs-navigation-source.schema.json",
-      "sha256": "92024aa7593715bc61bbdb97639aa85a7435f6ad84966156f508218fe4d5e9b5"
+      "sha256": "9139f0fe5d5cbb9b94cd1f62a8a7a9d5f01aaee3c1f2710c6aed3378df44c746"
     },
     {
       "artifact_id": "ART-415",
       "path": "schemas/docs-navigation-index.schema.json",
-      "sha256": "54cc30d61cc3f81a2ee5135e3d05087145b6f41334452736c86c3fe747b7951d"
+      "sha256": "2506adb235cbc68cfa361f62fea4586304f96954db1229549bf7b02c2c6b12ce"
     },
     {
       "artifact_id": "ART-416",
       "path": "scripts/generate-docs-navigation.mjs",
-      "sha256": "0c7f433684f46cc9e334864ac403848b7d6f6f88e6b6b730d68e6b5829903050"
+      "sha256": "f6481153b34558f60b87b349a8f2f688d7d6032d2bb8f498602226cff673fbbd"
     },
     {
       "artifact_id": "ART-417",
@@ -2087,7 +2087,7 @@
     {
       "artifact_id": "ART-418",
       "path": "scripts/validate-docs-navigation.mjs",
-      "sha256": "8f03ec86032745b1d0d4658cbce941747b14027f951a385bb7f6761bba0e62d7"
+      "sha256": "119f7fb4a02d0e9543fad2fd4ab26de13bb0acfd68d5a128528b4e048e9c78e1"
     },
     {
       "artifact_id": "ART-419",
@@ -2377,7 +2377,7 @@
     {
       "artifact_id": "ART-476",
       "path": "docs/product/analysis/README.md",
-      "sha256": "0ab1099b9bf45e6c2c677ac336d2fb5e0c8efe79caee03fd12f0adf199ec5bac"
+      "sha256": "dc49c2f857ce8fedb8e2090f514bd215396b7ea735e8042e8173dd130f5e3bf5"
     },
     {
       "artifact_id": "ART-477",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "74288cd5d1266f3733ced54c5f96fc84e82f0cee681242e5e103799e2c2036c0"
+      "sha256": "23f37773bf2f3bab568df4b89e97835a8c355e7be3786639169941bfa6e64da2"
     },
     {
       "artifact_id": "ART-569",
@@ -3098,6 +3098,66 @@
       "artifact_id": "ART-619",
       "path": "scripts/validate-accepted-change-order-impact.mjs",
       "sha256": "408db0d0aea597eb7f6bfd171e69e6a0f06739ef355cf59798871717ad24945c"
+    },
+    {
+      "artifact_id": "ART-621",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
+      "sha256": "7054bbcb9f88e4750bb8b7ba1d87cfe7a2f04fad52e2b8b505e5d7127f65c539"
+    },
+    {
+      "artifact_id": "ART-622",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+      "sha256": "6e239ec32c3021c9bad7acb6b6f18be6feb4318f746a7a12acafd0ad0382e680"
+    },
+    {
+      "artifact_id": "ART-623",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+      "sha256": "f46facb2a24fdd03bb762256fb590ef2e63896db77ffaafd3110e829e2505c7f"
+    },
+    {
+      "artifact_id": "ART-624",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
+      "sha256": "37c07ef70a23c4f89133568a241e7250a6a36386c096995e43a09ec96c848d95"
+    },
+    {
+      "artifact_id": "ART-625",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+      "sha256": "002d913235954f48fdb06eebf7f2cae35689cc89fae54b5586f0e087017ebc54"
+    },
+    {
+      "artifact_id": "ART-626",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "sha256": "285e5b5e32ced3664a03f5f2d3e66d70f3c1330714e2ed2e90b64dd75883fd28"
+    },
+    {
+      "artifact_id": "ART-627",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/question-bank.json",
+      "sha256": "92f30ce2f03d09687ebe29745e98fa45e84788e3d09c4078ca626fcd21a2a58c"
+    },
+    {
+      "artifact_id": "ART-628",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/open-decisions.md",
+      "sha256": "d8163f6a2ee8ea393456f2f7ad2bbef8a2062d7cd3cc82ffd9ed068082443956"
+    },
+    {
+      "artifact_id": "ART-629",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/evidence-requests.md",
+      "sha256": "55ce2b266e4432c82a0d3992ecc168485ec1617a0d3b845e73b5906080034627"
+    },
+    {
+      "artifact_id": "ART-630",
+      "path": "schemas/agent-launch-requirements-analysis-state.schema.json",
+      "sha256": "88e34d6cce6050a9a764cb395851ea8006eb1f1c84d877f29205dc9566ac410a"
+    },
+    {
+      "artifact_id": "ART-631",
+      "path": "schemas/agent-launch-requirements-impact-map.schema.json",
+      "sha256": "7cb8221f735357cd618e71763038d10d777951d562105e68bb92461a9d32f3a2"
+    },
+    {
+      "artifact_id": "ART-632",
+      "path": "scripts/validate-agent-launch-requirements-analysis.mjs",
+      "sha256": "c089a8b32f03a61036da4141ee73c722a2c44b8ff9407afc81b1b5465453d6c0"
     }
   ],
   "exclusions": [
