@@ -35,20 +35,20 @@
     {
       "state_id": "STATE-006",
       "name": "approval",
-      "entry_condition": "Description draft exists.",
-      "exit_condition": "Human approval decision recorded."
+      "entry_condition": "В маршруте Лисы описание структуры презентации готово для выбора пользователя; маршрут запуска другим агентом пропускает это состояние после проверки и нормализации.",
+      "exit_condition": "В маршруте Лисы пользователь выбрал изготовление презентации или редактирование структуры; в маршруте запуска другим агентом ручное подтверждение не требуется и не фиксируется."
     },
     {
       "state_id": "STATE-007",
       "name": "render_export",
-      "entry_condition": "Approved PresentationSpec exists.",
-      "exit_condition": "Sanitized export evidence exists."
+      "entry_condition": "PresentationSpec существует после выбора изготовления в Лисе или после проверенного запуска другим агентом без ручного подтверждения.",
+      "exit_condition": "Sanitized export evidence существует, и согласованный маршрут доставки готов."
     },
     {
       "state_id": "STATE-008",
       "name": "delivery_acceptance",
       "entry_condition": "Export exists and channel decision is accepted.",
-      "exit_condition": "Delivery status and acceptance evidence recorded."
+      "exit_condition": "Файл презентации отправлен пользователю по электронной почте; при запуске другим агентом статус доставки и сведения о результате возвращены вызывающему агенту."
     }
   ]
 }

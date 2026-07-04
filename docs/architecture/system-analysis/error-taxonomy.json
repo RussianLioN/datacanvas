@@ -22,11 +22,11 @@
     },
     {
       "error_id": "ERR-003",
-      "summary": "Channel decision missing",
+      "summary": "Согласованный маршрут доставки не удалось проверить",
       "linked_acceptance": "AC-BASA-004",
-      "retry_policy": "Create evidence request and keep channel-neutral behavior.",
-      "rollback_signal": "Do not create delivery-specific export.",
-      "user_facing_message": "Канал доставки еще не утвержден.",
+      "retry_policy": "Использовать согласованный маршрут CO-2026-001 или остановиться до доставки, если обязательные данные доставки отсутствуют.",
+      "rollback_signal": "Не отправлять export с привязкой к доставке.",
+      "user_facing_message": "Не удалось проверить данные для согласованной доставки презентации.",
       "redaction_rule": "Do not include personal delivery metadata."
     }
   ]

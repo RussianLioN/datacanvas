@@ -8,7 +8,7 @@
   "revision_state_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
   "ledger_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
   "created_at": "2026-07-03T12:00:00Z",
-  "updated_at": "2026-07-04T12:52:48Z",
+  "updated_at": "2026-07-04T13:18:29Z",
   "acceptance_records": [
     {
       "acceptance_id": "AR-CO-2026-001-PO-001",
@@ -93,6 +93,20 @@
       "original_user_answer_hash": "dfb7d3244d829dad4eced5a9d012671b6f814c0501f27171251c95df680d13d6",
       "related_edit_ids": ["EDIT-005"],
       "safe_summary": "Product Owner согласовал EDIT-005 — правку BA-утверждений по каналу доставки: файл доставляется пользователю по электронной почте; при запуске другим агентом вызывающий агент получает статусы и сведения о результате; в Лисе пользователь получает сообщение о сроке доставки до 30 минут и уведомление после отправки файла."
+    },
+    {
+      "acceptance_id": "AR-CO-2026-001-EDIT-006",
+      "accepted_by_role": "Product Owner",
+      "actor_identity": "current_user",
+      "acceptance_channel": "codex_chat",
+      "source_trust_level": "direct_product_owner_answer",
+      "interaction_id": "CO-2026-001-REVISION-EDIT-006",
+      "accepted_at": "2026-07-04T13:18:29Z",
+      "selected_option_id": "variant_1_recommended",
+      "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+      "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "related_edit_ids": ["EDIT-006"],
+      "safe_summary": "Product Owner принял вариант 1 для EDIT-006 — правки системного анализа по маршруту без подтверждения: запуск другим агентом после проверки достаточности и безопасности данных идет к изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры."
     }
   ],
   "proposed_edits": [
@@ -194,16 +208,16 @@
       "artifact_path": "docs/architecture/system-analysis/sa-spec.json",
       "section_or_anchor": "lifecycle_states.approval",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "\"name\": \"approval\"",
-      "proposed_text": "Добавить альтернативный путь для запуска другим агентом: validation -> normalization -> render_export -> email delivery, без пользовательского approval.",
-      "rationale": "System analysis сейчас моделирует approval как обязательный переход перед render_export.",
+      "current_excerpt": "маршрут запуска другим агентом пропускает это состояние после проверки и нормализации",
+      "proposed_text": "Разделить системные маршруты: запуск другим агентом после проверки достаточности и безопасности данных идет к нормализации, изготовлению, экспорту и доставке по электронной почте без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры: изготовить презентацию или перейти к редактированию структуры.",
+      "rationale": "System analysis раньше моделировал approval как обязательный переход перед render_export, но CO-2026-001 разделил маршруты: при запуске другим агентом подтверждение невозможно и не требуется, а в Лисе пользователь выбирает действие после описания структуры.",
       "affected_claims": ["CO-2026-001", "BT-009", "BT-012"],
       "downstream_paths": ["docs/product/specs/task-spec-a2a-launch.json"],
       "required_owner": "Product Owner / AI Agent Architect",
-      "approval_status": "pending",
-      "apply_status": "not_applied",
-      "validation_status": "not_run",
-      "acceptance_record_id": null,
+      "approval_status": "approved",
+      "apply_status": "applied",
+      "validation_status": "passed",
+      "acceptance_record_id": "AR-CO-2026-001-EDIT-006",
       "rollback_or_forward_fix": "Если архитектурный путь не согласован, оставить agent launch blocked for system-analysis."
     },
     {

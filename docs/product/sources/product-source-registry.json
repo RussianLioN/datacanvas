@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-04T12:52:48Z",
+  "updated_at": "2026-07-04T13:18:29Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -266,12 +266,12 @@
       "source_role": "technical_spec",
       "owner_role": "AI Agent Architect",
       "lifecycle": "draft",
-      "trust_level": "needs_revision",
+      "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["implementation_context", "verification"],
       "affected_artifacts": ["docs/product/specs/task-spec-a2a-launch.json"],
-      "notes": "Требует альтернативный путь без пользовательского approval для запуска другим агентом."
+      "notes": "Обновлен по EDIT-006 — правке системного анализа по маршруту без подтверждения: запуск другим агентом после проверки достаточности и безопасности данных идет к нормализации, изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры."
     },
     {
       "source_id": "SRC-DC-SPEC-A2A-LAUNCH",

@@ -18,6 +18,11 @@
       "requirement_id": "NFR-003-DELTA",
       "verification_method": "Data leakage and prompt readiness validators.",
       "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"]
+    },
+    {
+      "requirement_id": "BT-012-DELTA",
+      "verification_method": "Проверка жизненного цикла: запуск другим агентом пропускает ручное подтверждение после проверок достаточности и безопасности, затем создает export и evidence доставки.",
+      "source_claim_ids": ["BASA-CLM-003", "BASA-CLM-009"]
     }
   ],
   "interfaces": [
@@ -85,14 +90,20 @@
     {
       "state_id": "STATE-005",
       "name": "approval",
-      "entry_condition": "Description or spec is ready for review.",
-      "exit_condition": "Human approval decision recorded."
+      "entry_condition": "В маршруте Лисы описание структуры презентации готово для выбора пользователя; маршрут запуска другим агентом пропускает это состояние после проверки и нормализации.",
+      "exit_condition": "В маршруте Лисы пользователь выбрал изготовление презентации или редактирование структуры; в маршруте запуска другим агентом ручное подтверждение не требуется и не фиксируется."
     },
     {
       "state_id": "STATE-006",
       "name": "render_export",
-      "entry_condition": "Approved PresentationSpec exists.",
-      "exit_condition": "Sanitized export evidence exists."
+      "entry_condition": "PresentationSpec существует после выбора изготовления в Лисе или после проверенного запуска другим агентом без ручного подтверждения.",
+      "exit_condition": "Sanitized export evidence существует, и согласованный маршрут доставки готов."
+    },
+    {
+      "state_id": "STATE-007",
+      "name": "delivery_acceptance",
+      "entry_condition": "Export существует, и согласованный маршрут доставки готов.",
+      "exit_condition": "Файл презентации отправлен пользователю по электронной почте; при запуске другим агентом статус доставки и сведения о результате возвращены вызывающему агенту."
     }
   ],
   "errors": [
@@ -112,9 +123,9 @@
     },
     {
       "error_id": "ERR-003",
-      "summary": "Channel decision missing.",
-      "retry_policy": "Create evidence request.",
-      "rollback_signal": "Keep channel-neutral requirement.",
+      "summary": "Согласованный маршрут доставки не удалось проверить.",
+      "retry_policy": "Использовать согласованный маршрут CO-2026-001 или остановиться до доставки, если обязательные данные доставки отсутствуют.",
+      "rollback_signal": "Export с привязкой к доставке не отправляется.",
       "redaction_rule": "No personal delivery metadata."
     }
   ],

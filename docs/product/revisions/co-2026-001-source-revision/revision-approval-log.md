@@ -23,7 +23,9 @@
 
 `EDIT-005` — правка BA-утверждений по каналу доставки — принят Product Owner и применен в `docs/product/analysis/ba/ba-spec.json`.
 
-Продолжать с `EDIT-006` — правки системного анализа по маршруту без подтверждения: сначала вывести текущий фрагмент `docs/architecture/system-analysis/sa-spec.json`, затем предложить варианты правки.
+`EDIT-006` — правка системного анализа по маршруту без подтверждения — принят Product Owner и применен в `docs/architecture/system-analysis/sa-spec.json`.
+
+Продолжать с `EDIT-007` — правки feature spec по решению о доставке: сначала вывести текущий фрагмент `docs/product/specs/feature-spec-a2a-launch.json`, затем предложить варианты правки.
 
 ## Журнал Решений
 
@@ -34,6 +36,7 @@
 | 2026-07-03T13:20:00Z | `EDIT-003` — правка бизнес-требований по разделению режимов | accepted, variant 1 with PO clarification | `AR-CO-2026-001-EDIT-003` | Product Owner согласовал финальный текст: в Лисе пользователь после описания структуры выбирает изготовление или редактирование; при запуске другим агентом подтверждение невозможно и не требуется. |
 | 2026-07-04T12:06:44Z | `EDIT-004` — правка критериев приемки по двум маршрутам | accepted, variant 1 | `AR-CO-2026-001-EDIT-004` | Product Owner согласовал явное разделение критериев приемки: запуск другим агентом без подтверждения после проверок и диалоговый режим в Лисе с выбором изготовления или редактирования структуры. |
 | 2026-07-04T12:52:48Z | `EDIT-005` — правка BA-утверждений по каналу доставки | accepted, variant 5 with PO clarification | `AR-CO-2026-001-EDIT-005` | Product Owner согласовал канал доставки: файл отправляется пользователю по электронной почте; при запуске другим агентом вызывающий агент получает статусы и сведения о результате; в Лисе пользователь получает сообщение о доставке до 30 минут и уведомление после отправки файла. |
+| 2026-07-04T13:18:29Z | `EDIT-006` — правка системного анализа по маршруту без подтверждения | accepted, variant 1 | `AR-CO-2026-001-EDIT-006` | Product Owner согласовал разделение системных маршрутов: запуск другим агентом после проверок идет к изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры. |
 
 ## Журнал Уточнений
 
@@ -60,11 +63,11 @@
 | `EDIT-003` — правка бизнес-требований по разделению режимов | `docs/product/requirements/business-requirements.md` | cross_artifact_semantic | applied |
 | `EDIT-004` — правка критериев приемки по двум маршрутам | `docs/product/requirements/acceptance-criteria.md` | cross_artifact_semantic | applied |
 | `EDIT-005` — правка BA-утверждений по каналу доставки | `docs/product/analysis/ba/ba-spec.json` | point_semantic | applied |
-| `EDIT-006` — правка системного анализа по маршруту без подтверждения | `docs/architecture/system-analysis/sa-spec.json` | cross_artifact_semantic | pending |
+| `EDIT-006` — правка системного анализа по маршруту без подтверждения | `docs/architecture/system-analysis/sa-spec.json` | cross_artifact_semantic | applied |
 | `EDIT-007` — правка feature spec по решению о доставке | `docs/product/specs/feature-spec-a2a-launch.json` | point_semantic | pending |
 | `EDIT-008` — правка traceability по двум режимам | `docs/product/requirements/traceability-matrix.json` | cross_artifact_semantic | pending |
 | `EDIT-009` — фиксация historical cascade run без переписывания | historical cascade run | no_change_rationale | not_required |
 
 ## Следующее Действие
 
-Вывести Product Owner текущий фрагмент для `EDIT-006` — правки системного анализа по маршруту без подтверждения, затем запросить согласование варианта правки.
+Вывести Product Owner текущий фрагмент для `EDIT-007` — правки feature spec по решению о доставке, затем запросить согласование варианта правки.
