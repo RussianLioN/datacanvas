@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schemas/product-bootstrap-pack.schema.json",
+  "version": "0.1.0",
+  "status": "template_ready",
+  "pack_id": "product-bootstrap-pack-universal-documentation-workflow",
+  "required_artifacts": [
+    {
+      "artifact_kind": "vision",
+      "description": "Vision — видение продукта и причина существования ИТ-продукта."
+    },
+    {
+      "artifact_kind": "product_goals",
+      "description": "Цели продукта и измеримые результаты."
+    },
+    {
+      "artifact_kind": "stakeholders",
+      "description": "Стейкхолдеры, владельцы решений и пользователи."
+    },
+    {
+      "artifact_kind": "brd",
+      "description": "BRD — документ бизнес-требований."
+    },
+    {
+      "artifact_kind": "srs",
+      "description": "SRS — документ системных требований."
+    },
+    {
+      "artifact_kind": "backlog",
+      "description": "Backlog — бэклог продукта."
+    },
+    {
+      "artifact_kind": "risks",
+      "description": "Риски продукта и документационного сопровождения."
+    },
+    {
+      "artifact_kind": "acceptance",
+      "description": "Acceptance — критерии приемки и записи принятия."
+    },
+    {
+      "artifact_kind": "traceability",
+      "description": "Traceability — трассируемость источников, требований, проверок и evidence."
+    },
+    {
+      "artifact_kind": "release_evidence",
+      "description": "Release/evidence — релизные и проверочные свидетельства."
+    }
+  ],
+  "bootstrap_validation_commands": [
+    "npm run validate:documentation-profile",
+    "npm run validate:schema-coverage",
+    "npm run validate:mutation-guard"
+  ]
+}

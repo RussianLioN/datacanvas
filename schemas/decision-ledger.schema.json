@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/decision-ledger.schema.json",
+  "title": "DecisionLedger",
+  "type": "object",
+  "required": ["$schema", "version", "status", "run_id", "records"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "archived"] },
+    "run_id": { "type": "string", "minLength": 1 },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "decision_type", "accepted_status", "owner_role", "acceptance_record_id", "linked_artifacts", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "decision_id": { "type": "string", "minLength": 1 },
+          "decision_type": { "type": "string", "minLength": 1 },
+          "accepted_status": { "type": "string", "enum": ["accepted", "rejected", "deferred", "not_applicable"] },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "acceptance_record_id": { "type": ["string", "null"] },
+          "linked_artifacts": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "notes": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

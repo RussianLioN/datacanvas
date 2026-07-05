@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../schemas/documentation-artifact-inventory.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "inventory_id": "artifact-inventory-neutral-documentation-workflow",
+  "artifacts": [
+    {
+      "artifact_id": "NUDW-A001",
+      "path": "docs/product-vision.md",
+      "artifact_type": "product_source",
+      "owner_role": "Product Owner",
+      "domain": "product",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "product_meaning",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:docs-navigation"
+      ]
+    }
+  ]
+}

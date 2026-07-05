@@ -1,0 +1,95 @@
+{
+  "$schema": "../../../schemas/datacanvas-documentation-profile.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "profile_binding": {
+    "universal_core_path": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+    "project_profile_id": "project-profile-datacanvas-documentation",
+    "product_profile_id": "product-profile-datacanvas",
+    "pilot_profile": true
+  },
+  "project_profile": {
+    "project_profile_id": "project-profile-datacanvas-documentation",
+    "name": "Контур проектной документации DataCanvas",
+    "repository_role": "documentation_repository",
+    "documentation_domain": "documentation_operations",
+    "owners": [
+      {
+        "role": "Process Owner",
+        "responsibility": "Методика, процессные изменения, workflow и проверки документационного контура."
+      },
+      {
+        "role": "Documentation Owner",
+        "responsibility": "Навигация, индекс, карта документов и классификация видимости."
+      },
+      {
+        "role": "Security/Privacy Lead",
+        "responsibility": "Классы данных, утечки, sensitive/confidential evidence и публичная навигация."
+      }
+    ],
+    "routes": {
+      "navigation_source": "docs/navigation/navigation-source.json",
+      "artifact_registry": "docs/architecture/schemas/artifact-registry.json",
+      "hash_manifest": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "leakage_manifest": "docs/architecture/security/data-leakage-manifest.json"
+    },
+    "language_rules": {
+      "human_readable_artifacts": "ru",
+      "technical_identifiers_preserved": true
+    },
+    "validation_command_catalog_path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+    "security_boundary": {
+      "default_unknown_data_class": "confidential",
+      "public_navigation_for_confidential": "metadata_only",
+      "network_boundary_change_requires_decision": true
+    }
+  },
+  "product_profile": {
+    "product_profile_id": "product-profile-datacanvas",
+    "product_name": "DataCanvas",
+    "profile_scope": "pilot_specific",
+    "primary_sources": [
+      {
+        "source_id": "datacanvas-vision",
+        "path": "docs/product-vision.md",
+        "authority": "product_meaning",
+        "description": "Vision — видение продукта."
+      },
+      {
+        "source_id": "datacanvas-bmc",
+        "path": "docs/product/bmc/bmc-v0.2.md",
+        "authority": "product_meaning",
+        "description": "BMC — Business Model Canvas, бизнес-модель продукта."
+      },
+      {
+        "source_id": "datacanvas-stories",
+        "path": "docs/stories.md",
+        "authority": "product_meaning",
+        "description": "Пользовательские истории."
+      },
+      {
+        "source_id": "datacanvas-business-requirements",
+        "path": "docs/product/requirements/business-requirements.md",
+        "authority": "product_meaning",
+        "description": "Business requirements — бизнес-требования."
+      },
+      {
+        "source_id": "datacanvas-traceability",
+        "path": "docs/product/requirements/traceability-matrix.json",
+        "authority": "product_meaning",
+        "description": "Traceability — трассируемость требований."
+      }
+    ],
+    "pilot_features": {
+      "bmc_enabled": true,
+      "co_2026_001_is_product_specific": true,
+      "prompt_only_package_is_launch_interface": true
+    },
+    "validation_commands": [
+      "npm run validate:datacanvas-profile",
+      "npm run validate:docs-navigation",
+      "npm run validate:data-leakage",
+      "npm run validate:bmc"
+    ]
+  }
+}

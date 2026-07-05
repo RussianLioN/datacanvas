@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/validation-command-catalog.schema.json",
+  "title": "ValidationCommandCatalog",
+  "type": "object",
+  "required": ["$schema", "version", "status", "catalog_id", "commands", "gate_order"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "accepted"] },
+    "catalog_id": { "type": "string", "minLength": 1 },
+    "commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "command", "gate", "applies_to", "owner_role", "purpose"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "command": { "type": "string", "minLength": 1 },
+          "gate": { "type": "string", "enum": ["quick", "profile", "generated", "security", "full"] },
+          "applies_to": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "purpose": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "gate_order": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["quick", "profile", "generated", "security", "full"] }
+    }
+  }
+}

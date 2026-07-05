@@ -1,0 +1,28 @@
+{
+  "project_profile_id": "project-profile-neutral-documentation",
+  "name": "Контур проектной документации условного ИТ-продукта",
+  "repository_role": "documentation_repository",
+  "documentation_domain": "documentation_operations",
+  "owners": [
+    {
+      "role": "Process Owner",
+      "responsibility": "Методика и проверки документационного контура."
+    }
+  ],
+  "routes": {
+    "navigation_source": "docs/navigation/navigation-source.json",
+    "artifact_registry": "docs/architecture/schemas/artifact-registry.json",
+    "hash_manifest": "docs/architecture/schemas/artifact-hash-manifest.json",
+    "leakage_manifest": "docs/architecture/security/data-leakage-manifest.json"
+  },
+  "language_rules": {
+    "human_readable_artifacts": "ru",
+    "technical_identifiers_preserved": true
+  },
+  "validation_command_catalog_path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+  "security_boundary": {
+    "default_unknown_data_class": "confidential",
+    "public_navigation_for_confidential": "metadata_only",
+    "network_boundary_change_requires_decision": true
+  }
+}

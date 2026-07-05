@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../schemas/workflow-state.schema.json",
+  "workflow_id": "universal-documentation-workflow",
+  "workflow_version": "0.1.0",
+  "project_profile_id": "project-profile-datacanvas-documentation",
+  "product_profile_id": "product-profile-datacanvas",
+  "run_id": "UDW-RUN-2026-07-05-001",
+  "status": "completed",
+  "phase": "completion_pass",
+  "current_step": "completion_audit_passed",
+  "scope": {
+    "request_classification": "documentation_operations",
+    "mode": "implementation",
+    "profile_scope": "pilot_specific",
+    "change_instance_path": "docs/process/universal-documentation-workflow/run-ledger.json"
+  },
+  "artifact_catalog_path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
+  "decision_queue_path": "docs/process/universal-documentation-workflow/decision-queue.json",
+  "event_log_path": "docs/process/universal-documentation-workflow/event-log.json",
+  "run_ledger_path": "docs/process/universal-documentation-workflow/run-ledger.json",
+  "validation_plan": [
+    "npm run validate:documentation-core",
+    "npm run validate:documentation-profile",
+    "npm run validate:workflow-state-ledger",
+    "npm run validate:generator-contracts",
+    "npm run validate:schema-coverage",
+    "npm run validate:mutation-guard",
+    "npm run validate:universal-documentation-workflow"
+  ],
+  "resume_token": {
+    "last_safe_step": "completion_audit_passed",
+    "next_safe_step": "Использовать этот пакет workflow для следующего изменения проектной документации.",
+    "requires_owner_decision": false
+  }
+}

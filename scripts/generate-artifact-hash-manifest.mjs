@@ -6,6 +6,7 @@ import process from "node:process";
 const root = process.cwd();
 const sourceRegistryPath = "docs/architecture/schemas/artifact-registry.json";
 const outputPath = "docs/architecture/schemas/artifact-hash-manifest.json";
+const checkMode = process.argv.includes("--check");
 const exclusions = [
   {
     path: outputPath,
@@ -22,24 +23,41 @@ function sha256File(relativePath) {
   return crypto.createHash("sha256").update(content).digest("hex");
 }
 
-const registry = readJson(sourceRegistryPath);
-const excludedPaths = new Set(exclusions.map((item) => item.path));
-const entries = registry.artifacts
-  .filter((artifact) => !excludedPaths.has(artifact.path))
-  .map((artifact) => ({
-    artifact_id: artifact.id,
-    path: artifact.path,
-    sha256: sha256File(artifact.path),
-  }));
+function buildManifest() {
+  const registry = readJson(sourceRegistryPath);
+  const excludedPaths = new Set(exclusions.map((item) => item.path));
+  const entries = registry.artifacts
+    .filter((artifact) => !excludedPaths.has(artifact.path))
+    .map((artifact) => ({
+      artifact_id: artifact.id,
+      path: artifact.path,
+      sha256: sha256File(artifact.path),
+    }));
 
-const manifest = {
-  version: registry.version,
-  status: "generated",
-  source_registry_path: sourceRegistryPath,
-  algorithm: "sha256",
-  entries,
-  exclusions,
-};
+  return {
+    version: registry.version,
+    status: "generated",
+    source_registry_path: sourceRegistryPath,
+    algorithm: "sha256",
+    entries,
+    exclusions,
+  };
+}
 
-fs.writeFileSync(path.join(root, outputPath), `${JSON.stringify(manifest, null, 2)}\n`);
-console.log(`artifact hash manifest written: ${outputPath}`);
+const manifest = buildManifest();
+const rendered = `${JSON.stringify(manifest, null, 2)}\n`;
+
+if (checkMode) {
+  const current = fs.existsSync(path.join(root, outputPath))
+    ? fs.readFileSync(path.join(root, outputPath), "utf8")
+    : null;
+  if (current !== rendered) {
+    console.error(`ERROR: artifact hash manifest is stale: ${outputPath}`);
+    console.error("Run: node scripts/generate-artifact-hash-manifest.mjs");
+    process.exit(1);
+  }
+  console.log("artifact hash manifest is current");
+} else {
+  fs.writeFileSync(path.join(root, outputPath), rendered);
+  console.log(`artifact hash manifest written: ${outputPath}`);
+}

@@ -1,0 +1,113 @@
+{
+  "$schema": "../../../schemas/validation-command-catalog.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "catalog_id": "validation-command-catalog-universal-documentation-workflow",
+  "commands": [
+    {
+      "id": "documentation-core",
+      "command": "npm run validate:documentation-core",
+      "gate": "quick",
+      "applies_to": [
+        "universal_core"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет переносимые правила ядра и отсутствие продуктовой специфики."
+    },
+    {
+      "id": "documentation-profile",
+      "command": "npm run validate:documentation-profile",
+      "gate": "profile",
+      "applies_to": [
+        "project_profile",
+        "product_profile"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет связь профиля проекта, профиля продукта и каталога команд."
+    },
+    {
+      "id": "datacanvas-profile",
+      "command": "npm run validate:datacanvas-profile",
+      "gate": "profile",
+      "applies_to": [
+        "pilot_specific"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет, что DataCanvas подключен через профиль, а не зашит в ядро."
+    },
+    {
+      "id": "workflow-state-ledger",
+      "command": "npm run validate:workflow-state-ledger",
+      "gate": "quick",
+      "applies_to": [
+        "change_instance"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет состояние запуска, run ledger, event log, очередь решений и записи принятия."
+    },
+    {
+      "id": "generator-contracts",
+      "command": "npm run validate:generator-contracts",
+      "gate": "generated",
+      "applies_to": [
+        "generated"
+      ],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет контракты генераторов, allowed writes и check команды."
+    },
+    {
+      "id": "schema-coverage",
+      "command": "npm run validate:schema-coverage",
+      "gate": "quick",
+      "applies_to": [
+        "schemas",
+        "fixtures"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет покрытие схемами, положительными примерами и отрицательными сценариями."
+    },
+    {
+      "id": "mutation-guard",
+      "command": "npm run validate:mutation-guard",
+      "gate": "generated",
+      "applies_to": [
+        "generated",
+        "change_instance"
+      ],
+      "owner_role": "Delivery/GitOps Lead",
+      "purpose": "Проверяет, что generated artifacts обновляются только разрешенными генераторами."
+    },
+    {
+      "id": "security",
+      "command": "npm run scan:secrets && npm run validate:data-leakage",
+      "gate": "security",
+      "applies_to": [
+        "security"
+      ],
+      "owner_role": "Security/Privacy Lead",
+      "purpose": "Проверяет секреты, утечки и публичную видимость sensitive/confidential data."
+    },
+    {
+      "id": "full",
+      "command": "npm run validate:universal-documentation-workflow",
+      "gate": "full",
+      "applies_to": [
+        "universal_core",
+        "project_profile",
+        "product_profile",
+        "change_instance",
+        "generated",
+        "security"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Сводная проверка универсального workflow."
+    }
+  ],
+  "gate_order": [
+    "quick",
+    "profile",
+    "generated",
+    "security",
+    "full"
+  ]
+}

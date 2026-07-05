@@ -361,6 +361,86 @@ const cases = [
     data: "docs/process/prompt-only-artifact-review/artifact-review-session-state.json",
   },
   {
+    schema: "schemas/universal-documentation-core.schema.json",
+    data: "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+  },
+  {
+    schema: "schemas/datacanvas-documentation-profile.schema.json",
+    data: "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+  },
+  {
+    schema: "schemas/documentation-project-profile.schema.json",
+    data: "tests/fixtures/universal-documentation-workflow/positive/neutral-project-profile.json",
+  },
+  {
+    schema: "schemas/documentation-product-profile.schema.json",
+    data: "tests/fixtures/universal-documentation-workflow/positive/neutral-product-profile.json",
+  },
+  {
+    schema: "schemas/validation-command-catalog.schema.json",
+    data: "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+  },
+  {
+    schema: "schemas/validation-command-catalog.schema.json",
+    data: "tests/fixtures/universal-documentation-workflow/positive/neutral-validation-command-catalog.json",
+  },
+  {
+    schema: "schemas/documentation-artifact-inventory.schema.json",
+    data: "docs/process/universal-documentation-workflow/artifact-inventory.json",
+  },
+  {
+    schema: "schemas/documentation-artifact-inventory.schema.json",
+    data: "tests/fixtures/universal-documentation-workflow/positive/neutral-artifact-inventory.json",
+  },
+  {
+    schema: "schemas/generator-contracts.schema.json",
+    data: "docs/process/universal-documentation-workflow/generator-contracts.json",
+  },
+  {
+    schema: "schemas/workflow-state.schema.json",
+    data: "docs/process/universal-documentation-workflow/workflow-state.json",
+  },
+  {
+    schema: "schemas/workflow-state.schema.json",
+    data: "tests/fixtures/universal-documentation-workflow/positive/neutral-workflow-state.json",
+  },
+  {
+    schema: "schemas/workflow-decision-queue.schema.json",
+    data: "docs/process/universal-documentation-workflow/decision-queue.json",
+  },
+  {
+    schema: "schemas/decision-ledger.schema.json",
+    data: "docs/process/universal-documentation-workflow/decision-ledger.json",
+  },
+  {
+    schema: "schemas/acceptance-records.schema.json",
+    data: "docs/process/universal-documentation-workflow/acceptance-records.json",
+  },
+  {
+    schema: "schemas/run-ledger.schema.json",
+    data: "docs/process/universal-documentation-workflow/run-ledger.json",
+  },
+  {
+    schema: "schemas/event-log.schema.json",
+    data: "docs/process/universal-documentation-workflow/event-log.json",
+  },
+  {
+    schema: "schemas/schema-coverage-registry.schema.json",
+    data: "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
+  },
+  {
+    schema: "schemas/mutation-guard-policy.schema.json",
+    data: "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+  },
+  {
+    schema: "schemas/workflow-portability-pack.schema.json",
+    data: "docs/process/universal-documentation-workflow/portability-pack.json",
+  },
+  {
+    schema: "schemas/product-bootstrap-pack.schema.json",
+    data: "docs/process/universal-documentation-workflow/product-bootstrap-pack.json",
+  },
+  {
     schema: "schemas/feature-spec.schema.json",
     data: "docs/product/specs/feature-spec-a2a-launch.json",
   },
