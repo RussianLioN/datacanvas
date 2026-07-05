@@ -2047,12 +2047,12 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "e93f136b2a37a50ea0b6534397fe2e09542c951d26738b9361e13aa178c2da18"
+      "sha256": "d1d22a3d9c789481bf5911600df0f6303c3e0b6363cccda3920bcc112a0e257f"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "9d92f36433f1e9dbdc280b9a6f5a4901389d8d44c1b4bd10ce638556db243b97"
+      "sha256": "cced17c171a84deb82128e44d674f28e79ca96fa8bc3c4ac8dbb48e9cbe51cb1"
     },
     {
       "artifact_id": "ART-412",
@@ -3212,7 +3212,7 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "6e80700f8e6b42043b6b5014ab44cacd564e482172af62f91755214342330cd9"
+      "sha256": "9b973ee8256dabe4556556f7cd04499d069edf82fba29b28e8524575be867aa7"
     },
     {
       "artifact_id": "ART-644",

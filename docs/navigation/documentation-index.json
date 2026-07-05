@@ -6950,7 +6950,7 @@
     },
     {
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "title": "Универсальный Рабочий Процесс Проектной Документации",
+      "title": "Универсальный рабочий процесс проектной документации",
       "section": "process",
       "navigation_domain": "documentation_operations",
       "navigation_group": "governance",
@@ -6968,6 +6968,8 @@
       "parent_readme": "docs/process/README.md",
       "artifact_registry_id": "ART-643",
       "outgoing_links": [
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/navigation-source.json",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/acceptance-records.json",
         "docs/process/universal-documentation-workflow/artifact-inventory.json",
@@ -6991,7 +6993,20 @@
       "anchors": [
         "универсальный-рабочий-процесс-проектной-документации",
         "назначение",
+        "быстрый-старт",
+        "для-кого-эта-инструкция",
+        "кто-за-что-отвечает",
+        "что-позволяет-рабочий-процесс",
         "состав",
+        "как-найти-через-навигацию",
+        "типовые-сценарии-использования",
+        "как-написать-хороший-запрос",
+        "что-пользователь-увидит-после-запуска",
+        "что-агент-делает-сам",
+        "где-агент-обязан-остановиться",
+        "что-рабочий-процесс-не-делает",
+        "что-будет-результатом-работы",
+        "как-понять-что-работа-завершена",
         "границы",
         "запуск"
       ],

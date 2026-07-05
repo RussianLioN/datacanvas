@@ -60,7 +60,7 @@ Sprint, release, UAT, pilot, production/process evidence и PR handoff.
 - [Методика Проектной Документации](../process/methodology/README.md) - Process Owner, `active`.
 - [Prompt-Only Согласование Артефактов Проектной Документации](../process/prompt-only-artifact-review/README.md) - Process Owner, `active`.
 - [Процесс DataCanvas](../process/README.md) - Process Owner, `active`.
-- [Универсальный Рабочий Процесс Проектной Документации](../process/universal-documentation-workflow/README.md) - Process Owner, `active`.
+- [Универсальный рабочий процесс проектной документации](../process/universal-documentation-workflow/README.md) - Process Owner, `active`.
 - [Карта Слоев DataCanvas](../project-map.md) - Documentation Owner, `active`.
 - [Документация DataCanvas](../README.md) - Documentation Owner, `active`.
 - [DataCanvas](../../README.md) - Documentation Owner, `active`.
