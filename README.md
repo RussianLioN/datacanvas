@@ -36,6 +36,7 @@ DataCanvas - проект AI-агента, который формирует к�
 | Scripts - скрипты и validators - проверки | [package.json](package.json) |
 | Release/evidence/sprint artifacts - релизные, доказательные и спринтовые артефакты | [docs/release/README.md](docs/release/README.md), [docs/knowledge/evidence-index.md](docs/knowledge/evidence-index.md), [docs/sprints/README.md](docs/sprints/README.md) |
 | Технические планы документационного контура | [docs/plans/README.md](docs/plans/README.md) |
+| Универсальная методика документационного workflow | [docs/process/universal-documentation-workflow/README.md](docs/process/universal-documentation-workflow/README.md) |
 
 ## Проверка
 

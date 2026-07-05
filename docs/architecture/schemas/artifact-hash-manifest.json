@@ -547,7 +547,7 @@
     {
       "artifact_id": "ART-110",
       "path": "scripts/generate-artifact-hash-manifest.mjs",
-      "sha256": "a8ef4039f7b382e513a37a52bf22897a631b3d45f7dfef42f58c6e57a901e57a"
+      "sha256": "1b2aa015788259b97c97a95e9b9dbb99b04500897343ff386288eb3db41f2e6f"
     },
     {
       "artifact_id": "ART-111",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "808902df473fcd067874f8f6ab3d95c09f8675ca4fd94502e49ec4ef486f4086"
+      "sha256": "f170fa403ecc0a3447c013f7c6aea038a6cc13713ad92d90b3872a39bf083fe6"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "acaaa42ef7520f08478117b39baf91720f59adf962eec4c0f4cb42f3177918a5"
+      "sha256": "c4a2499b67ab34b943f6ebe52b376231542f5ad1f93c0e135a4d3070f340cd55"
     },
     {
       "artifact_id": "ART-201",
@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "7a00b434c47f189125e9655cdf982afd4ced760116a1b5a80829a75adac3a4d2"
+      "sha256": "d1364d37c478987ddb4af9bc79f9983d3df57ecdd5e7ca5f83121e3439e77793"
     },
     {
       "artifact_id": "ART-330",
@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "a3d27cd59097bcaa1a7b071314add62e6d90096df2449502a6354b500fac3335"
+      "sha256": "1b42d8ed0e27854efa013bcd66d8abfa98b55329aa849dbccb2842554b3db683"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,12 +1992,12 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "aa4e3a9020c112b66641d35d76785d5800140a0d7d64d99e3e8b8dbddae7c7d2"
+      "sha256": "9ecdb42c063aee0e3e729dc135a0329a0000c6ccb6f243080b04cdb25e92bf3a"
     },
     {
       "artifact_id": "ART-400",
       "path": "docs/project-map.md",
-      "sha256": "e2c66196874badc7c4ad29f470738b836d2d9fe63a445c7160e6d0fdea3dbd24"
+      "sha256": "c9d4d3333fa7f921776a7c8d51d3fe052d179118021d1e891c563f89849c20ef"
     },
     {
       "artifact_id": "ART-401",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "eacbff62bac2b5dd394f336c8f6ee93e07e7baee9e9f797185cf94e90bc38b6c"
+      "sha256": "635ffab565ca7719b61434c679599b65a5208e8d1cfcffedde81b4bf53f086af"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "d44a334ba66daf82db3333d9899479300399ef033a5f5f55760069a7482d205b"
+      "sha256": "36df26b1754795f65f5a14532d3691e23defcf3f51139dd7c65729cff795a385"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "f1339ab68da538d05b4b8ed02662f56ccd5fdda86824e232b661e4950aea1d6e"
+      "sha256": "e93f136b2a37a50ea0b6534397fe2e09542c951d26738b9361e13aa178c2da18"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "7bc0226ed7fefb2f8c4e4592d27ab94c11e11f77754de81be98d27f4581aae8d"
+      "sha256": "9d92f36433f1e9dbdc280b9a6f5a4901389d8d44c1b4bd10ce638556db243b97"
     },
     {
       "artifact_id": "ART-412",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "c013bcf2c67983efd790bffd704b3bddda2dca9be75a7f3237fc4288e201bf30"
+      "sha256": "9eb7967867e3016bd6f85c936ff56c626fdca5e5844cd419736f865039672495"
     },
     {
       "artifact_id": "ART-569",
@@ -3208,6 +3208,211 @@
       "artifact_id": "ART-642",
       "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
       "sha256": "140ba38288b7ee1b683a5a9586bdf35f0f976ffc4b38f5eb0b0748a1d474b514"
+    },
+    {
+      "artifact_id": "ART-643",
+      "path": "docs/process/universal-documentation-workflow/README.md",
+      "sha256": "6e80700f8e6b42043b6b5014ab44cacd564e482172af62f91755214342330cd9"
+    },
+    {
+      "artifact_id": "ART-644",
+      "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+      "sha256": "f28a49e6755e87c065b747e06fc7f5e0b1a0ac1c8559ddcc59dc021bc9662525"
+    },
+    {
+      "artifact_id": "ART-645",
+      "path": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+      "sha256": "4481504805411eeb72b31fb10031354034a1bffb2dd5ddbda244d838d33a9c40"
+    },
+    {
+      "artifact_id": "ART-646",
+      "path": "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+      "sha256": "843c50ed33ccd77749fc8daedeaff2691653a7980831915ad4a544aedc0767f2"
+    },
+    {
+      "artifact_id": "ART-647",
+      "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+      "sha256": "7541c6178ddb387689cbd9a23f6ec713e816cbd235bfd2ff47eafcb1da0cad04"
+    },
+    {
+      "artifact_id": "ART-648",
+      "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
+      "sha256": "2636b1df5375b913bf31b8efde4ec04973e8a5e28f893d39910cf543194283cc"
+    },
+    {
+      "artifact_id": "ART-649",
+      "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
+      "sha256": "11b040c7c8503760bed8810382bf625c6d59121c3f8e960324e6902c2a5c67cd"
+    },
+    {
+      "artifact_id": "ART-650",
+      "path": "docs/process/universal-documentation-workflow/workflow-state.json",
+      "sha256": "6fd2f213db8f54c2e2695b6b427b8d756f49130328b439614991addb22e1f322"
+    },
+    {
+      "artifact_id": "ART-651",
+      "path": "docs/process/universal-documentation-workflow/decision-queue.json",
+      "sha256": "e3ca59d7b3647d739ad0ea5c04678d874cd37433327a947e189993cb60866b12"
+    },
+    {
+      "artifact_id": "ART-652",
+      "path": "docs/process/universal-documentation-workflow/decision-ledger.json",
+      "sha256": "1f0f8635fdfb4264d499418864e93d39cd20d800e518c55c8f9de4d83360d8aa"
+    },
+    {
+      "artifact_id": "ART-653",
+      "path": "docs/process/universal-documentation-workflow/acceptance-records.json",
+      "sha256": "ee12497182d0d01ffb83f589d3017587125a38ed77a6eace8d8e5915ead37911"
+    },
+    {
+      "artifact_id": "ART-654",
+      "path": "docs/process/universal-documentation-workflow/run-ledger.json",
+      "sha256": "3dfa761c9cca5740fac651a235123f1e47a8754ef4ac9675cc9321d4c32d0077"
+    },
+    {
+      "artifact_id": "ART-655",
+      "path": "docs/process/universal-documentation-workflow/event-log.json",
+      "sha256": "0a089145b928712a792a90fe401837cc922d64bf05723e99c88c771402cceb8b"
+    },
+    {
+      "artifact_id": "ART-656",
+      "path": "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
+      "sha256": "adac223a380e38b5eb1a1a76b8d59a82b27ade704ac969eb17c2137c7646bfb8"
+    },
+    {
+      "artifact_id": "ART-657",
+      "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+      "sha256": "a872d83f1988cc96f6e96969ab406d52b32d28cb81037b2239ec34307c361ad1"
+    },
+    {
+      "artifact_id": "ART-658",
+      "path": "docs/process/universal-documentation-workflow/portability-pack.json",
+      "sha256": "d8ffa12cda0d2117f86d74b44d0e5b04aa1b9efb678f66b2b2876ef065214b87"
+    },
+    {
+      "artifact_id": "ART-659",
+      "path": "docs/process/universal-documentation-workflow/product-bootstrap-pack.json",
+      "sha256": "84e469b27f72d2aa23e16919613380ce96fb8ffce515fdef8916912b1577b3b1"
+    },
+    {
+      "artifact_id": "ART-660",
+      "path": "schemas/universal-documentation-core.schema.json",
+      "sha256": "5d84e5cb53a0e7f3400dea9556db730ca32ad6c7f46a551deb3ba36b88c864a4"
+    },
+    {
+      "artifact_id": "ART-661",
+      "path": "schemas/datacanvas-documentation-profile.schema.json",
+      "sha256": "8cc6cf4707405e33fcf637fc48b3bdcb87ed53e7cd99994a24395ddf2aa4d46a"
+    },
+    {
+      "artifact_id": "ART-662",
+      "path": "schemas/documentation-project-profile.schema.json",
+      "sha256": "12fa1303dee093e811cb358ff2b73ab2c227ada92555bc80f525f7d440d61851"
+    },
+    {
+      "artifact_id": "ART-663",
+      "path": "schemas/documentation-product-profile.schema.json",
+      "sha256": "b2fbd00130475732c3d85f674d02ccdf84bb1be0d523119890593ecdbc63cf99"
+    },
+    {
+      "artifact_id": "ART-664",
+      "path": "schemas/documentation-artifact-inventory.schema.json",
+      "sha256": "0dffb19ec5fff612fb771216ec183e092f50a131d0d1690d12f9afa0cf7bf106"
+    },
+    {
+      "artifact_id": "ART-665",
+      "path": "schemas/validation-command-catalog.schema.json",
+      "sha256": "12bd4d344fbfbc18ec03d7de57980412360a1fec04d098ca922ca6558ebb2862"
+    },
+    {
+      "artifact_id": "ART-666",
+      "path": "schemas/workflow-state.schema.json",
+      "sha256": "b5ac83431ff89612ae0c0d13bc156e7e0b6d8496efbbc6794d95ef892c1faad1"
+    },
+    {
+      "artifact_id": "ART-667",
+      "path": "schemas/workflow-decision-queue.schema.json",
+      "sha256": "4be43f63719b57f3e32d0a8abebb060cd822fc10253e97f3b38b72ac5bf28292"
+    },
+    {
+      "artifact_id": "ART-668",
+      "path": "schemas/decision-ledger.schema.json",
+      "sha256": "4ea505aa06a15c1d6aa3274b9234c3527016d5e55b19d4016b8a1431cb79eaf8"
+    },
+    {
+      "artifact_id": "ART-669",
+      "path": "schemas/acceptance-records.schema.json",
+      "sha256": "225733fd50a1b0bc153f076eb91318bf391474f5b2211c30eb76dfa1a7632a8d"
+    },
+    {
+      "artifact_id": "ART-670",
+      "path": "schemas/run-ledger.schema.json",
+      "sha256": "b03b1e58f3d78d79a8b397b4f574e1de18ca03b0e4b0def20e05ad84f27b6163"
+    },
+    {
+      "artifact_id": "ART-671",
+      "path": "schemas/event-log.schema.json",
+      "sha256": "11fcbf6c18008ba5132412123dd4ece64f42ff4c5e5748fb0aff28cba7fa4641"
+    },
+    {
+      "artifact_id": "ART-672",
+      "path": "schemas/generator-contracts.schema.json",
+      "sha256": "0304982af2fb63082098f02965005a49b98f7921471fb6c0ba01a79ce318a1c8"
+    },
+    {
+      "artifact_id": "ART-673",
+      "path": "schemas/schema-coverage-registry.schema.json",
+      "sha256": "2278cccf9e728676ee1de1bc0773679fadae80eae9fa19dfbfab41a7e33a694a"
+    },
+    {
+      "artifact_id": "ART-674",
+      "path": "schemas/mutation-guard-policy.schema.json",
+      "sha256": "df88cbe67b35a810f13696e92cee68cddd7507afb5336b37b5e32d776953f9db"
+    },
+    {
+      "artifact_id": "ART-675",
+      "path": "schemas/workflow-portability-pack.schema.json",
+      "sha256": "841baa0139512ab1f70838a38e7fea00fc7d50eb8a4dc1e7b18b68808f2a57c5"
+    },
+    {
+      "artifact_id": "ART-676",
+      "path": "schemas/product-bootstrap-pack.schema.json",
+      "sha256": "2e7b8c36ecfc3fa9994e7eea4c4ba7f91b3711daf0736b8dfd6989545645010a"
+    },
+    {
+      "artifact_id": "ART-677",
+      "path": "scripts/validate-universal-documentation-workflow.mjs",
+      "sha256": "2eb48d41341477774263d6add4eed7bbf2e31d0cbb510611490d9189f496fd72"
+    },
+    {
+      "artifact_id": "ART-678",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-project-profile.json",
+      "sha256": "b21250c439ed78e72fc8dda0fe5bf8d47f24c42b50dd0c3a24ae1359084f4030"
+    },
+    {
+      "artifact_id": "ART-679",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-product-profile.json",
+      "sha256": "f29c646fddd5915a361efacbdb860dc95f96d6f32412a86e6d8c06fb31d7c573"
+    },
+    {
+      "artifact_id": "ART-680",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-artifact-inventory.json",
+      "sha256": "7f74bdc4197088972c670584f9d48e9afaf1750a7da0d76f0705e227c6df0e0c"
+    },
+    {
+      "artifact_id": "ART-681",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-workflow-state.json",
+      "sha256": "11057f586a5a9216fd032d8501e7db2e2807fa446d1064ed02b82a6e9940277d"
+    },
+    {
+      "artifact_id": "ART-682",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-validation-command-catalog.json",
+      "sha256": "5bcf7b87fbb4e6e0d58f948699c373862ad8d7f4a6f6806912a2c1622b81f9dd"
+    },
+    {
+      "artifact_id": "ART-683",
+      "path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
+      "sha256": "df878d77a1ddea5dc94b9fbfde3aaa161cd5697496095c28f19a8cfb2b91d413"
     }
   ],
   "exclusions": [

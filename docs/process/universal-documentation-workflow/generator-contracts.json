@@ -1,0 +1,110 @@
+{
+  "$schema": "../../../schemas/generator-contracts.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "contract_catalog_id": "generator-contracts-universal-documentation-workflow",
+  "contracts": [
+    {
+      "generator_id": "docs-navigation",
+      "owner_role": "Documentation Owner",
+      "inputs": [
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ],
+      "allowed_writes": [
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ],
+      "generate_command": "npm run generate:docs-navigation",
+      "check_command": "npm run generate:docs-navigation -- --check",
+      "deterministic_environment": "Node.js, repository working tree, no network",
+      "dependencies": [],
+      "post_validators": [
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation",
+        "npm run validate:doc-stale-status"
+      ],
+      "failure_modes": [
+        "stale_generated_output",
+        "missing_navigation_source",
+        "unknown_public_entry"
+      ]
+    },
+    {
+      "generator_id": "artifact-hash-manifest",
+      "owner_role": "Documentation Owner",
+      "inputs": [
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "allowed_writes": [
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "generate_command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "check_command": "node scripts/generate-artifact-hash-manifest.mjs --check",
+      "deterministic_environment": "Node.js, sha256 over registered repository files, no network",
+      "dependencies": [
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "post_validators": [
+        "npm run validate:artifact-hashes"
+      ],
+      "failure_modes": [
+        "hash_mismatch",
+        "registry_without_hash_coverage",
+        "manual_generated_manifest_edit"
+      ]
+    },
+    {
+      "generator_id": "datacanvas-bmc",
+      "owner_role": "Product Owner",
+      "inputs": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-trace.v0.1.json"
+      ],
+      "outputs": [
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf"
+      ],
+      "allowed_writes": [
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/bmc-derived-manifest.json"
+      ],
+      "generate_command": "npm run generate:bmc",
+      "check_command": "npm run generate:bmc -- --check",
+      "deterministic_environment": "Node.js, local render toolchain, no product decision inference",
+      "dependencies": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-trace.v0.1.json"
+      ],
+      "post_validators": [
+        "npm run validate:bmc"
+      ],
+      "failure_modes": [
+        "stale_bmc_render",
+        "source_trace_mismatch",
+        "manual_derived_artifact_edit"
+      ]
+    }
+  ],
+  "topological_order": [
+    "docs-navigation",
+    "datacanvas-bmc",
+    "artifact-hash-manifest"
+  ]
+}

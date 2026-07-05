@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/workflow-decision-queue.schema.json",
+  "title": "WorkflowDecisionQueue",
+  "type": "object",
+  "required": ["$schema", "version", "status", "run_id", "decisions"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["open", "blocked", "closed"] },
+    "run_id": { "type": "string", "minLength": 1 },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["decision_id", "decision_type", "authority", "status", "blocking", "owner_role", "subject", "acceptance_record_id", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "decision_id": { "type": "string", "minLength": 1 },
+          "decision_type": { "type": "string", "minLength": 1 },
+          "authority": { "type": "string", "enum": ["product_meaning", "process", "architecture", "evidence"] },
+          "status": { "type": "string", "enum": ["pending", "accepted", "rejected", "deferred"] },
+          "blocking": { "type": "boolean" },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "subject": { "type": "string", "minLength": 1 },
+          "acceptance_record_id": { "type": ["string", "null"] },
+          "rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../schemas/run-ledger.schema.json",
+  "version": "0.1.0",
+  "status": "completed",
+  "run_id": "UDW-RUN-2026-07-05-001",
+  "mode": "implementation",
+  "input_request": "Реализовать план из docs/plans/universal-documentation-workflow-implementation-plan.md в отдельной worktree.",
+  "scope": {
+    "domain": "documentation_operations",
+    "product_profile_id": "product-profile-datacanvas",
+    "semantic_product_change": false
+  },
+  "initial_hashes": [
+    {
+      "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
+      "hash_source": "artifact_hash_manifest_or_git"
+    }
+  ],
+  "found_sources": [
+    "docs/plans/universal-documentation-workflow-implementation-plan.md",
+    "AGENTS.md",
+    "README.md",
+    "docs/README.md",
+    "docs/navigation/navigation-source.json",
+    "docs/architecture/schemas/artifact-registry.json",
+    "package.json"
+  ],
+  "decisions": [
+    "UDW-DEC-001"
+  ],
+  "applied_changes": [
+    {
+      "change_id": "UDW-CHG-001",
+      "change_type": "manual_source_edit",
+      "paths": [
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-002"
+    }
+  ],
+  "skipped_changes": [
+    {
+      "reason": "Смысловые продуктовые каскадные правки не входят в реализацию методики без отдельного решения Product Owner.",
+      "no_change_rationale": "Продуктовый профиль только подключает существующие источники истины DataCanvas."
+    }
+  ],
+  "generated_outputs": [
+    "docs/navigation/documentation-index.json",
+    "docs/navigation/navigation-map.md",
+    "docs/navigation/orphan-docs-report.md",
+    "docs/navigation/stale-status-report.md",
+    "docs/architecture/schemas/artifact-hash-manifest.json"
+  ],
+  "validation_results": [
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    }
+  ],
+  "residual_risks": [
+    "Автоматическое применение смысловых каскадных правок остается opt-in до отдельного процессного решения."
+  ],
+  "next_safe_step": "Использовать пакет универсального workflow для следующего изменения проектной документации."
+}

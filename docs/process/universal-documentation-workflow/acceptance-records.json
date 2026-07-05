@@ -1,0 +1,45 @@
+{
+  "$schema": "../../../schemas/acceptance-records.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "run_id": "UDW-RUN-2026-07-05-001",
+  "records": [
+    {
+      "acceptance_record_id": "UDW-ACC-001",
+      "acceptance_type": "owner_decision_acceptance",
+      "status": "accepted",
+      "owner_role": "Process Owner",
+      "subject": "Запуск реализации плана универсального workflow.",
+      "linked_decision_ids": [
+        "UDW-DEC-001"
+      ],
+      "linked_artifacts": [
+        "docs/plans/universal-documentation-workflow-implementation-plan.md"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-002",
+      "acceptance_type": "documentation_change_acceptance",
+      "status": "accepted",
+      "owner_role": "Process Owner",
+      "subject": "Добавление переносимого документационного workflow, схем и валидаторов.",
+      "linked_decision_ids": [
+        "UDW-DEC-001"
+      ],
+      "linked_artifacts": [
+        "docs/process/universal-documentation-workflow/README.md"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-003",
+      "acceptance_type": "product_behavior_acceptance",
+      "status": "not_applicable",
+      "owner_role": "Product Owner",
+      "subject": "Продуктовое поведение DataCanvas в этом запуске не меняется.",
+      "linked_decision_ids": [],
+      "linked_artifacts": [
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json"
+      ]
+    }
+  ]
+}

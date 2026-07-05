@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../schemas/decision-ledger.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "run_id": "UDW-RUN-2026-07-05-001",
+  "records": [
+    {
+      "decision_id": "UDW-DEC-001",
+      "decision_type": "documentation_change_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Process Owner",
+      "acceptance_record_id": "UDW-ACC-002",
+      "linked_artifacts": [
+        "docs/plans/universal-documentation-workflow-implementation-plan.md",
+        "docs/process/universal-documentation-workflow/README.md"
+      ],
+      "notes": "Реализация добавляет методику, профили, состояния, проверки и переносимые фикстуры без изменения продуктового поведения."
+    }
+  ]
+}

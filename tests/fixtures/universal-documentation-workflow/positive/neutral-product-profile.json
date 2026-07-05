@@ -1,0 +1,27 @@
+{
+  "product_profile_id": "product-profile-neutral",
+  "product_name": "Условный ИТ-продукт",
+  "profile_scope": "project_specific",
+  "primary_sources": [
+    {
+      "source_id": "neutral-vision",
+      "path": "docs/product-vision.md",
+      "authority": "product_meaning",
+      "description": "Vision — видение условного продукта."
+    },
+    {
+      "source_id": "neutral-requirements",
+      "path": "docs/product/requirements/business-requirements.md",
+      "authority": "product_meaning",
+      "description": "Business requirements — бизнес-требования условного продукта."
+    }
+  ],
+  "pilot_features": {
+    "bmc_enabled": false,
+    "co_2026_001_is_product_specific": false,
+    "prompt_only_package_is_launch_interface": false
+  },
+  "validation_commands": [
+    "npm run validate:documentation-profile"
+  ]
+}

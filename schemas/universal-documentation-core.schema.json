@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/universal-documentation-core.schema.json",
+  "title": "UniversalDocumentationWorkflowCore",
+  "type": "object",
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "workflow_id",
+    "workflow_version",
+    "domain",
+    "portability_boundary",
+    "levels",
+    "navigation_domains",
+    "navigation_flags",
+    "authority_taxonomy",
+    "state_machine",
+    "phases",
+    "decision_types",
+    "story_to_requirement_decision_matrix",
+    "no_change_rationale_fields",
+    "gates",
+    "completion_criteria"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "accepted"] },
+    "workflow_id": { "type": "string", "const": "universal-documentation-workflow" },
+    "workflow_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "domain": { "type": "string", "const": "documentation_operations" },
+    "portability_boundary": {
+      "type": "object",
+      "required": ["universal_core_scope", "product_specific_scope", "change_instance_scope", "forbidden_product_terms"],
+      "additionalProperties": false,
+      "properties": {
+        "universal_core_scope": { "type": "string", "minLength": 1 },
+        "product_specific_scope": { "type": "string", "minLength": 1 },
+        "change_instance_scope": { "type": "string", "minLength": 1 },
+        "forbidden_product_terms": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "enum": ["universal_core", "product_profile", "change_instance"] },
+          "title": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "navigation_domains": {
+      "type": "array",
+      "contains": { "const": "product" },
+      "items": { "type": "string", "enum": ["product", "documentation_operations"] }
+    },
+    "navigation_flags": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["universal", "pilot_specific", "project_specific", "generated", "sensitive_metadata_only"] }
+    },
+    "authority_taxonomy": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["authority", "primary_sources", "forbidden_primary_sources"],
+        "additionalProperties": false,
+        "properties": {
+          "authority": { "type": "string", "minLength": 1 },
+          "primary_sources": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "forbidden_primary_sources": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "state_machine": {
+      "type": "object",
+      "required": ["initial_status", "terminal_statuses", "statuses", "transitions"],
+      "additionalProperties": false,
+      "properties": {
+        "initial_status": { "type": "string", "const": "initialized" },
+        "terminal_statuses": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        "statuses": { "type": "array", "minItems": 14, "items": { "type": "string" } },
+        "transitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["from", "to"],
+            "additionalProperties": false,
+            "properties": {
+              "from": { "type": "string", "minLength": 1 },
+              "to": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "phases": { "type": "array", "minItems": 10, "items": { "type": "string", "minLength": 1 } },
+    "decision_types": { "type": "array", "minItems": 3, "items": { "type": "string", "minLength": 1 } },
+    "story_to_requirement_decision_matrix": { "type": "array", "minItems": 7, "items": { "type": "string", "minLength": 1 } },
+    "no_change_rationale_fields": { "type": "array", "minItems": 8, "items": { "type": "string", "minLength": 1 } },
+    "gates": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["id", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "enum": ["quick", "profile", "generated", "security", "full"] },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "completion_criteria": { "type": "array", "minItems": 6, "items": { "type": "string", "minLength": 1 } }
+  }
+}

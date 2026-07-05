@@ -1,0 +1,87 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "scenarios": [
+    {
+      "scenario_id": "core-contains-product-term",
+      "expected_rejection": "universal_core_must_not_contain_product_specific_terms",
+      "payload": {
+        "text": "Универсальное ядро содержит DataCanvas как правило процесса."
+      }
+    },
+    {
+      "scenario_id": "stale-generated-artifact",
+      "expected_rejection": "generated_artifact_must_be_current",
+      "payload": {
+        "path": "docs/navigation/documentation-index.json",
+        "source_path": "docs/navigation/navigation-source.json",
+        "stale": true
+      }
+    },
+    {
+      "scenario_id": "manual-generated-artifact",
+      "expected_rejection": "manual_generated_artifact_edit_blocked",
+      "payload": {
+        "path": "docs/navigation/documentation-index.json",
+        "generated": true,
+        "edit_origin": "manual"
+      }
+    },
+    {
+      "scenario_id": "public-confidential-artifact",
+      "expected_rejection": "confidential_artifact_must_not_be_public",
+      "payload": {
+        "path": "docs/evidence/raw-session.json",
+        "data_class": "confidential",
+        "visibility": "public"
+      }
+    },
+    {
+      "scenario_id": "missing-schema",
+      "expected_rejection": "json_artifact_requires_schema",
+      "payload": {
+        "path": "docs/process/example-state.json",
+        "schema_path": null
+      }
+    },
+    {
+      "scenario_id": "unexpected-write",
+      "expected_rejection": "write_outside_allowed_set_blocked",
+      "payload": {
+        "generator_id": "docs-navigation",
+        "write_path": "docs/product/requirements/business-requirements.md"
+      }
+    },
+    {
+      "scenario_id": "path-traversal",
+      "expected_rejection": "repo_path_must_not_escape_root",
+      "payload": {
+        "write_path": "../outside.json"
+      }
+    },
+    {
+      "scenario_id": "missing-source-of-truth",
+      "expected_rejection": "profile_requires_primary_source",
+      "payload": {
+        "product_profile_id": "product-profile-without-sources",
+        "primary_sources": []
+      }
+    },
+    {
+      "scenario_id": "open-blocking-decision",
+      "expected_rejection": "completion_requires_no_open_blocking_decisions",
+      "payload": {
+        "workflow_status": "completed",
+        "decision_status": "pending",
+        "blocking": true
+      }
+    },
+    {
+      "scenario_id": "missing-validation-command",
+      "expected_rejection": "catalog_command_must_exist_in_package_json",
+      "payload": {
+        "command": "npm run validate:missing-command"
+      }
+    }
+  ]
+}

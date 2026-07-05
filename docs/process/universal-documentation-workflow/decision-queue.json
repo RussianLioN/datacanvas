@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../schemas/workflow-decision-queue.schema.json",
+  "version": "0.1.0",
+  "status": "open",
+  "run_id": "UDW-RUN-2026-07-05-001",
+  "decisions": [
+    {
+      "decision_id": "UDW-DEC-001",
+      "decision_type": "documentation_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Реализация плана универсального workflow как документационного и проверочного контура.",
+      "acceptance_record_id": "UDW-ACC-002",
+      "rationale": "Сохраненный план является источником задания; продуктовый смысл DataCanvas не меняется."
+    }
+  ]
+}

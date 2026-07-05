@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/datacanvas-documentation-profile.schema.json",
+  "title": "DataCanvasDocumentationProfile",
+  "type": "object",
+  "required": ["$schema", "version", "status", "profile_binding", "project_profile", "product_profile"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "accepted"] },
+    "profile_binding": {
+      "type": "object",
+      "required": ["universal_core_path", "project_profile_id", "product_profile_id", "pilot_profile"],
+      "additionalProperties": false,
+      "properties": {
+        "universal_core_path": { "type": "string", "minLength": 1 },
+        "project_profile_id": { "type": "string", "minLength": 1 },
+        "product_profile_id": { "type": "string", "minLength": 1 },
+        "pilot_profile": { "type": "boolean" }
+      }
+    },
+    "project_profile": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "product_profile": {
+      "type": "object",
+      "minProperties": 1
+    }
+  }
+}

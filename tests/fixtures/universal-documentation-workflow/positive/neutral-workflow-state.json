@@ -1,0 +1,29 @@
+{
+  "$schema": "../../../../schemas/workflow-state.schema.json",
+  "workflow_id": "universal-documentation-workflow",
+  "workflow_version": "0.1.0",
+  "project_profile_id": "project-profile-neutral-documentation",
+  "product_profile_id": "product-profile-neutral",
+  "run_id": "UDW-RUN-2026-07-05-002",
+  "status": "initialized",
+  "phase": "intake",
+  "current_step": "intake_request",
+  "scope": {
+    "request_classification": "documentation_operations",
+    "mode": "validation",
+    "profile_scope": "project_specific",
+    "change_instance_path": "docs/process/universal-documentation-workflow/run-ledger.json"
+  },
+  "artifact_catalog_path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
+  "decision_queue_path": "docs/process/universal-documentation-workflow/decision-queue.json",
+  "event_log_path": "docs/process/universal-documentation-workflow/event-log.json",
+  "run_ledger_path": "docs/process/universal-documentation-workflow/run-ledger.json",
+  "validation_plan": [
+    "npm run validate:documentation-core"
+  ],
+  "resume_token": {
+    "last_safe_step": "intake_request",
+    "next_safe_step": "inventory_current_artifacts",
+    "requires_owner_decision": false
+  }
+}

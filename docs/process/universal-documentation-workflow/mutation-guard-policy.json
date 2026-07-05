@@ -1,0 +1,51 @@
+{
+  "$schema": "../../../schemas/mutation-guard-policy.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "policy_id": "mutation-guard-universal-documentation-workflow",
+  "generated_artifact_policy": {
+    "manual_edit_allowed": false,
+    "source_then_generate_required": true,
+    "unexpected_write_action": "block_completion"
+  },
+  "allowed_write_sets": [
+    {
+      "generator_id": "docs-navigation",
+      "allowed_writes": [
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ]
+    },
+    {
+      "generator_id": "artifact-hash-manifest",
+      "allowed_writes": [
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ]
+    },
+    {
+      "generator_id": "datacanvas-bmc",
+      "allowed_writes": [
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/bmc-derived-manifest.json"
+      ]
+    }
+  ],
+  "blocked_patterns": [
+    {
+      "id": "path-traversal",
+      "pattern": "../",
+      "reason": "Allowed writes must stay inside repository paths."
+    },
+    {
+      "id": "absolute-path",
+      "pattern": "/Users/",
+      "reason": "Persisted mutation guard paths must be relative repository paths."
+    }
+  ],
+  "negative_fixture_path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json"
+}

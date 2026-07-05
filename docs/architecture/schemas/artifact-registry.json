@@ -7139,6 +7139,334 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Универсальный workflow валидации, правки и генерации артефактов проектной документации или профиль DataCanvas меняется."
+    },
+    {
+      "id": "ART-643",
+      "path": "docs/process/universal-documentation-workflow/README.md",
+      "type": "process",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-644",
+      "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+      "type": "process-runbook",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-645",
+      "path": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+      "type": "process-contract",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-646",
+      "path": "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+      "type": "profile",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-647",
+      "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+      "type": "validation-catalog",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-648",
+      "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
+      "type": "artifact-inventory",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-649",
+      "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
+      "type": "generator-contracts",
+      "owner_role": "Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-650",
+      "path": "docs/process/universal-documentation-workflow/workflow-state.json",
+      "type": "workflow-state",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-651",
+      "path": "docs/process/universal-documentation-workflow/decision-queue.json",
+      "type": "decision-queue",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-652",
+      "path": "docs/process/universal-documentation-workflow/decision-ledger.json",
+      "type": "decision-ledger",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-653",
+      "path": "docs/process/universal-documentation-workflow/acceptance-records.json",
+      "type": "acceptance-records",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-654",
+      "path": "docs/process/universal-documentation-workflow/run-ledger.json",
+      "type": "run-ledger",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-655",
+      "path": "docs/process/universal-documentation-workflow/event-log.json",
+      "type": "event-log",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-656",
+      "path": "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
+      "type": "schema-coverage-registry",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-657",
+      "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+      "type": "mutation-guard-policy",
+      "owner_role": "Delivery/GitOps Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-658",
+      "path": "docs/process/universal-documentation-workflow/portability-pack.json",
+      "type": "portability-pack",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-659",
+      "path": "docs/process/universal-documentation-workflow/product-bootstrap-pack.json",
+      "type": "product-bootstrap-pack",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-660",
+      "path": "schemas/universal-documentation-core.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-661",
+      "path": "schemas/datacanvas-documentation-profile.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-662",
+      "path": "schemas/documentation-project-profile.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-663",
+      "path": "schemas/documentation-product-profile.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-664",
+      "path": "schemas/documentation-artifact-inventory.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-665",
+      "path": "schemas/validation-command-catalog.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-666",
+      "path": "schemas/workflow-state.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-667",
+      "path": "schemas/workflow-decision-queue.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-668",
+      "path": "schemas/decision-ledger.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-669",
+      "path": "schemas/acceptance-records.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-670",
+      "path": "schemas/run-ledger.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-671",
+      "path": "schemas/event-log.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-672",
+      "path": "schemas/generator-contracts.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-673",
+      "path": "schemas/schema-coverage-registry.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-674",
+      "path": "schemas/mutation-guard-policy.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-675",
+      "path": "schemas/workflow-portability-pack.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-676",
+      "path": "schemas/product-bootstrap-pack.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-677",
+      "path": "scripts/validate-universal-documentation-workflow.mjs",
+      "type": "validator",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-678",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-project-profile.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-679",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-product-profile.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-680",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-artifact-inventory.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-681",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-workflow-state.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-682",
+      "path": "tests/fixtures/universal-documentation-workflow/positive/neutral-validation-command-catalog.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-683",
+      "path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
+      "type": "fixture",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

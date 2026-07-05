@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/documentation-product-profile.schema.json",
+  "title": "DocumentationProductProfile",
+  "type": "object",
+  "required": [
+    "product_profile_id",
+    "product_name",
+    "profile_scope",
+    "primary_sources",
+    "pilot_features",
+    "validation_commands"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "product_profile_id": { "type": "string", "minLength": 1 },
+    "product_name": { "type": "string", "minLength": 1 },
+    "profile_scope": { "type": "string", "enum": ["universal", "pilot_specific", "project_specific"] },
+    "primary_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_id", "path", "authority", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "source_id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "authority": { "type": "string", "enum": ["product_meaning", "process", "architecture", "evidence"] },
+          "description": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "pilot_features": {
+      "type": "object",
+      "required": ["bmc_enabled", "co_2026_001_is_product_specific", "prompt_only_package_is_launch_interface"],
+      "additionalProperties": false,
+      "properties": {
+        "bmc_enabled": { "type": "boolean" },
+        "co_2026_001_is_product_specific": { "type": "boolean" },
+        "prompt_only_package_is_launch_interface": { "type": "boolean" }
+      }
+    },
+    "validation_commands": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+  }
+}

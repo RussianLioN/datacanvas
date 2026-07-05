@@ -27,5 +27,22 @@
 - `agent-launch-requirements-impact-map.schema.json`
 - `prompt-only-artifact-link-catalog.schema.json`
 - `prompt-only-artifact-review-session-state.schema.json`
+- `universal-documentation-core.schema.json`
+- `datacanvas-documentation-profile.schema.json`
+- `documentation-project-profile.schema.json`
+- `documentation-product-profile.schema.json`
+- `documentation-artifact-inventory.schema.json`
+- `validation-command-catalog.schema.json`
+- `workflow-state.schema.json`
+- `workflow-decision-queue.schema.json`
+- `decision-ledger.schema.json`
+- `acceptance-records.schema.json`
+- `run-ledger.schema.json`
+- `event-log.schema.json`
+- `generator-contracts.schema.json`
+- `schema-coverage-registry.schema.json`
+- `mutation-guard-policy.schema.json`
+- `workflow-portability-pack.schema.json`
+- `product-bootstrap-pack.schema.json`
 
-Эти схемы являются базовым контрактом Sprint 0, каскадного ведения документации и prompt-only согласования артефактов проектной документации. JSON Schema validation выполняется через `npm run validate:schemas`, а межартефактные инварианты cascade-контракта проверяет `npm run validate:cascading-governance`.
+Эти схемы являются базовым контрактом Sprint 0, каскадного ведения документации, prompt-only согласования артефактов проектной документации и универсального документационного workflow. JSON Schema validation выполняется через `npm run validate:schemas`, межартефактные инварианты cascade-контракта проверяет `npm run validate:cascading-governance`, а универсальный workflow проверяет `npm run validate:universal-documentation-workflow`.

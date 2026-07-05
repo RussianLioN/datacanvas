@@ -21,6 +21,14 @@
 | Generated artifacts | [artifacts/README.md](../artifacts/README.md) | Generated HTML/PDF/PNG и manual evidence exports. | Delivery/GitOps Lead |
 | Schemas/scripts/tests | [schemas/README.md](../schemas/README.md) | JSON Schema, generators, validators, fixtures и gates. | Development Team |
 
+## Слой Универсальной Методики
+
+| Уровень | Основной вход | Назначение | Владелец |
+|---|---|---|---|
+| Универсальная методика | [docs/process/universal-documentation-workflow/README.md](process/universal-documentation-workflow/README.md) | Переносимое ядро workflow без продуктового смысла DataCanvas. | Process Owner |
+| Профиль DataCanvas | [datacanvas-profile.json](process/universal-documentation-workflow/datacanvas-profile.json) | Подключение универсальной методики к текущему репозиторию и источникам истины DataCanvas. | Process Owner |
+| Экземпляр изменения | [workflow-state.json](process/universal-documentation-workflow/workflow-state.json) | Конкретный `run_id`, состояние, очередь решений, журнал запуска и validation evidence. | Process Owner |
+
 ## Правило Индексации
 
 `docs/navigation/navigation-source.json` классифицирует документы по lifecycle, owner, visibility и data class. Неизвестные документы считаются confidential и не попадают в public navigation/search corpus.

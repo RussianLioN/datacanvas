@@ -1,0 +1,25 @@
+{
+  "$schema": "../../../../schemas/validation-command-catalog.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "catalog_id": "validation-command-catalog-neutral-documentation-workflow",
+  "commands": [
+    {
+      "id": "documentation-core",
+      "command": "npm run validate:documentation-core",
+      "gate": "quick",
+      "applies_to": [
+        "universal_core"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверить универсальное ядро."
+    }
+  ],
+  "gate_order": [
+    "quick",
+    "profile",
+    "generated",
+    "security",
+    "full"
+  ]
+}

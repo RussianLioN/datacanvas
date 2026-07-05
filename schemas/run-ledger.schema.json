@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/run-ledger.schema.json",
+  "title": "RunLedger",
+  "type": "object",
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "run_id",
+    "mode",
+    "input_request",
+    "scope",
+    "initial_hashes",
+    "found_sources",
+    "decisions",
+    "applied_changes",
+    "skipped_changes",
+    "generated_outputs",
+    "validation_results",
+    "residual_risks",
+    "next_safe_step"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "completed", "blocked"] },
+    "run_id": { "type": "string", "minLength": 1 },
+    "mode": { "type": "string", "enum": ["planning", "implementation", "validation", "recovery"] },
+    "input_request": { "type": "string", "minLength": 1 },
+    "scope": {
+      "type": "object",
+      "required": ["domain", "product_profile_id", "semantic_product_change"],
+      "additionalProperties": false,
+      "properties": {
+        "domain": { "type": "string", "enum": ["product", "documentation_operations"] },
+        "product_profile_id": { "type": "string", "minLength": 1 },
+        "semantic_product_change": { "type": "boolean" }
+      }
+    },
+    "initial_hashes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "hash_source"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "hash_source": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "found_sources": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "decisions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "applied_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["change_id", "change_type", "paths", "requires_acceptance_record"],
+        "additionalProperties": false,
+        "properties": {
+          "change_id": { "type": "string", "minLength": 1 },
+          "change_type": { "type": "string", "minLength": 1 },
+          "paths": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "requires_acceptance_record": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "skipped_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["reason", "no_change_rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "reason": { "type": "string", "minLength": 1 },
+          "no_change_rationale": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "generated_outputs": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "validation_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "enum": ["planned", "passed", "failed", "skipped"] }
+        }
+      }
+    },
+    "residual_risks": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "next_safe_step": { "type": "string", "minLength": 1 }
+  }
+}

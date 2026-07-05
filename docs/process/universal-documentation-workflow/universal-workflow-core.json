@@ -1,0 +1,248 @@
+{
+  "$schema": "../../../schemas/universal-documentation-core.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "workflow_id": "universal-documentation-workflow",
+  "workflow_version": "0.1.0",
+  "domain": "documentation_operations",
+  "portability_boundary": {
+    "universal_core_scope": "Правила, состояния, проверки, шаблоны, контракты генераторов, порядок запуска и критерии завершения.",
+    "product_specific_scope": "Название ИТ-продукта, роли, источники истины, команды проверки, правила видимости и ограничения безопасности.",
+    "change_instance_scope": "Конкретный run_id, область работ, решения, правки, generated outputs, validation evidence и следующий безопасный шаг.",
+    "forbidden_product_terms": [
+      "DataCanvas",
+      "CO-2026-001",
+      "BMC",
+      "Лиса"
+    ]
+  },
+  "levels": [
+    {
+      "id": "universal_core",
+      "title": "Универсальное ядро",
+      "description": "Переносимые правила workflow без частных продуктовых смыслов."
+    },
+    {
+      "id": "product_profile",
+      "title": "Профиль продукта",
+      "description": "Подключение ядра к конкретному ИТ-продукту и проекту документации."
+    },
+    {
+      "id": "change_instance",
+      "title": "Экземпляр изменения",
+      "description": "Один запуск workflow с решениями, правками, генерацией и проверками."
+    }
+  ],
+  "navigation_domains": [
+    "product",
+    "documentation_operations"
+  ],
+  "navigation_flags": [
+    "universal",
+    "pilot_specific",
+    "project_specific",
+    "generated",
+    "sensitive_metadata_only"
+  ],
+  "authority_taxonomy": [
+    {
+      "authority": "product_meaning",
+      "primary_sources": [
+        "vision",
+        "business_model",
+        "stories",
+        "requirements",
+        "backlog",
+        "roadmap",
+        "traceability",
+        "accepted_product_owner_decisions"
+      ],
+      "forbidden_primary_sources": [
+        "plans",
+        "process_change_requests",
+        "architecture_decisions",
+        "schemas",
+        "scripts",
+        "generated_artifacts",
+        "evidence"
+      ]
+    },
+    {
+      "authority": "process",
+      "primary_sources": [
+        "methodology",
+        "process_change_requests",
+        "process_backlog",
+        "process_logs"
+      ],
+      "forbidden_primary_sources": [
+        "product_backlog",
+        "generated_artifacts"
+      ]
+    },
+    {
+      "authority": "architecture",
+      "primary_sources": [
+        "architecture_decisions",
+        "schemas",
+        "contracts",
+        "technical_specifications"
+      ],
+      "forbidden_primary_sources": [
+        "vision",
+        "stories",
+        "business_model"
+      ]
+    },
+    {
+      "authority": "evidence",
+      "primary_sources": [
+        "validation_results",
+        "exports",
+        "reports",
+        "logs"
+      ],
+      "forbidden_primary_sources": [
+        "semantic_decisions"
+      ]
+    }
+  ],
+  "state_machine": {
+    "initial_status": "initialized",
+    "terminal_statuses": [
+      "completed",
+      "abandoned"
+    ],
+    "statuses": [
+      "initialized",
+      "intake_validated",
+      "inventory_completed",
+      "methodology_checked",
+      "impact_analyzed",
+      "awaiting_decision",
+      "approved_to_apply",
+      "applying_changes",
+      "generating",
+      "validating",
+      "blocked",
+      "recovery_required",
+      "completed",
+      "abandoned"
+    ],
+    "transitions": [
+      {
+        "from": "initialized",
+        "to": "intake_validated"
+      },
+      {
+        "from": "intake_validated",
+        "to": "inventory_completed"
+      },
+      {
+        "from": "inventory_completed",
+        "to": "methodology_checked"
+      },
+      {
+        "from": "methodology_checked",
+        "to": "impact_analyzed"
+      },
+      {
+        "from": "impact_analyzed",
+        "to": "awaiting_decision"
+      },
+      {
+        "from": "impact_analyzed",
+        "to": "approved_to_apply"
+      },
+      {
+        "from": "approved_to_apply",
+        "to": "applying_changes"
+      },
+      {
+        "from": "applying_changes",
+        "to": "generating"
+      },
+      {
+        "from": "generating",
+        "to": "validating"
+      },
+      {
+        "from": "validating",
+        "to": "completed"
+      },
+      {
+        "from": "blocked",
+        "to": "recovery_required"
+      }
+    ]
+  },
+  "phases": [
+    "intake",
+    "inventory",
+    "methodology_check",
+    "impact_analysis",
+    "decision_pass",
+    "apply_pass",
+    "generate_pass",
+    "validate_pass",
+    "index_pass",
+    "completion_pass"
+  ],
+  "decision_types": [
+    "owner_decision_acceptance",
+    "documentation_change_acceptance",
+    "product_behavior_acceptance",
+    "process_change_acceptance",
+    "architecture_decision_acceptance"
+  ],
+  "story_to_requirement_decision_matrix": [
+    "create_requirement",
+    "change_requirement",
+    "split_requirement",
+    "no_change_with_rationale",
+    "defer",
+    "request_evidence",
+    "insufficient_for_change"
+  ],
+  "no_change_rationale_fields": [
+    "source",
+    "covered_requirements",
+    "acceptance_impact",
+    "traceability_impact",
+    "residual_risk",
+    "owner",
+    "date",
+    "reconsideration_condition"
+  ],
+  "gates": [
+    {
+      "id": "quick",
+      "description": "Быстрые проверки структуры и схем."
+    },
+    {
+      "id": "profile",
+      "description": "Проверки профиля продукта и проекта документации."
+    },
+    {
+      "id": "generated",
+      "description": "Генераторы, check режимы, хэши и mutation guard."
+    },
+    {
+      "id": "security",
+      "description": "Проверка секретов, утечек, видимости и классов данных."
+    },
+    {
+      "id": "full",
+      "description": "Полный набор проверок перед передачей."
+    }
+  ],
+  "completion_criteria": [
+    "blocking_decisions_closed",
+    "manual_sources_updated_or_no_change_rationale_recorded",
+    "generated_artifacts_current",
+    "hash_manifest_check_passed",
+    "mutation_guard_passed",
+    "acceptance_records_linked",
+    "run_ledger_has_residual_risks_and_next_safe_step"
+  ]
+}

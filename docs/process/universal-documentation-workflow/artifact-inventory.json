@@ -1,0 +1,156 @@
+{
+  "$schema": "../../../schemas/documentation-artifact-inventory.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "inventory_id": "artifact-inventory-universal-documentation-workflow",
+  "artifacts": [
+    {
+      "artifact_id": "UDW-A001",
+      "path": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+      "artifact_type": "workflow_core",
+      "owner_role": "Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [
+        "docs/process/universal-documentation-workflow/workflow-state.json"
+      ],
+      "validation_commands": [
+        "npm run validate:documentation-core"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A002",
+      "path": "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+      "artifact_type": "profile",
+      "owner_role": "Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "pilot_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json"
+      ],
+      "outputs": [
+        "docs/process/universal-documentation-workflow/artifact-inventory.json"
+      ],
+      "validation_commands": [
+        "npm run validate:documentation-profile",
+        "npm run validate:datacanvas-profile"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A003",
+      "path": "docs/navigation/navigation-source.json",
+      "artifact_type": "navigation_source",
+      "owner_role": "Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "navigation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/README.md"
+      ],
+      "outputs": [
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ],
+      "validation_commands": [
+        "npm run generate:docs-navigation -- --check",
+        "npm run validate:docs-navigation"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A004",
+      "path": "docs/architecture/schemas/artifact-registry.json",
+      "artifact_type": "artifact_registry",
+      "owner_role": "Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "artifact_registry",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/README.md"
+      ],
+      "outputs": [
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "validation_commands": [
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A005",
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "artifact_type": "hash_manifest",
+      "owner_role": "Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "generated",
+      "source_of_truth_class": "generated_artifact",
+      "generated": true,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "node scripts/generate-artifact-hash-manifest.mjs --check",
+        "npm run validate:artifact-hashes"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A006",
+      "path": "docs/architecture/security/data-leakage-manifest.json",
+      "artifact_type": "leakage_manifest",
+      "owner_role": "Security/Privacy Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "sensitive_metadata_only",
+      "source_of_truth_class": "security_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:data-leakage"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A007",
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "artifact_type": "product_source",
+      "owner_role": "Product Owner",
+      "domain": "product",
+      "profile_scope": "pilot_specific",
+      "source_of_truth_class": "product_meaning",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf"
+      ],
+      "validation_commands": [
+        "npm run generate:bmc -- --check",
+        "npm run validate:bmc"
+      ]
+    }
+  ]
+}

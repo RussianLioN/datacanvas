@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/acceptance-records.schema.json",
+  "title": "AcceptanceRecords",
+  "type": "object",
+  "required": ["$schema", "version", "status", "run_id", "records"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "archived"] },
+    "run_id": { "type": "string", "minLength": 1 },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["acceptance_record_id", "acceptance_type", "status", "owner_role", "subject", "linked_decision_ids", "linked_artifacts"],
+        "additionalProperties": false,
+        "properties": {
+          "acceptance_record_id": { "type": "string", "minLength": 1 },
+          "acceptance_type": { "type": "string", "enum": ["owner_decision_acceptance", "documentation_change_acceptance", "product_behavior_acceptance", "process_change_acceptance", "architecture_decision_acceptance"] },
+          "status": { "type": "string", "enum": ["draft", "accepted", "rejected", "not_applicable"] },
+          "owner_role": { "type": "string", "minLength": 1 },
+          "subject": { "type": "string", "minLength": 1 },
+          "linked_decision_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "linked_artifacts": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}

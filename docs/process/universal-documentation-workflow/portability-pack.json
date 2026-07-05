@@ -1,0 +1,102 @@
+{
+  "$schema": "../../../schemas/workflow-portability-pack.schema.json",
+  "version": "0.1.0",
+  "status": "ready_for_pilot_feedback",
+  "pack_id": "portability-pack-universal-documentation-workflow",
+  "source_workflow": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+  "templates": [
+    {
+      "template_id": "project_profile",
+      "artifact_kind": "project_profile",
+      "schema_path": "schemas/documentation-project-profile.schema.json",
+      "description": "Профиль проекта ведения документации: роли, владельцы, маршруты, команды проверки, язык и безопасность."
+    },
+    {
+      "template_id": "product_profile",
+      "artifact_kind": "product_profile",
+      "schema_path": "schemas/documentation-product-profile.schema.json",
+      "description": "Профиль ИТ-продукта: Vision, цели, стейкхолдеры, источники смысла, требования, backlog, roadmap и traceability."
+    },
+    {
+      "template_id": "artifact_inventory",
+      "artifact_kind": "artifact_inventory",
+      "schema_path": "schemas/documentation-artifact-inventory.schema.json",
+      "description": "Инвентарь артефактов с владельцем, доменом, чувствительностью, входами, выходами и проверками."
+    },
+    {
+      "template_id": "navigation_source",
+      "artifact_kind": "navigation_source",
+      "schema_path": "schemas/docs-navigation-source.schema.json",
+      "description": "Источник навигации нового проекта."
+    },
+    {
+      "template_id": "artifact_registry",
+      "artifact_kind": "artifact_registry",
+      "schema_path": "schemas/artifact-registry.schema.json",
+      "description": "Реестр артефактов нового проекта."
+    },
+    {
+      "template_id": "hash_manifest",
+      "artifact_kind": "hash_manifest",
+      "schema_path": "schemas/artifact-hash-manifest.schema.json",
+      "description": "Манифест хэшей для воспроизводимости."
+    },
+    {
+      "template_id": "leakage_manifest",
+      "artifact_kind": "leakage_manifest",
+      "schema_path": "schemas/data-leakage-manifest.schema.json",
+      "description": "Манифест контроля утечек и правил видимости."
+    },
+    {
+      "template_id": "workflow_state",
+      "artifact_kind": "workflow_state",
+      "schema_path": "schemas/workflow-state.schema.json",
+      "description": "Состояние запуска workflow."
+    },
+    {
+      "template_id": "decision_queue",
+      "artifact_kind": "decision_queue",
+      "schema_path": "schemas/workflow-decision-queue.schema.json",
+      "description": "Очередь решений владельцев."
+    },
+    {
+      "template_id": "acceptance_record",
+      "artifact_kind": "acceptance_record",
+      "schema_path": "schemas/acceptance-records.schema.json",
+      "description": "Записи принятия решений, документационных изменений и продуктового поведения."
+    },
+    {
+      "template_id": "run_ledger",
+      "artifact_kind": "run_ledger",
+      "schema_path": "schemas/run-ledger.schema.json",
+      "description": "Журнал запуска с входом, областью работ, правками, проверками и рисками."
+    },
+    {
+      "template_id": "migration_notes",
+      "artifact_kind": "migration_notes",
+      "schema_path": null,
+      "description": "Заметки по переносу методики: что переносится без изменений, что адаптируется, feedback и решение."
+    }
+  ],
+  "implementation_phases": [
+    "bootstrap",
+    "advisory_scan",
+    "fix_pass",
+    "strict_rollout",
+    "pilot_feedback_gate"
+  ],
+  "migration_notes_template": {
+    "required_headings": [
+      "Что переносится без изменений",
+      "Что требует адаптации",
+      "Pilot feedback",
+      "Решение"
+    ]
+  },
+  "validation_commands": [
+    "npm run validate:process-portability",
+    "npm run validate:documentation-core",
+    "npm run validate:documentation-profile",
+    "npm run validate:universal-documentation-workflow"
+  ]
+}

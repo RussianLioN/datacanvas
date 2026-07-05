@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/mutation-guard-policy.schema.json",
+  "title": "MutationGuardPolicy",
+  "type": "object",
+  "required": ["$schema", "version", "status", "policy_id", "generated_artifact_policy", "allowed_write_sets", "blocked_patterns", "negative_fixture_path"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "accepted"] },
+    "policy_id": { "type": "string", "minLength": 1 },
+    "generated_artifact_policy": {
+      "type": "object",
+      "required": ["manual_edit_allowed", "source_then_generate_required", "unexpected_write_action"],
+      "additionalProperties": false,
+      "properties": {
+        "manual_edit_allowed": { "type": "boolean" },
+        "source_then_generate_required": { "type": "boolean" },
+        "unexpected_write_action": { "type": "string", "enum": ["block_completion", "warn"] }
+      }
+    },
+    "allowed_write_sets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["generator_id", "allowed_writes"],
+        "additionalProperties": false,
+        "properties": {
+          "generator_id": { "type": "string", "minLength": 1 },
+          "allowed_writes": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "blocked_patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "pattern", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "pattern": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "negative_fixture_path": { "type": "string", "minLength": 1 }
+  }
+}
