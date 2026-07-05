@@ -7123,6 +7123,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Prompt-only artifact review validation rules change."
+    },
+    {
+      "id": "ART-642",
+      "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Универсальный workflow валидации, правки и генерации артефактов проектной документации или профиль DataCanvas меняется."
     }
   ]
 }

@@ -4362,6 +4362,7 @@
         "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
         "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
+        "docs/plans/universal-documentation-workflow-implementation-plan.md",
         "docs/README.md",
         "README.md"
       ],
@@ -4372,6 +4373,47 @@
       ],
       "reachable_from_root": true,
       "click_depth": 1
+    },
+    {
+      "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
+      "title": "План Универсального Рабочего Процесса Валидации, Правки И Генерации Артефактов Проектной Документации",
+      "section": "plans",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-642",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-универсального-рабочего-процесса-валидации-правки-и-генерации-артефактов-проектной-документации",
+        "назначение",
+        "1-сформировать-универсальное-ядро-и-профиль-datacanvas",
+        "2-усилить-источники-истины-полномочия-и-навигацию",
+        "3-ввести-универсальную-модель-запуска-и-состояния",
+        "4-формализовать-инвентаризацию-зависимости-и-каскадные-правки",
+        "5-усилить-генераторы-хэши-и-проверки-воспроизводимости",
+        "6-сделать-методологию-действительно-переносимой",
+        "7-обновить-схемы-валидаторы-и-команды",
+        "8-зафиксировать-порядок-полного-запуска-рабочего-процесса",
+        "9-проверки-и-критерии-приемки-реализации",
+        "10-принятые-допущения"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/process/audits/cascading-governance-correction-consilium.md",
@@ -33253,14 +33295,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1172,
-    "manual_entries": 1168,
+    "total_entries": 1173,
+    "manual_entries": 1169,
     "generated_entries": 4,
     "public_navigable_entries": 32,
-    "searchable_entries": 1140,
+    "searchable_entries": 1141,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 130,
+    "reachable_from_root": 131,
     "orphan_entries": 0
   },
   "ignored_paths": [

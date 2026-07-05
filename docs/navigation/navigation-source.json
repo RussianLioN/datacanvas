@@ -1909,6 +1909,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
+      "route_id": "universal-documentation-workflow-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Универсальный workflow валидации, правки и генерации артефактов проектной документации или его профиль DataCanvas меняется.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/process/cascading-governance/README.md",
       "route_id": "cascading-governance-readme",
       "section": "process",

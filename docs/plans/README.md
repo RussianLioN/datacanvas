@@ -22,6 +22,7 @@
 - [План ревизии исходных документов и принятия правок](datacanvas-source-documents-revision-and-approval-implementation-plan.md)
 - [План документационного бизнес-анализа историй запуска DataCanvas другим агентом](datacanvas-agent-launch-requirements-analysis-implementation-plan.md)
 - [План prompt-only согласования и редактирования артефактов проектной документации](datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md)
+- [План универсального рабочего процесса валидации, правки и генерации артефактов проектной документации](universal-documentation-workflow-implementation-plan.md)
 
 ## Правило
 
