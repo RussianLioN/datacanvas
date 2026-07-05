@@ -23,5 +23,9 @@
 - `cascading-update-run.schema.json`
 - `jira-field-mapping-request.schema.json`
 - `jira-import-package-manifest.schema.json`
+- `agent-launch-requirements-analysis-state.schema.json`
+- `agent-launch-requirements-impact-map.schema.json`
+- `prompt-only-artifact-link-catalog.schema.json`
+- `prompt-only-artifact-review-session-state.schema.json`
 
-Эти схемы являются базовым контрактом Sprint 0 и каскадного ведения документации. JSON Schema validation выполняется через `npm run validate:schemas`, а межартефактные инварианты cascade-контракта проверяет `npm run validate:cascading-governance`.
+Эти схемы являются базовым контрактом Sprint 0, каскадного ведения документации и prompt-only согласования артефактов проектной документации. JSON Schema validation выполняется через `npm run validate:schemas`, а межартефактные инварианты cascade-контракта проверяет `npm run validate:cascading-governance`.

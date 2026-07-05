@@ -115,3 +115,21 @@ PCR: `PROC-001`
 #### Rollback
 
 Пометить questionnaire artifacts как superseded и удалить `validate:co-questionnaire` из промежуточных validation plans. Продуктовые решения `CO-2026-001` не откатываются без отдельного решения Product Owner.
+
+### PROC-047 — закрыть возобновление PO-опросника `CO-2026-001` — изменения приоритета запуска DataCanvas другим агентом
+
+Статус: done
+Дата: 2026-07-05
+Источник: `docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md`
+
+#### Изменение
+
+Закрыт процессный хвост после сохранённой остановки PO-опросника: вопросы `PRODUCT-21` — `PRODUCT-30` завершены, состояние опросника имеет статус `completed`, а `PROC-047` перенесён из `Ready` в `Done` в process backlog.
+
+#### Миграция
+
+Новых продуктовых решений не добавлено. Дальнейшие изменения по DataCanvas оформляются отдельным Product Change Order или impact review.
+
+#### Rollback
+
+Вернуть `PROC-047` в `Ready` только если состояние `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json` будет обоснованно переведено из `completed` в активный статус отдельным решением Product Owner.

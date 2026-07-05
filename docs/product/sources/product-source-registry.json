@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-04T15:34:45Z",
+  "updated_at": "2026-07-04T22:10:04Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -63,7 +63,7 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе."
+      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел Проблема дополнен болью длинной чатовой ленты Лисы, а служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",
@@ -93,7 +93,7 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Содержит candidate stories DC-ST-23..DC-ST-28."
+      "notes": "Содержит candidate stories DC-ST-23..DC-ST-28; служебное упоминание исторического ориентира результата удалено из стейкхолдерских терминов и закрытых решений."
     },
     {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",
@@ -158,7 +158,7 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/hypotheses/hypothesis-validation.md"
       ],
-      "notes": "Текущий источник гипотез; прямое расхождение с CO-2026-001 в первом пакете ревизии не зафиксировано."
+      "notes": "Текущий источник гипотез; HYP-001 дополнена проверкой перехода от длинного ответа другого агента в Лисе к принятой презентации."
     },
     {
       "source_id": "SRC-DC-HYPOTHESIS-VALIDATION",
@@ -174,7 +174,7 @@
         "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/backlog/product-backlog.md"
       ],
-      "notes": "План проверки гипотез; прямое расхождение с CO-2026-001 в первом пакете ревизии не зафиксировано."
+      "notes": "План проверки гипотез; HYP-001 проверяет снижение ручной подготовки и нагрузки на разбор длинного ответа другого агента в Лисе."
     },
     {
       "source_id": "SRC-DC-BMC-CURRENT",
@@ -187,7 +187,7 @@
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["business_model", "requirements_delta"],
       "affected_artifacts": ["docs/product/requirements/business-requirements.md"],
-      "notes": "Обновлен по EDIT-002: стейкхолдерский BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте."
+      "notes": "Обновлен по EDIT-002: стейкхолдерский BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте; ценность дополнена снижением нагрузки на чтение длинных агентских ответов."
     },
     {
       "source_id": "SRC-DC-BMC-SOURCE-LOCK",
@@ -217,7 +217,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Обновлен по EDIT-003 — правке бизнес-требований по разделению режимов: бизнес-требования разделяют запуск другим агентом без подтверждения и диалоговый режим в Лисе с выбором действия после описания структуры."
+      "notes": "Обновлен по EDIT-003 — правке бизнес-требований по разделению режимов: бизнес-требования разделяют запуск другим агентом без подтверждения и диалоговый режим в Лисе с выбором действия после описания структуры; ценность BT-005 и BT-008 дополнена снижением нагрузки на разбор длинного ответа другого агента в Лисе."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-ACCEPTANCE",

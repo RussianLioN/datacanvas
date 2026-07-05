@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/prompt-only-artifact-review-session-state.schema.json",
+  "title": "PromptOnlyArtifactReviewSessionState",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "workflow_id",
+    "session_id",
+    "created_on",
+    "scope",
+    "current_step",
+    "current_artifact_path",
+    "pending_decision",
+    "displayed_link_sets",
+    "decisions",
+    "generated_artifacts_pending_regeneration",
+    "last_validation_results",
+    "continuation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["ready", "active", "completed"] },
+    "workflow_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "session_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "created_on": { "type": "string", "format": "date" },
+    "scope": {
+      "type": "object",
+      "required": ["plan_path", "catalog_path", "runbook_path", "ledger_path", "boundary"],
+      "additionalProperties": false,
+      "properties": {
+        "plan_path": { "$ref": "#/$defs/repoPath" },
+        "catalog_path": { "$ref": "#/$defs/repoPath" },
+        "runbook_path": { "$ref": "#/$defs/repoPath" },
+        "ledger_path": { "$ref": "#/$defs/repoPath" },
+        "boundary": { "type": "string", "enum": ["project_documentation_only"] }
+      }
+    },
+    "current_step": {
+      "type": "string",
+      "enum": [
+        "awaiting_prompt",
+        "showing_artifact",
+        "awaiting_decision",
+        "applying_approved_edit",
+        "running_validation",
+        "completed"
+      ]
+    },
+    "current_artifact_path": {
+      "anyOf": [
+        { "$ref": "#/$defs/repoPath" },
+        { "type": "null" }
+      ]
+    },
+    "pending_decision": {
+      "anyOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/pendingDecision" }
+      ]
+    },
+    "displayed_link_sets": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/displayedLinkSet" }
+    },
+    "decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/decisionRecord" }
+    },
+    "generated_artifacts_pending_regeneration": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/generatedPending" }
+    },
+    "last_validation_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/validationResult" }
+    },
+    "continuation": {
+      "type": "object",
+      "required": ["state_path", "ledger_path", "resume_rule"],
+      "additionalProperties": false,
+      "properties": {
+        "state_path": { "$ref": "#/$defs/repoPath" },
+        "ledger_path": { "$ref": "#/$defs/repoPath" },
+        "resume_rule": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "pendingDecision": {
+      "type": "object",
+      "required": ["decision_id", "artifact_path", "question", "options"],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "artifact_path": { "$ref": "#/$defs/repoPath" },
+        "question": { "type": "string", "minLength": 1 },
+        "options": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "displayedLinkSet": {
+      "type": "object",
+      "required": ["group_id", "path_set_key", "shown_in_chat", "artifact_paths"],
+      "additionalProperties": false,
+      "properties": {
+        "group_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "path_set_key": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "shown_in_chat": { "type": "boolean" },
+        "artifact_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/repoPath" }
+        }
+      }
+    },
+    "decisionRecord": {
+      "type": "object",
+      "required": ["decision_id", "artifact_path", "decision", "recorded_at"],
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "artifact_path": { "$ref": "#/$defs/repoPath" },
+        "decision": { "type": "string", "enum": ["accepted", "rejected", "deferred"] },
+        "recorded_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "generatedPending": {
+      "type": "object",
+      "required": ["path", "source_path", "generator_command"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "source_path": { "$ref": "#/$defs/repoPath" },
+        "generator_command": { "type": "string", "minLength": 1 }
+      }
+    },
+    "validationResult": {
+      "type": "object",
+      "required": ["command", "status", "finished_at", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "command": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["not_run", "passed", "failed"] },
+        "finished_at": {
+          "anyOf": [
+            { "type": "string", "format": "date-time" },
+            { "type": "null" }
+          ]
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

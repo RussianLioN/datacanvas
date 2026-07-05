@@ -1,0 +1,329 @@
+{
+  "$schema": "../../../schemas/prompt-only-artifact-link-catalog.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "workflow_id": "prompt-only-documentation-artifact-review",
+  "scope": {
+    "repository_role": "documentation_repository",
+    "workflow_subject": "project_documentation_artifact_review",
+    "implementation_plan_path": "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md"
+  },
+  "boundary_contract": {
+    "scope_statement": "Workflow обслуживает только проектную документацию и документальное сопровождение DataCanvas.",
+    "prohibited_behaviors": [
+      "Не принимать продуктовые решения за владельца.",
+      "Не использовать продуктовые утверждения как инструкции workflow.",
+      "Не выводить бизнесовые утверждения из ADR, schemas, scripts или generated artifacts.",
+      "Не выводить технические контракты из Vision, BMC, stories или requirements без отдельного согласованного contract artifact."
+    ],
+    "approval_rules": [
+      "Любая правка продуктового смысла оформляется как предлагаемая правка документа.",
+      "Правка применяется только после явного согласования владельца.",
+      "Сырой JSON не используется как основной текст вопроса на согласование."
+    ],
+    "source_of_truth_rules": [
+      "Ручные product, process и architecture artifacts остаются источниками истины в своем домене.",
+      "Generated artifacts используются как представления, evidence или навигация.",
+      "docs/navigation/navigation-source.json остается ручным источником generated navigation."
+    ]
+  },
+  "chat_link_policy": {
+    "runtime_absolute_links": true,
+    "persisted_paths": "relative_repo_paths_only",
+    "open_with_default_application": true,
+    "notes": "Абсолютные локальные ссылки строятся только в runtime chat и не сохраняются в файлах."
+  },
+  "artifact_groups": [
+    {
+      "group_id": "prompt-only-workflow",
+      "title": "Prompt-only workflow согласования документации",
+      "group_kind": "process",
+      "source_of_truth_class": "process_source",
+      "edit_policy": "manual_source_edit",
+      "source_artifacts": [
+        {
+          "path": "docs/process/prompt-only-artifact-review/README.md",
+          "format": "markdown",
+          "role": "workflow_entrypoint",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:prompt-only-artifact-review"
+          ]
+        },
+        {
+          "path": "docs/process/prompt-only-artifact-review/prompt-only-runbook.md",
+          "format": "markdown",
+          "role": "agent_runbook",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:prompt-only-artifact-review"
+          ]
+        },
+        {
+          "path": "docs/process/prompt-only-artifact-review/artifact-link-catalog.json",
+          "format": "json",
+          "role": "artifact_link_catalog",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:prompt-only-artifact-review",
+            "npm run validate:schemas"
+          ]
+        },
+        {
+          "path": "docs/process/prompt-only-artifact-review/artifact-review-session-state.json",
+          "format": "json",
+          "role": "review_session_state",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:prompt-only-artifact-review",
+            "npm run validate:schemas"
+          ]
+        },
+        {
+          "path": "docs/process/prompt-only-artifact-review/artifact-edit-decision-ledger.md",
+          "format": "markdown",
+          "role": "decision_ledger",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:prompt-only-artifact-review"
+          ]
+        }
+      ],
+      "derived_artifacts": [],
+      "evidence_artifacts": [],
+      "navigation_artifacts": [
+        {
+          "path": "docs/navigation/documentation-index.json",
+          "format": "json",
+          "role": "generated_navigation_index",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/navigation/navigation-source.json",
+          "generator_command": "npm run generate:docs-navigation",
+          "validation_commands": [
+            "npm run generate:docs-navigation -- --check",
+            "npm run validate:docs-navigation"
+          ]
+        }
+      ],
+      "validation_commands": [
+        "npm run validate:prompt-only-artifact-review",
+        "npm run validate:schemas"
+      ]
+    },
+    {
+      "group_id": "business-model-canvas",
+      "title": "BMC как пример исходного и производного пакета",
+      "group_kind": "product_documentation",
+      "source_of_truth_class": "product_source",
+      "edit_policy": "source_then_generate",
+      "source_artifacts": [
+        {
+          "path": "docs/product/bmc/bmc-v0.2.md",
+          "format": "markdown",
+          "role": "bmc_markdown_source",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run generate:bmc -- --check",
+            "npm run validate:bmc"
+          ]
+        },
+        {
+          "path": "docs/product/bmc/bmc-trace.v0.1.json",
+          "format": "json",
+          "role": "bmc_trace_source",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:bmc"
+          ]
+        }
+      ],
+      "derived_artifacts": [
+        {
+          "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+          "format": "plantuml",
+          "role": "bmc_plantuml_view",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run generate:bmc -- --check",
+            "npm run validate:bmc"
+          ]
+        },
+        {
+          "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+          "format": "svg",
+          "role": "bmc_svg_view",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run generate:bmc -- --check",
+            "npm run validate:bmc"
+          ]
+        },
+        {
+          "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+          "format": "png",
+          "role": "bmc_png_view",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run generate:bmc -- --check",
+            "npm run validate:bmc"
+          ]
+        },
+        {
+          "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+          "format": "pdf",
+          "role": "bmc_pdf_view",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run generate:bmc -- --check",
+            "npm run validate:bmc"
+          ]
+        }
+      ],
+      "evidence_artifacts": [
+        {
+          "path": "docs/product/bmc/evidence/visual-review.md",
+          "format": "markdown",
+          "role": "bmc_visual_review_evidence",
+          "edit_policy": "readonly_evidence",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run validate:bmc"
+          ]
+        },
+        {
+          "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+          "format": "json",
+          "role": "bmc_visual_acceptance_evidence",
+          "edit_policy": "readonly_evidence",
+          "source_path": "docs/product/bmc/bmc-v0.2.md",
+          "generator_command": "npm run generate:bmc",
+          "validation_commands": [
+            "npm run validate:bmc"
+          ]
+        }
+      ],
+      "navigation_artifacts": [],
+      "validation_commands": [
+        "npm run generate:bmc -- --check",
+        "npm run validate:bmc"
+      ]
+    },
+    {
+      "group_id": "navigation-and-registry",
+      "title": "Навигация, реестр и хеши документационного контура",
+      "group_kind": "documentation_operations",
+      "source_of_truth_class": "process_source",
+      "edit_policy": "source_then_generate",
+      "source_artifacts": [
+        {
+          "path": "docs/navigation/navigation-source.json",
+          "format": "json",
+          "role": "navigation_source",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run generate:docs-navigation -- --check",
+            "npm run validate:docs-navigation"
+          ]
+        },
+        {
+          "path": "docs/architecture/schemas/artifact-registry.json",
+          "format": "json",
+          "role": "artifact_registry",
+          "edit_policy": "manual_source_edit",
+          "source_path": null,
+          "generator_command": null,
+          "validation_commands": [
+            "npm run validate:artifact-registry",
+            "npm run validate:artifact-hashes"
+          ]
+        }
+      ],
+      "derived_artifacts": [
+        {
+          "path": "docs/navigation/documentation-index.json",
+          "format": "json",
+          "role": "generated_navigation_index",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/navigation/navigation-source.json",
+          "generator_command": "npm run generate:docs-navigation",
+          "validation_commands": [
+            "npm run generate:docs-navigation -- --check",
+            "npm run validate:docs-navigation"
+          ]
+        },
+        {
+          "path": "docs/navigation/navigation-map.md",
+          "format": "markdown",
+          "role": "generated_navigation_map",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/navigation/navigation-source.json",
+          "generator_command": "npm run generate:docs-navigation",
+          "validation_commands": [
+            "npm run generate:docs-navigation -- --check",
+            "npm run validate:docs-navigation"
+          ]
+        },
+        {
+          "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+          "format": "json",
+          "role": "generated_artifact_hash_manifest",
+          "edit_policy": "generated_readonly",
+          "source_path": "docs/architecture/schemas/artifact-registry.json",
+          "generator_command": "node scripts/generate-artifact-hash-manifest.mjs",
+          "validation_commands": [
+            "npm run validate:artifact-hashes"
+          ]
+        }
+      ],
+      "evidence_artifacts": [],
+      "navigation_artifacts": [],
+      "validation_commands": [
+        "npm run generate:docs-navigation -- --check",
+        "npm run validate:docs-navigation",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes"
+      ]
+    }
+  ],
+  "review_sequence": [
+    "prompt-only-workflow",
+    "business-model-canvas",
+    "navigation-and-registry"
+  ],
+  "validation": {
+    "profile_command": "npm run validate:prompt-only-artifact-review",
+    "minimum_commands": [
+      "npm run validate:prompt-only-artifact-review",
+      "npm run validate:schemas",
+      "npm run validate:doc-links",
+      "npm run validate:docs-navigation",
+      "npm run validate:artifact-registry",
+      "npm run validate:artifact-hashes"
+    ]
+  }
+}

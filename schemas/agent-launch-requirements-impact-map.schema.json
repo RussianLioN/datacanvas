@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/agent-launch-requirements-impact-map.schema.json",
+  "title": "AgentLaunchRequirementsImpactMap",
+  "type": "object",
+  "required": [
+    "analysis_id",
+    "status",
+    "source_change_order",
+    "story_range",
+    "requirements_baseline",
+    "stories",
+    "summary"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "analysis_id": { "type": "string", "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "in_progress", "completed"] },
+    "source_change_order": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}$" },
+    "story_range": {
+      "type": "object",
+      "required": ["from", "to"],
+      "additionalProperties": false,
+      "properties": {
+        "from": { "type": "string", "const": "DC-ST-23" },
+        "to": { "type": "string", "const": "DC-ST-28" }
+      }
+    },
+    "requirements_baseline": {
+      "type": "object",
+      "required": [
+        "source_path",
+        "confirmed_existing_range",
+        "next_free_requirement_id",
+        "new_requirement_ids_assigned"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_path": { "$ref": "#/$defs/repoPath" },
+        "confirmed_existing_range": { "type": "string", "const": "BT-001..BT-014" },
+        "next_free_requirement_id": { "type": "string", "const": "BT-015" },
+        "new_requirement_ids_assigned": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/requirementId" }
+        }
+      }
+    },
+    "stories": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/storyImpact" }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "new_requirements_needed",
+        "changed_requirements_needed",
+        "deferred_decisions",
+        "evidence_requests"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "new_requirements_needed": { "type": "boolean" },
+        "changed_requirements_needed": { "type": "boolean" },
+        "deferred_decisions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "evidence_requests": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "storyId": {
+      "type": "string",
+      "pattern": "^DC-ST-(23|24|25|26|27|28)$"
+    },
+    "requirementId": {
+      "type": "string",
+      "pattern": "^BT-[0-9]{3}$"
+    },
+    "storyImpact": {
+      "type": "object",
+      "required": [
+        "story_id",
+        "title",
+        "decision_id",
+        "decision_type",
+        "requirement_action",
+        "affected_requirements",
+        "source_paths",
+        "rationale",
+        "acceptance_criteria_effect",
+        "traceability_effect",
+        "evidence_status",
+        "blockers"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "story_id": { "$ref": "#/$defs/storyId" },
+        "title": { "type": "string", "minLength": 1 },
+        "decision_id": { "type": "string", "pattern": "^ALRA-DEC-[0-9]{3}$" },
+        "decision_type": {
+          "type": "string",
+          "enum": [
+            "create_new_requirement",
+            "modify_existing_requirement",
+            "split_existing_requirement",
+            "no_change_existing_requirements_sufficient",
+            "defer_decision",
+            "request_evidence",
+            "not_ready_for_requirement"
+          ]
+        },
+        "requirement_action": {
+          "type": "string",
+          "enum": [
+            "create_new_requirement",
+            "modify_existing_requirement",
+            "split_existing_requirement",
+            "no_new_requirement",
+            "defer",
+            "request_evidence",
+            "not_ready"
+          ]
+        },
+        "affected_requirements": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/requirementId" }
+        },
+        "source_paths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/repoPath" }
+        },
+        "rationale": { "type": "string", "minLength": 1 },
+        "acceptance_criteria_effect": { "type": "string", "minLength": 1 },
+        "traceability_effect": { "type": "string", "minLength": 1 },
+        "evidence_status": { "type": "string", "enum": ["sufficient", "insufficient", "not_required"] },
+        "blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
