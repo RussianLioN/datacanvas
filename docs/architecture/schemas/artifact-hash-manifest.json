@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "ddf491dadb8beac7b5587ca2edcecd4cc912f8e5ca505eb48025bec7b154c73d"
+      "sha256": "808902df473fcd067874f8f6ab3d95c09f8675ca4fd94502e49ec4ef486f4086"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "73eb89b0cc2e95a8c4ddb61fd171fcad555a24389a41eeb18ba39208d82ddf68"
+      "sha256": "acaaa42ef7520f08478117b39baf91720f59adf962eec4c0f4cb42f3177918a5"
     },
     {
       "artifact_id": "ART-201",
