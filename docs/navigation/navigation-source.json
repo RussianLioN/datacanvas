@@ -168,6 +168,25 @@
       }
     },
     {
+      "id": "documentation-consistency-audit",
+      "path_prefix": "docs/product/analysis/documentation-consistency-audit",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner / Process Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Аудит согласованности документации DataCanvas, решения владельцев, Confluence import map или sprint candidate plan меняются.",
+        "navigation_domain": "product",
+        "navigation_group": "business"
+      }
+    },
+    {
       "id": "ux-uat",
       "path_prefix": "docs/product/ux",
       "defaults": {
@@ -2891,6 +2910,26 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis"
     },
     {
+      "id": "task-audit-datacanvas-documentation-consistency",
+      "label": "Аудит согласованности документации DataCanvas",
+      "task": "Проверить согласованность документации DataCanvas",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "start_path": "docs/product/analysis/documentation-consistency-audit/README.md",
+      "next_paths": [
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
       "id": "task-find-business-requirements",
       "label": "Найти бизнес-требования",
       "task": "Найти бизнес-требования",
@@ -3112,7 +3151,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "0f24be3e8b6829dd12863259dc0782bc3deddc59",
+    "current_main_commit": "49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

@@ -226,6 +226,7 @@ function validateCore() {
     "validating",
     "blocked",
     "recovery_required",
+    "interviewing",
     "completed",
     "abandoned",
   ]) {
@@ -240,6 +241,10 @@ function validateCore() {
     }
   }
 
+  if (!core.phases.includes("owner_interview_pass")) {
+    fail("universal core must include owner_interview_pass phase");
+  }
+
   for (const requiredCriterion of [
     "blocking_decisions_closed",
     "generated_artifacts_current",
@@ -252,6 +257,38 @@ function validateCore() {
     }
   }
 
+  if (core.owner_interview_policy.default_mode !== "interview_first_deferred_mutation") {
+    fail("universal core must default to interview-first deferred mutation for owner interviews");
+  }
+  if (!core.owner_interview_policy.description.includes("по любому артефакту")) {
+    fail("owner interview policy must apply to any artifact question or questionnaire");
+  }
+  for (const requiredScope of [
+    "single_owner_question",
+    "owner_questionnaire",
+    "artifact_specific_interview",
+    "product_process_architecture_navigation_generated_security_evidence_artifacts",
+  ]) {
+    if (!core.owner_interview_policy.applies_to.includes(requiredScope)) {
+      fail(`owner interview policy must declare scope: ${requiredScope}`);
+    }
+  }
+  for (const requiredOperation of [
+    "generated_artifact_refresh",
+    "hash_manifest_update",
+    "full_validation_gate",
+    "final_validation_evidence",
+  ]) {
+    if (!core.owner_interview_policy.deferred_operations.includes(requiredOperation)) {
+      fail(`owner interview policy must defer operation: ${requiredOperation}`);
+    }
+  }
+  for (const requiredAllowedAction of ["read_sources", "impact_analysis", "draft_question_batch", "collect_owner_answers"]) {
+    if (!core.owner_interview_policy.allowed_during_interview.includes(requiredAllowedAction)) {
+      fail(`owner interview policy must allow interview action: ${requiredAllowedAction}`);
+    }
+  }
+
   const negative = scenarioById("core-contains-product-term");
   if (!negative.payload.text.includes("DataCanvas")) {
     fail("negative core product-term fixture no longer exercises product-specific rejection");
@@ -260,6 +297,14 @@ function validateCore() {
   assertRequiredFragments(paths.readme, [
     "DataCanvas используется только как пилотный профиль",
     "Generated artifacts редактируются только через исходный источник",
+    "Интервью Сначала, Правки Потом",
+    "interview_first_deferred_mutation",
+    "любой опрос, вопрос или решение владельца по любому артефакту",
+    "сначала собрать полный набор известных независимых вопросов по текущему артефакту",
+    "не обновлять смысловые документы, generated artifacts",
+    "Отчет для пользователя должен начинаться с простого человеческого итога",
+    "абсолютную ссылку на каждый документ",
+    "короткую цитату из релевантного фрагмента документа",
     "npm run validate:universal-documentation-workflow",
   ]);
   assertRequiredFragments(paths.runbook, [
@@ -268,6 +313,15 @@ function validateCore() {
     "ADR-*",
     "No-change rationale",
     "mutation guard",
+    "interview_first_deferred_mutation",
+    "сначала интервью, затем пакетная обработка",
+    "любой опрос или вопрос по артефакту",
+    "не запускать generated refresh",
+    "UX-Френдли Интервью",
+    "Правило одинаково для продуктовых, процессных, архитектурных, навигационных",
+    "сначала сформулировать простой итог обычным русским языком",
+    "абсолютную ссылку на каждый документ",
+    "короткую цитату из каждого такого документа",
   ]);
 }
 

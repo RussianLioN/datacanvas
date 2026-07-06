@@ -21,7 +21,7 @@ Vision, BMC, stories, требования, backlog, roadmap, гипотезы �
 - [Каталог пользовательских историй DataCanvas](../stories.md) - Product Owner, `active`.
 - [Требования DataCanvas](../product/requirements/README.md) - Product Owner, `active`.
 - [Бизнес-требования v0.2](../product/requirements/business-requirements.md) - Product Owner, `draft`.
-- [Пользовательские истории v0.1](../product/requirements/user-stories.md) - Product Owner, `draft`.
+- [Формализованные Пользовательские Истории v0.2](../product/requirements/user-stories.md) - Product Owner, `draft`.
 - [Нефункциональные Требования v0.1](../product/requirements/non-functional-requirements.md) - Product Owner, `draft`.
 - [Критерии приемки v0.2](../product/requirements/acceptance-criteria.md) - Product Owner, `draft`.
 - [Backlog DataCanvas](../product/backlog/README.md) - Product Owner, `active`.
@@ -106,6 +106,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `task-review-merge` | Подготовить review/merge | `documentation_operations` | `delivery` | `docs/release/README.md` | `.github/PULL_REQUEST_TEMPLATE.md`, `docs/release/commit-pr-evidence.md` | Delivery/GitOps Lead | `npm test` |
 | `task-find-evidence` | Найти evidence/release | `documentation_operations` | `evidence` | `docs/knowledge/evidence-index.md` | `docs/release/mvp-release-evidence-pack.json`, `docs/navigation/documentation-index.json` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
 | `task-analyze-agent-launch-requirements` | Анализировать требования запуска другим агентом | `product` | `business` | `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json`, `docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md`, `docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md`, `docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json`, `docs/product/requirements/business-requirements.md`, `docs/product/requirements/traceability-matrix.json` | Product Owner / Process Owner | `npm run validate:agent-launch-requirements-analysis` |
+| `task-audit-datacanvas-documentation-consistency` | Проверить согласованность документации DataCanvas | `product` | `business` | `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md`, `docs/product/analysis/documentation-consistency-audit/consistency-matrix.md`, `docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md`, `docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md`, `docs/product/analysis/documentation-consistency-audit/confluence-import-map.md`, `docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md`, `docs/product/sources/product-source-registry.json`, `docs/product/requirements/traceability-matrix.json` | Product Owner / Process Owner | `npm run validate:docs-navigation` |
 | `task-find-business-requirements` | Найти бизнес-требования | `product` | `business` | `docs/product/requirements/README.md` | `docs/product/requirements/business-requirements.md`, `docs/product/requirements/user-stories.md`, `docs/product/requirements/non-functional-requirements.md`, `docs/product/requirements/acceptance-criteria.md`, `docs/product/requirements/traceability-matrix.json` | Product Owner | `npm run validate:docs-navigation` |
 | `task-plan-product-work` | Планировать продуктовую работу | `product` | `business` | `docs/product/backlog/README.md` | `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md`, `docs/product/hypotheses/hypothesis-validation.md` | Product Owner | `npm run validate:docs-navigation` |
 | `task-find-technical-docs` | Найти техническую документацию | `documentation_operations` | `technical` | `docs/architecture/README.md` | `docs/product/backlog/technical-backlog.md`, `docs/architecture/schemas/schema-registry.md`, `docs/architecture/security/trust-boundaries.md` | AI Agent Architect | `npm run validate:docs-navigation` |
@@ -133,7 +134,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `0f24be3e8b6829dd12863259dc0782bc3deddc59` |
+| `current_main_commit` | `49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

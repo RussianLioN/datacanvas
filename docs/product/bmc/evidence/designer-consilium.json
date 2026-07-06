@@ -38,7 +38,7 @@
   "checked_artifacts": [
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88"
+      "sha256": "c1a47e1f9b81b575feb5765f4116ded5afba324f940386192242a9fbd9e351a6"
     },
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
@@ -50,7 +50,7 @@
     },
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
+      "sha256": "82302746a86c458d9f8e0a31b374e261b6f3f68e4c0e2db006e7c096eba56304"
     },
     {
       "path": "docs/product/bmc/evidence/browser-smoke.png",

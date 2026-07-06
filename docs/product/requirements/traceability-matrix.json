@@ -62,9 +62,9 @@
         "docs/product/requirements/acceptance-criteria.md"
       ],
       "story_ids": ["DC-ST-05", "DC-ST-07"],
-      "acceptance_scenarios": ["happy_path", "launch_from_agent_context", "launch_at_session_start"],
+      "acceptance_scenarios": ["happy_path", "lisa_launch_after_agent_dialogue", "launch_at_session_start"],
       "evidence_expectations": [
-        "Trace фиксирует источник запроса, режим запуска и связанный входной контекст для обоих P2-контуров запуска."
+        "Trace фиксирует источник запроса, режим запуска через Лису и связанный входной контекст для P2-контуров запуска КМ."
       ],
       "tests": ["npm run validate:doc-links", "npm run validate:docs-navigation"],
       "status": "draft"
@@ -219,23 +219,111 @@
       "sources": [
         "docs/product-vision.md",
         "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/process/current/definition-of-ready.md",
         "docs/process/current/definition-of-done.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-09"],
+      "story_ids": ["DC-ST-09", "DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28"],
       "acceptance_scenarios": [
+        "agent_launch_request_intake",
         "agent_launch_without_user_confirmation",
+        "agent_input_package",
+        "agent_processing_statuses",
         "lisa_structure_choice",
         "email_delivery",
         "conflicting_sources"
       ],
       "evidence_expectations": [
-        "Трассировка жизненного цикла сохраняет стабильные идентификаторы, хэши, статусы и связи между запросом, режимом запуска, входным контекстом, результатом проверки, описанием структуры при наличии, выбором пользователя при наличии, готовой презентацией и статусом доставки."
+        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
       ],
       "tests": [
         "tests/golden/trace-manifest-minimal.json",
         "npm run validate:traceability-graph"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-015",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-23", "DC-ST-24"],
+      "acceptance_scenarios": ["agent_launch_request_intake", "agent_launch_without_user_confirmation"],
+      "evidence_expectations": [
+        "Запрос от другого агента создает проверяемую заявку с request ID, источником запроса, вызывающим агентом, launch mode = other_agent и связью с будущим входным пакетом без raw confidential data."
+      ],
+      "tests": [
+        "npm run validate:doc-links",
+        "npm run validate:traceability-graph",
+        "npm run validate:spec-task-prompt-readiness"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-016",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-25"],
+      "acceptance_scenarios": ["agent_launch_without_user_confirmation", "agent_input_package"],
+      "evidence_expectations": [
+        "Входной пакет от другого агента содержит задачу, источник запроса и параметры презентации; evidence фиксирует request ID, источник запроса, состав пакета и результат проверки полноты без raw confidential data."
+      ],
+      "tests": [
+        "npm run validate:doc-links",
+        "npm run validate:data-leakage",
+        "npm run validate:spec-task-prompt-readiness"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-017",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-26"],
+      "acceptance_scenarios": ["agent_input_package", "prompt_injection", "secret_pii_leakage"],
+      "evidence_expectations": [
+        "Недостаточный, небезопасный или инструктивный вход от другого агента останавливается до генерации; evidence фиксирует validation result, data class, stop reason и отсутствие raw confidential data."
+      ],
+      "tests": [
+        "npm run scan:secrets",
+        "npm run validate:data-leakage",
+        "npm run validate:llm"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-018",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": ["DC-ST-27", "DC-ST-28"],
+      "acceptance_scenarios": ["agent_processing_statuses", "agent_launch_without_user_confirmation", "email_delivery"],
+      "evidence_expectations": [
+        "DataCanvas формирует проверяемые статусы обработки и сведения о результате для вызывающего агента; реальная callback-интеграция остается открытым архитектурным решением и не включается в текущий репозиторий."
+      ],
+      "tests": [
+        "npm run validate:traceability-graph",
+        "npm run validate:spec-task-prompt-readiness",
+        "npm run validate:data-leakage"
       ],
       "status": "draft"
     },

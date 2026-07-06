@@ -2,19 +2,129 @@
   "$schema": "../../../schemas/decision-ledger.schema.json",
   "version": "0.1.0",
   "status": "active",
-  "run_id": "UDW-RUN-2026-07-05-001",
+  "run_id": "UDW-RUN-2026-07-05-003",
   "records": [
     {
-      "decision_id": "UDW-DEC-001",
-      "decision_type": "documentation_change_acceptance",
+      "decision_id": "UDW-DEC-003",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-006",
+      "linked_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/requirements/user-stories.md"
+      ],
+      "notes": "Product Owner выбрал вариант 1; docs/product/requirements/user-stories.md обновлен на формализованный список DC-ST-* пользовательских историй DataCanvas."
+    },
+    {
+      "decision_id": "UDW-DEC-004",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-013",
+      "linked_artifacts": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md"
+      ],
+      "notes": "Product Owner уточнил BT-005 как маршрут через Лису, выбрал вариант 4 по BT-006, вариант 1 по BT-015, вариант 3 по BT-018 и вариант 2 по BT-014: BT-006 остается общим принципом, BT-015, BT-016, BT-017 и BT-018 созданы для приема запроса, входного пакета, проверки входа и статусов обработки от другого агента, а BT-014 уточнен как общая трассировка маршрута другого агента и маршрута Лисы. Реальная callback-интеграция оставлена открытым архитектурным решением."
+    },
+    {
+      "decision_id": "UDW-DEC-005",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "deferred",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": null,
+      "linked_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+      ],
+      "notes": "Product Owner не подтвердил прямой переход к sprint backlog; следующий безопасный шаг переопределен как полный BA-опросник DataCanvas, начиная с BAQ-001 по BMC-границе. Решение остается deferred до закрытия BA-опросника и ревизии зависимых артефактов."
+    },
+    {
+      "decision_id": "UDW-DEC-006",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-015",
+      "linked_artifacts": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md"
+      ],
+      "notes": "Product Owner подтвердил, что BMC показывает весь продукт, но повторный цикл правок после доставки не является возможностью DataCanvas. После отправки по электронной почте пользователь самостоятельно редактирует полученный файл; дальнейшие исправления через DataCanvas требуют отдельного продуктового решения. BMC-пакет обновлен генератором."
+    },
+    {
+      "decision_id": "UDW-DEC-008",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-016",
+      "linked_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "scripts/generate-bmc-artifacts.mjs"
+      ],
+      "notes": "Product Owner ответил 2+4 на BAQ-001.1: применить мягкие BMC-правки по B1, B5, B8 и B9 и провести короткое BMC-интервью. BMC-источник, генератор и производные BMC-файлы обновлены; следующий вопрос — BAQ-001.2 по сегментам пользователей."
+    },
+    {
+      "decision_id": "UDW-DEC-009",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "deferred",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": null,
+      "linked_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/stories.md"
+      ],
+      "notes": "Открыт первый вопрос короткого BMC-интервью: подтвердить сегменты пользователей для B1 перед переходом к ревизии DC-ST-* пользовательских историй."
+    },
+    {
+      "decision_id": "UDW-DEC-007",
+      "decision_type": "owner_decision_acceptance",
       "accepted_status": "accepted",
       "owner_role": "Process Owner",
-      "acceptance_record_id": "UDW-ACC-002",
+      "acceptance_record_id": "UDW-ACC-009",
       "linked_artifacts": [
-        "docs/plans/universal-documentation-workflow-implementation-plan.md",
-        "docs/process/universal-documentation-workflow/README.md"
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "scripts/validate-universal-documentation-workflow.mjs"
       ],
-      "notes": "Реализация добавляет методику, профили, состояния, проверки и переносимые фикстуры без изменения продуктового поведения."
+      "notes": "Принято правило: итог работы начинается простым русским языком; вопросы владельцу содержат абсолютные ссылки и короткие цитаты документов, требующих решения."
+    },
+    {
+      "decision_id": "UDW-DEC-010",
+      "decision_type": "process_change_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Process Owner",
+      "acceptance_record_id": "UDW-ACC-017",
+      "linked_artifacts": [
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "schemas/universal-documentation-core.schema.json",
+        "schemas/workflow-state.schema.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/workflow-state.json"
+      ],
+      "notes": "Process Owner закрепил UX-дружелюбный порядок owner interview для любого опроса или вопроса по любому артефакту, не только по BMC: сначала собрать известные вопросы и ответы владельца в интервью или раунде интервью, затем пакетно применять правки, запускать генераторы, обновлять hash manifest и выполнять проверки."
     }
   ]
 }

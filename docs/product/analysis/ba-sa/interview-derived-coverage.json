@@ -6,7 +6,7 @@
     {
       "answer_id": "BASA-ANS-004",
       "claim_id": "BASA-CLM-003",
-      "requirement_id": "BT-005-DELTA",
+      "requirement_id": "BT-016",
       "acceptance_id": "AC-BASA-001",
       "uat_id": "UAT-005",
       "eval_id": "BASA-EVAL-001",
@@ -17,7 +17,7 @@
     {
       "answer_id": "BASA-ANS-007",
       "claim_id": "BASA-CLM-005",
-      "requirement_id": "BT-006-DELTA",
+      "requirement_id": "BT-017",
       "acceptance_id": "AC-BASA-002",
       "uat_id": "UAT-006",
       "eval_id": "BASA-EVAL-002",
@@ -45,6 +45,17 @@
       "eval_id": "BASA-EVAL-004",
       "fixture_id": "BASA-FIX-004",
       "gate": "npm run validate:change-impact",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-009",
+      "requirement_id": "BT-018",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-008",
+      "eval_id": "BASA-EVAL-004",
+      "fixture_id": "BASA-FIX-004",
+      "gate": "npm run validate:spec-task-prompt-readiness",
       "status": "covered"
     }
   ],

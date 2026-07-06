@@ -4,32 +4,34 @@
   "workflow_version": "0.1.0",
   "project_profile_id": "project-profile-datacanvas-documentation",
   "product_profile_id": "product-profile-datacanvas",
-  "run_id": "UDW-RUN-2026-07-05-001",
-  "status": "completed",
-  "phase": "completion_pass",
-  "current_step": "completion_audit_passed",
+  "run_id": "UDW-RUN-2026-07-05-003",
+  "status": "interviewing",
+  "phase": "owner_interview_pass",
+  "current_step": "bmc_interview_batch_collection_pending",
   "scope": {
-    "request_classification": "documentation_operations",
+    "request_classification": "product_documentation_consistency_audit",
     "mode": "implementation",
     "profile_scope": "pilot_specific",
-    "change_instance_path": "docs/process/universal-documentation-workflow/run-ledger.json"
+    "change_instance_path": "docs/product/analysis/documentation-consistency-audit/README.md"
   },
   "artifact_catalog_path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
   "decision_queue_path": "docs/process/universal-documentation-workflow/decision-queue.json",
   "event_log_path": "docs/process/universal-documentation-workflow/event-log.json",
   "run_ledger_path": "docs/process/universal-documentation-workflow/run-ledger.json",
   "validation_plan": [
-    "npm run validate:documentation-core",
-    "npm run validate:documentation-profile",
-    "npm run validate:workflow-state-ledger",
-    "npm run validate:generator-contracts",
-    "npm run validate:schema-coverage",
-    "npm run validate:mutation-guard",
-    "npm run validate:universal-documentation-workflow"
+    "npm run validate:bmc",
+    "npm run validate:universal-documentation-workflow",
+    "npm run validate:product-source-consistency",
+    "npm run generate:docs-navigation -- --check",
+    "npm run validate:doc-links",
+    "npm run validate:docs-navigation",
+    "npm run validate:artifact-registry",
+    "npm run validate:artifact-hashes",
+    "git diff --check"
   ],
   "resume_token": {
-    "last_safe_step": "completion_audit_passed",
-    "next_safe_step": "Использовать этот пакет workflow для следующего изменения проектной документации.",
-    "requires_owner_decision": false
+    "last_safe_step": "interview_first_policy_applied",
+    "next_safe_step": "Сформировать и задать Product Owner полный пакет оставшихся вопросов BMC-интервью как частный случай общего правила: любой опрос или вопрос по любому артефакту сначала задается пакетом, а правки, generated artifacts и full gate откладываются до завершения интервью или раунда интервью. Ответ 1 по BAQ-001.2 уже получен в чате, но продуктовые документы пока не обновляются.",
+    "requires_owner_decision": true
   }
 }

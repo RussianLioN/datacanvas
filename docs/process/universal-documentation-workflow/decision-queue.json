@@ -1,19 +1,96 @@
 {
   "$schema": "../../../schemas/workflow-decision-queue.schema.json",
   "version": "0.1.0",
-  "status": "open",
-  "run_id": "UDW-RUN-2026-07-05-001",
+  "status": "blocked",
+  "run_id": "UDW-RUN-2026-07-05-003",
   "decisions": [
     {
-      "decision_id": "UDW-DEC-001",
-      "decision_type": "documentation_change_acceptance",
+      "decision_id": "UDW-DEC-003",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Выбрать подход к docs/product/requirements/user-stories.md после обнаружения расхождения между старыми US-* историями и каноническим DC-ST-* каталогом DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-006",
+      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas с отдельным разделом для DC-ST-23..DC-ST-28 как P1 candidate до оценки."
+    },
+    {
+      "decision_id": "UDW-DEC-004",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: BT-* бизнес-требования для DC-ST-23..DC-ST-28 уточнены после решения по BT-014.",
+      "acceptance_record_id": "UDW-ACC-013",
+      "rationale": "BT-005 закреплен только за маршрутом через Лису; BT-015, BT-016, BT-017 и BT-018 созданы для приема запроса, входного пакета, проверки входа и статусов обработки от другого агента. Product Owner выбрал вариант 2 по BT-014: уточнить трассировку двух маршрутов без нового BT и без утверждения реальной callback-интеграции."
+    },
+    {
+      "decision_id": "UDW-DEC-005",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "pending",
+      "blocking": true,
+      "owner_role": "Product Owner",
+      "subject": "Провести полный BA-опросник DataCanvas перед финальным backlog refinement, sprint backlog и планом ближайших 3-4 недельных спринтов.",
+      "acceptance_record_id": null,
+      "rationale": "Product Owner отклонил прямой переход к sprint backlog: сначала нужно уточнить BMC-границу, затем проверить весь каталог DC-ST-* пользовательских историй, BT-* бизнес-требований, acceptance criteria, traceability, backlog, roadmap и Confluence package."
+    },
+    {
+      "decision_id": "UDW-DEC-006",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: BMC показывает весь продукт DataCanvas, но повторный цикл правок после доставки не является возможностью продукта.",
+      "acceptance_record_id": "UDW-ACC-015",
+      "rationale": "Product Owner подтвердил, что после отправки презентации по электронной почте пользователь самостоятельно редактирует полученный файл; дальнейшие исправления через DataCanvas требуют отдельного продуктового решения. Чистовой BMC-пакет обновлен генератором."
+    },
+    {
+      "decision_id": "UDW-DEC-008",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: применить дополнительные мягкие BMC-правки по B1, B5, B8 и B9 и начать короткое BMC-интервью.",
+      "acceptance_record_id": "UDW-ACC-016",
+      "rationale": "Product Owner ответил 2+4 на BAQ-001.1: B1, B5, B8 и B9 смягчены через BMC-источник и генератор, а следующий шаг — короткое BMC-интервью по открытым BMC-вопросам."
+    },
+    {
+      "decision_id": "UDW-DEC-009",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "pending",
+      "blocking": true,
+      "owner_role": "Product Owner",
+      "subject": "Подтвердить, какие пользовательские сегменты считать подтвержденными в BMC: только КМ как текущий основной профиль, КМ и CSM как текущие сегменты или более широкий контур пользователей Лисы.",
+      "acceptance_record_id": null,
+      "rationale": "После мягких BMC-правок B1 больше не утверждает CSM как текущий подтвержденный сегмент, но BMC показывает весь продукт DataCanvas; перед переходом к DC-ST-* пользовательским историям нужен ответ Product Owner по BAQ-001.2."
+    },
+    {
+      "decision_id": "UDW-DEC-007",
+      "decision_type": "owner_decision_acceptance",
       "authority": "process",
       "status": "accepted",
       "blocking": false,
       "owner_role": "Process Owner",
-      "subject": "Реализация плана универсального workflow как документационного и проверочного контура.",
-      "acceptance_record_id": "UDW-ACC-002",
-      "rationale": "Сохраненный план является источником задания; продуктовый смысл DataCanvas не меняется."
+      "subject": "Закрепить в UDW правило простого пользовательского отчета и доказательного вопроса с абсолютными ссылками и цитатами.",
+      "acceptance_record_id": "UDW-ACC-009",
+      "rationale": "Пользователь потребовал, чтобы итог работы сначала давался простым русским языком, а вопросы по документам содержали абсолютные ссылки и цитаты релевантных фрагментов."
+    },
+    {
+      "decision_id": "UDW-DEC-010",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Закрепить UX-дружелюбное правило интервью для любого опроса или вопроса по любому артефакту: сначала собрать вопросы и ответы владельца, затем пакетно обновлять документы, generated artifacts и проверки.",
+      "acceptance_record_id": "UDW-ACC-017",
+      "rationale": "Пользователь указал, что цикл после каждого ответа с записью, генерацией и валидацией неудобен; workflow должен сначала проводить интервью или раунд интервью по любым артефактам, не только по BMC, а операции без участия пользователя выполнять после завершения интервью."
     }
   ]
 }

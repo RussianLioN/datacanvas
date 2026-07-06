@@ -2,24 +2,24 @@
   "version": "0.1.0",
   "status": "generated",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
-  "source_trace_sha256": "4bac96e6fbef6d92478d9e394107792b147f160a45073e49d9be44a56e28d43f",
+  "source_trace_sha256": "a0876a26d36aac358649a64409de9514799bafd79ea4470d68f8deb100ad7593",
   "generated_by": "scripts/generate-bmc-artifacts.mjs",
   "generated_at": "2026-06-24T00:00:00Z",
   "outputs": [
     {
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "2df1decb5045d2b74426484ec7f9e9bdfeabaa2940bfac5d190511d8af3b6328"
+      "sha256": "7d705cc15d6fdfe0aa1d04d2ce770491a39c906d4ee6cdd2186b5301b7700b01"
     },
     {
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
+      "sha256": "82302746a86c458d9f8e0a31b374e261b6f3f68e4c0e2db006e7c096eba56304"
     },
     {
       "format": "svg",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88"
+      "sha256": "c1a47e1f9b81b575feb5765f4116ded5afba324f940386192242a9fbd9e351a6"
     },
     {
       "format": "png",
@@ -34,7 +34,7 @@
     {
       "format": "validation_needs_json",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "31cb80f0432487b46102501a7d7311e23edbd901fb607d14e0b79389edffe687"
+      "sha256": "52e9a81181ae5896f5547ea59c28099b34417c3d0e09f7d8e02287743fd8772d"
     }
   ]
 }

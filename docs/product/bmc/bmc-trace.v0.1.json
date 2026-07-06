@@ -50,7 +50,7 @@
     {
       "item_id": "BMC-CLM-001",
       "block": "B1",
-      "statement": "Текущие основные сегменты DataCanvas: КМ (Клиентский менеджер) и CSM (Customer Success Manager); перспективно - любой пользователь мессенджера Лиса.",
+      "statement": "КМ является текущим основным пользовательским профилем DataCanvas; CSM и другие пользователи Лисы остаются перспективными сегментами до отдельного подтверждения.",
       "status": "unconfirmed",
       "confidence": "medium",
       "owner_role": "Product Owner",
@@ -163,7 +163,7 @@
     {
       "item_id": "BMC-CLM-005",
       "block": "B5",
-      "statement": "Первый проверяемый внутренний эффект DataCanvas: экономия времени КМ, снижение объема ручной работы и нагрузки на чтение длинных агентских ответов.",
+      "statement": "Ожидаемый внутренний эффект DataCanvas: экономия времени КМ, снижение ручной работы и нагрузки на чтение длинных агентских ответов; метрики, бюджетный владелец и расчет эффекта требуют отдельной проверки.",
       "status": "assumption",
       "confidence": "low",
       "owner_role": "Product Owner",
@@ -252,9 +252,9 @@
     {
       "item_id": "BMC-CLM-008",
       "block": "B8",
-      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, другой агент, источники данных, владельцы шаблонов, средство подготовки файла и почтовый канал доставки.",
-      "status": "confirmed",
-      "confidence": "high",
+      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, другой агент, источники данных и почтовый канал доставки; шаблоны, владельцы шаблонов и средство подготовки файла остаются открытыми зависимостями.",
+      "status": "assumption",
+      "confidence": "medium",
       "owner_role": "Product Owner",
       "source_refs": [
         "SRC-DC-CO-2026-001",
@@ -282,7 +282,7 @@
     {
       "item_id": "BMC-CLM-009",
       "block": "B9",
-      "statement": "Первые издержки и ограничения DataCanvas: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM и задержка ответа; именно в таком порядке приоритета.",
+      "statement": "Структура затрат DataCanvas включает LLM-вызовы, средство подготовки файла, ручную проверку, задержку, сопровождение, интеграции, шаблоны, эксплуатацию и обработку инцидентов; порядок и расчет затрат требуют отдельной проверки.",
       "status": "assumption",
       "confidence": "low",
       "owner_role": "Product Owner",
@@ -403,7 +403,7 @@
       ],
       "derivation": "derived_from_co_2026_001_and_edit_002_acceptance",
       "introduced_in": "SPRINT-2026-W26-S64",
-      "validation_state": "confirmed",
+      "validation_state": "assumption",
       "public_inclusion_policy": "include_clean_statement_only"
     },
     {
