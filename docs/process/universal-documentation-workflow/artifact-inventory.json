@@ -130,25 +130,96 @@
       ]
     },
     {
-      "artifact_id": "UDW-A007",
-      "path": "docs/product/bmc/bmc-v0.2.md",
-      "artifact_type": "product_source",
+      "artifact_id": "UDW-A008",
+      "path": "docs/product-vision.md",
+      "artifact_type": "product_vision",
       "owner_role": "Product Owner",
       "domain": "product",
       "profile_scope": "pilot_specific",
       "source_of_truth_class": "product_meaning",
       "generated": false,
       "data_class": "internal",
-      "visibility": "internal",
-      "inputs": [],
+      "visibility": "public",
+      "inputs": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/knowledge/glossary.md",
+        "docs/product/sources/product-source-registry.json"
+      ],
       "outputs": [
+        "docs/product/vision/manifest.json",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "validation_commands": [
+        "npm run validate:product-vision",
+        "npm run validate:product-sources",
+        "npm run validate:product-source-consistency",
+        "npm run validate:accepted-change-order-impact"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A009",
+      "path": "docs/product/vision/manifest.json",
+      "artifact_type": "product_vision_manifest",
+      "owner_role": "Product Owner",
+      "domain": "product",
+      "profile_scope": "pilot_specific",
+      "source_of_truth_class": "machine_readable_manifest",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product-vision.md",
+        "docs/knowledge/glossary.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:product-vision",
+        "npm run validate:product-source-consistency",
+        "npm run validate:schemas"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A007",
+      "path": "docs/product/bmc/bmc-trace.v0.1.json",
+      "artifact_type": "product_trace_source",
+      "owner_role": "Product Owner / Data Traceability Architect",
+      "domain": "product",
+      "profile_scope": "pilot_specific",
+      "source_of_truth_class": "product_meaning",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product-vision.md",
+        "docs/stories.md"
+      ],
+      "outputs": [
+        "docs/product/bmc/bmc-v0.2.md",
         "docs/product/bmc/source/derived/datacanvas-bmc.puml",
         "docs/product/bmc/source/derived/datacanvas-bmc.svg",
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
-        "docs/product/bmc/source/derived/datacanvas-bmc.pdf"
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/product/bmc/manifest.json"
       ],
       "validation_commands": [
         "npm run generate:bmc -- --check",
+        "npm run validate:bmc-trace",
+        "npm run validate:bmc-content-classic",
         "npm run validate:bmc"
       ]
     }

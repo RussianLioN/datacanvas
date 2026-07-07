@@ -83,18 +83,16 @@
     {
       "decision_id": "UDW-DEC-009",
       "decision_type": "product_behavior_acceptance",
-      "accepted_status": "deferred",
+      "accepted_status": "accepted",
       "owner_role": "Product Owner",
-      "acceptance_record_id": null,
+      "acceptance_record_id": "UDW-ACC-018",
       "linked_artifacts": [
-        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
-        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
-        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/bmc/bmc-trace.v0.1.json",
         "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/text-alternative.md",
         "docs/stories.md"
       ],
-      "notes": "Открыт первый вопрос короткого BMC-интервью: подтвердить сегменты пользователей для B1 перед переходом к ревизии DC-ST-* пользовательских историй."
+      "notes": "Product Owner ответил 1 по BAQ-001.2: текущий подтвержденный сегмент B1 — КМ. CSM и другие пользователи Лисы не включаются как подтвержденные сегменты без отдельного решения."
     },
     {
       "decision_id": "UDW-DEC-007",
@@ -125,6 +123,104 @@
         "docs/process/universal-documentation-workflow/workflow-state.json"
       ],
       "notes": "Process Owner закрепил UX-дружелюбный порядок owner interview для любого опроса или вопроса по любому артефакту, не только по BMC: сначала собрать известные вопросы и ответы владельца в интервью или раунде интервью, затем пакетно применять правки, запускать генераторы, обновлять hash manifest и выполнять проверки."
+    },
+    {
+      "decision_id": "UDW-DEC-011",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-018",
+      "linked_artifacts": [
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/manifest.json",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md"
+      ],
+      "notes": "Принято: привести BMC к классическому виду, убрать технические комментарии, служебные проверки и роли других артефактов; новых продуктовых возможностей не добавлять."
+    },
+    {
+      "decision_id": "UDW-DEC-012",
+      "decision_type": "process_change_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Process Owner",
+      "acceptance_record_id": "UDW-ACC-019",
+      "linked_artifacts": [
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+        "docs/knowledge/rca/README.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs"
+      ],
+      "notes": "Принято: выполнить RCA по пропуску неклассического BMC и усилить gates генератора, trace, package, UDW generator contracts и mutation guard."
+    },
+    {
+      "decision_id": "UDW-DEC-013",
+      "decision_type": "process_change_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Process Owner",
+      "acceptance_record_id": "UDW-ACC-020",
+      "linked_artifacts": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "notes": "Принято: пользовательские отчеты, статусы, следующие шаги и вопросы должны давать абсолютные кликабельные ссылки на упоминаемые документы; для решений, правок, спорного текста и объяснения проблем нужны короткие цитаты."
+    },
+    {
+      "decision_id": "UDW-DEC-014",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-021",
+      "linked_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/product-source-registry.json"
+      ],
+      "notes": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом. Численные ПШЕ не назначаются без оценки; следующий шаг — оценить трудозатраты по аналогии с Excel-источником и его ресурсной матрицей."
     }
   ]
 }

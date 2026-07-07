@@ -213,6 +213,113 @@
         "scripts/validate-universal-documentation-workflow.mjs",
         "docs/process/universal-documentation-workflow/workflow-state.json"
       ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-018",
+      "acceptance_type": "product_behavior_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner",
+      "subject": "Product Owner подтвердил текущий сегмент B1 как КМ и потребовал привести BMC к классическому виду без технических комментариев и чужих ролей разделов; продуктовый смысл DataCanvas не расширяется.",
+      "linked_decision_ids": [
+        "UDW-DEC-009",
+        "UDW-DEC-011"
+      ],
+      "linked_artifacts": [
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/manifest.json",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-019",
+      "acceptance_type": "process_change_acceptance",
+      "status": "accepted",
+      "owner_role": "Process Owner",
+      "subject": "Process Owner потребовал RCA и усиление gates, чтобы неклассический BMC и служебный шум в generated/co-dependent artifacts не проходили проверки незамеченными.",
+      "linked_decision_ids": [
+        "UDW-DEC-012"
+      ],
+      "linked_artifacts": [
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+        "docs/knowledge/rca/README.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-020",
+      "acceptance_type": "process_change_acceptance",
+      "status": "accepted",
+      "owner_role": "Process Owner",
+      "subject": "Process Owner потребовал ужесточить отчеты и вопросы: ссылки на документы в рабочем ответе должны быть абсолютными, кликабельными и сопровождаться короткими цитатами, когда требуется решение, правка или проверка текста.",
+      "linked_decision_ids": [
+        "UDW-DEC-013"
+      ],
+      "linked_artifacts": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-021",
+      "acceptance_type": "product_behavior_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner",
+      "subject": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом; оценка ПШЕ должна быть проведена отдельно по аналогии с Excel-источником.",
+      "linked_decision_ids": [
+        "UDW-DEC-014"
+      ],
+      "linked_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/product-source-registry.json"
+      ]
     }
   ]
 }

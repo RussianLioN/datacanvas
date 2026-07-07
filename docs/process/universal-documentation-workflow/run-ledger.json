@@ -1,7 +1,7 @@
 {
   "$schema": "../../../schemas/run-ledger.schema.json",
   "version": "0.1.0",
-  "status": "blocked",
+  "status": "active",
   "run_id": "UDW-RUN-2026-07-05-003",
   "mode": "implementation",
   "input_request": "Реализовать план полного аудита проектной документации DataCanvas на согласованность с обновленным Vision, stories, CO-2026-001, BMC, backlog, roadmap, traceability и подготовить Confluence import map и кандидатный план ближайших 3-4 спринтов.",
@@ -61,7 +61,11 @@
     "UDW-DEC-007",
     "UDW-DEC-008",
     "UDW-DEC-009",
-    "UDW-DEC-010"
+    "UDW-DEC-010",
+    "UDW-DEC-011",
+    "UDW-DEC-012",
+    "UDW-DEC-013",
+    "UDW-DEC-014"
   ],
   "applied_changes": [
     {
@@ -345,6 +349,101 @@
         "docs/process/universal-documentation-workflow/event-log.json"
       ],
       "requires_acceptance_record": "UDW-ACC-017"
+    },
+    {
+      "change_id": "UDW-CHG-016",
+      "change_type": "bmc_classic_content_and_gate_hardening",
+      "paths": [
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/manifest.json",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+        "docs/knowledge/rca/README.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/mutation-guard-policy.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-019"
+    },
+    {
+      "change_id": "UDW-CHG-017",
+      "change_type": "user_facing_report_link_contract_hardening",
+      "paths": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-020"
+    },
+    {
+      "change_id": "UDW-CHG-018",
+      "change_type": "agent_launch_stories_confirmed_p1_without_numeric_estimate",
+      "paths": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-021"
+    },
+    {
+      "change_id": "UDW-CHG-019",
+      "change_type": "agent_launch_p1_effort_estimation_round_prepared",
+      "paths": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-021"
     }
   ],
   "skipped_changes": [
@@ -364,7 +463,20 @@
     "docs/navigation/stale-status-report.md",
     "docs/architecture/schemas/artifact-hash-manifest.json",
     "docs/process/current/process-metrics-snapshot.json",
-    "docs/process/current/process-metrics-snapshot.md"
+    "docs/process/current/process-metrics-snapshot.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/bmc/bmc-validation-needs.json",
+    "docs/product/bmc/bmc-derived-manifest.json",
+    "docs/product/bmc/manifest.json",
+    "docs/product/bmc/source-map.md",
+    "docs/product/bmc/text-alternative.md",
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+    "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+    "docs/product/bmc/source/derived/datacanvas-bmc.png",
+    "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+    "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+    "docs/product/bmc/evidence/designer-consilium.json",
+    "docs/product/bmc/evidence/visual-review.md"
   ],
   "validation_results": [
     {
@@ -1118,13 +1230,104 @@
     {
       "command": "npm test",
       "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-trace",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-content-classic",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-package",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "failed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "failed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
     }
   ],
   "residual_risks": [
-    "The answer 1 for BAQ-001.2 was received in chat but is intentionally deferred from product document updates until the remaining BMC interview questions are collected under the universal interview-first policy, which applies to any artifact questionnaire or owner question.",
-    "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire is complete.",
-    "Confluence import map remains draft until BA questionnaire answers, dependent artifact revision, generated outputs and validation evidence are complete.",
-    "UDW-RCA-001 should run after the PO questionnaire to review root causes of this pass communication, state and validation issues and update workflow instructions, contracts, validators or scripts if needed."
+    "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire and implementation-team estimation are complete.",
+    "DC-ST-23..DC-ST-28 are confirmed P1 stories and the PSHE estimation matrix is prepared, but numeric PSHE estimates, team capacity and displacement decisions remain open before backlog refinement and sprint planning.",
+    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation and report-link contract hardening close immediate process gaps."
   ],
-  "next_safe_step": "Сначала задать Product Owner полный пакет оставшихся вопросов BMC-интервью или ближайшего раунда интервью как частный случай общего правила: любой опрос или вопрос по любому артефакту сначала задается пакетом, а правки, generated artifacts и full gate выполняются после завершения интервью или раунда интервью."
+  "next_safe_step": "Получить от команды реализации оценки ПШЕ для DC-ST-23..DC-ST-28 по подготовленной матрице docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md, затем вернуться к sprint backlog, емкости и вытеснению работ."
 }

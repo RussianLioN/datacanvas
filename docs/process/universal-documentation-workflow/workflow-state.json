@@ -5,9 +5,9 @@
   "project_profile_id": "project-profile-datacanvas-documentation",
   "product_profile_id": "product-profile-datacanvas",
   "run_id": "UDW-RUN-2026-07-05-003",
-  "status": "interviewing",
-  "phase": "owner_interview_pass",
-  "current_step": "bmc_interview_batch_collection_pending",
+  "status": "awaiting_decision",
+  "phase": "decision_pass",
+  "current_step": "agent_launch_p1_effort_estimation_round_prepared",
   "scope": {
     "request_classification": "product_documentation_consistency_audit",
     "mode": "implementation",
@@ -19,19 +19,29 @@
   "event_log_path": "docs/process/universal-documentation-workflow/event-log.json",
   "run_ledger_path": "docs/process/universal-documentation-workflow/run-ledger.json",
   "validation_plan": [
+    "jq empty docs/process/universal-documentation-workflow/*.json docs/product/bmc/*.json schemas/bmc-trace.schema.json",
+    "npm run generate:bmc -- --check",
+    "npm run validate:bmc-trace",
+    "npm run validate:bmc-content-classic",
+    "npm run validate:bmc-package",
     "npm run validate:bmc",
     "npm run validate:universal-documentation-workflow",
-    "npm run validate:product-source-consistency",
+    "node scripts/generate-docs-navigation.mjs",
+    "node scripts/generate-artifact-hash-manifest.mjs",
     "npm run generate:docs-navigation -- --check",
     "npm run validate:doc-links",
     "npm run validate:docs-navigation",
+    "npm run validate:doc-stale-status",
     "npm run validate:artifact-registry",
     "npm run validate:artifact-hashes",
-    "git diff --check"
+    "npm run validate:data-leakage",
+    "npm run scan:secrets",
+    "git diff --check",
+    "npm test"
   ],
   "resume_token": {
-    "last_safe_step": "interview_first_policy_applied",
-    "next_safe_step": "Сформировать и задать Product Owner полный пакет оставшихся вопросов BMC-интервью как частный случай общего правила: любой опрос или вопрос по любому артефакту сначала задается пакетом, а правки, generated artifacts и full gate откладываются до завершения интервью или раунда интервью. Ответ 1 по BAQ-001.2 уже получен в чате, но продуктовые документы пока не обновляются.",
-    "requires_owner_decision": true
+    "last_safe_step": "agent_launch_p1_effort_estimation_matrix_prepared_without_numeric_pshe",
+    "next_safe_step": "Получить от команды реализации оценки ПШЕ для DC-ST-23..DC-ST-28 по подготовленной матрице docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md, затем вернуться к sprint backlog, емкости и вытеснению работ.",
+    "requires_owner_decision": false
   }
 }

@@ -13,7 +13,7 @@
       "owner_role": "Product Owner",
       "subject": "Выбрать подход к docs/product/requirements/user-stories.md после обнаружения расхождения между старыми US-* историями и каноническим DC-ST-* каталогом DataCanvas.",
       "acceptance_record_id": "UDW-ACC-006",
-      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas с отдельным разделом для DC-ST-23..DC-ST-28 как P1 candidate до оценки."
+      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 как P1 candidate позже заменен решением UDW-DEC-014: эти истории подтверждены как окончательные P1 и требуют оценки ПШЕ."
     },
     {
       "decision_id": "UDW-DEC-004",
@@ -30,8 +30,8 @@
       "decision_id": "UDW-DEC-005",
       "decision_type": "product_behavior_acceptance",
       "authority": "product_meaning",
-      "status": "pending",
-      "blocking": true,
+      "status": "accepted",
+      "blocking": false,
       "owner_role": "Product Owner",
       "subject": "Провести полный BA-опросник DataCanvas перед финальным backlog refinement, sprint backlog и планом ближайших 3-4 недельных спринтов.",
       "acceptance_record_id": null,
@@ -67,8 +67,8 @@
       "blocking": true,
       "owner_role": "Product Owner",
       "subject": "Подтвердить, какие пользовательские сегменты считать подтвержденными в BMC: только КМ как текущий основной профиль, КМ и CSM как текущие сегменты или более широкий контур пользователей Лисы.",
-      "acceptance_record_id": null,
-      "rationale": "После мягких BMC-правок B1 больше не утверждает CSM как текущий подтвержденный сегмент, но BMC показывает весь продукт DataCanvas; перед переходом к DC-ST-* пользовательским историям нужен ответ Product Owner по BAQ-001.2."
+      "acceptance_record_id": "UDW-ACC-018",
+      "rationale": "Product Owner ответил 1: текущим подтвержденным сегментом для B1 считается КМ; CSM и другие пользователи Лисы остаются перспективным контуром и не добавляются в BMC как подтвержденные сегменты без отдельного решения."
     },
     {
       "decision_id": "UDW-DEC-007",
@@ -91,6 +91,50 @@
       "subject": "Закрепить UX-дружелюбное правило интервью для любого опроса или вопроса по любому артефакту: сначала собрать вопросы и ответы владельца, затем пакетно обновлять документы, generated artifacts и проверки.",
       "acceptance_record_id": "UDW-ACC-017",
       "rationale": "Пользователь указал, что цикл после каждого ответа с записью, генерацией и валидацией неудобен; workflow должен сначала проводить интервью или раунд интервью по любым артефактам, не только по BMC, а операции без участия пользователя выполнять после завершения интервью."
+    },
+    {
+      "decision_id": "UDW-DEC-011",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Очистить BMC до классического содержания без технических комментариев, служебных проверок и чужих ролей разделов, не меняя продуктовый смысл DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-018",
+      "rationale": "Product Owner не принял BMC в прежнем виде и потребовал оценить его по классическому применению: убрать лишние разделы, технические комментарии и дублирование ролей других артефактов."
+    },
+    {
+      "decision_id": "UDW-DEC-012",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Провести RCA по причине пропуска неклассического BMC и усилить gates для generated и созависимых артефактов.",
+      "acceptance_record_id": "UDW-ACC-019",
+      "rationale": "Пользователь потребовал сразу провести RCA и исправить корень проблемы: BMC оставался неклассическим после нескольких циклов проверки созависимых артефактов."
+    },
+    {
+      "decision_id": "UDW-DEC-013",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Ужесточить пользовательские отчеты и вопросы: любой отчет, статус или следующий шаг с упоминанием документа должен содержать абсолютную кликабельную ссылку, а спорный или решаемый текст — короткую цитату.",
+      "acceptance_record_id": "UDW-ACC-020",
+      "rationale": "Пользователь указал на UX-проблему: отчет без кликабельных ссылок на источники заставляет действовать вслепую и не позволяет быстро открыть документ приложением по умолчанию."
+    },
+    {
+      "decision_id": "UDW-DEC-014",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Подтвердить DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом и провести по ним оценку ПШЕ по аналогии с Excel-источником.",
+      "acceptance_record_id": "UDW-ACC-021",
+      "rationale": "Product Owner ответил, что все эти истории являются окончательным P1-решением, но требуют оценки трудозатрат по аналогии с другими stories в исходной xlsx-таблице."
     }
   ]
 }

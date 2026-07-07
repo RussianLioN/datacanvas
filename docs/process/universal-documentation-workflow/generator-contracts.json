@@ -69,36 +69,76 @@
       "generator_id": "datacanvas-bmc",
       "owner_role": "Product Owner",
       "inputs": [
-        "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/bmc-trace.v0.1.json"
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product-vision.md",
+        "docs/stories.md",
+        "docs/product/sources/product-source-registry.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs"
       ],
       "outputs": [
-        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-        "docs/product/bmc/source/derived/datacanvas-bmc.png",
-        "docs/product/bmc/source/derived/datacanvas-bmc.pdf"
-      ],
-      "allowed_writes": [
+        "docs/product/bmc/bmc-v0.2.md",
         "docs/product/bmc/source/derived/datacanvas-bmc.puml",
         "docs/product/bmc/source/derived/datacanvas-bmc.svg",
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
         "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-        "docs/product/bmc/bmc-derived-manifest.json"
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/product/bmc/manifest.json"
+      ],
+      "allowed_writes": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/product/bmc/manifest.json"
       ],
       "generate_command": "npm run generate:bmc",
       "check_command": "npm run generate:bmc -- --check",
       "deterministic_environment": "Node.js, local render toolchain, no product decision inference",
       "dependencies": [
-        "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/bmc-trace.v0.1.json"
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product-vision.md",
+        "docs/stories.md",
+        "docs/product/sources/product-source-registry.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs"
       ],
       "post_validators": [
-        "npm run validate:bmc"
+        "npm run generate:bmc -- --check",
+        "npm run validate:product-vision",
+        "npm run validate:bmc-trace",
+        "npm run validate:bmc-content-classic",
+        "npm run validate:bmc-visual",
+        "npm run validate:bmc-render-parity",
+        "npm run validate:bmc-package",
+        "npm run validate:data-leakage"
       ],
       "failure_modes": [
         "stale_bmc_render",
         "source_trace_mismatch",
-        "manual_derived_artifact_edit"
+        "stale_upstream_product_source",
+        "manual_derived_artifact_edit",
+        "unexpected_bmc_generated_write",
+        "public_bmc_technical_noise",
+        "public_product_vision_technical_noise"
       ]
     }
   ],

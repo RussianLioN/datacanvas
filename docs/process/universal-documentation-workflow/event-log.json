@@ -300,6 +300,51 @@
       "workflow_status": "interviewing",
       "phase": "owner_interview_pass",
       "message": "После уточнения универсального interview-first policy прошли JSON syntax check, UDW validation, schema validation, documentation methodology, generated navigation, docs navigation, artifact hash validation, git diff --check и полный npm test. Следующий безопасный шаг не изменился: задать полный пакет оставшихся вопросов текущего интервью или раунда интервью перед любыми смысловыми правками."
+    },
+    {
+      "sequence": 34,
+      "event_id": "UDW-EVT-043",
+      "timestamp": "2026-07-06T01:10:00+03:00",
+      "event_type": "owner_decision_recorded",
+      "workflow_status": "validating",
+      "phase": "validate_pass",
+      "message": "Product Owner не принял BMC в неклассическом виде и потребовал привести его к классическому содержанию без технических комментариев, служебных проверок и чужих ролей разделов. Запущены BMC cleanup, RCA и усиление gates для generated/co-dependent artifacts; прежний опросник остается на паузе до показа чистого BMC."
+    },
+    {
+      "sequence": 35,
+      "event_id": "UDW-EVT-044",
+      "timestamp": "2026-07-06T01:40:00+03:00",
+      "event_type": "full_gate_passed",
+      "workflow_status": "awaiting_decision",
+      "phase": "validate_pass",
+      "message": "Очищенный BMC, BMC trace, generated BMC artifacts, RCA, UDW generator contracts, mutation guard и зависимый proposed change-set проверены. Первый npm test выявил stale current_excerpt в EDIT-002; после синхронизации change-set повторный npm test прошел. Следующий безопасный шаг — показать Product Owner очищенный классический BMC и только затем продолжить отложенный BA/BMC-опросник."
+    },
+    {
+      "sequence": 36,
+      "event_id": "UDW-EVT-045",
+      "timestamp": "2026-07-06T02:10:00+03:00",
+      "event_type": "process_rule_refined",
+      "workflow_status": "validating",
+      "phase": "validate_pass",
+      "message": "Process Owner указал на UX-проблему: отчет без кликабельных абсолютных ссылок на источники заставляет действовать вслепую. UDW-DEC-013 ужесточил правило пользовательских отчетов, статусов, следующих шагов и вопросов: упоминание документа требует абсолютной кликабельной ссылки, а решение, правка, спорный текст или проблема в документе требуют короткой цитаты."
+    },
+    {
+      "sequence": 37,
+      "event_id": "UDW-EVT-046",
+      "timestamp": "2026-07-06T02:35:00+03:00",
+      "event_type": "owner_decision_recorded",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом. Истории, backlog, аналитические карты и служебные журналы синхронизированы без назначения численных ПШЕ; следующий безопасный шаг — оценка трудозатрат по аналогии с Excel-источником и ресурсной матрицей."
+    },
+    {
+      "sequence": 38,
+      "event_id": "UDW-EVT-047",
+      "timestamp": "2026-07-07T20:08:49+03:00",
+      "event_type": "estimation_round_prepared",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "Подготовлен артефакт оценки ПШЕ для DC-ST-23..DC-ST-28 по структуре Excel-источника и его ресурсной матрицы. Численные оценки не назначались; следующий вход должен поступить от команды реализации."
     }
   ]
 }

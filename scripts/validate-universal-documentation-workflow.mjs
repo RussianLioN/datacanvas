@@ -161,10 +161,20 @@ function assertCommandExists(command) {
       continue;
     }
 
+    if (/^npm test(?:\s|$)/.test(commandPart)) {
+      if (!packageJson.scripts.test) {
+        fail("package.json is missing test script used by universal workflow");
+      }
+      continue;
+    }
+
     const nodeScriptMatch = commandPart.match(/^node (scripts\/[^ ]+\.mjs)/);
     if (nodeScriptMatch) {
       requireFile(nodeScriptMatch[1]);
+      continue;
     }
+
+    fail(`unsupported command form in universal workflow catalog: ${commandPart}`);
   }
 }
 
@@ -251,6 +261,7 @@ function validateCore() {
     "hash_manifest_check_passed",
     "mutation_guard_passed",
     "acceptance_records_linked",
+    "user_facing_report_has_absolute_clickable_links_and_quotes_for_document_decisions",
   ]) {
     if (!core.completion_criteria.includes(requiredCriterion)) {
       fail(`universal core completion criteria missing: ${requiredCriterion}`);
@@ -262,6 +273,12 @@ function validateCore() {
   }
   if (!core.owner_interview_policy.description.includes("по любому артефакту")) {
     fail("owner interview policy must apply to any artifact question or questionnaire");
+  }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("абсолютные кликабельные ссылки"))) {
+    fail("owner interview policy must require absolute clickable links in user-facing reports and questions");
+  }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("короткая цитата"))) {
+    fail("owner interview policy must require short quotes for document decisions and corrections");
   }
   for (const requiredScope of [
     "single_owner_question",
@@ -303,8 +320,13 @@ function validateCore() {
     "сначала собрать полный набор известных независимых вопросов по текущему артефакту",
     "не обновлять смысловые документы, generated artifacts",
     "Отчет для пользователя должен начинаться с простого человеческого итога",
+    "Любой пользовательский отчет, статус, следующий шаг или вопрос",
+    "абсолютную кликабельную Markdown-ссылку",
+    "пользователь должен иметь возможность кликнуть ссылку",
+    "рядом с абсолютной ссылкой должна быть короткая цитата",
     "абсолютную ссылку на каждый документ",
     "короткую цитату из релевантного фрагмента документа",
+    "простой пользовательский итог с абсолютными кликабельными ссылками",
     "npm run validate:universal-documentation-workflow",
   ]);
   assertRequiredFragments(paths.runbook, [
@@ -320,6 +342,10 @@ function validateCore() {
     "UX-Френдли Интервью",
     "Правило одинаково для продуктовых, процессных, архитектурных, навигационных",
     "сначала сформулировать простой итог обычным русским языком",
+    "Если итог, статус, следующий шаг или вопрос упоминает документ",
+    "абсолютную кликабельную Markdown-ссылку",
+    "рядом с абсолютной ссылкой дать короткую цитату",
+    "Формат Отчета Пользователю",
     "абсолютную ссылку на каждый документ",
     "короткую цитату из каждого такого документа",
   ]);
@@ -405,6 +431,7 @@ function validateDataCanvasProfile() {
   }
 
   const inventory = readJson(paths.inventory);
+  const catalog = readJson(paths.catalog);
   const bmcEntries = inventory.artifacts.filter((artifact) => artifact.path.includes("/bmc/"));
   if (bmcEntries.length === 0) {
     fail("DataCanvas profile inventory must include BMC as pilot-specific artifact");
@@ -413,6 +440,45 @@ function validateDataCanvasProfile() {
     if (artifact.domain !== "product" || artifact.profile_scope !== "pilot_specific") {
       fail(`BMC artifact must stay in product pilot profile: ${artifact.path}`);
     }
+  }
+
+  const productVisionCommand = catalog.commands.find((command) => command.id === "product-vision");
+  if (!productVisionCommand || productVisionCommand.command !== "npm run validate:product-vision") {
+    fail("DataCanvas validation catalog must include product-vision gate");
+  }
+  const productSourcesCommand = catalog.commands.find((command) => command.id === "product-sources");
+  if (!productSourcesCommand || !productSourcesCommand.command.includes("npm run validate:product-source-consistency")) {
+    fail("DataCanvas validation catalog must include product source consistency gate");
+  }
+  const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
+  if (!bmcPackageCommand || bmcPackageCommand.command !== "npm run validate:bmc") {
+    fail("DataCanvas validation catalog must include BMC package gate");
+  }
+  const fullCommand = catalog.commands.find((command) => command.id === "full");
+  if (!fullCommand || fullCommand.command !== "npm test") {
+    fail("DataCanvas validation catalog full gate must map to npm test");
+  }
+
+  const visionEntry = inventory.artifacts.find((artifact) => artifact.path === "docs/product-vision.md");
+  if (!visionEntry) {
+    fail("DataCanvas profile inventory must include current Vision as managed artifact");
+  }
+  if (visionEntry.generated || visionEntry.domain !== "product" || visionEntry.source_of_truth_class !== "product_meaning") {
+    fail("current Vision must stay a manual product meaning source in artifact inventory");
+  }
+  if (!visionEntry.validation_commands.includes("npm run validate:product-vision")) {
+    fail("current Vision inventory entry must include product Vision validation");
+  }
+
+  const visionManifestEntry = inventory.artifacts.find((artifact) => artifact.path === "docs/product/vision/manifest.json");
+  if (!visionManifestEntry) {
+    fail("DataCanvas profile inventory must include product Vision manifest");
+  }
+  if (visionManifestEntry.generated || visionManifestEntry.visibility !== "internal") {
+    fail("product Vision manifest must stay a manual internal machine-readable artifact");
+  }
+  if (!visionManifestEntry.validation_commands.includes("npm run validate:product-vision")) {
+    fail("product Vision manifest inventory entry must include product Vision validation");
   }
 }
 
@@ -495,6 +561,23 @@ function validateGeneratorContracts() {
   const policy = readJson(paths.mutationGuard);
   const allowedByGenerator = new Map(policy.allowed_write_sets.map((item) => [item.generator_id, new Set(item.allowed_writes)]));
   const seen = new Set();
+  const expectedBmcOutputs = [
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+    "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+    "docs/product/bmc/source/derived/datacanvas-bmc.png",
+    "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+    "docs/product/bmc/bmc-validation-needs.json",
+    "docs/product/bmc/bmc-derived-manifest.json",
+    "docs/product/bmc/README.md",
+    "docs/product/bmc/source-map.md",
+    "docs/product/bmc/text-alternative.md",
+    "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+    "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+    "docs/product/bmc/evidence/designer-consilium.json",
+    "docs/product/bmc/evidence/visual-review.md",
+    "docs/product/bmc/manifest.json",
+  ];
 
   for (const generatorId of contracts.topological_order) {
     if (seen.has(generatorId)) {
@@ -536,6 +619,46 @@ function validateGeneratorContracts() {
   const hashContract = contracts.contracts.find((contract) => contract.generator_id === "artifact-hash-manifest");
   if (!hashContract || !hashContract.check_command.includes("--check")) {
     fail("artifact hash manifest generator contract must define --check command");
+  }
+
+  for (const contract of contracts.contracts) {
+    for (const forbiddenManualPath of ["docs/product-vision.md", "docs/product/vision/manifest.json"]) {
+      if (contract.outputs.includes(forbiddenManualPath) || contract.allowed_writes.includes(forbiddenManualPath)) {
+        fail(`manual Vision artifact must not be a generated output: ${contract.generator_id} -> ${forbiddenManualPath}`);
+      }
+    }
+  }
+
+  const bmcContract = contracts.contracts.find((contract) => contract.generator_id === "datacanvas-bmc");
+  if (!bmcContract) {
+    fail("generator contracts must include datacanvas-bmc");
+  }
+  for (const requiredInput of [
+    "docs/product/bmc/bmc-trace.v0.1.json",
+    "docs/product-vision.md",
+    "docs/stories.md",
+    "docs/product/sources/product-source-registry.json",
+    "schemas/bmc-trace.schema.json",
+    "scripts/generate-bmc-artifacts.mjs",
+  ]) {
+    if (!bmcContract.inputs.includes(requiredInput)) {
+      fail(`datacanvas-bmc generator contract is missing input: ${requiredInput}`);
+    }
+  }
+  for (const output of expectedBmcOutputs) {
+    if (!bmcContract.outputs.includes(output)) {
+      fail(`datacanvas-bmc generator contract is missing generated output: ${output}`);
+    }
+    if (!bmcContract.allowed_writes.includes(output)) {
+      fail(`datacanvas-bmc generator contract is missing allowed write: ${output}`);
+    }
+    const allowed = allowedByGenerator.get("datacanvas-bmc");
+    if (!allowed?.has(output)) {
+      fail(`mutation guard is missing datacanvas-bmc generated output: ${output}`);
+    }
+  }
+  if (bmcContract.inputs.includes("docs/product/bmc/bmc-v0.2.md")) {
+    fail("datacanvas-bmc generator contract must not treat generated Markdown as source input");
   }
 
   for (const scenarioId of ["stale-generated-artifact", "manual-generated-artifact", "unexpected-write", "path-traversal"]) {
