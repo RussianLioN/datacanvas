@@ -3570,6 +3570,39 @@
       "click_depth": null
     },
     {
+      "path": "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+      "title": "RCA: BMC Classic Validation Gap",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [
+        "rca-bmc-classic-validation-gap",
+        "ошибка",
+        "проверка-уроков",
+        "5-почему",
+        "корневая-причина",
+        "исправление",
+        "проверка",
+        "предотвращение"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -3588,9 +3621,12 @@
       "generated_from": [],
       "parent_readme": "docs/knowledge/README.md",
       "artifact_registry_id": null,
-      "outgoing_links": [],
+      "outgoing_links": [
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md"
+      ],
       "anchors": [
-        "rca"
+        "rca",
+        "записи"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -4329,6 +4365,43 @@
       "click_depth": 2
     },
     {
+      "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+      "title": "План поиска цепочки XLSX, OPML и импорта в Jira",
+      "section": "plans",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": "ART-693",
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-поиска-цепочки-xlsx-opml-и-импорта-в-jira",
+        "цель",
+        "сохраненный-исходник",
+        "уже-найденные-следы",
+        "проверенные-ветки-и-репозитории",
+        "границы-работы",
+        "план-работы",
+        "ожидаемый-результат"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/plans/README.md",
       "title": "Планы DataCanvas",
       "section": "plans",
@@ -4362,6 +4435,7 @@
         "docs/plans/datacanvas-prompt-only-documentation-artifact-review-implementation-plan.md",
         "docs/plans/datacanvas-smart-docs-merge-plan.md",
         "docs/plans/datacanvas-source-documents-revision-and-approval-implementation-plan.md",
+        "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
         "docs/plans/universal-documentation-workflow-implementation-plan.md",
         "docs/README.md",
         "README.md"
@@ -7119,6 +7193,7 @@
         "границы-принятия-решений",
         "матрица-решений-от-истории-к-требованию",
         "формат-вопроса-владельцу",
+        "формат-отчета-пользователю",
         "ux-френдли-интервью",
         "завершение"
       ],
@@ -7274,7 +7349,10 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-425",
       "outgoing_links": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product/README.md",
+        "docs/product/requirements/business-requirements.md",
         "docs/README.md",
         "docs/stories.md",
         "README.md"
@@ -7286,19 +7364,15 @@
         "проблема",
         "решение",
         "основная-ценность",
-        "основной-пользовательский-сценарий",
+        "основные-маршруты",
         "запуск-другим-агентом",
         "диалоговый-режим-в-лисе",
-        "роли-систем",
         "входные-данные",
-        "жизненный-цикл-презентации",
-        "mvp-и-ближайшее-ядро",
-        "развитие-после-mvp",
-        "нецели-и-границы",
-        "риски-и-доверительные-границы",
+        "участники-и-роли",
+        "границы-продукта",
+        "ближайший-горизонт-и-развитие",
         "метрики-успеха",
-        "открытые-продуктовые-решения",
-        "связь-со-stories"
+        "связанные-источники"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -7891,6 +7965,47 @@
       "click_depth": 2
     },
     {
+      "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "title": "Оценка ПШЕ Для P1-Историй Запуска DataCanvas Другим Агентом",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
+      "artifact_registry_id": "ART-694",
+      "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/README.md",
+        "docs/product/README.md",
+        "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "оценка-пше-для-p1-историй-запуска-datacanvas-другим-агентом",
+        "назначение",
+        "источник-матрицы",
+        "правила-оценки",
+        "аналоги-из-excel-для-обсуждения",
+        "матрица-для-заполнения-командой",
+        "вопросы-команде-реализации",
+        "следующий-шаг-после-заполнения"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "title": "Карта Импорта Документации В Confluence",
       "section": "product",
@@ -7981,6 +8096,7 @@
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-687",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
@@ -8015,6 +8131,7 @@
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-688",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
@@ -8100,7 +8217,13 @@
         "варианты-решения-8",
         "ожидаемый-ответ-на-baq-0012",
         "ответ-baq-0012",
-        "todo-после-завершения-po-опросника"
+        "todo-после-завершения-po-опросника",
+        "чек-лист-перед-baq-bmc-002",
+        "ответ-baq-bmc-002",
+        "чек-лист-перед-baq-002",
+        "ответ-baq-0021-бизнес-ценности-stories-с-пустыми-ячейками-в-excel",
+        "ответ-baq-0022-статус-и-оценка-dc-st-23dc-st-28",
+        "продолжение-baq-0023-подготовка-раунда-оценки-пше"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -8125,6 +8248,7 @@
       "parent_readme": "docs/product/analysis/README.md",
       "artifact_registry_id": "ART-684",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
         "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
@@ -8204,6 +8328,7 @@
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-690",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
@@ -8311,7 +8436,7 @@
     },
     {
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "title": "Пользовательские Истории-Кандидаты Для Запуска DataCanvas Другим Агентом",
+      "title": "Пользовательские Истории P1 Для Запуска DataCanvas Другим Агентом",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -8336,10 +8461,10 @@
         "README.md"
       ],
       "anchors": [
-        "пользовательские-истории-кандидаты-для-запуска-datacanvas-другим-агентом",
+        "пользовательские-истории-p1-для-запуска-datacanvas-другим-агентом",
         "назначение",
         "правила-строк",
-        "истории-кандидаты",
+        "истории-p1",
         "csv",
         "открыто-до-продолжения-опроса"
       ],
@@ -8417,6 +8542,7 @@
       "parent_readme": "docs/product/backlog/README.md",
       "artifact_registry_id": "ART-434",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
@@ -8425,7 +8551,7 @@
       ],
       "anchors": [
         "product-backlog",
-        "истории-кандидаты-после-co-2026-001"
+        "p1-истории-после-co-2026-001"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -8620,9 +8746,6 @@
       "outgoing_links": [],
       "anchors": [
         "business-model-canvas-datacanvas-v02",
-        "методика",
-        "граница-модели",
-        "пользовательские-и-машинные-артефакты",
         "краткая-канва",
         "b1-сегменты-пользователей",
         "b2-ценностное-предложение",
@@ -9521,7 +9644,7 @@
         "проверка"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
@@ -10236,7 +10359,7 @@
         "сохраненные-требования",
         "новые-требования-mvp-и-p1-candidate",
         "покрытие-p1-p2-stories",
-        "покрытие-p1-candidate-stories-запуска-другим-агентом",
+        "покрытие-p1-stories-запуска-другим-агентом",
         "допущения-и-открытые-решения",
         "безопасность-и-доверительные-границы",
         "метрики-успеха",
@@ -10360,6 +10483,7 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-429",
       "outgoing_links": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
@@ -10628,6 +10752,7 @@
         "текущий-порядок-доверия",
         "основные-источники",
         "машинный-реестр",
+        "сырые-исходники",
         "ревизия-по-co-2026-001"
       ],
       "reachable_from_root": true,
@@ -11688,6 +11813,30 @@
         "acceptance-thresholds",
         "evidence"
       ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/vision/manifest.json",
+      "title": "docs/product/vision/manifest.json",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product-vision.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/README.md",
+      "artifact_registry_id": "ART-692",
+      "outgoing_links": [],
+      "anchors": [],
       "reachable_from_root": false,
       "click_depth": null
     },
@@ -34100,6 +34249,7 @@
           "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
           "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
           "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+          "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
           "docs/product/sources/product-source-registry.json",
           "docs/product/requirements/traceability-matrix.json"
         ],
@@ -34261,17 +34411,21 @@
     }
   },
   "coverage": {
-    "total_entries": 1198,
-    "manual_entries": 1194,
+    "total_entries": 1202,
+    "manual_entries": 1198,
     "generated_entries": 4,
     "public_navigable_entries": 33,
-    "searchable_entries": 1166,
+    "searchable_entries": 1169,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 158,
+    "reachable_from_root": 161,
     "orphan_entries": 0
   },
   "ignored_paths": [
+    {
+      "path": "docs/product/sources/raw",
+      "reason": "Raw product source binaries are tracked through product-source-registry.json and are not rendered as navigation documents."
+    },
     {
       "path": "docs/product/bmc/source/derived",
       "reason": "Derived BMC binary outputs are registered through artifact governance, not treated as source documents."

@@ -7595,6 +7595,54 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Validation evidence, command result, residual risk, or next safe step changes."
+    },
+    {
+      "id": "ART-694",
+      "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "type": "planning",
+      "owner_role": "Product Owner / Implementation Team",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "P1 agent-launch PSHE estimation matrix, implementation team estimate, capacity, or sprint planning input changes."
+    },
+    {
+      "id": "ART-692",
+      "path": "docs/product/vision/manifest.json",
+      "type": "product-manifest",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product-vision.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Vision public content policy, source registry metadata or validation gates change."
+    },
+    {
+      "id": "ART-693",
+      "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+      "type": "plan",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Поиск исходного Excel, исторического OPML, Jira import package или восстановление цепочки XLSX/OPML/Jira меняется."
     }
   ]
 }

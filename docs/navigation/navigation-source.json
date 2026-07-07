@@ -1608,6 +1608,26 @@
       "navigation_domain": "product"
     },
     {
+      "path": "docs/product/vision/manifest.json",
+      "route_id": "product-vision-manifest",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product-vision.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Vision public content policy, source registry metadata or validation gates change.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_domain": "product"
+    },
+    {
       "path": "docs/stories.md",
       "route_id": "stories-catalog",
       "section": "product",
@@ -1941,7 +1961,7 @@
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "CO-2026-001 candidate stories, product backlog import rows, or Q3 candidate status changes.",
+      "update_trigger": "CO-2026-001 P1 agent-launch stories, product backlog import rows, PSHE estimation, or Q3 priority status changes.",
       "critical": false,
       "breadcrumb_required": true,
       "artifact_registry_required": false,
@@ -2282,6 +2302,26 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Универсальный workflow валидации, правки и генерации артефактов проектной документации или его профиль DataCanvas меняется.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+      "route_id": "datacanvas-xlsx-opml-jira-recovery-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Поиск исходного Excel, исторического OPML, Jira import package или восстановление цепочки XLSX/OPML/Jira меняется.",
       "critical": false,
       "breadcrumb_required": true,
       "artifact_registry_required": true,
@@ -2923,6 +2963,7 @@
         "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/sources/product-source-registry.json",
         "docs/product/requirements/traceability-matrix.json"
       ],
@@ -3074,6 +3115,10 @@
     }
   ],
   "ignored_paths": [
+    {
+      "path": "docs/product/sources/raw",
+      "reason": "Raw product source binaries are tracked through product-source-registry.json and are not rendered as navigation documents."
+    },
     {
       "path": "docs/product/bmc/source/derived",
       "reason": "Derived BMC binary outputs are registered through artifact governance, not treated as source documents."
