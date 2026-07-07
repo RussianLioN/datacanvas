@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "5f40c5a78ff39eb98da2b44f18b93ed5395bb0bfe85c02e1ac4e712a5bdaf1d0"
+      "sha256": "693d6c71acda36fb895ff0dd207a8bf2b58338ee2c5b0f8f302e3c0e004415ee"
     },
     {
       "artifact_id": "ART-403",
@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "288629ba0a2f3a4e549558b9aa724f5249d17253075d8b764335ea362e0ad382"
+      "sha256": "c329840886f07080a35ed3b2231402e08355e8e848a50eef5d1e7bbce6ee8f48"
     },
     {
       "artifact_id": "ART-407",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "8e4f11fa2070ce047bf14d7e860d7deacd06d2479977177111f2e1b221533e02"
+      "sha256": "21c09080b9c7da1f126c43d19b8d2483005b21576d9fafe6286c8c6bd2e121fb"
     },
     {
       "artifact_id": "ART-411",

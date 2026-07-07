@@ -25,7 +25,7 @@
 
 Draft `PROC-038` предоставляет opt-in контракт `DocumentationChangeRequest` и cascade impact analysis для проверочных запусков. Он не является обязательным правилом процесса до отдельного решения Process Owner.
 
-Текущие процессные аудиты хранятся в `docs/process/audits/`. Аудит разделения задачи форматирования таблиц Codex CLI от продуктового пилота DataCanvas зафиксирован в [аудите форматирования таблиц Codex CLI](audits/codex-cli-table-output-process-audit.md).
+Текущие процессные аудиты хранятся в `docs/process/audits/`. Аудит разделения задачи форматирования таблиц Codex CLI от продуктового пилота DataCanvas зафиксирован в [аудите форматирования таблиц Codex CLI](audits/codex-cli-table-output-process-audit.md). Исправленный протокол трехфазного брейншторма для полного BA-пакета DataCanvas зафиксирован в [аудите трехфазного брейншторма BA-пакета](audits/datacanvas-ba-package-three-phase-brainstorm.md).
 
 ## Методика Документации
 
