@@ -7643,6 +7643,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Поиск исходного Excel, исторического OPML, Jira import package или восстановление цепочки XLSX/OPML/Jira меняется."
+    },
+    {
+      "id": "ART-695",
+      "path": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "type": "audit",
+      "owner_role": "Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/current/process-backlog.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "PROC-048, Codex CLI table output rules, or process/product backlog separation changes."
     }
   ]
 }

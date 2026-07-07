@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "04e4ff002bbb0f9931b5d7941d5f071d8289a4fdf013f3cc530ded94cd6f39b0"
+      "sha256": "0fb2806412f138cd593a4d36cf12f6440494f7549223a67728ae4c50e33d4d7c"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "6673c2efcac2c7debaa8b05b20984bc94d56681847bb41df10c51e05d97b48cc"
+      "sha256": "4b9566a98ca73535fa9e82043c3b44f6da27048c6f4c78184dfa537417c496e4"
     },
     {
       "artifact_id": "ART-201",
@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "635ffab565ca7719b61434c679599b65a5208e8d1cfcffedde81b4bf53f086af"
+      "sha256": "5f40c5a78ff39eb98da2b44f18b93ed5395bb0bfe85c02e1ac4e712a5bdaf1d0"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "6a8fef75243485b1cad25feb02954fab373d469f886a2c258f140e787cf65e48"
+      "sha256": "498547aaaad7c36b4646b1535d32b22999eca30e420cb3d94fbef8fa002b595c"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "be434c9c609e9156b6932450c997a695e9d9467c35edb4051450ad24a63b759d"
+      "sha256": "4cb63d80991efdfd6a351963e94e6eeaa5128fac655a51baa3bd2ecaf052698b"
     },
     {
       "artifact_id": "ART-411",
@@ -3432,12 +3432,12 @@
     {
       "artifact_id": "ART-687",
       "path": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
-      "sha256": "3c9af4c0d6e97002d9d07b382a517674525f4fb5e1d0757e1ac1833999aafecc"
+      "sha256": "a9bcd6d982fce3638efd02a1a76f09c140e2372b644b4a4216cae597be4a409a"
     },
     {
       "artifact_id": "ART-688",
       "path": "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
-      "sha256": "66871dfe40e41fd623cb94ca220b5a75c1286e7a6e62ae121e40303eef89e7cb"
+      "sha256": "15f9f45f670aa7c94613fc73f1f4e7729c4447be5832a7db93ef7ef79c40a0a5"
     },
     {
       "artifact_id": "ART-689",
@@ -3468,6 +3468,11 @@
       "artifact_id": "ART-693",
       "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
       "sha256": "0a29854713154b8ce825f824630201626fe2cc2256f4cb86bccba91a3456f960"
+    },
+    {
+      "artifact_id": "ART-695",
+      "path": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "sha256": "4af8039315abb6701fa7797c2f9567f9f6a4e9877fd0da0a8e46ab8ee9ecae05"
     }
   ],
   "exclusions": [

@@ -120,8 +120,8 @@
         "security-и-границы-доверия",
         "commit-pr-и-handoff"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/adr/ADR-001-weekly-scrum-process.md",
@@ -4560,6 +4560,46 @@
       "click_depth": null
     },
     {
+      "path": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "title": "Аудит Разделения Задачи Форматирования Таблиц Codex CLI",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/current/process-backlog.md",
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-695",
+      "outgoing_links": [
+        "AGENTS.md",
+        "docs/process/current/process-backlog.md",
+        "docs/process/README.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "аудит-разделения-задачи-форматирования-таблиц-codex-cli",
+        "назначение",
+        "проверенные-источники",
+        "классификация",
+        "выводы-аудита",
+        "правила-разделения",
+        "следующий-безопасный-шаг"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/process/audits/datacanvas-plan-coverage-audit.json",
       "title": "docs/process/audits/datacanvas-plan-coverage-audit.json",
       "section": "process",
@@ -6647,6 +6687,7 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-402",
       "outgoing_links": [
+        "docs/process/audits/codex-cli-table-output-process-audit.md",
         "docs/process/cascading-governance/README.md",
         "docs/process/current/definition-of-done.md",
         "docs/process/current/definition-of-ready.md",
@@ -34411,14 +34452,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1202,
-    "manual_entries": 1198,
+    "total_entries": 1203,
+    "manual_entries": 1199,
     "generated_entries": 4,
     "public_navigable_entries": 33,
-    "searchable_entries": 1169,
+    "searchable_entries": 1170,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 161,
+    "reachable_from_root": 163,
     "orphan_entries": 0
   },
   "ignored_paths": [

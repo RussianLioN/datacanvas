@@ -25,6 +25,8 @@
 
 Draft `PROC-038` предоставляет opt-in контракт `DocumentationChangeRequest` и cascade impact analysis для проверочных запусков. Он не является обязательным правилом процесса до отдельного решения Process Owner.
 
+Текущие процессные аудиты хранятся в `docs/process/audits/`. Аудит разделения задачи форматирования таблиц Codex CLI от продуктового пилота DataCanvas зафиксирован в [аудите форматирования таблиц Codex CLI](audits/codex-cli-table-output-process-audit.md).
+
 ## Методика Документации
 
 `PROC-039` подключает BABOK-исследование как baseline методического ядра. `PROC-040` фиксирует минимально полный контур: policy, source index, traceability model, coverage map, templates, validator diagnostics, fixtures и navigation/hash registration. Этот этап не меняет бизнес-содержание требований; он добавляет правила применения, шаблоны и проверки.

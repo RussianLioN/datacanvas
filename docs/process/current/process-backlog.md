@@ -33,7 +33,7 @@
 | PROC-007 | Controlled external LLM provider | Подготовить управляемое подключение внешнего LLM без нарушения no-network-by-default | governance | 2 | draft | - | - |
 | PROC-044 | Выровнять legacy artifacts по BABOK coverage report | Провести отдельную миграцию существующих product/process/architecture artifacts без подмены проектного смысла методикой | governance | 3 | draft | `docs/process/methodology/babok-coverage-map.json` | `npm run validate:documentation-methodology` |
 | PROC-045 | Включить strict validation rollout | Перевести strict checks с methodology artifacts на новые и существенно измененные product/process artifacts после advisory phase | automation | 3 | draft | `docs/process/methodology/documentation-methodology-policy.json` | `npm run validate:documentation-methodology` |
-| PROC-048 | Закрепить обязательное CLI-friendly форматирование таблиц | После установки пользовательского навыка `format-markdown-table` обновить проектные инструкции DataCanvas: табличные данные в чате, опросниках, планах и отчетах выводить через этот навык или его правила компактного CLI-friendly представления | governance | 2 | draft | `$CODEX_HOME/skills/format-markdown-table/SKILL.md` | ручная проверка в Codex CLI |
+| PROC-048 | Закрепить обязательное CLI-friendly форматирование таблиц | Использовать установленный навык `cli-table-output` и обновить проектные инструкции DataCanvas: табличные данные в чате, опросниках, планах и отчетах выводить через этот навык или его правила компактного CLI-friendly представления | governance | 2 | draft | `$CODEX_HOME/skills/cli-table-output/SKILL.md`; `docs/process/audits/codex-cli-table-output-process-audit.md` | ручная проверка в Codex CLI |
 
 ## Правило Приоритизации
 
