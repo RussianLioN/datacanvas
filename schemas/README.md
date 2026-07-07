@@ -25,6 +25,7 @@
 - `jira-import-package-manifest.schema.json`
 - `agent-launch-requirements-analysis-state.schema.json`
 - `agent-launch-requirements-impact-map.schema.json`
+- `product-vision-manifest.schema.json`
 - `prompt-only-artifact-link-catalog.schema.json`
 - `prompt-only-artifact-review-session-state.schema.json`
 - `universal-documentation-core.schema.json`

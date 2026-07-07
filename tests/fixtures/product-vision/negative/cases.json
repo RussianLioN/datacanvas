@@ -1,0 +1,66 @@
+[
+  {
+    "id": "status-line-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\nСтатус: active\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "owner-line-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\nВладелец: Product Owner\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "validation-line-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\nПроверка: `npm run validate:docs-navigation`\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "updated-at-line-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\nДата обновления: 2026-07-05\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "local-path-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\n/Users/example/project/docs/product-vision.md\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "technical-trace-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\ntechnical_trace: {\"source_refs\": []}\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "hash-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\nsha256: abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\n\n## Короткое видение\n\nDataCanvas готовит презентации."
+  },
+  {
+    "id": "a2a-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\n## Короткое видение\n\nDataCanvas запускается по A2A и MCP."
+  },
+  {
+    "id": "abbreviation-comma-km",
+    "text": "# Видение продукта DataCanvas\n\n## Пользователи и участники\n\n- КМ, клиентский менеджер."
+  },
+  {
+    "id": "ambiguous-email-work-channel",
+    "text": "# Видение продукта DataCanvas\n\n## Основная ценность\n\n- Доставка результата в канале, пригодном для работы с файлом презентации."
+  },
+  {
+    "id": "technical-contract-in-public-vision",
+    "text": "# Видение продукта DataCanvas\n\n## Входные данные\n\nТочный технический контракт входного пакета остается открытым продуктово-техническим решением."
+  },
+  {
+    "id": "corrected-version-as-lifecycle-object",
+    "text": "# Видение продукта DataCanvas\n\n## Жизненный цикл презентации\n\nВ сценарии DataCanvas есть исправленная версия презентации."
+  },
+  {
+    "id": "post-delivery-email-edits",
+    "text": "# Видение продукта DataCanvas\n\n## Жизненный цикл презентации\n\nПравки после получения файла могут запрашиваться через ответное письмо."
+  },
+  {
+    "id": "raw-story-backlog-listing",
+    "text": "# Видение продукта DataCanvas\n\n## MVP и ближайшее ядро\n\n- `DC-ST-05` - запуск после диалога с другими агентами."
+  },
+  {
+    "id": "raw-priority-horizon-listing",
+    "text": "# Видение продукта DataCanvas\n\n## Развитие после MVP\n\nP3 развивает основной сценарий."
+  },
+  {
+    "id": "post-delivery-scope",
+    "text": "# Видение продукта DataCanvas\n\n## Развитие после MVP\n\nP5 покрывает более сложные сценарии данных и post-delivery правок."
+  }
+]

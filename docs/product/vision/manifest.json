@@ -1,0 +1,161 @@
+{
+  "$schema": "../../../schemas/product-vision-manifest.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "manifest_id": "PRODUCT-VISION-MANIFEST-DATACANVAS",
+  "public_surfaces": [
+    "docs/product-vision.md"
+  ],
+  "service_information_storage": [
+    "docs/product/vision/manifest.json",
+    "docs/product/sources/product-source-registry.json",
+    "docs/knowledge/glossary.md",
+    "docs/navigation/navigation-source.json",
+    "docs/architecture/schemas/artifact-registry.json"
+  ],
+  "current_vision": {
+    "path": "docs/product-vision.md",
+    "source_registry_id": "SRC-DC-PRODUCT-VISION-CURRENT",
+    "owner_role": "Product Owner",
+    "lifecycle": "active",
+    "trust_level": "current",
+    "effective_date": "2026-07-03",
+    "upstream_decision": "CO-2026-001",
+    "allowed_downstream_use": [
+      "product_scope",
+      "requirements_delta",
+      "bmc_review",
+      "traceability"
+    ]
+  },
+  "historical_snapshots": [
+    {
+      "path": "docs/product/vision/vision-v0.1.md",
+      "source_registry_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",
+      "lifecycle": "historical",
+      "trust_level": "historical",
+      "allowed_downstream_use": [
+        "comparison",
+        "audit"
+      ]
+    }
+  ],
+  "public_content_policy": {
+    "allowed_public_content": "product_vision_only",
+    "allowed_public_service_elements": [
+      "breadcrumb"
+    ],
+    "forbidden_public_information": [
+      "status",
+      "owner",
+      "validation_command",
+      "updated_at",
+      "source_refs",
+      "validation_status",
+      "hashes",
+      "local_paths",
+      "technical_trace",
+      "raw_json",
+      "internal_prompts"
+    ]
+  },
+  "artifact_governance": {
+    "artifact_kind": "manual_machine_readable_manifest",
+    "manual_edit_allowed": true,
+    "generator_id": null,
+    "service_information_rule": "Служебные сведения о статусе, владельце, проверках, источниках, трассировке, hash-значениях и локальных путях хранятся в машинных артефактах и не выводятся в публичный Markdown Vision."
+  },
+  "classic_vision_policy": {
+    "glossary_path": "docs/knowledge/glossary.md",
+    "required_section_order": [
+      "Короткое видение",
+      "Пользователи и участники",
+      "Проблема",
+      "Решение",
+      "Основная ценность",
+      "Основные маршруты",
+      "Входные данные",
+      "Участники и роли",
+      "Границы продукта",
+      "Ближайший горизонт и развитие",
+      "Метрики успеха",
+      "Связанные источники"
+    ],
+    "required_glossary_terms": [
+      "DataCanvas",
+      "КМ",
+      "Лиса",
+      "Вызывающий агент",
+      "Оркестратор",
+      "Vision",
+      "BMC",
+      "Редактируемый файл презентации",
+      "Generated artifacts"
+    ],
+    "required_public_phrases": [
+      "КМ (клиентским менеджерам)",
+      "первым направлением остается запуск DataCanvas другим агентом",
+      "вторым направлением остается запрос пользователя через Лису",
+      "вызывающий агент",
+      "без дополнительного подтверждения пользователя",
+      "по электронной почте в редактируемом формате",
+      "пользователь самостоятельно редактирует полученный файл",
+      "считаются данными, а не инструкциями"
+    ],
+    "forbidden_public_claims": [
+      {
+        "claim_id": "abbreviation_comma_km",
+        "text": "КМ, клиентский менеджер",
+        "reason": "Сокращение должно раскрываться как КМ (клиентский менеджер), чтобы не выглядеть перечислением разных ролей."
+      },
+      {
+        "claim_id": "ambiguous_email_work_channel",
+        "text": "Доставка результата в канале, пригодном для работы с файлом презентации",
+        "reason": "Эта формулировка допускает неверное толкование, будто с файлом удобно работать прямо в почтовом приложении."
+      },
+      {
+        "claim_id": "technical_contract_in_public_vision",
+        "text": "Точный технический контракт входного пакета",
+        "reason": "Технические контракты должны жить в архитектурных или машинных артефактах, а не в публичном Vision."
+      },
+      {
+        "claim_id": "corrected_version_as_lifecycle_object",
+        "text": "исправленная версия презентации",
+        "reason": "DataCanvas не правит готовый файл после доставки; пользователь редактирует его самостоятельно."
+      },
+      {
+        "claim_id": "post_delivery_email_edits",
+        "text": "Правки после получения файла могут запрашиваться через ответное письмо",
+        "reason": "Такой сценарий не подтвержден как часть жизненного цикла DataCanvas."
+      },
+      {
+        "claim_id": "raw_story_backlog_listing",
+        "text": "`DC-ST-",
+        "reason": "Публичный Vision не должен превращаться в список story-id; историям место в каталоге stories."
+      },
+      {
+        "claim_id": "raw_priority_horizon_listing",
+        "text": "P3 развивает основной сценарий",
+        "reason": "Vision должен описывать горизонт продукта простым языком, а не повторять backlog."
+      },
+      {
+        "claim_id": "post_delivery_scope",
+        "text": "post-delivery",
+        "reason": "Публичный Vision должен описывать подтвержденные границы продукта по-русски и без неподтвержденных правок после доставки."
+      }
+    ],
+    "forbidden_public_section_roles": [
+      "status_block",
+      "methodology_block",
+      "technical_contract_block",
+      "story_backlog_listing",
+      "raw_traceability_listing"
+    ]
+  },
+  "validators": [
+    "npm run validate:product-vision",
+    "npm run validate:product-sources",
+    "npm run validate:product-source-consistency",
+    "npm run validate:accepted-change-order-impact"
+  ]
+}

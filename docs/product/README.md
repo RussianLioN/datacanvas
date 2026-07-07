@@ -41,6 +41,7 @@
 ## Разделение Источников
 
 - `docs/product-vision.md` - текущий обзорный Vision.
+- `docs/product/vision/manifest.json` - машинный манифест Vision: статус, владелец, проверки и политика чистого публичного текста.
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
 - `docs/stories.md` - каталог исходных stories.
 - `docs/product/requirements/user-stories.md` - формализованные пользовательские истории.

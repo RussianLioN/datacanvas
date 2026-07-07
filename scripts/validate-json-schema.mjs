@@ -241,6 +241,10 @@ const cases = [
     data: "docs/product/sources/product-source-registry.json",
   },
   {
+    schema: "schemas/product-vision-manifest.schema.json",
+    data: "docs/product/vision/manifest.json",
+  },
+  {
     schema: "schemas/proposed-change-set.schema.json",
     data: "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
   },
