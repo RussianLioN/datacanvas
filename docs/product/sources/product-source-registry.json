@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-04T22:10:04Z",
+  "updated_at": "2026-07-06T18:14:00Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -58,12 +58,13 @@
       "upstream_decision": "CO-2026-001",
       "allowed_downstream_use": ["product_scope", "requirements_delta", "bmc_review", "traceability"],
       "affected_artifacts": [
+        "docs/product/vision/manifest.json",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел Проблема дополнен болью длинной чатовой ленты Лисы, а служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста."
+      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел Проблема дополнен болью длинной чатовой ленты Лисы, а служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста. Статус, владелец, проверки и политика публичного текста вынесены в машинный Vision-манифест."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",
@@ -93,7 +94,30 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Содержит candidate stories DC-ST-23..DC-ST-28; служебное упоминание исторического ориентира результата удалено из стейкхолдерских терминов и закрытых решений."
+      "notes": "Содержит P1 stories DC-ST-23..DC-ST-28; численные ПШЕ требуют оценки по Excel-матрице трудозатрат и ролей."
+    },
+    {
+      "source_id": "SRC-DC-STORIES-XLSX-RAW",
+      "path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "internal_evidence",
+      "effective_date": "2026-07-06",
+      "upstream_decision": null,
+      "allowed_downstream_use": [
+        "story_value_audit",
+        "story_origin_trace",
+        "jira_import_recovery",
+        "opml_conversion_recovery",
+        "backlog_prioritization_audit"
+      ],
+      "affected_artifacts": [
+        "docs/stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Сохраненная копия исходного Excel, ранее упомянутого как основной источник stories, приоритетов, сроков и оценок. SHA-256: 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9. Используется для восстановления трассировки XLSX -> OPML -> Jira import и проверки ценности stories без изменения продуктового смысла."
     },
     {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",
@@ -109,7 +133,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/roadmap-v0.1.md"
       ],
-      "notes": "Содержит кандидаты DC-ST-23..DC-ST-28 после CO-2026-001; не заменяет отдельное PO-согласование состава backlog."
+      "notes": "Содержит P1-истории DC-ST-23..DC-ST-28 после CO-2026-001; не заменяет оценку ПШЕ, емкости и вытеснения работ перед sprint backlog."
     },
     {
       "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
@@ -120,13 +144,13 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["candidate_story_source", "backlog", "traceability"],
+      "allowed_downstream_use": ["p1_story_source", "backlog", "traceability", "estimation_input"],
       "affected_artifacts": [
         "docs/product/backlog/product-backlog.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-28 для backlog и переноса в табличный формат после оценки."
+      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-28 для backlog и переноса в табличный формат после оценки ПШЕ по Excel-матрице."
     },
     {
       "source_id": "SRC-DC-ROADMAP-V0-1",

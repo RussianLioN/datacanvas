@@ -23,9 +23,10 @@
 |---|---|---|
 | `docs/product-vision.md` | Текущий Vision | `EDIT-001` — правка Vision по `CO-2026-001` — принятому изменению приоритета запуска DataCanvas другим агентом — применен: основной сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел `Проблема` дополнен болью длинной чатовой ленты Лисы; служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста |
 | `docs/product/vision/vision-v0.1.md` | Исторический snapshot | Используется для сравнения, не конкурирует с текущим Vision |
-| `docs/stories.md` | Каталог stories | Содержит `DC-ST-23..DC-ST-28` — истории-кандидаты запуска DataCanvas другим агентом — как candidate stories; служебное упоминание исторического ориентира результата удалено из терминов и закрытых решений |
-| `docs/product/backlog/product-backlog.md` | Product backlog | Содержит кандидаты `DC-ST-23..DC-ST-28`; состав backlog требует отдельного PO-согласования |
-| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Истории-кандидаты | Непосредственный источник строк `DC-ST-23..DC-ST-28` для backlog |
+| `docs/stories.md` | Каталог stories | Содержит `DC-ST-23..DC-ST-28` — подтвержденные Product Owner P1-истории запуска DataCanvas другим агентом; численные ПШЕ требуют оценки по Excel-матрице |
+| `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx` | Сырой Excel-источник Product Owner | Сохранен для аудита происхождения stories, поиска прежнего преобразования `XLSX -> OPML -> Jira import` и проверки ценности stories без изменения продуктового смысла |
+| `docs/product/backlog/product-backlog.md` | Product backlog | Содержит P1-истории `DC-ST-23..DC-ST-28`; sprint backlog требует оценки ПШЕ, емкости и вытеснения работ |
+| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Истории P1 запуска другим агентом | Непосредственный источник строк `DC-ST-23..DC-ST-28` для backlog и оценки |
 | `docs/product/roadmap/roadmap-v0.1.md` | Roadmap | Используется как плановый контекст для проверки влияния `CO-2026-001`; смысловые изменения требуют отдельного решения PO |
 | `docs/product/hypotheses/hypothesis-board.md` | Гипотезы | `HYP-001` — гипотеза о снижении ручной подготовки презентации — дополнена проверкой перехода от длинного ответа другого агента в Лисе к принятой презентации |
 | `docs/product/hypotheses/hypothesis-validation.md` | Проверка гипотез | План проверки `HYP-001` — гипотезы о снижении ручной подготовки презентации — дополнен сценарием агентского ответа как входного контекста |

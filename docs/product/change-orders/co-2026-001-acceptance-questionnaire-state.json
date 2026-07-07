@@ -7,14 +7,14 @@
   "mode": "product_owner_acceptance",
   "owner_role": "Product Owner",
   "started_at": "2026-07-03T09:00:00Z",
-  "updated_at": "2026-07-04T22:10:04Z",
+  "updated_at": "2026-07-06T20:02:28Z",
   "paused_at": "2026-07-03T09:00:00Z",
   "completed_at": "2026-07-04T22:10:04Z",
   "current_question": {
-    "question_id": "PRODUCT-31",
-    "title": "Опросник завершен",
+    "question_id": "PRODUCT-32",
+    "title": "Опросник завершен; статус P1-историй уточнен после BAQ-002",
     "state": "not_applicable",
-    "next_action": "Все продуктовые вопросы CO-2026-001 закрыты утвержденным планом имплементации; дальнейшие изменения оформлять отдельным Product Change Order или impact review."
+    "next_action": "Все продуктовые вопросы CO-2026-001 закрыты; после BAQ-002 истории DC-ST-23..DC-ST-28 подтверждены как окончательные P1, а следующий безопасный шаг - оценка ПШЕ по Excel-матрице источника."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -67,14 +67,14 @@
       "question_id": "PRODUCT-03",
       "title": "Перенос существующих stories",
       "status": "confirmed",
-      "safe_summary": "Существующие stories пока не переносятся; сначала добавляются новые candidate stories, затем выполняется оценка и переприоритизация.",
+      "safe_summary": "Существующие stories не переносятся автоматически; новые строки были добавлены как истории-кандидаты, а после BAQ-002 подтверждены как окончательные P1 до отдельной оценки ПШЕ и переприоритизации.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
       "question_id": "PRODUCT-04",
       "title": "Новые строки для запуска другим агентом",
       "status": "confirmed",
-      "safe_summary": "Новые строки фиксируются как candidate stories для product backlog.",
+      "safe_summary": "Новые строки фиксируются в product backlog; первоначальный статус кандидата после BAQ-002 заменен на окончательный P1 с отдельной оценкой ПШЕ.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
@@ -114,35 +114,35 @@
     },
     {
       "question_id": "PRODUCT-10",
-      "title": "Количество candidate stories",
+      "title": "Количество историй-кандидатов",
       "status": "confirmed",
-      "safe_summary": "Зафиксировано 6 новых candidate stories из-за согласованных смысловых разделений.",
+      "safe_summary": "Зафиксировано 6 новых историй из-за согласованных смысловых разделений; после BAQ-002 все они подтверждены как P1.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
       "question_id": "PRODUCT-11",
-      "title": "Приоритет candidate stories",
+      "title": "Приоритет историй-кандидатов",
       "status": "confirmed",
-      "safe_summary": "Новые строки получают приоритет P1 candidate.",
+      "safe_summary": "Новые строки получают приоритет P1; первоначальный статус P1 candidate заменен решением Product Owner после BAQ-002.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
       "question_id": "PRODUCT-12",
-      "title": "Статус candidate stories",
+      "title": "Статус историй-кандидатов",
       "status": "confirmed",
-      "safe_summary": "Новые строки получают статус требует оценки.",
+      "safe_summary": "Новые строки получают статус P1; требуется оценка ПШЕ по Excel-матрице источника.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
       "question_id": "PRODUCT-13",
-      "title": "Период candidate stories",
+      "title": "Период историй-кандидатов",
       "status": "confirmed",
-      "safe_summary": "Новые строки помечаются как кандидат на 2026-Q3.",
+      "safe_summary": "Новые строки относятся к 2026-Q3 как подтвержденные P1-истории до оценки ПШЕ, емкости и вытеснения работ.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
       "question_id": "PRODUCT-14",
-      "title": "Идентификаторы candidate stories",
+      "title": "Идентификаторы историй-кандидатов",
       "status": "confirmed",
       "safe_summary": "Используются идентификаторы DC-ST-23..DC-ST-28.",
       "answered_at": "2026-07-03T09:00:00Z"
@@ -151,7 +151,7 @@
       "question_id": "PRODUCT-15",
       "title": "Канонический каталог stories",
       "status": "confirmed",
-      "safe_summary": "Candidate stories добавляются сразу в docs/stories.md, не ожидая оценки.",
+      "safe_summary": "Истории DC-ST-23..DC-ST-28 добавлены сразу в docs/stories.md; после BAQ-002 они подтверждены как P1, но не имеют численной оценки ПШЕ.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
@@ -221,7 +221,7 @@
       "question_id": "PRODUCT-25",
       "title": "MVP и ближайшее ядро",
       "status": "confirmed",
-      "safe_summary": "MVP сохраняет P1-P2 stories как ближайшее ядро; DC-ST-23..DC-ST-28 остаются историями-кандидатами запуска другим агентом до оценки ёмкости, ресурсов и вытеснения.",
+      "safe_summary": "MVP сохраняет P1-P2 stories как ближайшее ядро; DC-ST-23..DC-ST-28 после BAQ-002 являются подтвержденными P1-историями запуска другим агентом до оценки ПШЕ, емкости, ресурсов и вытеснения.",
       "answered_at": "2026-07-04T22:10:04Z"
     },
     {
@@ -258,6 +258,13 @@
       "status": "confirmed",
       "safe_summary": "Каскадная проверка выполнена: stories и текущие продуктовые тексты очищены от служебного упоминания исторического ориентира результата; BMC, гипотезы и business requirements синхронизированы; новые BT не требуются.",
       "answered_at": "2026-07-04T22:10:04Z"
+    },
+    {
+      "question_id": "PRODUCT-31",
+      "title": "Уточнение P1-статуса DC-ST-23..DC-ST-28 после BAQ-002",
+      "status": "confirmed",
+      "safe_summary": "Product Owner подтвердил, что DC-ST-23..DC-ST-28 являются окончательными P1-историями; численные ПШЕ нужно оценить по аналогии с Excel-источником и его ресурсной матрицей.",
+      "answered_at": "2026-07-06T20:02:28Z"
     }
   ],
   "agreed_decisions": [
@@ -286,7 +293,7 @@
       "decision_id": "DEC-004",
       "question_id": "PRODUCT-15",
       "decision_status": "confirmed",
-      "safe_summary": "DC-ST-23..28 добавляются в канонический каталог stories как candidate stories.",
+      "safe_summary": "DC-ST-23..28 добавлены в канонический каталог stories; после BAQ-002 их статус уточнен до окончательного P1 без численной оценки ПШЕ.",
       "affected_artifacts": ["docs/stories.md", "docs/product/backlog/product-backlog.md"]
     },
     {
@@ -343,6 +350,20 @@
         "docs/product/sources/product-source-registry.json",
         "docs/product/sources/source-audit.md"
       ]
+    },
+    {
+      "decision_id": "DEC-011",
+      "question_id": "PRODUCT-31",
+      "decision_status": "confirmed",
+      "safe_summary": "DC-ST-23..DC-ST-28 подтверждены как окончательные P1-истории; ПШЕ, емкость, ресурсы и вытеснение работ остаются отдельным шагом оценки.",
+      "affected_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
+        "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md"
+      ]
     }
   ],
   "remaining_checklist": [
@@ -395,16 +416,22 @@
       "item_id": "PRODUCT-30",
       "title": "Stories, requirements, BMC и traceability после финализации Vision",
       "status": "completed"
+    },
+    {
+      "item_id": "PRODUCT-31",
+      "title": "Уточнение P1-статуса DC-ST-23..DC-ST-28 после BAQ-002",
+      "status": "completed"
     }
   ],
   "periodic_stop": {
-    "last_stop_after_answer_count": 30,
-    "reason": "Опросник завершен после утвержденного плана имплементации и каскадной обработки оставшихся продуктовых разделов.",
-    "next_stop_after_answer_count": 35
+    "last_stop_after_answer_count": 31,
+    "reason": "Опросник завершен; после BAQ-002 зафиксировано уточнение, что DC-ST-23..DC-ST-28 являются окончательными P1-историями без численной оценки ПШЕ.",
+    "next_stop_after_answer_count": 36
   },
   "resume_instructions": [
     "Опросник CO-2026-001 завершен.",
-    "Новые продуктовые изменения оформлять отдельным Product Change Order или impact review.",
+    "Перед формированием sprint backlog оценить ПШЕ для DC-ST-23..DC-ST-28 по Excel-матрице источника.",
+    "Новые продуктовые изменения за пределами подтверждения P1 и оценки ПШЕ оформлять отдельным Product Change Order или impact review.",
     "Перед дальнейшими правками Vision проверять source registry, change-order ledger и связанные product artifacts."
   ]
 }

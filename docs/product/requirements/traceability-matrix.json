@@ -149,7 +149,7 @@
       "story_ids": ["DC-ST-02", "DC-ST-03", "DC-ST-04"],
       "acceptance_scenarios": ["edit_before_generation"],
       "evidence_expectations": [
-        "Change log описания покрывает добавление, перемещение и удаление без выдуманной бизнес-ценности для DC-ST-03/04."
+        "Change log описания покрывает добавление, перемещение и удаление; бизнес-ценность DC-ST-03/04 унаследована из Excel row 5 для группы правок по полученному описанию презентации."
       ],
       "tests": ["npm run validate:doc-links"],
       "status": "draft"

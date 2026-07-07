@@ -18,8 +18,8 @@
 | `docs/product/sources/product-source-registry.json` | исходник | Реестр продуктовых источников; изменение роли источников не требуется. |
 | `docs/product/sources/source-audit.md` | доказательство | Аудит источников используется как evidence — доказательство — текущей связности. |
 | `docs/product-vision.md` | исходник | Vision — видение продукта — уже отделяет запуск другим агентом от режима Лисы через принятый `CO-2026-001` — change order. |
-| `docs/stories.md` | исходник | Содержит `DC-ST-23..DC-ST-28` — пользовательские истории-кандидаты. |
-| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | исходник | Отдельный источник кандидатных историй; не является `PBI-*` — элементом продуктового бэклога. |
+| `docs/stories.md` | исходник | Содержит `DC-ST-23..DC-ST-28` — подтвержденные Product Owner P1-истории запуска DataCanvas другим агентом; численные ПШЕ требуют оценки. |
+| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | исходник | Отдельный источник P1-историй запуска другим агентом; не является `PBI-*` — элементом продуктового бэклога. |
 | `docs/product/bmc/bmc-v0.2.md` | исходник | BMC — Business Model Canvas, бизнес-модель продукта — используется как продуктовый контекст без прямого вывода требований. |
 | `docs/product/bmc/bmc-trace.v0.1.json` | исходник | Источник трассировки BMC для генерации производных представлений. |
 | `docs/product/bmc/source/derived/datacanvas-bmc.puml` | производный файл | PlantUML — текстовая диаграмма — не редактируется вручную. |
