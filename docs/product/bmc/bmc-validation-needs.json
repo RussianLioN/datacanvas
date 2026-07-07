@@ -5,7 +5,7 @@
   "generated_at": "2026-06-24T00:00:00Z",
   "summary": {
     "total_items": 9,
-    "items_requiring_action": 5,
+    "items_requiring_action": 0,
     "evidence_request_ids": [
       "EVD-REQ-001",
       "EVD-REQ-003",
@@ -17,112 +17,9 @@
       "EVD-REQ-009"
     ],
     "open_question_ids": [
-      "BMC-OQ-001",
-      "BMC-OQ-002",
-      "BMC-OQ-003",
       "BMC-OQ-004",
       "BMC-OQ-005"
     ]
   },
-  "items": [
-    {
-      "item_id": "BMC-CLM-001",
-      "block": "B1",
-      "block_title": "Сегменты пользователей",
-      "statement": "КМ является текущим основным пользовательским профилем DataCanvas; CSM и другие пользователи Лисы остаются перспективными сегментами до отдельного подтверждения.",
-      "validation_need": "confirmation",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Предоставить материал для блока \"Сегменты пользователей\": файл, ссылку, решение, метрику или безопасную цитату.",
-      "linked_answer_ids": [
-        "ANS-001"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-VISION-BRANCH-SNAPSHOT",
-        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-002",
-      "block": "B2",
-      "block_title": "Ценностное предложение",
-      "statement": "Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию, снизить ручное копирование и верстку, а также нагрузку на разбор длинного ответа другого агента в Лисе.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Ценностное предложение\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-002"
-      ],
-      "evidence_ids": [
-        "EVD-001"
-      ],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT",
-        "SRC-DC-VISION-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-005",
-      "block": "B5",
-      "block_title": "Потоки внутренней пользы",
-      "statement": "Ожидаемый внутренний эффект DataCanvas: экономия времени КМ, снижение ручной работы и нагрузки на чтение длинных агентских ответов; метрики, бюджетный владелец и расчет эффекта требуют отдельной проверки.",
-      "validation_need": "research",
-      "current_status": "assumption",
-      "confidence": "low",
-      "required_action": "Проверить расчет или исследование по блоку \"Потоки внутренней пользы\" через метрику, пилотное наблюдение или отдельное интервью.",
-      "linked_answer_ids": [
-        "ANS-005"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-008",
-      "block": "B8",
-      "block_title": "Ключевые партнеры",
-      "statement": "Ключевые партнеры и зависимости DataCanvas: Лиса, другой агент, источники данных и почтовый канал доставки; шаблоны, владельцы шаблонов и средство подготовки файла остаются открытыми зависимостями.",
-      "validation_need": "research",
-      "current_status": "assumption",
-      "confidence": "medium",
-      "required_action": "Проверить расчет или исследование по блоку \"Ключевые партнеры\" через метрику, пилотное наблюдение или отдельное интервью.",
-      "linked_answer_ids": [
-        "ANS-008"
-      ],
-      "evidence_ids": [
-        "EVD-001",
-        "EVD-002"
-      ],
-      "source_refs": [
-        "SRC-DC-CO-2026-001",
-        "SRC-DC-REVISION-EDIT-002",
-        "SRC-DC-VISION-ACTIVE"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-009",
-      "block": "B9",
-      "block_title": "Структура затрат",
-      "statement": "Структура затрат DataCanvas включает LLM-вызовы, средство подготовки файла, ручную проверку, задержку, сопровождение, интеграции, шаблоны, эксплуатацию и обработку инцидентов; порядок и расчет затрат требуют отдельной проверки.",
-      "validation_need": "research",
-      "current_status": "assumption",
-      "confidence": "low",
-      "required_action": "Проверить расчет или исследование по блоку \"Структура затрат\" через метрику, пилотное наблюдение или отдельное интервью.",
-      "linked_answer_ids": [
-        "ANS-009"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Product Owner"
-    }
-  ]
+  "items": []
 }
