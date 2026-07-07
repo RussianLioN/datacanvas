@@ -7649,7 +7649,7 @@
       "path": "docs/process/audits/codex-cli-table-output-process-audit.md",
       "type": "audit",
       "owner_role": "Process Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -7659,6 +7659,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "PROC-048, Codex CLI table output rules, or process/product backlog separation changes."
+    },
+    {
+      "id": "ART-696",
+      "path": "docs/process/change-requests/PROC-048-cli-table-output.md",
+      "type": "process-change-request",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Codex CLI table output process rule changes."
     }
   ]
 }

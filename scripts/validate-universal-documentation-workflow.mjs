@@ -280,6 +280,12 @@ function validateCore() {
   if (!core.owner_interview_policy.rules.some((rule) => rule.includes("короткая цитата"))) {
     fail("owner interview policy must require short quotes for document decisions and corrections");
   }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("cli-table-output"))) {
+    fail("owner interview policy must require cli-table-output for chat-facing tabular data");
+  }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("Markdown pipe table"))) {
+    fail("owner interview policy must forbid chat-facing Markdown pipe table by default");
+  }
   for (const requiredScope of [
     "single_owner_question",
     "owner_questionnaire",
@@ -320,6 +326,9 @@ function validateCore() {
     "сначала собрать полный набор известных независимых вопросов по текущему артефакту",
     "не обновлять смысловые документы, generated artifacts",
     "Отчет для пользователя должен начинаться с простого человеческого итога",
+    "cli-table-output",
+    "fenced `text` блок с Unicode-таблицей",
+    "Markdown pipe table не выводится напрямую в чат по умолчанию",
     "Любой пользовательский отчет, статус, следующий шаг или вопрос",
     "абсолютную кликабельную Markdown-ссылку",
     "пользователь должен иметь возможность кликнуть ссылку",
@@ -342,6 +351,9 @@ function validateCore() {
     "UX-Френдли Интервью",
     "Правило одинаково для продуктовых, процессных, архитектурных, навигационных",
     "сначала сформулировать простой итог обычным русским языком",
+    "cli-table-output",
+    "fenced `text` Unicode-таблицы",
+    "Markdown pipe table напрямую в чат по умолчанию не выводить",
     "Если итог, статус, следующий шаг или вопрос упоминает документ",
     "абсолютную кликабельную Markdown-ссылку",
     "рядом с абсолютной ссылкой дать короткую цитату",

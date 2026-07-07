@@ -157,6 +157,33 @@
       ],
       "migration_notes": "Для CO-2026-001 создано активное состояние и журнал; продолжение опросника выполняется с PRODUCT-21.",
       "rollback": "Пометить questionnaire artifacts как superseded и удалить validate:co-questionnaire из промежуточных validation plans; продуктовые решения не откатываются без отдельного решения Product Owner."
+    },
+    {
+      "process_change_id": "PROC-048",
+      "title": "Закрепить CLI-friendly форматирование таблиц",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "pcr_path": "docs/process/change-requests/PROC-048-cli-table-output.md",
+      "changelog_anchor": "PROC-048",
+      "affected_artifacts": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "docs/process/audits/codex-cli-table-output-process-audit.md",
+        "scripts/validate-universal-documentation-workflow.mjs"
+      ],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow",
+        "npm run validate:process-change-ledger",
+        "npm run validate:docs-navigation",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm test"
+      ],
+      "migration_notes": "Правило применяется только к рабочему чату Codex и процессным инструкциям. Продуктовые backlog, stories, requirements, BMC и Vision DataCanvas не меняются.",
+      "rollback": "Вернуть PROC-048 в Draft, удалить правило cli-table-output из AGENTS.md и UDW-инструкций, убрать проверку из validate-universal-documentation-workflow, затем регенерировать navigation, hash manifest и process metrics snapshot."
     }
   ],
   "known_limitations": [

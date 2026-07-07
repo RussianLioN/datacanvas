@@ -13,6 +13,7 @@
 | PROC-040 | Довести BABOK methodology MVA до минимально полного контура | Добавить policy, source index, traceability model, coverage map, templates, fixtures, navigation и diagnostics без изменения бизнес-содержания требований | governance | 1 | done | `docs/process/methodology/README.md` | `npm run validate:documentation-methodology` |
 | PROC-046 | Внедрить контракт сохранения PO-опросника | Сохранять состояние, журнал и точку продолжения после каждого ответа Product Owner | governance | 1 | done | `docs/product/change-orders/product-change-questionnaire-protocol.md` | `npm run validate:co-questionnaire` |
 | PROC-047 | Завершить PO-опросник `CO-2026-001` — изменение приоритета запуска DataCanvas другим агентом | Закрыть сверку Vision и связанных продуктовых артефактов после сохранённой остановки с Продукта 21 | governance | 1 | done | `docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md` | `npm run validate:co-questionnaire` |
+| PROC-048 | Закрепить обязательное CLI-friendly форматирование таблиц | Использовать установленный навык `cli-table-output` и обновить проектные инструкции DataCanvas: табличные данные в чате, опросниках, планах и отчетах выводить через этот навык или его правила компактного CLI-friendly представления | governance | 2 | done | `docs/process/change-requests/PROC-048-cli-table-output.md`; `docs/process/audits/codex-cli-table-output-process-audit.md` | `npm run validate:universal-documentation-workflow` |
 
 ## Ready
 
@@ -33,7 +34,6 @@
 | PROC-007 | Controlled external LLM provider | Подготовить управляемое подключение внешнего LLM без нарушения no-network-by-default | governance | 2 | draft | - | - |
 | PROC-044 | Выровнять legacy artifacts по BABOK coverage report | Провести отдельную миграцию существующих product/process/architecture artifacts без подмены проектного смысла методикой | governance | 3 | draft | `docs/process/methodology/babok-coverage-map.json` | `npm run validate:documentation-methodology` |
 | PROC-045 | Включить strict validation rollout | Перевести strict checks с methodology artifacts на новые и существенно измененные product/process artifacts после advisory phase | automation | 3 | draft | `docs/process/methodology/documentation-methodology-policy.json` | `npm run validate:documentation-methodology` |
-| PROC-048 | Закрепить обязательное CLI-friendly форматирование таблиц | Использовать установленный навык `cli-table-output` и обновить проектные инструкции DataCanvas: табличные данные в чате, опросниках, планах и отчетах выводить через этот навык или его правила компактного CLI-friendly представления | governance | 2 | draft | `$CODEX_HOME/skills/cli-table-output/SKILL.md`; `docs/process/audits/codex-cli-table-output-process-audit.md` | ручная проверка в Codex CLI |
 
 ## Правило Приоритизации
 

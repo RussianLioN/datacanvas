@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "f46dc487eb98346d7b61ee2fef018f819414a8979243697ac51805c99133b753"
+      "sha256": "054b991d99f8e27e28d5d8c200b010f37d885f5838f4059ce89de5ca364c26ab"
     },
     {
       "artifact_id": "ART-188",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "0fb2806412f138cd593a4d36cf12f6440494f7549223a67728ae4c50e33d4d7c"
+      "sha256": "678dd3c9049ce725980f48a5f83136b202d5de03d8393c90147453523d4ce1f9"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "4b9566a98ca73535fa9e82043c3b44f6da27048c6f4c78184dfa537417c496e4"
+      "sha256": "19dedc56b86fa0a7cb169f4a2c907400650d2756a520f1d310afd3a1890a783a"
     },
     {
       "artifact_id": "ART-201",
@@ -1977,7 +1977,7 @@
     {
       "artifact_id": "ART-396",
       "path": "AGENTS.md",
-      "sha256": "1f21e719812105df6771c9f887cffcf5bf204100c441573ec31a7a0a8dcf7351"
+      "sha256": "8116db50b04515611e866a08f0eb2d84d1f27362c7311f97b20a34f0c1fecb56"
     },
     {
       "artifact_id": "ART-397",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "498547aaaad7c36b4646b1535d32b22999eca30e420cb3d94fbef8fa002b595c"
+      "sha256": "8a75fe4c9c2f48a57db609717825e6615dd1b40143ce2db33733aaf2bedcdd02"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "4cb63d80991efdfd6a351963e94e6eeaa5128fac655a51baa3bd2ecaf052698b"
+      "sha256": "8e4f11fa2070ce047bf14d7e860d7deacd06d2479977177111f2e1b221533e02"
     },
     {
       "artifact_id": "ART-411",
@@ -3212,17 +3212,17 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "9a87f6a9bfd8c63534a69b73388cb1279a4ba72a75e4921a88d5c92f9c0ccba9"
+      "sha256": "e6ecaf19dc330e777a52faf8797d6cbc3fee0070b346fd493a8c0a7f3a471686"
     },
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "78e9d3067681ece25c8fe91af210aec353d7c5d226e32851965721858ddfcc4d"
+      "sha256": "c28a0d7434085a84f9a7b1b1858555c31f4f1423c019d0525c492c9c4b72f3ca"
     },
     {
       "artifact_id": "ART-645",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-core.json",
-      "sha256": "0bf14071e1d825e02f96bacad66a628a02bb09a4ba4756843c359136eee29501"
+      "sha256": "9010ce115d907b515d6c92a7fe420ca2a113b3e7ad01845d3e37c59b28ff4b77"
     },
     {
       "artifact_id": "ART-646",
@@ -3382,7 +3382,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "5c4a7e32565af7c26275bbb41f9e5d3260643c4d0bd2880ae37262770f83cdbb"
+      "sha256": "22e13d78ee1538f7462669b5a3990d7e44de139719cbe593972dfb5dcac6317a"
     },
     {
       "artifact_id": "ART-678",
@@ -3472,7 +3472,12 @@
     {
       "artifact_id": "ART-695",
       "path": "docs/process/audits/codex-cli-table-output-process-audit.md",
-      "sha256": "4af8039315abb6701fa7797c2f9567f9f6a4e9877fd0da0a8e46ab8ee9ecae05"
+      "sha256": "a4703e1909502e8d175006597abf1810dd5039e775c09dc8a1ca9ee406f4480b"
+    },
+    {
+      "artifact_id": "ART-696",
+      "path": "docs/process/change-requests/PROC-048-cli-table-output.md",
+      "sha256": "92f59ee1a6d061022f2754a8b083ae17c5c3b5911159fa3c2f4b4119a009a9c6"
     }
   ],
   "exclusions": [

@@ -113,6 +113,7 @@
       "anchors": [
         "инструкции-агента-datacanvas",
         "язык-и-человекочитаемые-артефакты",
+        "отображение-таблиц-в-рабочем-чате",
         "область-действия-и-структура-репозитория",
         "команды-проверки-и-разработки",
         "документы-схемы-и-артефакты",
@@ -4567,8 +4568,8 @@
       "navigation_group": "governance",
       "format": "md",
       "owner_role": "Process Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "active",
+      "status": "active",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -5432,6 +5433,40 @@
       "click_depth": null
     },
     {
+      "path": "docs/process/change-requests/PROC-048-cli-table-output.md",
+      "title": "PROC-048: CLI-Friendly Форматирование Таблиц",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-696",
+      "outgoing_links": [],
+      "anchors": [
+        "proc-048-cli-friendly-форматирование-таблиц",
+        "проблема",
+        "причина-изменения",
+        "предлагаемое-изменение",
+        "влияние",
+        "метрика-успеха",
+        "план-проверки",
+        "rollback",
+        "решение"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/process/change-requests/process-change-request-template.md",
       "title": "Шаблон Process Change Request",
       "section": "process",
@@ -5630,7 +5665,11 @@
         "proc-047-закрыть-возобновление-po-опросника-co-2026-001-изменения-приоритета-запуска-datacanvas-другим-агентом",
         "изменение-5",
         "миграция-5",
-        "rollback-5"
+        "rollback-5",
+        "proc-048-cli-friendly-форматирование-таблиц",
+        "изменение-6",
+        "миграция-6",
+        "rollback-6"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -34452,11 +34491,11 @@
     }
   },
   "coverage": {
-    "total_entries": 1203,
-    "manual_entries": 1199,
+    "total_entries": 1204,
+    "manual_entries": 1200,
     "generated_entries": 4,
     "public_navigable_entries": 33,
-    "searchable_entries": 1170,
+    "searchable_entries": 1171,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
     "reachable_from_root": 163,
