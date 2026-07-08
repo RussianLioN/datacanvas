@@ -34,6 +34,7 @@
 | Тип | Артефакт |
 |---|---|
 | Manual | [Нормализованный источник BABOK-исследования](babok-research-source.md) |
+| Manual | [Исследование процесса разработки ПО с поддержкой ИИ в крупной финтех-корпорации](ai-enabled-software-development-process-research.md) |
 | Manual | [Методика ведения проектной документации](project-documentation-methodology.md) |
 | Manual | [Протокол PO-опросника Product Change Order](../../product/change-orders/product-change-questionnaire-protocol.md) |
 | Machine-readable | `documentation-methodology-policy.json` |

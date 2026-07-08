@@ -1001,6 +1001,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "route_id": "ai-enabled-software-development-process-research",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Исследование процесса разработки ПО с поддержкой ИИ, его связанные форматы или методическое применение меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/process/methodology/project-documentation-methodology.md",
       "route_id": "project-documentation-methodology",
       "section": "process",
@@ -3112,7 +3132,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "0f24be3e8b6829dd12863259dc0782bc3deddc59",
+    "current_main_commit": "49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

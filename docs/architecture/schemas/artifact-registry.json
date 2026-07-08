@@ -7467,6 +7467,54 @@
       "owner_role": "Process Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-684",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "type": "methodology-source",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Исследование процесса разработки ПО с поддержкой ИИ, его связанные форматы или методическое применение меняются."
+    },
+    {
+      "id": "ART-685",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.pdf",
+      "type": "methodology-source-rendering",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "PDF-представление исследования процесса разработки ПО с поддержкой ИИ меняется."
+    },
+    {
+      "id": "ART-686",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.docx",
+      "type": "methodology-source-editable",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "DOCX-представление исследования процесса разработки ПО с поддержкой ИИ меняется."
     }
   ]
 }
