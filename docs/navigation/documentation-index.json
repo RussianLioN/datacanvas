@@ -7,49 +7,49 @@
     {
       "id": "product",
       "title": "Продукт DataCanvas",
-      "description": "Vision, BMC, stories, требования, backlog, roadmap, hypotheses и traceability продукта."
+      "description": "Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта."
     },
     {
       "id": "documentation_operations",
       "title": "Техническое воплощение ведения проектной документации",
-      "description": "Методология, процесс, navigation source, generated navigation, ADR, schemas, scripts, validators, release, evidence и sprint artifacts."
+      "description": "Методология, процесс, ручной источник навигации, сгенерированная навигация, ADR — архитектурные решения, схемы, скрипты, проверки, release, evidence и спринтовые артефакты."
     }
   ],
   "navigation_groups": [
     {
       "id": "business",
       "title": "Бизнесовая карта продукта",
-      "description": "Vision, BMC, stories, требования, backlog, roadmap, гипотезы и traceability.",
+      "description": "Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта.",
       "navigation_domain": "product"
     },
     {
       "id": "delivery",
       "title": "Производственный контур",
-      "description": "Sprint, release, UAT, pilot, production/process evidence и PR handoff.",
+      "description": "Спринты, релизы, UAT, пилот, доказательства процесса и подготовка к сдаче.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "technical",
       "title": "Техническая документация",
-      "description": "Архитектура, ADR, schemas, scripts, tests, security contracts и technical backlog.",
+      "description": "Архитектура, ADR — архитектурные решения, схемы, скрипты, проверки, безопасность и технический бэклог.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "governance",
       "title": "Методика и governance",
-      "description": "Процесс документации, PROC, планы, DoR/DoD и методики.",
+      "description": "Процесс документации, PROC — изменения процесса, планы, DoR/DoD и методики.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "evidence",
       "title": "Evidence",
-      "description": "Evidence hub и generated/manual evidence exports без raw confidential данных.",
+      "description": "Evidence — доказательства, индекс доказательств и ручные/сгенерированные доказательные артефакты без конфиденциальных raw-данных.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "generated",
       "title": "Генерируемые артефакты",
-      "description": "Автоматически созданные карты, индексы и отчеты проверок; методика и ручные источники остаются в governance.",
+      "description": "Автоматически созданные карты, индексы и отчеты проверок; ручные источники остаются в governance.",
       "navigation_domain": "documentation_operations"
     }
   ],
@@ -5808,11 +5808,12 @@
       ],
       "anchors": [
         "процесс-разработки-по-с-поддержкой-ии-в-крупной-финтех-корпорации",
+        "как-читать-сокращения",
         "краткое-резюме",
         "термины-и-сдвиг-мирового-тренда",
         "целевая-карта-корпоративного-процесса",
         "верхнеуровневая-карта-процесса",
-        "swimlane-по-ролям",
+        "диаграмма-взаимодействия-ролей",
         "подробная-таблица-этапов",
         "диаграмма-зависимых-подпроцессов",
         "ai-pdlc-и-оценка-ускорения",
@@ -5829,6 +5830,7 @@
         "рекомендуемая-целевая-модель-для-крупного-финтеха",
         "дорожная-карта-на-двенадцать-месяцев",
         "адаптация-для-крупной-компании-в-россии",
+        "опорные-источники",
         "ограничения-и-базы-источников"
       ],
       "reachable_from_root": true,
@@ -5960,7 +5962,7 @@
         "применение-в-datacanvas"
       ],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "docs/process/methodology/documentation-methodology-policy.json",
@@ -6055,7 +6057,7 @@
     },
     {
       "path": "docs/process/methodology/README.md",
-      "title": "Методика Проектной Документации",
+      "title": "Методика проектной документации",
       "section": "process",
       "navigation_domain": "documentation_operations",
       "navigation_group": "governance",
@@ -6092,12 +6094,16 @@
       "anchors": [
         "методика-проектной-документации",
         "назначение",
-        "источники-и-precedence",
-        "артефакты-раздела",
-        "как-работать-агенту",
-        "минимальные-gates",
-        "system-analysis-artifact-pack",
-        "режим-остановленного-интервью",
+        "источники-и-precedence-источники-и-порядок-приоритета",
+        "где-что-искать",
+        "методика",
+        "исследования",
+        "машиночитаемые-правила",
+        "шаблоны",
+        "как-работать-агенту-инструкция-для-агента",
+        "минимальные-проверки-готовности",
+        "пакет-артефактов-системного-анализа",
+        "режим-остановленного-интервью-правила-продолжения-интервью",
         "проверки"
       ],
       "reachable_from_root": true,
@@ -9193,7 +9199,7 @@
         "проверка"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md",
@@ -9230,7 +9236,7 @@
         "дальнейшие-задачи"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
@@ -9311,7 +9317,7 @@
         "правило-решения"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
@@ -9386,7 +9392,7 @@
         "артефакты"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/hypotheses/hypothesis-board.md",
@@ -9866,7 +9872,7 @@
         "backlog-slicing-rules"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/requirements/business-requirements.md",
@@ -9985,7 +9991,7 @@
         "документы"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/requirements/traceability-matrix.json",
@@ -10247,7 +10253,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/sources/README.md",
@@ -10293,7 +10299,7 @@
         "ревизия-по-co-2026-001"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/sources/source-audit.md",
@@ -11456,7 +11462,6 @@
         "docs/navigation/navigation-source.json",
         "docs/plans/README.md",
         "docs/process/current/process-registry.md",
-        "docs/process/methodology/babok-research-source.md",
         "docs/process/methodology/README.md",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
@@ -11469,21 +11474,27 @@
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
         "docs/product/bmc/source/derived/datacanvas-bmc.puml",
         "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/change-orders/README.md",
         "docs/product/hypotheses/README.md",
+        "docs/product/README.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/README.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/README.md",
+        "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/release/README.md",
         "docs/sprints/README.md",
         "docs/stories.md",
         "package.json",
-        "README.md"
+        "README.md",
+        "schemas/README.md"
       ],
       "anchors": [
         "документация-datacanvas",
+        "быстрые-маршруты",
         "продукт-datacanvas",
         "техническое-воплощение-ведения-проектной-документации",
         "откуда-обновляется-навигация"
@@ -33388,7 +33399,6 @@
         "docs/navigation/navigation-source.json",
         "docs/plans/README.md",
         "docs/process/current/process-registry.md",
-        "docs/process/methodology/babok-research-source.md",
         "docs/process/methodology/README.md",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
@@ -33401,12 +33411,15 @@
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
         "docs/product/bmc/source/derived/datacanvas-bmc.puml",
         "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/change-orders/README.md",
         "docs/product/hypotheses/README.md",
         "docs/product/README.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/README.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/README.md",
+        "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/README.md",
@@ -33418,6 +33431,7 @@
       ],
       "anchors": [
         "datacanvas",
+        "быстрые-маршруты",
         "продукт-datacanvas",
         "техническое-воплощение-ведения-проектной-документации",
         "проверка"
@@ -33812,6 +33826,20 @@
         "navigation_domain": "documentation_operations"
       },
       {
+        "id": "task-find-methodology-research",
+        "label": "Найти методические исследования",
+        "task": "Найти исследования по методике документации и процессу разработки",
+        "navigation_group": "governance",
+        "start_path": "docs/process/methodology/README.md",
+        "next_paths": [
+          "docs/process/methodology/ai-enabled-software-development-process-research.md",
+          "docs/process/methodology/babok-research-source.md"
+        ],
+        "owner_role": "Process Owner",
+        "validation_command": "npm run validate:docs-navigation",
+        "navigation_domain": "documentation_operations"
+      },
+      {
         "id": "task-start-documentation-workflow",
         "label": "Запустить workflow документации",
         "task": "Запустить полный рабочий процесс по артефактам документации",
@@ -33898,7 +33926,7 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2",
+      "current_main_commit": "9c2096d29ecf7671cc90cb26a5162d2cf940c88a",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },

@@ -477,7 +477,7 @@ function renderNavigationMap(source, index) {
 
 ${group.description}
 
-${rows.length > 0 ? rows.join("\n") : "- Публичных navigable маршрутов нет."}`;
+${rows.length > 0 ? rows.join("\n") : "- Публичных навигационных маршрутов нет."}`;
         })
         .join("\n\n");
       return `## ${domain.title}
@@ -502,15 +502,15 @@ ${groupSections}`;
 Статус: generated
 Источник: \`${sourcePath}\`
 
-## Быстрые Маршруты По Контурам
+## Быстрые маршруты по контурам
 
 ${groupedEntries}
 
-## Маршруты По Ролям
+## Маршруты по ролям
 
 ${renderRoutesTable(source.role_routes, "role")}
 
-## Маршруты По Задачам
+## Маршруты по задачам
 
 ${renderRoutesTable(source.task_routes, "task")}
 
@@ -524,7 +524,7 @@ ${sourceEntries.join("\n")}
 |---|---|
 ${pointerRows.join("\n")}
 
-## Evidence Hub И Registry
+## Evidence и registry
 
 - Evidence hub: \`docs/knowledge/evidence-index.md\`
 - Artifact registry: \`docs/architecture/schemas/artifact-registry.json\`
