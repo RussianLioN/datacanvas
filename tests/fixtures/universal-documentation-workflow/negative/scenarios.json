@@ -82,6 +82,15 @@
       "payload": {
         "command": "npm run validate:missing-command"
       }
+    },
+    {
+      "scenario_id": "simulated-requested-tool",
+      "expected_rejection": "requested_skill_plugin_or_consilium_must_be_real_or_blocked",
+      "payload": {
+        "requested_capability": "consilium",
+        "execution_mode": "simulated",
+        "proof": null
+      }
     }
   ]
 }

@@ -8,98 +8,171 @@
   "affected_artifacts": [
     {
       "path": "schemas/documentation-change-request.schema.json",
-      "impact_types": ["schema"],
-      "required_edits": ["Подготовить draft schema для входа значимых правок документации."],
+      "impact_types": [
+        "schema"
+      ],
+      "required_edits": [
+        "Подготовить draft schema для входа значимых правок документации."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
-      "impact_types": ["process", "traceability"],
-      "required_edits": ["Зафиксировать machine-readable dependency graph для opt-in impact analysis."],
+      "impact_types": [
+        "process",
+        "traceability"
+      ],
+      "required_edits": [
+        "Зафиксировать machine-readable dependency graph для opt-in impact analysis."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/README.md",
-      "impact_types": ["process"],
-      "required_edits": ["Маркировать каталог как draft opt-in scaffold, а не accepted process gate."],
+      "impact_types": [
+        "process"
+      ],
+      "required_edits": [
+        "Маркировать каталог как draft opt-in scaffold, а не accepted process gate."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/current/definition-of-ready.md",
-      "impact_types": ["process"],
-      "required_edits": ["Ограничить cascade criteria opt-in использованием draft PROC-038."],
+      "impact_types": [
+        "process"
+      ],
+      "required_edits": [
+        "Ограничить cascade criteria opt-in использованием draft PROC-038."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/current/definition-of-done.md",
-      "impact_types": ["process"],
-      "required_edits": ["Запретить Done claim для blocked opt-in cascade run."],
+      "impact_types": [
+        "process"
+      ],
+      "required_edits": [
+        "Запретить Done claim для blocked opt-in cascade run."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/current/process-registry.md",
-      "impact_types": ["process"],
-      "required_edits": ["Убрать PROC-038 из активных правил и оставить как подготовительный контракт."],
+      "impact_types": [
+        "process"
+      ],
+      "required_edits": [
+        "Убрать PROC-038 из активных правил и оставить как подготовительный контракт."
+      ],
       "optional_edits": [],
       "update_status": "applied",
       "no_change_rationale": null
     },
     {
       "path": "docs/product-vision.md",
-      "impact_types": ["semantic"],
+      "impact_types": [
+        "semantic"
+      ],
       "required_edits": [],
-      "optional_edits": ["Не добавлять cascade governance как продуктовую ценность без отдельного Product Owner решения."],
+      "optional_edits": [
+        "Не добавлять cascade governance как продуктовую ценность без отдельного Product Owner решения."
+      ],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "Draft PROC-038 является процессной заготовкой и не расширяет Vision DataCanvas.",
         "confirmed_by": "Correction plan scope",
-        "confirmed_at": "2026-07-02T00:00:00Z"
+        "confirmed_at": "2026-07-02T00:00:00Z",
+        "source_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "change_class": "semantic_product_change",
+        "covered_requirements": [
+          "DCR-2026-07-02-001"
+        ],
+        "acceptance_impact": "Критерии приемки не меняются в рамках этого no-change решения.",
+        "traceability_impact": "Трассируемость остается без изменений; повторная проверка нужна при изменении связанного источника.",
+        "residual_risk": "Остаточный риск ограничен устареванием решения при новом смысловом изменении upstream-артефакта.",
+        "owner_role": "Correction plan scope",
+        "reconsider_when": "Пересмотреть при изменении target artifact, связанного upstream-источника или решения владельца."
       }
     },
     {
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "impact_types": ["semantic"],
+      "impact_types": [
+        "semantic"
+      ],
       "required_edits": [],
-      "optional_edits": ["Не добавлять cascade governance в BMC key resources/key activities без отдельного Product Owner решения."],
+      "optional_edits": [
+        "Не добавлять cascade governance в BMC key resources/key activities без отдельного Product Owner решения."
+      ],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "BMC остается источником продуктовой модели презентационного сервиса, а не процессного draft-контракта.",
         "confirmed_by": "Correction plan scope",
-        "confirmed_at": "2026-07-02T00:00:00Z"
+        "confirmed_at": "2026-07-02T00:00:00Z",
+        "source_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "change_class": "semantic_product_change",
+        "covered_requirements": [
+          "DCR-2026-07-02-001"
+        ],
+        "acceptance_impact": "Критерии приемки не меняются в рамках этого no-change решения.",
+        "traceability_impact": "Трассируемость остается без изменений; повторная проверка нужна при изменении связанного источника.",
+        "residual_risk": "Остаточный риск ограничен устареванием решения при новом смысловом изменении upstream-артефакта.",
+        "owner_role": "Correction plan scope",
+        "reconsider_when": "Пересмотреть при изменении target artifact, связанного upstream-источника или решения владельца."
       }
     },
     {
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "impact_types": ["evidence"],
+      "impact_types": [
+        "evidence"
+      ],
       "required_edits": [],
-      "optional_edits": ["Release evidence review не утверждает acceptance PROC-038."],
+      "optional_edits": [
+        "Release evidence review не утверждает acceptance PROC-038."
+      ],
       "update_status": "no_change_confirmed",
       "no_change_rationale": {
         "rationale": "Текущий cascade scaffold не меняет release acceptance и не заявляет принятие release evidence.",
         "confirmed_by": "Correction plan scope",
-        "confirmed_at": "2026-07-02T00:00:00Z"
+        "confirmed_at": "2026-07-02T00:00:00Z",
+        "source_artifact": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "change_class": "mixed_or_ambiguous",
+        "covered_requirements": [
+          "DCR-2026-07-02-001"
+        ],
+        "acceptance_impact": "Критерии приемки не меняются в рамках этого no-change решения.",
+        "traceability_impact": "Трассируемость остается без изменений; повторная проверка нужна при изменении связанного источника.",
+        "residual_risk": "Остаточный риск ограничен устареванием решения при новом смысловом изменении upstream-артефакта.",
+        "owner_role": "Correction plan scope",
+        "reconsider_when": "Пересмотреть при изменении target artifact, связанного upstream-источника или решения владельца."
       }
     }
   ],
-  "blocking_user_decisions": ["DEC-PROCESS-OWNER-ACCEPTANCE"],
+  "blocking_user_decisions": [
+    "DEC-PROCESS-OWNER-ACCEPTANCE"
+  ],
   "derived_facts": [
     {
       "fact": "План требует запретить неподтвержденные смысловые допущения по scope, ресурсам, срокам, приоритетам и Jira mapping.",
-      "source_paths": ["docs/plans/datacanvas-cascading-documentation-governance-plan.md"]
+      "source_paths": [
+        "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+      ]
     },
     {
       "fact": "PROC-038 имеет статус draft / not_decided и не может стать обязательным gate без решения Process Owner.",
-      "source_paths": ["docs/process/change-requests/PROC-038-cascading-documentation-governance.md"]
+      "source_paths": [
+        "docs/process/change-requests/PROC-038-cascading-documentation-governance.md"
+      ]
     }
   ],
   "assumptions_forbidden": [

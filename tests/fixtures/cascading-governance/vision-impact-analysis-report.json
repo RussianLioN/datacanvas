@@ -8,96 +8,147 @@
   "affected_artifacts": [
     {
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить ценностное предложение и key activities после изменения Vision."],
+      "impact_types": [
+        "semantic"
+      ],
+      "required_edits": [
+        "Проверить ценностное предложение и key activities после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
-      "path": "docs/stories.md",
-      "impact_types": ["semantic", "resource"],
-      "required_edits": ["Проверить stories, приоритеты, сроки и ПШЕ после изменения Vision."],
+      "path": "docs/product/requirements/user-stories.md",
+      "impact_types": [
+        "semantic",
+        "resource"
+      ],
+      "required_edits": [
+        "Проверить stories, приоритеты, сроки и ПШЕ после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/requirements/business-requirements.md",
-      "impact_types": ["semantic", "traceability"],
-      "required_edits": ["Проверить BT coverage после изменения Vision."],
+      "impact_types": [
+        "semantic",
+        "traceability"
+      ],
+      "required_edits": [
+        "Проверить BT coverage после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/requirements/non-functional-requirements.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить NFR после изменения Vision."],
+      "impact_types": [
+        "semantic"
+      ],
+      "required_edits": [
+        "Проверить NFR после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/requirements/acceptance-criteria.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить acceptance criteria после изменения Vision."],
+      "impact_types": [
+        "semantic"
+      ],
+      "required_edits": [
+        "Проверить acceptance criteria после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/backlog/product-backlog.md",
-      "impact_types": ["semantic", "resource"],
-      "required_edits": ["Проверить backlog и запустить reprioritization impact при изменении приоритетов."],
+      "impact_types": [
+        "semantic",
+        "resource"
+      ],
+      "required_edits": [
+        "Проверить backlog и запустить reprioritization impact при изменении приоритетов."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/roadmap/roadmap-v0.1.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить roadmap после изменения Vision."],
+      "impact_types": [
+        "semantic"
+      ],
+      "required_edits": [
+        "Проверить roadmap после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/product/requirements/traceability-matrix.json",
-      "impact_types": ["traceability"],
-      "required_edits": ["Проверить traceability matrix после изменения Vision."],
+      "impact_types": [
+        "traceability"
+      ],
+      "required_edits": [
+        "Проверить traceability matrix после изменения Vision."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
-      "impact_types": ["resource"],
-      "required_edits": ["Проверить capacity source без выдумывания емкости."],
+      "impact_types": [
+        "resource"
+      ],
+      "required_edits": [
+        "Проверить capacity source без выдумывания емкости."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
-      "impact_types": ["Jira"],
-      "required_edits": ["Проверить Jira package readiness без выдумывания field mapping."],
+      "impact_types": [
+        "Jira"
+      ],
+      "required_edits": [
+        "Проверить Jira package readiness без выдумывания field mapping."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "impact_types": ["evidence"],
-      "required_edits": ["Не обновлять release acceptance, пока blocking decisions открыты."],
+      "impact_types": [
+        "evidence"
+      ],
+      "required_edits": [
+        "Не обновлять release acceptance, пока blocking decisions открыты."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/sprints",
-      "impact_types": ["evidence"],
-      "required_edits": ["Sprint evidence должен ссылаться на cascade run при изменении sprint/backlog/roadmap artifacts."],
+      "impact_types": [
+        "evidence"
+      ],
+      "required_edits": [
+        "Sprint evidence должен ссылаться на cascade run при изменении sprint/backlog/roadmap artifacts."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
@@ -111,7 +162,9 @@
   "derived_facts": [
     {
       "fact": "Vision change is high-impact and must review downstream business, backlog, roadmap, traceability and evidence artifacts.",
-      "source_paths": ["docs/process/cascading-governance/artifact-dependency-graph.json"]
+      "source_paths": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json"
+      ]
     }
   ],
   "assumptions_forbidden": [

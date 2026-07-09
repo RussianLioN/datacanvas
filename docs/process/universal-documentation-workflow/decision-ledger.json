@@ -220,7 +220,7 @@
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/sources/product-source-registry.json"
       ],
-      "notes": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом. Численные ПШЕ не назначаются без оценки; следующий шаг — оценить трудозатраты по аналогии с Excel-источником и его ресурсной матрицей."
+      "notes": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом для оценки. Актуальные приоритеты и ПШЕ позже уточнены принятой Excel-редакцией по UDW-DEC-017."
     },
     {
       "decision_id": "UDW-DEC-015",
@@ -238,7 +238,7 @@
         "docs/product/sources/README.md",
         "docs/product/sources/source-audit.md"
       ],
-      "notes": "Product Owner выбрал рабочий маршрут: подготовить предварительные диапазоны ПШЕ по Excel как черновик и добавить DC-ST-23..DC-ST-28 в новую Excel-версию backlog. Диапазоны остаются неутвержденными до проверки команды реализации."
+      "notes": "Product Owner выбрал рабочий маршрут: подготовить значения ПШЕ по Excel и добавить DC-ST-23..DC-ST-28 в рабочую Excel-версию backlog. Первоначальный статус черновика позже заменен принятием текущей Excel-редакции по UDW-DEC-017."
     },
     {
       "decision_id": "UDW-DEC-016",
@@ -282,6 +282,25 @@
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
       ],
       "notes": "Product Owner подтвердил добавление DC-ST-29 как недостающей P1-истории генерации редактируемого файла презентации из уже проверенных и нормализованных данных. Новый BT-019 не создается: история покрыта BT-012, BT-002 и BT-014."
+    },
+    {
+      "decision_id": "UDW-DEC-017",
+      "decision_type": "team_estimation_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-025",
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
+      ],
+      "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29 как ресурсный вход. Каскадная синхронизация должна обновить приоритеты, статусы и планирование; sprint backlog остается отдельным шагом с проверкой емкости, порядка работ и вытеснения."
     }
   ]
 }

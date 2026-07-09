@@ -188,7 +188,19 @@
         },
         "no_change_rationale": {
           "type": ["object", "null"],
-          "required": ["rationale", "confirmed_by", "confirmed_at"],
+          "required": [
+            "rationale",
+            "confirmed_by",
+            "confirmed_at",
+            "source_artifact",
+            "change_class",
+            "covered_requirements",
+            "acceptance_impact",
+            "traceability_impact",
+            "residual_risk",
+            "owner_role",
+            "reconsider_when"
+          ],
           "additionalProperties": false,
           "properties": {
             "rationale": { "type": "string", "minLength": 1 },

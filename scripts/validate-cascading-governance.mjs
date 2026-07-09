@@ -257,8 +257,18 @@ function assertDependencyGraph(graph) {
     requirePath(artifact.path);
   }
 
+  for (const dependency of graph.dependencies) {
+    if (!artifactPaths.has(dependency.upstream_artifact)) {
+      throw new Error(`dependency upstream is not declared as graph artifact: ${dependency.upstream_artifact}`);
+    }
+    if (!artifactPaths.has(dependency.downstream_artifact)) {
+      throw new Error(`dependency downstream is not declared as graph artifact: ${dependency.downstream_artifact}`);
+    }
+  }
+
   for (const highImpactSource of [
     "docs/product-vision.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
@@ -271,7 +281,7 @@ function assertDependencyGraph(graph) {
   const visionDownstream = transitiveDownstream(graph, "docs/product-vision.md");
   for (const requiredPath of [
     "docs/product/bmc/bmc-v0.2.md",
-    "docs/stories.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/requirements/business-requirements.md",
     "docs/product/requirements/non-functional-requirements.md",
     "docs/product/requirements/acceptance-criteria.md",
@@ -289,7 +299,7 @@ function assertDependencyGraph(graph) {
   }
 
   const storyToBacklog = graph.dependencies.find((dependency) =>
-    dependency.upstream_artifact === "docs/stories.md" &&
+    dependency.upstream_artifact === "docs/product/requirements/user-stories.md" &&
     dependency.downstream_artifact === "docs/product/backlog/product-backlog.md"
   );
   if (!storyToBacklog || /estimate/i.test(storyToBacklog.update_rule)) {
@@ -332,7 +342,7 @@ function assertImpactReport(report) {
   if (report.target_artifact === "docs/product-vision.md") {
     assertAffectedArtifacts(report, [
       "docs/product/bmc/bmc-v0.2.md",
-      "docs/stories.md",
+      "docs/product/requirements/user-stories.md",
       "docs/product/requirements/business-requirements.md",
       "docs/product/requirements/non-functional-requirements.md",
       "docs/product/requirements/acceptance-criteria.md",
@@ -353,7 +363,7 @@ function assertImpactReport(report) {
       "docs/product/change-orders/product-change-order-ledger.json",
       "docs/product/analysis/ba/ba-spec.json",
       "docs/product/bmc/bmc-v0.2.md",
-      "docs/stories.md",
+      "docs/product/requirements/user-stories.md",
       "docs/product/requirements/business-requirements.md",
       "docs/product/requirements/non-functional-requirements.md",
       "docs/product/requirements/acceptance-criteria.md",
@@ -374,6 +384,25 @@ function assertImpactReport(report) {
     requirePath(artifact.path);
     if (artifact.update_status === "no_change_confirmed" && artifact.no_change_rationale === null) {
       throw new Error(`no-change artifact lacks rationale: ${artifact.path}`);
+    }
+    if (artifact.update_status === "no_change_confirmed" && artifact.no_change_rationale !== null) {
+      for (const requiredField of [
+        "source_artifact",
+        "change_class",
+        "covered_requirements",
+        "acceptance_impact",
+        "traceability_impact",
+        "residual_risk",
+        "owner_role",
+        "reconsider_when",
+      ]) {
+        if (!(requiredField in artifact.no_change_rationale)) {
+          throw new Error(`no-change rationale lacks ${requiredField}: ${artifact.path}`);
+        }
+      }
+      if (artifact.no_change_rationale.covered_requirements.length === 0) {
+        throw new Error(`no-change rationale must list covered requirements or decisions: ${artifact.path}`);
+      }
     }
     if (artifact.update_status !== "no_change_confirmed" && artifact.no_change_rationale !== null) {
       throw new Error(`changed artifact should not carry no-change rationale: ${artifact.path}`);

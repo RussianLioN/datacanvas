@@ -159,6 +159,15 @@
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Generation-contract coverage is checked by npm run validate:business-docs against the active content contract and process backlog blockers."
+    },
+    {
+      "entity": "main_artifact_lifecycle_chain",
+      "schema_path": "schemas/main-artifact-lifecycle-chain.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Cross-file lifecycle order, command coverage, source registry, navigation, dependency graph and no-change rationale invariants are executed by npm run validate:main-artifact-lifecycle."
     }
   ]
 }

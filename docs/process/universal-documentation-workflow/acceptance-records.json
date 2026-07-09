@@ -302,7 +302,7 @@
       "acceptance_type": "product_behavior_acceptance",
       "status": "accepted",
       "owner_role": "Product Owner",
-      "subject": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом; оценка ПШЕ должна быть проведена отдельно по аналогии с Excel-источником.",
+      "subject": "Product Owner подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом; актуальные приоритеты позже уточнены принятой Excel-редакцией.",
       "linked_decision_ids": [
         "UDW-DEC-014"
       ],
@@ -326,7 +326,7 @@
       "acceptance_type": "product_behavior_acceptance",
       "status": "accepted",
       "owner_role": "Product Owner",
-      "subject": "Product Owner подтвердил подготовку черновых диапазонов ПШЕ по Excel-аналогам и рабочей Excel-версии backlog для DC-ST-23..DC-ST-28 с фильтрацией по неутвержденным трудозатратам.",
+      "subject": "Product Owner подтвердил подготовку рабочих ПШЕ по Excel-аналогам и рабочей Excel-версии backlog для DC-ST-23..DC-ST-28; текущая редакция позже принята по UDW-DEC-017.",
       "linked_decision_ids": [
         "UDW-DEC-015"
       ],
@@ -392,6 +392,21 @@
         "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-025",
+      "acceptance_type": "owner_decision_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner",
+      "subject": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29 как ресурсный вход для дальнейшего планирования.",
+      "linked_decision_ids": [
+        "UDW-DEC-017"
+      ],
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/product-source-registry.json"
       ]
     }
   ]

@@ -18,6 +18,7 @@ const paths = {
   inventory: `${packageRoot}/artifact-inventory.json`,
   generatorContracts: `${packageRoot}/generator-contracts.json`,
   businessArtifactGenerationContract: `${packageRoot}/business-artifact-generation-contract.json`,
+  mainArtifactLifecycleChain: `${packageRoot}/main-artifact-lifecycle-chain.json`,
   state: `${packageRoot}/workflow-state.json`,
   decisionQueue: `${packageRoot}/decision-queue.json`,
   decisionLedger: `${packageRoot}/decision-ledger.json`,
@@ -37,6 +38,7 @@ const schemaCases = [
   ["schemas/documentation-artifact-inventory.schema.json", paths.inventory],
   ["schemas/generator-contracts.schema.json", paths.generatorContracts],
   ["schemas/business-artifact-generation-contract.schema.json", paths.businessArtifactGenerationContract],
+  ["schemas/main-artifact-lifecycle-chain.schema.json", paths.mainArtifactLifecycleChain],
   ["schemas/workflow-state.schema.json", paths.state],
   ["schemas/workflow-decision-queue.schema.json", paths.decisionQueue],
   ["schemas/decision-ledger.schema.json", paths.decisionLedger],
@@ -71,6 +73,7 @@ if (!modeNames.has(mode)) {
 
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
+ajv.addSchema(readJson("schemas/common-defs.schema.json"));
 const validators = new Map();
 
 function absolute(relativePath) {
@@ -300,6 +303,9 @@ function validateCore() {
   if (!core.owner_interview_policy.rules.some((rule) => rule.includes("Markdown pipe table"))) {
     fail("owner interview policy must forbid chat-facing Markdown pipe table by default");
   }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("реально вызвать") && rule.includes("не имитировать"))) {
+    fail("owner interview policy must require real requested skill/plugin/consilium invocation and forbid simulation");
+  }
   for (const requiredScope of [
     "single_owner_question",
     "owner_questionnaire",
@@ -330,6 +336,10 @@ function validateCore() {
   if (!negative.payload.text.includes("DataCanvas")) {
     fail("negative core product-term fixture no longer exercises product-specific rejection");
   }
+  const simulatedTool = scenarioById("simulated-requested-tool").payload;
+  if (!(simulatedTool.requested_capability === "consilium" && simulatedTool.execution_mode === "simulated" && simulatedTool.proof === null)) {
+    fail("simulated-requested-tool negative fixture no longer exercises requested tool simulation rejection");
+  }
 
   assertRequiredFragments(paths.readme, [
     "DataCanvas используется только как пилотный профиль",
@@ -343,6 +353,9 @@ function validateCore() {
     "cli-table-output",
     "fenced `text` блок с Unicode-таблицей",
     "Markdown pipe table не выводится напрямую в чат по умолчанию",
+    "реально вызвать",
+    "не имитировать",
+    "явный блокер",
     "Любой пользовательский отчет, статус, следующий шаг или вопрос",
     "абсолютную кликабельную Markdown-ссылку",
     "пользователь должен иметь возможность кликнуть ссылку",
@@ -372,6 +385,9 @@ function validateCore() {
     "cli-table-output",
     "fenced `text` Unicode-таблицы",
     "Markdown pipe table напрямую в чат по умолчанию не выводить",
+    "реально вызвать",
+    "не имитировать",
+    "явный блокер",
     "Если итог, статус, следующий шаг или вопрос упоминает документ",
     "абсолютную кликабельную Markdown-ссылку",
     "рядом с абсолютной ссылкой дать короткую цитату",
@@ -495,6 +511,18 @@ function validateDataCanvasProfile() {
   const xlsxCascadeCommand = catalog.commands.find((command) => command.id === "xlsx-cascade");
   if (!xlsxCascadeCommand || xlsxCascadeCommand.command !== "npm run validate:xlsx-cascade") {
     fail("DataCanvas validation catalog must include XLSX cascade gate");
+  }
+  const mainArtifactLifecycleCommand = catalog.commands.find((command) => command.id === "main-artifact-lifecycle");
+  if (!mainArtifactLifecycleCommand || mainArtifactLifecycleCommand.command !== "npm run validate:main-artifact-lifecycle") {
+    fail("DataCanvas validation catalog must include main artifact lifecycle gate");
+  }
+  const cascadePreviewCommand = catalog.commands.find((command) => command.id === "cascade-preview");
+  if (!cascadePreviewCommand || cascadePreviewCommand.command !== "npm run cascade:preview -- --changed-from HEAD") {
+    fail("DataCanvas validation catalog must include read-only cascade preview gate");
+  }
+  const docsVerifyCommand = catalog.commands.find((command) => command.id === "docs-verify");
+  if (!docsVerifyCommand || docsVerifyCommand.command !== "npm run docs:verify -- --changed-from HEAD") {
+    fail("DataCanvas validation catalog must include read-only documentation diff verification gate");
   }
   const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
   if (!bmcPackageCommand || bmcPackageCommand.command !== "npm run validate:bmc") {
@@ -700,7 +728,7 @@ function validateGeneratorContracts() {
   for (const requiredInput of [
     "docs/product/bmc/bmc-trace.v0.1.json",
     "docs/product-vision.md",
-    "docs/stories.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/sources/product-source-registry.json",
     "schemas/bmc-trace.schema.json",
     "scripts/generate-bmc-artifacts.mjs",
@@ -745,6 +773,7 @@ function validateSchemaCoverage() {
     "event_log",
     "generator_contract",
     "business_artifact_generation_contract",
+    "main_artifact_lifecycle_chain",
     "schema_coverage_registry",
   ]);
 
@@ -782,6 +811,7 @@ function validateSchemaCoverage() {
     "schemas/event-log.schema.json",
     "schemas/generator-contracts.schema.json",
     "schemas/business-artifact-generation-contract.schema.json",
+    "schemas/main-artifact-lifecycle-chain.schema.json",
     "schemas/schema-coverage-registry.schema.json",
     "schemas/mutation-guard-policy.schema.json",
     "schemas/workflow-portability-pack.schema.json",

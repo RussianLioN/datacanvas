@@ -63,9 +63,9 @@
       },
       {
         "source_id": "datacanvas-stories",
-        "path": "docs/stories.md",
+        "path": "docs/product/requirements/user-stories.md",
         "authority": "product_meaning",
-        "description": "Пользовательские истории."
+        "description": "Канонический каталог пользовательских историй."
       },
       {
         "source_id": "datacanvas-business-requirements",

@@ -71,7 +71,7 @@
       "inputs": [
         "docs/product/bmc/bmc-trace.v0.1.json",
         "docs/product-vision.md",
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/sources/product-source-registry.json",
         "schemas/bmc-trace.schema.json",
         "scripts/generate-bmc-artifacts.mjs"
@@ -116,7 +116,7 @@
       "dependencies": [
         "docs/product/bmc/bmc-trace.v0.1.json",
         "docs/product-vision.md",
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/sources/product-source-registry.json",
         "schemas/bmc-trace.schema.json",
         "scripts/generate-bmc-artifacts.mjs"

@@ -34,16 +34,16 @@
     {
       "artifact_id": "DGA-005",
       "path": "docs/stories.md",
-      "layer": "stories",
+      "layer": "navigation",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:business-docs"
     },
     {
       "artifact_id": "DGA-006",
       "path": "docs/product/requirements/user-stories.md",
       "layer": "stories",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:business-docs"
     },
     {
       "artifact_id": "DGA-007",
@@ -226,6 +226,83 @@
       "layer": "product backlog",
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:business-docs"
+    },
+    {
+      "artifact_id": "DGA-033",
+      "path": "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+      "layer": "source registry",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:product-source-consistency"
+    },
+    {
+      "artifact_id": "DGA-034",
+      "path": "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+      "layer": "traceability",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:doc-links"
+    },
+    {
+      "artifact_id": "DGA-035",
+      "path": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:docs-navigation"
+    },
+    {
+      "artifact_id": "DGA-036",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:doc-links"
+    },
+    {
+      "artifact_id": "DGA-037",
+      "path": "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
+      "layer": "release evidence",
+      "owner_role": "QA Lead / Process Owner",
+      "validation_command": "npm run validate:doc-links"
+    },
+    {
+      "artifact_id": "DGA-038",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:business-docs"
+    },
+    {
+      "artifact_id": "DGA-039",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+      "layer": "process",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:impact-analysis"
+    },
+    {
+      "artifact_id": "DGA-040",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "layer": "process",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-change-orders"
+    },
+    {
+      "artifact_id": "DGA-041",
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "layer": "process",
+      "owner_role": "Architect / Technical Owner",
+      "validation_command": "npm run validate:ba-sa"
+    },
+    {
+      "artifact_id": "DGA-042",
+      "path": "docs/architecture/system-analysis/srs-v0.1.json",
+      "layer": "process",
+      "owner_role": "Architect / Technical Owner",
+      "validation_command": "npm run validate:schemas"
+    },
+    {
+      "artifact_id": "DGA-043",
+      "path": "docs/process/cascading-governance/impact-analysis-report.json",
+      "layer": "process",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:impact-analysis"
     }
   ],
   "dependencies": [
@@ -249,7 +326,7 @@
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
-      "downstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
       "update_rule": "Смена приоритета Q3 запускает полный review порядка DC-ST stories.",
       "validation_command": "npm run validate:docs-navigation",
@@ -366,7 +443,7 @@
     },
     {
       "upstream_artifact": "docs/product-vision.md",
-      "downstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers story catalog review.",
       "validation_command": "npm run validate:docs-navigation",
@@ -464,7 +541,187 @@
       "user_confirmation_required": "semantic_change"
     },
     {
-      "upstream_artifact": "docs/stories.md",
+      "upstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение принятого BMC запускает review пользовательских историй, чтобы истории оставались согласованы с моделью ценности, сегментами и каналами.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение состава, приоритета или смысла истории запускает review бизнес-требований.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "resource",
+      "update_rule": "Изменение состава или приоритета stories требует review рабочей XLSX-оценки или no-change rationale по ресурсному слою.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает review нефункциональных требований по качеству, безопасности и доверительным границам.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / Architect",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает review критериев приемки.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает downstream review системного анализа без вывода нового бизнесового смысла из технической спецификации.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Architect / Technical Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение НФТ запускает review критериев приемки и измеримых условий качества.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение НФТ запускает review технических ограничений, security и readiness в системном анализе.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Architect / Technical Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение критериев приемки запускает review backlog items и готовности к декомпозиции.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение критериев приемки запускает обновление traceability или no-change rationale по связям acceptance.",
+      "validation_command": "npm run validate:traceability-graph",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "resource",
+      "update_rule": "Изменение backlog состава или приоритета требует review рабочей XLSX-оценки ресурсов.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ресурсной оценки в XLSX запускает roadmap review или no-change rationale по планированию.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение roadmap запускает review продуктовых гипотез, которые проверяются в ближайших этапах.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение roadmap запускает review кандидатного плана спринтов без автоматического утверждения sprint backlog.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение продуктовой гипотезы запускает review traceability между ценностью, проверкой и evidence.",
+      "validation_command": "npm run validate:traceability-graph",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "traceability",
+      "update_rule": "Изменение traceability запускает review экспортного пакета, чтобы опубликованные страницы отражали текущие связи.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
+      "relation_type": "evidence",
+      "update_rule": "Изменение traceability требует закрыть affected artifacts в impact analysis перед завершением запуска.",
+      "validation_command": "npm run validate:impact-analysis",
+      "owner_role": "Process Owner / QA Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
+      "relation_type": "evidence",
+      "update_rule": "Изменение экспортной карты требует зафиксировать готовность или остаточный риск в impact analysis.",
+      "validation_command": "npm run validate:impact-analysis",
+      "owner_role": "Process Owner / QA Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
       "update_rule": "Изменение текста истории или приоритета запускает review backlog; ПШЕ берутся из XLSX/source-provenance, а не из каталога историй.",
@@ -484,7 +741,7 @@
     },
     {
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
-      "downstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
       "update_rule": "Изменение содержимого raw XLSX, которое влияет на текст истории, ценность, приоритет или полноту источника, требует review каталога историй; чистая проверка сохранности требует no-change rationale.",
       "validation_command": "npm run validate:business-docs",
@@ -704,6 +961,7 @@
     "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
     "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
-    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/requirements/user-stories.md"
   ]
 }

@@ -257,6 +257,10 @@ const cases = [
     data: "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
   },
   {
+    schema: "schemas/main-artifact-lifecycle-chain.schema.json",
+    data: "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  },
+  {
     schema: "schemas/product-vision-manifest.schema.json",
     data: "docs/product/vision/manifest.json",
   },

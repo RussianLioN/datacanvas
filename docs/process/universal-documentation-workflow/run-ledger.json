@@ -1403,13 +1403,116 @@
     {
       "command": "npm run validate:xlsx-backlog",
       "status": "passed"
+    },
+    {
+      "command": "npm run docs:verify -- --changed-from HEAD",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:business-docs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-backlog",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-cascade",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-sources",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:cascading-governance",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-dependency-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:capacity-plan",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:impact-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:jira-field-mapping",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:reprioritization-impact",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-vision",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
     }
   ],
   "residual_risks": [
-    "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire and implementation-team estimation are complete.",
-    "DC-ST-23..DC-ST-29 are confirmed P1 stories and a working PSHE workbook is prepared, but team-approved numeric estimates, team capacity and displacement decisions remain open before backlog refinement and sprint planning.",
-    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation and report-link contract hardening close immediate process gaps.",
-    "XLSX backlog route is now process-governed, but DC-ST-23..DC-ST-29 PSHE values remain working values until the implementation team approves estimates and capacity."
+    "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire, capacity check and displacement decisions are complete.",
+    "Product Owner accepted the current XLSX priorities and PSHE values as planning input; capacity, sequencing and displacement decisions remain open before final sprint planning.",
+    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation, report-link contract hardening, real-skill enforcement and generated-output cascade preview hardening close immediate process gaps."
   ],
-  "next_safe_step": "Передать команде реализации рабочую Excel-версию backlog docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx, проверить рабочие значения ПШЕ для DC-ST-23..DC-ST-29, затем зафиксировать team-approved оценки через reverse-sync и только после этого обновлять sprint backlog и ближайшие 3-4 недельных спринта."
+  "next_safe_step": "Задать владельцу решение по емкости, порядку работ и вытеснению, затем зафиксировать sprint backlog и ближайшие 3-4 недельные спринты."
 }

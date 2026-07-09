@@ -1,7 +1,7 @@
 {
   "$schema": "../../../schemas/workflow-decision-queue.schema.json",
   "version": "0.1.0",
-  "status": "blocked",
+  "status": "open",
   "run_id": "UDW-RUN-2026-07-05-003",
   "decisions": [
     {
@@ -13,7 +13,7 @@
       "owner_role": "Product Owner",
       "subject": "Выбрать подход к docs/product/requirements/user-stories.md после обнаружения расхождения между старыми US-* историями и каноническим DC-ST-* каталогом DataCanvas.",
       "acceptance_record_id": "UDW-ACC-006",
-      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 как P1 candidate позже заменен решением UDW-DEC-014: эти истории подтверждены как окончательные P1 и требуют оценки ПШЕ."
+      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 позже был уточнен решениями UDW-DEC-014 и UDW-DEC-017: актуальные приоритеты и ПШЕ берутся из принятой Excel-редакции."
     },
     {
       "decision_id": "UDW-DEC-004",
@@ -132,9 +132,9 @@
       "status": "accepted",
       "blocking": false,
       "owner_role": "Product Owner",
-      "subject": "Подтвердить DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом и провести по ним оценку ПШЕ по аналогии с Excel-источником.",
+      "subject": "Исторически подтвердить DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом и затем уточнить приоритеты через рабочую Excel-редакцию.",
       "acceptance_record_id": "UDW-ACC-021",
-      "rationale": "Product Owner ответил, что все эти истории являются окончательным P1-решением, но требуют оценки трудозатрат по аналогии с другими stories в исходной xlsx-таблице."
+      "rationale": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур для оценки. Позже по UDW-DEC-017 принята Excel-редакция, где P1 остаются DC-ST-26 и DC-ST-29, а DC-ST-23, DC-ST-24, DC-ST-25, DC-ST-27 и DC-ST-28 имеют P2."
     },
     {
       "decision_id": "UDW-DEC-015",
@@ -143,9 +143,9 @@
       "status": "accepted",
       "blocking": false,
       "owner_role": "Product Owner",
-      "subject": "Подготовить предварительные диапазоны ПШЕ для DC-ST-23..DC-ST-28 по Excel как черновик и добавить истории в рабочую Excel-версию backlog с фильтрацией по неутвержденным трудозатратам.",
+      "subject": "Подготовить рабочие ПШЕ для DC-ST-23..DC-ST-28 по Excel и добавить истории в рабочую Excel-версию backlog.",
       "acceptance_record_id": "UDW-ACC-022",
-      "rationale": "Product Owner выбрал маршрут с предварительными диапазонами по Excel-аналогам. Диапазоны не являются утвержденной оценкой команды реализации; рабочая Excel-версия нужна для обсуждения, фильтрации неутвержденных трудозатрат и последующей проверки командой."
+      "rationale": "Product Owner выбрал маршрут с рабочими значениями ПШЕ по Excel-аналогам. Первоначальный статус черновика позже заменен решением UDW-DEC-017: текущая Excel-редакция приоритетов и ПШЕ принята Product Owner как ресурсный вход."
     },
     {
       "decision_id": "UDW-DEC-016",
@@ -162,12 +162,12 @@
       "decision_id": "UDW-DEC-017",
       "decision_type": "team_estimation_acceptance",
       "authority": "evidence",
-      "status": "pending",
-      "blocking": true,
-      "owner_role": "Implementation Team",
-      "subject": "Проверить рабочие значения ПШЕ для DC-ST-23..DC-ST-29 в рабочей Excel-версии backlog и вернуть утвержденные оценки, корректировки или блокеры оценки.",
-      "acceptance_record_id": null,
-      "rationale": "Рабочие значения ПШЕ подготовлены по Excel-аналогам, текущей редакции Product Owner и минимальному профилю для DC-ST-29, но не являются утвержденными оценками команды реализации. Без team-approved оценок нельзя безопасно обновлять sprint backlog, емкость и задачи ближайших 3-4 недельных спринтов."
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Принять текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29 как ресурсный вход для дальнейшего планирования.",
+      "acceptance_record_id": "UDW-ACC-025",
+      "rationale": "Product Owner сообщил, что поправил формулировки, ПШЕ по ролям и приоритеты, удалил пометки о несогласованности, перенес истории с Лисой на другой приоритет и принимает текущую редакцию. Поэтому рабочий XLSX больше не считается черновиком, но sprint backlog требует отдельной проверки емкости, порядка работ и вытеснения."
     },
     {
       "decision_id": "UDW-DEC-018",
