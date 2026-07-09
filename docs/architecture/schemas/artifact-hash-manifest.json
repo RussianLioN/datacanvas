@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "7d643554d0ccb4309c8a53bff1e93beced03de5d2360f0644e9a23ac2e80aba6"
+      "sha256": "668ff82493cb54827f9125e31eedf0734b3fc7e08bbb8684b52c9dc0f81fe97b"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "047d3976dbe7afebf695a3cf9745ef095117a3678fec9042121937c47b823098"
+      "sha256": "eab16815a820c319f0dd55b8ed1a84066aca886013c154c8dc6c5d9cc55cd4b2"
     },
     {
       "artifact_id": "ART-201",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "d106472a08e9850cdb98f283d1b9c4543825daaf86006b4770969959f53adf75"
+      "sha256": "8cff56e74dd2edfa3fae59347660270aa622fbf60b256eadd9a6d73fcc768f73"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "53b1313b2215acc91a07e146358127b51295fb01ef567f2a36e29c29fe370be9"
+      "sha256": "cac608ea2bd19ceb30d8301b7176be7ce9d02d122e91525c9cb4e5330ccd332a"
     },
     {
       "artifact_id": "ART-411",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "69bc914119424189f9b82cd3dd71de36d43d9185f4bb105ae5b5c852802ff136"
+      "sha256": "19f88ac6120636e6f97d85879aca3ec828be42bc10b27a6da1cb6bfaf6d642c4"
     },
     {
       "artifact_id": "ART-569",
@@ -3212,12 +3212,12 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "9d96f919a218d1ab94d44e5e03dfaf41f24c5d7849674e8037817da74173b1c8"
+      "sha256": "77220491ec50964beda9c10ec33e4c4e4935db547253d868143d9ae24b599d82"
     },
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "bd72641dba783098adbad61d9e332aa421c758bbacc1c98a8d7c4bc130a15287"
+      "sha256": "95d6393b32843a1b5238a506fbe46890f0451afecc64236698f82c894f5bd951"
     },
     {
       "artifact_id": "ART-645",
@@ -3232,12 +3232,12 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "8cfe4cc56713135012436c3cc1521d016ec945118a99969391683c743ed8b6ee"
+      "sha256": "70db31af701283d31fecac189ce7c6f5f53d4e91b4e577ebead8a86973867d3d"
     },
     {
       "artifact_id": "ART-648",
       "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
-      "sha256": "34b346eb3d03d874c3f1af3312ef2564cd997295d9de91318bf2a472d73bda8f"
+      "sha256": "220b148335e8189043f085ffd811decb835327c3e31e186f72c363f63be83b3c"
     },
     {
       "artifact_id": "ART-649",
@@ -3277,7 +3277,7 @@
     {
       "artifact_id": "ART-656",
       "path": "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
-      "sha256": "6d7a01d3526426093b0dc8ed2f9fc387eda2c00d0450a88ccc87f8d202f05f0b"
+      "sha256": "6e731388fa9cfc9dfb504a6dc8aea20fba086668611026aa00a5b18dcb7eeeb9"
     },
     {
       "artifact_id": "ART-657",
@@ -3382,7 +3382,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "4c012548506b5846a1e9ea899e192d962e7322399a7c9f530c687dc125b36a72"
+      "sha256": "2729765c3fb436196f4a98163ee4378ab92834d4ae4bd497c29491efa03bd432"
     },
     {
       "artifact_id": "ART-678",
@@ -3527,7 +3527,7 @@
     {
       "artifact_id": "ART-706",
       "path": "scripts/validate-business-docs.mjs",
-      "sha256": "fe9a6c74a43a091e629e20d9b387cc2baf779fe48b2ac207a4215b97eb86d812"
+      "sha256": "60620eba4d5c3f93b14912ad05cdb0373d999bb964cf459d4e73f0cfebe4a02b"
     },
     {
       "artifact_id": "ART-707",
@@ -3558,6 +3558,16 @@
       "artifact_id": "ART-712",
       "path": "docs/knowledge/rca/2026-07-09-stories-section-contract-gap.md",
       "sha256": "88e890af8d96ca3e48eb65536fa2a4ee9346dda6be7c1b64d95a7522248d0498"
+    },
+    {
+      "artifact_id": "ART-713",
+      "path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "sha256": "ac5a28cb054bb3ed7259da367c62becbb5e88ddc4d7c60e65ceeacae1dad2cd3"
+    },
+    {
+      "artifact_id": "ART-714",
+      "path": "schemas/business-artifact-generation-contract.schema.json",
+      "sha256": "e633a069efbc2df09069831a3ab79c730854fd36ae460fab71e9850a137a5e5c"
     }
   ],
   "exclusions": [

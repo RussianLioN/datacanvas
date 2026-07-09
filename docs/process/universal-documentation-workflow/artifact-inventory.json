@@ -370,7 +370,10 @@
       "inputs": [
         "tests/fixtures/business-docs/positive/cases.json",
         "tests/fixtures/business-docs/negative/cases.json",
-        "docs/process/universal-documentation-workflow/README.md"
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+        "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+        "docs/process/current/process-backlog.md"
       ],
       "outputs": [],
       "validation_commands": [
@@ -474,6 +477,50 @@
       "outputs": [],
       "validation_commands": [
         "npm run validate:business-docs"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A022",
+      "path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "artifact_type": "business_artifact_generation_contract",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_contract",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+        "docs/process/current/process-backlog.md"
+      ],
+      "outputs": [
+        "scripts/validate-business-docs.mjs"
+      ],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:business-docs",
+        "npm run validate:universal-documentation-workflow"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A023",
+      "path": "schemas/business-artifact-generation-contract.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:universal-documentation-workflow"
       ]
     }
   ]

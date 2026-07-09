@@ -17,6 +17,7 @@ const paths = {
   catalog: `${packageRoot}/validation-command-catalog.json`,
   inventory: `${packageRoot}/artifact-inventory.json`,
   generatorContracts: `${packageRoot}/generator-contracts.json`,
+  businessArtifactGenerationContract: `${packageRoot}/business-artifact-generation-contract.json`,
   state: `${packageRoot}/workflow-state.json`,
   decisionQueue: `${packageRoot}/decision-queue.json`,
   decisionLedger: `${packageRoot}/decision-ledger.json`,
@@ -35,6 +36,7 @@ const schemaCases = [
   ["schemas/validation-command-catalog.schema.json", paths.catalog],
   ["schemas/documentation-artifact-inventory.schema.json", paths.inventory],
   ["schemas/generator-contracts.schema.json", paths.generatorContracts],
+  ["schemas/business-artifact-generation-contract.schema.json", paths.businessArtifactGenerationContract],
   ["schemas/workflow-state.schema.json", paths.state],
   ["schemas/workflow-decision-queue.schema.json", paths.decisionQueue],
   ["schemas/decision-ledger.schema.json", paths.decisionLedger],
@@ -729,6 +731,7 @@ function validateSchemaCoverage() {
     "run_ledger",
     "event_log",
     "generator_contract",
+    "business_artifact_generation_contract",
     "schema_coverage_registry",
   ]);
 
@@ -765,6 +768,7 @@ function validateSchemaCoverage() {
     "schemas/run-ledger.schema.json",
     "schemas/event-log.schema.json",
     "schemas/generator-contracts.schema.json",
+    "schemas/business-artifact-generation-contract.schema.json",
     "schemas/schema-coverage-registry.schema.json",
     "schemas/mutation-guard-policy.schema.json",
     "schemas/workflow-portability-pack.schema.json",

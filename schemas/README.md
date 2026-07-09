@@ -41,6 +41,8 @@
 - `run-ledger.schema.json`
 - `event-log.schema.json`
 - `generator-contracts.schema.json`
+- `business-artifact-content-contract.schema.json`
+- `business-artifact-generation-contract.schema.json`
 - `schema-coverage-registry.schema.json`
 - `mutation-guard-policy.schema.json`
 - `workflow-portability-pack.schema.json`

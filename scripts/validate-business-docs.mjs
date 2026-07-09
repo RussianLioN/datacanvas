@@ -5,6 +5,7 @@ import process from "node:process";
 
 const root = process.cwd();
 const contractPath = "docs/process/universal-documentation-workflow/business-artifact-content-contract.json";
+const generationContractPath = "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json";
 const positiveCasesPath = "tests/fixtures/business-docs/positive/cases.json";
 const negativeCasesPath = "tests/fixtures/business-docs/negative/cases.json";
 
@@ -169,6 +170,68 @@ function normalizeFixture(sample) {
     ...sample,
     className: sample.className ?? sample.class_name,
   };
+}
+
+function assertReadyOrDoneTodo(todoText, todoId) {
+  const pattern = new RegExp(`\\|\\s*${todoId}\\s*\\|[^\\n]*\\|\\s*(?:ready|done)\\s*\\|`, "u");
+  if (!pattern.test(todoText)) {
+    fail(`business artifact generation contract references missing or inactive process backlog item: ${todoId}`);
+  }
+}
+
+function assertGenerationContract(contentContract, generationContract) {
+  if (generationContract.status !== "active") {
+    fail("business artifact generation contract must stay active");
+  }
+  if (generationContract.source_content_contract !== contentContract.contract_id) {
+    fail("business artifact generation contract must reference the active business artifact content contract");
+  }
+  if (!generationContract.blocking_policy?.required_before_document_cleanup) {
+    fail("business artifact generation contract must block document cleanup until generation rules exist");
+  }
+  if (!generationContract.blocking_policy?.required_before_validator_rollout) {
+    fail("business artifact generation contract must block validator rollout until generation rules exist");
+  }
+  if (!generationContract.blocking_policy?.stop_if_missing_contract) {
+    fail("business artifact generation contract must stop when a document generation contract is missing");
+  }
+
+  const todoBacklogPath = generationContract.blocking_policy.todo_backlog_path;
+  const todoText = readText(todoBacklogPath);
+  assertReadyOrDoneTodo(todoText, generationContract.backlog_parent_todo_id);
+
+  const contentDocumentsByPath = new Map(
+    contentContract.documents.map((rawDocument) => {
+      const document = normalizeDocument(rawDocument);
+      return [document.path, document];
+    }),
+  );
+  const generationDocumentsByPath = new Map();
+
+  for (const generationDocument of generationContract.documents) {
+    if (generationDocumentsByPath.has(generationDocument.path)) {
+      fail(`duplicate business artifact generation contract for ${generationDocument.path}`);
+    }
+    generationDocumentsByPath.set(generationDocument.path, generationDocument);
+
+    const contentDocument = contentDocumentsByPath.get(generationDocument.path);
+    if (!contentDocument) {
+      fail(`business artifact generation contract contains a document outside the content contract: ${generationDocument.path}`);
+    }
+    if (generationDocument.id !== contentDocument.id) {
+      fail(`business artifact generation contract id mismatch for ${generationDocument.path}`);
+    }
+    if (generationDocument.class_name !== contentDocument.className) {
+      fail(`business artifact generation contract class mismatch for ${generationDocument.path}`);
+    }
+    assertReadyOrDoneTodo(todoText, generationDocument.blocking_todo_id);
+  }
+
+  for (const contentDocument of contentDocumentsByPath.values()) {
+    if (!generationDocumentsByPath.has(contentDocument.path)) {
+      fail(`business artifact generation contract is missing ${contentDocument.path}`);
+    }
+  }
 }
 
 function rulesFor(className, contractRules) {
@@ -451,6 +514,8 @@ function assertFixtures(contract) {
 
 try {
   const contract = readJson(contractPath);
+  const generationContract = readJson(generationContractPath);
+  assertGenerationContract(contract, generationContract);
   assertFixtures(contract);
   for (const document of contract.documents) {
     assertBusinessDoc(document, contract);

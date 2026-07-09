@@ -56,7 +56,7 @@
         "traceability"
       ],
       "owner_role": "Product Owner / Documentation Owner",
-      "purpose": "Проверяет, что бизнесовые Markdown-артефакты не смешивают продуктовый смысл с техническими контрактами, provenance, проверочными командами, локальными путями и generated metadata."
+      "purpose": "Проверяет, что бизнесовые Markdown-артефакты не смешивают продуктовый смысл с техническими контрактами, provenance, проверочными командами, локальными путями и generated metadata, а каждый документ имеет контракт генерации и блокирующую задачу в process backlog."
     },
     {
       "id": "product-sources",

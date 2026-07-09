@@ -150,6 +150,15 @@
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Business-doc negative examples live in tests/fixtures/business-docs/negative/cases.json and are executed by npm run validate:business-docs; they are not universal workflow scenario IDs."
+    },
+    {
+      "entity": "business_artifact_generation_contract",
+      "schema_path": "schemas/business-artifact-generation-contract.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Generation-contract coverage is checked by npm run validate:business-docs against the active content contract and process backlog blockers."
     }
   ]
 }

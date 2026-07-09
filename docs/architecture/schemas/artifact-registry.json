@@ -7931,6 +7931,38 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "RCA findings or corrective controls for story catalog validation change."
+    },
+    {
+      "id": "ART-713",
+      "path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "type": "process-contract",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Business artifact generation rules, blocker links, or validate:business-docs coverage change."
+    },
+    {
+      "id": "ART-714",
+      "path": "schemas/business-artifact-generation-contract.schema.json",
+      "type": "json-schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Business artifact generation contract shape or validation requirements change."
     }
   ]
 }

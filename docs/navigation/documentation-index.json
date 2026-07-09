@@ -7095,6 +7095,30 @@
       "click_depth": 2
     },
     {
+      "path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "title": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "json",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/process/universal-documentation-workflow/README.md",
+      "artifact_registry_id": "ART-713",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/process/universal-documentation-workflow/datacanvas-profile.json",
       "title": "docs/process/universal-documentation-workflow/datacanvas-profile.json",
       "section": "process",
@@ -7312,6 +7336,7 @@
         "docs/process/universal-documentation-workflow/acceptance-records.json",
         "docs/process/universal-documentation-workflow/artifact-inventory.json",
         "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+        "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
         "docs/process/universal-documentation-workflow/datacanvas-profile.json",
         "docs/process/universal-documentation-workflow/decision-ledger.json",
         "docs/process/universal-documentation-workflow/decision-queue.json",
@@ -34748,14 +34773,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1211,
-    "manual_entries": 1207,
+    "total_entries": 1212,
+    "manual_entries": 1208,
     "generated_entries": 4,
     "public_navigable_entries": 33,
-    "searchable_entries": 1177,
+    "searchable_entries": 1178,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 166,
+    "reachable_from_root": 167,
     "orphan_entries": 0
   },
   "ignored_paths": [

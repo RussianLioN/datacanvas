@@ -1,0 +1,131 @@
+{
+  "$schema": "../../../schemas/business-artifact-generation-contract.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "contract_id": "BAGC-DC-2026-07-09-001",
+  "source_content_contract": "BAC-DC-2026-07-09-001",
+  "backlog_parent_todo_id": "PROC-049",
+  "blocking_policy": {
+    "todo_backlog_path": "docs/process/current/process-backlog.md",
+    "required_before_document_cleanup": true,
+    "required_before_validator_rollout": true,
+    "stop_if_missing_contract": true,
+    "scope": "Для каждого бизнесового документа из business-artifact-content-contract.json должен существовать контракт генерации и блокирующая задача в process backlog до продолжения очистки документа или ужесточения валидатора."
+  },
+  "global_generation_rules": [
+    "Генерация бизнесового Markdown или CSV не должна добавлять служебные команды, локальные пути, хэши, provenance, generated metadata, JSON-фрагменты и внутренние evidence-следы в человекочитаемый слой.",
+    "Если источник нужен для воспроизводимости, он фиксируется в машинном реестре, манифесте, source/provenance артефакте или process/evidence документе, а не в основном бизнесовом документе.",
+    "Если генерация требует смыслового выбора Product Owner, генератор или агент должен остановиться и вынести вопрос владельцу до изменения продуктового смысла.",
+    "Контракт генерации не заменяет контракт содержания: результат должен проходить business-artifact-content-contract.json и профильные валидаторы документа."
+  ],
+  "documents": [
+    {
+      "id": "story-catalog",
+      "path": "docs/stories.md",
+      "class_name": "story_catalog",
+      "blocking_todo_id": "PROC-050",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Каталог пользовательских историй"],
+      "required_business_elements": ["ID", "Функциональная зона", "Приоритет", "Пользовательская формулировка", "Бизнес-ценность"],
+      "forbidden_content": ["источники и правила слияния", "ПШЕ и оценки трудозатрат", "статусы обработки", "provenance", "открытые решения владельцев", "служебные даты и команды проверки"],
+      "validator_requirements": ["проверять разрешенные разделы", "проверять точный состав колонок", "проверять lock-файл неизменяемого текста историй"]
+    },
+    {
+      "id": "formalized-user-stories",
+      "path": "docs/product/requirements/user-stories.md",
+      "class_name": "formalized_user_stories",
+      "blocking_todo_id": "PROC-051",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Пользовательские истории", "Открытые вопросы"],
+      "required_business_elements": ["роль", "цель", "ценность", "условия", "приоритет", "связь с бизнес-требованием"],
+      "forbidden_content": ["технические контракты", "runtime-поля", "локальные пути", "JSON-фрагменты", "журнал генерации", "команды проверки"],
+      "validator_requirements": ["проверять отсутствие служебных разделов", "проверять отсутствие runtime и source/provenance деталей", "сохранять бизнесовые формулировки без смысловой правки"]
+    },
+    {
+      "id": "business-requirements",
+      "path": "docs/product/requirements/business-requirements.md",
+      "class_name": "requirements",
+      "blocking_todo_id": "PROC-052",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Бизнес-требования", "Открытые вопросы"],
+      "required_business_elements": ["ID требования", "бизнесовая потребность", "роль или пользователь", "ожидаемая ценность", "граница применимости"],
+      "forbidden_content": ["команды проверки", "evidence-колонки", "служебная трассировка", "технические реализации", "локальные пути", "generated metadata"],
+      "validator_requirements": ["проверять отсутствие evidence-колонок", "проверять отсутствие технических проверок как бизнесового текста", "проверять, что служебная трассировка вынесена во внешний слой"]
+    },
+    {
+      "id": "acceptance-criteria",
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "class_name": "acceptance",
+      "blocking_todo_id": "PROC-053",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Критерии приемки", "Открытые вопросы"],
+      "required_business_elements": ["условие", "действие", "ожидаемый результат", "связь с требованием или историей"],
+      "forbidden_content": ["журнал генерации", "команды проверки", "локальные пути", "raw evidence", "технические идентификаторы выполнения", "JSON-фрагменты"],
+      "validator_requirements": ["проверять, что критерий описывает бизнес-результат", "проверять отсутствие технических evidence-деталей", "проверять перенос доказательств во внешний evidence-контур"]
+    },
+    {
+      "id": "non-functional-requirements",
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "class_name": "nonfunctional",
+      "blocking_todo_id": "PROC-054",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Нефункциональные требования", "Открытые вопросы"],
+      "required_business_elements": ["категория качества", "требование", "измеримое условие приемки", "граница применимости"],
+      "forbidden_content": ["команды проверки", "история генерации", "технические логи", "локальные пути", "runtime-состояния", "служебные статусы"],
+      "validator_requirements": ["проверять отсутствие колонок с командами", "проверять наличие измеримого условия приемки", "отделять проверочный механизм от требования"]
+    },
+    {
+      "id": "product-backlog",
+      "path": "docs/product/backlog/product-backlog.md",
+      "class_name": "backlog",
+      "blocking_todo_id": "PROC-055",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Product backlog", "Открытые вопросы"],
+      "required_business_elements": ["ID backlog item", "название", "приоритет", "статус", "связь с историей или требованием", "бизнесовая ценность"],
+      "forbidden_content": ["служебные правила генерации", "технические реализации как бизнесовые элементы", "локальные пути", "Excel-механика", "OPML-механика", "команды проверки"],
+      "validator_requirements": ["проверять отделение плановых полей от source/provenance деталей", "проверять отсутствие технических задач в бизнесовом backlog без явного процессного слоя", "проверять отсутствие локальных источников"]
+    },
+    {
+      "id": "agent-launch-candidate-stories",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "class_name": "stories",
+      "blocking_todo_id": "PROC-056",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Кандидатные истории", "Открытые вопросы"],
+      "required_business_elements": ["ID истории", "пользовательская формулировка", "приоритет", "бизнесовая ценность", "граница сценария"],
+      "forbidden_content": ["локальные источники", "JSON", "команды", "проверочные следы", "runtime-статусы", "служебная история слияния"],
+      "validator_requirements": ["проверять отсутствие служебной механики источников", "проверять отделение кандидатных формулировок от evidence", "проверять согласованность с классом stories"]
+    },
+    {
+      "id": "agent-launch-candidate-stories-csv",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "class_name": "stories",
+      "blocking_todo_id": "PROC-057",
+      "generation_mode": "working_export",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": [],
+      "required_business_elements": ["стабильный идентификатор", "пользовательская формулировка", "приоритет", "бизнесовая ценность"],
+      "forbidden_content": ["локальные пути", "служебные команды", "JSON-фрагменты", "provenance", "runtime-поля", "внутренние evidence-следы"],
+      "validator_requirements": ["проверять CSV как экспорт бизнесовых полей", "проверять отсутствие локальных и служебных значений", "проверять смысловую синхронность с Markdown-версией"]
+    },
+    {
+      "id": "confluence-import-map",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "class_name": "confluence_export",
+      "blocking_todo_id": "PROC-058",
+      "generation_mode": "generated_export",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Пакет импорта", "Порядок публикации", "Открытые вопросы"],
+      "required_business_elements": ["перечень импортируемых документов", "назначение документа", "целевой раздел Confluence", "условие готовности"],
+      "forbidden_content": ["внутренние evidence-следы", "локальные пути", "чувствительные данные", "служебные команды", "raw traces", "внутренние статусы генерации"],
+      "validator_requirements": ["проверять отсутствие внутренних путей и sensitive/evidence деталей", "проверять, что карта не становится источником бизнесового смысла", "проверять актуальность диапазонов историй"]
+    }
+  ]
+}

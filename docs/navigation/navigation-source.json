@@ -2728,6 +2728,26 @@
       "artifact_registry_required": true
     },
     {
+      "route_id": "business-artifact-generation-contract",
+      "path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "section": "process",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Правила генерации бизнес-артефактов, блокирующие process backlog задачи или область validate:business-docs меняются.",
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
       "route_id": "story-catalog-content-lock",
       "path": "docs/product/sources/story-catalog-content-lock.json",
       "section": "product",

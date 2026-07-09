@@ -78,7 +78,9 @@ DataCanvas используется только как пилотный про�
 
 Перед очисткой бизнесового документа агент классифицирует каждый спорный фрагмент по матрице: оставить как бизнесовый смысл, переписать простым русским языком, перенести в machine-readable JSON — машинный JSON, оставить как historical evidence — историческое свидетельство вне бизнесового документа, или удалить как служебный дубль. Если выбор меняет смысл продукта, процесса или архитектуры, агент фиксирует вопрос владельцу и останавливается до решения.
 
-Для таких изменений используется gate `npm run validate:business-docs`. Он читает [контракт содержания бизнес-артефактов](business-artifact-content-contract.json), дополняет проверки Vision, BMC, source registry, навигации и безопасности и блокирует смешение бизнесового текста с техническими контрактами, проверочными командами, локальными путями, provenance и generated metadata.
+Для таких изменений используется gate `npm run validate:business-docs`. Он читает [контракт содержания бизнес-артефактов](business-artifact-content-contract.json) и [контракт генерации бизнес-артефактов](business-artifact-generation-contract.json), дополняет проверки Vision, BMC, source registry, навигации и безопасности и блокирует смешение бизнесового текста с техническими контрактами, проверочными командами, локальными путями, provenance и generated metadata.
+
+Перед очисткой или повторной генерацией бизнес-документа у него должен быть отдельный контракт генерации и блокирующая задача в process backlog. Если такого контракта или задачи нет, сначала фиксируется процессная задача, а документ не перегенерируется и не очищается вручную.
 
 ## Состав
 
@@ -88,6 +90,7 @@ DataCanvas используется только как пилотный про�
 - [Validation command catalog](validation-command-catalog.json) — каталог команд проверки по уровням gate — проверочных барьеров.
 - [Artifact inventory](artifact-inventory.json) — инвентарь источников, generated artifacts — автоматически создаваемых артефактов, и evidence — проверочных свидетельств.
 - [Generator contracts](generator-contracts.json) — контракты генераторов, разрешенные записи и проверки воспроизводимости.
+- [Business artifact generation contract](business-artifact-generation-contract.json) — контракт генерации бизнес-артефактов и блокирующие process backlog задачи для каждого документа, который проверяется `validate:business-docs`.
 - [Workflow state](workflow-state.json) — состояние текущего запуска и указатели на журнал, очередь решений и ledger — журнал запуска.
 - [Decision queue](decision-queue.json), [decision ledger](decision-ledger.json), [acceptance records](acceptance-records.json), [run ledger](run-ledger.json) и [event log](event-log.json) — контур решений, принятия и событий.
 - [Schema coverage registry](schema-coverage-registry.json) — покрытие схемами, положительными примерами и отрицательными сценариями.
