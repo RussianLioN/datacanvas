@@ -297,10 +297,11 @@ for (const entry of index.entries) {
   }
 
   if (entry.visibility === "public" && ["active", "accepted"].includes(entry.lifecycle)) {
-    if (!entry.navigable || !entry.searchable) {
+    const isRedirect = Boolean(entry.canonical_source) && entry.searchable && !entry.navigable;
+    if (!isRedirect && (!entry.navigable || !entry.searchable)) {
       fail(`public active entry must be navigable and searchable: ${entry.path}`);
     }
-    if (!entry.reachable_from_root || entry.click_depth === null || entry.click_depth > 3) {
+    if (!isRedirect && (!entry.reachable_from_root || entry.click_depth === null || entry.click_depth > 3)) {
       fail(`public active entry is not reachable from root within 3 clicks: ${entry.path}`);
     }
   }
@@ -411,7 +412,6 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     const productIndex = readText("docs/product/README.md");
     for (const requiredPath of [
       "docs/product-vision.md",
-      "docs/stories.md",
       "docs/product/bmc/README.md",
       "docs/product/requirements/business-requirements.md",
       "docs/product/requirements/user-stories.md",

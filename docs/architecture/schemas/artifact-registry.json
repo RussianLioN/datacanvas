@@ -3669,18 +3669,18 @@
     {
       "id": "ART-426",
       "path": "docs/stories.md",
-      "type": "product",
+      "type": "product-redirect",
       "owner_role": "Product Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W26",
       "data_class": "internal",
       "visibility": "public",
       "searchable": true,
-      "navigable": true,
-      "canonical_source": null,
+      "navigable": false,
+      "canonical_source": "docs/product/requirements/user-stories.md",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Business navigation, product requirements, backlog, roadmap, hypothesis, or traceability changes."
+      "update_trigger": "Compatibility redirect changes only when canonical user story catalog path changes."
     },
     {
       "id": "ART-427",
@@ -3719,7 +3719,7 @@
       "path": "docs/product/requirements/user-stories.md",
       "type": "product",
       "owner_role": "Product Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W26",
       "data_class": "internal",
       "visibility": "public",
@@ -3728,7 +3728,7 @@
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Business navigation, product requirements, backlog, roadmap, hypothesis, or traceability changes."
+      "update_trigger": "Product scope, story text, business value, priority, backlog, roadmap, or traceability changes."
     },
     {
       "id": "ART-430",
@@ -7911,7 +7911,7 @@
       "visibility": "internal",
       "searchable": false,
       "navigable": false,
-      "canonical_source": "docs/stories.md",
+      "canonical_source": "docs/product/requirements/user-stories.md",
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Approved user story text or business value changes."
@@ -7979,6 +7979,54 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "XLSX/provenance cascade analysis shape, no-change rationale policy, or downstream resolution gate changes."
+    },
+    {
+      "id": "ART-716",
+      "path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "type": "process-contract",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/README.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Main documentation artifact order, cascade dependencies, owner gates, or no-change rationale lifecycle policy changes."
+    },
+    {
+      "id": "ART-717",
+      "path": "schemas/main-artifact-lifecycle-chain.schema.json",
+      "type": "json-schema",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Main artifact lifecycle contract shape or validation requirements change."
+    },
+    {
+      "id": "ART-718",
+      "path": "scripts/validate-main-artifact-lifecycle-chain.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Main artifact lifecycle gate logic or cross-file invariants change."
     }
   ]
 }

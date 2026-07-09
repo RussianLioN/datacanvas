@@ -7240,6 +7240,30 @@
       "click_depth": 2
     },
     {
+      "path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "title": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "json",
+      "owner_role": "Process Owner / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/README.md",
+      "generated_from": [],
+      "parent_readme": "docs/process/universal-documentation-workflow/README.md",
+      "artifact_registry_id": "ART-716",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
       "title": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
       "section": "process",
@@ -7343,6 +7367,7 @@
         "docs/process/universal-documentation-workflow/decision-queue.json",
         "docs/process/universal-documentation-workflow/event-log.json",
         "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
         "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
         "docs/process/universal-documentation-workflow/portability-pack.json",
         "docs/process/universal-documentation-workflow/product-bootstrap-pack.json",
@@ -8258,7 +8283,7 @@
     },
     {
       "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-      "title": "Оценка ПШЕ Для P1-Историй Запуска DataCanvas Другим Агентом",
+      "title": "Оценка ПШЕ Для Историй Запуска DataCanvas Другим Агентом И Генерации Презентации",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -8287,14 +8312,14 @@
         "README.md"
       ],
       "anchors": [
-        "оценка-пше-для-p1-историй-запуска-datacanvas-другим-агентом",
+        "оценка-пше-для-историй-запуска-datacanvas-другим-агентом-и-генерации-презентации",
         "назначение",
         "источник-матрицы",
-        "правила-оценки",
+        "правила-использования-оценки",
         "аналоги-из-excel-для-обсуждения",
-        "рабочие-значения-в-excel",
-        "матрица-для-проверки-командой",
-        "вопросы-команде-реализации",
+        "принятые-значения-в-excel",
+        "матрица-оценки",
+        "вопросы-перед-sprint-backlog",
         "следующий-шаг-после-заполнения"
       ],
       "reachable_from_root": true,
@@ -8307,15 +8332,15 @@
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "md",
-      "owner_role": "Product Owner / Process Owner",
-      "lifecycle": "active",
-      "status": "active",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "status": "draft",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
       "navigable": false,
       "generated": false,
-      "canonical_source": null,
+      "canonical_source": "docs/product/README.md",
       "generated_from": [],
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-689",
@@ -8613,15 +8638,15 @@
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "md",
-      "owner_role": "Product Owner / Process Owner",
-      "lifecycle": "active",
-      "status": "active",
+      "owner_role": "Product Owner / Scrum Master / Delivery Lead",
+      "lifecycle": "draft",
+      "status": "draft",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
       "navigable": false,
       "generated": false,
-      "canonical_source": null,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
       "generated_from": [],
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-690",
@@ -8690,6 +8715,7 @@
         "проверки-после-введения-правила-interview-first",
         "проверки-после-подготовки-черновой-excel-версии-backlog-с-диапазонами-пше",
         "проверки-после-добавления-dc-st-29",
+        "проверки-после-принятия-excel-редакции-и-каскадной-синхронизации",
         "остаточные-риски"
       ],
       "reachable_from_root": true,
@@ -8737,7 +8763,7 @@
     },
     {
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "title": "Пользовательские Истории P1 Для Запуска DataCanvas Другим Агентом",
+      "title": "Срез Историй Запуска DataCanvas Другим Агентом И Генерации Презентации",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -8758,16 +8784,15 @@
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
+        "docs/product/requirements/user-stories.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
-        "пользовательские-истории-p1-для-запуска-datacanvas-другим-агентом",
+        "срез-историй-запуска-datacanvas-другим-агентом-и-генерации-презентации",
         "назначение",
-        "правила-строк",
-        "истории-p1",
-        "csv",
-        "открыто-до-продолжения-опроса"
+        "плановый-срез",
+        "csv"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -8846,12 +8871,13 @@
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
+        "docs/product/requirements/user-stories.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
         "product-backlog",
-        "p1-истории-после-co-2026-001"
+        "истории-запуска-другим-агентом-после-co-2026-001"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -9034,13 +9060,15 @@
       "owner_role": "Product Owner",
       "lifecycle": "accepted",
       "status": "accepted",
-      "data_class": "internal",
-      "visibility": "internal",
+      "data_class": "public",
+      "visibility": "public",
       "searchable": true,
       "navigable": false,
       "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
+      "canonical_source": "docs/product/bmc/README.md",
+      "generated_from": [
+        "docs/product/bmc/bmc-trace.v0.1.json"
+      ],
       "parent_readme": "docs/product/bmc/README.md",
       "artifact_registry_id": "ART-351",
       "outgoing_links": [],
@@ -9917,12 +9945,12 @@
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
@@ -10159,13 +10187,16 @@
       "parent_readme": "docs/product/hypotheses/README.md",
       "artifact_registry_id": "ART-438",
       "outgoing_links": [
+        "docs/product/hypotheses/hypothesis-validation.md",
         "docs/product/hypotheses/README.md",
         "docs/product/README.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
-        "доска-гипотез"
+        "доска-гипотез",
+        "назначение",
+        "продуктовые-гипотезы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10190,6 +10221,7 @@
       "parent_readme": "docs/product/hypotheses/README.md",
       "artifact_registry_id": "ART-439",
       "outgoing_links": [
+        "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/hypotheses/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -10197,10 +10229,10 @@
       ],
       "anchors": [
         "проверка-гипотез",
-        "цель",
-        "гипотезы-и-проверки",
+        "назначение",
+        "план-проверки",
         "правило-решения",
-        "текущий-evidence"
+        "текущие-проверочные-свидетельства"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10545,7 +10577,6 @@
         "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
@@ -10644,9 +10675,9 @@
         "docs/product/README.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/vision/vision-v0.1.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
@@ -10761,14 +10792,14 @@
     },
     {
       "path": "docs/product/requirements/user-stories.md",
-      "title": "Формализованные Пользовательские Истории v0.2",
+      "title": "Каталог пользовательских историй DataCanvas",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "active",
+      "status": "active",
       "data_class": "internal",
       "visibility": "public",
       "searchable": true,
@@ -10779,22 +10810,15 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-429",
       "outgoing_links": [
-        "docs/product/analysis/documentation-consistency-audit/README.md",
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product/README.md",
         "docs/product/requirements/README.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
-        "формализованные-пользовательские-истории-v02",
+        "каталог-пользовательских-историй-datacanvas",
         "назначение",
-        "правила-использования",
-        "формализованный-список",
-        "открытые-решения",
-        "источники"
+        "каталог-пользовательских-историй"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10977,7 +11001,8 @@
         "README.md"
       ],
       "anchors": [
-        "roadmap-v01"
+        "roadmap-v01",
+        "порядок-поставки"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -11033,12 +11058,12 @@
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
         "docs/product/requirements/README.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
         "docs/product/sources/product-source-registry.json",
         "docs/product/specs/README.md",
         "docs/product/vision/vision-v0.1.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
@@ -11106,7 +11131,7 @@
       "searchable": false,
       "navigable": false,
       "generated": false,
-      "canonical_source": "docs/stories.md",
+      "canonical_source": "docs/product/requirements/user-stories.md",
       "generated_from": [],
       "parent_readme": "docs/product/sources/README.md",
       "artifact_registry_id": "ART-711",
@@ -12305,13 +12330,14 @@
         "docs/product/hypotheses/README.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/user-stories.md",
         "docs/product/roadmap/README.md",
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/release/README.md",
         "docs/sprints/README.md",
-        "docs/stories.md",
         "package.json",
         "README.md"
       ],
@@ -34158,19 +34184,19 @@
       "data_class": "internal",
       "visibility": "public",
       "searchable": true,
-      "navigable": true,
+      "navigable": false,
       "generated": false,
-      "canonical_source": null,
+      "canonical_source": "docs/product/requirements/user-stories.md",
       "generated_from": [],
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-426",
       "outgoing_links": [
+        "docs/product/requirements/user-stories.md",
         "README.md"
       ],
       "anchors": [
         "каталог-пользовательских-историй-datacanvas",
-        "назначение",
-        "каталог-пользовательских-историй"
+        "актуальный-источник"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -34250,7 +34276,7 @@
         "next_paths": [
           "docs/product-vision.md",
           "docs/product/bmc/README.md",
-          "docs/stories.md",
+          "docs/product/requirements/user-stories.md",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/non-functional-requirements.md",
           "docs/product/requirements/acceptance-criteria.md",
@@ -34379,7 +34405,7 @@
         "next_paths": [
           "docs/product-vision.md",
           "docs/product/bmc/README.md",
-          "docs/stories.md",
+          "docs/product/requirements/user-stories.md",
           "docs/product/requirements/README.md",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/non-functional-requirements.md",
@@ -34404,7 +34430,7 @@
           "docs/product/sources/source-audit.md",
           "docs/product-vision.md",
           "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-          "docs/stories.md"
+          "docs/product/requirements/user-stories.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:product-sources",
@@ -34463,7 +34489,7 @@
         "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "next_paths": [
           "docs/product-vision.md",
-          "docs/stories.md",
+          "docs/product/requirements/user-stories.md",
           "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
           "docs/product/requirements/business-requirements.md"
         ],
@@ -34481,7 +34507,7 @@
           "docs/product/sources/product-source-registry.json",
           "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
           "docs/product-vision.md",
-          "docs/stories.md"
+          "docs/product/requirements/user-stories.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:product-source-consistency",
@@ -34555,6 +34581,7 @@
           "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
           "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
           "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+          "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
           "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/traceability-matrix.json"
@@ -34774,14 +34801,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1212,
-    "manual_entries": 1208,
+    "total_entries": 1213,
+    "manual_entries": 1209,
     "generated_entries": 4,
-    "public_navigable_entries": 33,
-    "searchable_entries": 1178,
+    "public_navigable_entries": 32,
+    "searchable_entries": 1179,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 167,
+    "reachable_from_root": 168,
     "orphan_entries": 0
   },
   "ignored_paths": [
