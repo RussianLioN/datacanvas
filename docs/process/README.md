@@ -18,6 +18,7 @@
 - [Каскадное ведение документации](cascading-governance/README.md)
 - [Prompt-only согласование артефактов проектной документации](prompt-only-artifact-review/README.md)
 - [Универсальный рабочий процесс документации](universal-documentation-workflow/README.md)
+- [Синхронизация Excel backlog DataCanvas](guides/datacanvas-excel-backlog-sync.md)
 
 ## Изменение Процесса
 

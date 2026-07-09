@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import crypto from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
@@ -7,6 +8,7 @@ import addFormats from "ajv-formats";
 const root = process.cwd();
 const schemaPath = "schemas/product-source-registry.schema.json";
 const registryPath = "docs/product/sources/product-source-registry.json";
+const xlsxRecoveryIndexPath = "docs/product/sources/xlsx-opml-jira-recovery-index.json";
 const consistencyMode = process.argv.includes("--consistency");
 
 function absolute(relativePath) {
@@ -25,6 +27,11 @@ function requireFile(relativePath) {
   if (!fs.existsSync(absolute(relativePath))) {
     throw new Error(`required file is missing: ${relativePath}`);
   }
+}
+
+function sha256File(relativePath) {
+  const content = fs.readFileSync(absolute(relativePath));
+  return crypto.createHash("sha256").update(content).digest("hex");
 }
 
 function fail(message) {
@@ -48,6 +55,38 @@ function assertNoSensitivePointers(value, location) {
   }
   if (value.includes("/Users/") || value.includes("file://")) {
     throw new Error(`sensitive local pointer is forbidden in ${location}`);
+  }
+}
+
+function assertXlsxRecoveryIndexConsistency(registry) {
+  if (!fs.existsSync(absolute(xlsxRecoveryIndexPath))) {
+    return;
+  }
+
+  const recoveryIndex = readJson(xlsxRecoveryIndexPath);
+  for (const item of recoveryIndex.items ?? []) {
+    if (!item.path || !item.sha256) {
+      continue;
+    }
+
+    requireFile(item.path);
+    const actual = sha256File(item.path);
+    if (actual !== item.sha256) {
+      throw new Error(`XLSX/OPML/Jira recovery index sha256 mismatch: ${item.item_id}`);
+    }
+
+    if (item.source_id) {
+      const source = registry.sources.find((candidate) => candidate.source_id === item.source_id);
+      if (!source) {
+        throw new Error(`XLSX/OPML/Jira recovery index references unknown source_id: ${item.source_id}`);
+      }
+      if (source.path !== item.path) {
+        throw new Error(`XLSX/OPML/Jira recovery index path mismatch for source_id: ${item.source_id}`);
+      }
+      if (source.sha256 && source.sha256 !== item.sha256) {
+        throw new Error(`XLSX/OPML/Jira recovery index sha256 differs from product source registry: ${item.source_id}`);
+      }
+    }
   }
 }
 
@@ -76,6 +115,12 @@ try {
     ids.add(source.source_id);
     paths.add(source.path);
     requireFile(source.path);
+    if (source.sha256 && sha256File(source.path) !== source.sha256) {
+      throw new Error(`source sha256 mismatch: ${source.source_id}`);
+    }
+    if (source.provenance_manifest) {
+      requireFile(source.provenance_manifest);
+    }
     for (const artifactPath of source.affected_artifacts) {
       requireFile(artifactPath);
     }
@@ -103,12 +148,16 @@ try {
     "SRC-DC-SRS-V0-1",
     "SRC-DC-SPEC-A2A-LAUNCH",
     "SRC-DC-CASCADE-2026-07-02",
+    "SRC-DC-STORIES-XLSX-RAW",
+    "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
   ];
   for (const sourceId of requiredSources) {
     if (!ids.has(sourceId)) {
       throw new Error(`required product source is missing: ${sourceId}`);
     }
   }
+
+  assertXlsxRecoveryIndexConsistency(registry);
 
   if (consistencyMode) {
     const roleOrder = new Set(registry.precedence_order);
@@ -143,6 +192,8 @@ try {
       "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
       "docs/architecture/system-analysis/srs-v0.1.json",
       "docs/product/specs/feature-spec-a2a-launch.json",
+      "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     ]) {
       if (!paths.has(requiredPath)) {
         throw new Error(`required path is missing from source registry: ${requiredPath}`);

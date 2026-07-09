@@ -1,0 +1,156 @@
+{
+  "$schema": "../../../schemas/business-artifact-content-contract.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "contract_id": "BAC-DC-2026-07-09-001",
+  "documents": [
+    {
+      "id": "story-catalog",
+      "path": "docs/stories.md",
+      "class_name": "story_catalog",
+      "breadcrumb_required": true,
+      "lock_path": "docs/product/sources/story-catalog-content-lock.json"
+    },
+    {
+      "id": "formalized-user-stories",
+      "path": "docs/product/requirements/user-stories.md",
+      "class_name": "formalized_user_stories",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "business-requirements",
+      "path": "docs/product/requirements/business-requirements.md",
+      "class_name": "requirements",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "acceptance-criteria",
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "class_name": "acceptance",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "non-functional-requirements",
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "class_name": "nonfunctional",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "product-backlog",
+      "path": "docs/product/backlog/product-backlog.md",
+      "class_name": "backlog",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "agent-launch-candidate-stories",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "class_name": "stories",
+      "breadcrumb_required": true
+    },
+    {
+      "id": "agent-launch-candidate-stories-csv",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "class_name": "stories",
+      "breadcrumb_required": false
+    },
+    {
+      "id": "confluence-import-map",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "class_name": "confluence_export",
+      "breadcrumb_required": true
+    }
+  ],
+  "artifact_classes": [
+    {
+      "class_name": "story_catalog",
+      "purpose": "Канонический каталог пользовательских историй продукта.",
+      "business_scope": "Документ содержит только бизнесовое описание историй, приоритет, функциональную зону и бизнес-ценность. Источники, правила слияния, статусы обработки, даты, ПШЕ, трассировка, открытые решения и служебная методика хранятся во внешних машиночитаемых или процессных артефактах.",
+      "required_h2": ["Назначение", "Каталог пользовательских историй"],
+      "allowed_h2": ["Назначение", "Каталог пользовательских историй"],
+      "forbidden_h2": [
+        "Сводка по приоритетам и срокам",
+        "Источники и правила слияния",
+        "Группировка по функциональным зонам",
+        "Открытые продуктовые решения",
+        "Открытые решения",
+        "Методика",
+        "Граница модели",
+        "Статус",
+        "Термины"
+      ],
+      "required_table_columns": [
+        "ID",
+        "Функциональная зона",
+        "Приоритет",
+        "Пользовательская формулировка",
+        "Бизнес-ценность"
+      ],
+      "forbidden_table_columns": [
+        "Плановый срок",
+        "Статус",
+        "ПШЕ",
+        "Оценка",
+        "Источник",
+        "Примечание",
+        "Решение",
+        "Трассировка"
+      ],
+      "immutable_table_columns": [
+        "Пользовательская формулировка",
+        "Бизнес-ценность"
+      ]
+    },
+    {
+      "class_name": "formalized_user_stories",
+      "purpose": "Формализованный слой пользовательских историй для требований и приемки.",
+      "business_scope": "Допускает критерии, роли, условия и бизнесовые уточнения; служебная генерация, локальные пути, команды, JSON-фрагменты и provenance выносятся во внешние артефакты."
+    },
+    {
+      "class_name": "requirements",
+      "purpose": "Бизнесовые и продуктовые требования.",
+      "business_scope": "Содержит проверяемые требования продукта без служебных деталей генерации и без технической трассировки как основного текста."
+    },
+    {
+      "class_name": "acceptance",
+      "purpose": "Критерии приемки.",
+      "business_scope": "Содержит проверяемые условия приемки продукта без журналов генерации, локальных путей и машинных фрагментов как основного текста."
+    },
+    {
+      "class_name": "nonfunctional",
+      "purpose": "Нефункциональные требования.",
+      "business_scope": "Содержит ограничения качества продукта и эксплуатации без служебной истории генерации."
+    },
+    {
+      "class_name": "backlog",
+      "purpose": "Рабочий продуктовый бэклог.",
+      "business_scope": "Может содержать приоритеты, статусы и оценки, если они нужны для планирования, но не должен включать служебные правила генерации документов."
+    },
+    {
+      "class_name": "stories",
+      "purpose": "Дополнительные рабочие списки историй и кандидатные истории.",
+      "business_scope": "Может содержать рабочие бизнесовые комментарии, но не должен смешивать их с технической генерацией, локальными путями и JSON как основным текстом."
+    },
+    {
+      "class_name": "confluence_export",
+      "purpose": "Карта экспорта в Confluence.",
+      "business_scope": "Описывает импортируемый комплект и маршрут публикации, но не заменяет исходные бизнесовые артефакты."
+    }
+  ],
+  "global_forbidden_patterns": [
+    {
+      "id": "local-path",
+      "pattern": "(?:/Users/|file://)",
+      "message": "Локальные абсолютные пути нельзя хранить в бизнесовом Markdown-артефакте."
+    },
+    {
+      "id": "raw-json-block",
+      "pattern": "```(?:json|yaml|yml)",
+      "message": "Сырой JSON/YAML не должен быть основным содержанием бизнесового Markdown-артефакта."
+    },
+    {
+      "id": "generation-runtime",
+      "pattern": "(?:npm run|node scripts/|generated at|sha256|checksum|provenance|artifact hash)",
+      "message": "Команды, хэши, provenance и runtime-детали нужно выносить в машинночитаемые или процессные артефакты."
+    }
+  ]
+}

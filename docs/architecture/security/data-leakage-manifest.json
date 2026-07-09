@@ -258,6 +258,18 @@
       "path": "docs/architecture/security/integration-boundary-matrix.json",
       "sink": "evidence",
       "data_class": "internal"
+    },
+    {
+      "id": "DLT-043",
+      "path": "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-044",
+      "path": "docs/product/bmc/source-lock.json",
+      "sink": "evidence",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],

@@ -208,7 +208,7 @@ Product Owner выбрал вариант 4.
 
 ### Документы Для Решения
 
-- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник пользовательских историй запуска другим агентом. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`.
+- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник пользовательских историй запуска другим агентом.
 
   Цитата по `DC-ST-23` — пользовательской истории передачи запроса от другого агента:
 
@@ -218,7 +218,7 @@ Product Owner выбрал вариант 4.
 
   > Как пользователь, я хочу, чтобы DataCanvas мог запускаться в составе общего сценария с другими агентами, чтобы подготовка презентации начиналась из уже собранного контекста без повторного ввода данных.
 
-- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможного нового `BT-015`. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/business-requirements.md`.
+- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможного нового `BT-015`.
 
   Текущая цитата из `BT-005` — бизнес-требования о запуске через Лису:
 
@@ -228,7 +228,7 @@ Product Owner выбрал вариант 4.
 
   > DataCanvas принимает от другого агента входной пакет с задачей, источником запроса и параметрами презентации.
 
-- [feature-spec-a2a-launch.json](../../specs/feature-spec-a2a-launch.json) — технический донор, который нельзя считать первичным бизнес-источником, но он показывает уже зафиксированное намерение. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/specs/feature-spec-a2a-launch.json`.
+- [feature-spec-a2a-launch.json](../../specs/feature-spec-a2a-launch.json) — технический донор, который нельзя считать первичным бизнес-источником, но он показывает уже зафиксированное намерение.
 
   Цитата:
 
@@ -277,13 +277,13 @@ Product Owner выбрал вариант 1.
 
 ### Документы Для Решения
 
-- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможной правки `BT-012` или создания `BT-018`. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/business-requirements.md`.
+- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможной правки `BT-012` или создания `BT-018`.
 
   Текущая цитата из `BT-012` — бизнес-требования о подготовке и доставке результата:
 
   > DataCanvas готовит презентацию и доставляет готовый файл пользователю по электронной почте: при запуске другим агентом после проверки достаточности и безопасности данных, в Лисе после выбора пользователем изготовления презентации.
 
-- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник пользовательских историй запуска другим агентом. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`.
+- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник пользовательских историй запуска другим агентом.
 
   Цитата по `DC-ST-27` — пользовательской истории о статусах обработки:
 
@@ -293,7 +293,7 @@ Product Owner выбрал вариант 1.
 
   > Как команда разработки, мы хотим сохранять trace ID, источник запроса, результат проверки входа, статусы обработки и связи с итоговыми артефактами, чтобы каждый запуск DataCanvas другим агентом был проверяемым и воспроизводимым.
 
-- [feature-spec-a2a-launch.json](../../specs/feature-spec-a2a-launch.json) — технический донор, который нельзя считать первичным бизнес-источником. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/specs/feature-spec-a2a-launch.json`.
+- [feature-spec-a2a-launch.json](../../specs/feature-spec-a2a-launch.json) — технический донор, который нельзя считать первичным бизнес-источником.
 
   Цитата о намерении маршрута:
 
@@ -345,7 +345,7 @@ Product Owner выбрал вариант 3.
 
 ### Документы Для Решения
 
-- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможной правки `BT-014`. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/business-requirements.md`.
+- [business-requirements.md](../../requirements/business-requirements.md) — целевой документ для возможной правки `BT-014`.
 
   Текущая цитата из `BT-014` — бизнес-требования о трассировке жизненного цикла:
 
@@ -355,13 +355,13 @@ Product Owner выбрал вариант 3.
 
   > DataCanvas формирует статусы обработки и сведения о результате для вызывающего агента без утверждения реальной callback-интеграции в этом репозитории.
 
-- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — документ-донор по историям запуска другим агентом. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`.
+- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — документ-донор по историям запуска другим агентом.
 
   Цитата по `DC-ST-28` — пользовательской истории о трассировке:
 
   > Как команда разработки, мы хотим сохранять trace ID, источник запроса, результат проверки входа, статусы обработки и связи с итоговыми артефактами, чтобы каждый запуск DataCanvas другим агентом был проверяемым и воспроизводимым.
 
-- [traceability-matrix.json](../../requirements/traceability-matrix.json) — технический документ трассировки; он не является первичным бизнес-источником, но показывает проверяемую связь требований. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/traceability-matrix.json`.
+- [traceability-matrix.json](../../requirements/traceability-matrix.json) — технический документ трассировки; он не является первичным бизнес-источником, но показывает проверяемую связь требований.
 
   Цитата из текущего ожидания по `BT-014` — бизнес-требованию о трассировке жизненного цикла:
 
@@ -408,7 +408,7 @@ Product Owner выбрал вариант 2.
 
 ### Документы Для Решения
 
-- [sprint-candidate-plan.md](sprint-candidate-plan.md) — текущий кандидатный план спринтов. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md`.
+- [sprint-candidate-plan.md](sprint-candidate-plan.md) — текущий кандидатный план спринтов.
 
   Цитата о статусе документа:
 
@@ -418,19 +418,19 @@ Product Owner выбрал вариант 2.
 
   > Оценки для `DC-ST-23..DC-ST-28` — пользовательских историй запуска другим агентом — в источниках отсутствуют, поэтому окончательный порядок и вытеснение старых работ не назначаются.
 
-- [product-backlog.md](../../backlog/product-backlog.md) — текущий продуктовый список работ. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/backlog/product-backlog.md`.
+- [product-backlog.md](../../backlog/product-backlog.md) — текущий продуктовый список работ.
 
   Цитата о статусе историй-кандидатов:
 
   > Следующие строки не являются оценённым и утверждённым объёмом. Они добавлены как кандидаты Product Owner на `2026-Q3` и требуют оценки ёмкости, ресурсов и переприоритизации.
 
-- [roadmap-v0.1.md](../../roadmap/roadmap-v0.1.md) — текущая дорожная карта. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/roadmap/roadmap-v0.1.md`.
+- [roadmap-v0.1.md](../../roadmap/roadmap-v0.1.md) — текущая дорожная карта.
 
   Цитата из текущего плана:
 
   > Sprint 2 | Требования и traceability готовы к Sprint Backlog | G3
 
-- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник историй `DC-ST-23..DC-ST-28` запуска другим агентом. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`.
+- [agent-launch-candidate-stories-2026-q3.md](../../backlog/agent-launch-candidate-stories-2026-q3.md) — источник историй `DC-ST-23..DC-ST-28` запуска другим агентом.
 
   Цитата из правил строк:
 
@@ -488,7 +488,7 @@ Product Owner не подтвердил прямой переход к sprint ba
 
 ### Документы Для Решения
 
-- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий BMC-источник. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/bmc/bmc-v0.2.md`.
+- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий BMC-источник.
 
   Цитата из границы модели:
 
@@ -498,13 +498,13 @@ Product Owner не подтвердил прямой переход к sprint ba
 
   > После доставки файла поддерживается цикл замечаний, уточнения входных данных, изменения описания и повторной генерации.
 
-- [vision-v0.1.md](../../vision/vision-v0.1.md) — текущее видение продукта. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/vision/vision-v0.1.md`.
+- [vision-v0.1.md](../../vision/vision-v0.1.md) — текущее видение продукта.
 
   Цитата из первого пользовательского контура:
 
   > Человек проверяет, утверждает или отправляет результат на доработку.
 
-- [user-stories.md](../../requirements/user-stories.md) — формализованные пользовательские истории. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/user-stories.md`.
+- [user-stories.md](../../requirements/user-stories.md) — формализованные пользовательские истории.
 
   Цитата по post-delivery — правкам после доставки:
 
@@ -514,13 +514,13 @@ Product Owner не подтвердил прямой переход к sprint ba
 
   > `DC-ST-23..DC-ST-28` — пользовательские истории запуска DataCanvas другим агентом — имеют статус P1 candidate до оценки емкости, ресурсов и вытеснения работ.
 
-- [business-requirements.md](../../requirements/business-requirements.md) — текущие бизнес-требования. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/business-requirements.md`.
+- [business-requirements.md](../../requirements/business-requirements.md) — текущие бизнес-требования.
 
   Цитата из `BT-012` — бизнес-требования о подготовке и доставке:
 
   > DataCanvas готовит презентацию и доставляет готовый файл пользователю по электронной почте: при запуске другим агентом после проверки достаточности и безопасности данных, в Лисе после выбора пользователем изготовления презентации
 
-- [consistency-matrix.md](consistency-matrix.md) — текущая матрица согласованности. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/analysis/documentation-consistency-audit/consistency-matrix.md`.
+- [consistency-matrix.md](consistency-matrix.md) — текущая матрица согласованности.
 
   Цитата по открытому расхождению:
 
@@ -564,13 +564,13 @@ Product Owner выбрал вариант 1 с уточнением.
 
 ### Документы Для Решения BAQ-001.1
 
-- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий чистовой BMC. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/bmc/bmc-v0.2.md`.
+- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий чистовой BMC.
 
   Цитата из исправленного B2:
 
   > После доставки файла пользователь самостоятельно редактирует полученную презентацию; дальнейшие исправления через DataCanvas требуют отдельного продуктового решения.
 
-- [stories.md](../../../stories.md) — канонический каталог пользовательских историй. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/stories.md`.
+- [stories.md](../../../stories.md) — канонический каталог пользовательских историй.
 
   Цитата по текущему основному профилю:
 
@@ -580,7 +580,7 @@ Product Owner выбрал вариант 1 с уточнением.
 
   > Каталог шаблонов: формат, владельцы, правила обновления, брендовые ограничения.
 
-- [business-requirements.md](../../requirements/business-requirements.md) — текущие бизнес-требования. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/requirements/business-requirements.md`.
+- [business-requirements.md](../../requirements/business-requirements.md) — текущие бизнес-требования.
 
   Цитата по эффекту:
 
@@ -590,7 +590,7 @@ Product Owner выбрал вариант 1 с уточнением.
 
   > Каталог шаблонов | Выбор из предложенных вариантов | Открытое решение: состав, владельцы, правила обновления и брендовые ограничения
 
-- [bmc-validation-needs.json](../../bmc/bmc-validation-needs.json) — автоматически созданный список BMC-пунктов, требующих проверки. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/bmc/bmc-validation-needs.json`.
+- [bmc-validation-needs.json](../../bmc/bmc-validation-needs.json) — автоматически созданный список BMC-пунктов, требующих проверки.
 
   Цитата по B1:
 
@@ -649,7 +649,7 @@ Product Owner ответил: `2+4`.
 
 ## Документы Для Решения BAQ-001.2
 
-- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий чистовой BMC. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/bmc/bmc-v0.2.md`.
+- [bmc-v0.2.md](../../bmc/bmc-v0.2.md) — текущий чистовой BMC.
 
   Текущий текст B1 — сегменты пользователей:
 
@@ -659,13 +659,13 @@ Product Owner ответил: `2+4`.
 
   > CSM и другие пользователи Лисы остаются перспективными сегментами до дополнительного подтверждения Product Owner.
 
-- [stories.md](../../../stories.md) — канонический каталог пользовательских историй. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/stories.md`.
+- [stories.md](../../../stories.md) — канонический каталог пользовательских историй.
 
   Цитата по текущему основному профилю:
 
   > `КМ` - клиентский менеджер, основной пользовательский профиль для текущего видения.
 
-- [bmc-validation-needs.json](../../bmc/bmc-validation-needs.json) — автоматически созданный список BMC-пунктов, требующих проверки. Абсолютный путь: `/Users/s060874gmail.com/coding/projects/datacanvas-first-universal-documentation-run/docs/product/bmc/bmc-validation-needs.json`.
+- [bmc-validation-needs.json](../../bmc/bmc-validation-needs.json) — автоматически созданный список BMC-пунктов, требующих проверки.
 
   Цитата по открытому B1 — сегментам пользователей:
 
@@ -791,3 +791,50 @@ Product Owner ответил на вопрос о статусе историй 
 Граница применения: численные ПШЕ не назначались. Документ повторяет структуру сохраненного Excel-источника `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx`: рольные колонки, итог ПШЕ, аналоги из Excel и вопросы команде реализации.
 
 Следующий безопасный шаг: получить оценки ПШЕ от команды реализации по подготовленной матрице, затем вернуться к sprint backlog — списку работ спринта, емкости и вытеснению работ.
+
+## Ответ BAQ-002.4 — Черновые Диапазоны ПШЕ И Рабочая Excel-Версия Backlog
+
+Product Owner уточнил следующий способ движения:
+
+> Я хочу подготовить предварительные диапазоны по Excel как черновик и добавить эти стори в бэклог в новую версию excel, чтобы с этой таблицей и предварительынми значениями можно было работать и чтобы можно было отфильтроваться по неутвержденным трудозатратам по сторям
+
+Решение: для `DC-ST-23`, `DC-ST-24`, `DC-ST-25`, `DC-ST-26`, `DC-ST-27`, `DC-ST-28` — P1-историй запуска DataCanvas другим агентом — разрешено подготовить черновые диапазоны ПШЕ по Excel-аналогам, но не считать их утвержденной оценкой команды реализации.
+
+Применение:
+
+- Создана рабочая Excel-версия backlog `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx`.
+- Рабочий Excel сохранен как точная копия исходного листа `Лист1`: исходные строки 1-25, колонки A-U, формулы, оформление, ширины колонок, высоты строк, скрытие строк, закрепление области, фильтр, комментарии и служебные XML-части Excel сохранены.
+- Исходная строка 26 проверена как пустая техническая строка без текста истории, ценности, приоритета и рольных оценок; в рабочей книге она заменена первой новой P1-историей.
+- В лист `Лист1` добавлены только строки 26-31 для `DC-ST-23..DC-ST-28`; новые листы и служебные колонки не добавлялись.
+- В новых строках колонка H содержит формулы `=SUM(Irow:Urow)*$C$1`, а рольные компоненты I-U скопированы из строки-аналога с максимальным черновым ПШЕ.
+- Строки `DC-ST-23..DC-ST-28` имеют пометку `черновой ПШЕ; не утверждено` в колонке `Комментарии`, чтобы их можно было отфильтровать без изменения структуры исходной таблицы.
+- В комментариях к H26-H31 указаны строки-аналоги, диапазон ПШЕ и выбранный профиль.
+- Исходный файл `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx` не изменялся.
+
+Черновые диапазоны:
+
+| История | Строка Excel | Excel-аналоги | Черновой диапазон ПШЕ | Значение в H | Статус |
+|---|---:|---|---:|---:|---|
+| `DC-ST-23` — передача запроса от другого агента | 26 | rows 8, 15, 21 | 6.0 - 7.0 | 7.0 | не утверждено |
+| `DC-ST-24` — запуск в общем сценарии | 27 | rows 8, 15 | 6.0 - 7.0 | 7.0 | не утверждено |
+| `DC-ST-25` — входной пакет | 28 | rows 8, 15, 24 | 6.0 - 46.0 | 46.0 | не утверждено |
+| `DC-ST-26` — проверка входа | 29 | rows 9, 10 | 8.0 - 8.0 | 8.0 | не утверждено |
+| `DC-ST-27` — статусы обработки | 30 | rows 12, 17 | 13.0 - 17.0 | 17.0 | не утверждено |
+| `DC-ST-28` — трассировка | 31 | rows 4, 12, 17 | 13.0 - 21.4 | 21.4 | не утверждено |
+
+Граница применения: диапазоны нужны для обсуждения и предварительной работы с backlog. После проверки команды реализации нужно заменить черновые диапазоны на утвержденные значения или зафиксировать `блокер оценки` — блокирующую причину, по которой оценку нельзя подтвердить.
+
+## Ответ BAQ-002.5 — Добавление `DC-ST-29` Для Генерации Файла Презентации
+
+Product Owner обнаружил пробел в историях: после получения очищенных данных отсутствовала отдельная история самого процесса генерации презентации. Подтверждено добавление:
+
+> Как DataCanvas, я хочу сформировать редактируемый файл презентации из уже проверенных и нормализованных данных, чтобы пользователь получил рабочий материал без ручной сборки.
+
+Решение: добавлена `DC-ST-29` — пользовательская история генерации редактируемого файла презентации. Новый `BT-019` — бизнес-требование — не создается: история покрыта `BT-012` — бизнес-требованием подготовки и доставки файла, `BT-002` — бизнес-требованием генерации проверяемой презентации — и `BT-014` — бизнес-требованием трассировки жизненного цикла.
+
+Применение:
+
+- В `docs/stories.md`, `docs/product/requirements/user-stories.md`, `docs/product/backlog/product-backlog.md` и `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` добавлена `DC-ST-29`.
+- В рабочую Excel-версию backlog добавлена строка 32 с минимальным профилем Product Owner: БА 3, СА AEF Containers 3, DEV AEF Containers 3, QA 3, AQA 3; итог H32 = 30.0 при коэффициенте C1 = 2.
+- Устаревшие комментарии H26-H27, которые содержали старые значения и уже не совпадали с текущей редакцией Excel, удалены. Служебное происхождение и статус проверки хранится в provenance-манифесте.
+- Следующий внешний шаг расширен: команда реализации должна проверить рабочие значения ПШЕ для `DC-ST-23..DC-ST-29`, а не только для `DC-ST-23..DC-ST-28`.

@@ -2666,6 +2666,86 @@
       "breadcrumb_required": false,
       "artifact_registry_required": false,
       "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "route_id": "datacanvas-excel-backlog-sync-guide",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Правила работы с Excel backlog, ПШЕ, reverse sync или XLSX verifier меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "route_id": "datacanvas-xlsx-opml-jira-recovery-index",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Статус восстановления XLSX, OPML, Jira import или Confluence map меняется.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "route_id": "business-artifact-content-contract",
+      "path": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "section": "process",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Правила чистоты бизнес-артефактов, классы документов или структурные gate меняются.",
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "route_id": "story-catalog-content-lock",
+      "path": "docs/product/sources/story-catalog-content-lock.json",
+      "section": "product",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/stories.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Согласованный текст пользовательских историй или бизнес-ценностей меняется.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
     }
   ],
   "role_routes": [
@@ -3152,12 +3232,52 @@
       "owner_role": "Documentation Owner",
       "validation_command": "npm run generate:docs-navigation -- --check",
       "navigation_domain": "documentation_operations"
+    },
+    {
+      "id": "task-estimate-effort-from-xlsx-backlog",
+      "label": "Оценить ресурсы по Excel backlog",
+      "task": "Подготовить или проверить ПШЕ по рабочей Excel-версии backlog DataCanvas",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "start_path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "next_paths": [
+        "docs/product/sources/README.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "owner_role": "Product Owner / Implementation Team",
+      "validation_command": "npm run validate:xlsx-backlog"
+    },
+    {
+      "id": "task-recover-xlsx-opml-jira",
+      "label": "Восстановить XLSX OPML Jira",
+      "task": "Проверить или восстановить цепочку XLSX -> OPML -> Jira import для DataCanvas",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "start_path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+      "next_paths": [
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/cascading-governance/jira-field-mapping-request.json",
+        "docs/process/cascading-governance/jira-import-package-manifest.json",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+      ],
+      "owner_role": "Product Owner / Process Owner / Delivery/GitOps Lead",
+      "validation_command": "npm run validate:xlsx-backlog && npm run validate:jira-field-mapping"
     }
   ],
   "ignored_paths": [
     {
       "path": "docs/product/sources/raw",
       "reason": "Raw product source binaries are tracked through product-source-registry.json and are not rendered as navigation documents."
+    },
+    {
+      "path": "docs/product/sources/working",
+      "reason": "Working product source workbooks and machine-readable provenance manifests are tracked through product-source-registry.json and are not rendered as navigation documents."
     },
     {
       "path": "docs/product/bmc/source/derived",
@@ -3236,7 +3356,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2",
+    "current_main_commit": "ee7fe4f18ba6f5aec5bb77e0096dcb6b3e0a57eb",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

@@ -221,6 +221,67 @@
         "docs/product/sources/product-source-registry.json"
       ],
       "notes": "Product Owner подтвердил DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом. Численные ПШЕ не назначаются без оценки; следующий шаг — оценить трудозатраты по аналогии с Excel-источником и его ресурсной матрицей."
+    },
+    {
+      "decision_id": "UDW-DEC-015",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-022",
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md"
+      ],
+      "notes": "Product Owner выбрал рабочий маршрут: подготовить предварительные диапазоны ПШЕ по Excel как черновик и добавить DC-ST-23..DC-ST-28 в новую Excel-версию backlog. Диапазоны остаются неутвержденными до проверки команды реализации."
+    },
+    {
+      "decision_id": "UDW-DEC-016",
+      "decision_type": "process_change_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Process Owner",
+      "acceptance_record_id": "UDW-ACC-023",
+      "linked_artifacts": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
+      ],
+      "notes": "Принято: Excel backlog входит в ресурсный workflow DataCanvas. Raw XLSX остается неизменным, working XLSX должен иметь provenance manifest, проверяться npm run validate:xlsx-backlog и не давать утвержденные ПШЕ до проверки команды реализации."
+    },
+    {
+      "decision_id": "UDW-DEC-018",
+      "decision_type": "product_behavior_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner",
+      "acceptance_record_id": "UDW-ACC-024",
+      "linked_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "notes": "Product Owner подтвердил добавление DC-ST-29 как недостающей P1-истории генерации редактируемого файла презентации из уже проверенных и нормализованных данных. Новый BT-019 не создается: история покрыта BT-012, BT-002 и BT-014."
     }
   ]
 }

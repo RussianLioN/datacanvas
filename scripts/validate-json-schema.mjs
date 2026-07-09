@@ -241,6 +241,18 @@ const cases = [
     data: "docs/product/sources/product-source-registry.json",
   },
   {
+    schema: "schemas/xlsx-backlog-provenance.schema.json",
+    data: "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+  },
+  {
+    schema: "schemas/xlsx-opml-jira-recovery-index.schema.json",
+    data: "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+  },
+  {
+    schema: "schemas/business-artifact-content-contract.schema.json",
+    data: "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+  },
+  {
     schema: "schemas/product-vision-manifest.schema.json",
     data: "docs/product/vision/manifest.json",
   },

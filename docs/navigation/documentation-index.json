@@ -2774,8 +2774,8 @@
       "anchors": [
         "data-classification-policy"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/security/data-leakage-manifest.json",
@@ -3036,8 +3036,8 @@
         "основные-риски",
         "базовые-контроли"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/security/trust-boundaries.md",
@@ -3604,6 +3604,39 @@
       "click_depth": 4
     },
     {
+      "path": "docs/knowledge/rca/2026-07-09-stories-section-contract-gap.md",
+      "title": "RCA: разрыв контракта разделов каталога историй",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": "ART-712",
+      "outgoing_links": [],
+      "anchors": [
+        "rca-разрыв-контракта-разделов-каталога-историй",
+        "ошибка",
+        "проверка-уроков",
+        "5-почему",
+        "корневая-причина",
+        "исправление",
+        "проверка",
+        "предотвращение"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -3623,7 +3656,8 @@
       "parent_readme": "docs/knowledge/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
-        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md"
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+        "docs/knowledge/rca/2026-07-09-stories-section-contract-gap.md"
       ],
       "anchors": [
         "rca",
@@ -6021,6 +6055,42 @@
       "click_depth": null
     },
     {
+      "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "title": "Синхронизация Excel Backlog DataCanvas",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-697",
+      "outgoing_links": [
+        "docs/process/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "синхронизация-excel-backlog-datacanvas",
+        "назначение",
+        "правило-точной-копии",
+        "черновые-оценки",
+        "обратная-синхронизация-из-excel",
+        "проверка-в-репозитории-и-локальный-навык",
+        "минимальный-gate"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/process/methodology/babok-coverage-map.json",
       "title": "docs/process/methodology/babok-coverage-map.json",
       "section": "process",
@@ -6823,6 +6893,7 @@
         "docs/process/current/process-change-ledger.json",
         "docs/process/current/process-passport.md",
         "docs/process/current/process-registry.md",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
         "docs/process/methodology/README.md",
         "docs/process/prompt-only-artifact-review/README.md",
         "docs/process/universal-documentation-workflow/README.md",
@@ -6994,6 +7065,30 @@
       "generated_from": [],
       "parent_readme": "docs/process/universal-documentation-workflow/README.md",
       "artifact_registry_id": "ART-648",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "title": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "json",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/process/universal-documentation-workflow/README.md",
+      "artifact_registry_id": "ART-710",
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
@@ -7216,6 +7311,7 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/acceptance-records.json",
         "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
         "docs/process/universal-documentation-workflow/datacanvas-profile.json",
         "docs/process/universal-documentation-workflow/decision-ledger.json",
         "docs/process/universal-documentation-workflow/decision-queue.json",
@@ -7240,6 +7336,7 @@
         "для-кого-эта-инструкция",
         "кто-за-что-отвечает",
         "что-позволяет-рабочий-процесс",
+        "чистота-бизнес-артефактов",
         "состав",
         "как-найти-через-навигацию",
         "типовые-сценарии-использования",
@@ -8153,11 +8250,13 @@
       "parent_readme": "docs/product/analysis/documentation-consistency-audit/README.md",
       "artifact_registry_id": "ART-694",
       "outgoing_links": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
-        "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
         "docs/README.md",
         "README.md"
       ],
@@ -8167,7 +8266,8 @@
         "источник-матрицы",
         "правила-оценки",
         "аналоги-из-excel-для-обсуждения",
-        "матрица-для-заполнения-командой",
+        "рабочие-значения-в-excel",
+        "матрица-для-проверки-командой",
         "вопросы-команде-реализации",
         "следующий-шаг-после-заполнения"
       ],
@@ -8392,7 +8492,9 @@
         "чек-лист-перед-baq-002",
         "ответ-baq-0021-бизнес-ценности-stories-с-пустыми-ячейками-в-excel",
         "ответ-baq-0022-статус-и-оценка-dc-st-23dc-st-28",
-        "продолжение-baq-0023-подготовка-раунда-оценки-пше"
+        "продолжение-baq-0023-подготовка-раунда-оценки-пше",
+        "ответ-baq-0024-черновые-диапазоны-пше-и-рабочая-excel-версия-backlog",
+        "ответ-baq-0025-добавление-dc-st-29-для-генерации-файла-презентации"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -8427,6 +8529,7 @@
         "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
         "docs/README.md",
         "README.md"
       ],
@@ -8501,6 +8604,7 @@
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
         "docs/README.md",
         "README.md"
       ],
@@ -8558,6 +8662,8 @@
         "проверки-после-ответа-baq-001-и-исправления-bmc",
         "проверки-после-ответа-baq-0011-и-смягчения-bmc",
         "проверки-после-введения-правила-interview-first",
+        "проверки-после-подготовки-черновой-excel-версии-backlog-с-диапазонами-пше",
+        "проверки-после-добавления-dc-st-29",
         "остаточные-риски"
       ],
       "reachable_from_root": true,
@@ -8711,7 +8817,6 @@
       "parent_readme": "docs/product/backlog/README.md",
       "artifact_registry_id": "ART-434",
       "outgoing_links": [
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
@@ -10508,10 +10613,6 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-428",
       "outgoing_links": [
-        "docs/architecture/security/data-classification-policy.md",
-        "docs/architecture/security/threat-model.md",
-        "docs/architecture/security/trust-boundaries.md",
-        "docs/plans/datacanvas-p1-p2-business-requirements-implementation-plan.md",
         "docs/product-vision.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/README.md",
@@ -10564,8 +10665,8 @@
       ],
       "anchors": [
         "нефункциональные-требования-v01",
-        "basa-fit-criteria",
-        "risk-links"
+        "критерии-пригодности-для-basa",
+        "связь-с-рисками"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10652,7 +10753,6 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-429",
       "outgoing_links": [
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
@@ -10922,6 +11022,9 @@
         "основные-источники",
         "машинный-реестр",
         "сырые-исходники",
+        "рабочие-excel-версии",
+        "индексы-восстановления-и-экспорта",
+        "проверка-excel-оценок",
         "ревизия-по-co-2026-001"
       ],
       "reachable_from_root": true,
@@ -10959,6 +11062,54 @@
         "текущее-покрытие",
         "следующий-шаг"
       ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/sources/story-catalog-content-lock.json",
+      "title": "docs/product/sources/story-catalog-content-lock.json",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/stories.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/sources/README.md",
+      "artifact_registry_id": "ART-711",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "title": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "json",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/sources/README.md",
+      "artifact_registry_id": "ART-701",
+      "outgoing_links": [],
+      "anchors": [],
       "reachable_from_root": false,
       "click_depth": null
     },
@@ -33988,31 +34139,12 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-426",
       "outgoing_links": [
-        "docs/product/README.md",
-        "docs/README.md",
         "README.md"
       ],
       "anchors": [
         "каталог-пользовательских-историй-datacanvas",
         "назначение",
-        "источники-и-правила-слияния",
-        "термины",
-        "сводка-по-приоритетам-и-срокам",
-        "сводка-по-оценкам",
-        "каталог-stories",
-        "группировка-по-функциональным-зонам",
-        "ядро",
-        "подача-данных-на-вход",
-        "уточнение-вида-презентации",
-        "получение-результата",
-        "проверяемость-и-трассировка",
-        "исправление-результата",
-        "трассировка-excelopml",
-        "открытые-продуктовые-решения",
-        "закрыто-текущими-уточнениями",
-        "открыто-но-не-блокирует-vision",
-        "блокирует-следующую-детализацию-требований",
-        "проверки-покрытия"
+        "каталог-пользовательских-историй"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -34567,6 +34699,42 @@
         "owner_role": "Documentation Owner",
         "validation_command": "npm run generate:docs-navigation -- --check",
         "navigation_domain": "documentation_operations"
+      },
+      {
+        "id": "task-estimate-effort-from-xlsx-backlog",
+        "label": "Оценить ресурсы по Excel backlog",
+        "task": "Подготовить или проверить ПШЕ по рабочей Excel-версии backlog DataCanvas",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "governance",
+        "start_path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "next_paths": [
+          "docs/product/sources/README.md",
+          "docs/product/sources/product-source-registry.json",
+          "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+          "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+          "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
+          "docs/architecture/schemas/artifact-registry.json"
+        ],
+        "owner_role": "Product Owner / Implementation Team",
+        "validation_command": "npm run validate:xlsx-backlog"
+      },
+      {
+        "id": "task-recover-xlsx-opml-jira",
+        "label": "Восстановить XLSX OPML Jira",
+        "task": "Проверить или восстановить цепочку XLSX -> OPML -> Jira import для DataCanvas",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "governance",
+        "start_path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+        "next_paths": [
+          "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+          "docs/product/sources/product-source-registry.json",
+          "docs/process/guides/datacanvas-excel-backlog-sync.md",
+          "docs/process/cascading-governance/jira-field-mapping-request.json",
+          "docs/process/cascading-governance/jira-import-package-manifest.json",
+          "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+        ],
+        "owner_role": "Product Owner / Process Owner / Delivery/GitOps Lead",
+        "validation_command": "npm run validate:xlsx-backlog && npm run validate:jira-field-mapping"
       }
     ],
     "current_pointers": {
@@ -34575,25 +34743,29 @@
       "current_process_version": "0.1.0",
       "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
       "current_uat_state": "accepted_real_uat",
-      "current_main_commit": "49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2",
+      "current_main_commit": "ee7fe4f18ba6f5aec5bb77e0096dcb6b3e0a57eb",
       "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
     }
   },
   "coverage": {
-    "total_entries": 1206,
-    "manual_entries": 1202,
+    "total_entries": 1211,
+    "manual_entries": 1207,
     "generated_entries": 4,
     "public_navigable_entries": 33,
-    "searchable_entries": 1173,
+    "searchable_entries": 1177,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 165,
+    "reachable_from_root": 166,
     "orphan_entries": 0
   },
   "ignored_paths": [
     {
       "path": "docs/product/sources/raw",
       "reason": "Raw product source binaries are tracked through product-source-registry.json and are not rendered as navigation documents."
+    },
+    {
+      "path": "docs/product/sources/working",
+      "reason": "Working product source workbooks and machine-readable provenance manifests are tracked through product-source-registry.json and are not rendered as navigation documents."
     },
     {
       "path": "docs/product/bmc/source/derived",

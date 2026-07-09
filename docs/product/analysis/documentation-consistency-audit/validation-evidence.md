@@ -352,8 +352,74 @@
 | `npm run validate:artifact-hashes` | passed | Hash manifest — манифест хэшей — актуален и валиден. |
 | `git diff --check` | passed | Whitespace-проверка прошла. |
 
+## Проверки После Подготовки Черновой Excel-Версии Backlog С Диапазонами ПШЕ
+
+Product Owner подтвердил рабочий маршрут: подготовить предварительные диапазоны ПШЕ — трудозатрат в человеко-днях — по Excel-аналогам и добавить `DC-ST-23..DC-ST-28` — P1-истории запуска DataCanvas другим агентом — в новую Excel-версию backlog. Создан файл `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx`.
+
+После дополнительного требования Product Owner рабочая книга приведена к строгому формату: это точная копия исходного листа `Лист1` из `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx`, отличающаяся только строками 26-31 для `DC-ST-23..DC-ST-28`. Служебные листы и новые колонки удалены; статус черновой оценки хранится в существующей колонке `Комментарии`.
+
+После замечания Product Owner о неправильном закреплении областей и неперенесенных настройках таблицы рабочая книга пересобрана от raw-пакета `.xlsx`, а не через высокоуровневую перезапись листа. Исходная строка 26 предварительно проверена как пустая техническая строка: она была скрыта, не содержала текста истории, ценности, приоритета или рольных оценок и имела только расчетную нулевую ячейку H26.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `npm run validate:xlsx-backlog` | passed | Репозиторная проверка заменяет временные команды из `/tmp`: сверяет raw XLSX, working XLSX, provenance manifest — машинный манифест происхождения — и golden-описание допустимых изменений. |
+| `npm run validate:xlsx-backlog` | passed | Проверка должна подтвердить один лист `Лист1`, форму `31x21`, неизменность исходных содержательных строк и колонок A-U, сохранение стилей, ширин колонок, высот строк, формул строк 1-2, фильтр `B3:U31`, расчетные значения H26-H31 и отсутствие formula error tokens — маркеров ошибок формул. |
+| `npm run validate:xlsx-backlog` | passed | Низкоуровневая XML-проверка должна подтвердить сохранение `sheetViews`, `pane ySplit=3`, `topLeftCell=A6`, `selection H3` и `selection H4:H12`, `sheetPr`, `sheetFormatPr`, `cols`, исходных путей `comments1.xml` и `vmlDrawing1.vml`, а также обновление `_FilterDatabase` до `B3:U31`. |
+| `npm run validate:xlsx-backlog` | passed | Проверка должна подтвердить расширение общего диапазона формулы итоговой колонки с `H5:H26` до `H5:H31`, чтобы строки `DC-ST-23..DC-ST-28` входили в расчет. |
+| `npm run validate:xlsx-backlog` | passed | Проверка должна подтвердить, что исходные строки 13-25 остаются скрытыми по активному фильтру, а новые строки 26-31 видимы для обсуждения неутвержденных ПШЕ. |
+| `npm run validate:xlsx-backlog` | passed | Проверка должна подтвердить расчеты: полный расчет по всем содержательным строкам равен 283.1 базовой ПШЕ и 566.2 реалистичной ПШЕ; видимые кешированные итоги при активном фильтре равны F2 = 106.5, D2 = 77.0, F1 = 213.0, D1 = 154.0. |
+| `npm run validate:xlsx-backlog` | passed | Проверка должна подтвердить черновые значения: `DC-ST-23` — 7.0 по rows 8/15/21, `DC-ST-24` — 7.0 по rows 8/15, `DC-ST-25` — 46.0 по rows 8/15/24, `DC-ST-26` — 8.0 по rows 9/10, `DC-ST-27` — 17.0 по rows 12/17, `DC-ST-28` — 21.4 по rows 4/12/17. |
+| `jq empty docs/process/universal-documentation-workflow/*.json docs/product/sources/product-source-registry.json docs/navigation/navigation-source.json` | passed | JSON-синтаксис workflow, product source registry — реестра продуктовых источников — и navigation source — источника навигации — корректен. |
+| `npm run validate:co-questionnaire` | passed | Состояние PO-опросника валидно после фиксации ответа владельца. |
+| `npm run validate:product-sources` | passed | Реестр продуктовых источников валиден после регистрации рабочей Excel-версии. |
+| `npm run validate:product-source-consistency` | passed | Согласованность продуктовых источников проходит после добавления чернового Excel. |
+| `npm run validate:xlsx-backlog` | passed | Новый обязательный gate должен пройти после встраивания рабочей книги в UDW, source registry, artifact inventory и навигацию. |
+| `npm run validate:universal-documentation-workflow` | passed | Служебное состояние UDW — универсального документационного процесса — валидно после `UDW-DEC-015`. |
+| `node scripts/generate-docs-navigation.mjs` | passed | Generated navigation — автоматически созданная навигация — обновлена генератором. |
+| `node scripts/generate-artifact-hash-manifest.mjs` | passed | Hash manifest — манифест хэшей — обновлен генератором после всех ручных и generated-изменений. |
+| `npm run generate:docs-navigation -- --check` | passed | Generated navigation — автоматически созданная навигация — актуальна. |
+| `npm run validate:doc-links` | passed | Ссылки проходят проверку, включая ссылки на рабочую Excel-версию. |
+| `npm run validate:docs-navigation` | passed | Навигационный контракт проходит проверку. |
+| `npm run validate:doc-stale-status` | passed | Статусы устаревания документации проходят проверку. |
+| `npm run validate:artifact-hashes` | passed after regenerate | Первый запуск после промежуточных правок показал stale hash manifest; после повторной генерации проверка прошла. |
+| `npm run validate:data-leakage` | passed | Data leakage validation — проверка утечек данных — прошла. |
+| `npm run scan:secrets` | passed | Secret scan — проверка секретов — прошла. |
+| `git diff --check` | passed | Whitespace-проверка прошла. |
+| `npm test` | passed | Полный локальный gate прошел после обновления Excel-источника, workflow-состояния, реестров, навигации и hash manifest. |
+
+## Проверки После Добавления `DC-ST-29`
+
+Product Owner подтвердил добавление `DC-ST-29` — пользовательской истории о формировании редактируемого файла презентации из уже проверенных и нормализованных данных. Новое `BT-*` — бизнес-требование — не создавалось; история связана с существующими `BT-012` — требованием о подготовке и доставке результата, `BT-002` — требованием о продуктовой ценности готовой презентации, и `BT-014` — требованием о трассировке жизненного цикла.
+
+Рабочая Excel-версия backlog расширена до строки 32. Для `DC-ST-29` добавлена предварительная оценка 30 ПШЕ — человеко-дней — на согласование командой реализации; структура листа, фильтр, закрепление областей, формулы, кешированные итоги и оформление проверены валидатором.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `jq empty docs/process/universal-documentation-workflow/*.json docs/product/sources/product-source-registry.json docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json docs/product/requirements/traceability-matrix.json` | passed | JSON-синтаксис UDW, source registry — реестра источников, provenance — манифеста происхождения, golden XLSX — эталона Excel-проверки — и traceability — трассировки — корректен. |
+| `npm run validate:xlsx-backlog` | passed | Подтверждены рабочий лист `Лист1`, диапазон `A1:U32`, фильтр `B3:U32`, общий диапазон формулы `H5:H32`, строка 32 для `DC-ST-29`, кешированное значение H32 = 30 и видимые итоги D2 = 78, F2 = 89.7, D1 = 156, F1 = 179.4. |
+| `python3 scripts/validate-datacanvas-xlsx-backlog.py --self-test` | passed | Негативные self-test сценарии XLSX-валидатора проходят: validator ловит неверный фильтр, неверные формулы, поврежденные значения и устаревшие комментарии. |
+| `npm run validate:universal-documentation-workflow` | passed | Служебное состояние UDW — универсального документационного процесса — валидно после записи решения и ужесточения правил вопроса владельцу. |
+| `npm run validate:product-sources` | passed | Реестр продуктовых источников валиден после обновления рабочей Excel-версии и ее provenance. |
+| `npm run validate:product-source-consistency` | passed | Согласованность продуктовых источников проходит после добавления `DC-ST-29`. |
+| `npm run validate:co-questionnaire` | passed | Состояние PO-опросника валидно после фиксации ответа владельца. |
+| `npm run validate:schemas` | passed | Полная проверка JSON Schema проходит, включая новые XLSX provenance и recovery index schemas. |
+| `npm run validate:doc-links` | passed | Ссылки в документации проходят проверку. |
+| `npm run validate:traceability-graph` | passed | Traceability graph — граф трассировки — проходит после связи `DC-ST-29` с `BT-012`, `BT-002` и `BT-014`. |
+| `node scripts/generate-docs-navigation.mjs` | passed | Generated navigation — автоматически созданная навигация — обновлена генератором. |
+| `node scripts/generate-artifact-hash-manifest.mjs` | passed | Hash manifest — манифест хэшей — обновлен генератором после всех ручных и generated-изменений. |
+| `npm run generate:docs-navigation -- --check` | passed | Generated navigation — автоматически созданная навигация — актуальна. |
+| `npm run validate:docs-navigation` | passed | Навигационный контракт проходит проверку. |
+| `npm run validate:doc-stale-status` | passed after pointer refresh | Первый запуск показал устаревший `current_main_commit`; служебный указатель обновлен на текущий `origin/main` и проверка прошла. |
+| `npm run validate:artifact-registry` | passed | Artifact registry — реестр артефактов — валиден. |
+| `npm run validate:artifact-hashes` | passed after regenerate | Первый запуск после параллельной генерации показал stale hash manifest; после повторной генерации хешей последним шагом проверка прошла. |
+| `npm run validate:data-leakage` | passed | Data leakage validation — проверка утечек данных — прошла. |
+| `npm run scan:secrets` | passed | Secret scan — проверка секретов — прошла. |
+| `git diff --check` | passed | Whitespace-проверка прошла. |
+| `npm test` | passed | Полный локальный gate прошел после добавления `DC-ST-29`, обновления Excel, трассировки, source registry, UDW-состояния, навигации и hash manifest. |
+
 ## Остаточные Риски
 
 - Ответ `1` по `BAQ-001.2` — первому вопросу короткого BMC-интервью по B1, сегментам пользователей — получен в чате, но намеренно не применен к продуктовым документам до завершения оставшихся вопросов BMC-интервью или текущего раунда интервью. Это частный случай общего правила: любые опросы и вопросы по любым артефактам сначала задаются пакетом, а правки выполняются после сбора ответов.
 - `UDW-DEC-005` — решение Product Owner о полном BA-опроснике DataCanvas — открыто и блокирует финальный backlog refinement — уточнение продуктового списка работ, sprint backlog — список работ спринта, roadmap — дорожную карту — и Confluence-ready package — комплект для Confluence.
+- Для `DC-ST-23..DC-ST-29` — P1-историй запуска DataCanvas другим агентом и генерации презентации — подготовлены предварительные значения ПШЕ по Excel-аналогам, но утвержденные командой значения, емкость и вытеснение работ еще не зафиксированы.
 - `UDW-RCA-001` — ретроспектива и RCA, анализ первопричин ошибок текущего UDW-прохода — нужно выполнить после завершения PO-опросника; задача не блокирует сбор оставшихся вопросов BMC-интервью.

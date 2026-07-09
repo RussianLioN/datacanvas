@@ -116,6 +116,8 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `task-review-change-impact` | Проанализировать влияние изменения на артефакты документации | `documentation_operations` | `governance` | `docs/process/universal-documentation-workflow/artifact-inventory.json` | `docs/process/cascading-governance/artifact-dependency-graph.json`, `docs/process/universal-documentation-workflow/decision-queue.json`, `docs/process/universal-documentation-workflow/acceptance-records.json`, `docs/process/universal-documentation-workflow/run-ledger.json` | Process Owner | `npm run validate:workflow-state-ledger` |
 | `task-find-source-of-truth-by-decision-type` | Найти источник истины по типу решения | `documentation_operations` | `governance` | `docs/process/universal-documentation-workflow/universal-workflow-core.json` | `docs/process/universal-documentation-workflow/datacanvas-profile.json`, `docs/process/universal-documentation-workflow/artifact-inventory.json`, `docs/process/universal-documentation-workflow/decision-ledger.json`, `docs/process/universal-documentation-workflow/acceptance-records.json` | Process Owner | `npm run validate:documentation-core` |
 | `task-find-generated-artifacts` | Найти генерируемые артефакты | `documentation_operations` | `generated` | `docs/navigation/navigation-map.md` | `docs/navigation/documentation-index.json`, `docs/navigation/orphan-docs-report.md`, `docs/navigation/stale-status-report.md` | Documentation Owner | `npm run generate:docs-navigation -- --check` |
+| `task-estimate-effort-from-xlsx-backlog` | Подготовить или проверить ПШЕ по рабочей Excel-версии backlog DataCanvas | `documentation_operations` | `governance` | `docs/process/guides/datacanvas-excel-backlog-sync.md` | `docs/product/sources/README.md`, `docs/product/sources/product-source-registry.json`, `docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md`, `docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md`, `docs/product/analysis/documentation-consistency-audit/validation-evidence.md`, `docs/architecture/schemas/artifact-registry.json` | Product Owner / Implementation Team | `npm run validate:xlsx-backlog` |
+| `task-recover-xlsx-opml-jira` | Проверить или восстановить цепочку XLSX -> OPML -> Jira import для DataCanvas | `documentation_operations` | `governance` | `docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md` | `docs/product/sources/xlsx-opml-jira-recovery-index.json`, `docs/product/sources/product-source-registry.json`, `docs/process/guides/datacanvas-excel-backlog-sync.md`, `docs/process/cascading-governance/jira-field-mapping-request.json`, `docs/process/cascading-governance/jira-import-package-manifest.json`, `docs/product/analysis/documentation-consistency-audit/confluence-import-map.md` | Product Owner / Process Owner / Delivery/GitOps Lead | `npm run validate:xlsx-backlog && npm run validate:jira-field-mapping` |
 
 ## Источники Истины
 
@@ -134,7 +136,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `49a72cb1a4c13108e46ca33f3c1607d4b0b2e5d2` |
+| `current_main_commit` | `ee7fe4f18ba6f5aec5bb77e0096dcb6b3e0a57eb` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence Hub И Registry

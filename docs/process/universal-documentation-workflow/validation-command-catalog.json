@@ -47,6 +47,18 @@
       "purpose": "Проверяет чистоту публичного Vision и вынос служебной информации в машинные артефакты."
     },
     {
+      "id": "business-docs",
+      "command": "npm run validate:business-docs",
+      "gate": "profile",
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "traceability"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет, что бизнесовые Markdown-артефакты не смешивают продуктовый смысл с техническими контрактами, provenance, проверочными командами, локальными путями и generated metadata."
+    },
+    {
       "id": "product-sources",
       "command": "npm run validate:product-sources && npm run validate:product-source-consistency",
       "gate": "profile",
@@ -136,6 +148,19 @@
       ],
       "owner_role": "Process Owner",
       "purpose": "Запускает полный локальный gate репозитория, включая workflow, продуктовые источники, BMC, security, export и visual проверки."
+    },
+    {
+      "id": "xlsx-backlog-sync",
+      "command": "npm run validate:xlsx-backlog",
+      "gate": "profile",
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "effort_estimation"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "purpose": "Проверяет рабочий Excel backlog DataCanvas как точную копию raw XLSX с допустимыми добавленными строками, provenance и статусом draft-ПШЕ."
     }
   ],
   "gate_order": [

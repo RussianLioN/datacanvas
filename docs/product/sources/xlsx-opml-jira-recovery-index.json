@@ -1,0 +1,59 @@
+{
+  "$schema": "../../../schemas/xlsx-opml-jira-recovery-index.schema.json",
+  "version": "0.1.0",
+  "status": "draft",
+  "index_id": "XLSX-OPML-JIRA-RECOVERY-2026-07-08",
+  "updated_at": "2026-07-08T00:00:00Z",
+  "items": [
+    {
+      "item_id": "raw-xlsx",
+      "kind": "xlsx",
+      "status": "found",
+      "path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "source_id": "SRC-DC-STORIES-XLSX-RAW",
+      "sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+      "downstream_use": ["story_value_audit", "opml_conversion_recovery", "jira_import_recovery"],
+      "notes": "Сырой Excel-источник Product Owner; не редактируется."
+    },
+    {
+      "item_id": "working-xlsx-draft-pshe",
+      "kind": "xlsx",
+      "status": "found",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+      "sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+      "downstream_use": ["draft_effort_estimation", "team_estimation_review"],
+      "notes": "Рабочий черновик ПШЕ; не является утвержденной оценкой команды реализации."
+    },
+    {
+      "item_id": "historical-stories-opml",
+      "kind": "opml",
+      "status": "not_found",
+      "path": null,
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": ["derived_reconstruction_only"],
+      "notes": "В проектных документах есть историческое упоминание передачи stories.opml Product Owner, но физический source artifact не найден."
+    },
+    {
+      "item_id": "jira-import-package",
+      "kind": "jira_import",
+      "status": "pending_external",
+      "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": ["jira_import_after_mapping_approval"],
+      "notes": "Импорт в Jira не переводится в ready без утвержденного JiraFieldMappingRequest."
+    },
+    {
+      "item_id": "confluence-import-map",
+      "kind": "confluence_map",
+      "status": "found",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": ["documentation_package_navigation"],
+      "notes": "Карта импорта в Confluence используется как документационный ориентир, не как внешний publish-действие."
+    }
+  ]
+}

@@ -7,7 +7,7 @@
   "run_id": "UDW-RUN-2026-07-05-003",
   "status": "awaiting_decision",
   "phase": "decision_pass",
-  "current_step": "agent_launch_p1_effort_estimation_round_prepared",
+  "current_step": "agent_launch_p1_awaiting_team_estimation",
   "scope": {
     "request_classification": "product_documentation_consistency_audit",
     "mode": "implementation",
@@ -37,11 +37,12 @@
     "npm run validate:data-leakage",
     "npm run scan:secrets",
     "git diff --check",
-    "npm test"
+    "npm test",
+    "npm run validate:xlsx-backlog"
   ],
   "resume_token": {
-    "last_safe_step": "agent_launch_p1_effort_estimation_matrix_prepared_without_numeric_pshe",
-    "next_safe_step": "Получить от команды реализации оценки ПШЕ для DC-ST-23..DC-ST-28 по подготовленной матрице docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md, затем вернуться к sprint backlog, емкости и вытеснению работ.",
+    "last_safe_step": "agent_launch_p1_draft_pshe_workbook_extended_with_dc_st_29",
+    "next_safe_step": "Передать команде реализации рабочую Excel-версию backlog docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx, проверить рабочие значения ПШЕ для DC-ST-23..DC-ST-29 и вернуть результат через reverse-sync протокол; до этого не переносить ПШЕ как утвержденные оценки.",
     "requires_owner_decision": false
   }
 }

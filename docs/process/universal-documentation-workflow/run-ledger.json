@@ -51,7 +51,17 @@
     "docs/product/roadmap/roadmap-v0.1.md",
     "docs/product/requirements/traceability-matrix.json",
     "docs/product/specs/feature-spec-a2a-launch.json",
-    "docs/product/change-orders/co-2026-001-a2a-first-priority.md"
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+    "docs/process/guides/datacanvas-excel-backlog-sync.md",
+    "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+    "scripts/validate-datacanvas-xlsx-backlog.py",
+    "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+    "schemas/xlsx-backlog-provenance.schema.json",
+    "schemas/xlsx-opml-jira-recovery-index.schema.json",
+    "schemas/documentation-product-profile.schema.json"
   ],
   "decisions": [
     "UDW-DEC-003",
@@ -65,7 +75,11 @@
     "UDW-DEC-011",
     "UDW-DEC-012",
     "UDW-DEC-013",
-    "UDW-DEC-014"
+    "UDW-DEC-014",
+    "UDW-DEC-015",
+    "UDW-DEC-016",
+    "UDW-DEC-017",
+    "UDW-DEC-018"
   ],
   "applied_changes": [
     {
@@ -444,6 +458,69 @@
         "docs/process/universal-documentation-workflow/event-log.json"
       ],
       "requires_acceptance_record": "UDW-ACC-021"
+    },
+    {
+      "change_id": "UDW-CHG-020",
+      "change_type": "agent_launch_p1_draft_pshe_workbook_prepared",
+      "paths": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/navigation/navigation-source.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-022"
+    },
+    {
+      "change_id": "UDW-CHG-021",
+      "change_type": "xlsx_backlog_workflow_gate_embedded",
+      "paths": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "schemas/documentation-product-profile.schema.json",
+        "schemas/xlsx-backlog-provenance.schema.json",
+        "schemas/xlsx-opml-jira-recovery-index.schema.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+        "package.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-023"
+    },
+    {
+      "change_id": "UDW-CHG-022",
+      "change_type": "dc_st_29_generation_story_added",
+      "paths": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "requires_acceptance_record": "UDW-ACC-024"
     }
   ],
   "skipped_changes": [
@@ -1322,12 +1399,17 @@
     {
       "command": "npm test",
       "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-backlog",
+      "status": "passed"
     }
   ],
   "residual_risks": [
     "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire and implementation-team estimation are complete.",
-    "DC-ST-23..DC-ST-28 are confirmed P1 stories and the PSHE estimation matrix is prepared, but numeric PSHE estimates, team capacity and displacement decisions remain open before backlog refinement and sprint planning.",
-    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation and report-link contract hardening close immediate process gaps."
+    "DC-ST-23..DC-ST-29 are confirmed P1 stories and a working PSHE workbook is prepared, but team-approved numeric estimates, team capacity and displacement decisions remain open before backlog refinement and sprint planning.",
+    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation and report-link contract hardening close immediate process gaps.",
+    "XLSX backlog route is now process-governed, but DC-ST-23..DC-ST-29 PSHE values remain working values until the implementation team approves estimates and capacity."
   ],
-  "next_safe_step": "Получить от команды реализации оценки ПШЕ для DC-ST-23..DC-ST-28 по подготовленной матрице docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md, затем вернуться к sprint backlog, емкости и вытеснению работ."
+  "next_safe_step": "Передать команде реализации рабочую Excel-версию backlog docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx, проверить рабочие значения ПШЕ для DC-ST-23..DC-ST-29, затем зафиксировать team-approved оценки через reverse-sync и только после этого обновлять sprint backlog и ближайшие 3-4 недельных спринта."
 }

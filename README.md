@@ -8,7 +8,7 @@ DataCanvas - проект AI-агента, который формирует к�
 |---|---|
 | Продуктовый вход | [docs/product/README.md](docs/product/README.md) |
 | Vision - видение продукта | [docs/product-vision.md](docs/product-vision.md) |
-| Stories - пользовательские истории | [docs/stories.md](docs/stories.md) |
+| Пользовательские истории | [docs/stories.md](docs/stories.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [Markdown-источник](docs/product/bmc/bmc-v0.2.md), [trace source - источник трассировки](docs/product/bmc/bmc-trace.v0.1.json), [PlantUML - текстовая диаграмма](docs/product/bmc/source/derived/datacanvas-bmc.puml), [SVG - векторное изображение](docs/product/bmc/source/derived/datacanvas-bmc.svg), [PNG - растровое изображение](docs/product/bmc/source/derived/datacanvas-bmc.png), [PDF - документ для просмотра](docs/product/bmc/source/derived/datacanvas-bmc.pdf) |
 | Business requirements - бизнес-требования | [docs/product/requirements/business-requirements.md](docs/product/requirements/business-requirements.md) |
 | Acceptance criteria - критерии приемки | [docs/product/requirements/acceptance-criteria.md](docs/product/requirements/acceptance-criteria.md) |

@@ -320,6 +320,79 @@
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/sources/product-source-registry.json"
       ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-022",
+      "acceptance_type": "product_behavior_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner",
+      "subject": "Product Owner подтвердил подготовку черновых диапазонов ПШЕ по Excel-аналогам и рабочей Excel-версии backlog для DC-ST-23..DC-ST-28 с фильтрацией по неутвержденным трудозатратам.",
+      "linked_decision_ids": [
+        "UDW-DEC-015"
+      ],
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-023",
+      "acceptance_type": "process_change_acceptance",
+      "status": "accepted",
+      "owner_role": "Process Owner",
+      "subject": "XLSX backlog DataCanvas встроен в универсальный workflow оценки ресурсов как проверяемый рабочий источник: raw/working XLSX, provenance, recovery index, навигация и gate npm run validate:xlsx-backlog.",
+      "linked_decision_ids": [
+        "UDW-DEC-016"
+      ],
+      "linked_artifacts": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "schemas/documentation-product-profile.schema.json",
+        "schemas/xlsx-backlog-provenance.schema.json",
+        "schemas/xlsx-opml-jira-recovery-index.schema.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
+      ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-024",
+      "acceptance_type": "product_behavior_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner",
+      "subject": "Product Owner подтвердил добавление DC-ST-29 как недостающей P1-истории генерации редактируемого файла презентации из проверенных и нормализованных данных без создания нового BT-019.",
+      "linked_decision_ids": [
+        "UDW-DEC-018"
+      ],
+      "linked_artifacts": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ]
     }
   ]
 }

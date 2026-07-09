@@ -4,8 +4,8 @@
 
 Статус: draft
 Владелец: Product Owner
-Проверка: `npm run validate:product-sources`
-Дата: 2026-07-05
+Проверка: `npm run validate:product-sources`, `npm run validate:xlsx-backlog`
+Дата: 2026-07-08
 
 ## Назначение
 
@@ -23,10 +23,14 @@
 |---|---|---|
 | `docs/product-vision.md` | Текущий Vision | `EDIT-001` — правка Vision по `CO-2026-001` — принятому изменению приоритета запуска DataCanvas другим агентом — применен: основной сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел `Проблема` дополнен болью длинной чатовой ленты Лисы; служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста |
 | `docs/product/vision/vision-v0.1.md` | Исторический snapshot | Используется для сравнения, не конкурирует с текущим Vision |
-| `docs/stories.md` | Каталог stories | Содержит `DC-ST-23..DC-ST-28` — подтвержденные Product Owner P1-истории запуска DataCanvas другим агентом; численные ПШЕ требуют оценки по Excel-матрице |
-| `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx` | Сырой Excel-источник Product Owner | Сохранен для аудита происхождения stories, поиска прежнего преобразования `XLSX -> OPML -> Jira import` и проверки ценности stories без изменения продуктового смысла |
-| `docs/product/backlog/product-backlog.md` | Product backlog | Содержит P1-истории `DC-ST-23..DC-ST-28`; sprint backlog требует оценки ПШЕ, емкости и вытеснения работ |
-| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Истории P1 запуска другим агентом | Непосредственный источник строк `DC-ST-23..DC-ST-28` для backlog и оценки |
+| `docs/stories.md` | Каталог пользовательских историй | Содержит `DC-ST-01..DC-ST-29` — канонический бизнесовый перечень пользовательских историй; ПШЕ, источники, правила слияния и служебные статусы вынесены в Excel/backlog/evidence-контур |
+| `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx` | Сырой Excel-источник Product Owner | Сохранен для аудита происхождения stories, поиска прежнего преобразования `XLSX -> OPML -> Jira import` и проверки ценности stories без изменения продуктового смысла; SHA-256 проверяется через `npm run validate:xlsx-backlog` |
+| `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` | Рабочая Excel-версия backlog | Версия исходного листа `Лист1` с добавленными строками `DC-ST-23..DC-ST-29` и рабочими значениями ПШЕ; используется для проверки командой реализации, не заменяет утвержденные оценки |
+| `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json` | Манифест происхождения рабочей Excel-версии | Фиксирует raw-источник, SHA-256, допустимое отличие, строки `DC-ST-23..DC-ST-29`, основания значений и статус `pending_team_review` |
+| `docs/product/sources/story-catalog-content-lock.json` | Lock-файл каталога пользовательских историй | Проверяет, что структурная очистка `docs/stories.md` не изменила согласованные формулировки историй и бизнес-ценности |
+| `docs/product/sources/xlsx-opml-jira-recovery-index.json` | Индекс восстановления `XLSX -> OPML -> Jira import` | Фиксирует, что raw XLSX и working XLSX найдены, исторический OPML пока не найден, а пакет Jira import требует отдельного mapping approval — согласования соответствия полей |
+| `docs/product/backlog/product-backlog.md` | Product backlog | Содержит P1-истории `DC-ST-23..DC-ST-29`; sprint backlog требует проверки ПШЕ командой, емкости и вытеснения работ |
+| `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Истории P1 запуска другим агентом | Непосредственный источник строк `DC-ST-23..DC-ST-29` для backlog и оценки |
 | `docs/product/roadmap/roadmap-v0.1.md` | Roadmap | Используется как плановый контекст для проверки влияния `CO-2026-001`; смысловые изменения требуют отдельного решения PO |
 | `docs/product/hypotheses/hypothesis-board.md` | Гипотезы | `HYP-001` — гипотеза о снижении ручной подготовки презентации — дополнена проверкой перехода от длинного ответа другого агента в Лисе к принятой презентации |
 | `docs/product/hypotheses/hypothesis-validation.md` | Проверка гипотез | План проверки `HYP-001` — гипотезы о снижении ручной подготовки презентации — дополнен сценарием агентского ответа как входного контекста |

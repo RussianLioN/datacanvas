@@ -11,7 +11,7 @@
 ## Порядок Чтения
 
 1. [Текущее видение](../product-vision.md)
-2. [Каталог stories](../stories.md)
+2. [Каталог пользовательских историй](../stories.md)
 3. [BMC](bmc/README.md)
 4. [Бизнес-требования](requirements/business-requirements.md)
 5. [Пользовательские истории](requirements/user-stories.md)
@@ -43,8 +43,8 @@
 - `docs/product-vision.md` - текущий обзорный Vision.
 - `docs/product/vision/manifest.json` - машинный манифест Vision: статус, владелец, проверки и политика чистого публичного текста.
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
-- `docs/stories.md` - каталог исходных stories.
-- `docs/product/requirements/user-stories.md` - формализованные пользовательские истории.
+- `docs/stories.md` - канонический каталог пользовательских историй.
+- `docs/product/requirements/user-stories.md` - формализованный слой пользовательских историй для требований и приемки.
 - `docs/product/sources/product-source-registry.json` - машинный реестр источников и их статусов.
 
 ## Backlog Контуры

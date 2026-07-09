@@ -345,6 +345,42 @@
       "workflow_status": "awaiting_decision",
       "phase": "decision_pass",
       "message": "Подготовлен артефакт оценки ПШЕ для DC-ST-23..DC-ST-28 по структуре Excel-источника и его ресурсной матрицы. Численные оценки не назначались; следующий вход должен поступить от команды реализации."
+    },
+    {
+      "sequence": 39,
+      "event_id": "UDW-EVT-048",
+      "timestamp": "2026-07-08T00:00:00+03:00",
+      "event_type": "owner_decision_recorded",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "Product Owner подтвердил подготовку предварительных диапазонов ПШЕ по Excel как черновика и новой Excel-версии backlog для DC-ST-23..DC-ST-28. Создан рабочий файл docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx со статусом неутвержденных трудозатрат; следующий шаг — проверка диапазонов командой реализации."
+    },
+    {
+      "sequence": 40,
+      "event_id": "UDW-EVT-049",
+      "timestamp": "2026-07-08T12:00:00+03:00",
+      "event_type": "process_rule_refined",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "Process Owner встроил рабочий Excel backlog DataCanvas в UDW: raw/working XLSX, provenance manifest, recovery index, source registry, artifact inventory, navigation route и обязательный gate npm run validate:xlsx-backlog. Черновые ПШЕ остаются неутвержденными до проверки команды реализации."
+    },
+    {
+      "sequence": 41,
+      "event_id": "UDW-EVT-050",
+      "timestamp": "2026-07-08T12:20:00+03:00",
+      "event_type": "external_evidence_required",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "UDW-DEC-017 зафиксировал внешний следующий шаг: команда реализации должна проверить черновые ПШЕ для DC-ST-23..DC-ST-28 в рабочей Excel-версии backlog и вернуть утвержденные оценки, корректировки или блокеры. Это не меняет продуктовый смысл DataCanvas."
+    },
+    {
+      "sequence": 42,
+      "event_id": "UDW-EVT-051",
+      "timestamp": "2026-07-08T12:45:00+03:00",
+      "event_type": "owner_decision_recorded",
+      "workflow_status": "awaiting_decision",
+      "phase": "decision_pass",
+      "message": "Product Owner подтвердил добавление DC-ST-29 как недостающей P1-истории генерации редактируемого файла презентации из проверенных и нормализованных данных. История покрывается BT-012, BT-002 и BT-014; новый BT-019 не создается. Рабочая Excel-версия backlog расширяется до DC-ST-23..DC-ST-29, а UDW-DEC-017 теперь ожидает проверку значений ПШЕ командой реализации для всего пакета."
     }
   ]
 }

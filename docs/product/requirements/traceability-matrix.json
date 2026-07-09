@@ -16,7 +16,8 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "acceptance_scenarios": ["happy_path"],
+      "story_ids": ["DC-ST-29"],
+      "acceptance_scenarios": ["happy_path", "presentation_file_generation"],
       "evidence_expectations": [
         "PresentationSpec, render result и review evidence связаны со сгенерированным export."
       ],
@@ -179,10 +180,10 @@
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-09"],
-      "acceptance_scenarios": ["agent_launch_without_user_confirmation", "lisa_structure_choice", "email_delivery"],
+      "story_ids": ["DC-ST-09", "DC-ST-29"],
+      "acceptance_scenarios": ["agent_launch_without_user_confirmation", "presentation_file_generation", "lisa_structure_choice", "email_delivery"],
       "evidence_expectations": [
-        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas переходит к изготовлению презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовый файл, статус доставки и очищенные метаданные письма связаны с исходным запросом."
+        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas переходит к изготовлению редактируемого файла презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовый файл, статус доставки и очищенные метаданные письма связаны с исходным запросом."
       ],
       "tests": [
         "npm run validate:export",
@@ -224,18 +225,19 @@
         "docs/process/current/definition-of-done.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-09", "DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28"],
+      "story_ids": ["DC-ST-09", "DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28", "DC-ST-29"],
       "acceptance_scenarios": [
         "agent_launch_request_intake",
         "agent_launch_without_user_confirmation",
         "agent_input_package",
+        "presentation_file_generation",
         "agent_processing_statuses",
         "lisa_structure_choice",
         "email_delivery",
         "conflicting_sources"
       ],
       "evidence_expectations": [
-        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
+        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, формирование редактируемого файла презентации, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
       ],
       "tests": [
         "tests/golden/trace-manifest-minimal.json",

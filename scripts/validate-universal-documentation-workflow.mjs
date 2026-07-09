@@ -280,6 +280,12 @@ function validateCore() {
   if (!core.owner_interview_policy.rules.some((rule) => rule.includes("короткая цитата"))) {
     fail("owner interview policy must require short quotes for document decisions and corrections");
   }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("текущий текст элемента"))) {
+    fail("owner interview policy must require current coded element text before owner choices");
+  }
+  if (!core.owner_interview_policy.rules.some((rule) => rule.includes("логику каждого варианта"))) {
+    fail("owner interview policy must require option logic before owner choices");
+  }
   if (!core.owner_interview_policy.rules.some((rule) => rule.includes("cli-table-output"))) {
     fail("owner interview policy must require cli-table-output for chat-facing tabular data");
   }
@@ -333,6 +339,10 @@ function validateCore() {
     "абсолютную кликабельную Markdown-ссылку",
     "пользователь должен иметь возможность кликнуть ссылку",
     "рядом с абсолютной ссылкой должна быть короткая цитата",
+    "расшифровку каждого кодированного элемента",
+    "текущий текст каждого элемента",
+    "документы-доноры или зависимые документы",
+    "логику каждого варианта",
     "абсолютную ссылку на каждый документ",
     "короткую цитату из релевантного фрагмента документа",
     "простой пользовательский итог с абсолютными кликабельными ссылками",
@@ -360,6 +370,10 @@ function validateCore() {
     "Формат Отчета Пользователю",
     "абсолютную ссылку на каждый документ",
     "короткую цитату из каждого такого документа",
+    "расшифровку каждого кодированного элемента",
+    "текущий текст каждого элемента",
+    "документы-доноры или зависимые документы",
+    "логику каждого варианта",
   ]);
 }
 
@@ -458,9 +472,17 @@ function validateDataCanvasProfile() {
   if (!productVisionCommand || productVisionCommand.command !== "npm run validate:product-vision") {
     fail("DataCanvas validation catalog must include product-vision gate");
   }
+  const businessDocsCommand = catalog.commands.find((command) => command.id === "business-docs");
+  if (!businessDocsCommand || businessDocsCommand.command !== "npm run validate:business-docs") {
+    fail("DataCanvas validation catalog must include business document content gate");
+  }
   const productSourcesCommand = catalog.commands.find((command) => command.id === "product-sources");
   if (!productSourcesCommand || !productSourcesCommand.command.includes("npm run validate:product-source-consistency")) {
     fail("DataCanvas validation catalog must include product source consistency gate");
+  }
+  const xlsxBacklogCommand = catalog.commands.find((command) => command.id === "xlsx-backlog-sync");
+  if (!xlsxBacklogCommand || xlsxBacklogCommand.command !== "npm run validate:xlsx-backlog") {
+    fail("DataCanvas validation catalog must include XLSX backlog sync gate");
   }
   const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
   if (!bmcPackageCommand || bmcPackageCommand.command !== "npm run validate:bmc") {
@@ -491,6 +513,21 @@ function validateDataCanvasProfile() {
   }
   if (!visionManifestEntry.validation_commands.includes("npm run validate:product-vision")) {
     fail("product Vision manifest inventory entry must include product Vision validation");
+  }
+
+  for (const requiredXlsxPath of [
+    "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/process/guides/datacanvas-excel-backlog-sync.md",
+  ]) {
+    const entry = inventory.artifacts.find((artifact) => artifact.path === requiredXlsxPath);
+    if (!entry) {
+      fail(`DataCanvas profile inventory must include XLSX workflow artifact: ${requiredXlsxPath}`);
+    }
+    if (!entry.validation_commands.includes("npm run validate:xlsx-backlog")) {
+      fail(`XLSX workflow artifact must include validate:xlsx-backlog: ${requiredXlsxPath}`);
+    }
   }
 }
 

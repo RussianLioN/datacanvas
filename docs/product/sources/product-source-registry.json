@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-06T18:14:00Z",
+  "updated_at": "2026-07-09T00:00:00Z",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -29,7 +29,12 @@
       "trust_level": "accepted_current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["product_scope", "priority_order", "requirements_delta", "traceability"],
+      "allowed_downstream_use": [
+        "product_scope",
+        "priority_order",
+        "requirements_delta",
+        "traceability"
+      ],
       "affected_artifacts": [
         "docs/product-vision.md",
         "docs/stories.md",
@@ -56,7 +61,12 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["product_scope", "requirements_delta", "bmc_review", "traceability"],
+      "allowed_downstream_use": [
+        "product_scope",
+        "requirements_delta",
+        "bmc_review",
+        "traceability"
+      ],
       "affected_artifacts": [
         "docs/product/vision/manifest.json",
         "docs/product/bmc/bmc-v0.2.md",
@@ -75,7 +85,10 @@
       "trust_level": "historical",
       "effective_date": "2026-06-01",
       "upstream_decision": null,
-      "allowed_downstream_use": ["comparison", "audit"],
+      "allowed_downstream_use": [
+        "comparison",
+        "audit"
+      ],
       "affected_artifacts": [],
       "notes": "Исторический snapshot, не конкурирует с текущим Vision."
     },
@@ -88,13 +101,45 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["requirements_delta", "backlog", "traceability"],
+      "allowed_downstream_use": [
+        "requirements_delta",
+        "backlog",
+        "traceability"
+      ],
       "affected_artifacts": [
         "docs/product/requirements/business-requirements.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Содержит P1 stories DC-ST-23..DC-ST-28; численные ПШЕ требуют оценки по Excel-матрице трудозатрат и ролей."
+      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-29. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+    },
+    {
+      "source_id": "SRC-DC-STORY-CATALOG-LOCK",
+      "path": "docs/product/sources/story-catalog-content-lock.json",
+      "source_role": "evidence",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "trust_level": "internal_evidence",
+      "effective_date": "2026-07-09",
+      "upstream_decision": null,
+      "allowed_downstream_use": [
+        "story_catalog_validation",
+        "business_doc_purity_validation"
+      ],
+      "affected_artifacts": [
+        "docs/stories.md",
+        "scripts/validate-business-docs.mjs"
+      ],
+      "notes": "Машинный lock-файл для проверки, что очистка структуры docs/stories.md не меняет согласованный текст пользовательских историй и бизнес-ценностей.",
+      "sha256": null,
+      "derived_from": [
+        "SRC-DC-STORIES-CATALOG"
+      ],
+      "verifier_command": "npm run validate:business-docs",
+      "allowed_delta": "Меняется только после отдельного согласования изменения текста истории или бизнес-ценности в docs/stories.md.",
+      "approval_status": null,
+      "team_validation_status": null,
+      "provenance_manifest": null
     },
     {
       "source_id": "SRC-DC-STORIES-XLSX-RAW",
@@ -115,9 +160,56 @@
       "affected_artifacts": [
         "docs/stories.md",
         "docs/product/backlog/product-backlog.md",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
       ],
-      "notes": "Сохраненная копия исходного Excel, ранее упомянутого как основной источник stories, приоритетов, сроков и оценок. SHA-256: 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9. Используется для восстановления трассировки XLSX -> OPML -> Jira import и проверки ценности stories без изменения продуктового смысла."
+      "notes": "Сохраненная копия исходного Excel, ранее упомянутого как основной источник stories, приоритетов, сроков и оценок. SHA-256: 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9. Используется для восстановления трассировки XLSX -> OPML -> Jira import и проверки ценности stories без изменения продуктового смысла.",
+      "sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+      "derived_from": null,
+      "verifier_command": "npm run validate:xlsx-backlog",
+      "allowed_delta": "Raw Product Owner workbook is immutable; working copies must be derived under docs/product/sources/working/.",
+      "approval_status": null,
+      "team_validation_status": null,
+      "provenance_manifest": null
+    },
+    {
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner / команда реализации",
+      "lifecycle": "draft",
+      "trust_level": "internal_evidence",
+      "effective_date": "2026-07-08",
+      "upstream_decision": "UDW-DEC-015",
+      "allowed_downstream_use": [
+        "draft_effort_estimation",
+        "team_estimation_review",
+        "sprint_planning_input",
+        "jira_import_recovery"
+      ],
+      "affected_artifacts": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
+      ],
+      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-29. Рабочие значения ПШЕ подготовлены по текущей редакции Product Owner и минимальному профилю DC-ST-29; статус не утверждено хранится в provenance manifest до проверки команды реализации. ПШЕ не переносятся в docs/stories.md и docs/product/requirements/user-stories.md.",
+      "sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+      "derived_from": [
+        "SRC-DC-STORIES-XLSX-RAW"
+      ],
+      "verifier_command": "npm run validate:xlsx-backlog",
+      "allowed_delta": "Accepted added rows 26-32 for DC-ST-23..DC-ST-29 may differ from the raw workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review",
+      "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
     },
     {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",
@@ -128,12 +220,16 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["backlog", "priority_review", "planning_trace"],
+      "allowed_downstream_use": [
+        "backlog",
+        "priority_review",
+        "planning_trace"
+      ],
       "affected_artifacts": [
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/roadmap-v0.1.md"
       ],
-      "notes": "Содержит P1-истории DC-ST-23..DC-ST-28 после CO-2026-001; не заменяет оценку ПШЕ, емкости и вытеснения работ перед sprint backlog."
+      "notes": "Содержит P1-истории DC-ST-23..DC-ST-29 после CO-2026-001 и UDW-DEC-018; не заменяет проверку ПШЕ, емкости и вытеснения работ перед sprint backlog."
     },
     {
       "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
@@ -144,13 +240,20 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["p1_story_source", "backlog", "traceability", "estimation_input"],
+      "allowed_downstream_use": [
+        "p1_story_source",
+        "backlog",
+        "traceability",
+        "estimation_input"
+      ],
       "affected_artifacts": [
-        "docs/product/backlog/product-backlog.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-28 для backlog и переноса в табличный формат после оценки ПШЕ по Excel-матрице."
+      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-29 для backlog и переноса в табличный формат после проверки ПШЕ командой реализации."
     },
     {
       "source_id": "SRC-DC-ROADMAP-V0-1",
@@ -161,7 +264,10 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["roadmap_context", "capacity_review"],
+      "allowed_downstream_use": [
+        "roadmap_context",
+        "capacity_review"
+      ],
       "affected_artifacts": [
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
@@ -177,7 +283,10 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": null,
-      "allowed_downstream_use": ["hypothesis_review", "backlog_context"],
+      "allowed_downstream_use": [
+        "hypothesis_review",
+        "backlog_context"
+      ],
       "affected_artifacts": [
         "docs/product/backlog/product-backlog.md",
         "docs/product/hypotheses/hypothesis-validation.md"
@@ -193,7 +302,11 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": null,
-      "allowed_downstream_use": ["hypothesis_review", "validation_planning", "evidence_expectations"],
+      "allowed_downstream_use": [
+        "hypothesis_review",
+        "validation_planning",
+        "evidence_expectations"
+      ],
       "affected_artifacts": [
         "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/backlog/product-backlog.md"
@@ -209,8 +322,13 @@
       "trust_level": "accepted_current",
       "effective_date": "2026-06-26",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["business_model", "requirements_delta"],
-      "affected_artifacts": ["docs/product/requirements/business-requirements.md"],
+      "allowed_downstream_use": [
+        "business_model",
+        "requirements_delta"
+      ],
+      "affected_artifacts": [
+        "docs/product/requirements/business-requirements.md"
+      ],
       "notes": "Обновлен по EDIT-002: стейкхолдерский BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте; ценность дополнена снижением нагрузки на чтение длинных агентских ответов."
     },
     {
@@ -222,8 +340,12 @@
       "trust_level": "internal_evidence",
       "effective_date": "2026-06-26",
       "upstream_decision": null,
-      "allowed_downstream_use": ["bmc_claim_trace"],
-      "affected_artifacts": ["docs/product/bmc/bmc-v0.2.md"],
+      "allowed_downstream_use": [
+        "bmc_claim_trace"
+      ],
+      "affected_artifacts": [
+        "docs/product/bmc/bmc-v0.2.md"
+      ],
       "notes": "Специализированный внутренний source lock BMC; raw/local детали не выводятся в публичный маршрут."
     },
     {
@@ -235,7 +357,11 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["acceptance", "traceability", "spec_delta"],
+      "allowed_downstream_use": [
+        "acceptance",
+        "traceability",
+        "spec_delta"
+      ],
       "affected_artifacts": [
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/traceability-matrix.json",
@@ -252,7 +378,11 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["acceptance", "traceability", "validation_gate"],
+      "allowed_downstream_use": [
+        "acceptance",
+        "traceability",
+        "validation_gate"
+      ],
       "affected_artifacts": [
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/specs/feature-spec-a2a-launch.json"
@@ -268,7 +398,11 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["traceability", "impact_analysis", "release_evidence"],
+      "allowed_downstream_use": [
+        "traceability",
+        "impact_analysis",
+        "release_evidence"
+      ],
       "affected_artifacts": [
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/architecture/system-analysis/sa-spec.json"
@@ -284,8 +418,13 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["requirements_delta", "spec_delta"],
-      "affected_artifacts": ["docs/product/specs/feature-spec-a2a-launch.json"],
+      "allowed_downstream_use": [
+        "requirements_delta",
+        "spec_delta"
+      ],
+      "affected_artifacts": [
+        "docs/product/specs/feature-spec-a2a-launch.json"
+      ],
       "notes": "Обновлен по EDIT-005 — правке BA-утверждений по каналу доставки: канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден; файл отправляется пользователю по электронной почте; статусы и сведения о результате возвращаются вызывающему агенту; уведомления в Лисе зафиксированы для текущей и будущей реализации."
     },
     {
@@ -297,7 +436,10 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["implementation_context", "verification"],
+      "allowed_downstream_use": [
+        "implementation_context",
+        "verification"
+      ],
       "affected_artifacts": [
         "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
         "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
@@ -316,8 +458,14 @@
       "trust_level": "current",
       "effective_date": "2026-07-04",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["implementation_context", "verification", "state_traceability"],
-      "affected_artifacts": ["docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
+      "allowed_downstream_use": [
+        "implementation_context",
+        "verification",
+        "state_traceability"
+      ],
+      "affected_artifacts": [
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"
+      ],
       "notes": "Обновлен по EDIT-010 — правке модели жизненного цикла по принятому каналу доставки: delivery_acceptance больше не блокируется непринятым каналом для CO-2026-001, а закрывается после отправки файла по электронной почте и фиксации очищенного статуса доставки."
     },
     {
@@ -329,8 +477,15 @@
       "trust_level": "current",
       "effective_date": "2026-07-04",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["implementation_context", "verification", "system_requirements"],
-      "affected_artifacts": ["docs/architecture/system-analysis/srs-v0.1.md", "docs/architecture/system-analysis/sa-spec.json"],
+      "allowed_downstream_use": [
+        "implementation_context",
+        "verification",
+        "system_requirements"
+      ],
+      "affected_artifacts": [
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
       "notes": "Обновлен по EDIT-011 — правке SRS по принятому статусу CO-2026-001: SRS описывает текущий документальный и проверочный контур принятого маршрута запуска другим агентом, без включения реальных интеграций в этом репозитории."
     },
     {
@@ -342,7 +497,11 @@
       "trust_level": "current",
       "effective_date": "2026-07-03",
       "upstream_decision": "CO-2026-001",
-      "allowed_downstream_use": ["spec_delta", "verification", "implementation_context"],
+      "allowed_downstream_use": [
+        "spec_delta",
+        "verification",
+        "implementation_context"
+      ],
       "affected_artifacts": [
         "docs/architecture/system-analysis/sa-spec.json",
         "docs/product/requirements/traceability-matrix.json"
@@ -358,9 +517,42 @@
       "trust_level": "superseded_by_co_acceptance",
       "effective_date": "2026-07-02",
       "upstream_decision": null,
-      "allowed_downstream_use": ["historical_audit"],
+      "allowed_downstream_use": [
+        "historical_audit"
+      ],
       "affected_artifacts": [],
       "notes": "Исторический blocked evidence до принятия PO-решения 2026-07-03."
+    },
+    {
+      "source_id": "SRC-DC-XLSX-OPML-JIRA-RECOVERY-INDEX",
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "source_role": "evidence",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "trust_level": "internal_evidence",
+      "effective_date": "2026-07-08",
+      "upstream_decision": "UDW-DEC-015",
+      "allowed_downstream_use": [
+        "opml_conversion_recovery",
+        "jira_import_recovery",
+        "confluence_import_navigation"
+      ],
+      "affected_artifacts": [
+        "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md"
+      ],
+      "notes": "Машинный индекс текущего состояния цепочки XLSX -> OPML -> Jira: raw XLSX найден, working XLSX найден, исторический OPML не найден, Jira import ожидает внешнего mapping approval.",
+      "sha256": null,
+      "derived_from": [
+        "SRC-DC-STORIES-XLSX-RAW",
+        "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08"
+      ],
+      "verifier_command": "npm run validate:xlsx-backlog",
+      "allowed_delta": "Derived reconstruction artifacts must not be marked as historical sources unless the physical original is found.",
+      "approval_status": null,
+      "team_validation_status": null,
+      "provenance_manifest": null
     }
   ]
 }

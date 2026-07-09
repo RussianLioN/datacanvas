@@ -1,0 +1,124 @@
+{
+  "$schema": "../../../../schemas/xlsx-backlog-provenance.schema.json",
+  "version": "0.1.0",
+  "status": "draft",
+  "provenance_id": "XLSX-PSHE-PROV-2026-07-08",
+  "workbook": {
+    "raw_path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "working_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "raw_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+    "working_sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+    "verifier_command": "npm run validate:xlsx-backlog",
+    "approval_status": "draft_unapproved",
+    "team_validation_status": "pending_team_review"
+  },
+  "rows": [
+    {
+      "story_id": "DC-ST-23",
+      "workbook_row": 26,
+      "analog_rows": [
+        8,
+        15,
+        21
+      ],
+      "draft_min": 22.0,
+      "draft_max": 22.0,
+      "selected_profile_row": 26,
+      "selected_value": 22.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-24",
+      "workbook_row": 27,
+      "analog_rows": [
+        8,
+        15
+      ],
+      "draft_min": 18.0,
+      "draft_max": 18.0,
+      "selected_profile_row": 27,
+      "selected_value": 18.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-25",
+      "workbook_row": 28,
+      "analog_rows": [
+        8,
+        15,
+        24
+      ],
+      "draft_min": 36.0,
+      "draft_max": 36.0,
+      "selected_profile_row": 28,
+      "selected_value": 36.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-26",
+      "workbook_row": 29,
+      "analog_rows": [
+        9,
+        10
+      ],
+      "draft_min": 10.0,
+      "draft_max": 10.0,
+      "selected_profile_row": 29,
+      "selected_value": 10.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-27",
+      "workbook_row": 30,
+      "analog_rows": [
+        12,
+        17
+      ],
+      "draft_min": 26.0,
+      "draft_max": 26.0,
+      "selected_profile_row": 30,
+      "selected_value": 26.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-28",
+      "workbook_row": 31,
+      "analog_rows": [
+        4,
+        12,
+        17
+      ],
+      "draft_min": 17.4,
+      "draft_max": 17.4,
+      "selected_profile_row": 31,
+      "selected_value": 17.4,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    },
+    {
+      "story_id": "DC-ST-29",
+      "workbook_row": 32,
+      "analog_rows": [
+        4,
+        12
+      ],
+      "draft_min": 30.0,
+      "draft_max": 30.0,
+      "selected_profile_row": 32,
+      "selected_value": 30.0,
+      "approval_status": "draft_unapproved",
+      "team_validation_status": "pending_team_review"
+    }
+  ],
+  "downstream_policy": {
+    "may_update_sprint_backlog": false,
+    "may_export_to_jira": false,
+    "requires_team_approval_record": true,
+    "notes": "Рабочие ПШЕ используются только для обсуждения с командой реализации и не являются sprint commitment. DC-ST-29 добавлена по решению Product Owner как недостающая история генерации редактируемого файла; служебное происхождение оценок хранится в этом манифесте, а не в пользовательских комментариях XLSX."
+  }
+}

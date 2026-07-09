@@ -89,7 +89,13 @@
       "npm run validate:datacanvas-profile",
       "npm run validate:docs-navigation",
       "npm run validate:data-leakage",
-      "npm run validate:bmc"
-    ]
+      "npm run validate:bmc",
+      "npm run validate:xlsx-backlog"
+    ],
+    "estimation_sources": {
+      "xlsx_backlog_registry_source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+      "verifier_command": "npm run validate:xlsx-backlog",
+      "draft_values_require_team_approval": true
+    }
   }
 }

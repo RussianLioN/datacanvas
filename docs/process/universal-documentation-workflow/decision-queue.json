@@ -63,8 +63,8 @@
       "decision_id": "UDW-DEC-009",
       "decision_type": "product_behavior_acceptance",
       "authority": "product_meaning",
-      "status": "pending",
-      "blocking": true,
+      "status": "accepted",
+      "blocking": false,
       "owner_role": "Product Owner",
       "subject": "Подтвердить, какие пользовательские сегменты считать подтвержденными в BMC: только КМ как текущий основной профиль, КМ и CSM как текущие сегменты или более широкий контур пользователей Лисы.",
       "acceptance_record_id": "UDW-ACC-018",
@@ -135,6 +135,50 @@
       "subject": "Подтвердить DC-ST-23..DC-ST-28 как окончательные P1-истории запуска DataCanvas другим агентом и провести по ним оценку ПШЕ по аналогии с Excel-источником.",
       "acceptance_record_id": "UDW-ACC-021",
       "rationale": "Product Owner ответил, что все эти истории являются окончательным P1-решением, но требуют оценки трудозатрат по аналогии с другими stories в исходной xlsx-таблице."
+    },
+    {
+      "decision_id": "UDW-DEC-015",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Подготовить предварительные диапазоны ПШЕ для DC-ST-23..DC-ST-28 по Excel как черновик и добавить истории в рабочую Excel-версию backlog с фильтрацией по неутвержденным трудозатратам.",
+      "acceptance_record_id": "UDW-ACC-022",
+      "rationale": "Product Owner выбрал маршрут с предварительными диапазонами по Excel-аналогам. Диапазоны не являются утвержденной оценкой команды реализации; рабочая Excel-версия нужна для обсуждения, фильтрации неутвержденных трудозатрат и последующей проверки командой."
+    },
+    {
+      "decision_id": "UDW-DEC-016",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Встроить рабочий Excel backlog DataCanvas в универсальный процесс оценки ресурсов: зарегистрировать raw/working XLSX, provenance manifest, recovery index, навигацию и обязательный gate npm run validate:xlsx-backlog.",
+      "acceptance_record_id": "UDW-ACC-023",
+      "rationale": "Product Owner указал, что XLSX является неотъемлемой частью рабочего процесса оценки трудозатрат. Процесс должен проверять точность копии, расчеты, формат, строки, фильтры, группировки, provenance и запрет переноса черновых ПШЕ как утвержденных оценок без команды реализации."
+    },
+    {
+      "decision_id": "UDW-DEC-017",
+      "decision_type": "team_estimation_acceptance",
+      "authority": "evidence",
+      "status": "pending",
+      "blocking": true,
+      "owner_role": "Implementation Team",
+      "subject": "Проверить рабочие значения ПШЕ для DC-ST-23..DC-ST-29 в рабочей Excel-версии backlog и вернуть утвержденные оценки, корректировки или блокеры оценки.",
+      "acceptance_record_id": null,
+      "rationale": "Рабочие значения ПШЕ подготовлены по Excel-аналогам, текущей редакции Product Owner и минимальному профилю для DC-ST-29, но не являются утвержденными оценками команды реализации. Без team-approved оценок нельзя безопасно обновлять sprint backlog, емкость и задачи ближайших 3-4 недельных спринтов."
+    },
+    {
+      "decision_id": "UDW-DEC-018",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Добавить DC-ST-29 как недостающую P1-историю генерации редактируемого файла презентации из проверенных и нормализованных данных без создания BT-019.",
+      "acceptance_record_id": "UDW-ACC-024",
+      "rationale": "Product Owner указал на пробел: процесс генерации презентации из полученных очищенных данных отсутствовал в stories. По подтвержденному варианту добавляется DC-ST-29, связанная с BT-012, BT-002 и BT-014; отдельный BT-019 не создается."
     }
   ]
 }

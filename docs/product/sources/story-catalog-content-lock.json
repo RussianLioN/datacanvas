@@ -1,0 +1,158 @@
+{
+  "version": "0.1.0",
+  "status": "active",
+  "lock_id": "STORY-CATALOG-LOCK-2026-07-09",
+  "source_path": "docs/stories.md",
+  "hash_algorithm": "sha256",
+  "locked_fields": [
+    "Пользовательская формулировка",
+    "Бизнес-ценность"
+  ],
+  "rows": [
+    {
+      "story_id": "DC-ST-01",
+      "story_text_sha256": "8d13a4e12dd6fa3b96c034270221aec99fbd40e1b08c628fa844e6a07091e1eb",
+      "business_value_sha256": "0699b806a453d90a7e51569b9b0cafd2e7246ea23b50715b39fdf14c2cb7a1de"
+    },
+    {
+      "story_id": "DC-ST-02",
+      "story_text_sha256": "2d6508b931a70339e72ee2d47b6bd28aa139ea1ecc61c57583afea6a60363566",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-03",
+      "story_text_sha256": "0ed08e28769f6ecd47e2bdb88f979db115d0aa23583e2515c57af87a1fa61490",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-04",
+      "story_text_sha256": "4ca71c14ca44d5f421727819ce05e26bc4c6a98ea16817e5d8ec8ff7b349073c",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-05",
+      "story_text_sha256": "7dc5ce28dfc20251b106e7a14d6e2895dd64a6018363f416605f6c809333fe57",
+      "business_value_sha256": "29552717fbf3419a47f5851995b90bb5814885f9e3b60c6eb132afa82bc17a18"
+    },
+    {
+      "story_id": "DC-ST-06",
+      "story_text_sha256": "cc19fcab6ee6ec0d07fa854495d841551de13efaf54ab52ec0523a518b2d172e",
+      "business_value_sha256": "8f4465d7f684be2a79a10fff5ebbd4b941d73209a29205a7dcb00616e9a7b9ed"
+    },
+    {
+      "story_id": "DC-ST-07",
+      "story_text_sha256": "0decbbd6923ffe456a93ba8b87e2227da134b7855e44f28f241c50ec95ebfaba",
+      "business_value_sha256": "4d6b8709b36014d972a946f845609aad073e44a9518bfefc53e10b5bbe91e291"
+    },
+    {
+      "story_id": "DC-ST-08",
+      "story_text_sha256": "7ddf9c26827da22558cbc19f8fb78bf0724be77a0fa10df641bdd2e2437ce72c",
+      "business_value_sha256": "9821f91fd7a318630b09f795dd37978116ea9aa4a4f0d898758bc273fe18dd66"
+    },
+    {
+      "story_id": "DC-ST-09",
+      "story_text_sha256": "ea1e38d2be6a4f8765d819f224aa8cb1d18be4512a1659d579bbf5785b7564ab",
+      "business_value_sha256": "77b49023de88ef8b7ef9bc10af86e637b613415df4c181550a40519ad6969c40"
+    },
+    {
+      "story_id": "DC-ST-10",
+      "story_text_sha256": "4184687587f88d380bdc2e23b5b330cc52648afa1cf34f5114485a71b3618095",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-11",
+      "story_text_sha256": "9589bc35555dbdf73e2459acce16323368b9ad3c09a543801cc32a8d0a804505",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-12",
+      "story_text_sha256": "25f805a5cce6991759f8efc5c186474b0eaec2c93fdea050e614d24cd7206de4",
+      "business_value_sha256": "483c16634981ae2b6b1d11cc64330d008e5a44d0692801bb5dcb31ae656158dd"
+    },
+    {
+      "story_id": "DC-ST-13",
+      "story_text_sha256": "94e85abfb7815059b554f439318a7479545f3d50c2a8e4ce4ac3036aa38e3939",
+      "business_value_sha256": "a169f03a3d9528eb79f68af916d60d12bf61e1f82373f0d77b97fad7df2ab43f"
+    },
+    {
+      "story_id": "DC-ST-14",
+      "story_text_sha256": "74df25da08211f639ddf2122c12d7d954dc6ae021bc91e8a26453ff5ba9bb1cb",
+      "business_value_sha256": "1af53036ca6de7aca3ba4aa5af0b496fe7f1b2f70f0721774e8c2f708859a521"
+    },
+    {
+      "story_id": "DC-ST-15",
+      "story_text_sha256": "b9593e1379cb0485c17b6fc4f360a8a1de6664f77cd889286107a07df0e74272",
+      "business_value_sha256": "016b8ec6c2ffd2af54787929ce959573f2d2ca802474b6667d9b4ced80630541"
+    },
+    {
+      "story_id": "DC-ST-16",
+      "story_text_sha256": "e278bba3d464f01e9498c28c4dd57066d8e18fb928ce80d3a1f0d6444afbecf9",
+      "business_value_sha256": "d90b5b68c8bed5f90e3478da8c9a19292310c6e77472af357af1e6a16c2eb462"
+    },
+    {
+      "story_id": "DC-ST-17",
+      "story_text_sha256": "689a21e706a1a2af1f644bfb6e28dc48b89cbcebc2244635b1124870be8808fd",
+      "business_value_sha256": "6841dfa826612a67985dc99d4cda4dae123761d8eee95c007002e07d957e8189"
+    },
+    {
+      "story_id": "DC-ST-18",
+      "story_text_sha256": "c37cfb204a6087df2e485d53e2f73d1ebd0b239e65b2fa4f3b771bf479ba27c5",
+      "business_value_sha256": "4d6b8709b36014d972a946f845609aad073e44a9518bfefc53e10b5bbe91e291"
+    },
+    {
+      "story_id": "DC-ST-19",
+      "story_text_sha256": "1f11442effb41e47d839179dbf4701939dab0d155a01c5a0933612171927d32f",
+      "business_value_sha256": "9821f91fd7a318630b09f795dd37978116ea9aa4a4f0d898758bc273fe18dd66"
+    },
+    {
+      "story_id": "DC-ST-20",
+      "story_text_sha256": "2742ad9101571d7e8305412b7ec200b40830a72db77f51ff624bda259dee5d8e",
+      "business_value_sha256": "aedc19aa829fd57011c5237e67453270f0ec8e3ea5182d280ba2222169d4c0ec"
+    },
+    {
+      "story_id": "DC-ST-21",
+      "story_text_sha256": "e7e21d3b8c64ba2d46b4ca293c33effc2393eca094ac79e3e6e3356c08edc75c",
+      "business_value_sha256": "c858dbcdd72ad0e6949dba079114f324629508c29d9a2ab89fc21ae14312f584"
+    },
+    {
+      "story_id": "DC-ST-22",
+      "story_text_sha256": "6a15e76adf53d393511660b15e59b57db26caa314974c7484558da03ce1cedc3",
+      "business_value_sha256": "53b7cfd1d18c50078621b26d8a608ec4a7187606209703db7db75b4a2f1726ff"
+    },
+    {
+      "story_id": "DC-ST-23",
+      "story_text_sha256": "79d835971932166849638ec4952a5ac9cc7d91a45d775056950fc91a1e0247d0",
+      "business_value_sha256": "1c041b4120fa801be243bfdb55329b12178db654db1a5ffab1233372d3a06d95"
+    },
+    {
+      "story_id": "DC-ST-24",
+      "story_text_sha256": "cfe18f7490b622d98fcf82469d93da777f8588dc122c2f47377d790aa11c294e",
+      "business_value_sha256": "01546b89ee488b03d4ae9dc065d4074b6db4b06b8ccfa4beae41b4688c2cf468"
+    },
+    {
+      "story_id": "DC-ST-25",
+      "story_text_sha256": "b5188d366ff06cba9d5aad81011d63f648c81cd29799fff0cc44095cc862d370",
+      "business_value_sha256": "06f4917240a12ab12ddeb622c6bbb620a85d25ae95d2f6dd04d2b181e748b0b5"
+    },
+    {
+      "story_id": "DC-ST-26",
+      "story_text_sha256": "6da4ad72a9a5ef1b7900f5e8118b4a3c89c93a1c60cefcddb3a54137c2822e8a",
+      "business_value_sha256": "7d5637c6f46d06bb033323ea9c14506c0bfa979fa95b623bfd457e3dd5673db4"
+    },
+    {
+      "story_id": "DC-ST-27",
+      "story_text_sha256": "232b66449a14cbe2d842aea2e3eec5b8a4e9886230a7fab15aadebf67b9e396d",
+      "business_value_sha256": "b466e34fdf538ca8dd33a5850b54a28222ec1859345492ddca20f64eb96072cf"
+    },
+    {
+      "story_id": "DC-ST-28",
+      "story_text_sha256": "e7e07cb956bfca10b3ff9bc42f92fe21c1c1e65a527daa2c5f7140d30925a532",
+      "business_value_sha256": "88bdbf51a66ea988256df2bb7178d99204eb469653c091a54a93d08db5cb971a"
+    },
+    {
+      "story_id": "DC-ST-29",
+      "story_text_sha256": "ccac06b068f86cdccee4a1317007d59f3225c0f8a25b76e51444344bcea4c34e",
+      "business_value_sha256": "2faa86befd8df02a53e2072998acdcc38a2741547d092628c199b8d3f20deb8c"
+    }
+  ]
+}

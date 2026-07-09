@@ -11,7 +11,7 @@
 | Область | Источники |
 |---|---|
 | Vision - видение продукта | [docs/product-vision.md](product-vision.md) |
-| Stories - пользовательские истории | [docs/stories.md](stories.md) |
+| Пользовательские истории | [docs/stories.md](stories.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [Markdown-источник](product/bmc/bmc-v0.2.md), [trace source - источник трассировки](product/bmc/bmc-trace.v0.1.json), [PlantUML - текстовая диаграмма](product/bmc/source/derived/datacanvas-bmc.puml), [SVG - векторное изображение](product/bmc/source/derived/datacanvas-bmc.svg), [PNG - растровое изображение](product/bmc/source/derived/datacanvas-bmc.png), [PDF - документ для просмотра](product/bmc/source/derived/datacanvas-bmc.pdf) |
 | Business requirements - бизнес-требования | [docs/product/requirements/business-requirements.md](product/requirements/business-requirements.md) |
 | Acceptance criteria - критерии приемки | [docs/product/requirements/acceptance-criteria.md](product/requirements/acceptance-criteria.md) |

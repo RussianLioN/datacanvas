@@ -1,0 +1,64 @@
+{
+  "cases": [
+    {
+      "id": "presentation-spec-in-acceptance",
+      "className": "acceptance",
+      "expected_rule": "technical-contract",
+      "content": "# Критерии\n\nНавигация: [DataCanvas](../README.md)\n\n`PresentationSpec` проходит schema validation.\n"
+    },
+    {
+      "id": "pshe-in-story-catalog",
+      "className": "stories",
+      "expected_rule": "effort-estimation-in-story",
+      "content": "# Истории\n\nНавигация: [DataCanvas](../README.md)\n\nВ таблице stories указана оценка ПШЕ по каждой backlog-строке.\n"
+    },
+    {
+      "id": "stale-confluence-range",
+      "className": "confluence_export",
+      "expected_rule": "stale-story-range",
+      "content": "# Карта импорта\n\nНавигация: [DataCanvas](../README.md)\n\nStories содержат `DC-ST-23..DC-ST-28`.\n"
+    },
+    {
+      "id": "absolute-local-path",
+      "className": "requirements",
+      "expected_rule": "local-path",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nИсточник находится в /Users/example/project/file.xlsx.\n"
+    },
+    {
+      "id": "command-column-in-nfr",
+      "className": "nonfunctional",
+      "expected_rule": "fit-command-column",
+      "content": "# Нефункциональные требования\n\nНавигация: [DataCanvas](../README.md)\n\n| ID | Категория | Fit Criterion | Проверка |\n|---|---|---|---|\n| NFR-001 | Достоверность | Claim проверяется. | `npm run validate:ba-spec` |\n"
+    },
+    {
+      "id": "csv-story-tech-noise",
+      "className": "stories",
+      "expected_rule": "effort-estimation-in-story",
+      "content": "\"ID\",\"Статус\"\n\"DC-ST-23\",\"P1; требуется оценка ПШЕ\"\n"
+    },
+    {
+      "id": "story-catalog-summary-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Сводка по приоритетам и срокам\n\nP1 содержит ближайшие истории.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "story-catalog-open-decisions-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n\n## Открытые продуктовые решения\n\nКоманда должна подтвердить оценку.\n"
+    },
+    {
+      "id": "story-catalog-status-column",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-table-columns",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Плановый срок | Пользовательская формулировка | Бизнес-ценность | Статус |\n|---|---|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | 2026-Q3 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. | требуется оценка |\n"
+    },
+    {
+      "id": "story-catalog-source-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Источники и правила слияния\n\nExcel используется как основной источник строк.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    }
+  ]
+}

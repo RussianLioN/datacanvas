@@ -106,7 +106,28 @@
           "type": "array",
           "items": { "$ref": "#/$defs/repoPath" }
         },
-        "notes": { "type": "string", "minLength": 1 }
+        "notes": { "type": "string", "minLength": 1 },
+        "sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "derived_from": {
+          "type": ["array", "null"],
+          "items": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" }
+        },
+        "verifier_command": { "type": ["string", "null"], "minLength": 1 },
+        "allowed_delta": { "type": ["string", "null"], "minLength": 1 },
+        "approval_status": {
+          "type": ["string", "null"],
+          "enum": ["draft_unapproved", "team_approved", "blocked", null]
+        },
+        "team_validation_status": {
+          "type": ["string", "null"],
+          "enum": ["pending_team_review", "approved", "blocked", null]
+        },
+        "provenance_manifest": {
+          "anyOf": [
+            { "$ref": "#/$defs/repoPath" },
+            { "type": "null" }
+          ]
+        }
       }
     }
   }

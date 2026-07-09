@@ -4,7 +4,7 @@
 
 Статус: draft
 Владелец: Product Owner
-Проверка: `npm run validate:product-sources`
+Проверка: `npm run validate:product-sources`, `npm run validate:xlsx-backlog`
 
 ## Назначение
 
@@ -44,6 +44,28 @@
 Сырые файлы Product Owner хранятся в `docs/product/sources/raw/` и учитываются через машинный реестр.
 
 - `docs/product/sources/raw/bl-value-rm-data-canvas.xlsx` - сохраненная копия Excel-источника stories, приоритетов, сроков и оценок. Файл не является публичной страницей документации и используется для аудита происхождения stories, поиска прежнего преобразования в OPML и проверки пакета импорта в Jira.
+
+## Рабочие Excel-Версии
+
+Рабочие Excel-версии хранятся в `docs/product/sources/working/` и учитываются через машинный реестр. Они не заменяют raw-источники Product Owner и не считаются утвержденными оценками без отдельного решения.
+
+- `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` - рабочая версия backlog: версия исходного листа `Лист1` с добавленными строками `DC-ST-23..DC-ST-29` и рабочими значениями ПШЕ для проверки командой реализации.
+- `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json` - машинный манифест происхождения рабочей версии: фиксирует raw-источник, SHA-256, допустимое отличие, строки, аналоги и статус согласования.
+- `docs/product/sources/story-catalog-content-lock.json` - машинный lock-файл каталога пользовательских историй: помогает проверить, что очистка структуры `docs/stories.md` не меняет согласованный текст историй и бизнес-ценностей.
+
+## Индексы Восстановления И Экспорта
+
+- `docs/product/sources/xlsx-opml-jira-recovery-index.json` - машинный индекс текущего состояния цепочки `XLSX -> OPML -> Jira import`: какие исходники найдены, какие артефакты еще нужно восстановить и какие файлы связаны с Confluence-ready package — комплектом для Confluence.
+
+## Проверка Excel-Оценок
+
+Рабочие Excel-версии backlog проверяются командой:
+
+```bash
+npm run validate:xlsx-backlog
+```
+
+Эта проверка сверяет raw XLSX, working XLSX, provenance manifest — манифест происхождения — и golden-описание допустимых изменений. Она обязательна перед переносом утвержденных командой оценок ПШЕ в sprint planning — планирование спринта.
 
 ## Ревизия По CO-2026-001
 
