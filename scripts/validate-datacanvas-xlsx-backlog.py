@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the DataCanvas draft PSHE backlog workbook without rewriting it."""
+"""Validate the DataCanvas working PSHE backlog workbook without rewriting it."""
 
 from __future__ import annotations
 
@@ -412,8 +412,14 @@ def validate_pair(
             assert_equal(
                 f"{story_id} approval status",
                 provenance_rows[story_id]["approval_status"],
-                "draft_unapproved",
+                expected_row.get("approval_status", "draft_unapproved"),
             )
+            if "team_validation_status" in expected_row:
+                assert_equal(
+                    f"{story_id} team validation status",
+                    provenance_rows[story_id]["team_validation_status"],
+                    expected_row["team_validation_status"],
+                )
             assert_equal(f"{story_id} workbook row", provenance_rows[story_id]["workbook_row"], row_number)
             assert_equal(
                 f"{story_id} analog rows",

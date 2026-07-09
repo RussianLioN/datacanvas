@@ -16,7 +16,7 @@
 
 1. Принятые решения Product Owner и accepted `CO-*`.
 2. Текущее видение продукта.
-3. Принятый BMC и каталог stories.
+3. Принятый BMC и каталог пользовательских историй.
 4. Требования, критерии приемки и traceability.
 5. BA/SA analysis и specs.
 6. Evidence, журналы, generated artifacts и исторические snapshots.
@@ -25,7 +25,7 @@
 
 - [Текущее видение](../../product-vision.md) - действующий обзорный источник продуктового смысла.
 - [Snapshot Vision v0.1](../vision/vision-v0.1.md) - историческая версия для сравнения.
-- [Каталог stories](../../stories.md) - канонический каталог пользовательских историй.
+- [Каталог пользовательских историй](../requirements/user-stories.md) - канонический каталог пользовательских историй.
 - [BMC](../bmc/README.md) - бизнесовая модель и локальный контур трассировки BMC.
 - [Change Orders](../change-orders/README.md) - принятые и обсуждаемые изменения продукта.
 - [Требования](../requirements/README.md) - формализованный downstream-слой.
@@ -47,11 +47,11 @@
 
 ## Рабочие Excel-Версии
 
-Рабочие Excel-версии хранятся в `docs/product/sources/working/` и учитываются через машинный реестр. Они не заменяют raw-источники Product Owner и не считаются утвержденными оценками без отдельного решения.
+Рабочие Excel-версии хранятся в `docs/product/sources/working/` и учитываются через машинный реестр. Они не заменяют raw-источники Product Owner и не считаются утвержденными оценками без отдельной записи решения и принятия.
 
-- `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` - рабочая версия backlog: версия исходного листа `Лист1` с добавленными строками `DC-ST-23..DC-ST-29` и рабочими значениями ПШЕ для проверки командой реализации.
+- `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` - рабочая версия backlog: версия исходного листа `Лист1` с добавленными строками `DC-ST-23..DC-ST-29` и принятыми Product Owner значениями ПШЕ.
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json` - машинный манифест происхождения рабочей версии: фиксирует raw-источник, SHA-256, допустимое отличие, строки, аналоги и статус согласования.
-- `docs/product/sources/story-catalog-content-lock.json` - машинный lock-файл каталога пользовательских историй: помогает проверить, что очистка структуры `docs/stories.md` не меняет согласованный текст историй и бизнес-ценностей.
+- `docs/product/sources/story-catalog-content-lock.json` - машинный lock-файл каталога пользовательских историй: помогает проверить, что структурная очистка каталога не меняет согласованный текст историй и бизнес-ценностей.
 
 ## Индексы Восстановления И Экспорта
 
@@ -66,7 +66,7 @@ npm run validate:xlsx-backlog
 npm run validate:xlsx-cascade
 ```
 
-Первая проверка сверяет raw XLSX, working XLSX, provenance manifest — манифест происхождения — и golden-описание допустимых изменений. Вторая проверка подтверждает, что XLSX/provenance включены в каскадный граф и что downstream-артефакты должны быть обновлены или закрыты no-change rationale в impact analysis. Эти проверки обязательны перед переносом утвержденных командой оценок ПШЕ в sprint planning — планирование спринта.
+Первая проверка сверяет raw XLSX, working XLSX, provenance manifest — манифест происхождения — и golden-описание допустимых изменений. Вторая проверка подтверждает, что XLSX/provenance включены в каскадный граф и что downstream-артефакты должны быть обновлены или закрыты no-change rationale в impact analysis. Эти проверки обязательны перед переносом принятых оценок ПШЕ в sprint planning — планирование спринта.
 
 ## Ревизия По CO-2026-001
 

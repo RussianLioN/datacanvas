@@ -18,30 +18,43 @@
     "Если генерация требует смыслового выбора Product Owner, генератор или агент должен остановиться и вынести вопрос владельцу до изменения продуктового смысла.",
     "Контракт генерации не заменяет контракт содержания: результат должен проходить business-artifact-content-contract.json и профильные валидаторы документа."
   ],
+  "enforced_forbidden_categories": [
+    "service_status",
+    "local_path",
+    "hash",
+    "validation_command",
+    "raw_json",
+    "technical_contract",
+    "source_mechanics",
+    "sensitive_evidence",
+    "generated_metadata",
+    "service_rationale",
+    "effort_estimation"
+  ],
   "documents": [
     {
-      "id": "story-catalog",
+      "id": "stories-redirect",
       "path": "docs/stories.md",
-      "class_name": "story_catalog",
+      "class_name": "business_redirect",
       "blocking_todo_id": "PROC-050",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Актуальный Источник"],
+      "required_business_elements": ["ссылка на канонический каталог", "объяснение, что файл не повторяет каталог"],
+      "forbidden_content": ["полная таблица историй", "критерии приемки", "ПШЕ и оценки трудозатрат", "статусы обработки", "provenance", "служебные даты и команды проверки"],
+      "validator_requirements": ["проверять отсутствие таблиц", "проверять наличие ссылки на канонический каталог", "проверять, что redirect не становится вторым источником смысла"]
+    },
+    {
+      "id": "story-catalog",
+      "path": "docs/product/requirements/user-stories.md",
+      "class_name": "story_catalog",
+      "blocking_todo_id": "PROC-051",
       "generation_mode": "manual_agent_template",
       "owner_role": "Product Owner / Documentation Owner",
       "allowed_sections": ["Назначение", "Каталог пользовательских историй"],
       "required_business_elements": ["ID", "Функциональная зона", "Приоритет", "Пользовательская формулировка", "Бизнес-ценность"],
       "forbidden_content": ["источники и правила слияния", "ПШЕ и оценки трудозатрат", "статусы обработки", "provenance", "открытые решения владельцев", "служебные даты и команды проверки"],
       "validator_requirements": ["проверять разрешенные разделы", "проверять точный состав колонок", "проверять lock-файл неизменяемого текста историй"]
-    },
-    {
-      "id": "formalized-user-stories",
-      "path": "docs/product/requirements/user-stories.md",
-      "class_name": "formalized_user_stories",
-      "blocking_todo_id": "PROC-051",
-      "generation_mode": "manual_agent_template",
-      "owner_role": "Product Owner / Documentation Owner",
-      "allowed_sections": ["Назначение", "Пользовательские истории", "Открытые вопросы"],
-      "required_business_elements": ["роль", "цель", "ценность", "условия", "приоритет", "связь с бизнес-требованием"],
-      "forbidden_content": ["технические контракты", "runtime-поля", "локальные пути", "JSON-фрагменты", "журнал генерации", "команды проверки"],
-      "validator_requirements": ["проверять отсутствие служебных разделов", "проверять отсутствие runtime и source/provenance деталей", "сохранять бизнесовые формулировки без смысловой правки"]
     },
     {
       "id": "business-requirements",
@@ -94,19 +107,19 @@
     {
       "id": "agent-launch-candidate-stories",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "class_name": "stories",
+      "class_name": "story_slice",
       "blocking_todo_id": "PROC-056",
       "generation_mode": "manual_agent_template",
       "owner_role": "Product Owner / Documentation Owner",
-      "allowed_sections": ["Назначение", "Кандидатные истории", "Открытые вопросы"],
-      "required_business_elements": ["ID истории", "пользовательская формулировка", "приоритет", "бизнесовая ценность", "граница сценария"],
-      "forbidden_content": ["локальные источники", "JSON", "команды", "проверочные следы", "runtime-статусы", "служебная история слияния"],
-      "validator_requirements": ["проверять отсутствие служебной механики источников", "проверять отделение кандидатных формулировок от evidence", "проверять согласованность с классом stories"]
+      "allowed_sections": ["Назначение", "Плановый Срез", "CSV"],
+      "required_business_elements": ["ID истории", "приоритет", "период", "плановый статус", "ссылка на канонический каталог"],
+      "forbidden_content": ["полная пользовательская формулировка", "полная бизнес-ценность", "локальные источники", "JSON", "команды", "проверочные следы", "runtime-статусы", "служебная история слияния"],
+      "validator_requirements": ["проверять отсутствие повторной таблицы story prose", "проверять наличие ссылки на канонический каталог", "проверять согласованность с классом story_slice"]
     },
     {
       "id": "agent-launch-candidate-stories-csv",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
-      "class_name": "stories",
+      "class_name": "story_slice_export",
       "blocking_todo_id": "PROC-057",
       "generation_mode": "working_export",
       "owner_role": "Product Owner / Documentation Owner",
@@ -126,6 +139,42 @@
       "required_business_elements": ["перечень импортируемых документов", "назначение документа", "целевой раздел Confluence", "условие готовности"],
       "forbidden_content": ["внутренние evidence-следы", "локальные пути", "чувствительные данные", "служебные команды", "raw traces", "внутренние статусы генерации"],
       "validator_requirements": ["проверять отсутствие внутренних путей и sensitive/evidence деталей", "проверять, что карта не становится источником бизнесового смысла", "проверять актуальность диапазонов историй"]
+    },
+    {
+      "id": "roadmap",
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "class_name": "roadmap",
+      "blocking_todo_id": "PROC-059",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Порядок Поставки"],
+      "required_business_elements": ["этап", "ожидаемый результат", "gate"],
+      "forbidden_content": ["полные пользовательские истории", "ПШЕ", "служебные команды", "локальные пути", "технические контракты как продуктовый roadmap"],
+      "validator_requirements": ["проверять отсутствие story/backlog prose", "проверять отсутствие runtime и source/provenance деталей", "проверять, что roadmap не повторяет backlog"]
+    },
+    {
+      "id": "hypothesis-board",
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "class_name": "hypothesis_board",
+      "blocking_todo_id": "PROC-060",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "Продуктовые Гипотезы"],
+      "required_business_elements": ["ID", "тип", "гипотеза", "метрика", "статус"],
+      "forbidden_content": ["процессные гипотезы", "sprint predictability", "служебные команды", "локальные пути", "evidence-журнал"],
+      "validator_requirements": ["проверять отсутствие process-only hypotheses", "проверять отсутствие служебных заголовков", "проверять, что доска является единственным каноном текста гипотез"]
+    },
+    {
+      "id": "hypothesis-validation",
+      "path": "docs/product/hypotheses/hypothesis-validation.md",
+      "class_name": "hypothesis_validation",
+      "blocking_todo_id": "PROC-061",
+      "generation_mode": "manual_agent_template",
+      "owner_role": "Product Owner / Documentation Owner",
+      "allowed_sections": ["Назначение", "План Проверки", "Правило Решения", "Текущие Проверочные Свидетельства"],
+      "required_business_elements": ["ID гипотезы", "проверка", "метрика", "условие решения"],
+      "forbidden_content": ["повтор полного текста гипотезы", "process metrics как продуктовая гипотеза", "служебные команды", "локальные пути", "raw evidence"],
+      "validator_requirements": ["проверять отсутствие дублирования таблицы hypothesis board", "проверять ссылку на доску гипотез", "проверять, что validation описывает проверку, а не второй канон"]
     }
   ]
 }

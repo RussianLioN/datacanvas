@@ -118,7 +118,7 @@
         "allowed_delta": { "type": ["string", "null"], "minLength": 1 },
         "approval_status": {
           "type": ["string", "null"],
-          "enum": ["draft_unapproved", "team_approved", "blocked", null]
+          "enum": ["draft_unapproved", "owner_approved", "team_approved", "blocked", null]
         },
         "team_validation_status": {
           "type": ["string", "null"],

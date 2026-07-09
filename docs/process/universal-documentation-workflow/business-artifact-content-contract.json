@@ -5,68 +5,149 @@
   "contract_id": "BAC-DC-2026-07-09-001",
   "documents": [
     {
-      "id": "story-catalog",
+      "id": "stories-redirect",
       "path": "docs/stories.md",
-      "class_name": "story_catalog",
+      "class_name": "business_redirect",
       "breadcrumb_required": true,
-      "lock_path": "docs/product/sources/story-catalog-content-lock.json"
+      "semantic_family": "stories",
+      "artifact_role": "redirect",
+      "derived_from": [
+        "docs/product/requirements/user-stories.md"
+      ]
     },
     {
-      "id": "formalized-user-stories",
+      "id": "story-catalog",
       "path": "docs/product/requirements/user-stories.md",
-      "class_name": "formalized_user_stories",
-      "breadcrumb_required": true
+      "class_name": "story_catalog",
+      "breadcrumb_required": true,
+      "lock_path": "docs/product/sources/story-catalog-content-lock.json",
+      "semantic_family": "stories",
+      "artifact_role": "canonical"
     },
     {
       "id": "business-requirements",
       "path": "docs/product/requirements/business-requirements.md",
       "class_name": "requirements",
-      "breadcrumb_required": true
+      "breadcrumb_required": true,
+      "semantic_family": "requirements",
+      "artifact_role": "canonical"
     },
     {
       "id": "acceptance-criteria",
       "path": "docs/product/requirements/acceptance-criteria.md",
       "class_name": "acceptance",
-      "breadcrumb_required": true
+      "breadcrumb_required": true,
+      "semantic_family": "acceptance",
+      "artifact_role": "canonical"
     },
     {
       "id": "non-functional-requirements",
       "path": "docs/product/requirements/non-functional-requirements.md",
       "class_name": "nonfunctional",
-      "breadcrumb_required": true
+      "breadcrumb_required": true,
+      "semantic_family": "nonfunctional",
+      "artifact_role": "canonical"
     },
     {
       "id": "product-backlog",
       "path": "docs/product/backlog/product-backlog.md",
       "class_name": "backlog",
-      "breadcrumb_required": true
+      "breadcrumb_required": true,
+      "semantic_family": "backlog",
+      "artifact_role": "canonical"
     },
     {
       "id": "agent-launch-candidate-stories",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "class_name": "stories",
-      "breadcrumb_required": true
+      "class_name": "story_slice",
+      "breadcrumb_required": true,
+      "semantic_family": "stories",
+      "artifact_role": "derived",
+      "derived_from": [
+        "docs/product/requirements/user-stories.md"
+      ]
     },
     {
       "id": "agent-launch-candidate-stories-csv",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
-      "class_name": "stories",
-      "breadcrumb_required": false
+      "class_name": "story_slice_export",
+      "breadcrumb_required": false,
+      "semantic_family": "stories",
+      "artifact_role": "derived",
+      "derived_from": [
+        "docs/product/requirements/user-stories.md"
+      ]
     },
     {
       "id": "confluence-import-map",
       "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "class_name": "confluence_export",
-      "breadcrumb_required": true
+      "breadcrumb_required": true,
+      "artifact_role": "derived",
+      "derived_from": [
+        "docs/product/README.md",
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ]
+    },
+    {
+      "id": "roadmap",
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "class_name": "roadmap",
+      "breadcrumb_required": true,
+      "semantic_family": "roadmap",
+      "artifact_role": "canonical"
+    },
+    {
+      "id": "hypothesis-board",
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "class_name": "hypothesis_board",
+      "breadcrumb_required": true,
+      "semantic_family": "hypotheses",
+      "artifact_role": "canonical"
+    },
+    {
+      "id": "hypothesis-validation",
+      "path": "docs/product/hypotheses/hypothesis-validation.md",
+      "class_name": "hypothesis_validation",
+      "breadcrumb_required": true,
+      "semantic_family": "hypotheses",
+      "artifact_role": "derived",
+      "derived_from": [
+        "docs/product/hypotheses/hypothesis-board.md"
+      ]
     }
   ],
   "artifact_classes": [
     {
+      "class_name": "business_redirect",
+      "purpose": "Короткий совместимый маршрут к актуальному каноническому документу.",
+      "business_scope": "Документ содержит только ссылку на актуальный источник и не повторяет содержимое канонического артефакта.",
+      "required_h2": [
+        "Актуальный Источник"
+      ],
+      "allowed_h2": [
+        "Актуальный Источник"
+      ]
+    },
+    {
       "class_name": "story_catalog",
       "purpose": "Канонический каталог пользовательских историй продукта.",
       "business_scope": "Документ содержит только бизнесовое описание историй, приоритет, функциональную зону и бизнес-ценность. Источники, правила слияния, статусы обработки, даты, ПШЕ, трассировка, открытые решения и служебная методика хранятся во внешних машиночитаемых или процессных артефактах.",
-      "required_h2": ["Назначение", "Каталог пользовательских историй"],
-      "allowed_h2": ["Назначение", "Каталог пользовательских историй"],
+      "required_h2": [
+        "Назначение",
+        "Каталог пользовательских историй"
+      ],
+      "allowed_h2": [
+        "Назначение",
+        "Каталог пользовательских историй"
+      ],
       "forbidden_h2": [
         "Сводка по приоритетам и срокам",
         "Источники и правила слияния",
@@ -101,11 +182,6 @@
       ]
     },
     {
-      "class_name": "formalized_user_stories",
-      "purpose": "Формализованный слой пользовательских историй для требований и приемки.",
-      "business_scope": "Допускает критерии, роли, условия и бизнесовые уточнения; служебная генерация, локальные пути, команды, JSON-фрагменты и provenance выносятся во внешние артефакты."
-    },
-    {
       "class_name": "requirements",
       "purpose": "Бизнесовые и продуктовые требования.",
       "business_scope": "Содержит проверяемые требования продукта без служебных деталей генерации и без технической трассировки как основного текста."
@@ -126,14 +202,69 @@
       "business_scope": "Может содержать приоритеты, статусы и оценки, если они нужны для планирования, но не должен включать служебные правила генерации документов."
     },
     {
-      "class_name": "stories",
-      "purpose": "Дополнительные рабочие списки историй и кандидатные истории.",
-      "business_scope": "Может содержать рабочие бизнесовые комментарии, но не должен смешивать их с технической генерацией, локальными путями и JSON как основным текстом."
+      "class_name": "story_slice",
+      "purpose": "Производный плановый срез пользовательских историй.",
+      "business_scope": "Содержит только идентификаторы, приоритеты, статус планирования и ссылку на канонический каталог; не повторяет полный текст пользовательских историй.",
+      "required_h2": [
+        "Назначение",
+        "Плановый Срез"
+      ],
+      "allowed_h2": [
+        "Назначение",
+        "Плановый Срез",
+        "CSV"
+      ]
+    },
+    {
+      "class_name": "story_slice_export",
+      "purpose": "Рабочий экспорт среза пользовательских историй.",
+      "business_scope": "Используется как переносимый табличный экспорт и не является каноническим человекочитаемым источником."
     },
     {
       "class_name": "confluence_export",
       "purpose": "Карта экспорта в Confluence.",
       "business_scope": "Описывает импортируемый комплект и маршрут публикации, но не заменяет исходные бизнесовые артефакты."
+    },
+    {
+      "class_name": "roadmap",
+      "purpose": "Дорожная карта продукта.",
+      "business_scope": "Описывает порядок продуктовой поставки и gates без копирования backlog, пользовательских историй, технических контрактов или evidence-журналов.",
+      "required_h2": [
+        "Порядок Поставки"
+      ],
+      "allowed_h2": [
+        "Порядок Поставки"
+      ]
+    },
+    {
+      "class_name": "hypothesis_board",
+      "purpose": "Доска продуктовых гипотез.",
+      "business_scope": "Хранит только гипотезы о ценности, качестве или результате продукта; процессные эксперименты и sprint metrics выносятся в процессный контур.",
+      "required_h2": [
+        "Назначение",
+        "Продуктовые Гипотезы"
+      ],
+      "allowed_h2": [
+        "Назначение",
+        "Продуктовые Гипотезы"
+      ]
+    },
+    {
+      "class_name": "hypothesis_validation",
+      "purpose": "План проверки продуктовых гипотез.",
+      "business_scope": "Описывает, как проверять гипотезы из доски, без повторного хранения текста гипотез как второго канона.",
+      "required_h2": [
+        "Назначение",
+        "План Проверки",
+        "Правило Решения",
+        "Текущие Проверочные Свидетельства"
+      ],
+      "allowed_h2": [
+        "Назначение",
+        "План Проверки",
+        "Правило Решения",
+        "Текущие Проверочные Свидетельства"
+      ]
     }
   ],
   "global_forbidden_patterns": [

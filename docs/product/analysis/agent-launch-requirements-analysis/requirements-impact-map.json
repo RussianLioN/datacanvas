@@ -20,9 +20,14 @@
       "decision_id": "ALRA-DEC-001",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-001", "BT-005", "BT-012", "BT-014"],
+      "affected_requirements": [
+        "BT-001",
+        "BT-005",
+        "BT-012",
+        "BT-014"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md"
       ],
@@ -38,9 +43,12 @@
       "decision_id": "ALRA-DEC-002",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-005", "BT-014"],
+      "affected_requirements": [
+        "BT-005",
+        "BT-014"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md"
       ],
@@ -56,9 +64,12 @@
       "decision_id": "ALRA-DEC-003",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-001", "BT-006"],
+      "affected_requirements": [
+        "BT-001",
+        "BT-006"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md"
       ],
@@ -74,9 +85,12 @@
       "decision_id": "ALRA-DEC-004",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-006", "BT-013"],
+      "affected_requirements": [
+        "BT-006",
+        "BT-013"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -93,9 +107,12 @@
       "decision_id": "ALRA-DEC-005",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-012", "BT-014"],
+      "affected_requirements": [
+        "BT-012",
+        "BT-014"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md",
         "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md"
@@ -112,9 +129,11 @@
       "decision_id": "ALRA-DEC-006",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
-      "affected_requirements": ["BT-014"],
+      "affected_requirements": [
+        "BT-014"
+      ],
       "source_paths": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"

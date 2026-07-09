@@ -55,6 +55,21 @@
           "lock_path": {
             "type": "string",
             "minLength": 1
+          },
+          "semantic_family": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifact_role": {
+            "type": "string",
+            "enum": ["canonical", "redirect", "derived", "historical_snapshot", "generated", "evidence", "index", "process_guardrail"]
+          },
+          "derived_from": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         }
       }

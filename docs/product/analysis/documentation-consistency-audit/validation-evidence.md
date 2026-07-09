@@ -29,7 +29,7 @@
 - `docs/process/universal-documentation-workflow/validation-command-catalog.json`
 - `docs/product/sources/product-source-registry.json`
 - `docs/product-vision.md`
-- `docs/stories.md`
+- `docs/product/requirements/user-stories.md`
 - `docs/product/bmc/bmc-v0.2.md`
 - `docs/product/requirements/business-requirements.md`
 - `docs/product/requirements/acceptance-criteria.md`
@@ -417,9 +417,42 @@ Product Owner подтвердил добавление `DC-ST-29` — поль�
 | `git diff --check` | passed | Whitespace-проверка прошла. |
 | `npm test` | passed | Полный локальный gate прошел после добавления `DC-ST-29`, обновления Excel, трассировки, source registry, UDW-состояния, навигации и hash manifest. |
 
+## Проверки После Принятия Excel-Редакции И Каскадной Синхронизации
+
+Product Owner принял текущую Excel-редакцию приоритетов и ПШЕ — трудозатрат в человеко-днях — как рабочий вход для планирования. Каскадная синхронизация обновила человекочитаемые backlog, stories, consistency audit — аудит согласованности — и служебные machine-readable manifests — машиночитаемые манифесты. Generated navigation — автоматически созданная навигация — и hash manifest — манифест хэшей — обновлены только генераторами.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `npm run docs:verify -- --changed-from HEAD` | passed | Каскадный preview — предварительная проверка каскада — не нашел блокеров; generated outputs признаны покрытыми generator contracts — контрактами генераторов. |
+| `npm run validate:business-docs` | passed | Бизнесовые документы не содержат служебных no-change/source-merge/technical provenance блоков. |
+| `npm run validate:universal-documentation-workflow` | passed | UDW — универсальный документационный процесс — валиден после ужесточения правила реального использования навыков и каскадного preview. |
+| `npm run validate:xlsx-backlog` | passed | Excel backlog — рабочая книга backlog — соответствует принятой редакции, provenance и golden-описанию. |
+| `npm run validate:xlsx-cascade` | passed | XLSX включен в каскадный governance — контур управления зависимыми изменениями — как полноценный upstream. |
+| `npm run validate:product-sources` | passed | Реестр продуктовых источников валиден после статуса принятой Excel-редакции. |
+| `npm run validate:product-source-consistency` | passed | Согласованность продуктовых источников проходит после каскадной синхронизации. |
+| `npm run validate:cascading-governance` | passed | Каскадные схемы, impact analysis — анализ влияния, no-change rationale — обоснование отсутствия изменений, и XLSX-gate проходят проверку. |
+| `npm run validate:artifact-dependency-graph` | passed | Граф зависимостей артефактов покрывает обновленные документы каскада. |
+| `npm run validate:backlog-registry` | passed | Backlog registry — реестр backlog — валиден после обновления приоритетов. |
+| `npm run validate:capacity-plan` | passed | Capacity plan — план емкости — структурно валиден; решение по емкости остается следующим пользовательским шагом. |
+| `npm run validate:data-leakage` | passed | Проверка утечек данных прошла. |
+| `npm run validate:impact-analysis` | passed | Impact analysis — анализ влияния — валиден после расширения no-change rationale. |
+| `npm run validate:jira-field-mapping` | passed | Контур подготовки Jira import — импорта в Jira — структурно валиден. |
+| `npm run validate:reprioritization-impact` | passed | Проверка влияния переприоритизации проходит; финальный sprint backlog требует отдельного решения по емкости и вытеснению. |
+| `npm run validate:product-vision` | passed | Product Vision — видение продукта — осталось валидным после каскадной синхронизации. |
+| `npm run validate:schemas` | passed | JSON Schema — схемы JSON — проходят после обновления статусов принятия XLSX и source registry. |
+| `npm run generate:bmc -- --check` | passed | BMC generated package — автоматически созданный пакет BMC — актуален. |
+| `npm run validate:bmc` | passed | BMC — бизнес-модель — проходит полный пакет проверок. |
+| `node scripts/generate-artifact-hash-manifest.mjs` | passed | Hash manifest — манифест хэшей — обновлен генератором после ручных правок и generated navigation. |
+| `npm run generate:docs-navigation -- --check` | passed | Generated navigation — автоматически созданная навигация — актуальна. |
+| `npm run validate:doc-links` | passed | Ссылки в документации проходят проверку. |
+| `npm run validate:docs-navigation` | passed | Навигационный контракт проходит проверку. |
+| `npm run validate:doc-stale-status` | passed | Статусы устаревания документации проходят проверку. |
+| `node scripts/generate-artifact-hash-manifest.mjs --check` | passed | Hash manifest — манифест хэшей — актуален после финальной генерации. |
+| `npm run validate:artifact-hashes` | passed | Hash manifest — манифест хэшей — валиден. |
+
 ## Остаточные Риски
 
 - Ответ `1` по `BAQ-001.2` — первому вопросу короткого BMC-интервью по B1, сегментам пользователей — получен в чате, но намеренно не применен к продуктовым документам до завершения оставшихся вопросов BMC-интервью или текущего раунда интервью. Это частный случай общего правила: любые опросы и вопросы по любым артефактам сначала задаются пакетом, а правки выполняются после сбора ответов.
 - `UDW-DEC-005` — решение Product Owner о полном BA-опроснике DataCanvas — открыто и блокирует финальный backlog refinement — уточнение продуктового списка работ, sprint backlog — список работ спринта, roadmap — дорожную карту — и Confluence-ready package — комплект для Confluence.
-- Для `DC-ST-23..DC-ST-29` — P1-историй запуска DataCanvas другим агентом и генерации презентации — подготовлены предварительные значения ПШЕ по Excel-аналогам, но утвержденные командой значения, емкость и вытеснение работ еще не зафиксированы.
+- Для `DC-ST-23..DC-ST-29` — историй запуска DataCanvas другим агентом и генерации презентации — Product Owner принял текущую Excel-редакцию приоритетов и ПШЕ как ресурсный вход. Sprint backlog — список работ спринта — еще требует проверки емкости, порядка работ и вытеснения.
 - `UDW-RCA-001` — ретроспектива и RCA, анализ первопричин ошибок текущего UDW-прохода — нужно выполнить после завершения PO-опросника; задача не блокирует сбор оставшихся вопросов BMC-интервью.

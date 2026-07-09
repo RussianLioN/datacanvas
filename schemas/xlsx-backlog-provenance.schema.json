@@ -85,7 +85,7 @@
       }
     },
     "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-    "approvalStatus": { "type": "string", "enum": ["draft_unapproved", "team_approved", "blocked"] },
+    "approvalStatus": { "type": "string", "enum": ["draft_unapproved", "owner_approved", "team_approved", "blocked"] },
     "teamValidationStatus": { "type": "string", "enum": ["pending_team_review", "approved", "blocked"] }
   }
 }

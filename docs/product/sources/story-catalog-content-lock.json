@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "status": "active",
   "lock_id": "STORY-CATALOG-LOCK-2026-07-09",
-  "source_path": "docs/stories.md",
+  "source_path": "docs/product/requirements/user-stories.md",
   "hash_algorithm": "sha256",
   "locked_fields": [
     "Пользовательская формулировка",

@@ -6,7 +6,7 @@
 
 - [Видение продукта](../../product-vision.md)
 - [Vision v0.1](../vision/vision-v0.1.md)
-- [Каталог stories](../../stories.md)
+- [Каталог пользовательских историй](user-stories.md)
 - [BMC v0.2](../bmc/bmc-v0.2.md)
 - [Критерии приемки](acceptance-criteria.md)
 - [Нефункциональные требования](non-functional-requirements.md)

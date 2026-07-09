@@ -240,7 +240,7 @@ try {
     }
     for (const requiredPath of [
       "docs/product-vision.md",
-      "docs/stories.md",
+      "docs/product/requirements/user-stories.md",
       "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
       "docs/product/bmc/bmc-v0.2.md",
       "docs/product/requirements/business-requirements.md",

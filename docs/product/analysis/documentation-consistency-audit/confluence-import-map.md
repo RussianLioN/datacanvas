@@ -12,15 +12,15 @@
 
 | Страница Confluence | Источник | Формат | Статус |
 |---|---|---|---|
-| Обзор DataCanvas | `README.md`, `docs/README.md`, `docs/product/README.md` | Markdown | draft до закрытия аудита. |
+| Обзор DataCanvas | `docs/product/README.md` | Markdown | draft до закрытия аудита. |
 | Vision — видение продукта | `docs/product-vision.md` | Markdown | active. |
-| Stories — пользовательские истории | `docs/stories.md` | Markdown | active; `DC-ST-23..DC-ST-29` — истории запуска другим агентом и подготовки результата — подтверждены как P1, но требуют оценки команды реализации. |
-| Формализованные пользовательские истории | `docs/product/requirements/user-stories.md` | Markdown | active; обновлены по `UDW-DEC-003` — решению Product Owner о замене старых `US-*` на `DC-ST-*` — пользовательские истории DataCanvas. |
 | BMC — Business Model Canvas, бизнес-модель | `docs/product/bmc/bmc-v0.2.md`, `docs/product/bmc/source/derived/datacanvas-bmc.png`, `docs/product/bmc/source/derived/datacanvas-bmc.pdf` | Markdown/PNG/PDF | active; повторный цикл правок после доставки удален по `BAQ-001`, дополнительные BMC-смягчения B1, B5, B8 и B9 применены по `BAQ-001.1`; ответ `1` по `BAQ-001.2` получен, но финальный импорт ждет завершения оставшихся вопросов BMC-интервью и дальнейший BA-опросник. |
+| Stories — пользовательские истории | `docs/product/requirements/user-stories.md` | Markdown | active; канонический каталог `DC-ST-01..DC-ST-29`, включая истории запуска другим агентом и подготовки результата. |
 | Business requirements — бизнес-требования | `docs/product/requirements/business-requirements.md` | Markdown | draft; `BT-*` — бизнес-требования для `DC-ST-23..DC-ST-29` уточнены, финальный импорт ожидает полный BA-опросник DataCanvas. |
+| Non-functional requirements — нефункциональные требования | `docs/product/requirements/non-functional-requirements.md` | Markdown | draft; требования качества импортируются как отдельный слой между бизнес-требованиями и критериями приемки. |
 | Acceptance criteria — критерии приемки | `docs/product/requirements/acceptance-criteria.md` | Markdown | draft. |
-| Product backlog — продуктовый список работ | `docs/product/backlog/product-backlog.md`, `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Markdown | draft до ревизии зависимых артефактов, оценки команды реализации, проверки емкости и решения по вытеснению работ. |
-| Оценка P1-историй запуска другим агентом | `docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md` | Markdown | служебная страница для внутреннего обсуждения с командой реализации; в бизнесовый импорт не входит до отдельного решения. |
+| Product backlog — продуктовый список работ | `docs/product/backlog/product-backlog.md`, `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md` | Markdown | draft до ревизии зависимых артефактов, проверки емкости и решения по вытеснению работ. |
+| Оценка историй запуска другим агентом | `docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md` | Markdown | рабочая страница для планирования ресурсов; в бизнесовый импорт входит только после решения о формате Confluence-пакета. |
 | Roadmap — дорожная карта | `docs/product/roadmap/roadmap-v0.1.md` | Markdown | draft до BA-опросника, оценки команды и решения по 3-4 ближайшим спринтам. |
 | Traceability — трассировка | `docs/product/requirements/traceability-matrix.json` | JSON как вложение или таблица после преобразования | draft; связи `DC-ST-23..DC-ST-29` обновлены, финальный импорт ожидает полный BA-опросник и возможные зависимые правки. |
 | Specs — спецификации | `docs/product/specs/README.md`, `docs/product/specs/feature-spec-a2a-launch.json` | Markdown/JSON | внутренний технический раздел, не включается в бизнесовый пакет без отдельного решения. |
@@ -34,7 +34,7 @@
 
 ## Перед Импортом
 
-1. Получить оценку команды реализации для `DC-ST-23..DC-ST-29` — P1-историй запуска DataCanvas другим агентом и подготовки результата.
-2. Обновить зависимые ручные артефакты только после оценок команды реализации и согласованных ответов Product Owner.
+1. Проверить емкость, порядок работ и вытеснение для `DC-ST-23..DC-ST-29` — историй запуска DataCanvas другим агентом и подготовки результата.
+2. Обновить зависимые ручные артефакты только после согласованных ответов Product Owner и решений по планированию.
 3. Обновить производные артефакты только штатными генераторами.
 4. Проверить ссылки, отсутствие утечек и актуальность производных артефактов перед импортом.

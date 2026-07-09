@@ -13,7 +13,7 @@
 ## Документы
 
 - [Product backlog](product-backlog.md)
-- [P1-истории для запуска DataCanvas другим агентом](agent-launch-candidate-stories-2026-q3.md)
+- [Истории для запуска DataCanvas другим агентом и генерации презентации](agent-launch-candidate-stories-2026-q3.md)
 - [Technical backlog](technical-backlog.md)
 - [Eval backlog](eval-backlog.md)
 - [Backlog registry](backlog-registry.json)

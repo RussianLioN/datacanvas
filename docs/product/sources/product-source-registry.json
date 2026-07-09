@@ -4,14 +4,14 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-09T00:00:00Z",
+  "updated_at": "2026-07-09T00:00:00+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
     "accepted_bmc",
     "story_catalog",
-    "product_planning",
     "formalized_requirements",
+    "product_planning",
     "traceability",
     "analysis_source",
     "technical_spec",
@@ -37,7 +37,7 @@
       ],
       "affected_artifacts": [
         "docs/product-vision.md",
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
@@ -94,7 +94,7 @@
     },
     {
       "source_id": "SRC-DC-STORIES-CATALOG",
-      "path": "docs/stories.md",
+      "path": "docs/product/requirements/user-stories.md",
       "source_role": "story_catalog",
       "owner_role": "Product Owner",
       "lifecycle": "active",
@@ -111,7 +111,7 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-29. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-29 находится в слое требований продукта. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
     },
     {
       "source_id": "SRC-DC-STORY-CATALOG-LOCK",
@@ -127,16 +127,16 @@
         "business_doc_purity_validation"
       ],
       "affected_artifacts": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "scripts/validate-business-docs.mjs"
       ],
-      "notes": "Машинный lock-файл для проверки, что очистка структуры docs/stories.md не меняет согласованный текст пользовательских историй и бизнес-ценностей.",
+      "notes": "Машинный lock-файл для проверки, что структурная очистка каталога не меняет согласованный текст пользовательских историй и бизнес-ценностей.",
       "sha256": null,
       "derived_from": [
         "SRC-DC-STORIES-CATALOG"
       ],
       "verifier_command": "npm run validate:business-docs",
-      "allowed_delta": "Меняется только после отдельного согласования изменения текста истории или бизнес-ценности в docs/stories.md.",
+      "allowed_delta": "Меняется только после отдельного согласования изменения текста истории или бизнес-ценности в docs/product/requirements/user-stories.md.",
       "approval_status": null,
       "team_validation_status": null,
       "provenance_manifest": null
@@ -158,7 +158,7 @@
         "backlog_prioritization_audit"
       ],
       "affected_artifacts": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/process/guides/datacanvas-excel-backlog-sync.md",
@@ -178,15 +178,16 @@
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "source_role": "analysis_source",
       "owner_role": "Product Owner / команда реализации",
-      "lifecycle": "draft",
-      "trust_level": "internal_evidence",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
       "effective_date": "2026-07-08",
-      "upstream_decision": "UDW-DEC-015",
+      "upstream_decision": "UDW-DEC-017",
       "allowed_downstream_use": [
-        "draft_effort_estimation",
-        "team_estimation_review",
+        "accepted_effort_estimation",
         "sprint_planning_input",
-        "jira_import_recovery"
+        "jira_import_preparation",
+        "opml_export_preparation",
+        "cascade_synchronization"
       ],
       "affected_artifacts": [
         "docs/process/guides/datacanvas-excel-backlog-sync.md",
@@ -200,15 +201,15 @@
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
         "docs/product/sources/xlsx-opml-jira-recovery-index.json"
       ],
-      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-29. Рабочие значения ПШЕ подготовлены по текущей редакции Product Owner и минимальному профилю DC-ST-29; статус не утверждено хранится в provenance manifest до проверки команды реализации. ПШЕ не переносятся в docs/stories.md и docs/product/requirements/user-stories.md.",
+      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-29. Product Owner принял текущие приоритеты и ПШЕ как ресурсный вход для дальнейшего планирования; ПШЕ не переносятся в канонический каталог пользовательских историй, если не меняется смысл истории, приоритет или граница продукта.",
       "sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
       "derived_from": [
         "SRC-DC-STORIES-XLSX-RAW"
       ],
       "verifier_command": "npm run validate:xlsx-backlog",
       "allowed_delta": "Accepted added rows 26-32 for DC-ST-23..DC-ST-29 may differ from the raw workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
-      "approval_status": "draft_unapproved",
-      "team_validation_status": "pending_team_review",
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
     },
     {
@@ -229,12 +230,12 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/roadmap-v0.1.md"
       ],
-      "notes": "Содержит P1-истории DC-ST-23..DC-ST-29 после CO-2026-001 и UDW-DEC-018; не заменяет проверку ПШЕ, емкости и вытеснения работ перед sprint backlog."
+      "notes": "Содержит DC-ST-23..DC-ST-29 после CO-2026-001, UDW-DEC-017 и UDW-DEC-018; sprint backlog требует проверки емкости, порядка работ и вытеснения."
     },
     {
       "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "source_role": "story_catalog",
+      "source_role": "product_planning",
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
@@ -253,7 +254,29 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Непосредственный источник строк DC-ST-23..DC-ST-29 для backlog и переноса в табличный формат после проверки ПШЕ командой реализации."
+      "notes": "Производный плановый срез строк DC-ST-23..DC-ST-29 для backlog и переноса в табличный формат после принятой Excel-редакции приоритетов и ПШЕ. Полный текст историй хранится в каноническом каталоге пользовательских историй."
+    },
+    {
+      "source_id": "SRC-DC-SPRINT-CANDIDATE-PLAN",
+      "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "source_role": "product_planning",
+      "owner_role": "Product Owner / Scrum Master / Delivery Lead",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-09",
+      "upstream_decision": "UDW-DEC-017",
+      "allowed_downstream_use": [
+        "sprint_planning_input",
+        "jira_import_preparation",
+        "confluence_export_context",
+        "traceability_review"
+      ],
+      "affected_artifacts": [
+        "docs/process/cascading-governance/jira-import-package-manifest.json",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "notes": "Кандидатный план ближайших спринтов строится из утвержденной рабочей Excel-редакции и продуктового backlog. Он не является утвержденным sprint backlog без проверки емкости, порядка работ, вытеснения и отдельного owner gate."
     },
     {
       "source_id": "SRC-DC-ROADMAP-V0-1",
@@ -291,7 +314,7 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/hypotheses/hypothesis-validation.md"
       ],
-      "notes": "Текущий источник гипотез; HYP-001 дополнена проверкой перехода от длинного ответа другого агента в Лисе к принятой презентации."
+      "notes": "Продуктовая доска гипотез содержит только гипотезы DataCanvas о снижении ручной подготовки презентаций и проверке ценности агентского запуска; процессные метрики вынесены из продуктовой доски."
     },
     {
       "source_id": "SRC-DC-HYPOTHESIS-VALIDATION",
@@ -311,7 +334,7 @@
         "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/backlog/product-backlog.md"
       ],
-      "notes": "План проверки гипотез; HYP-001 проверяет снижение ручной подготовки и нагрузки на разбор длинного ответа другого агента в Лисе."
+      "notes": "План проверки продуктовых гипотез ссылается на доску гипотез и не повторяет полный текст гипотез или процессные метрики."
     },
     {
       "source_id": "SRC-DC-BMC-CURRENT",
@@ -368,6 +391,28 @@
         "docs/architecture/system-analysis/sa-spec.json"
       ],
       "notes": "Обновлен по EDIT-003 — правке бизнес-требований по разделению режимов: бизнес-требования разделяют запуск другим агентом без подтверждения и диалоговый режим в Лисе с выбором действия после описания структуры; ценность BT-005 и BT-008 дополнена снижением нагрузки на разбор длинного ответа другого агента в Лисе."
+    },
+    {
+      "source_id": "SRC-DC-REQUIREMENTS-NFR",
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "source_role": "formalized_requirements",
+      "owner_role": "Product Owner / Architect",
+      "lifecycle": "draft",
+      "trust_level": "current",
+      "effective_date": "2026-07-09",
+      "upstream_decision": "CO-2026-001",
+      "allowed_downstream_use": [
+        "acceptance",
+        "traceability",
+        "spec_delta",
+        "release_readiness"
+      ],
+      "affected_artifacts": [
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Нефункциональные требования являются формализованным слоем качества продукта; команды проверки, evidence и технические детали остаются во внешнем validation/evidence контуре."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-ACCEPTANCE",

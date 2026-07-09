@@ -55,10 +55,73 @@ const staticGlobalRules = [
     pattern: /\b(?:generator contracts|allowed writes|hash manifest|generated refresh|mutation guard)\b/iu,
     message: "метаданные генерации относятся к процессному и generated-контуру",
   },
+  {
+    id: "service-rationale",
+    pattern: /\b(?:no-change rationale|impact analysis|dependency graph|source registry|changed_source_set)\b|обосновани[ея]\s+отсутствия\s+правк[и]|анализ\s+влияния/iu,
+    message: "служебные обоснования каскада должны храниться в impact/evidence JSON, а не в бизнесовом Markdown",
+  },
 ];
 
+const generationCategoryRules = {
+  service_status: {
+    id: "service-header",
+    pattern: /^(?:[-*]\s*)?(?:Статус|Владелец|Проверка|Дата обновления|Область):/imu,
+    message: "служебные заголовки должны храниться в реестрах, манифестах или процессных артефактах",
+  },
+  local_path: {
+    id: "local-path",
+    pattern: /(?:\/Users\/|file:\/\/)/u,
+    message: "локальные абсолютные пути нельзя фиксировать в бизнесовых или экспортных документах",
+  },
+  hash: {
+    id: "sha",
+    pattern: /\b(?:sha256|SHA-?256)\b\s*[:=]?\s*[a-f0-9]{16,}/iu,
+    message: "хэши относятся к machine-readable реестрам и проверочным артефактам",
+  },
+  validation_command: {
+    id: "validation-command",
+    pattern: /(?:npm run|node scripts\/|python3 scripts\/|git diff --check)/u,
+    message: "команды проверки не должны быть частью бизнесового текста",
+  },
+  raw_json: {
+    id: "raw-service-json",
+    pattern: /"(?:source_refs|validation_status|technical_trace|internal_prompts|request_id|trace_id)"\s*:/u,
+    message: "сырой JSON относится к машинному слою",
+  },
+  technical_contract: {
+    id: "technical-contract",
+    pattern: /\b(?:PresentationSpec|schema validation|Renderer|HTML\/PDF\/PNG|request ID|trace ID|status code|launch mode|callback)\b|обратн(?:ый|ого)\s+вызов/iu,
+    message: "технические контракты, runtime-поля и транспортные детали должны быть вынесены из бизнесового текста",
+  },
+  source_mechanics: {
+    id: "source-mechanics",
+    pattern: /\b(?:Excel(?:\s+row|-строк|-матриц[аеы]?)?|OPML|RTF|sheetViews|cached totals|comments1\.xml|vmlDrawing|XML-пакет)\b/iu,
+    message: "механика источников и файлового пакета относится к source/provenance или evidence",
+  },
+  sensitive_evidence: {
+    id: "sensitive-evidence",
+    pattern: /\b(?:raw traces|raw confidential data|internal prompts|tool outputs|local paths)\b/iu,
+    message: "детали чувствительных проверочных следов не должны попадать в бизнесовый текст",
+  },
+  generated_metadata: {
+    id: "generated-metadata",
+    pattern: /\b(?:generator contracts|allowed writes|hash manifest|generated refresh|mutation guard)\b/iu,
+    message: "метаданные генерации относятся к процессному и generated-контуру",
+  },
+  service_rationale: {
+    id: "service-rationale",
+    pattern: /\b(?:no-change rationale|impact analysis|dependency graph|source registry|changed_source_set)\b|обосновани[ея]\s+отсутствия\s+правк[и]|анализ\s+влияния/iu,
+    message: "служебные обоснования каскада должны храниться в impact/evidence JSON, а не в бизнесовом Markdown",
+  },
+  effort_estimation: {
+    id: "effort-estimation-in-story",
+    pattern: /(?:ПШЕ|чел\/дн|оценк[аи]\s+трудозатрат|ресурсн(?:ая|ой)\s+матриц[аы])/iu,
+    message: "оценки и ресурсные матрицы должны храниться в backlog/source/provenance контуре, а не в бизнесовых документах",
+  },
+};
+
 const classRules = {
-  stories: [
+  story_catalog: [
     {
       id: "effort-estimation-in-story",
       pattern: /(?:ПШЕ|чел\/дн|оценк[аи]\s+трудозатрат|ресурсн(?:ая|ой)\s+матриц[аы])/iu,
@@ -113,6 +176,63 @@ const classRules = {
       message: "NFR должен описывать требование и условие приемки, а не команды проверки",
     },
   ],
+  business_redirect: [
+    {
+      id: "redirect-must-not-repeat-table",
+      pattern: /^\|.*\|/mu,
+      message: "redirect-документ должен только указывать на канон и не повторять таблицу основного артефакта",
+    },
+  ],
+  story_slice: [
+    {
+      id: "story-slice-repeats-catalog",
+      pattern: /\|\s*(?:История|Пользовательская формулировка|Бизнес-ценность)\s*\|/iu,
+      message: "плановый story slice не должен повторять полный текст пользовательских историй или бизнес-ценностей",
+    },
+    {
+      id: "story-slice-effort-detail",
+      pattern: /(?:ПШЕ|чел\/дн|оценк[аи]\s+трудозатрат|ресурсн(?:ая|ой)\s+матриц[аы])/iu,
+      message: "оценки и ресурсные матрицы должны храниться в backlog/source/provenance контуре, а не в story slice",
+    },
+  ],
+  story_slice_export: [
+    {
+      id: "story-export-local-source",
+      pattern: /(?:\/Users\/|file:\/\/|provenance|sha256|node scripts\/|npm run)/iu,
+      message: "CSV/export среза историй не должен содержать локальные пути, команды, хэши или provenance",
+    },
+  ],
+  roadmap: [
+    {
+      id: "roadmap-repeats-backlog",
+      pattern: /(?:DC-ST-\d{2}|ПШЕ|чел\/дн|оценк[аи]\s+трудозатрат)/iu,
+      message: "roadmap должен описывать порядок поставки, а не повторять stories, backlog или оценки",
+    },
+    {
+      id: "roadmap-technical-contract",
+      pattern: /\b(?:PresentationSpec|Renderer|LLM|schema boundary|UAT\/evidence)\b/iu,
+      message: "roadmap не должен подменять продуктовый порядок поставки техническими контрактами",
+    },
+  ],
+  hypothesis_board: [
+    {
+      id: "hypothesis-board-process-hypothesis",
+      pattern: /(?:Недельный Scrum|sprint predictability|spillover rate|process metrics)/iu,
+      message: "доска продуктовых гипотез не должна хранить процессные эксперименты",
+    },
+  ],
+  hypothesis_validation: [
+    {
+      id: "hypothesis-validation-repeats-board",
+      pattern: /\|\s*ID\s*\|\s*Гипотеза\s*\|/iu,
+      message: "план проверки гипотез не должен повторять доску гипотез как второй канон",
+    },
+    {
+      id: "hypothesis-validation-process-hypothesis",
+      pattern: /(?:Недельный Scrum|sprint predictability|spillover rate|process metrics)/iu,
+      message: "план проверки продуктовых гипотез не должен хранить process-only гипотезы",
+    },
+  ],
   confluence_export: [
     {
       id: "internal-evidence-export",
@@ -156,12 +276,31 @@ function compileContractRules(contract) {
   }));
 }
 
+function compileGenerationCategoryRules(generationContract, generationDocument = undefined) {
+  const categories = new Set([
+    ...(generationContract?.enforced_forbidden_categories ?? []),
+    ...(generationDocument?.enforced_forbidden_categories ?? []),
+  ]);
+  return [...categories].map((category) => generationCategoryRules[category]).filter(Boolean);
+}
+
+function assertKnownGenerationCategories(categories, label) {
+  for (const category of categories ?? []) {
+    if (!generationCategoryRules[category]) {
+      fail(`${label} contains unknown enforced forbidden category: ${category}`);
+    }
+  }
+}
+
 function normalizeDocument(document) {
   return {
     ...document,
     className: document.className ?? document.class_name,
     breadcrumbRequired: document.breadcrumbRequired ?? document.breadcrumb_required,
     lockPath: document.lockPath ?? document.lock_path,
+    semanticFamily: document.semanticFamily ?? document.semantic_family,
+    artifactRole: document.artifactRole ?? document.artifact_role,
+    derivedFrom: document.derivedFrom ?? document.derived_from,
   };
 }
 
@@ -195,6 +334,7 @@ function assertGenerationContract(contentContract, generationContract) {
   if (!generationContract.blocking_policy?.stop_if_missing_contract) {
     fail("business artifact generation contract must stop when a document generation contract is missing");
   }
+  assertKnownGenerationCategories(generationContract.enforced_forbidden_categories, "business artifact generation contract");
 
   const todoBacklogPath = generationContract.blocking_policy.todo_backlog_path;
   const todoText = readText(todoBacklogPath);
@@ -224,6 +364,7 @@ function assertGenerationContract(contentContract, generationContract) {
     if (generationDocument.class_name !== contentDocument.className) {
       fail(`business artifact generation contract class mismatch for ${generationDocument.path}`);
     }
+    assertKnownGenerationCategories(generationDocument.enforced_forbidden_categories, `business artifact generation contract for ${generationDocument.path}`);
     assertReadyOrDoneTodo(todoText, generationDocument.blocking_todo_id);
   }
 
@@ -234,8 +375,48 @@ function assertGenerationContract(contentContract, generationContract) {
   }
 }
 
-function rulesFor(className, contractRules) {
-  return [...staticGlobalRules, ...contractRules, ...(classRules[className] ?? [])];
+function assertContentContractRoles(contract) {
+  const canonicalByFamily = new Map();
+  const documents = contract.documents.map(normalizeDocument);
+
+  for (const document of documents) {
+    if (!document.semanticFamily || !document.artifactRole) {
+      continue;
+    }
+    if (["redirect", "derived"].includes(document.artifactRole) && (!Array.isArray(document.derivedFrom) || document.derivedFrom.length === 0)) {
+      fail(`${document.path} must declare derived_from because it is ${document.artifactRole}`);
+    }
+    if (document.artifactRole === "canonical") {
+      const existing = canonicalByFamily.get(document.semanticFamily);
+      if (existing) {
+        fail(`semantic family ${document.semanticFamily} has duplicate canonical documents: ${existing} and ${document.path}`);
+      }
+      canonicalByFamily.set(document.semanticFamily, document.path);
+    }
+  }
+
+  for (const document of documents) {
+    if (!document.semanticFamily || ["canonical", "historical_snapshot", "evidence", "generated", "process_guardrail"].includes(document.artifactRole)) {
+      continue;
+    }
+    const canonicalPath = canonicalByFamily.get(document.semanticFamily);
+    if (!canonicalPath) {
+      fail(`${document.path} belongs to semantic family ${document.semanticFamily}, but that family has no canonical document`);
+    }
+    if (document.path === canonicalPath && document.artifactRole !== "canonical") {
+      fail(`${document.path} cannot be both canonical and ${document.artifactRole}`);
+    }
+  }
+}
+
+function rulesFor(className, contractRules, generationRules = []) {
+  const byId = new Map();
+  for (const rule of [...staticGlobalRules, ...contractRules, ...generationRules, ...(classRules[className] ?? [])]) {
+    if (!byId.has(rule.id)) {
+      byId.set(rule.id, rule);
+    }
+  }
+  return [...byId.values()];
 }
 
 function contractClass(contract, className) {
@@ -456,10 +637,49 @@ function validateStoryCatalog(text, document, artifactClass, violations) {
   }
 }
 
-function findViolations(text, className, contract, document = undefined) {
+function validateSections(text, artifactClass, violations) {
+  const requiredSections = artifactClass.required_h2 ?? [];
+  const allowedSections = artifactClass.allowed_h2 ?? [];
+  if (requiredSections.length === 0 && allowedSections.length === 0) {
+    return;
+  }
+
+  const sections = getH2Sections(text);
+  const sectionTitles = sections.map((section) => section.title);
+  for (const requiredSection of requiredSections) {
+    if (!sectionTitles.includes(requiredSection)) {
+      addViolation(
+        violations,
+        "business-doc-required-section",
+        `документ должен содержать раздел "${requiredSection}"`,
+        1,
+        requiredSection,
+      );
+    }
+  }
+
+  if (allowedSections.length === 0) {
+    return;
+  }
+
+  for (const section of sections) {
+    if (!allowedSections.includes(section.title)) {
+      addViolation(
+        violations,
+        "business-doc-forbidden-section",
+        "документ содержит раздел, не разрешенный контрактом для этого класса артефакта",
+        section.line,
+        section.title,
+      );
+    }
+  }
+}
+
+function findViolations(text, className, contract, document = undefined, generationContract = undefined, generationDocument = undefined) {
   const violations = [];
   const contractRules = compileContractRules(contract);
-  for (const rule of rulesFor(className, contractRules)) {
+  const generationRules = compileGenerationCategoryRules(generationContract, generationDocument);
+  for (const rule of rulesFor(className, contractRules, generationRules)) {
     const match = rule.pattern.exec(text);
     if (match) {
       violations.push({
@@ -473,18 +693,21 @@ function findViolations(text, className, contract, document = undefined) {
   const artifactClass = contractClass(contract, className);
   if (artifactClass?.class_name === "story_catalog") {
     validateStoryCatalog(text, document, artifactClass, violations);
+  } else if (artifactClass) {
+    validateSections(text, artifactClass, violations);
   }
 
   return violations;
 }
 
-function assertBusinessDoc(document, contract) {
+function assertBusinessDoc(document, contract, generationContract) {
   const normalizedDocument = normalizeDocument(document);
   const text = readText(normalizedDocument.path);
+  const generationDocument = generationContract.documents.find((candidate) => candidate.path === normalizedDocument.path);
   if (normalizedDocument.breadcrumbRequired !== false && !text.includes("Навигация:")) {
     fail(`${normalizedDocument.path} must keep a breadcrumb navigation line`);
   }
-  const violations = findViolations(text, normalizedDocument.className, contract, normalizedDocument);
+  const violations = findViolations(text, normalizedDocument.className, contract, normalizedDocument, generationContract, generationDocument);
   if (violations.length > 0) {
     const first = violations[0];
     fail(`${normalizedDocument.path}:${first.line} violates ${first.rule.id}: ${first.rule.message}; found "${first.match}"`);
@@ -492,8 +715,12 @@ function assertBusinessDoc(document, contract) {
 }
 
 function assertFixtures(contract) {
+  const validClassNames = new Set(contract.artifact_classes.map((artifactClass) => artifactClass.class_name));
   for (const rawSample of readJson(positiveCasesPath).cases) {
     const sample = normalizeFixture(rawSample);
+    if (!validClassNames.has(sample.className)) {
+      fail(`positive fixture ${sample.id} uses unknown business artifact class: ${sample.className}`);
+    }
     const violations = findViolations(sample.content, sample.className, contract);
     if (violations.length > 0) {
       fail(`positive fixture ${sample.id} violates ${violations[0].rule.id}`);
@@ -502,6 +729,9 @@ function assertFixtures(contract) {
 
   for (const rawSample of readJson(negativeCasesPath).cases) {
     const sample = normalizeFixture(rawSample);
+    if (!validClassNames.has(sample.className)) {
+      fail(`negative fixture ${sample.id} uses unknown business artifact class: ${sample.className}`);
+    }
     const violations = findViolations(sample.content, sample.className, contract);
     if (violations.length === 0) {
       fail(`negative fixture ${sample.id} did not trigger any business-doc rule`);
@@ -515,10 +745,11 @@ function assertFixtures(contract) {
 try {
   const contract = readJson(contractPath);
   const generationContract = readJson(generationContractPath);
+  assertContentContractRoles(contract);
   assertGenerationContract(contract, generationContract);
   assertFixtures(contract);
   for (const document of contract.documents) {
-    assertBusinessDoc(document, contract);
+    assertBusinessDoc(document, contract, generationContract);
   }
   console.log("business document content validation passed");
 } catch (error) {

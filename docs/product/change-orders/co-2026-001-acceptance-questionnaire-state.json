@@ -44,7 +44,7 @@
     "questionnaire_protocol_path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
     "change_order_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
     "vision_path": "docs/product-vision.md",
-    "stories_path": "docs/stories.md",
+    "stories_path": "docs/product/requirements/user-stories.md",
     "candidate_stories_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
     "candidate_stories_csv_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv"
   },
@@ -149,9 +149,9 @@
     },
     {
       "question_id": "PRODUCT-15",
-      "title": "Канонический каталог stories",
+      "title": "Канонический каталог пользовательских историй",
       "status": "confirmed",
-      "safe_summary": "Истории DC-ST-23..DC-ST-28 добавлены сразу в docs/stories.md; после BAQ-002 они подтверждены как P1, но не имеют численной оценки ПШЕ.",
+      "safe_summary": "Истории DC-ST-23..DC-ST-28 добавлены сразу в docs/product/requirements/user-stories.md; после BAQ-002 они подтверждены как P1, но не имеют численной оценки ПШЕ.",
       "answered_at": "2026-07-03T09:00:00Z"
     },
     {
@@ -273,56 +273,75 @@
       "question_id": "PRODUCT-01",
       "decision_status": "confirmed",
       "safe_summary": "CO-2026-001 принят Product Owner как смена продуктового приоритета.",
-      "affected_artifacts": ["docs/product/change-orders/co-2026-001-a2a-first-priority.json"]
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.json"
+      ]
     },
     {
       "decision_id": "DEC-002",
       "question_id": "PRODUCT-02",
       "decision_status": "deferred",
       "safe_summary": "Ёмкость Q3 и ресурсы остаются открытыми до оценки.",
-      "affected_artifacts": ["docs/process/current/process-backlog.md"]
+      "affected_artifacts": [
+        "docs/process/current/process-backlog.md"
+      ]
     },
     {
       "decision_id": "DEC-003",
       "question_id": "PRODUCT-07",
       "decision_status": "confirmed",
       "safe_summary": "Статусы и сведения о результате идут через обратный вызов, готовый файл доставляется по электронной почте.",
-      "affected_artifacts": ["docs/stories.md", "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md"]
+      "affected_artifacts": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md"
+      ]
     },
     {
       "decision_id": "DEC-004",
       "question_id": "PRODUCT-15",
       "decision_status": "confirmed",
-      "safe_summary": "DC-ST-23..28 добавлены в канонический каталог stories; после BAQ-002 их статус уточнен до окончательного P1 без численной оценки ПШЕ.",
-      "affected_artifacts": ["docs/stories.md", "docs/product/backlog/product-backlog.md"]
+      "safe_summary": "DC-ST-23..28 добавлены в канонический каталог пользовательских историй; после BAQ-002 их статус уточнен до окончательного P1 без численной оценки ПШЕ.",
+      "affected_artifacts": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md"
+      ]
     },
     {
       "decision_id": "DEC-005",
       "question_id": "PRODUCT-16",
       "decision_status": "confirmed",
       "safe_summary": "Короткое Vision обновлено с проверкой достаточности и безопасности контекста от агента.",
-      "affected_artifacts": ["docs/product-vision.md"]
+      "affected_artifacts": [
+        "docs/product-vision.md"
+      ]
     },
     {
       "decision_id": "DEC-006",
       "question_id": "PRODUCT-18",
       "decision_status": "confirmed",
       "safe_summary": "Документационный характер проекта фиксируется в процессных правилах, не в Vision.",
-      "affected_artifacts": ["AGENTS.md", "docs/process/methodology/project-documentation-methodology.md"]
+      "affected_artifacts": [
+        "AGENTS.md",
+        "docs/process/methodology/project-documentation-methodology.md"
+      ]
     },
     {
       "decision_id": "DEC-007",
       "question_id": "PRODUCT-19",
       "decision_status": "confirmed",
       "safe_summary": "Раздел «Решение» обновлён с разделением агентского и диалогового маршрута.",
-      "affected_artifacts": ["docs/product-vision.md"]
+      "affected_artifacts": [
+        "docs/product-vision.md"
+      ]
     },
     {
       "decision_id": "DEC-008",
       "question_id": "PRODUCT-20",
       "decision_status": "confirmed",
       "safe_summary": "Основная ценность обновлена: быстрый агентский запуск и редактируемый итоговый файл.",
-      "affected_artifacts": ["docs/product-vision.md"]
+      "affected_artifacts": [
+        "docs/product-vision.md"
+      ]
     },
     {
       "decision_id": "DEC-009",
@@ -331,7 +350,7 @@
       "safe_summary": "Vision и текущие стейкхолдерские продуктовые артефакты очищаются от служебного упоминания исторического ориентира результата.",
       "affected_artifacts": [
         "docs/product-vision.md",
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/bmc/source-excerpts.md",
         "docs/datacanvas-documentation-implementation-plan.md"
       ]
@@ -357,7 +376,7 @@
       "decision_status": "confirmed",
       "safe_summary": "DC-ST-23..DC-ST-28 подтверждены как окончательные P1-истории; ПШЕ, емкость, ресурсы и вытеснение работ остаются отдельным шагом оценки.",
       "affected_artifacts": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/requirements/user-stories.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/product-backlog.md",

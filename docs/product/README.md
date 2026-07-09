@@ -11,16 +11,15 @@
 ## Порядок Чтения
 
 1. [Текущее видение](../product-vision.md)
-2. [Каталог пользовательских историй](../stories.md)
-3. [BMC](bmc/README.md)
+2. [BMC](bmc/README.md)
+3. [Каталог пользовательских историй](requirements/user-stories.md)
 4. [Бизнес-требования](requirements/business-requirements.md)
-5. [Пользовательские истории](requirements/user-stories.md)
-6. [Нефункциональные требования](requirements/non-functional-requirements.md)
-7. [Критерии приемки](requirements/acceptance-criteria.md)
-8. [Product backlog](backlog/product-backlog.md)
-9. [Roadmap](roadmap/roadmap-v0.1.md)
-10. [Гипотезы](hypotheses/hypothesis-board.md)
-11. [Traceability matrix](requirements/traceability-matrix.json)
+5. [Нефункциональные требования](requirements/non-functional-requirements.md)
+6. [Критерии приемки](requirements/acceptance-criteria.md)
+7. [Product backlog](backlog/product-backlog.md)
+8. [Roadmap](roadmap/roadmap-v0.1.md)
+9. [Гипотезы](hypotheses/hypothesis-board.md)
+10. [Traceability matrix](requirements/traceability-matrix.json)
 
 ## Индексы Слоев
 
@@ -43,8 +42,9 @@
 - `docs/product-vision.md` - текущий обзорный Vision.
 - `docs/product/vision/manifest.json` - машинный манифест Vision: статус, владелец, проверки и политика чистого публичного текста.
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
-- `docs/stories.md` - канонический каталог пользовательских историй.
-- `docs/product/requirements/user-stories.md` - формализованный слой пользовательских историй для требований и приемки.
+- `docs/product/bmc/bmc-v0.2.md` - текущий BMC, Business Model Canvas, бизнес-модель продукта.
+- `docs/product/requirements/user-stories.md` - канонический каталог пользовательских историй.
+- `docs/stories.md` - совместимый переход на канонический каталог, оставленный для старых ссылок.
 - `docs/product/sources/product-source-registry.json` - машинный реестр источников и их статусов.
 
 ## Backlog Контуры

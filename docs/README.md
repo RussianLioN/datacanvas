@@ -11,16 +11,17 @@
 | Область | Источники |
 |---|---|
 | Vision - видение продукта | [docs/product-vision.md](product-vision.md) |
-| Пользовательские истории | [docs/stories.md](stories.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [Markdown-источник](product/bmc/bmc-v0.2.md), [trace source - источник трассировки](product/bmc/bmc-trace.v0.1.json), [PlantUML - текстовая диаграмма](product/bmc/source/derived/datacanvas-bmc.puml), [SVG - векторное изображение](product/bmc/source/derived/datacanvas-bmc.svg), [PNG - растровое изображение](product/bmc/source/derived/datacanvas-bmc.png), [PDF - документ для просмотра](product/bmc/source/derived/datacanvas-bmc.pdf) |
+| Пользовательские истории | [docs/product/requirements/user-stories.md](product/requirements/user-stories.md) |
 | Business requirements - бизнес-требования | [docs/product/requirements/business-requirements.md](product/requirements/business-requirements.md) |
+| Нефункциональные требования | [docs/product/requirements/non-functional-requirements.md](product/requirements/non-functional-requirements.md) |
 | Acceptance criteria - критерии приемки | [docs/product/requirements/acceptance-criteria.md](product/requirements/acceptance-criteria.md) |
-| BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](product/analysis/README.md) и [docs/architecture/system-analysis/README.md](architecture/system-analysis/README.md) |
-| Specs - спецификации | [docs/product/specs/README.md](product/specs/README.md) |
-| Traceability - матрица связей и проверяемости | [docs/product/requirements/traceability-matrix.json](product/requirements/traceability-matrix.json) |
 | Product backlog - продуктовый бэклог | [docs/product/backlog/README.md](product/backlog/README.md) |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](product/hypotheses/README.md) |
+| Traceability - матрица связей и проверяемости | [docs/product/requirements/traceability-matrix.json](product/requirements/traceability-matrix.json) |
+| BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](product/analysis/README.md) и [docs/architecture/system-analysis/README.md](architecture/system-analysis/README.md) |
+| Specs - спецификации | [docs/product/specs/README.md](product/specs/README.md) |
 
 ## Техническое Воплощение Ведения Проектной Документации
 
