@@ -65,7 +65,18 @@
           "proposal": { "type": "string", "minLength": 1 },
           "classification": {
             "type": "string",
-            "enum": ["derived_from_sources", "requires_user_confirmation", "blocked_missing_input", "not_applicable"]
+            "enum": [
+              "derived_from_sources",
+              "requires_user_confirmation",
+              "blocked_missing_input",
+              "not_applicable",
+              "estimate_evidence",
+              "semantic_product_change",
+              "process_structure_change",
+              "generated_refresh",
+              "provenance_only",
+              "mixed_or_ambiguous"
+            ]
           }
         }
       }
@@ -96,7 +107,21 @@
           "downstream_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "relation_type": {
             "type": "string",
-            "enum": ["semantic", "traceability", "navigation", "resource", "jira", "evidence", "generated", "process"]
+            "enum": [
+              "semantic",
+              "traceability",
+              "navigation",
+              "resource",
+              "jira",
+              "evidence",
+              "generated",
+              "process",
+              "source_provenance",
+              "estimate_evidence",
+              "approval",
+              "registry_consistency",
+              "xlsx_recovery"
+            ]
           },
           "requires_user_confirmation": { "type": "boolean" },
           "blocking_decision_id": { "type": ["string", "null"], "pattern": "^DEC-[A-Z0-9-]+$" }
@@ -112,7 +137,9 @@
       "not": {
         "anyOf": [
           { "pattern": "^/" },
-          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "^[A-Za-z]:[\\\\/]" },
+          { "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://" },
+          { "pattern": "\\\\" },
           { "pattern": "\\.\\.(?:/|$)" }
         ]
       }
@@ -128,7 +155,23 @@
           "minItems": 1,
           "items": {
             "type": "string",
-            "enum": ["semantic", "traceability", "navigation", "resource", "Jira", "evidence", "generated", "process", "schema", "validator"]
+            "enum": [
+              "semantic",
+              "traceability",
+              "navigation",
+              "resource",
+              "Jira",
+              "jira",
+              "evidence",
+              "generated",
+              "process",
+              "schema",
+              "validator",
+              "source",
+              "provenance",
+              "registry",
+              "privacy"
+            ]
           }
         },
         "required_edits": {
@@ -150,7 +193,35 @@
           "properties": {
             "rationale": { "type": "string", "minLength": 1 },
             "confirmed_by": { "type": "string", "minLength": 1 },
-            "confirmed_at": { "type": "string", "format": "date-time" }
+            "confirmed_at": { "type": "string", "format": "date-time" },
+            "source_artifact": {
+              "anyOf": [
+                { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+                { "type": "null" }
+              ]
+            },
+            "change_class": {
+              "type": "string",
+              "enum": [
+                "estimate_evidence",
+                "semantic_product_change",
+                "source_provenance_change",
+                "provenance_only",
+                "registry_consistency_change",
+                "generated_refresh",
+                "process_structure_change",
+                "mixed_or_ambiguous"
+              ]
+            },
+            "covered_requirements": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "acceptance_impact": { "type": "string", "minLength": 1 },
+            "traceability_impact": { "type": "string", "minLength": 1 },
+            "residual_risk": { "type": "string", "minLength": 1 },
+            "owner_role": { "type": "string", "minLength": 1 },
+            "reconsider_when": { "type": "string", "minLength": 1 }
           }
         }
       }

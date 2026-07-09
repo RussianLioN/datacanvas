@@ -163,6 +163,69 @@
       "layer": "traceability",
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:change-impact"
+    },
+    {
+      "artifact_id": "DGA-024",
+      "path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "layer": "analysis source",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:xlsx-backlog"
+    },
+    {
+      "artifact_id": "DGA-025",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "layer": "working backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "validation_command": "npm run validate:xlsx-backlog"
+    },
+    {
+      "artifact_id": "DGA-026",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "layer": "provenance manifest",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:xlsx-backlog"
+    },
+    {
+      "artifact_id": "DGA-027",
+      "path": "docs/product/sources/product-source-registry.json",
+      "layer": "source registry",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-source-consistency"
+    },
+    {
+      "artifact_id": "DGA-028",
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "layer": "evidence index",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:product-source-consistency"
+    },
+    {
+      "artifact_id": "DGA-029",
+      "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:xlsx-cascade"
+    },
+    {
+      "artifact_id": "DGA-030",
+      "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "layer": "resource estimation",
+      "owner_role": "Product Owner / команда реализации",
+      "validation_command": "npm run validate:xlsx-cascade"
+    },
+    {
+      "artifact_id": "DGA-031",
+      "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "layer": "resource estimation",
+      "owner_role": "Product Owner / Scrum Master",
+      "validation_command": "npm run validate:xlsx-cascade"
+    },
+    {
+      "artifact_id": "DGA-032",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:business-docs"
     }
   ],
   "dependencies": [
@@ -404,10 +467,190 @@
       "upstream_artifact": "docs/stories.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
-      "update_rule": "Story priority or estimate change triggers backlog review.",
+      "update_rule": "Изменение текста истории или приоритета запускает review backlog; ПШЕ берутся из XLSX/source-provenance, а не из каталога историй.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение raw XLSX требует пересборки рабочей XLSX-копии или обоснования отсутствия изменений без редактирования raw-источника.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "downstream_artifact": "docs/stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение содержимого raw XLSX, которое влияет на текст истории, ценность, приоритет или полноту источника, требует review каталога историй; чистая проверка сохранности требует no-change rationale.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+      "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Изменение raw XLSX требует обновить recovery index или зафиксировать, почему evidence восстановления не меняется.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение working XLSX должно обновить SHA книги, строковые ПШЕ и статус согласования в provenance.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/product-source-registry.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "SHA working XLSX, жизненный цикл, статус согласования и affected artifacts должны оставаться согласованными в product source registry.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "relation_type": "process",
+      "update_rule": "Изменение структуры книги или правил проверки требует обновить Excel sync guide; изменение значений ПШЕ обычно закрывается no-change rationale без правки инструкции.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Изменение строк оценки, рольных значений или итогов требует обновить effort analysis или зафиксировать, почему анализ не меняется.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ПШЕ или приоритетных данных XLSX требует пересчитать sprint candidates или зафиксировать, почему sprint planning не меняется.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Изменение ПШЕ в XLSX не должно переписывать текст истории; если backlog artifact не меняется, impact analysis объясняет почему.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ПШЕ или приоритетных данных XLSX требует backlog review; изменение бизнесового текста истории требует подтверждения Product Owner.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Смысловое изменение истории или источника в XLSX требует review требований; чистое изменение ПШЕ закрывается no-change rationale без загрязнения бизнесового текста.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Смысловое изменение истории или источника в XLSX требует acceptance review; чистое изменение ПШЕ закрывается no-change rationale.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение истории, ПШЕ или статуса источника в XLSX требует traceability review или явного no-change rationale.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Изменение working XLSX требует review recovery index для непрерывности цепочки XLSX -> OPML -> Jira.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/sources/product-source-registry.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "Статус согласования provenance и проверки командой должен оставаться согласованным со статусом source registry.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Строковые решения provenance и статус согласования должны отражаться в effort analysis или явно закрываться как неизменные.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Статус согласования provenance должен блокировать или разблокировать sprint-candidate planning.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Готовность Jira import должна учитывать текущий статус восстановления XLSX/OPML и согласование field mapping.",
+      "validation_command": "npm run validate:jira-field-mapping",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
@@ -458,6 +701,9 @@
   "high_impact_sources": [
     "docs/product-vision.md",
     "docs/product/vision/vision-v0.1.md",
-    "docs/product/change-orders/co-2026-001-a2a-first-priority.json"
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+    "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
   ]
 }

@@ -4,7 +4,7 @@
 
 Статус: draft
 Владелец: Process Owner
-Проверка: `npm run validate:cascading-governance`
+Проверка: `npm run validate:cascading-governance`, `npm run validate:xlsx-cascade`
 
 ## Назначение
 
@@ -17,6 +17,8 @@
 - `user-decision-queue.json` блокирует Done claim внутри opt-in запуска, пока есть blocking decision со статусом `pending` или `deferred`.
 - Capacity и reprioritization фиксируются отдельно; конкретная емкость команды не заполняется без пользовательского или внешнего источника.
 - Jira custom fields согласуются через отдельный `JiraFieldMappingRequest`; import package не считается готовым без approved mapping или явного `pending_external`.
+- XLSX backlog и provenance manifest считаются high-impact upstream: если они изменились, impact analysis обязан закрыть каждый downstream-артефакт обновлением или no-change rationale.
+- Полный no-change rationale хранится в impact analysis. Business Markdown, product source registry и dependency graph не используются как журналы конкретного запуска.
 - Generated navigation и hash artifacts обновляются только генераторами.
 
 ## Исходные Артефакты
@@ -40,4 +42,4 @@
 npm run validate:cascading-governance
 ```
 
-Профильные gates доступны отдельно: `validate:documentation-change-request`, `validate:artifact-dependency-graph`, `validate:impact-analysis`, `validate:decision-queue`, `validate:capacity-plan`, `validate:reprioritization-impact`, `validate:cascading-update` и `validate:jira-field-mapping`.
+Профильные gates доступны отдельно: `validate:documentation-change-request`, `validate:artifact-dependency-graph`, `validate:impact-analysis`, `validate:decision-queue`, `validate:capacity-plan`, `validate:reprioritization-impact`, `validate:cascading-update`, `validate:jira-field-mapping` и `validate:xlsx-cascade`.

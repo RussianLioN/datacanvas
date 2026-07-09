@@ -1,0 +1,61 @@
+{
+  "$schema": "../../../schemas/xlsx-change-analysis.schema.json",
+  "version": "0.1.0",
+  "analysis_id": "XLSX-CHANGE-2026-07-09-001",
+  "status": "blocked",
+  "generated_at": "2026-07-09T00:00:00Z",
+  "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+  "changed_source_set": [
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "artifact_role": "working_xlsx",
+      "change_kind": "changed",
+      "change_classes": [
+        "estimate_evidence"
+      ]
+    },
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "artifact_role": "provenance_manifest",
+      "change_kind": "changed",
+      "change_classes": [
+        "source_provenance_change",
+        "provenance_only"
+      ]
+    }
+  ],
+  "change_classes": [
+    "estimate_evidence",
+    "source_provenance_change"
+  ],
+  "downstream_seed_paths": [
+    "docs/process/guides/datacanvas-excel-backlog-sync.md",
+    "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+    "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/sources/product-source-registry.json",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/sources/xlsx-opml-jira-recovery-index.json"
+  ],
+  "downstream_resolution_policy": {
+    "resolution_required": "update_or_no_change_rationale_per_downstream",
+    "canonical_no_change_location": "impact_analysis_report",
+    "business_artifact_policy": "no_service_rationale_in_business_docs",
+    "source_registry_policy": "dependency_metadata_only",
+    "dependency_graph_policy": "stable_dependency_edges_only"
+  },
+  "owner_decisions_required": [
+    "Требуется решение Product Owner только если изменение XLSX меняет смысл истории, приоритет или состав backlog, а не только ПШЕ.",
+    "Требуется подтверждение команды реализации перед переносом ПШЕ в sprint backlog или Jira import."
+  ],
+  "team_approval_required": true,
+  "validation_commands": [
+    "npm run validate:xlsx-backlog",
+    "npm run validate:xlsx-cascade",
+    "npm run validate:product-source-consistency"
+  ]
+}

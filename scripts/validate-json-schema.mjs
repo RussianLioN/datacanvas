@@ -349,6 +349,10 @@ const cases = [
     data: "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
   },
   {
+    schema: "schemas/xlsx-change-analysis.schema.json",
+    data: "tests/fixtures/cascading-governance/xlsx-change-analysis-valid.json",
+  },
+  {
     schema: "schemas/jira-field-mapping-request.schema.json",
     data: "docs/process/cascading-governance/jira-field-mapping-request.json",
   },

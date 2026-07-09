@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/xlsx-change-analysis.schema.json",
+  "title": "XlsxChangeAnalysis",
+  "type": "object",
+  "required": [
+    "$schema",
+    "version",
+    "analysis_id",
+    "status",
+    "generated_at",
+    "source_id",
+    "changed_source_set",
+    "change_classes",
+    "downstream_seed_paths",
+    "downstream_resolution_policy",
+    "owner_decisions_required",
+    "team_approval_required",
+    "validation_commands"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "analysis_id": { "type": "string", "pattern": "^XLSX-CHANGE-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "status": { "type": "string", "enum": ["draft", "blocked", "ready", "applied"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "source_id": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
+    "changed_source_set": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/changedSource" }
+    },
+    "change_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/changeClass" },
+      "uniqueItems": true
+    },
+    "downstream_seed_paths": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+      "uniqueItems": true
+    },
+    "downstream_resolution_policy": {
+      "type": "object",
+      "required": [
+        "resolution_required",
+        "canonical_no_change_location",
+        "business_artifact_policy",
+        "source_registry_policy",
+        "dependency_graph_policy"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "resolution_required": {
+          "type": "string",
+          "enum": ["update_or_no_change_rationale_per_downstream"]
+        },
+        "canonical_no_change_location": {
+          "type": "string",
+          "enum": ["impact_analysis_report"]
+        },
+        "business_artifact_policy": {
+          "type": "string",
+          "enum": ["no_service_rationale_in_business_docs"]
+        },
+        "source_registry_policy": {
+          "type": "string",
+          "enum": ["dependency_metadata_only"]
+        },
+        "dependency_graph_policy": {
+          "type": "string",
+          "enum": ["stable_dependency_edges_only"]
+        }
+      }
+    },
+    "owner_decisions_required": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "team_approval_required": { "type": "boolean" },
+    "validation_commands": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "changedSource": {
+      "type": "object",
+      "required": ["path", "artifact_role", "change_kind", "change_classes"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "artifact_role": {
+          "type": "string",
+          "enum": [
+            "raw_xlsx",
+            "working_xlsx",
+            "provenance_manifest",
+            "product_source_registry",
+            "recovery_index"
+          ]
+        },
+        "change_kind": { "type": "string", "enum": ["changed", "added", "removed", "unchanged", "unknown"] },
+        "change_classes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/changeClass" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "changeClass": {
+      "type": "string",
+      "enum": [
+        "estimate_evidence",
+        "semantic_product_change",
+        "source_provenance_change",
+        "provenance_only",
+        "registry_consistency_change",
+        "generated_refresh",
+        "process_structure_change",
+        "mixed_or_ambiguous"
+      ]
+    }
+  }
+}

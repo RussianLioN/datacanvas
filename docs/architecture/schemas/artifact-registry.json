@@ -7963,6 +7963,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Business artifact generation contract shape or validation requirements change."
+    },
+    {
+      "id": "ART-715",
+      "path": "schemas/xlsx-change-analysis.schema.json",
+      "type": "json-schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "XLSX/provenance cascade analysis shape, no-change rationale policy, or downstream resolution gate changes."
     }
   ]
 }

@@ -92,6 +92,9 @@ const schemaCases = {
       { expect: "fail", phase: "invariant", reason: "ready package without approved mapping request" },
     ],
   ],
+  "xlsx-cascade": [
+    ["schemas/xlsx-change-analysis.schema.json", "tests/fixtures/cascading-governance/xlsx-change-analysis-valid.json"],
+  ],
 };
 
 const allModes = Object.keys(schemaCases);
@@ -173,6 +176,16 @@ function transitiveDownstream(graph, sourcePath) {
   return downstream;
 }
 
+function downstreamClosureFrom(graph, sourcePaths) {
+  const closure = new Set();
+  for (const sourcePath of sourcePaths) {
+    for (const downstreamPath of transitiveDownstream(graph, sourcePath)) {
+      closure.add(downstreamPath);
+    }
+  }
+  return closure;
+}
+
 function assertAffectedArtifacts(report, requiredPaths, label) {
   const affected = new Set(report.affected_artifacts.map((artifact) => artifact.path));
   for (const requiredPath of requiredPaths) {
@@ -215,6 +228,12 @@ function assertDependencyGraph(graph) {
     "NFR",
     "acceptance criteria",
     "product backlog",
+    "analysis source",
+    "working backlog",
+    "provenance manifest",
+    "source registry",
+    "evidence index",
+    "resource estimation",
     "technical/eval/process backlog",
     "roadmap",
     "capacity plan",
@@ -238,8 +257,15 @@ function assertDependencyGraph(graph) {
     requirePath(artifact.path);
   }
 
-  if (!graph.high_impact_sources.includes("docs/product-vision.md")) {
-    throw new Error("dependency graph must mark docs/product-vision.md as high-impact source");
+  for (const highImpactSource of [
+    "docs/product-vision.md",
+    "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+  ]) {
+    if (!graph.high_impact_sources.includes(highImpactSource)) {
+      throw new Error(`dependency graph must mark ${highImpactSource} as high-impact source`);
+    }
   }
 
   const visionDownstream = transitiveDownstream(graph, "docs/product-vision.md");
@@ -259,6 +285,44 @@ function assertDependencyGraph(graph) {
   ]) {
     if (!visionDownstream.has(requiredPath)) {
       throw new Error(`Vision downstream impact is missing: ${requiredPath}`);
+    }
+  }
+
+  const storyToBacklog = graph.dependencies.find((dependency) =>
+    dependency.upstream_artifact === "docs/stories.md" &&
+    dependency.downstream_artifact === "docs/product/backlog/product-backlog.md"
+  );
+  if (!storyToBacklog || /estimate/i.test(storyToBacklog.update_rule)) {
+    throw new Error("story catalog dependency must not treat estimates as story-catalog content");
+  }
+
+  const productSourceRegistry = readJson("docs/product/sources/product-source-registry.json");
+  const xlsxSources = productSourceRegistry.sources.filter((source) =>
+    ["SRC-DC-STORIES-XLSX-RAW", "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08"].includes(source.source_id)
+  );
+  for (const source of xlsxSources) {
+    const startPaths = [source.path];
+    if (source.provenance_manifest) {
+      startPaths.push(source.provenance_manifest);
+    }
+    const downstream = downstreamClosureFrom(graph, startPaths);
+    for (const requiredPath of source.affected_artifacts) {
+      if (!downstream.has(requiredPath)) {
+        throw new Error(`XLSX source ${source.source_id} is missing downstream graph coverage for: ${requiredPath}`);
+      }
+    }
+  }
+
+  for (const dependency of graph.dependencies) {
+    if (
+      [
+        "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      ].includes(dependency.upstream_artifact) &&
+      dependency.resolution_required !== "changed_or_no_change_rationale"
+    ) {
+      throw new Error(`XLSX dependency must require update/no-change resolution: ${dependency.upstream_artifact} -> ${dependency.downstream_artifact}`);
     }
   }
 }
@@ -442,8 +506,10 @@ function assertCascadingUpdateRun(run) {
     "capacity_plan_path",
     "reprioritization_report_path",
     "jira_mapping_request_path",
+    "changed_source_set_path",
+    "xlsx_change_analysis_path",
   ]) {
-    if (run[key] !== null) {
+    if (run[key] != null) {
       requirePath(run[key]);
     }
   }
@@ -484,6 +550,10 @@ function assertCascadingUpdateRun(run) {
     if (artifact.confirmation_status !== "confirmed") {
       throw new Error(`${run.run_id} skipped artifact lacks confirmed no-change rationale: ${artifact.path}`);
     }
+    if (typeof artifact.no_change_rationale === "object") {
+      requirePath(artifact.no_change_rationale.impact_report_path);
+      requirePath(artifact.no_change_rationale.impact_artifact_ref);
+    }
   }
 
   if (run.status === "complete" || run.completion_claim.done_claimed) {
@@ -512,6 +582,60 @@ function assertCascadingUpdateRun(run) {
     );
     if (openBlocking.length === 0) {
       throw new Error(`${run.run_id} is blocked without linked open blocking decisions`);
+    }
+  }
+}
+
+function assertXlsxCascade(analysis) {
+  const graph = readJson("docs/process/cascading-governance/artifact-dependency-graph.json");
+  assertDependencyGraph(graph);
+
+  const registry = readJson("docs/product/sources/product-source-registry.json");
+  const source = registry.sources.find((candidate) => candidate.source_id === analysis.source_id);
+  if (!source) {
+    throw new Error(`XLSX change analysis references unknown source_id: ${analysis.source_id}`);
+  }
+
+  for (const changedSource of analysis.changed_source_set) {
+    requirePath(changedSource.path);
+  }
+
+  for (const downstreamPath of analysis.downstream_seed_paths) {
+    requirePath(downstreamPath);
+  }
+
+  if (analysis.downstream_resolution_policy.canonical_no_change_location !== "impact_analysis_report") {
+    throw new Error("XLSX no-change rationale must be canonical in impact analysis, not business docs or registry");
+  }
+  if (analysis.downstream_resolution_policy.business_artifact_policy !== "no_service_rationale_in_business_docs") {
+    throw new Error("XLSX cascade must keep service rationale out of business artifacts");
+  }
+
+  const downstream = downstreamClosureFrom(graph, [source.path, source.provenance_manifest].filter(Boolean));
+  for (const requiredPath of source.affected_artifacts) {
+    if (!downstream.has(requiredPath)) {
+      throw new Error(`XLSX change analysis lacks graph coverage for registry affected artifact: ${requiredPath}`);
+    }
+  }
+
+  const seedPaths = new Set(analysis.downstream_seed_paths);
+  for (const requiredPath of source.affected_artifacts) {
+    if (!seedPaths.has(requiredPath)) {
+      throw new Error(`XLSX change analysis lacks downstream seed path from registry: ${requiredPath}`);
+    }
+  }
+
+  if (source.approval_status === "draft_unapproved" && !analysis.team_approval_required) {
+    throw new Error("draft XLSX source must require team approval before sprint/Jira downstream use");
+  }
+
+  for (const requiredCommand of [
+    "npm run validate:xlsx-backlog",
+    "npm run validate:xlsx-cascade",
+    "npm run validate:product-source-consistency",
+  ]) {
+    if (!analysis.validation_commands.includes(requiredCommand)) {
+      throw new Error(`XLSX change analysis is missing validation command: ${requiredCommand}`);
     }
   }
 }
@@ -553,6 +677,7 @@ const invariants = {
   "reprioritization-impact": assertReprioritizationReport,
   "cascading-update": assertCascadingUpdateRun,
   "jira-field-mapping": assertJiraMapping,
+  "xlsx-cascade": assertXlsxCascade,
 };
 
 for (const selectedMode of selectedModes) {

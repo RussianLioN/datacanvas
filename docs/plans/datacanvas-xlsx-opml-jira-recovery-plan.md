@@ -41,7 +41,7 @@
 Проверка текущего репозитория:
 
 - Текущая ветка: `workflow/first-universal-documentation-run`.
-- Соседняя рабочая копия: `/Users/s060874gmail.com/coding/projects/datacanvas` на `main`.
+- Соседняя рабочая копия основного репозитория на `main`.
 - Ветка `codex/q3-priority-impact-plan` проверена как соседний кандидат. По `git branch --no-merged main` она не является отдельной неслитой веткой относительно текущего `main`, но содержит тот же след в `docs/datacanvas-documentation-implementation-plan.md`.
 - В списке файлов текущей ветки и `codex/q3-priority-impact-plan` не найден закоммиченный `stories.opml`, другой `.opml`, исходный `.xlsx` или готовый Jira CSV для DataCanvas. Найдены только общие артефакты каскадного управления Jira field mapping.
 

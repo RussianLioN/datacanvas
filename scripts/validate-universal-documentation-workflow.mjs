@@ -145,7 +145,13 @@ function assertNoAbsolutePersistedPaths(label, data) {
       return;
     }
     const looksLikePathKey = /(^|_)(path|paths)$/.test(key) || key === "$schema";
-    if (looksLikePathKey && (path.isAbsolute(value) || /^[A-Za-z]:[\\/]/.test(value) || value.includes("file://"))) {
+    if (
+      looksLikePathKey &&
+      (path.isAbsolute(value) ||
+        /^[A-Za-z]:[\\/]/.test(value) ||
+        /^[A-Za-z][A-Za-z0-9+.-]*:\/\//.test(value) ||
+        value.includes("\\"))
+    ) {
       fail(`${label} contains absolute persisted path: ${value}`);
     }
   });
@@ -486,6 +492,10 @@ function validateDataCanvasProfile() {
   if (!xlsxBacklogCommand || xlsxBacklogCommand.command !== "npm run validate:xlsx-backlog") {
     fail("DataCanvas validation catalog must include XLSX backlog sync gate");
   }
+  const xlsxCascadeCommand = catalog.commands.find((command) => command.id === "xlsx-cascade");
+  if (!xlsxCascadeCommand || xlsxCascadeCommand.command !== "npm run validate:xlsx-cascade") {
+    fail("DataCanvas validation catalog must include XLSX cascade gate");
+  }
   const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
   if (!bmcPackageCommand || bmcPackageCommand.command !== "npm run validate:bmc") {
     fail("DataCanvas validation catalog must include BMC package gate");
@@ -529,6 +539,9 @@ function validateDataCanvasProfile() {
     }
     if (!entry.validation_commands.includes("npm run validate:xlsx-backlog")) {
       fail(`XLSX workflow artifact must include validate:xlsx-backlog: ${requiredXlsxPath}`);
+    }
+    if (!entry.validation_commands.includes("npm run validate:xlsx-cascade")) {
+      fail(`XLSX workflow artifact must include validate:xlsx-cascade: ${requiredXlsxPath}`);
     }
   }
 }

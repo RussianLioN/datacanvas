@@ -4,7 +4,7 @@
 
 Статус: draft
 Владелец: Product Owner
-Проверка: `npm run validate:product-sources`, `npm run validate:xlsx-backlog`
+Проверка: `npm run validate:product-sources`, `npm run validate:xlsx-backlog`, `npm run validate:xlsx-cascade`
 
 ## Назначение
 
@@ -63,9 +63,10 @@
 
 ```bash
 npm run validate:xlsx-backlog
+npm run validate:xlsx-cascade
 ```
 
-Эта проверка сверяет raw XLSX, working XLSX, provenance manifest — манифест происхождения — и golden-описание допустимых изменений. Она обязательна перед переносом утвержденных командой оценок ПШЕ в sprint planning — планирование спринта.
+Первая проверка сверяет raw XLSX, working XLSX, provenance manifest — манифест происхождения — и golden-описание допустимых изменений. Вторая проверка подтверждает, что XLSX/provenance включены в каскадный граф и что downstream-артефакты должны быть обновлены или закрыты no-change rationale в impact analysis. Эти проверки обязательны перед переносом утвержденных командой оценок ПШЕ в sprint planning — планирование спринта.
 
 ## Ревизия По CO-2026-001
 

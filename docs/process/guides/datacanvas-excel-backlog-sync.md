@@ -4,7 +4,7 @@
 
 Статус: active
 Владелец: Product Owner / Process Owner
-Проверка: `npm run validate:xlsx-backlog`, `npm run validate:product-sources`, `npm run validate:doc-links`, `npm run validate:docs-navigation`
+Проверка: `npm run validate:xlsx-backlog`, `npm run validate:xlsx-cascade`, `npm run validate:product-sources`, `npm run validate:doc-links`, `npm run validate:docs-navigation`
 
 ## Назначение
 
@@ -59,12 +59,33 @@
 
 После подтверждения владельцев обновляются связанные артефакты по типу изменения. ПШЕ, рольные оценки, статус оценки и комментарии команды фиксируются в рабочей Excel-версии, манифесте происхождения, product backlog, профильном backlog-файле, sprint candidate plan, traceability и validation evidence. `docs/stories.md` и `docs/product/requirements/user-stories.md` обновляются только при смысловом изменении текста истории, бизнес-ценности, функциональной зоны, приоритета или границы продукта.
 
+## Каскад После Изменения XLSX Или Provenance
+
+Рабочая XLSX-книга и provenance manifest — манифест происхождения — являются upstream-источниками для каскадного процесса. После изменения любого из этих файлов нельзя ограничиваться только проверкой Excel: нужно закрыть влияние на все downstream-артефакты.
+
+Обязательный порядок:
+
+1. Запустить анализ изменения через каскадный процесс, указав source ID — идентификатор источника — из `docs/product/sources/product-source-registry.json`.
+2. Проверить, что `docs/process/cascading-governance/artifact-dependency-graph.json` покрывает все `affected_artifacts` из реестра источников.
+3. Для каждого downstream-артефакта выполнить одно из двух действий: обновить артефакт через правильный источник или генератор либо записать no-change rationale — объяснение отсутствия изменения — в impact analysis.
+4. Не записывать no-change rationale, SHA-256, правила слияния, строки Excel, команды проверки или другие служебные сведения в бизнесовые Markdown-документы.
+5. Не использовать product source registry — реестр продуктовых источников — как место для полного no-change rationale: он хранит только стабильные зависимости, статусы источников и ссылки на проверочные команды.
+6. Не использовать dependency graph — граф зависимостей — как журнал конкретного запуска: он хранит устойчивые связи, а не решения по отдельному изменению.
+7. До переноса ПШЕ в sprint backlog или Jira import требуется подтверждение команды реализации; до изменения смысла истории, приоритета или границы продукта требуется подтверждение Product Owner.
+
+Для сухого запуска можно использовать команду:
+
+```bash
+npm run cascade:run -- --change-request docs/process/cascading-governance/documentation-change-request.json --output-dir docs/process/cascading-governance/runs/<run-id> --source-id SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08
+```
+
 ## Проверка В Репозитории И Локальный Навык
 
 Обязательная проверка рабочей книги в этом репозитории:
 
 ```bash
 npm run validate:xlsx-backlog
+npm run validate:xlsx-cascade
 ```
 
 Команда запускает `scripts/validate-datacanvas-xlsx-backlog.py` и сверяет рабочую книгу с raw-источником, golden-описанием и provenance manifest — машинным манифестом происхождения. Проверка является частью `npm test`.
@@ -87,11 +108,12 @@ npm run validate:xlsx-backlog
 Минимальная проверка после изменения Excel backlog:
 
 1. Запустить `npm run validate:xlsx-backlog`.
-2. Проверить JSON: `jq empty docs/process/universal-documentation-workflow/*.json docs/product/sources/product-source-registry.json docs/navigation/navigation-source.json`.
-3. Запустить `npm run validate:product-sources`.
-4. Запустить `npm run validate:product-source-consistency`.
-5. Запустить `npm run validate:universal-documentation-workflow`.
-6. Обновить generated navigation и hash manifest только генераторами.
-7. Запустить `npm run generate:docs-navigation -- --check`, `npm run validate:doc-links`, `npm run validate:docs-navigation`, `npm run validate:doc-stale-status` и `npm run validate:artifact-hashes`.
-8. Запустить `npm run scan:secrets`, `npm run validate:data-leakage` и `git diff --check`.
-9. При широком влиянии запустить `npm test`.
+2. Запустить `npm run validate:xlsx-cascade`.
+3. Проверить JSON: `jq empty docs/process/universal-documentation-workflow/*.json docs/product/sources/product-source-registry.json docs/navigation/navigation-source.json`.
+4. Запустить `npm run validate:product-sources`.
+5. Запустить `npm run validate:product-source-consistency`.
+6. Запустить `npm run validate:universal-documentation-workflow`.
+7. Обновить generated navigation и hash manifest только генераторами.
+8. Запустить `npm run generate:docs-navigation -- --check`, `npm run validate:doc-links`, `npm run validate:docs-navigation`, `npm run validate:doc-stale-status` и `npm run validate:artifact-hashes`.
+9. Запустить `npm run scan:secrets`, `npm run validate:data-leakage` и `git diff --check`.
+10. При широком влиянии запустить `npm test`.

@@ -9,6 +9,7 @@ const root = process.cwd();
 const schemaPath = "schemas/product-source-registry.schema.json";
 const registryPath = "docs/product/sources/product-source-registry.json";
 const xlsxRecoveryIndexPath = "docs/product/sources/xlsx-opml-jira-recovery-index.json";
+const dependencyGraphPath = "docs/process/cascading-governance/artifact-dependency-graph.json";
 const consistencyMode = process.argv.includes("--consistency");
 
 function absolute(relativePath) {
@@ -53,7 +54,7 @@ function assertNoSensitivePointers(value, location) {
   if (typeof value !== "string") {
     return;
   }
-  if (value.includes("/Users/") || value.includes("file://")) {
+  if (value.includes("/Users/") || value.includes("file://") || /^[A-Za-z][A-Za-z0-9+.-]*:\/\//.test(value) || value.includes("\\")) {
     throw new Error(`sensitive local pointer is forbidden in ${location}`);
   }
 }
@@ -85,6 +86,67 @@ function assertXlsxRecoveryIndexConsistency(registry) {
       }
       if (source.sha256 && source.sha256 !== item.sha256) {
         throw new Error(`XLSX/OPML/Jira recovery index sha256 differs from product source registry: ${item.source_id}`);
+      }
+    }
+  }
+}
+
+function transitiveDownstream(graph, sourcePath) {
+  const downstream = new Set();
+  const queue = [sourcePath];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    for (const dependency of graph.dependencies) {
+      if (dependency.upstream_artifact !== current || downstream.has(dependency.downstream_artifact)) {
+        continue;
+      }
+      downstream.add(dependency.downstream_artifact);
+      queue.push(dependency.downstream_artifact);
+    }
+  }
+  return downstream;
+}
+
+function downstreamClosureFrom(graph, sourcePaths) {
+  const closure = new Set();
+  for (const sourcePath of sourcePaths) {
+    for (const downstreamPath of transitiveDownstream(graph, sourcePath)) {
+      closure.add(downstreamPath);
+    }
+  }
+  return closure;
+}
+
+function assertXlsxCascadeGraphConsistency(registry) {
+  requireFile(dependencyGraphPath);
+  const graph = readJson(dependencyGraphPath);
+  const artifactPaths = new Set(graph.artifacts.map((artifact) => artifact.path));
+
+  for (const requiredPath of [
+    "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+  ]) {
+    if (!artifactPaths.has(requiredPath)) {
+      throw new Error(`dependency graph is missing XLSX artifact: ${requiredPath}`);
+    }
+    if (!graph.high_impact_sources.includes(requiredPath)) {
+      throw new Error(`dependency graph must mark XLSX artifact as high-impact source: ${requiredPath}`);
+    }
+  }
+
+  const xlsxSources = registry.sources.filter((source) =>
+    ["SRC-DC-STORIES-XLSX-RAW", "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08"].includes(source.source_id)
+  );
+  for (const source of xlsxSources) {
+    const startPaths = [source.path];
+    if (source.provenance_manifest) {
+      startPaths.push(source.provenance_manifest);
+    }
+    const downstream = downstreamClosureFrom(graph, startPaths);
+    for (const artifactPath of source.affected_artifacts) {
+      if (!downstream.has(artifactPath)) {
+        throw new Error(`XLSX source ${source.source_id} lacks dependency graph downstream coverage for ${artifactPath}`);
       }
     }
   }
@@ -160,6 +222,8 @@ try {
   assertXlsxRecoveryIndexConsistency(registry);
 
   if (consistencyMode) {
+    assertXlsxCascadeGraphConsistency(registry);
+
     const roleOrder = new Set(registry.precedence_order);
     for (const source of registry.sources) {
       if (!roleOrder.has(source.source_role)) {

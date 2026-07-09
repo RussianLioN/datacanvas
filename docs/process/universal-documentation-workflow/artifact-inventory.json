@@ -240,7 +240,8 @@
       ],
       "validation_commands": [
         "npm run validate:product-sources",
-        "npm run validate:xlsx-backlog"
+        "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade"
       ]
     },
     {
@@ -260,10 +261,18 @@
       ],
       "outputs": [
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md"
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
       ],
       "validation_commands": [
         "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade",
         "npm run validate:product-source-consistency"
       ]
     },
@@ -282,10 +291,12 @@
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
       ],
       "outputs": [
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md"
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
       ],
       "validation_commands": [
         "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade",
         "npm run validate:schemas"
       ]
     },
@@ -309,6 +320,7 @@
       ],
       "validation_commands": [
         "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade",
         "npm run validate:doc-links",
         "npm run validate:docs-navigation"
       ]
@@ -353,7 +365,8 @@
       ],
       "validation_commands": [
         "npm run validate:schemas",
-        "npm run validate:xlsx-backlog"
+        "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade"
       ]
     },
     {

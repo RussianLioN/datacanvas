@@ -161,6 +161,20 @@
       ],
       "owner_role": "Product Owner / Process Owner",
       "purpose": "Проверяет рабочий Excel backlog DataCanvas как точную копию raw XLSX с допустимыми добавленными строками, provenance и статусом draft-ПШЕ."
+    },
+    {
+      "id": "xlsx-cascade",
+      "command": "npm run validate:xlsx-cascade",
+      "gate": "profile",
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "effort_estimation",
+        "cascade"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "purpose": "Проверяет, что XLSX и provenance включены в каскадный граф как high-impact upstream, а downstream-артефакты закрываются обновлением или no-change rationale в impact analysis."
     }
   ],
   "gate_order": [

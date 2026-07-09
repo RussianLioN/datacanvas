@@ -48,6 +48,12 @@
         "NFR",
         "acceptance criteria",
         "product backlog",
+        "analysis source",
+        "working backlog",
+        "provenance manifest",
+        "source registry",
+        "evidence index",
+        "resource estimation",
         "technical/eval/process backlog",
         "roadmap",
         "capacity plan",
@@ -88,15 +94,33 @@
         "downstream_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "relation_type": {
           "type": "string",
-          "enum": ["semantic", "traceability", "navigation", "resource", "jira", "evidence", "generated", "process"]
+          "enum": [
+            "semantic",
+            "traceability",
+            "navigation",
+            "resource",
+            "jira",
+            "evidence",
+            "generated",
+            "process",
+            "source_provenance",
+            "estimate_evidence",
+            "approval",
+            "registry_consistency",
+            "xlsx_recovery"
+          ]
         },
         "update_rule": { "type": "string", "minLength": 1 },
         "validation_command": { "type": "string", "minLength": 1 },
         "owner_role": { "type": "string", "minLength": 1 },
-        "user_confirmation_required": {
-          "type": "string",
-          "enum": ["never", "semantic_change", "always", "when_capacity_or_priority_changes", "when_jira_mapping_changes"]
-        }
+	        "user_confirmation_required": {
+	          "type": "string",
+	          "enum": ["never", "semantic_change", "always", "when_capacity_or_priority_changes", "when_jira_mapping_changes"]
+	        },
+	        "resolution_required": {
+	          "type": "string",
+	          "enum": ["none", "changed_or_no_change_rationale"]
+	        }
       }
     }
   }

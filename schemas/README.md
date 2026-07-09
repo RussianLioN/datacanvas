@@ -21,6 +21,7 @@
 - `capacity-plan.schema.json`
 - `reprioritization-impact-report.schema.json`
 - `cascading-update-run.schema.json`
+- `xlsx-change-analysis.schema.json`
 - `jira-field-mapping-request.schema.json`
 - `jira-import-package-manifest.schema.json`
 - `agent-launch-requirements-analysis-state.schema.json`
