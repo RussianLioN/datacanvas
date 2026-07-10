@@ -482,6 +482,25 @@ Product Owner принял текущую Excel-редакцию приорит�
 | `git diff --check` | passed | Whitespace-проверка прошла. |
 | `npm test` | passed | Полный локальный gate прошел после синхронизации XLSX, каталога историй, каскадного графа, контрактов, валидаторов и generated outputs. |
 
+## Проверки После Каскадного Обновления `CO-2026-002` И XLSX
+
+Product Owner подтвердил, что рабочая Excel-книга открывается. После этого каскадный проход обновил пакет анализа запуска другим агентом: текущая граница анализа стала `DC-ST-23..DC-ST-29`, источником текущего решения стал `CO-2026-002`, а `DC-ST-29` — пользовательская история о генерации редактируемого файла презентации — связана с `BT-012`, `BT-002` и `BT-014` без создания нового `BT-*` — бизнес-требования.
+
+RCA: часть документов и валидаторов уже была синхронизирована с `DC-ST-29`, но пакет `docs/product/analysis/agent-launch-requirements-analysis/` и его схемы оставались ограничены `DC-ST-23..DC-ST-28`. Каскадный граф также не считал `CO-2026-002` отдельным high-impact source — источником сильного влияния — для карты влияния требований. Поэтому downstream-синхронизация могла обновить backlog, stories и traceability, но не заставляла пересматривать `requirements-impact-map.json`.
+
+Исправление: `CO-2026-002` добавлен в dependency graph — граф зависимостей — как high-impact source, working XLSX и provenance получили downstream-связь с `requirements-impact-map.json`, source registry — реестр источников — теперь требует этот downstream, а `xlsx-change-analysis-valid.json` содержит соответствующий seed path — стартовый downstream-путь. Временные Excel lock-файлы вида `~$*.xlsx` исключены из git, чтобы они не попадали в каскад как реальные артефакты.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `npm run validate:agent-launch-requirements-analysis` | passed | Пакет анализа покрывает `DC-ST-23..DC-ST-29` и использует `CO-2026-002` как текущий source change order. |
+| `npm run validate:schemas` | passed | Схемы подтверждают диапазон `DC-ST-23..DC-ST-29`, baseline `BT-001..BT-018` и следующий свободный `BT-019`. |
+| `npm run validate:business-docs` | passed | Бизнесовые документы не загрязнены служебным cascade/source/provenance-текстом. |
+| `npm run validate:product-source-consistency` | passed | Source registry содержит downstream-связь XLSX и `CO-2026-002` с картой влияния требований. |
+| `npm run validate:cascading-governance` | passed after fixture sync | Первый запуск показал, что `xlsx-change-analysis-valid.json` не содержит новый downstream seed path; после обновления fixture полный gate прошел. |
+| `npm run validate:xlsx-backlog` | passed | Рабочая XLSX-книга проходит строгую проверку структуры и значений. |
+| `npm run validate:xlsx-cascade` | passed | XLSX/provenance-изменения обязаны доходить до всех downstream-артефактов из source registry. |
+| `npm run generate:docs-navigation` | passed | Generated navigation — автоматически созданная навигация — обновлена генератором. |
+
 ## Остаточные Риски
 
 - Ответ `1` по `BAQ-001.2` — первому вопросу короткого BMC-интервью по B1, сегментам пользователей — получен в чате, но намеренно не применен к продуктовым документам до завершения оставшихся вопросов BMC-интервью или текущего раунда интервью. Это частный случай общего правила: любые опросы и вопросы по любым артефактам сначала задаются пакетом, а правки выполняются после сбора ответов.

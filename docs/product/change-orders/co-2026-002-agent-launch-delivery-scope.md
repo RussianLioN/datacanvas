@@ -50,6 +50,7 @@ Product Owner decision: `accepted`.
 - `docs/product/ux/uat-script.md`
 - `docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md`
 - `docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md`
+- `docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json`
 - `docs/product/sources/product-source-registry.json`
 
 ## Проверка

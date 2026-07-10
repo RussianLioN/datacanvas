@@ -81,7 +81,8 @@
         "docs/product/specs/agent-prompt-spec-a2a-launch.json",
         "docs/product/ux/uat-script.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md"
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
       "notes": "Канонический источник уточнения: весь основной маршрут запуска DataCanvas другим агентом относится к P1; хранилище, ссылка на нередактируемую копию и уведомления в Лисе остаются отдельным P2-инкрементом."
     },
@@ -142,7 +143,8 @@
       "affected_artifacts": [
         "docs/product/requirements/business-requirements.md",
         "docs/product/backlog/product-backlog.md",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
       "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-29 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, а после CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 имеет P1. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
     },
@@ -195,7 +197,8 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/process/guides/datacanvas-excel-backlog-sync.md",
-        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
       "notes": "Сохраненная копия исходного Excel, ранее упомянутого как основной источник stories, приоритетов, сроков и оценок. SHA-256: 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9. Используется для восстановления трассировки XLSX -> OPML -> Jira import и проверки ценности stories без изменения продуктового смысла.",
       "sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
@@ -233,7 +236,8 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
       "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-29. Product Owner принял текущие приоритеты и ПШЕ как ресурсный вход для дальнейшего планирования; приоритеты переносятся в канонический каталог пользовательских историй, а ПШЕ не переносятся, если не меняется смысл истории или граница продукта.",
       "sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
