@@ -23,6 +23,9 @@ Product Change Order должен содержать source, reason, `priority_b
 - `product-change-order-ledger.json`
 - [CO-2026-001: приоритет запуска DataCanvas другим агентом](co-2026-001-a2a-first-priority.md)
 - `co-2026-001-a2a-first-priority.json`
+- [CO-2026-002: граница P1 и P2 для запуска DataCanvas другим агентом](co-2026-002-agent-launch-delivery-scope.md)
+- `co-2026-002-agent-launch-delivery-scope.json`
+- `co-2026-002-agent-launch-delivery-scope-impact.json`
 - `change-impact-assessment.json`
 - [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
 - `co-2026-001-acceptance-questionnaire-state.json`

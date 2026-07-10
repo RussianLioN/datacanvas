@@ -10,12 +10,12 @@
 
 | ID | Функциональная зона | Приоритет | Период | Плановый статус | Канонический источник |
 |---|---|---|---|---|---|
-| `DC-ST-23` | Запуск другим агентом | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
-| `DC-ST-24` | Запуск другим агентом | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
-| `DC-ST-25` | Входной контекст | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-23` | Запуск другим агентом | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-24` | Запуск другим агентом | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-25` | Входной контекст | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 | `DC-ST-26` | Проверка входа | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
-| `DC-ST-27` | Статусы обработки | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
-| `DC-ST-28` | Проверяемость результата | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-27` | Статусы обработки | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-28` | Трассировка | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 | `DC-ST-29` | Генерация презентации | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 
 ## CSV

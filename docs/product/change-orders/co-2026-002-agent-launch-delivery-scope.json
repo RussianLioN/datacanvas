@@ -1,0 +1,75 @@
+{
+  "id": "CO-2026-002",
+  "title": "P1/P2 boundary for DataCanvas launch by another agent and delivery scope",
+  "status": "accepted",
+  "source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+  "reason": "Product Owner уточнил, что весь основной маршрут запуска DataCanvas другим агентом относится к P1, а хранилище, ссылка на нередактируемую копию и уведомление в Лисе идут отдельным P2-инкрементом.",
+  "priority_before": [
+    "P1: проверка входа и генерация презентации",
+    "P2: остальные связанные истории запуска другим агентом"
+  ],
+  "priority_after": [
+    "P1: полный основной маршрут запуска другим агентом",
+    "P2: специализированное хранилище, ссылка на нередактируемую копию и уведомление в Лисе"
+  ],
+  "affected_users": [
+    "Product Owner",
+    "КМ",
+    "вызывающий агент",
+    "команда Лисы",
+    "команда реализации"
+  ],
+  "affected_artifacts": [
+    "docs/product/requirements/user-stories.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/non-functional-requirements.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/product/specs/task-spec-a2a-launch.json",
+    "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+    "docs/product/ux/uat-script.md",
+    "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+    "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+    "docs/product/sources/product-source-registry.json"
+  ],
+  "affected_requirements": [
+    "BT-012",
+    "BT-014",
+    "BT-015",
+    "BT-016",
+    "BT-017",
+    "BT-018",
+    "NFR-002",
+    "NFR-003"
+  ],
+  "affected_ports_adapters": [
+    "A2A input envelope",
+    "status/callback adapter",
+    "email delivery adapter",
+    "future storage/link handoff",
+    "future Lisa notification handoff"
+  ],
+  "adr_impact": "Перед фактическим включением реальных сетевых, почтовых, callback, storage или Lisa notification интеграций нужен отдельный ADR или технический контракт. Текущий change order фиксирует продуктовую границу и документационный каскад.",
+  "sprint_impact": "DC-ST-23..DC-ST-29 переводятся в P1-контур для планирования; ближайший sprint backlog все равно требует проверки емкости, порядка работ и вытеснения. P2-инкремент не оценивается в текущем XLSX без отдельного решения.",
+  "sprint_goal_test": "До sprint planning Product Owner и команда реализации подтверждают, какая часть P1 помещается в ближайшие 3-4 недели, а P2-хранилище, ссылка и уведомление остаются отдельным инкрементом.",
+  "product_owner_decision": {
+    "decision": "accepted",
+    "decided_by_role": "Product Owner",
+    "decided_at": "2026-07-10T00:00:00Z",
+    "rationale": "Product Owner передал уточнение CO-10072026 и подтвердил реализацию плана: основной маршрут запуска другим агентом имеет высший приоритет P1, а доставка ссылки, хранилище и уведомления в Лисе идут следующим P2-инкрементом."
+  },
+  "rollback": "Вернуть приоритеты DC-ST-23, DC-ST-24, DC-ST-25, DC-ST-27 и DC-ST-28 к P2, оставить DC-ST-26 и DC-ST-29 в P1 и повторить product/change-impact validators.",
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:business-docs",
+    "npm run validate:traceability-graph",
+    "npm run validate:spec-task-prompt-readiness",
+    "npm run validate:data-leakage"
+  ],
+  "impact_assessment_path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json"
+}

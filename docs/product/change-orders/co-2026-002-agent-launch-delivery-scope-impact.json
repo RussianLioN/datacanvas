@@ -1,0 +1,66 @@
+{
+  "version": "0.1.0",
+  "status": "accepted",
+  "change_order_id": "CO-2026-002",
+  "summary": "CO-2026-002 уточняет, что весь основной маршрут запуска DataCanvas другим агентом относится к P1, а специализированное хранилище, ссылка на нередактируемую копию и уведомление в Лисе остаются отдельным P2-инкрементом.",
+  "priority_before": [
+    "P1: проверка входа и генерация презентации",
+    "P2: остальные связанные истории запуска другим агентом"
+  ],
+  "priority_after": [
+    "P1: полный основной маршрут запуска другим агентом",
+    "P2: специализированное хранилище, ссылка на нередактируемую копию и уведомление в Лисе"
+  ],
+  "affected_users": [
+    "Product Owner",
+    "КМ",
+    "вызывающий агент",
+    "команда Лисы",
+    "команда реализации"
+  ],
+  "affected_artifacts": [
+    "docs/product/requirements/user-stories.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/non-functional-requirements.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/product/specs/task-spec-a2a-launch.json",
+    "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+    "docs/product/ux/uat-script.md",
+    "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+    "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+    "docs/product/sources/product-source-registry.json"
+  ],
+  "affected_requirements": [
+    "BT-012",
+    "BT-014",
+    "BT-015",
+    "BT-016",
+    "BT-017",
+    "BT-018",
+    "NFR-002",
+    "NFR-003"
+  ],
+  "affected_ports_adapters": [
+    "A2A input envelope",
+    "status/callback adapter",
+    "email delivery adapter",
+    "future storage/link handoff",
+    "future Lisa notification handoff"
+  ],
+  "trust_boundary_delta": "Вход от другого агента остается недоверенными данными, но P1-контур теперь включает полный путь от запроса и проверки до доставки редактируемого файла и нередактируемой копии по электронной почте. P2-ссылка и уведомление в Лисе остаются отдельной доверительной границей.",
+  "sprint_goal_impact": "DC-ST-23..DC-ST-29 становятся единым P1-контуром для планирования, но не превращаются автоматически в sprint backlog без проверки емкости, порядка работ и вытеснения.",
+  "rollback": "Вернуть приоритеты DC-ST-23, DC-ST-24, DC-ST-25, DC-ST-27 и DC-ST-28 к P2, оставить DC-ST-26 и DC-ST-29 в P1 и повторить каскадные проверки.",
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:business-docs",
+    "npm run validate:traceability-graph",
+    "npm run validate:spec-task-prompt-readiness",
+    "npm run validate:data-leakage"
+  ]
+}

@@ -21,7 +21,7 @@
       "status": "found",
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
-      "sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+      "sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
       "downstream_use": ["draft_effort_estimation", "team_estimation_review"],
       "notes": "Рабочий черновик ПШЕ; не является утвержденной оценкой команды реализации."
     },

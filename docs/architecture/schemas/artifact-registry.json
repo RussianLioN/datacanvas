@@ -8027,6 +8027,54 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Main artifact lifecycle gate logic or cross-file invariants change."
+    },
+    {
+      "id": "ART-719",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "CO-2026-002 source, P1/P2 boundary, affected artifacts, or validation plan changes."
+    },
+    {
+      "id": "ART-720",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "CO-2026-002 machine-readable change order fields change."
+    },
+    {
+      "id": "ART-721",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "CO-2026-002 impact scope, downstream artifacts, or validation plan changes."
     }
   ]
 }

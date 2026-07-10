@@ -13,7 +13,7 @@
       "owner_role": "Product Owner",
       "subject": "Выбрать подход к docs/product/requirements/user-stories.md после обнаружения расхождения между старыми US-* историями и каноническим DC-ST-* каталогом DataCanvas.",
       "acceptance_record_id": "UDW-ACC-006",
-      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 позже был уточнен решениями UDW-DEC-014 и UDW-DEC-017: актуальные приоритеты и ПШЕ берутся из принятой Excel-редакции."
+      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 позже был уточнен решениями UDW-DEC-014 и UDW-DEC-017, а после CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 закреплен как P1. ПШЕ берутся из принятой Excel-редакции."
     },
     {
       "decision_id": "UDW-DEC-004",
@@ -132,9 +132,9 @@
       "status": "accepted",
       "blocking": false,
       "owner_role": "Product Owner",
-      "subject": "Исторически подтвердить DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом и затем уточнить приоритеты через рабочую Excel-редакцию.",
+      "subject": "Исторически подтвердить DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом, затем принять Excel как ресурсный вход и после CO-2026-002 закрепить DC-ST-23..DC-ST-29 как P1.",
       "acceptance_record_id": "UDW-ACC-021",
-      "rationale": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур для оценки. Позже по UDW-DEC-017 принята Excel-редакция, где P1 остаются DC-ST-26 и DC-ST-29, а DC-ST-23, DC-ST-24, DC-ST-25, DC-ST-27 и DC-ST-28 имеют P2."
+      "rationale": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур для оценки. Позже по UDW-DEC-017 принята Excel-редакция как ресурсный вход по ПШЕ. После CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 закреплен как P1; хранилище, ссылка и уведомления в Лисе вынесены в отдельный P2-инкремент."
     },
     {
       "decision_id": "UDW-DEC-015",

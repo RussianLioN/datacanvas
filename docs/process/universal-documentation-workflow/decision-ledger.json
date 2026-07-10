@@ -220,7 +220,7 @@
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/sources/product-source-registry.json"
       ],
-      "notes": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом для оценки. Актуальные приоритеты и ПШЕ позже уточнены принятой Excel-редакцией по UDW-DEC-017."
+      "notes": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом для оценки. ПШЕ позже приняты через Excel-редакцию по UDW-DEC-017. После CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 закреплен как P1; хранилище, ссылка и уведомления в Лисе вынесены в P2."
     },
     {
       "decision_id": "UDW-DEC-015",
@@ -300,7 +300,7 @@
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
       ],
-      "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29 как ресурсный вход. Каскадная синхронизация должна обновить приоритеты, статусы и планирование; sprint backlog остается отдельным шагом с проверкой емкости, порядка работ и вытеснения."
+      "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29 как ресурсный вход. После CO-2026-002 рабочая книга и downstream-артефакты синхронизированы так, что DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута; sprint backlog остается отдельным шагом с проверкой емкости, порядка работ и вытеснения."
     }
   ]
 }

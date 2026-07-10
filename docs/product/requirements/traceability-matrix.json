@@ -247,7 +247,8 @@
         "docs/product/vision/vision-v0.1.md",
         "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md"
       ],
       "story_ids": [
         "DC-ST-09",
@@ -260,7 +261,7 @@
         "email_delivery"
       ],
       "evidence_expectations": [
-        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas переходит к изготовлению редактируемого файла презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовый файл, статус доставки и очищенные метаданные письма связаны с исходным запросом."
+        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas сообщает вызывающему агенту о приеме данных, переходит к изготовлению редактируемого файла презентации и нередактируемой копии и доставляет результат по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовые файлы, статус доставки и очищенные метаданные письма связаны с исходным запросом."
       ],
       "tests": [
         "npm run validate:export",
@@ -302,6 +303,7 @@
         "docs/product-vision.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/process/current/definition-of-ready.md",
         "docs/process/current/definition-of-done.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -327,7 +329,7 @@
         "conflicting_sources"
       ],
       "evidence_expectations": [
-        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, формирование редактируемого файла презентации, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
+        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, формирование редактируемого файла презентации и нередактируемой копии, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
       ],
       "tests": [
         "tests/golden/trace-manifest-minimal.json",
@@ -341,6 +343,7 @@
       "sources": [
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/product/requirements/acceptance-criteria.md"
       ],
@@ -367,6 +370,7 @@
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/architecture/security/trust-boundaries.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/product/requirements/acceptance-criteria.md"
@@ -393,6 +397,7 @@
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -421,6 +426,7 @@
       "sources": [
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/product/requirements/acceptance-criteria.md"
       ],
@@ -434,7 +440,7 @@
         "email_delivery"
       ],
       "evidence_expectations": [
-        "DataCanvas формирует проверяемые статусы обработки и сведения о результате для вызывающего агента; реальная callback-интеграция остается открытым архитектурным решением и не включается в текущий репозиторий."
+        "DataCanvas сообщает вызывающему агенту о приеме данных после успешной проверки и формирует проверяемые статусы обработки и сведения о результате; реальная callback-интеграция остается открытым архитектурным решением и не включается в текущий репозиторий."
       ],
       "tests": [
         "npm run validate:traceability-graph",

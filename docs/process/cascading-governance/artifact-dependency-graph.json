@@ -791,6 +791,16 @@
     },
     {
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Принятая Product Owner правка текста истории, бизнес-ценности, функциональной зоны или приоритета в working XLSX требует обновить канонический каталог пользовательских историй или зафиксировать no-change rationale во внешнем impact/evidence контуре.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "relation_type": "estimate_evidence",
       "update_rule": "Изменение строк оценки, рольных значений или итогов требует обновить effort analysis или зафиксировать, почему анализ не меняется.",

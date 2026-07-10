@@ -16,7 +16,8 @@
     "FeatureSpec ссылается только на подтвержденные утверждения, включая BASA-CLM-009 — BA/SA-утверждение о канале доставки",
     "TaskSpec содержит eval cases (проверочные сценарии) и команды валидации",
     "AgentPromptSpec не содержит сырые ответы интервью",
-    "Решение о доставке отражено без включения реальных почтовых или сетевых интеграций"
+    "Решение о доставке отражено без включения реальных почтовых или сетевых интеграций",
+    "P2-инкремент со storage/link/Lisa notification явно отделен от P1-пакета"
   ],
   "rollback_or_forward_fix": "Откатить черновик пакета спецификаций и повторить npm run validate:spec-task-prompt-readiness.",
   "validation_commands": ["npm run validate:spec-task-prompt-readiness"],

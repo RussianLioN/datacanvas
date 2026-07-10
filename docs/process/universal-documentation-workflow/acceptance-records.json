@@ -302,7 +302,7 @@
       "acceptance_type": "product_behavior_acceptance",
       "status": "accepted",
       "owner_role": "Product Owner",
-      "subject": "Product Owner подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом; актуальные приоритеты позже уточнены принятой Excel-редакцией.",
+      "subject": "Product Owner подтвердил DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом; после CO-2026-002 основной маршрут DC-ST-23..DC-ST-29 закреплен как P1, а хранилище, ссылка и уведомления в Лисе вынесены в P2.",
       "linked_decision_ids": [
         "UDW-DEC-014"
       ],

@@ -7,7 +7,7 @@
     "raw_path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
     "working_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "raw_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
-    "working_sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+    "working_sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
     "verifier_command": "npm run validate:xlsx-backlog",
     "approval_status": "owner_approved",
     "team_validation_status": "approved"
@@ -119,6 +119,6 @@
     "may_update_sprint_backlog": true,
     "may_export_to_jira": true,
     "requires_team_approval_record": false,
-    "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29. Эти значения можно использовать как утвержденный ресурсный вход для каскадной синхронизации backlog, планирования и Jira/OPML-подготовки; sprint backlog все равно требует проверки емкости, порядка работ и вытеснения."
+    "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-29. После CO-2026-002 все строки DC-ST-23..DC-ST-29 в рабочей книге отражают P1-контур основного маршрута запуска другим агентом. Эти значения можно использовать как утвержденный ресурсный вход для каскадной синхронизации backlog, планирования и Jira/OPML-подготовки; sprint backlog все равно требует проверки емкости, порядка работ и вытеснения."
   }
 }
