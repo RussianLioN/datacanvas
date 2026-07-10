@@ -24,7 +24,7 @@
       "additionalProperties": false,
       "properties": {
         "from": { "type": "string", "const": "DC-ST-23" },
-        "to": { "type": "string", "const": "DC-ST-28" }
+        "to": { "type": "string", "const": "DC-ST-29" }
       }
     },
     "requirements_baseline": {
@@ -38,8 +38,8 @@
       "additionalProperties": false,
       "properties": {
         "source_path": { "$ref": "#/$defs/repoPath" },
-        "confirmed_existing_range": { "type": "string", "const": "BT-001..BT-014" },
-        "next_free_requirement_id": { "type": "string", "const": "BT-015" },
+        "confirmed_existing_range": { "type": "string", "const": "BT-001..BT-018" },
+        "next_free_requirement_id": { "type": "string", "const": "BT-019" },
         "new_requirement_ids_assigned": {
           "type": "array",
           "items": { "$ref": "#/$defs/requirementId" }
@@ -48,8 +48,8 @@
     },
     "stories": {
       "type": "array",
-      "minItems": 6,
-      "maxItems": 6,
+      "minItems": 7,
+      "maxItems": 7,
       "items": { "$ref": "#/$defs/storyImpact" }
     },
     "summary": {
@@ -89,7 +89,7 @@
     },
     "storyId": {
       "type": "string",
-      "pattern": "^DC-ST-(23|24|25|26|27|28)$"
+      "pattern": "^DC-ST-(23|24|25|26|27|28|29)$"
     },
     "requirementId": {
       "type": "string",

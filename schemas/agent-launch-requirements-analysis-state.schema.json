@@ -74,7 +74,7 @@
     },
     "storyId": {
       "type": "string",
-      "pattern": "^DC-ST-(23|24|25|26|27|28)$"
+      "pattern": "^DC-ST-(23|24|25|26|27|28|29)$"
     },
     "completedDecision": {
       "type": "object",

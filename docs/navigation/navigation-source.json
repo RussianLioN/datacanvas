@@ -2323,7 +2323,7 @@
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Документационный бизнес-анализ DC-ST-23..DC-ST-28, решение по BT-* требованиям, BA/SA artifacts, specs, traceability или разделение навигации меняются.",
+      "update_trigger": "Документационный бизнес-анализ DC-ST-23..DC-ST-29, решение по BT-* требованиям, BA/SA artifacts, specs, traceability или разделение навигации меняются.",
       "critical": false,
       "breadcrumb_required": true,
       "artifact_registry_required": true,

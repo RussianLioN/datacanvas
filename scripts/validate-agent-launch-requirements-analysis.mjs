@@ -6,7 +6,7 @@ import addFormats from "ajv-formats";
 
 const root = process.cwd();
 const packageRoot = "docs/product/analysis/agent-launch-requirements-analysis";
-const requiredStories = ["DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28"];
+const requiredStories = ["DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28", "DC-ST-29"];
 const requiredFiles = [
   "README.md",
   "analysis-state.json",
@@ -87,6 +87,10 @@ if (state.status !== "completed" || impactMap.status !== "completed") {
   fail("analysis package must be completed before final handoff");
 }
 
+if (impactMap.source_change_order !== "CO-2026-002") {
+  fail("analysis package must use CO-2026-002 as current source change order");
+}
+
 if (state.last_open_checkpoint !== null) {
   fail("completed analysis must not have an open checkpoint");
 }
@@ -111,7 +115,7 @@ for (const storyId of requiredStories) {
 }
 
 if (completedStories.size !== requiredStories.length || impactStories.size !== requiredStories.length) {
-  fail("analysis package must cover exactly DC-ST-23..DC-ST-28");
+  fail("analysis package must cover exactly DC-ST-23..DC-ST-29");
 }
 
 const businessRequirements = readText("docs/product/requirements/business-requirements.md");

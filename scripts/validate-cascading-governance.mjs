@@ -269,6 +269,7 @@ function assertDependencyGraph(graph) {
   for (const highImpactSource of [
     "docs/product-vision.md",
     "docs/product/requirements/user-stories.md",
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
     "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",

@@ -40,6 +40,7 @@
     "docs/product/requirements/acceptance-criteria.md",
     "docs/product/requirements/business-requirements.md",
     "docs/product/requirements/traceability-matrix.json",
+    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
     "docs/product/sources/product-source-registry.json",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
     "docs/product/sources/xlsx-opml-jira-recovery-index.json"
