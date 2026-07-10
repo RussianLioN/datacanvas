@@ -540,6 +540,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/process/versions/README.md",
+      "route_id": "process-versions-readme",
+      "section": "process",
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Process version index or historical snapshot policy changes.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
+    },
+    {
       "path": "docs/process/prompt-only-artifact-review/README.md",
       "route_id": "prompt-only-artifact-review-readme",
       "section": "process",
@@ -1360,6 +1380,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/architecture/system-analysis/README.md",
+      "route_id": "system-analysis-readme",
+      "section": "architecture",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "owner_role": "AI Agent Architect",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "System analysis artifact changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/release/README.md",
       "route_id": "release-readme",
       "section": "release-evidence",
@@ -1460,6 +1500,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/README.md",
+      "route_id": "knowledge-rca-readme",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "navigation_domain": "documentation_operations",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "RCA index or corrective-action routing changes.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
+    },
+    {
       "path": "docs/product/bmc/README.md",
       "route_id": "bmc-readme",
       "section": "bmc",
@@ -1478,6 +1538,46 @@
       "artifact_registry_required": true,
       "navigation_group": "business",
       "navigation_domain": "product"
+    },
+    {
+      "path": "docs/product/bmc/interviews/README.md",
+      "route_id": "bmc-interviews-readme",
+      "section": "bmc",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "confidential",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "metadata_only",
+      "update_trigger": "BMC interview package boundaries or data-governance rules change.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/interviews/ba-sa/README.md",
+      "route_id": "ba-sa-interviews-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "confidential",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "metadata_only",
+      "update_trigger": "BA/SA interview governance changes.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
     },
     {
       "path": "docs/product/bmc/bmc-v0.2.md",
@@ -1870,6 +1970,26 @@
       "navigation_domain": "product"
     },
     {
+      "path": "docs/product/change-orders/README.md",
+      "route_id": "product-change-orders-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product Change Order hub, accepted CO scope, or CO navigation changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
       "route_id": "co-2026-001-a2a-first-priority",
       "section": "product",
@@ -2148,6 +2268,86 @@
       "breadcrumb_required": true,
       "artifact_registry_required": true,
       "navigation_domain": "product"
+    },
+    {
+      "path": "docs/product/analysis/README.md",
+      "route_id": "product-analysis-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "BA/SA analysis artifact changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
+      "route_id": "agent-launch-requirements-analysis-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Agent launch requirements analysis package boundaries or sources change.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/analysis/documentation-consistency-audit/README.md",
+      "route_id": "documentation-consistency-audit-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Documentation consistency audit package boundaries, scope, or continuation rule changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/specs/README.md",
+      "route_id": "product-specs-readme",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Spec-driven artifact changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
     },
     {
       "path": "docs/product/hypotheses/hypothesis-board.md",
@@ -2878,19 +3078,20 @@
       "start_path": "docs/product/README.md",
       "next_paths": [
         "docs/product-vision.md",
+        "docs/product/change-orders/README.md",
         "docs/product/bmc/README.md",
         "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/README.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/sources/README.md",
-        "docs/product/change-orders/README.md",
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-        "docs/product/analysis/README.md",
-        "docs/product/specs/README.md",
+        "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
-        "docs/product/roadmap/roadmap-v0.1.md",
-        "docs/product/hypotheses/hypothesis-board.md"
+        "docs/product/sources/README.md",
+        "docs/product/roadmap/README.md",
+        "docs/product/hypotheses/README.md",
+        "docs/product/analysis/README.md",
+        "docs/product/specs/README.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
@@ -3007,15 +3208,20 @@
       "start_path": "docs/product/README.md",
       "next_paths": [
         "docs/product-vision.md",
+        "docs/product/change-orders/README.md",
         "docs/product/bmc/README.md",
         "docs/product/requirements/user-stories.md",
         "docs/product/requirements/README.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
-        "docs/product/roadmap/roadmap-v0.1.md",
-        "docs/product/hypotheses/hypothesis-board.md"
+        "docs/product/sources/README.md",
+        "docs/product/roadmap/README.md",
+        "docs/product/hypotheses/README.md",
+        "docs/product/analysis/README.md",
+        "docs/product/specs/README.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
@@ -3029,9 +3235,9 @@
       "navigation_group": "business",
       "start_path": "docs/product/sources/README.md",
       "next_paths": [
-        "docs/product/sources/product-source-registry.json",
         "docs/product/sources/source-audit.md",
         "docs/product-vision.md",
+        "docs/product/change-orders/README.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product/requirements/user-stories.md"
       ],
@@ -3046,9 +3252,8 @@
       "navigation_group": "business",
       "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
       "next_paths": [
-        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
-        "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
         "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
         "docs/product/sources/source-audit.md"
       ],
       "owner_role": "Product Owner",
@@ -3062,8 +3267,8 @@
       "navigation_group": "business",
       "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "next_paths": [
-        "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
-        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/sources/source-audit.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:revision-approval-state",
@@ -3076,9 +3281,9 @@
       "navigation_group": "business",
       "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
       "next_paths": [
+        "docs/product/change-orders/README.md",
         "docs/product/sources/source-audit.md",
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-        "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:accepted-change-order-impact",
@@ -3107,7 +3312,7 @@
       "navigation_group": "business",
       "start_path": "docs/product/sources/README.md",
       "next_paths": [
-        "docs/product/sources/product-source-registry.json",
+        "docs/product/change-orders/README.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product-vision.md",
         "docs/product/requirements/user-stories.md"
@@ -3137,8 +3342,7 @@
       "task": "Работать с BMC",
       "start_path": "docs/product/bmc/README.md",
       "next_paths": [
-        "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/manifest.json"
+        "docs/product/bmc/bmc-v0.2.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:bmc",
@@ -3181,11 +3385,9 @@
       "navigation_group": "business",
       "start_path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
       "next_paths": [
-        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
         "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
         "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
         "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
-        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
@@ -3207,7 +3409,6 @@
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-        "docs/product/sources/product-source-registry.json",
         "docs/product/requirements/traceability-matrix.json"
       ],
       "owner_role": "Product Owner / Process Owner",
@@ -3465,7 +3666,7 @@
     {
       "path": "docs/navigation/orphan-docs-report.md",
       "canonical_source": "docs/navigation/navigation-source.json",
-      "description": "Generated report for navigable docs not reachable from root."
+      "description": "Generated report for navigable docs not reachable from root and subtree coverage by README depth."
     },
     {
       "path": "docs/navigation/stale-status-report.md",

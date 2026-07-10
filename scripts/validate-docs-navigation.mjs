@@ -49,6 +49,41 @@ function matchesPrefix(relativePath, prefix) {
   return relativePath === prefix || relativePath.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`);
 }
 
+function repoPath(...parts) {
+  return path.posix.normalize(path.posix.join(...parts)).replace(/^\.\//, "");
+}
+
+function isExternalLink(target) {
+  return /^(https?:|mailto:|tel:)/i.test(target);
+}
+
+function parseMarkdownLinks(markdown, fromPath) {
+  const links = [];
+  const seen = new Set();
+  const linkPattern = /(?<!!)\[[^\]]+\]\(([^)]+)\)/g;
+  let match;
+  while ((match = linkPattern.exec(markdown)) !== null) {
+    let target = match[1].trim();
+    if (target.startsWith("<") && target.endsWith(">")) {
+      target = target.slice(1, -1);
+    }
+    target = target.split(/\s+/)[0];
+    if (!target || target.startsWith("#") || isExternalLink(target)) {
+      continue;
+    }
+    const [pathPart] = target.split("#");
+    if (!pathPart) {
+      continue;
+    }
+    const normalized = repoPath(path.posix.dirname(fromPath), decodeURIComponent(pathPart));
+    if (!seen.has(normalized)) {
+      seen.add(normalized);
+      links.push(normalized);
+    }
+  }
+  return links;
+}
+
 function routeTargets(route) {
   return [route.start_path, ...route.next_paths];
 }
@@ -110,6 +145,14 @@ function isBusinessRouteForbiddenPath(relativePath) {
     ".github",
     "AGENTS.md",
   ].some((prefix) => matchesPrefix(relativePath, prefix));
+}
+
+const businessRouteJsonAllowlist = new Set([
+  "docs/product/requirements/traceability-matrix.json",
+]);
+
+function isBusinessRouteForbiddenJson(relativePath) {
+  return relativePath.endsWith(".json") && !businessRouteJsonAllowlist.has(relativePath);
 }
 
 function assertFixtureCases(label, fixturePath, handlers) {
@@ -214,6 +257,13 @@ for (const sectionReadme of [
   requireFile(sectionReadme);
 }
 
+for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
+  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  if (!sourceManagedByPath.has(entry.path) && !ignored) {
+    fail(`nested README must be managed or explicitly ignored: ${entry.path}`);
+  }
+}
+
 const routeDuplicates = [
   ...duplicateIds(source.role_routes),
   ...duplicateIds(source.task_routes),
@@ -252,11 +302,16 @@ for (const route of [...source.role_routes, ...source.task_routes]) {
       if (isBusinessRouteForbiddenPath(target)) {
         fail(`business route points to non-business primary source: ${route.id} -> ${target}`);
       }
+      if (isBusinessRouteForbiddenJson(target)) {
+        fail(`business route points to machine-readable JSON instead of a human route: ${route.id} -> ${target}`);
+      }
     }
   }
 }
 
 const productReadme = readText("docs/product/README.md");
+const productReadmeLinks = parseMarkdownLinks(productReadme, "docs/product/README.md");
+const productReadmeLinkSet = new Set(productReadmeLinks);
 for (const entry of index.entries) {
   if (!matchesPrefix(entry.path, "docs/product") || entry.generated || entry.visibility !== "public") {
     continue;
@@ -265,9 +320,8 @@ for (const entry of index.entries) {
   if (ignored) {
     continue;
   }
-  const productRelativePath = entry.path.replace("docs/product/", "");
   const isManaged = sourceManagedByPath.has(entry.path);
-  const isProductReadmeLinked = productReadme.includes(productRelativePath) || productReadme.includes(path.posix.basename(entry.path));
+  const isProductReadmeLinked = productReadmeLinkSet.has(entry.path);
   if (!isManaged && !isProductReadmeLinked) {
     fail(`public product document is missing from docs/product/README.md or managed navigation source: ${entry.path}`);
   }
@@ -409,23 +463,31 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     }
   },
   "positive-product-index-canonical-artifacts": () => {
-    const productIndex = readText("docs/product/README.md");
-    for (const requiredPath of [
+    const requiredPaths = [
       "docs/product-vision.md",
+      "docs/product/change-orders/README.md",
       "docs/product/bmc/README.md",
-      "docs/product/requirements/business-requirements.md",
       "docs/product/requirements/user-stories.md",
-      "docs/product/requirements/non-functional-requirements.md",
-      "docs/product/requirements/acceptance-criteria.md",
-      "docs/product/backlog/product-backlog.md",
-      "docs/product/roadmap/roadmap-v0.1.md",
-      "docs/product/hypotheses/hypothesis-board.md",
-      "docs/product/requirements/traceability-matrix.json",
-    ]) {
-      const basename = path.posix.basename(requiredPath);
-      if (!productIndex.includes(basename) && !productIndex.includes(requiredPath.replace("docs/product/", ""))) {
+      "docs/product/requirements/README.md",
+      "docs/product/backlog/README.md",
+      "docs/product/sources/README.md",
+      "docs/product/roadmap/README.md",
+      "docs/product/hypotheses/README.md",
+      "docs/product/analysis/README.md",
+      "docs/product/specs/README.md",
+    ];
+    for (const requiredPath of requiredPaths) {
+      if (!productReadmeLinkSet.has(requiredPath)) {
         fail(`product index is missing canonical business artifact: ${requiredPath}`);
       }
+    }
+    let previousIndex = -1;
+    for (const requiredPath of requiredPaths) {
+      const currentIndex = productReadmeLinks.indexOf(requiredPath);
+      if (currentIndex <= previousIndex) {
+        fail(`product index has wrong workflow order near: ${requiredPath}`);
+      }
+      previousIndex = currentIndex;
     }
   },
   "positive-generated-navigation-grouped": () => {
@@ -441,6 +503,14 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     for (const blocked of index.blocked_sensitive_paths) {
       if (businessTargets.has(blocked.path)) {
         fail(`restricted evidence is used as business route: ${blocked.path}`);
+      }
+    }
+  },
+  "positive-nested-readmes-managed-or-ignored": () => {
+    for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
+      const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+      if (!sourceManagedByPath.has(entry.path) && !ignored) {
+        fail(`README missing managed/ignored classification: ${entry.path}`);
       }
     }
   },
@@ -475,6 +545,13 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
       }
     }
   },
+  "negative-business-route-to-machine-json": () => {
+    for (const route of source.task_routes.filter((item) => item.navigation_group === "business")) {
+      if (routeTargets(route).some((target) => isBusinessRouteForbiddenJson(target))) {
+        fail(`business route points to machine-readable JSON: ${route.id}`);
+      }
+    }
+  },
   "negative-public-business-without-artifact-id": () => {
     const offenders = index.entries.filter(
       (entry) => entry.navigation_group === "business" && entry.visibility === "public" && entry.navigable && !entry.artifact_registry_id,
@@ -504,8 +581,7 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
   },
   "negative-public-product-doc-not-routed": () => {
     for (const entry of index.entries.filter((item) => matchesPrefix(item.path, "docs/product") && item.visibility === "public")) {
-      const productRelativePath = entry.path.replace("docs/product/", "");
-      if (!sourceManagedByPath.has(entry.path) && !productReadme.includes(productRelativePath) && !productReadme.includes(path.posix.basename(entry.path))) {
+      if (!sourceManagedByPath.has(entry.path) && !productReadmeLinkSet.has(entry.path)) {
         fail(`public product document is not routed: ${entry.path}`);
       }
     }

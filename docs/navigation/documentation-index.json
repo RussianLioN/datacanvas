@@ -3250,8 +3250,8 @@
       "navigation_group": "technical",
       "format": "md",
       "owner_role": "AI Agent Architect",
-      "lifecycle": "accepted",
-      "status": "accepted",
+      "lifecycle": "draft",
+      "status": "draft",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -3779,7 +3779,7 @@
     },
     {
       "path": "docs/navigation/orphan-docs-report.md",
-      "title": "Отчет По Orphan Docs",
+      "title": "Отчет По Orphan Docs И Вложенности",
       "section": "navigation",
       "navigation_domain": "documentation_operations",
       "navigation_group": "generated",
@@ -9022,8 +9022,8 @@
       "artifact_registry_id": "ART-349",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 1
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/bmc/bmc-v0.1.md",
@@ -9088,7 +9088,7 @@
         "b9-структура-затрат"
       ],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "docs/product/bmc/bmc-validation-needs.json",
@@ -9610,8 +9610,8 @@
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner",
-      "lifecycle": "accepted",
-      "status": "accepted",
+      "lifecycle": "active",
+      "status": "active",
       "data_class": "confidential",
       "visibility": "restricted",
       "searchable": false,
@@ -9773,7 +9773,7 @@
         "правило"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/bmc/source-excerpts.md",
@@ -10011,7 +10011,7 @@
         "дальнейшие-задачи"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
@@ -10120,7 +10120,7 @@
         "проверка"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/product-change-order-ledger.json",
@@ -10177,7 +10177,7 @@
         "правило-решения"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
@@ -10219,18 +10219,18 @@
     },
     {
       "path": "docs/product/change-orders/README.md",
-      "title": "Product Change Orders DataCanvas",
+      "title": "CO - Заявки На Продуктовые Изменения DataCanvas",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "active",
+      "status": "active",
       "data_class": "internal",
-      "visibility": "internal",
+      "visibility": "public",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
@@ -10247,13 +10247,14 @@
         "README.md"
       ],
       "anchors": [
-        "product-change-orders-datacanvas",
+        "co---заявки-на-продуктовые-изменения-datacanvas",
         "назначение",
         "правило",
-        "артефакты"
+        "читать-человеку",
+        "машинные-артефакты"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/hypotheses/hypothesis-board.md",
@@ -10651,17 +10652,11 @@
         "docs/product/backlog/technical-backlog.md",
         "docs/product/bmc/README.md",
         "docs/product/change-orders/README.md",
-        "docs/product/hypotheses/hypothesis-board.md",
         "docs/product/hypotheses/README.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/README.md",
-        "docs/product/requirements/traceability-matrix.json",
         "docs/product/requirements/user-stories.md",
         "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
         "docs/product/roadmap/README.md",
-        "docs/product/roadmap/roadmap-v0.1.md",
         "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/README.md",
@@ -10710,7 +10705,7 @@
         "открытые-решения-для-приемки"
       ],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "docs/product/requirements/backlog-slicing-rules.md",
@@ -10736,7 +10731,7 @@
         "backlog-slicing-rules"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/requirements/business-requirements.md",
@@ -10781,7 +10776,7 @@
         "нецели-p1"
       ],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "docs/product/requirements/non-functional-requirements.md",
@@ -10852,7 +10847,7 @@
         "документы"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/requirements/traceability-matrix.json",
@@ -10876,7 +10871,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "docs/product/requirements/user-stories.md",
@@ -10909,7 +10904,7 @@
         "каталог-пользовательских-историй"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
@@ -11117,7 +11112,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/sources/README.md",
@@ -11167,7 +11162,7 @@
         "ревизия-по-co-2026-001"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/sources/source-audit.md",
@@ -12398,6 +12393,7 @@
         "docs/architecture/schemas/schema-registry.md",
         "docs/architecture/system-analysis/README.md",
         "docs/knowledge/evidence-index.md",
+        "docs/knowledge/README.md",
         "docs/navigation/navigation-map.md",
         "docs/navigation/navigation-source.json",
         "docs/plans/README.md",
@@ -12409,19 +12405,13 @@
         "docs/product-vision.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
-        "docs/product/bmc/bmc-trace.v0.1.json",
-        "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-        "docs/product/bmc/source/derived/datacanvas-bmc.png",
-        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/README.md",
+        "docs/product/change-orders/README.md",
         "docs/product/hypotheses/README.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/non-functional-requirements.md",
-        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/README.md",
         "docs/product/requirements/user-stories.md",
         "docs/product/roadmap/README.md",
+        "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/release/README.md",
@@ -34287,7 +34277,7 @@
         "актуальный-источник"
       ],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 2
     },
     {
       "path": "README.md",
@@ -34323,24 +34313,19 @@
         "docs/product-vision.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
-        "docs/product/bmc/bmc-trace.v0.1.json",
-        "docs/product/bmc/bmc-v0.2.md",
-        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-        "docs/product/bmc/source/derived/datacanvas-bmc.png",
-        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/README.md",
+        "docs/product/change-orders/README.md",
         "docs/product/hypotheses/README.md",
         "docs/product/README.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/README.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/roadmap/README.md",
+        "docs/product/sources/README.md",
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/README.md",
         "docs/release/README.md",
         "docs/sprints/README.md",
-        "docs/stories.md",
         "package.json",
         "schemas/README.md"
       ],
@@ -34363,19 +34348,20 @@
         "start_path": "docs/product/README.md",
         "next_paths": [
           "docs/product-vision.md",
+          "docs/product/change-orders/README.md",
           "docs/product/bmc/README.md",
           "docs/product/requirements/user-stories.md",
+          "docs/product/requirements/README.md",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/non-functional-requirements.md",
           "docs/product/requirements/acceptance-criteria.md",
-          "docs/product/sources/README.md",
-          "docs/product/change-orders/README.md",
-          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-          "docs/product/analysis/README.md",
-          "docs/product/specs/README.md",
+          "docs/product/backlog/README.md",
           "docs/product/backlog/product-backlog.md",
-          "docs/product/roadmap/roadmap-v0.1.md",
-          "docs/product/hypotheses/hypothesis-board.md"
+          "docs/product/sources/README.md",
+          "docs/product/roadmap/README.md",
+          "docs/product/hypotheses/README.md",
+          "docs/product/analysis/README.md",
+          "docs/product/specs/README.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:docs-navigation",
@@ -34492,15 +34478,20 @@
         "start_path": "docs/product/README.md",
         "next_paths": [
           "docs/product-vision.md",
+          "docs/product/change-orders/README.md",
           "docs/product/bmc/README.md",
           "docs/product/requirements/user-stories.md",
           "docs/product/requirements/README.md",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/non-functional-requirements.md",
           "docs/product/requirements/acceptance-criteria.md",
+          "docs/product/backlog/README.md",
           "docs/product/backlog/product-backlog.md",
-          "docs/product/roadmap/roadmap-v0.1.md",
-          "docs/product/hypotheses/hypothesis-board.md"
+          "docs/product/sources/README.md",
+          "docs/product/roadmap/README.md",
+          "docs/product/hypotheses/README.md",
+          "docs/product/analysis/README.md",
+          "docs/product/specs/README.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:docs-navigation",
@@ -34514,9 +34505,9 @@
         "navigation_group": "business",
         "start_path": "docs/product/sources/README.md",
         "next_paths": [
-          "docs/product/sources/product-source-registry.json",
           "docs/product/sources/source-audit.md",
           "docs/product-vision.md",
+          "docs/product/change-orders/README.md",
           "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
           "docs/product/requirements/user-stories.md"
         ],
@@ -34531,9 +34522,8 @@
         "navigation_group": "business",
         "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
         "next_paths": [
-          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",
-          "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
           "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
           "docs/product/sources/source-audit.md"
         ],
         "owner_role": "Product Owner",
@@ -34547,8 +34537,8 @@
         "navigation_group": "business",
         "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
         "next_paths": [
-          "docs/product/revisions/co-2026-001-source-revision/revision-approval-state.json",
-          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+          "docs/product/sources/source-audit.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:revision-approval-state",
@@ -34561,9 +34551,9 @@
         "navigation_group": "business",
         "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "next_paths": [
+          "docs/product/change-orders/README.md",
           "docs/product/sources/source-audit.md",
-          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-          "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json"
+          "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:accepted-change-order-impact",
@@ -34592,7 +34582,7 @@
         "navigation_group": "business",
         "start_path": "docs/product/sources/README.md",
         "next_paths": [
-          "docs/product/sources/product-source-registry.json",
+          "docs/product/change-orders/README.md",
           "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
           "docs/product-vision.md",
           "docs/product/requirements/user-stories.md"
@@ -34622,8 +34612,7 @@
         "task": "Работать с BMC",
         "start_path": "docs/product/bmc/README.md",
         "next_paths": [
-          "docs/product/bmc/bmc-v0.2.md",
-          "docs/product/bmc/manifest.json"
+          "docs/product/bmc/bmc-v0.2.md"
         ],
         "owner_role": "Product Owner",
         "validation_command": "npm run validate:bmc",
@@ -34666,11 +34655,9 @@
         "navigation_group": "business",
         "start_path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
         "next_paths": [
-          "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
           "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
           "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
           "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
-          "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/traceability-matrix.json"
         ],
@@ -34692,7 +34679,6 @@
           "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
           "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
           "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-          "docs/product/sources/product-source-registry.json",
           "docs/product/requirements/traceability-matrix.json"
         ],
         "owner_role": "Product Owner / Process Owner",
@@ -34892,11 +34878,11 @@
     "total_entries": 1216,
     "manual_entries": 1212,
     "generated_entries": 4,
-    "public_navigable_entries": 32,
+    "public_navigable_entries": 33,
     "searchable_entries": 1182,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 169,
+    "reachable_from_root": 168,
     "orphan_entries": 0
   },
   "ignored_paths": [

@@ -18,6 +18,10 @@
       "expected_failure": "Business route указывает на ADR, PROC/process или raw evidence как primary product source."
     },
     {
+      "id": "negative-business-route-to-machine-json",
+      "expected_failure": "Business route указывает на служебный machine-readable JSON вместо человекочитаемого маршрута."
+    },
+    {
       "id": "negative-public-business-without-artifact-id",
       "expected_failure": "Public business entry не имеет artifact_registry_id."
     },

@@ -4663,16 +4663,16 @@
       "path": "docs/product/change-orders/README.md",
       "type": "documentation",
       "owner_role": "Product Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
-      "visibility": "internal",
+      "visibility": "public",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Product Change Order changes."
+      "update_trigger": "Product Change Order hub, accepted CO scope, or CO navigation changes."
     },
     {
       "id": "ART-489",

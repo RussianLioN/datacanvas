@@ -133,14 +133,17 @@ function assertBusinessContractCoverage(chain, contentContract, generationContra
 }
 
 function assertProductIndexOrder(chain) {
-  const expectedTopPaths = chain.stages
-    .filter((stage) => ["product-vision", "business-model-canvas", "user-stories"].includes(stage.stage_id))
-    .map((stage) => stage.primary_artifacts[0]);
+  const expectedTopPaths = [
+    "docs/product-vision.md",
+    "docs/product/change-orders/README.md",
+    "docs/product/bmc/README.md",
+    "docs/product/requirements/user-stories.md",
+  ];
   const indexPaths = orderedProductIndexLinks(readText(chain.canonical_product_index_path)).map(normalizeProductIndexLink);
   for (let index = 0; index < expectedTopPaths.length; index += 1) {
     const expectedPath = expectedTopPaths[index];
     const actualPath = indexPaths[index];
-    if (actualPath !== expectedPath && !(expectedPath === "docs/product/bmc/bmc-v0.2.md" && actualPath === "docs/product/bmc/README.md")) {
+    if (actualPath !== expectedPath) {
       fail(`product README order mismatch at position ${index + 1}: expected ${expectedPath}, got ${actualPath}`);
     }
   }
