@@ -268,6 +268,30 @@ function lineForIndex(text, index) {
   return text.slice(0, index).split("\n").length;
 }
 
+function lineTextForIndex(text, index) {
+  const lineStart = text.lastIndexOf("\n", index) + 1;
+  const lineEnd = text.indexOf("\n", index);
+  return text.slice(lineStart, lineEnd === -1 ? text.length : lineEnd);
+}
+
+function isAllowedBusinessTerm(text, index, matchText, rule, artifactClass) {
+  const allowances = artifactClass?.allowed_business_terms ?? [];
+  const normalizedMatch = matchText.toLocaleLowerCase("ru-RU");
+  const lineText = lineTextForIndex(text, index);
+  return allowances.some((allowance) => {
+    if (allowance.rule_id !== rule.id) {
+      return false;
+    }
+    const termMatches = (allowance.terms ?? []).some(
+      (term) => term.toLocaleLowerCase("ru-RU") === normalizedMatch,
+    );
+    if (!termMatches) {
+      return false;
+    }
+    return new RegExp(allowance.required_context_pattern, "u").test(lineText);
+  });
+}
+
 function compileContractRules(contract) {
   return contract.global_forbidden_patterns.map((rule) => ({
     id: rule.id,
@@ -679,9 +703,10 @@ function findViolations(text, className, contract, document = undefined, generat
   const violations = [];
   const contractRules = compileContractRules(contract);
   const generationRules = compileGenerationCategoryRules(generationContract, generationDocument);
+  const artifactClass = contractClass(contract, className);
   for (const rule of rulesFor(className, contractRules, generationRules)) {
     const match = rule.pattern.exec(text);
-    if (match) {
+    if (match && !isAllowedBusinessTerm(text, match.index, match[0], rule, artifactClass)) {
       violations.push({
         rule,
         line: lineForIndex(text, match.index),
@@ -690,7 +715,6 @@ function findViolations(text, className, contract, document = undefined, generat
     }
   }
 
-  const artifactClass = contractClass(contract, className);
   if (artifactClass?.class_name === "story_catalog") {
     validateStoryCatalog(text, document, artifactClass, violations);
   } else if (artifactClass) {

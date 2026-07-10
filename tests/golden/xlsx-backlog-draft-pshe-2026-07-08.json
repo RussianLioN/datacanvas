@@ -3,7 +3,7 @@
   "working_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
   "provenance_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
   "raw_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
-  "working_sha256": "d4ab0cbf718ecdcf6c9724ea34b53deca3b1dfaf902fb5afa5560629d46f8dd5",
+  "working_sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
   "raw_dimension": "A1:U26",
   "working_dimension": "A1:U32",
   "raw_filter_ref": "B3:U26",
@@ -54,13 +54,162 @@
     "xl/theme/theme1.xml",
     "docProps/app.xml"
   ],
+  "source_rows": [
+    {
+      "story_id": "DC-ST-01",
+      "row": 4,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-02",
+      "row": 5,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-03",
+      "row": 6,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-04",
+      "row": 7,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-05",
+      "row": 8,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-06",
+      "row": 9,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-07",
+      "row": 10,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-08",
+      "row": 11,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-09",
+      "row": 12,
+      "priority": "P2"
+    },
+    {
+      "story_id": "DC-ST-10",
+      "row": 13,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-11",
+      "row": 14,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-12",
+      "row": 15,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-13",
+      "row": 16,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-14",
+      "row": 17,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-15",
+      "row": 18,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-16",
+      "row": 19,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-17",
+      "row": 20,
+      "priority": "P3"
+    },
+    {
+      "story_id": "DC-ST-18",
+      "row": 21,
+      "priority": "P4"
+    },
+    {
+      "story_id": "DC-ST-19",
+      "row": 22,
+      "priority": "P4"
+    },
+    {
+      "story_id": "DC-ST-20",
+      "row": 23,
+      "priority": "P4"
+    },
+    {
+      "story_id": "DC-ST-21",
+      "row": 24,
+      "priority": "P5"
+    },
+    {
+      "story_id": "DC-ST-22",
+      "row": 25,
+      "priority": "P5"
+    },
+    {
+      "story_id": "DC-ST-23",
+      "row": 26,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-24",
+      "row": 27,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-25",
+      "row": 28,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-26",
+      "row": 29,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-27",
+      "row": 30,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-28",
+      "row": 31,
+      "priority": "P1"
+    },
+    {
+      "story_id": "DC-ST-29",
+      "row": 32,
+      "priority": "P1"
+    }
+  ],
   "new_rows": [
     {
       "story_id": "DC-ST-23",
       "row": 26,
-      "priority": "P2",
+      "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Запуск другим агентом",
+      "story_text": "Как вызывающий агент, я хочу передавать в DataCanvas запрос на подготовку презентации, чтобы DataCanvas мог принять задачу от другого агента и начать обработку по проверяемому входу.",
+      "business_value": "Это позволит быстро запускать подготовку презентации из агентского сценария без ручного переноса контекста.",
       "analog_rows": [
         8,
         15,
@@ -86,9 +235,11 @@
     {
       "story_id": "DC-ST-24",
       "row": 27,
-      "priority": "P2",
+      "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Запуск другим агентом",
+      "story_text": "Как пользователь, я хочу, чтобы DataCanvas мог запускаться в составе общего сценария с другими агентами, чтобы подготовка презентации начиналась из уже собранного контекста без повторного ввода данных.",
+      "business_value": "Это позволит использовать DataCanvas как часть сквозного сценария подготовки материалов.",
       "analog_rows": [
         8,
         15
@@ -112,9 +263,11 @@
     {
       "story_id": "DC-ST-25",
       "row": 28,
-      "priority": "P2",
+      "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Входной контекст",
+      "story_text": "Как вызывающий агент, я хочу передавать DataCanvas входной пакет с задачей, источником запроса и параметрами презентации, чтобы DataCanvas получил полный контекст запуска в проверяемом формате.",
+      "business_value": "Это снижает риск неполного или неоднозначного запуска презентации.",
       "analog_rows": [
         8,
         15,
@@ -141,6 +294,8 @@
       "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Проверка входа",
+      "story_text": "Как DataCanvas, я хочу проверять входной пакет от другого агента на достаточность, безопасность и отделение данных от инструкций, чтобы не начинать генерацию по неполному или недоверенному входу.",
+      "business_value": "Это защищает результат от неполных данных и от исполнения чужих инструкций как правил DataCanvas.",
       "analog_rows": [
         9,
         10
@@ -162,9 +317,11 @@
     {
       "story_id": "DC-ST-27",
       "row": 30,
-      "priority": "P2",
+      "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Статусы обработки",
+      "story_text": "Как вызывающий агент, я хочу получать от DataCanvas статусы обработки и сведения о результате выполнения через обратный вызов, чтобы понимать, принят ли запрос, требуется ли уточнение и завершилась ли подготовка презентации.",
+      "business_value": "Это позволяет другому агенту корректно вести общий сценарий и не терять состояние задачи; готовый файл доставляется пользователю по электронной почте.",
       "analog_rows": [
         12,
         17
@@ -189,9 +346,11 @@
     {
       "story_id": "DC-ST-28",
       "row": 31,
-      "priority": "P2",
+      "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Трассировка",
+      "story_text": "Как команда разработки, мы хотим сохранять trace ID, источник запроса, результат проверки входа, статусы обработки и связи с итоговыми артефактами, чтобы каждый запуск DataCanvas другим агентом был проверяемым и воспроизводимым.",
+      "business_value": "Это позволит проверять качество, безопасность и воспроизводимость агентских запусков DataCanvas.",
       "analog_rows": [
         4,
         12,
@@ -218,6 +377,8 @@
       "priority": "P1",
       "period": "2026-Q3",
       "functional_zone": "Генерация презентации",
+      "story_text": "Как DataCanvas, я хочу сформировать редактируемый файл презентации из уже проверенных и нормализованных данных, чтобы пользователь получил рабочий материал без ручной сборки.",
+      "business_value": "Это позволит пользователю получить рабочий материал без ручной сборки презентации.",
       "analog_rows": [
         4,
         12

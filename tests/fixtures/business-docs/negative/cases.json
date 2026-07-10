@@ -7,6 +7,12 @@
       "content": "# Критерии\n\nНавигация: [DataCanvas](../README.md)\n\n`PresentationSpec` проходит schema validation.\n"
     },
     {
+      "id": "trace-id-outside-approved-story",
+      "className": "story_catalog",
+      "expected_rule": "technical-contract",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать trace ID в DataCanvas. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
       "id": "pshe-in-story-catalog",
       "className": "story_catalog",
       "expected_rule": "effort-estimation-in-story",

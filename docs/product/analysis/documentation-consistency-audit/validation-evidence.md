@@ -450,6 +450,38 @@ Product Owner принял текущую Excel-редакцию приорит�
 | `node scripts/generate-artifact-hash-manifest.mjs --check` | passed | Hash manifest — манифест хэшей — актуален после финальной генерации. |
 | `npm run validate:artifact-hashes` | passed | Hash manifest — манифест хэшей — валиден. |
 
+## RCA После Рассинхронизации XLSX И Пользовательских Историй
+
+Симптом: пользователь сообщил, что рабочая Excel-книга не открывается, а канонический каталог пользовательских историй не отражает принятую ручную Excel-редакцию.
+
+Корневая причина по синхронизации: прежний XLSX-gate сверял текст истории, бизнес-ценность, функциональную зону и приоритет только для добавленных строк `DC-ST-23..DC-ST-29`, но не сверял приоритеты исходных строк `DC-ST-01..DC-ST-22` с принятой Excel-редакцией. Поэтому пониженные приоритеты `DC-ST-01..DC-ST-08` могли пройти мимо полного gate.
+
+Корневая причина по открытию файла: ZIP/XML-пакет XLSX был читаемым, но Excel требовал более строгую OOXML-целостность. В файле одновременно были два дефекта: внутри `xl/worksheets/sheet1.xml` диапазон общей формулы `H5:H32` содержал разрыв — ячейка `H30` хранила отдельную обычную формулу вместо членства в shared formula — общей формуле; кроме того, после низкоуровневой машинной правки XML части `xl/workbook.xml` и `xl/worksheets/sheet1.xml` содержали `mc:Ignorable` со ссылками на отсутствующие namespace-префиксы. Обычная ZIP/XML-проверка и прежний XLSX-gate это не ловили, поэтому файл мог проходить локальные проверки и одновременно ломаться в Microsoft Excel.
+
+Исправление: `npm run validate:xlsx-backlog` теперь проверяет целостность shared formula membership — членства ячеек в общей формуле, корректность `mc:Ignorable` namespace-префиксов в XML-частях XLSX и сверяет приоритеты всех строк `DC-ST-01..DC-ST-29` между Excel, golden-описанием и каноническим каталогом пользовательских историй. Контракт бизнесовых артефактов допускает принятые Product Owner термины `обратный вызов` и `trace ID` только в утвержденных строках `DC-ST-27` и `DC-ST-28`; вне этого контекста технический шум остается запрещенным.
+
+Предотвращение повторения: при принятии рабочей Excel-редакции как upstream-источника нужно выполнять обратную синхронизацию не только ПШЕ, но и всех смысловых полей строк, включая приоритеты исходных строк. Если поле из Excel не переносится в downstream-артефакт, причина фиксируется в machine-readable impact/evidence контуре, а не в бизнесовом Markdown. Локальный `com.apple.quarantine` нужно снимать перед передачей файла пользователю, но он не считается достаточным объяснением ошибки содержимого книги.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `unzip -t docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` | passed | ZIP-пакет XLSX читается без ошибок. |
+| `python3` ZIP/XML smoke | passed | Все XML/RELS-части рабочей книги парсятся; `ZipFile.testzip()` не нашел поврежденных частей. |
+| strict shared formula check | passed | Валидатор подтверждает, что каждая ячейка внутри диапазона `H5:H32` является участником общей формулы; негативный self-test с разрывом `H30` падает. |
+| strict OOXML namespace check | passed | Валидатор подтверждает, что `mc:Ignorable` не ссылается на отсутствующие namespace-префиксы; негативный self-test с поврежденным префиксом падает. |
+| `qlmanage -t` | passed | macOS Quick Look смог построить миниатюру рабочей книги. |
+| `npm run validate:xlsx-backlog` | passed | Валидатор сверяет XLSX, golden-описание, provenance и канонический каталог пользовательских историй по приоритетам всех `DC-ST-01..DC-ST-29`; negative self-tests проходят. |
+| `npm run validate:business-docs` | passed | Бизнесовые документы проходят после точечного контракта для утвержденных терминов `обратный вызов` и `trace ID`. |
+| `npm run validate:product-source-consistency` | passed | Реестр источников и граф зависимостей покрывают `docs/product/requirements/user-stories.md` как downstream рабочей XLSX-книги. |
+| `npm run validate:xlsx-cascade` | passed | XLSX cascade-gate подтверждает seed-пути downstream-артефактов. |
+| `npm run validate:cascading-governance` | passed | Каскадный governance проходит после обновления dependency graph и XLSX change-analysis fixture. |
+| `npm run validate:schemas` | passed | Схемы проходят после расширения business artifact content contract и XLSX change-analysis fixture. |
+| `npm run generate:docs-navigation -- --check` | passed | Generated navigation актуальна после штатной генерации. |
+| `npm run validate:artifact-hashes` | passed | Hash manifest актуален после штатной генерации. |
+| `npm run scan:secrets` | passed | Секреты не найдены. |
+| `npm run validate:data-leakage` | passed | Проверка утечек данных прошла. |
+| `git diff --check` | passed | Whitespace-проверка прошла. |
+| `npm test` | passed | Полный локальный gate прошел после синхронизации XLSX, каталога историй, каскадного графа, контрактов, валидаторов и generated outputs. |
+
 ## Остаточные Риски
 
 - Ответ `1` по `BAQ-001.2` — первому вопросу короткого BMC-интервью по B1, сегментам пользователей — получен в чате, но намеренно не применен к продуктовым документам до завершения оставшихся вопросов BMC-интервью или текущего раунда интервью. Это частный случай общего правила: любые опросы и вопросы по любым артефактам сначала задаются пакетом, а правки выполняются после сбора ответов.

@@ -32,6 +32,10 @@ FORBIDDEN_PART_MARKERS = (
 )
 FORBIDDEN_TARGET_PATTERN = re.compile(r"^(?:file|https?)://", re.IGNORECASE)
 LOCAL_POINTER_PATTERN = re.compile(r"(?:/Users/|file://|https?://)[^\"'<>\\s]+")
+CELL_REF_PATTERN = re.compile(r"^([A-Z]+)([1-9][0-9]*)$")
+XML_START_TAG_PATTERN = re.compile(r"<([A-Za-z_][\w.-]*)(?:\s[^>]*)?>")
+XMLNS_PREFIX_PATTERN = re.compile(r"\sxmlns:([A-Za-z_][\w.-]*)=")
+IGNORABLE_PATTERN = re.compile(r"\s(?:[A-Za-z_][\w.-]*:)?Ignorable=\"([^\"]+)\"")
 
 
 class ValidationError(Exception):
@@ -224,6 +228,30 @@ def assert_package_allowlist(zipped: ZipFile, label: str) -> None:
                 fail(f"{label} contains forbidden external relationship in {part}: {target}")
 
 
+def assert_markup_compatibility_prefixes(zipped: ZipFile, label: str) -> None:
+    for part in zipped.namelist():
+        if not part.endswith(".xml"):
+            continue
+        text = zipped.read(part).decode("utf-8", errors="ignore")
+        for match in XML_START_TAG_PATTERN.finditer(text):
+            tag = match.group(0)
+            ignorable_values = IGNORABLE_PATTERN.findall(tag)
+            if not ignorable_values:
+                continue
+            declared_prefixes = set(XMLNS_PREFIX_PATTERN.findall(tag))
+            referenced_prefixes = {
+                prefix
+                for value in ignorable_values
+                for prefix in value.split()
+            }
+            missing_prefixes = sorted(referenced_prefixes - declared_prefixes)
+            if missing_prefixes:
+                fail(
+                    f"{label} {part} mc:Ignorable references undeclared prefixes: "
+                    + ", ".join(missing_prefixes)
+                )
+
+
 def assert_same_bytes(raw: ZipFile, working: ZipFile, part: str) -> None:
     if raw.read(part) != working.read(part):
         fail(f"workbook invariant part changed: {part}")
@@ -232,6 +260,88 @@ def assert_same_bytes(raw: ZipFile, working: ZipFile, part: str) -> None:
 def assert_equal(label: str, actual, expected) -> None:
     if actual != expected:
         fail(f"{label}: expected {expected!r}, got {actual!r}")
+
+
+def column_to_number(column: str) -> int:
+    result = 0
+    for char in column:
+        result = result * 26 + ord(char) - ord("A") + 1
+    return result
+
+
+def number_to_column(number: int) -> str:
+    result = ""
+    while number:
+        number, remainder = divmod(number - 1, 26)
+        result = chr(ord("A") + remainder) + result
+    return result
+
+
+def split_cell_ref(ref: str) -> tuple[str, int]:
+    match = CELL_REF_PATTERN.match(ref)
+    if not match:
+        fail(f"invalid cell reference in XLSX formula range: {ref}")
+    column, row = match.groups()
+    return column, int(row)
+
+
+def expand_cell_range(ref: str) -> list[str]:
+    if ":" not in ref:
+        return [ref]
+    start, end = ref.split(":", 1)
+    start_column, start_row = split_cell_ref(start)
+    end_column, end_row = split_cell_ref(end)
+    result: list[str] = []
+    for column_number in range(column_to_number(start_column), column_to_number(end_column) + 1):
+        column = number_to_column(column_number)
+        for row in range(start_row, end_row + 1):
+            result.append(f"{column}{row}")
+    return result
+
+
+def assert_shared_formula_membership(sheet: ET.Element) -> None:
+    formulas_by_ref: dict[str, ET.Element] = {}
+    shared_master_ranges: dict[str, tuple[str, set[str]]] = {}
+
+    for cell in sheet.findall(".//m:c", NS):
+        ref = cell.attrib.get("r")
+        formula = cell.find("m:f", NS)
+        if ref and formula is not None:
+            formulas_by_ref[ref] = formula
+
+    for ref, formula in formulas_by_ref.items():
+        if formula.attrib.get("t") != "shared":
+            continue
+        si = formula.attrib.get("si")
+        if not si:
+            fail(f"shared formula has no si at {ref}")
+        formula_ref = formula.attrib.get("ref")
+        if formula_ref:
+            if si in shared_master_ranges:
+                previous_ref, _ = shared_master_ranges[si]
+                fail(f"duplicate shared formula master for si={si}: {previous_ref} and {ref}")
+            shared_master_ranges[si] = (ref, set(expand_cell_range(formula_ref)))
+
+    for ref, formula in formulas_by_ref.items():
+        if formula.attrib.get("t") == "shared":
+            si = formula.attrib.get("si")
+            if si not in shared_master_ranges:
+                fail(f"shared formula member {ref} references missing master si={si}")
+
+    for si, (master_ref, expected_refs) in shared_master_ranges.items():
+        invalid_members: list[str] = []
+        missing_members: list[str] = []
+        for ref in sorted(expected_refs, key=lambda cell_ref: (split_cell_ref(cell_ref)[1], split_cell_ref(cell_ref)[0])):
+            formula = formulas_by_ref.get(ref)
+            if formula is None:
+                missing_members.append(ref)
+                continue
+            if formula.attrib.get("t") != "shared" or formula.attrib.get("si") != si:
+                invalid_members.append(ref)
+        if missing_members:
+            fail(f"shared formula si={si} range from {master_ref} has missing members: {', '.join(missing_members)}")
+        if invalid_members:
+            fail(f"shared formula si={si} range from {master_ref} has non-member cells: {', '.join(invalid_members)}")
 
 
 def assert_decimal(label: str, actual: str | None, expected) -> None:
@@ -251,11 +361,37 @@ def assert_cell_decimal(sheet: ET.Element, shared: list[str], ref: str, expected
     assert_decimal(ref, actual, expected)
 
 
+def parse_markdown_story_catalog(path: Path) -> dict[str, dict[str, str]]:
+    if not path.exists():
+        fail(f"required story catalog is missing: {relpath(path)}")
+    result: dict[str, dict[str, str]] = {}
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line.startswith("| DC-ST-"):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 5:
+            fail(f"story catalog row must have 5 columns: {line}")
+        story_id, functional_zone, priority, story_text, business_value = cells
+        if story_id in result:
+            fail(f"duplicate story catalog row: {story_id}")
+        result[story_id] = {
+            "functional_zone": functional_zone,
+            "priority": priority,
+            "story_text": story_text,
+            "business_value": business_value,
+        }
+    if not result:
+        fail(f"story catalog has no DC-ST rows: {relpath(path)}")
+    return result
+
+
 def validate_pair(
     raw_path: Path,
     working_path: Path,
     expectations_path: Path,
     provenance_path: Path,
+    story_catalog_path: Path,
     *,
     check_working_hash: bool = True,
 ) -> None:
@@ -282,6 +418,8 @@ def validate_pair(
         assert_equal("XLSX package parts", sorted(working_parts), sorted(raw_parts))
         assert_package_allowlist(raw, "raw workbook")
         assert_package_allowlist(working, "working workbook")
+        assert_markup_compatibility_prefixes(raw, "raw workbook")
+        assert_markup_compatibility_prefixes(working, "working workbook")
 
         new_pointers = workbook_text_pointers(working) - workbook_text_pointers(raw)
         if new_pointers:
@@ -301,6 +439,10 @@ def validate_pair(
         working_workbook = read_xml(working, "xl/workbook.xml")
         raw_shared = load_shared_strings(raw)
         working_shared = load_shared_strings(working)
+        story_catalog_rows = parse_markdown_story_catalog(story_catalog_path)
+
+        assert_shared_formula_membership(raw_sheet)
+        assert_shared_formula_membership(working_sheet)
 
         assert_equal("raw dimension", raw_sheet.find("m:dimension", NS).attrib["ref"], expectations["raw_dimension"])
         assert_equal("working dimension", working_sheet.find("m:dimension", NS).attrib["ref"], expectations["working_dimension"])
@@ -404,11 +546,26 @@ def validate_pair(
             fail("C1 multiplier is missing or zero")
 
         provenance_rows = {item["story_id"]: item for item in provenance["rows"]}
+        for expected_source_row in expectations.get("source_rows", []):
+            story_id = expected_source_row["story_id"]
+            row_number = expected_source_row["row"]
+            expected_priority = expected_source_row["priority"]
+            assert_cell_text(working_sheet, working_shared, f"F{row_number}", expected_priority)
+            if story_id not in story_catalog_rows:
+                fail(f"story catalog row is missing: {story_id}")
+            assert_equal(
+                f"{story_id} story catalog priority",
+                story_catalog_rows[story_id]["priority"],
+                expected_priority,
+            )
+
         for expected_row in expectations["new_rows"]:
             row_number = expected_row["row"]
             story_id = expected_row["story_id"]
             if story_id not in provenance_rows:
                 fail(f"provenance row is missing: {story_id}")
+            if story_id not in story_catalog_rows:
+                fail(f"story catalog row is missing: {story_id}")
             assert_equal(
                 f"{story_id} approval status",
                 provenance_rows[story_id]["approval_status"],
@@ -446,6 +603,23 @@ def validate_pair(
             assert_cell_text(working_sheet, working_shared, f"G{row_number}", expected_row.get("period", "2026-Q3"))
             if "functional_zone" in expected_row:
                 assert_cell_text(working_sheet, working_shared, f"D{row_number}", expected_row["functional_zone"])
+            if "story_text" in expected_row:
+                assert_cell_text(working_sheet, working_shared, f"C{row_number}", expected_row["story_text"])
+            if "business_value" in expected_row:
+                assert_cell_text(working_sheet, working_shared, f"E{row_number}", expected_row["business_value"])
+            story_catalog_row = story_catalog_rows[story_id]
+            for field, expected_key in (
+                ("functional_zone", "functional_zone"),
+                ("priority", "priority"),
+                ("story_text", "story_text"),
+                ("business_value", "business_value"),
+            ):
+                if expected_key in expected_row:
+                    assert_equal(
+                        f"{story_id} story catalog {field}",
+                        story_catalog_row[field],
+                        str(expected_row[expected_key]),
+                    )
             expected_comments_text = expected_row.get("comments_contains")
             if expected_comments_text:
                 comments_text = cell_value(cell_by_ref(working_sheet, f"D{row_number}"), working_shared) or ""
@@ -498,6 +672,18 @@ def run_self_tests(raw_path: Path, working_path: Path, expectations_path: Path, 
         "broken-pane": {"xl/worksheets/sheet1.xml": ('topLeftCell="C12"', 'topLeftCell="C11"')},
         "broken-filter": {"xl/worksheets/sheet1.xml": ('ref="B3:U32"', 'ref="B3:U31"')},
         "broken-shared-formula-range": {"xl/worksheets/sheet1.xml": ('ref="H5:H32"', 'ref="H5:H31"')},
+        "broken-shared-formula-member": {
+            "xl/worksheets/sheet1.xml": (
+                'r="H30" s="11"><f t="shared" si="2" /><v>26</v>',
+                'r="H30" s="11"><f>SUM(I30:U30)*$C$1</f><v>26</v>',
+            )
+        },
+        "broken-ignorable-prefix": {
+            "xl/worksheets/sheet1.xml": (
+                'xmlns:xr="http://schemas.microsoft.com/office/spreadsheetml/2014/revision"',
+                'xmlns:ns2="http://schemas.microsoft.com/office/spreadsheetml/2014/revision"',
+            )
+        },
         "stale-comment-restored": {"xl/comments1.xml": ("</commentList>", '<comment ref="H26" authorId="1" shapeId="0"><text><r><t>stale</t></r></text></comment></commentList>')},
         "broken-estimate": {
             "xl/worksheets/sheet1.xml": (
@@ -512,7 +698,7 @@ def run_self_tests(raw_path: Path, working_path: Path, expectations_path: Path, 
             mutant = tmp_path / f"{scenario_id}.xlsx"
             rewrite_zip(working_path, mutant, replacements)
             try:
-                validate_pair(raw_path, mutant, expectations_path, provenance_path, check_working_hash=False)
+                validate_pair(raw_path, mutant, expectations_path, provenance_path, ROOT / "docs/product/requirements/user-stories.md", check_working_hash=False)
             except ValidationError:
                 continue
             fail(f"self-test scenario did not fail as expected: {scenario_id}")
@@ -522,10 +708,35 @@ def run_self_tests(raw_path: Path, working_path: Path, expectations_path: Path, 
         broken_provenance_path = tmp_path / "broken-selected-value.provenance.json"
         broken_provenance_path.write_text(json.dumps(broken_provenance, ensure_ascii=False, indent=2), encoding="utf-8")
         try:
-            validate_pair(raw_path, working_path, expectations_path, broken_provenance_path)
+            validate_pair(raw_path, working_path, expectations_path, broken_provenance_path, ROOT / "docs/product/requirements/user-stories.md")
+        except ValidationError:
+            pass
+        else:
+            fail("self-test scenario did not fail as expected: broken-selected-provenance-value")
+
+        broken_story_catalog = (ROOT / "docs/product/requirements/user-stories.md").read_text(encoding="utf-8").replace(
+            "| DC-ST-27 | Статусы обработки | P1 |",
+            "| DC-ST-27 | Статусы обработки | P1 | Искаженная формулировка. ",
+            1,
+        )
+        broken_story_catalog_path = tmp_path / "broken-user-stories.md"
+        broken_story_catalog_path.write_text(broken_story_catalog, encoding="utf-8")
+        try:
+            validate_pair(raw_path, working_path, expectations_path, provenance_path, broken_story_catalog_path)
+        except ValidationError:
+            pass
+        else:
+            fail("self-test scenario did not fail as expected: broken-story-catalog")
+
+        broken_expectations = load_json(expectations_path)
+        broken_expectations["new_rows"][4]["story_text"] = "Искаженная формулировка."
+        broken_expectations_path = tmp_path / "broken-expectations.json"
+        broken_expectations_path.write_text(json.dumps(broken_expectations, ensure_ascii=False, indent=2), encoding="utf-8")
+        try:
+            validate_pair(raw_path, working_path, broken_expectations_path, provenance_path, ROOT / "docs/product/requirements/user-stories.md", check_working_hash=False)
         except ValidationError:
             return
-        fail("self-test scenario did not fail as expected: broken-selected-provenance-value")
+        fail("self-test scenario did not fail as expected: broken-story-catalog")
 
 
 def main() -> int:
@@ -534,6 +745,7 @@ def main() -> int:
     parser.add_argument("--working", default="docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx")
     parser.add_argument("--expectations", default="tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json")
     parser.add_argument("--provenance", default="docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json")
+    parser.add_argument("--story-catalog", default="docs/product/requirements/user-stories.md")
     parser.add_argument("--self-test", action="store_true", help="Run negative mutation checks in a temporary directory.")
     args = parser.parse_args()
 
@@ -541,9 +753,10 @@ def main() -> int:
     working_path = ROOT / args.working
     expectations_path = ROOT / args.expectations
     provenance_path = ROOT / args.provenance
+    story_catalog_path = ROOT / args.story_catalog
 
     try:
-        validate_pair(raw_path, working_path, expectations_path, provenance_path)
+        validate_pair(raw_path, working_path, expectations_path, provenance_path, story_catalog_path)
         if args.self_test:
             run_self_tests(raw_path, working_path, expectations_path, provenance_path)
     except ValidationError as error:

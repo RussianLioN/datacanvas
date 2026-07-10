@@ -11,7 +11,8 @@
       "artifact_role": "working_xlsx",
       "change_kind": "changed",
       "change_classes": [
-        "estimate_evidence"
+        "estimate_evidence",
+        "semantic_product_change"
       ]
     },
     {
@@ -26,10 +27,12 @@
   ],
   "change_classes": [
     "estimate_evidence",
+    "semantic_product_change",
     "source_provenance_change"
   ],
   "downstream_seed_paths": [
     "docs/process/guides/datacanvas-excel-backlog-sync.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
     "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
     "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
