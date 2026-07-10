@@ -14,22 +14,22 @@
 
 ## Текущий Порядок Доверия
 
-1. Принятые решения Product Owner и accepted `CO-*`.
-2. Текущее видение продукта.
+1. Текущее видение продукта.
+2. Принятые решения Product Owner и accepted `CO-*` - утвержденные заявки на продуктовые изменения.
 3. Принятый BMC и каталог пользовательских историй.
-4. Требования, критерии приемки и traceability.
-5. BA/SA analysis и specs.
-6. Evidence, журналы, generated artifacts и исторические snapshots.
+4. Требования, критерии приемки и traceability - трассировка.
+5. BA/SA analysis - бизнес-анализ и системный анализ - и specs - спецификации.
+6. Evidence - доказательства, журналы, generated artifacts - автоматически созданные артефакты - и исторические snapshots - снимки.
 
 ## Основные Источники
 
 - [Текущее видение](../../product-vision.md) - действующий обзорный источник продуктового смысла.
+- [Change Orders](../change-orders/README.md) - принятые и обсуждаемые изменения продукта.
 - [Snapshot Vision v0.1](../vision/vision-v0.1.md) - историческая версия для сравнения.
 - [Каталог пользовательских историй](../requirements/user-stories.md) - канонический каталог пользовательских историй.
 - [BMC](../bmc/README.md) - бизнесовая модель и локальный контур трассировки BMC.
-- [Change Orders](../change-orders/README.md) - принятые и обсуждаемые изменения продукта.
-- [Требования](../requirements/README.md) - формализованный downstream-слой.
-- [Бизнес-анализ](../analysis/README.md) - claims, business rules, deltas и открытые решения.
+- [Требования](../requirements/README.md) - зависимый формализованный слой.
+- [Бизнес-анализ](../analysis/README.md) - утверждения, бизнес-правила, изменения требований и открытые решения.
 - [System analysis](../../architecture/system-analysis/README.md) - системные сценарии, состояния и ошибки.
 - [Specs](../specs/README.md) - контекст для реализации и проверок.
 

@@ -1,31 +1,36 @@
-# Product Change Orders DataCanvas
+# CO - Заявки На Продуктовые Изменения DataCanvas
 
-Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / Product Change Orders
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / CO
 
-Статус: draft
+Статус: active
 Владелец: Product Owner
 Проверка: `npm run validate:product-change-orders`
 
 ## Назначение
 
-`CO-*` фиксирует продуктовые изменения приоритета, scope и системного поведения. Процессные изменения остаются в `PROC-*`.
+`CO-*` - change order, заявка на продуктовое изменение. Такой документ фиксирует изменение приоритета, границы продукта или системного поведения DataCanvas. Процессные изменения остаются в `PROC-*` - change request для процесса.
 
 ## Правило
 
-Product Change Order должен содержать source, reason, `priority_before`, `priority_after`, affected users, affected artifacts, affected requirements, affected ports/adapters, ADR impact, Sprint impact, rollback и validation plan.
+Product Change Order должен содержать источник изменения, причину, прежний и новый приоритет, затронутых пользователей, документы, требования, технические контуры, влияние на ADR - архитектурные решения, влияние на sprint planning - планирование спринта, rollback - способ отката, и validation plan - план проверки.
 
 Если Change Order принимается через PO-опросник, состояние опросника должно сохраняться в JSON и Markdown-журнале после каждого ответа Product Owner.
 
-## Артефакты
+## Читать Человеку
 
 - [Шаблон Product Change Order](product-change-order-template.md)
 - [Протокол PO-опросника Product Change Order](product-change-questionnaire-protocol.md)
-- `product-change-order-ledger.json`
 - [CO-2026-001: приоритет запуска DataCanvas другим агентом](co-2026-001-a2a-first-priority.md)
-- `co-2026-001-a2a-first-priority.json`
 - [CO-2026-002: граница P1 и P2 для запуска DataCanvas другим агентом](co-2026-002-agent-launch-delivery-scope.md)
+- [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
+
+## Машинные Артефакты
+
+Эти файлы используются валидаторами, каскадным workflow и агентами. Они не являются первичным маршрутом чтения для стейкхолдеров.
+
+- `product-change-order-ledger.json`
+- `co-2026-001-a2a-first-priority.json`
+- `co-2026-001-acceptance-questionnaire-state.json`
 - `co-2026-002-agent-launch-delivery-scope.json`
 - `co-2026-002-agent-launch-delivery-scope-impact.json`
 - `change-impact-assessment.json`
-- [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
-- `co-2026-001-acceptance-questionnaire-state.json`

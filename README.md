@@ -8,16 +8,15 @@ DataCanvas - проект AI-агента, который формирует к�
 |---|---|
 | Продуктовый вход | [docs/product/README.md](docs/product/README.md) |
 | Vision - видение продукта | [docs/product-vision.md](docs/product-vision.md) |
-| Пользовательские истории | [docs/stories.md](docs/stories.md) |
-| BMC - Business Model Canvas, бизнес-модель продукта | [Markdown-источник](docs/product/bmc/bmc-v0.2.md), [trace source - источник трассировки](docs/product/bmc/bmc-trace.v0.1.json), [PlantUML - текстовая диаграмма](docs/product/bmc/source/derived/datacanvas-bmc.puml), [SVG - векторное изображение](docs/product/bmc/source/derived/datacanvas-bmc.svg), [PNG - растровое изображение](docs/product/bmc/source/derived/datacanvas-bmc.png), [PDF - документ для просмотра](docs/product/bmc/source/derived/datacanvas-bmc.pdf) |
-| Business requirements - бизнес-требования | [docs/product/requirements/business-requirements.md](docs/product/requirements/business-requirements.md) |
-| Acceptance criteria - критерии приемки | [docs/product/requirements/acceptance-criteria.md](docs/product/requirements/acceptance-criteria.md) |
-| BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](docs/product/analysis/README.md) и [docs/architecture/system-analysis/README.md](docs/architecture/system-analysis/README.md) |
-| Specs - спецификации | [docs/product/specs/README.md](docs/product/specs/README.md) |
-| Traceability - матрица связей и проверяемости | [docs/product/requirements/traceability-matrix.json](docs/product/requirements/traceability-matrix.json) |
-| Product backlog - продуктовый бэклог | [docs/product/backlog/README.md](docs/product/backlog/README.md) |
+| CO - заявки на продуктовые изменения | [docs/product/change-orders/README.md](docs/product/change-orders/README.md) |
+| BMC - Business Model Canvas, бизнес-модель продукта | [docs/product/bmc/README.md](docs/product/bmc/README.md) |
+| Пользовательские истории | [docs/product/requirements/user-stories.md](docs/product/requirements/user-stories.md) |
+| Требования и критерии приемки | [docs/product/requirements/README.md](docs/product/requirements/README.md) |
+| Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](docs/product/backlog/README.md) и [docs/product/sources/README.md](docs/product/sources/README.md) |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](docs/product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](docs/product/hypotheses/README.md) |
+| BA/SA - бизнес-анализ и системный анализ | [docs/product/analysis/README.md](docs/product/analysis/README.md) и [docs/architecture/system-analysis/README.md](docs/architecture/system-analysis/README.md) |
+| Specs - спецификации | [docs/product/specs/README.md](docs/product/specs/README.md) |
 
 ## Техническое Воплощение Ведения Проектной Документации
 
