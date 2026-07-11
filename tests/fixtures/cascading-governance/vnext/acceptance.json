@@ -1,0 +1,16 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-acceptance-vnext.schema.json",
+  "version": "1.0.0",
+  "acceptance_id": "CAR-CASCADE-001",
+  "status": "accepted",
+  "owner_identity": "product-owner",
+  "owner_role": "Product Owner",
+  "run_id": "CUR-2026-07-11-001",
+  "run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
+  "change_request_id": "DCR-2026-07-11-001",
+  "decision_id": "DEC-CASCADE-001",
+  "question_packet_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/owner-question-packet.json",
+  "question_packet_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+  "selected_option_id": "OPT-CASCADE-EVIDENCE",
+  "accepted_at": "2026-07-11T12:00:00+03:00"
+}

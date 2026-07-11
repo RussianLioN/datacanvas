@@ -1,0 +1,27 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-owner-question-packet.schema.json",
+  "version": "1.0.0",
+  "packet_id": "QPK-CASCADE-001",
+  "decision_id": "DEC-CASCADE-001",
+  "owner_role": "Product Owner",
+  "question": "Как согласовать выявленное расхождение с видением продукта?",
+  "source_excerpts": [
+    {
+      "path": "docs/product-vision.md",
+      "excerpt": "DataCanvas формирует презентацию по подготовленному контексту.",
+      "excerpt_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+    }
+  ],
+  "affected_artifacts": [
+    { "path": "docs/product/requirements/user-stories.md", "sha256": "3333333333333333333333333333333333333333333333333333333333333333" }
+  ],
+  "options": [
+    { "option_id": "OPT-CASCADE-ACCEPT", "text": "Принять предложенное изменение полностью.", "consequences": "Авторитетный источник и зависимые документы будут обновлены." },
+    { "option_id": "OPT-CASCADE-REJECT", "text": "Отклонить предложенное изменение.", "consequences": "Производный документ будет приведен к текущему источнику истины." },
+    { "option_id": "OPT-CASCADE-PARTIAL", "text": "Принять изменение частично.", "consequences": "Будет сформирован новый уточненный пакет формулировок." },
+    { "option_id": "OPT-CASCADE-DEFER", "text": "Отложить решение.", "consequences": "Каскад останется заблокированным без смысловых правок." },
+    { "option_id": "OPT-CASCADE-EVIDENCE", "text": "Запросить дополнительные сведения.", "consequences": "Будет подготовлен дополнительный анализ без изменения документов." }
+  ],
+  "recommended_option_id": "OPT-CASCADE-EVIDENCE",
+  "packet_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+}

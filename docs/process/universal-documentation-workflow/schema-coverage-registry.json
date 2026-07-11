@@ -215,6 +215,87 @@
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Неполный набор путей, несуществующая опция решения, неподтвержденная acceptance record и no-change без структурированного обоснования отклоняются финализатором и npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_vnext_source_identity",
+      "schema_path": "schemas/cascade-source-identity.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/source-identity.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/source-identity.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неизвестные, неоднозначные и не связанные с реестром источники отклоняются npm run validate:cascade-vnext до записи запуска."
+    },
+    {
+      "entity": "cascade_vnext_actual_diff",
+      "schema_path": "schemas/cascade-actual-diff-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Лишние пути и неподтвержденный Git-диапазон блокируются исполняемыми vNext-сценариями."
+    },
+    {
+      "entity": "cascade_vnext_validation_manifest",
+      "schema_path": "schemas/cascade-validation-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неизвестные команды и расхождение planned/executed/evidenced отклоняются npm run validate:cascade-vnext."
+    },
+    {
+      "entity": "cascade_vnext_runtime_manifest",
+      "schema_path": "schemas/cascade-runtime-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Несовпадение runtime и lockfile проверяется перед окончательным завершением каскада."
+    },
+    {
+      "entity": "cascade_vnext_owner_question_packet",
+      "schema_path": "schemas/cascade-owner-question-packet.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Пакет без пяти готовых вариантов, цитат и хэшей отклоняется schema gate."
+    },
+    {
+      "entity": "cascade_vnext_acceptance",
+      "schema_path": "schemas/cascade-acceptance-vnext.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Acceptance без точного пакета вопроса, роли, запуска и выбранного варианта не соответствует vNext-схеме."
+    },
+    {
+      "entity": "cascade_vnext_run",
+      "schema_path": "schemas/cascade-vnext-run.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/run.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/run.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Запрещенные переходы состояния и преждевременный done_claimed проверяются npm run validate:cascade-vnext."
+    },
+    {
+      "entity": "cascade_vnext_completion_seal",
+      "schema_path": "schemas/cascade-completion-seal.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Окончательный verified допускается только для отдельной печати cascade:complete."
+    },
+    {
+      "entity": "cascade_vnext_supersession_ledger",
+      "schema_path": "schemas/cascade-supersession-ledger.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Исторические доказательства не меняются на месте; замещение фиксируется отдельной append-only записью."
     }
   ]
 }

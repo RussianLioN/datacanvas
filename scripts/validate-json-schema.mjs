@@ -333,6 +333,42 @@ const cases = [
     data: "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
   },
   {
+    schema: "schemas/cascade-source-identity.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/source-identity.json",
+  },
+  {
+    schema: "schemas/cascade-actual-diff-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-validation-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-runtime-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-owner-question-packet.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+  },
+  {
+    schema: "schemas/cascade-acceptance-vnext.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/acceptance.json",
+  },
+  {
+    schema: "schemas/cascade-vnext-run.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/run.json",
+  },
+  {
+    schema: "schemas/cascade-completion-seal.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+  },
+  {
+    schema: "schemas/cascade-supersession-ledger.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+  },
+  {
     schema: "schemas/capacity-plan.schema.json",
     data: "docs/process/cascading-governance/capacity-plan-2026-q3.json",
   },
