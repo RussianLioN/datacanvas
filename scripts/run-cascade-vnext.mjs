@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { execFileSync } from "node:child_process";
@@ -55,6 +56,91 @@ function run(command, args) {
   }).trim();
 }
 
+function gitFileAt(commitSha, relativePath) {
+  try {
+    return execFileSync("git", ["show", commitSha + ":" + relativePath], {
+      cwd: root,
+      encoding: null,
+      timeout: 30_000,
+      maxBuffer: 64 * 1024 * 1024,
+      env: { PATH: process.env.PATH, HOME: process.env.HOME },
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+  } catch {
+    return null;
+  }
+}
+
+function sha256Buffer(value) {
+  return value ? crypto.createHash("sha256").update(value).digest("hex") : null;
+}
+
+function syntheticWorkbookAnalysis(kind) {
+  const signals = {
+    noChange: false,
+    formattingChanged: true,
+    formulaCacheOnly: false,
+    estimateChanged: true,
+    priorityChanged: true,
+    storyTextChanged: true,
+    rowAddedOrRemoved: true,
+    scopeChanged: true,
+  };
+  return {
+    analyzer_version: "1.0.0",
+    signals,
+    changed_cell_count: 0,
+    changed_cell_samples: [],
+    structural_changes: [kind],
+  };
+}
+
+function analyzeXlsxSources(paths, baseSha, planningHeadSha) {
+  if (paths.length === 0) return [];
+  const analyzerPath = "scripts/classify-datacanvas-xlsx-change.py";
+  return paths.map((relativePath, index) => {
+    const before = gitFileAt(baseSha, relativePath);
+    const after = gitFileAt(planningHeadSha, relativePath);
+    let analysis;
+    if (!before || !after) {
+      analysis = syntheticWorkbookAnalysis(before ? "workbook_deleted" : "workbook_added");
+    } else {
+      const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-xlsx-diff-"));
+      try {
+        const beforePath = path.join(tempRoot, "before-" + index + ".xlsx");
+        const afterPath = path.join(tempRoot, "after-" + index + ".xlsx");
+        fs.writeFileSync(beforePath, before);
+        fs.writeFileSync(afterPath, after);
+        const output = execFileSync("python3", [absoluteRepoPath(root, analyzerPath), "--before", beforePath, "--after", afterPath], {
+          cwd: root,
+          encoding: "utf8",
+          timeout: 120_000,
+          maxBuffer: 4 * 1024 * 1024,
+          env: { PATH: process.env.PATH, HOME: process.env.HOME, LANG: process.env.LANG ?? "C.UTF-8" },
+          stdio: ["ignore", "pipe", "pipe"],
+        });
+        analysis = JSON.parse(output);
+      } finally {
+        fs.rmSync(tempRoot, { recursive: true, force: true });
+      }
+    }
+    const changeClasses = classifyXlsxChangeSignals(analysis.signals);
+    if (changeClasses.includes("no_change")) {
+      fail("triggered XLSX has no content delta in the declared Git range: " + relativePath);
+    }
+    return {
+      path: relativePath,
+      before_sha256: sha256Buffer(before),
+      after_sha256: sha256Buffer(after),
+      signals: analysis.signals,
+      change_classes: changeClasses,
+      changed_cell_count: analysis.changed_cell_count,
+      changed_cell_samples: analysis.changed_cell_samples,
+      structural_changes: analysis.structural_changes,
+    };
+  });
+}
+
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(absoluteRepoPath(root, relativePath), "utf8"));
 }
@@ -82,29 +168,18 @@ function sourceKind(relativePath) {
   return "generated";
 }
 
-function authorityScope(artifact) {
-  const byLayer = {
-    Vision: ["product_meaning", "scope_change"],
-    BMC: ["business_model"],
-    stories: ["story_text_change"],
-    "business requirements": ["business_requirement"],
-    NFR: ["non_functional_requirement"],
-    "acceptance criteria": ["acceptance_meaning"],
-    "product backlog": ["priority_change", "scope_change"],
-    roadmap: ["roadmap_meaning"],
-  };
-  return byLayer[artifact.layer] ?? [];
-}
-
-function enrichGraph(graph) {
-  return {
-    ...graph,
-    artifacts: graph.artifacts.map((artifact) => ({ ...artifact, authority_scope: authorityScope(artifact) })),
-    dependencies: graph.dependencies.map((edge, index) => ({
-      ...edge,
-      edge_id: `EDGE-${String(index + 1).padStart(4, "0")}`,
-    })),
-  };
+function documentChangeClasses(graphArtifact, kind, semanticChange) {
+  if (kind === "provenance") return ["provenance_only"];
+  if (kind === "source_registry") return ["source_identity"];
+  if (!semanticChange || ["generated", "process"].includes(kind)) return ["documentation"];
+  const aliases = new Map([
+    ["effort_estimate", "estimate_change"],
+    ["provenance", "provenance_only"],
+  ]);
+  const declared = (graphArtifact?.authority_scope ?? [])
+    .filter((value) => value !== "source_data")
+    .map((value) => aliases.get(value) ?? value);
+  return [...new Set(declared.length > 0 ? declared : ["product_meaning"])].sort();
 }
 
 function excerptFor(relativePath, fallback) {
@@ -164,7 +239,9 @@ async function main() {
   const explicitSourceIds = argValues("--source-id");
   const explicitTriggers = argValues("--trigger-path").map(normalizeRepoPath);
   const registryDeltaPath = argValue("--source-registry-delta");
-  const xlsxSignalsPath = argValue("--xlsx-change-signals");
+  if (process.argv.includes("--xlsx-change-signals")) {
+    fail("manual XLSX change signals are not accepted; the classifier reads the declared Git range");
+  }
   if (!changeRequestPath || !outputDir) fail("usage: npm run cascade:run -- --change-request <path> --output-dir <fresh-run-dir> --base-sha <sha> [--trigger-path <path>] [--source-id <id>]");
   if (run("git", ["merge-base", "--is-ancestor", baseSha, planningHeadSha]) !== "") {
     // git merge-base --is-ancestor succeeds without output.
@@ -173,7 +250,8 @@ async function main() {
 
   const changeRequest = readJson(changeRequestPath);
   validateDocument(changeRequest, "schemas/documentation-change-request.schema.json");
-  const graph = enrichGraph(readJson(graphPath));
+  const graph = readJson(graphPath);
+  validateDocument(graph, "schemas/artifact-dependency-graph.schema.json");
   const sourceRegistry = readJson(sourceRegistryPath);
   const validationCatalog = readJson(validationCatalogPath);
   const registryDelta = registryDeltaPath ? readJson(normalizeRepoPath(registryDeltaPath)) : null;
@@ -197,24 +275,42 @@ async function main() {
     ? identities.flatMap((identity) => [identity.source_path, identity.provenance_path].filter(Boolean))
     : initialTriggers;
   const graphPaths = new Set(graph.artifacts.map((artifact) => artifact.path));
+  const graphArtifacts = new Map(graph.artifacts.map((artifact) => [artifact.path, artifact]));
   const uncovered = resolvedTriggers.filter((candidate) => !graphPaths.has(candidate));
   if (uncovered.length > 0) fail(`uncovered changed paths: ${uncovered.join(", ")}`);
 
-  const xlsxSignals = xlsxSignalsPath ? readJson(normalizeRepoPath(xlsxSignalsPath)) : null;
+  const xlsxPaths = resolvedTriggers.filter((triggerPath) => sourceKind(triggerPath) === "xlsx");
+  const xlsxAnalyses = analyzeXlsxSources(xlsxPaths, baseSha, planningHeadSha);
+  const xlsxAnalysisByPath = new Map(xlsxAnalyses.map((entry) => [entry.path, entry]));
   const changedSources = resolvedTriggers.map((triggerPath) => {
     const kind = sourceKind(triggerPath);
     const changeClasses = kind === "xlsx"
-      ? classifyXlsxChangeSignals(xlsxSignals ?? {})
-      : kind === "provenance"
-        ? ["provenance_only"]
-        : changeRequest.semantic_change
-          ? ["product_meaning"]
-          : ["documentation"];
+      ? xlsxAnalysisByPath.get(triggerPath).change_classes
+      : documentChangeClasses(graphArtifacts.get(triggerPath), kind, changeRequest.semantic_change);
     return { path: triggerPath, source_kind: kind, change_classes: changeClasses };
   });
   const semanticImpact = analyzeSemanticCascade(graph, changedSources);
+  validateDocument(semanticImpact, "schemas/cascade-semantic-impact-report.schema.json");
+  const ownerDecisionClasses = new Set([
+    "acceptance_meaning",
+    "business_model",
+    "business_requirement",
+    "capacity",
+    "change_order",
+    "hypothesis",
+    "mixed_or_ambiguous",
+    "non_functional_requirement",
+    "priority_change",
+    "product_goal",
+    "product_meaning",
+    "roadmap_meaning",
+    "row_add_remove",
+    "scope_change",
+    "source_identity",
+    "story_text_change",
+  ]);
   const ownerRequired = semanticImpact.authoritative_review_paths.length > 0
-    || changedSources.some((source) => source.change_classes.some((value) => ["mixed_or_ambiguous", "priority_change", "story_text_change", "scope_change", "product_meaning"].includes(value)));
+    || changedSources.some((source) => source.change_classes.some((value) => ownerDecisionClasses.has(value)));
   const routeCommands = [...new Set(semanticImpact.route_evidence.map((route) => route.validation_command).filter(Boolean))];
   const scopes = ["change_instance", "cascade", "security"];
   if (changedSources.some((source) => source.source_kind === "xlsx" || source.source_kind === "provenance")) scopes.push("analysis_source", "xlsx_backlog", "effort_estimation");
@@ -223,6 +319,16 @@ async function main() {
   validationManifest.$schema = "https://datacanvas.local/schemas/v1/cascade-validation-manifest.schema.json";
   const runtimeManifest = buildRuntimeManifest(root);
   const suffix = changeRequest.change_request_id.replace(/^DCR-/u, "");
+  const sourceChangeAnalysis = xlsxAnalyses.length > 0 ? {
+    $schema: "https://datacanvas.local/schemas/v1/cascade-source-change-analysis.schema.json",
+    version: "1.0.0",
+    analysis_id: "CSCA-" + suffix,
+    base_sha: baseSha,
+    planning_head_sha: planningHeadSha,
+    analyzer_path: "scripts/classify-datacanvas-xlsx-change.py",
+    analyzer_sha256: hashRepoPath(root, "scripts/classify-datacanvas-xlsx-change.py"),
+    sources: xlsxAnalyses,
+  } : null;
   const runId = `CUR-${suffix}`;
   const attemptId = argValue("--attempt-id", `ATTEMPT-${path.posix.basename(outputDir).toUpperCase().replace(/[^A-Z0-9]+/gu, "-")}`);
   const timestamp = new Date().toISOString();
@@ -251,6 +357,7 @@ async function main() {
   const fileNames = {
     run: "cascade-vnext-run.json",
     source: "source-identity.json",
+    sourceAnalysis: sourceChangeAnalysis ? "source-change-analysis.json" : null,
     impact: "semantic-impact-report.json",
     validation: "validation-manifest.json",
     runtime: "runtime-manifest.json",
@@ -269,6 +376,7 @@ async function main() {
     planning_head_sha: planningHeadSha,
     candidate_head_sha: null,
     source_identity_manifest_path: `${outputDir}/${fileNames.source}`,
+    source_change_analysis_path: sourceChangeAnalysis ? `${outputDir}/${fileNames.sourceAnalysis}` : null,
     impact_report_path: `${outputDir}/${fileNames.impact}`,
     diff_manifest_path: null,
     validation_manifest_path: `${outputDir}/${fileNames.validation}`,
@@ -283,6 +391,7 @@ async function main() {
     completion_claim: { done_claimed: false },
   };
   validateDocument(sourceIdentityManifest, "schemas/cascade-source-identity.schema.json");
+  if (sourceChangeAnalysis) validateDocument(sourceChangeAnalysis, "schemas/cascade-source-change-analysis.schema.json");
   validateDocument(validationManifest, "schemas/cascade-validation-manifest.schema.json");
   validateDocument(runtimeManifest, "schemas/cascade-runtime-manifest.schema.json");
   if (ownerQuestion) validateDocument(ownerQuestion, "schemas/cascade-owner-question-packet.schema.json");
@@ -295,6 +404,7 @@ async function main() {
     [fileNames.validation, `${JSON.stringify(validationManifest, null, 2)}\n`],
     [fileNames.runtime, `${JSON.stringify(runtimeManifest, null, 2)}\n`],
   ]);
+  if (sourceChangeAnalysis) files.set(fileNames.sourceAnalysis, `${JSON.stringify(sourceChangeAnalysis, null, 2)}\n`);
   if (ownerQuestion) files.set(fileNames.question, `${JSON.stringify(ownerQuestion, null, 2)}\n`);
   publishAtomicPackage({ targetDir: absoluteRepoPath(root, outputDir), attemptId, files });
   console.log(`cascade vNext planned: ${outputDir}`);

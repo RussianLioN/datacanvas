@@ -337,6 +337,14 @@ const cases = [
     data: "tests/fixtures/cascading-governance/vnext/source-identity.json",
   },
   {
+    schema: "schemas/cascade-source-change-analysis.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+  },
+  {
+    schema: "schemas/cascade-semantic-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+  },
+  {
     schema: "schemas/cascade-actual-diff-manifest.schema.json",
     data: "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
   },

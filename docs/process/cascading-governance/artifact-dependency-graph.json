@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "active",
   "graph_id": "ADG-2026-07-02-001",
   "artifacts": [
@@ -8,336 +8,423 @@
       "path": "docs/product-vision.md",
       "layer": "Vision",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "product_meaning",
+        "scope_change"
+      ]
     },
     {
       "artifact_id": "DGA-002",
       "path": "docs/product/vision/vision-v0.1.md",
       "layer": "Product Goal",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "product_goal"
+      ]
     },
     {
       "artifact_id": "DGA-003",
       "path": "docs/product/bmc/bmc-v0.2.md",
       "layer": "BMC",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:bmc"
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": [
+        "business_model"
+      ]
     },
     {
       "artifact_id": "DGA-004",
       "path": "docs/product/hypotheses/hypothesis-board.md",
       "layer": "hypotheses",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "hypothesis"
+      ]
     },
     {
       "artifact_id": "DGA-005",
       "path": "docs/stories.md",
       "layer": "navigation",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:business-docs"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-006",
       "path": "docs/product/requirements/user-stories.md",
       "layer": "stories",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:business-docs"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": [
+        "story_text_change"
+      ]
     },
     {
       "artifact_id": "DGA-007",
       "path": "docs/product/requirements/business-requirements.md",
       "layer": "business requirements",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": [
+        "business_requirement"
+      ]
     },
     {
       "artifact_id": "DGA-008",
       "path": "docs/product/requirements/non-functional-requirements.md",
       "layer": "NFR",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": [
+        "non_functional_requirement"
+      ]
     },
     {
       "artifact_id": "DGA-009",
       "path": "docs/product/requirements/acceptance-criteria.md",
       "layer": "acceptance criteria",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:doc-links"
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": [
+        "acceptance_meaning"
+      ]
     },
     {
       "artifact_id": "DGA-010",
       "path": "docs/product/backlog/product-backlog.md",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:backlog-registry"
+      "validation_command": "npm run validate:backlog-registry",
+      "authority_scope": [
+        "priority_change",
+        "scope_change"
+      ]
     },
     {
       "artifact_id": "DGA-011",
       "path": "docs/product/backlog/technical-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "Development Team",
-      "validation_command": "npm run validate:backlog-registry"
+      "validation_command": "npm run validate:backlog-registry",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-012",
       "path": "docs/product/backlog/eval-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "QA/Evals Lead",
-      "validation_command": "npm run validate:eval-backlog-sync"
+      "validation_command": "npm run validate:eval-backlog-sync",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-013",
       "path": "docs/process/current/process-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:process-change-ledger"
+      "validation_command": "npm run validate:process-change-ledger",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-014",
       "path": "docs/product/roadmap/roadmap-v0.1.md",
       "layer": "roadmap",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "roadmap_meaning"
+      ]
     },
     {
       "artifact_id": "DGA-015",
       "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "layer": "capacity plan",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:capacity-plan"
+      "validation_command": "npm run validate:capacity-plan",
+      "authority_scope": [
+        "capacity"
+      ]
     },
     {
       "artifact_id": "DGA-016",
       "path": "docs/sprints",
       "layer": "sprint artifacts",
       "owner_role": "Scrum Master",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-017",
       "path": "docs/release/mvp-release-evidence-pack.json",
       "layer": "release evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm run validate:release-pack"
+      "validation_command": "npm run validate:release-pack",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-018",
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "layer": "Jira import package",
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm run validate:jira-field-mapping"
+      "validation_command": "npm run validate:jira-field-mapping",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-019",
       "path": "docs/product/requirements/traceability-matrix.json",
       "layer": "traceability",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-020",
       "path": "docs/navigation/navigation-source.json",
       "layer": "navigation",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-021",
       "path": "docs/process/cascading-governance/documentation-change-request.json",
       "layer": "process",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:documentation-change-request"
+      "validation_command": "npm run validate:documentation-change-request",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-022",
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-change-orders"
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": [
+        "change_order"
+      ]
     },
     {
       "artifact_id": "DGA-023",
       "path": "docs/product/change-orders/change-impact-assessment.json",
       "layer": "traceability",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:change-impact"
+      "validation_command": "npm run validate:change-impact",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-024",
       "path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "layer": "analysis source",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:xlsx-backlog"
+      "validation_command": "npm run validate:xlsx-backlog",
+      "authority_scope": [
+        "source_data"
+      ]
     },
     {
       "artifact_id": "DGA-025",
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "layer": "working backlog",
       "owner_role": "Product Owner / команда реализации",
-      "validation_command": "npm run validate:xlsx-backlog"
+      "validation_command": "npm run validate:xlsx-backlog",
+      "authority_scope": [
+        "effort_estimate",
+        "priority_change",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
       "artifact_id": "DGA-026",
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "layer": "provenance manifest",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:xlsx-backlog"
+      "validation_command": "npm run validate:xlsx-backlog",
+      "authority_scope": [
+        "provenance"
+      ]
     },
     {
       "artifact_id": "DGA-027",
       "path": "docs/product/sources/product-source-registry.json",
       "layer": "source registry",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-source-consistency"
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": [
+        "source_identity"
+      ]
     },
     {
       "artifact_id": "DGA-028",
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "layer": "evidence index",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:product-source-consistency"
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-029",
       "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
       "layer": "process",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:xlsx-cascade"
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-030",
       "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "layer": "resource estimation",
       "owner_role": "Product Owner / команда реализации",
-      "validation_command": "npm run validate:xlsx-cascade"
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-031",
       "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
       "layer": "resource estimation",
       "owner_role": "Product Owner / Scrum Master",
-      "validation_command": "npm run validate:xlsx-cascade"
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-032",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:business-docs"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-033",
       "path": "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
       "layer": "source registry",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:product-source-consistency"
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-034",
       "path": "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
       "layer": "traceability",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:doc-links"
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-035",
       "path": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
       "layer": "process",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-036",
       "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "layer": "process",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:doc-links"
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-037",
       "path": "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
       "layer": "release evidence",
       "owner_role": "QA Lead / Process Owner",
-      "validation_command": "npm run validate:doc-links"
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-038",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:business-docs"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-039",
       "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
       "layer": "process",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:impact-analysis"
+      "validation_command": "npm run validate:impact-analysis",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-040",
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
       "layer": "process",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-change-orders"
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-041",
       "path": "docs/architecture/system-analysis/sa-spec.json",
       "layer": "process",
       "owner_role": "Architect / Technical Owner",
-      "validation_command": "npm run validate:ba-sa"
+      "validation_command": "npm run validate:ba-sa",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-042",
       "path": "docs/architecture/system-analysis/srs-v0.1.json",
       "layer": "process",
       "owner_role": "Architect / Technical Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-043",
       "path": "docs/process/cascading-governance/impact-analysis-report.json",
       "layer": "process",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:impact-analysis"
+      "validation_command": "npm run validate:impact-analysis",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-044",
       "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
       "layer": "process",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-change-orders"
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-045",
       "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-change-orders"
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": [
+        "change_order"
+      ]
     },
     {
       "artifact_id": "DGA-046",
       "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
       "layer": "traceability",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:change-impact"
+      "validation_command": "npm run validate:change-impact",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-047",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "layer": "traceability",
       "owner_role": "Product Owner / Process Owner",
-      "validation_command": "npm run validate:agent-launch-requirements-analysis"
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-048",
       "path": "docs/product/requirements/business-claim-map.json",
       "layer": "traceability",
       "owner_role": "Product Owner / Documentation Owner",
-      "validation_command": "npm run validate:business-claim-map"
+      "validation_command": "npm run validate:business-claim-map",
+      "authority_scope": []
     }
   ],
   "declared_cycle_groups": [
@@ -358,6 +445,7 @@
   ],
   "dependencies": [
     {
+      "edge_id": "EDGE-0001",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/change-orders/change-impact-assessment.json",
       "relation_type": "traceability",
@@ -365,9 +453,30 @@
       "validation_command": "npm run validate:change-impact",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0002",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
@@ -375,9 +484,26 @@
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0003",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -385,9 +511,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0004",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -395,9 +538,26 @@
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0005",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
@@ -405,9 +565,26 @@
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Security/Privacy Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0006",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -415,9 +592,26 @@
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0007",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
@@ -425,9 +619,26 @@
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0008",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
@@ -435,9 +646,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0009",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -445,9 +673,30 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0010",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
@@ -455,9 +704,19 @@
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0011",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
@@ -465,9 +724,13 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0012",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
       "relation_type": "evidence",
@@ -475,9 +738,13 @@
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0013",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/vision/vision-v0.1.md",
       "relation_type": "semantic",
@@ -485,9 +752,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0014",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
       "relation_type": "semantic",
@@ -495,9 +779,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0015",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
@@ -505,9 +806,26 @@
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0016",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -515,9 +833,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0017",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -525,9 +860,26 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0018",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
@@ -535,9 +887,26 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0019",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -545,9 +914,26 @@
       "validation_command": "npm run validate:doc-links",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0020",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
@@ -555,9 +941,26 @@
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0021",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
@@ -565,9 +968,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0022",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -575,9 +995,30 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0023",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
@@ -585,9 +1026,19 @@
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0024",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "relation_type": "jira",
@@ -595,9 +1046,28 @@
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
       "user_confirmation_required": "when_jira_mapping_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0025",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
       "relation_type": "evidence",
@@ -605,9 +1075,13 @@
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0026",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
@@ -615,9 +1089,13 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0027",
       "upstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -625,9 +1103,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0028",
       "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -635,9 +1130,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0029",
       "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "relation_type": "resource",
@@ -645,9 +1157,19 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0030",
       "upstream_artifact": "docs/product/requirements/business-requirements.md",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
@@ -655,9 +1177,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / Architect",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0031",
       "upstream_artifact": "docs/product/requirements/business-requirements.md",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -665,9 +1204,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0032",
       "upstream_artifact": "docs/product/requirements/business-requirements.md",
       "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
       "relation_type": "semantic",
@@ -675,9 +1231,26 @@
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Architect / Technical Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0033",
       "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -685,9 +1258,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0034",
       "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
       "relation_type": "semantic",
@@ -695,9 +1285,26 @@
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Architect / Technical Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0035",
       "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
@@ -705,9 +1312,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0036",
       "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -715,9 +1339,30 @@
       "validation_command": "npm run validate:traceability-graph",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0037",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "relation_type": "resource",
@@ -725,9 +1370,19 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0038",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "resource",
@@ -735,9 +1390,17 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0039",
       "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
       "relation_type": "semantic",
@@ -745,9 +1408,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0040",
       "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
       "relation_type": "resource",
@@ -755,9 +1435,19 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Scrum Master",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0041",
       "upstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -765,9 +1455,30 @@
       "validation_command": "npm run validate:traceability-graph",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0042",
       "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "relation_type": "traceability",
@@ -775,9 +1486,30 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / Documentation Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0043",
       "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
       "relation_type": "evidence",
@@ -785,9 +1517,13 @@
       "validation_command": "npm run validate:impact-analysis",
       "owner_role": "Process Owner / QA Lead",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0044",
       "upstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
       "relation_type": "evidence",
@@ -795,9 +1531,13 @@
       "validation_command": "npm run validate:impact-analysis",
       "owner_role": "Process Owner / QA Lead",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0045",
       "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
@@ -805,9 +1545,26 @@
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0046",
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "relation_type": "source_provenance",
@@ -815,9 +1572,20 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0047",
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -825,9 +1593,17 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0048",
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "relation_type": "xlsx_recovery",
@@ -835,9 +1611,20 @@
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0049",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "relation_type": "source_provenance",
@@ -845,9 +1632,20 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0050",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/sources/product-source-registry.json",
       "relation_type": "registry_consistency",
@@ -855,9 +1653,20 @@
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0051",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/process/guides/datacanvas-excel-backlog-sync.md",
       "relation_type": "process",
@@ -865,9 +1674,16 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "formatting_change",
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0052",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -875,9 +1691,17 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0053",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "relation_type": "estimate_evidence",
@@ -885,9 +1709,15 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "row_add_remove"
+      ]
     },
     {
+      "edge_id": "EDGE-0054",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
       "relation_type": "resource",
@@ -895,9 +1725,17 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Scrum Master",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0055",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
       "relation_type": "estimate_evidence",
@@ -905,9 +1743,18 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0056",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "resource",
@@ -915,9 +1762,18 @@
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0057",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -925,9 +1781,16 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0058",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -935,9 +1798,16 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0059",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -945,9 +1815,18 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0060",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "relation_type": "xlsx_recovery",
@@ -955,9 +1834,20 @@
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0061",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "downstream_artifact": "docs/product/sources/product-source-registry.json",
       "relation_type": "registry_consistency",
@@ -965,9 +1855,21 @@
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
     },
     {
+      "edge_id": "EDGE-0062",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "relation_type": "estimate_evidence",
@@ -975,9 +1877,21 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
     },
     {
+      "edge_id": "EDGE-0063",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
       "relation_type": "resource",
@@ -985,9 +1899,21 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Scrum Master",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
     },
     {
+      "edge_id": "EDGE-0064",
       "upstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "relation_type": "xlsx_recovery",
@@ -995,9 +1921,23 @@
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
       "user_confirmation_required": "when_jira_mapping_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0065",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
@@ -1005,9 +1945,19 @@
       "validation_command": "npm run validate:reprioritization-impact",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0066",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
@@ -1015,9 +1965,26 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0067",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
@@ -1025,9 +1992,13 @@
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0068",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "relation_type": "jira",
@@ -1035,9 +2006,28 @@
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
       "user_confirmation_required": "when_jira_mapping_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0069",
       "upstream_artifact": "docs/process/cascading-governance/documentation-change-request.json",
       "downstream_artifact": "docs/navigation/navigation-source.json",
       "relation_type": "navigation",
@@ -1045,9 +2035,18 @@
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "change_order",
+        "documentation",
+        "mixed_or_ambiguous",
+        "product_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0070",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
       "downstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "relation_type": "traceability",
@@ -1055,9 +2054,30 @@
       "validation_command": "npm run validate:product-change-orders",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0071",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
       "relation_type": "traceability",
@@ -1065,9 +2085,30 @@
       "validation_command": "npm run validate:change-impact",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0072",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -1075,9 +2116,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0073",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "resource",
@@ -1085,9 +2143,19 @@
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0074",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
       "relation_type": "resource",
@@ -1095,9 +2163,19 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0075",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -1105,9 +2183,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0076",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -1115,9 +2210,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0077",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
@@ -1125,9 +2237,26 @@
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / Architect",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0078",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
@@ -1135,9 +2264,30 @@
       "validation_command": "npm run validate:traceability-graph",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0079",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "relation_type": "estimate_evidence",
@@ -1145,9 +2295,16 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove"
+      ]
     },
     {
+      "edge_id": "EDGE-0080",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
       "relation_type": "resource",
@@ -1155,9 +2312,19 @@
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Scrum Master",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0081",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/sources/product-source-registry.json",
       "relation_type": "registry_consistency",
@@ -1165,9 +2332,23 @@
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0082",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "traceability",
@@ -1175,9 +2356,30 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0083",
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "semantic",
@@ -1185,9 +2387,17 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0084",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "semantic",
@@ -1195,9 +2405,18 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0085",
       "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "source_provenance",
@@ -1205,9 +2424,21 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
     },
     {
+      "edge_id": "EDGE-0086",
       "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "semantic",
@@ -1215,9 +2446,26 @@
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0087",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product-vision.md",
       "relation_type": "semantic",
@@ -1225,9 +2473,26 @@
       "validation_command": "npm run validate:product-vision",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0088",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
@@ -1235,9 +2500,26 @@
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0089",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "relation_type": "estimate_evidence",
@@ -1245,9 +2527,16 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / команда реализации",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove"
+      ]
     },
     {
+      "edge_id": "EDGE-0090",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
       "relation_type": "source_provenance",
@@ -1255,9 +2544,23 @@
       "validation_command": "npm run validate:xlsx-backlog",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "never",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0091",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "relation_type": "resource",
@@ -1265,9 +2568,19 @@
       "validation_command": "npm run validate:doc-links",
       "owner_role": "Product Owner / Process Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0092",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/business-claim-map.json",
       "relation_type": "traceability",
@@ -1275,9 +2588,30 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner / Documentation Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0093",
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/business-claim-map.json",
       "relation_type": "traceability",
@@ -1285,9 +2619,30 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner / Documentation Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0094",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product-vision.md",
       "relation_type": "semantic",
@@ -1295,9 +2650,26 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0095",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
@@ -1305,9 +2677,26 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0096",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
@@ -1315,9 +2704,26 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0097",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
@@ -1325,9 +2731,26 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0098",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
@@ -1335,9 +2758,26 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner / QA Lead",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0099",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "resource",
@@ -1345,9 +2785,19 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner",
       "user_confirmation_required": "when_capacity_or_priority_changes",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0100",
       "upstream_artifact": "docs/product/requirements/business-claim-map.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "relation_type": "traceability",
@@ -1355,7 +2805,27 @@
       "validation_command": "npm run validate:business-claim-map",
       "owner_role": "Product Owner / Documentation Owner",
       "user_confirmation_required": "semantic_change",
-      "resolution_required": "changed_or_no_change_rationale"
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     }
   ],
   "high_impact_sources": [

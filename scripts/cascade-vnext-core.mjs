@@ -168,14 +168,15 @@ export function verifyAppliedResolution({
 }
 
 export function classifyXlsxChangeSignals(signals = {}) {
+  if (signals.noChange) return ["no_change"];
   const classes = [];
-  if (signals.formattingChanged) classes.push("formatting_only");
-  if (signals.formulaCacheOnly) classes.push("formula_cache_only");
-  if (signals.estimateChanged) classes.push("estimate_only");
+  if (signals.estimateChanged) classes.push("estimate_change");
   if (signals.priorityChanged) classes.push("priority_change");
   if (signals.storyTextChanged) classes.push("story_text_change");
   if (signals.rowAddedOrRemoved) classes.push("row_add_remove");
   if (signals.scopeChanged) classes.push("scope_change");
   if (signals.provenanceChanged) classes.push("provenance_only");
+  if (signals.formattingChanged) classes.push(classes.length === 0 ? "formatting_only" : "formatting_change");
+  if (signals.formulaCacheOnly && classes.length === 0) classes.push("formula_cache_only");
   return [...new Set(classes.length > 0 ? classes : ["mixed_or_ambiguous"])].sort();
 }

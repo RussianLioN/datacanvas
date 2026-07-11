@@ -11,6 +11,7 @@
   "planning_head_sha": "1111111111111111111111111111111111111111",
   "candidate_head_sha": null,
   "source_identity_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/source-identity.json",
+  "source_change_analysis_path": null,
   "impact_report_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/semantic-impact-report.json",
   "diff_manifest_path": null,
   "validation_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/validation-manifest.json",

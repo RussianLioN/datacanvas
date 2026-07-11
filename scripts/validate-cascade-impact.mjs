@@ -158,7 +158,7 @@ assert.equal(generatedLookup.has("docs/process/cascading-governance/impact-analy
 const activeGraph = JSON.parse(
   fs.readFileSync("docs/process/cascading-governance/artifact-dependency-graph.json", "utf8"),
 );
-assert.equal(activeGraph.version, "0.2.0", "active dependency graph must use the bidirectional cascade contract");
+assert.equal(activeGraph.version, "0.3.0", "active dependency graph must use the explicit semantic authority contract");
 assert.equal(
   activeGraph.dependencies.every(
     (edge) => edge.resolution_required === "changed_or_no_change_rationale",

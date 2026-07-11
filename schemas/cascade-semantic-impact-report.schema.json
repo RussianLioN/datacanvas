@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-semantic-impact-report.schema.json",
+  "title": "Cascade semantic impact report v1",
+  "type": "object",
+  "required": ["$schema", "version", "changed_sources", "authoritative_review_paths", "write_obligations", "diagnostic_closure", "diagnostic_classifications", "route_evidence"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-semantic-impact-report.schema.json" },
+    "version": { "const": "1.0.0" },
+    "changed_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "source_kind", "change_classes"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "source_kind": { "enum": ["generated", "process", "product_document", "provenance", "source_registry", "xlsx"] },
+          "change_classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/changeClass" } }
+        }
+      }
+    },
+    "authoritative_review_paths": { "$ref": "#/$defs/pathSet" },
+    "write_obligations": { "$ref": "#/$defs/pathSet" },
+    "diagnostic_closure": { "$ref": "#/$defs/pathSet" },
+    "diagnostic_classifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "classification"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "classification": { "enum": ["changed_source", "diagnostic_only", "obligated", "owner_stop"] }
+        }
+      }
+    },
+    "route_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "edge_id", "relation_type", "validation_command", "change_classes"],
+        "additionalProperties": false,
+        "properties": {
+          "from": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "to": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "edge_id": { "type": "string", "pattern": "^EDGE-[0-9]{4}$" },
+          "relation_type": { "type": "string", "minLength": 1 },
+          "validation_command": { "type": "string", "minLength": 1 },
+          "change_classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/changeClass" } }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "changeClass": {
+      "type": "string",
+      "enum": ["acceptance_meaning", "business_model", "business_requirement", "capacity", "change_order", "documentation", "estimate_change", "formatting_change", "formatting_only", "formula_cache_only", "hypothesis", "mixed_or_ambiguous", "no_change", "non_functional_requirement", "priority_change", "product_goal", "product_meaning", "provenance_only", "roadmap_meaning", "row_add_remove", "scope_change", "source_identity", "story_text_change"]
+    },
+    "pathSet": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+    }
+  }
+}

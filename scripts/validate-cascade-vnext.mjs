@@ -130,12 +130,13 @@ assert.throws(
 
 assert.deepEqual(
   classifyXlsxChangeSignals({ priorityChanged: true, estimateChanged: true, formattingChanged: true }),
-  ["estimate_only", "formatting_only", "priority_change"],
+  ["estimate_change", "formatting_change", "priority_change"],
 );
 assert.deepEqual(
   classifyXlsxChangeSignals({ formulaCacheOnly: true }),
   ["formula_cache_only"],
 );
+assert.deepEqual(classifyXlsxChangeSignals({ noChange: true }), ["no_change"]);
 
 const graph = {
   artifacts: [
@@ -160,6 +161,21 @@ const authoritativeExpansion = analyzeSemanticCascade(graph, [
   { path: "vision", change_classes: ["product_meaning"] },
 ]);
 assert.deepEqual(authoritativeExpansion.write_obligations, ["backlog", "roadmap", "stories"]);
+const xlsxScopedGraph = {
+  artifacts: [
+    { path: "xlsx", authority_scope: ["effort_estimate"] },
+    { path: "effort", authority_scope: [] },
+    { path: "stories", authority_scope: ["story_text_change"] },
+  ],
+  dependencies: [
+    { edge_id: "EDGE-X1", upstream_artifact: "xlsx", downstream_artifact: "effort", relation_type: "resource", applicable_change_classes: ["estimate_change"], validation_command: "npm run validate:capacity-plan" },
+    { edge_id: "EDGE-X2", upstream_artifact: "xlsx", downstream_artifact: "stories", relation_type: "semantic", applicable_change_classes: ["story_text_change"], validation_command: "npm run validate:business-docs" },
+  ],
+};
+assert.deepEqual(
+  analyzeSemanticCascade(xlsxScopedGraph, [{ path: "xlsx", change_classes: ["estimate_change"] }]).write_obligations,
+  ["effort"],
+);
 
 const validationCatalog = {
   commands: [

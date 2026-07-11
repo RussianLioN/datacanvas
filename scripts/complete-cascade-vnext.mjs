@@ -47,6 +47,7 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
     "planning_head_sha",
     "candidate_head_sha",
     "source_identity_manifest_path",
+    "source_change_analysis_path",
     "impact_report_path",
     "diff_manifest_path",
     "validation_manifest_path",

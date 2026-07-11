@@ -91,6 +91,15 @@ async function main() {
   if (resolutionInput.source_run_path !== sourceRunPath) throw new Error("resolution input source run path mismatch");
   const semanticImpact = readJson(root, sourceRun.impact_report_path);
   const sourceIdentity = readJson(root, sourceRun.source_identity_manifest_path);
+  validateDocument(root, semanticImpact, "schemas/cascade-semantic-impact-report.schema.json");
+  validateDocument(root, sourceIdentity, "schemas/cascade-source-identity.schema.json");
+  if (sourceRun.source_change_analysis_path) {
+    validateDocument(
+      root,
+      readJson(root, sourceRun.source_change_analysis_path),
+      "schemas/cascade-source-change-analysis.schema.json",
+    );
+  }
   const requiredSources = sourceIdentity.trigger_sources.map((item) => item.trigger_path).sort();
   const requiredArtifacts = semanticImpact.diagnostic_classifications
     .filter((item) => item.classification !== "changed_source")

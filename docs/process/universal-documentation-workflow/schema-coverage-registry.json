@@ -226,6 +226,24 @@
       "negative_rationale": "Неизвестные, неоднозначные и не связанные с реестром источники отклоняются npm run validate:cascade-vnext до записи запуска."
     },
     {
+      "entity": "cascade_vnext_source_change_analysis",
+      "schema_path": "schemas/cascade-source-change-analysis.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "XLSX-классы выводятся из двух неизменяемых Git-версий книги; ручной набор сигналов и отсутствие фактического diff блокируются."
+    },
+    {
+      "entity": "cascade_vnext_semantic_impact",
+      "schema_path": "schemas/cascade-semantic-impact-report.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Каждая остановка, обязанность и маршрут обязаны ссылаться на явный edge_id и класс изменения из активного графа."
+    },
+    {
       "entity": "cascade_vnext_actual_diff",
       "schema_path": "schemas/cascade-actual-diff-manifest.schema.json",
       "data_path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
