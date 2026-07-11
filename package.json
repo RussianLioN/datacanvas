@@ -134,6 +134,7 @@
     "cascade:finalize:legacy": "node scripts/finalize-documentation-cascade.mjs",
     "cascade:verify": "node scripts/verify-cascade-profile-vnext.mjs",
     "cascade:verify:legacy": "node scripts/verify-documentation-cascade.mjs",
+    "cascade:complete": "node scripts/complete-cascade-vnext.mjs",
     "cascade:preview": "node scripts/plan-documentation-cascade.mjs",
     "docs:plan": "node scripts/plan-documentation-cascade.mjs",
     "docs:verify": "node scripts/plan-documentation-cascade.mjs --check",

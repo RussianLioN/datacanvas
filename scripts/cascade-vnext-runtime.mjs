@@ -6,7 +6,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { absoluteRepoPath } from "./cascade-evidence-utils.mjs";
+import { absoluteRepoPath, hashJsonDocument, hashRepoPath } from "./cascade-evidence-utils.mjs";
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
 export function sha256(content) {
@@ -100,4 +100,29 @@ export function sanitizeOutput(value, root) {
     .replace(new RegExp(rootPattern, "gu"), "<repo>")
     .replace(/(token|secret|password|api[_-]?key)\s*[:=]\s*\S+/giu, "$1=<redacted>")
     .slice(0, 4000);
+}
+
+export function buildRuntimeManifest(root) {
+  const packageJson = readJson(root, "package.json");
+  const runVersion = (executable, args) => execFileSync(executable, args, {
+    cwd: root,
+    encoding: "utf8",
+    timeout: 30_000,
+    maxBuffer: 1024 * 1024,
+    env: { PATH: process.env.PATH, HOME: process.env.HOME, LANG: process.env.LANG ?? "C.UTF-8", TZ: process.env.TZ ?? "UTC" },
+  }).trim();
+  return {
+    $schema: "https://datacanvas.local/schemas/v1/cascade-runtime-manifest.schema.json",
+    version: "1.0.0",
+    node: process.version.replace(/^v/u, ""),
+    npm: runVersion("npm", ["--version"]),
+    python: runVersion("python3", ["-c", "import platform; print(platform.python_version())"]),
+    platform: process.platform,
+    arch: process.arch,
+    locale: process.env.LC_ALL ?? process.env.LANG ?? "C.UTF-8",
+    timezone: process.env.TZ ?? Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
+    lockfile_sha256: hashRepoPath(root, "package-lock.json"),
+    command_map_sha256: hashJsonDocument(packageJson.scripts),
+    environment_allowlist: ["CI", "LANG", "LC_ALL", "TZ"],
+  };
 }

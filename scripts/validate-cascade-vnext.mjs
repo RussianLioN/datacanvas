@@ -19,6 +19,11 @@ import {
   assertValidationManifestIntegrity,
   parseSafeNpmCommand,
 } from "./cascade-profile-verifier.mjs";
+import {
+  assertRuntimeManifestMatches,
+  completionCommandSet,
+  completionCommandSetHash,
+} from "./cascade-completion-core.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -192,6 +197,25 @@ assert.throws(
   () => assertValidationManifestIntegrity({ ...validationManifest, verification_level: "completion" }),
   /manifest sha256/u,
 );
+const runtimeManifest = {
+  version: "1.0.0",
+  node: "22.20.0",
+  npm: "11.8.0",
+  python: "3.13.0",
+  platform: "darwin",
+  arch: "arm64",
+  locale: "C.UTF-8",
+  timezone: "UTC",
+  lockfile_sha256: "a".repeat(64),
+  command_map_sha256: "b".repeat(64),
+  environment_allowlist: ["CI", "LANG", "LC_ALL", "TZ"],
+};
+assert.doesNotThrow(() => assertRuntimeManifestMatches(runtimeManifest, { ...runtimeManifest }));
+assert.throws(
+  () => assertRuntimeManifestMatches(runtimeManifest, { ...runtimeManifest, node: "23.0.0" }),
+  /runtime manifest mismatch/u,
+);
+assert.match(completionCommandSetHash(completionCommandSet()), /^[0-9a-f]{64}$/u);
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-vnext-"));
 try {

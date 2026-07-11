@@ -144,6 +144,7 @@ async function main() {
     resolution_report_path: resolutionReportPath,
     acceptance_paths: acceptancePaths,
     profile_evidence_path: null,
+    completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
   };

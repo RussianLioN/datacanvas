@@ -20,6 +20,7 @@
   "resolution_report_path": null,
   "acceptance_paths": [],
   "profile_evidence_path": null,
+  "completion_evidence_path": null,
   "completion_seal_path": null,
   "completion_claim": { "done_claimed": false }
 }

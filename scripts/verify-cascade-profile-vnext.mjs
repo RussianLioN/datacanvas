@@ -108,6 +108,7 @@ async function main() {
     attempt_id: attemptId,
     state: status,
     profile_evidence_path: evidencePath,
+    completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
   };

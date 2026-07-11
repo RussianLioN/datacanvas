@@ -289,6 +289,15 @@
       "negative_rationale": "Окончательный verified допускается только для отдельной печати cascade:complete."
     },
     {
+      "entity": "cascade_vnext_completion_evidence",
+      "schema_path": "schemas/cascade-completion-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неудачная полная проверка сохраняется как blocked evidence и не создает completion seal."
+    },
+    {
       "entity": "cascade_vnext_profile_evidence",
       "schema_path": "schemas/cascade-profile-evidence.schema.json",
       "data_path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",

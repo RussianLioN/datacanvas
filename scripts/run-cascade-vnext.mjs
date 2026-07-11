@@ -1,6 +1,5 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { execFileSync } from "node:child_process";
@@ -15,6 +14,7 @@ import {
   classifyXlsxChangeSignals,
   resolveSourceIdentities,
 } from "./cascade-vnext-core.mjs";
+import { buildRuntimeManifest } from "./cascade-vnext-runtime.mjs";
 import {
   absoluteRepoPath,
   hashJsonDocument,
@@ -144,24 +144,6 @@ function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths,
   return packet;
 }
 
-function buildRuntimeManifest() {
-  const packageJson = readJson("package.json");
-  return {
-    $schema: "https://datacanvas.local/schemas/v1/cascade-runtime-manifest.schema.json",
-    version: "1.0.0",
-    node: process.version.replace(/^v/u, ""),
-    npm: run("npm", ["--version"]),
-    python: run("python3", ["-c", "import platform; print(platform.python_version())"]),
-    platform: process.platform,
-    arch: process.arch,
-    locale: process.env.LC_ALL ?? process.env.LANG ?? "C.UTF-8",
-    timezone: process.env.TZ ?? Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
-    lockfile_sha256: hashRepoPath(root, "package-lock.json"),
-    command_map_sha256: hashJsonDocument(packageJson.scripts),
-    environment_allowlist: ["CI", "LANG", "LC_ALL", "TZ"],
-  };
-}
-
 function assertDirectRunDir(relativePath) {
   if (!relativePath.startsWith(`${runsRoot}/`) || relativePath.slice(runsRoot.length + 1).includes("/")) {
     fail(`output dir must be a fresh direct child of ${runsRoot}`);
@@ -239,7 +221,7 @@ async function main() {
   if (ownerRequired) scopes.push("product_meaning", "traceability");
   const validationManifest = buildValidationManifest({ catalog: validationCatalog, routeCommands, scopes });
   validationManifest.$schema = "https://datacanvas.local/schemas/v1/cascade-validation-manifest.schema.json";
-  const runtimeManifest = buildRuntimeManifest();
+  const runtimeManifest = buildRuntimeManifest(root);
   const suffix = changeRequest.change_request_id.replace(/^DCR-/u, "");
   const runId = `CUR-${suffix}`;
   const attemptId = argValue("--attempt-id", `ATTEMPT-${path.posix.basename(outputDir).toUpperCase().replace(/[^A-Z0-9]+/gu, "-")}`);
@@ -296,6 +278,7 @@ async function main() {
     resolution_report_path: null,
     acceptance_paths: [],
     profile_evidence_path: null,
+    completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
   };
