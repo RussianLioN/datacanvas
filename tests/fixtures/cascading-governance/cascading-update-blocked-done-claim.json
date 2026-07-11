@@ -1,6 +1,8 @@
 {
   "version": "0.1.0",
   "run_id": "CUR-2026-07-02-101",
+  "run_mode": "dry_run_evidence",
+  "apply_supported": false,
   "status": "complete",
   "change_request_path": "tests/fixtures/cascading-governance/vision-change-request.json",
   "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
@@ -38,6 +40,8 @@
   "completion_claim": {
     "done_claimed": true,
     "decision_queue_status": "blocked",
-    "all_affected_artifacts_resolved": false
+    "all_affected_artifacts_resolved": false,
+    "ready_to_apply": false,
+    "ready_for_dry_run_evidence": true
   }
 }

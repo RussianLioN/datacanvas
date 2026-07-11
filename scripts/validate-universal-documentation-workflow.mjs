@@ -18,6 +18,7 @@ const paths = {
   inventory: `${packageRoot}/artifact-inventory.json`,
   generatorContracts: `${packageRoot}/generator-contracts.json`,
   businessArtifactGenerationContract: `${packageRoot}/business-artifact-generation-contract.json`,
+  businessClaimMap: "docs/product/requirements/business-claim-map.json",
   mainArtifactLifecycleChain: `${packageRoot}/main-artifact-lifecycle-chain.json`,
   state: `${packageRoot}/workflow-state.json`,
   decisionQueue: `${packageRoot}/decision-queue.json`,
@@ -38,7 +39,12 @@ const schemaCases = [
   ["schemas/documentation-artifact-inventory.schema.json", paths.inventory],
   ["schemas/generator-contracts.schema.json", paths.generatorContracts],
   ["schemas/business-artifact-generation-contract.schema.json", paths.businessArtifactGenerationContract],
+  ["schemas/business-claim-map.schema.json", paths.businessClaimMap],
   ["schemas/main-artifact-lifecycle-chain.schema.json", paths.mainArtifactLifecycleChain],
+  ["schemas/cascade-impact-cone.schema.json", "tests/fixtures/cascading-governance/cascade-impact-cone.json"],
+  ["schemas/cascade-baseline-manifest.schema.json", "tests/fixtures/cascading-governance/cascade-baseline-manifest.json"],
+  ["schemas/cascade-verification-evidence.schema.json", "tests/fixtures/cascading-governance/cascade-verification-evidence.json"],
+  ["schemas/cascade-resolution-input.schema.json", "tests/fixtures/cascading-governance/cascade-resolution-input.json"],
   ["schemas/workflow-state.schema.json", paths.state],
   ["schemas/workflow-decision-queue.schema.json", paths.decisionQueue],
   ["schemas/decision-ledger.schema.json", paths.decisionLedger],
@@ -74,6 +80,8 @@ if (!modeNames.has(mode)) {
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 ajv.addSchema(readJson("schemas/common-defs.schema.json"));
+ajv.addSchema(readJson("schemas/cascade-impact-cone.schema.json"));
+ajv.addSchema(readJson("schemas/impact-analysis-report.schema.json"));
 const validators = new Map();
 
 function absolute(relativePath) {
@@ -103,10 +111,15 @@ function requireFile(relativePath) {
   }
 }
 
+function pathAtOrWithin(candidatePath, rootPath) {
+  return candidatePath === rootPath || candidatePath.startsWith(`${rootPath}/`);
+}
+
 function validateWithSchema(schemaPath, data, label) {
   let validate = validators.get(schemaPath);
   if (!validate) {
-    validate = ajv.compile(readJson(schemaPath));
+    const schema = readJson(schemaPath);
+    validate = (schema.$id && ajv.getSchema(schema.$id)) || ajv.compile(schema);
     validators.set(schemaPath, validate);
   }
 
@@ -179,13 +192,69 @@ function assertCommandExists(command) {
       continue;
     }
 
+    if (commandPart === "git diff --check") {
+      continue;
+    }
+
     const nodeScriptMatch = commandPart.match(/^node (scripts\/[^ ]+\.mjs)/);
     if (nodeScriptMatch) {
       requireFile(nodeScriptMatch[1]);
       continue;
     }
 
-    fail(`unsupported command form in universal workflow catalog: ${commandPart}`);
+  fail(`unsupported command form in universal workflow catalog: ${commandPart}`);
+  }
+}
+
+function commandLooksMutating(command) {
+  return command
+    .split("&&")
+    .map((part) => part.trim())
+    .some((commandPart) => {
+      if (/^npm test(?:\s|$)/.test(commandPart)) {
+        return true;
+      }
+      if (/^npm run generate:/u.test(commandPart) && !/\s--\s.*--check\b/u.test(commandPart)) {
+        return true;
+      }
+      if (/^npm run cascade:(?:run|finalize|verify)(?:\s|$)/u.test(commandPart)) {
+        return true;
+      }
+      if (/^node scripts\/generate-[^ ]+\.mjs/u.test(commandPart) && !/\s--check\b/u.test(commandPart)) {
+        return true;
+      }
+      return false;
+    });
+}
+
+function validateCatalogCommandPolicy(catalog) {
+  const scenario = scenarioById("catalog-command-missing-execution-policy").payload;
+  if (!scenario.command || scenario.execution_type !== null || scenario.mutates_files !== null) {
+    fail("catalog-command-missing-execution-policy negative fixture no longer exercises missing execution policy");
+  }
+
+  for (const command of catalog.commands) {
+    if (command.execution_type === "read_only_check" && command.mutates_files) {
+      fail(`read-only validation command must not mutate files: ${command.id}`);
+    }
+    if (command.execution_type !== "read_only_check" && !command.mutates_files) {
+      fail(`mutating/full command must declare mutates_files=true: ${command.id}`);
+    }
+    if (!command.mutates_files && command.writes_expected.length > 0) {
+      fail(`non-mutating validation command must not declare writes_expected: ${command.id}`);
+    }
+    if (command.mutates_files && command.writes_expected.length === 0) {
+      fail(`mutating validation command must declare expected writes: ${command.id}`);
+    }
+    if (commandLooksMutating(command.command) !== command.mutates_files) {
+      fail(`validation command execution policy disagrees with command text: ${command.id}`);
+    }
+    if (!command.freshness_required) {
+      fail(`validation command must require fresh evidence before completion: ${command.id}`);
+    }
+    if (!command.completion_blocking) {
+      fail(`validation command must be completion-blocking until explicitly downgraded: ${command.id}`);
+    }
   }
 }
 
@@ -367,6 +436,9 @@ function validateCore() {
     "абсолютную ссылку на каждый документ",
     "короткую цитату из релевантного фрагмента документа",
     "простой пользовательский итог с абсолютными кликабельными ссылками",
+    "полный конус влияния",
+    "baseline-манифест",
+    "отдельная проверка",
     "npm run validate:universal-documentation-workflow",
   ]);
   assertRequiredFragments(paths.runbook, [
@@ -394,6 +466,11 @@ function validateCore() {
     "Формат Отчета Пользователю",
     "абсолютную ссылку на каждый документ",
     "короткую цитату из каждого такого документа",
+    "npm run cascade:run",
+    "npm run cascade:finalize",
+    "npm run cascade:verify",
+    "Не редактировать generated impact report",
+    "полного конуса",
     "расшифровку каждого кодированного элемента",
     "текущий текст каждого элемента",
     "документы-доноры или зависимые документы",
@@ -430,6 +507,7 @@ function validateProfile() {
   for (const command of catalog.commands) {
     assertCommandExists(command.command);
   }
+  validateCatalogCommandPolicy(catalog);
 
   if (!product.pilot_features.bmc_enabled) {
     fail("DataCanvas pilot profile must explicitly keep BMC in the product profile");
@@ -500,6 +578,10 @@ function validateDataCanvasProfile() {
   if (!businessDocsCommand || businessDocsCommand.command !== "npm run validate:business-docs") {
     fail("DataCanvas validation catalog must include business document content gate");
   }
+  const businessClaimMapCommand = catalog.commands.find((command) => command.id === "business-claim-map");
+  if (!businessClaimMapCommand || businessClaimMapCommand.command !== "npm run validate:business-claim-map") {
+    fail("DataCanvas validation catalog must include business claim map gate");
+  }
   const productSourcesCommand = catalog.commands.find((command) => command.id === "product-sources");
   if (!productSourcesCommand || !productSourcesCommand.command.includes("npm run validate:product-source-consistency")) {
     fail("DataCanvas validation catalog must include product source consistency gate");
@@ -515,6 +597,22 @@ function validateDataCanvasProfile() {
   const mainArtifactLifecycleCommand = catalog.commands.find((command) => command.id === "main-artifact-lifecycle");
   if (!mainArtifactLifecycleCommand || mainArtifactLifecycleCommand.command !== "npm run validate:main-artifact-lifecycle") {
     fail("DataCanvas validation catalog must include main artifact lifecycle gate");
+  }
+  for (const [commandId, expectedCommand] of [
+    ["cascade-impact", "npm run validate:cascade-impact"],
+    ["cascading-governance", "npm run validate:cascading-governance"],
+    ["cascade-verification", "npm run validate:cascade-verification"],
+  ]) {
+    const catalogCommand = catalog.commands.find((command) => command.id === commandId);
+    if (!catalogCommand || catalogCommand.command !== expectedCommand || catalogCommand.mutates_files) {
+      fail(`DataCanvas validation catalog must include read-only ${commandId} gate`);
+    }
+  }
+  for (const commandId of ["cascade-run", "cascade-finalize", "cascade-verify"]) {
+    const catalogCommand = catalog.commands.find((command) => command.id === commandId);
+    if (!catalogCommand || catalogCommand.execution_type !== "mutating_generator" || !catalogCommand.mutates_files) {
+      fail(`DataCanvas validation catalog must include controlled ${commandId} evidence generator`);
+    }
   }
   const cascadePreviewCommand = catalog.commands.find((command) => command.id === "cascade-preview");
   if (!cascadePreviewCommand || cascadePreviewCommand.command !== "npm run cascade:preview -- --changed-from HEAD") {
@@ -581,6 +679,7 @@ function validateWorkflowStateLedger() {
   const acceptance = readJson(paths.acceptanceRecords);
   const runLedger = readJson(paths.runLedger);
   const eventLog = readJson(paths.eventLog);
+  const catalog = readJson(paths.catalog);
 
   for (const pointer of [state.artifact_catalog_path, state.decision_queue_path, state.event_log_path, state.run_ledger_path]) {
     requireFile(pointer);
@@ -588,6 +687,21 @@ function validateWorkflowStateLedger() {
 
   for (const artifactPath of [state.artifact_catalog_path, state.decision_queue_path, state.event_log_path, state.run_ledger_path]) {
     assertRelativeRepoPath(artifactPath, "workflow state pointer");
+  }
+
+  const catalogCommandsByText = new Map(catalog.commands.map((command) => [command.command, command]));
+  const mutatingPlanCommand = scenarioById("workflow-plan-mutating-command").payload;
+  if (!commandLooksMutating(mutatingPlanCommand.command) || mutatingPlanCommand.workflow_status !== "awaiting_decision") {
+    fail("workflow-plan-mutating-command negative fixture no longer exercises a mutating validation plan entry");
+  }
+
+  for (const plannedCommand of state.validation_plan) {
+    assertCommandExists(plannedCommand);
+    const catalogCommand = catalogCommandsByText.get(plannedCommand);
+    const mutates = catalogCommand ? catalogCommand.mutates_files : commandLooksMutating(plannedCommand);
+    if (mutates && ["awaiting_decision", "interviewing", "impact_analyzed"].includes(state.status)) {
+      fail(`workflow validation_plan contains mutating command while owner decision is not closed: ${plannedCommand}`);
+    }
   }
 
   for (const item of [queue, ledger, acceptance, runLedger, eventLog]) {
@@ -651,7 +765,15 @@ function validateWorkflowStateLedger() {
 function validateGeneratorContracts() {
   const contracts = readJson(paths.generatorContracts);
   const policy = readJson(paths.mutationGuard);
-  const allowedByGenerator = new Map(policy.allowed_write_sets.map((item) => [item.generator_id, new Set(item.allowed_writes)]));
+  const allowedByGenerator = new Map(
+    policy.allowed_write_sets.map((item) => [
+      item.generator_id,
+      {
+        paths: new Set(item.allowed_writes),
+        roots: item.allowed_write_roots ?? [],
+      },
+    ]),
+  );
   const seen = new Set();
   const expectedBmcOutputs = [
     "docs/product/bmc/bmc-v0.2.md",
@@ -690,14 +812,27 @@ function validateGeneratorContracts() {
       requireFile(output);
       assertRelativeRepoPath(output, "generator output");
     }
+    for (const outputRoot of contract.output_roots ?? []) {
+      requireFile(outputRoot);
+      assertRelativeRepoPath(outputRoot, "generator output root");
+    }
 
     const allowed = allowedByGenerator.get(contract.generator_id);
     if (!allowed) {
       fail(`mutation guard policy missing allowed write set for generator: ${contract.generator_id}`);
     }
     for (const output of contract.outputs) {
-      if (!allowed.has(output) && !contract.allowed_writes.includes(output)) {
+      const allowedByPolicy = allowed.paths.has(output) || allowed.roots.some((rootPath) => pathAtOrWithin(output, rootPath));
+      const allowedByContract =
+        contract.allowed_writes.includes(output) ||
+        (contract.allowed_write_roots ?? []).some((rootPath) => pathAtOrWithin(output, rootPath));
+      if (!allowedByPolicy || !allowedByContract) {
         fail(`generator output is not allowed by mutation guard: ${contract.generator_id} -> ${output}`);
+      }
+    }
+    for (const outputRoot of contract.output_roots ?? []) {
+      if (!(contract.allowed_write_roots ?? []).includes(outputRoot) || !allowed.roots.includes(outputRoot)) {
+        fail(`generator output root is not allowed by mutation guard: ${contract.generator_id} -> ${outputRoot}`);
       }
     }
 
@@ -715,7 +850,12 @@ function validateGeneratorContracts() {
 
   for (const contract of contracts.contracts) {
     for (const forbiddenManualPath of ["docs/product-vision.md", "docs/product/vision/manifest.json"]) {
-      if (contract.outputs.includes(forbiddenManualPath) || contract.allowed_writes.includes(forbiddenManualPath)) {
+      if (
+        contract.outputs.includes(forbiddenManualPath) ||
+        contract.allowed_writes.includes(forbiddenManualPath) ||
+        (contract.output_roots ?? []).some((rootPath) => pathAtOrWithin(forbiddenManualPath, rootPath)) ||
+        (contract.allowed_write_roots ?? []).some((rootPath) => pathAtOrWithin(forbiddenManualPath, rootPath))
+      ) {
         fail(`manual Vision artifact must not be a generated output: ${contract.generator_id} -> ${forbiddenManualPath}`);
       }
     }
@@ -745,12 +885,91 @@ function validateGeneratorContracts() {
       fail(`datacanvas-bmc generator contract is missing allowed write: ${output}`);
     }
     const allowed = allowedByGenerator.get("datacanvas-bmc");
-    if (!allowed?.has(output)) {
+    if (!allowed?.paths.has(output)) {
       fail(`mutation guard is missing datacanvas-bmc generated output: ${output}`);
     }
   }
   if (bmcContract.inputs.includes("docs/product/bmc/bmc-v0.2.md")) {
     fail("datacanvas-bmc generator contract must not treat generated Markdown as source input");
+  }
+
+  for (const generatorId of [
+    "documentation-cascade-run",
+    "documentation-cascade-finalization",
+    "documentation-cascade-verification",
+  ]) {
+    const contract = contracts.contracts.find((candidate) => candidate.generator_id === generatorId);
+    if (!contract) {
+      fail(`generator contracts must include ${generatorId}`);
+    }
+    const evidenceRoot = "docs/process/cascading-governance/runs";
+    if (!(contract.output_roots ?? []).includes(evidenceRoot) || !(contract.allowed_write_roots ?? []).includes(evidenceRoot)) {
+      fail(`${generatorId} must restrict dynamic evidence writes to ${evidenceRoot}`);
+    }
+    if (contract.output_path_policy !== "fresh_direct_child") {
+      fail(`${generatorId} must require a fresh direct child output directory`);
+    }
+  }
+
+  const cascadeFinalizationContract = contracts.contracts.find(
+    (candidate) => candidate.generator_id === "documentation-cascade-finalization",
+  );
+  for (const requiredInput of [
+    "docs/architecture/schemas/artifact-registry.json",
+    "docs/process/universal-documentation-workflow/acceptance-records.json",
+    "schemas/acceptance-records.schema.json",
+    "schemas/artifact-registry.schema.json",
+    "scripts/cascade-acceptance-records.mjs",
+    "scripts/cascade-owner-decision-policy.mjs",
+  ]) {
+    if (!cascadeFinalizationContract.inputs.includes(requiredInput)) {
+      fail(`documentation-cascade-finalization is missing trusted acceptance input: ${requiredInput}`);
+    }
+  }
+  for (const requiredFailureMode of [
+    "untrusted_acceptance_record_path",
+    "invalid_acceptance_record_ledger",
+    "wrong_acceptance_record_type",
+    "selected_option_mismatch",
+    "mutable_acceptance_evidence",
+    "malformed_cascade_input",
+  ]) {
+    if (!cascadeFinalizationContract.failure_modes.includes(requiredFailureMode)) {
+      fail(`documentation-cascade-finalization is missing failure mode: ${requiredFailureMode}`);
+    }
+  }
+
+  const cascadeRunContract = contracts.contracts.find(
+    (candidate) => candidate.generator_id === "documentation-cascade-run",
+  );
+  for (const requiredInput of [
+    "schemas/documentation-change-request.schema.json",
+    "schemas/artifact-dependency-graph.schema.json",
+  ]) {
+    if (!cascadeRunContract.inputs.includes(requiredInput)) {
+      fail(`documentation-cascade-run is missing runtime schema input: ${requiredInput}`);
+    }
+  }
+
+  const cascadeVerificationContract = contracts.contracts.find(
+    (candidate) => candidate.generator_id === "documentation-cascade-verification",
+  );
+  for (const requiredInput of [
+    "docs/architecture/schemas/artifact-registry.json",
+    "docs/process/universal-documentation-workflow/acceptance-records.json",
+    "schemas/acceptance-records.schema.json",
+    "schemas/artifact-registry.schema.json",
+    "schemas/cascading-update-run.schema.json",
+    "schemas/impact-analysis-report.schema.json",
+    "schemas/user-decision-queue.schema.json",
+    "schemas/cascade-resolution-input.schema.json",
+    "scripts/cascade-acceptance-records.mjs",
+    "scripts/cascade-validation-command-policy.mjs",
+    "scripts/cascade-owner-decision-policy.mjs",
+  ]) {
+    if (!cascadeVerificationContract.inputs.includes(requiredInput)) {
+      fail(`documentation-cascade-verification is missing runtime verification input: ${requiredInput}`);
+    }
   }
 
   for (const scenarioId of ["stale-generated-artifact", "manual-generated-artifact", "unexpected-write", "path-traversal"]) {
@@ -773,7 +992,12 @@ function validateSchemaCoverage() {
     "event_log",
     "generator_contract",
     "business_artifact_generation_contract",
+    "business_claim_map",
     "main_artifact_lifecycle_chain",
+    "cascade_impact_cone",
+    "cascade_baseline_manifest",
+    "cascade_verification_evidence",
+    "cascade_resolution_input",
     "schema_coverage_registry",
   ]);
 
@@ -811,7 +1035,12 @@ function validateSchemaCoverage() {
     "schemas/event-log.schema.json",
     "schemas/generator-contracts.schema.json",
     "schemas/business-artifact-generation-contract.schema.json",
+    "schemas/business-claim-map.schema.json",
     "schemas/main-artifact-lifecycle-chain.schema.json",
+    "schemas/cascade-impact-cone.schema.json",
+    "schemas/cascade-baseline-manifest.schema.json",
+    "schemas/cascade-verification-evidence.schema.json",
+    "schemas/cascade-resolution-input.schema.json",
     "schemas/schema-coverage-registry.schema.json",
     "schemas/mutation-guard-policy.schema.json",
     "schemas/workflow-portability-pack.schema.json",
@@ -847,6 +1076,9 @@ function validateMutationGuard() {
     for (const writePath of writeSet.allowed_writes) {
       assertRelativeRepoPath(writePath, "mutation guard allowed write");
     }
+    for (const writeRoot of writeSet.allowed_write_roots ?? []) {
+      assertRelativeRepoPath(writeRoot, "mutation guard allowed write root");
+    }
   }
 
   const manualEdit = scenarioById("manual-generated-artifact").payload;
@@ -856,7 +1088,11 @@ function validateMutationGuard() {
 
   const unexpectedWrite = scenarioById("unexpected-write").payload;
   const allowedSet = policy.allowed_write_sets.find((item) => item.generator_id === unexpectedWrite.generator_id);
-  if (!allowedSet || allowedSet.allowed_writes.includes(unexpectedWrite.write_path)) {
+  if (
+    !allowedSet ||
+    allowedSet.allowed_writes.includes(unexpectedWrite.write_path) ||
+    (allowedSet.allowed_write_roots ?? []).some((rootPath) => pathAtOrWithin(unexpectedWrite.write_path, rootPath))
+  ) {
     fail("unexpected-write negative fixture must be outside the generator allowed set");
   }
 

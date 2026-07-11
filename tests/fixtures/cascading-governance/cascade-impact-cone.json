@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "analysis_mode": "full_impact_cone",
+  "changed_source_set": [
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "change_class": "business_meaning"
+    }
+  ],
+  "impacted_artifacts": [
+    {
+      "path": "docs/product/backlog/product-backlog.md",
+      "impact_directions": [
+        "downstream"
+      ],
+      "trigger_paths": [
+        "docs/product/requirements/user-stories.md"
+      ],
+      "review_obligation": "owner_decision",
+      "owner_gate_required": true,
+      "resolution_required": true
+    }
+  ],
+  "observed_cycle_ids": [
+    "CYCLE-STORIES-REQUIREMENTS-BACKLOG-XLSX"
+  ],
+  "uncovered_changed_paths": []
+}

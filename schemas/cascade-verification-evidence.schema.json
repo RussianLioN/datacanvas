@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/cascade-verification-evidence.schema.json",
+  "title": "Documentation cascade verification evidence",
+  "type": "object",
+  "required": [
+    "version",
+    "verification_id",
+    "status",
+    "verified_at",
+    "source_run_path",
+    "impact_report_path",
+    "baseline_manifest_path",
+    "resolution_input_path",
+    "resolution_report_path",
+    "artifact_resolution_refs",
+    "validation_results",
+    "decision_queue_status",
+    "blocking_reasons"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver"
+    },
+    "verification_id": {
+      "type": "string",
+      "pattern": "^CVE-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["blocked", "verified"]
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_run_path": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+    },
+    "impact_report_path": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+    },
+    "baseline_manifest_path": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+    },
+    "resolution_input_path": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+    },
+    "resolution_report_path": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+    },
+    "artifact_resolution_refs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/artifactResolutionRef" }
+    },
+    "validation_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/validationResult" }
+    },
+    "decision_queue_status": {
+      "type": "string",
+      "enum": ["open", "blocked", "closed"]
+    },
+    "blocking_reasons": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "verified" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "decision_queue_status": { "type": "string", "const": "closed" },
+          "blocking_reasons": { "type": "array", "maxItems": 0 },
+          "artifact_resolution_refs": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/artifactResolutionRef" },
+                {
+                  "type": "object",
+                  "properties": { "verification_status": { "type": "string", "const": "passed" } }
+                }
+              ]
+            }
+          },
+          "validation_results": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/validationResult" },
+                {
+                  "type": "object",
+                  "properties": { "status": { "type": "string", "const": "passed" } }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "artifactResolutionRef": {
+      "type": "object",
+      "required": [
+        "path",
+        "impact_artifact_ref",
+        "before_sha256",
+        "after_sha256",
+        "verification_status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+        },
+        "impact_artifact_ref": {
+          "type": "string",
+          "pattern": "^/(affected_artifacts|impact_cone/changed_source_set)/[0-9]+$"
+        },
+        "before_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "after_sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": ["passed", "failed"]
+        }
+      }
+    },
+    "validationResult": {
+      "type": "object",
+      "required": ["command", "status", "evidence", "ran_at"],
+      "additionalProperties": false,
+      "properties": {
+        "command": { "type": "string", "minLength": 1 },
+        "status": { "type": "string", "enum": ["passed", "failed"] },
+        "evidence": { "type": "string", "minLength": 1 },
+        "ran_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

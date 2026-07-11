@@ -140,9 +140,214 @@
         "public_bmc_technical_noise",
         "public_product_vision_technical_noise"
       ]
+    },
+    {
+      "generator_id": "documentation-cascade-run",
+      "owner_role": "Process Owner / Documentation Owner",
+      "inputs": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "scripts/run-cascading-update.mjs",
+        "scripts/finalize-documentation-cascade.mjs",
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-acceptance-records.mjs",
+        "scripts/cascade-validation-command-policy.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "schemas/cascade-impact-cone.schema.json",
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/cascade-resolution-input.schema.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json",
+        "schemas/product-source-registry.schema.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/artifact-dependency-graph.schema.json"
+      ],
+      "outputs": [],
+      "output_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "output_path_policy": "fresh_direct_child",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "generate_command": "npm run cascade:run -- --change-request <path> --output-dir docs/process/cascading-governance/runs/<run-id>",
+      "check_command": "npm run validate:cascading-update",
+      "deterministic_environment": "Node.js, текущее рабочее дерево, локальный git HEAD, без сети; запись только в новый каталог запуска",
+      "dependencies": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "post_validators": [
+        "npm run validate:cascade-impact",
+        "npm run validate:cascading-governance",
+        "npm run validate:cascade-verification"
+      ],
+      "failure_modes": [
+        "existing_run_directory",
+        "uncovered_changed_source",
+        "undeclared_dependency_cycle",
+        "semantic_change_without_owner_decision",
+        "collapsed_cross_owner_decision",
+        "unsafe_validation_command",
+        "symlink_output_escape",
+        "write_outside_run_directory"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-finalization",
+      "owner_role": "Process Owner / Documentation Owner",
+      "inputs": [
+        "scripts/finalize-documentation-cascade.mjs",
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-acceptance-records.mjs",
+        "scripts/cascade-validation-command-policy.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "schemas/cascade-resolution-input.schema.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json",
+        "schemas/artifact-dependency-graph.schema.json",
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/xlsx-change-analysis.schema.json",
+        "schemas/product-source-registry.schema.json",
+        "schemas/impact-analysis-report.schema.json",
+        "schemas/user-decision-queue.schema.json",
+        "schemas/cascading-update-run.schema.json"
+      ],
+      "outputs": [],
+      "output_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "output_path_policy": "fresh_direct_child",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "generate_command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
+      "check_command": "npm run validate:cascade-verification",
+      "deterministic_environment": "Node.js, неизменяемый dry-run, явный машинный вход разрешений и новый каталог результата, без сети",
+      "dependencies": [
+        "scripts/run-cascading-update.mjs",
+        "schemas/cascade-baseline-manifest.schema.json"
+      ],
+      "post_validators": [
+        "npm run validate:cascade-verification",
+        "npm run validate:cascading-governance"
+      ],
+      "failure_modes": [
+        "incomplete_impact_resolution_set",
+        "incomplete_decision_resolution_set",
+        "unlinked_acceptance_record",
+        "untrusted_acceptance_record_path",
+        "invalid_acceptance_record_ledger",
+        "wrong_acceptance_record_type",
+        "selected_option_mismatch",
+        "inactive_acceptance_ledger",
+        "reused_acceptance_record",
+        "owner_role_mismatch",
+        "missing_recalculated_owner_gate",
+        "incomplete_changed_source_resolution",
+        "narrowed_impact_cone",
+        "narrowed_validation_plan",
+        "tampered_dry_run_evidence",
+        "mutable_acceptance_evidence",
+        "malformed_cascade_input",
+        "manual_generated_evidence_edit",
+        "write_outside_finalization_directory"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-verification",
+      "owner_role": "Process Owner / QA Lead",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "scripts/verify-documentation-cascade.mjs",
+        "scripts/finalize-documentation-cascade.mjs",
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-acceptance-records.mjs",
+        "scripts/cascade-validation-command-policy.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "schemas/cascade-verification-evidence.schema.json",
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json",
+        "schemas/validation-command-catalog.schema.json",
+        "schemas/artifact-dependency-graph.schema.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/xlsx-change-analysis.schema.json",
+        "schemas/product-source-registry.schema.json",
+        "schemas/cascading-update-run.schema.json",
+        "schemas/impact-analysis-report.schema.json",
+        "schemas/user-decision-queue.schema.json",
+        "schemas/cascade-resolution-input.schema.json"
+      ],
+      "outputs": [],
+      "output_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "output_path_policy": "fresh_direct_child",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "generate_command": "npm run cascade:verify -- --run <run-json> --output-dir docs/process/cascading-governance/runs/<verification-id>",
+      "check_command": "npm run validate:cascade-verification",
+      "deterministic_environment": "Node.js, неизмененные управляющие входы baseline и локальные зарегистрированные проверки, без сети",
+      "dependencies": [
+        "scripts/finalize-documentation-cascade.mjs",
+        "schemas/cascade-baseline-manifest.schema.json"
+      ],
+      "post_validators": [
+        "npm run validate:cascade-verification",
+        "npm run validate:cascading-governance"
+      ],
+      "failure_modes": [
+        "control_input_changed_after_baseline",
+        "baseline_evidence_changed_after_finalization",
+        "narrowed_impact_cone",
+        "narrowed_validation_plan",
+        "tampered_dry_run_evidence",
+        "missing_recalculated_owner_gate",
+        "unresolved_changed_source",
+        "unsafe_validation_command",
+        "symlink_output_escape",
+        "unresolved_impact_artifact",
+        "open_owner_decision",
+        "failed_registered_validation",
+        "write_outside_verification_directory"
+      ]
     }
   ],
   "topological_order": [
+    "documentation-cascade-run",
+    "documentation-cascade-finalization",
+    "documentation-cascade-verification",
     "docs-navigation",
     "datacanvas-bmc",
     "artifact-hash-manifest"

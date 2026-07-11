@@ -2,8 +2,8 @@
   "$schema": "../../../schemas/xlsx-change-analysis.schema.json",
   "version": "0.1.0",
   "analysis_id": "XLSX-CHANGE-2026-07-09-001",
-  "status": "blocked",
-  "generated_at": "2026-07-09T00:00:00Z",
+  "status": "ready",
+  "generated_at": "2026-07-10T00:00:00Z",
   "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
   "changed_source_set": [
     {
@@ -35,15 +35,16 @@
     "docs/product/requirements/user-stories.md",
     "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
     "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+    "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
     "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
     "docs/product/backlog/product-backlog.md",
     "docs/product/requirements/acceptance-criteria.md",
     "docs/product/requirements/business-requirements.md",
     "docs/product/requirements/traceability-matrix.json",
-    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
     "docs/product/sources/product-source-registry.json",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-    "docs/product/sources/xlsx-opml-jira-recovery-index.json"
+    "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
   ],
   "downstream_resolution_policy": {
     "resolution_required": "update_or_no_change_rationale_per_downstream",
@@ -53,10 +54,10 @@
     "dependency_graph_policy": "stable_dependency_edges_only"
   },
   "owner_decisions_required": [
-    "Требуется решение Product Owner только если изменение XLSX меняет смысл истории, приоритет или состав backlog, а не только ПШЕ.",
-    "Требуется подтверждение команды реализации перед переносом ПШЕ в sprint backlog или Jira import."
+    "Решение Product Owner требуется только если изменение XLSX меняет смысл истории, приоритет или границу продукта сверх уже принятого CO-2026-002.",
+    "Перед переносом в фактический sprint backlog требуется отдельная проверка емкости, порядка работ и вытеснения."
   ],
-  "team_approval_required": true,
+  "team_approval_required": false,
   "validation_commands": [
     "npm run validate:xlsx-backlog",
     "npm run validate:xlsx-cascade",

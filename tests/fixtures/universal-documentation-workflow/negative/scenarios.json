@@ -84,6 +84,25 @@
       }
     },
     {
+      "scenario_id": "catalog-command-missing-execution-policy",
+      "expected_rejection": "catalog_command_requires_execution_policy",
+      "payload": {
+        "command": "npm run validate:documentation-core",
+        "execution_type": null,
+        "mutates_files": null,
+        "freshness_required": null
+      }
+    },
+    {
+      "scenario_id": "workflow-plan-mutating-command",
+      "expected_rejection": "validation_plan_must_not_mutate_before_owner_decision",
+      "payload": {
+        "workflow_status": "awaiting_decision",
+        "command": "node scripts/generate-artifact-hash-manifest.mjs",
+        "expected_allowed_variant": "node scripts/generate-artifact-hash-manifest.mjs --check"
+      }
+    },
+    {
       "scenario_id": "simulated-requested-tool",
       "expected_rejection": "requested_skill_plugin_or_consilium_must_be_real_or_blocked",
       "payload": {

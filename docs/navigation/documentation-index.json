@@ -4960,7 +4960,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
@@ -5120,6 +5120,7 @@
         "каскадное-ведение-документации",
         "назначение",
         "контракт",
+        "сухой-запуск-и-проверка-завершения",
         "исходные-артефакты",
         "проверки"
       ],
@@ -5149,150 +5150,6 @@
       "anchors": [],
       "reachable_from_root": true,
       "click_depth": 3
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "evidence",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "draft",
-      "status": "draft",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-529",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-567",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-563",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-564",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/reprioritization-impact-report-2026-07-02-002.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-566",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
-    },
-    {
-      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
-      "title": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
-      "section": "process",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "json",
-      "owner_role": "Process Owner",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": true,
-      "navigable": false,
-      "generated": false,
-      "canonical_source": null,
-      "generated_from": [],
-      "parent_readme": "docs/process/cascading-governance/README.md",
-      "artifact_registry_id": "ART-565",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
     },
     {
       "path": "docs/process/cascading-governance/user-decision-queue.json",
@@ -7357,6 +7214,7 @@
       "outgoing_links": [
         "docs/navigation/navigation-map.md",
         "docs/navigation/navigation-source.json",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/acceptance-records.json",
         "docs/process/universal-documentation-workflow/artifact-inventory.json",
@@ -7377,8 +7235,13 @@
         "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
         "docs/process/universal-documentation-workflow/validation-command-catalog.json",
         "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/product/requirements/business-claim-map.json",
         "docs/README.md",
-        "README.md"
+        "README.md",
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/cascade-impact-cone.schema.json",
+        "schemas/cascade-resolution-input.schema.json",
+        "schemas/cascade-verification-evidence.schema.json"
       ],
       "anchors": [
         "универсальный-рабочий-процесс-проектной-документации",
@@ -7670,8 +7533,8 @@
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product/README.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
@@ -7684,6 +7547,7 @@
         "основные-маршруты",
         "запуск-другим-агентом",
         "диалоговый-режим-в-лисе",
+        "доставка-по-ссылке-в-лисе",
         "входные-данные",
         "участники-и-роли",
         "границы-продукта",
@@ -7904,9 +7768,9 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/user-stories.md",
         "docs/product/specs/README.md",
         "docs/README.md",
-        "docs/stories.md",
         "README.md"
       ],
       "anchors": [
@@ -8283,7 +8147,7 @@
     },
     {
       "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-      "title": "Оценка ПШЕ Для Историй Запуска DataCanvas Другим Агентом И Генерации Презентации",
+      "title": "Оценка ПШЕ для историй запуска DataCanvas другим агентом и доставки по ссылке",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -8312,7 +8176,7 @@
         "README.md"
       ],
       "anchors": [
-        "оценка-пше-для-историй-запуска-datacanvas-другим-агентом-и-генерации-презентации",
+        "оценка-пше-для-историй-запуска-datacanvas-другим-агентом-и-доставки-по-ссылке",
         "назначение",
         "источник-матрицы",
         "правила-использования-оценки",
@@ -8327,7 +8191,7 @@
     },
     {
       "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
-      "title": "Карта Импорта Документации В Confluence",
+      "title": "Карта импорта документации в Confluence",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -8353,10 +8217,10 @@
       ],
       "anchors": [
         "карта-импорта-документации-в-confluence",
-        "правило",
-        "структура-пространства",
-        "исключения-до-дополнительного-решения",
-        "перед-импортом"
+        "назначение",
+        "пакет-импорта",
+        "порядок-публикации",
+        "открытые-вопросы"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -8718,7 +8582,8 @@
         "проверки-после-принятия-excel-редакции-и-каскадной-синхронизации",
         "rca-после-рассинхронизации-xlsx-и-пользовательских-историй",
         "проверки-после-каскадного-обновления-co-2026-002-и-xlsx",
-        "остаточные-риски"
+        "остаточные-риски",
+        "проверки-после-глубокой-синхронизации-co-2026-002"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -8870,16 +8735,16 @@
       "parent_readme": "docs/product/backlog/README.md",
       "artifact_registry_id": "ART-434",
       "outgoing_links": [
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/README.md",
         "docs/product/README.md",
-        "docs/product/requirements/user-stories.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
         "product-backlog",
-        "истории-запуска-другим-агентом-после-co-2026-002"
+        "назначение",
+        "product-backlog-1",
+        "открытые-вопросы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10044,15 +9909,15 @@
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "json",
-      "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
       "navigable": false,
       "generated": false,
-      "canonical_source": null,
+      "canonical_source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "generated_from": [],
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": "ART-721",
@@ -10068,15 +9933,15 @@
       "navigation_domain": "product",
       "navigation_group": "business",
       "format": "json",
-      "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
       "navigable": false,
       "generated": false,
-      "canonical_source": null,
+      "canonical_source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
       "generated_from": [],
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": "ART-720",
@@ -10093,12 +9958,12 @@
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
@@ -10243,6 +10108,7 @@
         "docs/product/change-orders/product-change-order-template.md",
         "docs/product/change-orders/product-change-questionnaire-protocol.md",
         "docs/product/README.md",
+        "docs/product/requirements/business-claim-map.json",
         "docs/README.md",
         "README.md"
       ],
@@ -10700,9 +10566,11 @@
       ],
       "anchors": [
         "критерии-приемки-v02",
-        "базовый-mvp-gate",
+        "назначение",
+        "критерии-приемки",
+        "базовая-приемка",
         "сценарии-приемки-по-маршрутам",
-        "открытые-решения-для-приемки"
+        "открытые-вопросы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10718,6 +10586,32 @@
       "lifecycle": "draft",
       "status": "draft",
       "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/requirements/README.md",
+      "artifact_registry_id": "ART-722",
+      "outgoing_links": [],
+      "anchors": [
+        "backlog-slicing-rules"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/product/requirements/business-claim-map.json",
+      "title": "docs/product/requirements/business-claim-map.json",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
       "navigable": false,
@@ -10725,11 +10619,9 @@
       "canonical_source": null,
       "generated_from": [],
       "parent_readme": "docs/product/requirements/README.md",
-      "artifact_registry_id": null,
+      "artifact_registry_id": "ART-723",
       "outgoing_links": [],
-      "anchors": [
-        "backlog-slicing-rules"
-      ],
+      "anchors": [],
       "reachable_from_root": true,
       "click_depth": 2
     },
@@ -10753,34 +10645,22 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-428",
       "outgoing_links": [
-        "docs/product-vision.md",
-        "docs/product/bmc/bmc-v0.2.md",
         "docs/product/README.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/non-functional-requirements.md",
-        "docs/product/requirements/user-stories.md",
-        "docs/product/vision/vision-v0.1.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
         "бизнес-требования-v02",
-        "исходные-источники",
-        "сохраненные-требования",
-        "новые-требования-mvp-и-p1-candidate",
-        "покрытие-историй-лисы-и-доставки",
-        "покрытие-p1-stories-запуска-другим-агентом",
-        "допущения-и-открытые-решения",
-        "безопасность-и-доверительные-границы",
-        "метрики-успеха",
-        "нецели-p1"
+        "назначение",
+        "бизнес-требования",
+        "открытые-вопросы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
     },
     {
       "path": "docs/product/requirements/non-functional-requirements.md",
-      "title": "Нефункциональные Требования v0.1",
+      "title": "Нефункциональные требования v0.1",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -10805,8 +10685,9 @@
       ],
       "anchors": [
         "нефункциональные-требования-v01",
-        "критерии-пригодности-для-basa",
-        "связь-с-рисками"
+        "назначение",
+        "нефункциональные-требования",
+        "открытые-вопросы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -10834,6 +10715,7 @@
         "docs/product/README.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/backlog-slicing-rules.md",
+        "docs/product/requirements/business-claim-map.json",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
@@ -10844,7 +10726,8 @@
       "anchors": [
         "требования-datacanvas",
         "назначение",
-        "документы"
+        "документы",
+        "машинные-связки"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -34277,7 +34160,7 @@
         "актуальный-источник"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "README.md",
@@ -34875,14 +34758,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1216,
-    "manual_entries": 1212,
+    "total_entries": 1211,
+    "manual_entries": 1207,
     "generated_entries": 4,
-    "public_navigable_entries": 33,
-    "searchable_entries": 1182,
+    "public_navigable_entries": 34,
+    "searchable_entries": 1177,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 168,
+    "reachable_from_root": 167,
     "orphan_entries": 0
   },
   "ignored_paths": [
@@ -34897,6 +34780,10 @@
     {
       "path": "docs/product/bmc/source/derived",
       "reason": "Derived BMC binary outputs are registered through artifact governance, not treated as source documents."
+    },
+    {
+      "path": "docs/process/cascading-governance/runs",
+      "reason": "Неизменяемые evidence-пакеты запуска, финализации и проверки открываются через README каскадного процесса и ссылки конкретного запуска, а не продвигаются как основные навигационные документы."
     }
   ],
   "blocked_sensitive_paths": [

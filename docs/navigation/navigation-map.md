@@ -22,7 +22,7 @@ Vision, BMC, stories, требования, backlog, roadmap, гипотезы �
 - [Каталог пользовательских историй DataCanvas](../product/requirements/user-stories.md) - Product Owner, `active`.
 - [Требования DataCanvas](../product/requirements/README.md) - Product Owner, `active`.
 - [Бизнес-требования v0.2](../product/requirements/business-requirements.md) - Product Owner, `draft`.
-- [Нефункциональные Требования v0.1](../product/requirements/non-functional-requirements.md) - Product Owner, `draft`.
+- [Нефункциональные требования v0.1](../product/requirements/non-functional-requirements.md) - Product Owner, `draft`.
 - [Критерии приемки v0.2](../product/requirements/acceptance-criteria.md) - Product Owner, `draft`.
 - [Backlog DataCanvas](../product/backlog/README.md) - Product Owner, `active`.
 - [Product Backlog](../product/backlog/product-backlog.md) - Product Owner, `draft`.
@@ -32,6 +32,7 @@ Vision, BMC, stories, требования, backlog, roadmap, гипотезы �
 - [Доска гипотез](../product/hypotheses/hypothesis-board.md) - Product Owner, `draft`.
 - [Проверка гипотез](../product/hypotheses/hypothesis-validation.md) - Product Owner, `draft`.
 - [Исходные Документы Продукта DataCanvas](../product/sources/README.md) - Product Owner, `draft`.
+- [Backlog Slicing Rules](../product/requirements/backlog-slicing-rules.md) - Product Owner, `draft`.
 
 ## Техническое воплощение ведения проектной документации
 

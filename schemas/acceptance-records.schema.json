@@ -21,9 +21,26 @@
           "acceptance_record_id": { "type": "string", "minLength": 1 },
           "acceptance_type": { "type": "string", "enum": ["owner_decision_acceptance", "documentation_change_acceptance", "product_behavior_acceptance", "process_change_acceptance", "architecture_decision_acceptance"] },
           "status": { "type": "string", "enum": ["draft", "accepted", "rejected", "not_applicable"] },
+          "selected_option_id": {
+            "type": "string",
+            "pattern": "^OPT-[A-Z0-9-]+$",
+            "description": "Обязательно для записи, которой закрывается решение каскадного запуска; исторические записи могут не содержать поле."
+          },
           "owner_role": { "type": "string", "minLength": 1 },
           "subject": { "type": "string", "minLength": 1 },
           "linked_decision_ids": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+          "linked_run_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^CUR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" }
+          },
+          "linked_run_paths": {
+            "type": "array",
+            "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+          },
+          "linked_change_request_ids": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" }
+          },
           "linked_artifacts": { "type": "array", "items": { "type": "string", "minLength": 1 } }
         }
       }

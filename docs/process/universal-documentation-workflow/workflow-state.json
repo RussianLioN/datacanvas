@@ -21,6 +21,7 @@
   "validation_plan": [
     "npm run docs:verify -- --changed-from HEAD",
     "npm run validate:business-docs",
+    "npm run validate:business-claim-map",
     "npm run validate:universal-documentation-workflow",
     "npm run validate:xlsx-backlog",
     "npm run validate:xlsx-cascade",
@@ -38,7 +39,6 @@
     "npm run validate:schemas",
     "npm run generate:bmc -- --check",
     "npm run validate:bmc",
-    "node scripts/generate-artifact-hash-manifest.mjs",
     "npm run generate:docs-navigation -- --check",
     "npm run validate:doc-links",
     "npm run validate:docs-navigation",

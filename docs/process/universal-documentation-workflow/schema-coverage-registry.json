@@ -55,7 +55,8 @@
       "positive_fixture_path": "tests/fixtures/universal-documentation-workflow/positive/neutral-validation-command-catalog.json",
       "negative_fixture_path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
       "negative_scenario_ids": [
-        "missing-validation-command"
+        "missing-validation-command",
+        "catalog-command-missing-execution-policy"
       ],
       "negative_rationale": null
     },
@@ -66,7 +67,8 @@
       "positive_fixture_path": "tests/fixtures/universal-documentation-workflow/positive/neutral-workflow-state.json",
       "negative_fixture_path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
       "negative_scenario_ids": [
-        "open-blocking-decision"
+        "open-blocking-decision",
+        "workflow-plan-mutating-command"
       ],
       "negative_rationale": null
     },
@@ -161,6 +163,15 @@
       "negative_rationale": "Generation-contract coverage is checked by npm run validate:business-docs against the active content contract and process backlog blockers."
     },
     {
+      "entity": "business_claim_map",
+      "schema_path": "schemas/business-claim-map.schema.json",
+      "data_path": "docs/product/requirements/business-claim-map.json",
+      "positive_fixture_path": "docs/product/requirements/business-claim-map.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Business claim map is checked by npm run validate:business-claim-map against product-source-registry.json and required downstream fragments."
+    },
+    {
       "entity": "main_artifact_lifecycle_chain",
       "schema_path": "schemas/main-artifact-lifecycle-chain.schema.json",
       "data_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
@@ -168,6 +179,42 @@
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Cross-file lifecycle order, command coverage, source registry, navigation, dependency graph and no-change rationale invariants are executed by npm run validate:main-artifact-lifecycle."
+    },
+    {
+      "entity": "cascade_impact_cone",
+      "schema_path": "schemas/cascade-impact-cone.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Незаявленные циклы, самоссылки, включение измененного корня в собственный конус и ошибки направлений проверяются исполняемыми сценариями npm run validate:cascade-impact."
+    },
+    {
+      "entity": "cascade_baseline_manifest",
+      "schema_path": "schemas/cascade-baseline-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Связь baseline с фактическими хэшами управляющих входов и затронутых файлов проверяется runner self-test и npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_verification_evidence",
+      "schema_path": "schemas/cascade-verification-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Статус verified с упавшей проверкой, открытой очередью решений или незакрытым артефактом отклоняется исполняемыми сценариями npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_resolution_input",
+      "schema_path": "schemas/cascade-resolution-input.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неполный набор путей, несуществующая опция решения, неподтвержденная acceptance record и no-change без структурированного обоснования отклоняются финализатором и npm run validate:cascade-verification."
     }
   ]
 }

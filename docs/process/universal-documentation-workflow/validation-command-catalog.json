@@ -8,6 +8,11 @@
       "id": "documentation-core",
       "command": "npm run validate:documentation-core",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "universal_core"
       ],
@@ -18,6 +23,11 @@
       "id": "documentation-profile",
       "command": "npm run validate:documentation-profile",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "project_profile",
         "product_profile"
@@ -29,6 +39,11 @@
       "id": "datacanvas-profile",
       "command": "npm run validate:datacanvas-profile",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "pilot_specific"
       ],
@@ -39,6 +54,11 @@
       "id": "product-vision",
       "command": "npm run validate:product-vision",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "product_meaning"
@@ -50,6 +70,11 @@
       "id": "business-docs",
       "command": "npm run validate:business-docs",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "product_meaning",
@@ -59,9 +84,32 @@
       "purpose": "Проверяет, что бизнесовые Markdown-артефакты не смешивают продуктовый смысл с техническими контрактами, provenance, проверочными командами, локальными путями и generated metadata, а каждый документ имеет контракт генерации и блокирующую задачу в process backlog."
     },
     {
+      "id": "business-claim-map",
+      "command": "npm run validate:business-claim-map",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "traceability",
+        "change_orders"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет, что ключевые утверждения CO-2026-001 и CO-2026-002 отражены в основных бизнес-артефактах без загрязнения человекочитаемых документов служебной трассировкой."
+    },
+    {
       "id": "product-sources",
       "command": "npm run validate:product-sources && npm run validate:product-source-consistency",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "product_meaning",
@@ -74,6 +122,11 @@
       "id": "bmc-package",
       "command": "npm run validate:bmc",
       "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "product_meaning",
@@ -86,6 +139,11 @@
       "id": "workflow-state-ledger",
       "command": "npm run validate:workflow-state-ledger",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "change_instance"
       ],
@@ -96,6 +154,11 @@
       "id": "generator-contracts",
       "command": "npm run validate:generator-contracts",
       "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "generated"
       ],
@@ -106,6 +169,11 @@
       "id": "schema-coverage",
       "command": "npm run validate:schema-coverage",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "schemas",
         "fixtures"
@@ -117,6 +185,11 @@
       "id": "mutation-guard",
       "command": "npm run validate:mutation-guard",
       "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "generated",
         "change_instance"
@@ -128,6 +201,11 @@
       "id": "security",
       "command": "npm run scan:secrets && npm run validate:data-leakage",
       "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "security"
       ],
@@ -138,6 +216,13 @@
       "id": "full",
       "command": "npm test",
       "gate": "full",
+      "execution_type": "full_gate",
+      "mutates_files": true,
+      "writes_expected": [
+        "generated outputs declared by repository generator contracts"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "universal_core",
         "project_profile",
@@ -153,6 +238,11 @@
       "id": "xlsx-backlog-sync",
       "command": "npm run validate:xlsx-backlog",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "analysis_source",
@@ -166,6 +256,11 @@
       "id": "xlsx-cascade",
       "command": "npm run validate:xlsx-cascade",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "analysis_source",
@@ -174,12 +269,17 @@
         "cascade"
       ],
       "owner_role": "Product Owner / Process Owner",
-      "purpose": "Проверяет, что XLSX и provenance включены в каскадный граф как high-impact upstream, а downstream-артефакты закрываются обновлением или no-change rationale в impact analysis."
+      "purpose": "Проверяет, что XLSX и provenance включены в каскадный граф как значимые входные источники, а полный конус связанных артефактов закрывается обновлением, проверкой владельца или no-change rationale в impact analysis."
     },
     {
       "id": "main-artifact-lifecycle",
       "command": "npm run validate:main-artifact-lifecycle",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "product_profile",
         "product_meaning",
@@ -190,21 +290,163 @@
       "purpose": "Проверяет машинно закрепленную цепочку главных артефактов DataCanvas: порядок Vision, BMC, stories, требований, backlog, XLSX, roadmap, гипотез, traceability и экспортного пакета; связывает цепочку с реестрами, навигацией, каскадным графом и проверками."
     },
     {
+      "id": "cascade-impact",
+      "command": "npm run validate:cascade-impact",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "traceability"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет единый расчет полного конуса влияния вверх и вниз, исключение измененного корня, явное объявление циклов и выбор обязательства по каждому затронутому артефакту."
+    },
+    {
+      "id": "cascading-governance",
+      "command": "npm run validate:cascading-governance",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "decision_queue",
+        "xlsx_backlog"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет согласованность запроса на изменение, графа, полного конуса влияния, очереди решений, XLSX-каскада и evidence сухого запуска."
+    },
+    {
+      "id": "universal-documentation-workflow",
+      "command": "npm run validate:universal-documentation-workflow",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "documentation_operations",
+        "change_instance",
+        "cascade"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет универсальное ядро, профиль DataCanvas, реестры схем и артефактов, контракты генераторов и защиту разрешенных записей."
+    },
+    {
+      "id": "cascade-run",
+      "command": "npm run cascade:run -- --change-request <path> --output-dir docs/process/cascading-governance/runs/<run-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "generated"
+      ],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "Создает неизменяемый пакет сухого запуска: полный конус влияния, очередь решений, baseline с хэшами и человекочитаемый отчет; продуктовый смысл не меняет."
+    },
+    {
+      "id": "cascade-verification",
+      "command": "npm run validate:cascade-verification",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет схемы baseline и итогового evidence, а также запрещает статус verified при незакрытых артефактах, решениях владельца или упавших проверках."
+    },
+    {
+      "id": "cascade-finalize",
+      "command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "decision_queue",
+        "generated"
+      ],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "По явному машинному входу разрешений создает новую закрытую версию impact report, очереди решений и run record; исходный generated-пакет вручную не редактируется."
+    },
+    {
+      "id": "cascade-verify",
+      "command": "npm run cascade:verify -- --run <run-json> --output-dir docs/process/cascading-governance/runs/<verification-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence",
+        "generated"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "После разрешения каждого элемента конуса сравнивает хэши с baseline, проверяет закрытие решений, запускает зарегистрированные проверки и выпускает отдельное evidence завершения."
+    },
+    {
       "id": "cascade-preview",
       "command": "npm run cascade:preview -- --changed-from HEAD",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "change_instance",
         "cascade",
         "impact_analysis"
       ],
       "owner_role": "Process Owner",
-      "purpose": "Строит read-only предпросмотр каскада по измененным файлам: changed source set, downstream-артефакты, нужные генераторы, проверки и блокеры без записи evidence."
+      "purpose": "Строит read-only предпросмотр полного каскада по измененным файлам: измененные корни, влияние вверх и вниз, циклы, нужные генераторы, проверки и решения владельцев без записи evidence."
     },
     {
       "id": "docs-verify",
       "command": "npm run docs:verify -- --changed-from HEAD",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "documentation_diff",
         "cascade",

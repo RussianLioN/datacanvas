@@ -10,6 +10,7 @@
     "status",
     "generated_at",
     "target_artifact",
+    "impact_cone",
     "affected_artifacts",
     "blocking_user_decisions",
     "derived_facts",
@@ -26,9 +27,9 @@
     "status": { "type": "string", "enum": ["draft", "blocked", "ready", "applied"] },
     "generated_at": { "type": "string", "format": "date-time" },
     "target_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "impact_cone": { "$ref": "https://datacanvas.local/schemas/cascade-impact-cone.schema.json" },
     "affected_artifacts": {
       "type": "array",
-      "minItems": 1,
       "items": { "$ref": "#/$defs/affectedArtifact" }
     },
     "blocking_user_decisions": {
@@ -146,34 +147,10 @@
     },
     "affectedArtifact": {
       "type": "object",
-      "required": ["path", "impact_types", "required_edits", "optional_edits", "update_status", "no_change_rationale"],
+      "required": ["path", "required_edits", "optional_edits", "update_status", "no_change_rationale"],
       "additionalProperties": false,
       "properties": {
         "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "impact_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string",
-            "enum": [
-              "semantic",
-              "traceability",
-              "navigation",
-              "resource",
-              "Jira",
-              "jira",
-              "evidence",
-              "generated",
-              "process",
-              "schema",
-              "validator",
-              "source",
-              "provenance",
-              "registry",
-              "privacy"
-            ]
-          }
-        },
         "required_edits": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }

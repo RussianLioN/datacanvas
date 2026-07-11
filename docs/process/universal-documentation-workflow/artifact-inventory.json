@@ -549,10 +549,15 @@
       "visibility": "internal",
       "inputs": [
         "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
         "docs/process/universal-documentation-workflow/artifact-inventory.json",
         "docs/process/universal-documentation-workflow/generator-contracts.json",
         "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-        "docs/navigation/navigation-source.json"
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "scripts/documentation-impact-graph.mjs"
       ],
       "outputs": [],
       "validation_commands": [
@@ -624,6 +629,630 @@
       "outputs": [],
       "validation_commands": [
         "npm run validate:main-artifact-lifecycle"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A028",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "artifact_type": "business_claim_map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "domain": "product",
+      "profile_scope": "pilot_specific",
+      "source_of_truth_class": "machine_readable_traceability",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/sources/product-source-registry.json"
+      ],
+      "outputs": [
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/bmc/bmc-v0.2.md"
+      ],
+      "validation_commands": [
+        "npm run validate:business-claim-map",
+        "npm run validate:product-source-consistency"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A029",
+      "path": "schemas/business-claim-map.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product/requirements/business-claim-map.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:business-claim-map"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A030",
+      "path": "scripts/validate-business-claim-map.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/business-claim-map.schema.json",
+        "docs/product/requirements/business-claim-map.json",
+        "docs/product/sources/product-source-registry.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:business-claim-map"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A031",
+      "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "artifact_type": "dependency_graph",
+      "owner_role": "Process Owner / Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_contract",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-impact",
+        "npm run validate:cascading-governance",
+        "npm run validate:main-artifact-lifecycle"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A032",
+      "path": "schemas/artifact-dependency-graph.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A033",
+      "path": "schemas/impact-analysis-report.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-impact-cone.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:impact-analysis",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A034",
+      "path": "schemas/cascading-update-run.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-baseline-manifest.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A035",
+      "path": "schemas/cascade-impact-cone.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-impact",
+        "npm run validate:schema-coverage"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A036",
+      "path": "schemas/cascade-baseline-manifest.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-verification",
+        "npm run validate:schema-coverage"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A037",
+      "path": "schemas/cascade-verification-evidence.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-baseline-manifest.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-verification",
+        "npm run validate:schema-coverage"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A038",
+      "path": "scripts/documentation-impact-graph.mjs",
+      "artifact_type": "process_library",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-impact",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A039",
+      "path": "scripts/cascade-evidence-utils.mjs",
+      "artifact_type": "process_library",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascade-verification"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A040",
+      "path": "scripts/run-cascading-update.mjs",
+      "artifact_type": "generator",
+      "owner_role": "Process Owner / Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/artifact-dependency-graph.schema.json"
+      ],
+      "outputs": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A041",
+      "path": "scripts/verify-documentation-cascade.mjs",
+      "artifact_type": "generator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-acceptance-records.mjs",
+        "scripts/cascade-validation-command-policy.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "schemas/cascade-verification-evidence.schema.json",
+        "schemas/cascading-update-run.schema.json",
+        "schemas/impact-analysis-report.schema.json",
+        "schemas/user-decision-queue.schema.json",
+        "schemas/cascade-resolution-input.schema.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json",
+        "schemas/artifact-dependency-graph.schema.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/xlsx-change-analysis.schema.json",
+        "schemas/product-source-registry.schema.json",
+        "schemas/validation-command-catalog.schema.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "outputs": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "validation_commands": [
+        "npm run validate:cascade-verification",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A042",
+      "path": "scripts/validate-cascade-impact.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/documentation-impact-graph.mjs",
+        "schemas/cascade-impact-cone.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-impact"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A043",
+      "path": "scripts/validate-cascade-verification.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/cascade-verification-evidence.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-verification"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A044",
+      "path": "scripts/validate-cascading-governance.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/documentation-impact-graph.mjs",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "schemas/impact-analysis-report.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A045",
+      "path": "schemas/cascade-resolution-input.schema.json",
+      "artifact_type": "json_schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/impact-analysis-report.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-verification",
+        "npm run validate:schema-coverage"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A046",
+      "path": "scripts/finalize-documentation-cascade.mjs",
+      "artifact_type": "generator",
+      "owner_role": "Process Owner / Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-resolution-input.schema.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json",
+        "schemas/artifact-dependency-graph.schema.json",
+        "schemas/cascade-baseline-manifest.schema.json",
+        "schemas/documentation-change-request.schema.json",
+        "schemas/xlsx-change-analysis.schema.json",
+        "schemas/product-source-registry.schema.json",
+        "schemas/cascading-update-run.schema.json",
+        "schemas/impact-analysis-report.schema.json",
+        "schemas/user-decision-queue.schema.json",
+        "scripts/documentation-impact-graph.mjs",
+        "scripts/cascade-evidence-utils.mjs",
+        "scripts/cascade-acceptance-records.mjs",
+        "scripts/cascade-owner-decision-policy.mjs",
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "outputs": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "validation_commands": [
+        "npm run validate:cascade-verification",
+        "npm run validate:cascading-governance"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A047",
+      "path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "artifact_type": "validation_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "test_evidence",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/cascade-resolution-input.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascade-verification"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A048",
+      "path": "package.json",
+      "artifact_type": "automation_manifest",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "automation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow",
+        "npm test"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A049",
+      "path": "scripts/public-business-language-policy.mjs",
+      "artifact_type": "validation_library",
+      "owner_role": "Product Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/business-artifact-content-contract.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:product-vision"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A050",
+      "path": "scripts/validate-product-vision.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Product Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product-vision.md",
+        "scripts/public-business-language-policy.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:product-vision"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A051",
+      "path": "tests/fixtures/cascading-governance/xlsx-change-analysis-valid.json",
+      "artifact_type": "validation_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "test_evidence",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/xlsx-change-analysis.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:xlsx-cascade"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A052",
+      "path": "tests/fixtures/product-vision/negative/cases.json",
+      "artifact_type": "negative_validation_fixture",
+      "owner_role": "Product Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "test_evidence",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product-vision.md",
+        "scripts/validate-product-vision.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:product-vision"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A053",
+      "path": "scripts/cascade-acceptance-records.mjs",
+      "artifact_type": "validation_library",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "schemas/acceptance-records.schema.json",
+        "schemas/artifact-registry.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascade-verification"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A054",
+      "path": "scripts/cascade-validation-command-policy.mjs",
+      "artifact_type": "validation_library",
+      "owner_role": "Process Owner / Security Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "schemas/validation-command-catalog.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascade-verification"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A055",
+      "path": "scripts/cascade-owner-decision-policy.mjs",
+      "artifact_type": "validation_library",
+      "owner_role": "Process Owner / Product Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "schemas/user-decision-queue.schema.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:cascading-update",
+        "npm run validate:cascade-verification"
       ]
     }
   ]

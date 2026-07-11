@@ -3763,6 +3763,22 @@
       "update_trigger": "Business navigation, product requirements, backlog, roadmap, hypothesis, or traceability changes."
     },
     {
+      "id": "ART-722",
+      "path": "docs/product/requirements/backlog-slicing-rules.md",
+      "type": "product",
+      "owner_role": "Product Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W26",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Product backlog, acceptance criteria, sprint planning, or roadmap changes."
+    },
+    {
       "id": "ART-432",
       "path": "docs/product/requirements/traceability-matrix.json",
       "type": "traceability",
@@ -8075,6 +8091,214 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "CO-2026-002 impact scope, downstream artifacts, or validation plan changes."
+    },
+    {
+      "id": "ART-723",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "type": "traceability",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-724",
+      "path": "schemas/business-claim-map.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-725",
+      "path": "scripts/validate-business-claim-map.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26"
+    },
+    {
+      "id": "ART-726",
+      "path": "scripts/plan-documentation-cascade.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-727",
+      "path": "scripts/documentation-impact-graph.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-728",
+      "path": "scripts/cascade-evidence-utils.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-729",
+      "path": "scripts/verify-documentation-cascade.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-730",
+      "path": "scripts/validate-cascade-impact.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-731",
+      "path": "scripts/validate-cascade-verification.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-732",
+      "path": "schemas/cascade-impact-cone.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-733",
+      "path": "schemas/cascade-baseline-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-734",
+      "path": "schemas/cascade-verification-evidence.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-735",
+      "path": "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-736",
+      "path": "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-737",
+      "path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-738",
+      "path": "schemas/cascade-resolution-input.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-739",
+      "path": "scripts/finalize-documentation-cascade.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-740",
+      "path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-741",
+      "path": "package.json",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-742",
+      "path": "scripts/public-business-language-policy.mjs",
+      "type": "validation",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-743",
+      "path": "scripts/validate-product-vision.mjs",
+      "type": "validation",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-744",
+      "path": "tests/fixtures/cascading-governance/xlsx-change-analysis-valid.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-745",
+      "path": "tests/fixtures/product-vision/negative/cases.json",
+      "type": "test_fixture",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-746",
+      "path": "scripts/cascade-acceptance-records.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-747",
+      "path": "scripts/cascade-validation-command-policy.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-748",
+      "path": "scripts/cascade-owner-decision-policy.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

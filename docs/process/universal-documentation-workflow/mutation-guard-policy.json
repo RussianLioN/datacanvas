@@ -43,6 +43,27 @@
         "docs/product/bmc/evidence/visual-review.md",
         "docs/product/bmc/manifest.json"
       ]
+    },
+    {
+      "generator_id": "documentation-cascade-run",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-finalization",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-verification",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
     }
   ],
   "blocked_patterns": [

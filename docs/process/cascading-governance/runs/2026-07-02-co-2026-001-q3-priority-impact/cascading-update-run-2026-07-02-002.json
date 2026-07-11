@@ -1,6 +1,8 @@
 {
   "version": "0.1.0",
   "run_id": "CUR-2026-07-02-002",
+  "run_mode": "dry_run_evidence",
+  "apply_supported": false,
   "status": "blocked",
   "change_request_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/documentation-change-request-2026-07-02-002.json",
   "dependency_graph_path": "docs/process/cascading-governance/artifact-dependency-graph.json",
@@ -219,6 +221,8 @@
   "completion_claim": {
     "done_claimed": false,
     "decision_queue_status": "blocked",
-    "all_affected_artifacts_resolved": false
+    "all_affected_artifacts_resolved": false,
+    "ready_to_apply": false,
+    "ready_for_dry_run_evidence": true
   }
 }

@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/cascade-impact-cone.schema.json",
+  "title": "Documentation cascade impact cone",
+  "type": "object",
+  "required": [
+    "version",
+    "analysis_mode",
+    "changed_source_set",
+    "impacted_artifacts",
+    "observed_cycle_ids",
+    "uncovered_changed_paths"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver"
+    },
+    "analysis_mode": {
+      "type": "string",
+      "const": "full_impact_cone"
+    },
+    "changed_source_set": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "change_class"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+          },
+          "change_class": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "impacted_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "impact_directions",
+          "trigger_paths",
+          "review_obligation",
+          "owner_gate_required",
+          "resolution_required"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+          },
+          "impact_directions": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": ["upstream", "downstream"]
+            }
+          },
+          "trigger_paths": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+            }
+          },
+          "review_obligation": {
+            "type": "string",
+            "enum": ["update_or_no_change", "regenerate", "validate_only", "owner_decision"]
+          },
+          "owner_gate_required": {
+            "type": "boolean"
+          },
+          "resolution_required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "observed_cycle_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^CYCLE-[A-Z0-9-]+$"
+      }
+    },
+    "uncovered_changed_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+      }
+    }
+  }
+}

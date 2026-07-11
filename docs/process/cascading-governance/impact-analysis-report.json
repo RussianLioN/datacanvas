@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "impact_report_id": "IAR-2026-07-02-001",
   "change_request_id": "DCR-2026-07-02-001",
   "status": "blocked",
@@ -8,9 +8,6 @@
   "affected_artifacts": [
     {
       "path": "schemas/documentation-change-request.schema.json",
-      "impact_types": [
-        "schema"
-      ],
       "required_edits": [
         "Подготовить draft schema для входа значимых правок документации."
       ],
@@ -20,10 +17,6 @@
     },
     {
       "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
-      "impact_types": [
-        "process",
-        "traceability"
-      ],
       "required_edits": [
         "Зафиксировать machine-readable dependency graph для opt-in impact analysis."
       ],
@@ -33,9 +26,6 @@
     },
     {
       "path": "docs/process/cascading-governance/README.md",
-      "impact_types": [
-        "process"
-      ],
       "required_edits": [
         "Маркировать каталог как draft opt-in scaffold, а не accepted process gate."
       ],
@@ -45,9 +35,6 @@
     },
     {
       "path": "docs/process/current/definition-of-ready.md",
-      "impact_types": [
-        "process"
-      ],
       "required_edits": [
         "Ограничить cascade criteria opt-in использованием draft PROC-038."
       ],
@@ -57,9 +44,6 @@
     },
     {
       "path": "docs/process/current/definition-of-done.md",
-      "impact_types": [
-        "process"
-      ],
       "required_edits": [
         "Запретить Done claim для blocked opt-in cascade run."
       ],
@@ -69,9 +53,6 @@
     },
     {
       "path": "docs/process/current/process-registry.md",
-      "impact_types": [
-        "process"
-      ],
       "required_edits": [
         "Убрать PROC-038 из активных правил и оставить как подготовительный контракт."
       ],
@@ -81,9 +62,6 @@
     },
     {
       "path": "docs/product-vision.md",
-      "impact_types": [
-        "semantic"
-      ],
       "required_edits": [],
       "optional_edits": [
         "Не добавлять cascade governance как продуктовую ценность без отдельного Product Owner решения."
@@ -107,9 +85,6 @@
     },
     {
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "impact_types": [
-        "semantic"
-      ],
       "required_edits": [],
       "optional_edits": [
         "Не добавлять cascade governance в BMC key resources/key activities без отдельного Product Owner решения."
@@ -133,9 +108,6 @@
     },
     {
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "impact_types": [
-        "evidence"
-      ],
       "required_edits": [],
       "optional_edits": [
         "Release evidence review не утверждает acceptance PROC-038."
@@ -207,5 +179,129 @@
     "npm run validate:data-leakage",
     "npm test"
   ],
-  "completion_status": "blocked"
+  "completion_status": "blocked",
+  "impact_cone": {
+    "version": "0.2.0",
+    "analysis_mode": "full_impact_cone",
+    "changed_source_set": [
+      {
+        "path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "change_class": "process_rule"
+      }
+    ],
+    "impacted_artifacts": [
+      {
+        "path": "schemas/documentation-change-request.schema.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/cascading-governance/README.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/current/definition-of-ready.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/current/definition-of-done.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/current/process-registry.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product-vision.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/bmc/bmc-v0.2.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/release/mvp-release-evidence-pack.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      }
+    ],
+    "observed_cycle_ids": [],
+    "uncovered_changed_paths": [
+      "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    ]
+  }
 }

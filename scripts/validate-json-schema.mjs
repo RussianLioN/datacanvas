@@ -297,6 +297,10 @@ const cases = [
     data: "docs/process/cascading-governance/artifact-dependency-graph.json",
   },
   {
+    schema: "schemas/cascade-impact-cone.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+  },
+  {
     schema: "schemas/impact-analysis-report.schema.json",
     data: "docs/process/cascading-governance/impact-analysis-report.json",
   },
@@ -315,6 +319,18 @@ const cases = [
   {
     schema: "schemas/user-decision-queue.schema.json",
     data: `${co2026001RunRoot}/user-decision-queue-2026-07-02-002.json`,
+  },
+  {
+    schema: "schemas/cascade-baseline-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-resolution-input.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+  },
+  {
+    schema: "schemas/cascade-verification-evidence.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
   },
   {
     schema: "schemas/capacity-plan.schema.json",
@@ -355,10 +371,6 @@ const cases = [
   {
     schema: "schemas/cascading-update-run.schema.json",
     data: `${co2026001RunRoot}/cascading-update-run-2026-07-02-002.json`,
-  },
-  {
-    schema: "schemas/cascading-update-run.schema.json",
-    data: "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
   },
   {
     schema: "schemas/xlsx-change-analysis.schema.json",
@@ -905,6 +917,8 @@ const ajv = new Ajv2020({
 });
 addFormats(ajv);
 ajv.addSchema(readJson("schemas/common-defs.schema.json"));
+ajv.addSchema(readJson("schemas/cascade-impact-cone.schema.json"));
+ajv.addSchema(readJson("schemas/impact-analysis-report.schema.json"));
 
 let failed = false;
 const validators = new Map();
@@ -915,7 +929,7 @@ for (const testCase of cases) {
 
   if (!validate) {
     const schema = readJson(testCase.schema);
-    validate = ajv.compile(schema);
+    validate = (schema.$id && ajv.getSchema(schema.$id)) || ajv.compile(schema);
     validators.set(testCase.schema, validate);
   }
 

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "active",
   "graph_id": "ADG-2026-07-02-001",
   "artifacts": [
@@ -331,6 +331,29 @@
       "layer": "traceability",
       "owner_role": "Product Owner / Process Owner",
       "validation_command": "npm run validate:agent-launch-requirements-analysis"
+    },
+    {
+      "artifact_id": "DGA-048",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:business-claim-map"
+    }
+  ],
+  "declared_cycle_groups": [
+    {
+      "cycle_id": "CYCLE-STORIES-REQUIREMENTS-BACKLOG-XLSX",
+      "member_paths": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "purpose": "reconciliation",
+      "rationale": "Каталог историй, требования, критерии приемки, product backlog и рабочая XLSX-оценка образуют контролируемый цикл согласования. Каждый артефакт разрешается один раз через обновление или обоснование отсутствия изменений.",
+      "owner_role": "Product Owner / Documentation Owner"
     }
   ],
   "dependencies": [
@@ -341,7 +364,8 @@
       "update_rule": "Product Change Order требует impact assessment до канонических изменений backlog или roadmap.",
       "validation_command": "npm run validate:change-impact",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -350,7 +374,8 @@
       "update_rule": "Смена приоритета launch channel запускает review каналов, партнеров и ресурсов BMC без выдумывания acceptance.",
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -359,7 +384,8 @@
       "update_rule": "Смена приоритета Q3 запускает полный review порядка DC-ST stories.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -368,7 +394,8 @@
       "update_rule": "A2A-first launch влияет на review BT-005, BT-006, BT-012 и BT-014.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -377,7 +404,8 @@
       "update_rule": "A2A-first launch запускает NFR/security review, особенно по недоверенному input и leakage guards.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Security/Privacy Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -386,7 +414,8 @@
       "update_rule": "A2A-first launch меняет acceptance только после принятия Product Owner и подтверждения rollback.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -395,7 +424,8 @@
       "update_rule": "Принятая смена приоритета запускает backlog reprioritization и trade-off review.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -404,7 +434,8 @@
       "update_rule": "Принятая смена приоритета запускает roadmap review после решений по capacity и displacement.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -413,7 +444,8 @@
       "update_rule": "Requirements и story moves запускают обновление traceability после acceptance.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -422,7 +454,8 @@
       "update_rule": "Смена приоритета Q3 требует capacity source, buffer и constraints до применения story moves.",
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -431,7 +464,8 @@
       "update_rule": "Принятая смена приоритета Q3 запускает sprint planning и evidence review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
@@ -440,7 +474,8 @@
       "update_rule": "Release evidence не может заявлять A2A-first readiness, пока открыты решения Product Owner, capacity, channel или rollback.",
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -449,7 +484,8 @@
       "update_rule": "Vision change triggers Product Goal snapshot review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -458,7 +494,8 @@
       "update_rule": "Vision change triggers hypotheses review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -467,7 +504,8 @@
       "update_rule": "Vision change always triggers BMC review.",
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -476,7 +514,8 @@
       "update_rule": "Vision change always triggers story catalog review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -485,7 +524,8 @@
       "update_rule": "Vision change always triggers business requirements review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -494,7 +534,8 @@
       "update_rule": "Vision change always triggers NFR review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -503,7 +544,8 @@
       "update_rule": "Vision change always triggers acceptance criteria review.",
       "validation_command": "npm run validate:doc-links",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -512,7 +554,8 @@
       "update_rule": "Vision change always triggers product backlog review.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -521,7 +564,8 @@
       "update_rule": "Vision change always triggers roadmap review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -530,7 +574,8 @@
       "update_rule": "Vision change always triggers traceability matrix review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -539,7 +584,8 @@
       "update_rule": "Vision change triggers capacity source review; concrete capacity cannot be invented.",
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -548,7 +594,8 @@
       "update_rule": "Vision change triggers Jira import package readiness review when Jira-bound outputs exist.",
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "when_jira_mapping_changes"
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -557,7 +604,8 @@
       "update_rule": "Release evidence cannot be marked accepted while blocking decisions remain open.",
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product-vision.md",
@@ -566,7 +614,8 @@
       "update_rule": "Sprint evidence must reference cascade run when sprint, backlog or roadmap artifacts change.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/bmc/bmc-v0.2.md",
@@ -755,7 +804,8 @@
       "update_rule": "Изменение текста истории или приоритета запускает review backlog; ПШЕ берутся из XLSX/source-provenance, а не из каталога историй.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
@@ -954,7 +1004,8 @@
       "update_rule": "Backlog reprioritization triggers quarter capacity recalculation.",
       "validation_command": "npm run validate:reprioritization-impact",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
@@ -963,7 +1014,8 @@
       "update_rule": "Backlog priority changes trigger roadmap review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
@@ -972,7 +1024,8 @@
       "update_rule": "Backlog priority changes trigger sprint planning and evidence review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
@@ -981,7 +1034,8 @@
       "update_rule": "Jira-bound backlog package requires per-package field mapping request.",
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "when_jira_mapping_changes"
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/process/cascading-governance/documentation-change-request.json",
@@ -990,7 +1044,8 @@
       "update_rule": "New manual docs must be classified in navigation source or explicitly ignored.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Process Owner",
-      "user_confirmation_required": "never"
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
@@ -999,7 +1054,8 @@
       "update_rule": "Человекочитаемое решение CO-2026-002 должно оставаться синхронным с машинным change-order JSON.",
       "validation_command": "npm run validate:product-change-orders",
       "owner_role": "Product Owner / Process Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1008,7 +1064,8 @@
       "update_rule": "Принятое машинное решение CO-2026-002 требует актуальной impact assessment по затронутым артефактам.",
       "validation_command": "npm run validate:change-impact",
       "owner_role": "Product Owner / Process Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1017,25 +1074,28 @@
       "update_rule": "CO-2026-002 меняет границу P1/P2 и состав основного маршрута, поэтому требует review каталога пользовательских историй.",
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "resource",
-      "update_rule": "CO-2026-002 меняет приоритетный P1-контур и требует review product backlog.",
+      "update_rule": "CO-2026-002 меняет P1/P2-контур и требует review product backlog.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
       "relation_type": "resource",
-      "update_rule": "CO-2026-002 меняет текущий P1-срез запуска другим агентом и требует review кандидатных историй.",
+      "update_rule": "CO-2026-002 меняет текущий срез запуска другим агентом и требует review P1/P2 историй.",
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1044,25 +1104,28 @@
       "update_rule": "CO-2026-002 требует проверить, нужны ли новые или измененные BT-* требования.",
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
-      "update_rule": "CO-2026-002 требует review критериев приемки по полному P1-маршруту запуска другим агентом.",
+      "update_rule": "CO-2026-002 требует review критериев приемки по P1/P2-маршруту запуска другим агентом.",
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / QA Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
-      "update_rule": "CO-2026-002 требует NFR/security review по полному P1-маршруту.",
+      "update_rule": "CO-2026-002 требует NFR/security review по P1/P2-маршруту.",
       "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner / Architect",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1071,16 +1134,18 @@
       "update_rule": "CO-2026-002 требует обновить traceability связей stories, BT-* и acceptance.",
       "validation_command": "npm run validate:traceability-graph",
       "owner_role": "Product Owner / QA Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
       "relation_type": "estimate_evidence",
-      "update_rule": "CO-2026-002 требует review оценки P1-маршрута и связки с XLSX.",
+      "update_rule": "CO-2026-002 требует review оценки P1/P2-маршрута и связки с XLSX.",
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / команда реализации",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1089,7 +1154,8 @@
       "update_rule": "CO-2026-002 требует review ближайших sprint candidates без автоматического утверждения sprint backlog.",
       "validation_command": "npm run validate:xlsx-cascade",
       "owner_role": "Product Owner / Scrum Master",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
@@ -1098,16 +1164,18 @@
       "update_rule": "CO-2026-002 должен быть отражен в реестре продуктовых источников и downstream coverage.",
       "validation_command": "npm run validate:product-source-consistency",
       "owner_role": "Product Owner / Process Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "traceability",
-      "update_rule": "CO-2026-002 должен обновить карту влияния DC-ST-23..DC-ST-29 на BT-* требования.",
+      "update_rule": "CO-2026-002 должен обновить карту влияния DC-ST-23..DC-ST-33 на BT-* требования.",
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
     },
     {
       "upstream_artifact": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
@@ -1143,9 +1211,149 @@
       "upstream_artifact": "docs/product/requirements/user-stories.md",
       "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
       "relation_type": "semantic",
-      "update_rule": "Изменение состава или смысла DC-ST-23..DC-ST-29 требует review карты влияния на BT-* требования.",
+      "update_rule": "Изменение состава или смысла DC-ST-23..DC-ST-33 требует review карты влияния на BT-* требования.",
       "validation_command": "npm run validate:agent-launch-requirements-analysis",
       "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product-vision.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 меняет границу пользовательского маршрута, форматы результата и P2-доставку, поэтому требует review Vision.",
+      "validation_command": "npm run validate:product-vision",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 меняет ценность, каналы и ключевые активности, поэтому требует review BMC по классическим блокам.",
+      "validation_command": "npm run validate:bmc",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "estimate_evidence",
+      "update_rule": "CO-2026-002 меняет состав и границу оцениваемых историй DC-ST-23..DC-ST-33, поэтому требует обновить рабочую Excel-версию или зафиксировать no-change rationale.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "relation_type": "source_provenance",
+      "update_rule": "CO-2026-002 меняет состав принятых строк Excel, поэтому требует обновить provenance manifest.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "resource",
+      "update_rule": "CO-2026-002 меняет состав экспортируемого бизнес-пакета, поэтому требует review карты импорта в Confluence.",
+      "validation_command": "npm run validate:doc-links",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-001 должен быть отражен в карте ключевых бизнес-утверждений до каскадной проверки основных артефактов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-002 должен быть отражен в карте ключевых бизнес-утверждений до каскадной проверки основных артефактов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product-vision.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review Vision по CO-001/CO-002.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review BMC по каналам, ценности и активностям.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review каталога историй и приоритетов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review бизнес-требований.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review критериев приемки.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение карты утверждений требует review product backlog.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale"
+    },
+    {
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "traceability",
+      "update_rule": "Изменение карты утверждений требует review экспортного пакета.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
       "user_confirmation_required": "semantic_change",
       "resolution_required": "changed_or_no_change_rationale"
     }
@@ -1158,6 +1366,8 @@
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
     "docs/product/requirements/user-stories.md",
-    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json"
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+    "docs/product/requirements/business-claim-map.json"
   ]
 }

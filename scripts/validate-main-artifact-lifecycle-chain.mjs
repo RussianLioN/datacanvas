@@ -4,6 +4,8 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { buildDependencyIndex, validateDeclaredCycles } from "./documentation-impact-graph.mjs";
+
 const root = process.cwd();
 const chainPath = "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json";
 const schemaPath = "schemas/main-artifact-lifecycle-chain.schema.json";
@@ -87,9 +89,9 @@ function sourceByPath(registry, artifactPath) {
   return registry.sources.filter((source) => source.path === artifactPath);
 }
 
-function dependencyExists(graph, upstreamPath, downstreamPath) {
-  return graph.dependencies.some(
-    (dependency) => dependency.upstream_artifact === upstreamPath && dependency.downstream_artifact === downstreamPath,
+function dependencyExists(index, upstreamPath, downstreamPath) {
+  return (index.outboundByPath.get(upstreamPath) ?? []).some(
+    (dependency) => dependency.downstream_artifact === downstreamPath,
   );
 }
 
@@ -109,6 +111,7 @@ function assertBusinessContractCoverage(chain, contentContract, generationContra
   const generationPaths = new Set(generationContract.documents.map((document) => document.path));
   const allowedExceptions = new Set([
     "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
     "docs/product-vision.md",
     "docs/product/bmc/bmc-v0.2.md",
     "docs/product/README.md",
@@ -173,6 +176,8 @@ function assertCrossFileCoverage(chain) {
   const scripts = readJson(packagePath).scripts;
   const registry = readJson(chain.supporting_contracts.product_source_registry);
   const graph = readJson(chain.supporting_contracts.artifact_dependency_graph);
+  const graphIndex = buildDependencyIndex(graph);
+  validateDeclaredCycles(graphIndex, graph.declared_cycle_groups);
   const validationCatalog = readJson(chain.supporting_contracts.validation_command_catalog);
   const inventory = readJson("docs/process/universal-documentation-workflow/artifact-inventory.json");
   const navigationSourceText = readText(chain.supporting_contracts.navigation_source);
@@ -183,6 +188,15 @@ function assertCrossFileCoverage(chain) {
 
   if (chain.global_policies.no_change_rationale_location !== chain.supporting_contracts.impact_analysis_report) {
     fail("no-change rationale canonical location must be impact analysis report");
+  }
+  if (!/вверх/u.test(chain.global_policies.impact_cone_policy) || !/вниз/u.test(chain.global_policies.impact_cone_policy)) {
+    fail("main artifact lifecycle must require a full upstream and downstream impact cone");
+  }
+  if (!/решен/u.test(chain.global_policies.upstream_review_policy)) {
+    fail("upstream review policy must preserve the owner decision gate for meaning changes");
+  }
+  if (!/один раз/u.test(chain.global_policies.cycle_resolution_policy)) {
+    fail("cycle resolution policy must resolve every cycle member exactly once");
   }
 
   for (const contractPath of Object.values(chain.supporting_contracts)) {
@@ -267,6 +281,7 @@ function assertCrossFileCoverage(chain) {
 
 function assertLifecycleEdges(chain) {
   const graph = readJson(chain.supporting_contracts.artifact_dependency_graph);
+  const graphIndex = buildDependencyIndex(graph);
   const byId = new Map(chain.stages.map((stage) => [stage.stage_id, stage]));
   for (const stage of chain.stages) {
     if (!stage.cascade_policy.requires_dependency_graph_entry) {
@@ -279,7 +294,7 @@ function assertLifecycleEdges(chain) {
       }
       const hasAnyEdge = stage.primary_artifacts.some((upstreamPath) =>
         downstreamStage.primary_artifacts.some((downstreamPath) =>
-          upstreamPath !== downstreamPath && dependencyExists(graph, upstreamPath, downstreamPath)
+          upstreamPath !== downstreamPath && dependencyExists(graphIndex, upstreamPath, downstreamPath)
         )
       );
       if (!hasAnyEdge && !["accepted-product-decision", "hypotheses", "system-analysis", "sprint-candidate-planning"].includes(stage.stage_id)) {

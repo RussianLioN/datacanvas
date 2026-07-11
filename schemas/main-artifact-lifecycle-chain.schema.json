@@ -33,6 +33,7 @@
         "impact_analysis_report",
         "business_content_contract",
         "business_generation_contract",
+        "business_claim_map",
         "validation_command_catalog",
         "navigation_source"
       ],
@@ -42,6 +43,7 @@
         "impact_analysis_report": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "business_content_contract": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "business_generation_contract": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "business_claim_map": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "validation_command_catalog": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "navigation_source": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
       }
@@ -54,14 +56,20 @@
         "service_information_location",
         "no_change_rationale_location",
         "owner_gate_policy",
-        "generated_artifact_policy"
+        "generated_artifact_policy",
+        "impact_cone_policy",
+        "upstream_review_policy",
+        "cycle_resolution_policy"
       ],
       "properties": {
         "business_markdown_policy": { "type": "string", "minLength": 1 },
         "service_information_location": { "type": "string", "minLength": 1 },
         "no_change_rationale_location": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "owner_gate_policy": { "type": "string", "minLength": 1 },
-        "generated_artifact_policy": { "type": "string", "minLength": 1 }
+        "generated_artifact_policy": { "type": "string", "minLength": 1 },
+        "impact_cone_policy": { "type": "string", "minLength": 1 },
+        "upstream_review_policy": { "type": "string", "minLength": 1 },
+        "cycle_resolution_policy": { "type": "string", "minLength": 1 }
       }
     },
     "stages": {

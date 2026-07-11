@@ -1,16 +1,36 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { execFileSync } from "node:child_process";
+import { isDeepStrictEqual } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+
+import {
+  analyzeImpactCone,
+  buildDependencyIndex,
+  validateDeclaredCycles,
+} from "./documentation-impact-graph.mjs";
+import {
+  acceptedOwnerDecisionRecord,
+  trustedAcceptanceRecordPaths,
+} from "./cascade-acceptance-records.mjs";
+import { absoluteRepoPath, hashRepoPath } from "./cascade-evidence-utils.mjs";
+import {
+  allowedCascadeValidationCommands,
+  safeValidationScriptNames,
+} from "./cascade-validation-command-policy.mjs";
 
 const root = process.cwd();
 const mode = process.argv[2] ?? "all";
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 ajv.addSchema(JSON.parse(fs.readFileSync(path.join(root, "schemas/common-defs.schema.json"), "utf8")));
+ajv.addSchema(JSON.parse(fs.readFileSync(path.join(root, "schemas/cascade-impact-cone.schema.json"), "utf8")));
+ajv.addSchema(JSON.parse(fs.readFileSync(path.join(root, "schemas/impact-analysis-report.schema.json"), "utf8")));
 const validators = new Map();
 const co2026001RunRoot = "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact";
+const cascadingRunsRoot = "docs/process/cascading-governance/runs";
 
 const schemaCases = {
   "documentation-change-request": [
@@ -74,7 +94,7 @@ const schemaCases = {
     [
       "schemas/cascading-update-run.schema.json",
       "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
-      { expect: "fail", phase: "invariant", reason: "Done claimed with blocked decisions" },
+      { expect: "fail", phase: "schema", reason: "dry-run record cannot claim Done" },
     ],
     [
       "schemas/cascading-update-run.schema.json",
@@ -127,6 +147,28 @@ function requirePath(relativePath) {
   }
 }
 
+function runNode(args, options = {}) {
+  return execFileSync("node", args, {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+    ...options,
+  });
+}
+
+function expectNodeFailure(args, expectedMessage) {
+  try {
+    runNode(args);
+  } catch (error) {
+    const output = `${error.stdout ?? ""}${error.stderr ?? ""}`;
+    if (!output.includes(expectedMessage)) {
+      throw new Error(`expected failure containing "${expectedMessage}", got: ${output.trim()}`);
+    }
+    return;
+  }
+  throw new Error(`expected command to fail: node ${args.join(" ")}`);
+}
+
 function expectedPhase(expectation) {
   if (expectation === "negative") {
     return "invariant";
@@ -141,7 +183,8 @@ function isExpectedFailure(expectation) {
 function validateWithSchema(schemaPath, dataPath, expectation) {
   let validate = validators.get(schemaPath);
   if (!validate) {
-    validate = ajv.compile(readJson(schemaPath));
+    const schema = readJson(schemaPath);
+    validate = (schema.$id && ajv.getSchema(schema.$id)) || ajv.compile(schema);
     validators.set(schemaPath, validate);
   }
   const data = readJson(dataPath);
@@ -160,30 +203,16 @@ function approxEqual(left, right) {
   return Math.abs(left - right) < 0.000001;
 }
 
-function transitiveDownstream(graph, sourcePath) {
-  const downstream = new Set();
-  const queue = [sourcePath];
-  while (queue.length > 0) {
-    const current = queue.shift();
-    for (const dependency of graph.dependencies) {
-      if (dependency.upstream_artifact !== current || downstream.has(dependency.downstream_artifact)) {
-        continue;
-      }
-      downstream.add(dependency.downstream_artifact);
-      queue.push(dependency.downstream_artifact);
-    }
-  }
-  return downstream;
-}
-
 function downstreamClosureFrom(graph, sourcePaths) {
-  const closure = new Set();
-  for (const sourcePath of sourcePaths) {
-    for (const downstreamPath of transitiveDownstream(graph, sourcePath)) {
-      closure.add(downstreamPath);
-    }
-  }
-  return closure;
+  const cone = analyzeImpactCone(
+    buildDependencyIndex(graph),
+    sourcePaths.map((sourcePath) => ({ path: sourcePath, change_class: "documentation" })),
+  );
+  return new Set(
+    cone.impacted_artifacts
+      .filter((artifact) => artifact.impact_directions.includes("downstream"))
+      .map((artifact) => artifact.path),
+  );
 }
 
 function assertAffectedArtifacts(report, requiredPaths, label) {
@@ -218,6 +247,8 @@ function assertDocumentationChangeRequest(data) {
 }
 
 function assertDependencyGraph(graph) {
+  const graphIndex = buildDependencyIndex(graph);
+  validateDeclaredCycles(graphIndex, graph.declared_cycle_groups);
   const requiredLayers = new Set([
     "Vision",
     "BMC",
@@ -264,6 +295,9 @@ function assertDependencyGraph(graph) {
     if (!artifactPaths.has(dependency.downstream_artifact)) {
       throw new Error(`dependency downstream is not declared as graph artifact: ${dependency.downstream_artifact}`);
     }
+    if (dependency.resolution_required !== "changed_or_no_change_rationale") {
+      throw new Error(`active dependency must require update/no-change resolution: ${dependency.upstream_artifact} -> ${dependency.downstream_artifact}`);
+    }
   }
 
   for (const highImpactSource of [
@@ -279,7 +313,7 @@ function assertDependencyGraph(graph) {
     }
   }
 
-  const visionDownstream = transitiveDownstream(graph, "docs/product-vision.md");
+  const visionDownstream = downstreamClosureFrom(graph, ["docs/product-vision.md"]);
   for (const requiredPath of [
     "docs/product/bmc/bmc-v0.2.md",
     "docs/product/requirements/user-stories.md",
@@ -316,9 +350,10 @@ function assertDependencyGraph(graph) {
     if (source.provenance_manifest) {
       startPaths.push(source.provenance_manifest);
     }
+    const changedRoots = new Set(startPaths);
     const downstream = downstreamClosureFrom(graph, startPaths);
     for (const requiredPath of source.affected_artifacts) {
-      if (!downstream.has(requiredPath)) {
+      if (!changedRoots.has(requiredPath) && !downstream.has(requiredPath)) {
         throw new Error(`XLSX source ${source.source_id} is missing downstream graph coverage for: ${requiredPath}`);
       }
     }
@@ -340,47 +375,19 @@ function assertDependencyGraph(graph) {
 
 function assertImpactReport(report) {
   requirePath(report.target_artifact);
-  if (report.target_artifact === "docs/product-vision.md") {
-    assertAffectedArtifacts(report, [
-      "docs/product/bmc/bmc-v0.2.md",
-      "docs/product/requirements/user-stories.md",
-      "docs/product/requirements/business-requirements.md",
-      "docs/product/requirements/non-functional-requirements.md",
-      "docs/product/requirements/acceptance-criteria.md",
-      "docs/product/backlog/product-backlog.md",
-      "docs/product/roadmap/roadmap-v0.1.md",
-      "docs/product/requirements/traceability-matrix.json",
-      "docs/process/cascading-governance/capacity-plan-2026-q3.json",
-      "docs/process/cascading-governance/jira-import-package-manifest.json",
-      "docs/release/mvp-release-evidence-pack.json",
-      "docs/sprints",
-    ], "Vision");
+  const conePaths = new Set(report.impact_cone.impacted_artifacts.map((artifact) => artifact.path));
+  const resolutionPaths = new Set(report.affected_artifacts.map((artifact) => artifact.path));
+  if (conePaths.size !== resolutionPaths.size || [...conePaths].some((artifactPath) => !resolutionPaths.has(artifactPath))) {
+    throw new Error(`${report.impact_report_id} resolution paths must exactly match the computed impact cone`);
   }
-
-  if (report.target_artifact === "docs/product/change-orders/co-2026-001-a2a-first-priority.json") {
-    assertAffectedArtifacts(report, [
-      "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
-      "docs/product/change-orders/change-impact-assessment.json",
-      "docs/product/change-orders/product-change-order-ledger.json",
-      "docs/product/analysis/ba/ba-spec.json",
-      "docs/product/bmc/bmc-v0.2.md",
-      "docs/product/requirements/user-stories.md",
-      "docs/product/requirements/business-requirements.md",
-      "docs/product/requirements/non-functional-requirements.md",
-      "docs/product/requirements/acceptance-criteria.md",
-      "docs/product/backlog/product-backlog.md",
-      "docs/product/roadmap/roadmap-v0.1.md",
-      "docs/product/requirements/traceability-matrix.json",
-      "docs/process/cascading-governance/capacity-plan-2026-q3.json",
-      `${co2026001RunRoot}/reprioritization-impact-report-2026-07-02-002.json`,
-      "docs/architecture/system-analysis/datacanvas-interface-control.md",
-      "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
-      "docs/architecture/system-analysis/error-taxonomy.md",
-      "docs/architecture/security/integration-boundary-matrix.md",
-      "docs/process/change-requests/PROC-038-cascading-documentation-governance.md",
-    ], "CO-2026-001");
+  if (resolutionPaths.has(report.target_artifact)) {
+    throw new Error(`${report.impact_report_id} must not include the changed root as an affected artifact`);
   }
-
+  for (const artifact of report.affected_artifacts) {
+    if (["no_change_confirmed", "not_applicable"].includes(artifact.update_status) && !artifact.no_change_rationale) {
+      throw new Error(`${report.impact_report_id} ${artifact.update_status} lacks no-change rationale: ${artifact.path}`);
+    }
+  }
   for (const artifact of report.affected_artifacts) {
     requirePath(artifact.path);
     if (artifact.update_status === "no_change_confirmed" && artifact.no_change_rationale === null) {
@@ -528,6 +535,16 @@ function assertReprioritizationReport(report) {
 }
 
 function assertCascadingUpdateRun(run) {
+  if (run.run_mode !== "dry_run_evidence") {
+    throw new Error(`${run.run_id} must declare dry_run_evidence mode`);
+  }
+  if (run.apply_supported !== false) {
+    throw new Error(`${run.run_id} must not imply automated apply support`);
+  }
+  if (run.completion_claim.ready_to_apply !== false) {
+    throw new Error(`${run.run_id} must not claim ready_to_apply while runner is dry-run only`);
+  }
+
   for (const key of [
     "change_request_path",
     "dependency_graph_path",
@@ -538,6 +555,8 @@ function assertCascadingUpdateRun(run) {
     "jira_mapping_request_path",
     "changed_source_set_path",
     "xlsx_change_analysis_path",
+    "resolution_input_path",
+    "resolution_report_path",
   ]) {
     if (run[key] != null) {
       requirePath(run[key]);
@@ -546,6 +565,12 @@ function assertCascadingUpdateRun(run) {
 
   for (const artifact of [...run.changed_artifacts, ...run.generated_artifacts, ...run.skipped_artifacts]) {
     requirePath(artifact.path);
+  }
+  for (const evidenceHash of [
+    ...(run.dry_run_evidence_hashes ?? []),
+    ...(run.finalized_evidence_hashes ?? []),
+  ]) {
+    requirePath(evidenceHash.path);
   }
 
   const changeRequest = readJson(run.change_request_path);
@@ -616,6 +641,850 @@ function assertCascadingUpdateRun(run) {
   }
 }
 
+function assertCascadingRunnerCli() {
+  const changeRequestPath = "tests/fixtures/cascading-governance/vision-change-request.json";
+  const malformedChangeRequestPath = `artifacts/manual/.tmp-cascade-cli-malformed-change-request-${process.pid}-${Date.now()}.json`;
+  const malformedRunnerDir = `${cascadingRunsRoot}/.tmp-cascade-cli-malformed-runner-${process.pid}-${Date.now()}`;
+  const alternateGraphPath = `artifacts/manual/.tmp-cascade-cli-alternate-graph-${process.pid}-${Date.now()}.json`;
+  const alternateRegistryPath = `artifacts/manual/.tmp-cascade-cli-alternate-source-registry-${process.pid}-${Date.now()}.json`;
+  const alternateGraphRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-alternate-graph-${process.pid}-${Date.now()}`;
+  const alternateRegistryRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-alternate-registry-${process.pid}-${Date.now()}`;
+  const validChangeRequest = readJson(changeRequestPath);
+  fs.writeFileSync(
+    absolute(malformedChangeRequestPath),
+    `${JSON.stringify({ ...validChangeRequest, semantic_change: "yes" }, null, 2)}\n`,
+  );
+  fs.copyFileSync(
+    absolute("docs/process/cascading-governance/artifact-dependency-graph.json"),
+    absolute(alternateGraphPath),
+  );
+  fs.copyFileSync(
+    absolute("docs/product/sources/product-source-registry.json"),
+    absolute(alternateRegistryPath),
+  );
+  try {
+    expectNodeFailure(
+      [
+        "scripts/run-cascading-update.mjs",
+        "--change-request",
+        malformedChangeRequestPath,
+        "--output-dir",
+        malformedRunnerDir,
+      ],
+      "documentation change request does not match schema",
+    );
+    expectNodeFailure(
+      [
+        "scripts/run-cascading-update.mjs",
+        "--change-request",
+        changeRequestPath,
+        "--dependency-graph",
+        alternateGraphPath,
+        "--output-dir",
+        alternateGraphRunDir,
+      ],
+      "dependency graph must use the canonical DataCanvas path",
+    );
+    expectNodeFailure(
+      [
+        "scripts/run-cascading-update.mjs",
+        "--change-request",
+        changeRequestPath,
+        "--product-source-registry",
+        alternateRegistryPath,
+        "--output-dir",
+        alternateRegistryRunDir,
+      ],
+      "product source registry must use the canonical DataCanvas path",
+    );
+  } finally {
+    fs.rmSync(absolute(malformedRunnerDir), { recursive: true, force: true });
+    fs.rmSync(absolute(alternateGraphRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(alternateRegistryRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(malformedChangeRequestPath), { force: true });
+    fs.rmSync(absolute(alternateGraphPath), { force: true });
+    fs.rmSync(absolute(alternateRegistryPath), { force: true });
+  }
+  expectNodeFailure(
+    [
+      "scripts/run-cascading-update.mjs",
+      "--change-request",
+      changeRequestPath,
+      "--output-dir",
+      cascadingRunsRoot,
+    ],
+    `output dir must be a new direct child of ${cascadingRunsRoot}`,
+  );
+
+  const collisionDir = `${cascadingRunsRoot}/.tmp-cascade-cli-collision-${process.pid}-${Date.now()}`;
+  fs.mkdirSync(absolute(collisionDir), { recursive: true });
+  try {
+    expectNodeFailure(
+      [
+        "scripts/run-cascading-update.mjs",
+        "--change-request",
+        changeRequestPath,
+        "--output-dir",
+        collisionDir,
+      ],
+      "output dir already exists",
+    );
+  } finally {
+    fs.rmSync(absolute(collisionDir), { recursive: true, force: true });
+  }
+
+  const successDir = `${cascadingRunsRoot}/.tmp-cascade-cli-success-${process.pid}-${Date.now()}`;
+  const xlsxRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-xlsx-${process.pid}-${Date.now()}`;
+  const untrustedFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-untrusted-finalization-${process.pid}-${Date.now()}`;
+  const malformedFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-malformed-finalization-${process.pid}-${Date.now()}`;
+  const missingOwnerFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-missing-owner-finalization-${process.pid}-${Date.now()}`;
+  const noDecisionRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-no-decision-${process.pid}-${Date.now()}`;
+  const noDecisionFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-no-decision-finalization-${process.pid}-${Date.now()}`;
+  const narrowedValidationFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrowed-validation-finalization-${process.pid}-${Date.now()}`;
+  const tamperedDryRunBaselineFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-tampered-dry-run-baseline-finalization-${process.pid}-${Date.now()}`;
+  const narrowedDryRunEvidenceFinalizationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrowed-dry-run-evidence-finalization-${process.pid}-${Date.now()}`;
+  const validVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-valid-verification-${process.pid}-${Date.now()}`;
+  const narrowedValidationVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrowed-validation-verification-${process.pid}-${Date.now()}`;
+  const narrowConeVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrow-cone-verification-${process.pid}-${Date.now()}`;
+  const malformedVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-malformed-verification-${process.pid}-${Date.now()}`;
+  const tamperedBaselineVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-tampered-baseline-verification-${process.pid}-${Date.now()}`;
+  const tamperedVerificationDir = `${cascadingRunsRoot}/.tmp-cascade-cli-tampered-verification-${process.pid}-${Date.now()}`;
+  const tamperedVerificationRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-tampered-run-${process.pid}-${Date.now()}`;
+  const narrowedValidationRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrowed-validation-run-${process.pid}-${Date.now()}`;
+  const narrowConeRunDir = `${cascadingRunsRoot}/.tmp-cascade-cli-narrow-cone-run-${process.pid}-${Date.now()}`;
+  const acceptancePath = `artifacts/manual/.tmp-cascade-cli-acceptance-${process.pid}-${Date.now()}.json`;
+  const resolutionPath = `artifacts/manual/.tmp-cascade-cli-resolution-${process.pid}-${Date.now()}.json`;
+  const malformedRunPath = `artifacts/manual/.tmp-cascade-cli-malformed-run-${process.pid}-${Date.now()}.json`;
+  const malformedResolutionPath = `artifacts/manual/.tmp-cascade-cli-malformed-resolution-${process.pid}-${Date.now()}.json`;
+  const missingOwnerResolutionPath = `artifacts/manual/.tmp-cascade-cli-missing-owner-resolution-${process.pid}-${Date.now()}.json`;
+  const noDecisionChangeRequestPath = `artifacts/manual/.tmp-cascade-cli-change-request-${process.pid}-${Date.now()}.json`;
+  const noDecisionResolutionPath = `artifacts/manual/.tmp-cascade-cli-no-decision-resolution-${process.pid}-${Date.now()}.json`;
+  const malformedVerificationRunPath = `artifacts/manual/.tmp-cascade-cli-malformed-verification-run-${process.pid}-${Date.now()}.json`;
+  const tamperedVerificationRunPath = `${tamperedVerificationRunDir}/cascading-update-run-resolved-2026-07-10-102.json`;
+  const narrowedValidationRunPath = `${narrowedValidationRunDir}/cascading-update-run-resolved-2026-07-10-102.json`;
+  const narrowConeRunPath = `${narrowConeRunDir}/cascading-update-run-resolved-2026-07-10-102.json`;
+  try {
+    const changeRequest = readJson(changeRequestPath);
+    const suffix = changeRequest.change_request_id.replace("DCR-", "");
+    const output = runNode([
+      "scripts/run-cascading-update.mjs",
+      "--change-request",
+      changeRequestPath,
+      "--output-dir",
+      successDir,
+    ]);
+    if (!output.includes("cascade run written")) {
+      throw new Error(`runner did not report generated dry-run evidence: ${output.trim()}`);
+    }
+    for (const requiredName of [
+      `impact-analysis-report-${suffix}.json`,
+      `user-decision-queue-${suffix}.json`,
+      `cascade-baseline-manifest-${suffix}.json`,
+      `impact-analysis-report-${suffix}.md`,
+      `cascading-update-run-${suffix}.json`,
+    ]) {
+      if (!exists(`${successDir}/${requiredName}`)) {
+        throw new Error(`runner did not create expected output: ${successDir}/${requiredName}`);
+      }
+    }
+    const generatedRunPath = `${successDir}/cascading-update-run-${suffix}.json`;
+    const generatedRun = readJson(generatedRunPath);
+    assertCascadingUpdateRun(generatedRun);
+    validateWithSchema(
+      "schemas/cascade-baseline-manifest.schema.json",
+      `${successDir}/cascade-baseline-manifest-${suffix}.json`,
+    );
+    if (!readText(`${successDir}/impact-analysis-report-${suffix}.md`).includes("# Отчет о каскадном влиянии")) {
+      throw new Error("runner human impact report lacks the expected heading");
+    }
+
+    runNode([
+      "scripts/run-cascading-update.mjs",
+      "--change-request",
+      changeRequestPath,
+      "--source-id",
+      "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+      "--output-dir",
+      xlsxRunDir,
+    ]);
+    const generatedXlsxAnalysis = readJson(`${xlsxRunDir}/xlsx-change-analysis-${suffix}.json`);
+    const generatedXlsxImpact = readJson(`${xlsxRunDir}/impact-analysis-report-${suffix}.json`);
+    const expectedXlsxSources = generatedXlsxAnalysis.changed_source_set.map((sourceArtifact) => ({
+      path: sourceArtifact.path,
+      change_class: sourceArtifact.change_classes[0],
+    })).sort((left, right) => left.path.localeCompare(right.path));
+    if (!isDeepStrictEqual(generatedXlsxImpact.impact_cone.changed_source_set, expectedXlsxSources)) {
+      throw new Error("XLSX runner did not preserve the changed source set used by impact recalculation");
+    }
+
+    const generatedImpact = readJson(`${successDir}/impact-analysis-report-${suffix}.json`);
+    const generatedQueue = readJson(`${successDir}/user-decision-queue-${suffix}.json`);
+    if (
+      generatedQueue.decisions.length === 0 ||
+      generatedQueue.decisions.some(
+        (decision) => !decision.decision_id.startsWith(`DEC-${suffix}-`) || !decision.owner_role,
+      ) ||
+      new Set(generatedQueue.decisions.map((decision) => decision.decision_id)).size !== generatedQueue.decisions.length
+    ) {
+      throw new Error("runner decisions must be unique to the cascade run and assigned to explicit owners");
+    }
+    const resolvedAt = "2026-07-10T12:00:00.000Z";
+    const acceptanceRecords = generatedQueue.decisions.map((decision) => ({
+      acceptance_record_id: `TEST-ACC-${decision.decision_id}`,
+      status: "accepted",
+      linked_decision_ids: [decision.decision_id],
+    }));
+    fs.writeFileSync(absolute(acceptancePath), `${JSON.stringify({ records: acceptanceRecords }, null, 2)}\n`);
+    const resolutionInput = {
+      version: "0.2.0",
+      resolution_id: "CRI-2026-07-10-998",
+      source_run_path: `${successDir}/cascading-update-run-${suffix}.json`,
+      resolved_at: resolvedAt,
+      source_resolutions: generatedImpact.impact_cone.changed_source_set.map((sourceArtifact) => ({
+        path: sourceArtifact.path,
+        update_status: "no_change_confirmed",
+        no_change_rationale: {
+          rationale: "Автоматический тест подтверждает отсутствие содержательной правки источника.",
+          confirmed_by: "Process test",
+          confirmed_at: resolvedAt,
+          source_artifact: sourceArtifact.path,
+          change_class: "semantic_product_change",
+          covered_requirements: [generatedImpact.change_request_id],
+          acceptance_impact: "Критерии приемки в тесте не меняются.",
+          traceability_impact: "Связи трассируемости в тесте не меняются.",
+          residual_risk: "Временное test evidence удаляется после проверки.",
+          owner_role: "Process Owner",
+          reconsider_when: "При фактическом изменении исходного артефакта.",
+        },
+      })),
+      artifact_resolutions: generatedImpact.affected_artifacts.map((artifact) => ({
+        path: artifact.path,
+        update_status: "no_change_confirmed",
+        no_change_rationale: {
+          rationale: "Автоматический тест подтверждает отсутствие содержательной правки.",
+          confirmed_by: "Process test",
+          confirmed_at: resolvedAt,
+          source_artifact: generatedImpact.target_artifact,
+          change_class: "semantic_product_change",
+          covered_requirements: [generatedImpact.change_request_id],
+          acceptance_impact: "Критерии приемки в тесте не меняются.",
+          traceability_impact: "Связи трассируемости в тесте не меняются.",
+          residual_risk: "Временное test evidence удаляется после проверки.",
+          owner_role: "Process Owner",
+          reconsider_when: "При фактическом изменении артефакта.",
+        },
+      })),
+      decision_resolutions: generatedQueue.decisions.map((decision) => ({
+        decision_id: decision.decision_id,
+        selected_option_id: decision.options.find((option) => option.option_id !== "OPT-DEFER").option_id,
+        acceptance_record_path: acceptancePath,
+        acceptance_record_id: `TEST-ACC-${decision.decision_id}`,
+        resolved_at: resolvedAt,
+      })),
+    };
+    fs.writeFileSync(absolute(resolutionPath), `${JSON.stringify(resolutionInput, null, 2)}\n`);
+    validateWithSchema("schemas/cascade-resolution-input.schema.json", resolutionPath);
+    fs.writeFileSync(
+      absolute(malformedRunPath),
+      `${JSON.stringify({ ...generatedRun, apply_supported: true }, null, 2)}\n`,
+    );
+    fs.writeFileSync(
+      absolute(malformedResolutionPath),
+      `${JSON.stringify({ ...resolutionInput, source_run_path: malformedRunPath }, null, 2)}\n`,
+    );
+    expectNodeFailure(
+      [
+        "scripts/finalize-documentation-cascade.mjs",
+        "--run",
+        malformedRunPath,
+        "--resolution-input",
+        malformedResolutionPath,
+        "--output-dir",
+        malformedFinalizationDir,
+      ],
+      "cascade run does not match schema",
+    );
+    const generatedQueuePath = `${successDir}/user-decision-queue-${suffix}.json`;
+    const originalGeneratedQueueText = readText(generatedQueuePath);
+    const originalGeneratedRunText = readText(generatedRunPath);
+    try {
+      fs.writeFileSync(
+        absolute(generatedQueuePath),
+        `${JSON.stringify({ ...generatedQueue, status: "closed", decisions: [] }, null, 2)}\n`,
+      );
+      const queueTamperedRun = JSON.parse(originalGeneratedRunText);
+      const queueSeal = queueTamperedRun.dry_run_evidence_hashes.find(
+        (entry) => entry.path === generatedQueuePath,
+      );
+      queueSeal.sha256 = hashRepoPath(root, generatedQueuePath);
+      fs.writeFileSync(
+        absolute(generatedRunPath),
+        `${JSON.stringify(queueTamperedRun, null, 2)}\n`,
+      );
+      fs.writeFileSync(
+        absolute(missingOwnerResolutionPath),
+        `${JSON.stringify({ ...resolutionInput, decision_resolutions: [] }, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/finalize-documentation-cascade.mjs",
+          "--run",
+          generatedRunPath,
+          "--resolution-input",
+          missingOwnerResolutionPath,
+          "--output-dir",
+          missingOwnerFinalizationDir,
+        ],
+        "owner decision queue does not match recalculated gates",
+      );
+    } finally {
+      fs.writeFileSync(absolute(generatedQueuePath), originalGeneratedQueueText);
+      fs.writeFileSync(absolute(generatedRunPath), originalGeneratedRunText);
+    }
+    expectNodeFailure(
+      [
+        "scripts/finalize-documentation-cascade.mjs",
+        "--run",
+        generatedRunPath,
+        "--resolution-input",
+        resolutionPath,
+        "--output-dir",
+        untrustedFinalizationDir,
+      ],
+      "acceptance record path is not trusted",
+    );
+
+    const noDecisionChangeRequest = {
+      version: "0.1.0",
+      change_request_id: "DCR-2026-07-10-102",
+      status: "ready",
+      initiator: {
+        actor_role: "Process test",
+        source: "fixture: non-semantic cascade finalization",
+      },
+      target_artifact: "docs/release/mvp-release-evidence-pack.json",
+      desired_change: "Проверить техническое обновление evidence без изменения продуктового смысла.",
+      change_source: "technical_maintenance",
+      impact_level: "low",
+      affected_period: null,
+      affected_backlog_story_ids: [],
+      known_constraints: ["Изменение не должно закрывать решения владельца без записи согласования."],
+      user_confirmation_status: "not_required",
+      semantic_change: false,
+      requested_at: resolvedAt,
+    };
+    fs.writeFileSync(
+      absolute(noDecisionChangeRequestPath),
+      `${JSON.stringify(noDecisionChangeRequest, null, 2)}\n`,
+    );
+    validateWithSchema("schemas/documentation-change-request.schema.json", noDecisionChangeRequestPath);
+    runNode([
+      "scripts/run-cascading-update.mjs",
+      "--change-request",
+      noDecisionChangeRequestPath,
+      "--output-dir",
+      noDecisionRunDir,
+    ]);
+    const noDecisionSuffix = noDecisionChangeRequest.change_request_id.replace("DCR-", "");
+    const noDecisionRunPath = `${noDecisionRunDir}/cascading-update-run-${noDecisionSuffix}.json`;
+    const noDecisionImpact = readJson(`${noDecisionRunDir}/impact-analysis-report-${noDecisionSuffix}.json`);
+    const noDecisionQueue = readJson(`${noDecisionRunDir}/user-decision-queue-${noDecisionSuffix}.json`);
+    if (noDecisionQueue.decisions.length !== 0) {
+      throw new Error("non-semantic cascade unexpectedly requires an owner decision");
+    }
+    const noDecisionResolution = {
+      version: "0.2.0",
+      resolution_id: "CRI-2026-07-10-997",
+      source_run_path: noDecisionRunPath,
+      resolved_at: resolvedAt,
+      source_resolutions: noDecisionImpact.impact_cone.changed_source_set.map((sourceArtifact) => ({
+        path: sourceArtifact.path,
+        update_status: "no_change_confirmed",
+        no_change_rationale: {
+          rationale: "Автоматический тест подтверждает отсутствие содержательной правки источника.",
+          confirmed_by: "Process test",
+          confirmed_at: resolvedAt,
+          source_artifact: sourceArtifact.path,
+          change_class: "generated_refresh",
+          covered_requirements: [noDecisionImpact.change_request_id],
+          acceptance_impact: "Критерии приемки в тесте не меняются.",
+          traceability_impact: "Связи трассируемости в тесте не меняются.",
+          residual_risk: "Временное test evidence удаляется после проверки.",
+          owner_role: "Process Owner",
+          reconsider_when: "При фактическом изменении исходного артефакта.",
+        },
+      })),
+      artifact_resolutions: noDecisionImpact.affected_artifacts.map((artifact) => ({
+        path: artifact.path,
+        update_status: "no_change_confirmed",
+        no_change_rationale: {
+          rationale: "Автоматический тест подтверждает отсутствие содержательной правки.",
+          confirmed_by: "Process test",
+          confirmed_at: resolvedAt,
+          source_artifact: noDecisionImpact.target_artifact,
+          change_class: "generated_refresh",
+          covered_requirements: [noDecisionImpact.change_request_id],
+          acceptance_impact: "Критерии приемки в тесте не меняются.",
+          traceability_impact: "Связи трассируемости в тесте не меняются.",
+          residual_risk: "Временное test evidence удаляется после проверки.",
+          owner_role: "Process Owner",
+          reconsider_when: "При фактическом изменении артефакта.",
+        },
+      })),
+      decision_resolutions: [],
+    };
+    fs.writeFileSync(
+      absolute(noDecisionResolutionPath),
+      `${JSON.stringify(noDecisionResolution, null, 2)}\n`,
+    );
+    validateWithSchema("schemas/cascade-resolution-input.schema.json", noDecisionResolutionPath);
+    const noDecisionImpactPath = `${noDecisionRunDir}/impact-analysis-report-${noDecisionSuffix}.json`;
+    const originalNoDecisionImpactText = readText(noDecisionImpactPath);
+    const originalNoDecisionRunText = readText(noDecisionRunPath);
+    try {
+      const narrowedValidationImpact = JSON.parse(originalNoDecisionImpactText);
+      narrowedValidationImpact.validation_plan = ["npm run validate:cascade-impact"];
+      fs.writeFileSync(
+        absolute(noDecisionImpactPath),
+        `${JSON.stringify(narrowedValidationImpact, null, 2)}\n`,
+      );
+      const narrowedValidationRun = JSON.parse(originalNoDecisionRunText);
+      const impactSeal = narrowedValidationRun.dry_run_evidence_hashes.find(
+        (entry) => entry.path === noDecisionImpactPath,
+      );
+      impactSeal.sha256 = hashRepoPath(root, noDecisionImpactPath);
+      fs.writeFileSync(
+        absolute(noDecisionRunPath),
+        `${JSON.stringify(narrowedValidationRun, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/finalize-documentation-cascade.mjs",
+          "--run",
+          noDecisionRunPath,
+          "--resolution-input",
+          noDecisionResolutionPath,
+          "--output-dir",
+          narrowedValidationFinalizationDir,
+        ],
+        "validation plan does not match required cascade checks",
+      );
+    } finally {
+      fs.writeFileSync(absolute(noDecisionImpactPath), originalNoDecisionImpactText);
+      fs.writeFileSync(absolute(noDecisionRunPath), originalNoDecisionRunText);
+    }
+
+    const noDecisionBaselinePath = `${noDecisionRunDir}/cascade-baseline-manifest-${noDecisionSuffix}.json`;
+    const originalNoDecisionBaselineText = readText(noDecisionBaselinePath);
+    try {
+      const tamperedDryRunBaseline = JSON.parse(originalNoDecisionBaselineText);
+      tamperedDryRunBaseline.captured_at = "2026-07-10T12:00:01.000Z";
+      fs.writeFileSync(
+        absolute(noDecisionBaselinePath),
+        `${JSON.stringify(tamperedDryRunBaseline, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/finalize-documentation-cascade.mjs",
+          "--run",
+          noDecisionRunPath,
+          "--resolution-input",
+          noDecisionResolutionPath,
+          "--output-dir",
+          tamperedDryRunBaselineFinalizationDir,
+        ],
+        "dry-run evidence hash mismatch",
+      );
+    } finally {
+      fs.writeFileSync(absolute(noDecisionBaselinePath), originalNoDecisionBaselineText);
+    }
+    try {
+      const tamperedDryRunBaseline = JSON.parse(originalNoDecisionBaselineText);
+      tamperedDryRunBaseline.captured_at = "2026-07-10T12:00:01.000Z";
+      fs.writeFileSync(
+        absolute(noDecisionBaselinePath),
+        `${JSON.stringify(tamperedDryRunBaseline, null, 2)}\n`,
+      );
+      const narrowedDryRunEvidence = JSON.parse(originalNoDecisionRunText);
+      narrowedDryRunEvidence.evidence_paths = narrowedDryRunEvidence.evidence_paths.filter(
+        (evidencePath) => evidencePath !== noDecisionBaselinePath,
+      );
+      narrowedDryRunEvidence.dry_run_evidence_hashes = narrowedDryRunEvidence.dry_run_evidence_hashes.filter(
+        (entry) => entry.path !== noDecisionBaselinePath,
+      );
+      fs.writeFileSync(
+        absolute(noDecisionRunPath),
+        `${JSON.stringify(narrowedDryRunEvidence, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/finalize-documentation-cascade.mjs",
+          "--run",
+          noDecisionRunPath,
+          "--resolution-input",
+          noDecisionResolutionPath,
+          "--output-dir",
+          narrowedDryRunEvidenceFinalizationDir,
+        ],
+        "dry-run evidence paths do not match",
+      );
+    } finally {
+      fs.writeFileSync(absolute(noDecisionBaselinePath), originalNoDecisionBaselineText);
+      fs.writeFileSync(absolute(noDecisionRunPath), originalNoDecisionRunText);
+    }
+
+    const finalizationOutput = runNode([
+      "scripts/finalize-documentation-cascade.mjs",
+      "--run",
+      noDecisionRunPath,
+      "--resolution-input",
+      noDecisionResolutionPath,
+      "--output-dir",
+      noDecisionFinalizationDir,
+    ]);
+    if (!finalizationOutput.includes("finalized cascade run written")) {
+      throw new Error(`finalizer did not report generated evidence: ${finalizationOutput.trim()}`);
+    }
+    const finalizedRunPath = `${noDecisionFinalizationDir}/cascading-update-run-resolved-${noDecisionSuffix}.json`;
+    const finalizedRun = readJson(finalizedRunPath);
+    assertCascadingUpdateRun(finalizedRun);
+    if (
+      finalizedRun.completion_claim.done_claimed ||
+      !finalizedRun.completion_claim.all_affected_artifacts_resolved ||
+      finalizedRun.completion_claim.decision_queue_status !== "closed"
+    ) {
+      throw new Error("finalizer produced an invalid completion claim");
+    }
+    fs.writeFileSync(
+      absolute(malformedVerificationRunPath),
+      `${JSON.stringify({ ...finalizedRun, apply_supported: true }, null, 2)}\n`,
+    );
+    expectNodeFailure(
+      [
+        "scripts/verify-documentation-cascade.mjs",
+        "--run",
+        malformedVerificationRunPath,
+        "--output-dir",
+        malformedVerificationDir,
+      ],
+      "cascade run does not match schema",
+    );
+    const validVerificationOutput = runNode([
+      "scripts/verify-documentation-cascade.mjs",
+      "--run",
+      finalizedRunPath,
+      "--output-dir",
+      validVerificationDir,
+    ]);
+    if (!validVerificationOutput.includes("cascade verification evidence written")) {
+      throw new Error(`verifier did not report generated evidence: ${validVerificationOutput.trim()}`);
+    }
+    const validVerificationEvidence = readJson(
+      `${validVerificationDir}/cascade-verification-evidence-${noDecisionSuffix}.json`,
+    );
+    if (validVerificationEvidence.status !== "verified") {
+      throw new Error(`valid cascade did not verify: ${validVerificationEvidence.blocking_reasons.join(" ")}`);
+    }
+    const originalImpactText = readText(finalizedRun.impact_report_path);
+    const originalResolutionText = readText(finalizedRun.resolution_input_path);
+    try {
+      const narrowedValidationImpact = JSON.parse(originalImpactText);
+      narrowedValidationImpact.validation_plan = ["npm run validate:cascade-impact"];
+      fs.writeFileSync(
+        absolute(finalizedRun.impact_report_path),
+        `${JSON.stringify(narrowedValidationImpact, null, 2)}\n`,
+      );
+      const narrowedValidationRun = structuredClone(finalizedRun);
+      const narrowedValidationHash = narrowedValidationRun.finalized_evidence_hashes.find(
+        (entry) => entry.path === finalizedRun.impact_report_path,
+      );
+      narrowedValidationHash.sha256 = hashRepoPath(root, finalizedRun.impact_report_path);
+      fs.mkdirSync(absolute(narrowedValidationRunDir), { recursive: true });
+      fs.writeFileSync(
+        absolute(narrowedValidationRunPath),
+        `${JSON.stringify(narrowedValidationRun, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/verify-documentation-cascade.mjs",
+          "--run",
+          narrowedValidationRunPath,
+          "--output-dir",
+          narrowedValidationVerificationDir,
+        ],
+        "cascade verification evidence written",
+      );
+      const narrowedValidationEvidence = readJson(
+        `${narrowedValidationVerificationDir}/cascade-verification-evidence-${noDecisionSuffix}.json`,
+      );
+      if (!narrowedValidationEvidence.blocking_reasons.some((reason) => reason.includes("Validation plan"))) {
+        throw new Error("verifier did not explain the narrowed validation plan");
+      }
+    } finally {
+      fs.writeFileSync(absolute(finalizedRun.impact_report_path), originalImpactText);
+    }
+    try {
+      const narrowedImpact = JSON.parse(originalImpactText);
+      const narrowedResolution = JSON.parse(originalResolutionText);
+      const removedArtifact = narrowedImpact.affected_artifacts.pop();
+      narrowedImpact.impact_cone.impacted_artifacts = narrowedImpact.impact_cone.impacted_artifacts.filter(
+        (artifact) => artifact.path !== removedArtifact.path,
+      );
+      narrowedResolution.artifact_resolutions = narrowedResolution.artifact_resolutions.filter(
+        (artifact) => artifact.path !== removedArtifact.path,
+      );
+      fs.writeFileSync(
+        absolute(finalizedRun.impact_report_path),
+        `${JSON.stringify(narrowedImpact, null, 2)}\n`,
+      );
+      fs.writeFileSync(
+        absolute(finalizedRun.resolution_input_path),
+        `${JSON.stringify(narrowedResolution, null, 2)}\n`,
+      );
+      const narrowConeRun = structuredClone(finalizedRun);
+      for (const evidenceHash of narrowConeRun.finalized_evidence_hashes) {
+        if ([finalizedRun.impact_report_path, finalizedRun.resolution_input_path].includes(evidenceHash.path)) {
+          evidenceHash.sha256 = hashRepoPath(root, evidenceHash.path);
+        }
+      }
+      fs.mkdirSync(absolute(narrowConeRunDir), { recursive: true });
+      fs.writeFileSync(
+        absolute(narrowConeRunPath),
+        `${JSON.stringify(narrowConeRun, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/verify-documentation-cascade.mjs",
+          "--run",
+          narrowConeRunPath,
+          "--output-dir",
+          narrowConeVerificationDir,
+        ],
+        "cascade verification evidence written",
+      );
+      const narrowConeEvidence = readJson(
+        `${narrowConeVerificationDir}/cascade-verification-evidence-${noDecisionSuffix}.json`,
+      );
+      if (!narrowConeEvidence.blocking_reasons.some((reason) => reason.includes("fresh"))) {
+        throw new Error("verifier did not explain the narrowed impact cone");
+      }
+    } finally {
+      fs.writeFileSync(absolute(finalizedRun.impact_report_path), originalImpactText);
+      fs.writeFileSync(absolute(finalizedRun.resolution_input_path), originalResolutionText);
+    }
+    const originalBaselineText = readText(finalizedRun.baseline_manifest_path);
+    try {
+      const tamperedBaseline = JSON.parse(originalBaselineText);
+      tamperedBaseline.captured_at = "2026-07-10T12:00:01.000Z";
+      fs.writeFileSync(
+        absolute(finalizedRun.baseline_manifest_path),
+        `${JSON.stringify(tamperedBaseline, null, 2)}\n`,
+      );
+      expectNodeFailure(
+        [
+          "scripts/verify-documentation-cascade.mjs",
+          "--run",
+          finalizedRunPath,
+          "--output-dir",
+          tamperedBaselineVerificationDir,
+        ],
+        "cascade verification evidence written",
+      );
+      const tamperedBaselineEvidence = readJson(
+        `${tamperedBaselineVerificationDir}/cascade-verification-evidence-${noDecisionSuffix}.json`,
+      );
+      if (!tamperedBaselineEvidence.blocking_reasons.some((reason) => reason.includes("baseline"))) {
+        throw new Error("verifier did not explain the tampered baseline");
+      }
+    } finally {
+      fs.writeFileSync(absolute(finalizedRun.baseline_manifest_path), originalBaselineText);
+    }
+    const tamperedImpact = readJson(finalizedRun.impact_report_path);
+    tamperedImpact.affected_artifacts[0].no_change_rationale.rationale =
+      "Подмененное обоснование, которого нет во входе разрешений.";
+    fs.writeFileSync(
+      absolute(finalizedRun.impact_report_path),
+      `${JSON.stringify(tamperedImpact, null, 2)}\n`,
+    );
+    const tamperedRun = structuredClone(finalizedRun);
+    const impactHash = tamperedRun.finalized_evidence_hashes.find(
+      (entry) => entry.path === finalizedRun.impact_report_path,
+    );
+    impactHash.sha256 = hashRepoPath(root, finalizedRun.impact_report_path);
+    fs.mkdirSync(absolute(tamperedVerificationRunDir), { recursive: true });
+    fs.writeFileSync(
+      absolute(tamperedVerificationRunPath),
+      `${JSON.stringify(tamperedRun, null, 2)}\n`,
+    );
+    expectNodeFailure(
+      [
+        "scripts/verify-documentation-cascade.mjs",
+        "--run",
+        tamperedVerificationRunPath,
+        "--output-dir",
+        tamperedVerificationDir,
+      ],
+      "cascade verification evidence written",
+    );
+    const tamperedEvidence = readJson(
+      `${tamperedVerificationDir}/cascade-verification-evidence-${noDecisionSuffix}.json`,
+    );
+    if (!tamperedEvidence.blocking_reasons.some((reason) => reason.includes("differs from resolution input"))) {
+      throw new Error("verifier did not explain the tampered impact resolution");
+    }
+  } finally {
+    fs.rmSync(absolute(successDir), { recursive: true, force: true });
+    fs.rmSync(absolute(xlsxRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(untrustedFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(malformedFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(missingOwnerFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(noDecisionRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(noDecisionFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowedValidationFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(tamperedDryRunBaselineFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowedDryRunEvidenceFinalizationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(validVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowedValidationVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowConeVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(malformedVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(tamperedBaselineVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(tamperedVerificationDir), { recursive: true, force: true });
+    fs.rmSync(absolute(tamperedVerificationRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowedValidationRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(narrowConeRunDir), { recursive: true, force: true });
+    fs.rmSync(absolute(acceptancePath), { force: true });
+    fs.rmSync(absolute(resolutionPath), { force: true });
+    fs.rmSync(absolute(malformedRunPath), { force: true });
+    fs.rmSync(absolute(malformedResolutionPath), { force: true });
+    fs.rmSync(absolute(missingOwnerResolutionPath), { force: true });
+    fs.rmSync(absolute(noDecisionChangeRequestPath), { force: true });
+    fs.rmSync(absolute(noDecisionResolutionPath), { force: true });
+    fs.rmSync(absolute(malformedVerificationRunPath), { force: true });
+  }
+}
+
+function assertAcceptanceRecordPolicy() {
+  const registry = readJson("docs/architecture/schemas/artifact-registry.json");
+  const trustedPaths = trustedAcceptanceRecordPaths(registry);
+  const canonicalLedgerPath = "docs/process/universal-documentation-workflow/acceptance-records.json";
+  if (!trustedPaths.has(canonicalLedgerPath) || trustedPaths.has("artifacts/manual/untrusted-acceptance.json")) {
+    throw new Error("trusted acceptance path policy does not follow the active artifact registry");
+  }
+
+  const ledger = {
+    status: "active",
+    records: [
+      {
+        acceptance_record_id: "TEST-ACC-DEC-TEST",
+        acceptance_type: "owner_decision_acceptance",
+        status: "accepted",
+        selected_option_id: "OPT-APPLY",
+        owner_role: "Product Owner",
+        linked_decision_ids: ["DEC-TEST"],
+        linked_run_ids: ["CUR-2026-07-10-102"],
+        linked_run_paths: ["docs/process/cascading-governance/runs/test/cascading-update-run-2026-07-10-102.json"],
+        linked_change_request_ids: ["DCR-2026-07-10-102"],
+      },
+    ],
+  };
+  const acceptanceContext = {
+    run_id: "CUR-2026-07-10-102",
+    run_path: "docs/process/cascading-governance/runs/test/cascading-update-run-2026-07-10-102.json",
+    change_request_id: "DCR-2026-07-10-102",
+    owner_role: "Product Owner",
+  };
+  acceptedOwnerDecisionRecord(
+    ledger,
+    "TEST-ACC-DEC-TEST",
+    "DEC-TEST",
+    "OPT-APPLY",
+    acceptanceContext,
+  );
+  function expectAcceptanceFailure(candidateLedger, selectedOptionId, context, expectedMessage) {
+    try {
+      acceptedOwnerDecisionRecord(
+        candidateLedger,
+        "TEST-ACC-DEC-TEST",
+        "DEC-TEST",
+        selectedOptionId,
+        context,
+      );
+    } catch (error) {
+      if (error.message.includes(expectedMessage)) return;
+      throw error;
+    }
+    throw new Error(`owner acceptance policy did not reject: ${expectedMessage}`);
+  }
+  expectAcceptanceFailure(ledger, "OPT-OTHER", acceptanceContext, "selected option");
+  expectAcceptanceFailure(
+    ledger,
+    "OPT-APPLY",
+    { ...acceptanceContext, run_id: "CUR-2026-07-10-103" },
+    "cascade run",
+  );
+  expectAcceptanceFailure(
+    ledger,
+    "OPT-APPLY",
+    { ...acceptanceContext, run_path: "docs/process/cascading-governance/runs/retry/cascading-update-run-2026-07-10-102.json" },
+    "run path",
+  );
+  expectAcceptanceFailure(
+    { ...ledger, status: "archived" },
+    "OPT-APPLY",
+    acceptanceContext,
+    "not active",
+  );
+  expectAcceptanceFailure(
+    ledger,
+    "OPT-APPLY",
+    { ...acceptanceContext, owner_role: "Process Owner" },
+    "owner role",
+  );
+}
+
+function assertCascadePathPolicy() {
+  const fixtureRoot = absolute(`artifacts/manual/.tmp-cascade-path-policy-${process.pid}-${Date.now()}`);
+  fs.mkdirSync(path.join(fixtureRoot, "safe"), { recursive: true });
+  fs.mkdirSync(path.join(fixtureRoot, "outside"), { recursive: true });
+  fs.symlinkSync("../outside", path.join(fixtureRoot, "safe", "link"));
+  try {
+    try {
+      absoluteRepoPath(fixtureRoot, "safe/link/evidence.json");
+    } catch (error) {
+      if (error.message.includes("symbolic link")) return;
+      throw error;
+    }
+    throw new Error("cascade paths must reject symbolic-link ancestors");
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+}
+
+function assertCascadeValidationCommandPolicy() {
+  if (safeValidationScriptNames("npm run fake:pass") !== null) {
+    throw new Error("cascade validation command policy accepted an unregistered script");
+  }
+  const expectedCommands = new Set([
+    "npm run validate:cascade-impact",
+    "npm run scan:secrets && npm run validate:data-leakage",
+  ]);
+  const allowedCommands = new Set(allowedCascadeValidationCommands());
+  const catalogCommands = new Set(
+    readJson("docs/process/universal-documentation-workflow/validation-command-catalog.json")
+      .commands
+      .map((entry) => entry.command),
+  );
+  for (const command of expectedCommands) {
+    if (
+      !allowedCommands.has(command) ||
+      !catalogCommands.has(command) ||
+      safeValidationScriptNames(command)?.length === 0
+    ) {
+      throw new Error(`cascade validation command policy lacks required command: ${command}`);
+    }
+  }
+}
+
 function assertXlsxCascade(analysis) {
   const graph = readJson("docs/process/cascading-governance/artifact-dependency-graph.json");
   assertDependencyGraph(graph);
@@ -641,16 +1510,17 @@ function assertXlsxCascade(analysis) {
     throw new Error("XLSX cascade must keep service rationale out of business artifacts");
   }
 
-  const downstream = downstreamClosureFrom(graph, [source.path, source.provenance_manifest].filter(Boolean));
+  const changedRoots = new Set([source.path, source.provenance_manifest].filter(Boolean));
+  const downstream = downstreamClosureFrom(graph, [...changedRoots]);
   for (const requiredPath of source.affected_artifacts) {
-    if (!downstream.has(requiredPath)) {
+    if (!changedRoots.has(requiredPath) && !downstream.has(requiredPath)) {
       throw new Error(`XLSX change analysis lacks graph coverage for registry affected artifact: ${requiredPath}`);
     }
   }
 
   const seedPaths = new Set(analysis.downstream_seed_paths);
   for (const requiredPath of source.affected_artifacts) {
-    if (!seedPaths.has(requiredPath)) {
+    if (!changedRoots.has(requiredPath) && !seedPaths.has(requiredPath)) {
       throw new Error(`XLSX change analysis lacks downstream seed path from registry: ${requiredPath}`);
     }
   }
@@ -738,6 +1608,13 @@ for (const selectedMode of selectedModes) {
       }
       throw error;
     }
+  }
+
+  if (selectedMode === "cascading-update") {
+    assertAcceptanceRecordPolicy();
+    assertCascadePathPolicy();
+    assertCascadeValidationCommandPolicy();
+    assertCascadingRunnerCli();
   }
 
   console.log(`cascading governance validation passed: ${selectedMode}`);
