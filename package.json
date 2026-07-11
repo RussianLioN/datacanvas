@@ -123,6 +123,7 @@
     "validate:cascading-governance": "node scripts/validate-cascading-governance.mjs",
     "validate:cascade-impact": "node scripts/validate-cascade-impact.mjs",
     "validate:cascade-verification": "node scripts/validate-cascade-verification.mjs",
+    "validate:cascade-vnext": "node scripts/validate-cascade-vnext.mjs",
     "cascade:run": "node scripts/run-cascading-update.mjs",
     "cascade:finalize": "node scripts/finalize-documentation-cascade.mjs",
     "cascade:verify": "node scripts/verify-documentation-cascade.mjs",

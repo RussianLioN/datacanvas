@@ -1,0 +1,177 @@
+import crypto from "node:crypto";
+
+import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
+
+const sha256Pattern = /^[0-9a-f]{64}$/u;
+const gitShaPattern = /^(?:[0-9a-f]{40}|[0-9a-f]{64})$/u;
+
+const transitions = new Map([
+  ["planned", new Set(["awaiting_owner", "blocked", "finalized"])],
+  ["awaiting_owner", new Set(["blocked", "finalized"])],
+  ["finalized", new Set(["profile_verified", "blocked"])],
+  ["profile_verified", new Set(["verified", "blocked"])],
+  ["blocked", new Set()],
+  ["verified", new Set()],
+]);
+
+const statusLabels = new Map([
+  ["planned", "Каскад запланирован"],
+  ["awaiting_owner", "Ожидается решение владельца"],
+  ["blocked", "Каскад заблокирован"],
+  ["finalized", "Пакет сформирован, завершение не подтверждено"],
+  ["profile_verified", "Профильные проверки пройдены, завершение не подтверждено"],
+  ["verified", "Каскад завершен и проверен"],
+]);
+
+function stableJson(value) {
+  if (Array.isArray(value)) return value.map(stableJson);
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.keys(value).sort().map((key) => [key, stableJson(value[key])]));
+}
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+function sourcePaths(source) {
+  return [source.path, source.provenance_manifest].filter(Boolean).map(normalizeRepoPath);
+}
+
+export function resolveSourceIdentities({
+  sourceRegistry,
+  triggerPaths = [],
+  explicitSourceIds = [],
+  registryDelta = null,
+}) {
+  const sources = sourceRegistry?.sources ?? [];
+  const byId = new Map(sources.map((source) => [source.source_id, source]));
+  const normalizedTriggers = triggerPaths.map(normalizeRepoPath);
+  const selectedIds = new Set(explicitSourceIds);
+
+  for (const selector of registryDelta?.source_selectors ?? []) {
+    if (selector.source_id) selectedIds.add(selector.source_id);
+  }
+
+  if (selectedIds.size === 0) {
+    for (const source of sources) {
+      if (sourcePaths(source).some((candidate) => normalizedTriggers.includes(candidate))) {
+        selectedIds.add(source.source_id);
+      }
+    }
+  }
+
+  if (selectedIds.size === 0) {
+    throw new Error("source identity cannot be resolved from the source registry");
+  }
+
+  const identities = [...selectedIds].map((sourceId) => {
+    const source = byId.get(sourceId);
+    if (!source) throw new Error(`source identity is unknown: ${sourceId}`);
+    return {
+      source_id: source.source_id,
+      source_path: normalizeRepoPath(source.path),
+      provenance_path: source.provenance_manifest ? normalizeRepoPath(source.provenance_manifest) : null,
+      resolution: explicitSourceIds.includes(sourceId) ? "explicit" : registryDelta ? "registry_delta" : "deterministic_registry_match",
+    };
+  }).sort((left, right) => left.source_id.localeCompare(right.source_id));
+
+  if (explicitSourceIds.length === 0 && !registryDelta && identities.length > 1) {
+    throw new Error(`source identity is ambiguous: ${identities.map((item) => item.source_id).join(", ")}`);
+  }
+  return identities;
+}
+
+export function assertStateTransition(from, to, command = null) {
+  if (!transitions.has(from) || !transitions.has(to)) {
+    throw new Error(`unknown cascade state transition: ${from} -> ${to}`);
+  }
+  if (!transitions.get(from).has(to)) {
+    throw new Error(`invalid cascade state transition: ${from} -> ${to}`);
+  }
+  if (to === "verified" && command !== "cascade:complete") {
+    throw new Error("only cascade:complete may produce the verified state");
+  }
+}
+
+export function canClaimDone(state, command) {
+  return state === "verified" && command === "cascade:complete";
+}
+
+export function statusLabel(state) {
+  const label = statusLabels.get(state);
+  if (!label) throw new Error(`unknown cascade state: ${state}`);
+  return label;
+}
+
+function pathAllowed(candidate, allowedWrites) {
+  return allowedWrites.some((allowed) => candidate === allowed || candidate.startsWith(`${allowed}/`));
+}
+
+export function buildActualDiffManifest({
+  baseSha,
+  planningHeadSha,
+  candidateHeadSha,
+  entries = [],
+  allowedWrites = [],
+  dirty = false,
+}) {
+  for (const [label, value] of Object.entries({ baseSha, planningHeadSha, candidateHeadSha })) {
+    if (!gitShaPattern.test(value)) throw new Error(`${label} must be an immutable Git SHA`);
+  }
+  const normalizedAllowed = [...new Set(allowedWrites.map(normalizeRepoPath))].sort();
+  const normalizedEntries = entries.map((entry) => ({
+    status: entry.status,
+    path: normalizeRepoPath(entry.path),
+    old_path: entry.old_path ? normalizeRepoPath(entry.old_path) : null,
+    sha256: entry.sha256 ?? null,
+  })).sort((left, right) => left.path.localeCompare(right.path));
+  const unexpectedPaths = normalizedEntries
+    .flatMap((entry) => [entry.path, entry.old_path].filter(Boolean))
+    .filter((candidate) => !pathAllowed(candidate, normalizedAllowed));
+  if (unexpectedPaths.length > 0) {
+    throw new Error(`unexpected changed paths: ${[...new Set(unexpectedPaths)].join(", ")}`);
+  }
+  const manifest = {
+    version: "1.0.0",
+    base_sha: baseSha,
+    planning_head_sha: planningHeadSha,
+    candidate_head_sha: candidateHeadSha,
+    dirty_worktree: Boolean(dirty),
+    allowed_write_paths: normalizedAllowed,
+    changed_entries: normalizedEntries,
+    unexpected_paths: [],
+  };
+  return { ...manifest, diff_sha256: sha256(JSON.stringify(stableJson(manifest))) };
+}
+
+export function verifyAppliedResolution({
+  updateStatus,
+  afterSha256,
+  expectedAfterSha256 = null,
+  patchDigest = null,
+}) {
+  if (updateStatus !== "applied") return;
+  if (!sha256Pattern.test(afterSha256 ?? "")) throw new Error("applied resolution requires a valid after hash");
+  if (!expectedAfterSha256 && !patchDigest) {
+    throw new Error("applied resolution requires an expected after hash or approved patch digest");
+  }
+  if (expectedAfterSha256 && afterSha256 !== expectedAfterSha256) {
+    throw new Error("expected after hash does not match the actual artifact hash");
+  }
+  if (patchDigest && !sha256Pattern.test(patchDigest)) {
+    throw new Error("approved patch digest must be sha256");
+  }
+}
+
+export function classifyXlsxChangeSignals(signals = {}) {
+  const classes = [];
+  if (signals.formattingChanged) classes.push("formatting_only");
+  if (signals.formulaCacheOnly) classes.push("formula_cache_only");
+  if (signals.estimateChanged) classes.push("estimate_only");
+  if (signals.priorityChanged) classes.push("priority_change");
+  if (signals.storyTextChanged) classes.push("story_text_change");
+  if (signals.rowAddedOrRemoved) classes.push("row_add_remove");
+  if (signals.scopeChanged) classes.push("scope_change");
+  if (signals.provenanceChanged) classes.push("provenance_only");
+  return [...new Set(classes.length > 0 ? classes : ["mixed_or_ambiguous"])].sort();
+}
