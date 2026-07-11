@@ -361,6 +361,10 @@ const cases = [
     data: "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
   },
   {
+    schema: "schemas/cascade-acceptance-authority.schema.json",
+    data: "docs/process/cascading-governance/acceptance-authority.json",
+  },
+  {
     schema: "schemas/cascade-acceptance-vnext.schema.json",
     data: "tests/fixtures/cascading-governance/vnext/acceptance.json",
   },
@@ -386,7 +390,7 @@ const cases = [
   },
   {
     schema: "schemas/cascade-supersession-ledger.schema.json",
-    data: "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+    data: "docs/process/cascading-governance/supersession-ledger.json",
   },
   {
     schema: "schemas/capacity-plan.schema.json",

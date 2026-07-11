@@ -28,6 +28,7 @@ const runsRoot = "docs/process/cascading-governance/runs";
 const graphPath = "docs/process/cascading-governance/artifact-dependency-graph.json";
 const sourceRegistryPath = "docs/product/sources/product-source-registry.json";
 const validationCatalogPath = "docs/process/universal-documentation-workflow/validation-command-catalog.json";
+const acceptanceAuthorityPath = "docs/process/cascading-governance/acceptance-authority.json";
 
 function fail(message) {
   throw new Error(message);
@@ -182,6 +183,32 @@ function documentChangeClasses(graphArtifact, kind, semanticChange) {
   return [...new Set(declared.length > 0 ? declared : ["product_meaning"])].sort();
 }
 
+function requiredOwnerRoles(changeClasses) {
+  const productClasses = new Set([
+    "acceptance_meaning",
+    "business_model",
+    "business_requirement",
+    "capacity",
+    "change_order",
+    "hypothesis",
+    "mixed_or_ambiguous",
+    "non_functional_requirement",
+    "priority_change",
+    "product_goal",
+    "product_meaning",
+    "roadmap_meaning",
+    "row_add_remove",
+    "scope_change",
+    "source_identity",
+    "story_text_change",
+  ]);
+  const roles = [];
+  if (changeClasses.some((value) => productClasses.has(value))) roles.push("Product Owner");
+  if (changeClasses.includes("capacity")) roles.push("Команда реализации");
+  if (roles.length === 0) roles.push("Process Owner");
+  return [...new Set(roles)].sort();
+}
+
 function excerptFor(relativePath, fallback) {
   if (relativePath.endsWith(".xlsx")) return fallback;
   const content = fs.readFileSync(absoluteRepoPath(root, relativePath), "utf8");
@@ -189,14 +216,17 @@ function excerptFor(relativePath, fallback) {
   return (paragraph ?? fallback).slice(0, 1200);
 }
 
-function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths, timestamp }) {
+function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths, changeClasses, ownerRoles }) {
   const excerpt = excerptFor(sourcePath, changeRequest.desired_change);
   const packet = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-owner-question-packet.schema.json",
     version: "1.0.0",
     packet_id: `QPK-CASCADE-${suffix}`,
     decision_id: `DEC-CASCADE-${suffix}`,
-    owner_role: "Product Owner / Process Owner",
+    required_owner_roles: ownerRoles,
+    change_classes: changeClasses,
+    authority_manifest_path: acceptanceAuthorityPath,
+    authority_manifest_sha256: hashRepoPath(root, acceptanceAuthorityPath),
     question: `Как согласовать влияние изменения «${changeRequest.desired_change}» на авторитетные источники и зависимые документы?`,
     source_excerpts: [{ path: sourcePath, excerpt, excerpt_sha256: crypto.createHash("sha256").update(excerpt).digest("hex") }],
     affected_artifacts: affectedPaths.map((artifactPath) => ({
@@ -204,17 +234,15 @@ function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths,
       sha256: hashRepoPath(root, artifactPath) ?? "0".repeat(64),
     })),
     options: [
-      { option_id: `OPT-${suffix}-ACCEPT`, text: "Принять изменение полностью и обновить авторитетный источник.", consequences: "После согласования будет запущен новый downstream-проход по зависимым документам." },
-      { option_id: `OPT-${suffix}-REJECT`, text: "Отклонить изменение и сохранить текущий авторитетный смысл.", consequences: "Измененный производный документ потребуется привести к действующему источнику истины." },
-      { option_id: `OPT-${suffix}-PARTIAL`, text: "Принять только часть изменения после уточнения формулировки.", consequences: "Каскад останется заблокированным до согласования уточненного текста." },
-      { option_id: `OPT-${suffix}-DEFER`, text: "Отложить решение без смысловых правок.", consequences: "Документы не меняются, запуск остается в состоянии ожидания владельца." },
-      { option_id: `OPT-${suffix}-EVIDENCE`, text: "Запросить дополнительные сведения и повторный анализ.", consequences: "Будет дополнен пакет доказательств без изменения продуктового смысла." },
+      { option_id: `OPT-${suffix}-ACCEPT`, text: "Принять изменение полностью и обновить авторитетный источник.", consequences: "После согласования будет запущен новый downstream-проход по зависимым документам.", effect: "authorize_apply" },
+      { option_id: `OPT-${suffix}-REJECT`, text: "Отклонить изменение и сохранить текущий авторитетный смысл.", consequences: "Измененный производный документ потребуется привести к действующему источнику истины.", effect: "reject_change" },
+      { option_id: `OPT-${suffix}-PARTIAL`, text: "Принять только часть изменения после уточнения формулировки.", consequences: "Каскад останется заблокированным до согласования уточненного текста.", effect: "block_pending_text" },
+      { option_id: `OPT-${suffix}-DEFER`, text: "Отложить решение без смысловых правок.", consequences: "Документы не меняются, запуск остается в состоянии ожидания владельца.", effect: "block_deferred" },
+      { option_id: `OPT-${suffix}-EVIDENCE`, text: "Запросить дополнительные сведения и повторный анализ.", consequences: "Будет дополнен пакет доказательств без изменения продуктового смысла.", effect: "block_more_evidence" },
     ],
     recommended_option_id: `OPT-${suffix}-EVIDENCE`,
     packet_sha256: "0".repeat(64),
-    generated_at: timestamp,
   };
-  delete packet.generated_at;
   packet.packet_sha256 = hashJsonDocument({ ...packet, packet_sha256: null });
   return packet;
 }
@@ -252,6 +280,8 @@ async function main() {
   validateDocument(changeRequest, "schemas/documentation-change-request.schema.json");
   const graph = readJson(graphPath);
   validateDocument(graph, "schemas/artifact-dependency-graph.schema.json");
+  const acceptanceAuthority = readJson(acceptanceAuthorityPath);
+  validateDocument(acceptanceAuthority, "schemas/cascade-acceptance-authority.schema.json");
   const sourceRegistry = readJson(sourceRegistryPath);
   const validationCatalog = readJson(validationCatalogPath);
   const registryDelta = registryDeltaPath ? readJson(normalizeRepoPath(registryDeltaPath)) : null;
@@ -352,7 +382,18 @@ async function main() {
     }),
   };
   const ownerQuestion = ownerRequired
-    ? buildQuestionPacket({ suffix, changeRequest, sourcePath: changedSources[0].path, affectedPaths: semanticImpact.authoritative_review_paths, timestamp })
+    ? buildQuestionPacket({
+      suffix,
+      changeRequest,
+      sourcePath: changedSources[0].path,
+      affectedPaths: [...new Set([
+        ...semanticImpact.authoritative_review_paths,
+        ...semanticImpact.write_obligations,
+        ...changedSources.map((source) => source.path),
+      ])].sort(),
+      changeClasses: [...new Set(changedSources.flatMap((source) => source.change_classes))].sort(),
+      ownerRoles: requiredOwnerRoles(changedSources.flatMap((source) => source.change_classes)),
+    })
     : null;
   const fileNames = {
     run: "cascade-vnext-run.json",
@@ -375,6 +416,7 @@ async function main() {
     base_sha: baseSha,
     planning_head_sha: planningHeadSha,
     candidate_head_sha: null,
+    acceptance_authority_path: acceptanceAuthorityPath,
     source_identity_manifest_path: `${outputDir}/${fileNames.source}`,
     source_change_analysis_path: sourceChangeAnalysis ? `${outputDir}/${fileNames.sourceAnalysis}` : null,
     impact_report_path: `${outputDir}/${fileNames.impact}`,

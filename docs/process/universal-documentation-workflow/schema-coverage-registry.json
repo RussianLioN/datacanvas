@@ -280,6 +280,15 @@
       "negative_rationale": "Пакет без пяти готовых вариантов, цитат и хэшей отклоняется schema gate."
     },
     {
+      "entity": "cascade_vnext_acceptance_authority",
+      "schema_path": "schemas/cascade-acceptance-authority.schema.json",
+      "data_path": "docs/process/cascading-governance/acceptance-authority.json",
+      "positive_fixture_path": "docs/process/cascading-governance/acceptance-authority.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Роль, канал или класс изменения вне активного binding блокирует owner-gated финализацию."
+    },
+    {
       "entity": "cascade_vnext_acceptance",
       "schema_path": "schemas/cascade-acceptance-vnext.schema.json",
       "data_path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
@@ -336,8 +345,8 @@
     {
       "entity": "cascade_vnext_supersession_ledger",
       "schema_path": "schemas/cascade-supersession-ledger.schema.json",
-      "data_path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
-      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+      "data_path": "docs/process/cascading-governance/supersession-ledger.json",
+      "positive_fixture_path": "docs/process/cascading-governance/supersession-ledger.json",
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Исторические доказательства не меняются на месте; замещение фиксируется отдельной append-only записью."

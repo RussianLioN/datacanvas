@@ -34,6 +34,34 @@
       "type": "string",
       "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
     },
+    "cascadeChangeClass": {
+      "type": "string",
+      "enum": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "capacity",
+        "change_order",
+        "documentation",
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "no_change",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "provenance_only",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
+    },
     "quarter": {
       "type": "string",
       "pattern": "^[0-9]{4}-Q[1-4]$"

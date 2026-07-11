@@ -46,6 +46,7 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
     "base_sha",
     "planning_head_sha",
     "candidate_head_sha",
+    "acceptance_authority_path",
     "source_identity_manifest_path",
     "source_change_analysis_path",
     "impact_report_path",
@@ -156,6 +157,14 @@ async function main() {
     throw new Error("cascade:complete requires profile_verified state, got " + sourceRun.state);
   }
   const candidateSha = assertGitCommit(root, sourceRun.candidate_head_sha, "candidate_head_sha");
+  validateDocument(root, readJson(root, sourceRun.acceptance_authority_path), "schemas/cascade-acceptance-authority.schema.json");
+  validateDocument(root, readJson(root, sourceRun.source_identity_manifest_path), "schemas/cascade-source-identity.schema.json");
+  if (sourceRun.source_change_analysis_path) {
+    validateDocument(root, readJson(root, sourceRun.source_change_analysis_path), "schemas/cascade-source-change-analysis.schema.json");
+  }
+  validateDocument(root, readJson(root, sourceRun.impact_report_path), "schemas/cascade-semantic-impact-report.schema.json");
+  if (!sourceRun.resolution_report_path) throw new Error("profile-verified run has no resolution report");
+  validateDocument(root, readJson(root, sourceRun.resolution_report_path), "schemas/cascade-resolution-report.schema.json");
   const profileEvidence = readJson(root, sourceRun.profile_evidence_path);
   validateDocument(root, profileEvidence, "schemas/cascade-profile-evidence.schema.json");
   const finalizedRun = readJson(root, profileEvidence.source_run_path);
@@ -233,6 +242,16 @@ async function main() {
     candidate_head_sha: candidateSha,
     completed_at: evidence.generated_at,
     run_sha256: hashRepoPath(root, sourceRunPath),
+    acceptance_authority_sha256: hashRepoPath(root, sourceRun.acceptance_authority_path),
+    source_identity_sha256: hashRepoPath(root, sourceRun.source_identity_manifest_path),
+    source_change_analysis_sha256: sourceRun.source_change_analysis_path
+      ? hashRepoPath(root, sourceRun.source_change_analysis_path)
+      : null,
+    semantic_impact_sha256: hashRepoPath(root, sourceRun.impact_report_path),
+    resolution_report_sha256: hashRepoPath(root, sourceRun.resolution_report_path),
+    acceptance_set_sha256: hashJsonDocument(sourceRun.acceptance_paths
+      .map((acceptancePath) => ({ path: acceptancePath, sha256: hashRepoPath(root, acceptancePath) }))
+      .sort((left, right) => left.path.localeCompare(right.path))),
     profile_evidence_sha256: hashRepoPath(root, sourceRun.profile_evidence_path),
     completion_evidence_sha256: hashJsonDocument(evidence),
     validation_manifest_sha256: hashRepoPath(root, sourceRun.validation_manifest_path),

@@ -13,10 +13,12 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["legacy_path", "original_sha256", "observed_sha256", "replacement_path", "reason", "owner_status"],
+        "required": ["legacy_path", "original_commit_sha", "last_modified_commit_sha", "original_sha256", "observed_sha256", "replacement_path", "reason", "owner_status"],
         "additionalProperties": false,
         "properties": {
           "legacy_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "original_commit_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+          "last_modified_commit_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
           "original_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
           "observed_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
           "replacement_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },

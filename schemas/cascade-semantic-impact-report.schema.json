@@ -55,10 +55,7 @@
     }
   },
   "$defs": {
-    "changeClass": {
-      "type": "string",
-      "enum": ["acceptance_meaning", "business_model", "business_requirement", "capacity", "change_order", "documentation", "estimate_change", "formatting_change", "formatting_only", "formula_cache_only", "hypothesis", "mixed_or_ambiguous", "no_change", "non_functional_requirement", "priority_change", "product_goal", "product_meaning", "provenance_only", "roadmap_meaning", "row_add_remove", "scope_change", "source_identity", "story_text_change"]
-    },
+    "changeClass": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/cascadeChangeClass" },
     "pathSet": {
       "type": "array",
       "uniqueItems": true,

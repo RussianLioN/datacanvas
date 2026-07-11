@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-acceptance-authority.schema.json",
+  "title": "Cascade acceptance authority manifest v1",
+  "type": "object",
+  "required": ["$schema", "version", "manifest_id", "status", "bindings", "reviewed_at"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-acceptance-authority.schema.json" },
+    "version": { "const": "1.0.0" },
+    "manifest_id": { "type": "string", "pattern": "^CAA-[A-Z0-9-]+$" },
+    "status": { "const": "active" },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["binding_id", "owner_role", "allowed_change_classes", "confirmation_channels", "identity_required", "assurance_level"],
+        "additionalProperties": false,
+        "properties": {
+          "binding_id": { "type": "string", "pattern": "^AUTH-[A-Z0-9-]+$" },
+          "owner_role": { "enum": ["Product Owner", "Process Owner", "Команда реализации"] },
+          "allowed_change_classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/cascadeChangeClass" } },
+          "confirmation_channels": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["interactive_session", "repository_approval", "signed_external_record"] } },
+          "identity_required": { "const": true },
+          "assurance_level": { "enum": ["declared_role", "repository_authenticated", "cryptographically_signed"] }
+        }
+      }
+    },
+    "reviewed_at": { "type": "string", "format": "date-time" }
+  }
+}

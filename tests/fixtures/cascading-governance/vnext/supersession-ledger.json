@@ -5,6 +5,8 @@
   "entries": [
     {
       "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+      "original_commit_sha": "1111111111111111111111111111111111111111",
+      "last_modified_commit_sha": "2222222222222222222222222222222222222222",
       "original_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
       "observed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
       "replacement_path": null,

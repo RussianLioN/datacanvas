@@ -10,6 +10,7 @@
   "base_sha": "1111111111111111111111111111111111111111",
   "planning_head_sha": "1111111111111111111111111111111111111111",
   "candidate_head_sha": null,
+  "acceptance_authority_path": "docs/process/cascading-governance/acceptance-authority.json",
   "source_identity_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/source-identity.json",
   "source_change_analysis_path": null,
   "impact_report_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/semantic-impact-report.json",

@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "packet_id": "QPK-CASCADE-001",
   "decision_id": "DEC-CASCADE-001",
-  "owner_role": "Product Owner",
+  "required_owner_roles": ["Product Owner"],
+  "change_classes": ["product_meaning"],
+  "authority_manifest_path": "docs/process/cascading-governance/acceptance-authority.json",
+  "authority_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "question": "Как согласовать выявленное расхождение с видением продукта?",
   "source_excerpts": [
     {
@@ -16,11 +19,11 @@
     { "path": "docs/product/requirements/user-stories.md", "sha256": "3333333333333333333333333333333333333333333333333333333333333333" }
   ],
   "options": [
-    { "option_id": "OPT-CASCADE-ACCEPT", "text": "Принять предложенное изменение полностью.", "consequences": "Авторитетный источник и зависимые документы будут обновлены." },
-    { "option_id": "OPT-CASCADE-REJECT", "text": "Отклонить предложенное изменение.", "consequences": "Производный документ будет приведен к текущему источнику истины." },
-    { "option_id": "OPT-CASCADE-PARTIAL", "text": "Принять изменение частично.", "consequences": "Будет сформирован новый уточненный пакет формулировок." },
-    { "option_id": "OPT-CASCADE-DEFER", "text": "Отложить решение.", "consequences": "Каскад останется заблокированным без смысловых правок." },
-    { "option_id": "OPT-CASCADE-EVIDENCE", "text": "Запросить дополнительные сведения.", "consequences": "Будет подготовлен дополнительный анализ без изменения документов." }
+    { "option_id": "OPT-CASCADE-ACCEPT", "text": "Принять предложенное изменение полностью.", "consequences": "Авторитетный источник и зависимые документы будут обновлены.", "effect": "authorize_apply" },
+    { "option_id": "OPT-CASCADE-REJECT", "text": "Отклонить предложенное изменение.", "consequences": "Производный документ будет приведен к текущему источнику истины.", "effect": "reject_change" },
+    { "option_id": "OPT-CASCADE-PARTIAL", "text": "Принять изменение частично.", "consequences": "Будет сформирован новый уточненный пакет формулировок.", "effect": "block_pending_text" },
+    { "option_id": "OPT-CASCADE-DEFER", "text": "Отложить решение.", "consequences": "Каскад останется заблокированным без смысловых правок.", "effect": "block_deferred" },
+    { "option_id": "OPT-CASCADE-EVIDENCE", "text": "Запросить дополнительные сведения.", "consequences": "Будет подготовлен дополнительный анализ без изменения документов.", "effect": "block_more_evidence" }
   ],
   "recommended_option_id": "OPT-CASCADE-EVIDENCE",
   "packet_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
