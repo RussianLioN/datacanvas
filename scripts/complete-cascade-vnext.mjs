@@ -13,6 +13,7 @@ import {
 } from "./cascade-completion-core.mjs";
 import { assertStateTransition, canClaimDone } from "./cascade-vnext-core.mjs";
 import {
+  assertCascadeReplayEvidence,
   assertFreshRunDir,
   assertGitCommit,
   buildRuntimeManifest,
@@ -42,6 +43,7 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
   }
   const immutableKeys = [
     "run_id",
+    "change_request_id",
     "change_request_path",
     "base_sha",
     "planning_head_sha",
@@ -56,6 +58,7 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
     "owner_question_packet_path",
     "resolution_input_path",
     "resolution_report_path",
+    "replay_key",
   ];
   for (const key of immutableKeys) {
     if (profileRun[key] !== finalizedRun[key]) throw new Error("profile run lineage mismatch: " + key);
@@ -153,6 +156,7 @@ async function main() {
 
   const sourceRun = readJson(root, sourceRunPath);
   validateDocument(root, sourceRun, "schemas/cascade-vnext-run.schema.json");
+  assertCascadeReplayEvidence(root, sourceRun);
   if (sourceRun.state !== "profile_verified") {
     throw new Error("cascade:complete requires profile_verified state, got " + sourceRun.state);
   }
@@ -169,6 +173,7 @@ async function main() {
   validateDocument(root, profileEvidence, "schemas/cascade-profile-evidence.schema.json");
   const finalizedRun = readJson(root, profileEvidence.source_run_path);
   validateDocument(root, finalizedRun, "schemas/cascade-vnext-run.schema.json");
+  assertCascadeReplayEvidence(root, finalizedRun);
   if (finalizedRun.state !== "finalized") throw new Error("profile evidence does not refer to a finalized run");
   assertProfileLineage(sourceRun, profileEvidence, finalizedRun);
 

@@ -7,6 +7,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 import { absoluteRepoPath, hashJsonDocument, hashRepoPath } from "./cascade-evidence-utils.mjs";
+import { assertCascadeReplayInputs } from "./cascade-vnext-core.mjs";
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
 export function sha256(content) {
@@ -125,4 +126,34 @@ export function buildRuntimeManifest(root) {
     command_map_sha256: hashJsonDocument(packageJson.scripts),
     environment_allowlist: ["CI", "LANG", "LC_ALL", "TZ"],
   };
+}
+
+export function assertCascadeReplayEvidence(root, run) {
+  const runtimeManifest = readJson(root, run.runtime_manifest_path);
+  const actualInputs = {
+    runner_version: "1.0.0",
+    change_request_sha256: hashGitPath(root, run.planning_head_sha, run.change_request_path),
+    graph_sha256: hashGitPath(
+      root,
+      run.planning_head_sha,
+      "docs/process/cascading-governance/artifact-dependency-graph.json",
+    ),
+    source_registry_sha256: hashGitPath(
+      root,
+      run.planning_head_sha,
+      "docs/product/sources/product-source-registry.json",
+    ),
+    acceptance_authority_sha256: hashGitPath(root, run.planning_head_sha, run.acceptance_authority_path),
+    source_identity_sha256: hashRepoPath(root, run.source_identity_manifest_path),
+    source_change_analysis_sha256: run.source_change_analysis_path
+      ? hashRepoPath(root, run.source_change_analysis_path)
+      : null,
+    semantic_impact_sha256: hashRepoPath(root, run.impact_report_path),
+    validation_manifest_sha256: hashRepoPath(root, run.validation_manifest_path),
+    runtime_contract_sha256: hashJsonDocument({
+      lockfile_sha256: runtimeManifest.lockfile_sha256,
+      command_map_sha256: runtimeManifest.command_map_sha256,
+    }),
+  };
+  assertCascadeReplayInputs(run, actualInputs);
 }

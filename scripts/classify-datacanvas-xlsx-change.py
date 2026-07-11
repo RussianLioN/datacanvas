@@ -11,7 +11,7 @@ import tempfile
 from copy import deepcopy
 from html import escape
 from pathlib import Path
-from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
+from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile, ZipInfo
 from xml.etree import ElementTree as ET
 
 
@@ -55,10 +55,17 @@ def safe_members(archive: ZipFile) -> list[ZipInfo]:
     return members
 
 
+def parse_xml(raw: bytes) -> ET.Element:
+    upper = raw.upper()
+    if b"<!DOCTYPE" in upper or b"<!ENTITY" in upper:
+        raise ClassificationError("XLSX XML declarations with entities are not allowed")
+    return ET.fromstring(raw)
+
+
 def shared_strings(archive: ZipFile) -> list[str]:
     if "xl/sharedStrings.xml" not in archive.namelist():
         return []
-    root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
+    root = parse_xml(archive.read("xl/sharedStrings.xml"))
     return ["".join(item.text or "" for item in node.findall(".//m:t", NS)) for node in root.findall("m:si", NS)]
 
 
@@ -78,7 +85,7 @@ def cell_value(cell: ET.Element, strings: list[str]) -> str | None:
 
 
 def worksheet_snapshot(raw: bytes, strings: list[str]) -> dict:
-    root = ET.fromstring(raw)
+    root = parse_xml(raw)
     cells: dict[str, dict] = {}
     rows: dict[int, tuple] = {}
     for row in root.findall(".//m:row", NS):
@@ -110,7 +117,7 @@ def worksheet_snapshot(raw: bytes, strings: list[str]) -> dict:
 def comments_snapshot(archive: ZipFile) -> dict[str, str]:
     comments: dict[str, str] = {}
     for part in sorted(name for name in archive.namelist() if re.match(r"^xl/comments[0-9]+\.xml$", name)):
-        root = ET.fromstring(archive.read(part))
+        root = parse_xml(archive.read(part))
         for comment in root.findall(".//m:comment", NS):
             ref = comment.attrib.get("ref")
             if ref:
@@ -322,6 +329,37 @@ def self_test() -> None:
         write_test_workbook(style_after, {4: [inline_cell("C4", "same", "2")]})
         style = classify(style_before, style_after)["signals"]
         assert style["formattingChanged"] and not style["storyTextChanged"]
+
+        unsafe_path = root / "unsafe-path.xlsx"
+        with ZipFile(unsafe_path, "w", ZIP_DEFLATED) as archive:
+            archive.writestr("../outside.xml", b"unsafe")
+        try:
+            package_snapshot(unsafe_path)
+            raise AssertionError("unsafe ZIP path was accepted")
+        except ClassificationError as error:
+            assert "unsafe ZIP path" in str(error)
+
+        compression_bomb = root / "compression-bomb.xlsx"
+        with ZipFile(compression_bomb, "w", ZIP_DEFLATED) as archive:
+            archive.writestr("xl/worksheets/sheet1.xml", b"A" * (1024 * 1024))
+        try:
+            package_snapshot(compression_bomb)
+            raise AssertionError("excessive ZIP compression ratio was accepted")
+        except ClassificationError as error:
+            assert "compression ratio" in str(error)
+
+        entity_workbook = root / "entity.xlsx"
+        entity_xml = (
+            b'<?xml version="1.0"?><!DOCTYPE worksheet [<!ENTITY x "unsafe">]>'
+            + b'<worksheet xmlns="' + MAIN_NS.encode("utf-8") + b'"><sheetData/></worksheet>'
+        )
+        with ZipFile(entity_workbook, "w", ZIP_DEFLATED) as archive:
+            archive.writestr("xl/worksheets/sheet1.xml", entity_xml)
+        try:
+            package_snapshot(entity_workbook)
+            raise AssertionError("XML entity declaration was accepted")
+        except ClassificationError as error:
+            assert "entities are not allowed" in str(error)
     print("DataCanvas XLSX change classifier self-test passed")
 
 
@@ -338,7 +376,7 @@ def main() -> None:
         raise SystemExit("--before and --after are required")
     try:
         print(json.dumps(classify(args.before, args.after), ensure_ascii=False, sort_keys=True))
-    except (ClassificationError, OSError, ET.ParseError, ValueError) as error:
+    except (BadZipFile, ClassificationError, OSError, ET.ParseError, ValueError) as error:
         raise SystemExit("XLSX classification failed: " + str(error)) from error
 
 

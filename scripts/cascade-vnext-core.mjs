@@ -37,6 +37,57 @@ function sourcePaths(source) {
   return [source.path, source.provenance_manifest].filter(Boolean).map(normalizeRepoPath);
 }
 
+export function resolveActualTriggerPaths({
+  initialTriggers = [],
+  identities = [],
+  explicitSourceSelection = false,
+  changedPaths = [],
+}) {
+  const changed = new Set(changedPaths.map(normalizeRepoPath));
+  const requested = explicitSourceSelection
+    ? identities.flatMap((identity) => [identity.source_path, identity.provenance_path].filter(Boolean))
+    : initialTriggers;
+  const normalized = [...new Set(requested.map(normalizeRepoPath))].sort();
+  const actual = normalized.filter((candidate) => changed.has(candidate));
+  if (explicitSourceSelection) {
+    if (actual.length === 0) {
+      throw new Error("explicit source selection has no Git delta in the declared range");
+    }
+    return actual;
+  }
+  const missing = normalized.filter((candidate) => !changed.has(candidate));
+  if (missing.length > 0) {
+    throw new Error("trigger path has no Git delta in the declared range: " + missing.join(", "));
+  }
+  if (actual.length === 0) throw new Error("cascade run has no changed trigger path");
+  return actual;
+}
+
+export function buildCascadeReplayKey(run) {
+  const payload = {
+    change_request_id: run.change_request_id,
+    base_sha: run.base_sha,
+    planning_head_sha: run.planning_head_sha,
+    replay_inputs: run.replay_inputs,
+  };
+  return sha256(JSON.stringify(stableJson(payload)));
+}
+
+export function assertCascadeReplayKey(run) {
+  if (run.replay_key !== buildCascadeReplayKey(run)) {
+    throw new Error("cascade replay key mismatch");
+  }
+}
+
+export function assertCascadeReplayInputs(run, actualInputs) {
+  assertCascadeReplayKey(run);
+  for (const [key, expected] of Object.entries(run.replay_inputs ?? {})) {
+    if (actualInputs[key] !== expected) {
+      throw new Error(`cascade replay input mismatch: ${key}`);
+    }
+  }
+}
+
 export function resolveSourceIdentities({
   sourceRegistry,
   triggerPaths = [],

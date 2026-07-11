@@ -12,10 +12,13 @@ import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { analyzeSemanticCascade } from "./cascade-semantic-impact.mjs";
 import { buildValidationManifest } from "./cascade-validation-manifest.mjs";
 import {
+  buildCascadeReplayKey,
   classifyXlsxChangeSignals,
+  resolveActualTriggerPaths,
   resolveSourceIdentities,
 } from "./cascade-vnext-core.mjs";
-import { buildRuntimeManifest } from "./cascade-vnext-runtime.mjs";
+import { requiredOwnerRoles } from "./cascade-owner-acceptance.mjs";
+import { buildRuntimeManifest, parseGitNameStatus } from "./cascade-vnext-runtime.mjs";
 import {
   absoluteRepoPath,
   hashJsonDocument,
@@ -183,32 +186,6 @@ function documentChangeClasses(graphArtifact, kind, semanticChange) {
   return [...new Set(declared.length > 0 ? declared : ["product_meaning"])].sort();
 }
 
-function requiredOwnerRoles(changeClasses) {
-  const productClasses = new Set([
-    "acceptance_meaning",
-    "business_model",
-    "business_requirement",
-    "capacity",
-    "change_order",
-    "hypothesis",
-    "mixed_or_ambiguous",
-    "non_functional_requirement",
-    "priority_change",
-    "product_goal",
-    "product_meaning",
-    "roadmap_meaning",
-    "row_add_remove",
-    "scope_change",
-    "source_identity",
-    "story_text_change",
-  ]);
-  const roles = [];
-  if (changeClasses.some((value) => productClasses.has(value))) roles.push("Product Owner");
-  if (changeClasses.includes("capacity")) roles.push("Команда реализации");
-  if (roles.length === 0) roles.push("Process Owner");
-  return [...new Set(roles)].sort();
-}
-
 function excerptFor(relativePath, fallback) {
   if (relativePath.endsWith(".xlsx")) return fallback;
   const content = fs.readFileSync(absoluteRepoPath(root, relativePath), "utf8");
@@ -301,9 +278,14 @@ async function main() {
       resolution: "change_request",
     }];
   }
-  const resolvedTriggers = explicitSourceIds.length > 0
-    ? identities.flatMap((identity) => [identity.source_path, identity.provenance_path].filter(Boolean))
-    : initialTriggers;
+  const changedEntries = parseGitNameStatus(run("git", ["diff", "--name-status", "-z", `${baseSha}..${planningHeadSha}`]));
+  const changedPaths = changedEntries.flatMap((entry) => [entry.path, entry.old_path].filter(Boolean));
+  const resolvedTriggers = resolveActualTriggerPaths({
+    initialTriggers,
+    identities,
+    explicitSourceSelection: explicitSourceIds.length > 0,
+    changedPaths,
+  });
   const graphPaths = new Set(graph.artifacts.map((artifact) => artifact.path));
   const graphArtifacts = new Map(graph.artifacts.map((artifact) => [artifact.path, artifact]));
   const uncovered = resolvedTriggers.filter((candidate) => !graphPaths.has(candidate));
@@ -404,6 +386,21 @@ async function main() {
     runtime: "runtime-manifest.json",
     question: ownerQuestion ? "owner-question-packet.json" : null,
   };
+  const replayInputs = {
+    runner_version: "1.0.0",
+    change_request_sha256: hashRepoPath(root, changeRequestPath),
+    graph_sha256: hashRepoPath(root, graphPath),
+    source_registry_sha256: hashRepoPath(root, sourceRegistryPath),
+    acceptance_authority_sha256: hashRepoPath(root, acceptanceAuthorityPath),
+    source_identity_sha256: hashJsonDocument(sourceIdentityManifest),
+    source_change_analysis_sha256: sourceChangeAnalysis ? hashJsonDocument(sourceChangeAnalysis) : null,
+    semantic_impact_sha256: hashJsonDocument(semanticImpact),
+    validation_manifest_sha256: hashJsonDocument(validationManifest),
+    runtime_contract_sha256: hashJsonDocument({
+      lockfile_sha256: runtimeManifest.lockfile_sha256,
+      command_map_sha256: runtimeManifest.command_map_sha256,
+    }),
+  };
   const runRecord = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json",
     version: "1.0.0",
@@ -412,6 +409,7 @@ async function main() {
     process_status: "draft_opt_in",
     state: ownerRequired ? "awaiting_owner" : "planned",
     created_at: timestamp,
+    change_request_id: changeRequest.change_request_id,
     change_request_path: changeRequestPath,
     base_sha: baseSha,
     planning_head_sha: planningHeadSha,
@@ -431,7 +429,10 @@ async function main() {
     completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
+    replay_inputs: replayInputs,
+    replay_key: null,
   };
+  runRecord.replay_key = buildCascadeReplayKey(runRecord);
   validateDocument(sourceIdentityManifest, "schemas/cascade-source-identity.schema.json");
   if (sourceChangeAnalysis) validateDocument(sourceChangeAnalysis, "schemas/cascade-source-change-analysis.schema.json");
   validateDocument(validationManifest, "schemas/cascade-validation-manifest.schema.json");

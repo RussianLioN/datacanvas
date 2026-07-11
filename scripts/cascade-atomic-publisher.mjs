@@ -2,9 +2,20 @@ import fs from "node:fs";
 import path from "node:path";
 
 function assertSafeFileName(relativePath) {
-  if (!relativePath || path.isAbsolute(relativePath) || relativePath.includes("..") || relativePath.includes("\\")) {
+  const parts = String(relativePath).split("/");
+  if (!relativePath
+    || path.isAbsolute(relativePath)
+    || relativePath.includes("\\")
+    || parts.some((part) => !part || part === "." || part === "..")
+    || path.posix.normalize(relativePath) !== relativePath) {
     throw new Error(`unsafe package path: ${relativePath}`);
   }
+}
+
+function assertDirectoryIsNotSymlink(candidatePath, label) {
+  const stat = fs.lstatSync(candidatePath);
+  if (stat.isSymbolicLink()) throw new Error(`${label} must not be a symbolic link: ${candidatePath}`);
+  if (!stat.isDirectory()) throw new Error(`${label} must be a directory: ${candidatePath}`);
 }
 
 function fsyncPath(candidatePath) {
@@ -24,11 +35,18 @@ export function publishAtomicPackage({ targetDir, attemptId, files, validate = n
   const stagingRoot = path.join(targetParent, ".cascade-staging");
   const stagingDir = path.join(stagingRoot, attemptId);
   fs.mkdirSync(targetParent, { recursive: true });
-  fs.mkdirSync(stagingRoot, { recursive: true, mode: 0o700 });
+  assertDirectoryIsNotSymlink(targetParent, "target parent");
+  if (fs.existsSync(stagingRoot)) {
+    assertDirectoryIsNotSymlink(stagingRoot, "cascade staging root");
+  } else {
+    fs.mkdirSync(stagingRoot, { mode: 0o700 });
+  }
   if (fs.statSync(stagingRoot).dev !== fs.statSync(targetParent).dev) {
     throw new Error("atomic cascade staging and target must be on the same filesystem");
   }
-  if (fs.existsSync(stagingDir)) fs.rmSync(stagingDir, { recursive: true, force: true });
+  if (fs.existsSync(stagingDir)) {
+    throw new Error(`staging attempt already exists; run cleanup before retry: ${attemptId}`);
+  }
   fs.mkdirSync(stagingDir, { mode: 0o700 });
 
   try {

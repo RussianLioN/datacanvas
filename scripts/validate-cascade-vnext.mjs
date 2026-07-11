@@ -4,10 +4,13 @@ import os from "node:os";
 import path from "node:path";
 
 import {
+  assertCascadeReplayKey,
   assertStateTransition,
+  buildCascadeReplayKey,
   buildActualDiffManifest,
   canClaimDone,
   classifyXlsxChangeSignals,
+  resolveActualTriggerPaths,
   resolveSourceIdentities,
   statusLabel,
   verifyAppliedResolution,
@@ -24,6 +27,11 @@ import {
   completionCommandSet,
   completionCommandSetHash,
 } from "./cascade-completion-core.mjs";
+import {
+  requiredOwnerRoles,
+  validateOwnerAcceptanceSet,
+} from "./cascade-owner-acceptance.mjs";
+import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -47,6 +55,72 @@ assert.deepEqual(
   }).map((item) => item.source_id),
   ["SRC-DC-XLSX"],
   "однозначный источник должен определяться из активного реестра",
+);
+
+assert.deepEqual(
+  resolveActualTriggerPaths({
+    initialTriggers: ["docs/product-vision.md"],
+    identities: [],
+    explicitSourceSelection: false,
+    changedPaths: ["docs/product-vision.md", "docs/README.md"],
+  }),
+  ["docs/product-vision.md"],
+  "обычный запуск должен опираться на реально измененный Git-путь",
+);
+assert.throws(
+  () => resolveActualTriggerPaths({
+    initialTriggers: ["docs/product-vision.md"],
+    identities: [],
+    explicitSourceSelection: false,
+    changedPaths: ["docs/README.md"],
+  }),
+  /no Git delta/u,
+  "фиктивный trigger без изменения в Git должен блокироваться до публикации пакета",
+);
+assert.deepEqual(
+  resolveActualTriggerPaths({
+    initialTriggers: [],
+    identities: [{
+      source_path: "docs/product/sources/working/backlog.xlsx",
+      provenance_path: "docs/product/sources/working/backlog.provenance.json",
+    }],
+    explicitSourceSelection: true,
+    changedPaths: ["docs/product/sources/working/backlog.provenance.json"],
+  }),
+  ["docs/product/sources/working/backlog.provenance.json"],
+  "явно выбранный источник должен запускать каскад только от реально измененной части пары source/provenance",
+);
+
+const replayInputs = {
+  runner_version: "1.0.0",
+  change_request_sha256: "1".repeat(64),
+  graph_sha256: "2".repeat(64),
+  source_registry_sha256: "3".repeat(64),
+  acceptance_authority_sha256: "4".repeat(64),
+  source_identity_sha256: "5".repeat(64),
+  source_change_analysis_sha256: null,
+  semantic_impact_sha256: "6".repeat(64),
+  validation_manifest_sha256: "7".repeat(64),
+  runtime_contract_sha256: "8".repeat(64),
+};
+const replayRun = {
+  change_request_id: "DCR-2026-07-11-901",
+  base_sha: "a".repeat(40),
+  planning_head_sha: "b".repeat(40),
+  replay_inputs: replayInputs,
+};
+const replayKey = buildCascadeReplayKey(replayRun);
+assert.match(replayKey, /^[0-9a-f]{64}$/u);
+assert.equal(buildCascadeReplayKey({ ...replayRun }), replayKey, "одинаковые входы должны давать один replay key");
+assert.doesNotThrow(() => assertCascadeReplayKey({ ...replayRun, replay_key: replayKey }));
+assert.throws(
+  () => assertCascadeReplayKey({
+    ...replayRun,
+    replay_inputs: { ...replayInputs, graph_sha256: "9".repeat(64) },
+    replay_key: replayKey,
+  }),
+  /replay key mismatch/u,
+  "подмена любого входа должна разрушать повторяемость запуска",
 );
 assert.throws(
   () => resolveSourceIdentities({ sourceRegistry, triggerPaths: ["docs/unregistered.xlsx"] }),
@@ -141,7 +215,7 @@ assert.deepEqual(classifyXlsxChangeSignals({ noChange: true }), ["no_change"]);
 const graph = {
   artifacts: [
     { path: "vision", authority_scope: ["product_meaning"], validation_command: "npm run validate:product-vision" },
-    { path: "stories", authority_scope: ["story_meaning"], validation_command: "npm run validate:business-docs" },
+    { path: "stories", authority_scope: ["story_text_change"], validation_command: "npm run validate:business-docs" },
     { path: "backlog", authority_scope: [], validation_command: "npm run validate:backlog-registry" },
     { path: "roadmap", authority_scope: [], validation_command: "npm run validate:roadmap" },
   ],
@@ -161,6 +235,11 @@ const authoritativeExpansion = analyzeSemanticCascade(graph, [
   { path: "vision", change_classes: ["product_meaning"] },
 ]);
 assert.deepEqual(authoritativeExpansion.write_obligations, ["backlog", "roadmap", "stories"]);
+const middleExpansion = analyzeSemanticCascade(graph, [
+  { path: "stories", change_classes: ["story_text_change"] },
+]);
+assert.deepEqual(middleExpansion.authoritative_review_paths, ["vision"]);
+assert.deepEqual(middleExpansion.write_obligations, ["backlog"]);
 const xlsxScopedGraph = {
   artifacts: [
     { path: "xlsx", authority_scope: ["effort_estimate"] },
@@ -233,6 +312,89 @@ assert.throws(
 );
 assert.match(completionCommandSetHash(completionCommandSet()), /^[0-9a-f]{64}$/u);
 
+assert.deepEqual(requiredOwnerRoles(["product_meaning"]), ["Product Owner"]);
+assert.deepEqual(requiredOwnerRoles(["capacity"]), ["Product Owner", "Команда реализации"]);
+const authorityHash = "c".repeat(64);
+const packet = {
+  packet_sha256: null,
+  decision_id: "DEC-CASCADE-2026-07-11-901",
+  required_owner_roles: ["Product Owner"],
+  change_classes: ["product_meaning"],
+  authority_manifest_path: "docs/process/cascading-governance/acceptance-authority.json",
+  authority_manifest_sha256: authorityHash,
+  options: [{ option_id: "OPT-ACCEPT", effect: "authorize_apply" }],
+};
+packet.packet_sha256 = hashJsonDocument({ ...packet, packet_sha256: null });
+const acceptancePath = "docs/process/cascading-governance/runs/acceptance.json";
+const sourceRunPath = "docs/process/cascading-governance/runs/source/cascade-vnext-run.json";
+const sourceRun = {
+  run_id: "CUR-2026-07-11-901",
+  change_request_id: "DCR-2026-07-11-901",
+  acceptance_authority_path: packet.authority_manifest_path,
+  owner_question_packet_path: "docs/process/cascading-governance/runs/source/owner-question-packet.json",
+};
+const authority = {
+  bindings: [{
+    binding_id: "AUTH-PRODUCT-OWNER",
+    owner_role: "Product Owner",
+    allowed_change_classes: ["product_meaning"],
+    confirmation_channels: ["interactive_session"],
+  }],
+};
+const acceptance = {
+  acceptance_id: "ACC-CASCADE-2026-07-11-901",
+  owner_role: "Product Owner",
+  authority_manifest_path: packet.authority_manifest_path,
+  authority_manifest_sha256: authorityHash,
+  authority_binding_id: "AUTH-PRODUCT-OWNER",
+  confirmation_channel: "interactive_session",
+  accepted_change_classes: ["product_meaning"],
+  question_packet_path: sourceRun.owner_question_packet_path,
+  question_packet_sha256: packet.packet_sha256,
+  run_id: sourceRun.run_id,
+  run_path: sourceRunPath,
+  change_request_id: sourceRun.change_request_id,
+  decision_id: packet.decision_id,
+  selected_option_id: "OPT-ACCEPT",
+};
+const resolutionInput = {
+  source_run_path: sourceRunPath,
+  decision_resolutions: [{
+    decision_id: packet.decision_id,
+    selected_option_id: "OPT-ACCEPT",
+    acceptance_record_id: acceptance.acceptance_id,
+    acceptance_record_path: acceptancePath,
+  }],
+};
+assert.deepEqual(validateOwnerAcceptanceSet({
+  sourceRun,
+  resolutionInput,
+  packet,
+  authority,
+  authorityHash,
+  acceptanceByPath: new Map([[acceptancePath, acceptance]]),
+}), [acceptancePath]);
+const rejectingPacket = {
+  ...packet,
+  packet_sha256: null,
+  options: [{ option_id: "OPT-ACCEPT", effect: "reject_change" }],
+};
+rejectingPacket.packet_sha256 = hashJsonDocument({ ...rejectingPacket, packet_sha256: null });
+assert.throws(
+  () => validateOwnerAcceptanceSet({
+    sourceRun,
+    resolutionInput,
+    packet: rejectingPacket,
+    authority,
+    authorityHash,
+    acceptanceByPath: new Map([[acceptancePath, {
+      ...acceptance,
+      question_packet_sha256: rejectingPacket.packet_sha256,
+    }]]),
+  }),
+  /does not authorize/u,
+);
+
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-vnext-"));
 try {
   const targetDir = path.join(tempRoot, "runs", "RUN-001");
@@ -256,6 +418,33 @@ try {
     }),
     /already exists/u,
   );
+  const failedTarget = path.join(tempRoot, "runs", "RUN-FAILED");
+  assert.throws(
+    () => publishAtomicPackage({
+      targetDir: failedTarget,
+      attemptId: "ATTEMPT-FAILED",
+      files: new Map([["run.json", "{}\n"]]),
+      validate: () => { throw new Error("expected validation failure"); },
+    }),
+    /expected validation failure/u,
+  );
+  assert.equal(fs.existsSync(failedTarget), false, "неуспешная публикация не должна оставлять частичный пакет");
+  assert.equal(fs.existsSync(path.join(tempRoot, "runs", ".cascade-staging")), false);
+
+  const attackRoot = path.join(tempRoot, "attack-target");
+  const outsideRoot = path.join(tempRoot, "outside");
+  fs.mkdirSync(attackRoot, { recursive: true });
+  fs.mkdirSync(outsideRoot, { recursive: true });
+  fs.symlinkSync(outsideRoot, path.join(attackRoot, ".cascade-staging"), "dir");
+  assert.throws(
+    () => publishAtomicPackage({
+      targetDir: path.join(attackRoot, "RUN-ATTACK"),
+      attemptId: "ATTEMPT-ATTACK",
+      files: new Map([["run.json", "{}\n"]]),
+    }),
+    /symbolic link/u,
+  );
+  assert.deepEqual(fs.readdirSync(outsideRoot), [], "публикация не должна следовать по подмененной ссылке");
 } finally {
   fs.rmSync(tempRoot, { recursive: true, force: true });
 }

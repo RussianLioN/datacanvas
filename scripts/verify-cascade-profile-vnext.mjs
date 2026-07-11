@@ -12,6 +12,7 @@ import {
 } from "./cascade-profile-verifier.mjs";
 import { assertStateTransition } from "./cascade-vnext-core.mjs";
 import {
+  assertCascadeReplayEvidence,
   assertFreshRunDir,
   assertGitCommit,
   git,
@@ -62,6 +63,7 @@ async function main() {
 
   const sourceRun = readJson(root, sourceRunPath);
   validateDocument(root, sourceRun, "schemas/cascade-vnext-run.schema.json");
+  assertCascadeReplayEvidence(root, sourceRun);
   validateDocument(root, readJson(root, sourceRun.acceptance_authority_path), "schemas/cascade-acceptance-authority.schema.json");
   if (sourceRun.state !== "finalized") {
     throw new Error("profile verification requires finalized state, got " + sourceRun.state);

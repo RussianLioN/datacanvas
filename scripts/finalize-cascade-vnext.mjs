@@ -3,9 +3,11 @@ import path from "node:path";
 import process from "node:process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
+import { validateOwnerAcceptanceSet } from "./cascade-owner-acceptance.mjs";
 import { assertStateTransition, buildActualDiffManifest, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
 import {
   assertAncestor,
+  assertCascadeReplayEvidence,
   assertFreshRunDir,
   assertGitCommit,
   git,
@@ -15,7 +17,7 @@ import {
   readJson,
   validateDocument,
 } from "./cascade-vnext-runtime.mjs";
-import { absoluteRepoPath, hashJsonDocument, hashRepoPath } from "./cascade-evidence-utils.mjs";
+import { absoluteRepoPath, hashRepoPath } from "./cascade-evidence-utils.mjs";
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
 const root = process.cwd();
@@ -62,80 +64,24 @@ function validateOwnerAcceptance(sourceRun, resolutionInput) {
   }
   const packet = readJson(root, sourceRun.owner_question_packet_path);
   validateDocument(root, packet, "schemas/cascade-owner-question-packet.schema.json");
-  if (packet.packet_sha256 !== hashJsonDocument({ ...packet, packet_sha256: null })) {
-    throw new Error("owner question packet self-hash mismatch");
-  }
-  if (sourceRun.acceptance_authority_path !== packet.authority_manifest_path) {
-    throw new Error("owner question packet authority path mismatch");
-  }
   const authority = readJson(root, packet.authority_manifest_path);
   validateDocument(root, authority, "schemas/cascade-acceptance-authority.schema.json");
   const authorityHash = hashRepoPath(root, packet.authority_manifest_path);
-  if (packet.authority_manifest_sha256 !== authorityHash) throw new Error("owner question packet authority hash mismatch");
-  if (resolutionInput.decision_resolutions.length !== packet.required_owner_roles.length) {
-    throw new Error("owner-gated vNext run requires one acceptance for every required owner role");
-  }
-
-  const requiredRoles = new Set(packet.required_owner_roles);
-  const acceptedRoles = new Set();
-  const acceptedClasses = new Set();
-  const acceptancePaths = [];
+  const acceptanceByPath = new Map();
   for (const resolution of resolutionInput.decision_resolutions) {
     const acceptancePath = normalizeRepoPath(resolution.acceptance_record_path);
     const acceptance = readJson(root, acceptancePath);
     validateDocument(root, acceptance, "schemas/cascade-acceptance-vnext.schema.json");
-    if (acceptance.acceptance_id !== resolution.acceptance_record_id) throw new Error("acceptance record id mismatch");
-    if (!requiredRoles.has(acceptance.owner_role) || acceptedRoles.has(acceptance.owner_role)) {
-      throw new Error("acceptance owner role is missing, duplicated, or not required: " + acceptance.owner_role);
-    }
-    acceptedRoles.add(acceptance.owner_role);
-    if (acceptance.authority_manifest_path !== packet.authority_manifest_path
-      || acceptance.authority_manifest_sha256 !== authorityHash) {
-      throw new Error("acceptance authority binding mismatch");
-    }
-    const binding = authority.bindings.find((candidate) => candidate.binding_id === acceptance.authority_binding_id);
-    if (!binding || binding.owner_role !== acceptance.owner_role) throw new Error("acceptance authority role is not active");
-    if (!binding.confirmation_channels.includes(acceptance.confirmation_channel)) {
-      throw new Error("acceptance confirmation channel is not allowed for the owner role");
-    }
-    for (const changeClass of acceptance.accepted_change_classes) {
-      if (!packet.change_classes.includes(changeClass) || !binding.allowed_change_classes.includes(changeClass)) {
-        throw new Error("acceptance contains an unauthorized change class: " + changeClass);
-      }
-      acceptedClasses.add(changeClass);
-    }
-    if (acceptance.question_packet_path !== sourceRun.owner_question_packet_path
-      || acceptance.question_packet_sha256 !== packet.packet_sha256) {
-      throw new Error("acceptance question packet binding mismatch");
-    }
-    if (acceptance.run_id !== sourceRun.run_id || acceptance.run_path !== resolutionInput.source_run_path) {
-      throw new Error("acceptance run binding mismatch");
-    }
-    const expectedChangeRequestId = sourceRun.run_id.replace(/^CUR-/u, "DCR-");
-    if (acceptance.change_request_id !== expectedChangeRequestId) throw new Error("acceptance change request binding mismatch");
-    if (acceptance.decision_id !== packet.decision_id
-      || acceptance.decision_id !== resolution.decision_id
-      || acceptance.selected_option_id !== resolution.selected_option_id) {
-      throw new Error("acceptance decision binding mismatch");
-    }
-    const option = packet.options.find((candidate) => candidate.option_id === acceptance.selected_option_id);
-    if (!option) throw new Error("selected option is absent from the owner question packet");
-    if (option.effect !== "authorize_apply") throw new Error("selected owner option does not authorize cascade finalization");
-    acceptancePaths.push(acceptancePath);
+    acceptanceByPath.set(acceptancePath, acceptance);
   }
-  if (acceptedRoles.size !== requiredRoles.size) throw new Error("not all required owner roles accepted the packet");
-  const nonGoverned = new Set([
-    "documentation",
-    "estimate_change",
-    "formatting_change",
-    "formatting_only",
-    "formula_cache_only",
-    "no_change",
-    "provenance_only",
-  ]);
-  const missingClasses = packet.change_classes.filter((value) => !nonGoverned.has(value) && !acceptedClasses.has(value));
-  if (missingClasses.length > 0) throw new Error("owner acceptance does not cover governed change classes: " + missingClasses.join(","));
-  return acceptancePaths.sort();
+  return validateOwnerAcceptanceSet({
+    sourceRun,
+    resolutionInput,
+    packet,
+    authority,
+    authorityHash,
+    acceptanceByPath,
+  });
 }
 
 async function main() {
@@ -148,6 +94,7 @@ async function main() {
 
   const sourceRun = readJson(root, sourceRunPath);
   validateDocument(root, sourceRun, "schemas/cascade-vnext-run.schema.json");
+  assertCascadeReplayEvidence(root, sourceRun);
   validateDocument(
     root,
     readJson(root, sourceRun.acceptance_authority_path),
