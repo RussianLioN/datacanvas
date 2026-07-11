@@ -47,7 +47,7 @@
           "source_id": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
           "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "provenance_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
-          "resolution": { "enum": ["explicit", "deterministic_registry_match", "registry_delta"] }
+          "resolution": { "enum": ["explicit", "deterministic_registry_match", "registry_delta", "change_request"] }
         }
       }
     }

@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.20.0",
+    "npm": "11.8.0"
+  },
   "scripts": {
     "generate:golden": "node scripts/normalize-input-package.mjs && node scripts/generate-presentation-spec.mjs && node scripts/llm-mock-adapter.mjs && node scripts/render-presentation.mjs && node scripts/generate-export-smoke-fixtures.mjs && node scripts/generate-renderer-regression-manifest.mjs && node scripts/score-provider-output.mjs && node scripts/score-provider-output.mjs tests/provider/llm-result-unsupported-provider-output.json tests/provider/provider-experiment-result-rollback.json && node scripts/score-provider-output.mjs tests/provider/llm-result-prompt-injection-output.json tests/provider/provider-experiment-result-security-rollback.json && node scripts/score-provider-output.mjs tests/golden/llm-result-minimal.json tests/provider/provider-experiment-result-cost-rollback.json tests/provider/scenario-cost-overrun.json && node scripts/score-provider-output.mjs tests/golden/llm-result-minimal.json tests/provider/provider-experiment-result-latency-rollback.json tests/provider/scenario-latency-overrun.json && node scripts/score-provider-output.mjs tests/golden/llm-result-minimal.json tests/provider/provider-experiment-result-failure-rollback.json tests/provider/scenario-failure-overrun.json && node scripts/generate-risk-traceability.mjs && node scripts/generate-risk-matrix-report.mjs && node scripts/collect-process-metrics.mjs && node scripts/generate-bmc-artifacts.mjs && node scripts/generate-docs-navigation.mjs && node scripts/generate-artifact-hash-manifest.mjs",
     "generate:docs-navigation": "node scripts/generate-docs-navigation.mjs",
@@ -124,7 +128,8 @@
     "validate:cascade-impact": "node scripts/validate-cascade-impact.mjs",
     "validate:cascade-verification": "node scripts/validate-cascade-verification.mjs",
     "validate:cascade-vnext": "node scripts/validate-cascade-vnext.mjs",
-    "cascade:run": "node scripts/run-cascading-update.mjs",
+    "cascade:run": "node scripts/run-cascade-vnext.mjs",
+    "cascade:run:legacy": "node scripts/run-cascading-update.mjs",
     "cascade:finalize": "node scripts/finalize-documentation-cascade.mjs",
     "cascade:verify": "node scripts/verify-documentation-cascade.mjs",
     "cascade:preview": "node scripts/plan-documentation-cascade.mjs",
