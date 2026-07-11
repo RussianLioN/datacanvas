@@ -25,10 +25,40 @@
       "content": "# Карта импорта\n\nНавигация: [DataCanvas](../README.md)\n\nStories содержат `DC-ST-23..DC-ST-28`.\n"
     },
     {
+      "id": "stakeholder-timing-jargon",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nСледующий инкремент передает ссылку через смежный маршрут.\n"
+    },
+    {
+      "id": "roadmap-stage-in-public-requirements",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nНа отдельном этапе дорожной карты пользователь получает ссылку на результат.\n"
+    },
+    {
+      "id": "priority-stage-in-public-requirements",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nОтдельный P2-этап дорожной карты не входит в основной маршрут P1.\n"
+    },
+    {
+      "id": "priority-guard-in-acceptance",
+      "className": "acceptance",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Критерии приемки\n\nНавигация: [DataCanvas](../README.md)\n\nGuard границ приоритетов запрещает попадание P3-P5 в ближайший P1/P2-срез.\n"
+    },
+    {
       "id": "absolute-local-path",
       "className": "requirements",
       "expected_rule": "local-path",
       "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nИсточник находится в /Users/example/project/file.xlsx.\n"
+    },
+    {
+      "id": "requirements-source-section",
+      "className": "requirements",
+      "expected_rule": "business-doc-forbidden-section",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент фиксирует требования.\n\n## Исходные источники\n\nVision и BMC.\n\n## Бизнес-требования\n\n| ID | Возможность | Пользователь | Ценность | Сценарий приемки |\n|---|---|---|---|---|\n| BT-001 | Возможность. | Пользователь | Ценность. | Результат принят. |\n"
     },
     {
       "id": "command-column-in-nfr",

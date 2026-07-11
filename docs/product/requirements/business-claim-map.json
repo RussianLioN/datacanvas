@@ -1,0 +1,209 @@
+{
+  "$schema": "../../../schemas/business-claim-map.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "map_id": "BCLM-DC-2026-07-10-001",
+  "source_registry_path": "docs/product/sources/product-source-registry.json",
+  "claims": [
+    {
+      "claim_id": "BCLM-CO-2026-001-PRIORITY",
+      "title": "Запуск другим агентом имеет более высокий продуктовый приоритет, чем маршрут через Лису",
+      "statement": "CO-2026-001 закрепляет, что первым направлением становится запуск DataCanvas другим агентом, а сценарий через Лису идет после него.",
+      "precedence_source_id": "SRC-DC-CO-2026-001",
+      "supporting_source_ids": [
+        "SRC-DC-CO-2026-001",
+        "SRC-DC-PRODUCT-VISION-CURRENT",
+        "SRC-DC-STORIES-CATALOG"
+      ],
+      "supersedes_claim_ids": [],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md"
+      ],
+      "expected_downstream_fragments": [
+        {
+          "artifact_path": "docs/product-vision.md",
+          "fragments": [
+            "принимает задачу на подготовку презентации и подготовленный контекст от другого агента",
+            "Вторым направлением остается запрос пользователя через Лису"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/user-stories.md",
+          "fragments": [
+            "DC-ST-23",
+            "Запуск другим агентом"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "BCLM-CO-2026-002-P1-MAIN-ROUTE",
+      "title": "Основной маршрут запуска другим агентом входит в P1",
+      "statement": "CO-2026-002 уточняет, что DC-ST-23..DC-ST-29 составляют основной P1-маршрут: запрос, входной пакет, проверка, статусы, проверяемость, генерация результата и доставка пользователю по электронной почте.",
+      "precedence_source_id": "SRC-DC-CO-2026-002",
+      "supporting_source_ids": [
+        "SRC-DC-CO-2026-002",
+        "SRC-DC-STORIES-CATALOG",
+        "SRC-DC-REQUIREMENTS-BUSINESS",
+        "SRC-DC-REQUIREMENTS-ACCEPTANCE"
+      ],
+      "supersedes_claim_ids": [],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/bmc/bmc-v0.2.md"
+      ],
+      "expected_downstream_fragments": [
+        {
+          "artifact_path": "docs/product/requirements/user-stories.md",
+          "fragments": [
+            "DC-ST-29",
+            "P1",
+            "Генерация презентации"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/business-requirements.md",
+          "fragments": [
+            "BT-015",
+            "BT-016",
+            "BT-017",
+            "BT-018"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/acceptance-criteria.md",
+          "fragments": [
+            "Запуск другим агентом",
+            "Генерация файлов презентации"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/backlog/product-backlog.md",
+          "fragments": [
+            "DC-ST-23",
+            "DC-ST-29",
+            "P1"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "BCLM-CO-2026-002-EMAIL-RESULT",
+      "title": "Основной маршрут доставляет PPTX и PDF по электронной почте",
+      "statement": "Основной маршрут после проверки входа готовит редактируемый PPTX-файл и нередактируемую PDF-копию и доставляет их пользователю по электронной почте.",
+      "precedence_source_id": "SRC-DC-CO-2026-002",
+      "supporting_source_ids": [
+        "SRC-DC-CO-2026-002",
+        "SRC-DC-PRODUCT-VISION-CURRENT",
+        "SRC-DC-REQUIREMENTS-BUSINESS",
+        "SRC-DC-REQUIREMENTS-ACCEPTANCE"
+      ],
+      "supersedes_claim_ids": [],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/bmc/bmc-v0.2.md"
+      ],
+      "expected_downstream_fragments": [
+        {
+          "artifact_path": "docs/product-vision.md",
+          "fragments": [
+            "электронной почте",
+            "PPTX",
+            "PDF"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/business-requirements.md",
+          "fragments": [
+            "BT-012",
+            "электронной почте",
+            "PPTX",
+            "PDF"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/bmc/bmc-v0.2.md",
+          "fragments": [
+            "по электронной почте",
+            "PPTX",
+            "PDF"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "BCLM-CO-2026-002-P2-LINK-DELIVERY",
+      "title": "Ссылка, защищенное хранилище и уведомление в Лисе относятся к P2",
+      "statement": "CO-2026-002 отделяет расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе как группу возможностей с приоритетом P2.",
+      "precedence_source_id": "SRC-DC-CO-2026-002",
+      "supporting_source_ids": [
+        "SRC-DC-CO-2026-002",
+        "SRC-DC-STORIES-CATALOG",
+        "SRC-DC-REQUIREMENTS-BUSINESS",
+        "SRC-DC-REQUIREMENTS-ACCEPTANCE"
+      ],
+      "supersedes_claim_ids": [],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+      ],
+      "expected_downstream_fragments": [
+        {
+          "artifact_path": "docs/product/requirements/user-stories.md",
+          "fragments": [
+            "DC-ST-30",
+            "DC-ST-31",
+            "DC-ST-32",
+            "DC-ST-33",
+            "P2"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/business-requirements.md",
+          "fragments": [
+            "BT-019",
+            "BT-020",
+            "BT-021"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/acceptance-criteria.md",
+          "fragments": [
+            "Расширенная электронная доставка",
+            "Передача ссылки вызывающему агенту",
+            "Уведомление в Лисе"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/backlog/product-backlog.md",
+          "fragments": [
+            "DC-ST-30",
+            "DC-ST-33",
+            "P2"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+          "fragments": [
+            "Roadmap",
+            "Hypotheses",
+            "Product backlog"
+          ]
+        }
+      ]
+    }
+  ]
+}

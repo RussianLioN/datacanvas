@@ -31,5 +31,5 @@
     "1x1 smoke не заменяет визуальную регрессию реальных слайдов.",
     "Real UAT и pixel screenshot gate остаются отдельными шагами."
   ],
-  "next_safe_step": "После real UAT расширить renderer regression на реальные review/export outputs и добавить browser screenshot gate отдельным инкрементом."
+  "next_safe_step": "После real UAT расширить renderer regression на реальные review/export outputs и добавить browser screenshot gate отдельным этапом."
 }

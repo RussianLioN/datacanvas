@@ -30,7 +30,7 @@
         "presentation_file_generation"
       ],
       "evidence_expectations": [
-        "PresentationSpec, render result и review evidence связаны со сгенерированным export."
+        "Редактируемый PPTX-файл и нередактируемая PDF-копия связаны с проверенным входом и итоговым результатом."
       ],
       "tests": [
         "tests/golden/presentation-spec-minimal.json",
@@ -261,7 +261,7 @@
         "email_delivery"
       ],
       "evidence_expectations": [
-        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas сообщает вызывающему агенту о приеме данных, переходит к изготовлению редактируемого файла презентации и нередактируемой копии и доставляет результат по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовые файлы, статус доставки и очищенные метаданные письма связаны с исходным запросом."
+        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas сообщает вызывающему агенту о приеме данных, готовит редактируемый PPTX-файл и нередактируемую PDF-копию и доставляет результат по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации."
       ],
       "tests": [
         "npm run validate:export",
@@ -383,7 +383,7 @@
         "agent_input_package"
       ],
       "evidence_expectations": [
-        "Входной пакет от другого агента содержит задачу, источник запроса и параметры презентации; evidence фиксирует request ID, источник запроса, состав пакета и результат проверки полноты без raw confidential data."
+        "Входной пакет от другого агента содержит задачу, источник запроса, параметры презентации и данные для определения получателя результата; проверочные материалы не содержат лишний сырой пользовательский контекст."
       ],
       "tests": [
         "npm run validate:doc-links",
@@ -440,7 +440,7 @@
         "email_delivery"
       ],
       "evidence_expectations": [
-        "DataCanvas сообщает вызывающему агенту о приеме данных после успешной проверки и формирует проверяемые статусы обработки и сведения о результате; реальная callback-интеграция остается открытым архитектурным решением и не включается в текущий репозиторий."
+        "DataCanvas сообщает вызывающему агенту о приеме данных после успешной проверки и формирует проверяемые статусы обработки и сведения о результате."
       ],
       "tests": [
         "npm run validate:traceability-graph",
@@ -525,6 +525,77 @@
         "npm run validate:evals"
       ],
       "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "BT-019",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-30"
+      ],
+      "acceptance_scenarios": [
+        "extended_email_delivery"
+      ],
+      "evidence_expectations": [
+        "Созданные PPTX- и PDF-файлы доставлены через разрешенный электронный канал в согласованные рабочие контуры."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-020",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-31",
+        "DC-ST-32"
+      ],
+      "acceptance_scenarios": [
+        "pdf_copy_storage",
+        "pdf_link_handoff"
+      ],
+      "evidence_expectations": [
+        "PDF-копия сохранена в защищенном хранилище и ссылка на нее передана вызывающему агенту как часть группы возможностей с приоритетом P2."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-021",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-33"
+      ],
+      "acceptance_scenarios": [
+        "lisa_link_notification"
+      ],
+      "evidence_expectations": [
+        "Пользователь получает в Лисе ссылку на готовую презентацию и уведомление о готовности через сценарий, который ведут вызывающий агент и Лиса."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
     }
   ]
 }

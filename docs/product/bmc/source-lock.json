@@ -42,6 +42,14 @@
       "allowed_use": "Accepted product decision for agent-first launch priority, Lisa dialog mode, and email delivery."
     },
     {
+      "id": "SRC-DC-CO-2026-002",
+      "kind": "repo_file",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "status": "available",
+      "trust_level": "accepted_current",
+      "allowed_use": "Accepted product decision for P1 email delivery and P2 protected PDF link with Lisa notification through an adjacent route."
+    },
+    {
       "id": "SRC-DC-REVISION-EDIT-002",
       "kind": "repo_file",
       "path": "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json",

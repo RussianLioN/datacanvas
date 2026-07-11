@@ -48,7 +48,8 @@
         "docs/architecture/system-analysis/srs-v0.1.md",
         "docs/architecture/system-analysis/srs-v0.1.json",
         "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/business-claim-map.json"
       ],
       "notes": "Канонический источник смены приоритета: запуск другим агентом первый, диалоговый режим в Лисе второй."
     },
@@ -69,22 +70,31 @@
         "sprint_planning_input"
       ],
       "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/product/requirements/user-stories.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
-        "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/specs/task-spec-a2a-launch.json",
-        "docs/product/specs/agent-prompt-spec-a2a-launch.json",
-        "docs/product/ux/uat-script.md",
-        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/question-bank.json",
+        "docs/product/requirements/business-claim-map.json"
       ],
-      "notes": "Канонический источник уточнения: весь основной маршрут запуска DataCanvas другим агентом относится к P1; хранилище, ссылка на нередактируемую копию и уведомления в Лисе остаются отдельным P2-инкрементом."
+      "notes": "Канонический источник уточнения CO-2026-002: P1 включает основной маршрут запуска DataCanvas другим агентом до доставки редактируемого PPTX-файла и нередактируемой PDF-копии по электронной почте; P2 включает расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе. Рабочая Excel-версия принята как ресурсный вход для DC-ST-23..DC-ST-33."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-CURRENT",
@@ -93,8 +103,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "active",
       "trust_level": "current",
-      "effective_date": "2026-07-03",
-      "upstream_decision": "CO-2026-001",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "product_scope",
         "requirements_delta",
@@ -104,11 +114,14 @@
       "affected_artifacts": [
         "docs/product/vision/manifest.json",
         "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Текущий Vision обновлен по EDIT-001: основной пользовательский сценарий разделен на запуск другим агентом и диалоговый режим в Лисе; раздел Проблема дополнен болью длинной чатовой ленты Лисы, а служебное упоминание исторического ориентира результата удалено из стейкхолдерского текста. Статус, владелец, проверки и политика публичного текста вынесены в машинный Vision-манифест."
+      "notes": "Текущий Vision обновлен по CO-2026-002: основной запуск другим агентом включает достаточный входной контекст, данные для определения получателя, формирование PPTX и PDF и доставку по электронной почте; расширенная доставка, хранение, ссылка и уведомление в Лисе отделены как P2-этап дорожной карты."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1",
@@ -146,7 +159,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
-      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-29 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, а после CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 имеет P1. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-33 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основной маршрут запуска другим агентом, а DC-ST-30..DC-ST-33 формируют P2-этап дорожной карты расширенной доставки, хранения, ссылки и уведомления. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
     },
     {
       "source_id": "SRC-DC-STORY-CATALOG-LOCK",
@@ -216,8 +229,8 @@
       "owner_role": "Product Owner / команда реализации",
       "lifecycle": "accepted",
       "trust_level": "accepted_current",
-      "effective_date": "2026-07-08",
-      "upstream_decision": "UDW-DEC-017",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "accepted_effort_estimation",
         "sprint_planning_input",
@@ -230,22 +243,24 @@
         "docs/product/requirements/user-stories.md",
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
+        "docs/product/sources/product-source-registry.json",
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
         "docs/product/sources/xlsx-opml-jira-recovery-index.json",
         "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
-      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-29. Product Owner принял текущие приоритеты и ПШЕ как ресурсный вход для дальнейшего планирования; приоритеты переносятся в канонический каталог пользовательских историй, а ПШЕ не переносятся, если не меняется смысл истории или граница продукта.",
-      "sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
+      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял текущие приоритеты и ПШЕ как ресурсный вход: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. Приоритеты и смысловые поля сверяются с каноническим каталогом пользовательских историй; ПШЕ используются в backlog, sprint planning и Jira/OPML-подготовке без загрязнения бизнесовых Markdown служебной механикой Excel.",
+      "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "derived_from": [
         "SRC-DC-STORIES-XLSX-RAW"
       ],
       "verifier_command": "npm run validate:xlsx-backlog",
-      "allowed_delta": "Accepted added rows 26-32 for DC-ST-23..DC-ST-29 may differ from the raw workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
+      "allowed_delta": "Accepted added rows 26-36 for DC-ST-23..DC-ST-33 may differ from the raw workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
       "approval_status": "owner_approved",
       "team_validation_status": "approved",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
@@ -268,7 +283,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/roadmap-v0.1.md"
       ],
-      "notes": "Содержит DC-ST-23..DC-ST-29 после CO-2026-002: весь основной маршрут запуска другим агентом имеет P1; sprint backlog требует проверки емкости, порядка работ и вытеснения."
+      "notes": "Содержит PBI-007 как P1 основной маршрут запуска DataCanvas другим агентом по DC-ST-23..DC-ST-29 и PBI-008 как P2 расширенную доставку, защищенное хранение, ссылку и уведомление по DC-ST-30..DC-ST-33. Sprint backlog требует проверки емкости, порядка работ и вытеснения."
     },
     {
       "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
@@ -292,7 +307,7 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Производный плановый срез строк DC-ST-23..DC-ST-29 для backlog и переноса в табличный формат после CO-2026-002. Полный текст историй хранится в каноническом каталоге пользовательских историй."
+      "notes": "Производный плановый срез строк DC-ST-23..DC-ST-33 для backlog и переноса в табличный формат после CO-2026-002. Полный текст историй хранится в каноническом каталоге пользовательских историй."
     },
     {
       "source_id": "SRC-DC-SPRINT-CANDIDATE-PLAN",
@@ -381,16 +396,18 @@
       "owner_role": "Product Owner",
       "lifecycle": "accepted",
       "trust_level": "accepted_current",
-      "effective_date": "2026-06-26",
-      "upstream_decision": "CO-2026-001",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "business_model",
         "requirements_delta"
       ],
       "affected_artifacts": [
-        "docs/product/requirements/business-requirements.md"
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md"
       ],
-      "notes": "Обновлен по EDIT-002: стейкхолдерский BMC разделяет запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте; ценность дополнена снижением нагрузки на чтение длинных агентских ответов."
+      "notes": "Обновлен по CO-2026-002: BMC разделяет P1-ценность подготовки и доставки PPTX/PDF по электронной почте и P2-ценность расширенной доставки, защищенного хранения, ссылки и уведомления в Лисе."
     },
     {
       "source_id": "SRC-DC-BMC-SOURCE-LOCK",
@@ -428,7 +445,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Обновлен по CO-2026-002: бизнес-требования разделяют основной P1-маршрут запуска другим агентом, диалоговый режим в Лисе и отдельный P2-инкремент со ссылкой, хранилищем и уведомлением."
+      "notes": "Обновлен по CO-2026-002: бизнес-требования разделяют P1-маршрут запуска другим агентом, диалоговый режим в Лисе и P2-этап дорожной карты расширенной доставки, хранилища, ссылки и уведомления."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-NFR",
@@ -470,7 +487,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/specs/feature-spec-a2a-launch.json"
       ],
-      "notes": "Обновлен по CO-2026-002: критерии приемки разделяют полный P1-маршрут запуска другим агентом, диалоговый режим в Лисе и будущий P2-инкремент."
+      "notes": "Обновлен по CO-2026-002: критерии приемки разделяют P1-маршрут запуска другим агентом, диалоговый режим в Лисе и P2-этап дорожной карты расширенной доставки, хранения, ссылки и уведомления."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-TRACEABILITY",
@@ -490,7 +507,42 @@
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Обновлен по CO-2026-002: traceability связывает полный P1-маршрут запуска другим агентом, готовые файлы, статусы, доставку и отдельную границу будущего P2."
+      "notes": "Обновлен по CO-2026-002: traceability связывает DC-ST-23..DC-ST-33 с BT-002, BT-012, BT-014..BT-021, критериями приемки, рабочей Excel-версией и будущим планированием."
+    },
+    {
+      "source_id": "SRC-DC-BUSINESS-CLAIM-MAP",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "source_role": "traceability",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "trust_level": "current",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
+      "allowed_downstream_use": [
+        "consistency_validation",
+        "change_order_traceability",
+        "business_doc_validation"
+      ],
+      "affected_artifacts": [
+        "docs/product-vision.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+      ],
+      "notes": "Внутренняя машинная карта ключевых бизнес-утверждений CO-2026-001 и CO-2026-002. Используется валидатором для проверки, что основные бизнес-артефакты отражают принятые change orders без служебной трассировки в человекочитаемом тексте.",
+      "sha256": null,
+      "derived_from": [
+        "SRC-DC-CO-2026-001",
+        "SRC-DC-CO-2026-002"
+      ],
+      "verifier_command": "npm run validate:business-claim-map",
+      "allowed_delta": "Меняется при принятии нового Product Change Order или при изменении состава основных бизнес-артефактов.",
+      "approval_status": null,
+      "team_validation_status": null,
+      "provenance_manifest": null
     },
     {
       "source_id": "SRC-DC-ANALYSIS-BA",
@@ -613,8 +665,8 @@
       "owner_role": "Product Owner / Process Owner",
       "lifecycle": "draft",
       "trust_level": "internal_evidence",
-      "effective_date": "2026-07-08",
-      "upstream_decision": "UDW-DEC-015",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "opml_conversion_recovery",
         "jira_import_recovery",
@@ -625,7 +677,7 @@
         "docs/product/sources/product-source-registry.json",
         "docs/process/guides/datacanvas-excel-backlog-sync.md"
       ],
-      "notes": "Машинный индекс текущего состояния цепочки XLSX -> OPML -> Jira: raw XLSX найден, working XLSX найден, исторический OPML не найден, Jira import ожидает внешнего mapping approval.",
+      "notes": "Машинный индекс текущего состояния цепочки XLSX -> OPML -> Jira: raw XLSX найден, working XLSX принят для DC-ST-23..DC-ST-33, исторический OPML не найден, Jira import ожидает внешнего mapping approval.",
       "sha256": null,
       "derived_from": [
         "SRC-DC-STORIES-XLSX-RAW",

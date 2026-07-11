@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { stakeholderTimingJargonRule } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const contractPath = "docs/process/universal-documentation-workflow/business-artifact-content-contract.json";
@@ -117,6 +118,9 @@ const generationCategoryRules = {
     id: "effort-estimation-in-story",
     pattern: /(?:ПШЕ|чел\/дн|оценк[аи]\s+трудозатрат|ресурсн(?:ая|ой)\s+матриц[аы])/iu,
     message: "оценки и ресурсные матрицы должны храниться в backlog/source/provenance контуре, а не в бизнесовых документах",
+  },
+  stakeholder_timing_jargon: {
+    ...stakeholderTimingJargonRule,
   },
 };
 
@@ -241,8 +245,8 @@ const classRules = {
     },
     {
       id: "stale-story-range",
-      pattern: /DC-ST-23\.\.DC-ST-28/u,
-      message: "карта импорта должна учитывать актуальный диапазон DC-ST-23..DC-ST-29",
+      pattern: /DC-ST-23\.\.DC-ST-2[89]/u,
+      message: "карта импорта должна учитывать актуальный диапазон DC-ST-23..DC-ST-33",
     },
   ],
 };
@@ -387,6 +391,11 @@ function assertGenerationContract(contentContract, generationContract) {
     }
     if (generationDocument.class_name !== contentDocument.className) {
       fail(`business artifact generation contract class mismatch for ${generationDocument.path}`);
+    }
+    const artifactClass = contractClass(contentContract, contentDocument.className);
+    const allowedSections = artifactClass?.allowed_h2 ?? [];
+    if (allowedSections.length > 0 && JSON.stringify(generationDocument.allowed_sections) !== JSON.stringify(allowedSections)) {
+      fail(`business artifact generation contract allowed_sections must match content allowed_h2 for ${generationDocument.path}`);
     }
     assertKnownGenerationCategories(generationDocument.enforced_forbidden_categories, `business artifact generation contract for ${generationDocument.path}`);
     assertReadyOrDoneTodo(todoText, generationDocument.blocking_todo_id);
@@ -738,14 +747,14 @@ function assertBusinessDoc(document, contract, generationContract) {
   }
 }
 
-function assertFixtures(contract) {
+function assertFixtures(contract, generationContract) {
   const validClassNames = new Set(contract.artifact_classes.map((artifactClass) => artifactClass.class_name));
   for (const rawSample of readJson(positiveCasesPath).cases) {
     const sample = normalizeFixture(rawSample);
     if (!validClassNames.has(sample.className)) {
       fail(`positive fixture ${sample.id} uses unknown business artifact class: ${sample.className}`);
     }
-    const violations = findViolations(sample.content, sample.className, contract);
+    const violations = findViolations(sample.content, sample.className, contract, undefined, generationContract);
     if (violations.length > 0) {
       fail(`positive fixture ${sample.id} violates ${violations[0].rule.id}`);
     }
@@ -756,7 +765,7 @@ function assertFixtures(contract) {
     if (!validClassNames.has(sample.className)) {
       fail(`negative fixture ${sample.id} uses unknown business artifact class: ${sample.className}`);
     }
-    const violations = findViolations(sample.content, sample.className, contract);
+    const violations = findViolations(sample.content, sample.className, contract, undefined, generationContract);
     if (violations.length === 0) {
       fail(`negative fixture ${sample.id} did not trigger any business-doc rule`);
     }
@@ -771,7 +780,7 @@ try {
   const generationContract = readJson(generationContractPath);
   assertContentContractRoles(contract);
   assertGenerationContract(contract, generationContract);
-  assertFixtures(contract);
+  assertFixtures(contract, generationContract);
   for (const document of contract.documents) {
     assertBusinessDoc(document, contract, generationContract);
   }

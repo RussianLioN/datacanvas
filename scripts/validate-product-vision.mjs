@@ -3,6 +3,7 @@ import path from "node:path";
 import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 
@@ -81,6 +82,7 @@ const semanticForbiddenPatterns = [
     pattern: /\bpost-delivery\b/iu,
     message: "неподтвержденная post-delivery область не должна попадать в публичный Vision",
   },
+  ...publicBusinessLanguageRules,
   {
     id: "technical-service-section",
     pattern: /^##\s+(?:Методика|Граница модели|Жизненный цикл презентации|Связь со stories)\s*$/imu,

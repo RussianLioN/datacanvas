@@ -96,7 +96,8 @@
           "sensitive_evidence",
           "generated_metadata",
           "service_rationale",
-          "effort_estimation"
+          "effort_estimation",
+          "stakeholder_timing_jargon"
         ]
       }
     },

@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const checkMode = process.argv.includes("--check");
@@ -68,6 +69,7 @@ const cleanForbidden = [
   "внешняя выручка",
   "служебные доказательства",
   "машинные артефакты",
+  ...publicBusinessForbiddenSnippets,
   "требует отдельной проверки",
   "предметом отдельной проверки",
   "открытая зависимость",
@@ -724,6 +726,12 @@ function assertCleanPublic(content, relativePath) {
   for (const forbidden of cleanForbidden) {
     if (content.includes(forbidden)) {
       fail(`clean public artifact contains forbidden marker ${forbidden}: ${relativePath}`);
+    }
+  }
+  for (const rule of publicBusinessLanguageRules) {
+    const match = rule.pattern.exec(content);
+    if (match) {
+      fail(`clean public artifact violates ${rule.id}: ${match[0]}: ${relativePath}`);
     }
   }
 }

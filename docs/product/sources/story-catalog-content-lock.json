@@ -131,8 +131,8 @@
     },
     {
       "story_id": "DC-ST-25",
-      "story_text_sha256": "b5188d366ff06cba9d5aad81011d63f648c81cd29799fff0cc44095cc862d370",
-      "business_value_sha256": "06f4917240a12ab12ddeb622c6bbb620a85d25ae95d2f6dd04d2b181e748b0b5"
+      "story_text_sha256": "e3979360edbfaf9cc5507f9ae0815a7c72ae4e6a8f9137d4af794126ae835194",
+      "business_value_sha256": "f230d5d4baaf1bec9e5a3bc1aa4fb4c371214e5f78bb41b65fea4fb17df9bc40"
     },
     {
       "story_id": "DC-ST-26",
@@ -141,18 +141,38 @@
     },
     {
       "story_id": "DC-ST-27",
-      "story_text_sha256": "50e32b8de46f15e8dbbd74a2c2f3d62b8c78b74e335be897858f837960d7aeb3",
-      "business_value_sha256": "b466e34fdf538ca8dd33a5850b54a28222ec1859345492ddca20f64eb96072cf"
+      "story_text_sha256": "3318d7834f5d52dd2a2739bfc0cf5eafdfd3ede32a44ac401c9fb91a739bc73f",
+      "business_value_sha256": "c556021dad456b806eda0294b401f45a6172d19ae3cc6f57e6cb2aa4ba0dc1c6"
     },
     {
       "story_id": "DC-ST-28",
-      "story_text_sha256": "286b0ae914bc061a4f2e30b3aac2938d3d52b72f0334a867e8d0854287595b64",
+      "story_text_sha256": "0af61bb00b74dfb70f39171078bb12415a405e2b2330f42ca2683582ea848430",
       "business_value_sha256": "88bdbf51a66ea988256df2bb7178d99204eb469653c091a54a93d08db5cb971a"
     },
     {
       "story_id": "DC-ST-29",
-      "story_text_sha256": "ccac06b068f86cdccee4a1317007d59f3225c0f8a25b76e51444344bcea4c34e",
-      "business_value_sha256": "2faa86befd8df02a53e2072998acdcc38a2741547d092628c199b8d3f20deb8c"
+      "story_text_sha256": "d4b361f98da6c5502be4033f245205e5dda1f1d550bf8522129c9ee346a18436",
+      "business_value_sha256": "9196424d1a79173bb053575a9eafc66df1ca3598931f55c7da2f93a17aed1d16"
+    },
+    {
+      "story_id": "DC-ST-30",
+      "story_text_sha256": "58cf2e031bd5ff7f2f170bd802986d78c39189c1c6f7101cff4c04b6dec2e6fb",
+      "business_value_sha256": "119f1043aff52e6517eac5e3b70e4c783649c05454cbcf6c11e669f84ce653d7"
+    },
+    {
+      "story_id": "DC-ST-31",
+      "story_text_sha256": "ad75bc9ac6b6b870938f98fad157dedb2cbf5a34c5f94a37e82051a1475d09cd",
+      "business_value_sha256": "afc630f1de126e05f242d9496fd12ecde698646bba54304903b56406d3b7dfbc"
+    },
+    {
+      "story_id": "DC-ST-32",
+      "story_text_sha256": "a594efea9782b11def549f868a7cd67787178bff285ea88a499d48cac70c1e4f",
+      "business_value_sha256": "ba99e1c95430aca8194e6bf353b813034b1dfd20468d35dae7fd98ddbb5ac998"
+    },
+    {
+      "story_id": "DC-ST-33",
+      "story_text_sha256": "4f00f4cdc76891d92a3a656f6e08c1e6b86cd03e4f3509f33fae3b2947e14fb2",
+      "business_value_sha256": "e9e19b688abd6fc354f24caec51848ae0f9239ef62648525110d30044cd70ff6"
     }
   ]
 }

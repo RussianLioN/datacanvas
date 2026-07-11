@@ -18,44 +18,85 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "$schema": { "type": "string" },
-    "analysis_id": { "type": "string", "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$" },
+    "$schema": {
+      "type": "string"
+    },
+    "analysis_id": {
+      "type": "string",
+      "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$"
+    },
     "status": {
       "type": "string",
-      "enum": ["not_started", "in_progress", "paused", "completed", "abandoned"]
+      "enum": [
+        "not_started",
+        "in_progress",
+        "paused",
+        "completed",
+        "abandoned"
+      ]
     },
-    "current_step": { "type": "string", "minLength": 1 },
-    "current_story_or_artifact": {
-      "type": ["string", "null"],
+    "current_step": {
+      "type": "string",
       "minLength": 1
     },
-    "log_path": { "$ref": "#/$defs/repoPath" },
-    "requirements_impact_map_path": { "$ref": "#/$defs/repoPath" },
+    "current_story_or_artifact": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "log_path": {
+      "$ref": "#/$defs/repoPath"
+    },
+    "requirements_impact_map_path": {
+      "$ref": "#/$defs/repoPath"
+    },
     "completed_decisions": {
       "type": "array",
-      "items": { "$ref": "#/$defs/completedDecision" }
+      "items": {
+        "$ref": "#/$defs/completedDecision"
+      }
     },
     "deferred_decisions": {
       "type": "array",
-      "items": { "$ref": "#/$defs/deferredDecision" }
+      "items": {
+        "$ref": "#/$defs/deferredDecision"
+      }
     },
     "last_open_checkpoint": {
       "anyOf": [
-        { "type": "null" },
-        { "$ref": "#/$defs/openCheckpoint" }
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/openCheckpoint"
+        }
       ]
     },
-    "continuation_rule": { "type": "string", "minLength": 1 },
+    "continuation_rule": {
+      "type": "string",
+      "minLength": 1
+    },
     "validation_commands": {
       "type": "object",
-      "required": ["light", "final"],
+      "required": [
+        "light",
+        "final"
+      ],
       "additionalProperties": false,
       "properties": {
-        "light": { "type": "string", "minLength": 1 },
+        "light": {
+          "type": "string",
+          "minLength": 1
+        },
         "final": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     }
@@ -66,45 +107,92 @@
       "minLength": 1,
       "not": {
         "anyOf": [
-          { "pattern": "^/" },
-          { "pattern": "^[A-Za-z]:/" },
-          { "pattern": "\\.\\.(?:/|$)" }
+          {
+            "pattern": "^/"
+          },
+          {
+            "pattern": "^[A-Za-z]:/"
+          },
+          {
+            "pattern": "\\.\\.(?:/|$)"
+          }
         ]
       }
     },
     "storyId": {
       "type": "string",
-      "pattern": "^DC-ST-(23|24|25|26|27|28|29)$"
+      "pattern": "^DC-ST-(23|24|25|26|27|28|29|30|31|32|33)$"
     },
     "completedDecision": {
       "type": "object",
-      "required": ["decision_id", "story_id", "summary"],
+      "required": [
+        "decision_id",
+        "story_id",
+        "summary"
+      ],
       "additionalProperties": false,
       "properties": {
-        "decision_id": { "type": "string", "pattern": "^ALRA-DEC-[0-9]{3}$" },
-        "story_id": { "$ref": "#/$defs/storyId" },
-        "summary": { "type": "string", "minLength": 1 }
+        "decision_id": {
+          "type": "string",
+          "pattern": "^ALRA-DEC-[0-9]{3}$"
+        },
+        "story_id": {
+          "$ref": "#/$defs/storyId"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "deferredDecision": {
       "type": "object",
-      "required": ["decision_id", "story_id", "reason", "owner_role"],
+      "required": [
+        "decision_id",
+        "story_id",
+        "reason",
+        "owner_role"
+      ],
       "additionalProperties": false,
       "properties": {
-        "decision_id": { "type": "string", "pattern": "^ALRA-DEC-[0-9]{3}$" },
-        "story_id": { "$ref": "#/$defs/storyId" },
-        "reason": { "type": "string", "minLength": 1 },
-        "owner_role": { "type": "string", "minLength": 1 }
+        "decision_id": {
+          "type": "string",
+          "pattern": "^ALRA-DEC-[0-9]{3}$"
+        },
+        "story_id": {
+          "$ref": "#/$defs/storyId"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_role": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "openCheckpoint": {
       "type": "object",
-      "required": ["id", "reason", "owner_role"],
+      "required": [
+        "id",
+        "reason",
+        "owner_role"
+      ],
       "additionalProperties": false,
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "reason": { "type": "string", "minLength": 1 },
-        "owner_role": { "type": "string", "minLength": 1 }
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_role": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     }
   }

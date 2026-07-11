@@ -15,8 +15,12 @@
 | `DC-ST-25` | Входной контекст | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 | `DC-ST-26` | Проверка входа | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 | `DC-ST-27` | Статусы обработки | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
-| `DC-ST-28` | Трассировка | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-28` | Проверяемость маршрута | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 | `DC-ST-29` | Генерация презентации | P1 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-30` | Расширенная доставка | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-31` | Хранение результата | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-32` | Передача ссылки | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
+| `DC-ST-33` | Уведомление в Лисе | P2 | `2026-Q3` | принято Product Owner | [Каталог пользовательских историй](../requirements/user-stories.md) |
 
 ## CSV
 

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "status": "draft",
   "index_id": "XLSX-OPML-JIRA-RECOVERY-2026-07-08",
-  "updated_at": "2026-07-08T00:00:00Z",
+  "updated_at": "2026-07-10T00:00:00Z",
   "items": [
     {
       "item_id": "raw-xlsx",
@@ -12,7 +12,11 @@
       "path": "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx",
       "source_id": "SRC-DC-STORIES-XLSX-RAW",
       "sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
-      "downstream_use": ["story_value_audit", "opml_conversion_recovery", "jira_import_recovery"],
+      "downstream_use": [
+        "story_value_audit",
+        "opml_conversion_recovery",
+        "jira_import_recovery"
+      ],
       "notes": "Сырой Excel-источник Product Owner; не редактируется."
     },
     {
@@ -21,9 +25,14 @@
       "status": "found",
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
-      "sha256": "9762263da35dc5b1d81eb67f1839e4969cef8498fe4e0e2d16bf8a3cac36f1ab",
-      "downstream_use": ["draft_effort_estimation", "team_estimation_review"],
-      "notes": "Рабочий черновик ПШЕ; не является утвержденной оценкой команды реализации."
+      "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
+      "downstream_use": [
+        "accepted_effort_estimation",
+        "team_estimation_review",
+        "sprint_planning_input",
+        "jira_import_preparation"
+      ],
+      "notes": "Рабочая Excel-версия принята Product Owner как ресурсный вход для DC-ST-23..DC-ST-33; sprint backlog и Jira import требуют отдельного планировочного gate."
     },
     {
       "item_id": "historical-stories-opml",
@@ -32,7 +41,9 @@
       "path": null,
       "source_id": null,
       "sha256": null,
-      "downstream_use": ["derived_reconstruction_only"],
+      "downstream_use": [
+        "derived_reconstruction_only"
+      ],
       "notes": "В проектных документах есть историческое упоминание передачи stories.opml Product Owner, но физический source artifact не найден."
     },
     {
@@ -42,7 +53,9 @@
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "source_id": null,
       "sha256": null,
-      "downstream_use": ["jira_import_after_mapping_approval"],
+      "downstream_use": [
+        "jira_import_after_mapping_approval"
+      ],
       "notes": "Импорт в Jira не переводится в ready без утвержденного JiraFieldMappingRequest."
     },
     {
@@ -52,7 +65,9 @@
       "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
       "source_id": null,
       "sha256": null,
-      "downstream_use": ["documentation_package_navigation"],
+      "downstream_use": [
+        "documentation_package_navigation"
+      ],
       "notes": "Карта импорта в Confluence используется как документационный ориентир, не как внешний publish-действие."
     }
   ]

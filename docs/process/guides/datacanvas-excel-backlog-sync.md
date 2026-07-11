@@ -12,7 +12,7 @@
 
 Правило действует для файлов в `docs/product/sources/raw/` и `docs/product/sources/working/`. Сырой исходник Product Owner не редактируется. Рабочий файл создается в `docs/product/sources/working/` и регистрируется в `docs/product/sources/product-source-registry.json`.
 
-Для DataCanvas текущая рабочая книга оценок — `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx`. Ее происхождение, допустимые изменения, SHA-256 и строки `DC-ST-23..DC-ST-29` — пользовательские истории запуска DataCanvas другим агентом и подготовки результата — фиксируются в `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json`.
+Для DataCanvas текущая рабочая книга оценок — `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx`. Ее происхождение, допустимые изменения, SHA-256 и строки `DC-ST-23..DC-ST-33` — пользовательские истории запуска DataCanvas другим агентом, подготовки результата и следующего инкремента доставки — фиксируются в `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json`.
 
 ## Правило Точной Копии
 
@@ -63,13 +63,13 @@
 
 ## Каскад После Изменения XLSX Или Provenance
 
-Рабочая XLSX-книга и provenance manifest — манифест происхождения — являются upstream-источниками для каскадного процесса. После изменения любого из этих файлов нельзя ограничиваться только проверкой Excel: нужно закрыть влияние на все downstream-артефакты.
+Рабочая XLSX-книга и provenance manifest — манифест происхождения — являются измененными корнями каскадного процесса. После изменения любого из этих файлов нельзя ограничиваться только проверкой Excel: нужно построить полный конус влияния и проверить связанные артефакты ниже и выше по цепочке.
 
 Обязательный порядок:
 
 1. Запустить анализ изменения через каскадный процесс, указав source ID — идентификатор источника — из `docs/product/sources/product-source-registry.json`.
 2. Проверить, что `docs/process/cascading-governance/artifact-dependency-graph.json` покрывает все `affected_artifacts` из реестра источников.
-3. Для каждого downstream-артефакта выполнить одно из двух действий: обновить артефакт через правильный источник или генератор либо записать no-change rationale — объяснение отсутствия изменения — в impact analysis.
+3. Для каждого элемента полного конуса выполнить предписанное действие: обновить артефакт через правильный источник или генератор, проверить логическую согласованность, получить решение владельца либо записать no-change rationale — объяснение отсутствия изменения — в impact analysis.
 4. Не записывать no-change rationale, SHA-256, правила слияния, строки Excel, команды проверки или другие служебные сведения в бизнесовые Markdown-документы.
 5. Не использовать product source registry — реестр продуктовых источников — как место для полного no-change rationale: он хранит только стабильные зависимости, статусы источников и ссылки на проверочные команды.
 6. Не использовать dependency graph — граф зависимостей — как журнал конкретного запуска: он хранит устойчивые связи, а не решения по отдельному изменению.
@@ -79,6 +79,18 @@
 
 ```bash
 npm run cascade:run -- --change-request docs/process/cascading-governance/documentation-change-request.json --output-dir docs/process/cascading-governance/runs/<run-id> --source-id SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08
+```
+
+После разрешения всех элементов конуса и выполнения правок сначала нужно создать новую закрытую версию impact analysis, не редактируя generated dry-run вручную:
+
+```bash
+npm run cascade:finalize -- --run docs/process/cascading-governance/runs/<run-id>/cascading-update-run-<suffix>.json --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>
+```
+
+Затем нужно отдельно проверить завершение по baseline:
+
+```bash
+npm run cascade:verify -- --run docs/process/cascading-governance/runs/<finalization-id>/cascading-update-run-resolved-<suffix>.json --output-dir docs/process/cascading-governance/runs/<verification-id>
 ```
 
 ## Проверка В Репозитории И Локальный Навык
@@ -103,7 +115,7 @@ npm run validate:xlsx-cascade
 
 Навык не заменяет репозиторный gate — проверочный барьер — `npm run validate:xlsx-backlog`. Он помогает агенту выбрать правильный порядок работы с Excel, не забыть низкоуровневые проверки пакета `.xlsx` и провести обратную синхронизацию после командной оценки.
 
-Для рабочей книги `datacanvas-backlog-draft-pshe-2026-07-08.xlsx` репозиторный валидатор дополнительно проверяет внутренние XML-блоки Excel: принятую рабочую настройку `sheetViews`, `pane`, `selection`, настройки `sheetPr`, `sheetFormatPr` и `cols`, диапазон `_FilterDatabase`, целостность shared formula — общей формулы — включая членство каждой ячейки внутри диапазона, корректность `mc:Ignorable` namespace-префиксов в OOXML-частях, отсутствие устаревших комментариев H26-H32, скрытие строк 13-25, видимость строк 26-32 и кешированные видимые итоги.
+Для рабочей книги `datacanvas-backlog-draft-pshe-2026-07-08.xlsx` репозиторный валидатор дополнительно проверяет внутренние XML-блоки Excel: принятую рабочую настройку `sheetViews`, `pane`, `selection`, настройки `sheetPr`, `sheetFormatPr` и `cols`, диапазон `_FilterDatabase`, целостность shared formula — общей формулы — включая членство каждой ячейки внутри диапазона, корректность `mc:Ignorable` namespace-префиксов в OOXML-частях, отсутствие устаревших комментариев H26-H36, скрытие строк 13-25, видимость строк 26-36 и кешированные видимые итоги.
 
 На macOS перед передачей файла пользователю нужно проверить локальные extended attributes — расширенные атрибуты файла. Если на рабочей книге есть `com.apple.quarantine`, его нужно снять локально, потому что этот атрибут не является содержимым репозитория, но может мешать открытию файла в Excel или Numbers. Это действие не заменяет проверку ZIP/XML-пакета и не меняет SHA-256 содержимого файла.
 

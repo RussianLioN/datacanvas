@@ -19,8 +19,8 @@
     "owner_role": "Product Owner",
     "lifecycle": "active",
     "trust_level": "current",
-    "effective_date": "2026-07-03",
-    "upstream_decision": "CO-2026-001",
+    "effective_date": "2026-07-10",
+    "upstream_decision": "CO-2026-002",
     "allowed_downstream_use": [
       "product_scope",
       "requirements_delta",

@@ -2,14 +2,14 @@
   "version": "0.1.0",
   "status": "accepted",
   "change_order_id": "CO-2026-002",
-  "summary": "CO-2026-002 уточняет, что весь основной маршрут запуска DataCanvas другим агентом относится к P1, а специализированное хранилище, ссылка на нередактируемую копию и уведомление в Лисе остаются отдельным P2-инкрементом.",
+  "summary": "CO-2026-002 уточняет, что P1 включает основной маршрут запуска DataCanvas другим агентом до доставки PPTX/PDF по электронной почте, а P2 включает расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе.",
   "priority_before": [
     "P1: проверка входа и генерация презентации",
     "P2: остальные связанные истории запуска другим агентом"
   ],
   "priority_after": [
-    "P1: полный основной маршрут запуска другим агентом",
-    "P2: специализированное хранилище, ссылка на нередактируемую копию и уведомление в Лисе"
+    "P1: полный основной маршрут запуска другим агентом до доставки PPTX/PDF по электронной почте",
+    "P2: расширенная доставка, защищенное хранение PDF-копии, ссылка вызывающему агенту и уведомление в Лисе"
   ],
   "affected_users": [
     "Product Owner",
@@ -19,6 +19,8 @@
     "команда реализации"
   ],
   "affected_artifacts": [
+    "docs/product-vision.md",
+    "docs/product/bmc/bmc-v0.2.md",
     "docs/product/requirements/user-stories.md",
     "docs/product/backlog/product-backlog.md",
     "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
@@ -34,7 +36,10 @@
     "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
     "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
     "docs/product/sources/product-source-registry.json",
-    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
+    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
   ],
   "affected_requirements": [
     "BT-012",
@@ -44,7 +49,10 @@
     "BT-017",
     "BT-018",
     "NFR-002",
-    "NFR-003"
+    "NFR-003",
+    "BT-019",
+    "BT-020",
+    "BT-021"
   ],
   "affected_ports_adapters": [
     "A2A input envelope",
@@ -54,8 +62,8 @@
     "future Lisa notification handoff"
   ],
   "trust_boundary_delta": "Вход от другого агента остается недоверенными данными, но P1-контур теперь включает полный путь от запроса и проверки до доставки редактируемого файла и нередактируемой копии по электронной почте. P2-ссылка и уведомление в Лисе остаются отдельной доверительной границей.",
-  "sprint_goal_impact": "DC-ST-23..DC-ST-29 становятся единым P1-контуром для планирования, но не превращаются автоматически в sprint backlog без проверки емкости, порядка работ и вытеснения.",
-  "rollback": "Вернуть приоритеты DC-ST-23, DC-ST-24, DC-ST-25, DC-ST-27 и DC-ST-28 к P2, оставить DC-ST-26 и DC-ST-29 в P1 и повторить каскадные проверки.",
+  "sprint_goal_impact": "DC-ST-23..DC-ST-29 входят в P1-контур для планирования, DC-ST-30..DC-ST-33 входят в группу возможностей с приоритетом P2. Принятая рабочая Excel-версия дает ресурсный вход, но не превращает план автоматически в sprint backlog без проверки емкости, порядка работ и вытеснения.",
+  "rollback": "Вернуть DC-ST-30..DC-ST-33 в состояние отложенного P2 без принятой XLSX-оценки, восстановить прежние формулировки DC-ST-25, DC-ST-27..DC-ST-29 и повторить каскадные проверки.",
   "validation_plan": [
     "npm run validate:product-change-orders",
     "npm run validate:change-impact",

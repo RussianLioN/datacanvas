@@ -49,6 +49,7 @@
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
 - `docs/product/bmc/bmc-v0.2.md` - текущий BMC, Business Model Canvas, бизнес-модель продукта.
 - `docs/product/requirements/user-stories.md` - канонический каталог пользовательских историй.
+- `docs/product/requirements/business-claim-map.json` - машинная карта связи принятых CO с основными бизнес-артефактами.
 - `docs/stories.md` - совместимый переход на канонический каталог, оставленный для старых ссылок.
 - `docs/product/sources/product-source-registry.json` - машинный реестр источников и их статусов.
 

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const markdownPath = "docs/product/bmc/bmc-v0.2.md";
@@ -55,6 +56,7 @@ const publicForbidden = [
   "внешняя выручка",
   "служебные доказательства",
   "машинные артефакты",
+  ...publicBusinessForbiddenSnippets,
   "требует отдельной проверки",
   "предметом отдельной проверки",
   "открытая зависимость",
@@ -105,6 +107,12 @@ function assertPublicClean(label, content) {
   for (const forbidden of publicForbidden) {
     if (normalized.includes(forbidden)) {
       fail(`${label} contains technical, service or validation marker: ${forbidden}`);
+    }
+  }
+  for (const rule of publicBusinessLanguageRules) {
+    const match = rule.pattern.exec(normalized);
+    if (match) {
+      fail(`${label} violates ${rule.id}: ${match[0]}`);
     }
   }
 }

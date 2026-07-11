@@ -6,7 +6,19 @@ import addFormats from "ajv-formats";
 
 const root = process.cwd();
 const packageRoot = "docs/product/analysis/agent-launch-requirements-analysis";
-const requiredStories = ["DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28", "DC-ST-29"];
+const requiredStories = [
+  "DC-ST-23",
+  "DC-ST-24",
+  "DC-ST-25",
+  "DC-ST-26",
+  "DC-ST-27",
+  "DC-ST-28",
+  "DC-ST-29",
+  "DC-ST-30",
+  "DC-ST-31",
+  "DC-ST-32",
+  "DC-ST-33",
+];
 const requiredFiles = [
   "README.md",
   "analysis-state.json",
@@ -115,7 +127,7 @@ for (const storyId of requiredStories) {
 }
 
 if (completedStories.size !== requiredStories.length || impactStories.size !== requiredStories.length) {
-  fail("analysis package must cover exactly DC-ST-23..DC-ST-29");
+  fail("analysis package must cover exactly DC-ST-23..DC-ST-33");
 }
 
 const businessRequirements = readText("docs/product/requirements/business-requirements.md");
@@ -171,8 +183,15 @@ for (const storyId of requiredStories) {
   }
 }
 
-if (impactMap.requirements_baseline.new_requirement_ids_assigned.length > 0) {
-  fail("new BT identifiers must not be assigned by this completed no-change analysis");
+const expectedNewRequirements = new Set(["BT-019", "BT-020", "BT-021"]);
+const actualNewRequirements = new Set(impactMap.requirements_baseline.new_requirement_ids_assigned);
+if (actualNewRequirements.size !== expectedNewRequirements.size) {
+  fail("analysis package must assign exactly BT-019..BT-021 for the P2 extension");
+}
+for (const requirementId of expectedNewRequirements) {
+  if (!actualNewRequirements.has(requirementId)) {
+    fail(`analysis package is missing new requirement assignment: ${requirementId}`);
+  }
 }
 
 console.log("agent launch requirements analysis validation passed");

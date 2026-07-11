@@ -5,13 +5,17 @@
   "source_change_order": "CO-2026-002",
   "story_range": {
     "from": "DC-ST-23",
-    "to": "DC-ST-29"
+    "to": "DC-ST-33"
   },
   "requirements_baseline": {
     "source_path": "docs/product/requirements/business-requirements.md",
-    "confirmed_existing_range": "BT-001..BT-018",
-    "next_free_requirement_id": "BT-019",
-    "new_requirement_ids_assigned": []
+    "confirmed_existing_range": "BT-001..BT-021",
+    "next_free_requirement_id": "BT-022",
+    "new_requirement_ids_assigned": [
+      "BT-019",
+      "BT-020",
+      "BT-021"
+    ]
   },
   "stories": [
     {
@@ -61,7 +65,7 @@
     },
     {
       "story_id": "DC-ST-25",
-      "title": "Входной пакет с задачей, источником запроса и параметрами презентации",
+      "title": "Входной пакет с задачей, источником запроса, параметрами презентации и данными для определения получателя результата",
       "decision_id": "ALRA-DEC-003",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
@@ -75,8 +79,8 @@
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/requirements/business-requirements.md"
       ],
-      "rationale": "Бизнесовый состав входного пакета от другого агента покрыт BT-016, а проверка недоверенного входа покрыта BT-006.",
-      "acceptance_criteria_effect": "Невалидный или недостаточный пакет не идет в генерацию.",
+      "rationale": "Бизнесовый состав входного пакета от другого агента покрыт обновленным BT-016, а проверка недоверенного входа покрыта BT-006.",
+      "acceptance_criteria_effect": "Невалидный, недостаточный пакет или пакет без данных для определения получателя результата не идет в генерацию и доставку.",
       "traceability_effect": "Связь проходит через BT-016 и BT-006.",
       "evidence_status": "sufficient",
       "blockers": []
@@ -107,7 +111,7 @@
     },
     {
       "story_id": "DC-ST-27",
-      "title": "Статусы обработки и сведения о результате через обратный вызов",
+      "title": "Сообщение о приеме данных, статусы обработки и сведения о результате",
       "decision_id": "ALRA-DEC-005",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
@@ -131,7 +135,7 @@
     },
     {
       "story_id": "DC-ST-28",
-      "title": "Trace ID, источник запроса, результат проверки, статусы и связи с итоговыми артефактами",
+      "title": "Проверяемая связь источника запроса, результата проверки, статусов и итоговых файлов",
       "decision_id": "ALRA-DEC-006",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
@@ -154,7 +158,7 @@
     },
     {
       "story_id": "DC-ST-29",
-      "title": "Генерация редактируемого файла презентации из проверенных и нормализованных данных",
+      "title": "Генерация редактируемого PPTX-файла и нередактируемой PDF-копии",
       "decision_id": "ALRA-DEC-007",
       "decision_type": "no_change_existing_requirements_sufficient",
       "requirement_action": "no_new_requirement",
@@ -172,15 +176,108 @@
         "docs/product/requirements/traceability-matrix.json"
       ],
       "rationale": "Генерация проверяемой презентации покрыта BT-002, подготовка и доставка файлов покрыты BT-012, связь с маршрутом и результатом покрыта BT-014.",
-      "acceptance_criteria_effect": "DataCanvas формирует редактируемый файл презентации и нередактируемую копию из проверенных и нормализованных данных до отправки пользователю.",
+      "acceptance_criteria_effect": "DataCanvas формирует редактируемый PPTX-файл и нередактируемую PDF-копию из проверенных и нормализованных данных до отправки пользователю.",
       "traceability_effect": "Связь проходит через BT-012, BT-002 и BT-014.",
+      "evidence_status": "sufficient",
+      "blockers": []
+    },
+    {
+      "story_id": "DC-ST-30",
+      "title": "Расширенная электронная доставка созданных файлов в разрешенные рабочие контуры",
+      "decision_id": "ALRA-DEC-008",
+      "decision_type": "create_new_requirement",
+      "requirement_action": "create_new_requirement",
+      "affected_requirements": [
+        "BT-019",
+        "BT-014"
+      ],
+      "source_paths": [
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "rationale": "Для расширенной доставки нужен отдельный BT-019, потому что она меняет границу доставки за пределами основного P1-маршрута.",
+      "acceptance_criteria_effect": "Созданные файлы доставляются в разрешенные рабочие контуры как отдельный P2-этап дорожной карты.",
+      "traceability_effect": "Связь проходит через BT-019 и BT-014.",
+      "evidence_status": "sufficient",
+      "blockers": []
+    },
+    {
+      "story_id": "DC-ST-31",
+      "title": "Сохранение нередактируемой PDF-копии в защищенном хранилище",
+      "decision_id": "ALRA-DEC-009",
+      "decision_type": "create_new_requirement",
+      "requirement_action": "create_new_requirement",
+      "affected_requirements": [
+        "BT-020",
+        "BT-014"
+      ],
+      "source_paths": [
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "rationale": "Защищенное хранение PDF-копии и доступ по ссылке требуют отдельного BT-020, потому что это новый P2-результат.",
+      "acceptance_criteria_effect": "PDF-копия сохранена в защищенном хранилище и связана с подготовленным результатом.",
+      "traceability_effect": "Связь проходит через BT-020 и BT-014.",
+      "evidence_status": "sufficient",
+      "blockers": []
+    },
+    {
+      "story_id": "DC-ST-32",
+      "title": "Передача ссылки на PDF-копию вызывающему агенту",
+      "decision_id": "ALRA-DEC-010",
+      "decision_type": "modify_existing_requirement",
+      "requirement_action": "modify_existing_requirement",
+      "affected_requirements": [
+        "BT-020",
+        "BT-018",
+        "BT-014"
+      ],
+      "source_paths": [
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "rationale": "Передача ссылки использует BT-020 и дополняет сведения о результате для вызывающего агента в BT-018.",
+      "acceptance_criteria_effect": "Вызывающий агент получает ссылку на PDF-копию после подготовки результата.",
+      "traceability_effect": "Связь проходит через BT-020, BT-018 и BT-014.",
+      "evidence_status": "sufficient",
+      "blockers": []
+    },
+    {
+      "story_id": "DC-ST-33",
+      "title": "Уведомление и ссылка на готовую презентацию в Лисе через сценарий, который ведут вызывающий агент и Лиса",
+      "decision_id": "ALRA-DEC-011",
+      "decision_type": "create_new_requirement",
+      "requirement_action": "create_new_requirement",
+      "affected_requirements": [
+        "BT-021",
+        "BT-020"
+      ],
+      "source_paths": [
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "rationale": "Показ ссылки и уведомления в Лисе относится к P2-сценарию, который ведут вызывающий агент и Лиса и требует отдельного BT-021.",
+      "acceptance_criteria_effect": "Пользователь получает ссылку и уведомление в Лисе через сценарий, который ведут вызывающий агент и Лиса без смешения с P1-доставкой по электронной почте.",
+      "traceability_effect": "Связь проходит через BT-021 и BT-020.",
       "evidence_status": "sufficient",
       "blockers": []
     }
   ],
   "summary": {
-    "new_requirements_needed": false,
-    "changed_requirements_needed": false,
+    "new_requirements_needed": true,
+    "changed_requirements_needed": true,
     "deferred_decisions": [],
     "evidence_requests": []
   }

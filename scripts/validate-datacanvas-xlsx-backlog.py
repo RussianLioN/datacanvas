@@ -670,11 +670,11 @@ def rewrite_zip(source: Path, target: Path, replacements: dict[str, tuple[str, s
 def run_self_tests(raw_path: Path, working_path: Path, expectations_path: Path, provenance_path: Path) -> None:
     scenarios = {
         "broken-pane": {"xl/worksheets/sheet1.xml": ('topLeftCell="C12"', 'topLeftCell="C11"')},
-        "broken-filter": {"xl/worksheets/sheet1.xml": ('ref="B3:U32"', 'ref="B3:U31"')},
-        "broken-shared-formula-range": {"xl/worksheets/sheet1.xml": ('ref="H5:H32"', 'ref="H5:H31"')},
+        "broken-filter": {"xl/worksheets/sheet1.xml": ('ref="B3:U36"', 'ref="B3:U35"')},
+        "broken-shared-formula-range": {"xl/worksheets/sheet1.xml": ('ref="H5:H36"', 'ref="H5:H35"')},
         "broken-shared-formula-member": {
             "xl/worksheets/sheet1.xml": (
-                'r="H30" s="11"><f t="shared" si="2" /><v>26</v>',
+                'r="H30" s="11"><f t="shared" si="2"/><v>26</v>',
                 'r="H30" s="11"><f>SUM(I30:U30)*$C$1</f><v>26</v>',
             )
         },
@@ -687,8 +687,8 @@ def run_self_tests(raw_path: Path, working_path: Path, expectations_path: Path, 
         "stale-comment-restored": {"xl/comments1.xml": ("</commentList>", '<comment ref="H26" authorId="1" shapeId="0"><text><r><t>stale</t></r></text></comment></commentList>')},
         "broken-estimate": {
             "xl/worksheets/sheet1.xml": (
-                'r="H26" s="11"><f t="shared" si="2" /><v>22</v>',
-                'r="H26" s="11"><f t="shared" si="2" /><v>9</v>',
+                'r="H26" s="11"><f t="shared" si="2"/><v>22</v>',
+                'r="H26" s="11"><f t="shared" si="2"/><v>9</v>',
             )
         },
     }

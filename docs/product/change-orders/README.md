@@ -16,6 +16,8 @@ Product Change Order должен содержать источник измен
 
 Если Change Order принимается через PO-опросник, состояние опросника должно сохраняться в JSON и Markdown-журнале после каждого ответа Product Owner.
 
+После принятия Change Order нужно обновить [карту бизнес-утверждений](../requirements/business-claim-map.json) и выполнить каскадную проверку зависимых артефактов. Карта хранит машинную связь между принятым решением и документами, но не заменяет сами бизнесовые тексты.
+
 ## Читать Человеку
 
 - [Шаблон Product Change Order](product-change-order-template.md)
@@ -34,3 +36,4 @@ Product Change Order должен содержать источник измен
 - `co-2026-002-agent-launch-delivery-scope.json`
 - `co-2026-002-agent-launch-delivery-scope-impact.json`
 - `change-impact-assessment.json`
+- `../requirements/business-claim-map.json`

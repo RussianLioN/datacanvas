@@ -456,9 +456,9 @@ Product Owner принял текущую Excel-редакцию приорит�
 
 Корневая причина по синхронизации: прежний XLSX-gate сверял текст истории, бизнес-ценность, функциональную зону и приоритет только для добавленных строк `DC-ST-23..DC-ST-29`, но не сверял приоритеты исходных строк `DC-ST-01..DC-ST-22` с принятой Excel-редакцией. Поэтому пониженные приоритеты `DC-ST-01..DC-ST-08` могли пройти мимо полного gate.
 
-Корневая причина по открытию файла: ZIP/XML-пакет XLSX был читаемым, но Excel требовал более строгую OOXML-целостность. В файле одновременно были два дефекта: внутри `xl/worksheets/sheet1.xml` диапазон общей формулы `H5:H32` содержал разрыв — ячейка `H30` хранила отдельную обычную формулу вместо членства в shared formula — общей формуле; кроме того, после низкоуровневой машинной правки XML части `xl/workbook.xml` и `xl/worksheets/sheet1.xml` содержали `mc:Ignorable` со ссылками на отсутствующие namespace-префиксы. Обычная ZIP/XML-проверка и прежний XLSX-gate это не ловили, поэтому файл мог проходить локальные проверки и одновременно ломаться в Microsoft Excel.
+Корневая причина по открытию файла: ZIP/XML-пакет XLSX был читаемым, но Excel требовал более строгую OOXML-целостность. В файле одновременно были два дефекта: внутри `xl/worksheets/sheet1.xml` диапазон общей формулы `H5:H36` содержал разрыв — ячейка `H30` хранила отдельную обычную формулу вместо членства в shared formula — общей формуле; кроме того, после низкоуровневой машинной правки XML части `xl/workbook.xml` и `xl/worksheets/sheet1.xml` содержали `mc:Ignorable` со ссылками на отсутствующие namespace-префиксы. Обычная ZIP/XML-проверка и прежний XLSX-gate это не ловили, поэтому файл мог проходить локальные проверки и одновременно ломаться в Microsoft Excel.
 
-Исправление: `npm run validate:xlsx-backlog` теперь проверяет целостность shared formula membership — членства ячеек в общей формуле, корректность `mc:Ignorable` namespace-префиксов в XML-частях XLSX и сверяет приоритеты всех строк `DC-ST-01..DC-ST-29` между Excel, golden-описанием и каноническим каталогом пользовательских историй. Контракт бизнесовых артефактов допускает принятые Product Owner термины `обратный вызов` и `trace ID` только в утвержденных строках `DC-ST-27` и `DC-ST-28`; вне этого контекста технический шум остается запрещенным.
+Исправление: `npm run validate:xlsx-backlog` теперь проверяет целостность shared formula membership — членства ячеек в общей формуле, корректность `mc:Ignorable` namespace-префиксов в XML-частях XLSX и сверяет приоритеты всех строк `DC-ST-01..DC-ST-33` между Excel, golden-описанием и каноническим каталогом пользовательских историй. Контракт бизнесовых артефактов больше не допускает `обратный вызов` и `trace ID` в бизнесовом каталоге stories; эти технические детали остаются во внешнем техническом или evidence-контуре.
 
 Предотвращение повторения: при принятии рабочей Excel-редакции как upstream-источника нужно выполнять обратную синхронизацию не только ПШЕ, но и всех смысловых полей строк, включая приоритеты исходных строк. Если поле из Excel не переносится в downstream-артефакт, причина фиксируется в machine-readable impact/evidence контуре, а не в бизнесовом Markdown. Локальный `com.apple.quarantine` нужно снимать перед передачей файла пользователю, но он не считается достаточным объяснением ошибки содержимого книги.
 
@@ -466,11 +466,11 @@ Product Owner принял текущую Excel-редакцию приорит�
 |---|---|---|
 | `unzip -t docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx` | passed | ZIP-пакет XLSX читается без ошибок. |
 | `python3` ZIP/XML smoke | passed | Все XML/RELS-части рабочей книги парсятся; `ZipFile.testzip()` не нашел поврежденных частей. |
-| strict shared formula check | passed | Валидатор подтверждает, что каждая ячейка внутри диапазона `H5:H32` является участником общей формулы; негативный self-test с разрывом `H30` падает. |
+| strict shared formula check | passed | Валидатор подтверждает, что каждая ячейка внутри диапазона `H5:H36` является участником общей формулы; негативный self-test с разрывом `H30` падает. |
 | strict OOXML namespace check | passed | Валидатор подтверждает, что `mc:Ignorable` не ссылается на отсутствующие namespace-префиксы; негативный self-test с поврежденным префиксом падает. |
 | `qlmanage -t` | passed | macOS Quick Look смог построить миниатюру рабочей книги. |
-| `npm run validate:xlsx-backlog` | passed | Валидатор сверяет XLSX, golden-описание, provenance и канонический каталог пользовательских историй по приоритетам всех `DC-ST-01..DC-ST-29`; negative self-tests проходят. |
-| `npm run validate:business-docs` | passed | Бизнесовые документы проходят после точечного контракта для утвержденных терминов `обратный вызов` и `trace ID`. |
+| `npm run validate:xlsx-backlog` | passed | Валидатор сверяет XLSX, golden-описание, provenance и канонический каталог пользовательских историй по приоритетам всех `DC-ST-01..DC-ST-33`; negative self-tests проходят. |
+| `npm run validate:business-docs` | passed | Бизнесовые документы проходят после запрета технических терминов `обратный вызов` и `trace ID` в бизнесовом каталоге stories. |
 | `npm run validate:product-source-consistency` | passed | Реестр источников и граф зависимостей покрывают `docs/product/requirements/user-stories.md` как downstream рабочей XLSX-книги. |
 | `npm run validate:xlsx-cascade` | passed | XLSX cascade-gate подтверждает seed-пути downstream-артефактов. |
 | `npm run validate:cascading-governance` | passed | Каскадный governance проходит после обновления dependency graph и XLSX change-analysis fixture. |
@@ -484,7 +484,7 @@ Product Owner принял текущую Excel-редакцию приорит�
 
 ## Проверки После Каскадного Обновления `CO-2026-002` И XLSX
 
-Product Owner подтвердил, что рабочая Excel-книга открывается. После этого каскадный проход обновил пакет анализа запуска другим агентом: текущая граница анализа стала `DC-ST-23..DC-ST-29`, источником текущего решения стал `CO-2026-002`, а `DC-ST-29` — пользовательская история о генерации редактируемого файла презентации — связана с `BT-012`, `BT-002` и `BT-014` без создания нового `BT-*` — бизнес-требования.
+Product Owner подтвердил, что рабочая Excel-книга открывается. После этого каскадный проход обновил пакет анализа запуска другим агентом: текущая граница анализа стала `DC-ST-23..DC-ST-33`, источником текущего решения стал `CO-2026-002`, `DC-ST-29` — пользовательская история о генерации редактируемого `PPTX`-файла и нередактируемой `PDF`-копии — связана с `BT-012`, `BT-002` и `BT-014` без создания нового `BT-*` — бизнес-требования, а для `DC-ST-30..DC-ST-33` созданы `BT-019..BT-021` как отдельный `P2`-этап дорожной карты.
 
 RCA: часть документов и валидаторов уже была синхронизирована с `DC-ST-29`, но пакет `docs/product/analysis/agent-launch-requirements-analysis/` и его схемы оставались ограничены `DC-ST-23..DC-ST-28`. Каскадный граф также не считал `CO-2026-002` отдельным high-impact source — источником сильного влияния — для карты влияния требований. Поэтому downstream-синхронизация могла обновить backlog, stories и traceability, но не заставляла пересматривать `requirements-impact-map.json`.
 
@@ -492,8 +492,8 @@ RCA: часть документов и валидаторов уже была �
 
 | Команда | Статус | Комментарий |
 |---|---|---|
-| `npm run validate:agent-launch-requirements-analysis` | passed | Пакет анализа покрывает `DC-ST-23..DC-ST-29` и использует `CO-2026-002` как текущий source change order. |
-| `npm run validate:schemas` | passed | Схемы подтверждают диапазон `DC-ST-23..DC-ST-29`, baseline `BT-001..BT-018` и следующий свободный `BT-019`. |
+| `npm run validate:agent-launch-requirements-analysis` | passed | Пакет анализа покрывает `DC-ST-23..DC-ST-33` и использует `CO-2026-002` как текущий source change order. |
+| `npm run validate:schemas` | passed | Схемы подтверждают диапазон `DC-ST-23..DC-ST-33`, baseline `BT-001..BT-021` и следующий свободный `BT-022`. |
 | `npm run validate:business-docs` | passed | Бизнесовые документы не загрязнены служебным cascade/source/provenance-текстом. |
 | `npm run validate:product-source-consistency` | passed | Source registry содержит downstream-связь XLSX и `CO-2026-002` с картой влияния требований. |
 | `npm run validate:cascading-governance` | passed after fixture sync | Первый запуск показал, что `xlsx-change-analysis-valid.json` не содержит новый downstream seed path; после обновления fixture полный gate прошел. |
@@ -505,5 +505,30 @@ RCA: часть документов и валидаторов уже была �
 
 - Ответ `1` по `BAQ-001.2` — первому вопросу короткого BMC-интервью по B1, сегментам пользователей — получен в чате, но намеренно не применен к продуктовым документам до завершения оставшихся вопросов BMC-интервью или текущего раунда интервью. Это частный случай общего правила: любые опросы и вопросы по любым артефактам сначала задаются пакетом, а правки выполняются после сбора ответов.
 - `UDW-DEC-005` — решение Product Owner о полном BA-опроснике DataCanvas — открыто и блокирует финальный backlog refinement — уточнение продуктового списка работ, sprint backlog — список работ спринта, roadmap — дорожную карту — и Confluence-ready package — комплект для Confluence.
-- Для `DC-ST-23..DC-ST-29` — историй запуска DataCanvas другим агентом и генерации презентации — Product Owner принял текущую Excel-редакцию приоритетов и ПШЕ как ресурсный вход. Sprint backlog — список работ спринта — еще требует проверки емкости, порядка работ и вытеснения.
+- Для `DC-ST-23..DC-ST-33` — историй запуска DataCanvas другим агентом, генерации презентации и отдельного этапа доставки по ссылке — Product Owner принял текущую Excel-редакцию приоритетов и ПШЕ как ресурсный вход. Sprint backlog — список работ спринта — еще требует проверки емкости, порядка работ и вытеснения.
 - `UDW-RCA-001` — ретроспектива и RCA, анализ первопричин ошибок текущего UDW-прохода — нужно выполнить после завершения PO-опросника; задача не блокирует сбор оставшихся вопросов BMC-интервью.
+
+## Проверки После Глубокой Синхронизации `CO-2026-002`
+
+Каскадный проход 2026-07-10 уточнил канонический `CO-2026-002`, BMC, Vision manifest — машинный манифест видения, stories, backlog, бизнес-требования, критерии приемки, NFR — нефункциональные требования, traceability — трассировку, рабочую Excel-книгу, provenance manifest — манифест происхождения, source registry — реестр источников, dependency graph — граф зависимостей и пакет анализа запуска другим агентом.
+
+Главный результат: `DC-ST-23..DC-ST-29` остаются `P1` — основным маршрутом запуска другим агентом, а `DC-ST-30..DC-ST-33` оформлены как отдельный `P2`-этап дорожной карты расширенной доставки, хранилища, ссылки и уведомления. Рабочая Excel-версия принята как ресурсный вход для `DC-ST-23..DC-ST-33`, но sprint backlog — список работ спринта — все еще требует отдельной проверки емкости, порядка работ и вытеснения.
+
+RCA: BMC Markdown был обновлен вручную, но генератор перезаписал его из `docs/product/bmc/bmc-trace.v0.1.json`. Корень проблемы — изменение generated artifact вместо source artifact. Исправление: смысловые правки перенесены в `bmc-trace.v0.1.json`, после чего `npm run generate:bmc` заново сформировал Markdown, PlantUML, SVG, PNG, PDF и BMC-манифест.
+
+| Команда | Статус | Комментарий |
+|---|---|---|
+| `npm run validate:xlsx-backlog` | passed | Рабочая Excel-книга проходит проверку структуры, формул, фильтров, SHA и строк `DC-ST-23..DC-ST-33`. |
+| `npm run validate:business-docs` | passed | Бизнесовые Markdown-артефакты не содержат служебного provenance/source/generator-текста. |
+| `npm run validate:product-change-orders` | passed | `CO-2026-002` проходит схему и продуктовый gate. |
+| `npm run validate:change-impact` | passed | Impact assessment — оценка влияния — согласована с `CO-2026-002`. |
+| `npm run validate:product-source-consistency` | passed | Source registry и dependency graph покрывают XLSX/provenance и downstream-артефакты. |
+| `npm run validate:xlsx-cascade` | passed | XLSX/provenance запускают обязательный downstream cascade. |
+| `npm run validate:agent-launch-requirements-analysis` | passed | Пакет анализа покрывает `DC-ST-23..DC-ST-33` и `BT-019..BT-021`. |
+| `npm run validate:product-vision` | passed | Vision и его manifest синхронизированы с source registry. |
+| `npm run validate:traceability-graph` | passed | Traceability graph проходит после обновления связей. |
+| `npm run validate:bmc` | passed | BMC source, Markdown и производные визуальные артефакты синхронизированы. |
+| `npm run validate:schemas` | passed | JSON-схемы проходят после обновления графа зависимостей и `CO-2026-002`. |
+| `npm run validate:universal-documentation-workflow` | passed | Состояние UDW-контуров и decision ledger валидны. |
+| `npm run validate:main-artifact-lifecycle` | passed | Цепочка главных артефактов сохраняет согласованный порядок. |
+| `npm run validate:artifact-hashes` | passed | Hash manifest актуален после генераторов. |
