@@ -1,0 +1,107 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
+
+import { validationManifestHash } from "./cascade-validation-manifest.mjs";
+import { sanitizeOutput } from "./cascade-vnext-runtime.mjs";
+
+const npmScriptPattern = /^npm run ([a-z0-9:_-]+)$/u;
+
+export function parseSafeNpmCommand(command) {
+  const parts = String(command).split(/\s+&&\s+/u);
+  if (parts.length === 0) throw new Error("validation command is not a safe npm run command");
+  return parts.map((part) => {
+    const match = npmScriptPattern.exec(part);
+    if (!match) throw new Error("validation command is not a safe npm run command: " + command);
+    return match[1];
+  });
+}
+
+export function assertValidationManifestIntegrity(manifest) {
+  if (manifest.manifest_sha256 !== validationManifestHash(manifest)) {
+    throw new Error("validation manifest sha256 mismatch");
+  }
+}
+
+export function assertCatalogBinding(manifest, catalog, packageJson) {
+  assertValidationManifestIntegrity(manifest);
+  if (manifest.verification_level !== "profile") {
+    throw new Error("profile verification requires a profile manifest, got " + manifest.verification_level);
+  }
+  const catalogById = new Map((catalog.commands ?? []).map((entry) => [entry.id, entry]));
+  const ids = new Set();
+  for (const planned of manifest.planned_commands) {
+    if (ids.has(planned.id)) throw new Error("duplicate validation command id: " + planned.id);
+    ids.add(planned.id);
+    const registered = catalogById.get(planned.id);
+    if (!registered || registered.command !== planned.command || registered.gate !== planned.gate) {
+      throw new Error("validation command is not bound to the active catalog: " + planned.id);
+    }
+    if (planned.mutates_files || registered.mutates_files) {
+      throw new Error("profile verification cannot execute a mutating command: " + planned.id);
+    }
+    for (const scriptName of parseSafeNpmCommand(planned.command)) {
+      if (!Object.hasOwn(packageJson.scripts ?? {}, scriptName)) {
+        throw new Error("validation command references an unknown package script: " + scriptName);
+      }
+    }
+  }
+}
+
+function digest(value) {
+  return crypto.createHash("sha256").update(value).digest("hex");
+}
+
+export function executeProfileCommands({ manifest, executionRoot, reportRoot, timeoutMs = 10 * 60 * 1000 }) {
+  return manifest.planned_commands.map((planned) => {
+    const startedAt = new Date();
+    const outputs = [];
+    let exitCode = 0;
+    for (const scriptName of parseSafeNpmCommand(planned.command)) {
+      const result = spawnSync("npm", ["run", scriptName], {
+        cwd: executionRoot,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: timeoutMs,
+        maxBuffer: 8 * 1024 * 1024,
+        env: {
+          PATH: process.env.PATH,
+          HOME: process.env.HOME,
+          CI: "1",
+          LANG: process.env.LANG ?? "C.UTF-8",
+          LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
+          TZ: process.env.TZ ?? "UTC",
+        },
+      });
+      const combined = String(result.stdout ?? "") + String(result.stderr ?? "");
+      outputs.push("[" + scriptName + "]\n" + combined);
+      if (result.error || result.status !== 0) {
+        exitCode = Number.isInteger(result.status) ? result.status : 1;
+        break;
+      }
+    }
+    const finishedAt = new Date();
+    const rawOutput = outputs.join("\n");
+    const fallback = exitCode === 0 ? "exit 0" : "validation failed";
+    const summary = sanitizeOutput(rawOutput || fallback, reportRoot);
+    return {
+      id: planned.id,
+      command_sha256: planned.command_sha256,
+      status: exitCode === 0 ? "passed" : "failed",
+      exit_code: exitCode,
+      started_at: startedAt.toISOString(),
+      finished_at: finishedAt.toISOString(),
+      duration_ms: Math.max(0, finishedAt.getTime() - startedAt.getTime()),
+      output_sha256: digest(rawOutput),
+      summary: summary || (exitCode === 0 ? "Проверка завершилась успешно." : "Проверка завершилась с ошибкой."),
+    };
+  });
+}
+
+export function linkNodeModules(sourceRoot, worktreeRoot) {
+  const source = path.join(sourceRoot, "node_modules");
+  const target = path.join(worktreeRoot, "node_modules");
+  if (!fs.existsSync(source)) throw new Error("node_modules is missing; run npm ci before cascade:verify");
+  fs.symlinkSync(source, target, "dir");
+}

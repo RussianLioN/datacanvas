@@ -92,6 +92,18 @@
         },
         "no_change_rationale": {
           "$ref": "https://datacanvas.local/schemas/impact-analysis-report.schema.json#/$defs/affectedArtifact/properties/no_change_rationale"
+        },
+        "expected_after_sha256": {
+          "anyOf": [
+            { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+            { "type": "null" }
+          ]
+        },
+        "approved_patch_digest": {
+          "anyOf": [
+            { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+            { "type": "null" }
+          ]
         }
       },
       "allOf": [
@@ -120,6 +132,32 @@
           }
         }
       ]
+    },
+    "vNextArtifactResolution": {
+      "allOf": [
+        { "$ref": "#/$defs/artifactResolution" },
+        {
+          "if": { "type": "object", "properties": { "update_status": { "const": "applied" } }, "required": ["update_status"] },
+          "then": {
+            "anyOf": [
+              { "type": "object", "required": ["expected_after_sha256"], "properties": { "expected_after_sha256": { "type": "string" } } },
+              { "type": "object", "required": ["approved_patch_digest"], "properties": { "approved_patch_digest": { "type": "string" } } }
+            ]
+          }
+        }
+      ]
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "version": { "const": "1.0.0" } }, "required": ["version"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "source_resolutions": { "type": "array", "items": { "$ref": "#/$defs/vNextArtifactResolution" } },
+          "artifact_resolutions": { "type": "array", "items": { "$ref": "#/$defs/vNextArtifactResolution" } }
+        }
+      }
+    }
+  ]
 }

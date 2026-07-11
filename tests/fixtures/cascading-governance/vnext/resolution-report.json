@@ -1,0 +1,19 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-resolution-report.schema.json",
+  "version": "1.0.0",
+  "resolution_id": "CRI-2026-07-11-001",
+  "source_run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
+  "candidate_head_sha": "1111111111111111111111111111111111111111",
+  "source_resolutions": [
+    {
+      "path": "docs/product-vision.md",
+      "update_status": "applied",
+      "no_change_rationale": null,
+      "expected_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "artifact_resolutions": [],
+  "acceptance_paths": [],
+  "resolved_at": "2026-07-11T12:00:00+03:00",
+  "resolution_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+}

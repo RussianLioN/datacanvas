@@ -289,6 +289,24 @@
       "negative_rationale": "Окончательный verified допускается только для отдельной печати cascade:complete."
     },
     {
+      "entity": "cascade_vnext_profile_evidence",
+      "schema_path": "schemas/cascade-profile-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Профильная проверка не может выдавать окончательный verified и блокируется при пропущенной или упавшей команде."
+    },
+    {
+      "entity": "cascade_vnext_resolution_report",
+      "schema_path": "schemas/cascade-resolution-report.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Отчет создается только после точного покрытия конуса, проверки Git-диффа и хэша входа разрешений."
+    },
+    {
       "entity": "cascade_vnext_supersession_ledger",
       "schema_path": "schemas/cascade-supersession-ledger.schema.json",
       "data_path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",

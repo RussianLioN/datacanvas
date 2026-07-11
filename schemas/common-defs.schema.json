@@ -30,6 +30,10 @@
       "type": "string",
       "pattern": "^[0-9a-f]{64}$"
     },
+    "gitSha": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
     "quarter": {
       "type": "string",
       "pattern": "^[0-9]{4}-Q[1-4]$"

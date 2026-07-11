@@ -365,6 +365,14 @@ const cases = [
     data: "tests/fixtures/cascading-governance/vnext/completion-seal.json",
   },
   {
+    schema: "schemas/cascade-profile-evidence.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+  },
+  {
+    schema: "schemas/cascade-resolution-report.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+  },
+  {
     schema: "schemas/cascade-supersession-ledger.schema.json",
     data: "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
   },

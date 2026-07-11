@@ -149,6 +149,7 @@ export function verifyAppliedResolution({
   afterSha256,
   expectedAfterSha256 = null,
   patchDigest = null,
+  actualPatchDigest = null,
 }) {
   if (updateStatus !== "applied") return;
   if (!sha256Pattern.test(afterSha256 ?? "")) throw new Error("applied resolution requires a valid after hash");
@@ -160,6 +161,9 @@ export function verifyAppliedResolution({
   }
   if (patchDigest && !sha256Pattern.test(patchDigest)) {
     throw new Error("approved patch digest must be sha256");
+  }
+  if (patchDigest && (!sha256Pattern.test(actualPatchDigest ?? "") || patchDigest !== actualPatchDigest)) {
+    throw new Error("approved patch digest does not match the actual Git patch digest");
   }
 }
 

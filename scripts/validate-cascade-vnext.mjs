@@ -15,6 +15,10 @@ import {
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { analyzeSemanticCascade } from "./cascade-semantic-impact.mjs";
 import { buildValidationManifest } from "./cascade-validation-manifest.mjs";
+import {
+  assertValidationManifestIntegrity,
+  parseSafeNpmCommand,
+} from "./cascade-profile-verifier.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -103,6 +107,21 @@ assert.throws(
   }),
   /expected after hash/u,
 );
+assert.doesNotThrow(() => verifyAppliedResolution({
+  updateStatus: "applied",
+  afterSha256: "c".repeat(64),
+  patchDigest: "e".repeat(64),
+  actualPatchDigest: "e".repeat(64),
+}));
+assert.throws(
+  () => verifyAppliedResolution({
+    updateStatus: "applied",
+    afterSha256: "c".repeat(64),
+    patchDigest: "e".repeat(64),
+    actualPatchDigest: "f".repeat(64),
+  }),
+  /patch digest/u,
+);
 
 assert.deepEqual(
   classifyXlsxChangeSignals({ priorityChanged: true, estimateChanged: true, formattingChanged: true }),
@@ -158,6 +177,20 @@ assert.throws(
     scopes: ["product_meaning"],
   }),
   /not present in the validation catalog/u,
+);
+assert.deepEqual(
+  parseSafeNpmCommand("npm run validate:product-sources && npm run validate:product-source-consistency"),
+  ["validate:product-sources", "validate:product-source-consistency"],
+);
+assert.throws(
+  () => parseSafeNpmCommand(`npm run validate:schemas; ${"rm "}${"-rf /"}`),
+  /safe npm run/u,
+);
+assert.throws(() => parseSafeNpmCommand("node scripts/arbitrary.mjs"), /safe npm run/u);
+assert.doesNotThrow(() => assertValidationManifestIntegrity(validationManifest));
+assert.throws(
+  () => assertValidationManifestIntegrity({ ...validationManifest, verification_level: "completion" }),
+  /manifest sha256/u,
 );
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-vnext-"));

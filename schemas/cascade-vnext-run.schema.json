@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json",
   "title": "Cascade run vNext v1",
   "type": "object",
-  "required": ["$schema", "version", "run_id", "attempt_id", "process_status", "state", "created_at", "change_request_path", "base_sha", "planning_head_sha", "candidate_head_sha", "source_identity_manifest_path", "impact_report_path", "diff_manifest_path", "validation_manifest_path", "runtime_manifest_path", "owner_question_packet_path", "profile_evidence_path", "completion_seal_path", "completion_claim"],
+  "required": ["$schema", "version", "run_id", "attempt_id", "process_status", "state", "created_at", "change_request_path", "base_sha", "planning_head_sha", "candidate_head_sha", "source_identity_manifest_path", "impact_report_path", "diff_manifest_path", "validation_manifest_path", "runtime_manifest_path", "owner_question_packet_path", "resolution_input_path", "resolution_report_path", "acceptance_paths", "profile_evidence_path", "completion_seal_path", "completion_claim"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json" },
@@ -23,6 +23,9 @@
     "validation_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "runtime_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "owner_question_packet_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_input_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "acceptance_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
     "profile_evidence_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
     "completion_seal_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
     "completion_claim": {

@@ -4,6 +4,14 @@ function hash(value) {
   return crypto.createHash("sha256").update(JSON.stringify(value)).digest("hex");
 }
 
+export function validationManifestHash(manifest) {
+  return hash({
+    version: manifest.version,
+    verification_level: manifest.verification_level,
+    planned_commands: manifest.planned_commands,
+  });
+}
+
 export function buildValidationManifest({
   catalog,
   routeCommands = [],
@@ -42,7 +50,7 @@ export function buildValidationManifest({
     verification_level: includeFull ? "completion" : "profile",
     planned_commands: planned,
   };
-  return { ...manifest, manifest_sha256: hash(manifest) };
+  return { ...manifest, manifest_sha256: validationManifestHash(manifest) };
 }
 
 export function assertValidationEvidenceComplete(manifest, evidence) {

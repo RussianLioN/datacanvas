@@ -16,6 +16,9 @@
   "validation_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/validation-manifest.json",
   "runtime_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/runtime-manifest.json",
   "owner_question_packet_path": null,
+  "resolution_input_path": null,
+  "resolution_report_path": null,
+  "acceptance_paths": [],
   "profile_evidence_path": null,
   "completion_seal_path": null,
   "completion_claim": { "done_claimed": false }
