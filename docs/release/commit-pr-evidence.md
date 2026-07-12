@@ -21,8 +21,8 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Текущий `origin/main` для stale-status validation: `40c4281916b1e64648b8b81b83cbd9739b22c4ba`
-- Дата проверки текущего `main`: `2026-07-12T19:15:01Z`
+- Текущий `origin/main` для stale-status validation: `0fd398698f9041e9e812f02609f9e6728e004518`
+- Дата проверки текущего `main`: `2026-07-12T19:44:50Z`
 
 ## Evidence по backlog-closure feature branch
 
@@ -54,6 +54,15 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 - PR CI status: `passed`
 - Проверенный набор: полный `npm test`, актуальность навигации, чистота generated-артефактов и `git diff --check`.
 
+## Evidence по исправлению проверки служебного указателя в каскаде
+
+- PR URL: `https://github.com/RussianLioN/datacanvas/pull/20`
+- Merge SHA: `0fd398698f9041e9e812f02609f9e6728e004518`
+- PR CI run URL: `https://github.com/RussianLioN/datacanvas/actions/runs/29206251150`
+- PR CI job URL: `https://github.com/RussianLioN/datacanvas/actions/runs/29206251150/job/86686087745`
+- PR CI status: `passed`
+- Исправлено различие между проверкой PR и проверкой временного дочернего коммита двунаправленного каскада.
+
 ## Pull Request Evidence
 
 - PR URL or identifier: `https://github.com/RussianLioN/datacanvas/pull/1`
@@ -65,13 +74,14 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 40c4281916b1e64648b8b81b83cbd9739b22c4ba
+git rev-parse origin/main for stale-status validation: 0fd398698f9041e9e812f02609f9e6728e004518
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 GitHub Actions docs-check PR #6 run: https://github.com/RussianLioN/datacanvas/actions/runs/28402608407
 GitHub Actions docs-check main run after PR #6 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28402695336
 GitHub Actions docs-check PR #7 run: https://github.com/RussianLioN/datacanvas/actions/runs/28542431317
 GitHub Actions docs-check main run after PR #7 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28542491610
 GitHub Actions docs-check PR #18 run: https://github.com/RussianLioN/datacanvas/actions/runs/29205172791
+GitHub Actions docs-check PR #20 run: https://github.com/RussianLioN/datacanvas/actions/runs/29206251150
 npm test: passed before merge on PR #1
 npm run validate:pilot-gate: passed
 npm run validate:process-portability: passed
