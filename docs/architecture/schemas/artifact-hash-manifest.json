@@ -3897,7 +3897,7 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "a2752fa69ba78cf280246bf7e67e62610b722dfe2470814ec2a4bedebcd4ef13"
+      "sha256": "b42ba4b002e87a52025d552b440f5afce3e5f63a8073c5e5404d529bc8445261"
     },
     {
       "artifact_id": "ART-781",

@@ -270,11 +270,12 @@ try {
   const finalizedRunPath = lifecycleFinalDir + "/cascade-vnext-run.json";
   exec("git", ["add", lifecycleFinalDir], worktree);
   exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: persist immutable cascade finalization package"], worktree);
+  const finalizationPackageCommitSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
   const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
   const finalizedRunOriginal = fs.readFileSync(finalizedRunAbsolute, "utf8");
   const finalizedRunTampered = JSON.parse(finalizedRunOriginal);
-  finalizedRunTampered.candidate_head_sha = lifecycleBaseSha;
+  finalizedRunTampered.candidate_head_sha = finalizationPackageCommitSha;
   fs.writeFileSync(finalizedRunAbsolute, JSON.stringify(finalizedRunTampered, null, 2) + "\n", "utf8");
   const tamperedProfileDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-tampered-profile";
   const tamperedProfileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
