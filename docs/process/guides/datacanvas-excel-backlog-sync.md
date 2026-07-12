@@ -73,24 +73,42 @@
 4. Не записывать no-change rationale, SHA-256, правила слияния, строки Excel, команды проверки или другие служебные сведения в бизнесовые Markdown-документы.
 5. Не использовать product source registry — реестр продуктовых источников — как место для полного no-change rationale: он хранит только стабильные зависимости, статусы источников и ссылки на проверочные команды.
 6. Не использовать dependency graph — граф зависимостей — как журнал конкретного запуска: он хранит устойчивые связи, а не решения по отдельному изменению.
-7. До переноса ПШЕ в sprint backlog или Jira import требуется подтверждение команды реализации; до изменения смысла истории, приоритета или границы продукта требуется подтверждение Product Owner.
+7. Любое изменение ПШЕ или другой оценки трудозатрат требует подтверждения команды реализации, связанного с проверяемым коммитом репозитория. До изменения смысла истории, приоритета или границы продукта дополнительно требуется подтверждение Product Owner. Плановый пакет, candidate-коммит, финализированный пакет и профильный пакет фиксируются раздельно, чтобы следующий этап мог проверить их неизменность.
 
 Для сухого запуска можно использовать команду:
 
 ```bash
-npm run cascade:run -- --change-request docs/process/cascading-governance/documentation-change-request.json --output-dir docs/process/cascading-governance/runs/<run-id> --source-id SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08
+npm run cascade:run -- \
+  --change-request docs/process/cascading-governance/documentation-change-request.json \
+  --base-sha <base-git-sha> \
+  --output-dir docs/process/cascading-governance/runs/<run-id> \
+  --source-id SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08
 ```
 
 После разрешения всех элементов конуса и выполнения правок сначала нужно создать новую закрытую версию impact analysis, не редактируя generated dry-run вручную:
 
 ```bash
-npm run cascade:finalize -- --run docs/process/cascading-governance/runs/<run-id>/cascading-update-run-<suffix>.json --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>
+npm run cascade:finalize -- \
+  --run docs/process/cascading-governance/runs/<run-id>/cascade-vnext-run.json \
+  --resolution-input <resolution-json> \
+  --candidate-head-sha <candidate-git-sha> \
+  --output-dir docs/process/cascading-governance/runs/<finalization-id>
 ```
 
 Затем нужно отдельно проверить завершение по baseline:
 
 ```bash
-npm run cascade:verify -- --run docs/process/cascading-governance/runs/<finalization-id>/cascading-update-run-resolved-<suffix>.json --output-dir docs/process/cascading-governance/runs/<verification-id>
+npm run cascade:verify -- \
+  --run docs/process/cascading-governance/runs/<finalization-id>/cascade-vnext-run.json \
+  --output-dir docs/process/cascading-governance/runs/<verification-id>
+```
+
+Профильная проверка еще не завершает процесс. Итоговая печать создается только после полного gate:
+
+```bash
+npm run cascade:complete -- \
+  --run docs/process/cascading-governance/runs/<verification-id>/cascade-vnext-run.json \
+  --output-dir docs/process/cascading-governance/runs/<completion-id>
 ```
 
 ## Проверка В Репозитории И Локальный Навык

@@ -64,6 +64,13 @@
       "allowed_write_roots": [
         "docs/process/cascading-governance/runs"
       ]
+    },
+    {
+      "generator_id": "documentation-cascade-completion",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
     }
   ],
   "blocked_patterns": [

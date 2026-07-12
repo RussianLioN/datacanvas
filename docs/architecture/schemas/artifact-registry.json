@@ -8299,6 +8299,390 @@
       "owner_role": "Process Owner / Product Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-749",
+      "path": ".nvmrc",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-750",
+      "path": "docs/process/cascading-governance/acceptance-authority.json",
+      "type": "process_contract",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-751",
+      "path": "docs/process/cascading-governance/supersession-ledger.json",
+      "type": "evidence",
+      "owner_role": "Process Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-752",
+      "path": "schemas/cascade-acceptance-authority.schema.json",
+      "type": "schema",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-753",
+      "path": "schemas/cascade-acceptance-vnext.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-754",
+      "path": "schemas/cascade-actual-diff-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-755",
+      "path": "schemas/cascade-completion-evidence.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-756",
+      "path": "schemas/cascade-completion-seal.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-757",
+      "path": "schemas/cascade-owner-question-packet.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-758",
+      "path": "schemas/cascade-profile-evidence.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-759",
+      "path": "schemas/cascade-resolution-report.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-760",
+      "path": "schemas/cascade-runtime-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-761",
+      "path": "schemas/cascade-semantic-impact-report.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-762",
+      "path": "schemas/cascade-source-change-analysis.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-763",
+      "path": "schemas/cascade-source-identity.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-764",
+      "path": "schemas/cascade-supersession-ledger.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-765",
+      "path": "schemas/cascade-validation-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-766",
+      "path": "schemas/cascade-vnext-run.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-767",
+      "path": "scripts/cascade-atomic-publisher.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-768",
+      "path": "scripts/cascade-completion-core.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-769",
+      "path": "scripts/cascade-owner-acceptance.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-770",
+      "path": "scripts/cascade-profile-verifier.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-771",
+      "path": "scripts/cascade-semantic-impact.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-772",
+      "path": "scripts/cascade-validation-manifest.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-773",
+      "path": "scripts/cascade-vnext-core.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-774",
+      "path": "scripts/cascade-vnext-runtime.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-775",
+      "path": "scripts/classify-datacanvas-xlsx-change.py",
+      "type": "validation",
+      "owner_role": "Product Owner / Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-776",
+      "path": "scripts/complete-cascade-vnext.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-777",
+      "path": "scripts/finalize-cascade-vnext.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-778",
+      "path": "scripts/run-cascade-vnext.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-779",
+      "path": "scripts/validate-cascade-trust.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-780",
+      "path": "scripts/validate-cascade-vnext-e2e.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-781",
+      "path": "scripts/validate-cascade-vnext.mjs",
+      "type": "validation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-782",
+      "path": "scripts/verify-cascade-profile-vnext.mjs",
+      "type": "automation",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-783",
+      "path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-784",
+      "path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-785",
+      "path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-786",
+      "path": "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-787",
+      "path": "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-788",
+      "path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-789",
+      "path": "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-790",
+      "path": "tests/fixtures/cascading-governance/vnext/run.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-791",
+      "path": "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-792",
+      "path": "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-793",
+      "path": "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-794",
+      "path": "tests/fixtures/cascading-governance/vnext/source-identity.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-795",
+      "path": "tests/fixtures/cascading-governance/vnext/supersession-ledger.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-796",
+      "path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+      "type": "test_fixture",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

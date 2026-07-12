@@ -345,7 +345,7 @@
     },
     {
       "id": "cascade-run",
-      "command": "npm run cascade:run -- --change-request <path> --output-dir docs/process/cascading-governance/runs/<run-id>",
+      "command": "npm run cascade:run -- --change-request <path> --base-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<run-id>",
       "gate": "generated",
       "execution_type": "mutating_generator",
       "mutates_files": true,
@@ -361,7 +361,7 @@
         "generated"
       ],
       "owner_role": "Process Owner / Documentation Owner",
-      "purpose": "Создает неизменяемый пакет сухого запуска: полный конус влияния, очередь решений, baseline с хэшами и человекочитаемый отчет; продуктовый смысл не меняет."
+      "purpose": "Создает атомарный vNext-пакет планирования по реальному Git-изменению: идентичность источника, семантическое влияние вверх и вниз, проверки, среду выполнения и пакет вопроса владельцам; продуктовый смысл не меняет."
     },
     {
       "id": "cascade-verification",
@@ -382,7 +382,7 @@
     },
     {
       "id": "cascade-finalize",
-      "command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
+      "command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --candidate-head-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
       "gate": "generated",
       "execution_type": "mutating_generator",
       "mutates_files": true,
@@ -399,7 +399,7 @@
         "generated"
       ],
       "owner_role": "Process Owner / Documentation Owner",
-      "purpose": "По явному машинному входу разрешений создает новую закрытую версию impact report, очереди решений и run record; исходный generated-пакет вручную не редактируется."
+      "purpose": "Проверяет полномочия владельцев, точное покрытие всех обязательств, ожидаемые хэши или согласованные патчи и создает отдельный финализированный vNext-пакет."
     },
     {
       "id": "cascade-verify",
@@ -419,7 +419,79 @@
         "generated"
       ],
       "owner_role": "Process Owner / QA Lead",
-      "purpose": "После разрешения каждого элемента конуса сравнивает хэши с baseline, проверяет закрытие решений, запускает зарегистрированные проверки и выпускает отдельное evidence завершения."
+      "purpose": "В отдельной рабочей копии candidate SHA запускает только зарегистрированные немутирующие профильные проверки и выпускает отдельное evidence; эта стадия еще не имеет права объявлять работу завершенной."
+    },
+    {
+      "id": "cascade-complete",
+      "command": "npm run cascade:complete -- --run <profile-verified-run-json> --output-dir docs/process/cascading-governance/runs/<completion-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence",
+        "generated"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "В отдельной рабочей копии candidate SHA проверяет среду, выполняет полный npm test и контроль чистого Git diff; только эта команда может выпустить статус verified и completion seal."
+    },
+    {
+      "id": "cascade-vnext",
+      "command": "npm run validate:cascade-vnext",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "process"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет переходы состояний, семантический обход вверх и вниз, повторяемость, полномочия, атомарную публикацию и запрет опасных команд."
+    },
+    {
+      "id": "cascade-vnext-e2e",
+      "command": "npm run validate:cascade-vnext-e2e",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "process"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "В одноразовой рабочей копии воспроизводит реальный запуск и повтор, а также отказ без Git-изменения и для незарегистрированного XLSX."
+    },
+    {
+      "id": "cascade-trust",
+      "command": "npm run validate:cascade-trust",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "evidence", "security"],
+      "owner_role": "Process Owner / Security Lead",
+      "purpose": "Проверяет реестр полномочий и выявленные исторические перезаписи каскадных evidence-файлов по Git и SHA-256."
+    },
+    {
+      "id": "xlsx-change-classifier",
+      "command": "npm run validate:xlsx-change-classifier",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "analysis_source", "xlsx_backlog", "security"],
+      "owner_role": "Process Owner / QA Lead / Security Lead",
+      "purpose": "Проверяет смысловую классификацию OOXML и блокирует опасные ZIP-пути, чрезмерное сжатие и XML-сущности."
     },
     {
       "id": "cascade-preview",
@@ -429,14 +501,15 @@
       "mutates_files": false,
       "writes_expected": [],
       "freshness_required": true,
-      "completion_blocking": true,
+      "completion_blocking": false,
+      "non_blocking_rationale": "Команда анализирует незакоммиченный или явно заданный диапазон до candidate-коммита. После фиксации кандидата её заменяет проверка сохраненного фактического Git diff в cascade:finalize и cascade:complete.",
       "applies_to": [
         "change_instance",
         "cascade",
         "impact_analysis"
       ],
       "owner_role": "Process Owner",
-      "purpose": "Строит read-only предпросмотр полного каскада по измененным файлам: измененные корни, влияние вверх и вниз, циклы, нужные генераторы, проверки и решения владельцев без записи evidence."
+      "purpose": "Строит предварительный read-only предпросмотр по незакоммиченному или заданному диапазону. Не входит в профиль зафиксированного candidate SHA, где HEAD уже не содержит незакоммиченного различия."
     },
     {
       "id": "docs-verify",
@@ -446,14 +519,15 @@
       "mutates_files": false,
       "writes_expected": [],
       "freshness_required": true,
-      "completion_blocking": true,
+      "completion_blocking": false,
+      "non_blocking_rationale": "Команда проверяет документационный diff до candidate-коммита. После фиксации кандидата покрытие путей проверяет actual-diff-manifest, а актуальность документов и generated outputs подтверждает полный npm test.",
       "applies_to": [
         "documentation_diff",
         "cascade",
         "generated"
       ],
       "owner_role": "Process Owner",
-      "purpose": "Проверяет, что измененные документы покрыты графом, инвентарем или навигацией, а generated outputs не правятся вручную."
+      "purpose": "Проверяет документационный diff до фиксации кандидата. Не входит в профиль candidate SHA; завершение отдельно сверяет сохраненный фактический Git diff и полный gate."
     },
     {
       "id": "agent-launch-requirements-analysis",

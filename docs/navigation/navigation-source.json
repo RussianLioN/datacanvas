@@ -3595,15 +3595,17 @@
       "label": "Проверить влияние изменения",
       "task": "Проанализировать влияние изменения на артефакты документации",
       "navigation_group": "governance",
-      "start_path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
+      "start_path": "docs/process/cascading-governance/README.md",
       "next_paths": [
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
         "docs/process/cascading-governance/artifact-dependency-graph.json",
-        "docs/process/universal-documentation-workflow/decision-queue.json",
-        "docs/process/universal-documentation-workflow/acceptance-records.json",
-        "docs/process/universal-documentation-workflow/run-ledger.json"
+        "docs/process/cascading-governance/acceptance-authority.json",
+        "docs/process/cascading-governance/supersession-ledger.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json"
       ],
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:workflow-state-ledger",
+      "validation_command": "npm run validate:cascade-vnext",
       "navigation_domain": "documentation_operations"
     },
     {

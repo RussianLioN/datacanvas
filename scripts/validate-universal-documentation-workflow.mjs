@@ -217,7 +217,7 @@ function commandLooksMutating(command) {
       if (/^npm run generate:/u.test(commandPart) && !/\s--\s.*--check\b/u.test(commandPart)) {
         return true;
       }
-      if (/^npm run cascade:(?:run|finalize|verify)(?:\s|$)/u.test(commandPart)) {
+      if (/^npm run cascade:(?:run|finalize|verify|complete)(?:\s|$)/u.test(commandPart)) {
         return true;
       }
       if (/^node scripts\/generate-[^ ]+\.mjs/u.test(commandPart) && !/\s--check\b/u.test(commandPart)) {
@@ -252,7 +252,7 @@ function validateCatalogCommandPolicy(catalog) {
     if (!command.freshness_required) {
       fail(`validation command must require fresh evidence before completion: ${command.id}`);
     }
-    if (!command.completion_blocking) {
+    if (!command.completion_blocking && !command.non_blocking_rationale) {
       fail(`validation command must be completion-blocking until explicitly downgraded: ${command.id}`);
     }
   }
@@ -469,7 +469,8 @@ function validateCore() {
     "npm run cascade:run",
     "npm run cascade:finalize",
     "npm run cascade:verify",
-    "Не редактировать generated impact report",
+    "npm run cascade:complete",
+    "Не редактировать пакеты запуска вручную",
     "полного конуса",
     "расшифровку каждого кодированного элемента",
     "текущий текст каждого элемента",
@@ -602,24 +603,32 @@ function validateDataCanvasProfile() {
     ["cascade-impact", "npm run validate:cascade-impact"],
     ["cascading-governance", "npm run validate:cascading-governance"],
     ["cascade-verification", "npm run validate:cascade-verification"],
+    ["cascade-vnext", "npm run validate:cascade-vnext"],
+    ["cascade-vnext-e2e", "npm run validate:cascade-vnext-e2e"],
+    ["cascade-trust", "npm run validate:cascade-trust"],
+    ["xlsx-change-classifier", "npm run validate:xlsx-change-classifier"],
   ]) {
     const catalogCommand = catalog.commands.find((command) => command.id === commandId);
     if (!catalogCommand || catalogCommand.command !== expectedCommand || catalogCommand.mutates_files) {
       fail(`DataCanvas validation catalog must include read-only ${commandId} gate`);
     }
   }
-  for (const commandId of ["cascade-run", "cascade-finalize", "cascade-verify"]) {
+  for (const commandId of ["cascade-run", "cascade-finalize", "cascade-verify", "cascade-complete"]) {
     const catalogCommand = catalog.commands.find((command) => command.id === commandId);
     if (!catalogCommand || catalogCommand.execution_type !== "mutating_generator" || !catalogCommand.mutates_files) {
       fail(`DataCanvas validation catalog must include controlled ${commandId} evidence generator`);
     }
   }
   const cascadePreviewCommand = catalog.commands.find((command) => command.id === "cascade-preview");
-  if (!cascadePreviewCommand || cascadePreviewCommand.command !== "npm run cascade:preview -- --changed-from HEAD") {
+  if (!cascadePreviewCommand
+    || cascadePreviewCommand.command !== "npm run cascade:preview -- --changed-from HEAD"
+    || cascadePreviewCommand.completion_blocking) {
     fail("DataCanvas validation catalog must include read-only cascade preview gate");
   }
   const docsVerifyCommand = catalog.commands.find((command) => command.id === "docs-verify");
-  if (!docsVerifyCommand || docsVerifyCommand.command !== "npm run docs:verify -- --changed-from HEAD") {
+  if (!docsVerifyCommand
+    || docsVerifyCommand.command !== "npm run docs:verify -- --changed-from HEAD"
+    || docsVerifyCommand.completion_blocking) {
     fail("DataCanvas validation catalog must include read-only documentation diff verification gate");
   }
   const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
@@ -897,6 +906,7 @@ function validateGeneratorContracts() {
     "documentation-cascade-run",
     "documentation-cascade-finalization",
     "documentation-cascade-verification",
+    "documentation-cascade-completion",
   ]) {
     const contract = contracts.contracts.find((candidate) => candidate.generator_id === generatorId);
     if (!contract) {
@@ -915,24 +925,23 @@ function validateGeneratorContracts() {
     (candidate) => candidate.generator_id === "documentation-cascade-finalization",
   );
   for (const requiredInput of [
-    "docs/architecture/schemas/artifact-registry.json",
-    "docs/process/universal-documentation-workflow/acceptance-records.json",
-    "schemas/acceptance-records.schema.json",
-    "schemas/artifact-registry.schema.json",
-    "scripts/cascade-acceptance-records.mjs",
-    "scripts/cascade-owner-decision-policy.mjs",
+    "docs/process/cascading-governance/acceptance-authority.json",
+    "schemas/cascade-acceptance-authority.schema.json",
+    "schemas/cascade-acceptance-vnext.schema.json",
+    "schemas/cascade-owner-question-packet.schema.json",
+    "scripts/cascade-owner-acceptance.mjs",
   ]) {
     if (!cascadeFinalizationContract.inputs.includes(requiredInput)) {
       fail(`documentation-cascade-finalization is missing trusted acceptance input: ${requiredInput}`);
     }
   }
   for (const requiredFailureMode of [
-    "untrusted_acceptance_record_path",
-    "invalid_acceptance_record_ledger",
-    "wrong_acceptance_record_type",
-    "selected_option_mismatch",
-    "mutable_acceptance_evidence",
-    "malformed_cascade_input",
+    "unbound_acceptance_record",
+    "acceptance_authority_mismatch",
+    "unauthorized_confirmation_channel",
+    "selected_option_does_not_authorize",
+    "replay_input_mismatch",
+    "unexpected_changed_path",
   ]) {
     if (!cascadeFinalizationContract.failure_modes.includes(requiredFailureMode)) {
       fail(`documentation-cascade-finalization is missing failure mode: ${requiredFailureMode}`);
@@ -945,6 +954,10 @@ function validateGeneratorContracts() {
   for (const requiredInput of [
     "schemas/documentation-change-request.schema.json",
     "schemas/artifact-dependency-graph.schema.json",
+    "schemas/cascade-vnext-run.schema.json",
+    "schemas/cascade-source-identity.schema.json",
+    "scripts/run-cascade-vnext.mjs",
+    "scripts/classify-datacanvas-xlsx-change.py",
   ]) {
     if (!cascadeRunContract.inputs.includes(requiredInput)) {
       fail(`documentation-cascade-run is missing runtime schema input: ${requiredInput}`);
@@ -955,20 +968,30 @@ function validateGeneratorContracts() {
     (candidate) => candidate.generator_id === "documentation-cascade-verification",
   );
   for (const requiredInput of [
-    "docs/architecture/schemas/artifact-registry.json",
-    "docs/process/universal-documentation-workflow/acceptance-records.json",
-    "schemas/acceptance-records.schema.json",
-    "schemas/artifact-registry.schema.json",
-    "schemas/cascading-update-run.schema.json",
-    "schemas/impact-analysis-report.schema.json",
-    "schemas/user-decision-queue.schema.json",
-    "schemas/cascade-resolution-input.schema.json",
-    "scripts/cascade-acceptance-records.mjs",
-    "scripts/cascade-validation-command-policy.mjs",
-    "scripts/cascade-owner-decision-policy.mjs",
+    "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+    "schemas/cascade-vnext-run.schema.json",
+    "schemas/cascade-profile-evidence.schema.json",
+    "schemas/cascade-validation-manifest.schema.json",
+    "scripts/verify-cascade-profile-vnext.mjs",
+    "scripts/cascade-profile-verifier.mjs",
   ]) {
     if (!cascadeVerificationContract.inputs.includes(requiredInput)) {
       fail(`documentation-cascade-verification is missing runtime verification input: ${requiredInput}`);
+    }
+  }
+
+  const cascadeCompletionContract = contracts.contracts.find(
+    (candidate) => candidate.generator_id === "documentation-cascade-completion",
+  );
+  for (const requiredInput of [
+    "schemas/cascade-vnext-run.schema.json",
+    "schemas/cascade-completion-evidence.schema.json",
+    "schemas/cascade-completion-seal.schema.json",
+    "scripts/complete-cascade-vnext.mjs",
+    "scripts/cascade-completion-core.mjs",
+  ]) {
+    if (!cascadeCompletionContract.inputs.includes(requiredInput)) {
+      fail(`documentation-cascade-completion is missing completion input: ${requiredInput}`);
     }
   }
 

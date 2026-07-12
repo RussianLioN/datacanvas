@@ -146,28 +146,26 @@
       "owner_role": "Process Owner / Documentation Owner",
       "inputs": [
         "docs/process/cascading-governance/artifact-dependency-graph.json",
-        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
-        "docs/process/universal-documentation-workflow/artifact-inventory.json",
-        "docs/process/universal-documentation-workflow/generator-contracts.json",
         "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/cascading-governance/acceptance-authority.json",
         "docs/product/sources/product-source-registry.json",
-        "docs/product/requirements/business-claim-map.json",
-        "scripts/run-cascading-update.mjs",
-        "scripts/finalize-documentation-cascade.mjs",
-        "scripts/documentation-impact-graph.mjs",
+        "scripts/run-cascade-vnext.mjs",
+        "scripts/cascade-vnext-core.mjs",
+        "scripts/cascade-vnext-runtime.mjs",
+        "scripts/cascade-semantic-impact.mjs",
+        "scripts/cascade-validation-manifest.mjs",
+        "scripts/cascade-atomic-publisher.mjs",
+        "scripts/classify-datacanvas-xlsx-change.py",
         "scripts/cascade-evidence-utils.mjs",
-        "scripts/cascade-acceptance-records.mjs",
-        "scripts/cascade-validation-command-policy.mjs",
-        "scripts/cascade-owner-decision-policy.mjs",
-        "schemas/cascade-impact-cone.schema.json",
-        "schemas/cascade-baseline-manifest.schema.json",
-        "schemas/cascade-resolution-input.schema.json",
-        "schemas/acceptance-records.schema.json",
-        "schemas/artifact-registry.schema.json",
-        "schemas/product-source-registry.schema.json",
         "schemas/documentation-change-request.schema.json",
-        "schemas/artifact-dependency-graph.schema.json"
+        "schemas/artifact-dependency-graph.schema.json",
+        "schemas/cascade-vnext-run.schema.json",
+        "schemas/cascade-source-identity.schema.json",
+        "schemas/cascade-source-change-analysis.schema.json",
+        "schemas/cascade-semantic-impact-report.schema.json",
+        "schemas/cascade-validation-manifest.schema.json",
+        "schemas/cascade-runtime-manifest.schema.json",
+        "schemas/cascade-owner-question-packet.schema.json"
       ],
       "outputs": [],
       "output_roots": [
@@ -178,26 +176,31 @@
       "allowed_write_roots": [
         "docs/process/cascading-governance/runs"
       ],
-      "generate_command": "npm run cascade:run -- --change-request <path> --output-dir docs/process/cascading-governance/runs/<run-id>",
-      "check_command": "npm run validate:cascading-update",
-      "deterministic_environment": "Node.js, текущее рабочее дерево, локальный git HEAD, без сети; запись только в новый каталог запуска",
+      "generate_command": "npm run cascade:run -- --change-request <path> --base-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<run-id>",
+      "check_command": "npm run validate:cascade-vnext",
+      "deterministic_environment": "Node.js 22.20.0, npm 11.8.0, Python 3, чистое рабочее дерево, неизменяемый Git-диапазон, без сети; запись только в новый каталог запуска",
       "dependencies": [
         "docs/process/cascading-governance/artifact-dependency-graph.json",
-        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/cascading-governance/acceptance-authority.json"
       ],
       "post_validators": [
-        "npm run validate:cascade-impact",
-        "npm run validate:cascading-governance",
-        "npm run validate:cascade-verification"
+        "npm run validate:cascade-vnext",
+        "npm run validate:cascade-trust",
+        "npm run validate:xlsx-change-classifier"
       ],
       "failure_modes": [
         "existing_run_directory",
         "uncovered_changed_source",
-        "undeclared_dependency_cycle",
+        "trigger_without_git_delta",
+        "unregistered_xlsx_source",
         "semantic_change_without_owner_decision",
-        "collapsed_cross_owner_decision",
-        "unsafe_validation_command",
+        "ambiguous_source_identity",
+        "mutating_profile_command",
+        "replay_input_mismatch",
+        "owner_question_packet_hash_mismatch",
         "symlink_output_escape",
+        "partial_package_publication",
         "write_outside_run_directory"
       ]
     },
@@ -205,31 +208,20 @@
       "generator_id": "documentation-cascade-finalization",
       "owner_role": "Process Owner / Documentation Owner",
       "inputs": [
-        "scripts/finalize-documentation-cascade.mjs",
-        "scripts/documentation-impact-graph.mjs",
+        "scripts/finalize-cascade-vnext.mjs",
+        "scripts/cascade-owner-acceptance.mjs",
+        "scripts/cascade-vnext-core.mjs",
+        "scripts/cascade-vnext-runtime.mjs",
+        "scripts/cascade-atomic-publisher.mjs",
         "scripts/cascade-evidence-utils.mjs",
-        "scripts/cascade-acceptance-records.mjs",
-        "scripts/cascade-validation-command-policy.mjs",
-        "scripts/cascade-owner-decision-policy.mjs",
-        "docs/architecture/schemas/artifact-registry.json",
-        "docs/process/universal-documentation-workflow/acceptance-records.json",
-        "docs/process/cascading-governance/artifact-dependency-graph.json",
-        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
-        "docs/process/universal-documentation-workflow/artifact-inventory.json",
-        "docs/process/universal-documentation-workflow/generator-contracts.json",
-        "docs/product/sources/product-source-registry.json",
-        "docs/product/requirements/business-claim-map.json",
+        "docs/process/cascading-governance/acceptance-authority.json",
+        "schemas/cascade-vnext-run.schema.json",
         "schemas/cascade-resolution-input.schema.json",
-        "schemas/acceptance-records.schema.json",
-        "schemas/artifact-registry.schema.json",
-        "schemas/artifact-dependency-graph.schema.json",
-        "schemas/cascade-baseline-manifest.schema.json",
-        "schemas/documentation-change-request.schema.json",
-        "schemas/xlsx-change-analysis.schema.json",
-        "schemas/product-source-registry.schema.json",
-        "schemas/impact-analysis-report.schema.json",
-        "schemas/user-decision-queue.schema.json",
-        "schemas/cascading-update-run.schema.json"
+        "schemas/cascade-resolution-report.schema.json",
+        "schemas/cascade-actual-diff-manifest.schema.json",
+        "schemas/cascade-acceptance-vnext.schema.json",
+        "schemas/cascade-acceptance-authority.schema.json",
+        "schemas/cascade-owner-question-packet.schema.json"
       ],
       "outputs": [],
       "output_roots": [
@@ -240,36 +232,33 @@
       "allowed_write_roots": [
         "docs/process/cascading-governance/runs"
       ],
-      "generate_command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
-      "check_command": "npm run validate:cascade-verification",
-      "deterministic_environment": "Node.js, неизменяемый dry-run, явный машинный вход разрешений и новый каталог результата, без сети",
+      "generate_command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --candidate-head-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
+      "check_command": "npm run validate:cascade-vnext",
+      "deterministic_environment": "Node.js 22.20.0, отдельный неизменяемый коммит планового пакета, чистый candidate HEAD, явные решения по каждому обязательству и новый каталог результата, без сети",
       "dependencies": [
-        "scripts/run-cascading-update.mjs",
-        "schemas/cascade-baseline-manifest.schema.json"
+        "scripts/run-cascade-vnext.mjs",
+        "docs/process/cascading-governance/acceptance-authority.json"
       ],
       "post_validators": [
-        "npm run validate:cascade-verification",
-        "npm run validate:cascading-governance"
+        "npm run validate:cascade-vnext",
+        "npm run validate:cascade-trust"
       ],
       "failure_modes": [
         "incomplete_impact_resolution_set",
-        "incomplete_decision_resolution_set",
-        "unlinked_acceptance_record",
-        "untrusted_acceptance_record_path",
-        "invalid_acceptance_record_ledger",
-        "wrong_acceptance_record_type",
-        "selected_option_mismatch",
-        "inactive_acceptance_ledger",
-        "reused_acceptance_record",
-        "owner_role_mismatch",
-        "missing_recalculated_owner_gate",
         "incomplete_changed_source_resolution",
-        "narrowed_impact_cone",
-        "narrowed_validation_plan",
-        "tampered_dry_run_evidence",
-        "mutable_acceptance_evidence",
-        "malformed_cascade_input",
-        "manual_generated_evidence_edit",
+        "unbound_acceptance_record",
+        "unverified_acceptance_confirmation_evidence",
+        "acceptance_authority_mismatch",
+        "unauthorized_confirmation_channel",
+        "selected_option_does_not_authorize",
+        "owner_role_mismatch",
+        "replay_input_mismatch",
+        "expected_hash_mismatch",
+        "approved_patch_digest_mismatch",
+        "planning_package_commit_scope_mismatch",
+        "planning_package_content_changed",
+        "actual_git_diff_mismatch",
+        "unexpected_changed_path",
         "write_outside_finalization_directory"
       ]
     },
@@ -278,34 +267,15 @@
       "owner_role": "Process Owner / QA Lead",
       "inputs": [
         "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-        "docs/architecture/schemas/artifact-registry.json",
-        "docs/process/universal-documentation-workflow/acceptance-records.json",
-        "scripts/verify-documentation-cascade.mjs",
-        "scripts/finalize-documentation-cascade.mjs",
-        "scripts/documentation-impact-graph.mjs",
-        "scripts/cascade-evidence-utils.mjs",
-        "scripts/cascade-acceptance-records.mjs",
-        "scripts/cascade-validation-command-policy.mjs",
-        "scripts/cascade-owner-decision-policy.mjs",
-        "docs/process/cascading-governance/artifact-dependency-graph.json",
-        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
-        "docs/process/universal-documentation-workflow/artifact-inventory.json",
-        "docs/process/universal-documentation-workflow/generator-contracts.json",
-        "docs/product/sources/product-source-registry.json",
-        "docs/product/requirements/business-claim-map.json",
-        "schemas/cascade-verification-evidence.schema.json",
-        "schemas/cascade-baseline-manifest.schema.json",
-        "schemas/acceptance-records.schema.json",
-        "schemas/artifact-registry.schema.json",
-        "schemas/validation-command-catalog.schema.json",
-        "schemas/artifact-dependency-graph.schema.json",
-        "schemas/documentation-change-request.schema.json",
-        "schemas/xlsx-change-analysis.schema.json",
-        "schemas/product-source-registry.schema.json",
-        "schemas/cascading-update-run.schema.json",
-        "schemas/impact-analysis-report.schema.json",
-        "schemas/user-decision-queue.schema.json",
-        "schemas/cascade-resolution-input.schema.json"
+        "scripts/verify-cascade-profile-vnext.mjs",
+        "scripts/cascade-profile-verifier.mjs",
+        "scripts/cascade-vnext-core.mjs",
+        "scripts/cascade-vnext-runtime.mjs",
+        "scripts/cascade-atomic-publisher.mjs",
+        "schemas/cascade-vnext-run.schema.json",
+        "schemas/cascade-profile-evidence.schema.json",
+        "schemas/cascade-validation-manifest.schema.json",
+        "schemas/cascade-runtime-manifest.schema.json"
       ],
       "outputs": [],
       "output_roots": [
@@ -317,30 +287,75 @@
         "docs/process/cascading-governance/runs"
       ],
       "generate_command": "npm run cascade:verify -- --run <run-json> --output-dir docs/process/cascading-governance/runs/<verification-id>",
-      "check_command": "npm run validate:cascade-verification",
-      "deterministic_environment": "Node.js, неизмененные управляющие входы baseline и локальные зарегистрированные проверки, без сети",
+      "check_command": "npm run validate:cascade-vnext",
+      "deterministic_environment": "Node.js 22.20.0, отдельные неизменяемые коммиты планового и финализированного пакетов, отдельная рабочая копия candidate SHA, сверка runtime manifest, изолированный npm ci --ignore-scripts по lockfile и только зарегистрированные немутирующие npm-проверки",
       "dependencies": [
-        "scripts/finalize-documentation-cascade.mjs",
-        "schemas/cascade-baseline-manifest.schema.json"
+        "scripts/finalize-cascade-vnext.mjs",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json"
       ],
       "post_validators": [
-        "npm run validate:cascade-verification",
-        "npm run validate:cascading-governance"
+        "npm run validate:cascade-vnext",
+        "npm run validate:cascade-trust"
       ],
       "failure_modes": [
-        "control_input_changed_after_baseline",
-        "baseline_evidence_changed_after_finalization",
-        "narrowed_impact_cone",
-        "narrowed_validation_plan",
-        "tampered_dry_run_evidence",
-        "missing_recalculated_owner_gate",
-        "unresolved_changed_source",
+        "replay_input_mismatch",
+        "runtime_manifest_mismatch",
+        "finalization_package_commit_scope_mismatch",
+        "actual_git_diff_mismatch",
+        "validation_catalog_mismatch",
+        "unknown_npm_script",
+        "mutating_profile_command",
         "unsafe_validation_command",
-        "symlink_output_escape",
-        "unresolved_impact_artifact",
-        "open_owner_decision",
         "failed_registered_validation",
         "write_outside_verification_directory"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-completion",
+      "owner_role": "Process Owner / QA Lead",
+      "inputs": [
+        "scripts/complete-cascade-vnext.mjs",
+        "scripts/cascade-completion-core.mjs",
+        "scripts/cascade-vnext-core.mjs",
+        "scripts/cascade-vnext-runtime.mjs",
+        "scripts/cascade-atomic-publisher.mjs",
+        "schemas/cascade-vnext-run.schema.json",
+        "schemas/cascade-completion-evidence.schema.json",
+        "schemas/cascade-completion-seal.schema.json",
+        "schemas/cascade-actual-diff-manifest.schema.json"
+      ],
+      "outputs": [],
+      "output_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "output_path_policy": "fresh_direct_child",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "generate_command": "npm run cascade:complete -- --run <profile-verified-run-json> --output-dir docs/process/cascading-governance/runs/<completion-id>",
+      "check_command": "npm run validate:cascade-vnext-e2e",
+      "deterministic_environment": "Node.js 22.20.0, npm 11.8.0, отдельные неизменяемые коммиты планового, финализированного и профильного пакетов, отдельная рабочая копия candidate SHA, npm ci --ignore-scripts, полный npm test, повторный расчет Git diff и чистый git status; сеть допускается только для установки зависимостей по lockfile",
+      "dependencies": [
+        "scripts/verify-cascade-profile-vnext.mjs",
+        "package-lock.json"
+      ],
+      "post_validators": [
+        "npm run validate:cascade-vnext",
+        "npm run validate:cascade-vnext-e2e",
+        "npm run validate:cascade-trust"
+      ],
+      "failure_modes": [
+        "profile_not_verified",
+        "replay_input_mismatch",
+        "runtime_manifest_mismatch",
+        "profile_package_commit_scope_mismatch",
+        "incomplete_profile_evidence",
+        "actual_git_diff_mismatch",
+        "completion_command_failed",
+        "candidate_worktree_changed_or_untracked",
+        "completion_seal_mismatch",
+        "write_outside_completion_directory"
       ]
     }
   ],
@@ -348,6 +363,7 @@
     "documentation-cascade-run",
     "documentation-cascade-finalization",
     "documentation-cascade-verification",
+    "documentation-cascade-completion",
     "docs-navigation",
     "datacanvas-bmc",
     "artifact-hash-manifest"
