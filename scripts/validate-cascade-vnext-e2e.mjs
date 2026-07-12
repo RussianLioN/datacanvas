@@ -276,7 +276,11 @@ try {
     "--run", finalizedRunPath,
     "--output-dir", lifecycleProfileDir,
   ]);
-  assert.equal(profileResult.status, 0, output(profileResult));
+  const profileEvidencePath = path.join(worktree, lifecycleProfileDir, "profile-evidence.json");
+  const profileDiagnostics = fs.existsSync(profileEvidencePath)
+    ? "\n" + fs.readFileSync(profileEvidencePath, "utf8")
+    : "";
+  assert.equal(profileResult.status, 0, output(profileResult) + profileDiagnostics);
   const profileRunPath = lifecycleProfileDir + "/cascade-vnext-run.json";
   const profileRun = JSON.parse(fs.readFileSync(path.join(worktree, profileRunPath), "utf8"));
   assert.equal(profileRun.state, "profile_verified");
