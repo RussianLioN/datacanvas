@@ -6,7 +6,7 @@
     {
       "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
       "original_commit_sha": "294c651450754f85fc3f80f1fae26b6e3b9401d8",
-      "last_modified_commit_sha": "1bdbe533e1d2691464a528528fb4fd8f402e29ba",
+      "last_modified_commit_sha": "cd93eeb023d1a90d727022c0c86a6350e22d25f9",
       "original_sha256": "4d033b22098a8d925f3750ad0ef43e4ac9dd88db65671a0073cc3f9d116cb621",
       "observed_sha256": "400d353e6e706dfd6d44e8c05825130eef656d299fc05b568652e12091f71548",
       "replacement_path": null,
@@ -16,7 +16,7 @@
     {
       "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
       "original_commit_sha": "2da9a24d4b3fa0d6d4cbb8a761797f2ba7f8559f",
-      "last_modified_commit_sha": "1bdbe533e1d2691464a528528fb4fd8f402e29ba",
+      "last_modified_commit_sha": "cd93eeb023d1a90d727022c0c86a6350e22d25f9",
       "original_sha256": "b8e38bf7c2a80e4ab88f7104b5cfe52832e8816900e82a954b33f078d87a9b03",
       "observed_sha256": "ba3bffd8268eb8d71cb51a413234efe862a6ce707e18f29dd309be50f2038233",
       "replacement_path": null,
@@ -26,7 +26,7 @@
     {
       "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
       "original_commit_sha": "2da9a24d4b3fa0d6d4cbb8a761797f2ba7f8559f",
-      "last_modified_commit_sha": "1bdbe533e1d2691464a528528fb4fd8f402e29ba",
+      "last_modified_commit_sha": "cd93eeb023d1a90d727022c0c86a6350e22d25f9",
       "original_sha256": "1b75d289bf3f7db13601865e3098bb721f0bac6a37b9a7b5c559ff01f1610059",
       "observed_sha256": "cb80e0391537476dd7fc531d98419bda87f2686227d8f491b4bbada10059a3f4",
       "replacement_path": null,
