@@ -907,6 +907,7 @@ function validateGeneratorContracts() {
     "docs/product/sources/product-source-registry.json",
     "schemas/bmc-trace.schema.json",
     "scripts/generate-bmc-artifacts.mjs",
+    "scripts/lib/bmc-visual-layout.mjs",
   ]) {
     if (!bmcContract.inputs.includes(requiredInput)) {
       fail(`datacanvas-bmc generator contract is missing input: ${requiredInput}`);
@@ -926,6 +927,17 @@ function validateGeneratorContracts() {
   }
   if (bmcContract.inputs.includes("docs/product/bmc/bmc-v0.2.md")) {
     fail("datacanvas-bmc generator contract must not treat generated Markdown as source input");
+  }
+  for (const requiredFailureMode of [
+    "svg_text_outside_frame",
+    "visual_frame_overlap",
+    "uneven_visual_grid",
+    "plantuml_label_overflow",
+    "historical_visual_evidence_claimed_current",
+  ]) {
+    if (!bmcContract.failure_modes.includes(requiredFailureMode)) {
+      fail(`datacanvas-bmc generator contract is missing visual failure mode: ${requiredFailureMode}`);
+    }
   }
 
   for (const generatorId of [

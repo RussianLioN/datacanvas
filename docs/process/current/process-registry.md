@@ -24,6 +24,7 @@
 | Process change drafts | Draft `PROC-*` не меняют активный процесс до решения Process Owner | `process-change-ledger.json` |
 | Documentation methodology | Проектная документация ведется по lifecycle и traceability policy из методики BABOK-исследования; backlog не подменяет анализ | `docs/process/methodology/project-documentation-methodology.md` |
 | PO-опросник | Product Change Order опросник сохраняет JSON-состояние и Markdown-журнал после каждого ответа и возобновляется с вопроса, записанного в state | `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md` |
+| Визуальные производные артефакты | SVG, PNG, PDF и PlantUML проходят проверку границ текста, пересечений, равномерности сетки, границ холста и свежести переносимых рендеров | `docs/process/change-requests/PROC-063-derived-visual-layout-gate.md` |
 
 ## Активные Исключения
 
@@ -36,6 +37,7 @@
 | PROC-038 | Каскадное ведение документации, `DocumentationChangeRequest`, impact analysis, decision queue, capacity/Jira guards и validation evidence | draft / not_decided | `docs/process/change-requests/PROC-038-cascading-documentation-governance.md` |
 | PROC-039 | Методика разработки проектной документации на основе BABOK-исследования, lifecycle policy, artifact policy, traceability policy и quality gates | active | `docs/process/methodology/project-documentation-methodology.md` |
 | PROC-046 | Сохраняемое состояние PO-опросника Product Change Order, журнал и лёгкая проверка возобновления | active | `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md` |
+| PROC-063 | Блокирующая проверка компоновки визуальных производных артефактов и свежести переносимых рендеров | active | `docs/process/change-requests/PROC-063-derived-visual-layout-gate.md` |
 
 ## Активные Эксперименты
 

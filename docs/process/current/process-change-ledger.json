@@ -211,6 +211,39 @@
       ],
       "migration_notes": "Старый raw XLSX и загрязнённая история не переносятся в новый кандидат. Vision, BMC, пользовательские истории, требования, backlog, roadmap, приоритеты и ПШЕ DataCanvas не меняются.",
       "rollback": "До merge закрыть чистый PR; после merge выполнить revert отдельным PR. Не возвращать загрязнённую ветку и не ослаблять XLSX, leakage, history или exact-SHA проверки."
+    },
+    {
+      "process_change_id": "PROC-063",
+      "title": "Сделать проверку компоновки визуальных производных артефактов блокирующей",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/knowledge/rca/2026-07-12-bmc-visual-layout-validation-gap.md",
+      "pcr_path": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "changelog_anchor": "PROC-063",
+      "affected_artifacts": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/current/definition-of-done.md",
+        "docs/process/current/process-registry.md",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/lib/bmc-visual-layout.mjs",
+        "scripts/validate-bmc-visual.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "tests/bmc-visual-layout.test.mjs",
+        "package.json"
+      ],
+      "validation_commands": [
+        "npm run validate:bmc",
+        "npm run validate:universal-documentation-workflow",
+        "npm run validate:process-change-ledger",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm test"
+      ],
+      "migration_notes": "Текущий BMC-пакет перегенерирован. Старые browser/PDF raster snapshots остаются историческим evidence своего спринта и исключены из актуального BMC manifest.",
+      "rollback": "До merge удалить PROC-063 и откатить визуальный валидатор одним коммитом. После merge выполнить revert отдельным PR, не возвращая старые снимки в актуальный acceptance manifest и не ослабляя свежую проверку PNG/PDF."
     }
   ],
   "known_limitations": [

@@ -105,7 +105,8 @@
         "docs/product/requirements/user-stories.md",
         "docs/product/sources/product-source-registry.json",
         "schemas/bmc-trace.schema.json",
-        "scripts/generate-bmc-artifacts.mjs"
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/lib/bmc-visual-layout.mjs"
       ],
       "outputs": [
         "docs/product/bmc/bmc-v0.2.md",
@@ -150,7 +151,8 @@
         "docs/product/requirements/user-stories.md",
         "docs/product/sources/product-source-registry.json",
         "schemas/bmc-trace.schema.json",
-        "scripts/generate-bmc-artifacts.mjs"
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/lib/bmc-visual-layout.mjs"
       ],
       "post_validators": [
         "npm run generate:bmc -- --check",
@@ -169,7 +171,12 @@
         "manual_derived_artifact_edit",
         "unexpected_bmc_generated_write",
         "public_bmc_technical_noise",
-        "public_product_vision_technical_noise"
+        "public_product_vision_technical_noise",
+        "svg_text_outside_frame",
+        "visual_frame_overlap",
+        "uneven_visual_grid",
+        "plantuml_label_overflow",
+        "historical_visual_evidence_claimed_current"
       ]
     },
     {

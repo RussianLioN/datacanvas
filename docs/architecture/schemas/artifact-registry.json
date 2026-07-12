@@ -8895,6 +8895,38 @@
       "owner_role": "QA/Evals Lead",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-813",
+      "path": "docs/knowledge/rca/2026-07-12-bmc-visual-layout-validation-gap.md",
+      "type": "rca",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Выводы RCA или предотвращающие действия по визуальным производным артефактам меняются."
+    },
+    {
+      "id": "ART-814",
+      "path": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "type": "process-change-request",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/current/process-change-ledger.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Контракт блокирующей проверки визуальной компоновки меняется."
     }
   ]
 }

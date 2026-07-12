@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "af625bc6a0816d2b4f694881f841728f4b19150c1a7c0d6dc40eabe41cf87210"
+      "sha256": "72f8fe791e62a5947c2f57ea6bf83d60878ac4c258519c43e4bc3567f0675b44"
     },
     {
       "artifact_id": "ART-188",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "3b4ff920e7baec28f74def5a577c018a0a72fb8a3f550684764baee16a6b85fa"
+      "sha256": "1131a8173aaa10a01a106bd89e7ccff71499f5a1e638e8c49e0c6659eb043995"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "ce99c9123f352e44f6a0a9d119e2ae32223b7169d951cef14934f558a0cd070b"
+      "sha256": "8ba0c9cc0d8a7141e5615d98f2c9ab7efad6fa09661598c7c985e6b83330d5f9"
     },
     {
       "artifact_id": "ART-201",
@@ -1977,7 +1977,7 @@
     {
       "artifact_id": "ART-396",
       "path": "AGENTS.md",
-      "sha256": "0225b14a8f529f053561a64efddffb55ac1ee87f3bfd57546e5ae4103fd426be"
+      "sha256": "40e311cc61aad2384b011e68a26698606570694801665822bc63d654b8dbaee4"
     },
     {
       "artifact_id": "ART-397",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "99c48d984ff0af0aded4e8b94788d63de44c685c2d8d65138ddd81227b9110e2"
+      "sha256": "ee92881800811239c8f59595762e1c2d01ac95db668632f543e740cb143bdb92"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "7fc65e8126deea4034a047d173ab6e24bcc21d701dba7bc581f8655d4e410ed4"
+      "sha256": "7ea0a833f7145f49dcc1f47c4fccca7917353540e46d2eaa1e6b4205e1015994"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "36c232e9f2690600bd3e6c8e8c1857294a041ec8cb874b7007fb8d145ef08786"
+      "sha256": "1563f4efce40c7c06a2f78d22139db8c3f9aba4ef5adfcc90ac99e78016fc934"
     },
     {
       "artifact_id": "ART-413",
@@ -3217,12 +3217,12 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "68e7dd8a030b25f3ca2177f2d1412c2cdf0f07fb9a2dcf49de609f0c76d2bb6c"
+      "sha256": "f8ab2958a8da9df8707f5d8290e53fce00b7d82db78971312c89c21375b06ab1"
     },
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "935106fd1438922c62271c721d8a0d344a62cf8bd0cfcd09e0b700acd4407cb7"
+      "sha256": "daf7486b235518c42cc5371206cb591cadfb6414861c8fd9fcc02eb49548f888"
     },
     {
       "artifact_id": "ART-645",
@@ -3247,7 +3247,7 @@
     {
       "artifact_id": "ART-649",
       "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
-      "sha256": "d60f42d12c479871a094f8ab2d1bb6b77353cb70cf6d66aae3025bef78beb6fb"
+      "sha256": "5c213682c979ea4afcf9d77d58eeb4e15ff97bdfa68d502573948ece4cc257d9"
     },
     {
       "artifact_id": "ART-650",
@@ -3387,7 +3387,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "ba3e6f25ac739a54f1be3326ddee6d764c961a6c1eba6b9ba894dbb7ab2be438"
+      "sha256": "6badc4d515290f859ab832456f80d1abc36813e8c9ee2ec2f91a3396bdbdc823"
     },
     {
       "artifact_id": "ART-678",
@@ -4058,6 +4058,16 @@
       "artifact_id": "ART-812",
       "path": "tests/bmc-visual-layout.test.mjs",
       "sha256": "8323851cb27a89f0a138e3781545828656fe7ebc141506ab2ee51ad2e356e316"
+    },
+    {
+      "artifact_id": "ART-813",
+      "path": "docs/knowledge/rca/2026-07-12-bmc-visual-layout-validation-gap.md",
+      "sha256": "d475d930468e19cdc0bee43851ce983ee4842e85b641af034010a686f65177b5"
+    },
+    {
+      "artifact_id": "ART-814",
+      "path": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "sha256": "4ffc0d5e1bb38c5546305d32d60f968b5df8120247ba1e397170de885aeb3ace"
     }
   ],
   "exclusions": [

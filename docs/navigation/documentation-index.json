@@ -3641,6 +3641,45 @@
       "click_depth": 4
     },
     {
+      "path": "docs/knowledge/rca/2026-07-12-bmc-visual-layout-validation-gap.md",
+      "title": "RCA: Разрыв Проверки Компоновки Визуального BMC",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": "ART-813",
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "rca-разрыв-проверки-компоновки-визуального-bmc",
+        "ошибка",
+        "влияние",
+        "5-почему",
+        "корневая-причина",
+        "исправление",
+        "проверка-результата",
+        "предотвращение",
+        "ограничение"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -3661,7 +3700,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
-        "docs/knowledge/rca/2026-07-09-stories-section-contract-gap.md"
+        "docs/knowledge/rca/2026-07-09-stories-section-contract-gap.md",
+        "docs/knowledge/rca/2026-07-12-bmc-visual-layout-validation-gap.md"
       ],
       "anchors": [
         "rca",
@@ -5531,6 +5571,38 @@
       "click_depth": null
     },
     {
+      "path": "docs/process/change-requests/PROC-063-derived-visual-layout-gate.md",
+      "title": "PROC-063 — Блокирующая Проверка Компоновки Визуальных Артефактов",
+      "section": "process",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Process Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/process/current/process-change-ledger.json",
+      "generated_from": [],
+      "parent_readme": "docs/process/README.md",
+      "artifact_registry_id": "ART-814",
+      "outgoing_links": [],
+      "anchors": [
+        "proc-063-блокирующая-проверка-компоновки-визуальных-артефактов",
+        "причина",
+        "принятое-правило",
+        "область-изменения",
+        "миграция",
+        "проверка",
+        "откат"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/process/change-requests/process-change-request-template.md",
       "title": "Шаблон Process Change Request",
       "section": "process",
@@ -5737,7 +5809,11 @@
         "proc-062-безопасный-xlsx-источник-и-чистая-история-git",
         "изменение-7",
         "миграция-7",
-        "rollback-7"
+        "rollback-7",
+        "proc-063-блокирующая-проверка-компоновки-визуальных-артефактов",
+        "изменение-8",
+        "миграция-8",
+        "rollback-8"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -7402,6 +7478,7 @@
         "кто-за-что-отвечает",
         "что-позволяет-рабочий-процесс",
         "чистота-бизнес-артефактов",
+        "качество-визуальных-производных-артефактов",
         "состав",
         "как-найти-через-навигацию",
         "типовые-сценарии-использования",
@@ -9207,7 +9284,7 @@
     },
     {
       "path": "docs/product/bmc/evidence/visual-review.md",
-      "title": "BMC Visual Review",
+      "title": "Проверка визуального BMC",
       "section": "bmc",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -9226,7 +9303,7 @@
       "artifact_registry_id": "ART-384",
       "outgoing_links": [],
       "anchors": [
-        "bmc-visual-review"
+        "проверка-визуального-bmc"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -34928,14 +35005,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1215,
-    "manual_entries": 1211,
+    "total_entries": 1217,
+    "manual_entries": 1213,
     "generated_entries": 4,
     "public_navigable_entries": 36,
-    "searchable_entries": 1181,
+    "searchable_entries": 1183,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 170,
+    "reachable_from_root": 171,
     "orphan_entries": 0
   },
   "ignored_paths": [
