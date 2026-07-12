@@ -140,7 +140,7 @@ Evidence — доказательства, индекс доказательст
 | `current_process_version` | `0.1.0` |
 | `current_accepted_bmc` | `docs/product/bmc/bmc-v0.2.md` |
 | `current_uat_state` | `accepted_real_uat` |
-| `current_main_commit` | `40c4281916b1e64648b8b81b83cbd9739b22c4ba` |
+| `current_main_commit` | `0fd398698f9041e9e812f02609f9e6728e004518` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
 ## Evidence и registry

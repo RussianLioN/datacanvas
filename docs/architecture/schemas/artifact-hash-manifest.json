@@ -1642,7 +1642,7 @@
     {
       "artifact_id": "ART-329",
       "path": "docs/release/commit-pr-evidence.md",
-      "sha256": "28491945dee76e5a8fd6220992a4d4ebb2595d96315b330cfb0e544ba7234d16"
+      "sha256": "52dc2ce0df38138e03552bc6af23507997d873a1ed8292ab04bac61a3d0cb894"
     },
     {
       "artifact_id": "ART-330",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "5018b6a705085e980f49d28ff532d076ad38d22e4f27b0d219729a0f367fef73"
+      "sha256": "b6bb5788c57e87003c7bfc03227e9d5bb71fd5cef029d4d97811c1710cfafbca"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "58c2bd858dd7cdc6bad4416474cccaa0d0c6f2a7f025da206180ff84a2773511"
+      "sha256": "d2f6c6cf713ffc5cb9e6de07b9fa964b5894998332d1a99bb7523bd47b8e4198"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "45a042b642ddea933f296cde9f61b40cf64b9c540757a7e744e3b86d23059190"
+      "sha256": "2e45cc95e17d912268648b02f41da080d2c5c891b0f624f9101365c0a318fbc0"
     },
     {
       "artifact_id": "ART-412",
