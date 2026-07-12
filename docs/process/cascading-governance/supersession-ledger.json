@@ -1,0 +1,47 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-supersession-ledger.schema.json",
+  "version": "1.0.0",
+  "ledger_id": "CSL-DATACANVAS-LEGACY-RUNS-001",
+  "entries": [
+    {
+      "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+      "original_commit_sha": "294c651450754f85fc3f80f1fae26b6e3b9401d8",
+      "last_modified_commit_sha": "728efbb76edaa89c75b67b6266159578c9aa76cf",
+      "original_sha256": "4d033b22098a8d925f3750ad0ef43e4ac9dd88db65671a0073cc3f9d116cb621",
+      "observed_sha256": "400d353e6e706dfd6d44e8c05825130eef656d299fc05b568652e12091f71548",
+      "replacement_path": null,
+      "reason": "Исторический файл изменялся после первоначальной публикации; доверенный vNext replacement еще не назначен.",
+      "owner_status": "pending"
+    },
+    {
+      "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json",
+      "original_commit_sha": "2da9a24d4b3fa0d6d4cbb8a761797f2ba7f8559f",
+      "last_modified_commit_sha": "728efbb76edaa89c75b67b6266159578c9aa76cf",
+      "original_sha256": "b8e38bf7c2a80e4ab88f7104b5cfe52832e8816900e82a954b33f078d87a9b03",
+      "observed_sha256": "ba3bffd8268eb8d71cb51a413234efe862a6ce707e18f29dd309be50f2038233",
+      "replacement_path": null,
+      "reason": "Исторический файл изменялся после первоначальной публикации; доверенный vNext replacement еще не назначен.",
+      "owner_status": "pending"
+    },
+    {
+      "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+      "original_commit_sha": "2da9a24d4b3fa0d6d4cbb8a761797f2ba7f8559f",
+      "last_modified_commit_sha": "728efbb76edaa89c75b67b6266159578c9aa76cf",
+      "original_sha256": "1b75d289bf3f7db13601865e3098bb721f0bac6a37b9a7b5c559ff01f1610059",
+      "observed_sha256": "cb80e0391537476dd7fc531d98419bda87f2686227d8f491b4bbada10059a3f4",
+      "replacement_path": null,
+      "reason": "Исторический файл изменялся после первоначальной публикации; доверенный vNext replacement еще не назначен.",
+      "owner_status": "pending"
+    },
+    {
+      "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/user-decision-queue-2026-07-02-002.json",
+      "original_commit_sha": "2da9a24d4b3fa0d6d4cbb8a761797f2ba7f8559f",
+      "last_modified_commit_sha": "8ccf8a99fbf6364eb5e65a70c3a5662d74655a0a",
+      "original_sha256": "273f20cdf03f4afbfb5b0d3e6dde454726a0d2b813e8304718ab815e73e4f41c",
+      "observed_sha256": "4341f8e123a796c1856f3df7c9cba427af3d71326883aca1937b18bb2ddfb090",
+      "replacement_path": null,
+      "reason": "Исторический файл изменялся после первоначальной публикации; доверенный vNext replacement еще не назначен.",
+      "owner_status": "pending"
+    }
+  ]
+}

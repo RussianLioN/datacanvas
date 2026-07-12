@@ -61,17 +61,48 @@ const expectedBlocks = ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"];
 const blockIds = new Set(trace.blocks.map((block) => block.id));
 const itemIds = new Set(trace.items.map((item) => item.item_id));
 const sourceIds = new Set(sourceLock.sources.map((source) => source.id));
+const itemById = new Map(trace.items.map((item) => [item.item_id, item]));
+const itemsByBlock = new Map(trace.items.map((item) => [item.block, item]));
+
+if (trace.blocks.length !== expectedBlocks.length) {
+  fail(`BMC trace must contain exactly ${expectedBlocks.length} blocks`);
+}
+if (trace.items.length !== expectedBlocks.length) {
+  fail(`BMC trace must contain exactly ${expectedBlocks.length} public items`);
+}
+
+for (const collection of [
+  ["block", trace.blocks.map((block) => block.id)],
+  ["item", trace.items.map((item) => item.item_id)],
+  ["claim", trace.claims.map((claim) => claim.claim_id)],
+]) {
+  const [label, values] = collection;
+  if (new Set(values).size !== values.length) {
+    fail(`BMC trace contains duplicate ${label} identifiers`);
+  }
+}
 
 for (const block of expectedBlocks) {
   if (!blockIds.has(block)) {
     fail(`BMC trace is missing block: ${block}`);
   }
-  if (!trace.items.some((item) => item.block === block)) {
+  if (!itemsByBlock.has(block)) {
     fail(`BMC trace is missing item for block: ${block}`);
   }
 }
 
+const b5 = trace.blocks.find((block) => block.id === "B5");
+if (b5.title !== "Revenue Streams / Internal Value Streams" || b5.public_title !== "Потоки внутренней пользы") {
+  fail("BMC trace must use the canonical B5 naming");
+}
+
 for (const item of trace.items) {
+  if (!Array.isArray(item.bullets) || item.bullets.length < 2) {
+    fail(`BMC item has no public bullets: ${item.item_id}`);
+  }
+  if (!Array.isArray(item.detail) || item.detail.length < 2) {
+    fail(`BMC item has no public detail: ${item.item_id}`);
+  }
   for (const sourceRef of item.source_refs) {
     if (!sourceIds.has(sourceRef)) {
       fail(`BMC item references unknown source ref ${sourceRef}: ${item.item_id}`);
@@ -83,8 +114,21 @@ for (const item of trace.items) {
 }
 
 for (const claim of trace.claims) {
-  if (!itemIds.has(claim.item_id)) {
+  const item = itemById.get(claim.item_id);
+  if (!item) {
     fail(`claim references unknown item: ${claim.claim_id}`);
+  }
+  if (claim.claim_id !== claim.item_id) {
+    fail(`BMC claim_id must match item_id: ${claim.claim_id}`);
+  }
+  if (claim.validation_state !== item.status) {
+    fail(`BMC claim validation_state must match item status: ${claim.claim_id}`);
+  }
+  if (JSON.stringify(claim.source_refs) !== JSON.stringify(item.source_refs)) {
+    fail(`BMC claim source_refs must match item source_refs: ${claim.claim_id}`);
+  }
+  if (claim.public_inclusion_policy !== "include_clean_statement_only") {
+    fail(`BMC public inclusion policy must keep only clean public statements: ${claim.claim_id}`);
   }
 }
 

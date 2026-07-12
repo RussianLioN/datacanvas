@@ -20,6 +20,7 @@
     "decision_types",
     "story_to_requirement_decision_matrix",
     "no_change_rationale_fields",
+    "owner_interview_policy",
     "gates",
     "completion_criteria"
   ],
@@ -110,6 +111,28 @@
     "decision_types": { "type": "array", "minItems": 3, "items": { "type": "string", "minLength": 1 } },
     "story_to_requirement_decision_matrix": { "type": "array", "minItems": 7, "items": { "type": "string", "minLength": 1 } },
     "no_change_rationale_fields": { "type": "array", "minItems": 8, "items": { "type": "string", "minLength": 1 } },
+    "owner_interview_policy": {
+      "type": "object",
+      "required": [
+        "default_mode",
+        "description",
+        "applies_to",
+        "rules",
+        "allowed_during_interview",
+        "deferred_operations",
+        "exceptions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "default_mode": { "type": "string", "const": "interview_first_deferred_mutation" },
+        "description": { "type": "string", "minLength": 1 },
+        "applies_to": { "type": "array", "minItems": 4, "items": { "type": "string", "minLength": 1 } },
+        "rules": { "type": "array", "minItems": 3, "items": { "type": "string", "minLength": 1 } },
+        "allowed_during_interview": { "type": "array", "minItems": 3, "items": { "type": "string", "minLength": 1 } },
+        "deferred_operations": { "type": "array", "minItems": 4, "items": { "type": "string", "minLength": 1 } },
+        "exceptions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
     "gates": {
       "type": "array",
       "minItems": 5,

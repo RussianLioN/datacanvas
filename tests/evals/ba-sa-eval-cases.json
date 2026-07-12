@@ -8,7 +8,7 @@
       "category": "regression",
       "status": "draft",
       "required": true,
-      "requirement_id": "BT-005-DELTA",
+      "requirement_id": "BT-016",
       "fixture_id": "BASA-FIX-001",
       "executable_evidence": ["npm run validate:spec-task-prompt-readiness"],
       "expected": "FeatureSpec references only confirmed claim IDs."
@@ -20,7 +20,7 @@
       "category": "negative",
       "status": "draft",
       "required": true,
-      "requirement_id": "BT-006-DELTA",
+      "requirement_id": "BT-017",
       "fixture_id": "BASA-FIX-002",
       "executable_evidence": ["npm run validate:ba-sa-interview"],
       "expected": "Lifecycle moves to clarification and no export is created."

@@ -1,48 +1,536 @@
 {
   "$schema": "../../../schemas/run-ledger.schema.json",
   "version": "0.1.0",
-  "status": "completed",
-  "run_id": "UDW-RUN-2026-07-05-001",
+  "status": "active",
+  "run_id": "UDW-RUN-2026-07-05-003",
   "mode": "implementation",
-  "input_request": "Реализовать план из docs/plans/universal-documentation-workflow-implementation-plan.md в отдельной worktree.",
+  "input_request": "Реализовать план полного аудита проектной документации DataCanvas на согласованность с обновленным Vision, stories, CO-2026-001, BMC, backlog, roadmap, traceability и подготовить Confluence import map и кандидатный план ближайших 3-4 спринтов.",
   "scope": {
-    "domain": "documentation_operations",
+    "domain": "product",
     "product_profile_id": "product-profile-datacanvas",
     "semantic_product_change": false
   },
   "initial_hashes": [
     {
-      "path": "docs/plans/universal-documentation-workflow-implementation-plan.md",
-      "hash_source": "artifact_hash_manifest_or_git"
+      "path": "docs/product-vision.md",
+      "hash_source": "git"
+    },
+    {
+      "path": "docs/stories.md",
+      "hash_source": "git"
+    },
+    {
+      "path": "docs/product/sources/product-source-registry.json",
+      "hash_source": "git"
     }
   ],
   "found_sources": [
-    "docs/plans/universal-documentation-workflow-implementation-plan.md",
     "AGENTS.md",
     "README.md",
     "docs/README.md",
-    "docs/navigation/navigation-source.json",
-    "docs/architecture/schemas/artifact-registry.json",
-    "package.json"
+    "docs/process/README.md",
+    "docs/process/universal-documentation-workflow/README.md",
+    "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+    "docs/process/universal-documentation-workflow/workflow-state.json",
+    "docs/process/universal-documentation-workflow/run-ledger.json",
+    "docs/process/universal-documentation-workflow/event-log.json",
+    "docs/process/universal-documentation-workflow/decision-queue.json",
+    "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+    "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+    "docs/process/universal-documentation-workflow/artifact-inventory.json",
+    "docs/process/universal-documentation-workflow/generator-contracts.json",
+    "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+    "docs/product/sources/product-source-registry.json",
+    "docs/product-vision.md",
+    "docs/stories.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/roadmap/roadmap-v0.1.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+    "docs/process/guides/datacanvas-excel-backlog-sync.md",
+    "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+    "scripts/validate-datacanvas-xlsx-backlog.py",
+    "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+    "schemas/xlsx-backlog-provenance.schema.json",
+    "schemas/xlsx-opml-jira-recovery-index.schema.json",
+    "schemas/documentation-product-profile.schema.json"
   ],
   "decisions": [
-    "UDW-DEC-001"
+    "UDW-DEC-003",
+    "UDW-DEC-004",
+    "UDW-DEC-005",
+    "UDW-DEC-006",
+    "UDW-DEC-007",
+    "UDW-DEC-008",
+    "UDW-DEC-009",
+    "UDW-DEC-010",
+    "UDW-DEC-011",
+    "UDW-DEC-012",
+    "UDW-DEC-013",
+    "UDW-DEC-014",
+    "UDW-DEC-015",
+    "UDW-DEC-016",
+    "UDW-DEC-017",
+    "UDW-DEC-018"
   ],
   "applied_changes": [
     {
-      "change_id": "UDW-CHG-001",
-      "change_type": "manual_source_edit",
+      "change_id": "UDW-CHG-003",
+      "change_type": "documentation_consistency_audit_package",
+      "paths": [
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/validation-evidence.md"
+      ],
+      "requires_acceptance_record": "UDW-ACC-007"
+    },
+    {
+      "change_id": "UDW-CHG-004",
+      "change_type": "documentation_navigation_and_registry_registration",
+      "paths": [
+        "docs/product/analysis/README.md",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-007"
+    },
+    {
+      "change_id": "UDW-CHG-005",
+      "change_type": "workflow_service_state_update",
+      "paths": [
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-007"
+    },
+    {
+      "change_id": "UDW-CHG-006",
+      "change_type": "formalized_user_stories_alignment",
+      "paths": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-008"
+    },
+    {
+      "change_id": "UDW-CHG-007",
+      "change_type": "workflow_user_communication_policy",
       "paths": [
         "docs/process/universal-documentation-workflow/README.md",
-        "docs/process/universal-documentation-workflow/universal-workflow-core.json"
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/product/analysis/documentation-consistency-audit/validation-evidence.md"
       ],
-      "requires_acceptance_record": "UDW-ACC-002"
+      "requires_acceptance_record": "UDW-ACC-009"
+    },
+    {
+      "change_id": "UDW-CHG-008",
+      "change_type": "agent_launch_input_requirements_alignment",
+      "paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/analysis/ba/business-requirements-delta.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+        "tests/evals/ba-sa-eval-cases.json",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/open-decisions.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-010"
+    },
+    {
+      "change_id": "UDW-CHG-009",
+      "change_type": "agent_launch_request_intake_requirement_alignment",
+      "paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/analysis/ba/business-requirements-delta.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/open-decisions.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-011"
+    },
+    {
+      "change_id": "UDW-CHG-010",
+      "change_type": "agent_launch_processing_status_requirement_alignment",
+      "paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/analysis/ba/business-requirements-delta.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/open-decisions.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-012"
+    },
+    {
+      "change_id": "UDW-CHG-011",
+      "change_type": "agent_launch_traceability_requirement_alignment",
+      "paths": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
+        "docs/product/analysis/agent-launch-requirements-analysis/open-decisions.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-013"
+    },
+    {
+      "change_id": "UDW-CHG-012",
+      "change_type": "full_datacanvas_ba_questionnaire_reframe",
+      "paths": [
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-014"
+    },
+    {
+      "change_id": "UDW-CHG-013",
+      "change_type": "bmc_repeat_edit_cycle_correction",
+      "paths": [
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-015"
+    },
+    {
+      "change_id": "UDW-CHG-014",
+      "change_type": "bmc_softening_and_short_interview_start",
+      "paths": [
+        "scripts/generate-bmc-artifacts.mjs",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-016"
+    },
+    {
+      "change_id": "UDW-CHG-015",
+      "change_type": "workflow_interview_first_policy",
+      "paths": [
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "schemas/universal-documentation-core.schema.json",
+        "schemas/workflow-state.schema.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-017"
+    },
+    {
+      "change_id": "UDW-CHG-016",
+      "change_type": "bmc_classic_content_and_gate_hardening",
+      "paths": [
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/manifest.json",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+        "docs/knowledge/rca/README.md",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json",
+        "docs/process/universal-documentation-workflow/mutation-guard-policy.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-019"
+    },
+    {
+      "change_id": "UDW-CHG-017",
+      "change_type": "user_facing_report_link_contract_hardening",
+      "paths": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "scripts/validate-universal-documentation-workflow.mjs",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-020"
+    },
+    {
+      "change_id": "UDW-CHG-018",
+      "change_type": "agent_launch_stories_confirmed_p1_without_numeric_estimate",
+      "paths": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-021"
+    },
+    {
+      "change_id": "UDW-CHG-019",
+      "change_type": "agent_launch_p1_effort_estimation_round_prepared",
+      "paths": [
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-021"
+    },
+    {
+      "change_id": "UDW-CHG-020",
+      "change_type": "agent_launch_p1_draft_pshe_workbook_prepared",
+      "paths": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+        "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+        "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/navigation/navigation-source.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json",
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/event-log.json",
+        "docs/process/universal-documentation-workflow/decision-queue.json",
+        "docs/process/universal-documentation-workflow/decision-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-022"
+    },
+    {
+      "change_id": "UDW-CHG-021",
+      "change_type": "xlsx_backlog_workflow_gate_embedded",
+      "paths": [
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "schemas/documentation-product-profile.schema.json",
+        "schemas/xlsx-backlog-provenance.schema.json",
+        "schemas/xlsx-opml-jira-recovery-index.schema.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+        "package.json"
+      ],
+      "requires_acceptance_record": "UDW-ACC-023"
+    },
+    {
+      "change_id": "UDW-CHG-022",
+      "change_type": "dc_st_29_generation_story_added",
+      "paths": [
+        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "requires_acceptance_record": "UDW-ACC-024"
     }
   ],
   "skipped_changes": [
     {
-      "reason": "Смысловые продуктовые каскадные правки не входят в реализацию методики без отдельного решения Product Owner.",
-      "no_change_rationale": "Продуктовый профиль только подключает существующие источники истины DataCanvas."
+      "reason": "Обновление product backlog, roadmap и sprint backlog отложено до полного BA-опросника DataCanvas и оценки команды реализации.",
+      "no_change_rationale": "Product Owner решил сначала уточнить BMC-границу, проверить весь каталог DC-ST-* пользовательских историй и BT-* бизнес-требований, затем возвращаться к backlog refinement и плану спринтов."
+    },
+    {
+      "reason": "Ответы на короткое BMC-интервью после BAQ-001.1 еще не применялись к DC-ST-* пользовательским историям, BT-* бизнес-требованиям, backlog и roadmap.",
+      "no_change_rationale": "Product Owner выбрал провести короткое BMC-интервью; следующий вопрос BAQ-001.2 должен подтвердить сегменты пользователей перед переходом к ревизии stories и требований."
     }
   ],
   "generated_outputs": [
@@ -50,7 +538,22 @@
     "docs/navigation/navigation-map.md",
     "docs/navigation/orphan-docs-report.md",
     "docs/navigation/stale-status-report.md",
-    "docs/architecture/schemas/artifact-hash-manifest.json"
+    "docs/architecture/schemas/artifact-hash-manifest.json",
+    "docs/process/current/process-metrics-snapshot.json",
+    "docs/process/current/process-metrics-snapshot.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/bmc/bmc-validation-needs.json",
+    "docs/product/bmc/bmc-derived-manifest.json",
+    "docs/product/bmc/manifest.json",
+    "docs/product/bmc/source-map.md",
+    "docs/product/bmc/text-alternative.md",
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+    "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+    "docs/product/bmc/source/derived/datacanvas-bmc.png",
+    "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+    "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+    "docs/product/bmc/evidence/designer-consilium.json",
+    "docs/product/bmc/evidence/visual-review.md"
   ],
   "validation_results": [
     {
@@ -58,7 +561,535 @@
       "status": "passed"
     },
     {
+      "command": "npm run validate:product-sources",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:mutation-guard",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
       "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:agent-launch-requirements-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-sources",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:accepted-change-order-impact",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:evals",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:eval-backlog-sync",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:agent-launch-requirements-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:evals",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty docs/process/universal-documentation-workflow/*.json docs/product/analysis/agent-launch-requirements-analysis/*.json docs/product/requirements/traceability-matrix.json docs/product/specs/feature-spec-a2a-launch.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:agent-launch-requirements-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:evals",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:revision-approval-state",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:accepted-change-order-impact",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "failed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty docs/process/universal-documentation-workflow/*.json docs/product/analysis/agent-launch-requirements-analysis/*.json docs/product/requirements/traceability-matrix.json docs/product/specs/feature-spec-a2a-launch.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:agent-launch-requirements-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:evals",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:revision-approval-state",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty docs/process/universal-documentation-workflow/*.json docs/product/requirements/traceability-matrix.json docs/product/specs/feature-spec-a2a-launch.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty docs/process/universal-documentation-workflow/*.json docs/product/bmc/*.json docs/product/requirements/traceability-matrix.json docs/product/specs/feature-spec-a2a-launch.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
       "status": "passed"
     },
     {
@@ -74,12 +1105,414 @@
       "status": "passed"
     },
     {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
       "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty docs/process/universal-documentation-workflow/*.json docs/product/bmc/*.json docs/product/requirements/traceability-matrix.json docs/product/specs/feature-spec-a2a-launch.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:ba-sa",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "failed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty schemas/universal-documentation-core.schema.json schemas/workflow-state.schema.json docs/process/universal-documentation-workflow/*.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json docs/product/bmc/*.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "jq empty schemas/universal-documentation-core.schema.json schemas/workflow-state.schema.json docs/process/universal-documentation-workflow/*.json docs/product/analysis/ba/ba-spec.json docs/product/analysis/ba-sa/interview-derived-coverage.json docs/product/bmc/*.json",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-docs-navigation.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-trace",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-content-classic",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc-package",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "failed"
+    },
+    {
+      "command": "npm run validate:change-set-approval",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:documentation-methodology",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:traceability-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run scan:secrets",
+      "status": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm test",
+      "status": "failed"
+    },
+    {
+      "command": "npm test",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-backlog",
+      "status": "passed"
+    },
+    {
+      "command": "npm run docs:verify -- --changed-from HEAD",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:business-docs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:universal-documentation-workflow",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-backlog",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:xlsx-cascade",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-sources",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-source-consistency",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:cascading-governance",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-dependency-graph",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:backlog-registry",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:capacity-plan",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:impact-analysis",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:jira-field-mapping",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:reprioritization-impact",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:product-vision",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:schemas",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:bmc -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:bmc",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "npm run generate:docs-navigation -- --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-links",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:docs-navigation",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:doc-stale-status",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/generate-artifact-hash-manifest.mjs --check",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:artifact-hashes",
       "status": "passed"
     }
   ],
   "residual_risks": [
-    "Автоматическое применение смысловых каскадных правок остается opt-in до отдельного процессного решения."
+    "UDW-DEC-005 blocks final backlog refinement, sprint backlog, roadmap update and Confluence-ready package until the full DataCanvas BA questionnaire, capacity check and displacement decisions are complete.",
+    "Product Owner accepted the current XLSX priorities and PSHE values as planning input; capacity, sequencing and displacement decisions remain open before final sprint planning.",
+    "UDW-RCA-001 remains a separate follow-up for the broader workflow/communication retrospective; BMC classic validation, report-link contract hardening, real-skill enforcement and generated-output cascade preview hardening close immediate process gaps."
   ],
-  "next_safe_step": "Использовать пакет универсального workflow для следующего изменения проектной документации."
+  "next_safe_step": "Задать владельцу решение по емкости, порядку работ и вытеснению, затем зафиксировать sprint backlog и ближайшие 3-4 недельные спринты."
 }

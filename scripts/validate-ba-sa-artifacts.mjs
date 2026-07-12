@@ -312,31 +312,53 @@ function validateErrorTaxonomy() {
 }
 
 function validateProductChangeOrders() {
-  const order = validateSchema("schemas/product-change-order.schema.json", paths.changeOrder);
   const ledger = readJson(paths.changeLedger);
-  if (!ledger.entries.some((entry) => entry.id === order.id && entry.order_path === paths.changeOrder)) {
-    fail(`change order ledger does not include ${order.id}`);
+  if (!Array.isArray(ledger.entries) || ledger.entries.length === 0) {
+    fail("change order ledger must contain at least one entry");
   }
-  for (const artifactPath of order.affected_artifacts) {
-    requireFile(artifactPath);
+
+  for (const entry of ledger.entries) {
+    const order = validateSchema("schemas/product-change-order.schema.json", entry.order_path);
+    if (order.id !== entry.id) {
+      fail(`change order ledger id mismatch for ${entry.order_path}`);
+    }
+    if (entry.impact_assessment_path !== order.impact_assessment_path) {
+      fail(`change order ledger impact path mismatch for ${order.id}`);
+    }
+    for (const artifactPath of order.affected_artifacts) {
+      requireFile(artifactPath);
+    }
+    for (const command of order.validation_plan) {
+      validateCommand(command);
+    }
+    if (order.status === "accepted" && order.product_owner_decision.decision !== "accepted") {
+      fail(`accepted change order must have accepted Product Owner decision: ${order.id}`);
+    }
   }
-  for (const command of order.validation_plan) {
-    validateCommand(command);
-  }
-  if (order.status === "accepted" && order.product_owner_decision.decision !== "accepted") {
-    fail("accepted change order must have accepted Product Owner decision");
-  }
-  console.log("product change order validation passed");
+  console.log("product change orders validation passed");
 }
 
 function validateChangeImpact() {
-  const impact = validateSchema("schemas/change-impact-assessment.schema.json", paths.changeImpact);
-  const order = validateSchema("schemas/product-change-order.schema.json", paths.changeOrder);
-  if (impact.change_order_id !== order.id) {
-    fail("change impact assessment is linked to a different change order");
+  const ledger = readJson(paths.changeLedger);
+  if (!Array.isArray(ledger.entries) || ledger.entries.length === 0) {
+    fail("change order ledger must contain at least one entry");
   }
-  for (const command of impact.validation_plan) {
-    validateCommand(command);
+
+  for (const entry of ledger.entries) {
+    const order = validateSchema("schemas/product-change-order.schema.json", entry.order_path);
+    const impact = validateSchema("schemas/change-impact-assessment.schema.json", entry.impact_assessment_path);
+    if (impact.change_order_id !== order.id) {
+      fail(`change impact assessment is linked to a different change order: ${entry.impact_assessment_path}`);
+    }
+    if (entry.impact_assessment_path !== order.impact_assessment_path) {
+      fail(`change impact assessment path mismatch for ${order.id}`);
+    }
+    for (const artifactPath of impact.affected_artifacts) {
+      requireFile(artifactPath);
+    }
+    for (const command of impact.validation_plan) {
+      validateCommand(command);
+    }
   }
   console.log("change impact validation passed");
 }

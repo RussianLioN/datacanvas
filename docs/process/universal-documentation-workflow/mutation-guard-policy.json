@@ -10,6 +10,13 @@
   },
   "allowed_write_sets": [
     {
+      "generator_id": "datacanvas-xlsx-sanitized-reference",
+      "allowed_writes": [
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json"
+      ]
+    },
+    {
       "generator_id": "docs-navigation",
       "allowed_writes": [
         "docs/navigation/documentation-index.json",
@@ -27,11 +34,49 @@
     {
       "generator_id": "datacanvas-bmc",
       "allowed_writes": [
+        "docs/product/bmc/bmc-v0.2.md",
         "docs/product/bmc/source/derived/datacanvas-bmc.puml",
         "docs/product/bmc/source/derived/datacanvas-bmc.svg",
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
         "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-        "docs/product/bmc/bmc-derived-manifest.json"
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/source-map.md",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
+        "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+        "docs/product/bmc/evidence/designer-consilium.json",
+        "docs/product/bmc/evidence/visual-review.md",
+        "docs/product/bmc/manifest.json"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-run",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-finalization",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-verification",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
+      ]
+    },
+    {
+      "generator_id": "documentation-cascade-completion",
+      "allowed_writes": [],
+      "allowed_write_roots": [
+        "docs/process/cascading-governance/runs"
       ]
     }
   ],

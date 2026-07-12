@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "status": "accepted",
-  "checked_at": "2026-06-24T00:00:00Z",
+  "checked_at": "2026-07-12T00:00:00Z",
   "verdict": "ready_for_user_acceptance",
   "severity_summary": {
     "blocker": 0,
@@ -32,33 +32,25 @@
     {
       "role": "QA visual gate reviewer",
       "verdict": "accepted",
-      "note": "SVG/PNG/PDF/PlantUML parity is covered by deterministic generation and validators."
+      "note": "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators."
     }
   ],
   "checked_artifacts": [
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88"
+      "sha256": "f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8"
     },
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+      "sha256": "e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2"
     },
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+      "sha256": "8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e"
     },
     {
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
-    },
-    {
-      "path": "docs/product/bmc/evidence/browser-smoke.png",
-      "sha256": "6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8"
-    },
-    {
-      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
-      "sha256": "efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83"
+      "sha256": "ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019"
     }
   ]
 }

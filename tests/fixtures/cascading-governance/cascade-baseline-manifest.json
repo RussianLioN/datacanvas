@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "baseline_id": "CBM-2026-07-10-001",
+  "captured_at": "2026-07-10T00:00:00.000Z",
+  "head_sha": "0123456789abcdef0123456789abcdef01234567",
+  "source_run_path": "docs/process/cascading-governance/runs/example/cascading-update-run.json",
+  "files": [
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "scope": "impact_cone",
+      "exists": true,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
+      "scope": "control_input",
+      "exists": true,
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ]
+}

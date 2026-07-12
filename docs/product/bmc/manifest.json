@@ -1,23 +1,50 @@
 {
   "version": "0.1.0",
   "status": "ready_for_user_acceptance",
-  "generated_at": "2026-06-24T00:00:00Z",
+  "generated_at": "2026-07-12T00:00:00Z",
   "generated_by": "scripts/generate-bmc-artifacts.mjs",
   "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
-  "source_trace_sha256": "4bac96e6fbef6d92478d9e394107792b147f160a45073e49d9be44a56e28d43f",
+  "source_trace_sha256": "0540ac541bf6412dbfa296e675bb426b1ea466c1147c6f389ab618bf1c83f779",
+  "public_content_policy": {
+    "public_surfaces": [
+      "docs/product/bmc/bmc-v0.2.md",
+      "docs/product/bmc/text-alternative.md",
+      "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "docs/product/bmc/source/derived/datacanvas-bmc.puml"
+    ],
+    "allowed_public_content": "business_model_canvas_only",
+    "service_information_storage": [
+      "docs/product/bmc/manifest.json",
+      "docs/product/bmc/bmc-derived-manifest.json",
+      "docs/product/bmc/bmc-validation-needs.json",
+      "docs/product/bmc/evidence/bmc-visual-acceptance.json"
+    ],
+    "forbidden_public_information": [
+      "status",
+      "methodology_notes",
+      "model_boundary_summary",
+      "source_refs",
+      "validation_status",
+      "hashes",
+      "local_paths",
+      "technical_trace"
+    ]
+  },
   "artifacts": [
     {
       "role": "package_readme",
       "format": "markdown",
       "path": "docs/product/bmc/README.md",
-      "sha256": "bf6efe5c339c279365dab58c6d52eb8e2801a063ef460d3b1d298b159de6351b"
+      "sha256": "506dad81a32c36d7364a26d9acd9d542b96c1ded03aa3ed00481ce3bf36c38dc"
     },
     {
       "role": "clean_markdown",
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "2df1decb5045d2b74426484ec7f9e9bdfeabaa2940bfac5d190511d8af3b6328"
+      "sha256": "f48651f350d959531c014b6aef67ab241961a7d9fc0ebbc3bf1f105184cc9230"
     },
     {
       "role": "canonical_visual",
@@ -25,7 +52,7 @@
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
       "width": 3840,
       "height": 2160,
-      "sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88"
+      "sha256": "f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8"
     },
     {
       "role": "portable_visual",
@@ -33,85 +60,77 @@
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
       "width": 3840,
       "height": 2160,
-      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+      "sha256": "e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2"
     },
     {
       "role": "portable_document",
       "format": "pdf",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+      "sha256": "8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e"
     },
     {
       "role": "engineering_view",
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
+      "sha256": "ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019"
     },
     {
       "role": "validation_companion",
       "format": "json",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "31cb80f0432487b46102501a7d7311e23edbd901fb607d14e0b79389edffe687"
+      "sha256": "5b8500f922ffb06bdcb268932a0407e8686033f7f2c6c802157aa0e2bf69bfc7"
     },
     {
       "role": "derived_manifest",
       "format": "json",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "4498dfc1759559bc7af51929cd5dff79d6d633af9d568f1bc65541def5174bae"
+      "sha256": "002f2fdaf7d8e9625c3270634daf5273ed5de12d8f1c890639d8dab7cc904b67"
     },
     {
       "role": "source_map",
       "format": "markdown",
       "path": "docs/product/bmc/source-map.md",
-      "sha256": "7928b970613d8a940d0cbfe32c6926ebe254d5666cc8c7dc94a4a7942a5dea8a"
+      "sha256": "d937fc2265c2bbb6d6938d77f901480410c11c72f2d0ba15d07d4b9fddfa848c"
     },
     {
       "role": "text_alternative",
       "format": "markdown",
       "path": "docs/product/bmc/text-alternative.md",
-      "sha256": "5824b417a922668d24ab76e5fdec75a777702ab5b051950631ff902e8e0c57bb"
+      "sha256": "e47c19e81850bb6f3c07526df0ecc8b67f26ffbde4391481e26d4a23e0985c6d"
     },
     {
       "role": "visual_review",
       "format": "markdown",
       "path": "docs/product/bmc/evidence/visual-review.md",
-      "sha256": "5c3db8b9ff1711b8fec9adcc793481cc324c3d294db4a34109f81892e53983ab"
+      "sha256": "b37108b2fedcd3c479fc17c1775fde8e46bf24495ccb2e5e1b9c73f0b8f41acb"
     },
     {
       "role": "visual_acceptance",
       "format": "json",
       "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
-      "sha256": "f9069cf57c52f4525f87ee86e282bc0e6b08968e37c420e00214d34a3b14d617"
+      "sha256": "235af0034c12a48cb562bf69a20e2e3d8396ea5661ba006e2d442600efdee526"
     },
     {
       "role": "designer_consilium",
       "format": "json",
       "path": "docs/product/bmc/evidence/designer-consilium.json",
-      "sha256": "89157ee0697999dfecc4b577c7b05c14ddccf285275e31e167b532d2a70e4020"
+      "sha256": "7244df45239d0fd3b1d035a654a334f635596a51457e400696cdcb7891e13fde"
     },
     {
       "role": "design_philosophy",
       "format": "markdown",
       "path": "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
       "sha256": "a79cd72b84636ed958975009f44a1040911d1a0a027da093e50bcb313a3a1138"
-    },
-    {
-      "role": "browser_smoke_screenshot",
-      "format": "png",
-      "path": "docs/product/bmc/evidence/browser-smoke.png",
-      "sha256": "6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8"
-    },
-    {
-      "role": "pdf_raster_smoke_screenshot",
-      "format": "png",
-      "path": "docs/product/bmc/evidence/pdf-raster-smoke.png",
-      "sha256": "efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83"
     }
   ],
   "validators": [
+    "npm run generate:bmc -- --check",
+    "npm run validate:bmc-trace",
+    "npm run validate:bmc-content-classic",
     "npm run validate:bmc-visual",
     "npm run validate:bmc-render-parity",
-    "npm run validate:bmc-content-classic",
-    "npm run validate:bmc-package"
+    "npm run validate:bmc-package",
+    "npm run validate:data-leakage",
+    "npm run validate:artifact-hashes"
   ]
 }

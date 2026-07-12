@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json",
+  "title": "Cascade actual diff manifest v1",
+  "type": "object",
+  "required": ["$schema", "version", "base_sha", "planning_head_sha", "candidate_head_sha", "dirty_worktree", "allowed_write_paths", "changed_entries", "unexpected_paths", "diff_sha256"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json" },
+    "version": { "const": "1.0.0" },
+    "base_sha": { "$ref": "#/$defs/gitSha" },
+    "planning_head_sha": { "$ref": "#/$defs/gitSha" },
+    "candidate_head_sha": { "$ref": "#/$defs/gitSha" },
+    "dirty_worktree": { "type": "boolean" },
+    "allowed_write_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
+    "changed_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["status", "path", "old_path", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "status": { "type": "string", "pattern": "^[ACDMRTUXB][0-9]{0,3}$" },
+          "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "old_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] }
+        }
+      }
+    },
+    "unexpected_paths": { "type": "array", "maxItems": 0 },
+    "diff_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }
+  },
+  "$defs": { "gitSha": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" } }
+}

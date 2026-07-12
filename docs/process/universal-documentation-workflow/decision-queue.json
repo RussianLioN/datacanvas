@@ -2,18 +2,183 @@
   "$schema": "../../../schemas/workflow-decision-queue.schema.json",
   "version": "0.1.0",
   "status": "open",
-  "run_id": "UDW-RUN-2026-07-05-001",
+  "run_id": "UDW-RUN-2026-07-05-003",
   "decisions": [
     {
-      "decision_id": "UDW-DEC-001",
-      "decision_type": "documentation_change_acceptance",
+      "decision_id": "UDW-DEC-003",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Выбрать подход к docs/product/requirements/user-stories.md после обнаружения расхождения между старыми US-* историями и каноническим DC-ST-* каталогом DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-006",
+      "rationale": "Product Owner выбрал вариант 1: docs/product/requirements/user-stories.md заменен на формализованный список DC-ST-* пользовательских историй DataCanvas. Первоначальный статус DC-ST-23..DC-ST-28 позже был уточнен решениями UDW-DEC-014 и UDW-DEC-017, а после CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 закреплен как P1. ПШЕ берутся из принятой Excel-редакции."
+    },
+    {
+      "decision_id": "UDW-DEC-004",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: BT-* бизнес-требования для DC-ST-23..DC-ST-28 уточнены после решения по BT-014.",
+      "acceptance_record_id": "UDW-ACC-013",
+      "rationale": "BT-005 закреплен только за маршрутом через Лису; BT-015, BT-016, BT-017 и BT-018 созданы для приема запроса, входного пакета, проверки входа и статусов обработки от другого агента. Product Owner выбрал вариант 2 по BT-014: уточнить трассировку двух маршрутов без нового BT и без утверждения реальной callback-интеграции."
+    },
+    {
+      "decision_id": "UDW-DEC-005",
+      "decision_type": "owner_decision_acceptance",
+      "authority": "product_meaning",
+      "status": "deferred",
+      "blocking": true,
+      "owner_role": "Product Owner",
+      "subject": "Отложить финальный backlog refinement, sprint backlog и план ближайших 3-4 недельных спринтов до завершения полного BA-опросника DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-014",
+      "rationale": "Product Owner принял маршрут без прямого перехода к sprint backlog. Само решение о последовательности принято, но выполнение полного BA-опросника остается открытым блокирующим условием до проверки пользовательских историй, бизнес-требований, критериев приемки, трассировки, backlog, roadmap и Confluence package."
+    },
+    {
+      "decision_id": "UDW-DEC-006",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: BMC показывает весь продукт DataCanvas, но повторный цикл правок после доставки не является возможностью продукта.",
+      "acceptance_record_id": "UDW-ACC-015",
+      "rationale": "Product Owner подтвердил, что после отправки презентации по электронной почте пользователь самостоятельно редактирует полученный файл; дальнейшие исправления через DataCanvas требуют отдельного продуктового решения. Чистовой BMC-пакет обновлен генератором."
+    },
+    {
+      "decision_id": "UDW-DEC-008",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Закрыто: применить дополнительные мягкие BMC-правки по B1, B5, B8 и B9 и начать короткое BMC-интервью.",
+      "acceptance_record_id": "UDW-ACC-016",
+      "rationale": "Product Owner ответил 2+4 на BAQ-001.1: B1, B5, B8 и B9 смягчены через BMC-источник и генератор, а следующий шаг — короткое BMC-интервью по открытым BMC-вопросам."
+    },
+    {
+      "decision_id": "UDW-DEC-009",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Подтвердить, какие пользовательские сегменты считать подтвержденными в BMC: только КМ как текущий основной профиль, КМ и CSM как текущие сегменты или более широкий контур пользователей Лисы.",
+      "acceptance_record_id": "UDW-ACC-018",
+      "rationale": "Product Owner ответил 1: текущим подтвержденным сегментом для B1 считается КМ; CSM и другие пользователи Лисы остаются перспективным контуром и не добавляются в BMC как подтвержденные сегменты без отдельного решения."
+    },
+    {
+      "decision_id": "UDW-DEC-007",
+      "decision_type": "owner_decision_acceptance",
       "authority": "process",
       "status": "accepted",
       "blocking": false,
       "owner_role": "Process Owner",
-      "subject": "Реализация плана универсального workflow как документационного и проверочного контура.",
-      "acceptance_record_id": "UDW-ACC-002",
-      "rationale": "Сохраненный план является источником задания; продуктовый смысл DataCanvas не меняется."
+      "subject": "Закрепить в UDW правило простого пользовательского отчета и доказательного вопроса с абсолютными ссылками и цитатами.",
+      "acceptance_record_id": "UDW-ACC-009",
+      "rationale": "Пользователь потребовал, чтобы итог работы сначала давался простым русским языком, а вопросы по документам содержали абсолютные ссылки и цитаты релевантных фрагментов."
+    },
+    {
+      "decision_id": "UDW-DEC-010",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Закрепить UX-дружелюбное правило интервью для любого опроса или вопроса по любому артефакту: сначала собрать вопросы и ответы владельца, затем пакетно обновлять документы, generated artifacts и проверки.",
+      "acceptance_record_id": "UDW-ACC-017",
+      "rationale": "Пользователь указал, что цикл после каждого ответа с записью, генерацией и валидацией неудобен; workflow должен сначала проводить интервью или раунд интервью по любым артефактам, не только по BMC, а операции без участия пользователя выполнять после завершения интервью."
+    },
+    {
+      "decision_id": "UDW-DEC-011",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Очистить BMC до классического содержания без технических комментариев, служебных проверок и чужих ролей разделов, не меняя продуктовый смысл DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-018",
+      "rationale": "Product Owner не принял BMC в прежнем виде и потребовал оценить его по классическому применению: убрать лишние разделы, технические комментарии и дублирование ролей других артефактов."
+    },
+    {
+      "decision_id": "UDW-DEC-012",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Провести RCA по причине пропуска неклассического BMC и усилить gates для generated и созависимых артефактов.",
+      "acceptance_record_id": "UDW-ACC-019",
+      "rationale": "Пользователь потребовал сразу провести RCA и исправить корень проблемы: BMC оставался неклассическим после нескольких циклов проверки созависимых артефактов."
+    },
+    {
+      "decision_id": "UDW-DEC-013",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Ужесточить пользовательские отчеты и вопросы: любой отчет, статус или следующий шаг с упоминанием документа должен содержать абсолютную кликабельную ссылку, а спорный или решаемый текст — короткую цитату.",
+      "acceptance_record_id": "UDW-ACC-020",
+      "rationale": "Пользователь указал на UX-проблему: отчет без кликабельных ссылок на источники заставляет действовать вслепую и не позволяет быстро открыть документ приложением по умолчанию."
+    },
+    {
+      "decision_id": "UDW-DEC-014",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Исторически подтвердить DC-ST-23..DC-ST-28 как приоритетный контур запуска DataCanvas другим агентом, затем принять Excel как ресурсный вход и после CO-2026-002 закрепить DC-ST-23..DC-ST-29 как P1.",
+      "acceptance_record_id": "UDW-ACC-021",
+      "rationale": "Product Owner сначала подтвердил DC-ST-23..DC-ST-28 как приоритетный контур для оценки. Позже по UDW-DEC-017 принята Excel-редакция как ресурсный вход по ПШЕ. После CO-2026-002 весь основной маршрут DC-ST-23..DC-ST-29 закреплен как P1; DC-ST-30..DC-ST-33 закреплены как отдельный P2-инкремент с принятой рабочей Excel-оценкой."
+    },
+    {
+      "decision_id": "UDW-DEC-015",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Подготовить рабочие ПШЕ для DC-ST-23..DC-ST-28 по Excel и добавить истории в рабочую Excel-версию backlog.",
+      "acceptance_record_id": "UDW-ACC-022",
+      "rationale": "Product Owner выбрал маршрут с рабочими значениями ПШЕ по Excel-аналогам. Первоначальный статус черновика позже заменен решением UDW-DEC-017: текущая Excel-редакция приоритетов и ПШЕ принята Product Owner как ресурсный вход."
+    },
+    {
+      "decision_id": "UDW-DEC-016",
+      "decision_type": "process_change_acceptance",
+      "authority": "process",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Process Owner",
+      "subject": "Встроить рабочий Excel backlog DataCanvas в универсальный процесс оценки ресурсов: зарегистрировать raw/working XLSX, provenance manifest, recovery index, навигацию и обязательный gate npm run validate:xlsx-backlog.",
+      "acceptance_record_id": "UDW-ACC-023",
+      "rationale": "Product Owner указал, что XLSX является неотъемлемой частью рабочего процесса оценки трудозатрат. Процесс должен проверять точность копии, расчеты, формат, строки, фильтры, группировки, provenance и запрет переноса черновых ПШЕ как утвержденных оценок без команды реализации."
+    },
+    {
+      "decision_id": "UDW-DEC-017",
+      "decision_type": "owner_decision_acceptance",
+      "authority": "evidence",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Принять текущую рабочую Excel-редакцию приоритетов и черновых рольных значений ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход для проверки командой реализации.",
+      "acceptance_record_id": "UDW-ACC-025",
+      "rationale": "Product Owner принял формулировки, приоритеты и текущие рольные значения ПШЕ как черновой ресурсный вход. Это не является командным принятием трудозатрат: команда реализации должна отдельно подтвердить оценки, емкость, порядок работ и вытеснение до sprint backlog или Jira-экспорта."
+    },
+    {
+      "decision_id": "UDW-DEC-018",
+      "decision_type": "product_behavior_acceptance",
+      "authority": "product_meaning",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner",
+      "subject": "Добавить DC-ST-29 как недостающую P1-историю генерации редактируемого файла презентации из проверенных и нормализованных данных без создания BT-019.",
+      "acceptance_record_id": "UDW-ACC-024",
+      "rationale": "Product Owner указал на пробел: процесс генерации презентации из полученных очищенных данных отсутствовал в stories. По подтвержденному варианту добавляется DC-ST-29, связанная с BT-012, BT-002 и BT-014; отдельный BT-019 не создается."
     }
   ]
 }

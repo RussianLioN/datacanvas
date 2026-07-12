@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/main-artifact-lifecycle-chain.schema.json",
+  "title": "DataCanvas main artifact lifecycle chain",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "chain_id",
+    "owner_role",
+    "scope",
+    "canonical_product_index_path",
+    "supporting_contracts",
+    "global_policies",
+    "stages"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "minLength": 1 },
+    "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
+    "status": { "type": "string", "enum": ["draft", "active", "deprecated"] },
+    "chain_id": { "type": "string", "pattern": "^MALC-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "owner_role": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "canonical_product_index_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "supporting_contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_source_registry",
+        "artifact_dependency_graph",
+        "impact_analysis_report",
+        "business_content_contract",
+        "business_generation_contract",
+        "business_claim_map",
+        "validation_command_catalog",
+        "navigation_source"
+      ],
+      "properties": {
+        "product_source_registry": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "artifact_dependency_graph": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "impact_analysis_report": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "business_content_contract": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "business_generation_contract": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "business_claim_map": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "validation_command_catalog": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "navigation_source": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+      }
+    },
+    "global_policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "business_markdown_policy",
+        "service_information_location",
+        "no_change_rationale_location",
+        "owner_gate_policy",
+        "generated_artifact_policy",
+        "impact_cone_policy",
+        "upstream_review_policy",
+        "cycle_resolution_policy"
+      ],
+      "properties": {
+        "business_markdown_policy": { "type": "string", "minLength": 1 },
+        "service_information_location": { "type": "string", "minLength": 1 },
+        "no_change_rationale_location": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "owner_gate_policy": { "type": "string", "minLength": 1 },
+        "generated_artifact_policy": { "type": "string", "minLength": 1 },
+        "impact_cone_policy": { "type": "string", "minLength": 1 },
+        "upstream_review_policy": { "type": "string", "minLength": 1 },
+        "cycle_resolution_policy": { "type": "string", "minLength": 1 }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/stage" }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "order",
+        "stage_id",
+        "name",
+        "artifact_role",
+        "primary_artifacts",
+        "supporting_artifacts",
+        "source_roles",
+        "owner_role",
+        "business_surface",
+        "generation_policy",
+        "validation_commands",
+        "cascade_policy",
+        "downstream_stage_ids"
+      ],
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "stage_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "name": { "type": "string", "minLength": 1 },
+        "artifact_role": {
+          "type": "string",
+          "enum": [
+            "business_source",
+            "business_model",
+            "story_catalog",
+            "requirements",
+            "acceptance",
+            "planning",
+            "resource_estimation",
+            "delivery_planning",
+            "hypothesis",
+            "traceability",
+            "technical_downstream",
+            "export_package",
+            "evidence"
+          ]
+        },
+        "primary_artifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+        },
+        "supporting_artifacts": {
+          "type": "array",
+          "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+        },
+        "source_roles": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "business_surface": { "type": "boolean" },
+        "generation_policy": {
+          "type": "string",
+          "enum": ["manual_source", "manual_index", "manual_contract", "working_source", "generated_only"]
+        },
+        "validation_commands": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "cascade_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "on_change",
+            "requires_dependency_graph_entry",
+            "requires_impact_resolution",
+            "requires_owner_gate_for_semantic_change"
+          ],
+          "properties": {
+            "on_change": { "type": "string", "minLength": 1 },
+            "requires_dependency_graph_entry": { "type": "boolean" },
+            "requires_impact_resolution": { "type": "boolean" },
+            "requires_owner_gate_for_semantic_change": { "type": "boolean" }
+          }
+        },
+        "downstream_stage_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+        }
+      }
+    }
+  }
+}

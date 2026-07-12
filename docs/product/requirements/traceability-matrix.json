@@ -4,21 +4,33 @@
   "links": [
     {
       "requirement_id": "BT-001",
-      "source": "docs/product/vision/vision-v0.1.md",
-      "backlog_items": ["PBI-001", "TECH-005"],
-      "tests": ["npm test", "tests/fixtures/input-package-minimal.json"],
+      "source": "docs/product-vision.md",
+      "backlog_items": [
+        "PBI-001",
+        "TECH-005"
+      ],
+      "tests": [
+        "npm test",
+        "tests/fixtures/input-package-minimal.json"
+      ],
       "status": "implemented_baseline"
     },
     {
       "requirement_id": "BT-002",
-      "source": "docs/product/vision/vision-v0.1.md",
+      "source": "docs/product-vision.md",
       "sources": [
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "acceptance_scenarios": ["happy_path"],
+      "story_ids": [
+        "DC-ST-29"
+      ],
+      "acceptance_scenarios": [
+        "happy_path",
+        "presentation_file_generation"
+      ],
       "evidence_expectations": [
-        "PresentationSpec, render result и review evidence связаны со сгенерированным export."
+        "Редактируемый PPTX-файл и нередактируемая PDF-копия связаны с проверенным входом и итоговым результатом."
       ],
       "tests": [
         "tests/golden/presentation-spec-minimal.json",
@@ -29,9 +41,14 @@
     },
     {
       "requirement_id": "BT-003",
-      "source": "docs/product/vision/vision-v0.1.md",
-      "backlog_items": ["PBI-002", "PBI-003"],
-      "tests": ["tests/golden/trace-manifest-minimal.json"],
+      "source": "docs/product-vision.md",
+      "backlog_items": [
+        "PBI-002",
+        "PBI-003"
+      ],
+      "tests": [
+        "tests/golden/trace-manifest-minimal.json"
+      ],
       "status": "draft"
     },
     {
@@ -42,7 +59,10 @@
         "docs/architecture/security/data-classification-policy.md",
         "docs/architecture/security/threat-model.md"
       ],
-      "acceptance_scenarios": ["secret_pii_leakage", "prompt_injection"],
+      "acceptance_scenarios": [
+        "secret_pii_leakage",
+        "prompt_injection"
+      ],
       "evidence_expectations": [
         "Export, prompt, trace и evidence не содержат raw traces, internal prompts, local paths, secrets или PII."
       ],
@@ -57,29 +77,46 @@
       "requirement_id": "BT-005",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-05", "DC-ST-07"],
-      "acceptance_scenarios": ["happy_path", "launch_from_agent_context", "launch_at_session_start"],
-      "evidence_expectations": [
-        "Trace фиксирует источник запроса, режим запуска и связанный входной контекст для обоих P2-контуров запуска."
+      "story_ids": [
+        "DC-ST-05",
+        "DC-ST-07"
       ],
-      "tests": ["npm run validate:doc-links", "npm run validate:docs-navigation"],
+      "acceptance_scenarios": [
+        "happy_path",
+        "lisa_launch_after_agent_dialogue",
+        "launch_at_session_start"
+      ],
+      "evidence_expectations": [
+        "Trace фиксирует источник запроса, режим запуска через Лису и связанный входной контекст для P2-контуров запуска КМ."
+      ],
+      "tests": [
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation"
+      ],
       "status": "draft"
     },
     {
       "requirement_id": "BT-006",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/vision/vision-v0.1.md",
+        "docs/product-vision.md",
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-05", "DC-ST-06"],
-      "acceptance_scenarios": ["insufficient_input", "prompt_injection", "secret_pii_leakage"],
+      "story_ids": [
+        "DC-ST-05",
+        "DC-ST-06"
+      ],
+      "acceptance_scenarios": [
+        "insufficient_input",
+        "prompt_injection",
+        "secret_pii_leakage"
+      ],
       "evidence_expectations": [
         "Невалидный, секретный или неклассифицированный input останавливается до генерации с redacted evidence."
       ],
@@ -94,33 +131,46 @@
       "requirement_id": "BT-007",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-06", "DC-ST-07"],
-      "acceptance_scenarios": ["insufficient_input"],
+      "story_ids": [
+        "DC-ST-06",
+        "DC-ST-07"
+      ],
+      "acceptance_scenarios": [
+        "insufficient_input"
+      ],
       "evidence_expectations": [
         "Evidence фиксирует недостающие поля, уточняющие вопросы и отсутствие export до достаточного input."
       ],
-      "tests": ["npm run validate:doc-links"],
+      "tests": [
+        "npm run validate:doc-links"
+      ],
       "status": "draft"
     },
     {
       "requirement_id": "BT-008",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-01"],
-      "acceptance_scenarios": ["happy_path"],
+      "story_ids": [
+        "DC-ST-01"
+      ],
+      "acceptance_scenarios": [
+        "happy_path"
+      ],
       "evidence_expectations": [
         "Artifact описания связан с request, input context, структурой слайдов/блоков и ссылками на источники."
       ],
-      "tests": ["npm run validate:doc-links"],
+      "tests": [
+        "npm run validate:doc-links"
+      ],
       "status": "draft"
     },
     {
@@ -131,58 +181,87 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-01"],
-      "acceptance_scenarios": ["lisa_structure_choice"],
+      "story_ids": [
+        "DC-ST-01"
+      ],
+      "acceptance_scenarios": [
+        "lisa_structure_choice"
+      ],
       "evidence_expectations": [
         "В Лисе сохраняется выбор пользователя после описания структуры презентации: изготовить презентацию или перейти к редактированию структуры. Для запуска другим агентом это требование не создает пользовательского подтверждения."
       ],
-      "tests": ["npm run validate:doc-links"],
+      "tests": [
+        "npm run validate:doc-links"
+      ],
       "status": "draft"
     },
     {
       "requirement_id": "BT-010",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-02", "DC-ST-03", "DC-ST-04"],
-      "acceptance_scenarios": ["edit_before_generation"],
-      "evidence_expectations": [
-        "Change log описания покрывает добавление, перемещение и удаление без выдуманной бизнес-ценности для DC-ST-03/04."
+      "story_ids": [
+        "DC-ST-02",
+        "DC-ST-03",
+        "DC-ST-04"
       ],
-      "tests": ["npm run validate:doc-links"],
+      "acceptance_scenarios": [
+        "edit_before_generation"
+      ],
+      "evidence_expectations": [
+        "Change log описания покрывает добавление, перемещение и удаление; бизнес-ценность DC-ST-03/04 унаследована из Excel row 5 для группы правок по полученному описанию презентации."
+      ],
+      "tests": [
+        "npm run validate:doc-links"
+      ],
       "status": "draft"
     },
     {
       "requirement_id": "BT-011",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/stories.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-08"],
-      "acceptance_scenarios": ["format_template_selection"],
+      "story_ids": [
+        "DC-ST-08"
+      ],
+      "acceptance_scenarios": [
+        "format_template_selection"
+      ],
       "evidence_expectations": [
         "Выбранные format/template зафиксированы до генерации; каталог шаблонов остается открытым решением."
       ],
-      "tests": ["npm run validate:doc-links"],
+      "tests": [
+        "npm run validate:doc-links"
+      ],
       "status": "draft"
     },
     {
       "requirement_id": "BT-012",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/vision/vision-v0.1.md",
-        "docs/stories.md",
         "docs/product-vision.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/user-stories.md",
+        "docs/product-vision.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md"
       ],
-      "story_ids": ["DC-ST-09"],
-      "acceptance_scenarios": ["agent_launch_without_user_confirmation", "lisa_structure_choice", "email_delivery"],
+      "story_ids": [
+        "DC-ST-09",
+        "DC-ST-29"
+      ],
+      "acceptance_scenarios": [
+        "agent_launch_without_user_confirmation",
+        "presentation_file_generation",
+        "lisa_structure_choice",
+        "email_delivery"
+      ],
       "evidence_expectations": [
-        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas переходит к изготовлению презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации. Готовый файл, статус доставки и очищенные метаданные письма связаны с исходным запросом."
+        "При запуске другим агентом после проверки достаточности и безопасности данных DataCanvas сообщает вызывающему агенту о приеме данных, готовит редактируемый PPTX-файл и нередактируемую PDF-копию и доставляет результат по электронной почте без дополнительного подтверждения пользователя. В Лисе доставка начинается после выбора пользователем изготовления презентации."
       ],
       "tests": [
         "npm run validate:export",
@@ -201,7 +280,11 @@
         "docs/product/requirements/non-functional-requirements.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "acceptance_scenarios": ["prompt_injection", "secret_pii_leakage", "unsupported_claim"],
+      "acceptance_scenarios": [
+        "prompt_injection",
+        "secret_pii_leakage",
+        "unsupported_claim"
+      ],
       "evidence_expectations": [
         "Security checks покрывают prompt, trace, evidence, runtime state, email и export с redacted evidence."
       ],
@@ -219,19 +302,34 @@
       "sources": [
         "docs/product-vision.md",
         "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/process/current/definition-of-ready.md",
         "docs/process/current/definition-of-done.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": ["DC-ST-09"],
+      "story_ids": [
+        "DC-ST-09",
+        "DC-ST-23",
+        "DC-ST-24",
+        "DC-ST-25",
+        "DC-ST-26",
+        "DC-ST-27",
+        "DC-ST-28",
+        "DC-ST-29"
+      ],
       "acceptance_scenarios": [
+        "agent_launch_request_intake",
         "agent_launch_without_user_confirmation",
+        "agent_input_package",
+        "presentation_file_generation",
+        "agent_processing_statuses",
         "lisa_structure_choice",
         "email_delivery",
         "conflicting_sources"
       ],
       "evidence_expectations": [
-        "Трассировка жизненного цикла сохраняет стабильные идентификаторы, хэши, статусы и связи между запросом, режимом запуска, входным контекстом, результатом проверки, описанием структуры при наличии, выбором пользователя при наличии, готовой презентацией и статусом доставки."
+        "Трассировка жизненного цикла сохраняет стабильные IDs, источник запроса, режим запуска, ссылку на входной пакет, результат проверки, формирование редактируемого файла презентации и нередактируемой копии, статусы обработки, ссылки на артефакты, статус доставки и отсутствие raw confidential data для маршрута запуска другим агентом и маршрута Лисы."
       ],
       "tests": [
         "tests/golden/trace-manifest-minimal.json",
@@ -240,50 +338,264 @@
       "status": "draft"
     },
     {
+      "requirement_id": "BT-015",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-23",
+        "DC-ST-24"
+      ],
+      "acceptance_scenarios": [
+        "agent_launch_request_intake",
+        "agent_launch_without_user_confirmation"
+      ],
+      "evidence_expectations": [
+        "Запрос от другого агента создает проверяемую заявку с request ID, источником запроса, вызывающим агентом, launch mode = other_agent и связью с будущим входным пакетом без raw confidential data."
+      ],
+      "tests": [
+        "npm run validate:doc-links",
+        "npm run validate:traceability-graph",
+        "npm run validate:spec-task-prompt-readiness"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-016",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-25"
+      ],
+      "acceptance_scenarios": [
+        "agent_launch_without_user_confirmation",
+        "agent_input_package"
+      ],
+      "evidence_expectations": [
+        "Входной пакет от другого агента содержит задачу, источник запроса, параметры презентации и данные для определения получателя результата; проверочные материалы не содержат лишний сырой пользовательский контекст."
+      ],
+      "tests": [
+        "npm run validate:doc-links",
+        "npm run validate:data-leakage",
+        "npm run validate:spec-task-prompt-readiness"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-017",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/architecture/security/trust-boundaries.md",
+        "docs/architecture/security/data-classification-policy.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-26"
+      ],
+      "acceptance_scenarios": [
+        "agent_input_package",
+        "prompt_injection",
+        "secret_pii_leakage"
+      ],
+      "evidence_expectations": [
+        "Недостаточный, небезопасный или инструктивный вход от другого агента останавливается до генерации; evidence фиксирует validation result, data class, stop reason и отсутствие raw confidential data."
+      ],
+      "tests": [
+        "npm run scan:secrets",
+        "npm run validate:data-leakage",
+        "npm run validate:llm"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-018",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-27",
+        "DC-ST-28"
+      ],
+      "acceptance_scenarios": [
+        "agent_processing_statuses",
+        "agent_launch_without_user_confirmation",
+        "email_delivery"
+      ],
+      "evidence_expectations": [
+        "DataCanvas сообщает вызывающему агенту о приеме данных после успешной проверки и формирует проверяемые статусы обработки и сведения о результате."
+      ],
+      "tests": [
+        "npm run validate:traceability-graph",
+        "npm run validate:spec-task-prompt-readiness",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
       "requirement_id": "NFR-002",
       "source": "docs/product/requirements/non-functional-requirements.md",
-      "backlog_items": ["TECH-001", "TECH-004", "EVAL-003"],
-      "tests": ["tests/golden/trace-manifest-minimal.json", "npm test"],
+      "backlog_items": [
+        "TECH-001",
+        "TECH-004",
+        "EVAL-003"
+      ],
+      "tests": [
+        "tests/golden/trace-manifest-minimal.json",
+        "npm test"
+      ],
       "status": "implemented_baseline"
     },
     {
       "requirement_id": "NFR-001",
       "source": "docs/product/requirements/non-functional-requirements.md",
-      "backlog_items": ["EVAL-005"],
+      "backlog_items": [
+        "EVAL-005"
+      ],
       "tests": [
         "tests/provider/provider-experiment-result-scored.json",
         "tests/provider/provider-experiment-result-rollback.json",
         "npm run validate:provider-scorer"
       ],
-      "risks": ["unsupported_claims"],
+      "risks": [
+        "unsupported_claims"
+      ],
       "status": "implemented_baseline"
     },
     {
       "requirement_id": "NFR-003",
       "source": "docs/product/requirements/non-functional-requirements.md",
-      "backlog_items": ["TECH-001", "EVAL-002", "EVAL-006"],
-      "tests": ["docs/architecture/risks/risk-registry.json", "npm run validate:provider-scorer"],
-      "risks": ["prompt_injection_or_secret_leak"],
+      "backlog_items": [
+        "TECH-001",
+        "EVAL-002",
+        "EVAL-006"
+      ],
+      "tests": [
+        "docs/architecture/risks/risk-registry.json",
+        "npm run validate:provider-scorer"
+      ],
+      "risks": [
+        "prompt_injection_or_secret_leak"
+      ],
       "status": "implemented_baseline"
     },
     {
       "requirement_id": "NFR-004",
       "source": "docs/product/requirements/non-functional-requirements.md",
-      "backlog_items": ["PROC-007"],
+      "backlog_items": [
+        "PROC-007"
+      ],
       "tests": [
         "docs/architecture/llm/provider-budget.json",
         "tests/provider/provider-experiment-result-scored.json",
         "npm run validate:provider-scorer"
       ],
-      "risks": ["latency_budget_exceeded", "cost_budget_exceeded", "provider_unreliability"],
+      "risks": [
+        "latency_budget_exceeded",
+        "cost_budget_exceeded",
+        "provider_unreliability"
+      ],
       "status": "implemented_baseline"
     },
     {
       "requirement_id": "NFR-005",
       "source": "docs/product/requirements/non-functional-requirements.md",
-      "backlog_items": ["EVAL-004"],
-      "tests": ["npm run validate:visual", "npm run validate:evals"],
+      "backlog_items": [
+        "EVAL-004"
+      ],
+      "tests": [
+        "npm run validate:visual",
+        "npm run validate:evals"
+      ],
       "status": "implemented_baseline"
+    },
+    {
+      "requirement_id": "BT-019",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-30"
+      ],
+      "acceptance_scenarios": [
+        "extended_email_delivery"
+      ],
+      "evidence_expectations": [
+        "Созданные PPTX- и PDF-файлы доставлены через разрешенный электронный канал в согласованные рабочие контуры."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-020",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-31",
+        "DC-ST-32"
+      ],
+      "acceptance_scenarios": [
+        "pdf_copy_storage",
+        "pdf_link_handoff"
+      ],
+      "evidence_expectations": [
+        "PDF-копия сохранена в защищенном хранилище и ссылка на нее передана вызывающему агенту как часть группы возможностей с приоритетом P2."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-021",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "story_ids": [
+        "DC-ST-33"
+      ],
+      "acceptance_scenarios": [
+        "lisa_link_notification"
+      ],
+      "evidence_expectations": [
+        "Пользователь получает в Лисе ссылку на готовую презентацию и уведомление о готовности через сценарий, который ведут вызывающий агент и Лиса."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
     }
   ]
 }

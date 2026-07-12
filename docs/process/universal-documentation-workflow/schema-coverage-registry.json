@@ -55,7 +55,8 @@
       "positive_fixture_path": "tests/fixtures/universal-documentation-workflow/positive/neutral-validation-command-catalog.json",
       "negative_fixture_path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
       "negative_scenario_ids": [
-        "missing-validation-command"
+        "missing-validation-command",
+        "catalog-command-missing-execution-policy"
       ],
       "negative_rationale": null
     },
@@ -66,7 +67,8 @@
       "positive_fixture_path": "tests/fixtures/universal-documentation-workflow/positive/neutral-workflow-state.json",
       "negative_fixture_path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
       "negative_scenario_ids": [
-        "open-blocking-decision"
+        "open-blocking-decision",
+        "workflow-plan-mutating-command"
       ],
       "negative_rationale": null
     },
@@ -141,6 +143,222 @@
         "missing-schema"
       ],
       "negative_rationale": null
+    },
+    {
+      "entity": "business_artifact_content_contract",
+      "schema_path": "schemas/business-artifact-content-contract.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Business-doc negative examples live in tests/fixtures/business-docs/negative/cases.json and are executed by npm run validate:business-docs; they are not universal workflow scenario IDs."
+    },
+    {
+      "entity": "business_artifact_generation_contract",
+      "schema_path": "schemas/business-artifact-generation-contract.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Generation-contract coverage is checked by npm run validate:business-docs against the active content contract and process backlog blockers."
+    },
+    {
+      "entity": "business_claim_map",
+      "schema_path": "schemas/business-claim-map.schema.json",
+      "data_path": "docs/product/requirements/business-claim-map.json",
+      "positive_fixture_path": "docs/product/requirements/business-claim-map.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Business claim map is checked by npm run validate:business-claim-map against product-source-registry.json and required downstream fragments."
+    },
+    {
+      "entity": "product_vision_manifest",
+      "schema_path": "schemas/product-vision-manifest.schema.json",
+      "data_path": "docs/product/vision/manifest.json",
+      "positive_fixture_path": "docs/product/vision/manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Product Vision manifest schema is validated by npm run validate:product-vision; negative public-content cases live in tests/fixtures/product-vision/negative/cases.json."
+    },
+    {
+      "entity": "main_artifact_lifecycle_chain",
+      "schema_path": "schemas/main-artifact-lifecycle-chain.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Cross-file lifecycle order, command coverage, source registry, navigation, dependency graph and no-change rationale invariants are executed by npm run validate:main-artifact-lifecycle."
+    },
+    {
+      "entity": "cascade_impact_cone",
+      "schema_path": "schemas/cascade-impact-cone.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Незаявленные циклы, самоссылки, включение измененного корня в собственный конус и ошибки направлений проверяются исполняемыми сценариями npm run validate:cascade-impact."
+    },
+    {
+      "entity": "cascade_baseline_manifest",
+      "schema_path": "schemas/cascade-baseline-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Связь baseline с фактическими хэшами управляющих входов и затронутых файлов проверяется runner self-test и npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_verification_evidence",
+      "schema_path": "schemas/cascade-verification-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Статус verified с упавшей проверкой, открытой очередью решений или незакрытым артефактом отклоняется исполняемыми сценариями npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_resolution_input",
+      "schema_path": "schemas/cascade-resolution-input.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неполный набор путей, несуществующая опция решения, неподтвержденная acceptance record и no-change без структурированного обоснования отклоняются финализатором и npm run validate:cascade-verification."
+    },
+    {
+      "entity": "cascade_vnext_source_identity",
+      "schema_path": "schemas/cascade-source-identity.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/source-identity.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/source-identity.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неизвестные, неоднозначные и не связанные с реестром источники отклоняются npm run validate:cascade-vnext до записи запуска."
+    },
+    {
+      "entity": "cascade_vnext_source_change_analysis",
+      "schema_path": "schemas/cascade-source-change-analysis.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "XLSX-классы выводятся из двух неизменяемых Git-версий книги; ручной набор сигналов и отсутствие фактического diff блокируются."
+    },
+    {
+      "entity": "cascade_vnext_semantic_impact",
+      "schema_path": "schemas/cascade-semantic-impact-report.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Каждая остановка, обязанность и маршрут обязаны ссылаться на явный edge_id и класс изменения из активного графа."
+    },
+    {
+      "entity": "cascade_vnext_actual_diff",
+      "schema_path": "schemas/cascade-actual-diff-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Лишние пути и неподтвержденный Git-диапазон блокируются исполняемыми vNext-сценариями."
+    },
+    {
+      "entity": "cascade_vnext_validation_manifest",
+      "schema_path": "schemas/cascade-validation-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неизвестные команды и расхождение planned/executed/evidenced отклоняются npm run validate:cascade-vnext."
+    },
+    {
+      "entity": "cascade_vnext_runtime_manifest",
+      "schema_path": "schemas/cascade-runtime-manifest.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Несовпадение runtime и lockfile проверяется перед окончательным завершением каскада."
+    },
+    {
+      "entity": "cascade_vnext_owner_question_packet",
+      "schema_path": "schemas/cascade-owner-question-packet.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Пакет без пяти готовых вариантов, цитат и хэшей отклоняется schema gate."
+    },
+    {
+      "entity": "cascade_vnext_acceptance_authority",
+      "schema_path": "schemas/cascade-acceptance-authority.schema.json",
+      "data_path": "docs/process/cascading-governance/acceptance-authority.json",
+      "positive_fixture_path": "docs/process/cascading-governance/acceptance-authority.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Роль, канал или класс изменения вне активного binding блокирует owner-gated финализацию."
+    },
+    {
+      "entity": "cascade_vnext_acceptance",
+      "schema_path": "schemas/cascade-acceptance-vnext.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/acceptance.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Acceptance без точного пакета вопроса, роли, запуска и выбранного варианта не соответствует vNext-схеме."
+    },
+    {
+      "entity": "cascade_vnext_run",
+      "schema_path": "schemas/cascade-vnext-run.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/run.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/run.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Запрещенные переходы состояния и преждевременный done_claimed проверяются npm run validate:cascade-vnext."
+    },
+    {
+      "entity": "cascade_vnext_completion_seal",
+      "schema_path": "schemas/cascade-completion-seal.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Окончательный verified допускается только для отдельной печати cascade:complete."
+    },
+    {
+      "entity": "cascade_vnext_completion_evidence",
+      "schema_path": "schemas/cascade-completion-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Неудачная полная проверка сохраняется как blocked evidence и не создает completion seal."
+    },
+    {
+      "entity": "cascade_vnext_profile_evidence",
+      "schema_path": "schemas/cascade-profile-evidence.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Профильная проверка не может выдавать окончательный verified и блокируется при пропущенной или упавшей команде."
+    },
+    {
+      "entity": "cascade_vnext_resolution_report",
+      "schema_path": "schemas/cascade-resolution-report.schema.json",
+      "data_path": "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+      "positive_fixture_path": "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Отчет создается только после точного покрытия конуса, проверки Git-диффа и хэша входа разрешений."
+    },
+    {
+      "entity": "cascade_vnext_supersession_ledger",
+      "schema_path": "schemas/cascade-supersession-ledger.schema.json",
+      "data_path": "docs/process/cascading-governance/supersession-ledger.json",
+      "positive_fixture_path": "docs/process/cascading-governance/supersession-ledger.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Исторические доказательства не меняются на месте; замещение фиксируется отдельной append-only записью."
     }
   ]
 }

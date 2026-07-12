@@ -6,6 +6,8 @@
   "required": [
     "version",
     "run_id",
+    "run_mode",
+    "apply_supported",
     "status",
     "change_request_path",
     "dependency_graph_path",
@@ -25,14 +27,31 @@
   "properties": {
     "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
     "run_id": { "type": "string", "pattern": "^CUR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
-    "status": { "type": "string", "enum": ["planned", "blocked", "applied", "validated", "complete"] },
+    "run_mode": { "type": "string", "enum": ["dry_run_evidence"] },
+    "apply_supported": { "type": "boolean", "const": false },
+    "status": { "type": "string", "enum": ["planned", "blocked"] },
     "change_request_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "dependency_graph_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "impact_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "decision_queue_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "baseline_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "human_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "capacity_plan_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
     "reprioritization_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
     "jira_mapping_request_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "changed_source_set_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "xlsx_change_analysis_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_input_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "dry_run_evidence_hashes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidenceHash" }
+    },
+    "finalized_evidence_hashes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceHash" }
+    },
     "changed_artifacts": {
       "type": "array",
       "items": { "$ref": "#/$defs/changedArtifact" }
@@ -57,23 +76,61 @@
     },
     "completion_claim": {
       "type": "object",
-      "required": ["done_claimed", "decision_queue_status", "all_affected_artifacts_resolved"],
+      "required": [
+        "done_claimed",
+        "decision_queue_status",
+        "all_affected_artifacts_resolved",
+        "ready_to_apply",
+        "ready_for_dry_run_evidence"
+      ],
       "additionalProperties": false,
       "properties": {
         "done_claimed": { "type": "boolean" },
         "decision_queue_status": { "type": "string", "enum": ["open", "blocked", "closed"] },
-        "all_affected_artifacts_resolved": { "type": "boolean" }
+        "all_affected_artifacts_resolved": { "type": "boolean" },
+        "ready_to_apply": { "type": "boolean", "const": false },
+        "ready_for_dry_run_evidence": { "type": "boolean" }
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "version": { "const": "0.2.0" } },
+        "required": ["version"]
+      },
+      "then": {
+        "required": ["baseline_manifest_path", "human_report_path", "resolution_input_path", "resolution_report_path", "dry_run_evidence_hashes", "finalized_evidence_hashes"],
+        "properties": {
+          "baseline_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "human_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "resolution_input_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "resolution_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "dry_run_evidence_hashes": { "type": "array", "minItems": 1 },
+          "finalized_evidence_hashes": { "type": "array" }
+        }
+      }
+    }
+  ],
   "$defs": {
+    "evidenceHash": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
     "repoPath": {
       "type": "string",
       "minLength": 1,
       "not": {
         "anyOf": [
           { "pattern": "^/" },
-          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "^[A-Za-z]:[\\\\/]" },
+          { "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://" },
+          { "pattern": "\\\\" },
           { "pattern": "\\.\\.(?:/|$)" }
         ]
       }
@@ -86,7 +143,20 @@
         "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "change_type": {
           "type": "string",
-          "enum": ["semantic", "traceability", "navigation", "schema", "validator", "evidence", "process", "generated"]
+          "enum": [
+            "semantic",
+            "traceability",
+            "navigation",
+            "schema",
+            "validator",
+            "evidence",
+            "process",
+            "generated",
+            "source",
+            "provenance",
+            "registry",
+            "resource"
+          ]
         },
         "confirmation_status": { "type": "string", "enum": ["not_required", "confirmed", "pending"] }
       }
@@ -97,8 +167,23 @@
       "additionalProperties": false,
       "properties": {
         "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "no_change_rationale": { "type": "string", "minLength": 1 },
+        "no_change_rationale": {
+          "oneOf": [
+            { "type": "string", "minLength": 1 },
+            { "$ref": "#/$defs/noChangeRationaleReference" }
+          ]
+        },
         "confirmation_status": { "type": "string", "enum": ["confirmed", "pending"] }
+      }
+    },
+    "noChangeRationaleReference": {
+      "type": "object",
+      "required": ["rationale_summary", "impact_report_path", "impact_artifact_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "rationale_summary": { "type": "string", "minLength": 1 },
+        "impact_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "impact_artifact_ref": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
       }
     },
     "generatedArtifact": {

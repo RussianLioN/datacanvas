@@ -35,7 +35,9 @@
       "selected_option_id": "variant_1_recommended",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
-      "related_edit_ids": ["EDIT-001"],
+      "related_edit_ids": [
+        "EDIT-001"
+      ],
       "safe_summary": "Product Owner выбрал вариант 1 для EDIT-001: разделить основной сценарий Vision на запуск другим агентом и диалоговый режим в Лисе."
     },
     {
@@ -49,7 +51,9 @@
       "selected_option_id": "variant_1_recommended",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "7f0e5b138ea611a617611881298b4e90332485d6c7ae7f73454f63c0bcc12557",
-      "related_edit_ids": ["EDIT-002"],
+      "related_edit_ids": [
+        "EDIT-002"
+      ],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-002: переписать BMC на стейкхолдерском языке, разделив запуск другим агентом, диалоговый режим в Лисе и доставку файла по электронной почте."
     },
     {
@@ -63,7 +67,9 @@
       "selected_option_id": "variant_1_with_po_clarification",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "c977dbe785221d34114d345fdf8ff4e18bb4af66750751dbea29407f9738735f",
-      "related_edit_ids": ["EDIT-003"],
+      "related_edit_ids": [
+        "EDIT-003"
+      ],
       "safe_summary": "Product Owner принял финальный текст для EDIT-003 — правки бизнес-требований по разделению режимов: в Лисе пользователь после описания структуры выбирает изготовление презентации или редактирование структуры; при запуске другим агентом подтверждение невозможно и не требуется."
     },
     {
@@ -77,7 +83,9 @@
       "selected_option_id": "variant_1_recommended",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
-      "related_edit_ids": ["EDIT-004"],
+      "related_edit_ids": [
+        "EDIT-004"
+      ],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-004 — правки критериев приемки по двум маршрутам: явно разделить запуск другим агентом без подтверждения после проверок и диалоговый режим в Лисе с выбором изготовления или редактирования структуры."
     },
     {
@@ -91,8 +99,10 @@
       "selected_option_id": "variant_5_with_po_lisa_notification_clarification",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "dfb7d3244d829dad4eced5a9d012671b6f814c0501f27171251c95df680d13d6",
-      "related_edit_ids": ["EDIT-005"],
-      "safe_summary": "Product Owner согласовал EDIT-005 — правку BA-утверждений по каналу доставки: файл доставляется пользователю по электронной почте; при запуске другим агентом вызывающий агент получает статусы и сведения о результате; в Лисе пользователь получает сообщение о сроке доставки до 30 минут и уведомление после отправки файла."
+      "related_edit_ids": [
+        "EDIT-005"
+      ],
+      "safe_summary": "Product Owner согласовал EDIT-005 — правку BA-утверждений по каналу доставки: файл доставляется пользователю по электронной почте; для запуска другим агентом подтверждена продуктовая потребность в статусах и сведениях о результате, а реальная callback-интеграция остается открытым архитектурным решением; в Лисе пользователь получает сообщение о сроке доставки до 30 минут и уведомление после отправки файла."
     },
     {
       "acceptance_id": "AR-CO-2026-001-EDIT-006",
@@ -105,7 +115,9 @@
       "selected_option_id": "variant_1_recommended",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
-      "related_edit_ids": ["EDIT-006"],
+      "related_edit_ids": [
+        "EDIT-006"
+      ],
       "safe_summary": "Product Owner принял вариант 1 для EDIT-006 — правки системного анализа по маршруту без подтверждения: запуск другим агентом после проверки достаточности и безопасности данных идет к изготовлению, экспорту и доставке без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры."
     },
     {
@@ -119,7 +131,9 @@
       "selected_option_id": "accepted_recommended_main_text_with_technical_boundary_in_non_goals",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "43a4e3906d9a836cf6ba6623ad179124aef987ad55be9d741ea1294c3e611dd1",
-      "related_edit_ids": ["EDIT-007"],
+      "related_edit_ids": [
+        "EDIT-007"
+      ],
       "safe_summary": "Product Owner принял EDIT-007 — правку feature spec по решению о доставке: основной текст фиксирует принятое решение о доставке без перегруженной технической оговорки, а граница по реальным сетевым, почтовым интеграциям и интеграциям инструментов сохраняется в технических ограничениях пакета спецификаций."
     },
     {
@@ -133,7 +147,9 @@
       "selected_option_id": "variant_3_recommended",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "ae347f0c7028acbf9bfef705b87806451125b155a3afa658ce222681de2d2140",
-      "related_edit_ids": ["EDIT-008"],
+      "related_edit_ids": [
+        "EDIT-008"
+      ],
       "safe_summary": "Product Owner принял вариант 3 для EDIT-008 — правки матрицы трассировки по двум режимам: для BT-009, BT-012 и BT-014 добавляются отдельные связи по режиму Лисы и запуску другим агентом."
     },
     {
@@ -147,7 +163,9 @@
       "selected_option_id": "derived_consistency_sync_from_accepted_co_2026_001",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "derived-from-ar-co-2026-001-po-001",
-      "related_edit_ids": ["EDIT-010"],
+      "related_edit_ids": [
+        "EDIT-010"
+      ],
       "safe_summary": "EDIT-010 — правка модели жизненного цикла — зафиксирован как синхронизация downstream-системного документа с уже принятым CO-2026-001: канал доставки принят как электронная почта, а запуск другим агентом не требует ручного подтверждения."
     },
     {
@@ -161,7 +179,9 @@
       "selected_option_id": "derived_consistency_sync_from_accepted_co_2026_001",
       "evidence_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
       "original_user_answer_hash": "derived-from-ar-co-2026-001-po-001",
-      "related_edit_ids": ["EDIT-011"],
+      "related_edit_ids": [
+        "EDIT-011"
+      ],
       "safe_summary": "EDIT-011 — правка SRS по принятому статусу CO-2026-001 — зафиксирован как синхронизация системной спецификации с уже принятым решением Product Owner."
     }
   ],
@@ -169,12 +189,15 @@
     {
       "edit_id": "EDIT-001",
       "artifact_path": "docs/product-vision.md",
-      "section_or_anchor": "Основной пользовательский сценарий",
+      "section_or_anchor": "Основные маршруты",
       "change_kind": "conceptual_product",
-      "current_excerpt": "DataCanvas работает в двух режимах.",
+      "current_excerpt": "Вызывающий агент передает DataCanvas подготовленный контекст, параметры презентации и данные для определения получателя результата.",
       "proposed_text": "Разделить сценарий на два маршрута: запуск другим агентом без подтверждения после проверки достаточности и безопасности данных; диалоговый режим в Лисе с уточняющими вопросами, просмотром структуры и правками до генерации.",
       "rationale": "Текущий сценарий смешивает агентский запуск и режим Лисы, хотя CO-2026-001 разделил эти маршруты.",
-      "affected_claims": ["CO-2026-001", "PRODUCT-21"],
+      "affected_claims": [
+        "CO-2026-001",
+        "PRODUCT-21"
+      ],
       "downstream_paths": [
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md",
@@ -192,11 +215,18 @@
       "artifact_path": "docs/product/bmc/bmc-v0.2.md",
       "section_or_anchor": "B3/B4/B6/B7/B8",
       "change_kind": "conceptual_product",
-      "current_excerpt": "DataCanvas запускается двумя основными способами: другим агентом по подготовленному контексту или пользователем в Лисе через диалоговый режим.",
-      "proposed_text": "В стейкхолдерском BMC использовать формулировку \"другой агент\" и разделить каналы: запуск другим агентом, подтверждения только в Лисе, файл по электронной почте, статусы через обратный вызов.",
-      "rationale": "BMC содержит технические обозначения и универсальный human-in-the-loop, что противоречит согласованной стейкхолдерской формулировке.",
-      "affected_claims": ["CO-2026-001", "PRODUCT-07", "PRODUCT-17", "PRODUCT-19"],
-      "downstream_paths": ["docs/product/requirements/business-requirements.md"],
+      "current_excerpt": "Основные каналы DataCanvas: диалог в Лисе, запуск другим агентом по подготовленному контексту, доставка PPTX- и PDF-файлов по электронной почте и отдельный канал ссылки на PDF-копию с уведомлением в Лисе.",
+      "proposed_text": "В стейкхолдерском BMC использовать формулировку \"другой агент\" и разделить каналы: диалог в Лисе, запуск другим агентом по подготовленному контексту, доставку готового файла по электронной почте и отдельный P2-канал ссылки на PDF-копию с уведомлением в Лисе через сценарий, который ведут вызывающий агент и Лиса. Статусы для вызывающего агента остаются потребностью требований и не утверждаются BMC как реальная callback-интеграция.",
+      "rationale": "BMC должен оставаться стейкхолдерским и классическим: без технических обозначений, без универсального human-in-the-loop и без утверждения интеграций, которые зафиксированы как отдельный отдельный этап дорожной карты или открытое архитектурное решение.",
+      "affected_claims": [
+        "CO-2026-001",
+        "PRODUCT-07",
+        "PRODUCT-17",
+        "PRODUCT-19"
+      ],
+      "downstream_paths": [
+        "docs/product/requirements/business-requirements.md"
+      ],
       "required_owner": "Product Owner",
       "approval_status": "approved",
       "apply_status": "applied",
@@ -209,10 +239,15 @@
       "artifact_path": "docs/product/requirements/business-requirements.md",
       "section_or_anchor": "BT-009, BT-012, BT-014",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "| BT-009 | В диалоговом режиме в Лисе DataCanvas показывает пользователю описание структуры будущей презентации и предлагает выбрать: сразу изготовить презентацию или перейти к редактированию структуры |",
+      "current_excerpt": "| BT-009 | В диалоговом режиме в Лисе DataCanvas показывает пользователю описание структуры будущей презентации и предлагает выбрать изготовление презентации или редактирование структуры. | Пользователь, Лиса, DataCanvas | Пользователь управляет дальнейшим действием после просмотра структуры. | Пользователь видит описание структуры и выбирает изготовление презентации или редактирование структуры. |",
       "proposed_text": "Для режима Лисы заменить обязательное согласование на пользовательский выбор после показа описания структуры: сразу изготовить презентацию или перейти к редактированию структуры. Для запуска другим агентом зафиксировать, что подтверждение невозможно и не требуется: после проверки достаточности и безопасности данных DataCanvas готовит презентацию и доставляет файл по электронной почте.",
       "rationale": "Требования сейчас задают подтверждение до генерации как общее правило, но CO-2026-001 разделил режимы: при запуске другим агентом подтверждения нет, а в Лисе пользователь выбирает изготовление или редактирование структуры после просмотра описания.",
-      "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
+      "affected_claims": [
+        "BT-009",
+        "BT-012",
+        "BT-014",
+        "CO-2026-001"
+      ],
       "downstream_paths": [
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/traceability-matrix.json",
@@ -228,13 +263,19 @@
     {
       "edit_id": "EDIT-004",
       "artifact_path": "docs/product/requirements/acceptance-criteria.md",
-      "section_or_anchor": "Базовый MVP gate / Сценарии приемки P1-P2",
+      "section_or_anchor": "Базовый MVP gate / Сценарии приемки по маршрутам",
       "change_kind": "cross_artifact_semantic",
-      "current_excerpt": "- При запуске другим агентом DataCanvas после проверки достаточности и безопасности данных готовит презентацию без пользовательского подтверждения и отправляет файл по электронной почте.",
+      "current_excerpt": "- При запуске другим агентом DataCanvas после проверки достаточности и безопасности данных сообщает вызывающему агенту о приеме данных, готовит презентацию без пользовательского подтверждения и отправляет пользователю редактируемый `PPTX`-файл и нередактируемую `PDF`-копию по электронной почте.",
       "proposed_text": "Разделить критерии приемки на два явных маршрута: запуск другим агентом без пользовательского подтверждения после проверки достаточности и безопасности данных; диалоговый режим в Лисе с показом описания структуры и выбором пользователя: изготовить презентацию или перейти к редактированию структуры.",
       "rationale": "Критерии приемки сейчас требуют согласования до генерации для всех режимов.",
-      "affected_claims": ["BT-009", "BT-012", "CO-2026-001"],
-      "downstream_paths": ["docs/product/requirements/traceability-matrix.json"],
+      "affected_claims": [
+        "BT-009",
+        "BT-012",
+        "CO-2026-001"
+      ],
+      "downstream_paths": [
+        "docs/product/requirements/traceability-matrix.json"
+      ],
       "required_owner": "Product Owner",
       "approval_status": "approved",
       "apply_status": "applied",
@@ -247,11 +288,16 @@
       "artifact_path": "docs/product/analysis/ba/ba-spec.json",
       "section_or_anchor": "BASA-CLM delivery channel",
       "change_kind": "point_semantic",
-      "current_excerpt": "Канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден: при запуске другим агентом файл презентации отправляется пользователю по электронной почте, а вызывающий агент получает статусы и сведения о результате через обратный вызов; в Лисе после выбора изготовления презентации пользователь получает сообщение о доставке на электронную почту в течение 30 минут и уведомление после отправки файла.",
-      "proposed_text": "Пометить старое BA-утверждение как устаревшее и зафиксировать подтвержденный маршрут доставки: при запуске другим агентом файл презентации отправляется пользователю по электронной почте, а вызывающий агент получает статусы и сведения о результате через обратный вызов; в Лисе после выбора изготовления презентации пользователь получает сообщение, что презентация будет отправлена на электронную почту в течение 30 минут, а после отправки файла получает уведомление в Лисе: в текущей реализации — метку о непрочитанных сообщениях в статусе Лисы, в будущих реализациях — пуш-уведомление и метку о непрочитанных сообщениях.",
+      "current_excerpt": "Канал доставки для BT-012 (бизнес-требование о доставке результата) подтвержден: при запуске другим агентом файл презентации отправляется пользователю по электронной почте. Для вызывающего агента подтверждена продуктовая потребность в статусах и сведениях о результате, но реальная callback-интеграция остается открытым архитектурным решением. В Лисе после выбора изготовления презентации пользователь получает сообщение о доставке на электронную почту в течение 30 минут и уведомление после отправки файла.",
+      "proposed_text": "Пометить старое BA-утверждение как устаревшее и зафиксировать подтвержденный маршрут доставки: при запуске другим агентом файл презентации отправляется пользователю по электронной почте; для вызывающего агента подтверждена продуктовая потребность в статусах и сведениях о результате, а реальная callback-интеграция остается открытым архитектурным решением; в Лисе после выбора изготовления презентации пользователь получает сообщение, что презентация будет отправлена на электронную почту в течение 30 минут, а после отправки файла получает уведомление в Лисе: в текущей реализации — метку о непрочитанных сообщениях в статусе Лисы, в будущих реализациях — пуш-уведомление и метку о непрочитанных сообщениях.",
       "rationale": "Product Owner уточнил разные уведомления для запуска другим агентом и диалогового режима в Лисе: файл доставляется по электронной почте, а пользователь в Лисе дополнительно информируется о сроке доставки и получает уведомление после отправки.",
-      "affected_claims": ["PRODUCT-07", "BT-012"],
-      "downstream_paths": ["docs/product/specs/feature-spec-a2a-launch.json"],
+      "affected_claims": [
+        "PRODUCT-07",
+        "BT-012"
+      ],
+      "downstream_paths": [
+        "docs/product/specs/feature-spec-a2a-launch.json"
+      ],
       "required_owner": "Product Owner",
       "approval_status": "approved",
       "apply_status": "applied",
@@ -267,8 +313,14 @@
       "current_excerpt": "маршрут запуска другим агентом пропускает это состояние после проверки и нормализации",
       "proposed_text": "Разделить системные маршруты: запуск другим агентом после проверки достаточности и безопасности данных идет к нормализации, изготовлению, экспорту и доставке по электронной почте без ручного подтверждения; режим Лисы сохраняет пользовательский выбор после описания структуры: изготовить презентацию или перейти к редактированию структуры.",
       "rationale": "System analysis раньше моделировал approval как обязательный переход перед render_export, но CO-2026-001 разделил маршруты: при запуске другим агентом подтверждение невозможно и не требуется, а в Лисе пользователь выбирает действие после описания структуры.",
-      "affected_claims": ["CO-2026-001", "BT-009", "BT-012"],
-      "downstream_paths": ["docs/product/specs/task-spec-a2a-launch.json"],
+      "affected_claims": [
+        "CO-2026-001",
+        "BT-009",
+        "BT-012"
+      ],
+      "downstream_paths": [
+        "docs/product/specs/task-spec-a2a-launch.json"
+      ],
       "required_owner": "Product Owner / AI Agent Architect",
       "approval_status": "approved",
       "apply_status": "applied",
@@ -284,7 +336,12 @@
       "current_excerpt": "Сделать запуск другим агентом первым проверяемым маршрутом",
       "proposed_text": "Обновить пакет спецификаций: решение о доставке принято для CO-2026-001 — изменения приоритета продукта и маршрута DataCanvas: готовая презентация направляется пользователю по электронной почте, а при запуске другим агентом DataCanvas после проверки достаточности и безопасности данных готовит и отправляет результат без дополнительного подтверждения пользователя. Техническая граница о невключении реальных сетевых, почтовых интеграций и интеграций инструментов сохраняется в non_goals и prompt constraints.",
       "rationale": "Spec слой должен отличать принятое продуктовое решение от технического включения интеграций.",
-      "affected_claims": ["PRODUCT-07", "CO-2026-001", "BASA-CLM-009", "BT-012"],
+      "affected_claims": [
+        "PRODUCT-07",
+        "CO-2026-001",
+        "BASA-CLM-009",
+        "BT-012"
+      ],
       "downstream_paths": [
         "docs/product/specs/task-spec-a2a-launch.json",
         "docs/product/specs/agent-prompt-spec-a2a-launch.json",
@@ -309,7 +366,12 @@
       "current_excerpt": "В Лисе сохраняется выбор пользователя после описания структуры презентации",
       "proposed_text": "Для BT-009 — бизнес-требования о выборе перед изготовлением, BT-012 — бизнес-требования о доставке результата, и BT-014 — бизнес-требования о трассировке жизненного цикла — добавить отдельные связи по двум режимам: в Лисе сохраняется выбор пользователя после описания структуры презентации, а запуск другим агентом после проверки достаточности и безопасности данных ведет к изготовлению презентации и доставке результата по электронной почте без дополнительного подтверждения пользователя.",
       "rationale": "Трассировка сейчас наследует общее правило подтверждения.",
-      "affected_claims": ["BT-009", "BT-012", "BT-014", "CO-2026-001"],
+      "affected_claims": [
+        "BT-009",
+        "BT-012",
+        "BT-014",
+        "CO-2026-001"
+      ],
       "downstream_paths": [],
       "required_owner": "Product Owner",
       "approval_status": "approved",
@@ -326,8 +388,12 @@
       "current_excerpt": "\"status\": \"blocked\"",
       "proposed_text": "Не переписывать historical evidence; отметить в source registry и revision ledger, что запуск 2026-07-02 остается historical/blocked и перекрывается PO-решением 2026-07-03.",
       "rationale": "Исторический evidence не должен противоречить accepted CO, но его нельзя молча переписывать как текущий статус.",
-      "affected_claims": ["CO-2026-001"],
-      "downstream_paths": ["docs/product/sources/product-source-registry.json"],
+      "affected_claims": [
+        "CO-2026-001"
+      ],
+      "downstream_paths": [
+        "docs/product/sources/product-source-registry.json"
+      ],
       "required_owner": "Process Owner",
       "approval_status": "not_required",
       "apply_status": "not_applied",
@@ -343,8 +409,14 @@
       "current_excerpt": "Для `CO-2026-001` — принятого изменения приоритета продукта — канал доставки файла принят: готовая презентация отправляется пользователю по электронной почте.",
       "proposed_text": "Синхронизировать текстовую и машинную модель жизненного цикла: состояние approval применяется только к Лисе; запуск другим агентом после проверки достаточности и безопасности данных идет к подготовке презентации без ручного подтверждения; delivery_acceptance закрывается после отправки файла по электронной почте и фиксации очищенного статуса доставки.",
       "rationale": "Финальный аудит обнаружил, что текстовая модель жизненного цикла сохраняла устаревшую фразу о непринятом канале, хотя CO-2026-001 уже подтвердил электронную почту как канал доставки файла.",
-      "affected_claims": ["CO-2026-001", "BT-012", "BT-014"],
-      "downstream_paths": ["docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
+      "affected_claims": [
+        "CO-2026-001",
+        "BT-012",
+        "BT-014"
+      ],
+      "downstream_paths": [
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"
+      ],
       "required_owner": "Product Owner / AI Agent Architect",
       "approval_status": "approved",
       "apply_status": "applied",
@@ -360,8 +432,15 @@
       "current_excerpt": "CO-2026-001 принят Product Owner; этот SRS описывает документальный и проверочный контур без включения реальных сетевых, почтовых интеграций или интеграций инструментов.",
       "proposed_text": "Синхронизировать SRS с принятым статусом CO-2026-001: документ описывает текущий проверочный контур запуска другим агентом, а не черновик до принятия Product Owner; при этом реальные сетевые, почтовые интеграции и интеграции инструментов не включаются в этот репозиторий.",
       "rationale": "Финальный аудит обнаружил, что SRS продолжал считать A2A-first change order черновиком до принятия Product Owner, хотя CO-2026-001 уже принят.",
-      "affected_claims": ["CO-2026-001", "BT-012", "BT-014"],
-      "downstream_paths": ["docs/architecture/system-analysis/srs-v0.1.md", "docs/architecture/system-analysis/sa-spec.json"],
+      "affected_claims": [
+        "CO-2026-001",
+        "BT-012",
+        "BT-014"
+      ],
+      "downstream_paths": [
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
       "required_owner": "Product Owner / AI Agent Architect",
       "approval_status": "approved",
       "apply_status": "applied",

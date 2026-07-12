@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { spawnSync } from "node:child_process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
@@ -10,6 +11,36 @@ const realUatGuardPath = "docs/architecture/security/real-uat-leakage-guard.json
 
 function readText(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
+}
+
+function readXlsxText(relativePath) {
+  const script = `
+import sys, zipfile
+path = sys.argv[1]
+with zipfile.ZipFile(path) as z:
+    for name in z.namelist():
+        lowered = name.lower()
+        if not (lowered.endswith(".xml") or lowered.endswith(".rels") or lowered.endswith(".txt") or lowered.endswith(".vml")):
+            continue
+        data = z.read(name).decode("utf-8", errors="ignore")
+        print(f"--- {name} ---")
+        print(data)
+`;
+  const result = spawnSync("python3", ["-c", script, path.join(root, relativePath)], {
+    encoding: "utf8",
+    maxBuffer: 50 * 1024 * 1024,
+  });
+  if (result.status !== 0) {
+    fail(`failed to inspect XLSX leakage target ${relativePath}: ${result.stderr || result.stdout}`);
+  }
+  return result.stdout;
+}
+
+function readScanText(relativePath) {
+  if (/\.xlsx$/iu.test(relativePath)) {
+    return readXlsxText(relativePath);
+  }
+  return readText(relativePath);
 }
 
 function readJson(relativePath) {
@@ -125,7 +156,7 @@ for (const target of manifest.scan_targets) {
   }
   scanTargetsByPath.set(target.path, target);
   requireFile(target.path);
-  const text = readText(target.path);
+  const text = readScanText(target.path);
   for (const forbidden of forbiddenPatterns) {
     if (!enabledClasses.has(forbidden.class)) {
       continue;
@@ -148,13 +179,13 @@ for (const rule of navigationSource.sensitive_path_rules) {
   }
 }
 
-const publicSurfaceClasses = new Set(["secret", "pii", "local_path"]);
+const publicSurfaceClasses = new Set(["secret", "pii", "local_path", "raw_trace", "internal_prompt", "tool_output"]);
 for (const entry of navigationIndex.entries) {
   if (!entry.reachable_from_root || entry.visibility !== "public" || !["md", "json"].includes(entry.format)) {
     continue;
   }
   requireFile(entry.path);
-  const text = readText(entry.path);
+  const text = readScanText(entry.path);
   for (const forbidden of forbiddenPatterns) {
     if (!publicSurfaceClasses.has(forbidden.class)) {
       continue;

@@ -2,10 +2,10 @@
   "version": "0.1.0",
   "status": "generated",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
-  "generated_at": "2026-06-24T00:00:00Z",
+  "generated_at": "2026-07-12T00:00:00Z",
   "summary": {
     "total_items": 9,
-    "items_requiring_action": 4,
+    "items_requiring_action": 0,
     "evidence_request_ids": [
       "EVD-REQ-001",
       "EVD-REQ-003",
@@ -17,89 +17,9 @@
       "EVD-REQ-009"
     ],
     "open_question_ids": [
-      "BMC-OQ-001",
-      "BMC-OQ-002",
-      "BMC-OQ-003",
       "BMC-OQ-004",
       "BMC-OQ-005"
     ]
   },
-  "items": [
-    {
-      "item_id": "BMC-CLM-001",
-      "block": "B1",
-      "block_title": "Сегменты пользователей",
-      "statement": "Текущие основные сегменты DataCanvas: КМ (Клиентский менеджер) и CSM (Customer Success Manager); перспективно - любой пользователь мессенджера Лиса.",
-      "validation_need": "confirmation",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Предоставить материал для блока \"Сегменты пользователей\": файл, ссылку, решение, метрику или безопасную цитату.",
-      "linked_answer_ids": [
-        "ANS-001"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-VISION-BRANCH-SNAPSHOT",
-        "SRC-DC-STORIES-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-002",
-      "block": "B2",
-      "block_title": "Ценностное предложение",
-      "statement": "Главная ценность DataCanvas для КМ и CSM: быстрее получить рабочую презентацию, снизить ручное копирование и верстку, а также нагрузку на разбор длинного ответа другого агента в Лисе.",
-      "validation_need": "verification",
-      "current_status": "unconfirmed",
-      "confidence": "medium",
-      "required_action": "Проверить, достаточно ли связанных материалов для блока \"Ценностное предложение\", и закрыть непокрытые детали.",
-      "linked_answer_ids": [
-        "ANS-002"
-      ],
-      "evidence_ids": [
-        "EVD-001"
-      ],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT",
-        "SRC-DC-VISION-BRANCH-SNAPSHOT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-005",
-      "block": "B5",
-      "block_title": "Потоки внутренней пользы",
-      "statement": "Первый проверяемый внутренний эффект DataCanvas: экономия времени КМ, снижение объема ручной работы и нагрузки на чтение длинных агентских ответов.",
-      "validation_need": "research",
-      "current_status": "assumption",
-      "confidence": "low",
-      "required_action": "Проверить расчет или исследование по блоку \"Потоки внутренней пользы\" через метрику, пилотное наблюдение или отдельное интервью.",
-      "linked_answer_ids": [
-        "ANS-005"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Product Owner"
-    },
-    {
-      "item_id": "BMC-CLM-009",
-      "block": "B9",
-      "block_title": "Структура затрат",
-      "statement": "Первые издержки и ограничения DataCanvas: поддержка и сопровождение, стоимость рендера, время проверки результата, стоимость вызовов LLM и задержка ответа; именно в таком порядке приоритета.",
-      "validation_need": "research",
-      "current_status": "assumption",
-      "confidence": "low",
-      "required_action": "Проверить расчет или исследование по блоку \"Структура затрат\" через метрику, пилотное наблюдение или отдельное интервью.",
-      "linked_answer_ids": [
-        "ANS-009"
-      ],
-      "evidence_ids": [],
-      "source_refs": [
-        "SRC-DC-BMC-CURRENT"
-      ],
-      "owner_role": "Product Owner"
-    }
-  ]
+  "items": []
 }

@@ -8,6 +8,11 @@
       "id": "documentation-core",
       "command": "npm run validate:documentation-core",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "universal_core"
       ],
@@ -18,6 +23,11 @@
       "id": "documentation-profile",
       "command": "npm run validate:documentation-profile",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "project_profile",
         "product_profile"
@@ -29,6 +39,11 @@
       "id": "datacanvas-profile",
       "command": "npm run validate:datacanvas-profile",
       "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "pilot_specific"
       ],
@@ -36,9 +51,99 @@
       "purpose": "Проверяет, что DataCanvas подключен через профиль, а не зашит в ядро."
     },
     {
+      "id": "product-vision",
+      "command": "npm run validate:product-vision",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning"
+      ],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет чистоту публичного Vision и вынос служебной информации в машинные артефакты."
+    },
+    {
+      "id": "business-docs",
+      "command": "npm run validate:business-docs",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "traceability"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет, что бизнесовые Markdown-артефакты не смешивают продуктовый смысл с техническими контрактами, provenance, проверочными командами, локальными путями и generated metadata, а каждый документ имеет контракт генерации и блокирующую задачу в process backlog."
+    },
+    {
+      "id": "business-claim-map",
+      "command": "npm run validate:business-claim-map",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "traceability",
+        "change_orders"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет, что ключевые утверждения CO-2026-001 и CO-2026-002 отражены в основных бизнес-артефактах без загрязнения человекочитаемых документов служебной трассировкой."
+    },
+    {
+      "id": "product-sources",
+      "command": "npm run validate:product-sources && npm run validate:product-source-consistency",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "traceability"
+      ],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет реестр продуктовых источников, статусы current/historical и согласованность источников смысла."
+    },
+    {
+      "id": "bmc-package",
+      "command": "npm run validate:bmc",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "generated"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет BMC как классический публичный продуктовый артефакт и согласованность производных BMC-артефактов."
+    },
+    {
       "id": "workflow-state-ledger",
       "command": "npm run validate:workflow-state-ledger",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "change_instance"
       ],
@@ -49,6 +154,11 @@
       "id": "generator-contracts",
       "command": "npm run validate:generator-contracts",
       "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "generated"
       ],
@@ -59,6 +169,11 @@
       "id": "schema-coverage",
       "command": "npm run validate:schema-coverage",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "schemas",
         "fixtures"
@@ -70,6 +185,11 @@
       "id": "mutation-guard",
       "command": "npm run validate:mutation-guard",
       "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "generated",
         "change_instance"
@@ -81,6 +201,11 @@
       "id": "security",
       "command": "npm run scan:secrets && npm run validate:data-leakage",
       "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "security"
       ],
@@ -89,8 +214,15 @@
     },
     {
       "id": "full",
-      "command": "npm run validate:universal-documentation-workflow",
+      "command": "npm test",
       "gate": "full",
+      "execution_type": "full_gate",
+      "mutates_files": true,
+      "writes_expected": [
+        "generated outputs declared by repository generator contracts"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "universal_core",
         "project_profile",
@@ -100,7 +232,659 @@
         "security"
       ],
       "owner_role": "Process Owner",
-      "purpose": "Сводная проверка универсального workflow."
+      "purpose": "Запускает полный локальный gate репозитория, включая workflow, продуктовые источники, BMC, security, export и visual проверки."
+    },
+    {
+      "id": "xlsx-source-security",
+      "command": "npm run validate:xlsx-source-security",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "security"
+      ],
+      "owner_role": "Product Owner / Security Lead",
+      "purpose": "Проверяет очищенный Excel-источник по манифесту: допускается только удаление absPath из xl/workbook.xml, остальные части OOXML должны совпадать с оригиналом."
+    },
+    {
+      "id": "git-history-hygiene",
+      "command": "npm run validate:git-history-hygiene",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "security"
+      ],
+      "owner_role": "Security Lead / GitOps Lead",
+      "purpose": "Проверяет каждый коммит кандидата относительно main и блокирует старый raw-путь, локальные указатели и внешние связи внутри XLSX."
+    },
+    {
+      "id": "ci-exact-sha",
+      "command": "npm run validate:ci-exact-sha",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "release",
+        "security"
+      ],
+      "owner_role": "CI/CD Lead / GitOps Lead",
+      "purpose": "В CI сравнивает checkout с SHA кандидата, который workflow передает извне. Локальная npm-команда проверяет только текущий HEAD как smoke-проверку скрипта и не заменяет серверное evidence точного SHA."
+    },
+    {
+      "id": "xlsx-backlog-sync",
+      "command": "npm run validate:xlsx-backlog",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "effort_estimation"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "purpose": "Проверяет рабочий Excel backlog DataCanvas относительно контролируемого Excel-источника, допустимых добавленных строк, provenance и принятого статуса ПШЕ."
+    },
+    {
+      "id": "xlsx-cascade",
+      "command": "npm run validate:xlsx-cascade",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "analysis_source",
+        "xlsx_backlog",
+        "effort_estimation",
+        "cascade"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "purpose": "Проверяет, что XLSX и provenance включены в каскадный граф как значимые входные источники, а полный конус связанных артефактов закрывается обновлением, проверкой владельца или no-change rationale в impact analysis."
+    },
+    {
+      "id": "main-artifact-lifecycle",
+      "command": "npm run validate:main-artifact-lifecycle",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "product_meaning",
+        "cascade",
+        "traceability"
+      ],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "Проверяет машинно закрепленную цепочку главных артефактов DataCanvas: порядок Vision, BMC, stories, требований, backlog, XLSX, roadmap, гипотез, traceability и экспортного пакета; связывает цепочку с реестрами, навигацией, каскадным графом и проверками."
+    },
+    {
+      "id": "cascade-impact",
+      "command": "npm run validate:cascade-impact",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "traceability"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет единый расчет полного конуса влияния вверх и вниз, исключение измененного корня, явное объявление циклов и выбор обязательства по каждому затронутому артефакту."
+    },
+    {
+      "id": "cascading-governance",
+      "command": "npm run validate:cascading-governance",
+      "gate": "profile",
+      "execution_type": "isolated_runtime_check",
+      "mutates_files": false,
+      "writes_expected": [
+        "artifacts/manual/.tmp-cascade-cli-*",
+        "docs/process/cascading-governance/runs/.tmp-cascade-cli-*"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "runtime_cleanup_required": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "decision_queue",
+        "xlsx_backlog"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет согласованность запроса на изменение, графа, полного конуса влияния, очереди решений, XLSX-каскада и evidence сухого запуска. Временные файлы создаются только в объявленных игнорируемых каталогах и удаляются после проверки."
+    },
+    {
+      "id": "universal-documentation-workflow",
+      "command": "npm run validate:universal-documentation-workflow",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "documentation_operations",
+        "change_instance",
+        "cascade"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет универсальное ядро, профиль DataCanvas, реестры схем и артефактов, контракты генераторов и защиту разрешенных записей."
+    },
+    {
+      "id": "cascade-run",
+      "command": "npm run cascade:run -- --change-request <path> --base-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<run-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "generated"
+      ],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "Создает атомарный vNext-пакет планирования по реальному Git-изменению: идентичность источника, семантическое влияние вверх и вниз, проверки, среду выполнения и пакет вопроса владельцам; продуктовый смысл не меняет."
+    },
+    {
+      "id": "cascade-verification",
+      "command": "npm run validate:cascade-verification",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет схемы baseline и итогового evidence, а также запрещает статус verified при незакрытых артефактах, решениях владельца или упавших проверках."
+    },
+    {
+      "id": "cascade-finalize",
+      "command": "npm run cascade:finalize -- --run <run-json> --resolution-input <resolution-json> --candidate-head-sha <git-sha> --output-dir docs/process/cascading-governance/runs/<finalization-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis",
+        "decision_queue",
+        "generated"
+      ],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "Проверяет полномочия владельцев, точное покрытие всех обязательств, ожидаемые хэши или согласованные патчи и создает отдельный финализированный vNext-пакет."
+    },
+    {
+      "id": "cascade-verify",
+      "command": "npm run cascade:verify -- --run <run-json> --output-dir docs/process/cascading-governance/runs/<verification-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence",
+        "generated"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "В отдельной рабочей копии candidate SHA запускает только зарегистрированные немутирующие профильные проверки и выпускает отдельное evidence; эта стадия еще не имеет права объявлять работу завершенной."
+    },
+    {
+      "id": "cascade-complete",
+      "command": "npm run cascade:complete -- --run <profile-verified-run-json> --output-dir docs/process/cascading-governance/runs/<completion-id>",
+      "gate": "generated",
+      "execution_type": "mutating_generator",
+      "mutates_files": true,
+      "writes_expected": [
+        "docs/process/cascading-governance/runs"
+      ],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "evidence",
+        "generated"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "В отдельной рабочей копии candidate SHA проверяет среду, выполняет полный npm test и контроль чистого Git diff; вложенная сквозная проверка использует отдельное пространство путей и без рекурсии реально проходит планирование и финализацию, а текущий процесс покрывает проверку профиля и завершение. Полный gate обязан найти подтверждающий маркер во всем выводе до его сокращения. Только эта команда может выпустить статус verified и completion seal."
+    },
+    {
+      "id": "cascade-vnext",
+      "command": "npm run validate:cascade-vnext",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "process"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет переходы состояний, семантический обход вверх и вниз, повторяемость, полномочия, точность операций изменения реестра, явное разрешение обеих сторон переименования, атомарную публикацию и запрет опасных команд."
+    },
+    {
+      "id": "cascade-vnext-e2e",
+      "command": "npm run validate:cascade-vnext-e2e",
+      "gate": "profile",
+      "execution_type": "isolated_runtime_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "runtime_cleanup_required": true,
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "process"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Во временных изолированных Git worktree воспроизводит полный жизненный цикл, отказ без Git-изменения, незарегистрированный XLSX и подмену финализированного пакета; обработчики завершения обязаны удалить точные временные worktree."
+    },
+    {
+      "id": "cascade-trust",
+      "command": "npm run validate:cascade-trust",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["change_instance", "cascade", "evidence", "security"],
+      "owner_role": "Process Owner / Security Lead",
+      "purpose": "Проверяет реестр полномочий и выявленные исторические перезаписи каскадных evidence-файлов по Git и SHA-256."
+    },
+    {
+      "id": "xlsx-change-classifier",
+      "command": "npm run validate:xlsx-change-classifier",
+      "gate": "security",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "analysis_source", "xlsx_backlog", "security"],
+      "owner_role": "Process Owner / QA Lead / Security Lead",
+      "purpose": "Проверяет смысловую классификацию OOXML и блокирует опасные ZIP-пути, чрезмерное сжатие и XML-сущности."
+    },
+    {
+      "id": "cascade-preview",
+      "command": "npm run cascade:preview -- --changed-from HEAD",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": false,
+      "non_blocking_rationale": "Команда анализирует незакоммиченный или явно заданный диапазон до candidate-коммита. После фиксации кандидата её заменяет проверка сохраненного фактического Git diff в cascade:finalize и cascade:complete.",
+      "applies_to": [
+        "change_instance",
+        "cascade",
+        "impact_analysis"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Строит предварительный read-only предпросмотр по незакоммиченному или заданному диапазону. Не входит в профиль зафиксированного candidate SHA, где HEAD уже не содержит незакоммиченного различия."
+    },
+    {
+      "id": "docs-verify",
+      "command": "npm run docs:verify -- --changed-from HEAD",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": false,
+      "non_blocking_rationale": "Команда проверяет документационный diff до candidate-коммита. После фиксации кандидата покрытие путей проверяет actual-diff-manifest, а актуальность документов и generated outputs подтверждает полный npm test.",
+      "applies_to": [
+        "documentation_diff",
+        "cascade",
+        "generated"
+      ],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет документационный diff до фиксации кандидата. Не входит в профиль candidate SHA; завершение отдельно сверяет сохраненный фактический Git diff и полный gate."
+    },
+    {
+      "id": "agent-launch-requirements-analysis",
+      "command": "npm run validate:agent-launch-requirements-analysis",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "product_meaning", "traceability"],
+      "owner_role": "Product Owner / Business Analyst",
+      "purpose": "Проверяет анализ требований запуска другим агентом и связанные решения."
+    },
+    {
+      "id": "ba-sa",
+      "command": "npm run validate:ba-sa",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "product_meaning", "traceability"],
+      "owner_role": "Business Analyst / System Analyst",
+      "purpose": "Проверяет согласованность бизнес- и системного анализа."
+    },
+    {
+      "id": "backlog-registry",
+      "command": "npm run validate:backlog-registry",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "product_meaning", "product_backlog"],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет канонический backlog и его реестр."
+    },
+    {
+      "id": "capacity-plan",
+      "command": "npm run validate:capacity-plan",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "capacity", "effort_estimation"],
+      "owner_role": "Product Owner / команда реализации",
+      "purpose": "Проверяет ресурсный план без принятия емкости за команду."
+    },
+    {
+      "id": "change-impact",
+      "command": "npm run validate:change-impact",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "impact_analysis", "product_meaning"],
+      "owner_role": "Product Owner / Business Analyst",
+      "purpose": "Проверяет оценку влияния принятого изменения."
+    },
+    {
+      "id": "doc-links",
+      "command": "npm run validate:doc-links",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "documentation", "navigation"],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет ссылки затронутых документов."
+    },
+    {
+      "id": "docs-navigation",
+      "command": "npm run validate:docs-navigation",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "documentation", "navigation"],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет рекурсивную навигацию по документам."
+    },
+    {
+      "id": "documentation-change-request",
+      "command": "npm run validate:documentation-change-request",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "change_instance"],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет заявку на изменение документации."
+    },
+    {
+      "id": "eval-backlog-sync",
+      "command": "npm run validate:eval-backlog-sync",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "eval", "product_backlog"],
+      "owner_role": "QA Lead / Product Owner",
+      "purpose": "Проверяет связь проверок качества с backlog."
+    },
+    {
+      "id": "impact-analysis",
+      "command": "npm run validate:impact-analysis",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "impact_analysis"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет отчет анализа влияния и закрытие затронутых артефактов."
+    },
+    {
+      "id": "jira-field-mapping",
+      "command": "npm run validate:jira-field-mapping",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "jira"],
+      "owner_role": "Delivery/GitOps Lead",
+      "purpose": "Проверяет отдельное согласование полей Jira."
+    },
+    {
+      "id": "process-change-ledger",
+      "command": "npm run validate:process-change-ledger",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "process"],
+      "owner_role": "Process Owner",
+      "purpose": "Проверяет журнал изменений процесса."
+    },
+    {
+      "id": "product-change-orders",
+      "command": "npm run validate:product-change-orders",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "change_orders", "product_meaning"],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет заявки на изменение продукта и их трассировку."
+    },
+    {
+      "id": "product-source-consistency",
+      "command": "npm run validate:product-source-consistency",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "analysis_source", "traceability"],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет согласованность источников продукта."
+    },
+    {
+      "id": "release-pack",
+      "command": "npm run validate:release-pack",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "release"],
+      "owner_role": "Release Owner",
+      "purpose": "Проверяет пакет доказательств выпуска."
+    },
+    {
+      "id": "reprioritization-impact",
+      "command": "npm run validate:reprioritization-impact",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "priority_change", "impact_analysis"],
+      "owner_role": "Product Owner",
+      "purpose": "Проверяет влияние изменения приоритетов."
+    },
+    {
+      "id": "schemas",
+      "command": "npm run validate:schemas",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "schemas"],
+      "owner_role": "Process Owner / QA Lead",
+      "purpose": "Проверяет все зарегистрированные машинные контракты."
+    },
+    {
+      "id": "artifact-dependency-graph",
+      "command": "npm run validate:artifact-dependency-graph",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "traceability", "generated"],
+      "owner_role": "Process Owner / Documentation Owner",
+      "purpose": "Проверяет двунаправленные связи и полный конус влияния зарегистрированных артефактов."
+    },
+    {
+      "id": "bmc-generation-check",
+      "command": "npm run generate:bmc -- --check",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["product_profile", "product_meaning", "generated"],
+      "owner_role": "Product Owner / Documentation Owner",
+      "purpose": "Проверяет воспроизводимость BMC и всех его производных файлов без записи в рабочее дерево."
+    },
+    {
+      "id": "docs-navigation-generation-check",
+      "command": "npm run generate:docs-navigation -- --check",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["documentation", "navigation", "generated"],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет актуальность производной навигации без записи в рабочее дерево."
+    },
+    {
+      "id": "doc-stale-status",
+      "command": "npm run validate:doc-stale-status",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["documentation", "navigation"],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет, что навигация не продвигает устаревшие или исторические документы как текущие."
+    },
+    {
+      "id": "artifact-hashes",
+      "command": "npm run validate:artifact-hashes",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["generated", "traceability"],
+      "owner_role": "Documentation Owner",
+      "purpose": "Проверяет хэши зарегистрированных артефактов относительно текущего содержимого."
+    },
+    {
+      "id": "traceability-graph",
+      "command": "npm run validate:traceability-graph",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["cascade", "traceability"],
+      "owner_role": "Documentation Owner / Architect",
+      "purpose": "Проверяет граф трассировки проектной документации."
     }
   ],
   "gate_order": [

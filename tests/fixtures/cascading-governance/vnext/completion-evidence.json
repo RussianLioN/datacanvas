@@ -1,0 +1,20 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json",
+  "version": "1.0.0",
+  "evidence_id": "CCE-CASCADE-001",
+  "status": "passed",
+  "source_run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-profile/cascade-vnext-run.json",
+  "candidate_head_sha": "2222222222222222222222222222222222222222",
+  "execution_mode": "detached_candidate_worktree",
+  "runtime_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/runtime-manifest.json",
+  "runtime_manifest_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "runtime_match": true,
+  "command_set_sha256": "4014434a77b0acfcc480ee61d674be89b557d5fe4772f579d736bdeb2fe9d708",
+  "command_results": [
+    { "id": "clean-install", "executable": "npm", "args": ["ci", "--ignore-scripts"], "status": "passed", "exit_code": 0, "started_at": "2026-07-11T13:00:00+03:00", "finished_at": "2026-07-11T13:00:01+03:00", "duration_ms": 1000, "output_sha256": "3333333333333333333333333333333333333333333333333333333333333333", "summary": "Зависимости установлены." },
+    { "id": "full-gate", "executable": "npm", "args": ["test"], "status": "passed", "exit_code": 0, "started_at": "2026-07-11T13:00:01+03:00", "finished_at": "2026-07-11T13:10:01+03:00", "duration_ms": 600000, "output_sha256": "4444444444444444444444444444444444444444444444444444444444444444", "summary": "Подтверждение: cascade vNext nested end-to-end validation passed through finalization; active lifecycle covers profile and completion." },
+    { "id": "worktree-cleanliness", "executable": "git", "args": ["status", "--porcelain=v1", "--untracked-files=all"], "status": "passed", "exit_code": 0, "started_at": "2026-07-11T13:10:01+03:00", "finished_at": "2026-07-11T13:10:02+03:00", "duration_ms": 1000, "output_sha256": "5555555555555555555555555555555555555555555555555555555555555555", "summary": "Рабочая копия не содержит отслеживаемых или незарегистрированных изменений." }
+  ],
+  "blocking_reasons": [],
+  "generated_at": "2026-07-11T13:10:02+03:00"
+}

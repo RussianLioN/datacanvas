@@ -258,6 +258,54 @@
       "path": "docs/architecture/security/integration-boundary-matrix.json",
       "sink": "evidence",
       "data_class": "internal"
+    },
+    {
+      "id": "DLT-043",
+      "path": "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-044",
+      "path": "docs/product/bmc/source-lock.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-045",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "sink": "trace",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-046",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-047",
+      "path": "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-048",
+      "path": "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-049",
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-050",
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+      "sink": "evidence",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],
@@ -281,7 +329,9 @@
   "known_limitations": [
     "Gate проверяет выбранные runtime/export/trace/evidence sinks, а не весь репозиторий, потому что policy docs легитимно содержат названия запрещенных классов.",
     "PII detection является conservative regex gate и не заменяет ручную privacy review для реальных пользовательских данных.",
-    "Real UAT artifacts включены как confidential scan targets после фактической сессии."
+    "Real UAT artifacts включены как confidential scan targets после фактической сессии.",
+    "XLSX scan target проверяется по распакованным XML и relationship-частям workbook; бинарные изображения внутри workbook не входят в текстовую проверку.",
+    "Динамические каталоги каскадных запусков проверяются обязательным secret scan на этапе verifier; representative resolution и verification fixtures дополнительно входят в leakage scan targets."
   ],
   "next_safe_step": "После pilot run проверить pilot report и portability notes тем же leakage gate."
 }

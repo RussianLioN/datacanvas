@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/product-vision-manifest.schema.json",
+  "title": "ProductVisionManifest",
+  "type": "object",
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "manifest_id",
+    "public_surfaces",
+    "service_information_storage",
+    "current_vision",
+    "historical_snapshots",
+    "public_content_policy",
+    "artifact_governance",
+    "classic_vision_policy",
+    "validators"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active", "superseded"] },
+    "manifest_id": { "type": "string", "pattern": "^PRODUCT-VISION-MANIFEST-[A-Z0-9-]+$" },
+    "public_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/repoPath" }
+    },
+    "service_information_storage": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/repoPath" }
+    },
+    "current_vision": {
+      "type": "object",
+      "required": [
+        "path",
+        "source_registry_id",
+        "owner_role",
+        "lifecycle",
+        "trust_level",
+        "effective_date",
+        "upstream_decision",
+        "allowed_downstream_use"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "$ref": "#/$defs/repoPath" },
+        "source_registry_id": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
+        "owner_role": { "type": "string", "minLength": 1 },
+        "lifecycle": { "type": "string", "enum": ["active"] },
+        "trust_level": { "type": "string", "enum": ["current", "accepted_current"] },
+        "effective_date": { "type": "string", "format": "date" },
+        "upstream_decision": { "type": "string", "minLength": 1 },
+        "allowed_downstream_use": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "historical_snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "source_registry_id", "lifecycle", "trust_level", "allowed_downstream_use"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "$ref": "#/$defs/repoPath" },
+          "source_registry_id": { "type": "string", "pattern": "^SRC-[A-Z0-9-]+$" },
+          "lifecycle": { "type": "string", "enum": ["historical"] },
+          "trust_level": { "type": "string", "enum": ["historical"] },
+          "allowed_downstream_use": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["comparison", "audit"] }
+          }
+        }
+      }
+    },
+    "public_content_policy": {
+      "type": "object",
+      "required": [
+        "allowed_public_content",
+        "allowed_public_service_elements",
+        "forbidden_public_information"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "allowed_public_content": {
+          "type": "string",
+          "enum": ["product_vision_only"]
+        },
+        "allowed_public_service_elements": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["breadcrumb"] }
+        },
+        "forbidden_public_information": {
+          "type": "array",
+          "minItems": 6,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "artifact_governance": {
+      "type": "object",
+      "required": [
+        "artifact_kind",
+        "manual_edit_allowed",
+        "generator_id",
+        "service_information_rule"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "artifact_kind": {
+          "type": "string",
+          "enum": ["manual_machine_readable_manifest"]
+        },
+        "manual_edit_allowed": { "type": "boolean", "const": true },
+        "generator_id": { "type": "null" },
+        "service_information_rule": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "classic_vision_policy": {
+      "type": "object",
+      "required": [
+        "glossary_path",
+        "required_section_order",
+        "required_glossary_terms",
+        "required_public_phrases",
+        "forbidden_public_claims",
+        "forbidden_public_section_roles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "glossary_path": { "$ref": "#/$defs/repoPath" },
+        "required_section_order": {
+          "type": "array",
+          "minItems": 8,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "required_glossary_terms": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "required_public_phrases": {
+          "type": "array",
+          "minItems": 6,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "forbidden_public_claims": {
+          "type": "array",
+          "minItems": 6,
+          "items": { "$ref": "#/$defs/forbiddenPublicClaim" }
+        },
+        "forbidden_public_section_roles": {
+          "type": "array",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "status_block",
+              "methodology_block",
+              "technical_contract_block",
+              "story_backlog_listing",
+              "raw_traceability_listing"
+            ]
+          }
+        }
+      }
+    },
+    "validators": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "forbiddenPublicClaim": {
+      "type": "object",
+      "required": ["claim_id", "text", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "text": { "$ref": "#/$defs/nonEmptyString" },
+        "reason": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    }
+  }
+}

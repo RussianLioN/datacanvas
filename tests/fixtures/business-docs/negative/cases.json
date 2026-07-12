@@ -1,0 +1,142 @@
+{
+  "cases": [
+    {
+      "id": "presentation-spec-in-acceptance",
+      "className": "acceptance",
+      "expected_rule": "technical-contract",
+      "content": "# Критерии\n\nНавигация: [DataCanvas](../README.md)\n\n`PresentationSpec` проходит schema validation.\n"
+    },
+    {
+      "id": "trace-id-outside-approved-story",
+      "className": "story_catalog",
+      "expected_rule": "technical-contract",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать trace ID в DataCanvas. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "pshe-in-story-catalog",
+      "className": "story_catalog",
+      "expected_rule": "effort-estimation-in-story",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas и оценку ПШЕ по каждой backlog-строке.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "stale-confluence-range",
+      "className": "confluence_export",
+      "expected_rule": "stale-story-range",
+      "content": "# Карта импорта\n\nНавигация: [DataCanvas](../README.md)\n\nStories содержат `DC-ST-23..DC-ST-28`.\n"
+    },
+    {
+      "id": "stakeholder-timing-jargon",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nСледующий инкремент передает ссылку через смежный маршрут.\n"
+    },
+    {
+      "id": "roadmap-stage-in-public-requirements",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nНа отдельном этапе дорожной карты пользователь получает ссылку на результат.\n"
+    },
+    {
+      "id": "priority-stage-in-public-requirements",
+      "className": "requirements",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nОтдельный P2-этап дорожной карты не входит в основной маршрут P1.\n"
+    },
+    {
+      "id": "priority-guard-in-acceptance",
+      "className": "acceptance",
+      "expected_rule": "stakeholder-timing-jargon",
+      "content": "# Критерии приемки\n\nНавигация: [DataCanvas](../README.md)\n\nGuard границ приоритетов запрещает попадание P3-P5 в ближайший P1/P2-срез.\n"
+    },
+    {
+      "id": "absolute-local-path",
+      "className": "requirements",
+      "expected_rule": "local-path",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\nИсточник находится в /Users/example/project/file.xlsx.\n"
+    },
+    {
+      "id": "requirements-source-section",
+      "className": "requirements",
+      "expected_rule": "business-doc-forbidden-section",
+      "content": "# Требования\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент фиксирует требования.\n\n## Исходные источники\n\nVision и BMC.\n\n## Бизнес-требования\n\n| ID | Возможность | Пользователь | Ценность | Сценарий приемки |\n|---|---|---|---|---|\n| BT-001 | Возможность. | Пользователь | Ценность. | Результат принят. |\n"
+    },
+    {
+      "id": "command-column-in-nfr",
+      "className": "nonfunctional",
+      "expected_rule": "fit-command-column",
+      "content": "# Нефункциональные требования\n\nНавигация: [DataCanvas](../README.md)\n\n| ID | Категория | Fit Criterion | Проверка |\n|---|---|---|---|\n| NFR-001 | Достоверность | Claim проверяется. | `npm run validate:ba-spec` |\n"
+    },
+    {
+      "id": "csv-story-tech-noise",
+      "className": "story_catalog",
+      "expected_rule": "effort-estimation-in-story",
+      "content": "\"ID\",\"Статус\"\n\"DC-ST-23\",\"P1; требуется оценка ПШЕ\"\n"
+    },
+    {
+      "id": "csv-allowed-first-trace-id-forbidden-later",
+      "className": "story_slice_export",
+      "expected_rule": "technical-contract",
+      "content": "\"DC-ST-28\",\"Принятая строка может повторять trace ID в каноническом контексте.\"\n\"DC-ST-29\",\"Новая строка не должна добавлять trace ID как техническую деталь.\"\n"
+    },
+    {
+      "id": "story-catalog-summary-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Сводка по приоритетам и срокам\n\nP1 содержит ближайшие истории.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "story-catalog-open-decisions-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n\n## Открытые продуктовые решения\n\nКоманда должна подтвердить оценку.\n"
+    },
+    {
+      "id": "story-catalog-status-column",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-table-columns",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Плановый срок | Пользовательская формулировка | Бизнес-ценность | Статус |\n|---|---|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | 2026-Q3 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. | требуется оценка |\n"
+    },
+    {
+      "id": "story-catalog-source-section",
+      "className": "story_catalog",
+      "expected_rule": "story-catalog-forbidden-section",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nДокумент содержит канонический перечень пользовательских историй DataCanvas.\n\n## Источники и правила слияния\n\nExcel используется как основной источник строк.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "story-catalog-service-rationale",
+      "className": "story_catalog",
+      "expected_rule": "service-rationale",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nNo-change rationale из impact analysis: dependency graph и source registry не требуют правки этого документа.\n\n## Каталог пользовательских историй\n\n| ID | Функциональная зона | Приоритет | Пользовательская формулировка | Бизнес-ценность |\n|---|---|---|---|---|\n| DC-ST-23 | Запуск другим агентом | P1 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку без ручного переноса контекста. |\n"
+    },
+    {
+      "id": "redirect-repeats-story-table",
+      "className": "business_redirect",
+      "expected_rule": "redirect-must-not-repeat-table",
+      "content": "# Каталог пользовательских историй DataCanvas\n\nНавигация: [DataCanvas](../README.md)\n\n## Актуальный Источник\n\n| ID | История |\n|---|---|\n| DC-ST-23 | Как вызывающий агент, я хочу передавать запрос. |\n"
+    },
+    {
+      "id": "story-slice-repeats-story-prose",
+      "className": "story_slice",
+      "expected_rule": "story-slice-repeats-catalog",
+      "content": "# Срез историй\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nПлановый срез.\n\n## Плановый Срез\n\n| ID | История | Бизнес-ценность |\n|---|---|---|\n| DC-ST-23 | Как вызывающий агент, я хочу передавать запрос. | Это позволит начать подготовку. |\n"
+    },
+    {
+      "id": "roadmap-repeats-story-id",
+      "className": "roadmap",
+      "expected_rule": "roadmap-repeats-backlog",
+      "content": "# Roadmap\n\nНавигация: [DataCanvas](../README.md)\n\n## Порядок Поставки\n\nЭтап включает DC-ST-23 и DC-ST-24.\n"
+    },
+    {
+      "id": "hypothesis-board-process-item",
+      "className": "hypothesis_board",
+      "expected_rule": "hypothesis-board-process-hypothesis",
+      "content": "# Доска гипотез\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nГипотезы.\n\n## Продуктовые Гипотезы\n\nНедельный Scrum ускорит получение evidence.\n"
+    },
+    {
+      "id": "hypothesis-validation-repeats-board",
+      "className": "hypothesis_validation",
+      "expected_rule": "hypothesis-validation-repeats-board",
+      "content": "# Проверка гипотез\n\nНавигация: [DataCanvas](../README.md)\n\n## Назначение\n\nПроверка.\n\n## План Проверки\n\n| ID | Гипотеза | Проверка |\n|---|---|---|\n| HYP-001 | Продуктовая гипотеза. | Проверка. |\n"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "transformation": "remove_namespace_independent_absPath_from_xl_workbook_xml",
+  "original_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+  "sanitized_sha256": "d332fc30f68d6a185c3e6f19ed420b6d1bf2e25ad2b475fa3c1820d1cd6d8d51",
+  "removed_abs_path_elements": 1,
+  "changed_parts": [
+    "xl/workbook.xml"
+  ],
+  "original_part_sha256": {
+    "[Content_Types].xml": "888b26872234d035ad39c3bbab45526e2047d452dada941feb973a88288ae2d8",
+    "_rels/.rels": "73e5a29f48d5ab979eeda062493bc7e679265c1344ef936978b8becec5549497",
+    "xl/workbook.xml": "0953231fa171efe443f7887e57856290c8e1de55d267245b53cd23797f4bf99d",
+    "xl/_rels/workbook.xml.rels": "371ca5b9d79477a00c2a6f29d90f2c1ee9f14f96a2f931ca6a5943cffa08d7a9",
+    "xl/worksheets/sheet1.xml": "b840cfc21009ca6c5d21e283eab2a0659bec5a897d97c014a141bae52a985e8b",
+    "xl/theme/theme1.xml": "1bb843bdd6b8fe914a39d13a020fcb47f0c811d4b9027e7e36f5dbe41ed129a6",
+    "xl/styles.xml": "a8a85e69badf04248a2914c3a149e376898985ae63faebae1c8f190132259270",
+    "xl/sharedStrings.xml": "6c99074dc6cddaff6d2ceb9c872bf0f971b706999a1c7019aa08130f93fa2bb4",
+    "xl/drawings/vmlDrawing1.vml": "40151020399f11689df8bfb8679d25a1bb99bba9f0926d0717321d5861090981",
+    "xl/worksheets/_rels/sheet1.xml.rels": "cc4ba0953bf6629efb45791edf90d7dd77ce05e0beab835c3d7fe3603422fe6c",
+    "xl/comments1.xml": "c10004ed7b7739c418be6ca70c57eae9f7c4863db4246d667f5d5c0e08c8eac2",
+    "xl/calcChain.xml": "046fc4eefa6564711439febbc25fc652cfecccdc84fb112db7e3cd3b4744a9d9",
+    "docProps/core.xml": "dbd00e0c2b7929a076034f7a9695f79e3eff8d2a9762aadf86c4b746856955ea",
+    "docProps/app.xml": "2160fb0c1fbdc05c0b65e36e10005ffcaa6718ef565b4ec30097fd0f3978a5d4"
+  },
+  "sanitized_part_sha256": {
+    "[Content_Types].xml": "888b26872234d035ad39c3bbab45526e2047d452dada941feb973a88288ae2d8",
+    "_rels/.rels": "73e5a29f48d5ab979eeda062493bc7e679265c1344ef936978b8becec5549497",
+    "xl/workbook.xml": "9571e29af631eb1c7218dc6acfacce4746515834271d3fa713f481c465bb4995",
+    "xl/_rels/workbook.xml.rels": "371ca5b9d79477a00c2a6f29d90f2c1ee9f14f96a2f931ca6a5943cffa08d7a9",
+    "xl/worksheets/sheet1.xml": "b840cfc21009ca6c5d21e283eab2a0659bec5a897d97c014a141bae52a985e8b",
+    "xl/theme/theme1.xml": "1bb843bdd6b8fe914a39d13a020fcb47f0c811d4b9027e7e36f5dbe41ed129a6",
+    "xl/styles.xml": "a8a85e69badf04248a2914c3a149e376898985ae63faebae1c8f190132259270",
+    "xl/sharedStrings.xml": "6c99074dc6cddaff6d2ceb9c872bf0f971b706999a1c7019aa08130f93fa2bb4",
+    "xl/drawings/vmlDrawing1.vml": "40151020399f11689df8bfb8679d25a1bb99bba9f0926d0717321d5861090981",
+    "xl/worksheets/_rels/sheet1.xml.rels": "cc4ba0953bf6629efb45791edf90d7dd77ce05e0beab835c3d7fe3603422fe6c",
+    "xl/comments1.xml": "c10004ed7b7739c418be6ca70c57eae9f7c4863db4246d667f5d5c0e08c8eac2",
+    "xl/calcChain.xml": "046fc4eefa6564711439febbc25fc652cfecccdc84fb112db7e3cd3b4744a9d9",
+    "docProps/core.xml": "dbd00e0c2b7929a076034f7a9695f79e3eff8d2a9762aadf86c4b746856955ea",
+    "docProps/app.xml": "2160fb0c1fbdc05c0b65e36e10005ffcaa6718ef565b4ec30097fd0f3978a5d4"
+  },
+  "original_source": "external_product_owner_source",
+  "sanitized_path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx"
+}

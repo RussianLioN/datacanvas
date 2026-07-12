@@ -1,0 +1,17 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-supersession-ledger.schema.json",
+  "version": "1.0.0",
+  "ledger_id": "CSL-DATACANVAS-001",
+  "entries": [
+    {
+      "legacy_path": "docs/process/cascading-governance/runs/2026-07-02-cascade-contract/cascading-update-run.json",
+      "original_commit_sha": "1111111111111111111111111111111111111111",
+      "last_modified_commit_sha": "2222222222222222222222222222222222222222",
+      "original_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "observed_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "replacement_path": null,
+      "reason": "Исторический файл изменялся после первоначальной публикации; требуется решение владельца процесса.",
+      "owner_status": "pending"
+    }
+  ]
+}

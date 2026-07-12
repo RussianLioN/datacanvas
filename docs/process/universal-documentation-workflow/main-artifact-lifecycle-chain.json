@@ -1,0 +1,593 @@
+{
+  "$schema": "../../../schemas/main-artifact-lifecycle-chain.schema.json",
+  "version": "0.2.0",
+  "status": "active",
+  "chain_id": "MALC-2026-07-09-001",
+  "owner_role": "Process Owner / Documentation Owner",
+  "scope": "Проверяемый порядок сопровождения главных артефактов проектной документации DataCanvas: генерация, валидация, каскадное обновление, owner gates и подготовка чистого бизнесового пакета без служебной информации в бизнесовых Markdown.",
+  "canonical_product_index_path": "docs/product/README.md",
+  "supporting_contracts": {
+    "product_source_registry": "docs/product/sources/product-source-registry.json",
+    "artifact_dependency_graph": "docs/process/cascading-governance/artifact-dependency-graph.json",
+    "impact_analysis_report": "docs/process/cascading-governance/impact-analysis-report.json",
+    "business_content_contract": "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+    "business_generation_contract": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+    "validation_command_catalog": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+    "navigation_source": "docs/navigation/navigation-source.json",
+    "business_claim_map": "docs/product/requirements/business-claim-map.json"
+  },
+  "global_policies": {
+    "business_markdown_policy": "Главные бизнесовые Markdown-артефакты содержат только продуктовый смысл, классические разделы своего типа, решения владельцев и понятный для Product Owner текст.",
+    "service_information_location": "Служебные статусы, команды, локальные пути, хэши, provenance, source mechanics, raw evidence, runtime/status/trace поля и generated metadata хранятся в JSON, реестрах, process/evidence документах или технических спецификациях.",
+    "no_change_rationale_location": "docs/process/cascading-governance/impact-analysis-report.json",
+    "owner_gate_policy": "Смысловые изменения продукта требуют Product Owner gate; процессные изменения требуют Process Owner gate; архитектурные и технические изменения требуют архитектурного или технического владельца.",
+    "generated_artifact_policy": "Generated artifacts обновляются только через генераторы; ручная правка generated outputs запрещена.",
+    "impact_cone_policy": "Изменение любого главного артефакта требует анализа полного конуса влияния вверх и вниз по каноническому графу зависимостей.",
+    "upstream_review_policy": "Обратный сигнал требует проверки согласованности вышестоящего артефакта, но не делает нижестоящий документ источником нового бизнесового смысла и не обходит решение владельца.",
+    "cycle_resolution_policy": "В заявленном цикле согласования каждый затронутый артефакт разрешается один раз через обновление или обоснование отсутствия изменений независимо от числа направлений влияния."
+  },
+  "stages": [
+    {
+      "order": 1,
+      "stage_id": "accepted-product-decision",
+      "name": "Принятое продуктовое решение",
+      "artifact_role": "business_source",
+      "primary_artifacts": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json"
+      ],
+      "source_roles": [
+        "accepted_product_decision"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:product-change-orders",
+        "npm run validate:product-sources",
+        "npm run validate:business-claim-map"
+      ],
+      "cascade_policy": {
+        "on_change": "Смысловое решение запускает анализ влияния на Vision, BMC, stories, требования, backlog, roadmap, traceability и downstream BA/SA/specs.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "business-claim-map"
+      ]
+    },
+    {
+      "order": 2,
+      "stage_id": "business-claim-map",
+      "name": "Карта бизнес-утверждений CO",
+      "artifact_role": "traceability",
+      "primary_artifacts": [
+        "docs/product/requirements/business-claim-map.json"
+      ],
+      "supporting_artifacts": [
+        "docs/product/sources/product-source-registry.json"
+      ],
+      "source_roles": [
+        "traceability",
+        "accepted_product_decision"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "business_surface": false,
+      "generation_policy": "manual_contract",
+      "validation_commands": [
+        "npm run validate:business-claim-map",
+        "npm run validate:product-source-consistency"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение принятого CO должно сначала обновить machine-readable карту ключевых бизнес-утверждений; затем карта запускает проверку Vision, BMC, stories, требований, backlog и экспортного пакета.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "product-vision"
+      ]
+    },
+    {
+      "order": 3,
+      "stage_id": "product-vision",
+      "name": "Vision — видение продукта",
+      "artifact_role": "business_source",
+      "primary_artifacts": [
+        "docs/product-vision.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/vision/manifest.json",
+        "docs/product/vision/vision-v0.1.md"
+      ],
+      "source_roles": [
+        "current_vision"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:product-vision",
+        "npm run validate:product-sources"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение Vision всегда запускает review BMC, stories, требований, acceptance, backlog, roadmap, hypotheses и traceability.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "business-model-canvas"
+      ]
+    },
+    {
+      "order": 4,
+      "stage_id": "business-model-canvas",
+      "name": "BMC — бизнес-модель продукта",
+      "artifact_role": "business_model",
+      "primary_artifacts": [
+        "docs/product/bmc/bmc-v0.2.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product/bmc/manifest.json",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf"
+      ],
+      "source_roles": [
+        "accepted_bmc"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:bmc",
+        "npm run validate:business-docs"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение BMC запускает review stories, требований, acceptance, backlog, roadmap, hypotheses, Confluence package и traceability.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "user-stories"
+      ]
+    },
+    {
+      "order": 5,
+      "stage_id": "user-stories",
+      "name": "Пользовательские истории",
+      "artifact_role": "story_catalog",
+      "primary_artifacts": [
+        "docs/product/requirements/user-stories.md"
+      ],
+      "supporting_artifacts": [
+        "docs/stories.md",
+        "docs/product/sources/story-catalog-content-lock.json"
+      ],
+      "source_roles": [
+        "story_catalog"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:product-source-consistency"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение текста, ценности, приоритета или состава stories запускает review требований, acceptance, backlog, XLSX/оценок, roadmap и traceability.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "business-requirements",
+        "xlsx-resource-estimation"
+      ]
+    },
+    {
+      "order": 6,
+      "stage_id": "business-requirements",
+      "name": "Бизнес-требования",
+      "artifact_role": "requirements",
+      "primary_artifacts": [
+        "docs/product/requirements/business-requirements.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/ba/ba-spec.json"
+      ],
+      "source_roles": [
+        "formalized_requirements",
+        "analysis_source"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:ba-sa"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение требований запускает review acceptance, backlog, roadmap, traceability и downstream SA/specs.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "non-functional-requirements",
+        "acceptance-criteria",
+        "system-analysis"
+      ]
+    },
+    {
+      "order": 7,
+      "stage_id": "non-functional-requirements",
+      "name": "Нефункциональные требования",
+      "artifact_role": "requirements",
+      "primary_artifacts": [
+        "docs/product/requirements/non-functional-requirements.md"
+      ],
+      "supporting_artifacts": [],
+      "source_roles": [
+        "formalized_requirements"
+      ],
+      "owner_role": "Product Owner / Architect",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:schemas"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение НФТ запускает review acceptance, SA/specs, traceability и release readiness.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "acceptance-criteria",
+        "system-analysis"
+      ]
+    },
+    {
+      "order": 8,
+      "stage_id": "acceptance-criteria",
+      "name": "Критерии приемки",
+      "artifact_role": "acceptance",
+      "primary_artifacts": [
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "supporting_artifacts": [],
+      "source_roles": [
+        "formalized_requirements"
+      ],
+      "owner_role": "Product Owner / QA Lead",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:doc-links"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение критериев приемки запускает review backlog, traceability, evidence и release readiness.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "product-backlog",
+        "traceability"
+      ]
+    },
+    {
+      "order": 9,
+      "stage_id": "product-backlog",
+      "name": "Product backlog — продуктовый список работ",
+      "artifact_role": "planning",
+      "primary_artifacts": [
+        "docs/product/backlog/product-backlog.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv"
+      ],
+      "source_roles": [
+        "product_planning"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:backlog-registry"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение backlog запускает review XLSX/оценок, roadmap, sprint candidate plan, Jira package и traceability.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "xlsx-resource-estimation",
+        "roadmap"
+      ]
+    },
+    {
+      "order": 10,
+      "stage_id": "xlsx-resource-estimation",
+      "name": "XLSX backlog и оценка ресурсов",
+      "artifact_role": "resource_estimation",
+      "primary_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "supporting_artifacts": [
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md"
+      ],
+      "source_roles": [
+        "analysis_source",
+        "evidence"
+      ],
+      "owner_role": "Product Owner / команда реализации",
+      "business_surface": false,
+      "generation_policy": "working_source",
+      "validation_commands": [
+        "npm run validate:xlsx-source-security",
+        "npm run validate:git-history-hygiene",
+        "npm run validate:xlsx-backlog",
+        "npm run validate:xlsx-cascade"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение XLSX или provenance требует проверить полный конус влияния: обновить зависимые документы ниже по цепочке, проверить смысловые источники выше по цепочке и закрыть каждый затронутый путь через изменение или no-change rationale в impact analysis.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "roadmap",
+        "sprint-candidate-planning",
+        "traceability"
+      ]
+    },
+    {
+      "order": 11,
+      "stage_id": "roadmap",
+      "name": "Roadmap — дорожная карта",
+      "artifact_role": "delivery_planning",
+      "primary_artifacts": [
+        "docs/product/roadmap/roadmap-v0.1.md"
+      ],
+      "supporting_artifacts": [],
+      "source_roles": [
+        "product_planning"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:doc-stale-status"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение roadmap запускает review sprint candidate plan, Jira package, Confluence package и traceability.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "hypotheses",
+        "sprint-candidate-planning"
+      ]
+    },
+    {
+      "order": 12,
+      "stage_id": "hypotheses",
+      "name": "Продуктовые гипотезы",
+      "artifact_role": "hypothesis",
+      "primary_artifacts": [
+        "docs/product/hypotheses/hypothesis-board.md"
+      ],
+      "supporting_artifacts": [
+        "docs/product/hypotheses/hypothesis-validation.md"
+      ],
+      "source_roles": [
+        "product_planning"
+      ],
+      "owner_role": "Product Owner",
+      "business_surface": true,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:product-sources"
+      ],
+      "cascade_policy": {
+        "on_change": "Изменение гипотез запускает review backlog, roadmap, validation plan и traceability без переноса process-only гипотез в продукт.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "traceability"
+      ]
+    },
+    {
+      "order": 13,
+      "stage_id": "system-analysis",
+      "name": "Системный анализ и спецификации",
+      "artifact_role": "technical_downstream",
+      "primary_artifacts": [
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/architecture/system-analysis/srs-v0.1.json"
+      ],
+      "supporting_artifacts": [
+        "docs/product/specs/feature-spec-a2a-launch.json",
+        "docs/product/specs/task-spec-a2a-launch.json"
+      ],
+      "source_roles": [
+        "technical_spec"
+      ],
+      "owner_role": "Architect / Technical Owner",
+      "business_surface": false,
+      "generation_policy": "manual_contract",
+      "validation_commands": [
+        "npm run validate:ba-sa",
+        "npm run validate:schemas"
+      ],
+      "cascade_policy": {
+        "on_change": "Технические спецификации являются downstream от бизнес-решений и не становятся источником бизнесового смысла без отдельного owner gate.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": false
+      },
+      "downstream_stage_ids": [
+        "traceability",
+        "export-package"
+      ]
+    },
+    {
+      "order": 14,
+      "stage_id": "sprint-candidate-planning",
+      "name": "Планирование спринтов и Jira package",
+      "artifact_role": "delivery_planning",
+      "primary_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
+      ],
+      "supporting_artifacts": [
+        "docs/process/cascading-governance/jira-import-package-manifest.json"
+      ],
+      "source_roles": [
+        "product_planning",
+        "evidence"
+      ],
+      "owner_role": "Product Owner / Scrum Master / Delivery Lead",
+      "business_surface": false,
+      "generation_policy": "manual_source",
+      "validation_commands": [
+        "npm run validate:xlsx-cascade",
+        "npm run validate:jira-field-mapping"
+      ],
+      "cascade_policy": {
+        "on_change": "План спринта остается кандидатным до проверки емкости, порядка работ и вытеснения; Jira package не становится утвержденным sprint backlog без owner gate.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "export-package",
+        "evidence-and-completion"
+      ]
+    },
+    {
+      "order": 15,
+      "stage_id": "traceability",
+      "name": "Traceability — трассируемость",
+      "artifact_role": "traceability",
+      "primary_artifacts": [
+        "docs/product/requirements/traceability-matrix.json"
+      ],
+      "supporting_artifacts": [
+        "docs/process/methodology/traceability-model.json"
+      ],
+      "source_roles": [
+        "traceability"
+      ],
+      "owner_role": "Product Owner / QA Lead",
+      "business_surface": false,
+      "generation_policy": "manual_contract",
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:traceability-graph"
+      ],
+      "cascade_policy": {
+        "on_change": "Traceability закрывает связи между бизнес-целью, потребностью, требованием, backlog item, acceptance test и evidence; пропуск звена требует machine-readable rationale.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "export-package",
+        "evidence-and-completion"
+      ]
+    },
+    {
+      "order": 16,
+      "stage_id": "export-package",
+      "name": "Confluence и экспортный пакет",
+      "artifact_role": "export_package",
+      "primary_artifacts": [
+        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+      ],
+      "supporting_artifacts": [
+        "docs/navigation/navigation-source.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/documentation-index.json"
+      ],
+      "source_roles": [
+        "generated_output",
+        "evidence"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "business_surface": false,
+      "generation_policy": "manual_index",
+      "validation_commands": [
+        "npm run validate:business-docs",
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation"
+      ],
+      "cascade_policy": {
+        "on_change": "Карта импорта не становится источником бизнесового смысла и должна отражать актуальную цепочку, excluding working sources and internal evidence unless separately approved.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": true
+      },
+      "downstream_stage_ids": [
+        "evidence-and-completion"
+      ]
+    },
+    {
+      "order": 17,
+      "stage_id": "evidence-and-completion",
+      "name": "Evidence и завершение запуска",
+      "artifact_role": "evidence",
+      "primary_artifacts": [
+        "docs/process/cascading-governance/impact-analysis-report.json"
+      ],
+      "supporting_artifacts": [
+        "docs/process/universal-documentation-workflow/run-ledger.json",
+        "docs/process/universal-documentation-workflow/acceptance-records.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "source_roles": [
+        "evidence",
+        "generated_output"
+      ],
+      "owner_role": "Process Owner / QA Lead",
+      "business_surface": false,
+      "generation_policy": "manual_contract",
+      "validation_commands": [
+        "npm run validate:cascading-governance",
+        "npm run validate:artifact-hashes",
+        "npm run validate:doc-stale-status"
+      ],
+      "cascade_policy": {
+        "on_change": "Завершение возможно только после закрытия affected artifacts обновлением или no-change rationale, актуальной generated navigation, hash manifest и отсутствия блокирующих решений.",
+        "requires_dependency_graph_entry": true,
+        "requires_impact_resolution": true,
+        "requires_owner_gate_for_semantic_change": false
+      },
+      "downstream_stage_ids": []
+    }
+  ]
+}

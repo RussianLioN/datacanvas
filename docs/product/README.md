@@ -11,29 +11,33 @@
 ## Порядок Чтения
 
 1. [Текущее видение](../product-vision.md)
-2. [Каталог stories](../stories.md)
-3. [BMC](bmc/README.md)
-4. [Бизнес-требования](requirements/business-requirements.md)
-5. [Пользовательские истории](requirements/user-stories.md)
-6. [Нефункциональные требования](requirements/non-functional-requirements.md)
-7. [Критерии приемки](requirements/acceptance-criteria.md)
-8. [Product backlog](backlog/product-backlog.md)
-9. [Roadmap](roadmap/roadmap-v0.1.md)
-10. [Гипотезы](hypotheses/hypothesis-board.md)
-11. [Traceability matrix](requirements/traceability-matrix.json)
+2. [CO - заявки на продуктовые изменения](change-orders/README.md)
+3. [BMC - Business Model Canvas, бизнес-модель продукта](bmc/README.md)
+4. [Каталог пользовательских историй](requirements/user-stories.md)
+5. [Требования и критерии приемки](requirements/README.md)
+6. [Product backlog - продуктовый бэклог](backlog/README.md)
+7. [Оценка работ и исходные таблицы](sources/README.md)
+8. [Roadmap - дорожная карта](roadmap/README.md)
+9. [Гипотезы](hypotheses/README.md)
+10. [Аналитика и трассировка](analysis/README.md)
+11. [Specs - спецификации](specs/README.md)
 
 ## Индексы Слоев
 
-- [Исходные документы](sources/README.md)
+- [CO - заявки на продуктовые изменения](change-orders/README.md)
+- [BMC - Business Model Canvas, бизнес-модель продукта](bmc/README.md)
+- [Исходные документы и оценки](sources/README.md)
 - [Требования](requirements/README.md)
 - [Backlog](backlog/README.md)
 - [Roadmap](roadmap/README.md)
 - [Гипотезы](hypotheses/README.md)
+- [Бизнес-анализ](analysis/README.md)
+- [Specs - спецификации](specs/README.md)
 
 ## Если Нужно Понять Изменения И Ревизию
 
 - [Change Orders](change-orders/README.md) - принятые и обсуждаемые изменения продукта.
-- [Бизнес-анализ](analysis/README.md) - business needs, business rules, deltas и открытые решения.
+- [Бизнес-анализ](analysis/README.md) - потребности, бизнес-правила, изменения требований и открытые решения.
 - [System analysis](../architecture/system-analysis/README.md) - системные сценарии, состояния и ошибки.
 - [Specs](specs/README.md) - спецификации и безопасный контекст для реализации.
 - [Ревизия CO-2026-001](revisions/co-2026-001-source-revision/revision-ledger.md) - пакет предложенных правок по новым приоритетам.
@@ -41,9 +45,12 @@
 ## Разделение Источников
 
 - `docs/product-vision.md` - текущий обзорный Vision.
+- `docs/product/vision/manifest.json` - машинный манифест Vision: статус, владелец, проверки и политика чистого публичного текста.
 - `docs/product/vision/vision-v0.1.md` - версионированный snapshot Vision.
-- `docs/stories.md` - каталог исходных stories.
-- `docs/product/requirements/user-stories.md` - формализованные пользовательские истории.
+- `docs/product/bmc/bmc-v0.2.md` - текущий BMC, Business Model Canvas, бизнес-модель продукта.
+- `docs/product/requirements/user-stories.md` - канонический каталог пользовательских историй.
+- `docs/product/requirements/business-claim-map.json` - машинная карта связи принятых CO с основными бизнес-артефактами.
+- `docs/stories.md` - совместимый переход на канонический каталог, оставленный для старых ссылок.
 - `docs/product/sources/product-source-registry.json` - машинный реестр источников и их статусов.
 
 ## Backlog Контуры

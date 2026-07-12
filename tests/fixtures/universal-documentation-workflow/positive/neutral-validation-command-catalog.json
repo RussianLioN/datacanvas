@@ -8,6 +8,11 @@
       "id": "documentation-core",
       "command": "npm run validate:documentation-core",
       "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
       "applies_to": [
         "universal_core"
       ],

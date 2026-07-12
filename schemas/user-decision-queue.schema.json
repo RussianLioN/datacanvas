@@ -47,6 +47,7 @@
       "additionalProperties": false,
       "properties": {
         "decision_id": { "type": "string", "pattern": "^DEC-[A-Z0-9-]+$" },
+        "owner_role": { "type": "string", "minLength": 1 },
         "question": { "type": "string", "minLength": 1 },
         "affected_artifacts": {
           "type": "array",

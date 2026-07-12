@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json",
+  "title": "Cascade run vNext v1",
+  "type": "object",
+  "required": ["$schema", "version", "run_id", "attempt_id", "process_status", "state", "created_at", "change_request_id", "change_request_path", "base_sha", "planning_head_sha", "candidate_head_sha", "acceptance_authority_path", "source_identity_manifest_path", "source_change_analysis_path", "impact_report_path", "diff_manifest_path", "validation_manifest_path", "runtime_manifest_path", "owner_question_packet_path", "resolution_input_path", "resolution_report_path", "acceptance_paths", "profile_evidence_path", "completion_evidence_path", "completion_seal_path", "completion_claim", "replay_inputs", "replay_key"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json" },
+    "version": { "const": "1.0.0" },
+    "run_id": { "type": "string", "pattern": "^CUR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "attempt_id": { "type": "string", "pattern": "^ATTEMPT-[A-Z0-9-]+$" },
+    "process_status": { "const": "draft_opt_in" },
+    "state": { "enum": ["planned", "awaiting_owner", "blocked", "finalized", "profile_verified", "verified"] },
+    "created_at": { "type": "string", "format": "date-time" },
+    "change_request_id": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "change_request_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "base_sha": { "$ref": "#/$defs/gitSha" },
+    "planning_head_sha": { "$ref": "#/$defs/gitSha" },
+    "candidate_head_sha": { "anyOf": [{ "$ref": "#/$defs/gitSha" }, { "type": "null" }] },
+    "acceptance_authority_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "source_identity_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "source_change_analysis_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "impact_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "diff_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "validation_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "runtime_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "owner_question_packet_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_input_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "resolution_report_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "acceptance_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
+    "profile_evidence_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "completion_evidence_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "completion_seal_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+    "completion_claim": {
+      "type": "object",
+      "required": ["done_claimed"],
+      "additionalProperties": false,
+      "properties": { "done_claimed": { "type": "boolean" } }
+    },
+    "replay_inputs": {
+      "type": "object",
+      "required": ["runner_version", "change_request_sha256", "graph_sha256", "source_registry_sha256", "acceptance_authority_sha256", "source_identity_sha256", "source_change_analysis_sha256", "semantic_impact_sha256", "validation_manifest_sha256", "runtime_contract_sha256", "owner_question_packet_sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "runner_version": { "const": "1.0.0" },
+        "change_request_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "graph_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "source_registry_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "acceptance_authority_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "source_identity_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "source_change_analysis_sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] },
+        "semantic_impact_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "validation_manifest_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "runtime_contract_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+        "owner_question_packet_sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] }
+      }
+    },
+    "replay_key": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "state": { "const": "verified" } }, "required": ["state"] },
+      "then": {
+        "properties": {
+          "completion_seal_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "completion_claim": { "type": "object", "properties": { "done_claimed": { "const": true } } }
+        }
+      },
+      "else": {
+        "properties": {
+          "completion_claim": { "type": "object", "properties": { "done_claimed": { "const": false } } }
+        }
+      }
+    }
+  ],
+  "$defs": { "gitSha": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" } }
+}

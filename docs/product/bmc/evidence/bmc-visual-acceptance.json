@@ -1,23 +1,21 @@
 {
   "version": "0.1.0",
   "status": "accepted",
-  "checked_at": "2026-06-24T00:00:00Z",
+  "checked_at": "2026-07-12T00:00:00Z",
   "command": "npm run generate:bmc",
   "exit_code": 0,
   "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-  "input_sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88",
+  "input_sha256": "f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8",
   "output_sha256": {
-    "png": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2",
-    "pdf": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3",
-    "plantuml": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
+    "png": "e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2",
+    "pdf": "8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e",
+    "plantuml": "ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019"
   },
   "artifact_paths": [
     "docs/product/bmc/source/derived/datacanvas-bmc.svg",
     "docs/product/bmc/source/derived/datacanvas-bmc.png",
     "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-    "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-    "docs/product/bmc/evidence/browser-smoke.png",
-    "docs/product/bmc/evidence/pdf-raster-smoke.png"
+    "docs/product/bmc/source/derived/datacanvas-bmc.puml"
   ],
   "checks": [
     {
@@ -31,6 +29,36 @@
       "evidence": "Layout is B8 | B7/B6 | B2 | B4/B3 | B1 with B9 | B5 bottom row."
     },
     {
+      "id": "svg_text_fit",
+      "status": "passed",
+      "evidence": "Every rendered text line stays inside its BMC block frame."
+    },
+    {
+      "id": "balanced_grid",
+      "status": "passed",
+      "evidence": "Frames do not overlap; column, split and bottom-row gaps are equal."
+    },
+    {
+      "id": "raster_frame_clearance",
+      "status": "passed",
+      "evidence": "Committed and fresh PNG renders contain no visible pixels in clearance zones outside BMC frames."
+    },
+    {
+      "id": "per_block_render_correspondence",
+      "status": "passed",
+      "evidence": "Each PNG business block matches the ink amount and spatial distribution of a fresh canonical SVG render."
+    },
+    {
+      "id": "pdf_visual_correspondence",
+      "status": "passed",
+      "evidence": "The committed PDF is rasterized independently and each block matches the canonical SVG render."
+    },
+    {
+      "id": "plantuml_layout",
+      "status": "passed",
+      "evidence": "PlantUML labels are wrapped and the nine-block grid is complete."
+    },
+    {
       "id": "png_dimensions",
       "status": "passed",
       "evidence": "3840x2160"
@@ -39,16 +67,6 @@
       "id": "clean_public_surface",
       "status": "passed",
       "evidence": "Public BMC, SVG and PlantUML contain no validation/status markers."
-    },
-    {
-      "id": "browser_smoke",
-      "status": "passed",
-      "evidence": "Chrome headless screenshot captured: docs/product/bmc/evidence/browser-smoke.png"
-    },
-    {
-      "id": "pdf_raster_smoke",
-      "status": "passed",
-      "evidence": "PDF raster preview captured: docs/product/bmc/evidence/pdf-raster-smoke.png"
     }
   ]
 }

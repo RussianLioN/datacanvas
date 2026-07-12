@@ -21,10 +21,12 @@
 - `capacity-plan.schema.json`
 - `reprioritization-impact-report.schema.json`
 - `cascading-update-run.schema.json`
+- `xlsx-change-analysis.schema.json`
 - `jira-field-mapping-request.schema.json`
 - `jira-import-package-manifest.schema.json`
 - `agent-launch-requirements-analysis-state.schema.json`
 - `agent-launch-requirements-impact-map.schema.json`
+- `product-vision-manifest.schema.json`
 - `prompt-only-artifact-link-catalog.schema.json`
 - `prompt-only-artifact-review-session-state.schema.json`
 - `universal-documentation-core.schema.json`
@@ -40,6 +42,8 @@
 - `run-ledger.schema.json`
 - `event-log.schema.json`
 - `generator-contracts.schema.json`
+- `business-artifact-content-contract.schema.json`
+- `business-artifact-generation-contract.schema.json`
 - `schema-coverage-registry.schema.json`
 - `mutation-guard-policy.schema.json`
 - `workflow-portability-pack.schema.json`

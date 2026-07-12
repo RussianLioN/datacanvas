@@ -229,6 +229,10 @@ const cases = [
     data: "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
   },
   {
+    schema: "schemas/product-change-order.schema.json",
+    data: "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+  },
+  {
     schema: "schemas/product-change-questionnaire-state.schema.json",
     data: "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
   },
@@ -237,8 +241,36 @@ const cases = [
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
   {
+    schema: "schemas/change-impact-assessment.schema.json",
+    data: "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
+  },
+  {
     schema: "schemas/product-source-registry.schema.json",
     data: "docs/product/sources/product-source-registry.json",
+  },
+  {
+    schema: "schemas/xlsx-backlog-provenance.schema.json",
+    data: "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+  },
+  {
+    schema: "schemas/xlsx-opml-jira-recovery-index.schema.json",
+    data: "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+  },
+  {
+    schema: "schemas/business-artifact-content-contract.schema.json",
+    data: "docs/process/universal-documentation-workflow/business-artifact-content-contract.json",
+  },
+  {
+    schema: "schemas/business-artifact-generation-contract.schema.json",
+    data: "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
+  },
+  {
+    schema: "schemas/main-artifact-lifecycle-chain.schema.json",
+    data: "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  },
+  {
+    schema: "schemas/product-vision-manifest.schema.json",
+    data: "docs/product/vision/manifest.json",
   },
   {
     schema: "schemas/proposed-change-set.schema.json",
@@ -265,6 +297,10 @@ const cases = [
     data: "docs/process/cascading-governance/artifact-dependency-graph.json",
   },
   {
+    schema: "schemas/cascade-impact-cone.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-impact-cone.json",
+  },
+  {
     schema: "schemas/impact-analysis-report.schema.json",
     data: "docs/process/cascading-governance/impact-analysis-report.json",
   },
@@ -283,6 +319,78 @@ const cases = [
   {
     schema: "schemas/user-decision-queue.schema.json",
     data: `${co2026001RunRoot}/user-decision-queue-2026-07-02-002.json`,
+  },
+  {
+    schema: "schemas/cascade-baseline-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-baseline-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-resolution-input.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-resolution-input.json",
+  },
+  {
+    schema: "schemas/cascade-verification-evidence.schema.json",
+    data: "tests/fixtures/cascading-governance/cascade-verification-evidence.json",
+  },
+  {
+    schema: "schemas/cascade-source-identity.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/source-identity.json",
+  },
+  {
+    schema: "schemas/cascade-source-change-analysis.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/source-change-analysis.json",
+  },
+  {
+    schema: "schemas/cascade-semantic-impact-report.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/semantic-impact-report.json",
+  },
+  {
+    schema: "schemas/cascade-actual-diff-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/actual-diff-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-validation-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-runtime-manifest.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/runtime-manifest.json",
+  },
+  {
+    schema: "schemas/cascade-owner-question-packet.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/owner-question-packet.json",
+  },
+  {
+    schema: "schemas/cascade-acceptance-authority.schema.json",
+    data: "docs/process/cascading-governance/acceptance-authority.json",
+  },
+  {
+    schema: "schemas/cascade-acceptance-vnext.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/acceptance.json",
+  },
+  {
+    schema: "schemas/cascade-vnext-run.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/run.json",
+  },
+  {
+    schema: "schemas/cascade-completion-seal.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/completion-seal.json",
+  },
+  {
+    schema: "schemas/cascade-completion-evidence.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+  },
+  {
+    schema: "schemas/cascade-profile-evidence.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/profile-evidence.json",
+  },
+  {
+    schema: "schemas/cascade-resolution-report.schema.json",
+    data: "tests/fixtures/cascading-governance/vnext/resolution-report.json",
+  },
+  {
+    schema: "schemas/cascade-supersession-ledger.schema.json",
+    data: "docs/process/cascading-governance/supersession-ledger.json",
   },
   {
     schema: "schemas/capacity-plan.schema.json",
@@ -325,8 +433,8 @@ const cases = [
     data: `${co2026001RunRoot}/cascading-update-run-2026-07-02-002.json`,
   },
   {
-    schema: "schemas/cascading-update-run.schema.json",
-    data: "tests/fixtures/cascading-governance/cascading-update-blocked-done-claim.json",
+    schema: "schemas/xlsx-change-analysis.schema.json",
+    data: "tests/fixtures/cascading-governance/xlsx-change-analysis-valid.json",
   },
   {
     schema: "schemas/jira-field-mapping-request.schema.json",
@@ -869,6 +977,8 @@ const ajv = new Ajv2020({
 });
 addFormats(ajv);
 ajv.addSchema(readJson("schemas/common-defs.schema.json"));
+ajv.addSchema(readJson("schemas/cascade-impact-cone.schema.json"));
+ajv.addSchema(readJson("schemas/impact-analysis-report.schema.json"));
 
 let failed = false;
 const validators = new Map();
@@ -879,7 +989,7 @@ for (const testCase of cases) {
 
   if (!validate) {
     const schema = readJson(testCase.schema);
-    validate = ajv.compile(schema);
+    validate = (schema.$id && ajv.getSchema(schema.$id)) || ajv.compile(schema);
     validators.set(testCase.schema, validate);
   }
 

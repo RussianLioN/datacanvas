@@ -126,6 +126,7 @@
       "validating",
       "blocked",
       "recovery_required",
+      "interviewing",
       "completed",
       "abandoned"
     ],
@@ -149,6 +150,18 @@
       {
         "from": "impact_analyzed",
         "to": "awaiting_decision"
+      },
+      {
+        "from": "impact_analyzed",
+        "to": "interviewing"
+      },
+      {
+        "from": "interviewing",
+        "to": "awaiting_decision"
+      },
+      {
+        "from": "interviewing",
+        "to": "approved_to_apply"
       },
       {
         "from": "impact_analyzed",
@@ -181,6 +194,7 @@
     "inventory",
     "methodology_check",
     "impact_analysis",
+    "owner_interview_pass",
     "decision_pass",
     "apply_pass",
     "generate_pass",
@@ -214,6 +228,43 @@
     "date",
     "reconsideration_condition"
   ],
+  "owner_interview_policy": {
+    "default_mode": "interview_first_deferred_mutation",
+    "description": "Если для продолжения нужен любой опрос, вопрос или решение владельца по любому артефакту или контуру полномочий, рабочий процесс сначала собирает ответы в удобном интервью, а правки, генераторы и полные проверки выполняет после завершения интервью или раунда интервью.",
+    "applies_to": [
+      "single_owner_question",
+      "owner_questionnaire",
+      "artifact_specific_interview",
+      "product_process_architecture_navigation_generated_security_evidence_artifacts"
+    ],
+    "rules": [
+      "Сначала сформировать полный набор известных независимых вопросов владельцу по текущему артефакту, пакету артефактов или раунду решения, затем ждать ответы.",
+      "Не выполнять смысловые правки, обновление производных результатов, пересчет хэшей и полный проверочный барьер между отдельными ответами одного интервью или опросного раунда.",
+      "После получения всех ответов интервью применить согласованные изменения одним пакетом, затем выполнить генераторы, проверки и записать evidence.",
+      "Пользовательские отчеты, статусы, следующие шаги и вопросы должны давать абсолютные кликабельные ссылки на упоминаемые документы; если нужен выбор, правка, проверка спорного текста или объяснение проблемы в документе, рядом должна быть короткая цитата.",
+      "Вопросы владельцу по кодированным элементам должны показывать расшифровку каждого кода, текущий текст элемента, абсолютную ссылку на источник, короткую цитату, документы-доноры или зависимые документы с цитатами и логику каждого варианта: что изменится, что останется без изменений и какие риски или блокеры закрываются.",
+      "Если пользователь просит навык, плагин, connector, MCP-инструмент, Consilium или консилиум экспертов, агент обязан реально вызвать доступный механизм и не имитировать его работу; если механизм недоступен, это явный блокер, который нужно сообщить пользователю вместо имитации.",
+      "Табличные данные в рабочем чате должны использовать cli-table-output: короткие сравнения выводятся списком, матрицы и статусные сводки — fenced text Unicode-таблицей до 88 видимых символов, Markdown pipe table не выводится напрямую в чат по умолчанию."
+    ],
+    "allowed_during_interview": [
+      "read_sources",
+      "impact_analysis",
+      "draft_question_batch",
+      "collect_owner_answers",
+      "minimal_resume_checkpoint"
+    ],
+    "deferred_operations": [
+      "manual_source_updates",
+      "generated_artifact_refresh",
+      "hash_manifest_update",
+      "full_validation_gate",
+      "final_validation_evidence"
+    ],
+    "exceptions": [
+      "Если следующий вопрос зависит от предыдущего ответа, интервью разбивается на короткие раунды; внутри каждого раунда сначала задаются все известные вопросы, а записи и проверки откладываются до конца раунда.",
+      "Минимальная запись состояния допускается только для безопасного продолжения после обрыва и не должна менять продуктовый, процессный или архитектурный смысл."
+    ]
+  },
   "gates": [
     {
       "id": "quick",
@@ -243,6 +294,7 @@
     "hash_manifest_check_passed",
     "mutation_guard_passed",
     "acceptance_records_linked",
-    "run_ledger_has_residual_risks_and_next_safe_step"
+    "run_ledger_has_residual_risks_and_next_safe_step",
+    "user_facing_report_has_absolute_clickable_links_and_quotes_for_document_decisions"
   ]
 }

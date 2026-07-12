@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "impact_report_id": "IAR-2026-07-02-101",
   "change_request_id": "DCR-2026-07-02-101",
   "status": "blocked",
@@ -7,97 +7,271 @@
   "target_artifact": "docs/product-vision.md",
   "affected_artifacts": [
     {
-      "path": "docs/product/bmc/bmc-v0.2.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить ценностное предложение и key activities после изменения Vision."],
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
       "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/stories.md",
-      "impact_types": ["semantic", "resource"],
-      "required_edits": ["Проверить stories, приоритеты, сроки и ПШЕ после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/requirements/business-requirements.md",
-      "impact_types": ["semantic", "traceability"],
-      "required_edits": ["Проверить BT coverage после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/requirements/non-functional-requirements.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить NFR после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/requirements/acceptance-criteria.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить acceptance criteria после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/backlog/product-backlog.md",
-      "impact_types": ["semantic", "resource"],
-      "required_edits": ["Проверить backlog и запустить reprioritization impact при изменении приоритетов."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/roadmap/roadmap-v0.1.md",
-      "impact_types": ["semantic"],
-      "required_edits": ["Проверить roadmap после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
-      "no_change_rationale": null
-    },
-    {
-      "path": "docs/product/requirements/traceability-matrix.json",
-      "impact_types": ["traceability"],
-      "required_edits": ["Проверить traceability matrix после изменения Vision."],
-      "optional_edits": [],
-      "update_status": "pending",
+      "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
-      "impact_types": ["resource"],
-      "required_edits": ["Проверить capacity source без выдумывания емкости."],
+      "required_edits": [
+        "Проверить capacity source без выдумывания емкости."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/cascading-governance/impact-analysis-report.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
-      "impact_types": ["Jira"],
-      "required_edits": ["Проверить Jira package readiness без выдумывания field mapping."],
+      "required_edits": [
+        "Проверить Jira package readiness без выдумывания field mapping."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/backlog/product-backlog.md",
+      "required_edits": [
+        "Проверить backlog и запустить reprioritization impact при изменении приоритетов."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/bmc/bmc-v0.2.md",
+      "required_edits": [
+        "Проверить ценностное предложение и key activities после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/hypotheses/hypothesis-board.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/acceptance-criteria.md",
+      "required_edits": [
+        "Проверить acceptance criteria после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/business-claim-map.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/business-requirements.md",
+      "required_edits": [
+        "Проверить BT coverage после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/non-functional-requirements.md",
+      "required_edits": [
+        "Проверить NFR после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/traceability-matrix.json",
+      "required_edits": [
+        "Проверить traceability matrix после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "required_edits": [
+        "Проверить stories, приоритеты, сроки и ПШЕ после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/roadmap/roadmap-v0.1.md",
+      "required_edits": [
+        "Проверить roadmap после изменения Vision."
+      ],
+      "optional_edits": [],
+      "update_status": "pending",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/sources/product-source-registry.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
+      "optional_edits": [],
+      "update_status": "blocked",
+      "no_change_rationale": null
+    },
+    {
+      "path": "docs/product/vision/vision-v0.1.md",
+      "required_edits": [
+        "Review the artifact against the computed impact cone."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/release/mvp-release-evidence-pack.json",
-      "impact_types": ["evidence"],
-      "required_edits": ["Не обновлять release acceptance, пока blocking decisions открыты."],
+      "required_edits": [
+        "Не обновлять release acceptance, пока blocking decisions открыты."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
     },
     {
       "path": "docs/sprints",
-      "impact_types": ["evidence"],
-      "required_edits": ["Sprint evidence должен ссылаться на cascade run при изменении sprint/backlog/roadmap artifacts."],
+      "required_edits": [
+        "Sprint evidence должен ссылаться на cascade run при изменении sprint/backlog/roadmap artifacts."
+      ],
       "optional_edits": [],
       "update_status": "blocked",
       "no_change_rationale": null
@@ -111,7 +285,9 @@
   "derived_facts": [
     {
       "fact": "Vision change is high-impact and must review downstream business, backlog, roadmap, traceability and evidence artifacts.",
-      "source_paths": ["docs/process/cascading-governance/artifact-dependency-graph.json"]
+      "source_paths": [
+        "docs/process/cascading-governance/artifact-dependency-graph.json"
+      ]
     }
   ],
   "assumptions_forbidden": [
@@ -133,5 +309,381 @@
     "npm run validate:decision-queue",
     "npm run validate:cascading-update"
   ],
-  "completion_status": "blocked"
+  "completion_status": "blocked",
+  "impact_cone": {
+    "version": "0.2.0",
+    "analysis_mode": "full_impact_cone",
+    "changed_source_set": [
+      {
+        "path": "docs/product-vision.md",
+        "change_class": "business_meaning"
+      }
+    ],
+    "impacted_artifacts": [
+      {
+        "path": "docs/architecture/system-analysis/sa-spec.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/cascading-governance/impact-analysis-report.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/backlog/product-backlog.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/bmc/bmc-v0.2.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "regenerate",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+        "impact_directions": [
+          "upstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+        "impact_directions": [
+          "upstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "impact_directions": [
+          "upstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/hypotheses/hypothesis-board.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/acceptance-criteria.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/business-claim-map.json",
+        "impact_directions": [
+          "upstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/business-requirements.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/non-functional-requirements.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/traceability-matrix.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/requirements/user-stories.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/roadmap/roadmap-v0.1.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/sources/product-source-registry.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/product/vision/vision-v0.1.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/release/mvp-release-evidence-pack.json",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      },
+      {
+        "path": "docs/sprints",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/product-vision.md"
+        ],
+        "review_obligation": "owner_decision",
+        "owner_gate_required": true,
+        "resolution_required": true
+      }
+    ],
+    "observed_cycle_ids": [
+      "CYCLE-STORIES-REQUIREMENTS-BACKLOG-XLSX"
+    ],
+    "uncovered_changed_paths": []
+  }
 }

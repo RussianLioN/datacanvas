@@ -3,9 +3,11 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { validateBmcPlantUmlLayout, validateBmcSvgLayout } from "./lib/bmc-visual-layout.mjs";
 
 const root = process.cwd();
 const svgPath = "docs/product/bmc/source/derived/datacanvas-bmc.svg";
+const plantUmlPath = "docs/product/bmc/source/derived/datacanvas-bmc.puml";
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
 const expectedBlocks = ["B8", "B7", "B6", "B2", "B4", "B3", "B1", "B9", "B5"];
 
@@ -29,6 +31,7 @@ if (!fs.existsSync(absolute(svgPath))) {
 }
 
 const svg = fs.readFileSync(absolute(svgPath), "utf8");
+const plantUml = fs.readFileSync(absolute(plantUmlPath), "utf8");
 const svgWithoutNamespace = svg.replaceAll("http://www.w3.org/2000/svg", "");
 
 for (const fragment of [
@@ -50,6 +53,13 @@ for (const fragment of [
 
 for (const block of expectedBlocks) {
   requireText(svg, `data-block="${block}"`, `block marker ${block}`);
+}
+
+for (const issue of validateBmcSvgLayout(svg)) {
+  fail(issue);
+}
+for (const issue of validateBmcPlantUmlLayout(plantUml)) {
+  fail(issue);
 }
 
 for (let index = 1; index < expectedBlocks.length; index += 1) {
@@ -110,7 +120,7 @@ try {
 }
 
 const generator = fs.readFileSync(absolute(generatorPath), "utf8");
-if (/wrapWords\(.*\)\.slice\(/s.test(generator)) {
+if (/wrap(?:Words|SvgText)\(.*\)\.slice\(/s.test(generator)) {
   fail("BMC generator appears to truncate wrapped visual text");
 }
 

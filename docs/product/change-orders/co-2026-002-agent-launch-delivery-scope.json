@@ -1,0 +1,84 @@
+{
+  "id": "CO-2026-002",
+  "title": "P1/P2 boundary for DataCanvas launch by another agent and delivery scope",
+  "status": "accepted",
+  "source": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+  "reason": "Product Owner уточнил, что весь основной маршрут запуска DataCanvas другим агентом относится к P1, а хранилище, ссылка на нередактируемую копию и уведомление в Лисе относятся к группе возможностей с приоритетом P2.",
+  "priority_before": [
+    "P1: проверка входа и генерация презентации",
+    "P2: остальные связанные истории запуска другим агентом"
+  ],
+  "priority_after": [
+    "P1: полный основной маршрут запуска другим агентом до доставки PPTX/PDF по электронной почте",
+    "P2: расширенная доставка, защищенное хранение PDF-копии, ссылка вызывающему агенту и уведомление в Лисе"
+  ],
+  "affected_users": [
+    "Product Owner",
+    "КМ",
+    "вызывающий агент",
+    "команда Лисы",
+    "команда реализации"
+  ],
+  "affected_artifacts": [
+    "docs/product-vision.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/requirements/non-functional-requirements.md",
+    "docs/product/requirements/traceability-matrix.json",
+    "docs/product/specs/feature-spec-a2a-launch.json",
+    "docs/product/specs/task-spec-a2a-launch.json",
+    "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+    "docs/product/ux/uat-script.md",
+    "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+    "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+    "docs/product/sources/product-source-registry.json",
+    "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+  ],
+  "affected_requirements": [
+    "BT-012",
+    "BT-014",
+    "BT-015",
+    "BT-016",
+    "BT-017",
+    "BT-018",
+    "NFR-002",
+    "NFR-003",
+    "BT-019",
+    "BT-020",
+    "BT-021"
+  ],
+  "affected_ports_adapters": [
+    "A2A input envelope",
+    "status/callback adapter",
+    "email delivery adapter",
+    "future storage/link handoff",
+    "future Lisa notification handoff"
+  ],
+  "adr_impact": "Перед фактическим включением реальных сетевых, почтовых, callback, storage или Lisa notification интеграций нужен отдельный ADR или технический контракт. Текущий change order фиксирует продуктовую границу и документационный каскад.",
+  "sprint_impact": "DC-ST-23..DC-ST-29 входят в P1-контур для планирования, DC-ST-30..DC-ST-33 входят в группу возможностей с приоритетом P2. Рабочая Excel-версия принята как ресурсный вход для обеих групп; ближайший sprint backlog все равно требует проверки емкости, порядка работ и вытеснения.",
+  "sprint_goal_test": "До sprint planning Product Owner и команда реализации подтверждают, какая часть P1 помещается в ближайшие 3-4 недели, а P2-хранилище, ссылка и уведомление остаются самостоятельной группой возможностей.",
+  "product_owner_decision": {
+    "decision": "accepted",
+    "decided_by_role": "Product Owner",
+    "decided_at": "2026-07-10T00:00:00Z",
+    "rationale": "Product Owner передал уточнение CO-10072026 и подтвердил реализацию плана: основной маршрут запуска другим агентом имеет высший приоритет P1, а доставка ссылки, хранилище и уведомления в Лисе относятся к группе возможностей с приоритетом P2."
+  },
+  "rollback": "Вернуть DC-ST-30..DC-ST-33 в состояние отложенного P2 без принятой XLSX-оценки, восстановить прежние формулировки DC-ST-25, DC-ST-27..DC-ST-29 и повторить каскадные проверки.",
+  "validation_plan": [
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:business-docs",
+    "npm run validate:traceability-graph",
+    "npm run validate:spec-task-prompt-readiness",
+    "npm run validate:data-leakage"
+  ],
+  "impact_assessment_path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json"
+}

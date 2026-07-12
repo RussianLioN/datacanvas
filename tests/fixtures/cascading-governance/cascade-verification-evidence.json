@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "verification_id": "CVE-2026-07-10-001",
+  "status": "verified",
+  "verified_at": "2026-07-10T00:10:00.000Z",
+  "source_run_path": "docs/process/cascading-governance/runs/example/cascading-update-run.json",
+  "impact_report_path": "docs/process/cascading-governance/runs/example/impact-analysis-report.json",
+  "baseline_manifest_path": "docs/process/cascading-governance/runs/example/cascade-baseline-manifest.json",
+  "resolution_input_path": "docs/process/cascading-governance/runs/example/cascade-resolution-input.json",
+  "resolution_report_path": "docs/process/cascading-governance/runs/example/cascade-resolution-report.md",
+  "artifact_resolution_refs": [
+    {
+      "path": "docs/product/requirements/user-stories.md",
+      "impact_artifact_ref": "/affected_artifacts/0",
+      "before_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "after_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "verification_status": "passed"
+    }
+  ],
+  "validation_results": [
+    {
+      "command": "npm run validate:business-docs",
+      "status": "passed",
+      "evidence": "exit 0",
+      "ran_at": "2026-07-10T00:09:00.000Z"
+    }
+  ],
+  "decision_queue_status": "closed",
+  "blocking_reasons": []
+}

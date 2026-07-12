@@ -1,0 +1,15 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-validation-manifest.schema.json",
+  "version": "1.0.0",
+  "verification_level": "profile",
+  "planned_commands": [
+    {
+      "id": "business-docs",
+      "command": "npm run validate:business-docs",
+      "gate": "profile",
+      "mutates_files": false,
+      "command_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ],
+  "manifest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+}

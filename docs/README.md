@@ -23,16 +23,15 @@
 | Область | Источники |
 |---|---|
 | Vision - видение продукта | [docs/product-vision.md](product-vision.md) |
-| Stories - пользовательские истории | [docs/stories.md](stories.md) |
-| BMC - Business Model Canvas, бизнес-модель продукта | [Markdown-источник](product/bmc/bmc-v0.2.md), [trace source - источник трассировки](product/bmc/bmc-trace.v0.1.json), [PlantUML - текстовая диаграмма](product/bmc/source/derived/datacanvas-bmc.puml), [SVG - векторное изображение](product/bmc/source/derived/datacanvas-bmc.svg), [PNG - растровое изображение](product/bmc/source/derived/datacanvas-bmc.png), [PDF - документ для просмотра](product/bmc/source/derived/datacanvas-bmc.pdf) |
-| Business requirements - бизнес-требования | [docs/product/requirements/business-requirements.md](product/requirements/business-requirements.md) |
-| Acceptance criteria - критерии приемки | [docs/product/requirements/acceptance-criteria.md](product/requirements/acceptance-criteria.md) |
-| BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](product/analysis/README.md) и [docs/architecture/system-analysis/README.md](architecture/system-analysis/README.md) |
-| Specs - спецификации | [docs/product/specs/README.md](product/specs/README.md) |
-| Traceability - матрица связей и проверяемости | [docs/product/requirements/traceability-matrix.json](product/requirements/traceability-matrix.json) |
-| Product backlog - продуктовый бэклог | [docs/product/backlog/README.md](product/backlog/README.md) |
+| CO - заявки на продуктовые изменения | [docs/product/change-orders/README.md](product/change-orders/README.md) |
+| BMC - Business Model Canvas, бизнес-модель продукта | [docs/product/bmc/README.md](product/bmc/README.md) |
+| Пользовательские истории | [docs/product/requirements/user-stories.md](product/requirements/user-stories.md) |
+| Требования и критерии приемки | [docs/product/requirements/README.md](product/requirements/README.md) |
+| Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](product/backlog/README.md) и [docs/product/sources/README.md](product/sources/README.md) |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](product/hypotheses/README.md) |
+| BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](product/analysis/README.md) и [docs/architecture/system-analysis/README.md](architecture/system-analysis/README.md) |
+| Specs - спецификации | [docs/product/specs/README.md](product/specs/README.md) |
 
 ## Техническое воплощение ведения проектной документации
 
@@ -51,6 +50,7 @@
 | Scripts - скрипты и validators - проверки | [package.json](../package.json) | Команды генерации, проверки, security scan — проверки безопасности — и полный gate. |
 | Delivery - поставочный контур | [Release](release/README.md) | Release, PR evidence — доказательства для PR, pilot и handoff. |
 | Evidence - доказательный контур | [Evidence hub](knowledge/evidence-index.md) | Ручные и generated evidence без raw confidential данных. |
+| Knowledge base - база знаний | [Knowledge](knowledge/README.md) | RCA, lessons learned и долговременные знания проекта. |
 | Sprint artifacts - спринтовые артефакты | [Sprint artifacts](sprints/README.md) | Планы, доказательства и манифесты спринтов. |
 | Технические планы документационного контура | [Планы](plans/README.md) | Планы работ по документации, методологии и проверкам. |
 

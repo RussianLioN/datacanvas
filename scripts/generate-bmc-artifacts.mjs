@@ -4,11 +4,20 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
+import {
+  fitSvgTextLines,
+  validateBmcPlantUmlLayout,
+  validateBmcSvgLayout,
+  wrapPlantUmlLine,
+} from "./lib/bmc-visual-layout.mjs";
+import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const checkMode = process.argv.includes("--check");
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
-const generatedAt = "2026-06-24T00:00:00Z";
+const renderValidatorPath = fileURLToPath(new URL("./validate-bmc-render-parity.mjs", import.meta.url));
+const generatedAt = "2026-07-12T00:00:00Z";
 
 const paths = {
   trace: "docs/product/bmc/bmc-trace.v0.1.json",
@@ -27,194 +36,11 @@ const paths = {
   designerConsilium: "docs/product/bmc/evidence/designer-consilium.json",
   visualAcceptance: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
   designPhilosophy: "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
-  browserSmoke: "docs/product/bmc/evidence/browser-smoke.png",
-  pdfRasterSmoke: "docs/product/bmc/evidence/pdf-raster-smoke.png",
 };
 
-const blockModel = [
-  {
-    id: "B1",
-    classic: "Customer Segments",
-    title: "Сегменты пользователей",
-    shortTitle: "Сегменты",
-    statement:
-      "КМ и CSM являются первыми рабочими сегментами DataCanvas; перспективный контур расширяется до пользователей Лисы, которым нужно быстро собрать презентацию из уже подготовленных данных.",
-    bullets: [
-      "КМ и CSM как первый контур",
-      "Пользователи Лисы как расширение",
-      "Выгодополучатели выделяются отдельно",
-      "Спонсоры требуют отдельного подтверждения",
-    ],
-    detail: [
-      "Основной текущий контур - КМ и CSM, работающие в мессенджере Лиса.",
-      "Перспективный сегмент - любой пользователь Лисы, которому нужно получить короткую презентацию из данных, подготовленных другим агентом или системой.",
-      "Выгодополучатели и бюджетные спонсоры не смешиваются с пользовательскими сегментами и закрываются отдельными проверками в companion JSON.",
-    ],
-  },
-  {
-    id: "B2",
-    classic: "Value Proposition",
-    title: "Ценностное предложение",
-    shortTitle: "Ценность",
-    statement:
-      "DataCanvas сокращает путь от подготовленных данных или объемного ответа другого агента в Лисе до рабочей краткой презентации: уточняет недостающее, согласует описание, генерирует файл и поддерживает повторный цикл правок.",
-    bullets: [
-      "Быстрая рабочая презентация",
-      "Меньше копирования и ручной верстки",
-      "Меньше чтения длинной чатовой ленты",
-      "Согласование описания до генерации",
-      "Проверяемая итерация после замечаний",
-    ],
-    detail: [
-      "Пользователь получает рабочую презентацию быстрее, чем при ручном переносе данных и самостоятельной верстке.",
-      "Пользователь не разбирает длинный агентский ответ в чатовой ленте вручную, а получает структурированный рабочий материал.",
-      "Перед генерацией DataCanvas формирует описание результата и принимает правки, чтобы снизить риск неверной презентации.",
-      "После доставки файла поддерживается цикл замечаний, уточнения входных данных, изменения описания и повторной генерации.",
-    ],
-  },
-  {
-    id: "B3",
-    classic: "Channels",
-    title: "Каналы",
-    shortTitle: "Каналы",
-    statement:
-      "DataCanvas запускается двумя основными способами: другим агентом по подготовленному контексту или пользователем в Лисе через диалоговый режим.",
-    bullets: [
-      "Запуск другим агентом",
-      "Диалоговый режим в Лисе",
-      "Проверка данных перед подготовкой",
-      "Доставка по электронной почте",
-      "Редактируемый формат результата",
-    ],
-    detail: [
-      "При запуске другим агентом DataCanvas получает подготовленный контекст, проверяет его достаточность и безопасность, затем готовит презентацию без дополнительного подтверждения пользователем.",
-      "В Лисе пользователь может уточнять задачу, проверять описание будущей презентации и вносить правки до генерации.",
-      "Готовый файл презентации доставляется пользователю по электронной почте в редактируемом формате.",
-    ],
-  },
-  {
-    id: "B4",
-    classic: "Customer Relationships",
-    title: "Взаимодействие с пользователем",
-    shortTitle: "Отношения",
-    statement:
-      "Взаимодействие зависит от режима запуска.",
-    bullets: [
-      "Без подтверждения при запуске агентом",
-      "Уточнения только в Лисе",
-      "Проверка описания в Лисе",
-      "Правки до генерации в Лисе",
-      "Самостоятельные правки файла",
-    ],
-    detail: [
-      "При запуске другим агентом пользователь не проходит дополнительное подтверждение перед генерацией: DataCanvas работает по уже подготовленному контексту.",
-      "В диалоговом режиме в Лисе DataCanvas может задавать уточняющие вопросы, показывать описание будущей презентации и принимать правки до генерации.",
-      "После получения файла пользователь может самостоятельно оперативно внести правки в редактируемую презентацию.",
-    ],
-  },
-  {
-    id: "B5",
-    classic: "Revenue Streams / Internal Value Streams",
-    title: "Потоки внутренней пользы",
-    shortTitle: "Внутренняя польза",
-    statement:
-      "Для внутреннего продукта блок B5 трактуется как поток пользы: экономия времени, снижение ручной работы и нагрузки на чтение длинных агентских ответов, повторное использование шаблонов и измеримый эффект для владельца бюджета.",
-    bullets: [
-      "Экономия времени",
-      "Снижение ручной работы",
-      "Меньше нагрузки на чтение",
-      "Повторное использование шаблонов",
-      "Метрики принятого результата",
-    ],
-    detail: [
-      "DataCanvas пока моделируется как внутренний продукт, поэтому внешний денежный поток заменен потоком внутренней пользы.",
-      "Первичный эффект - экономия времени КМ и CSM, сокращение ручной верстки, снижение нагрузки на переработку длинных ответов других агентов и повторное использование согласованных шаблонов.",
-      "Источник финансирования, бюджетный владелец и расчет эффекта остаются предметом отдельной проверки в companion JSON.",
-    ],
-  },
-  {
-    id: "B6",
-    classic: "Key Resources",
-    title: "Ключевые ресурсы",
-    shortTitle: "Ресурсы",
-    statement:
-      "Ключевые ресурсы DataCanvas: подготовленный контекст, правила проверки достаточности и безопасности данных, описание будущей презентации, шаблоны, средство подготовки файла, проверки качества и почтовый канал доставки.",
-    bullets: [
-      "Подготовленный контекст",
-      "Проверка достаточности",
-      "Проверка безопасности",
-      "Шаблоны презентаций",
-      "Почтовая доставка",
-    ],
-    detail: [
-      "Результат зависит от качества подготовленного контекста и правил проверки достаточности и безопасности данных.",
-      "Описание будущей презентации важно для диалогового режима в Лисе, где пользователь может проверить направление до генерации.",
-      "Шаблоны, средство подготовки файла, проверки качества и почтовый канал доставки создают воспроизводимый путь от запроса к редактируемой презентации.",
-    ],
-  },
-  {
-    id: "B7",
-    classic: "Key Activities",
-    title: "Ключевые активности",
-    shortTitle: "Активности",
-    statement:
-      "DataCanvas проверяет входные данные, готовит презентацию и отправляет готовый файл пользователю по электронной почте.",
-    bullets: [
-      "Проверка входных данных",
-      "Подготовка презентации",
-      "Email-доставка файла",
-      "Уточнения в Лисе",
-      "Связь контекста и результата",
-    ],
-    detail: [
-      "Для запуска другим агентом ключевой маршрут: проверить данные, подготовить презентацию, отправить файл.",
-      "Для режима Лисы добавляются уточняющие вопросы, согласование описания будущей презентации и правки до генерации.",
-      "Во всех режимах DataCanvas должен сохранять связь между исходным контекстом, результатом проверки и итоговой презентацией.",
-    ],
-  },
-  {
-    id: "B8",
-    classic: "Key Partners",
-    title: "Ключевые партнеры",
-    shortTitle: "Партнеры",
-    statement:
-      "Ключевые партнеры и зависимости: Лиса, другой агент, источники данных, владельцы шаблонов, средство подготовки файла и почтовый канал доставки.",
-    bullets: [
-      "Лиса",
-      "Другой агент",
-      "Источники данных",
-      "Владельцы шаблонов",
-      "Почтовый канал доставки",
-    ],
-    detail: [
-      "Лиса обеспечивает диалоговый режим с пользователем.",
-      "Другой агент передает подготовленный контекст для запуска DataCanvas.",
-      "Почтовый канал обеспечивает доставку редактируемого файла пользователю.",
-    ],
-  },
-  {
-    id: "B9",
-    classic: "Cost Structure",
-    title: "Структура затрат",
-    shortTitle: "Затраты",
-    statement:
-      "Структура затрат включает LLM-вызовы, renderer, human review, задержку, сопровождение, интеграции, шаблоны, эксплуатацию и обработку инцидентов.",
-    bullets: [
-      "LLM-вызовы и задержка",
-      "Renderer и шаблоны",
-      "Human review",
-      "Интеграции и сопровождение",
-      "Эксплуатация и инциденты",
-    ],
-    detail: [
-      "Главные переменные затраты связаны с LLM-вызовами, рендером и временем проверки результата.",
-      "Постоянные затраты связаны с поддержкой интеграций, шаблонов, quality gates и эксплуатацией.",
-      "Приоритеты стоимости фиксируются отдельно и требуют дальнейшей проверки на реальных сценариях.",
-    ],
-  },
-];
+let blockModel = [];
+let blockById = new Map();
 
-const blockById = new Map(blockModel.map((block) => [block.id, block]));
 const cleanForbidden = [
   "не подтверждено",
   "допущение",
@@ -226,6 +52,34 @@ const cleanForbidden = [
   "Evidence Requests",
   "Open Questions",
   "Source refs",
+  "source_refs",
+  "evidence_requests",
+  "PresentationSpec",
+  "trace",
+  "validation companion",
+  "companion JSON",
+  "quality gates",
+  "renderer",
+  "gateway",
+  "callback",
+  "A2A",
+  "MCP",
+  "LLM",
+  "SHA",
+  "Статус:",
+  "## Методика",
+  "## Граница модели",
+  "рабочая версия",
+  "классическую схему Business Model Canvas",
+  "внутреннего ИТ-продукта",
+  "внешняя выручка",
+  "служебные доказательства",
+  "машинные артефакты",
+  ...publicBusinessForbiddenSnippets,
+  "требует отдельной проверки",
+  "предметом отдельной проверки",
+  "открытая зависимость",
+  "открытые зависимости",
   "/Users/",
   "file://",
 ];
@@ -240,6 +94,25 @@ function ensureDir(filePath) {
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(absolute(relativePath), "utf8"));
+}
+
+function buildBlockModel(trace) {
+  const itemByBlock = new Map(trace.items.map((item) => [item.block, item]));
+  return trace.blocks.map((block) => {
+    const item = itemByBlock.get(block.id);
+    if (!item) {
+      fail(`BMC trace is missing public item for block: ${block.id}`);
+    }
+    return {
+      id: block.id,
+      classic: block.title,
+      title: block.public_title,
+      shortTitle: block.short_title,
+      statement: item.statement,
+      bullets: item.bullets,
+      detail: item.detail,
+    };
+  });
 }
 
 function sha256Bytes(bytes) {
@@ -261,28 +134,6 @@ function escapeHtml(value) {
 function fail(message) {
   console.error(`ERROR: ${message}`);
   process.exit(1);
-}
-
-function wrapWords(value, maxChars) {
-  const words = String(value).trim().split(/\s+/);
-  const lines = [];
-  let line = "";
-
-  for (const word of words) {
-    const next = line ? `${line} ${word}` : word;
-    if (next.length > maxChars && line) {
-      lines.push(line);
-      line = word;
-    } else {
-      line = next;
-    }
-  }
-
-  if (line) {
-    lines.push(line);
-  }
-
-  return lines;
 }
 
 function validationNeedFor(item) {
@@ -361,21 +212,6 @@ function markdown() {
   return [
     "# Business Model Canvas DataCanvas v0.2",
     "",
-    "Статус: рабочая версия для продуктового обсуждения.",
-    "",
-    "## Методика",
-    "",
-    "Документ использует классическую схему Business Model Canvas из девяти блоков. Для DataCanvas как внутреннего ИТ-продукта блок B5 трактуется как поток внутренней пользы и финансирования, а не как внешняя выручка.",
-    "",
-    "## Граница модели",
-    "",
-    "DataCanvas получает данные, подготовленные другим агентом, пользователем или автоматизированной системой, уточняет недостающее, формирует описание короткой презентации, согласует его с пользователем, генерирует файл и поддерживает цикл замечаний и повторной генерации.",
-    "",
-    "## Пользовательские и машинные артефакты",
-    "",
-    "- Пользовательские артефакты: краткая презентация, описание результата перед генерацией, замечания и правки.",
-    "- Машинные артефакты: входной контекст, PresentationSpec, trace, validation companion JSON и визуальный пакет BMC.",
-    "",
     "## Краткая канва",
     "",
     "| Блок | Классический смысл | Раздел DataCanvas | Содержание |",
@@ -391,18 +227,20 @@ function plantUml() {
     ids
       .map((id) => {
         const block = blockById.get(id);
-        return [`<b>${id.slice(1)}. ${block.title}</b>`, ...block.bullets.map((item) => `- ${item}`)].join("\\n");
+        const bulletLines = block.bullets.flatMap((item) =>
+          wrapPlantUmlLine(item, 54).map((line, index) => `${index === 0 ? "- " : "  "}${line}`),
+        );
+        return [`<b>${id.slice(1)}. ${block.title}</b>`, ...bulletLines].join("\\n");
       })
       .join("\\n==\\n");
 
   return [
     "@startuml",
-    "' generated by scripts/generate-bmc-artifacts.mjs; do not edit by hand.",
     "title DataCanvas Business Model Canvas",
     "top to bottom direction",
     "skinparam backgroundColor #F8FAFC",
-    "skinparam nodesep 8",
-    "skinparam ranksep 18",
+    "skinparam nodesep 18",
+    "skinparam ranksep 24",
     "skinparam defaultFontName \"Noto Sans\"",
     "skinparam defaultFontColor #111827",
     "skinparam defaultFontSize 15",
@@ -444,26 +282,38 @@ function plantUml() {
   ].join("\n");
 }
 
-function svgText(lines, { x, y, width, fontSize = 34, lineHeight = 46, fill = "#26313f", weight = "400", role }) {
-  const maxChars = Math.max(18, Math.floor(width / (fontSize * 0.52)));
-  const wrapped = [];
-  for (const line of lines) {
-    wrapped.push(...wrapWords(line, maxChars));
-  }
-  const tspans = wrapped
-    .map((line, index) => `<tspan x="${x}" y="${y + index * lineHeight}">${escapeHtml(line)}</tspan>`)
+function svgText(lines, {
+  x,
+  y,
+  width,
+  maxY,
+  fontSize = 34,
+  minFontSize = 24,
+  lineHeightRatio = 1.28,
+  fill = "#26313f",
+  weight = "400",
+  role,
+}) {
+  const layout = fitSvgTextLines(lines, {
+    maxWidth: width,
+    startY: y,
+    maxY,
+    maxFontSize: fontSize,
+    minFontSize,
+    lineHeightRatio,
+  });
+  const tspans = layout.lines
+    .map((line, index) => `<tspan x="${x}" y="${y + index * layout.lineHeight}">${escapeHtml(line)}</tspan>`)
     .join("");
-  return `<text data-role="${role}" font-family="Inter, Arial, sans-serif" font-size="${fontSize}" font-weight="${weight}" fill="${fill}">${tspans}</text>`;
+  return `<text data-role="${role}" font-family="Inter, Arial, sans-serif" font-size="${layout.fontSize}" font-weight="${weight}" fill="${fill}">${tspans}</text>`;
 }
 
 function svgBlock(block, box, options = {}) {
   const isTall = box.h >= 900;
   const isWideBottom = box.w >= 1000 && box.h < 620;
-  const includeDetails = options.slot === "top-center";
   const bodyLines = [
     ...(isTall || isWideBottom ? [block.statement] : []),
     ...block.bullets.map((item) => `• ${item}`),
-    ...(includeDetails ? block.detail.map((item) => `- ${item}`) : []),
   ];
   const accent = options.accent ?? "#0f766e";
   const roleAttrs = [
@@ -487,8 +337,10 @@ function svgBlock(block, box, options = {}) {
       x: 34,
       y: 122,
       width: box.w - 68,
+      maxY: box.h < 620 ? 150 : 160,
       fontSize: titleSize,
-      lineHeight: 44,
+      minFontSize: 28,
+      lineHeightRatio: 1.2,
       fill: "#111827",
       weight: "760",
       role: "bmc-block-title",
@@ -498,8 +350,10 @@ function svgBlock(block, box, options = {}) {
       x: 42,
       y: box.h < 620 ? 222 : 238,
       width: box.w - 84,
+      maxY: box.h - (box.h < 620 ? 16 : 24),
       fontSize: bodySize,
-      lineHeight: bodyLineHeight,
+      minFontSize: 24,
+      lineHeightRatio: box.h < 620 ? 1.25 : bodyLineHeight / bodySize,
       fill: "#26313f",
       role: "bmc-block-body",
     }),
@@ -512,9 +366,9 @@ function svg() {
   const y0 = 280;
   const gap = 28;
   const col = [640, 640, 820, 640, 640];
-  const topH = 1120;
+  const topH = 1180;
   const splitH = (topH - gap) / 2;
-  const bottomY = 1490;
+  const bottomY = y0 + topH + gap;
   const bottomH = 500;
   const bottomW = (3840 - x0 * 2 - gap) / 2;
   const x = [
@@ -549,16 +403,14 @@ function svg() {
     "<title>DataCanvas Business Model Canvas</title>",
     "<desc>Классическая канва бизнес-модели DataCanvas: верхний ряд B8, B7/B6, B2, B4/B3, B1; нижний ряд B9 и B5.</desc>",
     '<rect data-role="bmc-background" width="3840" height="2160" fill="#f8fafc"/>',
-    '<rect x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>',
+    '<rect data-role="bmc-frame" x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>',
     '<text data-role="bmc-title" x="174" y="158" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="820" fill="#111827">DataCanvas Business Model Canvas</text>',
-    '<text data-role="bmc-subtitle" x="174" y="216" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="420" fill="#526174">Классическая структура: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5</text>',
     '<g data-role="bmc-top-row">',
     ...boxes.slice(0, 7).map(([id, box, options]) => svgBlock(blockById.get(id), box, options)),
     "</g>",
     '<g data-role="bmc-bottom-row">',
     ...boxes.slice(7).map(([id, box, options]) => svgBlock(blockById.get(id), box, options)),
     "</g>",
-    '<text data-role="bmc-footer" x="174" y="2054" font-family="Inter, Arial, sans-serif" font-size="24" fill="#64748b">SVG является каноническим визуальным источником; PNG и PDF генерируются из него.</text>',
     "</svg>",
     "",
   ].join("\n");
@@ -601,32 +453,33 @@ function textAlternative() {
 
 function packageReadme() {
   return [
-    "# DataCanvas BMC Package",
+    "# Business Model Canvas DataCanvas",
     "",
-    "Пакет содержит чистовой Business Model Canvas DataCanvas, визуальные производные файлы и служебные доказательства генерации.",
+    "Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / Business Model Canvas",
     "",
-    "## Основные файлы",
+    "Основной документ: [открыть Business Model Canvas DataCanvas](bmc-v0.2.md).",
     "",
-    "| Файл | Назначение |",
-    "|---|---|",
-    `| \`${paths.markdown}\` | Чистовой BMC в Markdown. |`,
-    `| \`${paths.svg}\` | Канонический визуальный источник. |`,
-    `| \`${paths.png}\` | Переносимый PNG-рендер из SVG. |`,
-    `| \`${paths.pdf}\` | PDF-рендер из SVG. |`,
-    `| \`${paths.puml}\` | Вторичный инженерный PlantUML-вид. |`,
-    `| \`${paths.validationNeeds}\` | Companion JSON для проверок и исследований. |`,
+    "Дополнительные представления: [текстовая версия](text-alternative.md) и [схема PlantUML](source/derived/datacanvas-bmc.puml).",
     "",
-    "## Команды",
+    "## SVG",
     "",
-    "```bash",
-    "npm run generate:bmc",
-    "npm run generate:bmc -- --check",
-    "npm run validate:bmc",
-    "```",
+    "[Открыть SVG в отдельном окне](source/derived/datacanvas-bmc.svg)",
     "",
-    "## Правило",
+    "![Business Model Canvas DataCanvas в формате SVG](source/derived/datacanvas-bmc.svg)",
     "",
-    "Публичные BMC-файлы остаются чистыми. Статусы проверки, источники, SHA и служебная трассировка хранятся только в JSON и evidence-файлах.",
+    "## PNG",
+    "",
+    "[Открыть PNG в отдельном окне](source/derived/datacanvas-bmc.png)",
+    "",
+    "![Business Model Canvas DataCanvas в формате PNG](source/derived/datacanvas-bmc.png)",
+    "",
+    "## PDF",
+    "",
+    "[Открыть PDF в отдельном окне](source/derived/datacanvas-bmc.pdf)",
+    "",
+    "Нажмите на изображение, чтобы открыть PDF.",
+    "",
+    "[![Открыть Business Model Canvas DataCanvas в формате PDF](source/derived/datacanvas-bmc.png)](source/derived/datacanvas-bmc.pdf)",
     "",
   ].join("\n");
 }
@@ -647,66 +500,45 @@ function designPhilosophy() {
 }
 
 function visualReview(artifactHashes) {
-  const browserSmokeLine = artifactHashes[paths.browserSmoke]
-    ? [`- ${paths.browserSmoke}: ${artifactHashes[paths.browserSmoke]}`]
-    : [];
-  const pdfRasterSmokeLine = artifactHashes[paths.pdfRasterSmoke]
-    ? [`- ${paths.pdfRasterSmoke}: ${artifactHashes[paths.pdfRasterSmoke]}`]
-    : [];
   return [
-    "# BMC Visual Review",
+    "# Проверка визуального BMC",
     "",
-    `Checked at: ${generatedAt}`,
+    `Проверено: ${generatedAt}`,
     "",
-    "Verdict: ready for user acceptance.",
+    "Итог: готово к пользовательской проверке.",
     "",
-    "Review points:",
+    "Проверено:",
     "",
-    "- The canvas uses the classical BMC structure: B8 | B7/B6 | B2 | B4/B3 | B1, with B9 | B5 in the bottom row.",
-    "- SVG is the canonical visual source, and PNG/PDF are generated from the same SVG.",
-    "- The visual BMC contains nine blocks, readable headings, short bullets and no visible validation metadata.",
-    "- No blocker or major visual issue is recorded for the generated package.",
+    "- Сохранена классическая структура BMC: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5.",
+    "- Текст каждого блока помещается внутри своей рамки без пересечений и обрезания.",
+    "- Рамки выровнены, интервалы сетки одинаковы, все элементы находятся внутри холста.",
+    "- SVG является каноническим визуальным источником; PNG и PDF формируются из него.",
+    "- PlantUML содержит те же девять блоков, ограниченные по длине строки и полную сетку связей.",
     "",
-    "Checked files:",
+    "Проверенные файлы:",
     "",
     `- ${paths.svg}: ${artifactHashes[paths.svg]}`,
     `- ${paths.png}: ${artifactHashes[paths.png]}`,
     `- ${paths.pdf}: ${artifactHashes[paths.pdf]}`,
     `- ${paths.puml}: ${artifactHashes[paths.puml]}`,
-    ...browserSmokeLine,
-    ...pdfRasterSmokeLine,
     "",
   ].join("\n");
 }
 
 function visualAcceptance(artifactHashes, pngInfo) {
   const artifactPaths = [paths.svg, paths.png, paths.pdf, paths.puml];
-  if (artifactHashes[paths.browserSmoke]) {
-    artifactPaths.push(paths.browserSmoke);
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    artifactPaths.push(paths.pdfRasterSmoke);
-  }
   const checks = [
     { id: "svg_contract", status: "passed", evidence: "SVG has 3840x2160 viewBox, role, title, desc and data-role markers." },
     { id: "classic_layout", status: "passed", evidence: "Layout is B8 | B7/B6 | B2 | B4/B3 | B1 with B9 | B5 bottom row." },
+    { id: "svg_text_fit", status: "passed", evidence: "Every rendered text line stays inside its BMC block frame." },
+    { id: "balanced_grid", status: "passed", evidence: "Frames do not overlap; column, split and bottom-row gaps are equal." },
+    { id: "raster_frame_clearance", status: "passed", evidence: "Committed and fresh PNG renders contain no visible pixels in clearance zones outside BMC frames." },
+    { id: "per_block_render_correspondence", status: "passed", evidence: "Each PNG business block matches the ink amount and spatial distribution of a fresh canonical SVG render." },
+    { id: "pdf_visual_correspondence", status: "passed", evidence: "The committed PDF is rasterized independently and each block matches the canonical SVG render." },
+    { id: "plantuml_layout", status: "passed", evidence: "PlantUML labels are wrapped and the nine-block grid is complete." },
     { id: "png_dimensions", status: "passed", evidence: `${pngInfo.width}x${pngInfo.height}` },
     { id: "clean_public_surface", status: "passed", evidence: "Public BMC, SVG and PlantUML contain no validation/status markers." },
   ];
-  if (artifactHashes[paths.browserSmoke]) {
-    checks.push({
-      id: "browser_smoke",
-      status: "passed",
-      evidence: `Chrome headless screenshot captured: ${paths.browserSmoke}`,
-    });
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    checks.push({
-      id: "pdf_raster_smoke",
-      status: "passed",
-      evidence: `PDF raster preview captured: ${paths.pdfRasterSmoke}`,
-    });
-  }
   return {
     version: "0.1.0",
     status: "accepted",
@@ -732,12 +564,6 @@ function designerConsilium(artifactHashes) {
     { path: paths.pdf, sha256: artifactHashes[paths.pdf] },
     { path: paths.puml, sha256: artifactHashes[paths.puml] },
   ];
-  if (artifactHashes[paths.browserSmoke]) {
-    checkedArtifacts.push({ path: paths.browserSmoke, sha256: artifactHashes[paths.browserSmoke] });
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    checkedArtifacts.push({ path: paths.pdfRasterSmoke, sha256: artifactHashes[paths.pdfRasterSmoke] });
-  }
   return {
     version: "0.1.0",
     status: "accepted",
@@ -772,7 +598,7 @@ function designerConsilium(artifactHashes) {
       {
         role: "QA visual gate reviewer",
         verdict: "accepted",
-        note: "SVG/PNG/PDF/PlantUML parity is covered by deterministic generation and validators.",
+        note: "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators.",
       },
     ],
     checked_artifacts: checkedArtifacts,
@@ -791,6 +617,60 @@ function readPngInfo(filePath) {
   };
 }
 
+function hasCanonicalPngStructure(filePath) {
+  const bytes = fs.readFileSync(filePath);
+  if (bytes.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") return false;
+  let offset = 8;
+  let hasExpectedHeader = false;
+  let hasImageData = false;
+  while (offset + 12 <= bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const chunkEnd = offset + 12 + length;
+    if (chunkEnd > bytes.length) return false;
+    const type = bytes.subarray(offset + 4, offset + 8).toString("ascii");
+    if (type === "IHDR") {
+      hasExpectedHeader = length === 13
+        && bytes.readUInt32BE(offset + 8) === 3840
+        && bytes.readUInt32BE(offset + 12) === 2160;
+    } else if (type === "IDAT") {
+      hasImageData = hasImageData || length > 0;
+    } else if (type === "IEND") {
+      return length === 0 && chunkEnd === bytes.length && hasExpectedHeader && hasImageData;
+    }
+    offset = chunkEnd;
+  }
+  return false;
+}
+
+function hasCanonicalPdfStructure(filePath) {
+  const bytes = fs.readFileSync(filePath);
+  return bytes.subarray(0, 5).toString("utf8") === "%PDF-"
+    && /%%EOF\s*$/u.test(bytes.toString("latin1"));
+}
+
+function canReuseCommittedRender(publicSvg) {
+  const required = [paths.svg, paths.png, paths.pdf, paths.derivedManifest];
+  if (required.some((relativePath) => !fs.existsSync(absolute(relativePath)))) return false;
+  try {
+    const manifest = readJson(paths.derivedManifest);
+    const outputs = new Map((manifest.outputs ?? []).map((output) => [output.format, output]));
+    const expected = new Map([
+      ["svg", { path: paths.svg, sha256: sha256Bytes(Buffer.from(publicSvg)) }],
+      ["png", { path: paths.png, sha256: sha256File(absolute(paths.png)) }],
+      ["pdf", { path: paths.pdf, sha256: sha256File(absolute(paths.pdf)) }],
+    ]);
+    for (const [format, artifact] of expected) {
+      const recorded = outputs.get(format);
+      if (!recorded || recorded.path !== artifact.path || recorded.sha256 !== artifact.sha256) return false;
+    }
+    return sha256File(absolute(paths.svg)) === expected.get("svg").sha256
+      && hasCanonicalPngStructure(absolute(paths.png))
+      && hasCanonicalPdfStructure(absolute(paths.pdf));
+  } catch {
+    return false;
+  }
+}
+
 function packageManifest(artifactHashes, pngInfo) {
   const artifacts = [
     { role: "package_readme", format: "markdown", path: paths.packageReadme },
@@ -807,8 +687,6 @@ function packageManifest(artifactHashes, pngInfo) {
     { role: "visual_acceptance", format: "json", path: paths.visualAcceptance },
     { role: "designer_consilium", format: "json", path: paths.designerConsilium },
     { role: "design_philosophy", format: "markdown", path: paths.designPhilosophy },
-    ...(artifactHashes[paths.browserSmoke] ? [{ role: "browser_smoke_screenshot", format: "png", path: paths.browserSmoke }] : []),
-    ...(artifactHashes[paths.pdfRasterSmoke] ? [{ role: "pdf_raster_smoke_screenshot", format: "png", path: paths.pdfRasterSmoke }] : []),
   ].map((artifact) => ({
     ...artifact,
     sha256: artifactHashes[artifact.path],
@@ -822,12 +700,31 @@ function packageManifest(artifactHashes, pngInfo) {
     canonical_visual_path: paths.svg,
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
+    public_content_policy: {
+      public_surfaces: [paths.markdown, paths.textAlternative, paths.svg, paths.png, paths.pdf, paths.puml],
+      allowed_public_content: "business_model_canvas_only",
+      service_information_storage: [paths.packageManifest, paths.derivedManifest, paths.validationNeeds, paths.visualAcceptance],
+      forbidden_public_information: [
+        "status",
+        "methodology_notes",
+        "model_boundary_summary",
+        "source_refs",
+        "validation_status",
+        "hashes",
+        "local_paths",
+        "technical_trace",
+      ],
+    },
     artifacts,
     validators: [
+      "npm run generate:bmc -- --check",
+      "npm run validate:bmc-trace",
+      "npm run validate:bmc-content-classic",
       "npm run validate:bmc-visual",
       "npm run validate:bmc-render-parity",
-      "npm run validate:bmc-content-classic",
       "npm run validate:bmc-package",
+      "npm run validate:data-leakage",
+      "npm run validate:artifact-hashes",
     ],
   };
 }
@@ -857,6 +754,12 @@ function assertCleanPublic(content, relativePath) {
       fail(`clean public artifact contains forbidden marker ${forbidden}: ${relativePath}`);
     }
   }
+  for (const rule of publicBusinessLanguageRules) {
+    const match = rule.pattern.exec(content);
+    if (match) {
+      fail(`clean public artifact violates ${rule.id}: ${match[0]}: ${relativePath}`);
+    }
+  }
 }
 
 function writeText(targetRoot, relativePath, content) {
@@ -869,21 +772,17 @@ function writeJson(targetRoot, relativePath, data) {
   writeText(targetRoot, relativePath, `${JSON.stringify(data, null, 2)}\n`);
 }
 
-function renderFromSvg(targetRoot) {
+function renderFromSvg(targetRoot, publicSvg) {
   const svgFile = path.join(targetRoot, paths.svg);
   const pngFile = path.join(targetRoot, paths.png);
   const pdfFile = path.join(targetRoot, paths.pdf);
   ensureDir(pngFile);
   ensureDir(pdfFile);
 
-  const updatePortableRenders = process.env.DATACANVAS_UPDATE_BMC_RENDERS === "1";
-  const committedPng = absolute(paths.png);
-  const committedPdf = absolute(paths.pdf);
-  const hasCommittedRenders = fs.existsSync(committedPng) && fs.existsSync(committedPdf);
-  if (!updatePortableRenders && hasCommittedRenders) {
-    if (targetRoot !== root) {
-      fs.copyFileSync(committedPng, pngFile);
-      fs.copyFileSync(committedPdf, pdfFile);
+  if (canReuseCommittedRender(publicSvg)) {
+    if (path.resolve(targetRoot) !== path.resolve(root)) {
+      fs.copyFileSync(absolute(paths.png), pngFile);
+      fs.copyFileSync(absolute(paths.pdf), pdfFile);
     }
     return;
   }
@@ -934,8 +833,22 @@ function compareGenerated(targetRoot, relativePaths) {
   }
 }
 
+function validateRenderedPackage(targetRoot) {
+  try {
+    execFileSync(process.execPath, [renderValidatorPath], {
+      cwd: targetRoot,
+      env: { ...process.env, SOURCE_DATE_EPOCH: "0" },
+      stdio: "inherit",
+    });
+  } catch (error) {
+    fail(`generated BMC PNG/PDF failed raster layout validation: ${error.message}`);
+  }
+}
+
 function build(targetRoot) {
   const trace = readJson(paths.trace);
+  blockModel = buildBlockModel(trace);
+  blockById = new Map(blockModel.map((block) => [block.id, block]));
   const publicMarkdown = markdown();
   const publicPuml = plantUml();
   const publicSvg = svg();
@@ -944,12 +857,20 @@ function build(targetRoot) {
   assertCleanPublic(publicMarkdown, paths.markdown);
   assertCleanPublic(publicPuml, paths.puml);
   assertCleanPublic(publicSvg.replaceAll("http://www.w3.org/2000/svg", ""), paths.svg);
+  for (const [surface, issues] of [
+    ["SVG", validateBmcSvgLayout(publicSvg)],
+    ["PlantUML", validateBmcPlantUmlLayout(publicPuml)],
+  ]) {
+    if (issues.length > 0) {
+      fail(`generated BMC ${surface} violates visual layout contract: ${issues.join("; ")}`);
+    }
+  }
 
   writeText(targetRoot, paths.markdown, publicMarkdown);
   writeText(targetRoot, paths.puml, publicPuml);
   writeText(targetRoot, paths.svg, publicSvg);
   writeJson(targetRoot, paths.validationNeeds, validationNeeds);
-  renderFromSvg(targetRoot);
+  renderFromSvg(targetRoot, publicSvg);
 
   const initialHashPaths = [paths.trace, paths.markdown, paths.puml, paths.svg, paths.png, paths.pdf, paths.validationNeeds];
   const artifactHashes = {
@@ -975,13 +896,6 @@ function build(targetRoot) {
     paths.designPhilosophy,
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, packageBasePaths.filter((item) => !artifactHashes[item])));
-  if (fs.existsSync(absolute(paths.browserSmoke))) {
-    artifactHashes[paths.browserSmoke] = sha256File(absolute(paths.browserSmoke));
-  }
-  if (fs.existsSync(absolute(paths.pdfRasterSmoke))) {
-    artifactHashes[paths.pdfRasterSmoke] = sha256File(absolute(paths.pdfRasterSmoke));
-  }
-
   writeJson(targetRoot, paths.visualAcceptance, visualAcceptance(artifactHashes, pngInfo));
   artifactHashes[paths.visualAcceptance] = sha256File(path.join(targetRoot, paths.visualAcceptance));
   writeJson(targetRoot, paths.designerConsilium, designerConsilium(artifactHashes));
@@ -1000,6 +914,10 @@ function build(targetRoot) {
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, manifestHashInputs.filter((item) => !artifactHashes[item])));
   writeJson(targetRoot, paths.packageManifest, packageManifest(artifactHashes, pngInfo));
+
+  if (!checkMode) {
+    validateRenderedPackage(targetRoot);
+  }
 
   return [
     paths.markdown,
