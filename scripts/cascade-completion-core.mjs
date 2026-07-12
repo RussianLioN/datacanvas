@@ -22,9 +22,9 @@ export function completionCommandSet() {
       timeout_ms: 30 * 60 * 1000,
     },
     {
-      id: "tracked-cleanliness",
+      id: "worktree-cleanliness",
       executable: "git",
-      args: ["diff", "--exit-code"],
+      args: ["status", "--porcelain=v1", "--untracked-files=all"],
       timeout_ms: 2 * 60 * 1000,
     },
   ];
@@ -45,4 +45,12 @@ export function assertRuntimeManifestMatches(expected, actual) {
     const changed = keys.filter((key) => !isDeepStrictEqual(expected[key], actual[key]));
     throw new Error("runtime manifest mismatch: " + changed.join(", "));
   }
+}
+
+export function commandResultPassed(command, result) {
+  if (result.error || result.status !== 0) return false;
+  if (command.id === "worktree-cleanliness") {
+    return String(result.stdout ?? "").trim() === "";
+  }
+  return true;
 }

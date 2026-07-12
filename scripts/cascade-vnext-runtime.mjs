@@ -2,12 +2,14 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync, spawnSync } from "node:child_process";
+import { isDeepStrictEqual } from "node:util";
 
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 import { absoluteRepoPath, hashJsonDocument, hashRepoPath } from "./cascade-evidence-utils.mjs";
-import { assertCascadeReplayInputs } from "./cascade-vnext-core.mjs";
+import { acceptanceConfirmationPayload, interactiveAcceptanceEvidenceHash } from "./cascade-owner-acceptance.mjs";
+import { assertCascadeReplayInputs, buildActualDiffManifest } from "./cascade-vnext-core.mjs";
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
 export function sha256(content) {
@@ -61,6 +63,160 @@ export function parseGitNameStatus(output) {
     }
   }
   return entries;
+}
+
+function sortedPaths(values) {
+  return [...new Set(values.filter(Boolean).map(normalizeRepoPath))].sort();
+}
+
+export function planningPackagePaths(runPath, run) {
+  return sortedPaths([
+    runPath,
+    run.source_identity_manifest_path,
+    run.source_change_analysis_path,
+    run.impact_report_path,
+    run.validation_manifest_path,
+    run.runtime_manifest_path,
+    run.owner_question_packet_path,
+  ]);
+}
+
+export function finalizedPackagePaths(runPath, run) {
+  return sortedPaths([runPath, run.diff_manifest_path, run.resolution_report_path]);
+}
+
+export function profilePackagePaths(runPath, run) {
+  return sortedPaths([runPath, run.profile_evidence_path]);
+}
+
+export function assertRepoPathMatchesGit(root, commitSha, relativePath, label = "repository path") {
+  const normalized = normalizeRepoPath(relativePath);
+  const committedHash = hashGitPath(root, commitSha, normalized);
+  const currentHash = hashRepoPath(root, normalized);
+  if (!committedHash || !currentHash || committedHash !== currentHash) {
+    throw new Error(`${label} does not match candidate Git content: ${normalized}`);
+  }
+  return committedHash;
+}
+
+export function assertImmutableGitPackage({
+  root,
+  runPath,
+  packagePaths,
+  anchorSha,
+  mustPrecedeSha = null,
+  label,
+}) {
+  const expectedPaths = sortedPaths(packagePaths);
+  if (!expectedPaths.includes(normalizeRepoPath(runPath))) {
+    throw new Error(`${label} package does not include its run record`);
+  }
+  const headSha = git(root, ["rev-parse", "HEAD"]).trim();
+  assertGitCommit(root, anchorSha, `${label} anchor SHA`);
+  const additions = git(root, ["log", "--format=%H", "--diff-filter=A", headSha, "--", normalizeRepoPath(runPath)])
+    .trim()
+    .split(/\s+/u)
+    .filter(Boolean);
+  if (additions.length !== 1) throw new Error(`${label} run record must have one immutable addition commit`);
+  const packageCommitSha = additions[0];
+  assertAncestor(root, anchorSha, packageCommitSha);
+  if (mustPrecedeSha) assertAncestor(root, packageCommitSha, mustPrecedeSha);
+
+  const commitEntries = parseGitNameStatus(git(root, [
+    "diff-tree",
+    "--root",
+    "--no-commit-id",
+    "--name-status",
+    "-r",
+    "-z",
+    packageCommitSha,
+  ]));
+  const commitPaths = sortedPaths(commitEntries.flatMap((entry) => [entry.path, entry.old_path]));
+  if (!isDeepStrictEqual(commitPaths, expectedPaths)) {
+    throw new Error(`${label} package commit scope mismatch: expected=${expectedPaths.join(",")} actual=${commitPaths.join(",")}`);
+  }
+  for (const relativePath of expectedPaths) {
+    const packageHash = hashGitPath(root, packageCommitSha, relativePath);
+    const headHash = hashGitPath(root, headSha, relativePath);
+    const currentHash = hashRepoPath(root, relativePath);
+    if (!packageHash || packageHash !== headHash || packageHash !== currentHash) {
+      throw new Error(`${label} package is not immutable: ${relativePath}`);
+    }
+  }
+  return packageCommitSha;
+}
+
+export function buildActualDiffManifestFromGit(root, {
+  baseSha,
+  planningHeadSha,
+  candidateHeadSha,
+  allowedWrites,
+}) {
+  const entries = parseGitNameStatus(git(root, [
+    "diff",
+    "--name-status",
+    "-z",
+    `${baseSha}..${candidateHeadSha}`,
+  ])).map((entry) => ({
+    ...entry,
+    sha256: hashGitPath(root, candidateHeadSha, entry.path),
+  }));
+  return {
+    $schema: "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json",
+    ...buildActualDiffManifest({
+      baseSha,
+      planningHeadSha,
+      candidateHeadSha,
+      entries,
+      allowedWrites,
+      dirty: false,
+    }),
+  };
+}
+
+export function assertActualDiffManifestMatchesGit(root, expectedManifest) {
+  const actualManifest = buildActualDiffManifestFromGit(root, {
+    baseSha: expectedManifest.base_sha,
+    planningHeadSha: expectedManifest.planning_head_sha,
+    candidateHeadSha: expectedManifest.candidate_head_sha,
+    allowedWrites: expectedManifest.allowed_write_paths,
+  });
+  if (!isDeepStrictEqual(actualManifest, expectedManifest)) {
+    throw new Error("actual diff manifest does not match the immutable Git range");
+  }
+  return actualManifest;
+}
+
+export function verifyAcceptanceConfirmationEvidence(root, acceptance, candidateSha) {
+  const evidence = acceptance.confirmation_evidence;
+  if (!evidence) throw new Error("acceptance confirmation evidence is missing");
+  if (acceptance.confirmation_channel === "interactive_session") {
+    if (evidence.evidence_type !== "interactive_turn") {
+      throw new Error("interactive acceptance requires interactive turn evidence");
+    }
+    if (evidence.sha256 !== interactiveAcceptanceEvidenceHash(acceptance)) {
+      throw new Error("interactive acceptance evidence hash mismatch");
+    }
+    return;
+  }
+  if (acceptance.confirmation_channel === "repository_approval") {
+    if (evidence.evidence_type !== "repository_commit") {
+      throw new Error("repository acceptance requires repository commit evidence");
+    }
+    const approvalCommit = assertGitCommit(root, evidence.reference, "repository approval commit");
+    assertAncestor(root, approvalCommit, candidateSha);
+    const authorEmail = git(root, ["show", "-s", "--format=%ae", approvalCommit]).trim();
+    if (authorEmail !== acceptance.owner_identity) {
+      throw new Error("repository acceptance owner identity does not match commit author");
+    }
+    const rawCommit = git(root, ["cat-file", "commit", approvalCommit]);
+    if (evidence.sha256 !== sha256(rawCommit)) {
+      throw new Error("repository acceptance commit hash mismatch");
+    }
+    return;
+  }
+  void acceptanceConfirmationPayload(acceptance);
+  throw new Error("signed external acceptance is unsupported until signature verification is configured");
 }
 
 export function hashGitPath(root, candidateSha, relativePath) {
@@ -154,6 +310,9 @@ export function assertCascadeReplayEvidence(root, run) {
       lockfile_sha256: runtimeManifest.lockfile_sha256,
       command_map_sha256: runtimeManifest.command_map_sha256,
     }),
+    owner_question_packet_sha256: run.owner_question_packet_path
+      ? hashRepoPath(root, run.owner_question_packet_path)
+      : null,
   };
   assertCascadeReplayInputs(run, actualInputs);
 }

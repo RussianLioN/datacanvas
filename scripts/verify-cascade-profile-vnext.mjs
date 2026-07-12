@@ -8,14 +8,20 @@ import { assertValidationEvidenceComplete } from "./cascade-validation-manifest.
 import {
   assertCatalogBinding,
   executeProfileCommands,
-  linkNodeModules,
+  installProfileDependencies,
 } from "./cascade-profile-verifier.mjs";
+import { assertRuntimeManifestMatches } from "./cascade-completion-core.mjs";
 import { assertStateTransition } from "./cascade-vnext-core.mjs";
 import {
   assertCascadeReplayEvidence,
+  assertActualDiffManifestMatchesGit,
   assertFreshRunDir,
   assertGitCommit,
+  assertImmutableGitPackage,
+  buildRuntimeManifest,
+  finalizedPackagePaths,
   git,
+  planningPackagePaths,
   readJson,
   validateDocument,
 } from "./cascade-vnext-runtime.mjs";
@@ -37,7 +43,6 @@ function candidateWorktree(candidateSha, callback) {
   try {
     git(root, ["worktree", "add", "--detach", worktree, candidateSha], { timeout: 120_000 });
     added = true;
-    linkNodeModules(root, worktree);
     return callback(worktree);
   } finally {
     if (added) {
@@ -69,17 +74,47 @@ async function main() {
     throw new Error("profile verification requires finalized state, got " + sourceRun.state);
   }
   const candidateSha = assertGitCommit(root, sourceRun.candidate_head_sha, "candidate_head_sha");
+  const resolutionReport = readJson(root, sourceRun.resolution_report_path);
+  validateDocument(root, resolutionReport, "schemas/cascade-resolution-report.schema.json");
+  const planningRun = readJson(root, resolutionReport.source_run_path);
+  validateDocument(root, planningRun, "schemas/cascade-vnext-run.schema.json");
+  assertImmutableGitPackage({
+    root,
+    runPath: resolutionReport.source_run_path,
+    packagePaths: planningPackagePaths(resolutionReport.source_run_path, planningRun),
+    anchorSha: planningRun.planning_head_sha,
+    mustPrecedeSha: candidateSha,
+    label: "planning",
+  });
+  assertImmutableGitPackage({
+    root,
+    runPath: sourceRunPath,
+    packagePaths: finalizedPackagePaths(sourceRunPath, sourceRun),
+    anchorSha: candidateSha,
+    label: "finalization",
+  });
+  const actualDiff = readJson(root, sourceRun.diff_manifest_path);
+  validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
+  assertActualDiffManifestMatchesGit(root, actualDiff);
   const manifest = readJson(root, sourceRun.validation_manifest_path);
   validateDocument(root, manifest, "schemas/cascade-validation-manifest.schema.json");
-  const catalog = readJson(root, catalogPath);
-  const packageJson = readJson(root, "package.json");
-  assertCatalogBinding(manifest, catalog, packageJson);
+  const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
+  validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
 
-  const executedCommands = candidateWorktree(candidateSha, (worktree) => executeProfileCommands({
-    manifest,
-    executionRoot: worktree,
-    reportRoot: worktree,
-  }));
+  const executedCommands = candidateWorktree(candidateSha, (worktree) => {
+    assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree));
+    assertCatalogBinding(
+      manifest,
+      readJson(worktree, catalogPath),
+      readJson(worktree, "package.json"),
+    );
+    installProfileDependencies(worktree);
+    return executeProfileCommands({
+      manifest,
+      executionRoot: worktree,
+      reportRoot: worktree,
+    });
+  });
   const blockingReasons = executedCommands
     .filter((entry) => entry.status !== "passed")
     .map((entry) => "Не пройдена проверка " + entry.id + ".");

@@ -7,17 +7,27 @@ import { spawnSync } from "node:child_process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import {
+  commandResultPassed,
   assertRuntimeManifestMatches,
   completionCommandSet,
   completionCommandSetHash,
 } from "./cascade-completion-core.mjs";
+import { assertValidationEvidenceComplete } from "./cascade-validation-manifest.mjs";
+import { assertValidationManifestIntegrity } from "./cascade-profile-verifier.mjs";
 import { assertStateTransition, canClaimDone } from "./cascade-vnext-core.mjs";
 import {
   assertCascadeReplayEvidence,
+  assertActualDiffManifestMatchesGit,
   assertFreshRunDir,
   assertGitCommit,
+  assertImmutableGitPackage,
+  assertRepoPathMatchesGit,
   buildRuntimeManifest,
+  finalizedPackagePaths,
   git,
+  hashGitPath,
+  planningPackagePaths,
+  profilePackagePaths,
   readJson,
   sanitizeOutput,
   validateDocument,
@@ -62,6 +72,11 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
   ];
   for (const key of immutableKeys) {
     if (profileRun[key] !== finalizedRun[key]) throw new Error("profile run lineage mismatch: " + key);
+  }
+  for (const key of ["acceptance_paths", "replay_inputs", "completion_claim"]) {
+    if (JSON.stringify(profileRun[key]) !== JSON.stringify(finalizedRun[key])) {
+      throw new Error("profile run lineage mismatch: " + key);
+    }
   }
 }
 
@@ -108,7 +123,7 @@ function executeCompletionCommands(worktree, commands) {
     const finishedAt = new Date();
     const rawOutput = String(result.stdout ?? "") + String(result.stderr ?? "") + String(result.error?.message ?? "");
     const exitCode = Number.isInteger(result.status) ? result.status : 1;
-    const status = exitCode === 0 && !result.error ? "passed" : "failed";
+    const status = commandResultPassed(command, result) ? "passed" : "failed";
     results.push({
       id: command.id,
       executable: command.executable,
@@ -161,6 +176,13 @@ async function main() {
     throw new Error("cascade:complete requires profile_verified state, got " + sourceRun.state);
   }
   const candidateSha = assertGitCommit(root, sourceRun.candidate_head_sha, "candidate_head_sha");
+  assertImmutableGitPackage({
+    root,
+    runPath: sourceRunPath,
+    packagePaths: profilePackagePaths(sourceRunPath, sourceRun),
+    anchorSha: candidateSha,
+    label: "profile verification",
+  });
   validateDocument(root, readJson(root, sourceRun.acceptance_authority_path), "schemas/cascade-acceptance-authority.schema.json");
   validateDocument(root, readJson(root, sourceRun.source_identity_manifest_path), "schemas/cascade-source-identity.schema.json");
   if (sourceRun.source_change_analysis_path) {
@@ -176,12 +198,42 @@ async function main() {
   assertCascadeReplayEvidence(root, finalizedRun);
   if (finalizedRun.state !== "finalized") throw new Error("profile evidence does not refer to a finalized run");
   assertProfileLineage(sourceRun, profileEvidence, finalizedRun);
+  assertImmutableGitPackage({
+    root,
+    runPath: profileEvidence.source_run_path,
+    packagePaths: finalizedPackagePaths(profileEvidence.source_run_path, finalizedRun),
+    anchorSha: candidateSha,
+    label: "finalization",
+  });
+  const resolutionReport = readJson(root, finalizedRun.resolution_report_path);
+  validateDocument(root, resolutionReport, "schemas/cascade-resolution-report.schema.json");
+  const planningRun = readJson(root, resolutionReport.source_run_path);
+  validateDocument(root, planningRun, "schemas/cascade-vnext-run.schema.json");
+  assertImmutableGitPackage({
+    root,
+    runPath: resolutionReport.source_run_path,
+    packagePaths: planningPackagePaths(resolutionReport.source_run_path, planningRun),
+    anchorSha: planningRun.planning_head_sha,
+    mustPrecedeSha: candidateSha,
+    label: "planning",
+  });
 
   const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
   validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
   if (actualDiff.candidate_head_sha !== candidateSha) throw new Error("actual diff candidate SHA mismatch");
+  assertActualDiffManifestMatchesGit(root, actualDiff);
+  const validationManifest = readJson(root, sourceRun.validation_manifest_path);
+  validateDocument(root, validationManifest, "schemas/cascade-validation-manifest.schema.json");
+  assertValidationManifestIntegrity(validationManifest);
+  if (profileEvidence.validation_manifest_sha256 !== hashRepoPath(root, sourceRun.validation_manifest_path)) {
+    throw new Error("profile evidence validation manifest hash mismatch");
+  }
+  assertValidationEvidenceComplete(validationManifest, profileEvidence);
+  for (const acceptancePath of sourceRun.acceptance_paths) {
+    assertRepoPathMatchesGit(root, candidateSha, acceptancePath, "acceptance record");
+  }
 
   const commands = completionCommandSet();
   let runtimeMatch = true;
@@ -255,7 +307,7 @@ async function main() {
     semantic_impact_sha256: hashRepoPath(root, sourceRun.impact_report_path),
     resolution_report_sha256: hashRepoPath(root, sourceRun.resolution_report_path),
     acceptance_set_sha256: hashJsonDocument(sourceRun.acceptance_paths
-      .map((acceptancePath) => ({ path: acceptancePath, sha256: hashRepoPath(root, acceptancePath) }))
+      .map((acceptancePath) => ({ path: acceptancePath, sha256: hashGitPath(root, candidateSha, acceptancePath) }))
       .sort((left, right) => left.path.localeCompare(right.path))),
     profile_evidence_sha256: hashRepoPath(root, sourceRun.profile_evidence_path),
     completion_evidence_sha256: hashJsonDocument(evidence),

@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 
 import {
+  assertCascadeReplayInputs,
   assertCascadeReplayKey,
   assertStateTransition,
   buildCascadeReplayKey,
@@ -24,10 +25,12 @@ import {
 } from "./cascade-profile-verifier.mjs";
 import {
   assertRuntimeManifestMatches,
+  commandResultPassed,
   completionCommandSet,
   completionCommandSetHash,
 } from "./cascade-completion-core.mjs";
 import {
+  interactiveAcceptanceEvidenceHash,
   requiredOwnerRoles,
   validateOwnerAcceptanceSet,
 } from "./cascade-owner-acceptance.mjs";
@@ -56,6 +59,9 @@ assert.deepEqual(
   ["SRC-DC-XLSX"],
   "однозначный источник должен определяться из активного реестра",
 );
+const cleanlinessCommand = completionCommandSet().find((command) => command.id === "worktree-cleanliness");
+assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "" }), true);
+assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "?? generated.tmp\n" }), false);
 
 assert.deepEqual(
   resolveActualTriggerPaths({
@@ -102,6 +108,7 @@ const replayInputs = {
   semantic_impact_sha256: "6".repeat(64),
   validation_manifest_sha256: "7".repeat(64),
   runtime_contract_sha256: "8".repeat(64),
+  owner_question_packet_sha256: null,
 };
 const replayRun = {
   change_request_id: "DCR-2026-07-11-901",
@@ -121,6 +128,14 @@ assert.throws(
   }),
   /replay key mismatch/u,
   "подмена любого входа должна разрушать повторяемость запуска",
+);
+assert.throws(
+  () => assertCascadeReplayInputs(
+    { ...replayRun, replay_key: replayKey },
+    { ...replayInputs, owner_question_packet_sha256: "9".repeat(64) },
+  ),
+  /owner_question_packet_sha256/u,
+  "подмена пакета вопроса владельцу должна блокировать повтор запуска",
 );
 assert.throws(
   () => resolveSourceIdentities({ sourceRegistry, triggerPaths: ["docs/unregistered.xlsx"] }),
@@ -192,6 +207,23 @@ assert.doesNotThrow(() => verifyAppliedResolution({
   patchDigest: "e".repeat(64),
   actualPatchDigest: "e".repeat(64),
 }));
+assert.doesNotThrow(() => verifyAppliedResolution({
+  updateStatus: "applied",
+  changeStatus: "D",
+  afterSha256: null,
+  patchDigest: "e".repeat(64),
+  actualPatchDigest: "e".repeat(64),
+}));
+assert.throws(
+  () => verifyAppliedResolution({
+    updateStatus: "applied",
+    changeStatus: "D",
+    afterSha256: null,
+    patchDigest: null,
+    actualPatchDigest: null,
+  }),
+  /deletion requires an approved patch digest/u,
+);
 assert.throws(
   () => verifyAppliedResolution({
     updateStatus: "applied",
@@ -255,10 +287,27 @@ assert.deepEqual(
   analyzeSemanticCascade(xlsxScopedGraph, [{ path: "xlsx", change_classes: ["estimate_change"] }]).write_obligations,
   ["effort"],
 );
+const isolatedMixedImpact = analyzeSemanticCascade(xlsxScopedGraph, [
+  { path: "xlsx", source_kind: "xlsx", change_classes: ["estimate_change"] },
+  { path: "stories", source_kind: "product_document", change_classes: ["story_text_change"] },
+]);
+assert.equal(
+  isolatedMixedImpact.write_obligations.includes("stories"),
+  false,
+  "класс изменения одного источника не должен расширять маршрут другого источника",
+);
+assert.deepEqual(
+  isolatedMixedImpact.route_evidence
+    .filter((entry) => entry.source_path === "xlsx")
+    .map((entry) => entry.to),
+  ["effort"],
+  "доказательство маршрута должно сохранять источник и его собственный класс изменения",
+);
 
 const validationCatalog = {
   commands: [
     { id: "business-docs", command: "npm run validate:business-docs", gate: "profile", completion_blocking: true, mutates_files: false, applies_to: ["product_meaning"] },
+    { id: "generator", command: "npm run generate:docs", gate: "generated", completion_blocking: true, mutates_files: true, applies_to: ["product_meaning"] },
     { id: "security", command: "npm run scan:secrets", gate: "security", completion_blocking: true, mutates_files: false, applies_to: ["security"] },
     { id: "full", command: "npm test", gate: "full", completion_blocking: true, mutates_files: true, applies_to: ["full"] },
   ],
@@ -270,6 +319,14 @@ const validationManifest = buildValidationManifest({
   includeFull: false,
 });
 assert.deepEqual(validationManifest.planned_commands.map((item) => item.id), ["business-docs", "security"]);
+assert.throws(
+  () => buildValidationManifest({
+    catalog: validationCatalog,
+    routeCommands: ["npm run generate:docs"],
+    scopes: ["product_meaning"],
+  }),
+  /mutating route command/u,
+);
 assert.throws(
   () => buildValidationManifest({
     catalog: validationCatalog,
@@ -311,9 +368,15 @@ assert.throws(
   /runtime manifest mismatch/u,
 );
 assert.match(completionCommandSetHash(completionCommandSet()), /^[0-9a-f]{64}$/u);
+assert.deepEqual(
+  completionCommandSet().find((command) => command.id === "worktree-cleanliness")?.args,
+  ["status", "--porcelain=v1", "--untracked-files=all"],
+  "завершение должно находить и незарегистрированные файлы",
+);
 
 assert.deepEqual(requiredOwnerRoles(["product_meaning"]), ["Product Owner"]);
 assert.deepEqual(requiredOwnerRoles(["capacity"]), ["Product Owner", "Команда реализации"]);
+assert.deepEqual(requiredOwnerRoles(["estimate_change"]), ["Команда реализации"]);
 const authorityHash = "c".repeat(64);
 const packet = {
   packet_sha256: null,
@@ -348,6 +411,11 @@ const acceptance = {
   authority_manifest_sha256: authorityHash,
   authority_binding_id: "AUTH-PRODUCT-OWNER",
   confirmation_channel: "interactive_session",
+  confirmation_evidence: {
+    evidence_type: "interactive_turn",
+    reference: "codex-session/turn-2026-07-11-901",
+    sha256: null,
+  },
   accepted_change_classes: ["product_meaning"],
   question_packet_path: sourceRun.owner_question_packet_path,
   question_packet_sha256: packet.packet_sha256,
@@ -357,6 +425,7 @@ const acceptance = {
   decision_id: packet.decision_id,
   selected_option_id: "OPT-ACCEPT",
 };
+acceptance.confirmation_evidence.sha256 = interactiveAcceptanceEvidenceHash(acceptance);
 const resolutionInput = {
   source_run_path: sourceRunPath,
   decision_resolutions: [{
@@ -373,6 +442,9 @@ assert.deepEqual(validateOwnerAcceptanceSet({
   authority,
   authorityHash,
   acceptanceByPath: new Map([[acceptancePath, acceptance]]),
+  verifyConfirmationEvidence: (candidate) => {
+    assert.equal(candidate.confirmation_evidence.sha256, interactiveAcceptanceEvidenceHash(candidate));
+  },
 }), [acceptancePath]);
 const rejectingPacket = {
   ...packet,
@@ -391,6 +463,9 @@ assert.throws(
       ...acceptance,
       question_packet_sha256: rejectingPacket.packet_sha256,
     }]]),
+    verifyConfirmationEvidence: (candidate) => {
+      assert.equal(candidate.confirmation_evidence.sha256, interactiveAcceptanceEvidenceHash(candidate));
+    },
   }),
   /does not authorize/u,
 );

@@ -193,8 +193,7 @@ function excerptFor(relativePath, fallback) {
   return (paragraph ?? fallback).slice(0, 1200);
 }
 
-function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths, changeClasses, ownerRoles }) {
-  const excerpt = excerptFor(sourcePath, changeRequest.desired_change);
+function buildQuestionPacket({ suffix, changeRequest, sourcePaths, affectedPaths, changeClasses, ownerRoles }) {
   const packet = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-owner-question-packet.schema.json",
     version: "1.0.0",
@@ -205,7 +204,14 @@ function buildQuestionPacket({ suffix, changeRequest, sourcePath, affectedPaths,
     authority_manifest_path: acceptanceAuthorityPath,
     authority_manifest_sha256: hashRepoPath(root, acceptanceAuthorityPath),
     question: `Как согласовать влияние изменения «${changeRequest.desired_change}» на авторитетные источники и зависимые документы?`,
-    source_excerpts: [{ path: sourcePath, excerpt, excerpt_sha256: crypto.createHash("sha256").update(excerpt).digest("hex") }],
+    source_excerpts: sourcePaths.map((sourcePath) => {
+      const excerpt = excerptFor(sourcePath, changeRequest.desired_change);
+      return {
+        path: sourcePath,
+        excerpt,
+        excerpt_sha256: crypto.createHash("sha256").update(excerpt).digest("hex"),
+      };
+    }),
     affected_artifacts: affectedPaths.map((artifactPath) => ({
       path: artifactPath,
       sha256: hashRepoPath(root, artifactPath) ?? "0".repeat(64),
@@ -313,6 +319,7 @@ async function main() {
     "mixed_or_ambiguous",
     "non_functional_requirement",
     "priority_change",
+    "estimate_change",
     "product_goal",
     "product_meaning",
     "roadmap_meaning",
@@ -367,7 +374,7 @@ async function main() {
     ? buildQuestionPacket({
       suffix,
       changeRequest,
-      sourcePath: changedSources[0].path,
+      sourcePaths: changedSources.map((source) => source.path),
       affectedPaths: [...new Set([
         ...semanticImpact.authoritative_review_paths,
         ...semanticImpact.write_obligations,
@@ -400,6 +407,7 @@ async function main() {
       lockfile_sha256: runtimeManifest.lockfile_sha256,
       command_map_sha256: runtimeManifest.command_map_sha256,
     }),
+    owner_question_packet_sha256: ownerQuestion ? hashJsonDocument(ownerQuestion) : null,
   };
   const runRecord = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-vnext-run.schema.json",

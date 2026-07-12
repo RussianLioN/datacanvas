@@ -78,7 +78,7 @@ def cell_value(cell: ET.Element, strings: list[str]) -> str | None:
         return None
     if cell.attrib.get("t") == "s":
         index = int(value.text or "0")
-        if index >= len(strings):
+        if index < 0 or index >= len(strings):
             raise ClassificationError("XLSX shared string index is out of range")
         return strings[index]
     return value.text
@@ -360,6 +360,23 @@ def self_test() -> None:
             raise AssertionError("XML entity declaration was accepted")
         except ClassificationError as error:
             assert "entities are not allowed" in str(error)
+
+        negative_shared_string = root / "negative-shared-string.xlsx"
+        shared_strings_xml = (
+            '<?xml version="1.0"?><sst xmlns="' + MAIN_NS + '"><si><t>value</t></si></sst>'
+        )
+        negative_index_sheet = (
+            '<?xml version="1.0"?><worksheet xmlns="' + MAIN_NS
+            + '"><sheetData><row r="4"><c r="C4" t="s"><v>-1</v></c></row></sheetData></worksheet>'
+        )
+        with ZipFile(negative_shared_string, "w", ZIP_DEFLATED) as archive:
+            archive.writestr("xl/sharedStrings.xml", shared_strings_xml)
+            archive.writestr("xl/worksheets/sheet1.xml", negative_index_sheet)
+        try:
+            package_snapshot(negative_shared_string)
+            raise AssertionError("negative shared string index was accepted")
+        except ClassificationError as error:
+            assert "shared string index is out of range" in str(error)
     print("DataCanvas XLSX change classifier self-test passed")
 
 

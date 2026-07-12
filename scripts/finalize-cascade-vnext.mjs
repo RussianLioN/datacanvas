@@ -4,17 +4,22 @@ import process from "node:process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { validateOwnerAcceptanceSet } from "./cascade-owner-acceptance.mjs";
-import { assertStateTransition, buildActualDiffManifest, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
+import { assertStateTransition, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
 import {
   assertAncestor,
+  assertImmutableGitPackage,
   assertCascadeReplayEvidence,
   assertFreshRunDir,
   assertGitCommit,
+  assertRepoPathMatchesGit,
+  buildActualDiffManifestFromGit,
   git,
   hashGitPatch,
   hashGitPath,
   parseGitNameStatus,
+  planningPackagePaths,
   readJson,
+  verifyAcceptanceConfirmationEvidence,
   validateDocument,
 } from "./cascade-vnext-runtime.mjs";
 import { absoluteRepoPath, hashRepoPath } from "./cascade-evidence-utils.mjs";
@@ -35,20 +40,24 @@ function structuredRationale(entry) {
   return entry.no_change_rationale && typeof entry.no_change_rationale === "object";
 }
 
-function validateResolutionSet(requiredPaths, entries, label, baseSha, candidateSha) {
+function validateResolutionSet(requiredPaths, entries, label, baseSha, candidateSha, diffByPath) {
   const byPath = resolutionMap(entries);
   const missing = requiredPaths.filter((candidate) => !byPath.has(candidate));
   const extra = [...byPath.keys()].filter((candidate) => !requiredPaths.includes(candidate));
   if (missing.length || extra.length) throw new Error(`${label} coverage mismatch: missing=${missing.join(",")} extra=${extra.join(",")}`);
   for (const [relativePath, entry] of byPath) {
     if (entry.update_status === "applied") {
+      const diffEntry = diffByPath.get(relativePath);
+      if (!diffEntry) throw new Error(`applied resolution has no Git delta: ${relativePath}`);
+      const resultPath = diffEntry.status.startsWith("R") ? diffEntry.path : relativePath;
       verifyAppliedResolution({
         updateStatus: entry.update_status,
-        afterSha256: hashGitPath(root, candidateSha, relativePath),
+        changeStatus: diffEntry.status,
+        afterSha256: hashGitPath(root, candidateSha, resultPath),
         expectedAfterSha256: entry.expected_after_sha256,
         patchDigest: entry.approved_patch_digest,
         actualPatchDigest: entry.approved_patch_digest
-          ? hashGitPatch(root, baseSha, candidateSha, relativePath)
+          ? hashGitPatch(root, baseSha, candidateSha, resultPath)
           : null,
       });
     } else if (!structuredRationale(entry)) {
@@ -57,7 +66,7 @@ function validateResolutionSet(requiredPaths, entries, label, baseSha, candidate
   }
 }
 
-function validateOwnerAcceptance(sourceRun, resolutionInput) {
+function validateOwnerAcceptance(sourceRun, resolutionInput, candidateSha) {
   if (!sourceRun.owner_question_packet_path) {
     if (resolutionInput.decision_resolutions.length > 0) throw new Error("unexpected owner decision resolution");
     return [];
@@ -70,6 +79,7 @@ function validateOwnerAcceptance(sourceRun, resolutionInput) {
   const acceptanceByPath = new Map();
   for (const resolution of resolutionInput.decision_resolutions) {
     const acceptancePath = normalizeRepoPath(resolution.acceptance_record_path);
+    assertRepoPathMatchesGit(root, candidateSha, acceptancePath, "acceptance record");
     const acceptance = readJson(root, acceptancePath);
     validateDocument(root, acceptance, "schemas/cascade-acceptance-vnext.schema.json");
     acceptanceByPath.set(acceptancePath, acceptance);
@@ -81,6 +91,7 @@ function validateOwnerAcceptance(sourceRun, resolutionInput) {
     authority,
     authorityHash,
     acceptanceByPath,
+    verifyConfirmationEvidence: (acceptance) => verifyAcceptanceConfirmationEvidence(root, acceptance, candidateSha),
   });
 }
 
@@ -91,6 +102,10 @@ async function main() {
   const candidateHeadSha = assertGitCommit(root, argValue("--candidate-head-sha"), "candidate_head_sha");
   if (!sourceRunPath || !resolutionInputPath) throw new Error("usage: npm run cascade:finalize -- --run <vnext-run> --resolution-input <path> --candidate-head-sha <sha> --output-dir <fresh-dir>");
   if (fs.existsSync(absoluteRepoPath(root, outputDir))) throw new Error(`output dir already exists: ${outputDir}`);
+  const currentHeadSha = assertGitCommit(root, git(root, ["rev-parse", "HEAD"]).trim(), "current HEAD");
+  if (currentHeadSha !== candidateHeadSha) throw new Error("candidate_head_sha must equal current HEAD during finalization");
+  const worktreeStatus = git(root, ["status", "--porcelain=v1", "--untracked-files=all"]).trim();
+  if (worktreeStatus) throw new Error("cascade finalization requires a clean worktree");
 
   const sourceRun = readJson(root, sourceRunPath);
   validateDocument(root, sourceRun, "schemas/cascade-vnext-run.schema.json");
@@ -102,6 +117,15 @@ async function main() {
   );
   if (!["planned", "awaiting_owner"].includes(sourceRun.state)) throw new Error(`run cannot be finalized from state ${sourceRun.state}`);
   assertAncestor(root, sourceRun.base_sha, candidateHeadSha);
+  assertImmutableGitPackage({
+    root,
+    runPath: sourceRunPath,
+    packagePaths: planningPackagePaths(sourceRunPath, sourceRun),
+    anchorSha: sourceRun.planning_head_sha,
+    mustPrecedeSha: candidateHeadSha,
+    label: "planning",
+  });
+  assertRepoPathMatchesGit(root, candidateHeadSha, resolutionInputPath, "resolution input");
   const resolutionInput = readJson(root, resolutionInputPath);
   validateDocument(root, resolutionInput, "schemas/cascade-resolution-input.schema.json");
   if (resolutionInput.version !== "1.0.0") throw new Error("vNext finalization requires resolution input version 1.0.0");
@@ -122,29 +146,33 @@ async function main() {
     .filter((item) => item.classification !== "changed_source")
     .map((item) => item.path)
     .sort();
-  validateResolutionSet(requiredSources, resolutionInput.source_resolutions, "source resolution", sourceRun.base_sha, candidateHeadSha);
-  validateResolutionSet(requiredArtifacts, resolutionInput.artifact_resolutions, "artifact resolution", sourceRun.base_sha, candidateHeadSha);
-  const acceptancePaths = validateOwnerAcceptance(sourceRun, resolutionInput);
+  const diffEntries = parseGitNameStatus(git(root, ["diff", "--name-status", "-z", `${sourceRun.base_sha}..${candidateHeadSha}`]));
+  const diffByPath = new Map();
+  for (const entry of diffEntries) {
+    diffByPath.set(entry.path, entry);
+    if (entry.old_path) diffByPath.set(entry.old_path, entry);
+  }
+  validateResolutionSet(requiredSources, resolutionInput.source_resolutions, "source resolution", sourceRun.base_sha, candidateHeadSha, diffByPath);
+  validateResolutionSet(requiredArtifacts, resolutionInput.artifact_resolutions, "artifact resolution", sourceRun.base_sha, candidateHeadSha, diffByPath);
+  const acceptancePaths = validateOwnerAcceptance(sourceRun, resolutionInput, candidateHeadSha);
   assertStateTransition(sourceRun.state, "finalized");
 
-  const diffEntries = parseGitNameStatus(git(root, ["diff", "--name-status", "-z", `${sourceRun.base_sha}..${candidateHeadSha}`]));
   const appliedArtifactPaths = resolutionInput.artifact_resolutions
     .filter((entry) => entry.update_status === "applied")
     .map((entry) => normalizeRepoPath(entry.path));
-  const appliedSourcePaths = resolutionInput.source_resolutions
-    .filter((entry) => entry.update_status === "applied")
-    .map((entry) => normalizeRepoPath(entry.path));
-  const allowedWrites = [...new Set([...appliedSourcePaths, ...appliedArtifactPaths])];
-  const hashedEntries = diffEntries.map((entry) => ({ ...entry, sha256: hashGitPath(root, candidateHeadSha, entry.path) }));
-  const diffManifest = buildActualDiffManifest({
+  const controlPaths = [
+    sourceRun.change_request_path,
+    ...planningPackagePaths(sourceRunPath, sourceRun),
+    resolutionInputPath,
+    ...acceptancePaths,
+  ];
+  const allowedWrites = [...new Set([...requiredSources, ...appliedArtifactPaths, ...controlPaths])];
+  const diffManifest = buildActualDiffManifestFromGit(root, {
     baseSha: sourceRun.base_sha,
     planningHeadSha: sourceRun.planning_head_sha,
     candidateHeadSha,
-    entries: hashedEntries,
     allowedWrites,
-    dirty: false,
   });
-  diffManifest.$schema = "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json";
   const resolutionReport = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-resolution-report.schema.json",
     version: "1.0.0",

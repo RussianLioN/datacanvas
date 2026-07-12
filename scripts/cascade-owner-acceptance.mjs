@@ -22,7 +22,6 @@ const productChangeClasses = new Set([
 
 const nonGovernedChangeClasses = new Set([
   "documentation",
-  "estimate_change",
   "formatting_change",
   "formatting_only",
   "formula_cache_only",
@@ -33,9 +32,28 @@ const nonGovernedChangeClasses = new Set([
 export function requiredOwnerRoles(changeClasses) {
   const roles = [];
   if (changeClasses.some((value) => productChangeClasses.has(value))) roles.push("Product Owner");
-  if (changeClasses.includes("capacity")) roles.push("Команда реализации");
+  if (changeClasses.some((value) => ["capacity", "estimate_change"].includes(value))) roles.push("Команда реализации");
   if (roles.length === 0) roles.push("Process Owner");
   return [...new Set(roles)].sort();
+}
+
+export function acceptanceConfirmationPayload(acceptance) {
+  return {
+    acceptance_id: acceptance.acceptance_id,
+    owner_identity: acceptance.owner_identity,
+    owner_role: acceptance.owner_role,
+    accepted_change_classes: acceptance.accepted_change_classes,
+    run_id: acceptance.run_id,
+    change_request_id: acceptance.change_request_id,
+    decision_id: acceptance.decision_id,
+    selected_option_id: acceptance.selected_option_id,
+    evidence_type: acceptance.confirmation_evidence?.evidence_type,
+    reference: acceptance.confirmation_evidence?.reference,
+  };
+}
+
+export function interactiveAcceptanceEvidenceHash(acceptance) {
+  return hashJsonDocument(acceptanceConfirmationPayload(acceptance));
 }
 
 export function validateOwnerAcceptanceSet({
@@ -45,7 +63,11 @@ export function validateOwnerAcceptanceSet({
   authority,
   authorityHash,
   acceptanceByPath,
+  verifyConfirmationEvidence,
 }) {
+  if (typeof verifyConfirmationEvidence !== "function") {
+    throw new Error("owner acceptance requires a confirmation evidence verifier");
+  }
   if (packet.packet_sha256 !== hashJsonDocument({ ...packet, packet_sha256: null })) {
     throw new Error("owner question packet self-hash mismatch");
   }
@@ -85,6 +107,7 @@ export function validateOwnerAcceptanceSet({
     if (!binding.confirmation_channels.includes(acceptance.confirmation_channel)) {
       throw new Error("acceptance confirmation channel is not allowed for the owner role");
     }
+    verifyConfirmationEvidence(acceptance, acceptancePath);
     for (const changeClass of acceptance.accepted_change_classes) {
       if (!packet.change_classes.includes(changeClass) || !binding.allowed_change_classes.includes(changeClass)) {
         throw new Error("acceptance contains an unauthorized change class: " + changeClass);

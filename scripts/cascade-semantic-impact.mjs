@@ -67,38 +67,76 @@ const mechanicalRelations = new Set([
 export function analyzeSemanticCascade(graph, changedSources) {
   const index = buildIndex(graph);
   const changedPaths = changedSources.map((source) => source.path);
-  const changeClasses = sorted(changedSources.flatMap((source) => source.change_classes ?? []));
   for (const changedPath of changedPaths) {
     if (!index.artifacts.has(changedPath)) throw new Error(`uncovered changed path: ${changedPath}`);
   }
 
-  const ownerSensitive = changeClasses.some((candidate) => ![
-    "documentation",
-    "formatting_only",
-    "formula_cache_only",
-    "no_change",
-    "provenance_only",
-  ].includes(candidate));
-  const upstream = traverse(ownerSensitive ? changedPaths : [], index.inbound, (edge) => edge.upstream_artifact, changeClasses);
-  const diagnosticStart = sorted([...changedPaths, ...upstream.visited]);
-  const diagnostic = traverse(diagnosticStart, index.outbound, (edge) => edge.downstream_artifact, changeClasses);
-  const authoritativeChanged = changedSources
-    .filter((source) => authorityMatches(index.artifacts.get(source.path), source.change_classes ?? []))
-    .map((source) => source.path);
-  const authoritativeReviewPaths = [...upstream.visited]
-    .filter((candidate) => !changedPaths.includes(candidate))
-    .filter((candidate) => (index.artifacts.get(candidate)?.authority_scope ?? []).length > 0);
-  const downstream = traverse(authoritativeChanged, index.outbound, (edge) => edge.downstream_artifact, changeClasses);
-  const mechanical = traverse(
-    changedPaths,
-    index.outbound,
-    (edge) => edge.downstream_artifact,
-    changeClasses,
-    (edge) => mechanicalRelations.has(edge.relation_type),
-  );
-  const writeObligations = sorted([...downstream.visited, ...mechanical.visited])
-    .filter((candidate) => !changedPaths.includes(candidate));
-  const diagnosticClosure = sorted([...changedPaths, ...upstream.visited, ...diagnostic.visited]);
+  const authoritativeReviewSet = new Set();
+  const writeObligationSet = new Set();
+  const diagnosticClosureSet = new Set(changedPaths);
+  const routeEvidence = [];
+  for (const source of changedSources) {
+    const changeClasses = sorted(source.change_classes ?? []);
+    const ownerSensitive = changeClasses.some((candidate) => ![
+      "documentation",
+      "formatting_only",
+      "formula_cache_only",
+      "no_change",
+      "provenance_only",
+    ].includes(candidate));
+    const upstream = traverse(
+      ownerSensitive ? [source.path] : [],
+      index.inbound,
+      (edge) => edge.upstream_artifact,
+      changeClasses,
+    );
+    const diagnosticStart = sorted([source.path, ...upstream.visited]);
+    const diagnostic = traverse(
+      diagnosticStart,
+      index.outbound,
+      (edge) => edge.downstream_artifact,
+      changeClasses,
+    );
+    const authoritativeChanged = authorityMatches(index.artifacts.get(source.path), changeClasses)
+      ? [source.path]
+      : [];
+    const downstream = traverse(
+      authoritativeChanged,
+      index.outbound,
+      (edge) => edge.downstream_artifact,
+      changeClasses,
+    );
+    const mechanical = traverse(
+      [source.path],
+      index.outbound,
+      (edge) => edge.downstream_artifact,
+      changeClasses,
+      (edge) => mechanicalRelations.has(edge.relation_type),
+    );
+    for (const candidate of upstream.visited) {
+      if (candidate !== source.path && (index.artifacts.get(candidate)?.authority_scope ?? []).length > 0) {
+        authoritativeReviewSet.add(candidate);
+      }
+    }
+    for (const candidate of [...downstream.visited, ...mechanical.visited]) {
+      if (!changedPaths.includes(candidate)) writeObligationSet.add(candidate);
+    }
+    for (const candidate of [...upstream.visited, ...diagnostic.visited]) diagnosticClosureSet.add(candidate);
+    for (const route of [...upstream.routes, ...downstream.routes, ...mechanical.routes]) {
+      routeEvidence.push({
+        source_path: source.path,
+        from: route.from,
+        to: route.to,
+        edge_id: route.edge.edge_id ?? null,
+        relation_type: route.edge.relation_type,
+        validation_command: route.edge.validation_command,
+        change_classes: changeClasses,
+      });
+    }
+  }
+  const authoritativeReviewPaths = sorted(authoritativeReviewSet);
+  const writeObligations = sorted(writeObligationSet);
+  const diagnosticClosure = sorted(diagnosticClosureSet);
   const classified = diagnosticClosure.map((candidate) => ({
     path: candidate,
     classification: authoritativeReviewPaths.includes(candidate)
@@ -118,13 +156,12 @@ export function analyzeSemanticCascade(graph, changedSources) {
     write_obligations: sorted(writeObligations),
     diagnostic_closure: diagnosticClosure,
     diagnostic_classifications: classified,
-    route_evidence: [...upstream.routes, ...downstream.routes, ...mechanical.routes].map((route) => ({
-      from: route.from,
-      to: route.to,
-      edge_id: route.edge.edge_id ?? null,
-      relation_type: route.edge.relation_type,
-      validation_command: route.edge.validation_command,
-      change_classes: changeClasses,
-    })),
+    route_evidence: routeEvidence.filter((route, indexValue, values) => values.findIndex((candidate) => (
+      candidate.source_path === route.source_path
+      && candidate.from === route.from
+      && candidate.to === route.to
+      && candidate.edge_id === route.edge_id
+      && candidate.change_classes.join("\0") === route.change_classes.join("\0")
+    )) === indexValue),
   };
 }

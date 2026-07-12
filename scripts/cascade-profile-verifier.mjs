@@ -1,6 +1,4 @@
 import crypto from "node:crypto";
-import fs from "node:fs";
-import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 import { validationManifestHash } from "./cascade-validation-manifest.mjs";
@@ -99,9 +97,24 @@ export function executeProfileCommands({ manifest, executionRoot, reportRoot, ti
   });
 }
 
-export function linkNodeModules(sourceRoot, worktreeRoot) {
-  const source = path.join(sourceRoot, "node_modules");
-  const target = path.join(worktreeRoot, "node_modules");
-  if (!fs.existsSync(source)) throw new Error("node_modules is missing; run npm ci before cascade:verify");
-  fs.symlinkSync(source, target, "dir");
+export function installProfileDependencies(executionRoot, timeoutMs = 10 * 60 * 1000) {
+  const result = spawnSync("npm", ["ci", "--ignore-scripts"], {
+    cwd: executionRoot,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+    timeout: timeoutMs,
+    maxBuffer: 16 * 1024 * 1024,
+    env: {
+      PATH: process.env.PATH,
+      HOME: process.env.HOME,
+      CI: "1",
+      LANG: process.env.LANG ?? "C.UTF-8",
+      LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
+      TZ: process.env.TZ ?? "UTC",
+    },
+  });
+  if (result.error || result.status !== 0) {
+    const output = String(result.stdout ?? "") + String(result.stderr ?? "") + String(result.error?.message ?? "");
+    throw new Error("isolated profile dependency install failed: " + sanitizeOutput(output, executionRoot));
+  }
 }

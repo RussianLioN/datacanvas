@@ -197,12 +197,22 @@ export function buildActualDiffManifest({
 
 export function verifyAppliedResolution({
   updateStatus,
+  changeStatus = "M",
   afterSha256,
   expectedAfterSha256 = null,
   patchDigest = null,
   actualPatchDigest = null,
 }) {
   if (updateStatus !== "applied") return;
+  if (String(changeStatus).startsWith("D")) {
+    if (afterSha256 !== null) throw new Error("deleted artifact must not have an after hash");
+    if (!patchDigest) throw new Error("deletion requires an approved patch digest");
+    if (!sha256Pattern.test(patchDigest)) throw new Error("approved patch digest must be sha256");
+    if (!sha256Pattern.test(actualPatchDigest ?? "") || patchDigest !== actualPatchDigest) {
+      throw new Error("approved patch digest does not match the actual Git patch digest");
+    }
+    return;
+  }
   if (!sha256Pattern.test(afterSha256 ?? "")) throw new Error("applied resolution requires a valid after hash");
   if (!expectedAfterSha256 && !patchDigest) {
     throw new Error("applied resolution requires an expected after hash or approved patch digest");

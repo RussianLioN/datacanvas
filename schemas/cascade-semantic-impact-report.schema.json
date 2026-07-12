@@ -41,9 +41,10 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["from", "to", "edge_id", "relation_type", "validation_command", "change_classes"],
+        "required": ["source_path", "from", "to", "edge_id", "relation_type", "validation_command", "change_classes"],
         "additionalProperties": false,
         "properties": {
+          "source_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "from": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "to": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "edge_id": { "type": "string", "pattern": "^EDGE-[0-9]{4}$" },

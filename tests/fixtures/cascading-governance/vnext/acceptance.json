@@ -9,6 +9,11 @@
   "authority_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "authority_binding_id": "AUTH-PRODUCT-OWNER",
   "confirmation_channel": "interactive_session",
+  "confirmation_evidence": {
+    "evidence_type": "interactive_turn",
+    "reference": "codex-session/turn-2026-07-11-001",
+    "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
   "accepted_change_classes": ["product_meaning"],
   "run_id": "CUR-2026-07-11-001",
   "run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
