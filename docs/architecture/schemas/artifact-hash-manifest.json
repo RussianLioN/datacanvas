@@ -3772,7 +3772,7 @@
     {
       "artifact_id": "ART-755",
       "path": "schemas/cascade-completion-evidence.schema.json",
-      "sha256": "5fb4168ffee17867488fbd24ef2480405d65baafb59e0212a0150daa5876178c"
+      "sha256": "fd938e35b1ad9e5f3de1b041129ec66e1195fd0a579b4dc1bd82ee49879769b3"
     },
     {
       "artifact_id": "ART-756",
@@ -3922,7 +3922,7 @@
     {
       "artifact_id": "ART-785",
       "path": "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
-      "sha256": "6a91624d81a4f8cfa168c938572a610dfe64f51b88ba76f5462316fc8b1d5bc6"
+      "sha256": "e5059cc1d0fd82d7b2369c99434247c67cf356747577f2c53d2bf9975a333b40"
     },
     {
       "artifact_id": "ART-786",
