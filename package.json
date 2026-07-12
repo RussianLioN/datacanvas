@@ -29,7 +29,7 @@
     "validate:ci-exact-sha": "LOCAL_EXPECTED_GIT_SHA=$(git rev-parse HEAD) node scripts/validate-ci-exact-sha.mjs",
     "validate:doc-links": "node scripts/validate-doc-links.mjs",
     "validate:docs-navigation": "node scripts/validate-docs-navigation.mjs",
-    "validate:doc-stale-status": "node scripts/validate-doc-stale-status.mjs",
+    "validate:doc-stale-status": "node --test tests/doc-stale-status.test.mjs && node scripts/validate-doc-stale-status.mjs",
     "validate:provider-experiment": "node scripts/validate-provider-experiment.mjs",
     "validate:provider-evals": "node scripts/validate-provider-eval-delta.mjs",
     "validate:provider-scorer": "node scripts/validate-provider-scorer.mjs",
