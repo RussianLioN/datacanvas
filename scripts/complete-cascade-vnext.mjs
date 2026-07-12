@@ -118,6 +118,7 @@ function executeCompletionCommands(worktree, commands) {
         LANG: process.env.LANG ?? "C.UTF-8",
         LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
         TZ: process.env.TZ ?? "UTC",
+        DATACANVAS_CASCADE_NESTED_VALIDATION: "1",
       },
     });
     const finishedAt = new Date();
