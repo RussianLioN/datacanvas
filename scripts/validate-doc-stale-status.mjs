@@ -3,6 +3,8 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
+import { isAllowedMainPointerSuccessor } from "./lib/doc-stale-status.mjs";
+
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
 
@@ -29,33 +31,6 @@ function optionalGitRef(ref) {
   } catch {
     return null;
   }
-}
-
-function optionalGitOutput(args) {
-  try {
-    return execFileSync("git", args, {
-      cwd: root,
-      encoding: "utf8",
-      stdio: ["ignore", "pipe", "ignore"],
-    }).trim();
-  } catch {
-    return null;
-  }
-}
-
-function isAncestor(ancestor, descendant) {
-  return optionalGitOutput(["merge-base", "--is-ancestor", ancestor, descendant]) === "";
-}
-
-function changedFiles(baseRef, headRef) {
-  const output = optionalGitOutput(["diff", "--name-only", `${baseRef}..${headRef}`]);
-  if (output === null) {
-    return null;
-  }
-  if (output === "") {
-    return [];
-  }
-  return output.split("\n").filter(Boolean);
 }
 
 const mainPointerRefreshPaths = new Set([
@@ -88,18 +63,6 @@ const mainPointerRefreshPaths = new Set([
   "scripts/validate-doc-stale-status.mjs",
 ]);
 
-function isAllowedMainPointerSuccessor(pointerCommit, currentMainCommit) {
-  const head = optionalGitRef("HEAD");
-  if (!head || head !== currentMainCommit || !isAncestor(pointerCommit, currentMainCommit)) {
-    return false;
-  }
-  const files = changedFiles(pointerCommit, currentMainCommit);
-  if (!files) {
-    return false;
-  }
-  return files.every((filePath) => mainPointerRefreshPaths.has(filePath));
-}
-
 const source = readJson(sourcePath);
 const findings = [];
 
@@ -119,11 +82,18 @@ for (const scanPath of source.stale_status_checks.scan_paths) {
 }
 
 const currentMain = optionalGitRef("origin/main") || optionalGitRef("main") || optionalGitRef("HEAD");
+const head = optionalGitRef("HEAD");
 const recordedMain = source.current_pointers.current_main_commit;
 if (
   currentMain &&
   recordedMain !== currentMain &&
-  !isAllowedMainPointerSuccessor(recordedMain, currentMain)
+  !isAllowedMainPointerSuccessor({
+    root,
+    pointerCommit: recordedMain,
+    currentMainCommit: currentMain,
+    headCommit: head,
+    allowedPaths: mainPointerRefreshPaths,
+  })
 ) {
   findings.push(`docs/navigation/navigation-source.json: current_main_commit is ${source.current_pointers.current_main_commit}, expected ${currentMain}`);
 }
