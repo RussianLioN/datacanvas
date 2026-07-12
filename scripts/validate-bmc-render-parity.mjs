@@ -164,12 +164,7 @@ try {
     stdio: "pipe",
   });
   if (!fs.readFileSync(absolute(pngPath)).equals(fs.readFileSync(tempPng))) {
-    const freshPng = parsePng(tempPng);
-    const nonWhiteDelta = Math.abs(png.nonWhitePixels - freshPng.nonWhitePixels);
-    const nonWhiteTolerance = Math.max(5000, Math.floor(png.nonWhitePixels * 0.05));
-    if (png.width !== freshPng.width || png.height !== freshPng.height || nonWhiteDelta > nonWhiteTolerance) {
-      fail("BMC PNG visual coverage does not match fresh rsvg-convert output from SVG");
-    }
+    fail("BMC PNG bytes do not match fresh deterministic rsvg-convert output from SVG");
   }
   const freshPdfBytes = fs.readFileSync(tempPdf);
   if (freshPdfBytes.subarray(0, 5).toString("utf8") !== "%PDF-" || freshPdfBytes.length < 1000) {

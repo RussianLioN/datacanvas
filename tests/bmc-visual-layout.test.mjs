@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import {
+  fitSvgTextLines,
   validateBmcPlantUmlLayout,
   validateBmcSvgLayout,
 } from "../scripts/lib/bmc-visual-layout.mjs";
@@ -29,6 +30,18 @@ test("BMC SVG layout rejects an uneven grid gap", () => {
   assert.ok(issues.some((issue) => issue.includes("top-row gaps")));
 });
 
+test("BMC text fitting retries a smaller allowed font for a wide word", () => {
+  const layout = fitSvgTextLines(["WWWWWWWW"], {
+    maxWidth: 220,
+    startY: 40,
+    maxY: 160,
+    maxFontSize: 40,
+    minFontSize: 24,
+  });
+  assert.ok(layout.fontSize < 40);
+  assert.ok(layout.fontSize >= 24);
+});
+
 test("committed BMC PlantUML keeps bounded labels and a complete grid", () => {
   const issues = validateBmcPlantUmlLayout(fs.readFileSync(plantUmlPath, "utf8"));
   assert.deepEqual(issues, []);
@@ -42,4 +55,10 @@ test("BMC PlantUML layout rejects an overlong label line", () => {
   );
   const issues = validateBmcPlantUmlLayout(oversized);
   assert.ok(issues.some((issue) => issue.includes("label line exceeds")));
+});
+
+test("BMC PlantUML layout rejects a missing vertical grid relation", () => {
+  const source = fs.readFileSync(plantUmlPath, "utf8");
+  const issues = validateBmcPlantUmlLayout(source.replace("B43 -[hidden]down- E2\n", ""));
+  assert.ok(issues.some((issue) => issue.includes("B43 -[hidden]down- E2")));
 });

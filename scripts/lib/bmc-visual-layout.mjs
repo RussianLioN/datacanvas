@@ -76,7 +76,12 @@ export function fitSvgTextLines(logicalLines, options) {
 
   for (let fontSize = maxFontSize; fontSize >= minFontSize; fontSize -= 1) {
     const lineHeight = Math.ceil(fontSize * lineHeightRatio);
-    const lines = logicalLines.flatMap((line) => wrapSvgText(line, maxWidth, fontSize));
+    let lines;
+    try {
+      lines = logicalLines.flatMap((line) => wrapSvgText(line, maxWidth, fontSize));
+    } catch {
+      continue;
+    }
     const lastBaseline = startY + Math.max(0, lines.length - 1) * lineHeight;
     const renderedBottom = lastBaseline + fontSize * 0.3;
     if (renderedBottom <= maxY) {
@@ -343,7 +348,10 @@ export function validateBmcPlantUmlLayout(plantUml, maxCharacters = 58) {
     "B2 -[hidden]right- B43",
     "B43 -[hidden]right- B1",
     "B8 -[hidden]down- B9",
+    "B76 -[hidden]down- E1",
     "B2 -[hidden]down- B5",
+    "B43 -[hidden]down- E2",
+    "B1 -[hidden]down- E3",
     "B9 -[hidden]right- E1",
     "E1 -[hidden]right- B5",
     "B5 -[hidden]right- E2",

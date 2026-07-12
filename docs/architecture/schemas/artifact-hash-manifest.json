@@ -1772,7 +1772,7 @@
     {
       "artifact_id": "ART-355",
       "path": "scripts/generate-bmc-artifacts.mjs",
-      "sha256": "d504f196b79567b6cb15b7e32593d9315f17abfe7e9fc266d9d81e425f1a05f9"
+      "sha256": "fd8dfb11cf6f79d91d57f7816aaabd10d7ffeba02268ccdabf72876e3a693a64"
     },
     {
       "artifact_id": "ART-356",
@@ -1947,7 +1947,7 @@
     {
       "artifact_id": "ART-390",
       "path": "scripts/validate-bmc-render-parity.mjs",
-      "sha256": "56adfd7e5249495bc2a9a8d5166642ce5f44df7775a3feff121e2bf16b3ce6e7"
+      "sha256": "8fb9eaf84d43749d09e0b09852456e6008eaaa9740046154215e3c1737448fa2"
     },
     {
       "artifact_id": "ART-391",
@@ -4052,12 +4052,12 @@
     {
       "artifact_id": "ART-811",
       "path": "scripts/lib/bmc-visual-layout.mjs",
-      "sha256": "d16cfc4e2718cbc773931c77920b6a13a2bb5be73d1cbeee906f56d5baba3af7"
+      "sha256": "76a2298bacdb781273ee930d0dcbb3224e47d1ebe8971248ac31c903e3879987"
     },
     {
       "artifact_id": "ART-812",
       "path": "tests/bmc-visual-layout.test.mjs",
-      "sha256": "8323851cb27a89f0a138e3781545828656fe7ebc141506ab2ee51ad2e356e316"
+      "sha256": "4b04e7c927ef7d9686d540544569003c18d8df0f16e21d6f0173ecfbde7e0440"
     },
     {
       "artifact_id": "ART-813",
