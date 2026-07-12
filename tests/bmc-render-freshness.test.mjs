@@ -128,7 +128,9 @@ function assertBmcNormalModeRefreshesStalePortableRender(stalePath) {
       recursive: true,
     });
     const targetPath = path.join(tempRoot, stalePath);
-    fs.appendFileSync(targetPath, Buffer.from("stale-render\n"));
+    const staleMarker = Buffer.from("stale-render\n");
+    fs.appendFileSync(targetPath, staleMarker);
+    const corruptedHash = sha256File(targetPath);
 
     const result = spawnSync("node", [path.join(root, "scripts/generate-bmc-artifacts.mjs")], {
       cwd: tempRoot,
@@ -136,10 +138,18 @@ function assertBmcNormalModeRefreshesStalePortableRender(stalePath) {
       maxBuffer: 10 * 1024 * 1024,
     });
     assert.equal(result.status, 0, `normal BMC generation failed\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`);
-    assert.ok(
-      fs.readFileSync(targetPath).equals(fs.readFileSync(path.join(root, stalePath))),
-      `normal BMC generation did not refresh ${stalePath}`,
+    const refreshedBytes = fs.readFileSync(targetPath);
+    assert.notEqual(sha256File(targetPath), corruptedHash, `normal BMC generation did not replace ${stalePath}`);
+    assert.equal(
+      refreshedBytes.subarray(-staleMarker.length).equals(staleMarker),
+      false,
+      `normal BMC generation retained the stale marker in ${stalePath}`,
     );
+    const manifest = JSON.parse(
+      fs.readFileSync(path.join(tempRoot, "docs/product/bmc/bmc-derived-manifest.json"), "utf8"),
+    );
+    const output = manifest.outputs.find((item) => item.path === stalePath);
+    assert.equal(output?.sha256, sha256File(targetPath), `derived manifest hash is stale for ${stalePath}`);
   } finally {
     fs.rmSync(tempRoot, { recursive: true, force: true });
   }

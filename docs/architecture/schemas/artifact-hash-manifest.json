@@ -4077,7 +4077,7 @@
     {
       "artifact_id": "ART-816",
       "path": "tests/bmc-render-freshness.test.mjs",
-      "sha256": "9db514ccfae38233a71c312b0fa0e932de1a4550979a52917fac84cdc0163302"
+      "sha256": "afcc1a7641ab1f2f0cc0aae513b9355eeea2632837c7d82a5ab186a703e88af7"
     },
     {
       "artifact_id": "ART-817",
