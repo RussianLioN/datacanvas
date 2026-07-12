@@ -339,6 +339,14 @@ assert.deepEqual(
   parseSafeNpmCommand("npm run validate:product-sources && npm run validate:product-source-consistency"),
   ["validate:product-sources", "validate:product-source-consistency"],
 );
+assert.deepEqual(
+  parseSafeNpmCommand("npm run cascade:preview -- --changed-from HEAD"),
+  ["cascade:preview"],
+);
+assert.throws(
+  () => parseSafeNpmCommand("npm run cascade:preview -- --changed-from HEAD~1"),
+  /safe npm run/u,
+);
 assert.throws(
   () => parseSafeNpmCommand(`npm run validate:schemas; ${"rm "}${"-rf /"}`),
   /safe npm run/u,

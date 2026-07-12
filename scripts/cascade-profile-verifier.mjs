@@ -4,16 +4,23 @@ import { spawnSync } from "node:child_process";
 import { validationManifestHash } from "./cascade-validation-manifest.mjs";
 import { sanitizeOutput } from "./cascade-vnext-runtime.mjs";
 
-const npmScriptPattern = /^npm run ([a-z0-9:_-]+)$/u;
+const npmScriptPattern = /^npm run ([a-z0-9:_-]+)(?: -- --changed-from (HEAD|[0-9a-f]{40}|[0-9a-f]{64}))?$/u;
 
-export function parseSafeNpmCommand(command) {
+function parseSafeNpmInvocations(command) {
   const parts = String(command).split(/\s+&&\s+/u);
   if (parts.length === 0) throw new Error("validation command is not a safe npm run command");
   return parts.map((part) => {
     const match = npmScriptPattern.exec(part);
     if (!match) throw new Error("validation command is not a safe npm run command: " + command);
-    return match[1];
+    return {
+      script_name: match[1],
+      args: match[2] ? ["--", "--changed-from", match[2]] : [],
+    };
   });
+}
+
+export function parseSafeNpmCommand(command) {
+  return parseSafeNpmInvocations(command).map((invocation) => invocation.script_name);
 }
 
 export function assertValidationManifestIntegrity(manifest) {
@@ -56,8 +63,8 @@ export function executeProfileCommands({ manifest, executionRoot, reportRoot, ti
     const startedAt = new Date();
     const outputs = [];
     let exitCode = 0;
-    for (const scriptName of parseSafeNpmCommand(planned.command)) {
-      const result = spawnSync("npm", ["run", scriptName], {
+    for (const invocation of parseSafeNpmInvocations(planned.command)) {
+      const result = spawnSync("npm", ["run", invocation.script_name, ...invocation.args], {
         cwd: executionRoot,
         encoding: "utf8",
         stdio: ["ignore", "pipe", "pipe"],
@@ -74,7 +81,7 @@ export function executeProfileCommands({ manifest, executionRoot, reportRoot, ti
         },
       });
       const combined = String(result.stdout ?? "") + String(result.stderr ?? "");
-      outputs.push("[" + scriptName + "]\n" + combined);
+      outputs.push("[" + invocation.script_name + "]\n" + combined);
       if (result.error || result.status !== 0) {
         exitCode = Number.isInteger(result.status) ? result.status : 1;
         break;
