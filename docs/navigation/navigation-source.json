@@ -1520,6 +1520,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/glossary.md",
+      "route_id": "knowledge-glossary",
+      "section": "knowledge",
+      "owner_role": "Documentation Owner / Product Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Термины Vision, BMC, требований или продуктовых маршрутов меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "evidence",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "route_id": "knowledge-rca-readme",
       "section": "knowledge",

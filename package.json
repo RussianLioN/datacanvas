@@ -73,7 +73,7 @@
     "validate:bmc-render-parity": "node --test tests/bmc-render-freshness.test.mjs && node scripts/validate-bmc-render-parity.mjs",
     "validate:bmc-content-classic": "node scripts/validate-bmc-content-classic.mjs",
     "validate:bmc-package": "node scripts/validate-bmc-package.mjs",
-    "validate:bmc": "npm run validate:bmc-interview && npm run validate:bmc-russian-language && npm run validate:bmc-interview-runtime && npm run validate:bmc-interview-replay && npm run validate:bmc-trace && npm run validate:bmc-content-classic && npm run validate:bmc-visual && npm run validate:bmc-render-parity && npm run validate:bmc-package",
+    "validate:bmc": "npm run generate:bmc -- --check && npm run validate:bmc-interview && npm run validate:bmc-russian-language && npm run validate:bmc-interview-runtime && npm run validate:bmc-interview-replay && npm run validate:bmc-trace && npm run validate:bmc-content-classic && npm run validate:bmc-visual && npm run validate:bmc-render-parity && npm run validate:bmc-package",
     "validate:ba-sa-interview": "node scripts/validate-ba-sa-artifacts.mjs ba-sa-interview",
     "validate:ba-spec": "node scripts/validate-ba-sa-artifacts.mjs ba-spec",
     "validate:sa-spec": "node scripts/validate-ba-sa-artifacts.mjs sa-spec",

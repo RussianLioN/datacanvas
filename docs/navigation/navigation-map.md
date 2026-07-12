@@ -72,6 +72,7 @@
 Evidence — доказательства, индекс доказательств и ручные/сгенерированные доказательные артефакты без конфиденциальных raw-данных.
 
 - [Evidence Hub DataCanvas](../knowledge/evidence-index.md) - Delivery/GitOps Lead, `active`.
+- [Глоссарий DataCanvas](../knowledge/glossary.md) - Documentation Owner / Product Owner, `active`.
 - [Knowledge Base DataCanvas](../knowledge/README.md) - Documentation Owner, `active`.
 
 ### Генерируемые артефакты

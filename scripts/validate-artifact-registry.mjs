@@ -26,6 +26,7 @@ function listSprintManifestPaths() {
 const registry = readJson("docs/architecture/schemas/artifact-registry.json");
 const registrySchema = readJson("schemas/artifact-registry.schema.json");
 const hashManifest = readJson(registry.hash_manifest_path);
+const productVisionManifest = readJson("docs/product/vision/manifest.json");
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 
@@ -56,6 +57,15 @@ for (const artifact of registry.artifacts) {
 
   if (!fs.existsSync(path.join(root, artifact.path))) {
     fail(`artifact registry path does not exist: ${artifact.path}`);
+  }
+}
+
+for (const servicePath of productVisionManifest.service_information_storage ?? []) {
+  if (servicePath === "docs/architecture/schemas/artifact-registry.json") {
+    continue;
+  }
+  if (!paths.has(servicePath)) {
+    fail(`Vision service information artifact is missing from artifact registry: ${servicePath}`);
   }
 }
 

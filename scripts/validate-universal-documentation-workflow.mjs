@@ -554,6 +554,7 @@ function validateProfile() {
 }
 
 function validateDataCanvasProfile() {
+  const packageJson = readJson("package.json");
   const coreText = JSON.stringify(readJson(paths.core));
   for (const term of ["DataCanvas", "CO-2026-001", "BMC", "Лиса"]) {
     const stripped = coreText.replace(`"${term}"`, "");
@@ -647,6 +648,9 @@ function validateDataCanvasProfile() {
   const bmcPackageCommand = catalog.commands.find((command) => command.id === "bmc-package");
   if (!bmcPackageCommand || bmcPackageCommand.command !== "npm run validate:bmc") {
     fail("DataCanvas validation catalog must include BMC package gate");
+  }
+  if (!packageJson.scripts["validate:bmc"]?.includes("npm run generate:bmc -- --check")) {
+    fail("package.json validate:bmc must run BMC generator check mode before BMC validators");
   }
   const fullCommand = catalog.commands.find((command) => command.id === "full");
   if (!fullCommand || fullCommand.command !== "npm test") {

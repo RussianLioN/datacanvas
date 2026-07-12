@@ -302,6 +302,7 @@ function assertDependencyGraph(graph) {
 
   for (const highImpactSource of [
     "docs/product-vision.md",
+    "docs/knowledge/glossary.md",
     "docs/product/requirements/user-stories.md",
     "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
     "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
@@ -331,6 +332,21 @@ function assertDependencyGraph(graph) {
   ]) {
     if (!visionDownstream.has(requiredPath)) {
       throw new Error(`Vision downstream impact is missing: ${requiredPath}`);
+    }
+  }
+
+  const glossaryArtifact = graph.artifacts.find((artifact) => artifact.path === "docs/knowledge/glossary.md");
+  if (!glossaryArtifact) {
+    throw new Error("dependency graph is missing Vision glossary artifact: docs/knowledge/glossary.md");
+  }
+  if (!glossaryArtifact.authority_scope.includes("product_meaning")) {
+    throw new Error("Vision glossary artifact must carry product_meaning authority scope");
+  }
+
+  const glossaryDownstream = downstreamClosureFrom(graph, ["docs/knowledge/glossary.md"]);
+  for (const requiredPath of ["docs/product-vision.md", "docs/product/vision/manifest.json"]) {
+    if (!glossaryDownstream.has(requiredPath)) {
+      throw new Error(`glossary downstream impact is missing: ${requiredPath}`);
     }
   }
 

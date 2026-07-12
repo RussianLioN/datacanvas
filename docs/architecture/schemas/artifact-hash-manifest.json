@@ -362,7 +362,7 @@
     {
       "artifact_id": "ART-072",
       "path": "scripts/validate-artifact-registry.mjs",
-      "sha256": "9f5cc78670b95b52fab559e741114fd800510f664e36d5da108ccf9db569f02c"
+      "sha256": "9cc1404941fcbc82421a66d354ac8528f2bf07ad9c9c7ade9191f391b4130ebe"
     },
     {
       "artifact_id": "ART-073",
@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "b4c3ecda9f94acf631aeaff4b8da152241c7cd411f2c6a93bf7eb68063101039"
+      "sha256": "4f36f073aa1c51f4b4b435bf44a814ac597563405e81f36f5d223aaeb2c5a331"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "8647823fda2ea08b2b194f002fd3576debf3acabd5cf5a46937556a0f6f3c092"
+      "sha256": "7c53bc6ee86990d53999c58ee8fab359ee9b5a69d4ea09c53f11eb13b63aa468"
     },
     {
       "artifact_id": "ART-201",
@@ -2042,17 +2042,17 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "9347dc53ced9f028a0c12225f23387eb7bfd8fdae0de70377f39e4b738d42d0b"
+      "sha256": "99c48d984ff0af0aded4e8b94788d63de44c685c2d8d65138ddd81227b9110e2"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "1018a16214b0043d6ae60dda45d50b58b47e3e0aac812062eaebb6d89fc08883"
+      "sha256": "7fc65e8126deea4034a047d173ab6e24bcc21d701dba7bc581f8655d4e410ed4"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "07c77b15e1763959f657e0977f5eab9cd00b1c09eb3597fbac94752db02781ab"
+      "sha256": "addf1ac461728f25414825e88205adc14468f27f906ec8a81fcf56755a0766c4"
     },
     {
       "artifact_id": "ART-412",
@@ -2487,7 +2487,7 @@
     {
       "artifact_id": "ART-497",
       "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
-      "sha256": "27b12755bb779bf9a0642e5d5106a8f10f15c70de041b9de5f3ba5be8b77fcb9"
+      "sha256": "4a2b084531995f7d9028d4b280570ff0eb6903b09735d2f05b482262f63f856e"
     },
     {
       "artifact_id": "ART-498",
@@ -2612,7 +2612,7 @@
     {
       "artifact_id": "ART-522",
       "path": "docs/process/cascading-governance/artifact-dependency-graph.json",
-      "sha256": "e715bc488eb0fd87da1dc1c0a6a1fe24effe1f6f6bbc1ad6ff5c26b5a36c7cb4"
+      "sha256": "403ef3776bd7689c892ee85c62845f657abb9f7c2a3dccd603c0dcb71c01bd95"
     },
     {
       "artifact_id": "ART-523",
@@ -2707,7 +2707,7 @@
     {
       "artifact_id": "ART-541",
       "path": "scripts/validate-cascading-governance.mjs",
-      "sha256": "e4164d2152aa782dbbd62c97f71cc1776ac219c06a826b9b2648ff10739b07d5"
+      "sha256": "880cc3ffae8f5e9d83db8573f3b9102d02dae38f2c9717a849de52ad07c1f0dd"
     },
     {
       "artifact_id": "ART-542",
@@ -3047,7 +3047,7 @@
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "1a2c56bcfb7d3fe23037245f4ca2583997661b81cd2b192e17cd88ee0cff6694"
+      "sha256": "5f57f89405551c58bc3c8403594d9cbbe3225af22bc00be42ac3af68402b0367"
     },
     {
       "artifact_id": "ART-609",
@@ -3087,7 +3087,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "cbbbacb7b5dc7408775954671cf311747874e2103414a8749aaa1e1badf4fbfc"
+      "sha256": "6ebfdd351755d847c13d9aef2812a7e0eb90538639a0596964789d27f29c7a8d"
     },
     {
       "artifact_id": "ART-617",
@@ -3117,17 +3117,17 @@
     {
       "artifact_id": "ART-623",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
-      "sha256": "26f9e85a8e87fa6c5f49fad804825bed7acefb354a2f1d7fef51d7d217c94a6f"
+      "sha256": "3f304665cfa0e3bbd07ad495ae1763e51c4f53e2a9a2092c9c999e9f1eb58409"
     },
     {
       "artifact_id": "ART-624",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
-      "sha256": "38457c11450e84ac70e7ae58f9c9d2973073e71ded8e451af882bd92188c3698"
+      "sha256": "0916121c5346173437c5f0629348b5598893c5a85f89c8cfc689078f2f6cd3c0"
     },
     {
       "artifact_id": "ART-625",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
-      "sha256": "189bf417a1235fb155b7828fd884f94123a46605f9772ead6a2fa6031e61f032"
+      "sha256": "364d309d03a988ae46ca653c858c518b31168c130aa28789ee3756fde852b20a"
     },
     {
       "artifact_id": "ART-626",
@@ -3137,7 +3137,7 @@
     {
       "artifact_id": "ART-627",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/question-bank.json",
-      "sha256": "82ac93c32a0c28b9eb9a6b49cbece5cdd476191a87d6ff5e6ba58bd2b86ebfa2"
+      "sha256": "b51a38c360b383f1af76abc09ee3c294de580b562b811edb952ba0873ff31621"
     },
     {
       "artifact_id": "ART-628",
@@ -3387,7 +3387,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "84081bdd47317ed3297d6f89e4bd4c84d60959d5753fe501a3304048f75c3d70"
+      "sha256": "ba3e6f25ac739a54f1be3326ddee6d764c961a6c1eba6b9ba894dbb7ab2be438"
     },
     {
       "artifact_id": "ART-678",
@@ -3462,7 +3462,7 @@
     {
       "artifact_id": "ART-694",
       "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-      "sha256": "abf95688bf6d2aa1da8246f322dbd5453ac77a967e7229a015c3bb030be34ab4"
+      "sha256": "62884ae7a6045f2562724dd3b3d378b98434144d4e717c456c2060866cd0d6cb"
     },
     {
       "artifact_id": "ART-692",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "10c7783d321c04bb1b13836d76ff45f1762846632801a3f60e1469f72c0d631d"
+      "sha256": "501ae3f505d95cf1837c31f524da93769f81d44fa4b9d4c980d0c2d28ee0515a"
     },
     {
       "artifact_id": "ART-742",
@@ -4043,6 +4043,11 @@
       "artifact_id": "ART-809",
       "path": "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
       "sha256": "213e94c2510c949d45f669664b166a4aa78a01d9dc895114f3192b0af864c389"
+    },
+    {
+      "artifact_id": "ART-810",
+      "path": "docs/knowledge/glossary.md",
+      "sha256": "1a9a0c84f22624b72d3fcd23f7ab0a8de8ff58a06154df42aec5e60659412a9f"
     }
   ],
   "exclusions": [

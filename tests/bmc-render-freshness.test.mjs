@@ -30,7 +30,7 @@ function rewritePackageManifestHashes(tempRoot) {
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
-test("BMC check mode rejects stale but valid portable renders", () => {
+function assertBmcCheckModeRejectsStalePortableRender(stalePath) {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-bmc-stale-"));
   try {
     fs.cpSync(path.join(root, "docs/product/bmc"), path.join(tempRoot, "docs/product/bmc"), {
@@ -42,8 +42,7 @@ test("BMC check mode rejects stale but valid portable renders", () => {
     const oldPngHash = sha256File(pngPath);
     const oldPdfHash = sha256File(pdfPath);
 
-    fs.appendFileSync(pngPath, Buffer.from("stale-render\n"));
-    fs.appendFileSync(pdfPath, Buffer.from("% stale-render\n"));
+    fs.appendFileSync(path.join(tempRoot, stalePath), Buffer.from("stale-render\n"));
 
     const newPngHash = sha256File(pngPath);
     const newPdfHash = sha256File(pdfPath);
@@ -71,9 +70,17 @@ test("BMC check mode rejects stale but valid portable renders", () => {
     assert.notEqual(
       result.status,
       0,
-      `stale valid PNG/PDF renders must be rejected by check mode\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`,
+      `stale valid portable render must be rejected by check mode: ${stalePath}\nstdout:\n${result.stdout}\nstderr:\n${result.stderr}`,
     );
   } finally {
     fs.rmSync(tempRoot, { recursive: true, force: true });
   }
+}
+
+test("BMC check mode rejects a stale PNG when PDF remains fresh", () => {
+  assertBmcCheckModeRejectsStalePortableRender("docs/product/bmc/source/derived/datacanvas-bmc.png");
+});
+
+test("BMC check mode rejects a stale PDF when PNG remains fresh", () => {
+  assertBmcCheckModeRejectsStalePortableRender("docs/product/bmc/source/derived/datacanvas-bmc.pdf");
 });

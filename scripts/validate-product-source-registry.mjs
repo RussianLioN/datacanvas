@@ -153,6 +153,37 @@ function assertXlsxCascadeGraphConsistency(registry) {
   }
 }
 
+function assertRoadmapSourceConsistency(registry) {
+  const co002 = registry.sources.find((source) => source.source_id === "SRC-DC-CO-2026-002");
+  const roadmap = registry.sources.find((source) => source.source_id === "SRC-DC-ROADMAP-V0-1");
+  if (!co002 || !roadmap) {
+    return;
+  }
+
+  const roadmapText = readText(roadmap.path);
+  const roadmapContainsAcceptedSplit = [
+    "приоритет `P1`",
+    "приоритет `P2`",
+    "по электронной почте",
+    "ссылка возвращается вызывающему агенту",
+    "уведомление и ссылку в Лисе",
+  ].every((snippet) => roadmapText.includes(snippet));
+
+  if (!roadmapContainsAcceptedSplit) {
+    throw new Error("roadmap-v0.1.md must reflect the accepted CO-2026-002 P1/P2 delivery split");
+  }
+
+  if (roadmap.upstream_decision !== co002.upstream_decision) {
+    throw new Error("roadmap source registry entry must use CO-2026-002 as controlling upstream decision");
+  }
+  if (roadmap.effective_date !== co002.effective_date) {
+    throw new Error("roadmap source registry entry must use the accepted CO-2026-002 effective date");
+  }
+  if (!co002.affected_artifacts.includes(roadmap.path)) {
+    throw new Error("CO-2026-002 source registry entry must list roadmap-v0.1.md as an affected artifact");
+  }
+}
+
 try {
   requireFile(schemaPath);
   requireFile(registryPath);
@@ -223,6 +254,7 @@ try {
   }
 
   assertXlsxRecoveryIndexConsistency(registry);
+  assertRoadmapSourceConsistency(registry);
 
   if (consistencyMode) {
     assertXlsxCascadeGraphConsistency(registry);

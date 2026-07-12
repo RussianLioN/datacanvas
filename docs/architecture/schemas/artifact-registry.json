@@ -8863,6 +8863,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "BMC classic validation RCA, prevention rule or validator coverage changes."
+    },
+    {
+      "id": "ART-810",
+      "path": "docs/knowledge/glossary.md",
+      "type": "knowledge-glossary",
+      "owner_role": "Documentation Owner / Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Термины Vision, BMC, требований, дорожной карты или продуктовых маршрутов меняются."
     }
   ]
 }

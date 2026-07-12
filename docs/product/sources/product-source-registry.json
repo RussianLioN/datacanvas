@@ -75,6 +75,7 @@
         "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/product/requirements/user-stories.md",
         "docs/product/backlog/product-backlog.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
         "docs/product/requirements/business-requirements.md",
@@ -366,8 +367,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
-      "effective_date": "2026-07-03",
-      "upstream_decision": "CO-2026-001",
+      "effective_date": "2026-07-10",
+      "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "roadmap_context",
         "capacity_review"
@@ -376,7 +377,7 @@
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Плановый источник для проверки влияния CO-2026-001 на порядок работ; смысловые изменения в roadmap требуют отдельного решения PO."
+      "notes": "Плановый источник обновлен по CO-2026-002: roadmap-v0.1 отражает принятое разделение поставки, где P1 включает основной запуск DataCanvas другим агентом и доставку PPTX/PDF по электронной почте, а P2 отделяет расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе. Смысловые изменения в roadmap требуют отдельного решения Product Owner."
     },
     {
       "source_id": "SRC-DC-HYPOTHESIS-BOARD",

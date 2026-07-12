@@ -435,6 +435,26 @@
       "authority_scope": [
         "provenance"
       ]
+    },
+    {
+      "artifact_id": "DGA-050",
+      "path": "docs/knowledge/glossary.md",
+      "layer": "Vision",
+      "owner_role": "Documentation Owner / Product Owner",
+      "validation_command": "npm run validate:product-vision",
+      "authority_scope": [
+        "product_meaning"
+      ]
+    },
+    {
+      "artifact_id": "DGA-051",
+      "path": "docs/product/vision/manifest.json",
+      "layer": "Vision",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:product-vision",
+      "authority_scope": [
+        "product_meaning"
+      ]
     }
   ],
   "declared_cycle_groups": [
@@ -2866,10 +2886,55 @@
         "provenance_only",
         "source_identity"
       ]
+    },
+    {
+      "edge_id": "EDGE-0103",
+      "upstream_artifact": "docs/knowledge/glossary.md",
+      "downstream_artifact": "docs/product-vision.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение терминов глоссария требует проверки Vision, потому что Vision использует глоссарий как вход для человекочитаемых определений.",
+      "validation_command": "npm run validate:product-vision",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "product_meaning",
+        "business_model",
+        "business_requirement",
+        "non_functional_requirement",
+        "acceptance_meaning",
+        "scope_change",
+        "story_text_change",
+        "roadmap_meaning",
+        "mixed_or_ambiguous"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0104",
+      "upstream_artifact": "docs/knowledge/glossary.md",
+      "downstream_artifact": "docs/product/vision/manifest.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "Изменение глоссария требует сверить манифест Vision: glossary_path и required_glossary_terms должны оставаться точными.",
+      "validation_command": "npm run validate:product-vision",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "product_meaning",
+        "business_model",
+        "business_requirement",
+        "non_functional_requirement",
+        "acceptance_meaning",
+        "scope_change",
+        "story_text_change",
+        "roadmap_meaning",
+        "mixed_or_ambiguous"
+      ]
     }
   ],
   "high_impact_sources": [
     "docs/product-vision.md",
+    "docs/knowledge/glossary.md",
     "docs/product/vision/vision-v0.1.md",
     "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
     "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
