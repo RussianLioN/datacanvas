@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "fb01e741493c17547792a063ad65deafbf00548ae1a7a9469077123f78385bd8"
+      "sha256": "db2cc649e183e8c9d7cf49a8befd04cd6da08048f4b2b4de07a2537244f8ea4f"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "29810f41fbad6be0bf39f62a2cfffbe224033c22f4531cada3775ede49b810da"
+      "sha256": "a151127eb21d1f117117b517bcf190e7d1010b2c70dd23d188c1789b6817162b"
     },
     {
       "artifact_id": "ART-201",
@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "f450f35c2cfd665a7d4f2855b445cce6ab8657c56c5130b16df42884e94a3c9a"
+      "sha256": "7f9c9b9be3fa93bd71964e327ac09e5d49c277bbb216b4880ac5fdf2ea6fb610"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "58de4fd61f0298e38fb71cee517e3f9f63075118b6ab3f52dd610ed5f04ba897"
+      "sha256": "86b22fe91f81d244f8fecc3acbaa8d188fcaae476d75f04b02106359eb85c75c"
     },
     {
       "artifact_id": "ART-400",
@@ -2042,22 +2042,22 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "e62c37331dc3afa45032431337ce547bb24c9038bb94cc98d0391b4f0978c304"
+      "sha256": "2be46ca525630e0c1abd4fe906379fdd3a1b36591517d40758aca6e717e88f0e"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "ce7789e1ff627f4d9b3a6d70b568906c991656e080de1a4d3390d018f13d00c7"
+      "sha256": "55b921421105bf648bc991a01984e3433fe3769f37e185e78b18dfeb68a07779"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "6533d05918e5f5eed198675d9ac11c3afa611d0602987fad883acde9adcde385"
+      "sha256": "07c77b15e1763959f657e0977f5eab9cd00b1c09eb3597fbac94752db02781ab"
     },
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "62f6fee1a8017f15f0d1cdd4e36a7f3916542d256fbc6d275c325298a82f5ccc"
+      "sha256": "1350c1cddddc0399e88597246288a17169da41418cfdb2bfff4e76ab14b7c2cc"
     },
     {
       "artifact_id": "ART-413",
@@ -2077,7 +2077,7 @@
     {
       "artifact_id": "ART-416",
       "path": "scripts/generate-docs-navigation.mjs",
-      "sha256": "517dbb8d251383755a0272ef1d8d952f00273374992886fbfba898e666b979f5"
+      "sha256": "bf5b7d0b70491f82e082894cfc8e8662a02a4ecb82ac2437b949cf20d48c84bf"
     },
     {
       "artifact_id": "ART-417",
@@ -2092,7 +2092,7 @@
     {
       "artifact_id": "ART-419",
       "path": "scripts/validate-doc-stale-status.mjs",
-      "sha256": "1a1847a9ae6db2d64e753e9123b82c67957dba732c355108d1bfa290ddba65ca"
+      "sha256": "bfb06b7d945a36ba3df7d52e57673d45e3d8ff077fd36c883ac51c3a67b4dcb2"
     },
     {
       "artifact_id": "ART-420",
@@ -2847,7 +2847,7 @@
     {
       "artifact_id": "ART-569",
       "path": "docs/process/methodology/README.md",
-      "sha256": "9787c5df66f94fd57c3075681ebfbe5ef666b4e423651d4365b72fbcf1445086"
+      "sha256": "6ef289d62bb33fec7cbcc3f7e7a3abaa21022bc371195782aa1447421a971c01"
     },
     {
       "artifact_id": "ART-570",
@@ -3978,6 +3978,21 @@
       "artifact_id": "ART-796",
       "path": "tests/fixtures/cascading-governance/vnext/validation-manifest.json",
       "sha256": "9889e0f98f99d2ca1bce2263bd5ea4498297c0c73ef16616bad54f9d34133ec4"
+    },
+    {
+      "artifact_id": "ART-797",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "sha256": "222177b21834a87f1e6beb9bab8a23c93edf44892e20eda1421ec2b4ac0a382e"
+    },
+    {
+      "artifact_id": "ART-798",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.pdf",
+      "sha256": "53a7e90eb3448b79bedcfce5e11a7b24c673ce93cd1362383d9e33533a511608"
+    },
+    {
+      "artifact_id": "ART-799",
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.docx",
+      "sha256": "08bdb22225acf5355da2560dc2f96cc4165e61ba742df6abc66480f955d6a796"
     }
   ],
   "exclusions": [

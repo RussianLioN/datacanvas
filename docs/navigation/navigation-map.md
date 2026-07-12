@@ -5,15 +5,15 @@
 Статус: generated
 Источник: `docs/navigation/navigation-source.json`
 
-## Быстрые Маршруты По Контурам
+## Быстрые маршруты по контурам
 
 ## Продукт DataCanvas
 
-Vision, BMC, stories, требования, backlog, roadmap, hypotheses и traceability продукта.
+Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта.
 
 ### Бизнесовая карта продукта
 
-Vision, BMC, stories, требования, backlog, roadmap, гипотезы и traceability.
+Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта.
 
 - [Продукт DataCanvas](../product/README.md) - Product Owner, `active`.
 - [Видение продукта DataCanvas](../product-vision.md) - Product Owner, `active`.
@@ -36,29 +36,30 @@ Vision, BMC, stories, требования, backlog, roadmap, гипотезы �
 
 ## Техническое воплощение ведения проектной документации
 
-Методология, процесс, navigation source, generated navigation, ADR, schemas, scripts, validators, release, evidence и sprint artifacts.
+Методология, процесс, ручной источник навигации, сгенерированная навигация, ADR — архитектурные решения, схемы, скрипты, проверки, release, evidence и спринтовые артефакты.
 
 ### Производственный контур
 
-Sprint, release, UAT, pilot, production/process evidence и PR handoff.
+Спринты, релизы, UAT, пилот, доказательства процесса и подготовка к сдаче.
 
 - [Release И Evidence DataCanvas](../release/README.md) - Delivery/GitOps Lead, `active`.
 - [Sprint Artifacts DataCanvas](../sprints/README.md) - Scrum Master, `active`.
 
 ### Техническая документация
 
-Архитектура, ADR, schemas, scripts, tests, security contracts и technical backlog.
+Архитектура, ADR — архитектурные решения, схемы, скрипты, проверки, безопасность и технический бэклог.
 
 - [Архитектура DataCanvas](../architecture/README.md) - AI Agent Architect, `active`.
 
 ### Методика и governance
 
-Процесс документации, PROC, планы, DoR/DoD и методики.
+Процесс документации, PROC — изменения процесса, планы, DoR/DoD и методики.
 
 - [Планы DataCanvas](../plans/README.md) - Process Owner, `active`.
+- [Процесс разработки ПО с поддержкой ИИ в крупной финтех-корпорации](../process/methodology/ai-enabled-software-development-process-research.md) - Process Owner, `active`.
 - [Нормализованный Источник BABOK-Исследования](../process/methodology/babok-research-source.md) - Process Owner, `active`.
 - [Методика Ведения Проектной Документации DataCanvas](../process/methodology/project-documentation-methodology.md) - Process Owner, `active`.
-- [Методика Проектной Документации](../process/methodology/README.md) - Process Owner, `active`.
+- [Методика проектной документации](../process/methodology/README.md) - Process Owner, `active`.
 - [Prompt-Only Согласование Артефактов Проектной Документации](../process/prompt-only-artifact-review/README.md) - Process Owner, `active`.
 - [Процесс DataCanvas](../process/README.md) - Process Owner, `active`.
 - [Универсальный рабочий процесс проектной документации](../process/universal-documentation-workflow/README.md) - Process Owner, `active`.
@@ -68,18 +69,18 @@ Sprint, release, UAT, pilot, production/process evidence и PR handoff.
 
 ### Evidence
 
-Evidence hub и generated/manual evidence exports без raw confidential данных.
+Evidence — доказательства, индекс доказательств и ручные/сгенерированные доказательные артефакты без конфиденциальных raw-данных.
 
 - [Evidence Hub DataCanvas](../knowledge/evidence-index.md) - Delivery/GitOps Lead, `active`.
 - [Knowledge Base DataCanvas](../knowledge/README.md) - Documentation Owner, `active`.
 
 ### Генерируемые артефакты
 
-Автоматически созданные карты, индексы и отчеты проверок; методика и ручные источники остаются в governance.
+Автоматически созданные карты, индексы и отчеты проверок; ручные источники остаются в governance.
 
 - [Карта Навигации Документации](navigation-map.md) - Documentation Owner, `generated`.
 
-## Маршруты По Ролям
+## Маршруты по ролям
 
 | ID | Маршрут | Контур | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|---|
@@ -91,7 +92,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `role-delivery-lead` | Delivery/GitOps Lead | `documentation_operations` | `delivery` | `docs/release/README.md` | `docs/release/commit-pr-evidence.md`, `docs/release/mvp-release-evidence-pack.md`, `docs/knowledge/evidence-index.md` | Delivery/GitOps Lead | `npm run validate:docs-navigation` |
 | `role-agent` | AI systems engineer | `documentation_operations` | `governance` | `AGENTS.md` | `docs/process/methodology/README.md`, `docs/navigation/navigation-source.json`, `docs/project-map.md` | Process Owner | `npm run validate:docs-navigation` |
 
-## Маршруты По Задачам
+## Маршруты по задачам
 
 | ID | Маршрут | Контур | Группа | Старт | Дальше | Владелец | Проверка |
 |---|---|---|---|---|---|---|---|
@@ -112,6 +113,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `task-plan-product-work` | Планировать продуктовую работу | `product` | `business` | `docs/product/backlog/README.md` | `docs/product/backlog/product-backlog.md`, `docs/product/roadmap/roadmap-v0.1.md`, `docs/product/hypotheses/hypothesis-board.md`, `docs/product/hypotheses/hypothesis-validation.md` | Product Owner | `npm run validate:docs-navigation` |
 | `task-find-technical-docs` | Найти техническую документацию | `documentation_operations` | `technical` | `docs/architecture/README.md` | `docs/product/backlog/technical-backlog.md`, `docs/architecture/schemas/schema-registry.md`, `docs/architecture/security/trust-boundaries.md` | AI Agent Architect | `npm run validate:docs-navigation` |
 | `task-find-documentation-methodology` | Найти методику документации | `documentation_operations` | `governance` | `docs/process/methodology/README.md` | `docs/process/methodology/project-documentation-methodology.md`, `docs/process/methodology/documentation-methodology-policy.json`, `docs/process/methodology/traceability-model.json` | Process Owner | `npm run validate:docs-navigation` |
+| `task-find-methodology-research` | Найти исследования по методике документации и процессу разработки | `documentation_operations` | `governance` | `docs/process/methodology/README.md` | `docs/process/methodology/ai-enabled-software-development-process-research.md`, `docs/process/methodology/babok-research-source.md` | Process Owner | `npm run validate:docs-navigation` |
 | `task-start-documentation-workflow` | Запустить полный рабочий процесс по артефактам документации | `documentation_operations` | `governance` | `docs/process/universal-documentation-workflow/README.md` | `docs/process/universal-documentation-workflow/universal-workflow-runbook.md`, `docs/process/universal-documentation-workflow/workflow-state.json`, `docs/process/universal-documentation-workflow/run-ledger.json`, `docs/process/universal-documentation-workflow/event-log.json`, `docs/process/universal-documentation-workflow/decision-queue.json` | Process Owner | `npm run validate:universal-documentation-workflow` |
 | `task-port-documentation-workflow` | Перенести методику на другой ИТ-продукт | `documentation_operations` | `governance` | `docs/process/universal-documentation-workflow/portability-pack.json` | `docs/process/universal-documentation-workflow/product-bootstrap-pack.json`, `docs/process/universal-documentation-workflow/schema-coverage-registry.json`, `docs/process/universal-documentation-workflow/artifact-inventory.json`, `docs/process/universal-documentation-workflow/validation-command-catalog.json` | Process Owner | `npm run validate:documentation-profile` |
 | `task-review-change-impact` | Проанализировать влияние изменения на артефакты документации | `documentation_operations` | `governance` | `docs/process/cascading-governance/README.md` | `docs/process/universal-documentation-workflow/universal-workflow-runbook.md`, `docs/process/guides/datacanvas-excel-backlog-sync.md`, `docs/process/cascading-governance/artifact-dependency-graph.json`, `docs/process/cascading-governance/acceptance-authority.json`, `docs/process/cascading-governance/supersession-ledger.json`, `docs/process/universal-documentation-workflow/validation-command-catalog.json` | Process Owner | `npm run validate:cascade-vnext` |
@@ -140,7 +142,7 @@ Evidence hub и generated/manual evidence exports без raw confidential дан
 | `current_main_commit` | `ee7fe4f18ba6f5aec5bb77e0096dcb6b3e0a57eb` |
 | `current_release_evidence` | `docs/release/mvp-release-evidence-pack.json` |
 
-## Evidence Hub И Registry
+## Evidence и registry
 
 - Evidence hub: `docs/knowledge/evidence-index.md`
 - Artifact registry: `docs/architecture/schemas/artifact-registry.json`

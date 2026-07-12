@@ -2,6 +2,18 @@
 
 DataCanvas - проект AI-агента, который формирует краткую презентацию на основе данных, подготовленных другим агентом или внешней системой.
 
+## Быстрые маршруты
+
+| Что ищете | Куда идти сначала | Что там находится |
+|---|---|---|
+| Понять продукт | [Продуктовая документация](docs/product/README.md) | Vision, BMC, истории, требования, бэклог, дорожная карта и гипотезы. |
+| Найти требования и критерии приемки | [Требования](docs/product/requirements/README.md) | Бизнес-требования, НФТ, критерии приемки и матрица трассировки. |
+| Проверить исходные документы и принятые изменения | [Исходные документы](docs/product/sources/README.md) и [change orders](docs/product/change-orders/README.md) | Реестр источников, аудит источников и принятые изменения продукта. |
+| Найти методику и исследования | [Методика проектной документации](docs/process/methodology/README.md) | Правила ведения документации, BABOK-источник и исследование процесса разработки с поддержкой ИИ. |
+| Запустить или проверить рабочий процесс документации | [Универсальный рабочий процесс](docs/process/universal-documentation-workflow/README.md) | Runbook, состояние запуска, журналы, правила переноса и проверки. |
+| Подготовить сдачу или найти evidence | [Release](docs/release/README.md) и [evidence index](docs/knowledge/evidence-index.md) | Релизные доказательства, PR evidence, pilot и handoff-материалы. |
+| Найти архитектуру, схемы и проверки | [Архитектура](docs/architecture/README.md), [схемы](schemas/README.md), [команды](package.json) | ADR, схемы, границы доверия, проверки и полный список команд. |
+
 ## Продукт DataCanvas
 
 | Что нужно | Куда идти |
@@ -18,14 +30,14 @@ DataCanvas - проект AI-агента, который формирует к�
 | BA/SA - бизнес-анализ и системный анализ | [docs/product/analysis/README.md](docs/product/analysis/README.md) и [docs/architecture/system-analysis/README.md](docs/architecture/system-analysis/README.md) |
 | Specs - спецификации | [docs/product/specs/README.md](docs/product/specs/README.md) |
 
-## Техническое Воплощение Ведения Проектной Документации
+## Техническое воплощение ведения проектной документации
 
 | Что нужно | Куда идти |
 |---|---|
 | Общий вход в документацию | [docs/README.md](docs/README.md) |
 | Карта слоев проекта | [docs/project-map.md](docs/project-map.md) |
 | Методология ведения проектной документации | [docs/process/methodology/README.md](docs/process/methodology/README.md) |
-| Глубокие исследования по методологии | [docs/process/methodology/babok-research-source.md](docs/process/methodology/babok-research-source.md) |
+| Методические исследования | [docs/process/methodology/README.md](docs/process/methodology/README.md) |
 | Организация рабочего процесса документации | [docs/process/README.md](docs/process/README.md) |
 | Navigation source - ручной источник навигации | [docs/navigation/navigation-source.json](docs/navigation/navigation-source.json) |
 | Generated navigation - автоматически созданная навигация | [docs/navigation/navigation-map.md](docs/navigation/navigation-map.md) |

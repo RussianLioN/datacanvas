@@ -364,37 +364,37 @@
     {
       "id": "business",
       "title": "Бизнесовая карта продукта",
-      "description": "Vision, BMC, stories, требования, backlog, roadmap, гипотезы и traceability.",
+      "description": "Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта.",
       "navigation_domain": "product"
     },
     {
       "id": "delivery",
       "title": "Производственный контур",
-      "description": "Sprint, release, UAT, pilot, production/process evidence и PR handoff.",
+      "description": "Спринты, релизы, UAT, пилот, доказательства процесса и подготовка к сдаче.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "technical",
       "title": "Техническая документация",
-      "description": "Архитектура, ADR, schemas, scripts, tests, security contracts и technical backlog.",
+      "description": "Архитектура, ADR — архитектурные решения, схемы, скрипты, проверки, безопасность и технический бэклог.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "governance",
       "title": "Методика и governance",
-      "description": "Процесс документации, PROC, планы, DoR/DoD и методики.",
+      "description": "Процесс документации, PROC — изменения процесса, планы, DoR/DoD и методики.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "evidence",
       "title": "Evidence",
-      "description": "Evidence hub и generated/manual evidence exports без raw confidential данных.",
+      "description": "Evidence — доказательства, индекс доказательств и ручные/сгенерированные доказательные артефакты без конфиденциальных raw-данных.",
       "navigation_domain": "documentation_operations"
     },
     {
       "id": "generated",
       "title": "Генерируемые артефакты",
-      "description": "Автоматически созданные карты, индексы и отчеты проверок; методика и ручные источники остаются в governance.",
+      "description": "Автоматически созданные карты, индексы и отчеты проверок; ручные источники остаются в governance.",
       "navigation_domain": "documentation_operations"
     }
   ],
@@ -1033,6 +1033,26 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "BABOK research interpretation or project-specific methodology source changes.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/process/methodology/ai-enabled-software-development-process-research.md",
+      "route_id": "ai-enabled-software-development-process-research",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Исследование процесса разработки ПО с поддержкой ИИ, его связанные форматы или методическое применение меняются.",
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": true,
@@ -3558,6 +3578,20 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "id": "task-find-methodology-research",
+      "label": "Найти методические исследования",
+      "task": "Найти исследования по методике документации и процессу разработки",
+      "navigation_group": "governance",
+      "start_path": "docs/process/methodology/README.md",
+      "next_paths": [
+        "docs/process/methodology/ai-enabled-software-development-process-research.md",
+        "docs/process/methodology/babok-research-source.md"
+      ],
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:docs-navigation",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "id": "task-start-documentation-workflow",
       "label": "Запустить workflow документации",
       "task": "Запустить полный рабочий процесс по артефактам документации",
@@ -3859,12 +3893,12 @@
     {
       "id": "product",
       "title": "Продукт DataCanvas",
-      "description": "Vision, BMC, stories, требования, backlog, roadmap, hypotheses и traceability продукта."
+      "description": "Видение, BMC — бизнес-модель, пользовательские истории, требования, бэклог, дорожная карта, гипотезы и трассировка продукта."
     },
     {
       "id": "documentation_operations",
       "title": "Техническое воплощение ведения проектной документации",
-      "description": "Методология, процесс, navigation source, generated navigation, ADR, schemas, scripts, validators, release, evidence и sprint artifacts."
+      "description": "Методология, процесс, ручной источник навигации, сгенерированная навигация, ADR — архитектурные решения, схемы, скрипты, проверки, release, evidence и спринтовые артефакты."
     }
   ]
 }

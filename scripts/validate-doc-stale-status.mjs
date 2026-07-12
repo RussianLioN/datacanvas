@@ -60,6 +60,7 @@ function changedFiles(baseRef, headRef) {
 
 const mainPointerRefreshPaths = new Set([
   ".github/workflows/docs-check.yml",
+  "README.md",
   "docs/README.md",
   "docs/architecture/schemas/artifact-hash-manifest.json",
   "docs/navigation/documentation-index.json",
@@ -68,6 +69,8 @@ const mainPointerRefreshPaths = new Set([
   "docs/navigation/stale-status-report.md",
   "docs/process/current/process-metrics-snapshot.json",
   "docs/process/current/process-metrics-snapshot.md",
+  "docs/process/methodology/README.md",
+  "docs/process/methodology/ai-enabled-software-development-process-research.md",
   "docs/process/audits/plan-completion-audit.json",
   "docs/process/audits/plan-completion-audit.md",
   "docs/product/backlog/product-backlog.md",
@@ -81,6 +84,7 @@ const mainPointerRefreshPaths = new Set([
   "docs/sprints/2026-W27-backlog-closure/sprint-evidence-manifest.json",
   "docs/sprints/2026-W27-backlog-closure/sprint-goal.md",
   "docs/sprints/2026-W27-backlog-closure/sprint-summary.md",
+  "scripts/generate-docs-navigation.mjs",
   "scripts/validate-doc-stale-status.mjs",
 ]);
 
