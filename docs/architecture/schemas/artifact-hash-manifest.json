@@ -2092,7 +2092,7 @@
     {
       "artifact_id": "ART-419",
       "path": "scripts/validate-doc-stale-status.mjs",
-      "sha256": "bfb06b7d945a36ba3df7d52e57673d45e3d8ff077fd36c883ac51c3a67b4dcb2"
+      "sha256": "9cb77fd186bac5965b7341e2b40ee00cf25c76dca8e5a69448d992b51a4bd089"
     },
     {
       "artifact_id": "ART-420",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "25c0593262c76a6ba3aa6ceaf9ab30dbe412969ef3bc34b6f5031ba62cba533f"
+      "sha256": "74fa1e2eb22b0f3a2177e9b7aca34fa4a290fe0112a9472924cefe2a7d0ad4ba"
     },
     {
       "artifact_id": "ART-742",
