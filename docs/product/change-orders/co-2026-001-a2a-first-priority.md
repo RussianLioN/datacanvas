@@ -35,7 +35,7 @@ Product Owner decision: `accepted`.
 ## Согласованные Артефакты
 
 - `docs/product-vision.md`
-- `docs/stories.md`
+- `docs/product/requirements/user-stories.md`
 - `docs/product/backlog/agent-launch-candidate-stories-2026-q3.md`
 - `docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv`
 - `docs/product/bmc/bmc-v0.2.md`

@@ -43,7 +43,7 @@
   "known_limitations": [
     "Runner минимизирует действия пользователя, но не заменяет участие реального человека.",
     "Runner не заполняет pilot report и commit/PR evidence.",
-    "После успешной UAT нужно обновить release evidence, data leakage targets и completion audit отдельным инкрементом."
+    "После успешной UAT нужно обновить release evidence, data leakage targets и completion audit отдельным этапом."
   ],
   "next_safe_step": "Запустить npm run uat:real, пройти real UAT в браузере и затем выполнить release evidence update."
 }

@@ -4,12 +4,23 @@
   "status": "accepted",
   "source": "docs/product/interviews/ba-sa/interview-results.json",
   "reason": "Запуск DataCanvas другим агентом меняет первый продуктовый маршрут запуска, доверительную границу входных данных, статусы обработки, обратный вызов, трассировку и future acceptance.",
-  "priority_before": ["Запуск через Лису", "Запуск другим агентом"],
-  "priority_after": ["Запуск другим агентом", "Запуск через Лису"],
-  "affected_users": ["Product Owner", "КМ", "вызывающий агент", "оператор документационного сопровождения"],
+  "priority_before": [
+    "Запуск через Лису",
+    "Запуск другим агентом"
+  ],
+  "priority_after": [
+    "Запуск другим агентом",
+    "Запуск через Лису"
+  ],
+  "affected_users": [
+    "Product Owner",
+    "КМ",
+    "вызывающий агент",
+    "оператор документационного сопровождения"
+  ],
   "affected_artifacts": [
     "docs/product-vision.md",
-    "docs/stories.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/backlog/product-backlog.md",
     "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
     "docs/product/bmc/bmc-v0.2.md",
@@ -33,8 +44,19 @@
     "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
     "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md"
   ],
-  "affected_requirements": ["BT-005", "BT-006", "BT-012", "BT-014", "NFR-003"],
-  "affected_ports_adapters": ["A2A input envelope", "status/callback adapter", "Lisa launch adapter", "evidence storage"],
+  "affected_requirements": [
+    "BT-005",
+    "BT-006",
+    "BT-012",
+    "BT-014",
+    "NFR-003"
+  ],
+  "affected_ports_adapters": [
+    "A2A input envelope",
+    "status/callback adapter",
+    "Lisa launch adapter",
+    "evidence storage"
+  ],
   "adr_impact": "Нужен отдельный ADR перед фактическим включением A2A/MCP/provider или расширением network/tool границ; текущее решение принимает продуктовый приоритет и документы.",
   "sprint_impact": "Нужна оценка ёмкости, ресурсов и вытеснения существующих stories до включения в sprint scope.",
   "sprint_goal_test": "До sprint planning Product Owner подтверждает, какие candidate stories входят в scope после оценки ёмкости и ресурсов.",

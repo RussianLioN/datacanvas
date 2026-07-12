@@ -3,12 +3,23 @@
   "status": "accepted",
   "change_order_id": "CO-2026-001",
   "summary": "Запуск DataCanvas другим агентом становится первым продуктовым направлением. Это меняет маршрут запуска, доверительную границу входных данных, проверку входа, статусы, обратный вызов, трассировку и будущую оценку backlog.",
-  "priority_before": ["Запуск через Лису", "Запуск другим агентом"],
-  "priority_after": ["Запуск другим агентом", "Запуск через Лису"],
-  "affected_users": ["Product Owner", "КМ", "вызывающий агент", "оператор документационного сопровождения"],
+  "priority_before": [
+    "Запуск через Лису",
+    "Запуск другим агентом"
+  ],
+  "priority_after": [
+    "Запуск другим агентом",
+    "Запуск через Лису"
+  ],
+  "affected_users": [
+    "Product Owner",
+    "КМ",
+    "вызывающий агент",
+    "оператор документационного сопровождения"
+  ],
   "affected_artifacts": [
     "docs/product-vision.md",
-    "docs/stories.md",
+    "docs/product/requirements/user-stories.md",
     "docs/product/backlog/product-backlog.md",
     "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
     "docs/product/bmc/bmc-v0.2.md",
@@ -32,8 +43,19 @@
     "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
     "docs/product/change-orders/co-2026-001-acceptance-questionnaire-log.md"
   ],
-  "affected_requirements": ["BT-005", "BT-006", "BT-012", "BT-014", "NFR-003"],
-  "affected_ports_adapters": ["A2A input envelope", "status/callback adapter", "Lisa launch adapter", "evidence storage"],
+  "affected_requirements": [
+    "BT-005",
+    "BT-006",
+    "BT-012",
+    "BT-014",
+    "NFR-003"
+  ],
+  "affected_ports_adapters": [
+    "A2A input envelope",
+    "status/callback adapter",
+    "Lisa launch adapter",
+    "evidence storage"
+  ],
   "trust_boundary_delta": "Контекст от другого агента считается данными для презентации, а не инструкциями для DataCanvas, и должен пройти проверку достаточности и безопасности до подготовки результата.",
   "sprint_goal_impact": "Требует оценки ёмкости, ресурсов и вытеснения существующих stories до включения candidate stories в sprint scope.",
   "rollback": "Вернуть priority order к запуску через Лису first, пометить DC-ST-23..28 как deferred и повторить product/change-impact validators.",

@@ -1,0 +1,74 @@
+{
+  "$schema": "../../../schemas/xlsx-opml-jira-recovery-index.schema.json",
+  "version": "0.1.0",
+  "status": "draft",
+  "index_id": "XLSX-OPML-JIRA-RECOVERY-2026-07-08",
+  "updated_at": "2026-07-10T00:00:00Z",
+  "items": [
+    {
+      "item_id": "sanitized-source-xlsx",
+      "kind": "xlsx",
+      "status": "found",
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "source_id": "SRC-DC-STORIES-XLSX-SANITIZED",
+      "sha256": "d332fc30f68d6a185c3e6f19ed420b6d1bf2e25ad2b475fa3c1820d1cd6d8d51",
+      "downstream_use": [
+        "story_value_audit",
+        "opml_conversion_recovery",
+        "jira_import_recovery"
+      ],
+      "notes": "Контролируемая копия исходного Excel Product Owner без служебного absPath. SHA-256 оригинала и точное преобразование сохранены в отдельном манифесте происхождения."
+    },
+    {
+      "item_id": "working-xlsx-draft-pshe",
+      "kind": "xlsx",
+      "status": "found",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+      "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
+      "downstream_use": [
+        "accepted_effort_estimation",
+        "team_estimation_review",
+        "sprint_planning_input",
+        "jira_import_preparation"
+      ],
+      "notes": "Рабочая Excel-версия принята Product Owner как ресурсный вход для DC-ST-23..DC-ST-33; sprint backlog и Jira import требуют отдельного планировочного gate."
+    },
+    {
+      "item_id": "historical-stories-opml",
+      "kind": "opml",
+      "status": "not_found",
+      "path": null,
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": [
+        "derived_reconstruction_only"
+      ],
+      "notes": "В проектных документах есть историческое упоминание передачи stories.opml Product Owner, но физический source artifact не найден."
+    },
+    {
+      "item_id": "jira-import-package",
+      "kind": "jira_import",
+      "status": "pending_external",
+      "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": [
+        "jira_import_after_mapping_approval"
+      ],
+      "notes": "Импорт в Jira не переводится в ready без утвержденного JiraFieldMappingRequest."
+    },
+    {
+      "item_id": "confluence-import-map",
+      "kind": "confluence_map",
+      "status": "found",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "source_id": null,
+      "sha256": null,
+      "downstream_use": [
+        "documentation_package_navigation"
+      ],
+      "notes": "Карта импорта в Confluence используется как документационный ориентир, не как внешний publish-действие."
+    }
+  ]
+}

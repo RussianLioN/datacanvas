@@ -18,3 +18,9 @@
 - [Критерии приемки](acceptance-criteria.md)
 - [Traceability matrix](traceability-matrix.json)
 - [Правила slicing backlog](backlog-slicing-rules.md)
+
+## Машинные Связки
+
+Эти артефакты помогают валидаторам и каскадному workflow сверять принятые продуктовые решения с требованиями. Они не заменяют бизнесовые документы для чтения командой.
+
+- [Карта бизнес-утверждений](business-claim-map.json)

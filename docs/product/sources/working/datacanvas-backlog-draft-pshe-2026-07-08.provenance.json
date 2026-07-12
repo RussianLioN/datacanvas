@@ -1,0 +1,185 @@
+{
+  "$schema": "../../../../schemas/xlsx-backlog-provenance.schema.json",
+  "version": "0.1.0",
+  "status": "accepted",
+  "provenance_id": "XLSX-PSHE-PROV-2026-07-08",
+  "workbook": {
+    "original_source_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+    "source_path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+    "source_sha256": "d332fc30f68d6a185c3e6f19ed420b6d1bf2e25ad2b475fa3c1820d1cd6d8d51",
+    "source_sanitization_manifest": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+    "working_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "working_sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
+    "verifier_command": "npm run validate:xlsx-backlog",
+    "approval_status": "owner_approved",
+    "team_validation_status": "approved"
+  },
+  "rows": [
+    {
+      "story_id": "DC-ST-23",
+      "workbook_row": 26,
+      "analog_rows": [
+        8,
+        15,
+        21
+      ],
+      "draft_min": 22,
+      "draft_max": 22,
+      "selected_profile_row": 26,
+      "selected_value": 22,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-24",
+      "workbook_row": 27,
+      "analog_rows": [
+        8,
+        15
+      ],
+      "draft_min": 18,
+      "draft_max": 18,
+      "selected_profile_row": 27,
+      "selected_value": 18,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-25",
+      "workbook_row": 28,
+      "analog_rows": [
+        8,
+        15,
+        24
+      ],
+      "draft_min": 36,
+      "draft_max": 36,
+      "selected_profile_row": 28,
+      "selected_value": 36,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-26",
+      "workbook_row": 29,
+      "analog_rows": [
+        9,
+        10
+      ],
+      "draft_min": 10,
+      "draft_max": 10,
+      "selected_profile_row": 29,
+      "selected_value": 10,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-27",
+      "workbook_row": 30,
+      "analog_rows": [
+        12,
+        17
+      ],
+      "draft_min": 26,
+      "draft_max": 26,
+      "selected_profile_row": 30,
+      "selected_value": 26,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-28",
+      "workbook_row": 31,
+      "analog_rows": [
+        4,
+        12,
+        17
+      ],
+      "draft_min": 17.4,
+      "draft_max": 17.4,
+      "selected_profile_row": 31,
+      "selected_value": 17.4,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-29",
+      "workbook_row": 32,
+      "analog_rows": [
+        4,
+        12
+      ],
+      "draft_min": 30,
+      "draft_max": 30,
+      "selected_profile_row": 32,
+      "selected_value": 30,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-30",
+      "workbook_row": 33,
+      "analog_rows": [
+        12,
+        17,
+        30
+      ],
+      "draft_min": 26,
+      "draft_max": 26,
+      "selected_profile_row": 33,
+      "selected_value": 26,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-31",
+      "workbook_row": 34,
+      "analog_rows": [
+        28,
+        31
+      ],
+      "draft_min": 27.4,
+      "draft_max": 27.4,
+      "selected_profile_row": 34,
+      "selected_value": 27.4,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-32",
+      "workbook_row": 35,
+      "analog_rows": [
+        27,
+        30,
+        31
+      ],
+      "draft_min": 28,
+      "draft_max": 28,
+      "selected_profile_row": 35,
+      "selected_value": 28,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    },
+    {
+      "story_id": "DC-ST-33",
+      "workbook_row": 36,
+      "analog_rows": [
+        17,
+        30,
+        35
+      ],
+      "draft_min": 29,
+      "draft_max": 29,
+      "selected_profile_row": 36,
+      "selected_value": 29,
+      "approval_status": "owner_approved",
+      "team_validation_status": "approved"
+    }
+  ],
+  "downstream_policy": {
+    "may_update_sprint_backlog": true,
+    "may_export_to_jira": true,
+    "requires_team_approval_record": false,
+    "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-33. После CO-2026-002 строки DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута запуска другим агентом, а строки DC-ST-30..DC-ST-33 отражают P2-этап дорожной карты расширенной доставки, хранилища, ссылки и уведомления. Эти значения можно использовать как утвержденный ресурсный вход для каскадной синхронизации backlog, планирования и Jira/OPML-подготовки; sprint backlog все равно требует проверки емкости, порядка работ и вытеснения."
+  }
+}
