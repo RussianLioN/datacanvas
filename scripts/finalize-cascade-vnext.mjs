@@ -46,9 +46,22 @@ function validateResolutionSet(requiredPaths, entries, label, baseSha, candidate
   const extra = [...byPath.keys()].filter((candidate) => !requiredPaths.includes(candidate));
   if (missing.length || extra.length) throw new Error(`${label} coverage mismatch: missing=${missing.join(",")} extra=${extra.join(",")}`);
   for (const [relativePath, entry] of byPath) {
+    const diffEntry = diffByPath.get(relativePath);
+    const isRename = Boolean(diffEntry?.status.startsWith("R") && diffEntry.old_path);
+    const declaresRename = Boolean(entry.rename_from_path || entry.rename_to_path);
     if (entry.update_status === "applied") {
-      const diffEntry = diffByPath.get(relativePath);
       if (!diffEntry) throw new Error(`applied resolution has no Git delta: ${relativePath}`);
+      if (isRename && (
+        !entry.rename_from_path
+        || !entry.rename_to_path
+        || normalizeRepoPath(entry.rename_from_path) !== diffEntry.old_path
+        || normalizeRepoPath(entry.rename_to_path) !== diffEntry.path
+      )) {
+        throw new Error(`applied rename resolution must authorize the exact Git pair: ${relativePath}`);
+      }
+      if (!isRename && declaresRename) {
+        throw new Error(`rename authorization is only allowed for a Git rename: ${relativePath}`);
+      }
       const resultPath = diffEntry.status.startsWith("R") ? diffEntry.path : relativePath;
       verifyAppliedResolution({
         updateStatus: entry.update_status,
@@ -60,8 +73,11 @@ function validateResolutionSet(requiredPaths, entries, label, baseSha, candidate
           ? hashGitPatch(root, baseSha, candidateSha, resultPath)
           : null,
       });
-    } else if (!structuredRationale(entry)) {
-      throw new Error(`no-change resolution requires a structured rationale: ${relativePath}`);
+    } else {
+      if (declaresRename) throw new Error(`no-change resolution cannot authorize a rename: ${relativePath}`);
+      if (!structuredRationale(entry)) {
+        throw new Error(`no-change resolution requires a structured rationale: ${relativePath}`);
+      }
     }
   }
 }
@@ -166,9 +182,18 @@ async function main() {
     resolutionInputPath,
     ...acceptancePaths,
   ];
+  const authorizedRenames = [
+    ...resolutionInput.source_resolutions,
+    ...resolutionInput.artifact_resolutions,
+  ].filter((entry) => (
+    entry.update_status === "applied"
+    && entry.rename_from_path
+    && entry.rename_to_path
+  ));
   const allowedWrites = expandAllowedWritesForRenames(
     [...new Set([...requiredSources, ...appliedArtifactPaths, ...controlPaths])],
     diffEntries,
+    authorizedRenames,
   );
   const diffManifest = buildActualDiffManifestFromGit(root, {
     baseSha: sourceRun.base_sha,

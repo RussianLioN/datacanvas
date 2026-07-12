@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
@@ -92,6 +93,8 @@ export function assertRegistryDeltaIntegrity(registryDelta, {
   beforeSha256,
   afterSha256,
   registryChanged,
+  beforeRegistry,
+  afterRegistry,
 }) {
   if (!registryDelta) return;
   if (!registryChanged) throw new Error("source registry delta requires a real Git change");
@@ -99,6 +102,41 @@ export function assertRegistryDeltaIntegrity(registryDelta, {
     throw new Error("source registry delta hash mismatch");
   }
   if (beforeSha256 === afterSha256) throw new Error("source registry delta does not change registry content");
+  const actualSelectors = deriveRegistryDeltaSelectors(beforeRegistry, afterRegistry);
+  const declaredSelectors = [...(registryDelta.source_selectors ?? [])]
+    .map(({ source_id, operation }) => ({ source_id, operation }))
+    .sort((left, right) => left.source_id.localeCompare(right.source_id));
+  if (!isDeepStrictEqual(declaredSelectors, actualSelectors)) {
+    throw new Error("source registry delta selectors mismatch");
+  }
+}
+
+export function deriveRegistryDeltaSelectors(beforeRegistry, afterRegistry) {
+  const indexSources = (registry, label) => {
+    if (!registry || !Array.isArray(registry.sources)) throw new Error(`${label} source registry is invalid`);
+    const indexed = new Map();
+    for (const source of registry.sources) {
+      if (!source?.source_id || indexed.has(source.source_id)) {
+        throw new Error(`${label} source registry has a missing or duplicate source_id`);
+      }
+      indexed.set(source.source_id, source);
+    }
+    return indexed;
+  };
+  const before = indexSources(beforeRegistry, "before");
+  const after = indexSources(afterRegistry, "after");
+  const sourceIds = [...new Set([...before.keys(), ...after.keys()])].sort();
+  return sourceIds.flatMap((sourceId) => {
+    if (!before.has(sourceId)) return [{ source_id: sourceId, operation: "add" }];
+    if (!after.has(sourceId)) return [{ source_id: sourceId, operation: "remove" }];
+    const previous = before.get(sourceId);
+    const current = after.get(sourceId);
+    if (isDeepStrictEqual(previous, current)) return [];
+    return [{
+      source_id: sourceId,
+      operation: previous.path !== current.path ? "rename" : "update",
+    }];
+  });
 }
 
 export function resolveSourceIdentities({
@@ -171,16 +209,28 @@ function pathAllowed(candidate, allowedWrites) {
   return allowedWrites.some((allowed) => candidate === allowed || candidate.startsWith(`${allowed}/`));
 }
 
-export function expandAllowedWritesForRenames(allowedWrites, entries) {
+export function expandAllowedWritesForRenames(allowedWrites, entries, authorizedRenames = []) {
   const expanded = new Set(allowedWrites.map(normalizeRepoPath));
+  const actualRenameKeys = new Set(entries
+    .filter((entry) => String(entry.status).startsWith("R") && entry.old_path)
+    .map((entry) => `${normalizeRepoPath(entry.old_path)}\0${normalizeRepoPath(entry.path)}`));
+  const authorizedRenameKeys = new Set(authorizedRenames.map((entry) => {
+    const key = `${normalizeRepoPath(entry.rename_from_path)}\0${normalizeRepoPath(entry.rename_to_path)}`;
+    if (!actualRenameKeys.has(key)) throw new Error("rename authorization does not match Git delta");
+    return key;
+  }));
   for (const entry of entries) {
     if (!String(entry.status).startsWith("R") || !entry.old_path) continue;
     const currentPath = normalizeRepoPath(entry.path);
     const oldPath = normalizeRepoPath(entry.old_path);
-    if (expanded.has(currentPath) || expanded.has(oldPath)) {
-      expanded.add(currentPath);
-      expanded.add(oldPath);
+    const currentAllowed = pathAllowed(currentPath, [...expanded]);
+    const oldAllowed = pathAllowed(oldPath, [...expanded]);
+    if (currentAllowed === oldAllowed) continue;
+    if (!authorizedRenameKeys.has(`${oldPath}\0${currentPath}`)) {
+      throw new Error(`explicit rename authorization is required: ${oldPath} -> ${currentPath}`);
     }
+    expanded.add(currentPath);
+    expanded.add(oldPath);
   }
   return [...expanded].sort();
 }

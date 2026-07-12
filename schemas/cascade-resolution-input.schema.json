@@ -104,7 +104,17 @@
             { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
             { "type": "null" }
           ]
+        },
+        "rename_from_path": {
+          "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
+        },
+        "rename_to_path": {
+          "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath"
         }
+      },
+      "dependentRequired": {
+        "rename_from_path": ["rename_to_path"],
+        "rename_to_path": ["rename_from_path"]
       },
       "allOf": [
         {

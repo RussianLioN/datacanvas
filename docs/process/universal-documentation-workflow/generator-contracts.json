@@ -196,6 +196,7 @@
         "unregistered_xlsx_source",
         "semantic_change_without_owner_decision",
         "ambiguous_source_identity",
+        "registry_delta_selector_mismatch",
         "mutating_profile_command",
         "replay_input_mismatch",
         "owner_question_packet_hash_mismatch",
@@ -258,6 +259,7 @@
         "planning_package_commit_scope_mismatch",
         "planning_package_content_changed",
         "actual_git_diff_mismatch",
+        "rename_pair_not_explicitly_authorized",
         "unexpected_changed_path",
         "write_outside_finalization_directory"
       ]

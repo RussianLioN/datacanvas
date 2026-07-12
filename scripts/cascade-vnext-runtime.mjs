@@ -283,14 +283,20 @@ export function createIsolatedNpmEnvironment(tempRoot) {
   };
 }
 
-export function buildRuntimeManifest(root) {
+export function buildRuntimeManifest(root, environment = {}) {
   const packageJson = readJson(root, "package.json");
   const runVersion = (executable, args) => execFileSync(executable, args, {
     cwd: root,
     encoding: "utf8",
     timeout: 30_000,
     maxBuffer: 1024 * 1024,
-    env: { PATH: process.env.PATH, HOME: process.env.HOME, LANG: process.env.LANG ?? "C.UTF-8", TZ: process.env.TZ ?? "UTC" },
+    env: {
+      PATH: process.env.PATH,
+      HOME: environment.HOME ?? process.env.HOME,
+      LANG: process.env.LANG ?? "C.UTF-8",
+      TZ: process.env.TZ ?? "UTC",
+      ...environment,
+    },
   }).trim();
   return {
     $schema: "https://datacanvas.local/schemas/v1/cascade-runtime-manifest.schema.json",

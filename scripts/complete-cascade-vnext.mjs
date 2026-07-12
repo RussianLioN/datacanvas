@@ -259,7 +259,7 @@ async function main() {
   let commandResults;
   candidateWorktree(candidateSha, (worktree, environment) => {
     try {
-      assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree));
+      assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree, environment));
     } catch (error) {
       runtimeMatch = false;
       runtimeFailure = sanitizeOutput(error.message, worktree);

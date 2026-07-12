@@ -27,7 +27,13 @@
         "update_status": { "enum": ["applied", "no_change_confirmed", "not_applicable"] },
         "no_change_rationale": { "anyOf": [{ "type": "object" }, { "type": "null" }] },
         "expected_after_sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] },
-        "approved_patch_digest": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] }
+        "approved_patch_digest": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] },
+        "rename_from_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "rename_to_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+      },
+      "dependentRequired": {
+        "rename_from_path": ["rename_to_path"],
+        "rename_to_path": ["rename_from_path"]
       }
     }
   }

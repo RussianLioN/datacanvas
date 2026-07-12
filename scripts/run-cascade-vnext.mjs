@@ -272,6 +272,22 @@ async function main() {
   const targetPath = normalizeRepoPath(changeRequest.target_artifact);
   const initialTriggers = explicitTriggers.length > 0 ? explicitTriggers : [targetPath];
   const sensitiveSourceRoute = initialTriggers.some((candidate) => ["xlsx", "provenance", "source_registry"].includes(sourceKind(candidate)));
+  const changedEntries = parseGitNameStatus(run("git", ["diff", "--name-status", "-z", `${baseSha}..${planningHeadSha}`]));
+  const changedPaths = changedEntries.flatMap((entry) => [entry.path, entry.old_path].filter(Boolean));
+  if (registryDelta) {
+    const beforeRegistryContent = gitFileAt(baseSha, sourceRegistryPath);
+    const afterRegistryContent = gitFileAt(planningHeadSha, sourceRegistryPath);
+    if (!beforeRegistryContent || !afterRegistryContent) {
+      fail("source registry delta requires the registry in both Git revisions");
+    }
+    assertRegistryDeltaIntegrity(registryDelta, {
+      beforeSha256: sha256Buffer(beforeRegistryContent),
+      afterSha256: sha256Buffer(afterRegistryContent),
+      registryChanged: changedPaths.includes(sourceRegistryPath),
+      beforeRegistry: JSON.parse(beforeRegistryContent.toString("utf8")),
+      afterRegistry: JSON.parse(afterRegistryContent.toString("utf8")),
+    });
+  }
 
   let identities;
   try {
@@ -284,15 +300,6 @@ async function main() {
       provenance_path: null,
       resolution: "change_request",
     }];
-  }
-  const changedEntries = parseGitNameStatus(run("git", ["diff", "--name-status", "-z", `${baseSha}..${planningHeadSha}`]));
-  const changedPaths = changedEntries.flatMap((entry) => [entry.path, entry.old_path].filter(Boolean));
-  if (registryDelta) {
-    assertRegistryDeltaIntegrity(registryDelta, {
-      beforeSha256: sha256Buffer(gitFileAt(baseSha, sourceRegistryPath)),
-      afterSha256: sha256Buffer(gitFileAt(planningHeadSha, sourceRegistryPath)),
-      registryChanged: changedPaths.includes(sourceRegistryPath),
-    });
   }
   const resolvedTriggers = resolveActualTriggerPaths({
     initialTriggers,

@@ -9,7 +9,9 @@
       "path": "docs/product-vision.md",
       "update_status": "applied",
       "no_change_rationale": null,
-      "expected_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      "expected_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "rename_from_path": "docs/product-vision-old.md",
+      "rename_to_path": "docs/product-vision.md"
     }
   ],
   "artifact_resolutions": [],

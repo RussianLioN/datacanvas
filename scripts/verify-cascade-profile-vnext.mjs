@@ -118,7 +118,7 @@ async function main() {
   validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
 
   const executedCommands = candidateWorktree(candidateSha, (worktree, environment) => {
-    assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree));
+    assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree, environment));
     assertCatalogBinding(
       manifest,
       readJson(worktree, catalogPath),

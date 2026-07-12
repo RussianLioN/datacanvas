@@ -14,6 +14,7 @@ import {
   buildActualDiffManifest,
   canClaimDone,
   classifyXlsxChangeSignals,
+  deriveRegistryDeltaSelectors,
   expandAllowedWritesForRenames,
   resolveActualTriggerPaths,
   resolveSourceIdentities,
@@ -39,7 +40,11 @@ import {
   validateOwnerAcceptanceSet,
 } from "./cascade-owner-acceptance.mjs";
 import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
-import { createIsolatedNpmEnvironment, verifyAcceptanceConfirmationEvidence } from "./cascade-vnext-runtime.mjs";
+import {
+  buildRuntimeManifest,
+  createIsolatedNpmEnvironment,
+  verifyAcceptanceConfirmationEvidence,
+} from "./cascade-vnext-runtime.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -64,24 +69,68 @@ assert.deepEqual(
   ["SRC-DC-XLSX"],
   "однозначный источник должен определяться из активного реестра",
 );
+const registryBefore = {
+  sources: [{ source_id: "SRC-DC-XLSX", path: "docs/product/sources/working/backlog-old.xlsx" }],
+};
+const registryAfter = {
+  sources: [{ source_id: "SRC-DC-XLSX", path: "docs/product/sources/working/backlog.xlsx" }],
+};
+assert.deepEqual(deriveRegistryDeltaSelectors({
+  sources: [
+    { source_id: "SRC-A", path: "docs/a.md" },
+    { source_id: "SRC-B", path: "docs/b.md", owner_role: "Old Owner" },
+    { source_id: "SRC-C", path: "docs/c-old.md" },
+  ],
+}, {
+  sources: [
+    { source_id: "SRC-B", path: "docs/b.md", owner_role: "New Owner" },
+    { source_id: "SRC-C", path: "docs/c-new.md" },
+    { source_id: "SRC-D", path: "docs/d.md" },
+  ],
+}), [
+  { source_id: "SRC-A", operation: "remove" },
+  { source_id: "SRC-B", operation: "update" },
+  { source_id: "SRC-C", operation: "rename" },
+  { source_id: "SRC-D", operation: "add" },
+]);
 assert.doesNotThrow(() => assertRegistryDeltaIntegrity({
   before_sha256: "a".repeat(64),
   after_sha256: "b".repeat(64),
+  source_selectors: [{ source_id: "SRC-DC-XLSX", operation: "rename" }],
 }, {
   beforeSha256: "a".repeat(64),
   afterSha256: "b".repeat(64),
   registryChanged: true,
+  beforeRegistry: registryBefore,
+  afterRegistry: registryAfter,
 }));
 assert.throws(
   () => assertRegistryDeltaIntegrity({
     before_sha256: "0".repeat(64),
     after_sha256: "1".repeat(64),
+    source_selectors: [{ source_id: "SRC-DC-XLSX", operation: "rename" }],
   }, {
     beforeSha256: "a".repeat(64),
     afterSha256: "b".repeat(64),
     registryChanged: true,
+    beforeRegistry: registryBefore,
+    afterRegistry: registryAfter,
   }),
   /registry delta hash mismatch/u,
+);
+assert.throws(
+  () => assertRegistryDeltaIntegrity({
+    before_sha256: "a".repeat(64),
+    after_sha256: "b".repeat(64),
+    source_selectors: [{ source_id: "SRC-DC-VISION", operation: "update" }],
+  }, {
+    beforeSha256: "a".repeat(64),
+    afterSha256: "b".repeat(64),
+    registryChanged: true,
+    beforeRegistry: registryBefore,
+    afterRegistry: registryAfter,
+  }),
+  /registry delta selectors mismatch/u,
 );
 const cleanlinessCommand = completionCommandSet().find((command) => command.id === "worktree-cleanliness");
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "" }), true);
@@ -214,8 +263,25 @@ assert.throws(
 const renameAllowedWrites = expandAllowedWritesForRenames(
   ["docs/new.md"],
   [{ status: "R100", path: "docs/new.md", old_path: "docs/old.md" }],
+  [{ rename_from_path: "docs/old.md", rename_to_path: "docs/new.md" }],
 );
 assert.deepEqual(renameAllowedWrites, ["docs/new.md", "docs/old.md"]);
+assert.throws(
+  () => expandAllowedWritesForRenames(
+    ["docs/old.md"],
+    [{ status: "R100", path: "docs/new.md", old_path: "docs/old.md" }],
+    [],
+  ),
+  /explicit rename authorization/u,
+);
+assert.throws(
+  () => expandAllowedWritesForRenames(
+    ["docs/old.md"],
+    [{ status: "R100", path: "docs/new.md", old_path: "docs/old.md" }],
+    [{ rename_from_path: "docs/old.md", rename_to_path: ".github/workflows/pwn.yml" }],
+  ),
+  /rename authorization does not match Git delta/u,
+);
 assert.doesNotThrow(() => buildActualDiffManifest({
   baseSha: "1".repeat(40),
   planningHeadSha: "1".repeat(40),
@@ -414,6 +480,15 @@ assert.throws(
   }),
   /command_hash/u,
 );
+assert.throws(
+  () => assertValidationEvidenceComplete(validationManifest, {
+    executed_commands: [
+      ...completeProfileEvidence.executed_commands,
+      completeProfileEvidence.executed_commands[0],
+    ],
+  }),
+  /duplicate=/u,
+);
 const runtimeManifest = {
   version: "1.0.0",
   node: "22.20.0",
@@ -564,6 +639,23 @@ try {
   assert.equal(isolatedNpmEnvironment.HOME.startsWith(tempRoot + path.sep), true);
   assert.equal(isolatedNpmEnvironment.NPM_CONFIG_CACHE.startsWith(tempRoot + path.sep), true);
   assert.equal(fs.readFileSync(isolatedNpmEnvironment.NPM_CONFIG_USERCONFIG, "utf8"), "");
+  const fakeBin = path.join(tempRoot, "fake-bin");
+  const fakeNpm = path.join(fakeBin, "npm");
+  fs.mkdirSync(fakeBin);
+  fs.writeFileSync(fakeNpm, [
+    "#!/usr/bin/env node",
+    `if (process.env.HOME !== ${JSON.stringify(isolatedNpmEnvironment.HOME)}) process.exit(42);`,
+    `if (process.env.NPM_CONFIG_USERCONFIG !== ${JSON.stringify(isolatedNpmEnvironment.NPM_CONFIG_USERCONFIG)}) process.exit(43);`,
+    "console.log('11.8.0');",
+    "",
+  ].join("\n"), { mode: 0o755 });
+  const originalPath = process.env.PATH;
+  process.env.PATH = `${fakeBin}${path.delimiter}${originalPath}`;
+  try {
+    assert.equal(buildRuntimeManifest(process.cwd(), isolatedNpmEnvironment).npm, "11.8.0");
+  } finally {
+    process.env.PATH = originalPath;
+  }
   const targetDir = path.join(tempRoot, "runs", "RUN-001");
   publishAtomicPackage({
     targetDir,
