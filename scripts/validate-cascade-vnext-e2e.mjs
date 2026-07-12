@@ -271,6 +271,20 @@ try {
   exec("git", ["add", lifecycleFinalDir], worktree);
   exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: persist immutable cascade finalization package"], worktree);
 
+  const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
+  const finalizedRunOriginal = fs.readFileSync(finalizedRunAbsolute, "utf8");
+  const finalizedRunTampered = JSON.parse(finalizedRunOriginal);
+  finalizedRunTampered.candidate_head_sha = lifecycleBaseSha;
+  fs.writeFileSync(finalizedRunAbsolute, JSON.stringify(finalizedRunTampered, null, 2) + "\n", "utf8");
+  const tamperedProfileDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-tampered-profile";
+  const tamperedProfileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
+    "--run", finalizedRunPath,
+    "--output-dir", tamperedProfileDir,
+  ]);
+  assertFailedWithoutOutput(tamperedProfileResult, worktree, tamperedProfileDir, /not immutable/u);
+  fs.writeFileSync(finalizedRunAbsolute, finalizedRunOriginal, "utf8");
+  assert.equal(exec("git", ["status", "--porcelain=v1"], worktree), "");
+
   const lifecycleProfileDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-profile";
   const profileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
     "--run", finalizedRunPath,
@@ -292,7 +306,11 @@ try {
     "--run", profileRunPath,
     "--output-dir", lifecycleCompleteDir,
   ], 45 * 60 * 1000);
-  assert.equal(completionResult.status, 0, output(completionResult));
+  const completionEvidencePath = path.join(worktree, lifecycleCompleteDir, "completion-evidence.json");
+  const completionDiagnostics = fs.existsSync(completionEvidencePath)
+    ? "\n" + fs.readFileSync(completionEvidencePath, "utf8")
+    : "";
+  assert.equal(completionResult.status, 0, output(completionResult) + completionDiagnostics);
   const completedRun = JSON.parse(fs.readFileSync(path.join(worktree, lifecycleCompleteDir, "cascade-vnext-run.json"), "utf8"));
   assert.equal(completedRun.state, "verified");
   assert.equal(completedRun.completion_claim.done_claimed, true);

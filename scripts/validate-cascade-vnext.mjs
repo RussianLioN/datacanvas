@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 import {
   assertCascadeReplayInputs,
@@ -18,7 +20,7 @@ import {
 } from "./cascade-vnext-core.mjs";
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { analyzeSemanticCascade } from "./cascade-semantic-impact.mjs";
-import { buildValidationManifest } from "./cascade-validation-manifest.mjs";
+import { assertValidationEvidenceComplete, buildValidationManifest } from "./cascade-validation-manifest.mjs";
 import {
   assertValidationManifestIntegrity,
   parseSafeNpmCommand,
@@ -35,6 +37,7 @@ import {
   validateOwnerAcceptanceSet,
 } from "./cascade-owner-acceptance.mjs";
 import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
+import { verifyAcceptanceConfirmationEvidence } from "./cascade-vnext-runtime.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -357,6 +360,14 @@ assert.throws(
   () => assertValidationManifestIntegrity({ ...validationManifest, verification_level: "completion" }),
   /manifest sha256/u,
 );
+const completeProfileEvidence = {
+  executed_commands: validationManifest.planned_commands.map((planned) => ({ id: planned.id, status: "passed" })),
+};
+assert.doesNotThrow(() => assertValidationEvidenceComplete(validationManifest, completeProfileEvidence));
+assert.throws(
+  () => assertValidationEvidenceComplete(validationManifest, { executed_commands: completeProfileEvidence.executed_commands.slice(1) }),
+  /validation evidence mismatch/u,
+);
 const runtimeManifest = {
   version: "1.0.0",
   node: "22.20.0",
@@ -434,6 +445,14 @@ const acceptance = {
   selected_option_id: "OPT-ACCEPT",
 };
 acceptance.confirmation_evidence.sha256 = interactiveAcceptanceEvidenceHash(acceptance);
+assert.doesNotThrow(() => verifyAcceptanceConfirmationEvidence(process.cwd(), acceptance, "a".repeat(40)));
+assert.throws(
+  () => verifyAcceptanceConfirmationEvidence(process.cwd(), {
+    ...acceptance,
+    confirmation_evidence: { ...acceptance.confirmation_evidence, sha256: "0".repeat(64) },
+  }, "a".repeat(40)),
+  /evidence hash mismatch/u,
+);
 const resolutionInput = {
   source_run_path: sourceRunPath,
   decision_resolutions: [{
@@ -528,6 +547,58 @@ try {
     /symbolic link/u,
   );
   assert.deepEqual(fs.readdirSync(outsideRoot), [], "публикация не должна следовать по подмененной ссылке");
+
+  const raceParent = path.join(tempRoot, "race-parent");
+  const raceOutside = path.join(tempRoot, "race-outside");
+  const raceBackup = path.join(tempRoot, "race-staging-backup");
+  fs.mkdirSync(raceParent, { recursive: true });
+  fs.mkdirSync(raceOutside, { recursive: true });
+  assert.throws(
+    () => publishAtomicPackage({
+      targetDir: path.join(raceParent, "RUN-RACE"),
+      attemptId: "ATTEMPT-RACE",
+      files: new Map([["run.json", "{}\n"]]),
+      validate: () => {
+        const stagingRoot = path.join(raceParent, ".cascade-staging");
+        fs.renameSync(stagingRoot, raceBackup);
+        fs.symlinkSync(raceOutside, stagingRoot, "dir");
+      },
+    }),
+    /symbolic link|identity changed/u,
+  );
+  assert.equal(fs.existsSync(path.join(raceParent, "RUN-RACE")), false);
+  assert.deepEqual(fs.readdirSync(raceOutside), [], "подмена staging-корня не должна публиковать файлы наружу");
+
+  const approvalRepo = path.join(tempRoot, "approval-repo");
+  fs.mkdirSync(approvalRepo);
+  const approvalGit = (args) => execFileSync("git", args, { cwd: approvalRepo, encoding: "utf8" });
+  approvalGit(["init", "-q"]);
+  approvalGit(["config", "user.name", "Implementation Team"]);
+  approvalGit(["config", "user.email", "implementation-team@datacanvas.local"]);
+  fs.writeFileSync(path.join(approvalRepo, "approval.txt"), "approved\n", "utf8");
+  approvalGit(["add", "approval.txt"]);
+  approvalGit(["commit", "-q", "-m", "Approve estimate"]);
+  const approvalCommit = approvalGit(["rev-parse", "HEAD"]).trim();
+  const approvalCommitBody = approvalGit(["cat-file", "commit", approvalCommit]);
+  const repositoryAcceptance = {
+    ...acceptance,
+    owner_identity: "implementation-team@datacanvas.local",
+    owner_role: "Команда реализации",
+    confirmation_channel: "repository_approval",
+    confirmation_evidence: {
+      evidence_type: "repository_commit",
+      reference: approvalCommit,
+      sha256: crypto.createHash("sha256").update(approvalCommitBody).digest("hex"),
+    },
+  };
+  assert.doesNotThrow(() => verifyAcceptanceConfirmationEvidence(approvalRepo, repositoryAcceptance, approvalCommit));
+  assert.throws(
+    () => verifyAcceptanceConfirmationEvidence(approvalRepo, {
+      ...repositoryAcceptance,
+      owner_identity: "another-owner@datacanvas.local",
+    }, approvalCommit),
+    /owner identity/u,
+  );
 } finally {
   fs.rmSync(tempRoot, { recursive: true, force: true });
 }

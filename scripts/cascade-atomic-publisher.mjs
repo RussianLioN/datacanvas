@@ -18,6 +18,19 @@ function assertDirectoryIsNotSymlink(candidatePath, label) {
   if (!stat.isDirectory()) throw new Error(`${label} must be a directory: ${candidatePath}`);
 }
 
+function directoryIdentity(candidatePath, label) {
+  assertDirectoryIsNotSymlink(candidatePath, label);
+  const stat = fs.lstatSync(candidatePath);
+  return { dev: stat.dev, ino: stat.ino, realpath: fs.realpathSync(candidatePath) };
+}
+
+function assertDirectoryIdentity(candidatePath, expected, label) {
+  const actual = directoryIdentity(candidatePath, label);
+  if (actual.dev !== expected.dev || actual.ino !== expected.ino || actual.realpath !== expected.realpath) {
+    throw new Error(`${label} identity changed before atomic publication: ${candidatePath}`);
+  }
+}
+
 function fsyncPath(candidatePath) {
   const handle = fs.openSync(candidatePath, "r");
   try {
@@ -41,6 +54,8 @@ export function publishAtomicPackage({ targetDir, attemptId, files, validate = n
   } else {
     fs.mkdirSync(stagingRoot, { mode: 0o700 });
   }
+  const targetParentIdentity = directoryIdentity(targetParent, "target parent");
+  const stagingRootIdentity = directoryIdentity(stagingRoot, "cascade staging root");
   if (fs.statSync(stagingRoot).dev !== fs.statSync(targetParent).dev) {
     throw new Error("atomic cascade staging and target must be on the same filesystem");
   }
@@ -48,6 +63,7 @@ export function publishAtomicPackage({ targetDir, attemptId, files, validate = n
     throw new Error(`staging attempt already exists; run cleanup before retry: ${attemptId}`);
   }
   fs.mkdirSync(stagingDir, { mode: 0o700 });
+  const stagingDirIdentity = directoryIdentity(stagingDir, "cascade staging attempt");
 
   try {
     for (const [relativePath, content] of files.entries()) {
@@ -58,7 +74,11 @@ export function publishAtomicPackage({ targetDir, attemptId, files, validate = n
       fsyncPath(outputPath);
     }
     validate?.(stagingDir);
+    assertDirectoryIdentity(targetParent, targetParentIdentity, "target parent");
+    assertDirectoryIdentity(stagingRoot, stagingRootIdentity, "cascade staging root");
+    assertDirectoryIdentity(stagingDir, stagingDirIdentity, "cascade staging attempt");
     fsyncPath(stagingDir);
+    if (fs.existsSync(targetDir)) throw new Error(`target directory appeared before publication: ${targetDir}`);
     fs.renameSync(stagingDir, targetDir);
     fsyncPath(targetParent);
   } catch (error) {
@@ -66,7 +86,9 @@ export function publishAtomicPackage({ targetDir, attemptId, files, validate = n
     throw error;
   } finally {
     try {
-      if (fs.existsSync(stagingRoot) && fs.readdirSync(stagingRoot).length === 0) fs.rmdirSync(stagingRoot);
+      if (fs.existsSync(stagingRoot)
+        && !fs.lstatSync(stagingRoot).isSymbolicLink()
+        && fs.readdirSync(stagingRoot).length === 0) fs.rmdirSync(stagingRoot);
     } catch {
       // Startup cleanup handles an interrupted best-effort cleanup.
     }

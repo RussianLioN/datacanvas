@@ -3832,7 +3832,7 @@
     {
       "artifact_id": "ART-767",
       "path": "scripts/cascade-atomic-publisher.mjs",
-      "sha256": "ea025e6b5fe5743001e7fdfbffb63bd41043c48396ccce62bee7e1334d4222c3"
+      "sha256": "9ccab4759811565b19bd0f7c82aeab0634e6ee921343b0921b7955d0425ed5a2"
     },
     {
       "artifact_id": "ART-768",
@@ -3897,12 +3897,12 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "4ff6082d1a98cf674de17422479de600b0d7d46fd09645fab58643cd38591755"
+      "sha256": "a2752fa69ba78cf280246bf7e67e62610b722dfe2470814ec2a4bedebcd4ef13"
     },
     {
       "artifact_id": "ART-781",
       "path": "scripts/validate-cascade-vnext.mjs",
-      "sha256": "a1adcd721705ff61a58b706ec40d21328e9e3a8c75a3cb326302ab1a8dd9f9cc"
+      "sha256": "78affad68791d4a1b8f829873868fc5de8d13346d8bf215b3a580cf8eabecd45"
     },
     {
       "artifact_id": "ART-782",
