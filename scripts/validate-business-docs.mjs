@@ -452,6 +452,20 @@ function rulesFor(className, contractRules, generationRules = []) {
   return [...byId.values()];
 }
 
+function ruleMatches(pattern, text) {
+  const flags = pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`;
+  const regex = new RegExp(pattern.source, flags);
+  const matches = [];
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    matches.push(match);
+    if (match[0].length === 0) {
+      regex.lastIndex += 1;
+    }
+  }
+  return matches;
+}
+
 function contractClass(contract, className) {
   return contract.artifact_classes.find((candidate) => candidate.class_name === className);
 }
@@ -714,8 +728,10 @@ function findViolations(text, className, contract, document = undefined, generat
   const generationRules = compileGenerationCategoryRules(generationContract, generationDocument);
   const artifactClass = contractClass(contract, className);
   for (const rule of rulesFor(className, contractRules, generationRules)) {
-    const match = rule.pattern.exec(text);
-    if (match && !isAllowedBusinessTerm(text, match.index, match[0], rule, artifactClass)) {
+    for (const match of ruleMatches(rule.pattern, text)) {
+      if (isAllowedBusinessTerm(text, match.index, match[0], rule, artifactClass)) {
+        continue;
+      }
       violations.push({
         rule,
         line: lineForIndex(text, match.index),

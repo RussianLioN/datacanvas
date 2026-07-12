@@ -3588,7 +3588,7 @@
       "canonical_source": null,
       "generated_from": [],
       "parent_readme": "docs/knowledge/rca/README.md",
-      "artifact_registry_id": null,
+      "artifact_registry_id": "ART-809",
       "outgoing_links": [],
       "anchors": [
         "rca-bmc-classic-validation-gap",
@@ -3971,7 +3971,7 @@
       "canonical_source": null,
       "generated_from": [],
       "parent_readme": "docs/plans/README.md",
-      "artifact_registry_id": null,
+      "artifact_registry_id": "ART-807",
       "outgoing_links": [
         "docs/plans/README.md",
         "docs/process/audits/datacanvas-ba-package-three-phase-brainstorm.md",
@@ -4700,7 +4700,7 @@
       "canonical_source": null,
       "generated_from": [],
       "parent_readme": "docs/process/README.md",
-      "artifact_registry_id": null,
+      "artifact_registry_id": "ART-808",
       "outgoing_links": [
         "docs/plans/datacanvas-ba-package-completion-plan.md",
         "docs/process/README.md",
@@ -7678,6 +7678,7 @@
       "outgoing_links": [
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/product/README.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/user-stories.md",
@@ -7694,7 +7695,7 @@
         "основные-маршруты",
         "запуск-другим-агентом",
         "диалоговый-режим-в-лисе",
-        "доставка-по-ссылке-в-лисе",
+        "целевая-доставка-по-ссылке-в-лисе",
         "входные-данные",
         "участники-и-роли",
         "границы-продукта",

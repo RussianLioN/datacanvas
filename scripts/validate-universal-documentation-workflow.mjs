@@ -663,6 +663,14 @@ function validateDataCanvasProfile() {
   if (!visionEntry.validation_commands.includes("npm run validate:product-vision")) {
     fail("current Vision inventory entry must include product Vision validation");
   }
+  for (const requiredVisionInput of [
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+    "docs/product/requirements/business-claim-map.json",
+  ]) {
+    if (!visionEntry.inputs.includes(requiredVisionInput)) {
+      fail(`current Vision inventory entry is missing input: ${requiredVisionInput}`);
+    }
+  }
 
   const visionManifestEntry = inventory.artifacts.find((artifact) => artifact.path === "docs/product/vision/manifest.json");
   if (!visionManifestEntry) {
@@ -1028,6 +1036,7 @@ function validateSchemaCoverage() {
     "run_ledger",
     "event_log",
     "generator_contract",
+    "product_vision_manifest",
     "business_artifact_generation_contract",
     "business_claim_map",
     "main_artifact_lifecycle_chain",

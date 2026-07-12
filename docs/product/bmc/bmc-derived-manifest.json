@@ -24,12 +24,12 @@
     {
       "format": "png",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "745e9532d73454c89294dacbe0f75634a19ce8bbef946bdc41b7261f9a2a2044"
+      "sha256": "8587f89672b1f0a82fb1eb115f0c79ad4659c776fe8918fe3c1a29ad1e9ce1c8"
     },
     {
       "format": "pdf",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "a94634919880513fb372dd34c4d5fe4b7245c5339cdbde5194bb220d33812e2b"
+      "sha256": "c91336952d1b52ff4f05a7860d4057dc4412847ab89dd754f2d28317d9f84b23"
     },
     {
       "format": "validation_needs_json",

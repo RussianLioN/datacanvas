@@ -162,6 +162,13 @@
       ],
       "expected_downstream_fragments": [
         {
+          "artifact_path": "docs/product-vision.md",
+          "fragments": [
+            "Целевым направлением развития остается доставка по ссылке",
+            "текущая гарантированная доставка остается электронной почтой"
+          ]
+        },
+        {
           "artifact_path": "docs/product/requirements/user-stories.md",
           "fragments": [
             "DC-ST-30",

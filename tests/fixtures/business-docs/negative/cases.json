@@ -73,6 +73,12 @@
       "content": "\"ID\",\"Статус\"\n\"DC-ST-23\",\"P1; требуется оценка ПШЕ\"\n"
     },
     {
+      "id": "csv-allowed-first-trace-id-forbidden-later",
+      "className": "story_slice_export",
+      "expected_rule": "technical-contract",
+      "content": "\"DC-ST-28\",\"Принятая строка может повторять trace ID в каноническом контексте.\"\n\"DC-ST-29\",\"Новая строка не должна добавлять trace ID как техническую деталь.\"\n"
+    },
+    {
       "id": "story-catalog-summary-section",
       "className": "story_catalog",
       "expected_rule": "story-catalog-forbidden-section",

@@ -20,7 +20,7 @@ path = sys.argv[1]
 with zipfile.ZipFile(path) as z:
     for name in z.namelist():
         lowered = name.lower()
-        if not (lowered.endswith(".xml") or lowered.endswith(".rels") or lowered.endswith(".txt")):
+        if not (lowered.endswith(".xml") or lowered.endswith(".rels") or lowered.endswith(".txt") or lowered.endswith(".vml")):
             continue
         data = z.read(name).decode("utf-8", errors="ignore")
         print(f"--- {name} ---")

@@ -1072,7 +1072,7 @@
     {
       "artifact_id": "ART-215",
       "path": "scripts/validate-data-leakage.mjs",
-      "sha256": "72d08708220226a3eaad5856a4694c22562ec989794f8578a654bd9e9fd669e8"
+      "sha256": "b4e7500b2935a9b76abe647f106747b5725a1dd86196689e8396123693737308"
     },
     {
       "artifact_id": "ART-216",
@@ -1747,7 +1747,7 @@
     {
       "artifact_id": "ART-350",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "1cc9994cdbcf499acda142886e3c655be4d8fb7b42527a4284ca84b0e6613e7c"
+      "sha256": "b2ca0ff9bf70805acf4a76226858914b3f716d8f4da8284cb0493d5e7a07b8ed"
     },
     {
       "artifact_id": "ART-351",
@@ -1767,12 +1767,12 @@
     {
       "artifact_id": "ART-354",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "745e9532d73454c89294dacbe0f75634a19ce8bbef946bdc41b7261f9a2a2044"
+      "sha256": "8587f89672b1f0a82fb1eb115f0c79ad4659c776fe8918fe3c1a29ad1e9ce1c8"
     },
     {
       "artifact_id": "ART-355",
       "path": "scripts/generate-bmc-artifacts.mjs",
-      "sha256": "c9be760e3626300f442bc457b48d12810fdd3d398018f491521f1161cd55eedc"
+      "sha256": "8670d06a5aa6d84579e91e3ccfce51d55a9abc0131c02b6acc06134d4ce1490a"
     },
     {
       "artifact_id": "ART-356",
@@ -1912,22 +1912,22 @@
     {
       "artifact_id": "ART-383",
       "path": "docs/product/bmc/manifest.json",
-      "sha256": "433e91ede4de7289c901439e1e2f84cb95d536768fe7c6e89e34e760543f6878"
+      "sha256": "76fe55f8c49af02b624b7fbec80adf6750ca0c5168eff5b66063a251f92f217a"
     },
     {
       "artifact_id": "ART-384",
       "path": "docs/product/bmc/evidence/visual-review.md",
-      "sha256": "136fb1825944f987dbdd1a7d2b29ea89d693d1788984259c4a41cb85efb42851"
+      "sha256": "7af7dd716968cb44bc5772eefcec5a9864eb2da76a19e1fb8f83ef3fdc69a7ba"
     },
     {
       "artifact_id": "ART-385",
       "path": "docs/product/bmc/evidence/designer-consilium.json",
-      "sha256": "b9d380a56f23d7969cc604190ff17c7cb98dd7dd2058b977309ceec5495685b6"
+      "sha256": "ca4421b246d4d254c64ab2078e2c331bb82b8d0abc8332bfc830f7713663b6d9"
     },
     {
       "artifact_id": "ART-386",
       "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
-      "sha256": "0ce772e1696b0724eb7a41f137376fb168127720580d4ee59f9b5e543a980f93"
+      "sha256": "5cd3827efe4aa2ee71e028d71c7be04b9d405daf16b5b46fef1ceecd50c2d20f"
     },
     {
       "artifact_id": "ART-387",
@@ -1937,7 +1937,7 @@
     {
       "artifact_id": "ART-388",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "a94634919880513fb372dd34c4d5fe4b7245c5339cdbde5194bb220d33812e2b"
+      "sha256": "c91336952d1b52ff4f05a7860d4057dc4412847ab89dd754f2d28317d9f84b23"
     },
     {
       "artifact_id": "ART-389",
@@ -1947,7 +1947,7 @@
     {
       "artifact_id": "ART-390",
       "path": "scripts/validate-bmc-render-parity.mjs",
-      "sha256": "cd6266be5b74f1ccd9f903513abd0faddc021ae589c8490eed8531ff6bafc837"
+      "sha256": "56adfd7e5249495bc2a9a8d5166642ce5f44df7775a3feff121e2bf16b3ce6e7"
     },
     {
       "artifact_id": "ART-391",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "3846199b9d547fdec3570f6736d374c9522d7ef0ea783068e907db382cac1389"
+      "sha256": "1018a16214b0043d6ae60dda45d50b58b47e3e0aac812062eaebb6d89fc08883"
     },
     {
       "artifact_id": "ART-411",
@@ -2122,7 +2122,7 @@
     {
       "artifact_id": "ART-425",
       "path": "docs/product-vision.md",
-      "sha256": "07593f66774ff727693c411cee661abb3d9df1b3405992672a34caabe592dbcb"
+      "sha256": "6537f540e675a815e54b556afc1606dec063d9f8f23a426d0b429c2f76d4b146"
     },
     {
       "artifact_id": "ART-426",
@@ -3047,7 +3047,7 @@
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "2bed6c42b65d4d79ef618442edb01b360c0910979f085b6d27661d4c9eab6ac3"
+      "sha256": "1a2c56bcfb7d3fe23037245f4ca2583997661b81cd2b192e17cd88ee0cff6694"
     },
     {
       "artifact_id": "ART-609",
@@ -3242,7 +3242,7 @@
     {
       "artifact_id": "ART-648",
       "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
-      "sha256": "1aa6e9d1b03d6cf0b995546b5c3087eca18504bbe79a583050d4effd67853ab7"
+      "sha256": "497cdc339cb2207584f54e562b4567326a2dce6bcd30bbdf47c961407ce7c1b6"
     },
     {
       "artifact_id": "ART-649",
@@ -3282,7 +3282,7 @@
     {
       "artifact_id": "ART-656",
       "path": "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
-      "sha256": "e115c2f16daf6a2f7976c9eed40e11f5fe25c57df98c840c0bcc70d3711b1a65"
+      "sha256": "b79dae158d7b744b7e67506da2c6f7e9ee0aaf24ddf4464172956aefc34e6899"
     },
     {
       "artifact_id": "ART-657",
@@ -3387,7 +3387,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "7e9a0d083f35053b1014f69ae32ce709c7105f3b763c96c993f137a1f1adfde5"
+      "sha256": "84081bdd47317ed3297d6f89e4bd4c84d60959d5753fe501a3304048f75c3d70"
     },
     {
       "artifact_id": "ART-678",
@@ -3532,7 +3532,7 @@
     {
       "artifact_id": "ART-706",
       "path": "scripts/validate-business-docs.mjs",
-      "sha256": "647eb83d2cb66c3fa7decdd4114859e901a961e67636eb8baf9fdc3148dcccba"
+      "sha256": "7ca8aec8f934ac3b07673c677e821b208d4d2d8fbe6875b2f7d77740e9ec7513"
     },
     {
       "artifact_id": "ART-707",
@@ -3542,7 +3542,7 @@
     {
       "artifact_id": "ART-708",
       "path": "tests/fixtures/business-docs/negative/cases.json",
-      "sha256": "1c13b7dd5bd78bea9f98f594228090a3592fe7faa9f2c3d76850780f4aeb6ee3"
+      "sha256": "870cd596cf9c0bb6a7e9532157efa88343b323e74d3af84decadfd828cd43fd0"
     },
     {
       "artifact_id": "ART-709",
@@ -3612,7 +3612,7 @@
     {
       "artifact_id": "ART-723",
       "path": "docs/product/requirements/business-claim-map.json",
-      "sha256": "67cb0b805bc5b55213e6b8413e5ac6ba6ae82d6bc248e69644116f7d088d80c5"
+      "sha256": "a25d7f599f6797707d504d6033647c17842c56928089bd35cd0a48db55c96363"
     },
     {
       "artifact_id": "ART-724",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "fabd2b456432e44061f2a7e11eb2a74aff68b1cf7d41f1bc85555d2c35d4aae3"
+      "sha256": "10c7783d321c04bb1b13836d76ff45f1762846632801a3f60e1469f72c0d631d"
     },
     {
       "artifact_id": "ART-742",
@@ -4002,12 +4002,12 @@
     {
       "artifact_id": "ART-801",
       "path": "scripts/datacanvas_source_security.py",
-      "sha256": "9c54328850f65f773e31b167051819a7f91fe230a8169f74a473ba98ea24b767"
+      "sha256": "36f92e5845e5f0dc2397d75854617cc805958c583d22d08c4eafad6b864f83ea"
     },
     {
       "artifact_id": "ART-802",
       "path": "tests/test_datacanvas_source_security.py",
-      "sha256": "26542ab4c62a7e98ba49e036d856c65c96d05bdabccf22bbe266085f744e2024"
+      "sha256": "aa4c2fbdd36932c148cb0beb6606f0f21130e23f5e5232419c6cec90428568b8"
     },
     {
       "artifact_id": "ART-803",
@@ -4023,6 +4023,26 @@
       "artifact_id": "ART-805",
       "path": "docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md",
       "sha256": "dfca0c7cde2fd153d8b27a870cc44f6ddc9f406460a7acec060086e815bf365a"
+    },
+    {
+      "artifact_id": "ART-806",
+      "path": "schemas/product-vision-manifest.schema.json",
+      "sha256": "2f12a7a83d8b6c553282af9cec335ba1b25f93afb39ada2bbb18efe7b807ab43"
+    },
+    {
+      "artifact_id": "ART-807",
+      "path": "docs/plans/datacanvas-ba-package-completion-plan.md",
+      "sha256": "5d8ff9d51d7a692493c0128f813a7fc2c99ebf4470e49eb2fef10bdbfedf51f9"
+    },
+    {
+      "artifact_id": "ART-808",
+      "path": "docs/process/audits/datacanvas-ba-package-three-phase-brainstorm.md",
+      "sha256": "071d56a502ed1b22bb158b26749f10a144e70a6be8cf090ff4230663cd3ec269"
+    },
+    {
+      "artifact_id": "ART-809",
+      "path": "docs/knowledge/rca/2026-07-06-bmc-classic-validation-gap.md",
+      "sha256": "213e94c2510c949d45f669664b166a4aa78a01d9dc895114f3192b0af864c389"
     }
   ],
   "exclusions": [

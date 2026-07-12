@@ -142,8 +142,10 @@
       "visibility": "public",
       "inputs": [
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
         "docs/knowledge/glossary.md",
-        "docs/product/sources/product-source-registry.json"
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/requirements/business-claim-map.json"
       ],
       "outputs": [
         "docs/product/vision/manifest.json",

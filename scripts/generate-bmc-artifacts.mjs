@@ -757,11 +757,7 @@ function renderFromSvg(targetRoot) {
   const committedPng = absolute(paths.png);
   const committedPdf = absolute(paths.pdf);
   const hasCommittedRenders = fs.existsSync(committedPng) && fs.existsSync(committedPdf);
-  if (!updatePortableRenders && hasCommittedRenders) {
-    if (targetRoot !== root) {
-      fs.copyFileSync(committedPng, pngFile);
-      fs.copyFileSync(committedPdf, pdfFile);
-    }
+  if (!updatePortableRenders && hasCommittedRenders && targetRoot === root) {
     return;
   }
 

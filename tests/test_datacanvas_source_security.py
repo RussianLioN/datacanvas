@@ -153,8 +153,11 @@ class HistoryHygieneTest(unittest.TestCase):
     def test_detects_windows_unc_and_encoded_file_pointers_in_vml(self) -> None:
         samples = [
             b"C:\\Users\\private\\source.xlsx",
+            b"D:/private/source.xlsx",
+            b"D%3A%2Fprivate%2Fsource.xlsx",
             b"\\\\server\\private\\source.xlsx",
             b"file%3A%2F%2Fprivate%2Fsource.xlsx",
+            b"file%253A%252F%252Fprivate%252Fsource.xlsx",
             b"file&#58;//private/source.xlsx",
         ]
         for index, sample in enumerate(samples):
@@ -165,6 +168,37 @@ class HistoryHygieneTest(unittest.TestCase):
                     archive.writestr("xl/drawings/vmlDrawing1.vml", sample)
                 findings = MODULE._xlsx_findings(buffer.getvalue(), "commit", "sample.xlsx")
                 self.assertEqual(findings[0]["finding"], "xlsx_local_pointer")
+
+    def test_accepts_standard_ooxml_http_namespaces_without_drive_path_false_positive(self) -> None:
+        buffer = io.BytesIO()
+        with ZipFile(buffer, "w", ZIP_DEFLATED) as archive:
+            archive.writestr("xl/workbook.xml", b'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"/>')
+            archive.writestr(
+                "_rels/.rels",
+                b'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>',
+            )
+
+        findings = MODULE._xlsx_findings(buffer.getvalue(), "commit", "sample.xlsx")
+
+        self.assertEqual(findings, [])
+
+    def test_rejects_sanitized_package_with_unsafe_non_workbook_part_without_publishing_target(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "source.xlsx"
+            target = root / "sanitized.xlsx"
+            with ZipFile(source, "w", ZIP_DEFLATED) as archive:
+                archive.writestr("[Content_Types].xml", b"<Types/>")
+                archive.writestr(
+                    "xl/workbook.xml",
+                    b'<workbook><x:absPath url="/Users/private/source" xmlns:x="urn:abs"/></workbook>',
+                )
+                archive.writestr("xl/drawings/vmlDrawing1.vml", b"D:/private/source.xlsx")
+
+            with self.assertRaisesRegex(MODULE.SourceSecurityError, "forbidden content"):
+                MODULE.sanitize_xlsx(source, target)
+
+            self.assertFalse(target.exists())
 
 
 if __name__ == "__main__":

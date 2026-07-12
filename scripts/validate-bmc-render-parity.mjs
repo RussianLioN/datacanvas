@@ -175,6 +175,9 @@ try {
   if (freshPdfBytes.subarray(0, 5).toString("utf8") !== "%PDF-" || freshPdfBytes.length < 1000) {
     fail("fresh BMC PDF render from SVG is invalid");
   }
+  if (!pdfBytes.equals(freshPdfBytes)) {
+    fail("BMC PDF bytes do not match fresh deterministic rsvg-convert output from SVG");
+  }
 } catch (error) {
   if (error.status) {
     process.exit(error.status);

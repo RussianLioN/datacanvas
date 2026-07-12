@@ -8,6 +8,7 @@ import hashlib
 import html
 import io
 import json
+import tempfile
 import re
 import subprocess
 import sys
@@ -24,11 +25,15 @@ ABS_PATH_ELEMENT = re.compile(
     re.DOTALL,
 )
 LOCAL_POINTER = re.compile(rb"(?:/Users/|file://)", re.IGNORECASE)
-LOCAL_POINTER_TEXT = re.compile(r"(?:/Users/|file://|[A-Za-z]:\\|\\\\[^\\\s/]+\\[^\\\s/]+)", re.IGNORECASE)
+LOCAL_POINTER_TEXT = re.compile(
+    r"(?:/Users/|file://|(?<![A-Za-z])[A-Za-z]:[\\/]|\\\\[^\\\s/]+\\[^\\\s/]+)",
+    re.IGNORECASE,
+)
 EXTERNAL_RELATIONSHIP = re.compile(
     rb"(?:TargetMode\s*=\s*[\"']External[\"']|Target\s*=\s*[\"'](?:file|https?)://)",
     re.IGNORECASE,
 )
+NORMALIZATION_LIMIT = 5
 
 
 class SourceSecurityError(Exception):
@@ -47,45 +52,78 @@ def sanitize_workbook_xml(source: bytes) -> tuple[bytes, int]:
     sanitized, removed = ABS_PATH_ELEMENT.subn(b"", source)
     if removed == 0:
         raise SourceSecurityError("source workbook does not contain an absPath element")
-    if LOCAL_POINTER.search(sanitized):
+    if LOCAL_POINTER.search(sanitized) or LOCAL_POINTER_TEXT.search(normalize_pointer_text(sanitized)):
         raise SourceSecurityError("sanitized workbook.xml still contains a local pointer")
     return sanitized, removed
 
 
+def normalize_pointer_text(data: bytes | str) -> str:
+    if isinstance(data, bytes):
+        text = data.decode("utf-8", errors="ignore")
+    else:
+        text = data
+    for _ in range(NORMALIZATION_LIMIT):
+        normalized = unquote(html.unescape(text))
+        if normalized == text:
+            break
+        text = normalized
+    return text
+
+
 def sanitize_xlsx(source: Path, target: Path) -> dict:
     target.parent.mkdir(parents=True, exist_ok=True)
+    temporary_path: Path | None = None
     original_parts: dict[str, str] = {}
     sanitized_parts: dict[str, str] = {}
     changed_parts: list[str] = []
     removed_elements = 0
 
-    with ZipFile(source, "r") as original, ZipFile(target, "w") as sanitized:
-        if WORKBOOK_PART not in original.namelist():
-            raise SourceSecurityError(f"XLSX is missing {WORKBOOK_PART}")
-        for info in original.infolist():
-            original_data = original.read(info.filename)
-            sanitized_data = original_data
-            if info.filename == WORKBOOK_PART:
-                sanitized_data, removed_elements = sanitize_workbook_xml(original_data)
-            original_parts[info.filename] = sha256_bytes(original_data)
-            sanitized_parts[info.filename] = sha256_bytes(sanitized_data)
-            if sanitized_data != original_data:
-                changed_parts.append(info.filename)
-            sanitized.writestr(info, sanitized_data)
+    try:
+        with tempfile.NamedTemporaryFile(
+            prefix=f".{target.name}.",
+            suffix=".tmp",
+            dir=target.parent,
+            delete=False,
+        ) as temporary_file:
+            temporary_path = Path(temporary_file.name)
 
-    if changed_parts != [WORKBOOK_PART]:
-        raise SourceSecurityError(f"unexpected sanitized XLSX parts changed: {changed_parts}")
+        with ZipFile(source, "r") as original, ZipFile(temporary_path, "w") as sanitized:
+            if WORKBOOK_PART not in original.namelist():
+                raise SourceSecurityError(f"XLSX is missing {WORKBOOK_PART}")
+            for info in original.infolist():
+                original_data = original.read(info.filename)
+                sanitized_data = original_data
+                if info.filename == WORKBOOK_PART:
+                    sanitized_data, removed_elements = sanitize_workbook_xml(original_data)
+                original_parts[info.filename] = sha256_bytes(original_data)
+                sanitized_parts[info.filename] = sha256_bytes(sanitized_data)
+                if sanitized_data != original_data:
+                    changed_parts.append(info.filename)
+                sanitized.writestr(info, sanitized_data)
 
-    return {
-        "version": "1.0.0",
-        "transformation": "remove_namespace_independent_absPath_from_xl_workbook_xml",
-        "original_sha256": sha256_file(source),
-        "sanitized_sha256": sha256_file(target),
-        "removed_abs_path_elements": removed_elements,
-        "changed_parts": changed_parts,
-        "original_part_sha256": original_parts,
-        "sanitized_part_sha256": sanitized_parts,
-    }
+        if changed_parts != [WORKBOOK_PART]:
+            raise SourceSecurityError(f"unexpected sanitized XLSX parts changed: {changed_parts}")
+
+        findings = _xlsx_findings(temporary_path.read_bytes(), "SANITIZED", target.as_posix())
+        if findings:
+            raise SourceSecurityError(f"sanitized XLSX contains forbidden content: {findings}")
+
+        temporary_path.replace(target)
+        temporary_path = None
+
+        return {
+            "version": "1.0.0",
+            "transformation": "remove_namespace_independent_absPath_from_xl_workbook_xml",
+            "original_sha256": sha256_file(source),
+            "sanitized_sha256": sha256_file(target),
+            "removed_abs_path_elements": removed_elements,
+            "changed_parts": changed_parts,
+            "original_part_sha256": original_parts,
+            "sanitized_part_sha256": sanitized_parts,
+        }
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
 
 def _git(repo: Path, *args: str, binary: bool = False) -> bytes | str:
@@ -111,7 +149,7 @@ def _xlsx_findings(data: bytes, commit: str, workbook_path: str) -> list[dict[st
                 if not part.lower().endswith((".xml", ".rels", ".txt", ".vml")):
                     continue
                 part_data = workbook.read(part)
-                normalized_text = unquote(html.unescape(part_data.decode("utf-8", errors="ignore")))
+                normalized_text = normalize_pointer_text(part_data)
                 finding = None
                 if ABS_PATH_ELEMENT.search(part_data) or LOCAL_POINTER_TEXT.search(normalized_text):
                     finding = "xlsx_local_pointer"
@@ -142,10 +180,16 @@ def scan_git_history(repo: Path, base: str, head: str) -> list[dict[str, str]]:
     commits_text = _git(repo, "rev-list", "--reverse", f"{base}..{head}")
     assert isinstance(commits_text, str)
     findings: list[dict[str, str]] = []
+    xlsx_findings_by_blob: dict[str, list[dict[str, str]]] = {}
     for commit in filter(None, commits_text.splitlines()):
-        paths_text = _git(repo, "ls-tree", "-r", "--name-only", commit)
-        assert isinstance(paths_text, str)
-        for tracked_path in filter(None, paths_text.splitlines()):
+        tree_text = _git(repo, "ls-tree", "-r", "-z", commit)
+        assert isinstance(tree_text, str)
+        for entry in filter(None, tree_text.split("\0")):
+            try:
+                metadata, tracked_path = entry.split("\t", 1)
+                _mode, object_type, blob_sha = metadata.split()
+            except ValueError as error:
+                raise SourceSecurityError(f"cannot parse git tree entry for {commit}: {entry!r}") from error
             if tracked_path == FORBIDDEN_RAW_PATH:
                 findings.append(
                     {
@@ -158,9 +202,20 @@ def scan_git_history(repo: Path, base: str, head: str) -> list[dict[str, str]]:
                 continue
             if not tracked_path.lower().endswith(".xlsx"):
                 continue
-            data = _git(repo, "show", f"{commit}:{tracked_path}", binary=True)
-            assert isinstance(data, bytes)
-            findings.extend(_xlsx_findings(data, commit, tracked_path))
+            if object_type != "blob":
+                continue
+            if blob_sha not in xlsx_findings_by_blob:
+                data = _git(repo, "show", f"{commit}:{tracked_path}", binary=True)
+                assert isinstance(data, bytes)
+                xlsx_findings_by_blob[blob_sha] = _xlsx_findings(data, "<commit>", "<path>")
+            findings.extend(
+                {
+                    **finding,
+                    "commit": commit,
+                    "path": tracked_path,
+                }
+                for finding in xlsx_findings_by_blob[blob_sha]
+            )
     return findings
 
 

@@ -172,6 +172,15 @@
       "negative_rationale": "Business claim map is checked by npm run validate:business-claim-map against product-source-registry.json and required downstream fragments."
     },
     {
+      "entity": "product_vision_manifest",
+      "schema_path": "schemas/product-vision-manifest.schema.json",
+      "data_path": "docs/product/vision/manifest.json",
+      "positive_fixture_path": "docs/product/vision/manifest.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Product Vision manifest schema is validated by npm run validate:product-vision; negative public-content cases live in tests/fixtures/product-vision/negative/cases.json."
+    },
+    {
       "entity": "main_artifact_lifecycle_chain",
       "schema_path": "schemas/main-artifact-lifecycle-chain.schema.json",
       "data_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
