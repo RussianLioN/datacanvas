@@ -24,6 +24,7 @@ export function validateDocument(root, data, schemaPath) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
   ajv.addSchema(readJson(root, "schemas/common-defs.schema.json"));
+  ajv.addSchema(readJson(root, "schemas/cascade-impact-cone.schema.json"));
   ajv.addSchema(readJson(root, "schemas/impact-analysis-report.schema.json"));
   const validate = ajv.compile(readJson(root, schemaPath));
   if (!validate(data)) throw new Error(`${schemaPath} validation failed: ${JSON.stringify(validate.errors, null, 2)}`);
