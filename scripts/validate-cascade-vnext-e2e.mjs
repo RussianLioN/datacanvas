@@ -10,6 +10,11 @@ import { createIsolatedNpmEnvironment } from "./cascade-vnext-runtime.mjs";
 
 const root = process.cwd();
 const nestedValidation = process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1";
+const nestedRunSuffix = nestedValidation ? "-nested" : "";
+
+function runOutputDir(name) {
+  return `docs/process/cascading-governance/runs/${name}${nestedRunSuffix}`;
+}
 
 function exec(command, args, cwd = root, environment = {}) {
   return execFileSync(command, args, {
@@ -152,7 +157,7 @@ try {
 
   const dirtyMarkerPath = path.join(worktree, ".cascade-e2e-dirty");
   fs.writeFileSync(dirtyMarkerPath, "dirty\n", "utf8");
-  const dirtyBypassOutput = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-dirty-bypass";
+  const dirtyBypassOutput = runOutputDir("2026-07-11-vnext-e2e-dirty-bypass");
   const dirtyBypass = runPlanner(worktree, [
     "--change-request", changeRequestPath,
     "--output-dir", dirtyBypassOutput,
@@ -162,7 +167,7 @@ try {
   assertFailedWithoutOutput(dirtyBypass, worktree, dirtyBypassOutput, /requires a clean worktree/u);
   fs.rmSync(dirtyMarkerPath);
 
-  const outputA = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-a";
+  const outputA = runOutputDir("2026-07-11-vnext-e2e-a");
   const first = runPlanner(worktree, [
     "--change-request", changeRequestPath,
     "--output-dir", outputA,
@@ -178,7 +183,7 @@ try {
   assert.ok(firstImpact.write_obligations.length > 0, "изменение Vision должно дать нижестоящие обязательства");
   fs.rmSync(path.join(worktree, outputA), { recursive: true, force: true });
 
-  const outputB = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-b";
+  const outputB = runOutputDir("2026-07-11-vnext-e2e-b");
   const second = runPlanner(worktree, [
     "--change-request", changeRequestPath,
     "--output-dir", outputB,
@@ -189,7 +194,7 @@ try {
   assert.equal(secondRun.replay_key, firstRun.replay_key, "одинаковые входы должны давать один replay key");
   fs.rmSync(path.join(worktree, outputB), { recursive: true, force: true });
 
-  const noDeltaOutput = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-no-delta";
+  const noDeltaOutput = runOutputDir("2026-07-11-vnext-e2e-no-delta");
   const noDelta = runPlanner(worktree, [
     "--change-request", changeRequestPath,
     "--output-dir", noDeltaOutput,
@@ -197,7 +202,7 @@ try {
   ]);
   assertFailedWithoutOutput(noDelta, worktree, noDeltaOutput, /no Git delta/u);
 
-  const unknownXlsxOutput = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-unknown-xlsx";
+  const unknownXlsxOutput = runOutputDir("2026-07-11-vnext-e2e-unknown-xlsx");
   const unknownXlsx = runPlanner(worktree, [
     "--change-request", changeRequestPath,
     "--output-dir", unknownXlsxOutput,
@@ -225,7 +230,7 @@ try {
     "\n<!-- проверка полного жизненного цикла каскада vNext -->\n",
     "utf8",
   );
-  const lifecycleRequestPath = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-request/documentation-change-request.json";
+  const lifecycleRequestPath = runOutputDir("2026-07-11-vnext-e2e-lifecycle-request") + "/documentation-change-request.json";
   const lifecycleRequest = {
     version: "0.1.0",
     change_request_id: "DCR-2026-07-11-903",
@@ -251,7 +256,7 @@ try {
   exec("git", ["add", lifecycleSourcePath, lifecycleRequestPath], worktree);
   commitTestChange(worktree, "test: create full cascade lifecycle delta");
 
-  const lifecyclePlanDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-plan";
+  const lifecyclePlanDir = runOutputDir("2026-07-11-vnext-e2e-lifecycle-plan");
   const lifecyclePlanResult = runPlanner(worktree, [
     "--change-request", lifecycleRequestPath,
     "--output-dir", lifecyclePlanDir,
@@ -279,7 +284,7 @@ try {
     owner_role: "Process Owner",
     reconsider_when: "Пересмотреть при изменении содержания " + artifactPath + ".",
   });
-  const lifecycleResolutionPath = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-input/resolution-input.json";
+  const lifecycleResolutionPath = runOutputDir("2026-07-11-vnext-e2e-lifecycle-input") + "/resolution-input.json";
   const lifecycleResolution = {
     version: "1.0.0",
     resolution_id: "CRI-2026-07-11-903",
@@ -313,7 +318,7 @@ try {
   commitTestChange(worktree, "test: add cascade lifecycle resolution");
   const lifecycleCandidateSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
-  const lifecycleFinalDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-final";
+  const lifecycleFinalDir = runOutputDir("2026-07-11-vnext-e2e-lifecycle-final");
   const finalizeResult = runNodeScript(worktree, "scripts/finalize-cascade-vnext.mjs", [
     "--run", lifecycleRunPath,
     "--resolution-input", lifecycleResolutionPath,
@@ -326,40 +331,40 @@ try {
   commitTestChange(worktree, "test: persist immutable cascade finalization package");
   const finalizationPackageCommitSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
-  const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
-  const finalizedRunOriginal = fs.readFileSync(finalizedRunAbsolute, "utf8");
-  const finalizedRunTampered = JSON.parse(finalizedRunOriginal);
-  finalizedRunTampered.candidate_head_sha = finalizationPackageCommitSha;
-  fs.writeFileSync(finalizedRunAbsolute, JSON.stringify(finalizedRunTampered, null, 2) + "\n", "utf8");
-  const tamperedProfileDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-tampered-profile";
-  const tamperedProfileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
-    "--run", finalizedRunPath,
-    "--output-dir", tamperedProfileDir,
-  ]);
-  assertFailedWithoutOutput(tamperedProfileResult, worktree, tamperedProfileDir, /not immutable/u);
-  fs.writeFileSync(finalizedRunAbsolute, finalizedRunOriginal, "utf8");
-  assert.equal(exec("git", ["status", "--porcelain=v1"], worktree), "");
-
-  const lifecycleProfileDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-profile";
-  const profileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
-    "--run", finalizedRunPath,
-    "--output-dir", lifecycleProfileDir,
-  ]);
-  const profileEvidencePath = path.join(worktree, lifecycleProfileDir, "profile-evidence.json");
-  const profileDiagnostics = fs.existsSync(profileEvidencePath)
-    ? "\n" + fs.readFileSync(profileEvidencePath, "utf8")
-    : "";
-  assert.equal(profileResult.status, 0, output(profileResult) + profileDiagnostics);
-  const profileRunPath = lifecycleProfileDir + "/cascade-vnext-run.json";
-  const profileRun = JSON.parse(fs.readFileSync(path.join(worktree, profileRunPath), "utf8"));
-  assert.equal(profileRun.state, "profile_verified");
-  exec("git", ["add", lifecycleProfileDir], worktree);
-  commitTestChange(worktree, "test: persist immutable cascade profile package");
-
   if (nestedValidation) {
-    console.log("cascade vNext nested end-to-end validation passed through profile; active completion covers the completion phase");
+    console.log("cascade vNext nested end-to-end validation passed through finalization; active lifecycle covers profile and completion");
   } else {
-    const lifecycleCompleteDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-complete";
+    const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
+    const finalizedRunOriginal = fs.readFileSync(finalizedRunAbsolute, "utf8");
+    const finalizedRunTampered = JSON.parse(finalizedRunOriginal);
+    finalizedRunTampered.candidate_head_sha = finalizationPackageCommitSha;
+    fs.writeFileSync(finalizedRunAbsolute, JSON.stringify(finalizedRunTampered, null, 2) + "\n", "utf8");
+    const tamperedProfileDir = runOutputDir("2026-07-11-vnext-e2e-lifecycle-tampered-profile");
+    const tamperedProfileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
+      "--run", finalizedRunPath,
+      "--output-dir", tamperedProfileDir,
+    ]);
+    assertFailedWithoutOutput(tamperedProfileResult, worktree, tamperedProfileDir, /not immutable/u);
+    fs.writeFileSync(finalizedRunAbsolute, finalizedRunOriginal, "utf8");
+    assert.equal(exec("git", ["status", "--porcelain=v1"], worktree), "");
+
+    const lifecycleProfileDir = runOutputDir("2026-07-11-vnext-e2e-lifecycle-profile");
+    const profileResult = runNodeScript(worktree, "scripts/verify-cascade-profile-vnext.mjs", [
+      "--run", finalizedRunPath,
+      "--output-dir", lifecycleProfileDir,
+    ]);
+    const profileEvidencePath = path.join(worktree, lifecycleProfileDir, "profile-evidence.json");
+    const profileDiagnostics = fs.existsSync(profileEvidencePath)
+      ? "\n" + fs.readFileSync(profileEvidencePath, "utf8")
+      : "";
+    assert.equal(profileResult.status, 0, output(profileResult) + profileDiagnostics);
+    const profileRunPath = lifecycleProfileDir + "/cascade-vnext-run.json";
+    const profileRun = JSON.parse(fs.readFileSync(path.join(worktree, profileRunPath), "utf8"));
+    assert.equal(profileRun.state, "profile_verified");
+    exec("git", ["add", lifecycleProfileDir], worktree);
+    commitTestChange(worktree, "test: persist immutable cascade profile package");
+
+    const lifecycleCompleteDir = runOutputDir("2026-07-11-vnext-e2e-lifecycle-complete");
     const completionResult = runNodeScript(worktree, "scripts/complete-cascade-vnext.mjs", [
       "--run", profileRunPath,
       "--output-dir", lifecycleCompleteDir,
@@ -373,7 +378,7 @@ try {
     const completionEvidence = JSON.parse(fs.readFileSync(completionEvidencePath, "utf8"));
     const completionFullGate = completionEvidence.command_results.find((entry) => entry.id === "full-gate");
     assert.doesNotMatch(completionFullGate.summary, /nested end-to-end validation skipped/iu);
-    assert.match(completionFullGate.summary, /nested end-to-end validation passed through profile/iu);
+    assert.match(completionFullGate.summary, /nested end-to-end validation passed through finalization/iu);
     assert.equal(completedRun.state, "verified");
     assert.equal(completedRun.completion_claim.done_claimed, true);
     assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);

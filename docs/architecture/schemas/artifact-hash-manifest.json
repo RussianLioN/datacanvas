@@ -3237,7 +3237,7 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "4da2a0bb2bd895b9a9d96e76027aeaf48c8421b4bb1c3150677e7ba5259e0fb8"
+      "sha256": "642d70ce0942b88c23cc8e2e73e8b5d3dde9ed36771ef64fd37e76d5217cabbe"
     },
     {
       "artifact_id": "ART-648",
@@ -3897,7 +3897,7 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "3d4ed07af0b66e5a3e0079180406c52e1110715b156ba73609a5d0354f75c9ee"
+      "sha256": "c1333d57f67290be03c21a6123862e125abe49c0f673d3236e3e7d963571656b"
     },
     {
       "artifact_id": "ART-781",
