@@ -3752,7 +3752,7 @@
     {
       "artifact_id": "ART-751",
       "path": "docs/process/cascading-governance/supersession-ledger.json",
-      "sha256": "bdaab50d86e6e0b56ff9e4c96f38a2555620cb7bddca03e12dfd1a85583f1311"
+      "sha256": "8fa0be2487e6e6a0f146227988d343dcc6c5ee54878fe01e16a2debd21d0c096"
     },
     {
       "artifact_id": "ART-752",
@@ -3897,7 +3897,7 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "fc2fc405d189043586b0d830de9c01b9c430b1e7cbdd08f6338f4ebb94a021f7"
+      "sha256": "3c0372ff238fae0285dc3937cd4396436a1c61f389d3138d00d264f9d766aa3e"
     },
     {
       "artifact_id": "ART-781",
