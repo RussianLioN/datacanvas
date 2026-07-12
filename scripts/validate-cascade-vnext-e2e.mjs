@@ -7,6 +7,7 @@ import process from "node:process";
 import { execFileSync, spawnSync } from "node:child_process";
 
 import { createIsolatedNpmEnvironment } from "./cascade-vnext-runtime.mjs";
+import { NESTED_CASCADE_E2E_SUCCESS_MARKER } from "./cascade-completion-core.mjs";
 
 const root = process.cwd();
 const nestedValidation = process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1";
@@ -332,7 +333,7 @@ try {
   const finalizationPackageCommitSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
   if (nestedValidation) {
-    console.log("cascade vNext nested end-to-end validation passed through finalization; active lifecycle covers profile and completion");
+    console.log(NESTED_CASCADE_E2E_SUCCESS_MARKER);
   } else {
     const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
     const finalizedRunOriginal = fs.readFileSync(finalizedRunAbsolute, "utf8");
@@ -378,7 +379,7 @@ try {
     const completionEvidence = JSON.parse(fs.readFileSync(completionEvidencePath, "utf8"));
     const completionFullGate = completionEvidence.command_results.find((entry) => entry.id === "full-gate");
     assert.doesNotMatch(completionFullGate.summary, /nested end-to-end validation skipped/iu);
-    assert.match(completionFullGate.summary, /nested end-to-end validation passed through finalization/iu);
+    assert.ok(completionFullGate.summary.includes(NESTED_CASCADE_E2E_SUCCESS_MARKER));
     assert.equal(completedRun.state, "verified");
     assert.equal(completedRun.completion_claim.done_claimed, true);
     assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);

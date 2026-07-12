@@ -31,8 +31,10 @@ import {
 import {
   assertRuntimeManifestMatches,
   commandResultPassed,
+  completionCommandEvidenceProblems,
   completionCommandSet,
   completionCommandSetHash,
+  NESTED_CASCADE_E2E_SUCCESS_MARKER,
 } from "./cascade-completion-core.mjs";
 import {
   interactiveAcceptanceEvidenceHash,
@@ -171,6 +173,14 @@ assert.throws(
 const cleanlinessCommand = completionCommandSet().find((command) => command.id === "worktree-cleanliness");
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "" }), true);
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "?? generated.tmp\n" }), false);
+const fullGateCommand = completionCommandSet().find((command) => command.id === "full-gate");
+assert.deepEqual(completionCommandEvidenceProblems(fullGateCommand, "all checks passed"), [
+  "full-gate did not prove nested cascade vNext end-to-end execution",
+]);
+assert.deepEqual(
+  completionCommandEvidenceProblems(fullGateCommand, NESTED_CASCADE_E2E_SUCCESS_MARKER),
+  [],
+);
 
 assert.deepEqual(
   resolveActualTriggerPaths({

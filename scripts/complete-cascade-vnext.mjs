@@ -8,9 +8,11 @@ import { spawnSync } from "node:child_process";
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import {
   commandResultPassed,
+  completionCommandEvidenceProblems,
   assertRuntimeManifestMatches,
   completionCommandSet,
   completionCommandSetHash,
+  NESTED_CASCADE_E2E_SUCCESS_MARKER,
 } from "./cascade-completion-core.mjs";
 import { assertValidationEvidenceComplete } from "./cascade-validation-manifest.mjs";
 import { assertValidationManifestIntegrity } from "./cascade-profile-verifier.mjs";
@@ -126,18 +128,24 @@ function executeCompletionCommands(worktree, commands, environment) {
     const finishedAt = new Date();
     const rawOutput = String(result.stdout ?? "") + String(result.stderr ?? "") + String(result.error?.message ?? "");
     const exitCode = Number.isInteger(result.status) ? result.status : 1;
-    const status = commandResultPassed(command, result) ? "passed" : "failed";
+    const evidenceProblems = completionCommandEvidenceProblems(command, rawOutput);
+    const status = commandResultPassed(command, result) && evidenceProblems.length === 0 ? "passed" : "failed";
+    const evidencePrefix = command.id === "full-gate"
+      ? evidenceProblems.length === 0
+        ? `Подтверждение: ${NESTED_CASCADE_E2E_SUCCESS_MARKER}\n`
+        : `Ошибка evidence: ${evidenceProblems.join("; ")}\n`
+      : "";
     results.push({
       id: command.id,
       executable: command.executable,
       args: command.args,
       status,
-      exit_code: exitCode,
+      exit_code: status === "failed" && exitCode === 0 ? 1 : exitCode,
       started_at: startedAt.toISOString(),
       finished_at: finishedAt.toISOString(),
       duration_ms: Math.max(0, finishedAt.getTime() - startedAt.getTime()),
       output_sha256: digest(rawOutput),
-      summary: sanitizeOutput(rawOutput || "exit 0", worktree) || "Команда завершилась без вывода.",
+      summary: sanitizeOutput(evidencePrefix + (rawOutput || "exit 0"), worktree) || "Команда завершилась без вывода.",
     });
     previousFailed = status === "failed";
   }

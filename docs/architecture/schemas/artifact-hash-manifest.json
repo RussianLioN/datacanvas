@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "80dcdf48a4bdab751eed53666e984e57c1d238ef6134d2d17f795f9011ce1f32"
+      "sha256": "350f3151530b10d04f5aa4909304aa4a4831f8453a416845312ef3db39db76d2"
     },
     {
       "artifact_id": "ART-188",
@@ -3237,7 +3237,7 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "642d70ce0942b88c23cc8e2e73e8b5d3dde9ed36771ef64fd37e76d5217cabbe"
+      "sha256": "c62285aa8d29d41fe014970fbeadc18b9d6df930a363ed18444ac8c11e546ac4"
     },
     {
       "artifact_id": "ART-648",
@@ -3837,7 +3837,7 @@
     {
       "artifact_id": "ART-768",
       "path": "scripts/cascade-completion-core.mjs",
-      "sha256": "41c1e4c8ee2dfae7879adac5fa7d2bc156816ca6e857a8279afd6004759c910c"
+      "sha256": "532bc783a726f9486fab6c86dda9d9c43e499e0b133bac30142d2519cdbf1709"
     },
     {
       "artifact_id": "ART-769",
@@ -3877,7 +3877,7 @@
     {
       "artifact_id": "ART-776",
       "path": "scripts/complete-cascade-vnext.mjs",
-      "sha256": "27abf036d0ac4a0e910466aae9da987394509bd61a0ffa9c6af3c61657163fdd"
+      "sha256": "c91fffcc2cedf61f3894f55440d0392cd77e62110e2b80b1388301414c8da337"
     },
     {
       "artifact_id": "ART-777",
@@ -3897,12 +3897,12 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "c1333d57f67290be03c21a6123862e125abe49c0f673d3236e3e7d963571656b"
+      "sha256": "4bf8db623a851aa0198e2ad9686b17055a0d5123666018ea6d694f057fe0f07c"
     },
     {
       "artifact_id": "ART-781",
       "path": "scripts/validate-cascade-vnext.mjs",
-      "sha256": "224fe510d4b6cc3c2a00dc8edc27a23618f5a056b01ec844572da592c1fc510e"
+      "sha256": "09c9fb0da4a7c5d226042b7cdb1de8112702fbfd5b55890b56c6f62b1fad9b08"
     },
     {
       "artifact_id": "ART-782",

@@ -1,6 +1,9 @@
 import crypto from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 
+export const NESTED_CASCADE_E2E_SUCCESS_MARKER =
+  "cascade vNext nested end-to-end validation passed through finalization; active lifecycle covers profile and completion";
+
 function stableJson(value) {
   if (Array.isArray(value)) return value.map(stableJson);
   if (!value || typeof value !== "object") return value;
@@ -53,4 +56,10 @@ export function commandResultPassed(command, result) {
     return String(result.stdout ?? "").trim() === "";
   }
   return true;
+}
+
+export function completionCommandEvidenceProblems(command, rawOutput) {
+  if (command.id !== "full-gate") return [];
+  if (String(rawOutput).includes(NESTED_CASCADE_E2E_SUCCESS_MARKER)) return [];
+  return ["full-gate did not prove nested cascade vNext end-to-end execution"];
 }
