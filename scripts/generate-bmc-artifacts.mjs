@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const checkMode = process.argv.includes("--check");
@@ -31,190 +32,9 @@ const paths = {
   pdfRasterSmoke: "docs/product/bmc/evidence/pdf-raster-smoke.png",
 };
 
-const blockModel = [
-  {
-    id: "B1",
-    classic: "Customer Segments",
-    title: "Сегменты пользователей",
-    shortTitle: "Сегменты",
-    statement:
-      "КМ и CSM являются первыми рабочими сегментами DataCanvas; перспективный контур расширяется до пользователей Лисы, которым нужно быстро собрать презентацию из уже подготовленных данных.",
-    bullets: [
-      "КМ и CSM как первый контур",
-      "Пользователи Лисы как расширение",
-      "Выгодополучатели выделяются отдельно",
-      "Спонсоры требуют отдельного подтверждения",
-    ],
-    detail: [
-      "Основной текущий контур - КМ и CSM, работающие в мессенджере Лиса.",
-      "Перспективный сегмент - любой пользователь Лисы, которому нужно получить короткую презентацию из данных, подготовленных другим агентом или системой.",
-      "Выгодополучатели и бюджетные спонсоры не смешиваются с пользовательскими сегментами и закрываются отдельными проверками в companion JSON.",
-    ],
-  },
-  {
-    id: "B2",
-    classic: "Value Proposition",
-    title: "Ценностное предложение",
-    shortTitle: "Ценность",
-    statement:
-      "DataCanvas сокращает путь от подготовленных данных или объемного ответа другого агента в Лисе до рабочей краткой презентации: уточняет недостающее, согласует описание, генерирует файл и поддерживает повторный цикл правок.",
-    bullets: [
-      "Быстрая рабочая презентация",
-      "Меньше копирования и ручной верстки",
-      "Меньше чтения длинной чатовой ленты",
-      "Согласование описания до генерации",
-      "Проверяемая итерация после замечаний",
-    ],
-    detail: [
-      "Пользователь получает рабочую презентацию быстрее, чем при ручном переносе данных и самостоятельной верстке.",
-      "Пользователь не разбирает длинный агентский ответ в чатовой ленте вручную, а получает структурированный рабочий материал.",
-      "Перед генерацией DataCanvas формирует описание результата и принимает правки, чтобы снизить риск неверной презентации.",
-      "После доставки файла поддерживается цикл замечаний, уточнения входных данных, изменения описания и повторной генерации.",
-    ],
-  },
-  {
-    id: "B3",
-    classic: "Channels",
-    title: "Каналы",
-    shortTitle: "Каналы",
-    statement:
-      "DataCanvas запускается двумя основными способами: другим агентом по подготовленному контексту или пользователем в Лисе через диалоговый режим.",
-    bullets: [
-      "Запуск другим агентом",
-      "Диалоговый режим в Лисе",
-      "Проверка данных перед подготовкой",
-      "Доставка по электронной почте",
-      "Редактируемый формат результата",
-    ],
-    detail: [
-      "При запуске другим агентом DataCanvas получает подготовленный контекст, проверяет его достаточность и безопасность, затем готовит презентацию без дополнительного подтверждения пользователем.",
-      "В Лисе пользователь может уточнять задачу, проверять описание будущей презентации и вносить правки до генерации.",
-      "Готовый файл презентации доставляется пользователю по электронной почте в редактируемом формате.",
-    ],
-  },
-  {
-    id: "B4",
-    classic: "Customer Relationships",
-    title: "Взаимодействие с пользователем",
-    shortTitle: "Отношения",
-    statement:
-      "Взаимодействие зависит от режима запуска.",
-    bullets: [
-      "Без подтверждения при запуске агентом",
-      "Уточнения только в Лисе",
-      "Проверка описания в Лисе",
-      "Правки до генерации в Лисе",
-      "Самостоятельные правки файла",
-    ],
-    detail: [
-      "При запуске другим агентом пользователь не проходит дополнительное подтверждение перед генерацией: DataCanvas работает по уже подготовленному контексту.",
-      "В диалоговом режиме в Лисе DataCanvas может задавать уточняющие вопросы, показывать описание будущей презентации и принимать правки до генерации.",
-      "После получения файла пользователь может самостоятельно оперативно внести правки в редактируемую презентацию.",
-    ],
-  },
-  {
-    id: "B5",
-    classic: "Revenue Streams / Internal Value Streams",
-    title: "Потоки внутренней пользы",
-    shortTitle: "Внутренняя польза",
-    statement:
-      "Для внутреннего продукта блок B5 трактуется как поток пользы: экономия времени, снижение ручной работы и нагрузки на чтение длинных агентских ответов, повторное использование шаблонов и измеримый эффект для владельца бюджета.",
-    bullets: [
-      "Экономия времени",
-      "Снижение ручной работы",
-      "Меньше нагрузки на чтение",
-      "Повторное использование шаблонов",
-      "Метрики принятого результата",
-    ],
-    detail: [
-      "DataCanvas пока моделируется как внутренний продукт, поэтому внешний денежный поток заменен потоком внутренней пользы.",
-      "Первичный эффект - экономия времени КМ и CSM, сокращение ручной верстки, снижение нагрузки на переработку длинных ответов других агентов и повторное использование согласованных шаблонов.",
-      "Источник финансирования, бюджетный владелец и расчет эффекта остаются предметом отдельной проверки в companion JSON.",
-    ],
-  },
-  {
-    id: "B6",
-    classic: "Key Resources",
-    title: "Ключевые ресурсы",
-    shortTitle: "Ресурсы",
-    statement:
-      "Ключевые ресурсы DataCanvas: подготовленный контекст, правила проверки достаточности и безопасности данных, описание будущей презентации, шаблоны, средство подготовки файла, проверки качества и почтовый канал доставки.",
-    bullets: [
-      "Подготовленный контекст",
-      "Проверка достаточности",
-      "Проверка безопасности",
-      "Шаблоны презентаций",
-      "Почтовая доставка",
-    ],
-    detail: [
-      "Результат зависит от качества подготовленного контекста и правил проверки достаточности и безопасности данных.",
-      "Описание будущей презентации важно для диалогового режима в Лисе, где пользователь может проверить направление до генерации.",
-      "Шаблоны, средство подготовки файла, проверки качества и почтовый канал доставки создают воспроизводимый путь от запроса к редактируемой презентации.",
-    ],
-  },
-  {
-    id: "B7",
-    classic: "Key Activities",
-    title: "Ключевые активности",
-    shortTitle: "Активности",
-    statement:
-      "DataCanvas проверяет входные данные, готовит презентацию и отправляет готовый файл пользователю по электронной почте.",
-    bullets: [
-      "Проверка входных данных",
-      "Подготовка презентации",
-      "Email-доставка файла",
-      "Уточнения в Лисе",
-      "Связь контекста и результата",
-    ],
-    detail: [
-      "Для запуска другим агентом ключевой маршрут: проверить данные, подготовить презентацию, отправить файл.",
-      "Для режима Лисы добавляются уточняющие вопросы, согласование описания будущей презентации и правки до генерации.",
-      "Во всех режимах DataCanvas должен сохранять связь между исходным контекстом, результатом проверки и итоговой презентацией.",
-    ],
-  },
-  {
-    id: "B8",
-    classic: "Key Partners",
-    title: "Ключевые партнеры",
-    shortTitle: "Партнеры",
-    statement:
-      "Ключевые партнеры и зависимости: Лиса, другой агент, источники данных, владельцы шаблонов, средство подготовки файла и почтовый канал доставки.",
-    bullets: [
-      "Лиса",
-      "Другой агент",
-      "Источники данных",
-      "Владельцы шаблонов",
-      "Почтовый канал доставки",
-    ],
-    detail: [
-      "Лиса обеспечивает диалоговый режим с пользователем.",
-      "Другой агент передает подготовленный контекст для запуска DataCanvas.",
-      "Почтовый канал обеспечивает доставку редактируемого файла пользователю.",
-    ],
-  },
-  {
-    id: "B9",
-    classic: "Cost Structure",
-    title: "Структура затрат",
-    shortTitle: "Затраты",
-    statement:
-      "Структура затрат включает LLM-вызовы, renderer, human review, задержку, сопровождение, интеграции, шаблоны, эксплуатацию и обработку инцидентов.",
-    bullets: [
-      "LLM-вызовы и задержка",
-      "Renderer и шаблоны",
-      "Human review",
-      "Интеграции и сопровождение",
-      "Эксплуатация и инциденты",
-    ],
-    detail: [
-      "Главные переменные затраты связаны с LLM-вызовами, рендером и временем проверки результата.",
-      "Постоянные затраты связаны с поддержкой интеграций, шаблонов, quality gates и эксплуатацией.",
-      "Приоритеты стоимости фиксируются отдельно и требуют дальнейшей проверки на реальных сценариях.",
-    ],
-  },
-];
+let blockModel = [];
+let blockById = new Map();
 
-const blockById = new Map(blockModel.map((block) => [block.id, block]));
 const cleanForbidden = [
   "не подтверждено",
   "допущение",
@@ -226,6 +46,34 @@ const cleanForbidden = [
   "Evidence Requests",
   "Open Questions",
   "Source refs",
+  "source_refs",
+  "evidence_requests",
+  "PresentationSpec",
+  "trace",
+  "validation companion",
+  "companion JSON",
+  "quality gates",
+  "renderer",
+  "gateway",
+  "callback",
+  "A2A",
+  "MCP",
+  "LLM",
+  "SHA",
+  "Статус:",
+  "## Методика",
+  "## Граница модели",
+  "рабочая версия",
+  "классическую схему Business Model Canvas",
+  "внутреннего ИТ-продукта",
+  "внешняя выручка",
+  "служебные доказательства",
+  "машинные артефакты",
+  ...publicBusinessForbiddenSnippets,
+  "требует отдельной проверки",
+  "предметом отдельной проверки",
+  "открытая зависимость",
+  "открытые зависимости",
   "/Users/",
   "file://",
 ];
@@ -240,6 +88,25 @@ function ensureDir(filePath) {
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(absolute(relativePath), "utf8"));
+}
+
+function buildBlockModel(trace) {
+  const itemByBlock = new Map(trace.items.map((item) => [item.block, item]));
+  return trace.blocks.map((block) => {
+    const item = itemByBlock.get(block.id);
+    if (!item) {
+      fail(`BMC trace is missing public item for block: ${block.id}`);
+    }
+    return {
+      id: block.id,
+      classic: block.title,
+      title: block.public_title,
+      shortTitle: block.short_title,
+      statement: item.statement,
+      bullets: item.bullets,
+      detail: item.detail,
+    };
+  });
 }
 
 function sha256Bytes(bytes) {
@@ -360,21 +227,6 @@ function markdown() {
 
   return [
     "# Business Model Canvas DataCanvas v0.2",
-    "",
-    "Статус: рабочая версия для продуктового обсуждения.",
-    "",
-    "## Методика",
-    "",
-    "Документ использует классическую схему Business Model Canvas из девяти блоков. Для DataCanvas как внутреннего ИТ-продукта блок B5 трактуется как поток внутренней пользы и финансирования, а не как внешняя выручка.",
-    "",
-    "## Граница модели",
-    "",
-    "DataCanvas получает данные, подготовленные другим агентом, пользователем или автоматизированной системой, уточняет недостающее, формирует описание короткой презентации, согласует его с пользователем, генерирует файл и поддерживает цикл замечаний и повторной генерации.",
-    "",
-    "## Пользовательские и машинные артефакты",
-    "",
-    "- Пользовательские артефакты: краткая презентация, описание результата перед генерацией, замечания и правки.",
-    "- Машинные артефакты: входной контекст, PresentationSpec, trace, validation companion JSON и визуальный пакет BMC.",
     "",
     "## Краткая канва",
     "",
@@ -822,12 +674,31 @@ function packageManifest(artifactHashes, pngInfo) {
     canonical_visual_path: paths.svg,
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
+    public_content_policy: {
+      public_surfaces: [paths.markdown, paths.textAlternative, paths.svg, paths.png, paths.pdf, paths.puml],
+      allowed_public_content: "business_model_canvas_only",
+      service_information_storage: [paths.packageManifest, paths.derivedManifest, paths.validationNeeds, paths.visualAcceptance],
+      forbidden_public_information: [
+        "status",
+        "methodology_notes",
+        "model_boundary_summary",
+        "source_refs",
+        "validation_status",
+        "hashes",
+        "local_paths",
+        "technical_trace",
+      ],
+    },
     artifacts,
     validators: [
+      "npm run generate:bmc -- --check",
+      "npm run validate:bmc-trace",
+      "npm run validate:bmc-content-classic",
       "npm run validate:bmc-visual",
       "npm run validate:bmc-render-parity",
-      "npm run validate:bmc-content-classic",
       "npm run validate:bmc-package",
+      "npm run validate:data-leakage",
+      "npm run validate:artifact-hashes",
     ],
   };
 }
@@ -855,6 +726,12 @@ function assertCleanPublic(content, relativePath) {
   for (const forbidden of cleanForbidden) {
     if (content.includes(forbidden)) {
       fail(`clean public artifact contains forbidden marker ${forbidden}: ${relativePath}`);
+    }
+  }
+  for (const rule of publicBusinessLanguageRules) {
+    const match = rule.pattern.exec(content);
+    if (match) {
+      fail(`clean public artifact violates ${rule.id}: ${match[0]}: ${relativePath}`);
     }
   }
 }
@@ -936,6 +813,8 @@ function compareGenerated(targetRoot, relativePaths) {
 
 function build(targetRoot) {
   const trace = readJson(paths.trace);
+  blockModel = buildBlockModel(trace);
+  blockById = new Map(blockModel.map((block) => [block.id, block]));
   const publicMarkdown = markdown();
   const publicPuml = plantUml();
   const publicSvg = svg();

@@ -258,7 +258,7 @@ function generatedTitle(relativePath) {
   const titles = new Map([
     ["docs/navigation/documentation-index.json", "Generated Documentation Index"],
     ["docs/navigation/navigation-map.md", "Карта Навигации Документации"],
-    ["docs/navigation/orphan-docs-report.md", "Отчет По Orphan Docs"],
+    ["docs/navigation/orphan-docs-report.md", "Отчет По Orphan Docs И Вложенности"],
     ["docs/navigation/stale-status-report.md", "Отчет По Устаревшим Статусам"],
   ]);
   return titles.get(relativePath) || relativePath;
@@ -434,13 +434,16 @@ function navigationGroupSortKey(entry) {
   const exactOrder = new Map([
     ["docs/product/README.md", 10],
     ["docs/product-vision.md", 20],
+    ["docs/product/change-orders/README.md", 25],
+    ["docs/product/change-orders/co-2026-001-a2a-first-priority.md", 26],
+    ["docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md", 27],
     ["docs/product/bmc/README.md", 30],
-    ["docs/stories.md", 40],
+    ["docs/product/requirements/user-stories.md", 40],
     ["docs/product/requirements/README.md", 50],
     ["docs/product/requirements/business-requirements.md", 51],
-    ["docs/product/requirements/user-stories.md", 52],
     ["docs/product/requirements/non-functional-requirements.md", 53],
     ["docs/product/requirements/acceptance-criteria.md", 54],
+    ["docs/stories.md", 59],
     ["docs/product/backlog/README.md", 60],
     ["docs/product/backlog/product-backlog.md", 61],
     ["docs/product/roadmap/README.md", 70],
@@ -449,6 +452,9 @@ function navigationGroupSortKey(entry) {
     ["docs/product/hypotheses/hypothesis-board.md", 81],
     ["docs/product/hypotheses/hypothesis-validation.md", 82],
     ["docs/product/requirements/traceability-matrix.json", 90],
+    ["docs/product/sources/README.md", 100],
+    ["docs/product/analysis/README.md", 110],
+    ["docs/product/specs/README.md", 120],
   ]);
   return `${String(exactOrder.get(entry.path) ?? 999).padStart(3, "0")}-${entry.path}`;
 }
@@ -534,19 +540,47 @@ ${pointerRows.join("\n")}
 }
 
 function renderOrphanReport(index) {
-  const rows = index.entries
+  const orphanRows = index.entries
     .filter((entry) => entry.navigable && !entry.reachable_from_root)
     .map((entry) => `| \`${entry.path}\` | ${entry.section} | ${entry.owner_role} | \`${entry.lifecycle}\` |`);
-  return `# Отчет По Orphan Docs
+  const readmeRows = index.entries
+    .filter((entry) => !entry.generated && entry.format === "md" && entry.path.endsWith("README.md"))
+    .map((entry) => `| \`${entry.path}\` | \`${entry.parent_readme ?? "-"}\` | \`${entry.navigation_group}\` | \`${entry.visibility}\` | \`${entry.navigable}\` | \`${entry.click_depth ?? "-"}\` |`);
+  const depthMap = new Map();
+  for (const entry of index.entries.filter((item) => !item.generated)) {
+    const key = `${entry.navigation_group}|${entry.click_depth ?? "hidden"}`;
+    depthMap.set(key, (depthMap.get(key) ?? 0) + 1);
+  }
+  const depthRows = [...depthMap.entries()]
+    .sort(([left], [right]) => left.localeCompare(right, "en"))
+    .map(([key, count]) => {
+      const [group, depth] = key.split("|");
+      return `| \`${group}\` | \`${depth}\` | ${count} |`;
+    });
+  return `# Отчет По Orphan Docs И Вложенности
 
-Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / Orphan docs
+Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / Orphan docs и вложенность
 
 Статус: generated
 Источник: \`${sourcePath}\`
 
+## Orphan Docs
+
 | Путь | Секция | Владелец | Lifecycle |
 |---|---|---|---|
-${rows.length > 0 ? rows.join("\n") : "| - | - | - | - |"}
+${orphanRows.length > 0 ? orphanRows.join("\n") : "| - | - | - | - |"}
+
+## README По Уровням Вложенности
+
+| Путь | Родительский README | Группа | Видимость | Navigable | Глубина |
+|---|---|---|---|---|---|
+${readmeRows.length > 0 ? readmeRows.join("\n") : "| - | - | - | - | - | - |"}
+
+## Сводка Глубины
+
+| Группа | Глубина | Количество |
+|---|---|---|
+${depthRows.length > 0 ? depthRows.join("\n") : "| - | - | - |"}
 `;
 }
 

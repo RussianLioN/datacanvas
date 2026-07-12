@@ -39,11 +39,13 @@
       "minItems": 9,
       "items": {
         "type": "object",
-        "required": ["id", "title"],
+        "required": ["id", "title", "public_title", "short_title"],
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
-          "title": { "type": "string", "minLength": 1 }
+          "title": { "type": "string", "minLength": 1 },
+          "public_title": { "type": "string", "minLength": 1 },
+          "short_title": { "type": "string", "minLength": 1 }
         }
       }
     },
@@ -56,6 +58,8 @@
           "item_id",
           "block",
           "statement",
+          "bullets",
+          "detail",
           "status",
           "confidence",
           "owner_role",
@@ -74,6 +78,18 @@
           "item_id": { "type": "string", "pattern": "^BMC-CLM-\\d{3}$" },
           "block": { "type": "string", "enum": ["B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9"] },
           "statement": { "type": "string", "minLength": 1 },
+          "bullets": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 6,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "detail": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 6,
+            "items": { "type": "string", "minLength": 1 }
+          },
           "status": { "type": "string", "enum": ["confirmed", "unconfirmed", "assumption", "unsupported", "contradicted", "deprecated"] },
           "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
           "owner_role": { "type": "string", "minLength": 1 },

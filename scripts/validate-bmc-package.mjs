@@ -33,6 +33,7 @@ function fail(message) {
 
 const requiredFiles = [
   "docs/product/bmc/README.md",
+  "docs/product/bmc/bmc-v0.2.md",
   "docs/product/bmc/source-map.md",
   "docs/product/bmc/text-alternative.md",
   packageManifestPath,
@@ -77,6 +78,37 @@ for (const filePath of requiredFiles.filter((item) => item !== packageManifestPa
   }
 }
 
+if (manifest.public_content_policy?.allowed_public_content !== "business_model_canvas_only") {
+  fail("BMC package manifest must require public BMC surfaces to contain only business model canvas content");
+}
+for (const publicSurface of [
+  "docs/product/bmc/bmc-v0.2.md",
+  "docs/product/bmc/text-alternative.md",
+  "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+  "docs/product/bmc/source/derived/datacanvas-bmc.png",
+  "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+  "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+]) {
+  if (!manifest.public_content_policy.public_surfaces.includes(publicSurface)) {
+    fail(`BMC package manifest public content policy is missing surface: ${publicSurface}`);
+  }
+}
+for (const serviceStorage of [
+  packageManifestPath,
+  "docs/product/bmc/bmc-derived-manifest.json",
+  "docs/product/bmc/bmc-validation-needs.json",
+  "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+]) {
+  if (!manifest.public_content_policy.service_information_storage.includes(serviceStorage)) {
+    fail(`BMC package manifest public content policy is missing service storage: ${serviceStorage}`);
+  }
+}
+for (const forbiddenClass of ["status", "methodology_notes", "model_boundary_summary", "source_refs", "validation_status", "hashes"]) {
+  if (!manifest.public_content_policy.forbidden_public_information.includes(forbiddenClass)) {
+    fail(`BMC package manifest public content policy is missing forbidden class: ${forbiddenClass}`);
+  }
+}
+
 for (const artifact of manifest.artifacts) {
   if (!fs.existsSync(absolute(artifact.path))) {
     fail(`BMC package manifest references missing file: ${artifact.path}`);
@@ -102,6 +134,7 @@ if (designerConsilium.severity_summary.blocker !== 0 || designerConsilium.severi
 
 for (const publicPath of [
   "docs/product/bmc/bmc-v0.2.md",
+  "docs/product/bmc/text-alternative.md",
   "docs/product/bmc/source/derived/datacanvas-bmc.svg",
   "docs/product/bmc/source/derived/datacanvas-bmc.puml",
 ]) {
@@ -117,12 +150,54 @@ for (const publicPath of [
     "Evidence Requests",
     "Open Questions",
     "Source refs",
+    "source_refs",
+    "evidence_requests",
+    "PresentationSpec",
+    "trace",
+    "validation companion",
+    "companion JSON",
+    "quality gates",
+    "renderer",
+    "gateway",
+    "callback",
+    "A2A",
+    "MCP",
+    "LLM",
+    "SHA",
+    "Статус:",
+    "## Методика",
+    "## Граница модели",
+    "рабочая версия",
+    "классическую схему Business Model Canvas",
+    "внутреннего ИТ-продукта",
+    "внешняя выручка",
+    "служебные доказательства",
+    "машинные артефакты",
+    "требует отдельной проверки",
+    "предметом отдельной проверки",
+    "открытая зависимость",
+    "открытые зависимости",
     "/Users/",
     "file://",
   ]) {
     if (text.includes(forbidden)) {
       fail(`public BMC package artifact contains forbidden marker ${forbidden}: ${publicPath}`);
     }
+  }
+}
+
+for (const requiredValidator of [
+  "npm run generate:bmc -- --check",
+  "npm run validate:bmc-trace",
+  "npm run validate:bmc-content-classic",
+  "npm run validate:bmc-visual",
+  "npm run validate:bmc-render-parity",
+  "npm run validate:bmc-package",
+  "npm run validate:data-leakage",
+  "npm run validate:artifact-hashes",
+]) {
+  if (!manifest.validators.includes(requiredValidator)) {
+    fail(`BMC package manifest is missing validator: ${requiredValidator}`);
   }
 }
 

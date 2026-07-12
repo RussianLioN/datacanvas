@@ -133,3 +133,39 @@ PCR: `PROC-001`
 #### Rollback
 
 Вернуть `PROC-047` в `Ready` только если состояние `docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json` будет обоснованно переведено из `completed` в активный статус отдельным решением Product Owner.
+
+### PROC-048 — CLI-Friendly Форматирование Таблиц
+
+Статус: done
+Дата: 2026-07-07
+Источник: `docs/process/change-requests/PROC-048-cli-table-output.md`
+
+#### Изменение
+
+Закреплено правило: табличные данные в рабочем чате Codex CLI выводятся через `cli-table-output` или его правила. Короткие сравнения оформляются списками, матрицы и статусные сводки — fenced `text` Unicode-таблицами, а Markdown pipe table не используется в чате по умолчанию.
+
+#### Миграция
+
+Правило добавлено в `AGENTS.md` и универсальный рабочий процесс документации. `PROC-048` перенесен в Done process backlog; продуктовые артефакты DataCanvas не менялись.
+
+#### Rollback
+
+Вернуть `PROC-048` в Draft, удалить правило `cli-table-output` из `AGENTS.md` и UDW-инструкций, убрать проверку из `validate-universal-documentation-workflow`, затем регенерировать navigation, hash manifest и process metrics snapshot.
+
+### PROC-062 — Безопасный XLSX-Источник И Чистая История Git
+
+Статус: accepted
+Дата: 2026-07-12
+Источник: `docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md`
+
+#### Изменение
+
+Оригинальный XLSX с закрытыми метаданными заменён в Git на контролируемую копию и машинный манифест происхождения. Добавлены блокирующие проверки содержимого XLSX во всей истории кандидата и точного SHA, проверяемого CI.
+
+#### Миграция
+
+Старый PR закрывается без слияния. Итоговое дерево переносится в новую ветку от чистого `main`; продуктовый смысл DataCanvas остаётся неизменным. После слияния отдельный PR обновляет только разрешённые указатели и release evidence.
+
+#### Rollback
+
+Не возвращать загрязнённую историю. До слияния закрыть чистый PR; после слияния выполнить revert отдельным PR. Не ослаблять security-гейты.

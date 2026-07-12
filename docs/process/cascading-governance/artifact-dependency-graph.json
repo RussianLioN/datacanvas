@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.3.0",
   "status": "active",
   "graph_id": "ADG-2026-07-02-001",
   "artifacts": [
@@ -8,456 +8,2877 @@
       "path": "docs/product-vision.md",
       "layer": "Vision",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "product_meaning",
+        "scope_change"
+      ]
     },
     {
       "artifact_id": "DGA-002",
       "path": "docs/product/vision/vision-v0.1.md",
       "layer": "Product Goal",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "product_goal"
+      ]
     },
     {
       "artifact_id": "DGA-003",
       "path": "docs/product/bmc/bmc-v0.2.md",
       "layer": "BMC",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:bmc"
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": [
+        "business_model"
+      ]
     },
     {
       "artifact_id": "DGA-004",
       "path": "docs/product/hypotheses/hypothesis-board.md",
       "layer": "hypotheses",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "hypothesis"
+      ]
     },
     {
       "artifact_id": "DGA-005",
       "path": "docs/stories.md",
-      "layer": "stories",
+      "layer": "navigation",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-006",
       "path": "docs/product/requirements/user-stories.md",
       "layer": "stories",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": [
+        "story_text_change"
+      ]
     },
     {
       "artifact_id": "DGA-007",
       "path": "docs/product/requirements/business-requirements.md",
       "layer": "business requirements",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": [
+        "business_requirement"
+      ]
     },
     {
       "artifact_id": "DGA-008",
       "path": "docs/product/requirements/non-functional-requirements.md",
       "layer": "NFR",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": [
+        "non_functional_requirement"
+      ]
     },
     {
       "artifact_id": "DGA-009",
       "path": "docs/product/requirements/acceptance-criteria.md",
       "layer": "acceptance criteria",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:doc-links"
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": [
+        "acceptance_meaning"
+      ]
     },
     {
       "artifact_id": "DGA-010",
       "path": "docs/product/backlog/product-backlog.md",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:backlog-registry"
+      "validation_command": "npm run validate:backlog-registry",
+      "authority_scope": [
+        "priority_change",
+        "scope_change"
+      ]
     },
     {
       "artifact_id": "DGA-011",
       "path": "docs/product/backlog/technical-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "Development Team",
-      "validation_command": "npm run validate:backlog-registry"
+      "validation_command": "npm run validate:backlog-registry",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-012",
       "path": "docs/product/backlog/eval-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "QA/Evals Lead",
-      "validation_command": "npm run validate:eval-backlog-sync"
+      "validation_command": "npm run validate:eval-backlog-sync",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-013",
       "path": "docs/process/current/process-backlog.md",
       "layer": "technical/eval/process backlog",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:process-change-ledger"
+      "validation_command": "npm run validate:process-change-ledger",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-014",
       "path": "docs/product/roadmap/roadmap-v0.1.md",
       "layer": "roadmap",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": [
+        "roadmap_meaning"
+      ]
     },
     {
       "artifact_id": "DGA-015",
       "path": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "layer": "capacity plan",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:capacity-plan"
+      "validation_command": "npm run validate:capacity-plan",
+      "authority_scope": [
+        "capacity"
+      ]
     },
     {
       "artifact_id": "DGA-016",
       "path": "docs/sprints",
       "layer": "sprint artifacts",
       "owner_role": "Scrum Master",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-017",
       "path": "docs/release/mvp-release-evidence-pack.json",
       "layer": "release evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm run validate:release-pack"
+      "validation_command": "npm run validate:release-pack",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-018",
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "layer": "Jira import package",
       "owner_role": "Delivery/GitOps Lead",
-      "validation_command": "npm run validate:jira-field-mapping"
+      "validation_command": "npm run validate:jira-field-mapping",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-019",
       "path": "docs/product/requirements/traceability-matrix.json",
       "layer": "traceability",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:schemas"
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-020",
       "path": "docs/navigation/navigation-source.json",
       "layer": "navigation",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:docs-navigation"
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-021",
       "path": "docs/process/cascading-governance/documentation-change-request.json",
       "layer": "process",
       "owner_role": "Process Owner",
-      "validation_command": "npm run validate:documentation-change-request"
+      "validation_command": "npm run validate:documentation-change-request",
+      "authority_scope": []
     },
     {
       "artifact_id": "DGA-022",
       "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "layer": "product backlog",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-change-orders"
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": [
+        "change_order"
+      ]
     },
     {
       "artifact_id": "DGA-023",
       "path": "docs/product/change-orders/change-impact-assessment.json",
       "layer": "traceability",
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:change-impact"
+      "validation_command": "npm run validate:change-impact",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-024",
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "layer": "analysis source",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:xlsx-source-security",
+      "authority_scope": [
+        "source_data"
+      ]
+    },
+    {
+      "artifact_id": "DGA-025",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "layer": "working backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "authority_scope": [
+        "effort_estimate",
+        "priority_change",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "artifact_id": "DGA-026",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "layer": "provenance manifest",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "authority_scope": [
+        "provenance"
+      ]
+    },
+    {
+      "artifact_id": "DGA-027",
+      "path": "docs/product/sources/product-source-registry.json",
+      "layer": "source registry",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": [
+        "source_identity"
+      ]
+    },
+    {
+      "artifact_id": "DGA-028",
+      "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "layer": "evidence index",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-029",
+      "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-030",
+      "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "layer": "resource estimation",
+      "owner_role": "Product Owner / команда реализации",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-031",
+      "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "layer": "resource estimation",
+      "owner_role": "Product Owner / Scrum Master",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-032",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-033",
+      "path": "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+      "layer": "source registry",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:product-source-consistency",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-034",
+      "path": "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
+      "layer": "traceability",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-035",
+      "path": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:docs-navigation",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-036",
+      "path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "layer": "process",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-037",
+      "path": "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
+      "layer": "release evidence",
+      "owner_role": "QA Lead / Process Owner",
+      "validation_command": "npm run validate:doc-links",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-038",
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:business-docs",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-039",
+      "path": "docs/process/cascading-governance/runs/2026-07-02-co-2026-001-q3-priority-impact/impact-analysis-report-2026-07-02-002.json",
+      "layer": "process",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:impact-analysis",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-040",
+      "path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "layer": "process",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-041",
+      "path": "docs/architecture/system-analysis/sa-spec.json",
+      "layer": "process",
+      "owner_role": "Architect / Technical Owner",
+      "validation_command": "npm run validate:ba-sa",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-042",
+      "path": "docs/architecture/system-analysis/srs-v0.1.json",
+      "layer": "process",
+      "owner_role": "Architect / Technical Owner",
+      "validation_command": "npm run validate:schemas",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-043",
+      "path": "docs/process/cascading-governance/impact-analysis-report.json",
+      "layer": "process",
+      "owner_role": "Process Owner",
+      "validation_command": "npm run validate:impact-analysis",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-044",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "layer": "process",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-045",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "layer": "product backlog",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:product-change-orders",
+      "authority_scope": [
+        "change_order"
+      ]
+    },
+    {
+      "artifact_id": "DGA-046",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:change-impact",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-047",
+      "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner / Process Owner",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-048",
+      "path": "docs/product/requirements/business-claim-map.json",
+      "layer": "traceability",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:business-claim-map",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-049",
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+      "layer": "provenance manifest",
+      "owner_role": "Product Owner / Security Lead",
+      "validation_command": "npm run validate:xlsx-source-security",
+      "authority_scope": [
+        "provenance"
+      ]
+    }
+  ],
+  "declared_cycle_groups": [
+    {
+      "cycle_id": "CYCLE-STORIES-REQUIREMENTS-BACKLOG-XLSX",
+      "member_paths": [
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/non-functional-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "purpose": "reconciliation",
+      "rationale": "Каталог историй, требования, критерии приемки, product backlog и рабочая XLSX-оценка образуют контролируемый цикл согласования. Каждый артефакт разрешается один раз через обновление или обоснование отсутствия изменений.",
+      "owner_role": "Product Owner / Documentation Owner"
     }
   ],
   "dependencies": [
     {
+      "edge_id": "EDGE-0001",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/change-orders/change-impact-assessment.json",
       "relation_type": "traceability",
       "update_rule": "Product Change Order требует impact assessment до канонических изменений backlog или roadmap.",
       "validation_command": "npm run validate:change-impact",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0002",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
       "update_rule": "Смена приоритета launch channel запускает review каналов, партнеров и ресурсов BMC без выдумывания acceptance.",
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0003",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
-      "downstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
       "update_rule": "Смена приоритета Q3 запускает полный review порядка DC-ST stories.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0004",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
       "update_rule": "A2A-first launch влияет на review BT-005, BT-006, BT-012 и BT-014.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0005",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
       "update_rule": "A2A-first launch запускает NFR/security review, особенно по недоверенному input и leakage guards.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Security/Privacy Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0006",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
       "update_rule": "A2A-first launch меняет acceptance только после принятия Product Owner и подтверждения rollback.",
       "validation_command": "npm run validate:ba-sa",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0007",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
       "update_rule": "Принятая смена приоритета запускает backlog reprioritization и trade-off review.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0008",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
       "update_rule": "Принятая смена приоритета запускает roadmap review после решений по capacity и displacement.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0009",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
       "update_rule": "Requirements и story moves запускают обновление traceability после acceptance.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0010",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
       "update_rule": "Смена приоритета Q3 требует capacity source, buffer и constraints до применения story moves.",
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0011",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
       "update_rule": "Принятая смена приоритета Q3 запускает sprint planning и evidence review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0012",
       "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
       "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
       "relation_type": "evidence",
       "update_rule": "Release evidence не может заявлять A2A-first readiness, пока открыты решения Product Owner, capacity, channel или rollback.",
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0013",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/vision/vision-v0.1.md",
       "relation_type": "semantic",
       "update_rule": "Vision change triggers Product Goal snapshot review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0014",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
       "relation_type": "semantic",
       "update_rule": "Vision change triggers hypotheses review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0015",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers BMC review.",
       "validation_command": "npm run validate:bmc",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0016",
       "upstream_artifact": "docs/product-vision.md",
-      "downstream_artifact": "docs/stories.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers story catalog review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0017",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/business-requirements.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers business requirements review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0018",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers NFR review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0019",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers acceptance criteria review.",
       "validation_command": "npm run validate:doc-links",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0020",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers product backlog review.",
       "validation_command": "npm run validate:backlog-registry",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0021",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
       "update_rule": "Vision change always triggers roadmap review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0022",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
       "relation_type": "traceability",
       "update_rule": "Vision change always triggers traceability matrix review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
     },
     {
+      "edge_id": "EDGE-0023",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
       "update_rule": "Vision change triggers capacity source review; concrete capacity cannot be invented.",
       "validation_command": "npm run validate:capacity-plan",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0024",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "relation_type": "jira",
       "update_rule": "Vision change triggers Jira import package readiness review when Jira-bound outputs exist.",
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "when_jira_mapping_changes"
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0025",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/release/mvp-release-evidence-pack.json",
       "relation_type": "evidence",
       "update_rule": "Release evidence cannot be marked accepted while blocking decisions remain open.",
       "validation_command": "npm run validate:release-pack",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0026",
       "upstream_artifact": "docs/product-vision.md",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
       "update_rule": "Sprint evidence must reference cascade run when sprint, backlog or roadmap artifacts change.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
-      "upstream_artifact": "docs/stories.md",
+      "edge_id": "EDGE-0027",
+      "upstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение принятого BMC запускает review пользовательских историй, чтобы истории оставались согласованы с моделью ценности, сегментами и каналами.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0028",
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение состава, приоритета или смысла истории запускает review бизнес-требований.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0029",
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "resource",
+      "update_rule": "Изменение состава или приоритета stories требует review рабочей XLSX-оценки или no-change rationale по ресурсному слою.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0030",
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает review нефункциональных требований по качеству, безопасности и доверительным границам.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / Architect",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0031",
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает review критериев приемки.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0032",
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение бизнес-требований запускает downstream review системного анализа без вывода нового бизнесового смысла из технической спецификации.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Architect / Technical Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0033",
+      "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение НФТ запускает review критериев приемки и измеримых условий качества.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0034",
+      "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение НФТ запускает review технических ограничений, security и readiness в системном анализе.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Architect / Technical Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0035",
+      "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
       "downstream_artifact": "docs/product/backlog/product-backlog.md",
       "relation_type": "semantic",
-      "update_rule": "Story priority or estimate change triggers backlog review.",
-      "validation_command": "npm run validate:backlog-registry",
+      "update_rule": "Изменение критериев приемки запускает review backlog items и готовности к декомпозиции.",
+      "validation_command": "npm run validate:business-docs",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0036",
+      "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение критериев приемки запускает обновление traceability или no-change rationale по связям acceptance.",
+      "validation_command": "npm run validate:traceability-graph",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0037",
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "resource",
+      "update_rule": "Изменение backlog состава или приоритета требует review рабочей XLSX-оценки ресурсов.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0038",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ресурсной оценки в XLSX запускает roadmap review или no-change rationale по планированию.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0039",
+      "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "downstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение roadmap запускает review продуктовых гипотез, которые проверяются в ближайших этапах.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0040",
+      "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение roadmap запускает review кандидатного плана спринтов без автоматического утверждения sprint backlog.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0041",
+      "upstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение продуктовой гипотезы запускает review traceability между ценностью, проверкой и evidence.",
+      "validation_command": "npm run validate:traceability-graph",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0042",
+      "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "traceability",
+      "update_rule": "Изменение traceability запускает review экспортного пакета, чтобы опубликованные страницы отражали текущие связи.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0043",
+      "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
+      "relation_type": "evidence",
+      "update_rule": "Изменение traceability требует закрыть affected artifacts в impact analysis перед завершением запуска.",
+      "validation_command": "npm run validate:impact-analysis",
+      "owner_role": "Process Owner / QA Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0044",
+      "upstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "downstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
+      "relation_type": "evidence",
+      "update_rule": "Изменение экспортной карты требует зафиксировать готовность или остаточный риск в impact analysis.",
+      "validation_command": "npm run validate:impact-analysis",
+      "owner_role": "Process Owner / QA Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0045",
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение текста истории или приоритета запускает review backlog; ПШЕ берутся из XLSX/source-provenance, а не из каталога историй.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0046",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение контролируемого XLSX требует пересборки рабочей XLSX-копии или обоснования отсутствия изменений; оригинальный внешний источник не редактируется.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0047",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение содержимого контролируемого XLSX, которое влияет на текст истории, ценность, приоритет или полноту источника, требует проверки каталога историй; чистая проверка сохранности требует no-change rationale.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0048",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Изменение контролируемого XLSX требует обновить индекс восстановления или зафиксировать, почему доказательства восстановления не меняются.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0049",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение working XLSX должно обновить SHA книги, строковые ПШЕ и статус согласования в provenance.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0050",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/product-source-registry.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "SHA working XLSX, жизненный цикл, статус согласования и affected artifacts должны оставаться согласованными в product source registry.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0051",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/process/guides/datacanvas-excel-backlog-sync.md",
+      "relation_type": "process",
+      "update_rule": "Изменение структуры книги или правил проверки требует обновить Excel sync guide; изменение значений ПШЕ обычно закрывается no-change rationale без правки инструкции.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "formatting_change",
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0052",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Принятая Product Owner правка текста истории, бизнес-ценности, функциональной зоны или приоритета в working XLSX требует обновить канонический каталог пользовательских историй или зафиксировать no-change rationale во внешнем impact/evidence контуре.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0053",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Изменение строк оценки, рольных значений или итогов требует обновить effort analysis или зафиксировать, почему анализ не меняется.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "row_add_remove"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0054",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ПШЕ или приоритетных данных XLSX требует пересчитать sprint candidates или зафиксировать, почему sprint planning не меняется.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0055",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Изменение ПШЕ в XLSX не должно переписывать текст истории; если backlog artifact не меняется, impact analysis объясняет почему.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0056",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение ПШЕ или приоритетных данных XLSX требует backlog review; изменение бизнесового текста истории требует подтверждения Product Owner.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0057",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Смысловое изменение истории или источника в XLSX требует review требований; чистое изменение ПШЕ закрывается no-change rationale без загрязнения бизнесового текста.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0058",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Смысловое изменение истории или источника в XLSX требует acceptance review; чистое изменение ПШЕ закрывается no-change rationale.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0059",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "Изменение истории, ПШЕ или статуса источника в XLSX требует traceability review или явного no-change rationale.",
+      "validation_command": "npm run validate:schemas",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0060",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Изменение working XLSX требует review recovery index для непрерывности цепочки XLSX -> OPML -> Jira.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0061",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/sources/product-source-registry.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "Статус согласования provenance и проверки командой должен оставаться согласованным со статусом source registry.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0062",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "Строковые решения provenance и статус согласования должны отражаться в effort analysis или явно закрываться как неизменные.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0063",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "Статус согласования provenance должен блокировать или разблокировать sprint-candidate planning.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0064",
+      "upstream_artifact": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+      "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "relation_type": "xlsx_recovery",
+      "update_rule": "Готовность Jira import должна учитывать текущий статус восстановления XLSX/OPML и согласование field mapping.",
+      "validation_command": "npm run validate:jira-field-mapping",
+      "owner_role": "Delivery/GitOps Lead",
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0065",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/process/cascading-governance/capacity-plan-2026-q3.json",
       "relation_type": "resource",
       "update_rule": "Backlog reprioritization triggers quarter capacity recalculation.",
       "validation_command": "npm run validate:reprioritization-impact",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "when_capacity_or_priority_changes"
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0066",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
       "relation_type": "semantic",
       "update_rule": "Backlog priority changes trigger roadmap review.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Product Owner",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0067",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/sprints",
       "relation_type": "evidence",
       "update_rule": "Backlog priority changes trigger sprint planning and evidence review.",
       "validation_command": "npm run validate:schemas",
       "owner_role": "Scrum Master",
-      "user_confirmation_required": "semantic_change"
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     },
     {
+      "edge_id": "EDGE-0068",
       "upstream_artifact": "docs/product/backlog/product-backlog.md",
       "downstream_artifact": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "relation_type": "jira",
       "update_rule": "Jira-bound backlog package requires per-package field mapping request.",
       "validation_command": "npm run validate:jira-field-mapping",
       "owner_role": "Delivery/GitOps Lead",
-      "user_confirmation_required": "when_jira_mapping_changes"
+      "user_confirmation_required": "when_jira_mapping_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change"
+      ]
     },
     {
+      "edge_id": "EDGE-0069",
       "upstream_artifact": "docs/process/cascading-governance/documentation-change-request.json",
       "downstream_artifact": "docs/navigation/navigation-source.json",
       "relation_type": "navigation",
       "update_rule": "New manual docs must be classified in navigation source or explicitly ignored.",
       "validation_command": "npm run validate:docs-navigation",
       "owner_role": "Process Owner",
-      "user_confirmation_required": "never"
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "change_order",
+        "documentation",
+        "mixed_or_ambiguous",
+        "product_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0070",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "downstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "relation_type": "traceability",
+      "update_rule": "Человекочитаемое решение CO-2026-002 должно оставаться синхронным с машинным change-order JSON.",
+      "validation_command": "npm run validate:product-change-orders",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0071",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
+      "relation_type": "traceability",
+      "update_rule": "Принятое машинное решение CO-2026-002 требует актуальной impact assessment по затронутым артефактам.",
+      "validation_command": "npm run validate:change-impact",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0072",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 меняет границу P1/P2 и состав основного маршрута, поэтому требует review каталога пользовательских историй.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0073",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "resource",
+      "update_rule": "CO-2026-002 меняет P1/P2-контур и требует review product backlog.",
+      "validation_command": "npm run validate:backlog-registry",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0074",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+      "relation_type": "resource",
+      "update_rule": "CO-2026-002 меняет текущий срез запуска другим агентом и требует review P1/P2 историй.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0075",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 требует проверить, нужны ли новые или измененные BT-* требования.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0076",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 требует review критериев приемки по P1/P2-маршруту запуска другим агентом.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0077",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 требует NFR/security review по P1/P2-маршруту.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / Architect",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0078",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-002 требует обновить traceability связей stories, BT-* и acceptance.",
+      "validation_command": "npm run validate:traceability-graph",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0079",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
+      "relation_type": "estimate_evidence",
+      "update_rule": "CO-2026-002 требует review оценки P1/P2-маршрута и связки с XLSX.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0080",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "relation_type": "resource",
+      "update_rule": "CO-2026-002 требует review ближайших sprint candidates без автоматического утверждения sprint backlog.",
+      "validation_command": "npm run validate:xlsx-cascade",
+      "owner_role": "Product Owner / Scrum Master",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0081",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/sources/product-source-registry.json",
+      "relation_type": "registry_consistency",
+      "update_rule": "CO-2026-002 должен быть отражен в реестре продуктовых источников и downstream coverage.",
+      "validation_command": "npm run validate:product-source-consistency",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0082",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-002 должен обновить карту влияния DC-ST-23..DC-ST-33 на BT-* требования.",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0083",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение контролируемого XLSX, которое влияет на состав или приоритет историй запуска другим агентом, требует проверки карты влияния требований или no-change rationale.",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0084",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение working XLSX, которое влияет на состав, приоритет, смысл истории или принятые ПШЕ, требует review карты влияния требований или no-change rationale.",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0085",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение provenance по строкам, статусу согласования или источнику XLSX требует review карты влияния требований или no-change rationale.",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "provenance_only"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0086",
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение состава или смысла DC-ST-23..DC-ST-33 требует review карты влияния на BT-* требования.",
+      "validation_command": "npm run validate:agent-launch-requirements-analysis",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0087",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product-vision.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 меняет границу пользовательского маршрута, форматы результата и P2-доставку, поэтому требует review Vision.",
+      "validation_command": "npm run validate:product-vision",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0088",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "CO-2026-002 меняет ценность, каналы и ключевые активности, поэтому требует review BMC по классическим блокам.",
+      "validation_command": "npm run validate:bmc",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0089",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "relation_type": "estimate_evidence",
+      "update_rule": "CO-2026-002 меняет состав и границу оцениваемых историй DC-ST-23..DC-ST-33, поэтому требует обновить рабочую Excel-версию или зафиксировать no-change rationale.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / команда реализации",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "row_add_remove"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0090",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "relation_type": "source_provenance",
+      "update_rule": "CO-2026-002 меняет состав принятых строк Excel, поэтому требует обновить provenance manifest.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "estimate_change",
+        "formatting_change",
+        "formatting_only",
+        "formula_cache_only",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "provenance_only",
+        "row_add_remove",
+        "scope_change",
+        "source_identity",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0091",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "resource",
+      "update_rule": "CO-2026-002 меняет состав экспортируемого бизнес-пакета, поэтому требует review карты импорта в Confluence.",
+      "validation_command": "npm run validate:doc-links",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0092",
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+      "downstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-001 должен быть отражен в карте ключевых бизнес-утверждений до каскадной проверки основных артефактов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0093",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+      "downstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "relation_type": "traceability",
+      "update_rule": "CO-2026-002 должен быть отражен в карте ключевых бизнес-утверждений до каскадной проверки основных артефактов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0094",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product-vision.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review Vision по CO-001/CO-002.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0095",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review BMC по каналам, ценности и активностям.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0096",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review каталога историй и приоритетов.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0097",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review бизнес-требований.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0098",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение карты утверждений требует review критериев приемки.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0099",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/backlog/product-backlog.md",
+      "relation_type": "resource",
+      "update_rule": "Изменение карты утверждений требует review product backlog.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "when_capacity_or_priority_changes",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "capacity",
+        "estimate_change",
+        "mixed_or_ambiguous",
+        "priority_change",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0100",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "relation_type": "traceability",
+      "update_rule": "Изменение карты утверждений требует review экспортного пакета.",
+      "validation_command": "npm run validate:business-claim-map",
+      "owner_role": "Product Owner / Documentation Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "acceptance_meaning",
+        "business_model",
+        "business_requirement",
+        "change_order",
+        "hypothesis",
+        "mixed_or_ambiguous",
+        "non_functional_requirement",
+        "priority_change",
+        "product_goal",
+        "product_meaning",
+        "roadmap_meaning",
+        "row_add_remove",
+        "scope_change",
+        "story_text_change",
+        "capacity",
+        "estimate_change",
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0101",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+      "downstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение манифеста происхождения требует повторной проверки очищенного XLSX или блокирующего обоснования отсутствия изменений.",
+      "validation_command": "npm run validate:xlsx-source-security",
+      "owner_role": "Product Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "provenance_only",
+        "source_identity"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0102",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+      "downstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "relation_type": "source_provenance",
+      "update_rule": "Изменение исходного или очищенного SHA требует обновить provenance рабочей книги или заблокировать каскад.",
+      "validation_command": "npm run validate:xlsx-backlog",
+      "owner_role": "Product Owner / Process Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "provenance_only",
+        "source_identity"
+      ]
     }
   ],
   "high_impact_sources": [
     "docs/product-vision.md",
     "docs/product/vision/vision-v0.1.md",
-    "docs/product/change-orders/co-2026-001-a2a-first-priority.json"
+    "docs/product/change-orders/co-2026-001-a2a-first-priority.json",
+    "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
+    "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
+    "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+    "docs/product/requirements/business-claim-map.json"
   ]
 }

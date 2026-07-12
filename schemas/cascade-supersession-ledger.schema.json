@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-supersession-ledger.schema.json",
+  "title": "Cascade supersession ledger v1",
+  "type": "object",
+  "required": ["$schema", "version", "ledger_id", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-supersession-ledger.schema.json" },
+    "version": { "const": "1.0.0" },
+    "ledger_id": { "type": "string", "pattern": "^CSL-[A-Z0-9-]+$" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["legacy_path", "original_commit_sha", "last_modified_commit_sha", "original_sha256", "observed_sha256", "replacement_path", "reason", "owner_status"],
+        "additionalProperties": false,
+        "properties": {
+          "legacy_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "original_commit_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+          "last_modified_commit_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+          "original_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+          "observed_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+          "replacement_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "reason": { "type": "string", "minLength": 1 },
+          "owner_status": { "enum": ["pending", "accepted", "rejected", "conflicting"] }
+        }
+      }
+    }
+  }
+}

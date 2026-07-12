@@ -14,17 +14,41 @@
   ],
   "additionalProperties": false,
   "properties": {
-    "$schema": { "type": "string" },
-    "analysis_id": { "type": "string", "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$" },
-    "status": { "type": "string", "enum": ["draft", "in_progress", "completed"] },
-    "source_change_order": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}$" },
+    "$schema": {
+      "type": "string"
+    },
+    "analysis_id": {
+      "type": "string",
+      "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_progress",
+        "completed"
+      ]
+    },
+    "source_change_order": {
+      "type": "string",
+      "pattern": "^CO-[0-9]{4}-[0-9]{3}$"
+    },
     "story_range": {
       "type": "object",
-      "required": ["from", "to"],
+      "required": [
+        "from",
+        "to"
+      ],
       "additionalProperties": false,
       "properties": {
-        "from": { "type": "string", "const": "DC-ST-23" },
-        "to": { "type": "string", "const": "DC-ST-28" }
+        "from": {
+          "type": "string",
+          "const": "DC-ST-23"
+        },
+        "to": {
+          "type": "string",
+          "const": "DC-ST-33"
+        }
       }
     },
     "requirements_baseline": {
@@ -37,20 +61,32 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "source_path": { "$ref": "#/$defs/repoPath" },
-        "confirmed_existing_range": { "type": "string", "const": "BT-001..BT-014" },
-        "next_free_requirement_id": { "type": "string", "const": "BT-015" },
+        "source_path": {
+          "$ref": "#/$defs/repoPath"
+        },
+        "confirmed_existing_range": {
+          "type": "string",
+          "const": "BT-001..BT-021"
+        },
+        "next_free_requirement_id": {
+          "type": "string",
+          "const": "BT-022"
+        },
         "new_requirement_ids_assigned": {
           "type": "array",
-          "items": { "$ref": "#/$defs/requirementId" }
+          "items": {
+            "$ref": "#/$defs/requirementId"
+          }
         }
       }
     },
     "stories": {
       "type": "array",
-      "minItems": 6,
-      "maxItems": 6,
-      "items": { "$ref": "#/$defs/storyImpact" }
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "$ref": "#/$defs/storyImpact"
+      }
     },
     "summary": {
       "type": "object",
@@ -62,15 +98,25 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "new_requirements_needed": { "type": "boolean" },
-        "changed_requirements_needed": { "type": "boolean" },
+        "new_requirements_needed": {
+          "type": "boolean"
+        },
+        "changed_requirements_needed": {
+          "type": "boolean"
+        },
         "deferred_decisions": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         },
         "evidence_requests": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     }
@@ -81,15 +127,21 @@
       "minLength": 1,
       "not": {
         "anyOf": [
-          { "pattern": "^/" },
-          { "pattern": "^[A-Za-z]:/" },
-          { "pattern": "\\.\\.(?:/|$)" }
+          {
+            "pattern": "^/"
+          },
+          {
+            "pattern": "^[A-Za-z]:/"
+          },
+          {
+            "pattern": "\\.\\.(?:/|$)"
+          }
         ]
       }
     },
     "storyId": {
       "type": "string",
-      "pattern": "^DC-ST-(23|24|25|26|27|28)$"
+      "pattern": "^DC-ST-(23|24|25|26|27|28|29|30|31|32|33)$"
     },
     "requirementId": {
       "type": "string",
@@ -113,9 +165,17 @@
       ],
       "additionalProperties": false,
       "properties": {
-        "story_id": { "$ref": "#/$defs/storyId" },
-        "title": { "type": "string", "minLength": 1 },
-        "decision_id": { "type": "string", "pattern": "^ALRA-DEC-[0-9]{3}$" },
+        "story_id": {
+          "$ref": "#/$defs/storyId"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_id": {
+          "type": "string",
+          "pattern": "^ALRA-DEC-[0-9]{3}$"
+        },
         "decision_type": {
           "type": "string",
           "enum": [
@@ -143,20 +203,43 @@
         "affected_requirements": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/requirementId" }
+          "items": {
+            "$ref": "#/$defs/requirementId"
+          }
         },
         "source_paths": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/repoPath" }
+          "items": {
+            "$ref": "#/$defs/repoPath"
+          }
         },
-        "rationale": { "type": "string", "minLength": 1 },
-        "acceptance_criteria_effect": { "type": "string", "minLength": 1 },
-        "traceability_effect": { "type": "string", "minLength": 1 },
-        "evidence_status": { "type": "string", "enum": ["sufficient", "insufficient", "not_required"] },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acceptance_criteria_effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "traceability_effect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_status": {
+          "type": "string",
+          "enum": [
+            "sufficient",
+            "insufficient",
+            "not_required"
+          ]
+        },
         "blockers": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     }

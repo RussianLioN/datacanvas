@@ -15,16 +15,67 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "command", "gate", "applies_to", "owner_role", "purpose"],
+        "required": [
+          "id",
+          "command",
+          "gate",
+          "execution_type",
+          "mutates_files",
+          "writes_expected",
+          "freshness_required",
+          "completion_blocking",
+          "applies_to",
+          "owner_role",
+          "purpose"
+        ],
         "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "minLength": 1 },
           "command": { "type": "string", "minLength": 1 },
           "gate": { "type": "string", "enum": ["quick", "profile", "generated", "security", "full"] },
+          "execution_type": {
+            "type": "string",
+            "enum": ["read_only_check", "isolated_runtime_check", "mutating_generator", "full_gate"]
+          },
+          "mutates_files": { "type": "boolean" },
+          "writes_expected": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "freshness_required": { "type": "boolean" },
+          "completion_blocking": { "type": "boolean" },
+          "runtime_cleanup_required": { "type": "boolean" },
+          "non_blocking_rationale": { "type": "string", "minLength": 1 },
           "applies_to": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
           "owner_role": { "type": "string", "minLength": 1 },
           "purpose": { "type": "string", "minLength": 1 }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "type": "object",
+              "properties": { "completion_blocking": { "const": false } },
+              "required": ["completion_blocking"]
+            },
+            "then": {
+              "type": "object",
+              "required": ["non_blocking_rationale"],
+              "properties": { "non_blocking_rationale": { "type": "string", "minLength": 1 } }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": { "execution_type": { "const": "isolated_runtime_check" } },
+              "required": ["execution_type"]
+            },
+            "then": {
+              "type": "object",
+              "required": ["runtime_cleanup_required"],
+              "properties": { "runtime_cleanup_required": { "const": true } }
+            }
+          }
+        ]
       }
     },
     "gate_order": {

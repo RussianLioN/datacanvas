@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-source-change-analysis.schema.json",
+  "title": "Cascade source change analysis v1",
+  "type": "object",
+  "required": ["$schema", "version", "analysis_id", "base_sha", "planning_head_sha", "analyzer_path", "analyzer_sha256", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-source-change-analysis.schema.json" },
+    "version": { "const": "1.0.0" },
+    "analysis_id": { "type": "string", "pattern": "^CSCA-[A-Z0-9-]+$" },
+    "base_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+    "planning_head_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+    "analyzer_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "analyzer_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "before_sha256", "after_sha256", "signals", "change_classes", "changed_cell_count", "changed_cell_samples", "structural_changes"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+          "before_sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] },
+          "after_sha256": { "anyOf": [{ "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }, { "type": "null" }] },
+          "signals": {
+            "type": "object",
+            "required": ["noChange", "formattingChanged", "formulaCacheOnly", "estimateChanged", "priorityChanged", "storyTextChanged", "rowAddedOrRemoved", "scopeChanged"],
+            "additionalProperties": false,
+            "properties": {
+              "noChange": { "type": "boolean" },
+              "formattingChanged": { "type": "boolean" },
+              "formulaCacheOnly": { "type": "boolean" },
+              "estimateChanged": { "type": "boolean" },
+              "priorityChanged": { "type": "boolean" },
+              "storyTextChanged": { "type": "boolean" },
+              "rowAddedOrRemoved": { "type": "boolean" },
+              "scopeChanged": { "type": "boolean" }
+            }
+          },
+          "change_classes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "enum": ["estimate_change", "formatting_change", "formatting_only", "formula_cache_only", "mixed_or_ambiguous", "no_change", "priority_change", "row_add_remove", "scope_change", "story_text_change"] }
+          },
+          "changed_cell_count": { "type": "integer", "minimum": 0 },
+          "changed_cell_samples": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": ["sheet", "cell", "kind"],
+              "additionalProperties": false,
+              "properties": {
+                "sheet": { "type": "string", "minLength": 1 },
+                "cell": { "type": "string", "pattern": "^[A-Z]+[1-9][0-9]*$" },
+                "kind": { "enum": ["cell_add_remove", "cell_change", "comment_change", "formula_cache"] }
+              }
+            }
+          },
+          "structural_changes": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    }
+  }
+}

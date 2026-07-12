@@ -16,6 +16,10 @@
     {
       "id": "positive-restricted-evidence-not-business-route",
       "description": "Restricted evidence не становится business route."
+    },
+    {
+      "id": "positive-nested-readmes-managed-or-ignored",
+      "description": "Каждый вложенный README управляется navigation source или явно исключен."
     }
   ]
 }

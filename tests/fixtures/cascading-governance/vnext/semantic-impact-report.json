@@ -1,0 +1,15 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-semantic-impact-report.schema.json",
+  "version": "1.0.0",
+  "changed_sources": [{ "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx", "source_kind": "xlsx", "change_classes": ["estimate_change"] }],
+  "authoritative_review_paths": [],
+  "write_obligations": ["docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md"],
+  "diagnostic_closure": ["docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md", "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"],
+  "diagnostic_classifications": [
+    { "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md", "classification": "obligated" },
+    { "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx", "classification": "changed_source" }
+  ],
+  "route_evidence": [
+    { "source_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx", "from": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx", "to": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md", "edge_id": "EDGE-0053", "relation_type": "estimate_evidence", "validation_command": "npm run validate:xlsx-cascade", "change_classes": ["estimate_change"] }
+  ]
+}

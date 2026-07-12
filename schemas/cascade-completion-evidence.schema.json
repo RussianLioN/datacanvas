@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json",
+  "title": "Cascade completion evidence v1",
+  "type": "object",
+  "required": ["$schema", "version", "evidence_id", "status", "source_run_path", "candidate_head_sha", "execution_mode", "runtime_manifest_path", "runtime_manifest_sha256", "runtime_match", "command_set_sha256", "command_results", "blocking_reasons", "generated_at"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json" },
+    "version": { "const": "1.0.0" },
+    "evidence_id": { "type": "string", "pattern": "^CCE-[A-Z0-9-]+$" },
+    "status": { "enum": ["passed", "blocked"] },
+    "source_run_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "candidate_head_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+    "execution_mode": { "const": "detached_candidate_worktree" },
+    "runtime_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "runtime_manifest_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "runtime_match": { "type": "boolean" },
+    "command_set_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "command_results": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["id", "executable", "args", "status", "exit_code", "started_at", "finished_at", "duration_ms", "output_sha256", "summary"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "enum": ["clean-install", "full-gate", "worktree-cleanliness"] },
+          "executable": { "enum": ["npm", "git"] },
+          "args": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+          "status": { "enum": ["passed", "failed", "skipped"] },
+          "exit_code": { "anyOf": [{ "type": "integer" }, { "type": "null" }] },
+          "started_at": { "type": "string", "format": "date-time" },
+          "finished_at": { "type": "string", "format": "date-time" },
+          "duration_ms": { "type": "integer", "minimum": 0 },
+          "output_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+          "summary": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "blocking_reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "generated_at": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "runtime_match": { "const": true },
+          "blocking_reasons": { "type": "array", "maxItems": 0 },
+          "command_results": { "type": "array", "items": { "type": "object", "properties": { "status": { "const": "passed" }, "exit_code": { "const": 0 } } } }
+        }
+      }
+    }
+  ]
+}

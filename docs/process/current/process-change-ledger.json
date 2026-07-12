@@ -157,6 +157,60 @@
       ],
       "migration_notes": "Для CO-2026-001 создано активное состояние и журнал; продолжение опросника выполняется с PRODUCT-21.",
       "rollback": "Пометить questionnaire artifacts как superseded и удалить validate:co-questionnaire из промежуточных validation plans; продуктовые решения не откатываются без отдельного решения Product Owner."
+    },
+    {
+      "process_change_id": "PROC-048",
+      "title": "Закрепить CLI-friendly форматирование таблиц",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/process/audits/codex-cli-table-output-process-audit.md",
+      "pcr_path": "docs/process/change-requests/PROC-048-cli-table-output.md",
+      "changelog_anchor": "PROC-048",
+      "affected_artifacts": [
+        "AGENTS.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/process/universal-documentation-workflow/universal-workflow-core.json",
+        "docs/process/audits/codex-cli-table-output-process-audit.md",
+        "scripts/validate-universal-documentation-workflow.mjs"
+      ],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow",
+        "npm run validate:process-change-ledger",
+        "npm run validate:docs-navigation",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm test"
+      ],
+      "migration_notes": "Правило применяется только к рабочему чату Codex и процессным инструкциям. Продуктовые backlog, stories, requirements, BMC и Vision DataCanvas не меняются.",
+      "rollback": "Вернуть PROC-048 в Draft, удалить правило cli-table-output из AGENTS.md и UDW-инструкций, убрать проверку из validate-universal-documentation-workflow, затем регенерировать navigation, hash manifest и process metrics snapshot."
+    },
+    {
+      "process_change_id": "PROC-062",
+      "title": "Защитить XLSX-источник и историю Git",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md",
+      "pcr_path": "docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md",
+      "changelog_anchor": "PROC-062",
+      "affected_artifacts": [
+        "AGENTS.md",
+        ".github/workflows/docs-check.yml",
+        "docs/product/sources/product-source-registry.json",
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-ci-exact-sha.mjs"
+      ],
+      "validation_commands": [
+        "npm run test:source-security",
+        "npm run validate:xlsx-source-security",
+        "npm run validate:git-history-hygiene",
+        "npm run validate:ci-exact-sha",
+        "npm run validate:universal-documentation-workflow",
+        "npm test"
+      ],
+      "migration_notes": "Старый raw XLSX и загрязнённая история не переносятся в новый кандидат. Vision, BMC, пользовательские истории, требования, backlog, roadmap, приоритеты и ПШЕ DataCanvas не меняются.",
+      "rollback": "До merge закрыть чистый PR; после merge выполнить revert отдельным PR. Не возвращать загрязнённую ветку и не ослаблять XLSX, leakage, history или exact-SHA проверки."
     }
   ],
   "known_limitations": [

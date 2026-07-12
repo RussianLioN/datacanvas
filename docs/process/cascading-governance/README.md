@@ -4,24 +4,82 @@
 
 Статус: draft
 Владелец: Process Owner
-Проверка: `npm run validate:cascading-governance`
+Проверка: `npm run validate:cascade-vnext`, `npm run validate:cascade-vnext-e2e`, `npm run validate:cascade-trust`, `npm run validate:xlsx-change-classifier`
 
 ## Назначение
 
-Этот каталог хранит подготовительные контракты и evidence для управляемого изменения проектной документации DataCanvas. `PROC-038` имеет статус draft / not_decided, поэтому каталог работает как opt-in проверочная заготовка и не заменяет принятое правило процесса.
+Этот каталог хранит контракты и проверочные свидетельства для управляемого изменения проектной документации DataCanvas. `PROC-038` — предложение сделать каскадное ведение документации обязательным процессом — пока не принято, поэтому vNext применяется как явно запускаемый проверочный маршрут.
 
 ## Контракт
 
-- Opt-in проверка значимой правки Vision, BMC, stories, requirements, backlog, capacity, sprint artifacts, roadmap или Jira import package начинается с `DocumentationChangeRequest`.
-- Impact analysis строится по `artifact-dependency-graph.json` и не принимает бизнесовые решения за пользователя.
-- `user-decision-queue.json` блокирует Done claim внутри opt-in запуска, пока есть blocking decision со статусом `pending` или `deferred`.
-- Capacity и reprioritization фиксируются отдельно; конкретная емкость команды не заполняется без пользовательского или внешнего источника.
-- Jira custom fields согласуются через отдельный `JiraFieldMappingRequest`; import package не считается готовым без approved mapping или явного `pending_external`.
-- Generated navigation и hash artifacts обновляются только генераторами.
+- Проверка значимой правки Vision, BMC, пользовательских историй, требований, бэклога, оценки ресурсов, спринта, дорожной карты или пакета Jira начинается с `DocumentationChangeRequest` — запроса на изменение документации.
+- Планировщик принимает только неизменяемый базовый Git SHA и реально измененный путь. Незарегистрированный XLSX, путь без изменения в заявленном диапазоне или неразрешенная область записи блокируют запуск до публикации файлов.
+- Семантический анализ строится по `artifact-dependency-graph.json` и отдельно определяет проверку авторитетных источников выше, обязательные изменения ниже и диагностический охват. Он не принимает продуктовые решения за владельца.
+- Для каждого измененного корня и каждого затронутого артефакта финализатор требует одно решение: примененная правка с ожидаемым хэшем или согласованным хэшем патча либо структурированное обоснование отсутствия изменения.
+- При переименовании примененная правка обязана явно указать исходный и целевой пути. Оба пути сверяются с одной фактической записью Git; разрешение старого пути само по себе не разрешает запись в новый путь.
+- XLSX backlog и манифест происхождения считаются значимыми источниками. Их изменения классифицируются по реальному OOXML-различию, а не по ручным флагам.
+- Если меняется реестр продуктовых источников, операции `add`, `remove`, `rename` и `update` вычисляются из двух версий реестра в Git. Ручной список источников должен точно совпасть с вычисленным изменением.
+- Циклические связи допустимы только как явно объявленные группы. Внутри группы каждый артефакт разрешается один раз, а измененный корень не включается в собственный список влияния.
+- Полное обоснование отсутствия изменения хранится только в пакете конкретного запуска. Бизнесовые Markdown-документы, реестр продуктовых источников и граф зависимостей не используются как журнал исполнения.
+- Вопрос владельцу хранится в машинном пакете, но задается человеку в чате простым русским языком с полным текстом вариантов, абсолютными ссылками и цитатами. Принятие связывается с ролью, разрешенным каналом, классами изменений и доказательством подтверждения через `acceptance-authority.json`. Для интерактивного ответа фиксируются активный `CODEX_THREAD_ID` и хэш принятого решения; несовпадающая или отсутствующая привязка блокирует финализацию. Для подтверждения через репозиторий проверяются коммит, автор и его вхождение в candidate SHA. Канал внешней подписи не используется, пока не настроена криптографическая проверка.
+- Изменение только ПШЕ или другой оценки трудозатрат требует подтверждения команды реализации. Изменение продуктового смысла, приоритета или границы дополнительно требует подтверждения Product Owner.
+- Все стадии публикуют новый каталог атомарно. Исходный пакет и исторические свидетельства вручную не редактируются. Плановый, финализированный и профильный пакеты фиксируются отдельными Git-коммитами без соседних правок; следующая стадия проверяет их состав и неизменность.
+- Только `cascade:complete` после профильных проверок, полного `npm test`, повторного вычисления фактического Git diff и проверки незарегистрированных файлов может выпустить состояние `verified` и печать завершения.
+
+## Сухой Запуск И Проверка Завершения
+
+Предпросмотр без записи файлов:
+
+```bash
+npm run cascade:preview -- --files docs/product/requirements/user-stories.md
+```
+
+Планирование создает новый каталог свидетельств, но не меняет продуктовые документы. `base-sha` — последний коммит до анализируемого изменения:
+
+```bash
+npm run cascade:run -- \
+  --change-request docs/process/cascading-governance/documentation-change-request.json \
+  --base-sha <base-git-sha> \
+  --output-dir docs/process/cascading-governance/runs/<run-id>
+```
+
+Пакет содержит идентичность источников, смысловую область влияния, список обязательных проверок, сведения о среде и, если нужно решение, пакет вопроса владельцам. Все определяющие входы связаны ключом повторяемости. Тот же Git-диапазон и те же входы должны дать тот же ключ.
+
+До интервью, правок и финализации зафиксируйте только созданный каталог `<run-id>` отдельным коммитом. Добавлять в этот коммит продуктовые правки, вход разрешений или другие файлы нельзя.
+
+После согласования и применения правок изменения вместе с машинным входом разрешений нужно зафиксировать candidate-коммитом. Финализатор создает отдельный пакет, проверяет неизменность планового пакета, каждое обязательство, полномочия владельцев и заново вычисленный фактический Git diff:
+
+```bash
+npm run cascade:finalize -- \
+  --run docs/process/cascading-governance/runs/<run-id>/cascade-vnext-run.json \
+  --resolution-input <resolution-json> \
+  --candidate-head-sha <candidate-git-sha> \
+  --output-dir docs/process/cascading-governance/runs/<finalization-id>
+```
+
+Созданный каталог `<finalization-id>` фиксируется отдельным коммитом. Затем профильные проверки выполняются в отдельной рабочей копии candidate SHA; зависимости устанавливаются туда через `npm ci --ignore-scripts`, без ссылки на `node_modules` основной рабочей копии, с временными `HOME`, npm cache и пустым npm userconfig:
+
+```bash
+npm run cascade:verify -- \
+  --run docs/process/cascading-governance/runs/<finalization-id>/cascade-vnext-run.json \
+  --output-dir docs/process/cascading-governance/runs/<verification-id>
+```
+
+Каталог `<verification-id>` также фиксируется отдельным коммитом. Даже успешная профильная проверка еще не означает завершение. Окончательная команда проверяет неизменность всех трех пакетов, полноту профильных свидетельств, среду, фактический `base..candidate`-diff, выполняет полный набор проверок и только после этого выпускает печать завершения:
+
+```bash
+npm run cascade:complete -- \
+  --run docs/process/cascading-governance/runs/<verification-id>/cascade-vnext-run.json \
+  --output-dir docs/process/cascading-governance/runs/<completion-id>
+```
+
+Если любая стадия не прошла, ее новый каталог не считается завершенным. Ошибка до публикации не должна оставлять частичный пакет.
 
 ## Исходные Артефакты
 
 - [artifact-dependency-graph.json](artifact-dependency-graph.json)
+- [acceptance-authority.json](acceptance-authority.json)
+- [supersession-ledger.json](supersession-ledger.json)
 - [documentation-change-request.json](documentation-change-request.json)
 - [impact-analysis-report.json](impact-analysis-report.json)
 - [user-decision-queue.json](user-decision-queue.json)
@@ -29,8 +87,8 @@
 - [reprioritization-impact-report.json](reprioritization-impact-report.json)
 - [jira-field-mapping-request.json](jira-field-mapping-request.json)
 - [jira-import-package-manifest.json](jira-import-package-manifest.json)
-- [runs/2026-07-02-cascade-contract/cascading-update-run.json](runs/2026-07-02-cascade-contract/cascading-update-run.json)
-- [runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json](runs/2026-07-02-co-2026-001-q3-priority-impact/cascading-update-run-2026-07-02-002.json)
+
+Исторические пакеты прежнего формата перечислены в `supersession-ledger.json`. Они остаются свидетельствами истории и не используются как образец нового запуска. Для диагностической совместимости старые команды доступны только с суффиксом `:legacy`.
 
 ## Проверки
 
@@ -38,6 +96,12 @@
 
 ```bash
 npm run validate:cascading-governance
+npm run validate:cascade-impact
+npm run validate:cascade-verification
+npm run validate:cascade-vnext
+npm run validate:cascade-vnext-e2e
+npm run validate:cascade-trust
+npm run validate:xlsx-change-classifier
 ```
 
-Профильные gates доступны отдельно: `validate:documentation-change-request`, `validate:artifact-dependency-graph`, `validate:impact-analysis`, `validate:decision-queue`, `validate:capacity-plan`, `validate:reprioritization-impact`, `validate:cascading-update` и `validate:jira-field-mapping`.
+Прежние проверки сохраняются для исторических пакетов. Новый маршрут считается проверенным только при прохождении vNext, сквозного теста, контроля доверия и профильных проверок затронутых артефактов.

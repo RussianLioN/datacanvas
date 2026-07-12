@@ -1,0 +1,26 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-profile-evidence.schema.json",
+  "version": "1.0.0",
+  "evidence_id": "CPE-CASCADE-001",
+  "status": "profile_verified",
+  "source_run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
+  "candidate_head_sha": "1111111111111111111111111111111111111111",
+  "execution_mode": "detached_candidate_worktree",
+  "validation_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/validation-manifest.json",
+  "validation_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "executed_commands": [
+    {
+      "id": "business-docs",
+      "command_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "status": "passed",
+      "exit_code": 0,
+      "started_at": "2026-07-11T12:00:00+03:00",
+      "finished_at": "2026-07-11T12:00:01+03:00",
+      "duration_ms": 1000,
+      "output_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "summary": "Проверка выполнена успешно."
+    }
+  ],
+  "blocking_reasons": [],
+  "generated_at": "2026-07-11T12:00:01+03:00"
+}

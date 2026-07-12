@@ -1,0 +1,18 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-source-identity.schema.json",
+  "version": "1.0.0",
+  "identity_set_id": "CSI-2026-07-11-001",
+  "registry_path": "docs/product/sources/product-source-registry.json",
+  "registry_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "registry_delta": null,
+  "trigger_sources": [
+    {
+      "trigger_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "source_kind": "xlsx",
+      "source_id": "SRC-DC-STORIES-XLSX-WORKING",
+      "source_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "provenance_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "resolution": "deterministic_registry_match"
+    }
+  ]
+}

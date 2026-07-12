@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/v1/cascade-acceptance-vnext.schema.json",
+  "title": "Cascade acceptance v1",
+  "type": "object",
+  "required": ["$schema", "version", "acceptance_id", "status", "owner_identity", "owner_role", "authority_manifest_path", "authority_manifest_sha256", "authority_binding_id", "confirmation_channel", "confirmation_evidence", "accepted_change_classes", "run_id", "run_path", "change_request_id", "decision_id", "question_packet_path", "question_packet_sha256", "selected_option_id", "accepted_at"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-acceptance-vnext.schema.json" },
+    "version": { "const": "1.0.0" },
+    "acceptance_id": { "type": "string", "pattern": "^CAR-[A-Z0-9-]+$" },
+    "status": { "const": "accepted" },
+    "owner_identity": { "type": "string", "minLength": 1 },
+    "owner_role": { "enum": ["Product Owner", "Process Owner", "Команда реализации"] },
+    "authority_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "authority_manifest_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "authority_binding_id": { "type": "string", "pattern": "^AUTH-[A-Z0-9-]+$" },
+    "confirmation_channel": { "enum": ["interactive_session", "repository_approval", "signed_external_record"] },
+    "confirmation_evidence": {
+      "type": "object",
+      "required": ["evidence_type", "reference", "sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence_type": { "enum": ["interactive_turn", "repository_commit", "signed_record"] },
+        "reference": { "type": "string", "minLength": 1 },
+        "sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }
+      }
+    },
+    "accepted_change_classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/cascadeChangeClass" } },
+    "run_id": { "type": "string", "pattern": "^CUR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "run_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "change_request_id": { "type": "string", "pattern": "^DCR-[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9]{3}$" },
+    "decision_id": { "type": "string", "pattern": "^DEC-[A-Z0-9-]+$" },
+    "question_packet_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "question_packet_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "selected_option_id": { "type": "string", "pattern": "^OPT-[A-Z0-9-]+$" },
+    "accepted_at": { "type": "string", "format": "date-time" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "confirmation_channel": { "const": "interactive_session" } }, "required": ["confirmation_channel"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "confirmation_evidence": {
+            "type": "object",
+            "properties": {
+              "evidence_type": { "const": "interactive_turn" },
+              "reference": { "type": "string", "pattern": "^codex-thread:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "confirmation_channel": { "const": "repository_approval" } }, "required": ["confirmation_channel"] },
+      "then": { "type": "object", "properties": { "confirmation_evidence": { "type": "object", "properties": { "evidence_type": { "const": "repository_commit" } } } } }
+    },
+    {
+      "if": { "properties": { "confirmation_channel": { "const": "signed_external_record" } }, "required": ["confirmation_channel"] },
+      "then": { "type": "object", "properties": { "confirmation_evidence": { "type": "object", "properties": { "evidence_type": { "const": "signed_record" } } } } }
+    }
+  ]
+}

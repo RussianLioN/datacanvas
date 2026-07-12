@@ -11,6 +11,7 @@
     "canonical_visual_path",
     "source_trace_path",
     "source_trace_sha256",
+    "public_content_policy",
     "artifacts",
     "validators"
   ],
@@ -23,6 +24,37 @@
     "canonical_visual_path": { "type": "string", "minLength": 1 },
     "source_trace_path": { "type": "string", "minLength": 1 },
     "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "public_content_policy": {
+      "type": "object",
+      "required": [
+        "public_surfaces",
+        "allowed_public_content",
+        "service_information_storage",
+        "forbidden_public_information"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "public_surfaces": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "allowed_public_content": {
+          "type": "string",
+          "enum": ["business_model_canvas_only"]
+        },
+        "service_information_storage": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "forbidden_public_information": {
+          "type": "array",
+          "minItems": 5,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "artifacts": {
       "type": "array",
       "minItems": 10,

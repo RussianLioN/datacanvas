@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/xlsx-backlog-provenance.schema.json",
+  "title": "XlsxBacklogProvenance",
+  "type": "object",
+  "required": ["$schema", "version", "status", "provenance_id", "workbook", "rows", "downstream_policy"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["draft", "active", "accepted"] },
+    "provenance_id": { "type": "string", "pattern": "^XLSX-PSHE-PROV-[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "workbook": {
+      "type": "object",
+      "required": ["original_source_sha256", "source_path", "source_sha256", "source_sanitization_manifest", "working_path", "working_sha256", "verifier_command", "approval_status", "team_validation_status"],
+      "additionalProperties": false,
+      "properties": {
+        "original_source_sha256": { "$ref": "#/$defs/sha256" },
+        "source_path": { "$ref": "#/$defs/repoPath" },
+        "source_sha256": { "$ref": "#/$defs/sha256" },
+        "source_sanitization_manifest": { "$ref": "#/$defs/repoPath" },
+        "working_path": { "$ref": "#/$defs/repoPath" },
+        "working_sha256": { "$ref": "#/$defs/sha256" },
+        "verifier_command": { "type": "string", "minLength": 1 },
+        "approval_status": { "$ref": "#/$defs/approvalStatus" },
+        "team_validation_status": { "$ref": "#/$defs/teamValidationStatus" }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "story_id",
+          "workbook_row",
+          "analog_rows",
+          "draft_min",
+          "draft_max",
+          "selected_profile_row",
+          "selected_value",
+          "approval_status",
+          "team_validation_status"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "story_id": { "type": "string", "pattern": "^DC-ST-[0-9]{2}$" },
+          "workbook_row": { "type": "integer", "minimum": 1 },
+          "analog_rows": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "integer", "minimum": 1 }
+          },
+          "draft_min": { "type": "number", "minimum": 0 },
+          "draft_max": { "type": "number", "minimum": 0 },
+          "selected_profile_row": { "type": "integer", "minimum": 1 },
+          "selected_value": { "type": "number", "minimum": 0 },
+          "approval_status": { "$ref": "#/$defs/approvalStatus" },
+          "team_validation_status": { "$ref": "#/$defs/teamValidationStatus" }
+        }
+      }
+    },
+    "downstream_policy": {
+      "type": "object",
+      "required": ["may_update_sprint_backlog", "may_export_to_jira", "requires_team_approval_record", "notes"],
+      "additionalProperties": false,
+      "properties": {
+        "may_update_sprint_backlog": { "type": "boolean" },
+        "may_export_to_jira": { "type": "boolean" },
+        "requires_team_approval_record": { "type": "boolean" },
+        "notes": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "repoPath": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "^/" },
+          { "pattern": "^[A-Za-z]:[\\\\/]" },
+          { "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://" },
+          { "pattern": "\\\\" },
+          { "pattern": "\\.\\.(?:/|$)" }
+        ]
+      }
+    },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "approvalStatus": { "type": "string", "enum": ["draft_unapproved", "owner_approved", "team_approved", "blocked"] },
+    "teamValidationStatus": { "type": "string", "enum": ["pending_team_review", "approved", "blocked"] }
+  }
+}

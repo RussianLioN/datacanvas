@@ -1,0 +1,21 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-source-change-analysis.schema.json",
+  "version": "1.0.0",
+  "analysis_id": "CSCA-CASCADE-001",
+  "base_sha": "1111111111111111111111111111111111111111",
+  "planning_head_sha": "2222222222222222222222222222222222222222",
+  "analyzer_path": "scripts/classify-datacanvas-xlsx-change.py",
+  "analyzer_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "sources": [
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "before_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "after_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "signals": { "noChange": false, "formattingChanged": true, "formulaCacheOnly": false, "estimateChanged": true, "priorityChanged": true, "storyTextChanged": true, "rowAddedOrRemoved": true, "scopeChanged": true },
+      "change_classes": ["estimate_change", "formatting_change", "priority_change", "row_add_remove", "scope_change", "story_text_change"],
+      "changed_cell_count": 12,
+      "changed_cell_samples": [{ "sheet": "xl/worksheets/sheet1.xml", "cell": "C26", "kind": "cell_add_remove" }],
+      "structural_changes": ["xl/worksheets/sheet1.xml:worksheet_structure"]
+    }
+  ]
+}

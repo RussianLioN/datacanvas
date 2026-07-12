@@ -10,6 +10,7 @@
     "status",
     "generated_at",
     "target_artifact",
+    "impact_cone",
     "affected_artifacts",
     "blocking_user_decisions",
     "derived_facts",
@@ -26,9 +27,9 @@
     "status": { "type": "string", "enum": ["draft", "blocked", "ready", "applied"] },
     "generated_at": { "type": "string", "format": "date-time" },
     "target_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+    "impact_cone": { "$ref": "https://datacanvas.local/schemas/cascade-impact-cone.schema.json" },
     "affected_artifacts": {
       "type": "array",
-      "minItems": 1,
       "items": { "$ref": "#/$defs/affectedArtifact" }
     },
     "blocking_user_decisions": {
@@ -65,7 +66,18 @@
           "proposal": { "type": "string", "minLength": 1 },
           "classification": {
             "type": "string",
-            "enum": ["derived_from_sources", "requires_user_confirmation", "blocked_missing_input", "not_applicable"]
+            "enum": [
+              "derived_from_sources",
+              "requires_user_confirmation",
+              "blocked_missing_input",
+              "not_applicable",
+              "estimate_evidence",
+              "semantic_product_change",
+              "process_structure_change",
+              "generated_refresh",
+              "provenance_only",
+              "mixed_or_ambiguous"
+            ]
           }
         }
       }
@@ -96,7 +108,21 @@
           "downstream_artifact": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
           "relation_type": {
             "type": "string",
-            "enum": ["semantic", "traceability", "navigation", "resource", "jira", "evidence", "generated", "process"]
+            "enum": [
+              "semantic",
+              "traceability",
+              "navigation",
+              "resource",
+              "jira",
+              "evidence",
+              "generated",
+              "process",
+              "source_provenance",
+              "estimate_evidence",
+              "approval",
+              "registry_consistency",
+              "xlsx_recovery"
+            ]
           },
           "requires_user_confirmation": { "type": "boolean" },
           "blocking_decision_id": { "type": ["string", "null"], "pattern": "^DEC-[A-Z0-9-]+$" }
@@ -112,25 +138,19 @@
       "not": {
         "anyOf": [
           { "pattern": "^/" },
-          { "pattern": "^[A-Za-z]:/" },
+          { "pattern": "^[A-Za-z]:[\\\\/]" },
+          { "pattern": "^[A-Za-z][A-Za-z0-9+.-]*://" },
+          { "pattern": "\\\\" },
           { "pattern": "\\.\\.(?:/|$)" }
         ]
       }
     },
     "affectedArtifact": {
       "type": "object",
-      "required": ["path", "impact_types", "required_edits", "optional_edits", "update_status", "no_change_rationale"],
+      "required": ["path", "required_edits", "optional_edits", "update_status", "no_change_rationale"],
       "additionalProperties": false,
       "properties": {
         "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "impact_types": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "string",
-            "enum": ["semantic", "traceability", "navigation", "resource", "Jira", "evidence", "generated", "process", "schema", "validator"]
-          }
-        },
         "required_edits": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
@@ -145,12 +165,52 @@
         },
         "no_change_rationale": {
           "type": ["object", "null"],
-          "required": ["rationale", "confirmed_by", "confirmed_at"],
+          "required": [
+            "rationale",
+            "confirmed_by",
+            "confirmed_at",
+            "source_artifact",
+            "change_class",
+            "covered_requirements",
+            "acceptance_impact",
+            "traceability_impact",
+            "residual_risk",
+            "owner_role",
+            "reconsider_when"
+          ],
           "additionalProperties": false,
           "properties": {
             "rationale": { "type": "string", "minLength": 1 },
             "confirmed_by": { "type": "string", "minLength": 1 },
-            "confirmed_at": { "type": "string", "format": "date-time" }
+            "confirmed_at": { "type": "string", "format": "date-time" },
+            "source_artifact": {
+              "anyOf": [
+                { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+                { "type": "null" }
+              ]
+            },
+            "change_class": {
+              "type": "string",
+              "enum": [
+                "estimate_evidence",
+                "semantic_product_change",
+                "source_provenance_change",
+                "provenance_only",
+                "registry_consistency_change",
+                "generated_refresh",
+                "process_structure_change",
+                "mixed_or_ambiguous"
+              ]
+            },
+            "covered_requirements": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            },
+            "acceptance_impact": { "type": "string", "minLength": 1 },
+            "traceability_impact": { "type": "string", "minLength": 1 },
+            "residual_risk": { "type": "string", "minLength": 1 },
+            "owner_role": { "type": "string", "minLength": 1 },
+            "reconsider_when": { "type": "string", "minLength": 1 }
           }
         }
       }

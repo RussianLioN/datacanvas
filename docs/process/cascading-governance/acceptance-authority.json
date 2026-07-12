@@ -1,0 +1,33 @@
+{
+  "$schema": "https://datacanvas.local/schemas/v1/cascade-acceptance-authority.schema.json",
+  "version": "1.0.0",
+  "manifest_id": "CAA-DATACANVAS-001",
+  "status": "active",
+  "bindings": [
+    {
+      "binding_id": "AUTH-PRODUCT-OWNER",
+      "owner_role": "Product Owner",
+      "allowed_change_classes": ["acceptance_meaning", "business_model", "business_requirement", "capacity", "change_order", "hypothesis", "mixed_or_ambiguous", "non_functional_requirement", "priority_change", "product_goal", "product_meaning", "roadmap_meaning", "row_add_remove", "scope_change", "source_identity", "story_text_change"],
+      "confirmation_channels": ["interactive_session", "repository_approval"],
+      "identity_required": true,
+      "assurance_level": "thread_bound_declared_role"
+    },
+    {
+      "binding_id": "AUTH-PROCESS-OWNER",
+      "owner_role": "Process Owner",
+      "allowed_change_classes": ["documentation", "formatting_change", "formatting_only", "formula_cache_only", "provenance_only", "row_add_remove", "scope_change", "source_identity"],
+      "confirmation_channels": ["interactive_session", "repository_approval"],
+      "identity_required": true,
+      "assurance_level": "thread_bound_declared_role"
+    },
+    {
+      "binding_id": "AUTH-IMPLEMENTATION-TEAM",
+      "owner_role": "Команда реализации",
+      "allowed_change_classes": ["capacity", "estimate_change"],
+      "confirmation_channels": ["repository_approval"],
+      "identity_required": true,
+      "assurance_level": "repository_authenticated"
+    }
+  ],
+  "reviewed_at": "2026-07-11T00:00:00+03:00"
+}

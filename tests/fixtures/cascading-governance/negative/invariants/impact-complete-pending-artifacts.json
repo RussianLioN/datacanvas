@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "impact_report_id": "IAR-2026-07-02-201",
   "change_request_id": "DCR-2026-07-02-001",
   "status": "applied",
@@ -8,8 +8,9 @@
   "affected_artifacts": [
     {
       "path": "docs/process/cascading-governance/README.md",
-      "impact_types": ["process"],
-      "required_edits": ["Negative invariant fixture keeps a pending artifact."],
+      "required_edits": [
+        "Negative invariant fixture keeps a pending artifact."
+      ],
       "optional_edits": [],
       "update_status": "pending",
       "no_change_rationale": null
@@ -19,11 +20,47 @@
   "derived_facts": [
     {
       "fact": "Complete impact cannot keep pending artifacts.",
-      "source_paths": ["docs/plans/datacanvas-cascading-documentation-governance-plan.md"]
+      "source_paths": [
+        "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+      ]
     }
   ],
-  "assumptions_forbidden": ["Нельзя закрывать impact при pending artifacts."],
+  "assumptions_forbidden": [
+    "Нельзя закрывать impact при pending artifacts."
+  ],
   "proposals": [],
-  "validation_plan": ["npm run validate:impact-analysis"],
-  "completion_status": "complete"
+  "validation_plan": [
+    "npm run validate:impact-analysis"
+  ],
+  "completion_status": "complete",
+  "impact_cone": {
+    "version": "0.2.0",
+    "analysis_mode": "full_impact_cone",
+    "changed_source_set": [
+      {
+        "path": "docs/plans/datacanvas-cascading-documentation-governance-plan.md",
+        "change_class": "machine_readable"
+      }
+    ],
+    "impacted_artifacts": [
+      {
+        "path": "docs/process/cascading-governance/README.md",
+        "impact_directions": [
+          "downstream"
+        ],
+        "trigger_paths": [
+          "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+        ],
+        "review_obligation": "update_or_no_change",
+        "owner_gate_required": false,
+        "resolution_required": true
+      }
+    ],
+    "observed_cycle_ids": [
+      "CYCLE-STORIES-REQUIREMENTS-BACKLOG-XLSX"
+    ],
+    "uncovered_changed_paths": [
+      "docs/plans/datacanvas-cascading-documentation-governance-plan.md"
+    ]
+  }
 }
