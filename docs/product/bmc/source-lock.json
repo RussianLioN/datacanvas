@@ -6,7 +6,7 @@
   "known_limitations": [
     "The requested codex/datacanvas-stories-doc ref was not available in this checkout during implementation; its content is represented through a prior read-only inspection snapshot in source-excerpts.md.",
     "Branch-backed source refs must be refreshed before promoting BMC v0.2 from draft_interview_ready to accepted.",
-    "AI-agent-platform is used as a local method reference only; DataCanvas product claims must come from DataCanvas sources or interview evidence."
+    "AI-agent-platform is used as a method reference only; exact local checkout paths are redacted and DataCanvas product claims must come from DataCanvas sources or interview evidence."
   ],
   "sources": [
     {
@@ -40,6 +40,14 @@
       "status": "available",
       "trust_level": "accepted_current",
       "allowed_use": "Accepted product decision for agent-first launch priority, Lisa dialog mode, and email delivery."
+    },
+    {
+      "id": "SRC-DC-CO-2026-002",
+      "kind": "repo_file",
+      "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "status": "available",
+      "trust_level": "accepted_current",
+      "allowed_use": "Accepted product decision for P1 email delivery and P2 protected PDF link with Lisa notification through an adjacent route."
     },
     {
       "id": "SRC-DC-REVISION-EDIT-002",
@@ -76,36 +84,36 @@
     },
     {
       "id": "SRC-AAP-BMC-CONTRACT",
-      "kind": "external_local_reference",
-      "path": "/Users/rl/coding/AI-agent-platform/docs/agent_factory/business-model-canvas/README.md",
-      "status": "available",
+      "kind": "external_method_reference",
+      "path": "AI-agent-platform:docs/agent_factory/business-model-canvas/README.md",
+      "status": "path_redacted",
       "sha256": "dd5a6b75ac9707bb0bf4fa9b4542cef093bc2a21e2ba93280bef4c5c236d31c2",
       "trust_level": "method_reference",
       "allowed_use": "BMC method and artifact contract pattern only; no DataCanvas product claims."
     },
     {
       "id": "SRC-AAP-BMC-TRACE",
-      "kind": "external_local_reference",
-      "path": "/Users/rl/coding/AI-agent-platform/docs/agent_factory/business-model-canvas/business-model-canvas.trace.json",
-      "status": "available",
+      "kind": "external_method_reference",
+      "path": "AI-agent-platform:docs/agent_factory/business-model-canvas/business-model-canvas.trace.json",
+      "status": "path_redacted",
       "sha256": "75a21d77e47e4fa41c33786583ce066a1898d9d7b12d82e340dd1d41ba1e0357",
       "trust_level": "method_reference",
       "allowed_use": "Trace JSON structure pattern only."
     },
     {
       "id": "SRC-AAP-BMC-GENERATOR",
-      "kind": "external_local_reference",
-      "path": "/Users/rl/coding/AI-agent-platform/tools/generate-bmc-plantuml.py",
-      "status": "available",
+      "kind": "external_method_reference",
+      "path": "AI-agent-platform:tools/generate-bmc-plantuml.py",
+      "status": "path_redacted",
       "sha256": "5950384b7d621f110e4c0ffabb901311687ee24b4d71c50d17196a0d140d3d38",
       "trust_level": "method_reference",
       "allowed_use": "Visual generation pattern only."
     },
     {
       "id": "SRC-AAP-BMC-VERIFIER",
-      "kind": "external_local_reference",
-      "path": "/Users/rl/coding/AI-agent-platform/tools/verify-bmc-traceability.py",
-      "status": "available",
+      "kind": "external_method_reference",
+      "path": "AI-agent-platform:tools/verify-bmc-traceability.py",
+      "status": "path_redacted",
       "sha256": "268c52c5d740ba52e053f4d2f3aeb4367ef3748959cff7818bde34dd433b6091",
       "trust_level": "method_reference",
       "allowed_use": "Verifier pattern only."

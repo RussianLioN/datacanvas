@@ -13,8 +13,8 @@
   "counts": {
     "sprint_folders": 67,
     "sprint_evidence_manifests": 67,
-    "artifact_registry_entries": 686,
-    "accepted_process_changes": 4,
+    "artifact_registry_entries": 805,
+    "accepted_process_changes": 6,
     "passed_evidence_checks": 535,
     "pending_evidence_checks": 0,
     "quality_gates_passed": 6,
@@ -34,7 +34,7 @@
     {
       "id": "DPM-002",
       "name": "Artifact registry size",
-      "value": "686",
+      "value": "805",
       "calculation": "count(artifact_registry.artifacts)",
       "evidence_paths": [
         "docs/architecture/schemas/artifact-registry.json"
@@ -43,7 +43,7 @@
     {
       "id": "DPM-003",
       "name": "Accepted process changes",
-      "value": "4",
+      "value": "6",
       "calculation": "count(process_change_ledger.entries where status == accepted)",
       "evidence_paths": [
         "docs/process/current/process-change-ledger.json"

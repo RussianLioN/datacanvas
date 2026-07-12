@@ -2,39 +2,39 @@
   "version": "0.1.0",
   "status": "generated",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
-  "source_trace_sha256": "4bac96e6fbef6d92478d9e394107792b147f160a45073e49d9be44a56e28d43f",
+  "source_trace_sha256": "0540ac541bf6412dbfa296e675bb426b1ea466c1147c6f389ab618bf1c83f779",
   "generated_by": "scripts/generate-bmc-artifacts.mjs",
   "generated_at": "2026-06-24T00:00:00Z",
   "outputs": [
     {
       "format": "markdown",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "2df1decb5045d2b74426484ec7f9e9bdfeabaa2940bfac5d190511d8af3b6328"
+      "sha256": "f48651f350d959531c014b6aef67ab241961a7d9fc0ebbc3bf1f105184cc9230"
     },
     {
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "3b1015378b2f10496133abf4a7edef8d9974fe7371aa18342120353653fb0d83"
+      "sha256": "6951b850183f89e3fe8e81fe3775a7a50e0efffeba4a11686308b8729f5831c8"
     },
     {
       "format": "svg",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "31bc20b06341a94429814c3f43a2822588480607aa1965dd84df3677819a3a88"
+      "sha256": "c834f7287335eee20e9db0b2160c56fcf4ed59dc5fdf21b7cad2aaf190c1022f"
     },
     {
       "format": "png",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "e6987f102ae52b1dd485bbe2ccc2fd63c39f78a850585cff012ecd9c33159ef2"
+      "sha256": "745e9532d73454c89294dacbe0f75634a19ce8bbef946bdc41b7261f9a2a2044"
     },
     {
       "format": "pdf",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "6ba3779591b25049e982df0df92a2ad33c9120d570c0cbc0221e62c42c8778e3"
+      "sha256": "a94634919880513fb372dd34c4d5fe4b7245c5339cdbde5194bb220d33812e2b"
     },
     {
       "format": "validation_needs_json",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "31cb80f0432487b46102501a7d7311e23edbd901fb607d14e0b79389edffe687"
+      "sha256": "3e6ae416bfe7d867b4cec53ab851942bb41cc29d537aaccc290c4f8fc26f81ac"
     }
   ]
 }
