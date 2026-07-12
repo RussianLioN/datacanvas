@@ -21,12 +21,16 @@ export function buildValidationManifest({
   const byCommand = new Map((catalog.commands ?? []).map((entry) => [entry.command, entry]));
   for (const command of routeCommands) {
     if (!byCommand.has(command)) throw new Error(`route command is not present in the validation catalog: ${command}`);
+    if (!includeFull && byCommand.get(command).mutates_files) {
+      throw new Error(`mutating route command is not allowed in a profile manifest: ${command}`);
+    }
   }
 
   const selected = new Map();
   for (const entry of catalog.commands ?? []) {
     const applies = (entry.applies_to ?? []).some((scope) => scopes.includes(scope));
-    if (entry.completion_blocking && applies && (includeFull || entry.gate !== "full")) selected.set(entry.id, entry);
+    const safeForLevel = includeFull || (!entry.mutates_files && entry.gate !== "full");
+    if (entry.completion_blocking && applies && safeForLevel) selected.set(entry.id, entry);
   }
   for (const command of routeCommands) {
     const entry = byCommand.get(command);
