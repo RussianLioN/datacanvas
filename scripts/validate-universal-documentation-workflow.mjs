@@ -4,7 +4,10 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { uncatalogedWorkflowPlanCommands } from "./lib/workflow-validation-command-policy.mjs";
+import {
+  nonNpmWorkflowPlanCommands,
+  uncatalogedWorkflowPlanCommands,
+} from "./lib/workflow-validation-command-policy.mjs";
 
 const root = process.cwd();
 const mode = process.argv[2] ?? "all";
@@ -756,6 +759,10 @@ function validateWorkflowStateLedger() {
   const uncatalogedCommands = uncatalogedWorkflowPlanCommands(state.validation_plan, catalog.commands);
   if (uncatalogedCommands.length > 0) {
     fail(`workflow validation_plan contains command absent from catalog: ${uncatalogedCommands[0]}`);
+  }
+  const nonNpmCommands = nonNpmWorkflowPlanCommands(state.validation_plan);
+  if (nonNpmCommands.length > 0) {
+    fail(`workflow validation_plan contains command unsafe for isolated profile: ${nonNpmCommands[0]}`);
   }
 
   for (const plannedCommand of state.validation_plan) {

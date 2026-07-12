@@ -3237,7 +3237,7 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "8ec5ec56f73583a01376f77f08fb93596cad3adc4f90243622f4301cdb302223"
+      "sha256": "64d3d071d0423804df82283ce6f35e47e79302dd0be02dbd66793b6f1b56b5c1"
     },
     {
       "artifact_id": "ART-648",
@@ -3252,7 +3252,7 @@
     {
       "artifact_id": "ART-650",
       "path": "docs/process/universal-documentation-workflow/workflow-state.json",
-      "sha256": "b781fb17b8b854c80d72b60d24c41898bc0919efe5674ce4244f2be0ce92c060"
+      "sha256": "716861c89586edb0a9b8e2b89b273c9c0f02d9e66f88097e79327009bff7dfc3"
     },
     {
       "artifact_id": "ART-651",
@@ -3387,7 +3387,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "e8c4881819b509c1a09740d5cfc0be310f0c4328a61fc84e7d9c212ba405b1e3"
+      "sha256": "bec713923a1fc35f292a9fce80f4763ebc97b8f1bc1bc918e2f16c49f6bb0469"
     },
     {
       "artifact_id": "ART-678",
@@ -3417,7 +3417,7 @@
     {
       "artifact_id": "ART-683",
       "path": "tests/fixtures/universal-documentation-workflow/negative/scenarios.json",
-      "sha256": "bd6059d0f6633e9fc5ebe0f2210adf23d7cb61e5f6abdb7fe2b68f4ade88eb16"
+      "sha256": "87220f8082266e1522c604d86a2d040fb8732648b3df01ca57ec18b2a1829fa4"
     },
     {
       "artifact_id": "ART-684",
@@ -4092,12 +4092,12 @@
     {
       "artifact_id": "ART-819",
       "path": "scripts/lib/workflow-validation-command-policy.mjs",
-      "sha256": "fde28838fb6018efd7c971635e45c0e2a5d34c1cc2b3050cb3c9f50f5d5b8256"
+      "sha256": "29d1fc9a5ca778fd851ec37be6156139937697816c9ce9da1eba82d2e235dc65"
     },
     {
       "artifact_id": "ART-820",
       "path": "tests/universal-workflow-command-catalog.test.mjs",
-      "sha256": "b99bdd5babfc61dd9e5a6b5bce5ab958e5ae009a78ed08320b98814d701a67e3"
+      "sha256": "887ab0ce13db0bdf2e03b82e829b033bde651fea7b044531ecd3f22283fdaeeb"
     }
   ],
   "exclusions": [

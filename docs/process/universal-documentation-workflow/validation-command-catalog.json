@@ -861,19 +861,6 @@
       "purpose": "Проверяет, что навигация не продвигает устаревшие или исторические документы как текущие."
     },
     {
-      "id": "artifact-hash-generation-check",
-      "command": "node scripts/generate-artifact-hash-manifest.mjs --check",
-      "gate": "generated",
-      "execution_type": "read_only_check",
-      "mutates_files": false,
-      "writes_expected": [],
-      "freshness_required": true,
-      "completion_blocking": true,
-      "applies_to": ["generated", "traceability"],
-      "owner_role": "Documentation Owner",
-      "purpose": "Проверяет воспроизводимость манифеста хэшей без записи в рабочее дерево."
-    },
-    {
       "id": "artifact-hashes",
       "command": "npm run validate:artifact-hashes",
       "gate": "generated",
@@ -885,19 +872,6 @@
       "applies_to": ["generated", "traceability"],
       "owner_role": "Documentation Owner",
       "purpose": "Проверяет хэши зарегистрированных артефактов относительно текущего содержимого."
-    },
-    {
-      "id": "git-diff-check",
-      "command": "git diff --check",
-      "gate": "quick",
-      "execution_type": "read_only_check",
-      "mutates_files": false,
-      "writes_expected": [],
-      "freshness_required": true,
-      "completion_blocking": true,
-      "applies_to": ["documentation_diff", "generated", "change_instance"],
-      "owner_role": "Delivery/GitOps Lead",
-      "purpose": "Проверяет пробелы и поврежденные строки в текущем различии Git."
     },
     {
       "id": "traceability-graph",

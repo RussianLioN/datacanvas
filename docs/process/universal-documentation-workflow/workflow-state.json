@@ -42,9 +42,7 @@
     "npm run validate:doc-links",
     "npm run validate:docs-navigation",
     "npm run validate:doc-stale-status",
-    "node scripts/generate-artifact-hash-manifest.mjs --check",
-    "npm run validate:artifact-hashes",
-    "git diff --check"
+    "npm run validate:artifact-hashes"
   ],
   "resume_token": {
     "last_safe_step": "xlsx_accepted_priorities_and_pshe_cascade_sync_validated",

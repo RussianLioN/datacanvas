@@ -99,7 +99,7 @@
       "payload": {
         "workflow_status": "awaiting_decision",
         "command": "node scripts/generate-artifact-hash-manifest.mjs",
-        "expected_allowed_variant": "node scripts/generate-artifact-hash-manifest.mjs --check"
+        "expected_allowed_variant": "npm run validate:artifact-hashes"
       }
     },
     {
