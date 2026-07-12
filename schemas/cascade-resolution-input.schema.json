@@ -130,7 +130,9 @@
             "properties": {
               "no_change_rationale": {
                 "type": "object"
-              }
+              },
+              "rename_from_path": false,
+              "rename_to_path": false
             }
           },
           "else": {

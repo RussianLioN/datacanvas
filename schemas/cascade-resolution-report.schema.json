@@ -34,7 +34,23 @@
       "dependentRequired": {
         "rename_from_path": ["rename_to_path"],
         "rename_to_path": ["rename_from_path"]
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "update_status": { "enum": ["no_change_confirmed", "not_applicable"] }
+            },
+            "required": ["update_status"]
+          },
+          "then": {
+            "properties": {
+              "rename_from_path": false,
+              "rename_to_path": false
+            }
+          }
+        }
+      ]
     }
   }
 }

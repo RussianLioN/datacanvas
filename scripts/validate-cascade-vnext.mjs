@@ -43,6 +43,7 @@ import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
 import {
   buildRuntimeManifest,
   createIsolatedNpmEnvironment,
+  validateDocument,
   verifyAcceptanceConfirmationEvidence,
 } from "./cascade-vnext-runtime.mjs";
 
@@ -60,6 +61,34 @@ const sourceRegistry = {
     },
   ],
 };
+
+assert.throws(() => validateDocument(process.cwd(), {
+  version: "1.0.0",
+  resolution_id: "CRI-2026-07-12-001",
+  source_run_path: "docs/process/cascading-governance/runs/example/cascade-vnext-run.json",
+  resolved_at: "2026-07-12T00:00:00Z",
+  source_resolutions: [{
+    path: "docs/product-vision.md",
+    update_status: "no_change_confirmed",
+    no_change_rationale: {
+      rationale: "Проверочный артефакт не требует изменения.",
+      confirmed_by: "DataCanvas Cascade Test",
+      confirmed_at: "2026-07-12T00:00:00Z",
+      source_artifact: "docs/product-vision.md",
+      change_class: "process_structure_change",
+      covered_requirements: ["Проверка запрета переименования без примененной правки."],
+      acceptance_impact: "Критерии приемки не меняются.",
+      traceability_impact: "Связи не меняются.",
+      residual_risk: "Остаточного риска нет.",
+      owner_role: "Process Owner",
+      reconsider_when: "Пересмотреть при изменении источника.",
+    },
+    rename_from_path: "docs/product-vision-old.md",
+    rename_to_path: "docs/product-vision.md",
+  }],
+  artifact_resolutions: [],
+  decision_resolutions: [],
+}, "schemas/cascade-resolution-input.schema.json"), /validation failed/u);
 
 assert.deepEqual(
   resolveSourceIdentities({
