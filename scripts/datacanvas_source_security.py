@@ -34,6 +34,7 @@ EXTERNAL_RELATIONSHIP = re.compile(
     re.IGNORECASE,
 )
 NORMALIZATION_LIMIT = 5
+SHA256_HEX = re.compile(r"^[0-9a-f]{64}$")
 
 
 class SourceSecurityError(Exception):
@@ -70,7 +71,19 @@ def normalize_pointer_text(data: bytes | str) -> str:
     return text
 
 
-def sanitize_xlsx(source: Path, target: Path) -> dict:
+def verify_expected_original_sha256(source: Path, expected_original_sha256: str) -> str:
+    if not SHA256_HEX.fullmatch(expected_original_sha256):
+        raise SourceSecurityError("independent expected hash must be a lowercase SHA-256 value")
+    actual_original_sha256 = sha256_file(source)
+    if actual_original_sha256 != expected_original_sha256:
+        raise SourceSecurityError(
+            "source workbook does not match the independent expected hash"
+        )
+    return actual_original_sha256
+
+
+def sanitize_xlsx(source: Path, target: Path, expected_original_sha256: str) -> dict:
+    original_sha256 = verify_expected_original_sha256(source, expected_original_sha256)
     target.parent.mkdir(parents=True, exist_ok=True)
     temporary_path: Path | None = None
     original_parts: dict[str, str] = {}
@@ -114,7 +127,7 @@ def sanitize_xlsx(source: Path, target: Path) -> dict:
         return {
             "version": "1.0.0",
             "transformation": "remove_namespace_independent_absPath_from_xl_workbook_xml",
-            "original_sha256": sha256_file(source),
+            "original_sha256": original_sha256,
             "sanitized_sha256": sha256_file(target),
             "removed_abs_path_elements": removed_elements,
             "changed_parts": changed_parts,
@@ -219,8 +232,12 @@ def scan_git_history(repo: Path, base: str, head: str) -> list[dict[str, str]]:
     return findings
 
 
-def validate_reference(reference: Path, manifest_path: Path) -> None:
+def validate_reference(reference: Path, manifest_path: Path, expected_original_sha256: str) -> None:
+    if not SHA256_HEX.fullmatch(expected_original_sha256):
+        raise SourceSecurityError("independent expected hash must be a lowercase SHA-256 value")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("original_sha256") != expected_original_sha256:
+        raise SourceSecurityError("sanitization manifest does not match the independent expected hash")
     if sha256_file(reference) != manifest["sanitized_sha256"]:
         raise SourceSecurityError("sanitized XLSX hash does not match its manifest")
     with ZipFile(reference) as workbook:
@@ -257,10 +274,12 @@ def main() -> int:
     sanitize.add_argument("--source", required=True, type=Path)
     sanitize.add_argument("--target", required=True, type=Path)
     sanitize.add_argument("--manifest", required=True, type=Path)
+    sanitize.add_argument("--expected-original-sha256", required=True)
 
     validate = subparsers.add_parser("validate-reference")
     validate.add_argument("--reference", required=True, type=Path)
     validate.add_argument("--manifest", required=True, type=Path)
+    validate.add_argument("--expected-original-sha256", required=True)
 
     history = subparsers.add_parser("scan-history")
     history.add_argument("--base", default="origin/main")
@@ -270,13 +289,13 @@ def main() -> int:
     args = parser.parse_args()
     try:
         if args.command == "sanitize":
-            manifest = sanitize_xlsx(args.source, args.target)
+            manifest = sanitize_xlsx(args.source, args.target, args.expected_original_sha256)
             manifest["original_source"] = "external_product_owner_source"
             manifest["sanitized_path"] = args.target.as_posix()
             write_json(args.manifest, manifest)
             print(f"sanitized XLSX written: {args.target}")
         elif args.command == "validate-reference":
-            validate_reference(args.reference, args.manifest)
+            validate_reference(args.reference, args.manifest, args.expected_original_sha256)
             print("sanitized XLSX reference validation passed")
         else:
             findings = scan_git_history(args.repo, args.base, args.head)

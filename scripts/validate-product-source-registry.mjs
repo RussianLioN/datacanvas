@@ -8,7 +8,11 @@ import addFormats from "ajv-formats";
 import {
   approvalConsistencyProblems,
   bmcAcceptanceStatusProblems,
+  decisionApprovalConsistencyProblems,
+  ownerDecisionStatusProblems,
   pendingTeamDownstreamUseProblems,
+  roadmapTimingProblems,
+  sprintCandidatePlanProblems,
   traceabilityVisionAuthorityProblems,
 } from "./lib/product-document-consistency.mjs";
 
@@ -19,7 +23,14 @@ const xlsxRecoveryIndexPath = "docs/product/sources/xlsx-opml-jira-recovery-inde
 const dependencyGraphPath = "docs/process/cascading-governance/artifact-dependency-graph.json";
 const traceabilityPath = "docs/product/requirements/traceability-matrix.json";
 const decisionLedgerPath = "docs/process/universal-documentation-workflow/decision-ledger.json";
+const decisionQueuePath = "docs/process/universal-documentation-workflow/decision-queue.json";
+const acceptanceRecordsPath = "docs/process/universal-documentation-workflow/acceptance-records.json";
 const consistencyMatrixPath = "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md";
+const ownerDecisionQueuePath = "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md";
+const sprintCandidatePlanPath = "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md";
+const productBacklogPath = "docs/product/backlog/product-backlog.md";
+const roadmapPath = "docs/product/roadmap/roadmap-v0.1.md";
+const workingXlsxProvenancePath = "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json";
 const bmcManifestPath = "docs/product/bmc/manifest.json";
 const consistencyMode = process.argv.includes("--consistency");
 
@@ -180,12 +191,12 @@ function assertRoadmapSourceConsistency(registry) {
 
   const roadmapText = readText(roadmap.path);
   const roadmapContainsAcceptedSplit = [
-    "приоритет `P1`",
-    "приоритет `P2`",
-    "по электронной почте",
-    "ссылка возвращается вызывающему агенту",
-    "уведомление и ссылку в Лисе",
-  ].every((snippet) => roadmapText.includes(snippet));
+    /приоритет `P1`/iu,
+    /приоритет `P2`/iu,
+    /по электронной почте/iu,
+    /ссылка возвращается вызывающему агенту/iu,
+    /уведомление и ссылку в Лисе/iu,
+  ].every((pattern) => pattern.test(roadmapText));
 
   if (!roadmapContainsAcceptedSplit) {
     throw new Error("roadmap-v0.1.md must reflect the accepted CO-2026-002 P1/P2 delivery split");
@@ -259,6 +270,65 @@ function assertBmcAcceptanceStatus(registry) {
   });
   if (problems.length > 0) {
     throw new Error(`BMC acceptance status violation: ${problems[0]}`);
+  }
+}
+
+function humanDecisionStatus(markdown, decisionId) {
+  const row = markdown
+    .split(/\r?\n/)
+    .find((line) => line.startsWith(`| \`${decisionId}\``));
+  const cells = row?.split("|").map((cell) => cell.trim()) ?? [];
+  return cells[4] ?? null;
+}
+
+function assertOwnerAndTeamApprovalSeparation() {
+  const queueDecision = readJson(decisionQueuePath).decisions.find((item) => item.decision_id === "UDW-DEC-017");
+  const ledgerDecision = readJson(decisionLedgerPath).records.find((item) => item.decision_id === "UDW-DEC-017");
+  const acceptanceRecord = readJson(acceptanceRecordsPath).records.find((item) =>
+    item.linked_decision_ids.includes("UDW-DEC-017")
+  );
+  const provenance = readJson(workingXlsxProvenancePath);
+  const problems = decisionApprovalConsistencyProblems({
+    queueDecisionType: queueDecision?.decision_type,
+    ledgerDecisionType: ledgerDecision?.decision_type,
+    acceptanceType: acceptanceRecord?.acceptance_type,
+    ownerRole: acceptanceRecord?.owner_role,
+    teamValidationStatus: provenance.workbook.team_validation_status,
+  });
+  if (problems.length > 0) {
+    throw new Error(`XLSX decision approval violation: ${problems[0]}`);
+  }
+}
+
+function assertPlanningDocumentStatusConsistency() {
+  const provenance = readJson(workingXlsxProvenancePath);
+  const timingProblems = roadmapTimingProblems({
+    roadmapText: readText(roadmapPath),
+    teamValidationStatus: provenance.workbook.team_validation_status,
+  });
+  if (timingProblems.length > 0) {
+    throw new Error(`roadmap readiness violation: ${timingProblems[0]}`);
+  }
+
+  const decision = readJson(decisionLedgerPath).records.find((item) => item.decision_id === "UDW-DEC-009");
+  const statusProblems = ownerDecisionStatusProblems({
+    decisionId: "UDW-DEC-009",
+    machineStatus: decision?.accepted_status,
+    humanStatus: humanDecisionStatus(readText(ownerDecisionQueuePath), "UDW-DEC-009"),
+  });
+  if (statusProblems.length > 0) {
+    throw new Error(`owner decision queue violation: ${statusProblems[0]}`);
+  }
+
+  const backlogText = readText(productBacklogPath);
+  const existingCandidatePbiIds = [...backlogText.matchAll(/\|\s*(PBI-\d+)\s*\|[^\n]*\|\s*ready_for_team_review\s*\|/g)]
+    .map((match) => match[1]);
+  const sprintPlanProblems = sprintCandidatePlanProblems({
+    planText: readText(sprintCandidatePlanPath),
+    existingCandidatePbiIds,
+  });
+  if (sprintPlanProblems.length > 0) {
+    throw new Error(`sprint candidate plan violation: ${sprintPlanProblems[0]}`);
   }
 }
 
@@ -336,6 +406,8 @@ try {
   assertXlsxApprovalConsistency(registry);
   assertTraceabilityVisionAuthority(registry);
   assertBmcAcceptanceStatus(registry);
+  assertOwnerAndTeamApprovalSeparation();
+  assertPlanningDocumentStatusConsistency();
 
   if (consistencyMode) {
     assertXlsxCascadeGraphConsistency(registry);

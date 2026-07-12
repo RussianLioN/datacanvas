@@ -285,7 +285,7 @@
     },
     {
       "decision_id": "UDW-DEC-017",
-      "decision_type": "team_estimation_acceptance",
+      "decision_type": "owner_decision_acceptance",
       "accepted_status": "accepted",
       "owner_role": "Product Owner",
       "acceptance_record_id": "UDW-ACC-025",
@@ -300,7 +300,7 @@
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
       ],
-      "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход. После CO-2026-002 рабочая книга и downstream-артефакты синхронизированы так, что DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута, а DC-ST-30..DC-ST-33 отражают P2-инкремент; sprint backlog остается отдельным шагом с проверкой емкости, порядка работ и вытеснения."
+      "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и черновых рольных значений ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход. После CO-2026-002 рабочая книга и зависимые артефакты синхронизированы: DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута, а DC-ST-30..DC-ST-33 — группу возможностей P2. Командное принятие трудозатрат остается отдельным обязательным решением до sprint backlog и Jira-экспорта."
     }
   ]
 }

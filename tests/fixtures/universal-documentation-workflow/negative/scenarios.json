@@ -103,6 +103,13 @@
       }
     },
     {
+      "scenario_id": "workflow-plan-uncataloged-command",
+      "expected_rejection": "validation_plan_command_must_be_cataloged",
+      "payload": {
+        "command": "npm run validate:uncataloged-workflow-step"
+      }
+    },
+    {
       "scenario_id": "simulated-requested-tool",
       "expected_rejection": "requested_skill_plugin_or_consilium_must_be_real_or_blocked",
       "payload": {

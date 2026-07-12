@@ -132,6 +132,59 @@ function parseBlocks(svg, issues) {
   return blocks;
 }
 
+function validateBlockShapes(block, issues) {
+  for (const rectMatch of block.source.matchAll(/<rect\s+([^>]*)\/>/g)) {
+    const attributes = parseAttributes(rectMatch[1]);
+    const x = numeric(attributes.x ?? "0");
+    const y = numeric(attributes.y ?? "0");
+    const width = numeric(attributes.width);
+    const height = numeric(attributes.height);
+    if ([x, y, width, height].some((value) => value === null)) {
+      issues.push(`${block.id} inner rect has incomplete geometry`);
+      continue;
+    }
+    if (x < 0 || y < 0 || width < 0 || height < 0 || x + width > block.w || y + height > block.h) {
+      issues.push(`${block.id} inner rect exceeds frame bounds`);
+    }
+  }
+
+  for (const lineMatch of block.source.matchAll(/<line\s+([^>]*)\/>/g)) {
+    const attributes = parseAttributes(lineMatch[1]);
+    const coordinates = ["x1", "y1", "x2", "y2"].map((name) => numeric(attributes[name]));
+    if (coordinates.some((value) => value === null)) {
+      issues.push(`${block.id} inner line has incomplete geometry`);
+      continue;
+    }
+    const [x1, y1, x2, y2] = coordinates;
+    if ([x1, x2].some((value) => value < 0 || value > block.w) || [y1, y2].some((value) => value < 0 || value > block.h)) {
+      issues.push(`${block.id} inner line exceeds frame bounds`);
+    }
+  }
+}
+
+function validateTitle(svg, width, height, issues) {
+  const titleMatch = /<text\s+([^>]*data-role="bmc-title"[^>]*)>([\s\S]*?)<\/text>/.exec(svg);
+  if (!titleMatch) {
+    issues.push("BMC SVG title geometry is missing");
+    return;
+  }
+  const attributes = parseAttributes(titleMatch[1]);
+  const x = numeric(attributes.x);
+  const y = numeric(attributes.y);
+  const fontSize = numeric(attributes["font-size"]);
+  if ([x, y, fontSize, width, height].some((value) => value === null)) {
+    issues.push("BMC SVG title has incomplete geometry");
+    return;
+  }
+  const text = stripMarkup(titleMatch[2]);
+  const right = x + estimateSvgTextWidth(text, fontSize);
+  const top = y - fontSize;
+  const bottom = y + fontSize * 0.3;
+  if (x < 0 || top < 0 || right > width || bottom > height) {
+    issues.push("BMC SVG title exceeds canvas bounds");
+  }
+}
+
 function validateBlockText(block, issues) {
   const textPattern = /<text\s+([^>]*)>([\s\S]*?)<\/text>/g;
   for (const textMatch of block.source.matchAll(textPattern)) {
@@ -191,6 +244,7 @@ export function validateBmcSvgLayout(svg) {
   } else if (viewBox[0] !== 0 || viewBox[1] !== 0 || viewBox[2] !== width || viewBox[3] !== height) {
     issues.push("BMC SVG viewBox must match the full canvas");
   }
+  validateTitle(svg, width, height, issues);
 
   const frameMatch = /<rect\s+([^>]*(?:data-role="bmc-frame"|x="88")[^>]*)\/>/.exec(svg);
   const frameAttributes = frameMatch ? parseAttributes(frameMatch[1]) : {};
@@ -226,6 +280,7 @@ export function validateBmcSvgLayout(svg) {
     )) {
       issues.push(`${block.id} frame exceeds the outer BMC frame`);
     }
+    validateBlockShapes(block, issues);
     validateBlockText(block, issues);
   }
 
@@ -328,28 +383,55 @@ export function validateBmcPlantUmlLayout(plantUml, maxCharacters = 58) {
 
   const labels = [...plantUml.matchAll(/rectangle "((?:\\.|[^"])*)" as ([A-Za-z0-9]+)/g)];
   const aliases = new Set(labels.map((match) => match[2]));
+  if (aliases.size !== labels.length) {
+    issues.push("PlantUML BMC contains duplicate layout aliases");
+  }
   for (const alias of ["B8", "B76", "B2", "B43", "B1", "B9", "B5", "E1", "E2", "E3"]) {
     if (!aliases.has(alias)) {
       issues.push(`PlantUML BMC is missing layout node ${alias}`);
     }
   }
   const blockNumbers = new Set();
+  const blockNumbersByAlias = new Map();
   for (const match of labels) {
     const alias = match[2];
+    const aliasBlockNumbers = new Set();
     for (const rawLine of match[1].split("\\n")) {
       const line = stripMarkup(rawLine);
       const numberMatch = /^(\d+)\./.exec(line);
       if (numberMatch) {
-        blockNumbers.add(Number(numberMatch[1]));
+        const blockNumber = Number(numberMatch[1]);
+        blockNumbers.add(blockNumber);
+        aliasBlockNumbers.add(blockNumber);
       }
       if (line !== "==" && line.length > maxCharacters) {
         issues.push(`PlantUML ${alias} label line exceeds ${maxCharacters} characters: ${line}`);
       }
     }
+    blockNumbersByAlias.set(alias, aliasBlockNumbers);
   }
   for (let number = 1; number <= 9; number += 1) {
     if (!blockNumbers.has(number)) {
       issues.push(`PlantUML BMC is missing business block ${number}`);
+    }
+  }
+
+  const expectedBlocksByAlias = new Map([
+    ["B8", [8]],
+    ["B76", [6, 7]],
+    ["B2", [2]],
+    ["B43", [3, 4]],
+    ["B1", [1]],
+    ["B9", [9]],
+    ["B5", [5]],
+    ["E1", []],
+    ["E2", []],
+    ["E3", []],
+  ]);
+  for (const [alias, expected] of expectedBlocksByAlias) {
+    const actual = [...(blockNumbersByAlias.get(alias) ?? [])].sort((left, right) => left - right);
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      issues.push(`PlantUML ${alias} must contain business blocks ${expected.join(", ") || "none"}; found ${actual.join(", ") || "none"}`);
     }
   }
 

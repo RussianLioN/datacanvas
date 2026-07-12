@@ -96,3 +96,50 @@ export function bmcAcceptanceStatusProblems({
   }
   return problems;
 }
+
+export function decisionApprovalConsistencyProblems({
+  queueDecisionType,
+  ledgerDecisionType,
+  acceptanceType,
+  ownerRole,
+  teamValidationStatus,
+}) {
+  const problems = [];
+  if (queueDecisionType !== ledgerDecisionType) {
+    problems.push("decision queue and ledger must use the same decision type");
+  }
+  if (ownerRole === "Product Owner" && acceptanceType === "owner_decision_acceptance") {
+    if (queueDecisionType !== "owner_decision_acceptance" || ledgerDecisionType !== "owner_decision_acceptance") {
+      problems.push("Product Owner acceptance must be recorded as owner_decision_acceptance");
+    }
+  }
+  if (
+    teamValidationStatus === "pending_team_review" &&
+    [queueDecisionType, ledgerDecisionType].includes("team_estimation_acceptance")
+  ) {
+    problems.push("pending team review cannot be recorded as team_estimation_acceptance");
+  }
+  return problems;
+}
+
+export function roadmapTimingProblems({ roadmapText, teamValidationStatus }) {
+  if (teamValidationStatus !== "pending_team_review") {
+    return [];
+  }
+  const periods = [...new Set(roadmapText.match(/\b20\d{2}-Q[1-4]\b/g) ?? [])];
+  return periods.map((period) => `roadmap timing ${period} requires completed team validation`);
+}
+
+export function ownerDecisionStatusProblems({ decisionId, machineStatus, humanStatus }) {
+  if (machineStatus === humanStatus) {
+    return [];
+  }
+  return [`${decisionId} human status ${humanStatus} differs from machine status ${machineStatus}`];
+}
+
+export function sprintCandidatePlanProblems({ planText, existingCandidatePbiIds }) {
+  if (existingCandidatePbiIds.length === 0 || !/Не создаются новые\s+`?PBI/iu.test(planText)) {
+    return [];
+  }
+  return ["sprint candidate plan uses an obsolete no-new-PBI statement after candidate PBI creation"];
+}

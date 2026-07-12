@@ -399,7 +399,7 @@
       "acceptance_type": "owner_decision_acceptance",
       "status": "accepted",
       "owner_role": "Product Owner",
-      "subject": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход для дальнейшего планирования.",
+      "subject": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и черновых рольных значений ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход для отдельной проверки командой реализации.",
       "linked_decision_ids": [
         "UDW-DEC-017"
       ],

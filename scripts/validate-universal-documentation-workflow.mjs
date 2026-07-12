@@ -4,6 +4,8 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { uncatalogedWorkflowPlanCommands } from "./lib/workflow-validation-command-policy.mjs";
+
 const root = process.cwd();
 const mode = process.argv[2] ?? "all";
 const packageRoot = "docs/process/universal-documentation-workflow";
@@ -746,12 +748,20 @@ function validateWorkflowStateLedger() {
   if (!commandLooksMutating(mutatingPlanCommand.command) || mutatingPlanCommand.workflow_status !== "awaiting_decision") {
     fail("workflow-plan-mutating-command negative fixture no longer exercises a mutating validation plan entry");
   }
+  const uncatalogedPlanCommand = scenarioById("workflow-plan-uncataloged-command").payload;
+  if (uncatalogedWorkflowPlanCommands([uncatalogedPlanCommand.command], catalog.commands).length !== 1) {
+    fail("workflow-plan-uncataloged-command negative fixture must remain absent from the command catalog");
+  }
+
+  const uncatalogedCommands = uncatalogedWorkflowPlanCommands(state.validation_plan, catalog.commands);
+  if (uncatalogedCommands.length > 0) {
+    fail(`workflow validation_plan contains command absent from catalog: ${uncatalogedCommands[0]}`);
+  }
 
   for (const plannedCommand of state.validation_plan) {
     assertCommandExists(plannedCommand);
     const catalogCommand = catalogCommandsByText.get(plannedCommand);
-    const mutates = catalogCommand ? catalogCommand.mutates_files : commandLooksMutating(plannedCommand);
-    if (mutates && ["awaiting_decision", "interviewing", "impact_analyzed"].includes(state.status)) {
+    if (catalogCommand.mutates_files && ["awaiting_decision", "interviewing", "impact_analyzed"].includes(state.status)) {
       fail(`workflow validation_plan contains mutating command while owner decision is not closed: ${plannedCommand}`);
     }
   }

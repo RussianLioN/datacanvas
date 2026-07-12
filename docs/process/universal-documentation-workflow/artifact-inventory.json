@@ -1598,6 +1598,45 @@
       "validation_commands": [
         "npm run test:source-security"
       ]
+    },
+    {
+      "artifact_id": "UDW-A072",
+      "path": "scripts/lib/workflow-validation-command-policy.mjs",
+      "artifact_type": "validation_library",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/validation-command-catalog.json",
+        "docs/process/universal-documentation-workflow/workflow-state.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A073",
+      "path": "tests/universal-workflow-command-catalog.test.mjs",
+      "artifact_type": "validator_test",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "universal",
+      "source_of_truth_class": "test_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/lib/workflow-validation-command-policy.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow"
+      ]
     }
   ]
 }

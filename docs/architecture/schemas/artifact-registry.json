@@ -8959,6 +8959,22 @@
       "owner_role": "Product Owner / QA Lead",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-819",
+      "path": "scripts/lib/workflow-validation-command-policy.mjs",
+      "type": "validation-library",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-820",
+      "path": "tests/universal-workflow-command-catalog.test.mjs",
+      "type": "test",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

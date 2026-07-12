@@ -41,6 +41,23 @@ def git(repo: Path, *args: str) -> str:
 
 
 class SourceSanitizerTest(unittest.TestCase):
+    def test_repository_commands_pin_the_independent_owner_source_hash(self) -> None:
+        expected_hash = "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9"
+        package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+        contracts = json.loads(
+            (ROOT / "docs/process/universal-documentation-workflow/generator-contracts.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        contract = next(
+            item
+            for item in contracts["contracts"]
+            if item["generator_id"] == "datacanvas-xlsx-sanitized-reference"
+        )
+
+        self.assertIn(expected_hash, package["scripts"]["validate:xlsx-source-security"])
+        self.assertIn(expected_hash, contract["generate_command"])
+
     def test_removes_abs_path_with_any_namespace_without_rewriting_other_xml(self) -> None:
         source = (
             b'<workbook xmlns:mc="urn:mc" mc:Ignorable="ns2">'
@@ -70,7 +87,7 @@ class SourceSanitizerTest(unittest.TestCase):
                 b'xmlns:x15ac="urn:abs"/><value>unchanged</value></workbook>',
             )
 
-            manifest = MODULE.sanitize_xlsx(source, target)
+            manifest = MODULE.sanitize_xlsx(source, target, MODULE.sha256_file(source))
 
             with ZipFile(source) as original, ZipFile(target) as sanitized:
                 self.assertEqual(original.namelist(), sanitized.namelist())
@@ -93,13 +110,30 @@ class SourceSanitizerTest(unittest.TestCase):
                 b'<workbook><x:absPath url="/Users/private/source" '
                 b'xmlns:x="urn:abs"/></workbook>',
             )
-            manifest = MODULE.sanitize_xlsx(source, target)
+            expected_original_sha256 = MODULE.sha256_file(source)
+            manifest = MODULE.sanitize_xlsx(source, target, expected_original_sha256)
             manifest["original_part_sha256"].pop("xl/worksheets/sheet1.xml")
             manifest["sanitized_part_sha256"].pop("xl/worksheets/sheet1.xml")
             manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
 
             with self.assertRaisesRegex(MODULE.SourceSecurityError, "part sets"):
-                MODULE.validate_reference(target, manifest_path)
+                MODULE.validate_reference(target, manifest_path, expected_original_sha256)
+
+    def test_rejects_source_that_does_not_match_independent_original_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "source.xlsx"
+            target = root / "sanitized.xlsx"
+            write_xlsx(
+                source,
+                b'<workbook><x:absPath url="/Users/private/source" '
+                b'xmlns:x="urn:abs"/></workbook>',
+            )
+
+            with self.assertRaisesRegex(MODULE.SourceSecurityError, "independent expected hash"):
+                MODULE.sanitize_xlsx(source, target, "0" * 64)
+
+            self.assertFalse(target.exists())
 
 
 class HistoryHygieneTest(unittest.TestCase):
@@ -196,7 +230,7 @@ class HistoryHygieneTest(unittest.TestCase):
                 archive.writestr("xl/drawings/vmlDrawing1.vml", b"D:/private/source.xlsx")
 
             with self.assertRaisesRegex(MODULE.SourceSecurityError, "forbidden content"):
-                MODULE.sanitize_xlsx(source, target)
+                MODULE.sanitize_xlsx(source, target, MODULE.sha256_file(source))
 
             self.assertFalse(target.exists())
 

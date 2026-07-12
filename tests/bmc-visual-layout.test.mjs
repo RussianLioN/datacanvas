@@ -41,6 +41,33 @@ test("BMC SVG layout rejects an uneven grid gap", () => {
   assert.ok(issues.some((issue) => issue.includes("top-row gaps")));
 });
 
+test("BMC SVG layout rejects a title outside the canvas", () => {
+  const svg = fs.readFileSync(svgPath, "utf8").replace(
+    'data-role="bmc-title" x="174"',
+    'data-role="bmc-title" x="3900"',
+  );
+  const issues = validateBmcSvgLayout(svg);
+  assert.ok(issues.some((issue) => issue.includes("title exceeds canvas bounds")));
+});
+
+test("BMC SVG layout rejects an inner rectangle outside its block", () => {
+  const svg = fs.readFileSync(svgPath, "utf8").replace(
+    '<rect width="640" height="16"',
+    '<rect width="900" height="16"',
+  );
+  const issues = validateBmcSvgLayout(svg);
+  assert.ok(issues.some((issue) => issue.includes("inner rect exceeds frame bounds")));
+});
+
+test("BMC SVG layout rejects a divider outside its block", () => {
+  const svg = fs.readFileSync(svgPath, "utf8").replace(
+    '<line x1="34" y1="182" x2="606" y2="182"',
+    '<line x1="34" y1="182" x2="900" y2="182"',
+  );
+  const issues = validateBmcSvgLayout(svg);
+  assert.ok(issues.some((issue) => issue.includes("inner line exceeds frame bounds")));
+});
+
 test("BMC text fitting retries a smaller allowed font for a wide word", () => {
   const layout = fitSvgTextLines(["WWWWWWWW"], {
     maxWidth: 220,
@@ -83,4 +110,13 @@ test("BMC PlantUML layout rejects a missing vertical grid relation", () => {
   const source = fs.readFileSync(plantUmlPath, "utf8");
   const issues = validateBmcPlantUmlLayout(source.replace("B43 -[hidden]down- E2\n", ""));
   assert.ok(issues.some((issue) => issue.includes("B43 -[hidden]down- E2")));
+});
+
+test("BMC PlantUML layout rejects business content under the wrong alias", () => {
+  const source = fs.readFileSync(plantUmlPath, "utf8")
+    .replace(" as B2 #", " as SWAP #")
+    .replace(" as B1 #", " as B2 #")
+    .replace(" as SWAP #", " as B1 #");
+  const issues = validateBmcPlantUmlLayout(source);
+  assert.ok(issues.some((issue) => issue.includes("B2 must contain business blocks 2")));
 });

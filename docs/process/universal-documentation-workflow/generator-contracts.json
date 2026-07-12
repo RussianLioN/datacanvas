@@ -18,9 +18,9 @@
         "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
         "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json"
       ],
-      "generate_command": "npm run generate:xlsx-source-reference -- --source <external-owner-xlsx>",
+      "generate_command": "npm run generate:xlsx-source-reference -- --source <external-owner-xlsx> --expected-original-sha256 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
       "check_command": "npm run validate:xlsx-source-security",
-      "deterministic_environment": "Python 3, неизменяемый внешний Excel Product Owner с зафиксированным SHA-256, без сети; допускается только удаление namespace-independent absPath из xl/workbook.xml",
+      "deterministic_environment": "Python 3, неизменяемый внешний Excel Product Owner с независимо закрепленным SHA-256 202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9, без сети; допускается только удаление namespace-independent absPath из xl/workbook.xml",
       "dependencies": [],
       "post_validators": [
         "npm run validate:xlsx-source-security",

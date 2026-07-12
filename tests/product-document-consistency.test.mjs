@@ -4,8 +4,12 @@ import test from "node:test";
 import {
   approvalConsistencyProblems,
   bmcAcceptanceStatusProblems,
+  decisionApprovalConsistencyProblems,
+  ownerDecisionStatusProblems,
   pendingTeamDownstreamUseProblems,
   planningReadinessProblems,
+  roadmapTimingProblems,
+  sprintCandidatePlanProblems,
   traceabilityVisionAuthorityProblems,
 } from "../scripts/lib/product-document-consistency.mjs";
 
@@ -74,4 +78,39 @@ test("accepted BMC content is distinct from visual package acceptance", () => {
     packageStatus: "ready_for_user_acceptance",
   });
   assert.deepEqual(staleProblems, ["accepted BMC content must have consistency status ok"]);
+});
+
+test("owner acceptance cannot be recorded as team estimation acceptance", () => {
+  const problems = decisionApprovalConsistencyProblems({
+    queueDecisionType: "team_estimation_acceptance",
+    ledgerDecisionType: "team_estimation_acceptance",
+    acceptanceType: "owner_decision_acceptance",
+    ownerRole: "Product Owner",
+    teamValidationStatus: "pending_team_review",
+  });
+  assert.ok(problems.some((problem) => problem.includes("owner_decision_acceptance")));
+});
+
+test("roadmap cannot promise a quarter while team validation is pending", () => {
+  const problems = roadmapTimingProblems({
+    roadmapText: "Основной маршрут: 2026-Q3, приоритет P1.",
+    teamValidationStatus: "pending_team_review",
+  });
+  assert.deepEqual(problems, ["roadmap timing 2026-Q3 requires completed team validation"]);
+});
+
+test("human owner queue must reflect an accepted machine decision", () => {
+  assert.deepEqual(ownerDecisionStatusProblems({
+    decisionId: "UDW-DEC-009",
+    machineStatus: "accepted",
+    humanStatus: "pending",
+  }), ["UDW-DEC-009 human status pending differs from machine status accepted"]);
+});
+
+test("sprint candidate plan cannot claim that no PBI exist after they were created", () => {
+  const problems = sprintCandidatePlanProblems({
+    planText: "- Не создаются новые `PBI-*` — элементы продуктового бэклога.",
+    existingCandidatePbiIds: ["PBI-007", "PBI-008"],
+  });
+  assert.equal(problems.length, 1);
 });
