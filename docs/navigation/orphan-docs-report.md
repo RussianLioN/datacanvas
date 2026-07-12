@@ -50,10 +50,10 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 12 |
-| `business` | `2` | 30 |
+| `business` | `2` | 31 |
 | `business` | `3` | 9 |
 | `business` | `4` | 3 |
-| `business` | `hidden` | 68 |
+| `business` | `hidden` | 67 |
 | `delivery` | `1` | 2 |
 | `delivery` | `2` | 10 |
 | `delivery` | `hidden` | 828 |

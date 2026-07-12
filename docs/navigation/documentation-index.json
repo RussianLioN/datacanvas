@@ -9842,7 +9842,7 @@
     },
     {
       "path": "docs/product/bmc/README.md",
-      "title": "DataCanvas BMC Package",
+      "title": "Business Model Canvas DataCanvas",
       "section": "bmc",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -9859,12 +9859,22 @@
       "generated_from": [],
       "parent_readme": "docs/product/README.md",
       "artifact_registry_id": "ART-380",
-      "outgoing_links": [],
+      "outgoing_links": [
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/text-alternative.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
       "anchors": [
-        "datacanvas-bmc-package",
-        "основные-файлы",
-        "команды",
-        "правило"
+        "business-model-canvas-datacanvas",
+        "svg",
+        "png",
+        "pdf"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -9982,8 +9992,8 @@
         "b8-ключевые-партнеры",
         "b9-структура-затрат"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/change-impact-assessment.json",
@@ -35012,7 +35022,7 @@
     "searchable_entries": 1183,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 171,
+    "reachable_from_root": 172,
     "orphan_entries": 0
   },
   "ignored_paths": [

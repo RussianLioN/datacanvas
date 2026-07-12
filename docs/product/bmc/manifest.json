@@ -38,7 +38,7 @@
       "role": "package_readme",
       "format": "markdown",
       "path": "docs/product/bmc/README.md",
-      "sha256": "bf6efe5c339c279365dab58c6d52eb8e2801a063ef460d3b1d298b159de6351b"
+      "sha256": "506dad81a32c36d7364a26d9acd9d542b96c1ded03aa3ed00481ce3bf36c38dc"
     },
     {
       "role": "clean_markdown",
@@ -108,13 +108,13 @@
       "role": "visual_acceptance",
       "format": "json",
       "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
-      "sha256": "a0739db17f2088f024691fb3ae7c0fb8672895cb56b623b202bde2d58148bddc"
+      "sha256": "235af0034c12a48cb562bf69a20e2e3d8396ea5661ba006e2d442600efdee526"
     },
     {
       "role": "designer_consilium",
       "format": "json",
       "path": "docs/product/bmc/evidence/designer-consilium.json",
-      "sha256": "51dc365602d6515d762f37e1de0f93690cd8d4e34faf932fcda9eefab61d62be"
+      "sha256": "7244df45239d0fd3b1d035a654a334f635596a51457e400696cdcb7891e13fde"
     },
     {
       "role": "design_philosophy",

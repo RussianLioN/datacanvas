@@ -9,6 +9,21 @@ import {
 
 const svgPath = "docs/product/bmc/source/derived/datacanvas-bmc.svg";
 const plantUmlPath = "docs/product/bmc/source/derived/datacanvas-bmc.puml";
+const readmePath = "docs/product/bmc/README.md";
+
+test("BMC README is a clickable human navigation page with visual previews", () => {
+  const readme = fs.readFileSync(readmePath, "utf8");
+  assert.match(readme, /\[[^\]]+\]\(bmc-v0\.2\.md\)/u);
+  assert.match(readme, /!\[[^\]]+\]\(source\/derived\/datacanvas-bmc\.svg\)/u);
+  assert.match(readme, /!\[[^\]]+\]\(source\/derived\/datacanvas-bmc\.png\)/u);
+  assert.match(
+    readme,
+    /\[!\[[^\]]+\]\(source\/derived\/datacanvas-bmc\.png\)\]\(source\/derived\/datacanvas-bmc\.pdf\)/u,
+  );
+  assert.match(readme, /\[[^\]]+\]\(source\/derived\/datacanvas-bmc\.puml\)/u);
+  assert.doesNotMatch(readme, /`docs\/product\/bmc\//u);
+  assert.doesNotMatch(readme, /## Команды|validation-needs\.json/u);
+});
 
 test("committed BMC SVG keeps text inside balanced frames", () => {
   const svg = fs.readFileSync(svgPath, "utf8");

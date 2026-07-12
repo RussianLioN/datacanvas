@@ -39,6 +39,21 @@
       "evidence": "Frames do not overlap; column, split and bottom-row gaps are equal."
     },
     {
+      "id": "raster_frame_clearance",
+      "status": "passed",
+      "evidence": "Committed and fresh PNG renders contain no visible pixels in clearance zones outside BMC frames."
+    },
+    {
+      "id": "per_block_render_correspondence",
+      "status": "passed",
+      "evidence": "Each PNG business block matches the ink amount and spatial distribution of a fresh canonical SVG render."
+    },
+    {
+      "id": "pdf_visual_correspondence",
+      "status": "passed",
+      "evidence": "The committed PDF is rasterized independently and each block matches the canonical SVG render."
+    },
+    {
       "id": "plantuml_layout",
       "status": "passed",
       "evidence": "PlantUML labels are wrapped and the nine-block grid is complete."

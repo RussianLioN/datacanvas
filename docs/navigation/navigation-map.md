@@ -18,7 +18,7 @@
 - [Продукт DataCanvas](../product/README.md) - Product Owner, `active`.
 - [Видение продукта DataCanvas](../product-vision.md) - Product Owner, `active`.
 - [CO - Заявки На Продуктовые Изменения DataCanvas](../product/change-orders/README.md) - Product Owner, `active`.
-- [DataCanvas BMC Package](../product/bmc/README.md) - Product Owner, `accepted`.
+- [Business Model Canvas DataCanvas](../product/bmc/README.md) - Product Owner, `accepted`.
 - [Каталог пользовательских историй DataCanvas](../product/requirements/user-stories.md) - Product Owner, `active`.
 - [Требования DataCanvas](../product/requirements/README.md) - Product Owner, `active`.
 - [Бизнес-требования v0.2](../product/requirements/business-requirements.md) - Product Owner, `draft`.

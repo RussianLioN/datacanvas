@@ -24,7 +24,7 @@
 | Process change drafts | Draft `PROC-*` не меняют активный процесс до решения Process Owner | `process-change-ledger.json` |
 | Documentation methodology | Проектная документация ведется по lifecycle и traceability policy из методики BABOK-исследования; backlog не подменяет анализ | `docs/process/methodology/project-documentation-methodology.md` |
 | PO-опросник | Product Change Order опросник сохраняет JSON-состояние и Markdown-журнал после каждого ответа и возобновляется с вопроса, записанного в state | `docs/process/change-requests/PROC-046-product-change-questionnaire-state.md` |
-| Визуальные производные артефакты | SVG, PNG, PDF и PlantUML проходят проверку границ текста, пересечений, равномерности сетки, границ холста и свежести переносимых рендеров | `docs/process/change-requests/PROC-063-derived-visual-layout-gate.md` |
+| Визуальные производные артефакты | SVG, PNG, PDF и PlantUML проходят проверку границ текста, пересечений, равномерности сетки, защитных растровых зон, каждого смыслового блока, границ холста и свежести переносимых рендеров; PDF независимо растеризуется | `docs/process/change-requests/PROC-063-derived-visual-layout-gate.md` |
 
 ## Активные Исключения
 

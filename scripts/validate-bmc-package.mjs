@@ -53,6 +53,34 @@ for (const filePath of requiredFiles) {
   }
 }
 
+const packageReadme = readText("docs/product/bmc/README.md");
+for (const relativeTarget of [
+  "bmc-v0.2.md",
+  "text-alternative.md",
+  "source/derived/datacanvas-bmc.svg",
+  "source/derived/datacanvas-bmc.png",
+  "source/derived/datacanvas-bmc.pdf",
+  "source/derived/datacanvas-bmc.puml",
+]) {
+  if (!packageReadme.includes(`](${relativeTarget})`)) {
+    fail(`BMC README is missing a clickable relative link: ${relativeTarget}`);
+  }
+}
+for (const previewTarget of [
+  "source/derived/datacanvas-bmc.svg",
+  "source/derived/datacanvas-bmc.png",
+]) {
+  if (!new RegExp(`!\\[[^\\]]+\\]\\(${previewTarget.replaceAll(".", "\\.")}\\)`, "u").test(packageReadme)) {
+    fail(`BMC README is missing an embedded preview: ${previewTarget}`);
+  }
+}
+if (!/\[!\[[^\]]+\]\(source\/derived\/datacanvas-bmc\.png\)\]\(source\/derived\/datacanvas-bmc\.pdf\)/u.test(packageReadme)) {
+  fail("BMC README must provide a clickable visual preview for the PDF render");
+}
+if (/`docs\/product\/bmc\//u.test(packageReadme) || /## Команды|validation-needs\.json/u.test(packageReadme)) {
+  fail("BMC README must remain human navigation without raw repository paths or service instructions");
+}
+
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 
@@ -130,7 +158,14 @@ if (visualAcceptance.canonical_visual_path !== "docs/product/bmc/source/derived/
   fail("BMC visual acceptance points to the wrong canonical visual source");
 }
 const visualCheckById = new Map(visualAcceptance.checks.map((check) => [check.id, check]));
-for (const checkId of ["svg_text_fit", "balanced_grid", "plantuml_layout"]) {
+for (const checkId of [
+  "svg_text_fit",
+  "balanced_grid",
+  "raster_frame_clearance",
+  "per_block_render_correspondence",
+  "pdf_visual_correspondence",
+  "plantuml_layout",
+]) {
   if (visualCheckById.get(checkId)?.status !== "passed") {
     fail(`BMC visual acceptance is missing passed geometry check: ${checkId}`);
   }

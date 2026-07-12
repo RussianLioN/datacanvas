@@ -144,7 +144,7 @@
       ],
       "generate_command": "npm run generate:bmc",
       "check_command": "npm run generate:bmc -- --check",
-      "deterministic_environment": "Node.js, local render toolchain, no product decision inference",
+      "deterministic_environment": "Node.js, rsvg-convert, independent PDF rasterizer (pdftoppm in CI or qlmanage on macOS), no product decision inference",
       "dependencies": [
         "docs/product/bmc/bmc-trace.v0.1.json",
         "docs/product-vision.md",
@@ -173,12 +173,16 @@
         "public_bmc_technical_noise",
         "public_product_vision_technical_noise",
         "svg_text_outside_frame",
+        "raster_pixels_outside_frame",
+        "missing_visual_block_content",
+        "pdf_visual_mismatch",
         "visual_frame_overlap",
         "uneven_visual_grid",
         "plantuml_label_overflow",
         "visible_service_text_in_visual_surface",
         "plantuml_generator_comment_in_public_surface",
-        "historical_visual_evidence_claimed_current"
+        "historical_visual_evidence_claimed_current",
+        "non_clickable_bmc_navigation"
       ]
     },
     {

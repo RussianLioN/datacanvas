@@ -4,12 +4,19 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
-import { fitSvgTextLines, wrapPlantUmlLine } from "./lib/bmc-visual-layout.mjs";
+import { fileURLToPath } from "node:url";
+import {
+  fitSvgTextLines,
+  validateBmcPlantUmlLayout,
+  validateBmcSvgLayout,
+  wrapPlantUmlLine,
+} from "./lib/bmc-visual-layout.mjs";
 import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const checkMode = process.argv.includes("--check");
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
+const renderValidatorPath = fileURLToPath(new URL("./validate-bmc-render-parity.mjs", import.meta.url));
 const generatedAt = "2026-07-12T00:00:00Z";
 
 const paths = {
@@ -446,32 +453,33 @@ function textAlternative() {
 
 function packageReadme() {
   return [
-    "# DataCanvas BMC Package",
+    "# Business Model Canvas DataCanvas",
     "",
-    "Пакет содержит чистовой Business Model Canvas DataCanvas, визуальные производные файлы и служебные доказательства генерации.",
+    "Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / Business Model Canvas",
     "",
-    "## Основные файлы",
+    "Основной документ: [открыть Business Model Canvas DataCanvas](bmc-v0.2.md).",
     "",
-    "| Файл | Назначение |",
-    "|---|---|",
-    `| \`${paths.markdown}\` | Чистовой BMC в Markdown. |`,
-    `| \`${paths.svg}\` | Канонический визуальный источник. |`,
-    `| \`${paths.png}\` | Переносимый PNG-рендер из SVG. |`,
-    `| \`${paths.pdf}\` | PDF-рендер из SVG. |`,
-    `| \`${paths.puml}\` | Вторичный инженерный PlantUML-вид. |`,
-    `| \`${paths.validationNeeds}\` | Companion JSON для проверок и исследований. |`,
+    "Дополнительные представления: [текстовая версия](text-alternative.md) и [схема PlantUML](source/derived/datacanvas-bmc.puml).",
     "",
-    "## Команды",
+    "## SVG",
     "",
-    "```bash",
-    "npm run generate:bmc",
-    "npm run generate:bmc -- --check",
-    "npm run validate:bmc",
-    "```",
+    "[Открыть SVG в отдельном окне](source/derived/datacanvas-bmc.svg)",
     "",
-    "## Правило",
+    "![Business Model Canvas DataCanvas в формате SVG](source/derived/datacanvas-bmc.svg)",
     "",
-    "Публичные BMC-файлы остаются чистыми. Статусы проверки, источники, SHA и служебная трассировка хранятся только в JSON и evidence-файлах.",
+    "## PNG",
+    "",
+    "[Открыть PNG в отдельном окне](source/derived/datacanvas-bmc.png)",
+    "",
+    "![Business Model Canvas DataCanvas в формате PNG](source/derived/datacanvas-bmc.png)",
+    "",
+    "## PDF",
+    "",
+    "[Открыть PDF в отдельном окне](source/derived/datacanvas-bmc.pdf)",
+    "",
+    "Нажмите на изображение, чтобы открыть PDF.",
+    "",
+    "[![Открыть Business Model Canvas DataCanvas в формате PDF](source/derived/datacanvas-bmc.png)](source/derived/datacanvas-bmc.pdf)",
     "",
   ].join("\n");
 }
@@ -524,6 +532,9 @@ function visualAcceptance(artifactHashes, pngInfo) {
     { id: "classic_layout", status: "passed", evidence: "Layout is B8 | B7/B6 | B2 | B4/B3 | B1 with B9 | B5 bottom row." },
     { id: "svg_text_fit", status: "passed", evidence: "Every rendered text line stays inside its BMC block frame." },
     { id: "balanced_grid", status: "passed", evidence: "Frames do not overlap; column, split and bottom-row gaps are equal." },
+    { id: "raster_frame_clearance", status: "passed", evidence: "Committed and fresh PNG renders contain no visible pixels in clearance zones outside BMC frames." },
+    { id: "per_block_render_correspondence", status: "passed", evidence: "Each PNG business block matches the ink amount and spatial distribution of a fresh canonical SVG render." },
+    { id: "pdf_visual_correspondence", status: "passed", evidence: "The committed PDF is rasterized independently and each block matches the canonical SVG render." },
     { id: "plantuml_layout", status: "passed", evidence: "PlantUML labels are wrapped and the nine-block grid is complete." },
     { id: "png_dimensions", status: "passed", evidence: `${pngInfo.width}x${pngInfo.height}` },
     { id: "clean_public_surface", status: "passed", evidence: "Public BMC, SVG and PlantUML contain no validation/status markers." },
@@ -587,7 +598,7 @@ function designerConsilium(artifactHashes) {
       {
         role: "QA visual gate reviewer",
         verdict: "accepted",
-        note: "SVG text bounds, balanced frame geometry, PNG/PDF parity and PlantUML label limits are covered by blocking validators.",
+        note: "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators.",
       },
     ],
     checked_artifacts: checkedArtifacts,
@@ -604,6 +615,60 @@ function readPngInfo(filePath) {
     height: bytes.readUInt32BE(20),
     bytes: bytes.length,
   };
+}
+
+function hasCanonicalPngStructure(filePath) {
+  const bytes = fs.readFileSync(filePath);
+  if (bytes.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") return false;
+  let offset = 8;
+  let hasExpectedHeader = false;
+  let hasImageData = false;
+  while (offset + 12 <= bytes.length) {
+    const length = bytes.readUInt32BE(offset);
+    const chunkEnd = offset + 12 + length;
+    if (chunkEnd > bytes.length) return false;
+    const type = bytes.subarray(offset + 4, offset + 8).toString("ascii");
+    if (type === "IHDR") {
+      hasExpectedHeader = length === 13
+        && bytes.readUInt32BE(offset + 8) === 3840
+        && bytes.readUInt32BE(offset + 12) === 2160;
+    } else if (type === "IDAT") {
+      hasImageData = hasImageData || length > 0;
+    } else if (type === "IEND") {
+      return length === 0 && chunkEnd === bytes.length && hasExpectedHeader && hasImageData;
+    }
+    offset = chunkEnd;
+  }
+  return false;
+}
+
+function hasCanonicalPdfStructure(filePath) {
+  const bytes = fs.readFileSync(filePath);
+  return bytes.subarray(0, 5).toString("utf8") === "%PDF-"
+    && /%%EOF\s*$/u.test(bytes.toString("latin1"));
+}
+
+function canReuseCommittedRender(publicSvg) {
+  const required = [paths.svg, paths.png, paths.pdf, paths.derivedManifest];
+  if (required.some((relativePath) => !fs.existsSync(absolute(relativePath)))) return false;
+  try {
+    const manifest = readJson(paths.derivedManifest);
+    const outputs = new Map((manifest.outputs ?? []).map((output) => [output.format, output]));
+    const expected = new Map([
+      ["svg", { path: paths.svg, sha256: sha256Bytes(Buffer.from(publicSvg)) }],
+      ["png", { path: paths.png, sha256: sha256File(absolute(paths.png)) }],
+      ["pdf", { path: paths.pdf, sha256: sha256File(absolute(paths.pdf)) }],
+    ]);
+    for (const [format, artifact] of expected) {
+      const recorded = outputs.get(format);
+      if (!recorded || recorded.path !== artifact.path || recorded.sha256 !== artifact.sha256) return false;
+    }
+    return sha256File(absolute(paths.svg)) === expected.get("svg").sha256
+      && hasCanonicalPngStructure(absolute(paths.png))
+      && hasCanonicalPdfStructure(absolute(paths.pdf));
+  } catch {
+    return false;
+  }
 }
 
 function packageManifest(artifactHashes, pngInfo) {
@@ -707,12 +772,20 @@ function writeJson(targetRoot, relativePath, data) {
   writeText(targetRoot, relativePath, `${JSON.stringify(data, null, 2)}\n`);
 }
 
-function renderFromSvg(targetRoot) {
+function renderFromSvg(targetRoot, publicSvg) {
   const svgFile = path.join(targetRoot, paths.svg);
   const pngFile = path.join(targetRoot, paths.png);
   const pdfFile = path.join(targetRoot, paths.pdf);
   ensureDir(pngFile);
   ensureDir(pdfFile);
+
+  if (canReuseCommittedRender(publicSvg)) {
+    if (path.resolve(targetRoot) !== path.resolve(root)) {
+      fs.copyFileSync(absolute(paths.png), pngFile);
+      fs.copyFileSync(absolute(paths.pdf), pdfFile);
+    }
+    return;
+  }
 
   try {
     const renderEnv = { ...process.env, SOURCE_DATE_EPOCH: "0" };
@@ -760,6 +833,18 @@ function compareGenerated(targetRoot, relativePaths) {
   }
 }
 
+function validateRenderedPackage(targetRoot) {
+  try {
+    execFileSync(process.execPath, [renderValidatorPath], {
+      cwd: targetRoot,
+      env: { ...process.env, SOURCE_DATE_EPOCH: "0" },
+      stdio: "inherit",
+    });
+  } catch (error) {
+    fail(`generated BMC PNG/PDF failed raster layout validation: ${error.message}`);
+  }
+}
+
 function build(targetRoot) {
   const trace = readJson(paths.trace);
   blockModel = buildBlockModel(trace);
@@ -772,12 +857,20 @@ function build(targetRoot) {
   assertCleanPublic(publicMarkdown, paths.markdown);
   assertCleanPublic(publicPuml, paths.puml);
   assertCleanPublic(publicSvg.replaceAll("http://www.w3.org/2000/svg", ""), paths.svg);
+  for (const [surface, issues] of [
+    ["SVG", validateBmcSvgLayout(publicSvg)],
+    ["PlantUML", validateBmcPlantUmlLayout(publicPuml)],
+  ]) {
+    if (issues.length > 0) {
+      fail(`generated BMC ${surface} violates visual layout contract: ${issues.join("; ")}`);
+    }
+  }
 
   writeText(targetRoot, paths.markdown, publicMarkdown);
   writeText(targetRoot, paths.puml, publicPuml);
   writeText(targetRoot, paths.svg, publicSvg);
   writeJson(targetRoot, paths.validationNeeds, validationNeeds);
-  renderFromSvg(targetRoot);
+  renderFromSvg(targetRoot, publicSvg);
 
   const initialHashPaths = [paths.trace, paths.markdown, paths.puml, paths.svg, paths.png, paths.pdf, paths.validationNeeds];
   const artifactHashes = {
@@ -821,6 +914,10 @@ function build(targetRoot) {
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, manifestHashInputs.filter((item) => !artifactHashes[item])));
   writeJson(targetRoot, paths.packageManifest, packageManifest(artifactHashes, pngInfo));
+
+  if (!checkMode) {
+    validateRenderedPackage(targetRoot);
+  }
 
   return [
     paths.markdown,

@@ -32,7 +32,7 @@
     {
       "role": "QA visual gate reviewer",
       "verdict": "accepted",
-      "note": "SVG text bounds, balanced frame geometry, PNG/PDF parity and PlantUML label limits are covered by blocking validators."
+      "note": "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators."
     }
   ],
   "checked_artifacts": [

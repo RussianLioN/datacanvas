@@ -1,26 +1,27 @@
-# DataCanvas BMC Package
+# Business Model Canvas DataCanvas
 
-Пакет содержит чистовой Business Model Canvas DataCanvas, визуальные производные файлы и служебные доказательства генерации.
+Навигация: [DataCanvas](../../../README.md) / [Документация](../../README.md) / [Продукт](../README.md) / Business Model Canvas
 
-## Основные файлы
+Основной документ: [открыть Business Model Canvas DataCanvas](bmc-v0.2.md).
 
-| Файл | Назначение |
-|---|---|
-| `docs/product/bmc/bmc-v0.2.md` | Чистовой BMC в Markdown. |
-| `docs/product/bmc/source/derived/datacanvas-bmc.svg` | Канонический визуальный источник. |
-| `docs/product/bmc/source/derived/datacanvas-bmc.png` | Переносимый PNG-рендер из SVG. |
-| `docs/product/bmc/source/derived/datacanvas-bmc.pdf` | PDF-рендер из SVG. |
-| `docs/product/bmc/source/derived/datacanvas-bmc.puml` | Вторичный инженерный PlantUML-вид. |
-| `docs/product/bmc/bmc-validation-needs.json` | Companion JSON для проверок и исследований. |
+Дополнительные представления: [текстовая версия](text-alternative.md) и [схема PlantUML](source/derived/datacanvas-bmc.puml).
 
-## Команды
+## SVG
 
-```bash
-npm run generate:bmc
-npm run generate:bmc -- --check
-npm run validate:bmc
-```
+[Открыть SVG в отдельном окне](source/derived/datacanvas-bmc.svg)
 
-## Правило
+![Business Model Canvas DataCanvas в формате SVG](source/derived/datacanvas-bmc.svg)
 
-Публичные BMC-файлы остаются чистыми. Статусы проверки, источники, SHA и служебная трассировка хранятся только в JSON и evidence-файлах.
+## PNG
+
+[Открыть PNG в отдельном окне](source/derived/datacanvas-bmc.png)
+
+![Business Model Canvas DataCanvas в формате PNG](source/derived/datacanvas-bmc.png)
+
+## PDF
+
+[Открыть PDF в отдельном окне](source/derived/datacanvas-bmc.pdf)
+
+Нажмите на изображение, чтобы открыть PDF.
+
+[![Открыть Business Model Canvas DataCanvas в формате PDF](source/derived/datacanvas-bmc.png)](source/derived/datacanvas-bmc.pdf)

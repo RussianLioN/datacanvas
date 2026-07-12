@@ -132,6 +132,15 @@ function parseBlocks(svg, issues) {
   return blocks;
 }
 
+export function extractBmcSvgBlockFrames(svg) {
+  const issues = [];
+  const blocks = parseBlocks(svg, issues);
+  if (issues.length > 0) {
+    throw new Error(`cannot extract BMC frame geometry: ${issues.join("; ")}`);
+  }
+  return [...blocks.values()].map(({ id, x, y, w, h }) => ({ id, x, y, w, h }));
+}
+
 function validateBlockShapes(block, issues) {
   for (const rectMatch of block.source.matchAll(/<rect\s+([^>]*)\/>/g)) {
     const attributes = parseAttributes(rectMatch[1]);
