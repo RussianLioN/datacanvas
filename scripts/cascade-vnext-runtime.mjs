@@ -188,12 +188,19 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest) {
   return actualManifest;
 }
 
-export function verifyAcceptanceConfirmationEvidence(root, acceptance, candidateSha) {
+export function verifyAcceptanceConfirmationEvidence(root, acceptance, candidateSha, options = {}) {
   const evidence = acceptance.confirmation_evidence;
   if (!evidence) throw new Error("acceptance confirmation evidence is missing");
   if (acceptance.confirmation_channel === "interactive_session") {
     if (evidence.evidence_type !== "interactive_turn") {
       throw new Error("interactive acceptance requires interactive turn evidence");
+    }
+    const activeThreadId = options.activeThreadId ?? process.env.CODEX_THREAD_ID;
+    if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/u.test(activeThreadId ?? "")) {
+      throw new Error("interactive acceptance requires an active Codex thread binding");
+    }
+    if (evidence.reference !== `codex-thread:${activeThreadId}`) {
+      throw new Error("interactive acceptance thread binding mismatch");
     }
     if (evidence.sha256 !== interactiveAcceptanceEvidenceHash(acceptance)) {
       throw new Error("interactive acceptance evidence hash mismatch");
@@ -260,6 +267,22 @@ export function sanitizeOutput(value, root) {
     .slice(0, 4000);
 }
 
+export function createIsolatedNpmEnvironment(tempRoot) {
+  const home = path.join(tempRoot, "home");
+  const cache = path.join(tempRoot, "npm-cache");
+  const userConfig = path.join(tempRoot, "npmrc");
+  fs.mkdirSync(home, { recursive: true, mode: 0o700 });
+  fs.mkdirSync(cache, { recursive: true, mode: 0o700 });
+  fs.writeFileSync(userConfig, "", { encoding: "utf8", flag: "wx", mode: 0o600 });
+  return {
+    HOME: home,
+    NPM_CONFIG_CACHE: cache,
+    NPM_CONFIG_USERCONFIG: userConfig,
+    NPM_CONFIG_UPDATE_NOTIFIER: "false",
+    NPM_CONFIG_FUND: "false",
+  };
+}
+
 export function buildRuntimeManifest(root) {
   const packageJson = readJson(root, "package.json");
   const runVersion = (executable, args) => execFileSync(executable, args, {
@@ -281,7 +304,17 @@ export function buildRuntimeManifest(root) {
     timezone: process.env.TZ ?? Intl.DateTimeFormat().resolvedOptions().timeZone ?? "UTC",
     lockfile_sha256: hashRepoPath(root, "package-lock.json"),
     command_map_sha256: hashJsonDocument(packageJson.scripts),
-    environment_allowlist: ["CI", "LANG", "LC_ALL", "TZ"],
+    environment_allowlist: [
+      "CI",
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "NPM_CONFIG_CACHE",
+      "NPM_CONFIG_FUND",
+      "NPM_CONFIG_UPDATE_NOTIFIER",
+      "NPM_CONFIG_USERCONFIG",
+      "TZ",
+    ],
   };
 }
 

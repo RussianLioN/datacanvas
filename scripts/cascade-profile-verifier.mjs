@@ -58,7 +58,13 @@ function digest(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
-export function executeProfileCommands({ manifest, executionRoot, reportRoot, timeoutMs = 10 * 60 * 1000 }) {
+export function executeProfileCommands({
+  manifest,
+  executionRoot,
+  reportRoot,
+  environment = {},
+  timeoutMs = 10 * 60 * 1000,
+}) {
   return manifest.planned_commands.map((planned) => {
     const startedAt = new Date();
     const outputs = [];
@@ -72,12 +78,13 @@ export function executeProfileCommands({ manifest, executionRoot, reportRoot, ti
         maxBuffer: 8 * 1024 * 1024,
         env: {
           PATH: process.env.PATH,
-          HOME: process.env.HOME,
+          HOME: environment.HOME,
           CI: "1",
           LANG: process.env.LANG ?? "C.UTF-8",
           LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
           TZ: process.env.TZ ?? "UTC",
           DATACANVAS_CASCADE_NESTED_VALIDATION: "1",
+          ...environment,
         },
       });
       const combined = String(result.stdout ?? "") + String(result.stderr ?? "");
@@ -105,7 +112,7 @@ export function executeProfileCommands({ manifest, executionRoot, reportRoot, ti
   });
 }
 
-export function installProfileDependencies(executionRoot, timeoutMs = 10 * 60 * 1000) {
+export function installProfileDependencies(executionRoot, environment = {}, timeoutMs = 10 * 60 * 1000) {
   const result = spawnSync("npm", ["ci", "--ignore-scripts"], {
     cwd: executionRoot,
     encoding: "utf8",
@@ -114,11 +121,12 @@ export function installProfileDependencies(executionRoot, timeoutMs = 10 * 60 * 
     maxBuffer: 16 * 1024 * 1024,
     env: {
       PATH: process.env.PATH,
-      HOME: process.env.HOME,
+      HOME: environment.HOME,
       CI: "1",
       LANG: process.env.LANG ?? "C.UTF-8",
       LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
       TZ: process.env.TZ ?? "UTC",
+      ...environment,
     },
   });
   if (result.error || result.status !== 0) {

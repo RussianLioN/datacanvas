@@ -9,10 +9,12 @@ import {
   assertCascadeReplayInputs,
   assertCascadeReplayKey,
   assertStateTransition,
+  assertRegistryDeltaIntegrity,
   buildCascadeReplayKey,
   buildActualDiffManifest,
   canClaimDone,
   classifyXlsxChangeSignals,
+  expandAllowedWritesForRenames,
   resolveActualTriggerPaths,
   resolveSourceIdentities,
   statusLabel,
@@ -37,7 +39,7 @@ import {
   validateOwnerAcceptanceSet,
 } from "./cascade-owner-acceptance.mjs";
 import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
-import { verifyAcceptanceConfirmationEvidence } from "./cascade-vnext-runtime.mjs";
+import { createIsolatedNpmEnvironment, verifyAcceptanceConfirmationEvidence } from "./cascade-vnext-runtime.mjs";
 
 const sourceRegistry = {
   sources: [
@@ -61,6 +63,25 @@ assert.deepEqual(
   }).map((item) => item.source_id),
   ["SRC-DC-XLSX"],
   "однозначный источник должен определяться из активного реестра",
+);
+assert.doesNotThrow(() => assertRegistryDeltaIntegrity({
+  before_sha256: "a".repeat(64),
+  after_sha256: "b".repeat(64),
+}, {
+  beforeSha256: "a".repeat(64),
+  afterSha256: "b".repeat(64),
+  registryChanged: true,
+}));
+assert.throws(
+  () => assertRegistryDeltaIntegrity({
+    before_sha256: "0".repeat(64),
+    after_sha256: "1".repeat(64),
+  }, {
+    beforeSha256: "a".repeat(64),
+    afterSha256: "b".repeat(64),
+    registryChanged: true,
+  }),
+  /registry delta hash mismatch/u,
 );
 const cleanlinessCommand = completionCommandSet().find((command) => command.id === "worktree-cleanliness");
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "" }), true);
@@ -190,6 +211,19 @@ assert.throws(
   }),
   /unexpected changed paths/u,
 );
+const renameAllowedWrites = expandAllowedWritesForRenames(
+  ["docs/new.md"],
+  [{ status: "R100", path: "docs/new.md", old_path: "docs/old.md" }],
+);
+assert.deepEqual(renameAllowedWrites, ["docs/new.md", "docs/old.md"]);
+assert.doesNotThrow(() => buildActualDiffManifest({
+  baseSha: "1".repeat(40),
+  planningHeadSha: "1".repeat(40),
+  candidateHeadSha: "2".repeat(40),
+  entries: [{ status: "R100", path: "docs/new.md", old_path: "docs/old.md", sha256: "a".repeat(64) }],
+  allowedWrites: renameAllowedWrites,
+  dirty: false,
+}));
 
 assert.doesNotThrow(() => verifyAppliedResolution({
   updateStatus: "applied",
@@ -361,12 +395,24 @@ assert.throws(
   /manifest sha256/u,
 );
 const completeProfileEvidence = {
-  executed_commands: validationManifest.planned_commands.map((planned) => ({ id: planned.id, status: "passed" })),
+  executed_commands: validationManifest.planned_commands.map((planned) => ({
+    id: planned.id,
+    command_sha256: planned.command_sha256,
+    status: "passed",
+  })),
 };
 assert.doesNotThrow(() => assertValidationEvidenceComplete(validationManifest, completeProfileEvidence));
 assert.throws(
   () => assertValidationEvidenceComplete(validationManifest, { executed_commands: completeProfileEvidence.executed_commands.slice(1) }),
   /validation evidence mismatch/u,
+);
+assert.throws(
+  () => assertValidationEvidenceComplete(validationManifest, {
+    executed_commands: completeProfileEvidence.executed_commands.map((entry, index) => (
+      index === 0 ? { ...entry, command_sha256: "0".repeat(64) } : entry
+    )),
+  }),
+  /command_hash/u,
 );
 const runtimeManifest = {
   version: "1.0.0",
@@ -432,7 +478,7 @@ const acceptance = {
   confirmation_channel: "interactive_session",
   confirmation_evidence: {
     evidence_type: "interactive_turn",
-    reference: "codex-session/turn-2026-07-11-901",
+    reference: "codex-thread:019f31c4-d917-7c93-9758-9c997800641d",
     sha256: null,
   },
   accepted_change_classes: ["product_meaning"],
@@ -445,12 +491,27 @@ const acceptance = {
   selected_option_id: "OPT-ACCEPT",
 };
 acceptance.confirmation_evidence.sha256 = interactiveAcceptanceEvidenceHash(acceptance);
-assert.doesNotThrow(() => verifyAcceptanceConfirmationEvidence(process.cwd(), acceptance, "a".repeat(40)));
+const acceptanceThreadId = "019f31c4-d917-7c93-9758-9c997800641d";
+assert.doesNotThrow(() => verifyAcceptanceConfirmationEvidence(
+  process.cwd(),
+  acceptance,
+  "a".repeat(40),
+  { activeThreadId: acceptanceThreadId },
+));
+assert.throws(
+  () => verifyAcceptanceConfirmationEvidence(
+    process.cwd(),
+    acceptance,
+    "a".repeat(40),
+    { activeThreadId: "019f31c4-d917-7c93-9758-9c997800641e" },
+  ),
+  /thread binding mismatch/u,
+);
 assert.throws(
   () => verifyAcceptanceConfirmationEvidence(process.cwd(), {
     ...acceptance,
     confirmation_evidence: { ...acceptance.confirmation_evidence, sha256: "0".repeat(64) },
-  }, "a".repeat(40)),
+  }, "a".repeat(40), { activeThreadId: acceptanceThreadId }),
   /evidence hash mismatch/u,
 );
 const resolutionInput = {
@@ -499,6 +560,10 @@ assert.throws(
 
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-vnext-"));
 try {
+  const isolatedNpmEnvironment = createIsolatedNpmEnvironment(tempRoot);
+  assert.equal(isolatedNpmEnvironment.HOME.startsWith(tempRoot + path.sep), true);
+  assert.equal(isolatedNpmEnvironment.NPM_CONFIG_CACHE.startsWith(tempRoot + path.sep), true);
+  assert.equal(fs.readFileSync(isolatedNpmEnvironment.NPM_CONFIG_USERCONFIG, "utf8"), "");
   const targetDir = path.join(tempRoot, "runs", "RUN-001");
   publishAtomicPackage({
     targetDir,

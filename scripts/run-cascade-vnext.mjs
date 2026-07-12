@@ -12,6 +12,7 @@ import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { analyzeSemanticCascade } from "./cascade-semantic-impact.mjs";
 import { buildValidationManifest } from "./cascade-validation-manifest.mjs";
 import {
+  assertRegistryDeltaIntegrity,
   buildCascadeReplayKey,
   classifyXlsxChangeSignals,
   resolveActualTriggerPaths,
@@ -286,6 +287,13 @@ async function main() {
   }
   const changedEntries = parseGitNameStatus(run("git", ["diff", "--name-status", "-z", `${baseSha}..${planningHeadSha}`]));
   const changedPaths = changedEntries.flatMap((entry) => [entry.path, entry.old_path].filter(Boolean));
+  if (registryDelta) {
+    assertRegistryDeltaIntegrity(registryDelta, {
+      beforeSha256: sha256Buffer(gitFileAt(baseSha, sourceRegistryPath)),
+      afterSha256: sha256Buffer(gitFileAt(planningHeadSha, sourceRegistryPath)),
+      registryChanged: changedPaths.includes(sourceRegistryPath),
+    });
+  }
   const resolvedTriggers = resolveActualTriggerPaths({
     initialTriggers,
     identities,

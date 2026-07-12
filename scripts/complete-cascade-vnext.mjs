@@ -23,6 +23,7 @@ import {
   assertImmutableGitPackage,
   assertRepoPathMatchesGit,
   buildRuntimeManifest,
+  createIsolatedNpmEnvironment,
   finalizedPackagePaths,
   git,
   hashGitPath,
@@ -96,7 +97,7 @@ function skippedResult(command, reason) {
   };
 }
 
-function executeCompletionCommands(worktree, commands) {
+function executeCompletionCommands(worktree, commands, environment) {
   const results = [];
   let previousFailed = false;
   for (const command of commands) {
@@ -113,12 +114,13 @@ function executeCompletionCommands(worktree, commands) {
       maxBuffer: 64 * 1024 * 1024,
       env: {
         PATH: process.env.PATH,
-        HOME: process.env.HOME,
+        HOME: environment.HOME,
         CI: "1",
         LANG: process.env.LANG ?? "C.UTF-8",
         LC_ALL: process.env.LC_ALL ?? "C.UTF-8",
         TZ: process.env.TZ ?? "UTC",
         DATACANVAS_CASCADE_NESTED_VALIDATION: "1",
+        ...environment,
       },
     });
     const finishedAt = new Date();
@@ -146,19 +148,34 @@ function candidateWorktree(candidateSha, callback) {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-complete-"));
   const worktree = path.join(tempRoot, "candidate");
   let added = false;
-  try {
-    git(root, ["worktree", "add", "--detach", worktree, candidateSha], { timeout: 120_000 });
-    added = true;
-    return callback(worktree);
-  } finally {
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
     if (added) {
       try {
         git(root, ["worktree", "remove", "--force", worktree], { timeout: 120_000 });
       } catch {
-        // Temporary filesystem cleanup still runs below.
+        // Exact temporary directory cleanup still runs below.
       }
     }
     fs.rmSync(tempRoot, { recursive: true, force: true });
+  };
+  const signalHandlers = new Map(["SIGINT", "SIGTERM", "SIGHUP"].map((signal) => [
+    signal,
+    () => {
+      cleanup();
+      process.exit(signal === "SIGINT" ? 130 : 143);
+    },
+  ]));
+  for (const [signal, handler] of signalHandlers) process.once(signal, handler);
+  try {
+    git(root, ["worktree", "add", "--detach", worktree, candidateSha], { timeout: 120_000 });
+    added = true;
+    return callback(worktree, createIsolatedNpmEnvironment(tempRoot));
+  } finally {
+    for (const [signal, handler] of signalHandlers) process.off(signal, handler);
+    cleanup();
   }
 }
 
@@ -240,7 +257,7 @@ async function main() {
   let runtimeMatch = true;
   let runtimeFailure = null;
   let commandResults;
-  candidateWorktree(candidateSha, (worktree) => {
+  candidateWorktree(candidateSha, (worktree, environment) => {
     try {
       assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree));
     } catch (error) {
@@ -248,7 +265,7 @@ async function main() {
       runtimeFailure = sanitizeOutput(error.message, worktree);
     }
     commandResults = runtimeMatch
-      ? executeCompletionCommands(worktree, commands)
+      ? executeCompletionCommands(worktree, commands, environment)
       : commands.map((command) => skippedResult(command, "Команда пропущена из-за несовпадения среды выполнения."));
   });
 

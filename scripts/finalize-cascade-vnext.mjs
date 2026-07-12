@@ -4,7 +4,7 @@ import process from "node:process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { validateOwnerAcceptanceSet } from "./cascade-owner-acceptance.mjs";
-import { assertStateTransition, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
+import { assertStateTransition, expandAllowedWritesForRenames, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
 import {
   assertAncestor,
   assertImmutableGitPackage,
@@ -166,7 +166,10 @@ async function main() {
     resolutionInputPath,
     ...acceptancePaths,
   ];
-  const allowedWrites = [...new Set([...requiredSources, ...appliedArtifactPaths, ...controlPaths])];
+  const allowedWrites = expandAllowedWritesForRenames(
+    [...new Set([...requiredSources, ...appliedArtifactPaths, ...controlPaths])],
+    diffEntries,
+  );
   const diffManifest = buildActualDiffManifestFromGit(root, {
     baseSha: sourceRun.base_sha,
     planningHeadSha: sourceRun.planning_head_sha,

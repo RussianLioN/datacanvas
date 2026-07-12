@@ -288,7 +288,7 @@
       ],
       "generate_command": "npm run cascade:verify -- --run <run-json> --output-dir docs/process/cascading-governance/runs/<verification-id>",
       "check_command": "npm run validate:cascade-vnext",
-      "deterministic_environment": "Node.js 22.20.0, отдельные неизменяемые коммиты планового и финализированного пакетов, отдельная рабочая копия candidate SHA, сверка runtime manifest, изолированный npm ci --ignore-scripts по lockfile и только зарегистрированные немутирующие npm-проверки",
+      "deterministic_environment": "Node.js 22.20.0, отдельные неизменяемые коммиты планового и финализированного пакетов, отдельная рабочая копия candidate SHA, сверка runtime manifest, временные HOME/npm cache/пустой npm userconfig, изолированный npm ci --ignore-scripts по lockfile и только зарегистрированные немутирующие npm-проверки",
       "dependencies": [
         "scripts/finalize-cascade-vnext.mjs",
         "docs/process/universal-documentation-workflow/validation-command-catalog.json"
@@ -335,7 +335,7 @@
       ],
       "generate_command": "npm run cascade:complete -- --run <profile-verified-run-json> --output-dir docs/process/cascading-governance/runs/<completion-id>",
       "check_command": "npm run validate:cascade-vnext-e2e",
-      "deterministic_environment": "Node.js 22.20.0, npm 11.8.0, отдельные неизменяемые коммиты планового, финализированного и профильного пакетов, отдельная рабочая копия candidate SHA, npm ci --ignore-scripts, полный npm test, повторный расчет Git diff и чистый git status; сеть допускается только для установки зависимостей по lockfile",
+      "deterministic_environment": "Node.js 22.20.0, npm 11.8.0, отдельные неизменяемые коммиты планового, финализированного и профильного пакетов, отдельная рабочая копия candidate SHA, временные HOME/npm cache/пустой npm userconfig, npm ci --ignore-scripts, полный npm test, повторный расчет Git diff и чистый git status; сеть допускается только для установки зависимостей по lockfile",
       "dependencies": [
         "scripts/verify-cascade-profile-vnext.mjs",
         "package-lock.json"

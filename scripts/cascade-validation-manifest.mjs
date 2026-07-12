@@ -59,11 +59,18 @@ export function buildValidationManifest({
 
 export function assertValidationEvidenceComplete(manifest, evidence) {
   const planned = new Map(manifest.planned_commands.map((item) => [item.id, item]));
-  const executed = new Map((evidence.executed_commands ?? []).map((item) => [item.id, item]));
+  const executedEntries = evidence.executed_commands ?? [];
+  const executed = new Map(executedEntries.map((item) => [item.id, item]));
   const missing = [...planned.keys()].filter((id) => !executed.has(id));
   const extra = [...executed.keys()].filter((id) => !planned.has(id));
   const failed = [...executed.values()].filter((item) => item.status !== "passed").map((item) => item.id);
-  if (missing.length || extra.length || failed.length) {
-    throw new Error(`validation evidence mismatch: missing=${missing.join(",")} extra=${extra.join(",")} failed=${failed.join(",")}`);
+  const duplicateIds = executedEntries
+    .map((item) => item.id)
+    .filter((id, index, values) => values.indexOf(id) !== index);
+  const commandHashMismatch = [...planned.entries()]
+    .filter(([id, item]) => executed.has(id) && executed.get(id).command_sha256 !== item.command_sha256)
+    .map(([id]) => id);
+  if (missing.length || extra.length || failed.length || duplicateIds.length || commandHashMismatch.length) {
+    throw new Error(`validation evidence mismatch: missing=${missing.join(",")} extra=${extra.join(",")} failed=${failed.join(",")} duplicate=${[...new Set(duplicateIds)].join(",")} command_hash=${commandHashMismatch.join(",")}`);
   }
 }

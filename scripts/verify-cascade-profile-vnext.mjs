@@ -19,6 +19,7 @@ import {
   assertGitCommit,
   assertImmutableGitPackage,
   buildRuntimeManifest,
+  createIsolatedNpmEnvironment,
   finalizedPackagePaths,
   git,
   planningPackagePaths,
@@ -40,19 +41,34 @@ function candidateWorktree(candidateSha, callback) {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-profile-"));
   const worktree = path.join(tempRoot, "candidate");
   let added = false;
-  try {
-    git(root, ["worktree", "add", "--detach", worktree, candidateSha], { timeout: 120_000 });
-    added = true;
-    return callback(worktree);
-  } finally {
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
     if (added) {
       try {
         git(root, ["worktree", "remove", "--force", worktree], { timeout: 120_000 });
       } catch {
-        // The temporary directory cleanup below is still required.
+        // Exact temporary directory cleanup still runs below.
       }
     }
     fs.rmSync(tempRoot, { recursive: true, force: true });
+  };
+  const signalHandlers = new Map(["SIGINT", "SIGTERM", "SIGHUP"].map((signal) => [
+    signal,
+    () => {
+      cleanup();
+      process.exit(signal === "SIGINT" ? 130 : 143);
+    },
+  ]));
+  for (const [signal, handler] of signalHandlers) process.once(signal, handler);
+  try {
+    git(root, ["worktree", "add", "--detach", worktree, candidateSha], { timeout: 120_000 });
+    added = true;
+    return callback(worktree, createIsolatedNpmEnvironment(tempRoot));
+  } finally {
+    for (const [signal, handler] of signalHandlers) process.off(signal, handler);
+    cleanup();
   }
 }
 
@@ -101,18 +117,19 @@ async function main() {
   const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
   validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
 
-  const executedCommands = candidateWorktree(candidateSha, (worktree) => {
+  const executedCommands = candidateWorktree(candidateSha, (worktree, environment) => {
     assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree));
     assertCatalogBinding(
       manifest,
       readJson(worktree, catalogPath),
       readJson(worktree, "package.json"),
     );
-    installProfileDependencies(worktree);
+    installProfileDependencies(worktree, environment);
     return executeProfileCommands({
       manifest,
       executionRoot: worktree,
       reportRoot: worktree,
+      environment,
     });
   });
   const blockingReasons = executedCommands

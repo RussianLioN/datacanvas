@@ -88,6 +88,19 @@ export function assertCascadeReplayInputs(run, actualInputs) {
   }
 }
 
+export function assertRegistryDeltaIntegrity(registryDelta, {
+  beforeSha256,
+  afterSha256,
+  registryChanged,
+}) {
+  if (!registryDelta) return;
+  if (!registryChanged) throw new Error("source registry delta requires a real Git change");
+  if (registryDelta.before_sha256 !== beforeSha256 || registryDelta.after_sha256 !== afterSha256) {
+    throw new Error("source registry delta hash mismatch");
+  }
+  if (beforeSha256 === afterSha256) throw new Error("source registry delta does not change registry content");
+}
+
 export function resolveSourceIdentities({
   sourceRegistry,
   triggerPaths = [],
@@ -156,6 +169,20 @@ export function statusLabel(state) {
 
 function pathAllowed(candidate, allowedWrites) {
   return allowedWrites.some((allowed) => candidate === allowed || candidate.startsWith(`${allowed}/`));
+}
+
+export function expandAllowedWritesForRenames(allowedWrites, entries) {
+  const expanded = new Set(allowedWrites.map(normalizeRepoPath));
+  for (const entry of entries) {
+    if (!String(entry.status).startsWith("R") || !entry.old_path) continue;
+    const currentPath = normalizeRepoPath(entry.path);
+    const oldPath = normalizeRepoPath(entry.old_path);
+    if (expanded.has(currentPath) || expanded.has(oldPath)) {
+      expanded.add(currentPath);
+      expanded.add(oldPath);
+    }
+  }
+  return [...expanded].sort();
 }
 
 export function buildActualDiffManifest({

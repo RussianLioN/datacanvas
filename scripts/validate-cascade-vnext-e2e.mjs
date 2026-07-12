@@ -6,6 +6,8 @@ import path from "node:path";
 import process from "node:process";
 import { execFileSync, spawnSync } from "node:child_process";
 
+import { createIsolatedNpmEnvironment } from "./cascade-vnext-runtime.mjs";
+
 const root = process.cwd();
 
 if (process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1") {
@@ -13,7 +15,7 @@ if (process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1") {
   process.exit(0);
 }
 
-function exec(command, args, cwd = root) {
+function exec(command, args, cwd = root, environment = {}) {
   return execFileSync(command, args, {
     cwd,
     encoding: "utf8",
@@ -21,9 +23,10 @@ function exec(command, args, cwd = root) {
     maxBuffer: 16 * 1024 * 1024,
     env: {
       PATH: process.env.PATH,
-      HOME: process.env.HOME,
+      HOME: environment.HOME ?? process.env.HOME,
       LANG: process.env.LANG ?? "C.UTF-8",
       TZ: process.env.TZ ?? "UTC",
+      ...environment,
     },
   }).trim();
 }
@@ -68,19 +71,41 @@ function assertFailedWithoutOutput(result, worktree, outputDir, pattern) {
 const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-cascade-e2e-"));
 const worktree = path.join(tempRoot, "candidate");
 let worktreeAdded = false;
+let cleanupStarted = false;
+
+function cleanupWorktree() {
+  if (cleanupStarted) return;
+  cleanupStarted = true;
+  if (worktreeAdded) {
+    try {
+      exec("git", ["worktree", "remove", "--force", worktree]);
+    } catch {
+      fs.rmSync(worktree, { recursive: true, force: true });
+      try {
+        exec("git", ["worktree", "prune"]);
+      } catch {
+        // Exact temporary path cleanup remains authoritative.
+      }
+    }
+  }
+  fs.rmSync(tempRoot, { recursive: true, force: true });
+}
+
+function handleTermination(signal) {
+  cleanupWorktree();
+  process.exit(signal === "SIGINT" ? 130 : 143);
+}
+
+for (const signal of ["SIGINT", "SIGTERM", "SIGHUP"]) {
+  process.once(signal, () => handleTermination(signal));
+}
+process.once("exit", cleanupWorktree);
+
 try {
   exec("git", ["worktree", "add", "--detach", worktree, "HEAD"]);
   worktreeAdded = true;
-  const sourceModules = path.join(root, "node_modules");
-  const targetModules = path.join(worktree, "node_modules");
-  fs.mkdirSync(targetModules);
-  for (const entry of fs.readdirSync(sourceModules, { withFileTypes: true })) {
-    fs.symlinkSync(
-      path.join(sourceModules, entry.name),
-      path.join(targetModules, entry.name),
-      entry.isDirectory() ? "dir" : "file",
-    );
-  }
+  const npmEnvironment = createIsolatedNpmEnvironment(tempRoot);
+  exec("npm", ["ci", "--ignore-scripts"], worktree, npmEnvironment);
   exec("git", ["config", "user.name", "DataCanvas Cascade Test"], worktree);
   exec("git", ["config", "user.email", "cascade-test@datacanvas.local"], worktree);
   const baseSha = exec("git", ["rev-parse", "HEAD"], worktree);
@@ -328,17 +353,5 @@ try {
   assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);
   console.log("cascade vNext end-to-end validation passed");
 } finally {
-  if (worktreeAdded) {
-    try {
-      exec("git", ["worktree", "remove", "--force", worktree]);
-    } catch {
-      fs.rmSync(worktree, { recursive: true, force: true });
-      try {
-        exec("git", ["worktree", "prune"]);
-      } catch {
-        // The temporary directory cleanup below remains authoritative.
-      }
-    }
-  }
-  fs.rmSync(tempRoot, { recursive: true, force: true });
+  cleanupWorktree();
 }

@@ -35,7 +35,7 @@
           "gate": { "type": "string", "enum": ["quick", "profile", "generated", "security", "full"] },
           "execution_type": {
             "type": "string",
-            "enum": ["read_only_check", "mutating_generator", "full_gate"]
+            "enum": ["read_only_check", "isolated_runtime_check", "mutating_generator", "full_gate"]
           },
           "mutates_files": { "type": "boolean" },
           "writes_expected": {
@@ -44,6 +44,7 @@
           },
           "freshness_required": { "type": "boolean" },
           "completion_blocking": { "type": "boolean" },
+          "runtime_cleanup_required": { "type": "boolean" },
           "non_blocking_rationale": { "type": "string", "minLength": 1 },
           "applies_to": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
           "owner_role": { "type": "string", "minLength": 1 },
@@ -60,6 +61,18 @@
               "type": "object",
               "required": ["non_blocking_rationale"],
               "properties": { "non_blocking_rationale": { "type": "string", "minLength": 1 } }
+            }
+          },
+          {
+            "if": {
+              "type": "object",
+              "properties": { "execution_type": { "const": "isolated_runtime_check" } },
+              "required": ["execution_type"]
+            },
+            "then": {
+              "type": "object",
+              "required": ["runtime_cleanup_required"],
+              "properties": { "runtime_cleanup_required": { "const": true } }
             }
           }
         ]

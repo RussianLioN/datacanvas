@@ -458,14 +458,15 @@
       "id": "cascade-vnext-e2e",
       "command": "npm run validate:cascade-vnext-e2e",
       "gate": "profile",
-      "execution_type": "read_only_check",
+      "execution_type": "isolated_runtime_check",
       "mutates_files": false,
       "writes_expected": [],
+      "runtime_cleanup_required": true,
       "freshness_required": true,
       "completion_blocking": true,
       "applies_to": ["change_instance", "cascade", "process"],
       "owner_role": "Process Owner / QA Lead",
-      "purpose": "В одноразовой рабочей копии воспроизводит реальный запуск и повтор, а также отказ без Git-изменения и для незарегистрированного XLSX."
+      "purpose": "Во временных изолированных Git worktree воспроизводит полный жизненный цикл, отказ без Git-изменения, незарегистрированный XLSX и подмену финализированного пакета; обработчики завершения обязаны удалить точные временные worktree."
     },
     {
       "id": "cascade-trust",

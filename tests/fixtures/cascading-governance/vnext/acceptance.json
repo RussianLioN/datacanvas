@@ -11,7 +11,7 @@
   "confirmation_channel": "interactive_session",
   "confirmation_evidence": {
     "evidence_type": "interactive_turn",
-    "reference": "codex-session/turn-2026-07-11-001",
+    "reference": "codex-thread:019f31c4-d917-7c93-9758-9c997800641d",
     "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   },
   "accepted_change_classes": ["product_meaning"],

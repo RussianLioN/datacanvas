@@ -23,7 +23,7 @@
           "allowed_change_classes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/cascadeChangeClass" } },
           "confirmation_channels": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "enum": ["interactive_session", "repository_approval", "signed_external_record"] } },
           "identity_required": { "const": true },
-          "assurance_level": { "enum": ["declared_role", "repository_authenticated", "cryptographically_signed"] }
+          "assurance_level": { "enum": ["declared_role", "thread_bound_declared_role", "repository_authenticated", "cryptographically_signed"] }
         }
       }
     },

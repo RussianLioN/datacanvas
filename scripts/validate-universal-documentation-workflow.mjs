@@ -234,11 +234,14 @@ function validateCatalogCommandPolicy(catalog) {
   }
 
   for (const command of catalog.commands) {
-    if (command.execution_type === "read_only_check" && command.mutates_files) {
+    if (["read_only_check", "isolated_runtime_check"].includes(command.execution_type) && command.mutates_files) {
       fail(`read-only validation command must not mutate files: ${command.id}`);
     }
-    if (command.execution_type !== "read_only_check" && !command.mutates_files) {
+    if (!["read_only_check", "isolated_runtime_check"].includes(command.execution_type) && !command.mutates_files) {
       fail(`mutating/full command must declare mutates_files=true: ${command.id}`);
+    }
+    if (command.execution_type === "isolated_runtime_check" && !command.runtime_cleanup_required) {
+      fail(`isolated runtime command must require cleanup: ${command.id}`);
     }
     if (!command.mutates_files && command.writes_expected.length > 0) {
       fail(`non-mutating validation command must not declare writes_expected: ${command.id}`);
@@ -604,7 +607,6 @@ function validateDataCanvasProfile() {
     ["cascading-governance", "npm run validate:cascading-governance"],
     ["cascade-verification", "npm run validate:cascade-verification"],
     ["cascade-vnext", "npm run validate:cascade-vnext"],
-    ["cascade-vnext-e2e", "npm run validate:cascade-vnext-e2e"],
     ["cascade-trust", "npm run validate:cascade-trust"],
     ["xlsx-change-classifier", "npm run validate:xlsx-change-classifier"],
   ]) {
@@ -612,6 +614,14 @@ function validateDataCanvasProfile() {
     if (!catalogCommand || catalogCommand.command !== expectedCommand || catalogCommand.mutates_files) {
       fail(`DataCanvas validation catalog must include read-only ${commandId} gate`);
     }
+  }
+  const cascadeE2eCommand = catalog.commands.find((command) => command.id === "cascade-vnext-e2e");
+  if (!cascadeE2eCommand
+    || cascadeE2eCommand.command !== "npm run validate:cascade-vnext-e2e"
+    || cascadeE2eCommand.execution_type !== "isolated_runtime_check"
+    || cascadeE2eCommand.mutates_files
+    || !cascadeE2eCommand.runtime_cleanup_required) {
+    fail("DataCanvas validation catalog must include isolated cascade-vnext-e2e gate with cleanup");
   }
   for (const commandId of ["cascade-run", "cascade-finalize", "cascade-verify", "cascade-complete"]) {
     const catalogCommand = catalog.commands.find((command) => command.id === commandId);

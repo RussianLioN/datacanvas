@@ -29,6 +29,14 @@ for (const binding of authority.bindings) {
   if (ownerRoles.has(binding.owner_role)) throw new Error("duplicate active authority role: " + binding.owner_role);
   bindingIds.add(binding.binding_id);
   ownerRoles.add(binding.owner_role);
+  if (binding.confirmation_channels.includes("interactive_session")
+    && binding.assurance_level !== "thread_bound_declared_role") {
+    throw new Error("interactive authority must require a thread-bound declared role: " + binding.binding_id);
+  }
+  if (binding.owner_role === "Команда реализации"
+    && binding.assurance_level !== "repository_authenticated") {
+    throw new Error("implementation team authority must remain repository-authenticated");
+  }
 }
 
 const ledger = readJson(root, ledgerPath);

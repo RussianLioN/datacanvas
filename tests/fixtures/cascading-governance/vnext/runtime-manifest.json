@@ -10,5 +10,5 @@
   "timezone": "Europe/Moscow",
   "lockfile_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
   "command_map_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
-  "environment_allowlist": ["CI", "LANG", "LC_ALL", "TZ"]
+  "environment_allowlist": ["CI", "HOME", "LANG", "LC_ALL", "NPM_CONFIG_CACHE", "NPM_CONFIG_FUND", "NPM_CONFIG_UPDATE_NOTIFIER", "NPM_CONFIG_USERCONFIG", "TZ"]
 }

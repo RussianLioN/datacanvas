@@ -39,7 +39,18 @@
   "allOf": [
     {
       "if": { "properties": { "confirmation_channel": { "const": "interactive_session" } }, "required": ["confirmation_channel"] },
-      "then": { "type": "object", "properties": { "confirmation_evidence": { "type": "object", "properties": { "evidence_type": { "const": "interactive_turn" } } } } }
+      "then": {
+        "type": "object",
+        "properties": {
+          "confirmation_evidence": {
+            "type": "object",
+            "properties": {
+              "evidence_type": { "const": "interactive_turn" },
+              "reference": { "type": "string", "pattern": "^codex-thread:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" }
+            }
+          }
+        }
+      }
     },
     {
       "if": { "properties": { "confirmation_channel": { "const": "repository_approval" } }, "required": ["confirmation_channel"] },
