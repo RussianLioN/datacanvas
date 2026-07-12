@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "f6e5cddaebf40595312951307d01572bbfca343acc257e44e88707f311ec1f08"
+      "sha256": "80dcdf48a4bdab751eed53666e984e57c1d238ef6134d2d17f795f9011ce1f32"
     },
     {
       "artifact_id": "ART-188",
@@ -3867,7 +3867,7 @@
     {
       "artifact_id": "ART-774",
       "path": "scripts/cascade-vnext-runtime.mjs",
-      "sha256": "6da594e12acf6987961a09fa758290b208a709138f817f94adbfd5d759aa9c68"
+      "sha256": "a40e0c0a3fb09db6f3274f550f810eeb5ebd534d5445d8276186556f6e36a9c4"
     },
     {
       "artifact_id": "ART-775",
@@ -3902,7 +3902,7 @@
     {
       "artifact_id": "ART-781",
       "path": "scripts/validate-cascade-vnext.mjs",
-      "sha256": "eb4c50a27d5b971cb4483115aa83e7cd91cf92c177e87547df5a9b45bcc2ba61"
+      "sha256": "224fe510d4b6cc3c2a00dc8edc27a23618f5a056b01ec844572da592c1fc510e"
     },
     {
       "artifact_id": "ART-782",

@@ -43,9 +43,16 @@ import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
 import {
   buildRuntimeManifest,
   createIsolatedNpmEnvironment,
+  sanitizeOutput,
   validateDocument,
   verifyAcceptanceConfirmationEvidence,
 } from "./cascade-vnext-runtime.mjs";
+
+const longValidationOutput = `head-marker\n${"x".repeat(5000)}\ntail-marker`;
+const summarizedValidationOutput = sanitizeOutput(longValidationOutput, process.cwd());
+assert.match(summarizedValidationOutput, /head-marker/u);
+assert.match(summarizedValidationOutput, /tail-marker/u);
+assert.ok(summarizedValidationOutput.length <= 4000);
 
 const sourceRegistry = {
   sources: [

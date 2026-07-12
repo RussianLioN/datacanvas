@@ -261,10 +261,16 @@ export function assertFreshRunDir(relativePath, runsRoot = "docs/process/cascadi
 
 export function sanitizeOutput(value, root) {
   const rootPattern = root.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
-  return String(value)
+  const sanitized = String(value)
     .replace(new RegExp(rootPattern, "gu"), "<repo>")
-    .replace(/(token|secret|password|api[_-]?key)\s*[:=]\s*\S+/giu, "$1=<redacted>")
-    .slice(0, 4000);
+    .replace(/(token|secret|password|api[_-]?key)\s*[:=]\s*\S+/giu, "$1=<redacted>");
+  const maxLength = 4000;
+  if (sanitized.length <= maxLength) return sanitized;
+  const separator = "\n... <середина вывода опущена; конец сохранен> ...\n";
+  const available = maxLength - separator.length;
+  const headLength = Math.ceil(available / 2);
+  const tailLength = Math.floor(available / 2);
+  return sanitized.slice(0, headLength) + separator + sanitized.slice(-tailLength);
 }
 
 export function createIsolatedNpmEnvironment(tempRoot) {
