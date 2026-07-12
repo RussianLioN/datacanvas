@@ -31,6 +31,19 @@ function exec(command, args, cwd = root, environment = {}) {
   }).trim();
 }
 
+function commitTestChange(worktree, message) {
+  return exec(
+    "git",
+    [
+      "-c", "user.name=DataCanvas Cascade Test",
+      "-c", "user.email=cascade-test@datacanvas.local",
+      "-c", "core.hooksPath=/dev/null",
+      "commit", "-m", message,
+    ],
+    worktree,
+  );
+}
+
 function runPlanner(worktree, args) {
   return runNodeScript(worktree, "scripts/run-cascade-vnext.mjs", args);
 }
@@ -106,8 +119,6 @@ try {
   worktreeAdded = true;
   const npmEnvironment = createIsolatedNpmEnvironment(tempRoot);
   exec("npm", ["ci", "--ignore-scripts"], worktree, npmEnvironment);
-  exec("git", ["config", "user.name", "DataCanvas Cascade Test"], worktree);
-  exec("git", ["config", "user.email", "cascade-test@datacanvas.local"], worktree);
   const baseSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
   fs.appendFileSync(
@@ -138,7 +149,7 @@ try {
     "utf8",
   );
   exec("git", ["add", "docs/product-vision.md", changeRequestPath], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: create cascade e2e delta"], worktree);
+  commitTestChange(worktree, "test: create cascade e2e delta");
   const planningHeadSha = exec("git", ["rev-parse", "HEAD"], worktree);
   const preflightStatus = exec("git", ["status", "--porcelain=v1"], worktree);
   assert.equal(preflightStatus, "", "сквозной тест должен запускать planner из чистой рабочей копии: " + preflightStatus);
@@ -197,7 +208,7 @@ try {
     "подготовительная правка Vision должна менять только манифест хэшей",
   );
   exec("git", ["add", "docs/architecture/schemas/artifact-hash-manifest.json"], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: refresh hash manifest after planner delta"], worktree);
+  commitTestChange(worktree, "test: refresh hash manifest after planner delta");
 
   const lifecycleBaseSha = exec("git", ["rev-parse", "HEAD"], worktree);
   const lifecycleSourcePath = "docs/process/current/process-backlog.md";
@@ -230,7 +241,7 @@ try {
     "utf8",
   );
   exec("git", ["add", lifecycleSourcePath, lifecycleRequestPath], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: create full cascade lifecycle delta"], worktree);
+  commitTestChange(worktree, "test: create full cascade lifecycle delta");
 
   const lifecyclePlanDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-plan";
   const lifecyclePlanResult = runPlanner(worktree, [
@@ -245,7 +256,7 @@ try {
   assert.equal(lifecycleRun.state, "planned");
   assert.equal(lifecycleRun.owner_question_packet_path, null);
   exec("git", ["add", lifecyclePlanDir], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: persist immutable cascade planning package"], worktree);
+  commitTestChange(worktree, "test: persist immutable cascade planning package");
 
   const rationale = (artifactPath) => ({
     rationale: "Проверочный процессный комментарий не меняет содержание зависимого артефакта.",
@@ -291,7 +302,7 @@ try {
     "utf8",
   );
   exec("git", ["add", lifecycleResolutionPath], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: add cascade lifecycle resolution"], worktree);
+  commitTestChange(worktree, "test: add cascade lifecycle resolution");
   const lifecycleCandidateSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
   const lifecycleFinalDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-final";
@@ -304,7 +315,7 @@ try {
   assert.equal(finalizeResult.status, 0, output(finalizeResult));
   const finalizedRunPath = lifecycleFinalDir + "/cascade-vnext-run.json";
   exec("git", ["add", lifecycleFinalDir], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: persist immutable cascade finalization package"], worktree);
+  commitTestChange(worktree, "test: persist immutable cascade finalization package");
   const finalizationPackageCommitSha = exec("git", ["rev-parse", "HEAD"], worktree);
 
   const finalizedRunAbsolute = path.join(worktree, finalizedRunPath);
@@ -335,7 +346,7 @@ try {
   const profileRun = JSON.parse(fs.readFileSync(path.join(worktree, profileRunPath), "utf8"));
   assert.equal(profileRun.state, "profile_verified");
   exec("git", ["add", lifecycleProfileDir], worktree);
-  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: persist immutable cascade profile package"], worktree);
+  commitTestChange(worktree, "test: persist immutable cascade profile package");
 
   const lifecycleCompleteDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-complete";
   const completionResult = runNodeScript(worktree, "scripts/complete-cascade-vnext.mjs", [
