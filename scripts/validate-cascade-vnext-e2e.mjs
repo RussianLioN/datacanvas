@@ -163,6 +163,16 @@ try {
   assertFailedWithoutOutput(unknownXlsx, worktree, unknownXlsxOutput, /source identity/u);
 
   assert.equal(exec("git", ["status", "--porcelain=v1"], worktree), "");
+  const hashRefresh = runNodeScript(worktree, "scripts/generate-artifact-hash-manifest.mjs", []);
+  assert.equal(hashRefresh.status, 0, output(hashRefresh));
+  const hashRefreshStatus = exec("git", ["status", "--porcelain=v1"], worktree);
+  assert.equal(
+    hashRefreshStatus,
+    "M docs/architecture/schemas/artifact-hash-manifest.json",
+    "подготовительная правка Vision должна менять только манифест хэшей",
+  );
+  exec("git", ["add", "docs/architecture/schemas/artifact-hash-manifest.json"], worktree);
+  exec("git", ["-c", "core.hooksPath=/dev/null", "commit", "-m", "test: refresh hash manifest after planner delta"], worktree);
 
   const lifecycleBaseSha = exec("git", ["rev-parse", "HEAD"], worktree);
   const lifecycleSourcePath = "docs/process/current/process-backlog.md";
