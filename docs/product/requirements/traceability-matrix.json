@@ -4,7 +4,7 @@
   "links": [
     {
       "requirement_id": "BT-001",
-      "source": "docs/product/vision/vision-v0.1.md",
+      "source": "docs/product-vision.md",
       "backlog_items": [
         "PBI-001",
         "TECH-005"
@@ -17,7 +17,7 @@
     },
     {
       "requirement_id": "BT-002",
-      "source": "docs/product/vision/vision-v0.1.md",
+      "source": "docs/product-vision.md",
       "sources": [
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -41,7 +41,7 @@
     },
     {
       "requirement_id": "BT-003",
-      "source": "docs/product/vision/vision-v0.1.md",
+      "source": "docs/product-vision.md",
       "backlog_items": [
         "PBI-002",
         "PBI-003"
@@ -103,7 +103,7 @@
       "requirement_id": "BT-006",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/vision/vision-v0.1.md",
+        "docs/product-vision.md",
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -244,7 +244,7 @@
       "requirement_id": "BT-012",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/vision/vision-v0.1.md",
+        "docs/product-vision.md",
         "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md",

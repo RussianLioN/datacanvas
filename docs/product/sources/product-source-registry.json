@@ -160,7 +160,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
-      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-33 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основной маршрут запуска другим агентом, а DC-ST-30..DC-ST-33 формируют P2-этап дорожной карты расширенной доставки, хранения, ссылки и уведомления. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-33 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основного маршрута запуска другим агентом, а DC-ST-30..DC-ST-33 имеют P2 для расширенной доставки, хранения, ссылки и уведомления. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
     },
     {
       "source_id": "SRC-DC-STORY-CATALOG-LOCK",
@@ -261,10 +261,9 @@
       "effective_date": "2026-07-10",
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
-        "accepted_effort_estimation",
-        "sprint_planning_input",
-        "jira_import_preparation",
-        "opml_export_preparation",
+        "owner_approved_priority_source",
+        "draft_effort_estimation",
+        "team_refinement_input",
         "cascade_synchronization"
       ],
       "affected_artifacts": [
@@ -283,7 +282,7 @@
         "docs/product/sources/xlsx-opml-jira-recovery-index.json",
         "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
-      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял текущие приоритеты и ПШЕ как ресурсный вход: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. Приоритеты и смысловые поля сверяются с каноническим каталогом пользовательских историй; ПШЕ используются в backlog, sprint planning и Jira/OPML-подготовке без загрязнения бизнесовых Markdown служебной механикой Excel.",
+      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял формулировки, приоритеты и текущие черновые ПШЕ: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. Приоритеты и смысловые поля сверяются с каноническим каталогом пользовательских историй. Команда реализации еще должна подтвердить трудозатраты, емкость и порядок работ до переноса в sprint backlog или Jira.",
       "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "derived_from": [
         "SRC-DC-STORIES-XLSX-SANITIZED"
@@ -291,7 +290,7 @@
       "verifier_command": "npm run validate:xlsx-backlog",
       "allowed_delta": "Accepted added rows 26-36 for DC-ST-23..DC-ST-33 may differ from the controlled source workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
       "approval_status": "owner_approved",
-      "team_validation_status": "approved",
+      "team_validation_status": "pending_team_review",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
     },
     {
@@ -349,7 +348,7 @@
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "sprint_planning_input",
-        "jira_import_preparation",
+        "jira_mapping_preparation",
         "confluence_export_context",
         "traceability_review"
       ],
@@ -358,7 +357,7 @@
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Кандидатный план ближайших спринтов строится из утвержденной рабочей Excel-редакции, продуктового backlog и CO-2026-002. Он не является утвержденным sprint backlog без проверки емкости, порядка работ, вытеснения и отдельного owner gate."
+      "notes": "Кандидатный план ближайших спринтов строится из принятой Product Owner рабочей Excel-редакции, продуктового backlog и CO-2026-002. ПШЕ остаются черновыми до проверки команды реализации; документ не является sprint backlog без подтверждения трудозатрат, емкости, порядка работ и вытеснения."
     },
     {
       "source_id": "SRC-DC-ROADMAP-V0-1",

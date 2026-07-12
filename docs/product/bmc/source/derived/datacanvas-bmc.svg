@@ -4,7 +4,6 @@
 <rect data-role="bmc-background" width="3840" height="2160" fill="#f8fafc"/>
 <rect data-role="bmc-frame" x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>
 <text data-role="bmc-title" x="174" y="158" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="820" fill="#111827">DataCanvas Business Model Canvas</text>
-<text data-role="bmc-subtitle" x="174" y="216" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="420" fill="#526174">Классическая структура: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5</text>
 <g data-role="bmc-top-row">
 <g data-role="bmc-block" data-block="B8" data-layout-slot="top-left" transform="translate(174 280)">
 <rect width="640" height="1180" rx="8" fill="#e8f2ed" stroke="#243447" stroke-width="3"/>
@@ -81,5 +80,4 @@
 <text data-role="bmc-block-body" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="400" fill="#26313f"><tspan x="42" y="222">Для внутреннего продукта DataCanvas поток внутренней пользы выражается в экономии времени, снижении</tspan><tspan x="42" y="257">ручной работы, более быстром получении PPTX/PDF-результата и возможности переиспользовать общий</tspan><tspan x="42" y="292">презентационный сервис другими агентами.</tspan><tspan x="42" y="327">• Экономия времени КМ</tspan><tspan x="42" y="362">• Снижение ручной работы при подготовке презентации</tspan><tspan x="42" y="397">• Более быстрый переход от контекста к рабочему PPTX/PDF-результату</tspan><tspan x="42" y="432">• Повторное использование DataCanvas другими агентами вместо разработки отдельных презентационных</tspan><tspan x="42" y="467">модулей</tspan></text>
 </g>
 </g>
-<text data-role="bmc-footer" x="174" y="2054" font-family="Inter, Arial, sans-serif" font-size="24" fill="#64748b">SVG является каноническим визуальным источником; PNG и PDF генерируются из него.</text>
 </svg>

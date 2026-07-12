@@ -27,12 +27,12 @@
       "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
       "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "downstream_use": [
-        "accepted_effort_estimation",
+        "owner_approved_priority_source",
+        "draft_effort_estimation",
         "team_estimation_review",
-        "sprint_planning_input",
-        "jira_import_preparation"
+        "cascade_synchronization"
       ],
-      "notes": "Рабочая Excel-версия принята Product Owner как ресурсный вход для DC-ST-23..DC-ST-33; sprint backlog и Jira import требуют отдельного планировочного gate."
+      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и черновых ПШЕ для DC-ST-23..DC-ST-33. Командное согласование трудозатрат еще не получено; sprint backlog и Jira остаются заблокированными до отдельной записи такого согласования."
     },
     {
       "item_id": "historical-stories-opml",

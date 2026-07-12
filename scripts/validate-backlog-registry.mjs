@@ -4,13 +4,15 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { planningReadinessProblems } from "./lib/product-document-consistency.mjs";
+
 const root = process.cwd();
 const requiredContours = ["product", "requirements", "technical", "eval", "process", "sprint"];
 const centralContourIds = new Set(["product", "technical", "eval", "process"]);
 const centralItemPattern = /^(PBI|TECH|EVAL|PROC)-\d{3}$/;
 const requirementItemPattern = /^(REQ|BT|NFR|US)-\d{3}$/;
 const blockedTraceabilityPrefixes = ["QA-", "SEC-", "OPS-"];
-const allowedStatuses = new Set(["draft", "ready", "in_progress", "active", "done"]);
+const allowedStatuses = new Set(["draft", "ready", "ready_for_team_review", "in_progress", "active", "done"]);
 const doneStatuses = new Set(["done"]);
 
 const contourRequirements = {
@@ -255,6 +257,19 @@ for (const item of centralRows) {
     fail(`duplicate central backlog ID: ${item.row.ID} in ${previous.source_path} and ${item.source_path}`);
   }
   centralItems.set(item.row.ID, item);
+}
+
+const xlsxProvenance = readJson(
+  "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+);
+const planningProblems = planningReadinessProblems({
+  teamValidationStatus: xlsxProvenance.workbook.team_validation_status,
+  backlogStatuses: Object.fromEntries(
+    ["PBI-007", "PBI-008"].map((itemId) => [itemId, centralItems.get(itemId)?.row?.["Статус"]]),
+  ),
+});
+if (planningProblems.length > 0) {
+  fail(planningProblems[0]);
 }
 
 const traceability = readJson("docs/product/requirements/traceability-matrix.json");

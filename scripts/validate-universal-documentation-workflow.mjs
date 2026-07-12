@@ -234,22 +234,29 @@ function validateCatalogCommandPolicy(catalog) {
   }
 
   for (const command of catalog.commands) {
-    if (["read_only_check", "isolated_runtime_check"].includes(command.execution_type) && command.mutates_files) {
+    if (command.execution_type === "read_only_check" && command.mutates_files) {
       fail(`read-only validation command must not mutate files: ${command.id}`);
     }
-    if (!["read_only_check", "isolated_runtime_check"].includes(command.execution_type) && !command.mutates_files) {
+    if (["mutating_generator", "full_gate"].includes(command.execution_type) && !command.mutates_files) {
       fail(`mutating/full command must declare mutates_files=true: ${command.id}`);
     }
     if (command.execution_type === "isolated_runtime_check" && !command.runtime_cleanup_required) {
       fail(`isolated runtime command must require cleanup: ${command.id}`);
     }
-    if (!command.mutates_files && command.writes_expected.length > 0) {
+    if (
+      !command.mutates_files &&
+      command.writes_expected.length > 0 &&
+      command.execution_type !== "isolated_runtime_check"
+    ) {
       fail(`non-mutating validation command must not declare writes_expected: ${command.id}`);
     }
     if (command.mutates_files && command.writes_expected.length === 0) {
       fail(`mutating validation command must declare expected writes: ${command.id}`);
     }
-    if (commandLooksMutating(command.command) !== command.mutates_files) {
+    if (
+      command.execution_type !== "isolated_runtime_check" &&
+      commandLooksMutating(command.command) !== command.mutates_files
+    ) {
       fail(`validation command execution policy disagrees with command text: ${command.id}`);
     }
     if (!command.freshness_required) {
@@ -608,7 +615,6 @@ function validateDataCanvasProfile() {
     ["git-history-hygiene", "npm run validate:git-history-hygiene"],
     ["ci-exact-sha", "npm run validate:ci-exact-sha"],
     ["cascade-impact", "npm run validate:cascade-impact"],
-    ["cascading-governance", "npm run validate:cascading-governance"],
     ["cascade-verification", "npm run validate:cascade-verification"],
     ["cascade-vnext", "npm run validate:cascade-vnext"],
     ["cascade-trust", "npm run validate:cascade-trust"],
@@ -618,6 +624,17 @@ function validateDataCanvasProfile() {
     if (!catalogCommand || catalogCommand.command !== expectedCommand || catalogCommand.mutates_files) {
       fail(`DataCanvas validation catalog must include read-only ${commandId} gate`);
     }
+  }
+  const cascadingGovernanceCommand = catalog.commands.find((command) => command.id === "cascading-governance");
+  if (
+    !cascadingGovernanceCommand ||
+    cascadingGovernanceCommand.command !== "npm run validate:cascading-governance" ||
+    cascadingGovernanceCommand.execution_type !== "isolated_runtime_check" ||
+    cascadingGovernanceCommand.mutates_files ||
+    !cascadingGovernanceCommand.runtime_cleanup_required ||
+    cascadingGovernanceCommand.writes_expected.length === 0
+  ) {
+    fail("DataCanvas validation catalog must include isolated cascading-governance gate with declared temporary writes and cleanup");
   }
   const cascadeE2eCommand = catalog.commands.find((command) => command.id === "cascade-vnext-e2e");
   if (!cascadeE2eCommand

@@ -8927,6 +8927,38 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Контракт блокирующей проверки визуальной компоновки меняется."
+    },
+    {
+      "id": "ART-815",
+      "path": "tests/data-leakage-xlsx-vml.test.mjs",
+      "type": "test",
+      "owner_role": "Security Lead / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-816",
+      "path": "tests/bmc-render-freshness.test.mjs",
+      "type": "test",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-817",
+      "path": "scripts/lib/product-document-consistency.mjs",
+      "type": "validation-library",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-818",
+      "path": "tests/product-document-consistency.test.mjs",
+      "type": "test",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

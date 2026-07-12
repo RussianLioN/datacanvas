@@ -9,3 +9,5 @@ build/
 __pycache__/
 *.pyc
 ~$*.xlsx
+/artifacts/manual/.tmp-cascade-cli-*
+/docs/process/cascading-governance/runs/.tmp-cascade-cli-*

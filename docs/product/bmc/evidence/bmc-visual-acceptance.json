@@ -5,11 +5,11 @@
   "command": "npm run generate:bmc",
   "exit_code": 0,
   "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-  "input_sha256": "af78a6ec352bd17dbcaf8fa3d367197bde0801a2d32e305740be0f790de58eeb",
+  "input_sha256": "f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8",
   "output_sha256": {
-    "png": "728be69fea8fdf1e7f6e49b4c3f6ea7866c1670f9a9f84e1f0599dddfc303911",
-    "pdf": "791be9a85d0264b5c11891398b9818ee7b9031fe4790689ba4aec0270f8c4aae",
-    "plantuml": "6be166b391f573b76c8d8459374384f69cac84af9d2cee6c4d301d5f9267de01"
+    "png": "e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2",
+    "pdf": "8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e",
+    "plantuml": "ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019"
   },
   "artifact_paths": [
     "docs/product/bmc/source/derived/datacanvas-bmc.svg",

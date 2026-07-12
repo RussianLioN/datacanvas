@@ -285,7 +285,7 @@
         "security"
       ],
       "owner_role": "CI/CD Lead / GitOps Lead",
-      "purpose": "Подтверждает, что локальный или серверный gate выполняется на точном SHA кандидата, а не на устаревшей или служебной merge-ссылке."
+      "purpose": "В CI сравнивает checkout с SHA кандидата, который workflow передает извне. Локальная npm-команда проверяет только текущий HEAD как smoke-проверку скрипта и не заменяет серверное evidence точного SHA."
     },
     {
       "id": "xlsx-backlog-sync",
@@ -364,11 +364,15 @@
       "id": "cascading-governance",
       "command": "npm run validate:cascading-governance",
       "gate": "profile",
-      "execution_type": "read_only_check",
+      "execution_type": "isolated_runtime_check",
       "mutates_files": false,
-      "writes_expected": [],
+      "writes_expected": [
+        "artifacts/manual/.tmp-cascade-cli-*",
+        "docs/process/cascading-governance/runs/.tmp-cascade-cli-*"
+      ],
       "freshness_required": true,
       "completion_blocking": true,
+      "runtime_cleanup_required": true,
       "applies_to": [
         "change_instance",
         "cascade",
@@ -377,7 +381,7 @@
         "xlsx_backlog"
       ],
       "owner_role": "Process Owner / QA Lead",
-      "purpose": "Проверяет согласованность запроса на изменение, графа, полного конуса влияния, очереди решений, XLSX-каскада и evidence сухого запуска."
+      "purpose": "Проверяет согласованность запроса на изменение, графа, полного конуса влияния, очереди решений, XLSX-каскада и evidence сухого запуска. Временные файлы создаются только в объявленных игнорируемых каталогах и удаляются после проверки."
     },
     {
       "id": "universal-documentation-workflow",

@@ -12,7 +12,7 @@
     "working_sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
     "verifier_command": "npm run validate:xlsx-backlog",
     "approval_status": "owner_approved",
-    "team_validation_status": "approved"
+    "team_validation_status": "pending_team_review"
   },
   "rows": [
     {
@@ -28,7 +28,7 @@
       "selected_profile_row": 26,
       "selected_value": 22,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-24",
@@ -42,7 +42,7 @@
       "selected_profile_row": 27,
       "selected_value": 18,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-25",
@@ -57,7 +57,7 @@
       "selected_profile_row": 28,
       "selected_value": 36,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-26",
@@ -71,7 +71,7 @@
       "selected_profile_row": 29,
       "selected_value": 10,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-27",
@@ -85,7 +85,7 @@
       "selected_profile_row": 30,
       "selected_value": 26,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-28",
@@ -100,7 +100,7 @@
       "selected_profile_row": 31,
       "selected_value": 17.4,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-29",
@@ -114,7 +114,7 @@
       "selected_profile_row": 32,
       "selected_value": 30,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-30",
@@ -129,7 +129,7 @@
       "selected_profile_row": 33,
       "selected_value": 26,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-31",
@@ -143,7 +143,7 @@
       "selected_profile_row": 34,
       "selected_value": 27.4,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-32",
@@ -158,7 +158,7 @@
       "selected_profile_row": 35,
       "selected_value": 28,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     },
     {
       "story_id": "DC-ST-33",
@@ -173,13 +173,13 @@
       "selected_profile_row": 36,
       "selected_value": 29,
       "approval_status": "owner_approved",
-      "team_validation_status": "approved"
+      "team_validation_status": "pending_team_review"
     }
   ],
   "downstream_policy": {
-    "may_update_sprint_backlog": true,
-    "may_export_to_jira": true,
-    "requires_team_approval_record": false,
-    "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и ПШЕ для DC-ST-23..DC-ST-33. После CO-2026-002 строки DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута запуска другим агентом, а строки DC-ST-30..DC-ST-33 отражают P2-этап дорожной карты расширенной доставки, хранилища, ссылки и уведомления. Эти значения можно использовать как утвержденный ресурсный вход для каскадной синхронизации backlog, планирования и Jira/OPML-подготовки; sprint backlog все равно требует проверки емкости, порядка работ и вытеснения."
+    "may_update_sprint_backlog": false,
+    "may_export_to_jira": false,
+    "requires_team_approval_record": true,
+    "notes": "Product Owner принял текущую рабочую Excel-редакцию формулировок, приоритетов и черновых ПШЕ для DC-ST-23..DC-ST-33. Значения используются для каскадной синхронизации продуктовой документации и обсуждения с командой реализации. Команда реализации еще не подтвердила трудозатраты, емкость и порядок работ, поэтому перенос в sprint backlog и экспорт в Jira остаются заблокированными до отдельной записи командного согласования."
   }
 }

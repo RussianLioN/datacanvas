@@ -176,6 +176,8 @@
         "visual_frame_overlap",
         "uneven_visual_grid",
         "plantuml_label_overflow",
+        "visible_service_text_in_visual_surface",
+        "plantuml_generator_comment_in_public_surface",
         "historical_visual_evidence_claimed_current"
       ]
     },

@@ -5,11 +5,22 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import {
+  approvalConsistencyProblems,
+  bmcAcceptanceStatusProblems,
+  pendingTeamDownstreamUseProblems,
+  traceabilityVisionAuthorityProblems,
+} from "./lib/product-document-consistency.mjs";
+
 const root = process.cwd();
 const schemaPath = "schemas/product-source-registry.schema.json";
 const registryPath = "docs/product/sources/product-source-registry.json";
 const xlsxRecoveryIndexPath = "docs/product/sources/xlsx-opml-jira-recovery-index.json";
 const dependencyGraphPath = "docs/process/cascading-governance/artifact-dependency-graph.json";
+const traceabilityPath = "docs/product/requirements/traceability-matrix.json";
+const decisionLedgerPath = "docs/process/universal-documentation-workflow/decision-ledger.json";
+const consistencyMatrixPath = "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md";
+const bmcManifestPath = "docs/product/bmc/manifest.json";
 const consistencyMode = process.argv.includes("--consistency");
 
 function absolute(relativePath) {
@@ -86,6 +97,13 @@ function assertXlsxRecoveryIndexConsistency(registry) {
       }
       if (source.sha256 && source.sha256 !== item.sha256) {
         throw new Error(`XLSX/OPML/Jira recovery index sha256 differs from product source registry: ${item.source_id}`);
+      }
+      const downstreamProblems = pendingTeamDownstreamUseProblems({
+        teamValidationStatus: source.team_validation_status,
+        downstreamUse: item.downstream_use ?? [],
+      });
+      if (downstreamProblems.length > 0) {
+        throw new Error(`XLSX/OPML/Jira recovery index approval policy violation: ${downstreamProblems[0]}`);
       }
     }
   }
@@ -184,6 +202,66 @@ function assertRoadmapSourceConsistency(registry) {
   }
 }
 
+function assertXlsxApprovalConsistency(registry) {
+  const source = registry.sources.find((candidate) => candidate.source_id === "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08");
+  if (!source?.provenance_manifest) {
+    throw new Error("working XLSX source must reference its provenance manifest");
+  }
+
+  const provenance = readJson(source.provenance_manifest);
+  if (
+    source.approval_status !== provenance.workbook.approval_status ||
+    source.team_validation_status !== provenance.workbook.team_validation_status
+  ) {
+    throw new Error("working XLSX source registry and provenance approval statuses must match");
+  }
+
+  const problems = approvalConsistencyProblems({
+    approvalStatus: provenance.workbook.approval_status,
+    teamValidationStatus: provenance.workbook.team_validation_status,
+    rowTeamValidationStatuses: provenance.rows.map((row) => row.team_validation_status),
+    downstreamPolicy: provenance.downstream_policy,
+  });
+  if (problems.length > 0) {
+    throw new Error(`working XLSX approval policy violation: ${problems[0]}`);
+  }
+}
+
+function assertTraceabilityVisionAuthority(registry) {
+  const currentVision = registry.sources.find((source) => source.source_id === "SRC-DC-PRODUCT-VISION-CURRENT");
+  const historicalVision = registry.sources.find((source) => source.source_id === "SRC-DC-PRODUCT-VISION-SNAPSHOT-V0-1");
+  if (!currentVision || !historicalVision) {
+    throw new Error("current and historical Vision sources must be registered separately");
+  }
+
+  const problems = traceabilityVisionAuthorityProblems({
+    links: readJson(traceabilityPath).links,
+    currentVisionPath: currentVision.path,
+    historicalVisionPath: historicalVision.path,
+  });
+  if (problems.length > 0) {
+    throw new Error(`traceability Vision authority violation: ${problems[0]}`);
+  }
+}
+
+function assertBmcAcceptanceStatus(registry) {
+  const decision = readJson(decisionLedgerPath).records.find((candidate) => candidate.decision_id === "UDW-DEC-009");
+  const bmcSource = registry.sources.find((source) => source.source_id === "SRC-DC-BMC-CURRENT");
+  const bmcRow = readText(consistencyMatrixPath)
+    .split(/\r?\n/)
+    .find((line) => line.startsWith("| BMC —"));
+  const cells = bmcRow?.split("|").map((cell) => cell.trim()) ?? [];
+  const problems = bmcAcceptanceStatusProblems({
+    decisionStatus: decision?.accepted_status,
+    sourceLifecycle: bmcSource?.lifecycle,
+    consistencyStatus: cells[3]?.replaceAll("`", ""),
+    packageStatus: readJson(bmcManifestPath).status,
+  });
+  if (problems.length > 0) {
+    throw new Error(`BMC acceptance status violation: ${problems[0]}`);
+  }
+}
+
 try {
   requireFile(schemaPath);
   requireFile(registryPath);
@@ -255,6 +333,9 @@ try {
 
   assertXlsxRecoveryIndexConsistency(registry);
   assertRoadmapSourceConsistency(registry);
+  assertXlsxApprovalConsistency(registry);
+  assertTraceabilityVisionAuthority(registry);
+  assertBmcAcceptanceStatus(registry);
 
   if (consistencyMode) {
     assertXlsxCascadeGraphConsistency(registry);
