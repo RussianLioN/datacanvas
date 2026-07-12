@@ -69,7 +69,7 @@
     "validate:bmc-interview-runtime": "node scripts/validate-bmc-interview-runtime.mjs",
     "validate:bmc-interview-replay": "node scripts/validate-bmc-interview-replay.mjs",
     "validate:bmc-trace": "node scripts/validate-bmc-trace.mjs",
-    "validate:bmc-visual": "node scripts/validate-bmc-visual.mjs",
+    "validate:bmc-visual": "node --test tests/bmc-visual-layout.test.mjs && node scripts/validate-bmc-visual.mjs",
     "validate:bmc-render-parity": "node --test tests/bmc-render-freshness.test.mjs && node scripts/validate-bmc-render-parity.mjs",
     "validate:bmc-content-classic": "node scripts/validate-bmc-content-classic.mjs",
     "validate:bmc-package": "node scripts/validate-bmc-package.mjs",

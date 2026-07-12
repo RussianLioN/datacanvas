@@ -1,21 +1,20 @@
-# BMC Visual Review
+# Проверка визуального BMC
 
-Checked at: 2026-06-24T00:00:00Z
+Проверено: 2026-07-12T00:00:00Z
 
-Verdict: ready for user acceptance.
+Итог: готово к пользовательской проверке.
 
-Review points:
+Проверено:
 
-- The canvas uses the classical BMC structure: B8 | B7/B6 | B2 | B4/B3 | B1, with B9 | B5 in the bottom row.
-- SVG is the canonical visual source, and PNG/PDF are generated from the same SVG.
-- The visual BMC contains nine blocks, readable headings, short bullets and no visible validation metadata.
-- No blocker or major visual issue is recorded for the generated package.
+- Сохранена классическая структура BMC: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5.
+- Текст каждого блока помещается внутри своей рамки без пересечений и обрезания.
+- Рамки выровнены, интервалы сетки одинаковы, все элементы находятся внутри холста.
+- SVG является каноническим визуальным источником; PNG и PDF формируются из него.
+- PlantUML содержит те же девять блоков, ограниченные по длине строки и полную сетку связей.
 
-Checked files:
+Проверенные файлы:
 
-- docs/product/bmc/source/derived/datacanvas-bmc.svg: c834f7287335eee20e9db0b2160c56fcf4ed59dc5fdf21b7cad2aaf190c1022f
-- docs/product/bmc/source/derived/datacanvas-bmc.png: 8587f89672b1f0a82fb1eb115f0c79ad4659c776fe8918fe3c1a29ad1e9ce1c8
-- docs/product/bmc/source/derived/datacanvas-bmc.pdf: c91336952d1b52ff4f05a7860d4057dc4412847ab89dd754f2d28317d9f84b23
-- docs/product/bmc/source/derived/datacanvas-bmc.puml: 6951b850183f89e3fe8e81fe3775a7a50e0efffeba4a11686308b8729f5831c8
-- docs/product/bmc/evidence/browser-smoke.png: 6ddc4c94e7bed7b3ae63eff92ac2e1f5069d0d1d3e5030f1a5571666926e39c8
-- docs/product/bmc/evidence/pdf-raster-smoke.png: efbd03a77ea1686bc671dcdc8cdb8711093ac8ebb339838d698daf46a476cb83
+- docs/product/bmc/source/derived/datacanvas-bmc.svg: af78a6ec352bd17dbcaf8fa3d367197bde0801a2d32e305740be0f790de58eeb
+- docs/product/bmc/source/derived/datacanvas-bmc.png: 728be69fea8fdf1e7f6e49b4c3f6ea7866c1670f9a9f84e1f0599dddfc303911
+- docs/product/bmc/source/derived/datacanvas-bmc.pdf: 791be9a85d0264b5c11891398b9818ee7b9031fe4790689ba4aec0270f8c4aae
+- docs/product/bmc/source/derived/datacanvas-bmc.puml: 6be166b391f573b76c8d8459374384f69cac84af9d2cee6c4d301d5f9267de01

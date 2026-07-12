@@ -4,7 +4,7 @@
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
   "source_trace_sha256": "0540ac541bf6412dbfa296e675bb426b1ea466c1147c6f389ab618bf1c83f779",
   "generated_by": "scripts/generate-bmc-artifacts.mjs",
-  "generated_at": "2026-06-24T00:00:00Z",
+  "generated_at": "2026-07-12T00:00:00Z",
   "outputs": [
     {
       "format": "markdown",
@@ -14,27 +14,27 @@
     {
       "format": "plantuml",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "6951b850183f89e3fe8e81fe3775a7a50e0efffeba4a11686308b8729f5831c8"
+      "sha256": "6be166b391f573b76c8d8459374384f69cac84af9d2cee6c4d301d5f9267de01"
     },
     {
       "format": "svg",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "c834f7287335eee20e9db0b2160c56fcf4ed59dc5fdf21b7cad2aaf190c1022f"
+      "sha256": "af78a6ec352bd17dbcaf8fa3d367197bde0801a2d32e305740be0f790de58eeb"
     },
     {
       "format": "png",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "8587f89672b1f0a82fb1eb115f0c79ad4659c776fe8918fe3c1a29ad1e9ce1c8"
+      "sha256": "728be69fea8fdf1e7f6e49b4c3f6ea7866c1670f9a9f84e1f0599dddfc303911"
     },
     {
       "format": "pdf",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "c91336952d1b52ff4f05a7860d4057dc4412847ab89dd754f2d28317d9f84b23"
+      "sha256": "791be9a85d0264b5c11891398b9818ee7b9031fe4790689ba4aec0270f8c4aae"
     },
     {
       "format": "validation_needs_json",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "3e6ae416bfe7d867b4cec53ab851942bb41cc29d537aaccc290c4f8fc26f81ac"
+      "sha256": "5b8500f922ffb06bdcb268932a0407e8686033f7f2c6c802157aa0e2bf69bfc7"
     }
   ]
 }

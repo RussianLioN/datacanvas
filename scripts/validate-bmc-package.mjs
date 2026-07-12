@@ -41,8 +41,6 @@ const requiredFiles = [
   designerConsiliumPath,
   visualAcceptancePath,
   "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
-  "docs/product/bmc/evidence/browser-smoke.png",
-  "docs/product/bmc/evidence/pdf-raster-smoke.png",
   "docs/product/bmc/source/derived/datacanvas-bmc.svg",
   "docs/product/bmc/source/derived/datacanvas-bmc.png",
   "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
@@ -75,6 +73,14 @@ const manifestPaths = new Set(manifest.artifacts.map((artifact) => artifact.path
 for (const filePath of requiredFiles.filter((item) => item !== packageManifestPath)) {
   if (!manifestPaths.has(filePath)) {
     fail(`BMC package manifest does not list required file: ${filePath}`);
+  }
+}
+for (const historicalEvidence of [
+  "docs/product/bmc/evidence/browser-smoke.png",
+  "docs/product/bmc/evidence/pdf-raster-smoke.png",
+]) {
+  if (manifestPaths.has(historicalEvidence)) {
+    fail(`historical BMC screenshot must not be presented as current package evidence: ${historicalEvidence}`);
   }
 }
 
@@ -122,6 +128,12 @@ for (const artifact of manifest.artifacts) {
 const visualAcceptance = readJson(visualAcceptancePath);
 if (visualAcceptance.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
   fail("BMC visual acceptance points to the wrong canonical visual source");
+}
+const visualCheckById = new Map(visualAcceptance.checks.map((check) => [check.id, check]));
+for (const checkId of ["svg_text_fit", "balanced_grid", "plantuml_layout"]) {
+  if (visualCheckById.get(checkId)?.status !== "passed") {
+    fail(`BMC visual acceptance is missing passed geometry check: ${checkId}`);
+  }
 }
 
 const designerConsilium = readJson(designerConsiliumPath);

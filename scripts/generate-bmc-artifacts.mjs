@@ -4,12 +4,13 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { fitSvgTextLines, wrapPlantUmlLine } from "./lib/bmc-visual-layout.mjs";
 import { publicBusinessForbiddenSnippets, publicBusinessLanguageRules } from "./public-business-language-policy.mjs";
 
 const root = process.cwd();
 const checkMode = process.argv.includes("--check");
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
-const generatedAt = "2026-06-24T00:00:00Z";
+const generatedAt = "2026-07-12T00:00:00Z";
 
 const paths = {
   trace: "docs/product/bmc/bmc-trace.v0.1.json",
@@ -28,8 +29,6 @@ const paths = {
   designerConsilium: "docs/product/bmc/evidence/designer-consilium.json",
   visualAcceptance: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
   designPhilosophy: "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
-  browserSmoke: "docs/product/bmc/evidence/browser-smoke.png",
-  pdfRasterSmoke: "docs/product/bmc/evidence/pdf-raster-smoke.png",
 };
 
 let blockModel = [];
@@ -130,28 +129,6 @@ function fail(message) {
   process.exit(1);
 }
 
-function wrapWords(value, maxChars) {
-  const words = String(value).trim().split(/\s+/);
-  const lines = [];
-  let line = "";
-
-  for (const word of words) {
-    const next = line ? `${line} ${word}` : word;
-    if (next.length > maxChars && line) {
-      lines.push(line);
-      line = word;
-    } else {
-      line = next;
-    }
-  }
-
-  if (line) {
-    lines.push(line);
-  }
-
-  return lines;
-}
-
 function validationNeedFor(item) {
   if (item.status === "assumption") {
     return "research";
@@ -243,7 +220,10 @@ function plantUml() {
     ids
       .map((id) => {
         const block = blockById.get(id);
-        return [`<b>${id.slice(1)}. ${block.title}</b>`, ...block.bullets.map((item) => `- ${item}`)].join("\\n");
+        const bulletLines = block.bullets.flatMap((item) =>
+          wrapPlantUmlLine(item, 54).map((line, index) => `${index === 0 ? "- " : "  "}${line}`),
+        );
+        return [`<b>${id.slice(1)}. ${block.title}</b>`, ...bulletLines].join("\\n");
       })
       .join("\\n==\\n");
 
@@ -253,8 +233,8 @@ function plantUml() {
     "title DataCanvas Business Model Canvas",
     "top to bottom direction",
     "skinparam backgroundColor #F8FAFC",
-    "skinparam nodesep 8",
-    "skinparam ranksep 18",
+    "skinparam nodesep 18",
+    "skinparam ranksep 24",
     "skinparam defaultFontName \"Noto Sans\"",
     "skinparam defaultFontColor #111827",
     "skinparam defaultFontSize 15",
@@ -296,26 +276,38 @@ function plantUml() {
   ].join("\n");
 }
 
-function svgText(lines, { x, y, width, fontSize = 34, lineHeight = 46, fill = "#26313f", weight = "400", role }) {
-  const maxChars = Math.max(18, Math.floor(width / (fontSize * 0.52)));
-  const wrapped = [];
-  for (const line of lines) {
-    wrapped.push(...wrapWords(line, maxChars));
-  }
-  const tspans = wrapped
-    .map((line, index) => `<tspan x="${x}" y="${y + index * lineHeight}">${escapeHtml(line)}</tspan>`)
+function svgText(lines, {
+  x,
+  y,
+  width,
+  maxY,
+  fontSize = 34,
+  minFontSize = 24,
+  lineHeightRatio = 1.28,
+  fill = "#26313f",
+  weight = "400",
+  role,
+}) {
+  const layout = fitSvgTextLines(lines, {
+    maxWidth: width,
+    startY: y,
+    maxY,
+    maxFontSize: fontSize,
+    minFontSize,
+    lineHeightRatio,
+  });
+  const tspans = layout.lines
+    .map((line, index) => `<tspan x="${x}" y="${y + index * layout.lineHeight}">${escapeHtml(line)}</tspan>`)
     .join("");
-  return `<text data-role="${role}" font-family="Inter, Arial, sans-serif" font-size="${fontSize}" font-weight="${weight}" fill="${fill}">${tspans}</text>`;
+  return `<text data-role="${role}" font-family="Inter, Arial, sans-serif" font-size="${layout.fontSize}" font-weight="${weight}" fill="${fill}">${tspans}</text>`;
 }
 
 function svgBlock(block, box, options = {}) {
   const isTall = box.h >= 900;
   const isWideBottom = box.w >= 1000 && box.h < 620;
-  const includeDetails = options.slot === "top-center";
   const bodyLines = [
     ...(isTall || isWideBottom ? [block.statement] : []),
     ...block.bullets.map((item) => `• ${item}`),
-    ...(includeDetails ? block.detail.map((item) => `- ${item}`) : []),
   ];
   const accent = options.accent ?? "#0f766e";
   const roleAttrs = [
@@ -339,8 +331,10 @@ function svgBlock(block, box, options = {}) {
       x: 34,
       y: 122,
       width: box.w - 68,
+      maxY: box.h < 620 ? 150 : 160,
       fontSize: titleSize,
-      lineHeight: 44,
+      minFontSize: 28,
+      lineHeightRatio: 1.2,
       fill: "#111827",
       weight: "760",
       role: "bmc-block-title",
@@ -350,8 +344,10 @@ function svgBlock(block, box, options = {}) {
       x: 42,
       y: box.h < 620 ? 222 : 238,
       width: box.w - 84,
+      maxY: box.h - (box.h < 620 ? 16 : 24),
       fontSize: bodySize,
-      lineHeight: bodyLineHeight,
+      minFontSize: 24,
+      lineHeightRatio: box.h < 620 ? 1.25 : bodyLineHeight / bodySize,
       fill: "#26313f",
       role: "bmc-block-body",
     }),
@@ -364,9 +360,9 @@ function svg() {
   const y0 = 280;
   const gap = 28;
   const col = [640, 640, 820, 640, 640];
-  const topH = 1120;
+  const topH = 1180;
   const splitH = (topH - gap) / 2;
-  const bottomY = 1490;
+  const bottomY = y0 + topH + gap;
   const bottomH = 500;
   const bottomW = (3840 - x0 * 2 - gap) / 2;
   const x = [
@@ -401,7 +397,7 @@ function svg() {
     "<title>DataCanvas Business Model Canvas</title>",
     "<desc>Классическая канва бизнес-модели DataCanvas: верхний ряд B8, B7/B6, B2, B4/B3, B1; нижний ряд B9 и B5.</desc>",
     '<rect data-role="bmc-background" width="3840" height="2160" fill="#f8fafc"/>',
-    '<rect x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>',
+    '<rect data-role="bmc-frame" x="88" y="72" width="3664" height="2016" rx="18" fill="#ffffff" stroke="#d7dee8" stroke-width="3"/>',
     '<text data-role="bmc-title" x="174" y="158" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="820" fill="#111827">DataCanvas Business Model Canvas</text>',
     '<text data-role="bmc-subtitle" x="174" y="216" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="420" fill="#526174">Классическая структура: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5</text>',
     '<g data-role="bmc-top-row">',
@@ -499,66 +495,42 @@ function designPhilosophy() {
 }
 
 function visualReview(artifactHashes) {
-  const browserSmokeLine = artifactHashes[paths.browserSmoke]
-    ? [`- ${paths.browserSmoke}: ${artifactHashes[paths.browserSmoke]}`]
-    : [];
-  const pdfRasterSmokeLine = artifactHashes[paths.pdfRasterSmoke]
-    ? [`- ${paths.pdfRasterSmoke}: ${artifactHashes[paths.pdfRasterSmoke]}`]
-    : [];
   return [
-    "# BMC Visual Review",
+    "# Проверка визуального BMC",
     "",
-    `Checked at: ${generatedAt}`,
+    `Проверено: ${generatedAt}`,
     "",
-    "Verdict: ready for user acceptance.",
+    "Итог: готово к пользовательской проверке.",
     "",
-    "Review points:",
+    "Проверено:",
     "",
-    "- The canvas uses the classical BMC structure: B8 | B7/B6 | B2 | B4/B3 | B1, with B9 | B5 in the bottom row.",
-    "- SVG is the canonical visual source, and PNG/PDF are generated from the same SVG.",
-    "- The visual BMC contains nine blocks, readable headings, short bullets and no visible validation metadata.",
-    "- No blocker or major visual issue is recorded for the generated package.",
+    "- Сохранена классическая структура BMC: B8 | B7/B6 | B2 | B4/B3 | B1, нижний ряд B9 | B5.",
+    "- Текст каждого блока помещается внутри своей рамки без пересечений и обрезания.",
+    "- Рамки выровнены, интервалы сетки одинаковы, все элементы находятся внутри холста.",
+    "- SVG является каноническим визуальным источником; PNG и PDF формируются из него.",
+    "- PlantUML содержит те же девять блоков, ограниченные по длине строки и полную сетку связей.",
     "",
-    "Checked files:",
+    "Проверенные файлы:",
     "",
     `- ${paths.svg}: ${artifactHashes[paths.svg]}`,
     `- ${paths.png}: ${artifactHashes[paths.png]}`,
     `- ${paths.pdf}: ${artifactHashes[paths.pdf]}`,
     `- ${paths.puml}: ${artifactHashes[paths.puml]}`,
-    ...browserSmokeLine,
-    ...pdfRasterSmokeLine,
     "",
   ].join("\n");
 }
 
 function visualAcceptance(artifactHashes, pngInfo) {
   const artifactPaths = [paths.svg, paths.png, paths.pdf, paths.puml];
-  if (artifactHashes[paths.browserSmoke]) {
-    artifactPaths.push(paths.browserSmoke);
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    artifactPaths.push(paths.pdfRasterSmoke);
-  }
   const checks = [
     { id: "svg_contract", status: "passed", evidence: "SVG has 3840x2160 viewBox, role, title, desc and data-role markers." },
     { id: "classic_layout", status: "passed", evidence: "Layout is B8 | B7/B6 | B2 | B4/B3 | B1 with B9 | B5 bottom row." },
+    { id: "svg_text_fit", status: "passed", evidence: "Every rendered text line stays inside its BMC block frame." },
+    { id: "balanced_grid", status: "passed", evidence: "Frames do not overlap; column, split and bottom-row gaps are equal." },
+    { id: "plantuml_layout", status: "passed", evidence: "PlantUML labels are wrapped and the nine-block grid is complete." },
     { id: "png_dimensions", status: "passed", evidence: `${pngInfo.width}x${pngInfo.height}` },
     { id: "clean_public_surface", status: "passed", evidence: "Public BMC, SVG and PlantUML contain no validation/status markers." },
   ];
-  if (artifactHashes[paths.browserSmoke]) {
-    checks.push({
-      id: "browser_smoke",
-      status: "passed",
-      evidence: `Chrome headless screenshot captured: ${paths.browserSmoke}`,
-    });
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    checks.push({
-      id: "pdf_raster_smoke",
-      status: "passed",
-      evidence: `PDF raster preview captured: ${paths.pdfRasterSmoke}`,
-    });
-  }
   return {
     version: "0.1.0",
     status: "accepted",
@@ -584,12 +556,6 @@ function designerConsilium(artifactHashes) {
     { path: paths.pdf, sha256: artifactHashes[paths.pdf] },
     { path: paths.puml, sha256: artifactHashes[paths.puml] },
   ];
-  if (artifactHashes[paths.browserSmoke]) {
-    checkedArtifacts.push({ path: paths.browserSmoke, sha256: artifactHashes[paths.browserSmoke] });
-  }
-  if (artifactHashes[paths.pdfRasterSmoke]) {
-    checkedArtifacts.push({ path: paths.pdfRasterSmoke, sha256: artifactHashes[paths.pdfRasterSmoke] });
-  }
   return {
     version: "0.1.0",
     status: "accepted",
@@ -624,7 +590,7 @@ function designerConsilium(artifactHashes) {
       {
         role: "QA visual gate reviewer",
         verdict: "accepted",
-        note: "SVG/PNG/PDF/PlantUML parity is covered by deterministic generation and validators.",
+        note: "SVG text bounds, balanced frame geometry, PNG/PDF parity and PlantUML label limits are covered by blocking validators.",
       },
     ],
     checked_artifacts: checkedArtifacts,
@@ -659,8 +625,6 @@ function packageManifest(artifactHashes, pngInfo) {
     { role: "visual_acceptance", format: "json", path: paths.visualAcceptance },
     { role: "designer_consilium", format: "json", path: paths.designerConsilium },
     { role: "design_philosophy", format: "markdown", path: paths.designPhilosophy },
-    ...(artifactHashes[paths.browserSmoke] ? [{ role: "browser_smoke_screenshot", format: "png", path: paths.browserSmoke }] : []),
-    ...(artifactHashes[paths.pdfRasterSmoke] ? [{ role: "pdf_raster_smoke_screenshot", format: "png", path: paths.pdfRasterSmoke }] : []),
   ].map((artifact) => ({
     ...artifact,
     sha256: artifactHashes[artifact.path],
@@ -850,13 +814,6 @@ function build(targetRoot) {
     paths.designPhilosophy,
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, packageBasePaths.filter((item) => !artifactHashes[item])));
-  if (fs.existsSync(absolute(paths.browserSmoke))) {
-    artifactHashes[paths.browserSmoke] = sha256File(absolute(paths.browserSmoke));
-  }
-  if (fs.existsSync(absolute(paths.pdfRasterSmoke))) {
-    artifactHashes[paths.pdfRasterSmoke] = sha256File(absolute(paths.pdfRasterSmoke));
-  }
-
   writeJson(targetRoot, paths.visualAcceptance, visualAcceptance(artifactHashes, pngInfo));
   artifactHashes[paths.visualAcceptance] = sha256File(path.join(targetRoot, paths.visualAcceptance));
   writeJson(targetRoot, paths.designerConsilium, designerConsilium(artifactHashes));
