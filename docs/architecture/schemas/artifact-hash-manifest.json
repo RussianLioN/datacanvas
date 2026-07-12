@@ -932,7 +932,7 @@
     {
       "artifact_id": "ART-187",
       "path": "docs/process/current/process-change-ledger.json",
-      "sha256": "956cb9df3cdcc64c9bb2660f620a1d7025762ce89b4de87646c6424b81b2bc93"
+      "sha256": "f6e5cddaebf40595312951307d01572bbfca343acc257e44e88707f311ec1f08"
     },
     {
       "artifact_id": "ART-188",
@@ -3087,7 +3087,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "a3b015dd2e2773e200a07a914aa86f891530dd04964c1464c36e5606635c2712"
+      "sha256": "f141d9b9dc26079d8a3adeb104cbb3b9ccdd55649785128c32246049dcb64572"
     },
     {
       "artifact_id": "ART-617",
@@ -3237,7 +3237,7 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "64d3d071d0423804df82283ce6f35e47e79302dd0be02dbd66793b6f1b56b5c1"
+      "sha256": "4da2a0bb2bd895b9a9d96e76027aeaf48c8421b4bb1c3150677e7ba5259e0fb8"
     },
     {
       "artifact_id": "ART-648",
@@ -3257,12 +3257,12 @@
     {
       "artifact_id": "ART-651",
       "path": "docs/process/universal-documentation-workflow/decision-queue.json",
-      "sha256": "1478bd553697e964d090a80b3c605725e95fb16293dd5a43c6eca961a7e5ab31"
+      "sha256": "bcbd28b7e074fc5e0b1ecf27c7d5a16ddbee4252c87137c0d74ad033e11331fc"
     },
     {
       "artifact_id": "ART-652",
       "path": "docs/process/universal-documentation-workflow/decision-ledger.json",
-      "sha256": "980271d66f3a2b8bc16c1b91847fdd3a07f862555801918eb23dfd43da19aac6"
+      "sha256": "6c23dc1ec3a1353b3636cfe5d78be20fd3af8947245e02aa3098b703c264c823"
     },
     {
       "artifact_id": "ART-653",
@@ -3427,7 +3427,7 @@
     {
       "artifact_id": "ART-685",
       "path": "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
-      "sha256": "7beead73cf123675602c32d803479f500225a7970e68e17f14bf79979ef32b43"
+      "sha256": "f5d5a5321a8518d7a246c08ee3bb775909d6bc123c45ee8bd0c1ebf325d257c5"
     },
     {
       "artifact_id": "ART-686",
@@ -3452,12 +3452,12 @@
     {
       "artifact_id": "ART-690",
       "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
-      "sha256": "bba2d27d731bb38a9d2f9401d84c765cf312b9f86bc36b99d0948883b7050333"
+      "sha256": "b59ce441a30a50380246d2bd224a0488ce199cfd7df074f912492498ecb7ed29"
     },
     {
       "artifact_id": "ART-691",
       "path": "docs/product/analysis/documentation-consistency-audit/validation-evidence.md",
-      "sha256": "f89c89c38bc9581df39b054110509ffa435443f277538a8c102f6259a851ec7e"
+      "sha256": "a237f1fc0d1f1d568b42b26e13b802137a7e61766e3154350caaf312695ddef3"
     },
     {
       "artifact_id": "ART-694",
@@ -3887,7 +3887,7 @@
     {
       "artifact_id": "ART-778",
       "path": "scripts/run-cascade-vnext.mjs",
-      "sha256": "8c0ccba54dcdfb7454a4136e448cb3c7f8db7b22e3c61aa3b1e8803a8ffcf4ef"
+      "sha256": "5b9d40caf4aa86c88c63fba2498ef22259e9c419aae389e35e665b15353abc09"
     },
     {
       "artifact_id": "ART-779",
@@ -3897,7 +3897,7 @@
     {
       "artifact_id": "ART-780",
       "path": "scripts/validate-cascade-vnext-e2e.mjs",
-      "sha256": "3c0372ff238fae0285dc3937cd4396436a1c61f389d3138d00d264f9d766aa3e"
+      "sha256": "3d4ed07af0b66e5a3e0079180406c52e1110715b156ba73609a5d0354f75c9ee"
     },
     {
       "artifact_id": "ART-781",
@@ -4022,7 +4022,7 @@
     {
       "artifact_id": "ART-805",
       "path": "docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md",
-      "sha256": "b20350b90e968e317eb9eb6e8a8a260387acf88843006b688101d4d4a4a0d8c1"
+      "sha256": "aa3828fbc9457e05156d7306e6e4ab787093d28118f9aeb9a6eb3d1d8b9a8ebc"
     },
     {
       "artifact_id": "ART-806",
@@ -4082,12 +4082,12 @@
     {
       "artifact_id": "ART-817",
       "path": "scripts/lib/product-document-consistency.mjs",
-      "sha256": "f27459eae3a03a1bae190a4a58ebe144e27c87176b62aa7bf361cd43f6288d79"
+      "sha256": "1e2975c3d5572dec0d17f41db978f0f3dddf38a1989e277e9dc2e0c7d496fb13"
     },
     {
       "artifact_id": "ART-818",
       "path": "tests/product-document-consistency.test.mjs",
-      "sha256": "813d4c20b1f36a0098f773dce7010a32514b428eae86874bba9b500e79b5ac21"
+      "sha256": "bcaf5ed35288576af68a33d37d9e0fc9c6d034d7f0ff98fe762ec2ff9d95f700"
     },
     {
       "artifact_id": "ART-819",

@@ -33,10 +33,10 @@
     },
     {
       "decision_id": "UDW-DEC-005",
-      "decision_type": "product_behavior_acceptance",
+      "decision_type": "owner_decision_acceptance",
       "accepted_status": "deferred",
       "owner_role": "Product Owner",
-      "acceptance_record_id": null,
+      "acceptance_record_id": "UDW-ACC-014",
       "linked_artifacts": [
         "docs/product/analysis/documentation-consistency-audit/po-questionnaire-log.md",
         "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
@@ -44,7 +44,7 @@
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
       ],
-      "notes": "Product Owner не подтвердил прямой переход к sprint backlog; следующий безопасный шаг переопределен как полный BA-опросник DataCanvas, начиная с BAQ-001 по BMC-границе. Решение остается deferred до закрытия BA-опросника и ревизии зависимых артефактов."
+      "notes": "Product Owner принял решение не переходить прямо к sprint backlog. Выполнение полного BA-опросника остается deferred и блокирует финальное планирование до закрытия открытых вопросов и ревизии зависимых артефактов; принятая граница BMC по UDW-DEC-009 повторно не открывается."
     },
     {
       "decision_id": "UDW-DEC-006",

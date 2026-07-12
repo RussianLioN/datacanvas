@@ -245,8 +245,11 @@ async function main() {
   const baseSha = gitSha(argValue("--base-sha"), "base_sha");
   const planningHeadSha = gitSha(run("git", ["rev-parse", "HEAD"]), "planning_head_sha");
   const dirtyStatus = run("git", ["status", "--porcelain=v1"]);
-  if (dirtyStatus && !process.argv.includes("--allow-dirty")) {
-    fail("persisted cascade planning requires a clean worktree; use --allow-dirty for profile diagnostics only");
+  if (dirtyStatus) {
+    fail("persisted cascade planning requires a clean worktree; --allow-dirty is not supported");
+  }
+  if (process.argv.includes("--allow-dirty")) {
+    fail("--allow-dirty is not supported for persisted cascade planning");
   }
   const explicitSourceIds = argValues("--source-id");
   const explicitTriggers = argValues("--trigger-path").map(normalizeRepoPath);

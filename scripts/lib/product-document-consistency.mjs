@@ -143,3 +143,46 @@ export function sprintCandidatePlanProblems({ planText, existingCandidatePbiIds 
   }
   return ["sprint candidate plan uses an obsolete no-new-PBI statement after candidate PBI creation"];
 }
+
+export function openDecisionConsistencyProblems({
+  decisionId,
+  queueStatus,
+  queueBlocking,
+  ledgerStatus,
+  humanStatus,
+}) {
+  const problems = [];
+  const executionOpen = ledgerStatus === "deferred" || ["pending", "deferred"].includes(humanStatus);
+  if (!executionOpen) {
+    return problems;
+  }
+  if (!["pending", "deferred"].includes(queueStatus)) {
+    problems.push(`${decisionId} open execution cannot have queue status ${queueStatus}`);
+  }
+  if (queueBlocking !== true) {
+    problems.push(`${decisionId} open execution must remain blocking`);
+  }
+  return problems;
+}
+
+export function acceptedBmcSegmentDecisionProblems({
+  decisionStatus,
+  sourceMapText,
+  validationEvidenceText,
+  sprintPlanText,
+}) {
+  if (decisionStatus !== "accepted") {
+    return [];
+  }
+  const problems = [];
+  if (/BAQ-001\.2[^\n]*должен подтвердить/iu.test(sourceMapText)) {
+    problems.push("accepted BMC segment decision remains unconfirmed in source map");
+  }
+  if (/намеренно не применен/iu.test(validationEvidenceText)) {
+    problems.push("accepted BMC segment decision remains unapplied in validation evidence");
+  }
+  if (/оставшиеся вопросы BMC-интервью[^\n]*BAQ-001\.2/iu.test(sprintPlanText)) {
+    problems.push("accepted BMC segment decision remains open in sprint candidate plan");
+  }
+  return problems;
+}

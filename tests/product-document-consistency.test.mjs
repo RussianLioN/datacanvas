@@ -2,10 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  acceptedBmcSegmentDecisionProblems,
   approvalConsistencyProblems,
   bmcAcceptanceStatusProblems,
   decisionApprovalConsistencyProblems,
   ownerDecisionStatusProblems,
+  openDecisionConsistencyProblems,
   pendingTeamDownstreamUseProblems,
   planningReadinessProblems,
   roadmapTimingProblems,
@@ -113,4 +115,25 @@ test("sprint candidate plan cannot claim that no PBI exist after they were creat
     existingCandidatePbiIds: ["PBI-007", "PBI-008"],
   });
   assert.equal(problems.length, 1);
+});
+
+test("deferred BA work cannot appear accepted and nonblocking in the machine queue", () => {
+  const problems = openDecisionConsistencyProblems({
+    decisionId: "UDW-DEC-005",
+    queueStatus: "accepted",
+    queueBlocking: false,
+    ledgerStatus: "deferred",
+    humanStatus: "pending",
+  });
+  assert.equal(problems.length, 2);
+});
+
+test("accepted BMC segment decision cannot retain stale not-applied wording", () => {
+  const problems = acceptedBmcSegmentDecisionProblems({
+    decisionStatus: "accepted",
+    sourceMapText: "BAQ-001.2 должен подтвердить пользовательские сегменты BMC.",
+    validationEvidenceText: "Ответ намеренно не применен к продуктовым документам.",
+    sprintPlanText: "Закрыть оставшиеся вопросы BMC-интервью после BAQ-001.2.",
+  });
+  assert.equal(problems.length, 3);
 });

@@ -28,14 +28,14 @@
     },
     {
       "decision_id": "UDW-DEC-005",
-      "decision_type": "product_behavior_acceptance",
+      "decision_type": "owner_decision_acceptance",
       "authority": "product_meaning",
-      "status": "accepted",
-      "blocking": false,
+      "status": "deferred",
+      "blocking": true,
       "owner_role": "Product Owner",
-      "subject": "Провести полный BA-опросник DataCanvas перед финальным backlog refinement, sprint backlog и планом ближайших 3-4 недельных спринтов.",
-      "acceptance_record_id": null,
-      "rationale": "Product Owner отклонил прямой переход к sprint backlog: сначала нужно уточнить BMC-границу, затем проверить весь каталог DC-ST-* пользовательских историй, BT-* бизнес-требований, acceptance criteria, traceability, backlog, roadmap и Confluence package."
+      "subject": "Отложить финальный backlog refinement, sprint backlog и план ближайших 3-4 недельных спринтов до завершения полного BA-опросника DataCanvas.",
+      "acceptance_record_id": "UDW-ACC-014",
+      "rationale": "Product Owner принял маршрут без прямого перехода к sprint backlog. Само решение о последовательности принято, но выполнение полного BA-опросника остается открытым блокирующим условием до проверки пользовательских историй, бизнес-требований, критериев приемки, трассировки, backlog, roadmap и Confluence package."
     },
     {
       "decision_id": "UDW-DEC-006",

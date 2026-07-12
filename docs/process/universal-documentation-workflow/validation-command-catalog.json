@@ -496,7 +496,7 @@
         "generated"
       ],
       "owner_role": "Process Owner / QA Lead",
-      "purpose": "В отдельной рабочей копии candidate SHA проверяет среду, выполняет полный npm test и контроль чистого Git diff; только эта команда может выпустить статус verified и completion seal."
+      "purpose": "В отдельной рабочей копии candidate SHA проверяет среду, выполняет полный npm test и контроль чистого Git diff; вложенная сквозная проверка без рекурсии реально проходит run, finalize и profile, а текущий процесс покрывает complete. Только эта команда может выпустить статус verified и completion seal."
     },
     {
       "id": "cascade-vnext",

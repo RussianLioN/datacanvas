@@ -9,11 +9,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { createIsolatedNpmEnvironment } from "./cascade-vnext-runtime.mjs";
 
 const root = process.cwd();
-
-if (process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1") {
-  console.log("cascade vNext nested end-to-end validation skipped by the outer lifecycle test");
-  process.exit(0);
-}
+const nestedValidation = process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1";
 
 function exec(command, args, cwd = root, environment = {}) {
   return execFileSync(command, args, {
@@ -153,6 +149,18 @@ try {
   const planningHeadSha = exec("git", ["rev-parse", "HEAD"], worktree);
   const preflightStatus = exec("git", ["status", "--porcelain=v1"], worktree);
   assert.equal(preflightStatus, "", "сквозной тест должен запускать planner из чистой рабочей копии: " + preflightStatus);
+
+  const dirtyMarkerPath = path.join(worktree, ".cascade-e2e-dirty");
+  fs.writeFileSync(dirtyMarkerPath, "dirty\n", "utf8");
+  const dirtyBypassOutput = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-dirty-bypass";
+  const dirtyBypass = runPlanner(worktree, [
+    "--change-request", changeRequestPath,
+    "--output-dir", dirtyBypassOutput,
+    "--base-sha", baseSha,
+    "--allow-dirty",
+  ]);
+  assertFailedWithoutOutput(dirtyBypass, worktree, dirtyBypassOutput, /requires a clean worktree/u);
+  fs.rmSync(dirtyMarkerPath);
 
   const outputA = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-a";
   const first = runPlanner(worktree, [
@@ -348,21 +356,29 @@ try {
   exec("git", ["add", lifecycleProfileDir], worktree);
   commitTestChange(worktree, "test: persist immutable cascade profile package");
 
-  const lifecycleCompleteDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-complete";
-  const completionResult = runNodeScript(worktree, "scripts/complete-cascade-vnext.mjs", [
-    "--run", profileRunPath,
-    "--output-dir", lifecycleCompleteDir,
-  ], 45 * 60 * 1000);
-  const completionEvidencePath = path.join(worktree, lifecycleCompleteDir, "completion-evidence.json");
-  const completionDiagnostics = fs.existsSync(completionEvidencePath)
-    ? "\n" + fs.readFileSync(completionEvidencePath, "utf8")
-    : "";
-  assert.equal(completionResult.status, 0, output(completionResult) + completionDiagnostics);
-  const completedRun = JSON.parse(fs.readFileSync(path.join(worktree, lifecycleCompleteDir, "cascade-vnext-run.json"), "utf8"));
-  assert.equal(completedRun.state, "verified");
-  assert.equal(completedRun.completion_claim.done_claimed, true);
-  assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);
-  console.log("cascade vNext end-to-end validation passed");
+  if (nestedValidation) {
+    console.log("cascade vNext nested end-to-end validation passed through profile; active completion covers the completion phase");
+  } else {
+    const lifecycleCompleteDir = "docs/process/cascading-governance/runs/2026-07-11-vnext-e2e-lifecycle-complete";
+    const completionResult = runNodeScript(worktree, "scripts/complete-cascade-vnext.mjs", [
+      "--run", profileRunPath,
+      "--output-dir", lifecycleCompleteDir,
+    ], 45 * 60 * 1000);
+    const completionEvidencePath = path.join(worktree, lifecycleCompleteDir, "completion-evidence.json");
+    const completionDiagnostics = fs.existsSync(completionEvidencePath)
+      ? "\n" + fs.readFileSync(completionEvidencePath, "utf8")
+      : "";
+    assert.equal(completionResult.status, 0, output(completionResult) + completionDiagnostics);
+    const completedRun = JSON.parse(fs.readFileSync(path.join(worktree, lifecycleCompleteDir, "cascade-vnext-run.json"), "utf8"));
+    const completionEvidence = JSON.parse(fs.readFileSync(completionEvidencePath, "utf8"));
+    const completionFullGate = completionEvidence.command_results.find((entry) => entry.id === "full-gate");
+    assert.doesNotMatch(completionFullGate.summary, /nested end-to-end validation skipped/iu);
+    assert.match(completionFullGate.summary, /nested end-to-end validation passed through profile/iu);
+    assert.equal(completedRun.state, "verified");
+    assert.equal(completedRun.completion_claim.done_claimed, true);
+    assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);
+    console.log("cascade vNext end-to-end validation passed");
+  }
 } finally {
   cleanupWorktree();
 }

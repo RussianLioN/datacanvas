@@ -6,10 +6,12 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 import {
+  acceptedBmcSegmentDecisionProblems,
   approvalConsistencyProblems,
   bmcAcceptanceStatusProblems,
   decisionApprovalConsistencyProblems,
   ownerDecisionStatusProblems,
+  openDecisionConsistencyProblems,
   pendingTeamDownstreamUseProblems,
   roadmapTimingProblems,
   sprintCandidatePlanProblems,
@@ -318,6 +320,31 @@ function assertPlanningDocumentStatusConsistency() {
   });
   if (statusProblems.length > 0) {
     throw new Error(`owner decision queue violation: ${statusProblems[0]}`);
+  }
+
+  const decisionQueue = readJson(decisionQueuePath);
+  const decisionLedger = readJson(decisionLedgerPath);
+  const queueDecision005 = decisionQueue.decisions.find((item) => item.decision_id === "UDW-DEC-005");
+  const ledgerDecision005 = decisionLedger.records.find((item) => item.decision_id === "UDW-DEC-005");
+  const openDecisionProblems = openDecisionConsistencyProblems({
+    decisionId: "UDW-DEC-005",
+    queueStatus: queueDecision005?.status,
+    queueBlocking: queueDecision005?.blocking,
+    ledgerStatus: ledgerDecision005?.accepted_status,
+    humanStatus: humanDecisionStatus(readText(ownerDecisionQueuePath), "UDW-DEC-005"),
+  });
+  if (openDecisionProblems.length > 0) {
+    throw new Error(`open owner decision violation: ${openDecisionProblems[0]}`);
+  }
+
+  const bmcApplicationProblems = acceptedBmcSegmentDecisionProblems({
+    decisionStatus: decision?.accepted_status,
+    sourceMapText: readText("docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md"),
+    validationEvidenceText: readText("docs/product/analysis/documentation-consistency-audit/validation-evidence.md"),
+    sprintPlanText: readText(sprintCandidatePlanPath),
+  });
+  if (bmcApplicationProblems.length > 0) {
+    throw new Error(`BMC segment decision application violation: ${bmcApplicationProblems[0]}`);
   }
 
   const backlogText = readText(productBacklogPath);
