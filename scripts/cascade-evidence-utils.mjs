@@ -10,11 +10,8 @@ function sha256(content) {
 
 export function absoluteRepoPath(root, relativePath) {
   const normalized = normalizeRepoPath(relativePath);
-  const rootAbsolute = path.resolve(root);
-  const rootReal = fs.realpathSync(rootAbsolute);
-  if (rootReal !== rootAbsolute) {
-    throw new Error(`repository root must not resolve through a symbolic link: ${root}`);
-  }
+  const rootAbsolute = fs.realpathSync(path.resolve(root));
+  const rootReal = rootAbsolute;
   const absolutePath = path.resolve(rootAbsolute, normalized);
   if (absolutePath !== rootAbsolute && !absolutePath.startsWith(`${rootAbsolute}${path.sep}`)) {
     throw new Error(`unsafe repo path: ${relativePath}`);
