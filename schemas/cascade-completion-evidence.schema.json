@@ -21,7 +21,37 @@
       "type": "array",
       "minItems": 3,
       "maxItems": 3,
-      "items": {
+      "prefixItems": [
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "clean-install" }, "executable": { "const": "npm" }, "args": { "const": ["ci", "--ignore-scripts"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "full-gate" }, "executable": { "const": "npm" }, "args": { "const": ["test"] } } },
+            {
+              "if": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "then": { "type": "object", "properties": { "summary": { "type": "string", "pattern": "nested end-to-end validation passed through finalization" } } }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "worktree-cleanliness" }, "executable": { "const": "git" }, "args": { "const": ["status", "--porcelain=v1", "--untracked-files=all"] } } }
+          ]
+        }
+      ],
+      "items": false
+    },
+    "blocking_reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "generated_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "commandResult": {
         "type": "object",
         "required": ["id", "executable", "args", "status", "exit_code", "started_at", "finished_at", "duration_ms", "output_sha256", "summary"],
         "additionalProperties": false,
@@ -38,9 +68,6 @@
           "summary": { "type": "string", "minLength": 1 }
         }
       }
-    },
-    "blocking_reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-    "generated_at": { "type": "string", "format": "date-time" }
   },
   "allOf": [
     {

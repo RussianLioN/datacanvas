@@ -178,11 +178,27 @@ export function acceptedBmcSegmentDecisionProblems({
   if (/BAQ-001\.2[^\n]*должен подтвердить/iu.test(sourceMapText)) {
     problems.push("accepted BMC segment decision remains unconfirmed in source map");
   }
-  if (/намеренно не применен/iu.test(validationEvidenceText)) {
+  if (
+    /намеренно не применен/iu.test(validationEvidenceText)
+    || /не применяет[^\n]*BAQ-001\.2/iu.test(validationEvidenceText)
+    || /BAQ-001\.2[^\n]*ожида\w* пакетн/iu.test(validationEvidenceText)
+  ) {
     problems.push("accepted BMC segment decision remains unapplied in validation evidence");
   }
   if (/оставшиеся вопросы BMC-интервью[^\n]*BAQ-001\.2/iu.test(sprintPlanText)) {
     problems.push("accepted BMC segment decision remains open in sprint candidate plan");
+  }
+  return problems;
+}
+
+export function storySlicePlanningProblems({ markdownText, csvText, teamValidationStatus }) {
+  if (teamValidationStatus !== "pending_team_review") return [];
+  const problems = [];
+  if (/\b20\d{2}-Q[1-4]\b/u.test(markdownText)) {
+    problems.push("story slice cannot promise a calendar quarter before team estimation");
+  }
+  if (/\b20\d{2}-Q[1-4]\b/u.test(csvText)) {
+    problems.push("story slice CSV cannot promise a calendar quarter before team estimation");
   }
   return problems;
 }

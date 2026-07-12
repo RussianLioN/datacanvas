@@ -15,6 +15,7 @@ import {
   pendingTeamDownstreamUseProblems,
   roadmapTimingProblems,
   sprintCandidatePlanProblems,
+  storySlicePlanningProblems,
   traceabilityVisionAuthorityProblems,
 } from "./lib/product-document-consistency.mjs";
 
@@ -32,6 +33,8 @@ const ownerDecisionQueuePath = "docs/product/analysis/documentation-consistency-
 const sprintCandidatePlanPath = "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md";
 const productBacklogPath = "docs/product/backlog/product-backlog.md";
 const roadmapPath = "docs/product/roadmap/roadmap-v0.1.md";
+const storySlicePath = "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md";
+const storySliceCsvPath = "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv";
 const workingXlsxProvenancePath = "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json";
 const bmcManifestPath = "docs/product/bmc/manifest.json";
 const consistencyMode = process.argv.includes("--consistency");
@@ -310,6 +313,14 @@ function assertPlanningDocumentStatusConsistency() {
   });
   if (timingProblems.length > 0) {
     throw new Error(`roadmap readiness violation: ${timingProblems[0]}`);
+  }
+  const storySliceProblems = storySlicePlanningProblems({
+    markdownText: readText(storySlicePath),
+    csvText: readText(storySliceCsvPath),
+    teamValidationStatus: provenance.workbook.team_validation_status,
+  });
+  if (storySliceProblems.length > 0) {
+    throw new Error(`story slice readiness violation: ${storySliceProblems[0]}`);
   }
 
   const decision = readJson(decisionLedgerPath).records.find((item) => item.decision_id === "UDW-DEC-009");

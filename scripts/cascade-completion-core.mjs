@@ -63,3 +63,31 @@ export function completionCommandEvidenceProblems(command, rawOutput) {
   if (String(rawOutput).includes(NESTED_CASCADE_E2E_SUCCESS_MARKER)) return [];
   return ["full-gate did not prove nested cascade vNext end-to-end execution"];
 }
+
+export function completionEvidenceProblems(evidence, commands = completionCommandSet()) {
+  const problems = [];
+  const expectedCommandSet = commands.map(({ id, executable, args }) => ({ id, executable, args }));
+  const actualCommandSet = (evidence.command_results ?? []).map(({ id, executable, args }) => ({
+    id,
+    executable,
+    args,
+  }));
+  if (!isDeepStrictEqual(actualCommandSet, expectedCommandSet)) {
+    problems.push("completion command set mismatch");
+  }
+  if (evidence.command_set_sha256 !== completionCommandSetHash(commands)) {
+    problems.push("completion command set hash mismatch");
+  }
+  const fullGate = (evidence.command_results ?? []).find((result) => result.id === "full-gate");
+  if (fullGate?.status === "passed") {
+    problems.push(...completionCommandEvidenceProblems(fullGate, fullGate.summary));
+  }
+  return problems;
+}
+
+export function assertCompletionEvidenceIntegrity(evidence, commands = completionCommandSet()) {
+  const problems = completionEvidenceProblems(evidence, commands);
+  if (problems.length > 0) {
+    throw new Error(problems.join("; "));
+  }
+}

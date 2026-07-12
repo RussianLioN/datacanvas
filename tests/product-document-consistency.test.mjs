@@ -12,6 +12,7 @@ import {
   planningReadinessProblems,
   roadmapTimingProblems,
   sprintCandidatePlanProblems,
+  storySlicePlanningProblems,
   traceabilityVisionAuthorityProblems,
 } from "../scripts/lib/product-document-consistency.mjs";
 
@@ -136,4 +137,23 @@ test("accepted BMC segment decision cannot retain stale not-applied wording", ()
     sprintPlanText: "Закрыть оставшиеся вопросы BMC-интервью после BAQ-001.2.",
   });
   assert.equal(problems.length, 3);
+});
+
+test("accepted BMC segment decision rejects the historical awaiting-package wording", () => {
+  const problems = acceptedBmcSegmentDecisionProblems({
+    decisionStatus: "accepted",
+    sourceMapText: "",
+    validationEvidenceText: "Это изменение не применяет ответ 1 по BAQ-001.2; ответ ожидает пакетного применения.",
+    sprintPlanText: "",
+  });
+  assert.equal(problems.length, 1);
+});
+
+test("pending team estimation rejects calendar promises in story slice exports", () => {
+  const problems = storySlicePlanningProblems({
+    markdownText: "| DC-ST-23 | P1 | 2026-Q3 | принято Product Owner |",
+    csvText: '\"DC-ST-23\",\"P1\",\"2026-Q3\",\"принято Product Owner\"',
+    teamValidationStatus: "pending_team_review",
+  });
+  assert.equal(problems.length, 2);
 });

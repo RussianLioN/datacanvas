@@ -29,6 +29,7 @@ import {
   parseSafeNpmCommand,
 } from "./cascade-profile-verifier.mjs";
 import {
+  assertCompletionEvidenceIntegrity,
   assertRuntimeManifestMatches,
   commandResultPassed,
   completionCommandEvidenceProblems,
@@ -180,6 +181,29 @@ assert.deepEqual(completionCommandEvidenceProblems(fullGateCommand, "all checks 
 assert.deepEqual(
   completionCommandEvidenceProblems(fullGateCommand, NESTED_CASCADE_E2E_SUCCESS_MARKER),
   [],
+);
+const completionEvidenceFixture = JSON.parse(fs.readFileSync(
+  "tests/fixtures/cascading-governance/vnext/completion-evidence.json",
+  "utf8",
+));
+assert.doesNotThrow(() => assertCompletionEvidenceIntegrity(completionEvidenceFixture));
+const duplicateCompletionCommand = structuredClone(completionEvidenceFixture);
+duplicateCompletionCommand.command_results[2] = structuredClone(duplicateCompletionCommand.command_results[1]);
+assert.throws(
+  () => assertCompletionEvidenceIntegrity(duplicateCompletionCommand),
+  /completion command set mismatch/u,
+);
+const forgedCompletionHash = structuredClone(completionEvidenceFixture);
+forgedCompletionHash.command_set_sha256 = "f".repeat(64);
+assert.throws(
+  () => assertCompletionEvidenceIntegrity(forgedCompletionHash),
+  /completion command set hash mismatch/u,
+);
+const missingNestedEvidence = structuredClone(completionEvidenceFixture);
+missingNestedEvidence.command_results.find((entry) => entry.id === "full-gate").summary = "Полная проверка пройдена.";
+assert.throws(
+  () => assertCompletionEvidenceIntegrity(missingNestedEvidence),
+  /nested cascade vNext end-to-end execution/u,
 );
 
 assert.deepEqual(

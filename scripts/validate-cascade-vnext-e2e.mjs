@@ -46,11 +46,11 @@ function commitTestChange(worktree, message) {
   );
 }
 
-function runPlanner(worktree, args) {
-  return runNodeScript(worktree, "scripts/run-cascade-vnext.mjs", args);
+function runPlanner(worktree, args, environment = {}) {
+  return runNodeScript(worktree, "scripts/run-cascade-vnext.mjs", args, 30 * 60 * 1000, environment);
 }
 
-function runNodeScript(worktree, script, args, timeout = 30 * 60 * 1000) {
+function runNodeScript(worktree, script, args, timeout = 30 * 60 * 1000, environment = {}) {
   return spawnSync(process.execPath, [script, ...args], {
     cwd: worktree,
     encoding: "utf8",
@@ -61,6 +61,7 @@ function runNodeScript(worktree, script, args, timeout = 30 * 60 * 1000) {
       HOME: process.env.HOME,
       LANG: process.env.LANG ?? "C.UTF-8",
       TZ: process.env.TZ ?? "UTC",
+      ...environment,
     },
   });
 }
@@ -153,7 +154,7 @@ try {
   exec("git", ["add", "docs/product-vision.md", changeRequestPath], worktree);
   commitTestChange(worktree, "test: create cascade e2e delta");
   const planningHeadSha = exec("git", ["rev-parse", "HEAD"], worktree);
-  const preflightStatus = exec("git", ["status", "--porcelain=v1"], worktree);
+  const preflightStatus = exec("git", ["status", "--porcelain=v1", "--untracked-files=all"], worktree);
   assert.equal(preflightStatus, "", "сквозной тест должен запускать planner из чистой рабочей копии: " + preflightStatus);
 
   const dirtyMarkerPath = path.join(worktree, ".cascade-e2e-dirty");
@@ -164,7 +165,11 @@ try {
     "--output-dir", dirtyBypassOutput,
     "--base-sha", baseSha,
     "--allow-dirty",
-  ]);
+  ], {
+    GIT_CONFIG_COUNT: "1",
+    GIT_CONFIG_KEY_0: "status.showUntrackedFiles",
+    GIT_CONFIG_VALUE_0: "no",
+  });
   assertFailedWithoutOutput(dirtyBypass, worktree, dirtyBypassOutput, /requires a clean worktree/u);
   fs.rmSync(dirtyMarkerPath);
 

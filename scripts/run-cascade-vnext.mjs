@@ -244,7 +244,7 @@ async function main() {
   const outputDir = normalizeRepoPath(argValue("--output-dir") ?? "");
   const baseSha = gitSha(argValue("--base-sha"), "base_sha");
   const planningHeadSha = gitSha(run("git", ["rev-parse", "HEAD"]), "planning_head_sha");
-  const dirtyStatus = run("git", ["status", "--porcelain=v1"]);
+  const dirtyStatus = run("git", ["status", "--porcelain=v1", "--untracked-files=all"]);
   if (dirtyStatus) {
     fail("persisted cascade planning requires a clean worktree; --allow-dirty is not supported");
   }

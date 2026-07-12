@@ -7,6 +7,7 @@ import { spawnSync } from "node:child_process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import {
+  assertCompletionEvidenceIntegrity,
   commandResultPassed,
   completionCommandEvidenceProblems,
   assertRuntimeManifestMatches,
@@ -344,6 +345,7 @@ async function main() {
     done_claimed: true,
   } : null;
 
+  assertCompletionEvidenceIntegrity(evidence, commands);
   validateDocument(root, evidence, "schemas/cascade-completion-evidence.schema.json");
   validateDocument(root, completedRun, "schemas/cascade-vnext-run.schema.json");
   if (seal) validateDocument(root, seal, "schemas/cascade-completion-seal.schema.json");
