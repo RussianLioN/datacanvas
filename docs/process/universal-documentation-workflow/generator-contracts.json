@@ -36,6 +36,48 @@
       ]
     },
     {
+      "generator_id": "datacanvas-jira-stories",
+      "owner_role": "Product Owner / Process Owner",
+      "inputs": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "schemas/jira-story-import-contract.schema.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/requirements/user-stories.md",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "scripts/generate-datacanvas-jira-stories.py",
+        "scripts/validate-datacanvas-jira-story-import.py"
+      ],
+      "outputs": [
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+      ],
+      "allowed_writes": [
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+      ],
+      "generate_command": "npm run generate:jira-stories",
+      "check_command": "npm run generate:jira-stories -- --check",
+      "deterministic_environment": "Python 3, стандартная библиотека, байтово закреплённая рабочая XLSX-книга и её эталон, UTF-8 без BOM, CSV QUOTE_ALL с LF, без сети",
+      "dependencies": [
+        "datacanvas-xlsx-sanitized-reference",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "post_validators": [
+        "npm run validate:jira-story-import",
+        "npm run validate:xlsx-backlog",
+        "npm run validate:schemas",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "jira_export_not_authorized",
+        "story_row_mapping_mismatch",
+        "xlsx_source_validation_failed",
+        "invalid_decimal_value",
+        "invalid_csv_bytes",
+        "stale_generated_output"
+      ]
+    },
+    {
       "generator_id": "docs-navigation",
       "owner_role": "Documentation Owner",
       "inputs": [
@@ -450,6 +492,7 @@
   ],
   "topological_order": [
     "datacanvas-xlsx-sanitized-reference",
+    "datacanvas-jira-stories",
     "documentation-cascade-run",
     "documentation-cascade-finalization",
     "documentation-cascade-verification",

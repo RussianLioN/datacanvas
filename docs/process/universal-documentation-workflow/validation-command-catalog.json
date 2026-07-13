@@ -306,6 +306,78 @@
       "purpose": "Проверяет рабочий Excel backlog DataCanvas относительно контролируемого Excel-источника, допустимых добавленных строк, provenance и принятого статуса ПШЕ."
     },
     {
+      "id": "jira-story-import-tests",
+      "command": "npm run test:jira-story-import",
+      "gate": "quick",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "xlsx_backlog",
+        "jira",
+        "generated"
+      ],
+      "owner_role": "Product Owner / Process Owner / QA Lead",
+      "purpose": "Проверяет договор, формирование и отрицательные варианты CSV пользовательских историй для Jira."
+    },
+    {
+      "id": "jira-story-import-csv-validation",
+      "command": "npm run validate:jira-story-import-csv",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "xlsx_backlog",
+        "jira",
+        "generated"
+      ],
+      "owner_role": "Product Owner / Process Owner / QA Lead",
+      "purpose": "Независимо сверяет готовый CSV с XLSX, полномочием владельцев и машинным договором."
+    },
+    {
+      "id": "jira-story-import-generation-check",
+      "command": "npm run generate:jira-stories -- --check",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "xlsx_backlog",
+        "jira",
+        "generated"
+      ],
+      "owner_role": "Product Owner / Process Owner",
+      "purpose": "Проверяет байтовую воспроизводимость CSV без записи в рабочую копию."
+    },
+    {
+      "id": "jira-story-import-profile",
+      "command": "npm run validate:jira-story-import",
+      "gate": "profile",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": [
+        "product_profile",
+        "xlsx_backlog",
+        "jira",
+        "generated"
+      ],
+      "owner_role": "Product Owner / Process Owner / QA Lead",
+      "purpose": "Запускает полный профиль договора, независимой проверки и воспроизводимости CSV для Jira."
+    },
+    {
       "id": "xlsx-cascade",
       "command": "npm run validate:xlsx-cascade",
       "gate": "profile",

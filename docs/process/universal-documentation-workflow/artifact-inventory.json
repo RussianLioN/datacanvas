@@ -1776,6 +1776,132 @@
         "npm run check:documentation-archive",
         "npm run validate:documentation-archive"
       ]
+    },
+    {
+      "artifact_id": "UDW-A081",
+      "path": "docs/process/cascading-governance/jira-story-import-contract.json",
+      "artifact_type": "jira_story_import_contract",
+      "owner_role": "Product Owner / Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
+      ],
+      "outputs": [
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+      ],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:jira-story-import"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A082",
+      "path": "schemas/jira-story-import-contract.schema.json",
+      "artifact_type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:jira-story-import"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A083",
+      "path": "scripts/generate-datacanvas-jira-stories.py",
+      "artifact_type": "generator",
+      "owner_role": "Product Owner / Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "generation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "outputs": [
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+      ],
+      "validation_commands": [
+        "npm run generate:jira-stories -- --check",
+        "npm run validate:jira-story-import"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A084",
+      "path": "scripts/validate-datacanvas-jira-story-import.py",
+      "artifact_type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "schemas/jira-story-import-contract.schema.json",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:jira-story-import"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A085",
+      "path": "tests/test_datacanvas_jira_story_import.py",
+      "artifact_type": "validator_test",
+      "owner_role": "Product Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "test_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/generate-datacanvas-jira-stories.py",
+        "scripts/validate-datacanvas-jira-story-import.py"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run test:jira-story-import"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A086",
+      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "artifact_type": "jira_story_import_csv",
+      "owner_role": "Product Owner / Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "generated",
+      "source_of_truth_class": "generated_artifact",
+      "generated": true,
+      "data_class": "internal",
+      "visibility": "restricted",
+      "inputs": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run generate:jira-stories -- --check",
+        "npm run validate:jira-story-import"
+      ]
     }
   ]
 }

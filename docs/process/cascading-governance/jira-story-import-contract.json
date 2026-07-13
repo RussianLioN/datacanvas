@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../schemas/jira-story-import-contract.schema.json",
+  "version": "1.0.0",
+  "status": "active",
+  "contract_id": "jira-story-import-dc-st-23-dc-st-33",
+  "source": {
+    "workbook_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "expectations_path": "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
+    "provenance_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+    "story_catalog_path": "docs/product/requirements/user-stories.md",
+    "worksheet_part": "xl/worksheets/sheet1.xml",
+    "multiplier_cell": "C1"
+  },
+  "export_authority": {
+    "workbook_approval_status": "owner_approved",
+    "team_validation_status": "approved",
+    "may_export_to_jira": true,
+    "jira_export_authority": "process_owner_and_product_owner",
+    "decision_id": "UDW-DEC-019"
+  },
+  "output": {
+    "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+    "encoding": "utf-8",
+    "bom": false,
+    "delimiter": ",",
+    "line_ending": "LF",
+    "quoting": "all"
+  },
+  "columns": [
+    "Issue Type",
+    "Summary",
+    "Description",
+    "Priority",
+    "Story ID",
+    "Target quarter",
+    "Comment"
+  ],
+  "field_sources": {
+    "issue_type_value": "Story",
+    "story_text_column": "C",
+    "functional_zone_column": "D",
+    "business_value_column": "E",
+    "priority_column": "F",
+    "target_quarter_column": "G",
+    "total_effort_column": "H",
+    "multiplier_cell": "C1"
+  },
+  "description_template": "Пользовательская история:\n{story_text}\n\nБизнес-ценность:\n{business_value}\n\nФункциональная зона: {functional_zone}\nПлановый период: {target_quarter}",
+  "comment_header_lines": [
+    "Ресурсная оценка реализации",
+    "Статус: текущая оценка принята владельцем процесса и Product Owner для экспорта в Jira.",
+    "Итоговая ПШЕ — трудозатраты в человеко-днях с коэффициентом {multiplier}: {total_effort}.",
+    "Роли, базовая оценка в человеко-днях: обозначения сохранены из Excel."
+  ],
+  "role_line_template": "{label}: {value}",
+  "roles": [
+    { "column": "I", "label": "БА" },
+    { "column": "J", "label": "СА ЕФС" },
+    { "column": "K", "label": "PL ЕФС" },
+    { "column": "L", "label": "Дизайн" },
+    { "column": "M", "label": "ВН ЕФС" },
+    { "column": "N", "label": "Смежный сервис" },
+    { "column": "O", "label": "СА Оркестратор" },
+    { "column": "P", "label": "DEV Оркестратор" },
+    { "column": "Q", "label": "СА AEF Containers" },
+    { "column": "R", "label": "DEV AEF Containers" },
+    { "column": "S", "label": "QA" },
+    { "column": "T", "label": "AQA" },
+    { "column": "U", "label": "НТ" }
+  ],
+  "formatting": {
+    "empty_resource_value": "0",
+    "decimal_separator": ",",
+    "forbidden_comment_character": ";"
+  },
+  "stories": [
+    { "story_id": "DC-ST-23", "workbook_row": 26, "summary_goal": "Передача запроса от другого агента" },
+    { "story_id": "DC-ST-24", "workbook_row": 27, "summary_goal": "Запуск в общем агентском сценарии" },
+    { "story_id": "DC-ST-25", "workbook_row": 28, "summary_goal": "Передача входного пакета" },
+    { "story_id": "DC-ST-26", "workbook_row": 29, "summary_goal": "Проверка входного пакета" },
+    { "story_id": "DC-ST-27", "workbook_row": 30, "summary_goal": "Передача статусов обработки" },
+    { "story_id": "DC-ST-28", "workbook_row": 31, "summary_goal": "Проверяемость маршрута" },
+    { "story_id": "DC-ST-29", "workbook_row": 32, "summary_goal": "Формирование PPTX и PDF" },
+    { "story_id": "DC-ST-30", "workbook_row": 33, "summary_goal": "Расширенная доставка файлов" },
+    { "story_id": "DC-ST-31", "workbook_row": 34, "summary_goal": "Защищённое хранение PDF" },
+    { "story_id": "DC-ST-32", "workbook_row": 35, "summary_goal": "Передача ссылки на PDF" },
+    { "story_id": "DC-ST-33", "workbook_row": 36, "summary_goal": "Уведомление и ссылка в Лисе" }
+  ]
+}

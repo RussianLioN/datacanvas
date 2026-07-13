@@ -445,6 +445,10 @@ const cases = [
     data: "tests/fixtures/cascading-governance/jira-field-mapping-unresolved.json",
   },
   {
+    schema: "schemas/jira-story-import-contract.schema.json",
+    data: "docs/process/cascading-governance/jira-story-import-contract.json",
+  },
+  {
     schema: "schemas/jira-import-package-manifest.schema.json",
     data: "docs/process/cascading-governance/jira-import-package-manifest.json",
   },

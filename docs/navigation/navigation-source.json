@@ -2950,6 +2950,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/process/cascading-governance/jira-story-import-contract.json",
+      "route_id": "cascading-governance-jira-story-import-contract",
+      "section": "process",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются строки, поля, формат CSV или полномочие владельцев на экспорт в Jira.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/process/audits/cascading-governance-validation-consilium.md",
       "route_id": "cascading-governance-validation-consilium",
       "section": "process",
