@@ -117,6 +117,9 @@ function assertXlsxRecoveryIndexConsistency(registry) {
       const downstreamProblems = pendingTeamDownstreamUseProblems({
         teamValidationStatus: source.team_validation_status,
         downstreamUse: item.downstream_use ?? [],
+        downstreamPolicy: source.provenance_manifest
+          ? readJson(source.provenance_manifest).downstream_policy
+          : null,
       });
       if (downstreamProblems.length > 0) {
         throw new Error(`XLSX/OPML/Jira recovery index approval policy violation: ${downstreamProblems[0]}`);
@@ -235,11 +238,53 @@ function assertXlsxApprovalConsistency(registry) {
   const problems = approvalConsistencyProblems({
     approvalStatus: provenance.workbook.approval_status,
     teamValidationStatus: provenance.workbook.team_validation_status,
+    rowApprovalStatuses: provenance.rows.map((row) => row.approval_status),
     rowTeamValidationStatuses: provenance.rows.map((row) => row.team_validation_status),
     downstreamPolicy: provenance.downstream_policy,
   });
   if (problems.length > 0) {
     throw new Error(`working XLSX approval policy violation: ${problems[0]}`);
+  }
+
+  const downstreamProblems = pendingTeamDownstreamUseProblems({
+    teamValidationStatus: source.team_validation_status,
+    downstreamUse: source.allowed_downstream_use ?? [],
+    downstreamPolicy: provenance.downstream_policy,
+  });
+  if (downstreamProblems.length > 0) {
+    throw new Error("working XLSX source downstream-use violation: " + downstreamProblems[0]);
+  }
+}
+
+function assertXlsxDownstreamUseNegativeMutations(registry) {
+  const source = registry.sources.find(
+    (candidate) => candidate.source_id === "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+  );
+  const recoveryItem = readJson(xlsxRecoveryIndexPath).items.find(
+    (item) => item.source_id === source?.source_id,
+  );
+  if (!source?.provenance_manifest || !recoveryItem) {
+    throw new Error("working XLSX source and recovery item are required for downstream-use self-tests");
+  }
+
+  const provenance = readJson(source.provenance_manifest);
+  const sourceMutation = structuredClone(source);
+  sourceMutation.allowed_downstream_use.push("sprint_planning_input");
+  const recoveryMutation = structuredClone(recoveryItem);
+  recoveryMutation.downstream_use.push("sprint_planning_input");
+
+  for (const [label, downstreamUse] of [
+    ["source registry", sourceMutation.allowed_downstream_use],
+    ["recovery index", recoveryMutation.downstream_use],
+  ]) {
+    const problems = pendingTeamDownstreamUseProblems({
+      teamValidationStatus: source.team_validation_status,
+      downstreamUse,
+      downstreamPolicy: provenance.downstream_policy,
+    });
+    if (!problems.some((problem) => problem.includes("sprint_planning_input"))) {
+      throw new Error(`${label} negative mutation did not reject sprint_planning_input`);
+    }
   }
 }
 
@@ -442,6 +487,7 @@ try {
   assertXlsxRecoveryIndexConsistency(registry);
   assertRoadmapSourceConsistency(registry);
   assertXlsxApprovalConsistency(registry);
+  assertXlsxDownstreamUseNegativeMutations(registry);
   assertTraceabilityVisionAuthority(registry);
   assertBmcAcceptanceStatus(registry);
   assertOwnerAndTeamApprovalSeparation();

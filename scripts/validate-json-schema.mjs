@@ -1019,8 +1019,41 @@ const acceptedXlsxProvenance = readJson(
 for (const [scenario, mutate] of [
   ["missing Jira export authority", (candidate) => delete candidate.downstream_policy.jira_export_authority],
   ["missing Jira export decision", (candidate) => delete candidate.downstream_policy.jira_export_decision_id],
+  ["wrong Jira export decision", (candidate) => {
+    candidate.downstream_policy.jira_export_decision_id = "UDW-DEC-018";
+  }],
+  ["Jira export permits sprint backlog updates", (candidate) => {
+    candidate.downstream_policy.may_update_sprint_backlog = true;
+  }],
+  ["Jira export requires a team approval record", (candidate) => {
+    candidate.downstream_policy.requires_team_approval_record = true;
+  }],
   ["draft_unapproved Jira export", (candidate) => {
     candidate.workbook.approval_status = "draft_unapproved";
+  }],
+  ["blocked Jira export workbook", (candidate) => {
+    candidate.workbook.approval_status = "blocked";
+  }],
+  ["team_approved Jira export workbook", (candidate) => {
+    candidate.workbook.approval_status = "team_approved";
+  }],
+  ["pending Jira export workbook", (candidate) => {
+    candidate.workbook.team_validation_status = "pending_team_review";
+  }],
+  ["draft_unapproved Jira export row", (candidate) => {
+    candidate.rows[0].approval_status = "draft_unapproved";
+  }],
+  ["blocked Jira export row approval", (candidate) => {
+    candidate.rows[0].approval_status = "blocked";
+  }],
+  ["blocked Jira export row validation", (candidate) => {
+    candidate.rows[0].team_validation_status = "blocked";
+  }],
+  ["pending Jira export row", (candidate) => {
+    candidate.rows[0].team_validation_status = "pending_team_review";
+  }],
+  ["missing Jira export row", (candidate) => {
+    candidate.rows.pop();
   }],
 ]) {
   const candidate = structuredClone(acceptedXlsxProvenance);

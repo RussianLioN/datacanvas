@@ -2842,7 +2842,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "05e93526b3e99f84547ecf03cb1a0e5e2849eeeedb39caa1b8de11d747d700e3"
+      "sha256": "69d094537cab9469628e0ac26cd732bfb96fb1300dddc6a13cb4424faac7b6e1"
     },
     {
       "artifact_id": "ART-569",
@@ -3087,7 +3087,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "b9d25b048c53edd9f1e43e0a7683707d41a4b109476bf28fa916c8e9fd084dfd"
+      "sha256": "88029029d4bcde38a1d551f7a6b3febf774e7ff5dc6c9b083442645af03e8f5a"
     },
     {
       "artifact_id": "ART-617",
@@ -3462,7 +3462,7 @@
     {
       "artifact_id": "ART-694",
       "path": "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-      "sha256": "fcf41f75b41fe7d7274081ecc22c8e6aa3c2883b1ef7024958379d7826d8783a"
+      "sha256": "f674e5f784a7f91890c53f845de914df288de472ebdd5235ef0fba91f9d53cef"
     },
     {
       "artifact_id": "ART-692",
@@ -3522,7 +3522,7 @@
     {
       "artifact_id": "ART-704",
       "path": "schemas/xlsx-backlog-provenance.schema.json",
-      "sha256": "cb79565e6328d86747431010edc7e1a1e41aa9f4bc693a2e030d5f0e471b9e39"
+      "sha256": "ee9f43e43edb4b2c5546f5a6bbbd0bdb8d3bf157cbd685b5e40eae78886ac91a"
     },
     {
       "artifact_id": "ART-705",
@@ -4082,12 +4082,12 @@
     {
       "artifact_id": "ART-817",
       "path": "scripts/lib/product-document-consistency.mjs",
-      "sha256": "b1244f4d37773272939069cd676ec0f8ffd8427e3ff82ed9710262bbdab64e3b"
+      "sha256": "6f07098a97a318fbe56f6255be977ad5e394cda49839ee16d9613c1f2d69eb9f"
     },
     {
       "artifact_id": "ART-818",
       "path": "tests/product-document-consistency.test.mjs",
-      "sha256": "c0e5976d635a2265e37a19560e02ee069fbe72090647b64cd785865448dd39d2"
+      "sha256": "82326b62bc46967904535f0950fdca6f9a0ae5489b809694d2518e0c22bf53af"
     },
     {
       "artifact_id": "ART-819",
