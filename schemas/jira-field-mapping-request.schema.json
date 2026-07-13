@@ -57,8 +57,42 @@
         "properties": {
           "csv_column": { "type": "string", "minLength": 1 },
           "jira_field": { "type": ["string", "null"] },
-          "status": { "type": "string", "enum": ["mapped", "unresolved", "pending_external"] }
-        }
+          "status": {
+            "type": "string",
+            "enum": ["mapped", "unresolved", "pending_external", "ignored_by_design"]
+          },
+          "fallback_jira_field": { "type": "string", "minLength": 1, "pattern": "\\S" }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": { "const": "ignored_by_design" }
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "required": ["fallback_jira_field"],
+              "properties": {
+                "jira_field": { "const": null },
+                "fallback_jira_field": { "type": "string", "minLength": 1, "pattern": "\\S" }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": { "const": "mapped" }
+              },
+              "required": ["status"]
+            },
+            "then": {
+              "properties": {
+                "jira_field": { "type": "string", "minLength": 1, "pattern": "\\S" }
+              }
+            }
+          }
+        ]
       }
     },
     "unresolved_fields": {

@@ -1,11 +1,11 @@
 {
   "version": "0.1.0",
-  "mapping_request_id": "JFMR-2026-07-02-001",
+  "mapping_request_id": "JFMR-2026-07-02-208",
   "status": "approved",
   "target_project": "selected_during_import",
   "issue_types": ["Story"],
   "required_custom_fields": [],
-  "csv_columns": ["Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"],
+  "csv_columns": ["Issue Type", "Summary", "Priority", "Description", "Story ID", "Target quarter", "Comment"],
   "jira_field_mapping": [
     {
       "csv_column": "Issue Type",
@@ -18,13 +18,13 @@
       "status": "mapped"
     },
     {
-      "csv_column": "Description",
-      "jira_field": "Description",
+      "csv_column": "Priority",
+      "jira_field": "Priority",
       "status": "mapped"
     },
     {
-      "csv_column": "Priority",
-      "jira_field": "Priority",
+      "csv_column": "Description",
+      "jira_field": "Description",
       "status": "mapped"
     },
     {

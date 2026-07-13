@@ -51,7 +51,12 @@ const schemaCases = {
     [
       "schemas/impact-analysis-report.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/impact-complete-pending-artifacts.json",
-      { expect: "fail", phase: "invariant", reason: "complete impact with pending artifact" },
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "complete impact with pending artifact",
+        errorIncludes: "claims complete with unresolved artifacts",
+      },
     ],
   ],
   "decision-queue": [
@@ -60,7 +65,12 @@ const schemaCases = {
     [
       "schemas/user-decision-queue.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/decision-queue-closed-with-pending.json",
-      { expect: "fail", phase: "invariant", reason: "closed queue with pending decision" },
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "closed queue with pending decision",
+        errorIncludes: "closed decision queue has open decisions",
+      },
     ],
   ],
   "capacity-plan": [
@@ -68,7 +78,12 @@ const schemaCases = {
     [
       "schemas/capacity-plan.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/capacity-active-null.json",
-      { expect: "fail", phase: "invariant", reason: "active capacity with null values" },
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "active capacity with null values",
+        errorIncludes: "is active without confirmed capacity and buffer",
+      },
     ],
   ],
   "reprioritization-impact": [
@@ -85,7 +100,12 @@ const schemaCases = {
     [
       "schemas/reprioritization-impact-report.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/reprioritization-over-capacity-ready.json",
-      { expect: "fail", phase: "invariant", reason: "over capacity without confirmed trade-off" },
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "over capacity without confirmed trade-off",
+        errorIncludes: "over capacity without confirmed trade-off must be blocked",
+      },
     ],
   ],
   "cascading-update": [
@@ -106,10 +126,181 @@ const schemaCases = {
     ["schemas/jira-field-mapping-request.schema.json", "docs/process/cascading-governance/jira-field-mapping-request.json"],
     ["schemas/jira-import-package-manifest.schema.json", "docs/process/cascading-governance/jira-import-package-manifest.json"],
     ["schemas/jira-field-mapping-request.schema.json", "tests/fixtures/cascading-governance/jira-field-mapping-unresolved.json"],
+    ["schemas/jira-field-mapping-request.schema.json", "tests/fixtures/cascading-governance/jira-field-mapping-ignored-by-design.json"],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/schema/jira-field-mapping-ignored-missing-fallback.json",
+      { expect: "fail", phase: "schema", reason: "ignored Jira field without fallback field" },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/schema/jira-field-mapping-ignored-blank-fallback.json",
+      { expect: "fail", phase: "schema", reason: "ignored Jira field with blank fallback field" },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/schema/jira-field-mapping-mapped-without-field.json",
+      { expect: "fail", phase: "schema", reason: "mapped Jira column without Jira field" },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ignored-fallback-not-mapped.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ignored Jira field fallback is not mapped",
+        errorIncludes: "ignored Jira field lacks a mapped fallback",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-duplicate-column.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "duplicate Jira mapping column",
+        errorIncludes: "must map every CSV column exactly once",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-unresolved-list-mismatch.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "unresolved Jira field list mismatch",
+        errorIncludes: "unresolved_fields does not match unresolved Jira mappings",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-with-unresolved.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has unresolved field",
+        errorIncludes: "marks import ready with unresolved Jira fields",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-contract-missing-column.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping misses contract column",
+        errorIncludes: "columns differ from the Jira story import contract",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-contract-column-order.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping differs from contract column order",
+        errorIncludes: "columns differ from the Jira story import contract",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-without-approval.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping without approved status",
+        errorIncludes: "is ready without approved mapping status",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-with-blank-approver.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping with blank approver",
+        errorIncludes: "is approved without approving stakeholder",
+      },
+    ],
     [
       "schemas/jira-import-package-manifest.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-without-mapping.json",
-      { expect: "fail", phase: "invariant", reason: "ready package without approved mapping request" },
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready package without approved mapping request",
+        errorIncludes: "is ready/imported but linked mapping request is not approved",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-missing-csv.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira package without CSV",
+        errorIncludes: "is ready but CSV is not a regular file",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-target-mismatch.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira package target mismatch",
+        errorIncludes: "target project differs from linked mapping request",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-without-prepared-claim.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira package without prepared claim",
+        errorIncludes: "is ready without prepared import completion claim",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-csv-is-directory.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira package CSV is not a regular file",
+        errorIncludes: "is ready but CSV is not a regular file",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-missing-csv.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "imported Jira package without CSV",
+        errorIncludes: "is imported but CSV is not a regular file",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-target-mismatch.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "imported Jira package target mismatch",
+        errorIncludes: "imported target project differs from linked mapping request",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-without-approved-status.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "imported Jira package without approved mapping status",
+        errorIncludes: "is ready/imported without approved field mapping",
+      },
     ],
   ],
   "xlsx-cascade": [
@@ -1691,25 +1882,96 @@ function assertXlsxCascade(analysis) {
 
 function assertJiraMapping(data, dataPath) {
   if ("mapping_request_id" in data) {
-    const hasUnresolvedMapping = data.jira_field_mapping.some((entry) => entry.status !== "mapped");
-    if ((data.unresolved_fields.length > 0 || hasUnresolvedMapping) && data.import_readiness_status === "ready") {
+    const csvColumns = data.csv_columns;
+    const mappingColumns = data.jira_field_mapping.map((entry) => entry.csv_column);
+    const csvColumnSet = new Set(csvColumns);
+    const mappingColumnSet = new Set(mappingColumns);
+    const hasExactColumnCoverage =
+      csvColumnSet.size === csvColumns.length
+      && mappingColumnSet.size === mappingColumns.length
+      && csvColumns.length === mappingColumns.length
+      && csvColumns.every((column) => mappingColumnSet.has(column));
+    if (!hasExactColumnCoverage) {
+      throw new Error(`${dataPath} must map every CSV column exactly once`);
+    }
+
+    const mappedJiraFields = new Set(
+      data.jira_field_mapping
+        .filter((entry) => entry.status === "mapped" && typeof entry.jira_field === "string" && entry.jira_field.length > 0)
+        .map((entry) => entry.jira_field),
+    );
+    for (const entry of data.jira_field_mapping.filter((candidate) => candidate.status === "ignored_by_design")) {
+      if (entry.jira_field !== null || !mappedJiraFields.has(entry.fallback_jira_field)) {
+        throw new Error(`${dataPath} ignored Jira field lacks a mapped fallback: ${entry.csv_column}`);
+      }
+    }
+
+    const expectedUnresolvedFields = data.jira_field_mapping
+      .filter((entry) => ["unresolved", "pending_external"].includes(entry.status))
+      .map((entry) => entry.csv_column);
+    const expectedUnresolvedSet = new Set(expectedUnresolvedFields);
+    const actualUnresolvedSet = new Set(data.unresolved_fields);
+    const unresolvedListsMatch =
+      expectedUnresolvedSet.size === expectedUnresolvedFields.length
+      && actualUnresolvedSet.size === data.unresolved_fields.length
+      && expectedUnresolvedFields.length === data.unresolved_fields.length
+      && expectedUnresolvedFields.every((column) => actualUnresolvedSet.has(column));
+    if (!unresolvedListsMatch) {
+      throw new Error(`${dataPath} unresolved_fields does not match unresolved Jira mappings`);
+    }
+
+    if (expectedUnresolvedFields.length > 0 && data.import_readiness_status === "ready") {
       throw new Error(`${dataPath} marks import ready with unresolved Jira fields`);
     }
-    if (data.status === "approved" && data.approving_stakeholder === null) {
+    if (
+      data.status === "approved"
+      && (typeof data.approving_stakeholder !== "string" || data.approving_stakeholder.trim().length === 0)
+    ) {
       throw new Error(`${dataPath} is approved without approving stakeholder`);
+    }
+    if (data.import_readiness_status === "ready") {
+      if (data.status !== "approved") {
+        throw new Error(`${dataPath} is ready without approved mapping status`);
+      }
+      const contractColumns = readJson(
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+      ).columns;
+      if (!isDeepStrictEqual(csvColumns, contractColumns) || !isDeepStrictEqual(mappingColumns, contractColumns)) {
+        throw new Error(`${dataPath} columns differ from the Jira story import contract`);
+      }
     }
   }
 
   if ("package_id" in data) {
     requirePath(data.mapping_request_path);
     const mappingRequest = readJson(data.mapping_request_path);
-    if (data.status === "ready" && data.field_mapping_status !== "approved") {
-      throw new Error(`${dataPath} is ready without approved field mapping`);
+    if (["ready", "imported"].includes(data.status) && data.field_mapping_status !== "approved") {
+      throw new Error(`${dataPath} is ready/imported without approved field mapping`);
     }
     if (["ready", "imported"].includes(data.status)) {
       if (mappingRequest.status !== "approved" || mappingRequest.import_readiness_status !== "ready") {
         throw new Error(`${dataPath} is ready/imported but linked mapping request is not approved`);
       }
+    }
+    if (data.status === "ready") {
+      if (!exists(data.csv_path) || !fs.statSync(absolute(data.csv_path)).isFile()) {
+        throw new Error(`${dataPath} is ready but CSV is not a regular file: ${data.csv_path}`);
+      }
+      if (data.target_project !== mappingRequest.target_project) {
+        throw new Error(`${dataPath} target project differs from linked mapping request`);
+      }
+      if (data.import_completion_claim !== "prepared") {
+        throw new Error(`${dataPath} is ready without prepared import completion claim`);
+      }
+    }
+    if (
+      data.status === "imported"
+      && (!exists(data.csv_path) || !fs.statSync(absolute(data.csv_path)).isFile())
+    ) {
+      throw new Error(`${dataPath} is imported but CSV is not a regular file: ${data.csv_path}`);
+    }
+    if (data.status === "imported" && data.target_project !== mappingRequest.target_project) {
+      throw new Error(`${dataPath} imported target project differs from linked mapping request`);
     }
     if (data.status === "imported" && data.import_completion_claim !== "imported_by_external_agent") {
       throw new Error(`${dataPath} claims imported without external import completion claim`);
@@ -1752,6 +2014,17 @@ for (const selectedMode of selectedModes) {
       }
     } catch (error) {
       if (isExpectedFailure(expectation) && expectedPhase(expectation) === "invariant") {
+        if (
+          typeof expectation.errorIncludes !== "string"
+          || expectation.errorIncludes.length === 0
+          || !error.message.includes(expectation.errorIncludes)
+        ) {
+          fail(
+            `negative invariant fixture failed for the wrong reason: ${dataPath}; `
+            + `expected error containing ${JSON.stringify(expectation.errorIncludes)}, `
+            + `received ${JSON.stringify(error.message)}`,
+          );
+        }
         console.log(`negative invariant fixture rejected as expected: ${dataPath} (${expectation.reason ?? error.message})`);
         continue;
       }

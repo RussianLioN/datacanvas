@@ -1,12 +1,12 @@
 {
   "version": "0.1.0",
-  "package_id": "JIP-2026-07-02-001",
+  "package_id": "JIP-2026-07-02-204",
   "status": "ready",
   "target_project": "selected_during_import",
   "csv_path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
-  "mapping_request_path": "docs/process/cascading-governance/jira-field-mapping-request.json",
+  "mapping_request_path": "tests/fixtures/cascading-governance/jira-field-mapping-ignored-by-design.json",
   "field_mapping_status": "approved",
-  "import_completion_claim": "prepared",
+  "import_completion_claim": "not_started",
   "validation_commands": [
     "npm run validate:jira-story-import",
     "npm run validate:jira-field-mapping"

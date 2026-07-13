@@ -18,6 +18,7 @@ import {
   storySlicePlanningProblems,
   traceabilityVisionAuthorityProblems,
 } from "./lib/product-document-consistency.mjs";
+import { assertNoSensitiveRecoveryContent } from "./lib/recovery-index-security.mjs";
 
 const root = process.cwd();
 const schemaPath = "schemas/product-source-registry.schema.json";
@@ -92,6 +93,7 @@ function assertXlsxRecoveryIndexConsistency(registry) {
   }
 
   const recoveryIndex = readJson(xlsxRecoveryIndexPath);
+  assertNoSensitiveRecoveryContent(recoveryIndex, xlsxRecoveryIndexPath);
   for (const item of recoveryIndex.items ?? []) {
     if (!item.path || !item.sha256) {
       continue;

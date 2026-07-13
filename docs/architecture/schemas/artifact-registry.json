@@ -5303,7 +5303,7 @@
       "path": "docs/process/cascading-governance/jira-field-mapping-request.json",
       "type": "evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -5319,7 +5319,7 @@
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "type": "evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -7763,7 +7763,7 @@
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "type": "source-recovery-index",
       "owner_role": "Product Owner / Process Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -9118,6 +9118,22 @@
       ],
       "redaction_status": "metadata_only",
       "update_trigger": "Меняется договор, рабочая XLSX-книга, эталон или полномочие на экспорт в Jira."
+    },
+    {
+      "id": "ART-834",
+      "path": "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+      "type": "process-guide",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются CSV, сопоставление полей или порядок ручного массового импорта в Jira."
     }
   ]
 }

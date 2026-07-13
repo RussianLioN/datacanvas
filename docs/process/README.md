@@ -19,6 +19,7 @@
 - [Prompt-only согласование артефактов проектной документации](prompt-only-artifact-review/README.md)
 - [Универсальный рабочий процесс документации](universal-documentation-workflow/README.md)
 - [Синхронизация Excel backlog DataCanvas](guides/datacanvas-excel-backlog-sync.md)
+- [Массовый импорт пользовательских историй DataCanvas в Jira](guides/datacanvas-jira-story-bulk-import.md)
 
 ## Изменение Процесса
 

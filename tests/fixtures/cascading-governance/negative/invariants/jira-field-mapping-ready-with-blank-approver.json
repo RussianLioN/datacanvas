@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "mapping_request_id": "JFMR-2026-07-02-001",
+  "mapping_request_id": "JFMR-2026-07-02-212",
   "status": "approved",
   "target_project": "selected_during_import",
   "issue_types": ["Story"],
@@ -46,6 +46,6 @@
     }
   ],
   "unresolved_fields": [],
-  "approving_stakeholder": "Product Owner / Process Owner",
+  "approving_stakeholder": "   ",
   "import_readiness_status": "ready"
 }

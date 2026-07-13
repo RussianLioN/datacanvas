@@ -2007,7 +2007,7 @@
     {
       "artifact_id": "ART-402",
       "path": "docs/process/README.md",
-      "sha256": "9c0a875ed6987d473be7680ae677854b75a395b8d33520e47246421084a8f06d"
+      "sha256": "a7d1fb25cd702d4f16247103fe4b04cb7b6c8bcf8a66a9a9c5bf45fae23216f1"
     },
     {
       "artifact_id": "ART-403",
@@ -2042,22 +2042,22 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "5fd8f03463e656202841b924d93fee60f641656cedcd28b3a7880febf902863c"
+      "sha256": "3dccaf4ad5055793b3d2082ef2fed22ab7d4669276d8555a51aa2acd81834a66"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "42298d699850893e8758093a92401ac6d6cfaf29e311972a7419809d05a37860"
+      "sha256": "3e959410853233e2ac9ba674ff14c1cf44f24c285a01eb1d134a95fdf0b6f940"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "1fa50fd58566cfb00fda8871134007f4d26191094d7cd324e5d17f53d17a427a"
+      "sha256": "31b6798ab44faa93fb7a9010b9de0a6339502710a8ef12b1664001cd13e47653"
     },
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "09039cc71b73cb6a7710c74f13657fb785881ff4558714873be55ac2294524cb"
+      "sha256": "182991575be9e0d870fa764ec0b4ceaed2e6ddab79d76617b74ca3acda8e2f9b"
     },
     {
       "artifact_id": "ART-413",
@@ -2637,12 +2637,12 @@
     {
       "artifact_id": "ART-527",
       "path": "docs/process/cascading-governance/jira-field-mapping-request.json",
-      "sha256": "415edaa8a351d3bf23d4441d80d97a33424219ef6e2fdc0530e9c59ec6656bac"
+      "sha256": "8e4ee8b85bee97e43561da26e0cf6ae27995bab1f806a5ed855e8f2524a43f2f"
     },
     {
       "artifact_id": "ART-528",
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
-      "sha256": "46892f6cb0b6f5b51102eb6c88124b236df60411352a6e80970a94d586aa556e"
+      "sha256": "5f65c6579131560291b8eff4c481435508810fd8bdd6db9eef165e6cb6b5522b"
     },
     {
       "artifact_id": "ART-529",
@@ -2697,7 +2697,7 @@
     {
       "artifact_id": "ART-539",
       "path": "schemas/jira-field-mapping-request.schema.json",
-      "sha256": "56f14518cf790e79e83183c22f66b95c71bb12a22c4d30d3c0cce67d131812e6"
+      "sha256": "62623ff0e4689d00fa75f2c6cb047e5462acb0548dff6178d13983e54ed89594"
     },
     {
       "artifact_id": "ART-540",
@@ -2707,7 +2707,7 @@
     {
       "artifact_id": "ART-541",
       "path": "scripts/validate-cascading-governance.mjs",
-      "sha256": "0b9b676c7d423f6d73ea773d917f0ac245d65f169c4df4f26529c3fa5855d2c4"
+      "sha256": "2e97fa596eb790f2bf6c6b30527a5a1d6e4890b34d4fb26bc4359c14e47e531d"
     },
     {
       "artifact_id": "ART-542",
@@ -2802,7 +2802,7 @@
     {
       "artifact_id": "ART-560",
       "path": "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-without-mapping.json",
-      "sha256": "82f9d5d3d94a614db179cd16403037218a735cd37124abcfaae06dfb95926747"
+      "sha256": "6a215cddfe0a8b68255f31249f42942f4f6903efd7f5eebc9660dc35a43a2086"
     },
     {
       "artifact_id": "ART-561",
@@ -3037,17 +3037,17 @@
     {
       "artifact_id": "ART-606",
       "path": "docs/product/sources/README.md",
-      "sha256": "c8a75f0dfcec6bbad6045b52bb24ff0a9567a3ab8658fc4b65c9668f9bab714e"
+      "sha256": "4889eeceb479f9ad5e064a82bdd16030d33bdac814c94eaa5fc61364f1e9f108"
     },
     {
       "artifact_id": "ART-607",
       "path": "docs/product/sources/source-audit.md",
-      "sha256": "b54c52efd524e084d24dd32a7252f92bdf6a1e4487478205889f369bf62faaba"
+      "sha256": "ba788c7ae473ea48e57b066d6fe9987ec5fc39a6501e27a1751e9e669965188a"
     },
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "0a54ee06e1c36133d0415b3e410f901cce6a9254601016fddcbd41d677af51bc"
+      "sha256": "6db660a25c5df9dd09d4fa019a87eca44dce857edf4ba47784d36ad0b2a31a69"
     },
     {
       "artifact_id": "ART-609",
@@ -3087,7 +3087,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "88029029d4bcde38a1d551f7a6b3febf774e7ff5dc6c9b083442645af03e8f5a"
+      "sha256": "7d9769709fc1bb9a2b5dc98a4ae0c3451949e1f0762469b1445313e280c021ef"
     },
     {
       "artifact_id": "ART-617",
@@ -3242,7 +3242,7 @@
     {
       "artifact_id": "ART-648",
       "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
-      "sha256": "4a735e9f79d86dc8de595286bfccd3889b3ba8968a295777e909fb02866cbc9b"
+      "sha256": "bb7723196dea4c3690cf99e3aebf64b671bd46db634115513f97be1a1fa64da0"
     },
     {
       "artifact_id": "ART-649",
@@ -3472,7 +3472,7 @@
     {
       "artifact_id": "ART-693",
       "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
-      "sha256": "afe999aeaba7bc38b3cc2558a0bc4a17d3ed633e3ae79a42219e5dbdf6b0b9d4"
+      "sha256": "eef036b27b9e2897748d8085136a439af16f2bc5dac2787a52aab33647e058d5"
     },
     {
       "artifact_id": "ART-695",
@@ -3507,7 +3507,7 @@
     {
       "artifact_id": "ART-701",
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
-      "sha256": "833d298507e0b7c792239ac92d290576250c224cddd4b59e9b03f371d188315a"
+      "sha256": "4fbfb17b588226a15bc826f317f4066884dd67cc176e854b8e9b6162b7cc296f"
     },
     {
       "artifact_id": "ART-702",
@@ -4087,7 +4087,7 @@
     {
       "artifact_id": "ART-818",
       "path": "tests/product-document-consistency.test.mjs",
-      "sha256": "82326b62bc46967904535f0950fdca6f9a0ae5489b809694d2518e0c22bf53af"
+      "sha256": "87d86fdf7770f195556937fbb11aa2fde74535ced521a030cfcb0d8d9e433ade"
     },
     {
       "artifact_id": "ART-819",
@@ -4158,6 +4158,11 @@
       "artifact_id": "ART-833",
       "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
       "sha256": "fc182b51d966b35b41cc0bf0e6753ceaa0068bbce4e21090b29bd0ccdc1e045e"
+    },
+    {
+      "artifact_id": "ART-834",
+      "path": "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+      "sha256": "2c60dbbdde95ed99adf6b7a648411e37ca18be6c48cd2d88e47b8dbb4007d876"
     }
   ],
   "exclusions": [

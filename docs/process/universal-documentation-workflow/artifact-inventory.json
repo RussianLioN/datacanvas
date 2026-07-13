@@ -1902,6 +1902,32 @@
         "npm run generate:jira-stories -- --check",
         "npm run validate:jira-story-import"
       ]
+    },
+    {
+      "artifact_id": "UDW-A087",
+      "path": "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+      "artifact_type": "process_guide",
+      "owner_role": "Product Owner / Process Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "docs/process/cascading-governance/jira-field-mapping-request.json",
+        "docs/process/cascading-governance/jira-import-package-manifest.json"
+      ],
+      "outputs": [
+        "docs/navigation/navigation-source.json"
+      ],
+      "validation_commands": [
+        "npm run validate:jira-story-import",
+        "npm run validate:jira-field-mapping",
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation"
+      ]
     }
   ]
 }
