@@ -257,6 +257,25 @@ for (const sectionReadme of [
   requireFile(sectionReadme);
 }
 
+const xlsxNavigationTargets = [
+  "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+  "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+];
+
+for (const navigationEntry of [
+  "README.md",
+  "docs/README.md",
+  "docs/product/README.md",
+  "docs/product/sources/README.md",
+]) {
+  const linkedPaths = new Set(parseMarkdownLinks(readText(navigationEntry), navigationEntry));
+  for (const xlsxPath of xlsxNavigationTargets) {
+    if (!linkedPaths.has(xlsxPath)) {
+      fail(`XLSX source is missing from human-readable navigation: ${navigationEntry} -> ${xlsxPath}`);
+    }
+  }
+}
+
 for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
   const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
   if (!sourceManagedByPath.has(entry.path) && !ignored) {

@@ -34,6 +34,11 @@
 - [Бизнес-анализ](analysis/README.md)
 - [Specs - спецификации](specs/README.md)
 
+## Таблицы Excel
+
+- [Контролируемый XLSX-источник](sources/reference/datacanvas-backlog-source-sanitized.xlsx) — очищенная копия исходного бэклога Product Owner без служебного локального пути.
+- [Рабочая XLSX-версия с оценкой ПШЕ](sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx) — рабочий бэклог с принятыми значениями трудозатрат в человеко-днях.
+
 ## Если Нужно Понять Изменения И Ревизию
 
 - [Change Orders](change-orders/README.md) - принятые и обсуждаемые изменения продукта.
