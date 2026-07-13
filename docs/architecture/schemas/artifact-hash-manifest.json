@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "71f75752c5b8753fe272a7399fea1c317a333cdf27f896b7511ffd7afba691da"
+      "sha256": "5fd8f03463e656202841b924d93fee60f641656cedcd28b3a7880febf902863c"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "17e93fe627a07d04cb5f1c12c3b2cf883740d78ce8f9a711992e3ed7c69d2be5"
+      "sha256": "42298d699850893e8758093a92401ac6d6cfaf29e311972a7419809d05a37860"
     },
     {
       "artifact_id": "ART-411",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "587b9e761393d3551a6adbd6d6bd12e8e356534d0dafa46d34b07272bb0c8f4c"
+      "sha256": "1f8498f076ef41faf39f8124c7c9c460a4a8858695b6d1544fcd04e259218a6c"
     },
     {
       "artifact_id": "ART-742",
@@ -4137,22 +4137,22 @@
     {
       "artifact_id": "ART-829",
       "path": "schemas/jira-story-import-contract.schema.json",
-      "sha256": "7317cbb2b224ad0ced5b06ff72fed5af8b33b4fd0d79db718764c00c62bd2f2a"
+      "sha256": "eac6d37aaa6121d2fad0f0d1a64326af519a8cc5f1bad256c816d13e68645135"
     },
     {
       "artifact_id": "ART-830",
       "path": "scripts/generate-datacanvas-jira-stories.py",
-      "sha256": "03c83bbf1f5f86d0e85b4bb555adfc87d8e533da5e6168f85f8d207ff21a74b5"
+      "sha256": "fbe619e99c7228efac69e13e47452eb2665c106276c588cea4698d87231029b3"
     },
     {
       "artifact_id": "ART-831",
       "path": "scripts/validate-datacanvas-jira-story-import.py",
-      "sha256": "36a903e480bb9a9eed215d1b1e5c8edb153c7a098d1591e388b0159447385b08"
+      "sha256": "258c81a130505be6982175037edc896bd2134d89df6702ca590f858bf8bc602b"
     },
     {
       "artifact_id": "ART-832",
       "path": "tests/test_datacanvas_jira_story_import.py",
-      "sha256": "410f6e47390974b3dcdea9ef3f0cafdd19a967a1a301b907382f64812d193f9a"
+      "sha256": "c2520e08437de5eaa61f68fe0609ec0bbdf0d5b928ba78f1dc39a5b99c6d25f5"
     },
     {
       "artifact_id": "ART-833",

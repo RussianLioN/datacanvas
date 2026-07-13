@@ -17,6 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONTRACT_PATH = ROOT / "docs/process/cascading-governance/jira-story-import-contract.json"
 XLSX_VALIDATOR_PATH = ROOT / "scripts/validate-datacanvas-xlsx-backlog.py"
+CANONICAL_OUTPUT_PATH = ROOT / "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
 EXPECTED_COLUMNS = [
     "Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"
 ]
@@ -226,9 +227,16 @@ def parse_payload(csv_path: Path, contract: dict) -> tuple[bytes, list[list[str]
     return payload, records
 
 
-def run_generation_freshness_check() -> None:
+def run_generation_freshness_check(contract_path: Path, csv_path: Path) -> None:
+    resolved_contract = Path(contract_path).resolve()
+    resolved_csv = Path(csv_path).resolve()
+    if resolved_contract != DEFAULT_CONTRACT_PATH.resolve():
+        fail(f"проверка свежести принимает только канонический договор: {DEFAULT_CONTRACT_PATH}")
+    if resolved_csv != CANONICAL_OUTPUT_PATH.resolve():
+        fail(f"проверка свежести принимает только канонический CSV: {CANONICAL_OUTPUT_PATH}")
+    contract_argument = resolved_contract.relative_to(ROOT.resolve()).as_posix()
     result = subprocess.run(
-        ["npm", "run", "generate:jira-stories", "--", "--check"],
+        ["npm", "run", "generate:jira-stories", "--", "--check", "--contract", contract_argument],
         cwd=ROOT,
         text=True,
         stdout=subprocess.PIPE,
@@ -269,7 +277,7 @@ def validate_csv(
     if any(forbidden in record[6] for record in records[1:]):
         fail("Comment содержит запрещённый символ")
     if require_generator_check:
-        run_generation_freshness_check()
+        run_generation_freshness_check(Path(contract_path), Path(csv_path))
 
 
 def main() -> int:

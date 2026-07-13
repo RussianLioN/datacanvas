@@ -114,6 +114,19 @@ class JiraStoryImportContractTest(unittest.TestCase):
             },
         )
 
+    def test_contract_rejects_a_noncanonical_output_path(self) -> None:
+        generator = load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_output_path_test")
+        contract = load_json(CONTRACT_PATH)
+        contract["output"]["path"] = "artifacts/generated/jira/unexpected.csv"
+        with self.assertRaisesRegex(generator.GenerationError, "канонический путь"):
+            generator.validate_contract_semantics(contract)
+
+        schema = load_json(SCHEMA_PATH)
+        self.assertEqual(
+            schema["properties"]["output"]["properties"]["path"],
+            {"const": OUTPUT_PATH.relative_to(ROOT).as_posix()},
+        )
+
 
 class JiraStoryCsvGenerationTest(unittest.TestCase):
     def generator(self):
@@ -220,6 +233,20 @@ class JiraStoryCsvValidationTest(unittest.TestCase):
             path.write_bytes(payload)
             validator.validate_csv(path, CONTRACT_PATH, require_generator_check=False)
 
+    def test_freshness_check_rejects_noncanonical_contract_and_csv_paths(self) -> None:
+        _generator, validator, payload = self.modules_and_payload()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            alternate_csv = temporary_root / "stories.csv"
+            alternate_csv.write_bytes(payload)
+            with self.assertRaisesRegex(validator.ValidationError, "канонический CSV"):
+                validator.validate_csv(alternate_csv, CONTRACT_PATH, require_generator_check=True)
+
+            alternate_contract = temporary_root / "contract.json"
+            alternate_contract.write_text(CONTRACT_PATH.read_text(encoding="utf-8"), encoding="utf-8")
+            with self.assertRaisesRegex(validator.ValidationError, "канонический договор"):
+                validator.validate_csv(OUTPUT_PATH, alternate_contract, require_generator_check=True)
+
     def test_validator_rejects_byte_level_corruption(self) -> None:
         _generator, _validator, payload = self.modules_and_payload()
         cases = [
@@ -262,15 +289,15 @@ class JiraStoryCsvValidationTest(unittest.TestCase):
 class JiraStoryImportRegistrationTest(unittest.TestCase):
     def test_package_and_generator_governance_are_registered(self) -> None:
         scripts = load_json(ROOT / "package.json")["scripts"]
-        self.assertEqual(scripts.get("generate:jira-stories"), "python3 scripts/generate-datacanvas-jira-stories.py")
-        self.assertEqual(scripts.get("test:jira-story-import"), "python3 tests/test_datacanvas_jira_story_import.py")
+        self.assertEqual(scripts.get("generate:jira-stories"), "python3 -B scripts/generate-datacanvas-jira-stories.py")
+        self.assertEqual(scripts.get("test:jira-story-import"), "python3 -B tests/test_datacanvas_jira_story_import.py")
         self.assertEqual(
             scripts.get("validate:jira-story-import-csv"),
-            "python3 scripts/validate-datacanvas-jira-story-import.py",
+            "python3 -B scripts/validate-datacanvas-jira-story-import.py",
         )
         self.assertEqual(
             scripts.get("validate:jira-story-import"),
-            "npm run test:jira-story-import && python3 scripts/validate-datacanvas-jira-story-import.py && npm run generate:jira-stories -- --check",
+            "npm run test:jira-story-import && python3 -B scripts/validate-datacanvas-jira-story-import.py && npm run generate:jira-stories -- --check",
         )
         self.assertIn("npm run validate:jira-story-import", scripts["test"])
         self.assertLess(
@@ -306,6 +333,11 @@ class JiraStoryImportRegistrationTest(unittest.TestCase):
         inventory_paths = {entry["path"] for entry in inventory["artifacts"]}
         self.assertTrue(paths.issubset(registry_by_path))
         self.assertTrue(paths.issubset(inventory_paths))
+        contract_relative_path = CONTRACT_PATH.relative_to(ROOT).as_posix()
+        navigation = load_json(ROOT / "docs/navigation/navigation-source.json")
+        navigation_by_path = {entry["path"]: entry for entry in navigation["managed_entries"]}
+        self.assertIs(registry_by_path[contract_relative_path]["searchable"], False)
+        self.assertIs(navigation_by_path[contract_relative_path]["searchable"], False)
         csv_entry = registry_by_path[OUTPUT_PATH.relative_to(ROOT).as_posix()]
         self.assertEqual(
             {key: csv_entry[key] for key in ["status", "data_class", "visibility", "searchable", "navigable"]},

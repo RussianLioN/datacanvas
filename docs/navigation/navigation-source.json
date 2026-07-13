@@ -2958,7 +2958,7 @@
       "lifecycle": "active",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
+      "searchable": false,
       "navigable": false,
       "canonical_source": null,
       "generated_from": [],

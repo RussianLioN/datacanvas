@@ -16,6 +16,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONTRACT_PATH = ROOT / "docs/process/cascading-governance/jira-story-import-contract.json"
 XLSX_VALIDATOR_PATH = ROOT / "scripts/validate-datacanvas-xlsx-backlog.py"
+CANONICAL_OUTPUT_RELATIVE_PATH = "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+CANONICAL_OUTPUT_PATH = ROOT / CANONICAL_OUTPUT_RELATIVE_PATH
 EXPECTED_COLUMNS = [
     "Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"
 ]
@@ -58,10 +60,21 @@ def load_xlsx_validator():
     return module
 
 
+def canonical_output_path(contract: dict) -> Path:
+    actual = contract.get("output", {}).get("path")
+    if actual != CANONICAL_OUTPUT_RELATIVE_PATH:
+        fail(
+            "договор должен указывать канонический путь CSV "
+            f"{CANONICAL_OUTPUT_RELATIVE_PATH!r}, получено {actual!r}"
+        )
+    return CANONICAL_OUTPUT_PATH
+
+
 def validate_contract_semantics(contract: dict) -> None:
     if contract.get("columns") != EXPECTED_COLUMNS:
         fail("договор содержит неверный порядок столбцов CSV")
     output = contract.get("output", {})
+    canonical_output_path(contract)
     if output.get("encoding") != "utf-8" or output.get("bom") is not False:
         fail("договор должен требовать UTF-8 без BOM")
     if output.get("delimiter") != "," or output.get("line_ending") != "LF" or output.get("quoting") != "all":
@@ -260,7 +273,7 @@ def main() -> int:
         contract_path = repository_path(args.contract)
         contract = load_json(contract_path)
         payload = render_csv(contract_path)
-        output_path = repository_path(contract["output"]["path"])
+        output_path = canonical_output_path(contract)
         write_or_check(payload, output_path, check=args.check)
     except (GenerationError, KeyError, OSError, ValueError) as error:
         print(f"ОШИБКА: {error}", file=sys.stderr)

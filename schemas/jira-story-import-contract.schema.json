@@ -50,7 +50,7 @@
       "required": ["path", "encoding", "bom", "delimiter", "line_ending", "quoting"],
       "additionalProperties": false,
       "properties": {
-        "path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "path": { "const": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv" },
         "encoding": { "const": "utf-8" },
         "bom": { "const": false },
         "delimiter": { "const": "," },
