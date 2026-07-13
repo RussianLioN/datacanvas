@@ -874,6 +874,19 @@
       "purpose": "Проверяет хэши зарегистрированных артефактов относительно текущего содержимого."
     },
     {
+      "id": "documentation-archive",
+      "command": "npm run validate:documentation-archive",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["documentation", "generated", "xlsx_backlog"],
+      "owner_role": "Documentation Owner / Security Lead",
+      "purpose": "Проверяет точный состав, целостность, локальную навигацию и актуальность полного архива главной цепочки документации."
+    },
+    {
       "id": "traceability-graph",
       "command": "npm run validate:traceability-graph",
       "gate": "profile",

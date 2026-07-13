@@ -12,6 +12,10 @@ const exclusions = [
     path: outputPath,
     reason: "self-referential generated manifest",
   },
+  {
+    path: "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    reason: "self-referential generated documentation package validated by npm run validate:documentation-archive",
+  },
 ];
 
 function readJson(relativePath) {

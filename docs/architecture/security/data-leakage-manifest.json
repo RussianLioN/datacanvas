@@ -306,6 +306,23 @@
       "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
       "sink": "evidence",
       "data_class": "internal"
+    },
+    {
+      "id": "DLT-051",
+      "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "sink": "evidence",
+      "data_class": "internal",
+      "allowed_findings": [
+        {
+          "member_path": "repository/docs/product/requirements/traceability-matrix.json",
+          "classes": [
+            "raw_trace",
+            "internal_prompt"
+          ],
+          "exact_text": "Export, prompt, trace и evidence не содержат raw traces, internal prompts, local paths, secrets или PII.",
+          "reason": "Это точная формулировка запрета в основной матрице трассируемости, а не необработанная трасса или внутренний промпт."
+        }
+      ]
     }
   ],
   "explicit_exclusions": [],
@@ -324,7 +341,8 @@
     "npm run validate:security-foundation",
     "npm run validate:bmc-visual",
     "npm run validate:bmc-render-parity",
-    "npm run validate:bmc-package"
+    "npm run validate:bmc-package",
+    "npm run validate:documentation-archive"
   ],
   "known_limitations": [
     "Gate проверяет выбранные runtime/export/trace/evidence sinks, а не весь репозиторий, потому что policy docs легитимно содержат названия запрещенных классов.",

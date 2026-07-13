@@ -64,8 +64,6 @@
 - [Процесс DataCanvas](../process/README.md) - Process Owner, `active`.
 - [Универсальный рабочий процесс проектной документации](../process/universal-documentation-workflow/README.md) - Process Owner, `active`.
 - [Карта Слоев DataCanvas](../project-map.md) - Documentation Owner, `active`.
-- [Документация DataCanvas](../README.md) - Documentation Owner, `active`.
-- [DataCanvas](../../README.md) - Documentation Owner, `active`.
 
 ### Evidence
 

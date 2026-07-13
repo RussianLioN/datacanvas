@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../schemas/documentation-archive-contract.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "archive_id": "datacanvas-main-documentation",
+  "title": "Главная цепочка документации DataCanvas",
+  "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  "output_path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+  "data_class": "internal",
+  "visibility": "restricted",
+  "primary_selection": "all_stage_primary_artifacts",
+  "additional_artifacts": [
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "label": "BMC — исходное представление PlantUML"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "label": "BMC — векторное представление SVG"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "label": "BMC — растровое представление PNG"
+    },
+    {
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "label": "BMC — представление PDF"
+    },
+    {
+      "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "label": "Выгрузка кандидатных историй бэклога CSV"
+    },
+    {
+      "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "label": "Контролируемый очищенный XLSX-источник"
+    }
+  ],
+  "embedded_navigation": [
+    "index.html",
+    "README.md",
+    "manifest.json"
+  ],
+  "archive_root": "repository",
+  "integrity_algorithm": "sha256",
+  "zip_method": "store",
+  "fixed_zip_timestamp": "1980-01-01T00:00:00Z",
+  "refresh_policy": {
+    "trigger": "any_byte_change_in_resolved_member_or_contract",
+    "generate_command": "npm run generate:documentation-archive",
+    "check_command": "npm run check:documentation-archive",
+    "validation_command": "npm run validate:documentation-archive"
+  }
+}

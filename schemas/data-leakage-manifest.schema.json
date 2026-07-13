@@ -24,7 +24,26 @@
           "id": { "type": "string", "minLength": 1 },
           "path": { "type": "string", "minLength": 1 },
           "sink": { "type": "string", "enum": ["prompt", "trace", "export", "evidence", "runtime_state"] },
-          "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] }
+          "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] },
+          "allowed_findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["member_path", "classes", "exact_text", "reason"],
+              "additionalProperties": false,
+              "properties": {
+                "member_path": { "type": "string", "minLength": 1 },
+                "classes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": { "type": "string", "enum": ["secret", "pii", "local_path", "raw_trace", "internal_prompt", "tool_output"] }
+                },
+                "exact_text": { "type": "string", "minLength": 1 },
+                "reason": { "type": "string", "minLength": 1 }
+              }
+            }
+          }
         }
       }
     },

@@ -1637,6 +1637,145 @@
       "validation_commands": [
         "npm run validate:universal-documentation-workflow"
       ]
+    },
+    {
+      "artifact_id": "UDW-A074",
+      "path": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "artifact_type": "documentation_archive_contract",
+      "owner_role": "Documentation Owner / Security Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "outputs": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "validation_commands": [
+        "npm run validate:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A075",
+      "path": "schemas/documentation-archive-contract.schema.json",
+      "artifact_type": "schema",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "schema_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A076",
+      "path": "scripts/lib/documentation-archive.mjs",
+      "artifact_type": "generator_library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A077",
+      "path": "scripts/generate-documentation-archive.mjs",
+      "artifact_type": "generator",
+      "owner_role": "Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "generation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "validation_commands": [
+        "npm run check:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A078",
+      "path": "scripts/validate-documentation-archive.mjs",
+      "artifact_type": "validator",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "schemas/documentation-archive-contract.schema.json",
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A079",
+      "path": "tests/documentation-archive.test.mjs",
+      "artifact_type": "validator_test",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "test_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:documentation-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A080",
+      "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "artifact_type": "documentation_archive",
+      "owner_role": "Documentation Owner",
+      "domain": "documentation_operations",
+      "profile_scope": "generated",
+      "source_of_truth_class": "generated_artifact",
+      "generated": true,
+      "data_class": "internal",
+      "visibility": "restricted",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run check:documentation-archive",
+        "npm run validate:documentation-archive"
+      ]
     }
   ]
 }

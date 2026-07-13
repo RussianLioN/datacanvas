@@ -567,7 +567,8 @@
       "supporting_artifacts": [
         "docs/process/universal-documentation-workflow/run-ledger.json",
         "docs/process/universal-documentation-workflow/acceptance-records.json",
-        "docs/architecture/schemas/artifact-hash-manifest.json"
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
       ],
       "source_roles": [
         "evidence",
@@ -579,10 +580,11 @@
       "validation_commands": [
         "npm run validate:cascading-governance",
         "npm run validate:artifact-hashes",
+        "npm run validate:documentation-archive",
         "npm run validate:doc-stale-status"
       ],
       "cascade_policy": {
-        "on_change": "Завершение возможно только после закрытия affected artifacts обновлением или no-change rationale, актуальной generated navigation, hash manifest и отсутствия блокирующих решений.",
+        "on_change": "Завершение возможно только после закрытия affected artifacts обновлением или no-change rationale, актуальной generated navigation, hash manifest, полного локального архива и отсутствия блокирующих решений.",
         "requires_dependency_graph_entry": true,
         "requires_impact_resolution": true,
         "requires_owner_gate_for_semantic_change": false

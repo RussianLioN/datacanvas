@@ -78,6 +78,12 @@
       "allowed_write_roots": [
         "docs/process/cascading-governance/runs"
       ]
+    },
+    {
+      "generator_id": "documentation-archive",
+      "allowed_writes": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ]
     }
   ],
   "blocked_patterns": [

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/documentation-archive-contract.schema.json",
+  "title": "DocumentationArchiveContract",
+  "type": "object",
+  "required": [
+    "$schema",
+    "version",
+    "status",
+    "archive_id",
+    "title",
+    "source_chain_path",
+    "output_path",
+    "data_class",
+    "visibility",
+    "primary_selection",
+    "additional_artifacts",
+    "embedded_navigation",
+    "archive_root",
+    "integrity_algorithm",
+    "zip_method",
+    "fixed_zip_timestamp",
+    "refresh_policy"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "status": { "type": "string", "enum": ["active"] },
+    "archive_id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "title": { "type": "string", "minLength": 1 },
+    "source_chain_path": { "type": "string", "minLength": 1 },
+    "output_path": { "type": "string", "pattern": "^artifacts/.+\\.zip$" },
+    "data_class": { "type": "string", "enum": ["internal"] },
+    "visibility": { "type": "string", "enum": ["restricted"] },
+    "primary_selection": { "type": "string", "const": "all_stage_primary_artifacts" },
+    "additional_artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "label"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "embedded_navigation": {
+      "type": "array",
+      "const": ["index.html", "README.md", "manifest.json"]
+    },
+    "archive_root": { "type": "string", "const": "repository" },
+    "integrity_algorithm": { "type": "string", "const": "sha256" },
+    "zip_method": { "type": "string", "const": "store" },
+    "fixed_zip_timestamp": { "type": "string", "const": "1980-01-01T00:00:00Z" },
+    "refresh_policy": {
+      "type": "object",
+      "required": ["trigger", "generate_command", "check_command", "validation_command"],
+      "additionalProperties": false,
+      "properties": {
+        "trigger": { "type": "string", "const": "any_byte_change_in_resolved_member_or_contract" },
+        "generate_command": { "type": "string", "const": "npm run generate:documentation-archive" },
+        "check_command": { "type": "string", "const": "npm run check:documentation-archive" },
+        "validation_command": { "type": "string", "const": "npm run validate:documentation-archive" }
+      }
+    }
+  }
+}

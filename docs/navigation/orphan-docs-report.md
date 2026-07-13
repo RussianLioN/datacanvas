@@ -40,10 +40,10 @@
 | `docs/product/roadmap/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/sources/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/specs/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
-| `docs/README.md` | `README.md` | `governance` | `public` | `true` | `1` |
+| `docs/README.md` | `README.md` | `governance` | `internal` | `true` | `1` |
 | `docs/release/README.md` | `docs/README.md` | `delivery` | `public` | `true` | `1` |
 | `docs/sprints/README.md` | `docs/README.md` | `delivery` | `public` | `true` | `1` |
-| `README.md` | `-` | `governance` | `public` | `true` | `0` |
+| `README.md` | `-` | `governance` | `internal` | `true` | `0` |
 
 ## Сводка Глубины
 
@@ -64,7 +64,7 @@
 | `evidence` | `hidden` | 3 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 8 |
-| `governance` | `2` | 58 |
+| `governance` | `2` | 59 |
 | `governance` | `3` | 14 |
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |

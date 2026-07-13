@@ -455,6 +455,46 @@
       "authority_scope": [
         "product_meaning"
       ]
+    },
+    {
+      "artifact_id": "DGA-052",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "layer": "BMC",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-053",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "layer": "BMC",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-054",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "layer": "BMC",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-055",
+      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "layer": "BMC",
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:bmc",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-056",
+      "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "layer": "navigation",
+      "owner_role": "Documentation Owner / Security Lead",
+      "validation_command": "npm run validate:documentation-archive",
+      "authority_scope": []
     }
   ],
   "declared_cycle_groups": [
@@ -2929,6 +2969,356 @@
         "story_text_change",
         "roadmap_meaning",
         "mixed_or_ambiguous"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0105",
+      "upstream_artifact": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0106",
+      "upstream_artifact": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0107",
+      "upstream_artifact": "docs/product/requirements/business-claim-map.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0108",
+      "upstream_artifact": "docs/product-vision.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0109",
+      "upstream_artifact": "docs/product/bmc/bmc-v0.2.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0110",
+      "upstream_artifact": "docs/product/requirements/user-stories.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0111",
+      "upstream_artifact": "docs/product/requirements/business-requirements.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0112",
+      "upstream_artifact": "docs/product/requirements/non-functional-requirements.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0113",
+      "upstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0114",
+      "upstream_artifact": "docs/product/backlog/product-backlog.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0115",
+      "upstream_artifact": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0116",
+      "upstream_artifact": "docs/product/roadmap/roadmap-v0.1.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0117",
+      "upstream_artifact": "docs/product/hypotheses/hypothesis-board.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0118",
+      "upstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0119",
+      "upstream_artifact": "docs/architecture/system-analysis/srs-v0.1.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0120",
+      "upstream_artifact": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0121",
+      "upstream_artifact": "docs/product/requirements/traceability-matrix.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0122",
+      "upstream_artifact": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0123",
+      "upstream_artifact": "docs/process/cascading-governance/impact-analysis-report.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0124",
+      "upstream_artifact": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0125",
+      "upstream_artifact": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0126",
+      "upstream_artifact": "docs/product/bmc/source/derived/datacanvas-bmc.png",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0127",
+      "upstream_artifact": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0128",
+      "upstream_artifact": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0129",
+      "upstream_artifact": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение входного файла требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
       ]
     }
   ],

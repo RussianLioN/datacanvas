@@ -26,6 +26,7 @@ DataCanvas - проект AI-агента, который формирует к�
 | Требования и критерии приемки | [docs/product/requirements/README.md](docs/product/requirements/README.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](docs/product/backlog/README.md) и [docs/product/sources/README.md](docs/product/sources/README.md) |
 | Таблицы Excel с исходным бэклогом и рабочей оценкой | [Контролируемый XLSX-источник](docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx) и [рабочая XLSX-версия с оценкой ПШЕ](docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx) |
+| Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, производные BMC, CSV и оба XLSX с автономной навигацией. |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](docs/product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](docs/product/hypotheses/README.md) |
 | BA/SA - бизнес-анализ и системный анализ | [docs/product/analysis/README.md](docs/product/analysis/README.md) и [docs/architecture/system-analysis/README.md](docs/architecture/system-analysis/README.md) |

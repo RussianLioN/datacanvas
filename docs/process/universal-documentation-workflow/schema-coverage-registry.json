@@ -359,6 +359,15 @@
       "negative_fixture_path": null,
       "negative_scenario_ids": [],
       "negative_rationale": "Исторические доказательства не меняются на месте; замещение фиксируется отдельной append-only записью."
+    },
+    {
+      "entity": "documentation_archive_contract",
+      "schema_path": "schemas/documentation-archive-contract.schema.json",
+      "data_path": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "positive_fixture_path": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "negative_fixture_path": null,
+      "negative_scenario_ids": [],
+      "negative_rationale": "Небезопасные пути, дубликаты, отсутствующие входы, повреждение ZIP и устаревание проверяются npm run validate:documentation-archive."
     }
   ]
 }

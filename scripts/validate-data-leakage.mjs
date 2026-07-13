@@ -4,6 +4,7 @@ import process from "node:process";
 import { spawnSync } from "node:child_process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { readStoredZip } from "./lib/documentation-archive.mjs";
 
 const root = process.cwd();
 const manifestPath = "docs/architecture/security/data-leakage-manifest.json";
@@ -36,11 +37,17 @@ with zipfile.ZipFile(path) as z:
   return result.stdout;
 }
 
-function readScanText(relativePath) {
+function readScanUnits(relativePath) {
   if (/\.xlsx$/iu.test(relativePath)) {
-    return readXlsxText(relativePath);
+    return [{ member_path: relativePath, text: readXlsxText(relativePath) }];
   }
-  return readText(relativePath);
+  if (/\.zip$/iu.test(relativePath)) {
+    const archive = readStoredZip(fs.readFileSync(path.join(root, relativePath)));
+    return [...archive.entries()]
+      .filter(([name]) => /\.(?:csv|html|json|md|puml|svg)$/iu.test(name))
+      .map(([name, content]) => ({ member_path: name, text: content.toString("utf8") }));
+  }
+  return [{ member_path: relativePath, text: readText(relativePath) }];
 }
 
 function readJson(relativePath) {
@@ -156,13 +163,20 @@ for (const target of manifest.scan_targets) {
   }
   scanTargetsByPath.set(target.path, target);
   requireFile(target.path);
-  const text = readScanText(target.path);
-  for (const forbidden of forbiddenPatterns) {
-    if (!enabledClasses.has(forbidden.class)) {
-      continue;
-    }
-    if (forbidden.pattern.test(text)) {
-      fail(`data leakage finding in ${target.path}: ${forbidden.class}/${forbidden.name}`);
+  for (const unit of readScanUnits(target.path)) {
+    for (const forbidden of forbiddenPatterns) {
+      if (!enabledClasses.has(forbidden.class)) {
+        continue;
+      }
+      let scanText = unit.text;
+      for (const allowed of target.allowed_findings ?? []) {
+        if (allowed.member_path === unit.member_path && allowed.classes.includes(forbidden.class)) {
+          scanText = scanText.replaceAll(allowed.exact_text, "");
+        }
+      }
+      if (forbidden.pattern.test(scanText)) {
+        fail(`data leakage finding in ${target.path} (${unit.member_path}): ${forbidden.class}/${forbidden.name}`);
+      }
     }
   }
 }
@@ -185,13 +199,14 @@ for (const entry of navigationIndex.entries) {
     continue;
   }
   requireFile(entry.path);
-  const text = readScanText(entry.path);
-  for (const forbidden of forbiddenPatterns) {
-    if (!publicSurfaceClasses.has(forbidden.class)) {
-      continue;
-    }
-    if (forbidden.pattern.test(text)) {
-      fail(`public navigation surface leakage finding in ${entry.path}: ${forbidden.class}/${forbidden.name}`);
+  for (const unit of readScanUnits(entry.path)) {
+    for (const forbidden of forbiddenPatterns) {
+      if (!publicSurfaceClasses.has(forbidden.class)) {
+        continue;
+      }
+      if (forbidden.pattern.test(unit.text)) {
+        fail(`public navigation surface leakage finding in ${entry.path}: ${forbidden.class}/${forbidden.name}`);
+      }
     }
   }
 }

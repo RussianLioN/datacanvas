@@ -403,6 +403,49 @@
         "completion_seal_mismatch",
         "write_outside_completion_directory"
       ]
+    },
+    {
+      "generator_id": "documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "inputs": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "scripts/generate-documentation-archive.mjs",
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "allowed_writes": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "generate_command": "npm run generate:documentation-archive",
+      "check_command": "npm run check:documentation-archive",
+      "deterministic_environment": "Node.js 22.20.0, ZIP store с фиксированными метаданными, относительные пути, без сети и локальных абсолютных путей",
+      "dependencies": [
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx"
+      ],
+      "post_validators": [
+        "npm run validate:documentation-archive",
+        "npm run validate:xlsx-source-security",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "stale_archive",
+        "missing_primary_artifact",
+        "unexpected_archive_member",
+        "duplicate_archive_member",
+        "path_traversal",
+        "symlink_input",
+        "hash_mismatch",
+        "broken_local_navigation"
+      ]
     }
   ],
   "topological_order": [
@@ -413,6 +456,7 @@
     "documentation-cascade-completion",
     "docs-navigation",
     "datacanvas-bmc",
-    "artifact-hash-manifest"
+    "artifact-hash-manifest",
+    "documentation-archive"
   ]
 }

@@ -3169,8 +3169,8 @@
       "owner_role": "Documentation Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W26",
-      "data_class": "public",
-      "visibility": "public",
+      "data_class": "internal",
+      "visibility": "internal",
       "searchable": true,
       "navigable": true,
       "canonical_source": null,
@@ -3233,8 +3233,8 @@
       "owner_role": "Documentation Owner",
       "status": "active",
       "sprint_id": "SPRINT-2026-W26",
-      "data_class": "public",
-      "visibility": "public",
+      "data_class": "internal",
+      "visibility": "internal",
       "searchable": true,
       "navigable": true,
       "canonical_source": null,
@@ -8975,6 +8975,81 @@
       "owner_role": "Process Owner / QA Lead",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-821",
+      "path": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "type": "process-contract",
+      "owner_role": "Documentation Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав главной цепочки, файловых производных, политика обновления или путь архива меняются."
+    },
+    {
+      "id": "ART-822",
+      "path": "schemas/documentation-archive-contract.schema.json",
+      "type": "schema",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-823",
+      "path": "scripts/lib/documentation-archive.mjs",
+      "type": "validation-library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-824",
+      "path": "scripts/generate-documentation-archive.mjs",
+      "type": "generator",
+      "owner_role": "Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-825",
+      "path": "scripts/validate-documentation-archive.mjs",
+      "type": "validator",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-826",
+      "path": "tests/documentation-archive.test.mjs",
+      "type": "test",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-827",
+      "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "type": "documentation-archive",
+      "owner_role": "Documentation Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "generated_from": [
+        "scripts/generate-documentation-archive.mjs",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "redaction_status": "metadata_only",
+      "update_trigger": "Любое байтовое изменение любого разрешенного входного документа или производного файла."
     }
   ]
 }
