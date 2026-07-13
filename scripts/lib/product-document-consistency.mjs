@@ -5,8 +5,46 @@ export function approvalConsistencyProblems({
   downstreamPolicy = null,
 }) {
   const problems = [];
+  const ownerJiraExportCandidate = approvalStatus === "owner_approved"
+    && teamValidationStatus === "approved"
+    && downstreamPolicy?.may_export_to_jira === true;
+  const ownerJiraExportProblems = [];
 
-  if (teamValidationStatus === "approved" && approvalStatus !== "team_approved") {
+  if (approvalStatus === "draft_unapproved" && downstreamPolicy?.may_export_to_jira === true) {
+    problems.push("draft_unapproved workbook must never permit Jira export");
+  }
+
+  if (ownerJiraExportCandidate) {
+    if (downstreamPolicy.may_update_sprint_backlog !== false) {
+      ownerJiraExportProblems.push("owner-authorized Jira export must keep sprint backlog updates forbidden");
+    }
+    if (downstreamPolicy.requires_team_approval_record !== false) {
+      ownerJiraExportProblems.push("owner-authorized Jira export requires requires_team_approval_record=false");
+    }
+    if (downstreamPolicy.jira_export_authority !== "process_owner_and_product_owner") {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires jira_export_authority=process_owner_and_product_owner",
+      );
+    }
+    if (downstreamPolicy.jira_export_decision_id !== "UDW-DEC-019") {
+      ownerJiraExportProblems.push("owner-authorized Jira export requires jira_export_decision_id=UDW-DEC-019");
+    }
+    if (
+      rowTeamValidationStatuses.length === 0
+      || rowTeamValidationStatuses.some((status) => status !== "approved")
+    ) {
+      ownerJiraExportProblems.push("owner-authorized Jira export requires all workbook rows approved");
+    }
+  }
+
+  const ownerJiraExportAuthorized = ownerJiraExportCandidate && ownerJiraExportProblems.length === 0;
+  problems.push(...ownerJiraExportProblems);
+
+  if (
+    teamValidationStatus === "approved"
+    && approvalStatus !== "team_approved"
+    && !ownerJiraExportAuthorized
+  ) {
     problems.push("team approval requires approval_status=team_approved");
   }
   if (approvalStatus === "team_approved" && teamValidationStatus !== "approved") {

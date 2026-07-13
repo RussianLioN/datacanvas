@@ -1012,6 +1012,26 @@ if (failed) {
   process.exit(1);
 }
 
+const validateXlsxProvenance = validators.get("schemas/xlsx-backlog-provenance.schema.json");
+const acceptedXlsxProvenance = readJson(
+  "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+);
+for (const [scenario, mutate] of [
+  ["missing Jira export authority", (candidate) => delete candidate.downstream_policy.jira_export_authority],
+  ["missing Jira export decision", (candidate) => delete candidate.downstream_policy.jira_export_decision_id],
+  ["draft_unapproved Jira export", (candidate) => {
+    candidate.workbook.approval_status = "draft_unapproved";
+  }],
+]) {
+  const candidate = structuredClone(acceptedXlsxProvenance);
+  mutate(candidate);
+  if (validateXlsxProvenance(candidate)) {
+    console.error(`ERROR: XLSX provenance schema accepted negative scenario: ${scenario}`);
+    process.exit(1);
+  }
+}
+console.log("XLSX provenance negative schema validation passed");
+
 const inputPackage = readJson("tests/fixtures/input-package-minimal.json");
 const normalizedData = readJson("tests/golden/normalized-data-minimal.json");
 const traceManifest = readJson("tests/golden/trace-manifest-minimal.json");

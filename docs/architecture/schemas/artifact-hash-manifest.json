@@ -2707,7 +2707,7 @@
     {
       "artifact_id": "ART-541",
       "path": "scripts/validate-cascading-governance.mjs",
-      "sha256": "880cc3ffae8f5e9d83db8573f3b9102d02dae38f2c9717a849de52ad07c1f0dd"
+      "sha256": "0b9b676c7d423f6d73ea773d917f0ac245d65f169c4df4f26529c3fa5855d2c4"
     },
     {
       "artifact_id": "ART-542",
@@ -2842,7 +2842,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "f750574eeb128087947e8c5bd13caac05540f4f1e5a28303830a94619d19b38e"
+      "sha256": "05e93526b3e99f84547ecf03cb1a0e5e2849eeeedb39caa1b8de11d747d700e3"
     },
     {
       "artifact_id": "ART-569",
@@ -3047,7 +3047,7 @@
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "9d8293aa722706f8a5c2983f70aa5868977a0d43d0b82132a2fcf870b58c7a3d"
+      "sha256": "0a54ee06e1c36133d0415b3e410f901cce6a9254601016fddcbd41d677af51bc"
     },
     {
       "artifact_id": "ART-609",
@@ -3222,7 +3222,7 @@
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "67934f832e505935c8c5c821bb43913f393f8c8ed75e74b003c810ab3ad0cfeb"
+      "sha256": "ce76287753bebfa680123fd9ddee2d2f8b52970376b72a04514ca5fb434d9ff8"
     },
     {
       "artifact_id": "ART-645",
@@ -3257,17 +3257,17 @@
     {
       "artifact_id": "ART-651",
       "path": "docs/process/universal-documentation-workflow/decision-queue.json",
-      "sha256": "bcbd28b7e074fc5e0b1ecf27c7d5a16ddbee4252c87137c0d74ad033e11331fc"
+      "sha256": "e1db463df5cc6528f3030937bc1b00f901808dd178ecac472e388eaf5710e4f0"
     },
     {
       "artifact_id": "ART-652",
       "path": "docs/process/universal-documentation-workflow/decision-ledger.json",
-      "sha256": "6c23dc1ec3a1353b3636cfe5d78be20fd3af8947245e02aa3098b703c264c823"
+      "sha256": "288360cba5ba907fa763b43b7c6680704cb74889c5b88a4d848abe5152c0c162"
     },
     {
       "artifact_id": "ART-653",
       "path": "docs/process/universal-documentation-workflow/acceptance-records.json",
-      "sha256": "f8b45828ddd8a5f8c56b2e0d353750c95933d458399ff24afdad51ccf3e43566"
+      "sha256": "7a01e5665b0a46069d6468be29d82ca7f771ab43ee07f443a4ab435868acb56f"
     },
     {
       "artifact_id": "ART-654",
@@ -3437,7 +3437,7 @@
     {
       "artifact_id": "ART-687",
       "path": "docs/product/analysis/documentation-consistency-audit/owner-decision-queue.md",
-      "sha256": "d6ab4f77151b048f205121411299bf9840ed265d2934f5d2c3116f0deb980d90"
+      "sha256": "426c417a5cadf4307b74cdd4f14276ba12fab75f926efb521ee127b5741d6156"
     },
     {
       "artifact_id": "ART-688",
@@ -3487,7 +3487,7 @@
     {
       "artifact_id": "ART-697",
       "path": "docs/process/guides/datacanvas-excel-backlog-sync.md",
-      "sha256": "a46a4dc38365a33fef30663338a6bf026374204f4dc1e830cde792ddbb042cda"
+      "sha256": "56222693c9d3e41a669dcc54080ac0a60f190d33addcf3f163c80aa058a556fb"
     },
     {
       "artifact_id": "ART-698",
@@ -3502,27 +3502,27 @@
     {
       "artifact_id": "ART-700",
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-      "sha256": "322da2077ba0abbdce3048f79d7ce7d1a6f0ae6b1a0a1b46b4ebaf26ae98a04e"
+      "sha256": "de58af65f4800ecb59c3b31f9547298960da92ebb6bbd23666cdb2b8512fa592"
     },
     {
       "artifact_id": "ART-701",
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
-      "sha256": "f53c9d5d78d4441a8e194401c9b560ba20cb77464c0b6f023ebc7aac7a65e0a8"
+      "sha256": "833d298507e0b7c792239ac92d290576250c224cddd4b59e9b03f371d188315a"
     },
     {
       "artifact_id": "ART-702",
       "path": "scripts/validate-datacanvas-xlsx-backlog.py",
-      "sha256": "1bf9d733f006f479ebee1f815483436d2ca04388083320b6e84ac9c57636dff5"
+      "sha256": "2f2ef1aa24327787385696ba5bc8cd44b1799beacba7c7c835e403b46280ea47"
     },
     {
       "artifact_id": "ART-703",
       "path": "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
-      "sha256": "fe287245c43970d625ce0247ae52dc1156326e0837dc298f8edfe574cbdaec52"
+      "sha256": "a130e06c5f234159322897bb45a617bc722602240c4935680ffeb5645b1ced6b"
     },
     {
       "artifact_id": "ART-704",
       "path": "schemas/xlsx-backlog-provenance.schema.json",
-      "sha256": "b00389ba47f37e6449f29bc700dbdfdd39ff20cb618215897cf510c1bdfdabca"
+      "sha256": "cb79565e6328d86747431010edc7e1a1e41aa9f4bc693a2e030d5f0e471b9e39"
     },
     {
       "artifact_id": "ART-705",
@@ -4022,7 +4022,7 @@
     {
       "artifact_id": "ART-805",
       "path": "docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md",
-      "sha256": "aa3828fbc9457e05156d7306e6e4ab787093d28118f9aeb9a6eb3d1d8b9a8ebc"
+      "sha256": "703da8fba721d1a97af4aeeef597610941c663ef9a742a64a696c3fa367a2e84"
     },
     {
       "artifact_id": "ART-806",
@@ -4082,12 +4082,12 @@
     {
       "artifact_id": "ART-817",
       "path": "scripts/lib/product-document-consistency.mjs",
-      "sha256": "36630a0fc017248eea674ec5da2db19885196b586bb4b617d51b2861ce253aea"
+      "sha256": "b1244f4d37773272939069cd676ec0f8ffd8427e3ff82ed9710262bbdab64e3b"
     },
     {
       "artifact_id": "ART-818",
       "path": "tests/product-document-consistency.test.mjs",
-      "sha256": "b4644229b9e7e03d68aeb3304316fb51abe249aa61c87ebbbd9162553e84f150"
+      "sha256": "c0e5976d635a2265e37a19560e02ee069fbe72090647b64cd785865448dd39d2"
     },
     {
       "artifact_id": "ART-819",

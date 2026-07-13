@@ -1503,6 +1503,90 @@ function assertCascadeValidationCommandPolicy() {
   }
 }
 
+function assertXlsxJiraExportAuthority({ provenance, source, decisionQueue, decisionLedger, acceptanceRecords }) {
+  const policy = provenance.downstream_policy;
+  if (policy.may_export_to_jira !== true) {
+    throw new Error("working XLSX Jira export must be enabled by the accepted owner decision");
+  }
+  if (source.approval_status === "draft_unapproved" || provenance.workbook.approval_status === "draft_unapproved") {
+    throw new Error("draft_unapproved XLSX source must never permit Jira export");
+  }
+  if (source.approval_status !== provenance.workbook.approval_status) {
+    throw new Error("XLSX source registry and provenance approval_status must match");
+  }
+  if (provenance.workbook.approval_status !== "owner_approved") {
+    throw new Error("owner-authorized Jira export requires approval_status=owner_approved");
+  }
+  if (source.team_validation_status !== provenance.workbook.team_validation_status) {
+    throw new Error("XLSX source registry and provenance team_validation_status must match");
+  }
+  if (provenance.workbook.team_validation_status !== "approved") {
+    throw new Error("owner-authorized Jira export requires workbook team_validation_status=approved");
+  }
+  if (provenance.rows.some((row) => row.approval_status !== "owner_approved")) {
+    throw new Error("owner-authorized Jira export requires approval_status=owner_approved for every workbook row");
+  }
+  if (provenance.rows.some((row) => row.team_validation_status !== "approved")) {
+    throw new Error("owner-authorized Jira export requires team_validation_status=approved for every workbook row");
+  }
+  if (policy.may_update_sprint_backlog !== false) {
+    throw new Error("owner-authorized Jira export must keep sprint backlog updates forbidden");
+  }
+  if (policy.requires_team_approval_record !== false) {
+    throw new Error("owner-authorized Jira export must set requires_team_approval_record=false");
+  }
+  if (policy.jira_export_authority !== "process_owner_and_product_owner") {
+    throw new Error("owner-authorized Jira export requires jira_export_authority=process_owner_and_product_owner");
+  }
+  if (policy.jira_export_decision_id !== "UDW-DEC-019") {
+    throw new Error("owner-authorized Jira export requires jira_export_decision_id=UDW-DEC-019");
+  }
+
+  const queueDecision = decisionQueue.decisions.find((entry) => entry.decision_id === policy.jira_export_decision_id);
+  if (!queueDecision) {
+    throw new Error(`Jira export authority decision is missing from decision queue: ${policy.jira_export_decision_id}`);
+  }
+  if (
+    queueDecision.decision_type !== "owner_decision_acceptance"
+    || queueDecision.authority !== "evidence"
+    || queueDecision.status !== "accepted"
+    || queueDecision.blocking !== false
+    || queueDecision.owner_role !== "Product Owner / Process Owner"
+    || queueDecision.acceptance_record_id !== "UDW-ACC-026"
+  ) {
+    throw new Error("Jira export authority decision queue entry has inconsistent type, role, status or acceptance link");
+  }
+
+  const ledgerDecision = decisionLedger.records.find((entry) => entry.decision_id === policy.jira_export_decision_id);
+  if (!ledgerDecision) {
+    throw new Error(`Jira export authority decision is missing from decision ledger: ${policy.jira_export_decision_id}`);
+  }
+  if (
+    ledgerDecision.decision_type !== queueDecision.decision_type
+    || ledgerDecision.accepted_status !== "accepted"
+    || ledgerDecision.owner_role !== queueDecision.owner_role
+    || ledgerDecision.acceptance_record_id !== queueDecision.acceptance_record_id
+  ) {
+    throw new Error("Jira export authority decision ledger entry does not match the decision queue");
+  }
+
+  const acceptanceRecord = acceptanceRecords.records.find(
+    (entry) => entry.acceptance_record_id === queueDecision.acceptance_record_id,
+  );
+  if (!acceptanceRecord) {
+    throw new Error(`Jira export authority acceptance record is missing: ${queueDecision.acceptance_record_id}`);
+  }
+  if (
+    acceptanceRecord.acceptance_type !== queueDecision.decision_type
+    || acceptanceRecord.status !== "accepted"
+    || acceptanceRecord.owner_role !== queueDecision.owner_role
+    || !acceptanceRecord.linked_decision_ids.includes(queueDecision.decision_id)
+    || !acceptanceRecord.linked_artifacts.includes(source.provenance_manifest)
+  ) {
+    throw new Error("Jira export authority acceptance record does not match the decision and provenance manifest");
+  }
+}
+
 function assertXlsxCascade(analysis) {
   const graph = readJson("docs/process/cascading-governance/artifact-dependency-graph.json");
   assertDependencyGraph(graph);
@@ -1546,6 +1630,53 @@ function assertXlsxCascade(analysis) {
   if (source.approval_status === "draft_unapproved" && !analysis.team_approval_required) {
     throw new Error("draft XLSX source must require team approval before sprint/Jira downstream use");
   }
+
+  const jiraAuthorityContext = {
+    provenance: readJson(source.provenance_manifest),
+    source,
+    decisionQueue: readJson("docs/process/universal-documentation-workflow/decision-queue.json"),
+    decisionLedger: readJson("docs/process/universal-documentation-workflow/decision-ledger.json"),
+    acceptanceRecords: readJson("docs/process/universal-documentation-workflow/acceptance-records.json"),
+  };
+  assertXlsxJiraExportAuthority(jiraAuthorityContext);
+
+  function expectJiraAuthorityFailure(mutate, expectedMessage) {
+    const candidateContext = structuredClone(jiraAuthorityContext);
+    mutate(candidateContext);
+    try {
+      assertXlsxJiraExportAuthority(candidateContext);
+    } catch (error) {
+      if (error.message.includes(expectedMessage)) return;
+      throw error;
+    }
+    throw new Error(`XLSX Jira export authority self-test did not reject: ${expectedMessage}`);
+  }
+  expectJiraAuthorityFailure(
+    (context) => {
+      context.provenance.workbook.approval_status = "draft_unapproved";
+    },
+    "draft_unapproved",
+  );
+  expectJiraAuthorityFailure(
+    (context) => {
+      delete context.provenance.downstream_policy.jira_export_authority;
+    },
+    "jira_export_authority",
+  );
+  expectJiraAuthorityFailure(
+    (context) => {
+      context.provenance.downstream_policy.may_update_sprint_backlog = true;
+    },
+    "sprint backlog",
+  );
+  expectJiraAuthorityFailure(
+    (context) => {
+      context.decisionQueue.decisions = context.decisionQueue.decisions.filter(
+        (entry) => entry.decision_id !== "UDW-DEC-019",
+      );
+    },
+    "decision queue",
+  );
 
   for (const requiredCommand of [
     "npm run validate:xlsx-backlog",

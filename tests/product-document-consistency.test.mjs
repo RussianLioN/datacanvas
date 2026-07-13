@@ -24,6 +24,98 @@ test("owner approval cannot be presented as team approval", () => {
   assert.ok(problems.some((problem) => problem.includes("team_approved")));
 });
 
+test("explicit owner authority permits Jira export without team or sprint approval", () => {
+  const problems = approvalConsistencyProblems({
+    approvalStatus: "owner_approved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved", "approved"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: false,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_authority: "process_owner_and_product_owner",
+      jira_export_decision_id: "UDW-DEC-019",
+    },
+  });
+  assert.deepEqual(problems, []);
+});
+
+test("owner-authorized Jira export requires both authority fields", () => {
+  const withoutAuthority = approvalConsistencyProblems({
+    approvalStatus: "owner_approved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: false,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_decision_id: "UDW-DEC-019",
+    },
+  });
+  assert.ok(withoutAuthority.some((problem) => problem.includes("jira_export_authority")));
+
+  const withoutDecision = approvalConsistencyProblems({
+    approvalStatus: "owner_approved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: false,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_authority: "process_owner_and_product_owner",
+    },
+  });
+  assert.ok(withoutDecision.some((problem) => problem.includes("jira_export_decision_id")));
+});
+
+test("owner-authorized Jira export keeps sprint backlog forbidden", () => {
+  const problems = approvalConsistencyProblems({
+    approvalStatus: "owner_approved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: true,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_authority: "process_owner_and_product_owner",
+      jira_export_decision_id: "UDW-DEC-019",
+    },
+  });
+  assert.ok(problems.some((problem) => problem.includes("sprint backlog")));
+});
+
+test("draft_unapproved always forbids Jira export", () => {
+  const problems = approvalConsistencyProblems({
+    approvalStatus: "draft_unapproved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: false,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_authority: "process_owner_and_product_owner",
+      jira_export_decision_id: "UDW-DEC-019",
+    },
+  });
+  assert.ok(problems.some((problem) => problem.includes("draft_unapproved")));
+});
+
+test("owner-authorized Jira export requires approved status for every row", () => {
+  const problems = approvalConsistencyProblems({
+    approvalStatus: "owner_approved",
+    teamValidationStatus: "approved",
+    rowTeamValidationStatuses: ["approved", "pending_team_review"],
+    downstreamPolicy: {
+      may_update_sprint_backlog: false,
+      may_export_to_jira: true,
+      requires_team_approval_record: false,
+      jira_export_authority: "process_owner_and_product_owner",
+      jira_export_decision_id: "UDW-DEC-019",
+    },
+  });
+  assert.ok(problems.some((problem) => problem.includes("all workbook rows")));
+});
+
 test("pending team review blocks sprint and Jira use", () => {
   const problems = approvalConsistencyProblems({
     approvalStatus: "owner_approved",

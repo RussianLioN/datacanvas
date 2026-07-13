@@ -30,9 +30,10 @@
         "owner_approved_priority_source",
         "draft_effort_estimation",
         "team_estimation_review",
+        "jira_resource_estimate_export",
         "cascade_synchronization"
       ],
-      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и черновых ПШЕ для DC-ST-23..DC-ST-33. Командное согласование трудозатрат еще не получено; sprint backlog и Jira остаются заблокированными до отдельной записи такого согласования."
+      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и текущих ресурсных значений для DC-ST-23..DC-ST-33. UDW-DEC-019 разрешает экспорт этих значений в Jira, но не является отдельным принятием оценок командой реализации; sprint backlog остается заблокированным до решения о емкости, порядке работ и вытеснении."
     },
     {
       "item_id": "historical-stories-opml",
