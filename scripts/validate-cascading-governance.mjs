@@ -204,6 +204,86 @@ const schemaCases = {
     ],
     [
       "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-wrong-target-project.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has wrong target project",
+        errorIncludes: "ready Jira mapping target_project must be selected_during_import",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-extra-issue-type.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has extra issue type",
+        errorIncludes: "ready Jira mapping issue_types must contain only Story",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-custom-field.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping requires a custom field",
+        errorIncludes: "ready Jira mapping required_custom_fields must be empty",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-wrong-approver.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has wrong approving stakeholder",
+        errorIncludes: "ready Jira mapping approving_stakeholder must be Product Owner / Process Owner",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-wrong-mapped-field.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has wrong mapped field",
+        errorIncludes: "ready Jira mapping standard fields must map to identical Jira fields",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-wrong-story-id-fallback.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has wrong Story ID fallback",
+        errorIncludes: "ready Jira mapping Story ID must be ignored with Summary fallback",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-wrong-target-quarter-fallback.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping has wrong Target quarter fallback",
+        errorIncludes: "ready Jira mapping Target quarter must be ignored with Description fallback",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-capacity-contour.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira mapping contains Capacity contour",
+        errorIncludes: "ready Jira mapping must not contain Capacity contour",
+      },
+    ],
+    [
+      "schemas/jira-field-mapping-request.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/jira-field-mapping-ready-without-approval.json",
       {
         expect: "fail",
@@ -274,12 +354,32 @@ const schemaCases = {
     ],
     [
       "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-ready-noncanonical-csv.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "ready Jira package points to a noncanonical regular file",
+        errorIncludes: "is ready/imported but csv_path differs from the Jira story import contract",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
       "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-missing-csv.json",
       {
         expect: "fail",
         phase: "invariant",
         reason: "imported Jira package without CSV",
         errorIncludes: "is imported but CSV is not a regular file",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-noncanonical-csv.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "imported Jira package points to a noncanonical regular file",
+        errorIncludes: "is ready/imported but csv_path differs from the Jira story import contract",
       },
     ],
     [
@@ -300,6 +400,16 @@ const schemaCases = {
         phase: "invariant",
         reason: "imported Jira package without approved mapping status",
         errorIncludes: "is ready/imported without approved field mapping",
+      },
+    ],
+    [
+      "schemas/jira-import-package-manifest.schema.json",
+      "tests/fixtures/cascading-governance/negative/invariants/jira-import-imported-with-prepared-claim.json",
+      {
+        expect: "fail",
+        phase: "invariant",
+        reason: "imported Jira package has only a prepared completion claim",
+        errorIncludes: "claims imported without external import completion claim",
       },
     ],
   ],
@@ -1939,12 +2049,64 @@ function assertJiraMapping(data, dataPath) {
       if (!isDeepStrictEqual(csvColumns, contractColumns) || !isDeepStrictEqual(mappingColumns, contractColumns)) {
         throw new Error(`${dataPath} columns differ from the Jira story import contract`);
       }
+      if (data.target_project !== "selected_during_import") {
+        throw new Error(`${dataPath} ready Jira mapping target_project must be selected_during_import`);
+      }
+      if (!isDeepStrictEqual(data.issue_types, ["Story"])) {
+        throw new Error(`${dataPath} ready Jira mapping issue_types must contain only Story`);
+      }
+      if (JSON.stringify(data).includes("Capacity contour")) {
+        throw new Error(`${dataPath} ready Jira mapping must not contain Capacity contour`);
+      }
+      if (!isDeepStrictEqual(data.required_custom_fields, [])) {
+        throw new Error(`${dataPath} ready Jira mapping required_custom_fields must be empty`);
+      }
+      if (!isDeepStrictEqual(data.unresolved_fields, [])) {
+        throw new Error(`${dataPath} ready Jira mapping unresolved_fields must be empty`);
+      }
+      if (data.approving_stakeholder !== "Product Owner / Process Owner") {
+        throw new Error(
+          `${dataPath} ready Jira mapping approving_stakeholder must be Product Owner / Process Owner`,
+        );
+      }
+      const mappingByColumn = new Map(
+        data.jira_field_mapping.map((entry) => [entry.csv_column, entry]),
+      );
+      const standardColumns = ["Issue Type", "Summary", "Description", "Priority", "Comment"];
+      const standardMappingsAreExact = standardColumns.every((column) => isDeepStrictEqual(
+        mappingByColumn.get(column),
+        { csv_column: column, jira_field: column, status: "mapped" },
+      ));
+      if (!standardMappingsAreExact) {
+        throw new Error(`${dataPath} ready Jira mapping standard fields must map to identical Jira fields`);
+      }
+      if (!isDeepStrictEqual(mappingByColumn.get("Story ID"), {
+        csv_column: "Story ID",
+        jira_field: null,
+        status: "ignored_by_design",
+        fallback_jira_field: "Summary",
+      })) {
+        throw new Error(`${dataPath} ready Jira mapping Story ID must be ignored with Summary fallback`);
+      }
+      if (!isDeepStrictEqual(mappingByColumn.get("Target quarter"), {
+        csv_column: "Target quarter",
+        jira_field: null,
+        status: "ignored_by_design",
+        fallback_jira_field: "Description",
+      })) {
+        throw new Error(
+          `${dataPath} ready Jira mapping Target quarter must be ignored with Description fallback`,
+        );
+      }
     }
   }
 
   if ("package_id" in data) {
     requirePath(data.mapping_request_path);
     const mappingRequest = readJson(data.mapping_request_path);
+    const contractCsvPath = readJson(
+      "docs/process/cascading-governance/jira-story-import-contract.json",
+    ).output.path;
     if (["ready", "imported"].includes(data.status) && data.field_mapping_status !== "approved") {
       throw new Error(`${dataPath} is ready/imported without approved field mapping`);
     }
@@ -1956,6 +2118,9 @@ function assertJiraMapping(data, dataPath) {
     if (data.status === "ready") {
       if (!exists(data.csv_path) || !fs.statSync(absolute(data.csv_path)).isFile()) {
         throw new Error(`${dataPath} is ready but CSV is not a regular file: ${data.csv_path}`);
+      }
+      if (data.csv_path !== contractCsvPath) {
+        throw new Error(`${dataPath} is ready/imported but csv_path differs from the Jira story import contract`);
       }
       if (data.target_project !== mappingRequest.target_project) {
         throw new Error(`${dataPath} target project differs from linked mapping request`);
@@ -1969,6 +2134,9 @@ function assertJiraMapping(data, dataPath) {
       && (!exists(data.csv_path) || !fs.statSync(absolute(data.csv_path)).isFile())
     ) {
       throw new Error(`${dataPath} is imported but CSV is not a regular file: ${data.csv_path}`);
+    }
+    if (data.status === "imported" && data.csv_path !== contractCsvPath) {
+      throw new Error(`${dataPath} is ready/imported but csv_path differs from the Jira story import contract`);
     }
     if (data.status === "imported" && data.target_project !== mappingRequest.target_project) {
       throw new Error(`${dataPath} imported target project differs from linked mapping request`);

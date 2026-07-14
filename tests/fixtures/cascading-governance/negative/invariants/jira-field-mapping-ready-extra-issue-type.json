@@ -1,0 +1,31 @@
+{
+  "version": "0.1.0",
+  "mapping_request_id": "JFMR-2026-07-02-214",
+  "status": "approved",
+  "target_project": "selected_during_import",
+  "issue_types": ["Story", "Task"],
+  "required_custom_fields": [],
+  "csv_columns": ["Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"],
+  "jira_field_mapping": [
+    { "csv_column": "Issue Type", "jira_field": "Issue Type", "status": "mapped" },
+    { "csv_column": "Summary", "jira_field": "Summary", "status": "mapped" },
+    { "csv_column": "Description", "jira_field": "Description", "status": "mapped" },
+    { "csv_column": "Priority", "jira_field": "Priority", "status": "mapped" },
+    {
+      "csv_column": "Story ID",
+      "jira_field": null,
+      "status": "ignored_by_design",
+      "fallback_jira_field": "Summary"
+    },
+    {
+      "csv_column": "Target quarter",
+      "jira_field": null,
+      "status": "ignored_by_design",
+      "fallback_jira_field": "Description"
+    },
+    { "csv_column": "Comment", "jira_field": "Comment", "status": "mapped" }
+  ],
+  "unresolved_fields": [],
+  "approving_stakeholder": "Product Owner / Process Owner",
+  "import_readiness_status": "ready"
+}
