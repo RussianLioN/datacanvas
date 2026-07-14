@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "3fdf52d4054aefb06c9f21cf6c241cdf0e8d3ca0377b4545ac534bad6a08fea4"
+      "sha256": "070c5f1207fe8d798262330f96e00d692c7982cf897d2624a588ce17937abfdd"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "cf8fc07d6144a144861cfb4cbdf675c8fe950da6433a6276fc4f6a98655e4c86"
+      "sha256": "c206c04e9da94acc5152b9a0a6d478cc0cff21b3ca9ce7e1e5ec89b5802cdd16"
     },
     {
       "artifact_id": "ART-400",
@@ -3217,7 +3217,7 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "e4ebe7aa52fe523691b6fd092fae3d10ce338cb3184e9947e476859894e5f7b3"
+      "sha256": "db13433aa4310a2ddc6ba880291eca0a3663fd6617e18e321718878c4eecdefc"
     },
     {
       "artifact_id": "ART-644",
@@ -3247,7 +3247,7 @@
     {
       "artifact_id": "ART-649",
       "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
-      "sha256": "34ce29d4ed53728a81831364c08a0c54057196dceb20648b5c1c61aa29f1c2a3"
+      "sha256": "7a5774ea338b4a7abaece56073c5bc2454ad6826b4bd5a8b659511ad53bc8ed4"
     },
     {
       "artifact_id": "ART-650",
@@ -4102,7 +4102,7 @@
     {
       "artifact_id": "ART-821",
       "path": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
-      "sha256": "4479d1a2f89b9798d5b8f692940feca76b60fc58aef8b93b8c10714f763aa4e0"
+      "sha256": "6c2a3946f53e6ceb7bdd5e11ede98eb559acc910e82bdc3c384728463e9bd754"
     },
     {
       "artifact_id": "ART-822",
@@ -4112,7 +4112,7 @@
     {
       "artifact_id": "ART-823",
       "path": "scripts/lib/documentation-archive.mjs",
-      "sha256": "1abc26f63f0ebb264de595f5eb2cd16c4107ea3e51d336d6122fd1984b6762d1"
+      "sha256": "1521baf4bc09c4c5ed02fb749ec56a4900365cc5430b450c73734890419d9b07"
     },
     {
       "artifact_id": "ART-824",
@@ -4127,7 +4127,7 @@
     {
       "artifact_id": "ART-826",
       "path": "tests/documentation-archive.test.mjs",
-      "sha256": "a6be1a5e99ddfd269116c9c55759c2673aa44aeba2653c36d0a1d9dd8df3d9c2"
+      "sha256": "fc4b4f3aa097aa1c5a4a448273bdb48fee8235cb5e1b827e2feab2e3a4d8764e"
     },
     {
       "artifact_id": "ART-828",

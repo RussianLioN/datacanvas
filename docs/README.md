@@ -30,7 +30,7 @@
 | Требования и критерии приемки | [docs/product/requirements/README.md](product/requirements/README.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](product/backlog/README.md) и [docs/product/sources/README.md](product/sources/README.md) |
 | Таблицы Excel с исходным бэклогом и рабочей оценкой | [Контролируемый XLSX-источник](product/sources/reference/datacanvas-backlog-source-sanitized.xlsx) и [рабочая XLSX-версия с оценкой ПШЕ](product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx) |
-| Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](../artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, производные BMC, CSV и оба XLSX с автономной навигацией. |
+| Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](../artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, включая рабочий XLSX, и восемь дополнительных материалов: представления BMC, выгрузка кандидатных историй, очищенный XLSX-источник, руководство и подготовленный CSV для импорта пользовательских историй в Jira; после распаковки доступна автономная навигация. |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](product/hypotheses/README.md) |
 | BA/SA artifacts - артефакты бизнес-анализа и системного анализа | [docs/product/analysis/README.md](product/analysis/README.md) и [docs/architecture/system-analysis/README.md](architecture/system-analysis/README.md) |

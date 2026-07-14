@@ -471,7 +471,9 @@
         "docs/product/bmc/source/derived/datacanvas-bmc.png",
         "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
-        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx"
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+        "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
       ],
       "post_validators": [
         "npm run validate:documentation-archive",
