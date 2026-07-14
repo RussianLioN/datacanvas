@@ -20,6 +20,10 @@
     {
       "id": "positive-nested-readmes-managed-or-ignored",
       "description": "Каждый вложенный README управляется navigation source или явно исключен."
+    },
+    {
+      "id": "positive-jira-import-package-in-quick-routes",
+      "description": "Быстрые маршруты из корневого и документационного README напрямую ведут к руководству и CSV для импорта пользовательских историй в Jira."
     }
   ]
 }

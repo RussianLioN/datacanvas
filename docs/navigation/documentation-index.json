@@ -6170,7 +6170,7 @@
         "фиксация-результата"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/process/methodology/ai-enabled-software-development-process-research.md",
@@ -12602,6 +12602,7 @@
       "artifact_registry_id": "ART-399",
       "outgoing_links": [
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
         "docs/architecture/README.md",
         "docs/architecture/schemas/schema-registry.md",
         "docs/architecture/system-analysis/README.md",
@@ -12611,6 +12612,7 @@
         "docs/navigation/navigation-source.json",
         "docs/plans/README.md",
         "docs/process/current/process-registry.md",
+        "docs/process/guides/datacanvas-jira-story-bulk-import.md",
         "docs/process/methodology/README.md",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
@@ -34519,6 +34521,7 @@
       "artifact_registry_id": "ART-395",
       "outgoing_links": [
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
         "docs/architecture/README.md",
         "docs/architecture/system-analysis/README.md",
         "docs/knowledge/evidence-index.md",
@@ -34526,6 +34529,7 @@
         "docs/navigation/navigation-source.json",
         "docs/plans/README.md",
         "docs/process/current/process-registry.md",
+        "docs/process/guides/datacanvas-jira-story-bulk-import.md",
         "docs/process/methodology/README.md",
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",

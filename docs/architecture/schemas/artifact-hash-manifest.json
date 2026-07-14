@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "b78c5392fdaa349a1c80fac1a1d199397d8114bb0959aca8ded8ac674963e088"
+      "sha256": "3fdf52d4054aefb06c9f21cf6c241cdf0e8d3ca0377b4545ac534bad6a08fea4"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "675764cb28c7841d4710a10d08632ceb9d2fa33e0d3d931ff558ad6ce9bc0345"
+      "sha256": "cf8fc07d6144a144861cfb4cbdf675c8fe950da6433a6276fc4f6a98655e4c86"
     },
     {
       "artifact_id": "ART-400",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "3e959410853233e2ac9ba674ff14c1cf44f24c285a01eb1d134a95fdf0b6f940"
+      "sha256": "2da2ee40fb4b427cd90d014d2b6a0f09dd825c66cbd8315d7f48568bd1537b15"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "182991575be9e0d870fa764ec0b4ceaed2e6ddab79d76617b74ca3acda8e2f9b"
+      "sha256": "89f718232047b81d1ab1ad85705cf957a35b94714ea2737076abdb1750c9da09"
     },
     {
       "artifact_id": "ART-413",
@@ -2087,7 +2087,7 @@
     {
       "artifact_id": "ART-418",
       "path": "scripts/validate-docs-navigation.mjs",
-      "sha256": "fc5c744a80adfa27e8c9de06e064965103bfa08f1641f703670977c28af622f2"
+      "sha256": "26ac4fe4e2ec84a3afec607f8f830bb02212c9a8f0ae6af09c2399ce5e8c2f54"
     },
     {
       "artifact_id": "ART-419",
@@ -2107,12 +2107,12 @@
     {
       "artifact_id": "ART-422",
       "path": "tests/docs-navigation/positive/cases.json",
-      "sha256": "c289f43180265a6be915cad54177a4b287a3f0da66b62d1f9a083ba0c125f023"
+      "sha256": "ad15bed37020ddc1d3e2954a8c26b07db3d245d832031a026f5c8a4a64a584fe"
     },
     {
       "artifact_id": "ART-423",
       "path": "tests/docs-navigation/negative/cases.json",
-      "sha256": "515c0ac0e5a6f924deeec47182d6fe997f5a659923eb21e3685868ac1e275176"
+      "sha256": "8dffee7f51d62dc54c2fd2162d9904a4372c7328b5873d7fd95e720a9384924c"
     },
     {
       "artifact_id": "ART-424",

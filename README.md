@@ -11,6 +11,7 @@ DataCanvas - проект AI-агента, который формирует к�
 | Проверить исходные документы и принятые изменения | [Исходные документы](docs/product/sources/README.md) и [change orders](docs/product/change-orders/README.md) | Реестр источников, аудит источников и принятые изменения продукта. |
 | Найти методику и исследования | [Методика проектной документации](docs/process/methodology/README.md) | Правила ведения документации, BABOK-источник и исследование процесса разработки с поддержкой ИИ. |
 | Запустить или проверить рабочий процесс документации | [Универсальный рабочий процесс](docs/process/universal-documentation-workflow/README.md) | Runbook, состояние запуска, журналы, правила переноса и проверки. |
+| Импортировать пользовательские истории в Jira | [Руководство по массовому импорту](docs/process/guides/datacanvas-jira-story-bulk-import.md) и [готовый CSV](artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv) | Подготовка, проверка и загрузка пользовательских историй DataCanvas в Jira. |
 | Подготовить сдачу или найти evidence | [Release](docs/release/README.md) и [evidence index](docs/knowledge/evidence-index.md) | Релизные доказательства, PR evidence, pilot и handoff-материалы. |
 | Найти архитектуру, схемы и проверки | [Архитектура](docs/architecture/README.md), [схемы](schemas/README.md), [команды](package.json) | ADR, схемы, границы доверия, проверки и полный список команд. |
 
