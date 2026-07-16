@@ -1,0 +1,135 @@
+{
+  "states": [
+    {
+      "projection_sha256": "ed5b3e2b7f78a46b75dfba152c960f2ca334dbc63ce8688dc1fa450ce634ad53",
+      "result_ref": null,
+      "state_id": "lisa-materials-ready"
+    },
+    {
+      "projection_sha256": "6c9ba2a314b761c3116ad4f25e5bb4764f968ca47843b47d733625792b3ce925",
+      "result_ref": null,
+      "state_id": "lisa-materials-email-sent"
+    },
+    {
+      "projection_sha256": "94f2061ffd97f00c8c576a80fb14c79b4099f95fcf48ec80553420e51836bd6c",
+      "result_ref": null,
+      "state_id": "lisa-presentation-order-submitting"
+    },
+    {
+      "projection_sha256": "9ea9bc676cdaeb50d041e6129f7275a0de55ca66209fe88db53a4ead878a326f",
+      "result_ref": null,
+      "state_id": "lisa-presentation-order-failed"
+    },
+    {
+      "projection_sha256": "12f3c6f83c0e2daa0e128aa323324b10f067fe73fc5db2a9f82e3358adc1e771",
+      "result_ref": null,
+      "state_id": "lisa-presentation-generating"
+    },
+    {
+      "projection_sha256": "737b19ee77409def6ec85854d79d5c1379af43c1c5e3b0b7947e804ca3f7bab5",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-presentation-ready-unread"
+    },
+    {
+      "projection_sha256": "ad019ce45392c1eafb29c04bb23aa0389292087a20ac1c5fac6d52015eecfa8d",
+      "result_ref": null,
+      "state_id": "lisa-notifications-list-empty"
+    },
+    {
+      "projection_sha256": "ada7703742053f06ab603be4f6e62a81db8fc8d50352e1b6bb301afaa11e399d",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-notifications-list-unread"
+    },
+    {
+      "projection_sha256": "8148c24ed041f760160dfee9f5980547cb1b9102e666c3d27c1c4567b92fb428",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-notification-detail-unread"
+    },
+    {
+      "projection_sha256": "6b054c2c59f786a46f1faaa3a13d5f6cc8f59b9ed47e3dc5c97d38ad7e5e7283",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-notifications-list-read"
+    },
+    {
+      "projection_sha256": "bc19f7eea1d739faa5c443584086732546ec8fda88dcf085cd303db254a4a275",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-notification-detail-read"
+    },
+    {
+      "projection_sha256": "6ee47bf5867db7f11b79128b5f156b8657b4b2f4fd6525a1a5a0e40472981e97",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-result-view-from-chat"
+    },
+    {
+      "projection_sha256": "0fcff9a797c338b273d72d28fa88298f1d729920954cd91ca6a3f38e596a0ce7",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-result-view-from-notification"
+    },
+    {
+      "projection_sha256": "25ba274a1947e95f410fc20d34924c062212dc9480f84f1f93c2314e0720a9df",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-returned-to-chat"
+    },
+    {
+      "projection_sha256": "c2326167fe77d10e37255f51c0235bff91bc5f8c40fad3813adb8430309e4cad",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-presentation-email-submitting"
+    },
+    {
+      "projection_sha256": "d854a6acfa7b407d56b288ea4de3f283aae6eec9483fcdfa815fb01a553be0eb",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-presentation-email-sent"
+    },
+    {
+      "projection_sha256": "884289577922dd403649effe110c98bd43182761771ddd133e81c9f8521887db",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-presentation-email-partial-failure"
+    },
+    {
+      "projection_sha256": "9f2b41cc4b3cd9f45ead0bc8f1f810c5152d61e2ac59d68bb874ef10342ace58",
+      "result_ref": "secure-pdf-copy-001",
+      "state_id": "lisa-presentation-email-failed"
+    },
+    {
+      "projection_sha256": "e96c0aa514b3e99f944a1a9ca49e09080c1b759aa25750b66f3677a3e65300e6",
+      "result_ref": null,
+      "state_id": "lisa-result-not-ready"
+    },
+    {
+      "projection_sha256": "00e0d960a20f54180897c5d6d732f41fe121deba18b74a820abeeb7bb17debc3",
+      "result_ref": null,
+      "state_id": "lisa-link-invalid"
+    },
+    {
+      "projection_sha256": "4312f3711c213950eaa9078b36c52ef2eb0d02164cd01c0b3c4f780723180b76",
+      "result_ref": null,
+      "state_id": "lisa-link-expired"
+    },
+    {
+      "projection_sha256": "ed0105cc3971b836e4889b685c8201a339fe597e65f09e6a2b03076b6d2bf28f",
+      "result_ref": null,
+      "state_id": "lisa-access-denied"
+    },
+    {
+      "projection_sha256": "63bf8713cd4e58758a1431e413de63934b743878d70cb605baae1b1074f52167",
+      "result_ref": null,
+      "state_id": "lisa-offline"
+    },
+    {
+      "projection_sha256": "ed7dc28c0e346f969e3ef0647fb3bdafa43d4c64cf43c437e7453e68c995f333",
+      "result_ref": null,
+      "state_id": "lisa-notification-failed-chat-available"
+    },
+    {
+      "projection_sha256": "b2a6865df29f74a9af15c5c0dea265c667e635c5b9694821a0d418ee5ba1f5d0",
+      "result_ref": null,
+      "state_id": "lisa-result-cancelled"
+    },
+    {
+      "projection_sha256": "95834ee9a33c4985c77607595b89c22db8c11c403dc247cf1676c5a5ddb0ebe1",
+      "result_ref": null,
+      "state_id": "lisa-result-revoked"
+    }
+  ],
+  "version": "1.0.0"
+}

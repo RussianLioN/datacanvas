@@ -1,0 +1,1003 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "journey-contract.schema.json",
+  "title": "Контракт пользовательского пути Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "route",
+    "initial_state_id",
+    "result_ref",
+    "copy",
+    "prototype_timeline",
+    "notification",
+    "email_delivery",
+    "prototype_semantics",
+    "invariants",
+    "states",
+    "actions",
+    "open_product_decisions"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": "1.2.0"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "owner-review-pending",
+        "owner-approved-prototype"
+      ]
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "interaction_mode",
+        "datacanvas_launch_mode",
+        "initiator"
+      ],
+      "properties": {
+        "surface": {
+          "const": "lisa"
+        },
+        "interaction_mode": {
+          "const": "lisa_dialog"
+        },
+        "datacanvas_launch_mode": {
+          "const": "other_agent"
+        },
+        "initiator": {
+          "const": "user_action"
+        }
+      }
+    },
+    "initial_state_id": {
+      "$ref": "#/$defs/id"
+    },
+    "result_ref": {
+      "$ref": "#/$defs/id"
+    },
+    "copy": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minProperties": 3
+    },
+    "prototype_timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start_time",
+        "ready_time",
+        "generation_started_at_ms",
+        "clock_animation_ends_at_ms",
+        "ready_at_ms",
+        "direct_state_autoplay"
+      ],
+      "properties": {
+        "start_time": {
+          "const": "13:24"
+        },
+        "ready_time": {
+          "const": "13:44"
+        },
+        "generation_started_at_ms": {
+          "const": 600
+        },
+        "clock_animation_ends_at_ms": {
+          "const": 7600
+        },
+        "ready_at_ms": {
+          "const": 8000
+        },
+        "direct_state_autoplay": {
+          "const": false
+        }
+      }
+    },
+    "notification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "push_supported",
+        "unread_indicator",
+        "list_open_marks_read",
+        "result_open_marks_read",
+        "minimum_visible_data",
+        "forbidden_visible_data"
+      ],
+      "properties": {
+        "kind": {
+          "const": "lisa_notification_center_item"
+        },
+        "push_supported": {
+          "const": false
+        },
+        "unread_indicator": {
+          "const": "red_dot_on_bell"
+        },
+        "list_open_marks_read": {
+          "const": false
+        },
+        "result_open_marks_read": {
+          "const": true
+        },
+        "minimum_visible_data": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "const": "Презентация готова"
+            },
+            {
+              "const": "Время готовности"
+            },
+            {
+              "const": "Действие открытия"
+            }
+          ],
+          "items": false
+        },
+        "forbidden_visible_data": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "const": "Полный адрес защищённой ссылки"
+            },
+            {
+              "const": "Название клиента"
+            },
+            {
+              "const": "Содержание презентации"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "email_delivery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prototype_only_deviation",
+        "recipient_copy",
+        "recipient_rule_confirmed",
+        "message_count",
+        "required_attachments",
+        "success_requires_all_attachments",
+        "retry_scope",
+        "success_semantics",
+        "revoked_link_does_not_revoke_attachments",
+        "entry_surfaces"
+      ],
+      "properties": {
+        "prototype_only_deviation": {
+          "const": true
+        },
+        "recipient_copy": {
+          "const": "ваша рабочая почта"
+        },
+        "recipient_rule_confirmed": {
+          "const": false
+        },
+        "message_count": {
+          "const": 1
+        },
+        "required_attachments": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "prefixItems": [
+            {
+              "const": "pdf"
+            },
+            {
+              "const": "pptx"
+            }
+          ],
+          "items": false
+        },
+        "success_requires_all_attachments": {
+          "const": true
+        },
+        "retry_scope": {
+          "const": "failed_attachment_only"
+        },
+        "success_semantics": {
+          "const": "accepted_by_mail_transport"
+        },
+        "revoked_link_does_not_revoke_attachments": {
+          "const": true
+        },
+        "entry_surfaces": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "const": "chat-ready-card"
+            },
+            {
+              "const": "viewer-from-chat"
+            },
+            {
+              "const": "viewer-from-notification"
+            }
+          ],
+          "items": false
+        }
+      }
+    },
+    "prototype_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "fields"
+      ],
+      "properties": {
+        "scope": {
+          "const": "visual-validation-only"
+        },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "display_name",
+          "title",
+          "eyebrow",
+          "body",
+          "detail_lines",
+          "action_ids"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "chat",
+              "chat-ready",
+              "notification-list",
+              "notification-detail",
+              "viewer",
+              "success",
+              "warning",
+              "error"
+            ]
+          },
+          "display_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1
+          },
+          "detail_lines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "content": {
+            "$ref": "#/$defs/meetingMaterial"
+          },
+          "history_state_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "action_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "result_ref": {
+            "$ref": "#/$defs/id"
+          },
+          "notification_unread": {
+            "type": "boolean"
+          },
+          "return_anchor": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "variant"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "accessible_label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary"
+            ]
+          },
+          "target_state_id": {
+            "$ref": "#/$defs/id"
+          },
+          "behavior": {
+            "$ref": "#/$defs/id"
+          },
+          "prototype_sequence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "state_id",
+                "at_ms"
+              ],
+              "properties": {
+                "state_id": {
+                  "$ref": "#/$defs/id"
+                },
+                "at_ms": {
+                  "type": "integer",
+                  "minimum": 100,
+                  "maximum": 10000
+                }
+              }
+            }
+          }
+        },
+        "oneOf": [
+          {
+            "properties": {
+              "target_state_id": {}
+            },
+            "required": [
+              "target_state_id"
+            ],
+            "not": {
+              "required": [
+                "behavior"
+              ]
+            }
+          },
+          {
+            "properties": {
+              "behavior": {}
+            },
+            "required": [
+              "behavior"
+            ],
+            "not": {
+              "required": [
+                "target_state_id"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "open_product_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "meetingMaterial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "data_classification",
+        "external_links_allowed",
+        "initial_scroll_anchor",
+        "action_anchor",
+        "header",
+        "sections"
+      ],
+      "properties": {
+        "type": {
+          "const": "meeting-material"
+        },
+        "data_classification": {
+          "const": "synthetic"
+        },
+        "external_links_allowed": {
+          "const": false
+        },
+        "initial_scroll_anchor": {
+          "$ref": "#/$defs/id"
+        },
+        "action_anchor": {
+          "$ref": "#/$defs/id"
+        },
+        "header": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "holding",
+            "company",
+            "meta"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "holding": {
+              "type": "string",
+              "minLength": 1
+            },
+            "company": {
+              "type": "string",
+              "minLength": 1
+            },
+            "meta": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "title",
+              "blocks"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "blocks": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/$defs/materialBlock"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "materialBlock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "participants",
+            "agenda",
+            "paragraph",
+            "bullet-list",
+            "metrics",
+            "offers",
+            "callout",
+            "sourced-list"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tone": {
+          "enum": [
+            "success",
+            "warning",
+            "error",
+            "neutral"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/materialItem"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "paragraph",
+                  "callout"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "text"
+            ]
+          },
+          "else": {
+            "required": [
+              "items"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "callout"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "tone"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "participants"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/participantItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "agenda"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/agendaItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "bullet-list"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/listItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "sourced-list"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/sourcedListItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "metrics"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/metricItem"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "offers"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/offerItem"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "materialItem": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/participantItem"
+        },
+        {
+          "$ref": "#/$defs/agendaItem"
+        },
+        {
+          "$ref": "#/$defs/listItem"
+        },
+        {
+          "$ref": "#/$defs/sourcedListItem"
+        },
+        {
+          "$ref": "#/$defs/metricItem"
+        },
+        {
+          "$ref": "#/$defs/offerItem"
+        }
+      ]
+    },
+    "participantItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "agendaItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "description",
+        "tag",
+        "group"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tag": {
+          "enum": [
+            "insight",
+            "agreement",
+            "news"
+          ]
+        },
+        "group": {
+          "enum": [
+            "mandatory",
+            "optional"
+          ]
+        },
+        "source_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "numeric_facts": {
+          "$ref": "#/$defs/numericFacts"
+        }
+      }
+    },
+    "listItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sourcedListItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text",
+        "source_label"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_label": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "metricItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "value",
+        "amount_mln_rub"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "amount_mln_rub": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sber_share_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "offerItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "amount",
+        "maximum_term",
+        "limit_bln_rub",
+        "max_term_months"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "amount": {
+          "type": "string",
+          "minLength": 1
+        },
+        "maximum_term": {
+          "type": "string",
+          "minLength": 1
+        },
+        "warning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limit_bln_rub": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_term_months": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "numericFacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "competitor_rate_percent": {
+          "type": "number"
+        },
+        "sber_rate_percent_min": {
+          "type": "number"
+        },
+        "sber_rate_percent_max": {
+          "type": "number"
+        },
+        "tariff_percent": {
+          "type": "number"
+        },
+        "area_hectares": {
+          "type": "number"
+        },
+        "rate_percent": {
+          "type": "number"
+        },
+        "subscription_rub_per_month": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

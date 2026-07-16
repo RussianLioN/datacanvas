@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="342" height="462" viewBox="0 0 342 462" role="img" aria-labelledby="title desc">
+  <title id="title">Карточка просмотра презентации</title>
+  <desc id="desc">Новый компонент DataCanvas для просмотра нередактируемой PDF-копии.</desc>
+  <rect width="342" height="462" rx="22" fill="#262530"/>
+  <rect x="18" y="20" width="306" height="402" rx="10" fill="#FFFDFC"/>
+  <rect x="40" y="48" width="262" height="66" rx="12" fill="#FFF0EA"/>
+  <circle cx="60" cy="156" r="14" fill="#F06D78"/>
+  <rect x="86" y="144" width="194" height="10" rx="5" fill="#D9D4DE"/>
+  <rect x="86" y="162" width="154" height="8" rx="4" fill="#ECE8EF"/>
+  <circle cx="60" cy="220" r="14" fill="#E6A14C"/>
+  <rect x="86" y="208" width="206" height="10" rx="5" fill="#D9D4DE"/>
+  <rect x="86" y="226" width="170" height="8" rx="4" fill="#ECE8EF"/>
+  <circle cx="60" cy="284" r="14" fill="#3A8A68"/>
+  <rect x="86" y="272" width="186" height="10" rx="5" fill="#D9D4DE"/>
+  <rect x="86" y="290" width="146" height="8" rx="4" fill="#ECE8EF"/>
+</svg>

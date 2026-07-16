@@ -1,0 +1,62 @@
+{
+  "$schema": "schemas/presentation-preview-contract.schema.json",
+  "version": "1.0.0",
+  "status": "owner-approved-prototype",
+  "audience": "internal-client-manager-and-leader",
+  "communication_job": "Показать состояние отношений с клиентом, основные угрозы и возможности, а также три решения, к которым должна привести встреча.",
+  "aspect_ratio": "16:9",
+  "slides": [
+    {
+      "id": "relationship-scale",
+      "title": "Активы задают масштаб отношений, но остальные направления заметно уступают",
+      "short_title": "Масштаб отношений",
+      "layout": "hero-metrics",
+      "data_bindings": [
+        "sections.cooperation.blocks.metrics.items.assets.value",
+        "sections.cooperation.blocks.top-three.items.assets",
+        "sections.cooperation.blocks.metrics.items.liabilities.value",
+        "sections.cooperation.blocks.metrics.items.non-credit-income.value",
+        "sections.cooperation.blocks.metrics.items.payroll.value",
+        "sections.cooperation.blocks.metrics.items.ecosystem.value"
+      ]
+    },
+    {
+      "id": "opportunities-and-pressure",
+      "title": "Главные возможности сосредоточены в гарантии и краткосрочном финансировании, а давление — в эквайринге",
+      "short_title": "Возможности и давление",
+      "layout": "offers-and-comparison",
+      "data_bindings": [
+        "sections.preapproved-offers.blocks.offers.items.customs-guarantee",
+        "sections.preapproved-offers.blocks.offers.items.short-financing",
+        "sections.preapproved-offers.blocks.offers.items.leasing",
+        "sections.agenda.blocks.agenda-items.items.a1",
+        "sections.agenda.blocks.agenda-items.items.a6"
+      ]
+    },
+    {
+      "id": "meeting-decisions",
+      "title": "Встреча должна завершиться следующими шагами по эквайрингу, поставкам из Индии и новым площадям",
+      "short_title": "Решения встречи",
+      "layout": "decision-path",
+      "data_bindings": [
+        "sections.agenda.blocks.agenda-items.items.a1",
+        "sections.agenda.blocks.agenda-items.items.a2",
+        "sections.agenda.blocks.agenda-items.items.a3"
+      ],
+      "card_summaries": [
+        {
+          "binding": "sections.agenda.blocks.agenda-items.items.a1",
+          "text": "Обсудить возможность пересмотра тарифа и удержание эквайринга."
+        },
+        {
+          "binding": "sections.agenda.blocks.agenda-items.items.a2",
+          "text": "Передать итоги переговоров по тарифу 0,25% и альтернативным поставщикам."
+        },
+        {
+          "binding": "sections.agenda.blocks.agenda-items.items.a3",
+          "text": "Уточнить планы по объекту 2,4 га и потребность в кредитовании."
+        }
+      ]
+    }
+  ]
+}

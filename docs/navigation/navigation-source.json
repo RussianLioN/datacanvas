@@ -187,6 +187,86 @@
       }
     },
     {
+      "id": "presentation-link-lisa-user-journey",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner / Documentation Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Пользовательский путь заказа, получения, просмотра или почтовой отправки презентации в Лисе меняется.",
+        "navigation_domain": "product",
+        "navigation_group": "business"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-source",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/source",
+      "defaults": {
+        "section": "schemas-scripts-tests",
+        "owner_role": "Product Owner / QA Lead",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Состояния пути, визуальный договор, исходные SVG-компоненты или схема пакета меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "technical"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-derived",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/derived",
+      "defaults": {
+        "section": "generated-artifacts",
+        "owner_role": "Documentation Owner / QA Lead",
+        "lifecycle": "generated",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+        "generated_from": [
+          "scripts/generate-presentation-link-lisa-user-journey.mjs"
+        ],
+        "redaction_status": "not_required",
+        "update_trigger": "Канонический визуальный источник, договор кадров или генератор пользовательского пути меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "generated"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-evidence",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/evidence",
+      "defaults": {
+        "section": "release-evidence",
+        "owner_role": "QA Lead / Documentation Owner",
+        "lifecycle": "generated",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+        "generated_from": [
+          "scripts/update-presentation-link-lisa-user-journey-evidence.mjs"
+        ],
+        "redaction_status": "not_required",
+        "update_trigger": "HTML-прототип, браузерная матрица, доказательный валидатор или набор снимков меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "evidence"
+      }
+    },
+    {
       "id": "ux-uat",
       "path_prefix": "docs/product/ux",
       "defaults": {
@@ -3228,6 +3308,26 @@
       "critical": true,
       "breadcrumb_required": false,
       "artifact_registry_required": true
+    },
+    {
+      "route_id": "presentation-link-lisa-user-journey",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав пакета, точка входа, подтверждение владельца или профиль проверки меняются.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
     }
   ],
   "role_routes": [
@@ -3768,6 +3868,20 @@
       ],
       "owner_role": "Product Owner / Process Owner / Delivery/GitOps Lead",
       "validation_command": "npm run validate:xlsx-backlog && npm run validate:jira-field-mapping"
+    },
+    {
+      "id": "task-review-presentation-link-lisa-user-journey",
+      "label": "Проверить путь презентации в Лисе",
+      "task": "Проверить пользовательский путь заказа, получения и просмотра презентации в Лисе",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "next_paths": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"
     }
   ],
   "ignored_paths": [
@@ -3852,6 +3966,26 @@
       "path": "docs/navigation/stale-status-report.md",
       "canonical_source": "docs/navigation/navigation-source.json",
       "description": "Generated stale status scan report."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "description": "Производное сопоставление устойчивых состояний HTML-демонстрации и кадров."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный манифест HTML, SVG, PNG и контрольных сумм визуального пакета."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный отчёт браузерных, геометрических и проверок доступности."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный отчёт приёмки визуального пакета и ограничений проверочного инструментария."
     }
   ],
   "current_pointers": {
@@ -3860,7 +3994,7 @@
     "current_process_version": "0.1.0",
     "current_accepted_bmc": "docs/product/bmc/bmc-v0.2.md",
     "current_uat_state": "accepted_real_uat",
-    "current_main_commit": "0fd398698f9041e9e812f02609f9e6728e004518",
+    "current_main_commit": "698f5951d2acaa120dbb8abb83cedb98ae4de601",
     "current_release_evidence": "docs/release/mvp-release-evidence-pack.json"
   },
   "stale_status_checks": {

@@ -1,0 +1,154 @@
+{
+  "$schema": "schemas/visual-components-contract.schema.json",
+  "version": "1.3.0",
+  "status": "active",
+  "design_language": {
+    "source": "adapted-lisa-agent-factory-visual-grammar",
+    "principles": [
+      "Содержимое чата важнее декоративных элементов",
+      "Основное действие выделяется без чрезмерных градиентов и теней",
+      "Ошибки объясняют сохранённый контекст и доступное следующее действие",
+      "Красная точка не является единственным доступным обозначением нового события"
+    ]
+  },
+  "tokens": {
+    "colors": {
+      "canvas": "#F2F1F7",
+      "phone": "#FBFAFD",
+      "surface": "#FFFFFF",
+      "surface_soft": "#F8F7FA",
+      "text": "#1B1B23",
+      "text_muted": "#65616D",
+      "border": "#E5E1E9",
+      "accent": "#FF8A3D",
+      "accent_end": "#FF5F9E",
+      "accent_lilac": "#C76BD6",
+      "accent_dark": "#1B1B23",
+      "accent_soft": "#FFEDE0",
+      "glow_peach": "#FFD9B8",
+      "glow_lilac": "#E6D9FB",
+      "success": "#287A58",
+      "warning": "#9A5B16",
+      "error": "#A93A4A",
+      "notification": "#D9253A",
+      "focus": "#135FB8"
+    },
+    "radii_px": {
+      "phone": 48,
+      "card": 22,
+      "button": 18,
+      "pill": 999
+    },
+    "spacing_px": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32
+    ],
+    "font": {
+      "family": "Noto Sans",
+      "body_px": 16,
+      "secondary_px": 14,
+      "title_px": 22,
+      "button_px": 16,
+      "body_weight": 400,
+      "strong_weight": 700
+    }
+  },
+  "layout": {
+    "phone_max_width_px": 375,
+    "phone_max_height_px": 812,
+    "action_two_column_min_content_width_px": 356,
+    "minimum_target_px": 44,
+    "minimum_action_gap_px": 8,
+    "button_min_height_px": 54,
+    "whole_phone_transform_scale_allowed": false,
+    "vertical_scroll_regions": [
+      "chat",
+      "notifications-list"
+    ],
+    "horizontal_scroll_regions": [],
+    "desktop_shell_breakpoint_px": 1080,
+    "horizontal_overflow_tolerance_px": 1,
+    "intersection_tolerance_square_px": 1
+  },
+  "viewer": {
+    "slide_count": 3,
+    "aspect_ratio": "16:9",
+    "minimum_scale": 1,
+    "maximum_scale": 3,
+    "double_tap_scale": 2,
+    "reset_transform_on_slide_change": true,
+    "reset_transform_on_open": true,
+    "fixed_toolbar": true,
+    "fixed_actions": true
+  },
+  "motion": {
+    "clock_overlay": {
+      "start_time": "13:24",
+      "end_time": "13:44",
+      "starts_at_ms": 600,
+      "ends_at_ms": 7600,
+      "ready_at_ms": 8000,
+      "pointer_events": "none",
+      "reduced_motion_rotation": false
+    }
+  },
+  "accessibility": {
+    "standard": "WCAG 2.1 AA",
+    "axe_tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa"
+    ],
+    "notification_dot_aria_hidden": true,
+    "bell_accessible_name_unread": "Уведомления, одно новое",
+    "bell_accessible_name_read": "Уведомления",
+    "async_ready_live_region": "polite",
+    "dialog_escape_closes": true,
+    "dialog_focus_trap": true,
+    "viewer_close_restores_focus": true,
+    "viewer_close_restores_scroll": true,
+    "minimum_text_contrast_ratio": 4.5,
+    "minimum_large_text_contrast_ratio": 3
+  },
+  "capture_stability": {
+    "notification_card_boundary": "solid-border",
+    "compositor_dependent_inset_shadow_allowed": false
+  },
+  "components": [
+    {
+      "id": "lisa-phone-shell",
+      "source_svg": "components/lisa-phone-shell.svg",
+      "role": "presentation",
+      "usage": "rendered-in-html"
+    },
+    {
+      "id": "lisa-notification-bell",
+      "source_svg": "components/lisa-notification-bell.svg",
+      "role": "img",
+      "usage": "rendered-in-html"
+    },
+    {
+      "id": "lisa-presentation-card",
+      "source_svg": "components/lisa-presentation-card.svg",
+      "role": "img",
+      "usage": "reference-only"
+    }
+  ],
+  "svg_security_limits": {
+    "component_max_bytes": 262144,
+    "library_max_bytes": 1048576,
+    "max_nodes": 500,
+    "max_depth": 16,
+    "single_path_data_max_chars": 25000,
+    "total_path_data_max_chars": 200000,
+    "view_box_axis_max": 4096,
+    "parse_timeout_ms": 5000,
+    "memory_limit_mib": 256
+  }
+}

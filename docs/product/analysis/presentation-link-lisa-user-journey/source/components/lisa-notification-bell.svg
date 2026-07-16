@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" role="img" aria-labelledby="title desc">
+  <title id="title">Уведомления Лисы</title>
+  <desc id="desc">Новый компонент DataCanvas: колокольчик центра уведомлений.</desc>
+  <path d="M6 9A6 6 0 0 1 18 9V13L20 16H4L6 13V9Z" fill="none" stroke="#201F25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 19H14" fill="none" stroke="#201F25" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

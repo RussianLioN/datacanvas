@@ -9050,6 +9050,379 @@
       ],
       "redaction_status": "metadata_only",
       "update_trigger": "Любое байтовое изменение любого разрешенного входного документа или производного файла."
+    },
+    {
+      "id": "ART-828",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав пакета пользовательского пути, подтверждение владельца или профиль проверки меняются."
+    },
+    {
+      "id": "ART-829",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
+      "type": "research",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав доноров, закреплённые SHA, права использования или решение владельца меняются."
+    },
+    {
+      "id": "ART-830",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "type": "product-analysis",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состояния, переходы, ошибки или открытые решения пользовательского пути меняются."
+    },
+    {
+      "id": "ART-831",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "type": "interface-contract",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состояния, действия, переходы или правила прототипа меняются."
+    },
+    {
+      "id": "ART-832",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/journey-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-833",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/frame-contract.json",
+      "type": "visual-contract",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Размеры кадров, безопасные области, геометрия телефона или правила размещения меняются."
+    },
+    {
+      "id": "ART-834",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/frame-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-835",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
+      "type": "visual-contract",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав синтетической презентации, слайды или действия просмотра меняются."
+    },
+    {
+      "id": "ART-836",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-preview-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-837",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "type": "generator-contract",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав выпуска, происхождение, разрешения, команды генерации или проверки меняются."
+    },
+    {
+      "id": "ART-838",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/prototype-package-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-839",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
+      "type": "provenance-manifest",
+      "owner_role": "Documentation Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Исходный HTML-донор, контрольная сумма или правила очистки синтетических данных меняются."
+    },
+    {
+      "id": "ART-840",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/source-fixture-manifest.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-841",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
+      "type": "visual-contract",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "SVG-компоненты, их назначение, происхождение или участие в HTML меняются."
+    },
+    {
+      "id": "ART-842",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/visual-components-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-843",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+      "type": "html-prototype",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/generate-presentation-link-lisa-user-journey.mjs",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Канонические договоры, исходные компоненты или генератор HTML меняются."
+    },
+    {
+      "id": "ART-844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
+      "type": "generated-manifest",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "generated_from": [
+        "scripts/generate-presentation-link-lisa-user-journey.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав состояний, прямые ссылки или проекция производных кадров меняются."
+    },
+    {
+      "id": "ART-845",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+      "type": "generated-manifest",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/generate-presentation-link-lisa-user-journey.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Любой исходный файл, производный кадр, команда генерации или размер выпуска меняются."
+    },
+    {
+      "id": "ART-846",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+      "type": "browser-evidence",
+      "owner_role": "QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+        "tests/presentation-link-lisa-user-journey.browser.spec.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "HTML, браузеры, размеры окна, доступность, геометрия или снимки меняются."
+    },
+    {
+      "id": "ART-847",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
+      "type": "acceptance-evidence",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Подтверждение владельца, контрольные суммы, ограничения инструментов или итог проверок меняются."
+    },
+    {
+      "id": "ART-848",
+      "path": "scripts/generate-presentation-link-lisa-user-journey.mjs",
+      "type": "generator",
+      "owner_role": "Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-849",
+      "path": "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+      "type": "generator",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-850",
+      "path": "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+      "type": "evidence-generator",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-851",
+      "path": "scripts/lib/presentation-link-lisa-user-journey.mjs",
+      "type": "generator-library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-852",
+      "path": "scripts/lib/presentation-link-lisa-html-runtime.mjs",
+      "type": "generator-library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-853",
+      "path": "scripts/validate-presentation-link-lisa-user-journey.mjs",
+      "type": "validator",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-854",
+      "path": "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
+      "type": "validator",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-855",
+      "path": "tests/presentation-link-lisa-user-journey.test.mjs",
+      "type": "test",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-856",
+      "path": "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
+      "type": "test",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-857",
+      "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
+      "type": "browser-test",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-858",
+      "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
+      "type": "test-configuration",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
     }
   ]
 }

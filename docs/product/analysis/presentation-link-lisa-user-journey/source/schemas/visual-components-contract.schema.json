@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-components-contract.schema.json",
+  "title": "Контракт визуальных компонентов Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "design_language",
+    "tokens",
+    "layout",
+    "viewer",
+    "motion",
+    "accessibility",
+    "capture_stability",
+    "components",
+    "svg_security_limits"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": "1.3.0"
+    },
+    "status": {
+      "type": "string"
+    },
+    "design_language": {
+      "type": "object"
+    },
+    "tokens": {
+      "type": "object"
+    },
+    "layout": {
+      "type": "object",
+      "required": [
+        "phone_max_width_px",
+        "phone_max_height_px",
+        "action_two_column_min_content_width_px",
+        "minimum_target_px",
+        "minimum_action_gap_px",
+        "whole_phone_transform_scale_allowed",
+        "vertical_scroll_regions",
+        "horizontal_scroll_regions"
+      ]
+    },
+    "viewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slide_count",
+        "aspect_ratio",
+        "minimum_scale",
+        "maximum_scale",
+        "double_tap_scale",
+        "reset_transform_on_slide_change",
+        "reset_transform_on_open",
+        "fixed_toolbar",
+        "fixed_actions"
+      ],
+      "properties": {
+        "slide_count": {
+          "const": 3
+        },
+        "aspect_ratio": {
+          "const": "16:9"
+        },
+        "minimum_scale": {
+          "const": 1
+        },
+        "maximum_scale": {
+          "const": 3
+        },
+        "double_tap_scale": {
+          "const": 2
+        },
+        "reset_transform_on_slide_change": {
+          "const": true
+        },
+        "reset_transform_on_open": {
+          "const": true
+        },
+        "fixed_toolbar": {
+          "const": true
+        },
+        "fixed_actions": {
+          "const": true
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clock_overlay"
+      ],
+      "properties": {
+        "clock_overlay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start_time",
+            "end_time",
+            "starts_at_ms",
+            "ends_at_ms",
+            "ready_at_ms",
+            "pointer_events",
+            "reduced_motion_rotation"
+          ],
+          "properties": {
+            "start_time": {
+              "const": "13:24"
+            },
+            "end_time": {
+              "const": "13:44"
+            },
+            "starts_at_ms": {
+              "const": 600
+            },
+            "ends_at_ms": {
+              "const": 7600
+            },
+            "ready_at_ms": {
+              "const": 8000
+            },
+            "pointer_events": {
+              "const": "none"
+            },
+            "reduced_motion_rotation": {
+              "const": false
+            }
+          }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "required": [
+        "standard",
+        "axe_tags",
+        "viewer_close_restores_focus",
+        "viewer_close_restores_scroll"
+      ]
+    },
+    "capture_stability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "notification_card_boundary",
+        "compositor_dependent_inset_shadow_allowed"
+      ],
+      "properties": {
+        "notification_card_boundary": {
+          "const": "solid-border"
+        },
+        "compositor_dependent_inset_shadow_allowed": {
+          "const": false
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "source_svg",
+          "role",
+          "usage"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "source_svg": {
+            "type": "string",
+            "pattern": "^components/[a-z0-9-]+\\.svg$"
+          },
+          "role": {
+            "type": "string"
+          },
+          "usage": {
+            "enum": [
+              "rendered-in-html",
+              "reference-only"
+            ]
+          }
+        }
+      }
+    },
+    "svg_security_limits": {
+      "type": "object"
+    }
+  }
+}

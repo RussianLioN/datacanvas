@@ -1,0 +1,282 @@
+{
+  "$schema": "schemas/frame-contract.schema.json",
+  "version": "1.1.0",
+  "status": "active",
+  "canonical_viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "regions": [
+    {
+      "id": "phone-shell",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "viewport",
+      "intersection_group": "shell"
+    },
+    {
+      "id": "header",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "phone-shell",
+      "intersection_group": "fixed-ui"
+    },
+    {
+      "id": "chat",
+      "scroll_axis": "vertical",
+      "overflow_allowed": true,
+      "clipping_owner": "phone-shell",
+      "return_anchor": "presentation-ready-card",
+      "intersection_group": "content"
+    },
+    {
+      "id": "notifications-list",
+      "scroll_axis": "vertical",
+      "overflow_allowed": true,
+      "clipping_owner": "phone-shell",
+      "return_anchor": "notification-item",
+      "intersection_group": "content"
+    },
+    {
+      "id": "composer",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "phone-shell",
+      "intersection_group": "fixed-ui"
+    },
+    {
+      "id": "time-lapse-overlay",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "phone-shell",
+      "intersection_group": "overlay"
+    },
+    {
+      "id": "viewer-surface",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "phone-shell",
+      "intersection_group": "viewer"
+    },
+    {
+      "id": "viewer-toolbar",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "viewer-surface",
+      "intersection_group": "fixed-ui"
+    },
+    {
+      "id": "viewer-stage",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "viewer-surface",
+      "intersection_group": "content"
+    },
+    {
+      "id": "viewer-actions",
+      "scroll_axis": "none",
+      "overflow_allowed": false,
+      "clipping_owner": "viewer-surface",
+      "intersection_group": "fixed-ui"
+    }
+  ],
+  "allowed_overlaps": [
+    {
+      "id": "notification-dot-on-bell",
+      "source_component": "notification-dot",
+      "target_component": "notification-bell",
+      "maximum_overlap_square_px": 196
+    }
+  ],
+  "frames": [
+    {
+      "state_id": "lisa-materials-ready",
+      "region_id": "chat",
+      "action_ids": [
+        "edit-materials",
+        "email-materials",
+        "order-presentation"
+      ]
+    },
+    {
+      "state_id": "lisa-materials-email-sent",
+      "region_id": "chat",
+      "action_ids": [
+        "order-presentation"
+      ]
+    },
+    {
+      "state_id": "lisa-presentation-order-submitting",
+      "region_id": "chat",
+      "action_ids": []
+    },
+    {
+      "state_id": "lisa-presentation-order-failed",
+      "region_id": "chat",
+      "action_ids": [
+        "retry-order",
+        "return-to-materials"
+      ]
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "region_id": "chat",
+      "action_ids": []
+    },
+    {
+      "state_id": "lisa-presentation-ready-unread",
+      "region_id": "chat",
+      "action_ids": [
+        "open-result-from-chat"
+      ]
+    },
+    {
+      "state_id": "lisa-notifications-list-empty",
+      "region_id": "notifications-list",
+      "action_ids": [
+        "close-notifications-empty"
+      ]
+    },
+    {
+      "state_id": "lisa-notifications-list-unread",
+      "region_id": "notifications-list",
+      "action_ids": [
+        "open-notification-unread",
+        "close-notifications-unread"
+      ]
+    },
+    {
+      "state_id": "lisa-notification-detail-unread",
+      "region_id": "notifications-list",
+      "action_ids": [
+        "open-result-from-notification",
+        "close-notifications-unread"
+      ]
+    },
+    {
+      "state_id": "lisa-notifications-list-read",
+      "region_id": "notifications-list",
+      "action_ids": [
+        "open-notification-read",
+        "close-notifications-read"
+      ]
+    },
+    {
+      "state_id": "lisa-notification-detail-read",
+      "region_id": "notifications-list",
+      "action_ids": [
+        "open-result-from-notification",
+        "close-notifications-read"
+      ]
+    },
+    {
+      "state_id": "lisa-result-view-from-chat",
+      "region_id": "viewer-surface",
+      "action_ids": [
+        "close-result",
+        "email-presentation"
+      ]
+    },
+    {
+      "state_id": "lisa-result-view-from-notification",
+      "region_id": "viewer-surface",
+      "action_ids": [
+        "close-result",
+        "email-presentation"
+      ]
+    },
+    {
+      "state_id": "lisa-returned-to-chat",
+      "region_id": "chat",
+      "action_ids": [
+        "open-result-from-chat",
+        "email-presentation"
+      ]
+    },
+    {
+      "state_id": "lisa-presentation-email-submitting",
+      "region_id": "chat",
+      "action_ids": []
+    },
+    {
+      "state_id": "lisa-presentation-email-sent",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-presentation-email-partial-failure",
+      "region_id": "chat",
+      "action_ids": [
+        "retry-failed-attachment",
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-presentation-email-failed",
+      "region_id": "chat",
+      "action_ids": [
+        "retry-email",
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-result-not-ready",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-generation"
+      ]
+    },
+    {
+      "state_id": "lisa-link-invalid",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-link-expired",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-access-denied",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-offline",
+      "region_id": "chat",
+      "action_ids": [
+        "retry-open-result",
+        "return-to-ready"
+      ]
+    },
+    {
+      "state_id": "lisa-notification-failed-chat-available",
+      "region_id": "chat",
+      "action_ids": [
+        "open-result-from-chat"
+      ]
+    },
+    {
+      "state_id": "lisa-result-cancelled",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-materials"
+      ]
+    },
+    {
+      "state_id": "lisa-result-revoked",
+      "region_id": "chat",
+      "action_ids": [
+        "return-to-materials"
+      ]
+    }
+  ]
+}

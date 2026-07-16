@@ -1,0 +1,6338 @@
+{
+  "browser_versions": {
+    "chromium": "149.0.7827.55",
+    "webkit": "26.5"
+  },
+  "capture_stabilization": {
+    "browser_launch_args": [],
+    "explicit_screenshot_style_parameter_used": false,
+    "focus_policy": "capture-mode-suppress-then-blur-active-element",
+    "playwright_internal_style_attempt_blocked_by_csp": true,
+    "scroll_policy": "restore-marked-end-after-fonts",
+    "settle_animation_frames": 2,
+    "wait_for_document_fonts": true
+  },
+  "deterministic_epoch": "2026-07-16T00:00:00Z",
+  "network_policy": {
+    "blocked_before_send": true,
+    "external_protocols": [
+      "http",
+      "https",
+      "ws",
+      "wss"
+    ],
+    "publication_requires_zero_attempts": true
+  },
+  "playwright_version": "1.61.1",
+  "renderer": "rsvg-convert version 2.61.3\n\nlibraries used:\n  cairo 1.18.4\n  pango 1.57.0\n  harfbuzz 12.3.2\n  fontconfig 2.17.1",
+  "screenshot_count": 108,
+  "screenshots": [
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 65354,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "bf38da000dcbe72e2e947df93747b4c2134a082c0f5ea76bb081a13e11cbb5bb",
+      "state_id": "lisa-materials-ready",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 51994,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-materials-email-sent.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "8ec95d9679ebcee7fc78df664f71661b794fecdf764ae5090e70c3318d01f8fa",
+      "state_id": "lisa-materials-email-sent",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 39563,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-order-submitting.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "341ded25d2ed95ae040170efff197bd8c50b60061e5a6fa20594731c8da31a0c",
+      "state_id": "lisa-presentation-order-submitting",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 52182,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-order-failed.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "0eed370fe8f2364da9d894a3ee4ca4a88baa4b3a0ffc00a4fd1e6ae667052172",
+      "state_id": "lisa-presentation-order-failed",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 52188,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "2064be59ddcadc8f217ecefdba019c44e84508301dce99ccca182b1336456d45",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 59623,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "f935b0b19aa810cf64d9f7b3b5f7a7d84f50e42676715627acea74378961bd31",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 20897,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "6d3431433e62f9428b3d73b357c6c0268ad0ad613d0911cb55c98ec5feecb933",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 25763,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "4e4c3b06bed5d74b4385388830bb2992d6f1724069fe1f1ec02e0b5d9dfd98f8",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 38941,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "6133543534722b8a89ef6feedcba55b203ec5eecb2ae9090d80664cdec0b6e53",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 25704,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notifications-list-read.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "d2ff427f21dd4ad7550c21c7ee83c00ce64bb4590dcdf5f2d33b861fc6a982db",
+      "state_id": "lisa-notifications-list-read",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 41178,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "9635a5a6a194413158fd75c41102b1b8e44824de40d6d97ee3cf9fbe1cfaffb9",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 100082,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-result-view-from-chat.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "dc64369a3942b7dbb098cffbd8c1fd80676896b5a6429287137ad5e308a2a531",
+      "state_id": "lisa-result-view-from-chat",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 100082,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "dc64369a3942b7dbb098cffbd8c1fd80676896b5a6429287137ad5e308a2a531",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 66696,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "64fff2cb465ac2f48c42089a2755874b4f7299e2cbf2669d1f2d00079004dadc",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 59788,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-email-submitting.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "f4b89a270ec3671b2de2b269c18a3ed892cdf248d50c9a6fb62faa16c734a38f",
+      "state_id": "lisa-presentation-email-submitting",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 57015,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "90dbd0ab3d7c6c31b666aa6cf523429e4795b82c81d8740b6e653b0bead017cc",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 67153,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-email-partial-failure.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "e42673e9d77424afdb619adecb90f620d3e166197efc9f32babe62b302facd6b",
+      "state_id": "lisa-presentation-email-partial-failure",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 63309,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-presentation-email-failed.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "d8c6ebb5999ffa0774262902323861d0497fa73be32f16fe9e45ef187100f42b",
+      "state_id": "lisa-presentation-email-failed",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 34306,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-result-not-ready.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "ea2015ac740ada702181e116edf422e12f4691579d9676f1c1332b81b46dba2f",
+      "state_id": "lisa-result-not-ready",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36482,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-link-invalid.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "eae1b9ccf397319c956c0d16e7ee668eefb219bdd1d8fc2abd1aca06c6e91f9f",
+      "state_id": "lisa-link-invalid",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36873,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-link-expired.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "ff10c993832b6f9ae61dfb1ac7b26ca9f12cd8d180fef9f6deb780252397d7bb",
+      "state_id": "lisa-link-expired",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36850,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-access-denied.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "12dffff46900203868db683c9a6de77847d30fe9f70f7c2e512a2c630153c31c",
+      "state_id": "lisa-access-denied",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 43308,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-offline.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "3dc121ceae4d42caa0b70be5af0df48e1083d0e285fe1b28984df5ca58da14ac",
+      "state_id": "lisa-offline",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 35696,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-notification-failed-chat-available.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "e8f507737c6c333a53c853483611a49b1360c3cfd7d76981fe3a2f12f645e71b",
+      "state_id": "lisa-notification-failed-chat-available",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 34025,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-result-cancelled.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "3eb38f7f2203e91dff30e9cb85f6dffc83c5eac0b17f085d750d7700992ac985",
+      "state_id": "lisa-result-cancelled",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36355,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/desktop-1280x720/lisa-result-revoked.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "0385fdaf413bd7ebc7e05d28d24571e900ff9ae9298ffbb484a84af86d777bf4",
+      "state_id": "lisa-result-revoked",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 76031,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "d0ae6733f3c5116d927517bec590ff35b21c3d0965b09c73efc0f6365467fed0",
+      "state_id": "lisa-materials-ready",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 52543,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-materials-email-sent.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "8fc0383a8201b98a82199d307366c995a5d5715757c92c44b41445816ee8a157",
+      "state_id": "lisa-materials-email-sent",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 39803,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-order-submitting.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "83f9686af8a5bdf5db5d4527a2a54cbe81d16ec82a1cf530c4daddfc7727c04a",
+      "state_id": "lisa-presentation-order-submitting",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 52845,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-order-failed.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "d060aa3ab1782d9769e2296541e1fd92dd9ba03a130c231a43414b1942c0389b",
+      "state_id": "lisa-presentation-order-failed",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 55568,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "b39d77b235af69bb1901b8180f97eddf6248e40018d704ac7d1cb1751932567f",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 60244,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "bb99ffb32b6647c77eda90c97223c83e77bdcd5af8308f56bd12e9ad171f4c52",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 20543,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "d6d99676cbee078d5aec5de29f7c08c4edb2fe3cbac53c88201469ecacb2168b",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 25443,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "22d96c03ccd231727b91732ec5b854268588f1a5217ddeb71f12751238e8c8ef",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 39041,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "af11f4a83a6b50d32bfbd0342bf495760951cf07deaaa5a295897e9133269178",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 25430,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notifications-list-read.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "33354be4619bfeaf3a573ff8c483765d1531148ae84e2870e6413a1795e9b15b",
+      "state_id": "lisa-notifications-list-read",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 41664,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "8e66253a7b0c2d3bb9ab4b756051d2c33c66185bf832cba52365931614adf781",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 109367,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-result-view-from-chat.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "7f41613c0eec4d8262e10588591b1dcee9bf4fc51c12ec963c022c988e0c99b3",
+      "state_id": "lisa-result-view-from-chat",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 109367,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "7f41613c0eec4d8262e10588591b1dcee9bf4fc51c12ec963c022c988e0c99b3",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 74279,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "69c7df5008c0c42c609a2b840ea0be6140f05dc05134bfcb8b2062da7377a896",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 70978,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-email-submitting.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "1bfeefe2de0a9abe601ae89c9e40e9f0e69b048c3e590cd4ffe1145694661da3",
+      "state_id": "lisa-presentation-email-submitting",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 69634,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "bc5e68aee7482356c12ab0e5eb8d4f53fafe609427213bd43ffe2f8dc46e30bb",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 74501,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-email-partial-failure.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "e3fb95d5907ec9afa366cd5bb1d93c87020a24039868f3a5f5cc6de9a4254847",
+      "state_id": "lisa-presentation-email-partial-failure",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 70705,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-presentation-email-failed.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "a59077b4802abc51592ec74865d6a8458bf3821e1cfddac60950d0195749a7ea",
+      "state_id": "lisa-presentation-email-failed",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 34402,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-result-not-ready.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "d6b286eece04e962aa0e095492c6a7b12656c31139229e01ad120c8bd508d430",
+      "state_id": "lisa-result-not-ready",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36401,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-link-invalid.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "61cbc06ddf826069cf4ad3d03615074112e5b4fdd1c9aaba4682ed7e491ef2cf",
+      "state_id": "lisa-link-invalid",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36851,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-link-expired.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "5eaa61d53e5ddd367014d8d9d3b7fd27aede1fb6d1867fc144760a48e6e07fce",
+      "state_id": "lisa-link-expired",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36731,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-access-denied.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "bdbc65cbe155f19a64adbcb3f54a0226ce35a325d2696eee5f743dd3a3434308",
+      "state_id": "lisa-access-denied",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 43755,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-offline.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "e17f5678258a707df6e7349322a45b5af448ef991c15d2a35b6a4a92bff55ab4",
+      "state_id": "lisa-offline",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 35923,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-notification-failed-chat-available.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "e700be625d5ca34b90158cfb4bc89b02f9878b9fc3bf6c52f602b9d24c5200e5",
+      "state_id": "lisa-notification-failed-chat-available",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 34222,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-result-cancelled.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "a1b389f2bbf2f56e54b99eeb8df64bd67bf3ed7e484b827123687eb60d48c360",
+      "state_id": "lisa-result-cancelled",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36337,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/mobile-390x844/lisa-result-revoked.png",
+      "png_dimensions": {
+        "height": 812,
+        "width": 374
+      },
+      "sha256": "81416982983766f6ce59b37674571e323d76005fee3bfa1091ed27acb9e9dddd",
+      "state_id": "lisa-result-revoked",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 41929,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "9e25ccdd4d24135b0271c75e0ae1a67057fb6b080b47b76548e3b9e279fdc9c7",
+      "state_id": "lisa-materials-ready",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 48662,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-materials-email-sent.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "8933ec2d5759d51ed083dd9d6c083edefb7262501b9f7f78b67592b5d42cd205",
+      "state_id": "lisa-materials-email-sent",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 36597,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-order-submitting.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "aa0e4d595de5ee231f4efcf687eb29bd8362be6a438c8d049cf29209bc47084c",
+      "state_id": "lisa-presentation-order-submitting",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 46384,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-order-failed.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "b52dc40f88256b22bb2e0558dab1735888e90d52e5f4283138afdf2c3179e829",
+      "state_id": "lisa-presentation-order-failed",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 46986,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "12e1fb800437426979cf9a7b043d5a4cad449f1f47332ccb3f2f91d5acda8e03",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 42367,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "1d74e37a07d57d2ee003c5b61b7e4e195704c93af9febe3b5c3762aeb5afc0dc",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 18032,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "4c5c97c868257328ae77257945fd86f1eaa7422d37e8a1c3b0564bfa8cad8464",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 22674,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "55958a1439b0460c753dc064f6568e30dfd0d06caffe091426916a161841e671",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 35490,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "38de737f9dcf43f4f19607723ea911c3c4707572d2087b1ce0b28f27c5a42a42",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 22633,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notifications-list-read.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "a978e1c98147d6932343f280c0fbea8e6b0bdd2adb260425daebe516e3c86f8f",
+      "state_id": "lisa-notifications-list-read",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 37903,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "e30771cb4036a3ea52e95aa9ca367f93d64bae5af75fc209c8448a859e57803a",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 68220,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-result-view-from-chat.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "3d3274f0d2a045dc69fa7983729e23b15a9766b314019208a6dcf062929de33c",
+      "state_id": "lisa-result-view-from-chat",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 68220,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "3d3274f0d2a045dc69fa7983729e23b15a9766b314019208a6dcf062929de33c",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 47339,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "cd8aa9a4ff060c77846514321382b44018294aac042f5ebc5ce5acc4373b5e38",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 42756,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-email-submitting.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "ae8c58ba7ce3a2024210c760a1ca38930fa48086f05fed1880d848d5a14b91b9",
+      "state_id": "lisa-presentation-email-submitting",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 38072,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "92457c17dc424a6e1c2f9bc6731b72bf952826f7adbe3d76ba0aff0ff0bb1533",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 46517,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-email-partial-failure.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "6ddec14aeca98512ed610979b701bc6e8c9445a4145cebb8dbce3c86788b6f7c",
+      "state_id": "lisa-presentation-email-partial-failure",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 44111,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-presentation-email-failed.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "c6b96b24f077d1d6a1237635da17bca4acb6d9832d3154feef203fbc57ce5ab9",
+      "state_id": "lisa-presentation-email-failed",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 31850,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-result-not-ready.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "af989bf92fef673d0d90f3f4a560f6a00a32308f3b296e8e8ac8558ae1e61309",
+      "state_id": "lisa-result-not-ready",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 33706,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-link-invalid.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "ae271f6c8fc27baceb8d54b0fcbfd42a342ff9d57bf1af799dcfa6c2545f9f80",
+      "state_id": "lisa-link-invalid",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 33712,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-link-expired.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "afdf022933c8e9fe4614b2f7f6bb41ac913c21fbec8f6faa04cbd6b0c0250654",
+      "state_id": "lisa-link-expired",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 34731,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-access-denied.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "1f6be3f540cff0a8b9b697a49f84c1b41d6aea05de90a950e0746f608af527aa",
+      "state_id": "lisa-access-denied",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 39972,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-offline.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "6d930e2e79d68e1ef7abbe7f1db305d082ee6e6c42044e2ae9f25e9640899f15",
+      "state_id": "lisa-offline",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 33294,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-notification-failed-chat-available.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "7b9640908628d7cdd25c5049e1907df14cb59aeef284213ad961ed1b585a99f2",
+      "state_id": "lisa-notification-failed-chat-available",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 31138,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-result-cancelled.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "067cd2a6a4fed47c38fc6a12c96c5bfc93f7a7f2a8394ae8f71f74fa7fd1a84b",
+      "state_id": "lisa-result-cancelled",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "chromium",
+      "browser_version": "149.0.7827.55",
+      "bytes": 33497,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Connecting to '[локальный-ресурс]' violates the following Content Security Policy directive: \"connect-src 'none'\". The action has been blocked."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/chromium/stress-320x568/lisa-result-revoked.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "d497f41a74012b741ef3560b828cf8a0dee1729b4f56be99335619f7e2c6cb11",
+      "state_id": "lisa-result-revoked",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 96536,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "7d0982a82432a777409901213968bea90bff51754b4bba410fe6e0b8c70ab860",
+      "state_id": "lisa-materials-ready",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 71846,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "ff24b87c14ce5e9b7298e8b20f1e00f817dd854c3c9809096178f093b5fb974c",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 78775,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "913dd9d0ea271c03ae7bba5af6522bc66de6ef4bdd4cf6aeb59e5a44b09eb882",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 29215,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "b68228c9173b477ffe58951236d854a0a3572405b9ef618783b2365234cd2226",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 34703,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "a94745862cb501e7d2300264c1bafb02298c7ddcab3b5212d67da7848ab893a9",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 64713,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "5fd12a1a03a64356c5bdc221123c91a6d846c252d3e11a83e07af9d67a606281",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 67540,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "9bd33128b1e547f58e9164f1cef21f7b1252a3824d1146bff751483a69f3f874",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 173216,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "72287286af47c6d515297fa506663293272b90dbd095a8c4f771fc741c5fa110",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 101856,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "08f998b3ea36da7db21e5191eb9ca416ac0dffda6dca21f3d31989eba7dd0067",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 73327,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 1280,
+          "passed": true,
+          "phone_height": 704,
+          "phone_inside_viewport": true,
+          "phone_width": 375,
+          "viewport_width": 1280
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 704,
+        "width": 376
+      },
+      "sha256": "c2c7ff4a4d14373cc2ab21008c04622e10521a83d55becfdce3b89cb5b545a22",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "desktop-1280x720",
+      "viewport_dimensions": {
+        "height": 720,
+        "width": 1280
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 109191,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "a69e67838fe48945cc12b4850c032afcc8e7229e3fc57c870eb644c2404168e6",
+      "state_id": "lisa-materials-ready",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 75287,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "9d3d713ae88436aa1b0c6349ee690d250fcf7c611b57a25b11856defa566c676",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 78765,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "9a96ba94078b970019f42507618d6765e8880245a480fc75555fff71c7c93538",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 29963,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "44e768a240d7c1750eaf44d835e88bd0838bc2bca3454e80eb5a8c070124ad43",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 34731,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "4cab54c4957bb94cae27fb0a49717f6b66702bdc148ccadd0f033b21b523e2b5",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 64263,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "2ea0196c74d5dcccda1407b00f319b28a299d6d8ab37b7c2e891c8a38bbd28fd",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 67379,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "84717954a715aa2a90d57a452a5ec2e129b244dfa82f30dac52297862f57e5e5",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 203950,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "66f379ba0779df6e6855d8d2b59f005e241b9d416681d74a1377b36d06c2602f",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 109151,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "a60a55c61e12139506f282626dafb1bc7fadfaf5cd0cb3abe498ce4d732a8d19",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 87550,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 390,
+          "passed": true,
+          "phone_height": 812,
+          "phone_inside_viewport": true,
+          "phone_width": 374,
+          "viewport_width": 390
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/mobile-390x844/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 813,
+        "width": 374
+      },
+      "sha256": "880854f78874b48be47c06e10010643716bf7bef98adebc7bb7690be82ceca5d",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "mobile-390x844",
+      "viewport_dimensions": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 64641,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 4,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-materials-ready.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "3265227d0a3418a15eecb6be698720bae2d64440fa68f4d996545a3e6828fe60",
+      "state_id": "lisa-materials-ready",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 63474,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 1,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-presentation-generating.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "85fee3ab9223fff800020d741acf104674ff48c3b356582d0cd5b0c3dd2a8b74",
+      "state_id": "lisa-presentation-generating",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 53914,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-presentation-ready-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "bad64db63122dcbf2a8862e22ca4172ebc118e68d845788b1b202e48b58967d9",
+      "state_id": "lisa-presentation-ready-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 24510,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-notifications-list-empty.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "acbd8d73a2583fbb2b584505bb912bc2f9c966b5e9116f547009bb782e0258ab",
+      "state_id": "lisa-notifications-list-empty",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 29292,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-notifications-list-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "64338c594d707809b0c7af0f9e06a5609cc1af50ad920dd76f1a9cf704f18059",
+      "state_id": "lisa-notifications-list-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 53652,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-notification-detail-unread.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "1747be5c5948ffb78153a9d9004e8f12f976fdc41600fe6ba30cf0cb9205ab04",
+      "state_id": "lisa-notification-detail-unread",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 56225,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-notification-detail-read.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "1b6fc4bce4177f1551fadbbfd3d460c8254a15a497ef3c637a1e5782ad75a50b",
+      "state_id": "lisa-notification-detail-read",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 119654,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 5,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-result-view-from-notification.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "29e3cfc88823106e1cd229636d8bd8f128e487bf05cc89f021f39eb047f8c2e2",
+      "state_id": "lisa-result-view-from-notification",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 69863,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 3,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-returned-to-chat.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "f19fff0708b863c41eef3c82530692530c164f20c62e6082abbe0e7defed9704",
+      "state_id": "lisa-returned-to-chat",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    },
+    {
+      "browser": "webkit",
+      "browser_version": "26.5",
+      "bytes": 49464,
+      "checks": {
+        "accessibility": {
+          "axe_violation_count": 0,
+          "axe_violations": [],
+          "passed": true
+        },
+        "actions": {
+          "action_count": 2,
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "console_errors": [],
+        "geometry": {
+          "document_scroll_width": 320,
+          "passed": true,
+          "phone_height": 552,
+          "phone_inside_viewport": true,
+          "phone_width": 304,
+          "viewport_width": 320
+        },
+        "network_attempts": [],
+        "overflow": {
+          "issues": [],
+          "passed": true,
+          "text_issue_count": 0
+        },
+        "page_errors": [],
+        "resources": {
+          "issue_count": 0,
+          "issues": [],
+          "passed": true
+        },
+        "tooling_console_messages": [
+          {
+            "classification": "playwright-webkit-screenshot-inline-style",
+            "message": "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy."
+          },
+          {
+            "classification": "axe-stylesheet-connect-src",
+            "message": "Refused to connect to [локальный-ресурс] because it does not appear in the connect-src directive of the Content Security Policy."
+          }
+        ]
+      },
+      "path": "evidence/screenshots/webkit/stress-320x568/lisa-presentation-email-sent.png",
+      "png_dimensions": {
+        "height": 552,
+        "width": 304
+      },
+      "sha256": "c27d0522af9c173fd329cf8ec0400568b4ca378a953d408eb36b1b43c23ff581",
+      "state_id": "lisa-presentation-email-sent",
+      "viewport": "stress-320x568",
+      "viewport_dimensions": {
+        "height": 568,
+        "width": 320
+      }
+    }
+  ],
+  "status": "generated",
+  "totals": {
+    "action_failures": 0,
+    "axe_violations": 0,
+    "chromium_screenshots": 78,
+    "console_errors": 0,
+    "geometry_failures": 0,
+    "network_attempts": 0,
+    "overflow_failures": 0,
+    "page_errors": 0,
+    "tooling_console_messages": 138,
+    "webkit_screenshots": 30
+  },
+  "version": "2.1.0",
+  "viewports": [
+    {
+      "height": 720,
+      "id": "desktop-1280x720",
+      "width": 1280
+    },
+    {
+      "height": 844,
+      "id": "mobile-390x844",
+      "width": 390
+    },
+    {
+      "height": 568,
+      "id": "stress-320x568",
+      "width": 320
+    }
+  ]
+}

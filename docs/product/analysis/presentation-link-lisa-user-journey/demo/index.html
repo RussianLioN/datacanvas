@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>Лиса — путь заказа презентации</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="demo-shell">
+      <section class="prototype-tools" aria-labelledby="tools-title">
+        <div>
+          <p class="tools-eyebrow">Проверяемый прототип DataCanvas</p>
+          <h1 id="tools-title">Путь заказа презентации в Лисе</h1>
+          <p>Выберите состояние или пройдите сценарий кнопками внутри телефона.</p>
+          <p id="prototype-review-status" class="review-status"></p>
+        </div>
+        <label for="state-select">Состояние</label>
+        <select id="state-select" aria-describedby="state-help"></select>
+        <p id="state-help">Адрес обновляется в формате <code>?state=...</code>.</p>
+      </section>
+      <section class="phone-stage" aria-label="Экран телефона Лисы">
+        <div id="phone-root"></div>
+      </section>
+      <p id="prototype-live-region" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+    </main>
+    <dialog id="materials-dialog" aria-labelledby="materials-dialog-title">
+      <form method="dialog">
+        <h2 id="materials-dialog-title">Редактирование материалов</h2>
+        <p>В промышленном сценарии здесь открывается редактор материалов вызывающего агента. В этом прототипе данные не изменяются.</p>
+        <button type="submit" class="button button-primary">Закрыть</button>
+      </form>
+    </dialog>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

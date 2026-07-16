@@ -1,0 +1,131 @@
+{
+  "browser_report": {
+    "path": "evidence/browser-report.json",
+    "sha256": "d1fa62c310e1be6548359736ce15b515e3a34296d7e47b0dd8c5b61a78c76c99"
+  },
+  "canonical_contracts": [
+    {
+      "path": "source/journey-contract.json",
+      "sha256": "c14fc2b0cc99d27508a3d2288a1e26392f2e788441d050388e8cc28f29d4464d"
+    },
+    {
+      "path": "source/source-fixture-manifest.json",
+      "sha256": "3b149d8d5a93aeaef42fa3b788261ab7ff3254746c468362ec26503fe8b1ae1c"
+    },
+    {
+      "path": "source/presentation-preview-contract.json",
+      "sha256": "3cffb9230335f6689dc799e0c6f337d36cc2d80eaa390f44e2cfcd00c1fa4605"
+    },
+    {
+      "path": "source/visual-components-contract.json",
+      "sha256": "7e416becce3d87b103808ec94f762f7ace07dd18845063b0399004c4191eb092"
+    },
+    {
+      "path": "source/frame-contract.json",
+      "sha256": "909a5b18cd86303bc99a0f256f54eddc57337f62aae3cb6fa425e58326e10ff6"
+    },
+    {
+      "path": "source/prototype-package-contract.json",
+      "sha256": "ac2326c24ea31a9c0fb23f9071c33a3e936f24e30e310f2c2548154a9207dc55"
+    }
+  ],
+  "commands": {
+    "update": "npm run update:presentation-link-lisa-user-journey:evidence",
+    "validate": "npm run validate:presentation-link-lisa-user-journey:evidence"
+  },
+  "deterministic_epoch": "2026-07-16T00:00:00Z",
+  "documentation": [
+    {
+      "path": "README.md",
+      "sha256": "dde2145a034f9d0caadb540d6e4db9f9a69024a6802b6d77e8a3b71e5c2ff502"
+    },
+    {
+      "path": "donor-options.md",
+      "sha256": "08b9cbb2a26e84d595184ad93ba45e4a1ac2f7a3f4f770b01fac96809c3b1404"
+    },
+    {
+      "path": "user-journey.md",
+      "sha256": "069adef3d1653aea1e282735f0e3831d087d0af2810f0a2b71c6a0e83f7c9572"
+    }
+  ],
+  "donor_operations": {
+    "write_operations_performed": false
+  },
+  "evidence_file_count": 110,
+  "evidence_toolchain": [
+    {
+      "path": "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+      "sha256": "66a7e512be228e11d1ddd82d3075b70318e66f284804d42d9f5509f778f3f885"
+    },
+    {
+      "path": "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
+      "sha256": "199f3d543fa6cc3268f9651a7c6907a21771f3de9e071702b728546f56abea76"
+    },
+    {
+      "path": "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
+      "sha256": "035cd6aff5074da1f132b44d42933cc457645217f6e94bf45234862d42c4a071"
+    },
+    {
+      "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
+      "sha256": "1af6dccc91a72e733d7c7692a26cf6f1e7c907001ca596add36e0cf3d080c3e0"
+    },
+    {
+      "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
+      "sha256": "71c38c6e71030b4c4352bcc96a585891dc3350b847a42fde986fe6201306366a"
+    }
+  ],
+  "html_files": [
+    {
+      "path": "demo/index.html",
+      "sha256": "996578956267e0c5faa5223323b87607cabe39b803c98dc7786f73a76f2d80ef"
+    },
+    {
+      "path": "demo/app.js",
+      "sha256": "10e94448995ce424ca1c765bb1398f4f446c34921ea7514b523596cd7ab45a96"
+    },
+    {
+      "path": "demo/styles.css",
+      "sha256": "a492beeb5b35ae61f77dc9fdc4c080aa6cb53c9b21679262e2b0087a3d026538"
+    },
+    {
+      "path": "demo/data.js",
+      "sha256": "3be165bd35a0ff9d74b5b080042d9ffd296b1210d1173f43ded4f310ca1daef7"
+    }
+  ],
+  "owner_approval": {
+    "journey_status": "owner-approved-prototype",
+    "playwright_substitution_confirmed": true,
+    "presentation_preview_status": "owner-approved-prototype"
+  },
+  "package_manifest": {
+    "path": "derived/prototype-package-manifest.json",
+    "sha256": "5aad7432178cc3fb695d76b0ed7c9e7c239fb8b836e1f963405cfc7445cb5fb9"
+  },
+  "result": "conditional_pass_with_tooling_limitation",
+  "rights": {
+    "external_distribution_requires_separate_review": true,
+    "restricted_source_assets": [
+      {
+        "license": "repository-license-not-found",
+        "origin_commit": "b5ad803b8826ec6487534c4c88d59a3c93f8be4b",
+        "origin_repository": "RussianLioN/AI-agent-platform",
+        "path": "source/components/lisa-phone-shell.svg",
+        "permission": "owner-explicit-svg-source-internal-adaptation-2026-07-16"
+      }
+    ]
+  },
+  "state_count": 26,
+  "status": "owner-approved-prototype",
+  "tooling": {
+    "chrome_devtools_mcp": {
+      "available": false,
+      "limitation": "Chrome DevTools MCP недоступен в текущем сеансе; это ограничение результата."
+    },
+    "playwright": {
+      "owner_approved_substitution": true,
+      "used": true,
+      "version": "1.61.1"
+    }
+  },
+  "version": "2.2.0"
+}

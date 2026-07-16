@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-fixture-manifest.schema.json",
+  "title": "Манифест исходных синтетических данных прототипа Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "source_file",
+    "source_sha256",
+    "normalized_material_sha256",
+    "data_classification",
+    "owner_permission",
+    "trust",
+    "copied_executable_code",
+    "active_external_links",
+    "external_source_occurrences",
+    "external_source_count"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/source-fixture-manifest.schema.json"
+    },
+    "version": {
+      "const": "1.0.0"
+    },
+    "source_file": {
+      "const": "lisa-prototype_7.html"
+    },
+    "source_sha256": {
+      "const": "d60267513a5d2081bcc5d9fb74305e8b7c4fa4edf82653423456537d809cd5ad"
+    },
+    "normalized_material_sha256": {
+      "const": "7676d6df83ce1df90d390f0e80741a480e586bb18da8593cebbf458986c2c3da"
+    },
+    "data_classification": {
+      "const": "synthetic"
+    },
+    "owner_permission": {
+      "const": "owner-approved-use-2026-07-16"
+    },
+    "trust": {
+      "const": "untrusted-data-only"
+    },
+    "copied_executable_code": {
+      "const": false
+    },
+    "active_external_links": {
+      "const": false
+    },
+    "external_source_occurrences": {
+      "const": 5
+    },
+    "external_source_count": {
+      "const": 4
+    }
+  }
+}

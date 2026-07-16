@@ -1,0 +1,502 @@
+{
+  "deterministic_epoch": "2026-07-16T00:00:00Z",
+  "generation": {
+    "capture_engine": "webkit",
+    "capture_normalization": {
+      "dimensions_unchanged": true,
+      "embedded_capture_equals_derived_png": true,
+      "mode": "lossless-rsvg-reencode"
+    },
+    "capture_stabilization": {
+      "browser_launch_args": [],
+      "explicit_screenshot_style_parameter_used": false,
+      "focus_policy": "capture-mode-suppress-then-blur-active-element",
+      "playwright_internal_style_attempt_blocked_by_csp": true,
+      "scroll_policy": "restore-marked-end-after-fonts",
+      "settle_animation_frames": 2,
+      "wait_for_document_fonts": true
+    },
+    "capture_transport": {
+      "external_network_requests_allowed": false,
+      "mode": "playwright-route-fulfilled-local-files",
+      "origin": "http://lisa.invalid",
+      "path_escape_blocked": true
+    },
+    "command": "npm run generate:presentation-link-lisa-user-journey",
+    "frame_capture": "Playwright WebKit 26.5",
+    "network_required": false,
+    "renderer": "rsvg-convert",
+    "tooling_console_messages": 26,
+    "viewport": "390x844"
+  },
+  "inputs": [
+    {
+      "bytes": 11651,
+      "path": "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+      "sha256": "7f9b2d5f212b763a36ebdc9f443f7368638e1cdde637d4ee05bc9c4bd4071489"
+    },
+    {
+      "bytes": 1505,
+      "path": "scripts/generate-presentation-link-lisa-user-journey.mjs",
+      "sha256": "58bcacc18152c7895baca6d1da661c911047fabcae234f4d7aade2f34100bcf9"
+    },
+    {
+      "bytes": 68081,
+      "path": "scripts/lib/presentation-link-lisa-html-runtime.mjs",
+      "sha256": "1d3921147b5203316ef8619a37e4c8426c0d8cd530b924ecbaedc76bbeb6385c"
+    },
+    {
+      "bytes": 93345,
+      "path": "scripts/lib/presentation-link-lisa-user-journey.mjs",
+      "sha256": "97c3d129a6ebc114719773429cd0d487b66569b355024e78f4685cab07f18580"
+    },
+    {
+      "bytes": 561,
+      "path": "source/components/lisa-notification-bell.svg",
+      "sha256": "2515edeac1dd323351961e481d6eda1d117bd2ff23891b41855ac111957acb34"
+    },
+    {
+      "bytes": 478,
+      "path": "source/components/lisa-phone-shell.svg",
+      "sha256": "3aa87320b9ea0a60fb187514e55526f8b6b25d33bcb9326e2aa3063c12c00efc"
+    },
+    {
+      "bytes": 1138,
+      "path": "source/components/lisa-presentation-card.svg",
+      "sha256": "d5d66b0683aab0ae71802558e4054353310f78382607c70b2a2a6421b046d646"
+    },
+    {
+      "bytes": 2049096,
+      "path": "source/fonts/NotoSans[wdth,wght].ttf",
+      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d"
+    },
+    {
+      "bytes": 4395,
+      "path": "source/fonts/OFL.txt",
+      "sha256": "e2e177a32561584d4fc13aaa3cd8e53758a12910f013fe9ca125419111722029"
+    },
+    {
+      "bytes": 6560,
+      "path": "source/frame-contract.json",
+      "sha256": "909a5b18cd86303bc99a0f256f54eddc57337f62aae3cb6fa425e58326e10ff6"
+    },
+    {
+      "bytes": 42719,
+      "path": "source/journey-contract.json",
+      "sha256": "c14fc2b0cc99d27508a3d2288a1e26392f2e788441d050388e8cc28f29d4464d"
+    },
+    {
+      "bytes": 3217,
+      "path": "source/presentation-preview-contract.json",
+      "sha256": "3cffb9230335f6689dc799e0c6f337d36cc2d80eaa390f44e2cfcd00c1fa4605"
+    },
+    {
+      "bytes": 7283,
+      "path": "source/prototype-package-contract.json",
+      "sha256": "ac2326c24ea31a9c0fb23f9071c33a3e936f24e30e310f2c2548154a9207dc55"
+    },
+    {
+      "bytes": 2787,
+      "path": "source/schemas/frame-contract.schema.json",
+      "sha256": "7c115422b491e86671b984b886a5b5092849d4280f85a18e4ed0c09e4f8c1803"
+    },
+    {
+      "bytes": 21989,
+      "path": "source/schemas/journey-contract.schema.json",
+      "sha256": "97f58e16f5246604483f7dbbb9f5dd57092e41f313a6bf7e74619f4267e07da5"
+    },
+    {
+      "bytes": 2734,
+      "path": "source/schemas/presentation-preview-contract.schema.json",
+      "sha256": "feaacbc03750f56f38372c6836b927942b7d3d6d04ec9c253bcd5c3e6435f45d"
+    },
+    {
+      "bytes": 13310,
+      "path": "source/schemas/prototype-package-contract.schema.json",
+      "sha256": "ec193bf6dcb6a44e98ee15817051b7f2abaa9be6f46e76569ada8a3f5c66a9aa"
+    },
+    {
+      "bytes": 1472,
+      "path": "source/schemas/source-fixture-manifest.schema.json",
+      "sha256": "5d0c3749dcb61df36e24641a1c000e5cb7612c96d1d2675b1978b6d26681b731"
+    },
+    {
+      "bytes": 4554,
+      "path": "source/schemas/visual-components-contract.schema.json",
+      "sha256": "d720ba0ad15f0b6f31f1bd5b9d2526e438a396bf90d18e7261a4abcb6d123c86"
+    },
+    {
+      "bytes": 576,
+      "path": "source/source-fixture-manifest.json",
+      "sha256": "3b149d8d5a93aeaef42fa3b788261ab7ff3254746c468362ec26503fe8b1ae1c"
+    },
+    {
+      "bytes": 4348,
+      "path": "source/visual-components-contract.json",
+      "sha256": "7e416becce3d87b103808ec94f762f7ace07dd18845063b0399004c4191eb092"
+    }
+  ],
+  "inventory": {
+    "exact_generated_paths": [
+      "demo/app.js",
+      "demo/data.js",
+      "demo/index.html",
+      "demo/styles.css",
+      "derived/projection-map.json",
+      "derived/prototype-package-manifest.json",
+      "derived/screens/lisa-access-denied.png",
+      "derived/screens/lisa-access-denied.svg",
+      "derived/screens/lisa-link-expired.png",
+      "derived/screens/lisa-link-expired.svg",
+      "derived/screens/lisa-link-invalid.png",
+      "derived/screens/lisa-link-invalid.svg",
+      "derived/screens/lisa-materials-email-sent.png",
+      "derived/screens/lisa-materials-email-sent.svg",
+      "derived/screens/lisa-materials-ready.png",
+      "derived/screens/lisa-materials-ready.svg",
+      "derived/screens/lisa-notification-detail-read.png",
+      "derived/screens/lisa-notification-detail-read.svg",
+      "derived/screens/lisa-notification-detail-unread.png",
+      "derived/screens/lisa-notification-detail-unread.svg",
+      "derived/screens/lisa-notification-failed-chat-available.png",
+      "derived/screens/lisa-notification-failed-chat-available.svg",
+      "derived/screens/lisa-notifications-list-empty.png",
+      "derived/screens/lisa-notifications-list-empty.svg",
+      "derived/screens/lisa-notifications-list-read.png",
+      "derived/screens/lisa-notifications-list-read.svg",
+      "derived/screens/lisa-notifications-list-unread.png",
+      "derived/screens/lisa-notifications-list-unread.svg",
+      "derived/screens/lisa-offline.png",
+      "derived/screens/lisa-offline.svg",
+      "derived/screens/lisa-presentation-email-failed.png",
+      "derived/screens/lisa-presentation-email-failed.svg",
+      "derived/screens/lisa-presentation-email-partial-failure.png",
+      "derived/screens/lisa-presentation-email-partial-failure.svg",
+      "derived/screens/lisa-presentation-email-sent.png",
+      "derived/screens/lisa-presentation-email-sent.svg",
+      "derived/screens/lisa-presentation-email-submitting.png",
+      "derived/screens/lisa-presentation-email-submitting.svg",
+      "derived/screens/lisa-presentation-generating.png",
+      "derived/screens/lisa-presentation-generating.svg",
+      "derived/screens/lisa-presentation-order-failed.png",
+      "derived/screens/lisa-presentation-order-failed.svg",
+      "derived/screens/lisa-presentation-order-submitting.png",
+      "derived/screens/lisa-presentation-order-submitting.svg",
+      "derived/screens/lisa-presentation-ready-unread.png",
+      "derived/screens/lisa-presentation-ready-unread.svg",
+      "derived/screens/lisa-result-cancelled.png",
+      "derived/screens/lisa-result-cancelled.svg",
+      "derived/screens/lisa-result-not-ready.png",
+      "derived/screens/lisa-result-not-ready.svg",
+      "derived/screens/lisa-result-revoked.png",
+      "derived/screens/lisa-result-revoked.svg",
+      "derived/screens/lisa-result-view-from-chat.png",
+      "derived/screens/lisa-result-view-from-chat.svg",
+      "derived/screens/lisa-result-view-from-notification.png",
+      "derived/screens/lisa-result-view-from-notification.svg",
+      "derived/screens/lisa-returned-to-chat.png",
+      "derived/screens/lisa-returned-to-chat.svg"
+    ],
+    "generated_output_count": 58
+  },
+  "outputs": [
+    {
+      "bytes": 2244,
+      "path": "demo/index.html",
+      "sha256": "996578956267e0c5faa5223323b87607cabe39b803c98dc7786f73a76f2d80ef"
+    },
+    {
+      "bytes": 48038,
+      "path": "demo/app.js",
+      "sha256": "10e94448995ce424ca1c765bb1398f4f446c34921ea7514b523596cd7ab45a96"
+    },
+    {
+      "bytes": 19923,
+      "path": "demo/styles.css",
+      "sha256": "a492beeb5b35ae61f77dc9fdc4c080aa6cb53c9b21679262e2b0087a3d026538"
+    },
+    {
+      "bytes": 101446,
+      "path": "demo/data.js",
+      "sha256": "3be165bd35a0ff9d74b5b080042d9ffd296b1210d1173f43ded4f310ca1daef7"
+    },
+    {
+      "bytes": 4967,
+      "path": "derived/projection-map.json",
+      "sha256": "70778524c179d5d59f9159777b22303787caad1c30a4803c043006cd48a7d263"
+    },
+    {
+      "bytes": 136358,
+      "path": "derived/screens/lisa-materials-ready.svg",
+      "sha256": "9c43f54ad055ed85faa94d14e0eb45ba744e3524d0420323a93f7f3aea0bd3b7"
+    },
+    {
+      "bytes": 101685,
+      "path": "derived/screens/lisa-materials-ready.png",
+      "sha256": "8f60485462117f4313e3037f7246d04db49a047e80171a0211b6d5a0ee0feab7"
+    },
+    {
+      "bytes": 101007,
+      "path": "derived/screens/lisa-materials-email-sent.svg",
+      "sha256": "c855963ab3c1bf988f13bf8089726f0afdabea0ec4e00687cf46bb052ca599d0"
+    },
+    {
+      "bytes": 75054,
+      "path": "derived/screens/lisa-materials-email-sent.png",
+      "sha256": "e080447b81a57e7dbfab2f129b0cb9d9c379d9aaf1f1d628209a3686d4da4a2b"
+    },
+    {
+      "bytes": 74936,
+      "path": "derived/screens/lisa-presentation-order-submitting.svg",
+      "sha256": "4d4dc6fe827fee1093bb8c984df477830b5aab824323fbcde49a88e38f584e3e"
+    },
+    {
+      "bytes": 55525,
+      "path": "derived/screens/lisa-presentation-order-submitting.png",
+      "sha256": "90f66a739f6d21f33ac7cab86a27dbe4090746ec6199e7323500378531bd01fc"
+    },
+    {
+      "bytes": 102424,
+      "path": "derived/screens/lisa-presentation-order-failed.svg",
+      "sha256": "13ecc455ed78cc0b8305b666028cbfba6e6a1271dd1fec65013b56c15114f619"
+    },
+    {
+      "bytes": 76122,
+      "path": "derived/screens/lisa-presentation-order-failed.png",
+      "sha256": "6e30ddb8528ba85db943a2a8ef638a4eecabb2327c003d1b245460a79539ac85"
+    },
+    {
+      "bytes": 98551,
+      "path": "derived/screens/lisa-presentation-generating.svg",
+      "sha256": "9e094475a71f15993d3ed7ebe9705cb00a6c3ef787e6c2e5c75fd20f857f9fa8"
+    },
+    {
+      "bytes": 73182,
+      "path": "derived/screens/lisa-presentation-generating.png",
+      "sha256": "86709d172de511e00e7888b28c72320573b217d8eef725a5c0d59ca34355c6bf"
+    },
+    {
+      "bytes": 106170,
+      "path": "derived/screens/lisa-presentation-ready-unread.svg",
+      "sha256": "7f1ea2efb549651321bf4318835ae2e5642074402e131268930e172828db447f"
+    },
+    {
+      "bytes": 78962,
+      "path": "derived/screens/lisa-presentation-ready-unread.png",
+      "sha256": "def37d2620cb3bec5fcc0a8b3d3a519b5d9eccf553ca159a3851adc58e5b07ab"
+    },
+    {
+      "bytes": 45648,
+      "path": "derived/screens/lisa-notifications-list-empty.svg",
+      "sha256": "ba8eb51114a0105177d44688f757749c301868ca291f87f5c418bec8c858063f"
+    },
+    {
+      "bytes": 33693,
+      "path": "derived/screens/lisa-notifications-list-empty.png",
+      "sha256": "a66229cc8189c55bf22f400bb2c5686b0563deab4d8f758cb65dee370b5f8a49"
+    },
+    {
+      "bytes": 52951,
+      "path": "derived/screens/lisa-notifications-list-unread.svg",
+      "sha256": "02637a67226174791699e6a5575f8b57e680640468de03afec23e639516397cb"
+    },
+    {
+      "bytes": 39130,
+      "path": "derived/screens/lisa-notifications-list-unread.png",
+      "sha256": "1cfa88fc5a96f343afb849e1ded231627cf910c3fc1ddf976d55ccf89f2bc870"
+    },
+    {
+      "bytes": 81349,
+      "path": "derived/screens/lisa-notification-detail-unread.svg",
+      "sha256": "6ace89aeccbcf8e1463a01a9d550ca2078ee7e32b85959710419e3c50b8d68dd"
+    },
+    {
+      "bytes": 60413,
+      "path": "derived/screens/lisa-notification-detail-unread.png",
+      "sha256": "9a07af6bdf3ebb05c91f0ca2b2a02a2c5f038d026c70584af1c6d7b50a289541"
+    },
+    {
+      "bytes": 52907,
+      "path": "derived/screens/lisa-notifications-list-read.svg",
+      "sha256": "ba5d6fa94b92a7cd72a16e8df5d3cf553e4b21b292302837af27cdbbb9f3e1fc"
+    },
+    {
+      "bytes": 39100,
+      "path": "derived/screens/lisa-notifications-list-read.png",
+      "sha256": "c47693796c24f234e277ba1403295dce1c3969c241bb0be4e503f772137d71ff"
+    },
+    {
+      "bytes": 85033,
+      "path": "derived/screens/lisa-notification-detail-read.svg",
+      "sha256": "2a25876aadb6cfd501ad732791164a5f5c7be4e5797648f689c35d5972adb20d"
+    },
+    {
+      "bytes": 63139,
+      "path": "derived/screens/lisa-notification-detail-read.png",
+      "sha256": "a0fc745745e919605d4bb95b2d0045e34e6628f80362ba50e2e94e4b0d8e3272"
+    },
+    {
+      "bytes": 202422,
+      "path": "derived/screens/lisa-result-view-from-chat.svg",
+      "sha256": "7ef7b46f5129a43b122d28bafcdb1edee09c44f76d00770042c208c929428153"
+    },
+    {
+      "bytes": 151131,
+      "path": "derived/screens/lisa-result-view-from-chat.png",
+      "sha256": "ac62951d9125cc4ef14f36e587fe40db580b7e0b16b2850ba2dba13dcf63a13b"
+    },
+    {
+      "bytes": 202430,
+      "path": "derived/screens/lisa-result-view-from-notification.svg",
+      "sha256": "455a9e52c65caed442d2a8ff6131a6bc827197d68a9c71b8f6753839834bc165"
+    },
+    {
+      "bytes": 151131,
+      "path": "derived/screens/lisa-result-view-from-notification.png",
+      "sha256": "ac62951d9125cc4ef14f36e587fe40db580b7e0b16b2850ba2dba13dcf63a13b"
+    },
+    {
+      "bytes": 133833,
+      "path": "derived/screens/lisa-returned-to-chat.svg",
+      "sha256": "670f3be51aeb86185646d4a6cc01b549af8c108b4d8c872a1d6b145caed72a0d"
+    },
+    {
+      "bytes": 99652,
+      "path": "derived/screens/lisa-returned-to-chat.png",
+      "sha256": "10f20c69e610665e5f9ea7b0a8e613acf4b854541cadfda845c2680113b7bda1"
+    },
+    {
+      "bytes": 120448,
+      "path": "derived/screens/lisa-presentation-email-submitting.svg",
+      "sha256": "f6c4ccbf5d254d0d3138946d1ee5a9a24a5a67698fc9adca5ff1f5eec353268b"
+    },
+    {
+      "bytes": 89641,
+      "path": "derived/screens/lisa-presentation-email-submitting.png",
+      "sha256": "9e83908eb9fdc0b16520731ad31c40d0367040e0a3cb1e9f05dfadc5d93aca57"
+    },
+    {
+      "bytes": 114739,
+      "path": "derived/screens/lisa-presentation-email-sent.svg",
+      "sha256": "fa9b2fe706584b5ae0cce338b0c0c067e173ec4a7a12db89c338140effc468a0"
+    },
+    {
+      "bytes": 85433,
+      "path": "derived/screens/lisa-presentation-email-sent.png",
+      "sha256": "c9a8967b01d7230751e328fac9a538e0d6503d5d3379bbf8080ac2b4ea49eb75"
+    },
+    {
+      "bytes": 131906,
+      "path": "derived/screens/lisa-presentation-email-partial-failure.svg",
+      "sha256": "8d97540196bf7a57df31aaabc8f67bfac3987499f4a5ef5bae2ad0689a296bb4"
+    },
+    {
+      "bytes": 98206,
+      "path": "derived/screens/lisa-presentation-email-partial-failure.png",
+      "sha256": "10b791bd9ce7ad32d4d15e4a7b0ede8adfada21d47eaa2bd543b107fa2ba4609"
+    },
+    {
+      "bytes": 126558,
+      "path": "derived/screens/lisa-presentation-email-failed.svg",
+      "sha256": "26ff9bcbbd8e8c5988627f1e23ed0a70bacbeb92bef483c576e5d11f3b801b3e"
+    },
+    {
+      "bytes": 94246,
+      "path": "derived/screens/lisa-presentation-email-failed.png",
+      "sha256": "3e0702d00a96c08dc5422105e760d6bf4d85c11f739096e27f02b76250bf7452"
+    },
+    {
+      "bytes": 67575,
+      "path": "derived/screens/lisa-result-not-ready.svg",
+      "sha256": "ef223c92499a4c6c7827c52be41b24cab97fb58a87da6dac4b3148a7f8943f00"
+    },
+    {
+      "bytes": 50018,
+      "path": "derived/screens/lisa-result-not-ready.png",
+      "sha256": "bfc9f3823cbc65afd15030e2c4ed787f2322dd22696dc75aece7468f94e51be0"
+    },
+    {
+      "bytes": 70253,
+      "path": "derived/screens/lisa-link-invalid.svg",
+      "sha256": "ceb7c09de8832321b6860983e4c8036bcca3a7c26403e9ba495ee99c17abfeb1"
+    },
+    {
+      "bytes": 52039,
+      "path": "derived/screens/lisa-link-invalid.png",
+      "sha256": "c9930aa0bf927b1fa36afb97499c3e0d0da091c283c97a8a967aa1fc3c5fe2a6"
+    },
+    {
+      "bytes": 70741,
+      "path": "derived/screens/lisa-link-expired.svg",
+      "sha256": "b62fcf1de0559c517b23f7ef7955ba2ebf5160c4739848b11d5c64c8717671ad"
+    },
+    {
+      "bytes": 52395,
+      "path": "derived/screens/lisa-link-expired.png",
+      "sha256": "2dfc1cab8c4d5325d6f9687eef78a2bf556d3e9ea88a3147cf2067dadd940403"
+    },
+    {
+      "bytes": 70845,
+      "path": "derived/screens/lisa-access-denied.svg",
+      "sha256": "cedb09486864ce90793c51fe2660d7905c48297ea93b1ac3126892110ea1e72e"
+    },
+    {
+      "bytes": 52451,
+      "path": "derived/screens/lisa-access-denied.png",
+      "sha256": "3183093d617ec04105e730b362e52082f8e5a84e2c1744c1e3bd28aeaefa70ac"
+    },
+    {
+      "bytes": 88960,
+      "path": "derived/screens/lisa-offline.svg",
+      "sha256": "7230903d5281181e1a80fde1baaf73af22eb9187af988e8723d0c6c95ee3ef06"
+    },
+    {
+      "bytes": 66066,
+      "path": "derived/screens/lisa-offline.png",
+      "sha256": "56d84f86c94802bec139a724f5df61214a4a6c49b21f0fdc30b8d4e8f9f87f16"
+    },
+    {
+      "bytes": 69948,
+      "path": "derived/screens/lisa-notification-failed-chat-available.svg",
+      "sha256": "2cbbeaaea58c7a6ac11dbbe36f20700dcadec7c6fc50fc32c5c6aa7c681af0f7"
+    },
+    {
+      "bytes": 51755,
+      "path": "derived/screens/lisa-notification-failed-chat-available.png",
+      "sha256": "e66ab3ab9ebb591c5bdf8fd42296b7faa8d2decc0fa78980623457eeacabdb94"
+    },
+    {
+      "bytes": 67012,
+      "path": "derived/screens/lisa-result-cancelled.svg",
+      "sha256": "79aa15b0bc48394e22ffe247c246fd74eb8432ebc24d9707731121f07cd2dcd3"
+    },
+    {
+      "bytes": 49623,
+      "path": "derived/screens/lisa-result-cancelled.png",
+      "sha256": "8e0e48a9de294f866eb9d82b225805eea7525e05a2d9e99438015c4555dea3af"
+    },
+    {
+      "bytes": 70524,
+      "path": "derived/screens/lisa-result-revoked.svg",
+      "sha256": "62217bbd17075880fa2b017793c413ba373866fb97981f14728f737481865c5b"
+    },
+    {
+      "bytes": 52229,
+      "path": "derived/screens/lisa-result-revoked.png",
+      "sha256": "b554f86b01a8e1985a37c5dce9f1c5e6350955b874bdb6611f5ca5df30828522"
+    }
+  ],
+  "portability": {
+    "entrypoint": "demo/index.html",
+    "file_scheme_supported": true,
+    "relative_resources_only": true
+  },
+  "self": {
+    "path": "derived/prototype-package-manifest.json",
+    "reason": "Самохэширование невозможно; хэш хранится во внешнем реестре артефактов.",
+    "sha256": null
+  },
+  "state_count": 26,
+  "status": "generated",
+  "version": "1.0.0"
+}

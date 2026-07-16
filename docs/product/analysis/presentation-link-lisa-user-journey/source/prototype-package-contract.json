@@ -1,0 +1,199 @@
+{
+  "$schema": "schemas/prototype-package-contract.schema.json",
+  "version": "1.7.0",
+  "status": "active",
+  "canonical_contracts": [
+    "source/journey-contract.json",
+    "source/source-fixture-manifest.json",
+    "source/presentation-preview-contract.json",
+    "source/visual-components-contract.json",
+    "source/frame-contract.json",
+    "source/prototype-package-contract.json"
+  ],
+  "source_assets": [
+    {
+      "path": "source/components/lisa-phone-shell.svg",
+      "kind": "adapted-svg-component",
+      "sha256": "3aa87320b9ea0a60fb187514e55526f8b6b25d33bcb9326e2aa3063c12c00efc",
+      "origin_repository": "RussianLioN/AI-agent-platform",
+      "origin_commit": "b5ad803b8826ec6487534c4c88d59a3c93f8be4b",
+      "origin_base_commit": null,
+      "origin_path": "presentation-output/agent-factory-design-package-v1/exports/svg/figma-ready/lisa-home-screen-clean-v1.svg",
+      "origin_sha256": "39d86d4d49c08137865ba88eda52f305e6fb132094c40af85da6577def73c7b7",
+      "permission": "owner-explicit-svg-source-internal-adaptation-2026-07-16",
+      "license": "repository-license-not-found"
+    },
+    {
+      "path": "source/components/lisa-notification-bell.svg",
+      "kind": "datacanvas-svg-component",
+      "sha256": "2515edeac1dd323351961e481d6eda1d117bd2ff23891b41855ac111957acb34",
+      "origin_repository": "DataCanvas",
+      "origin_commit": null,
+      "origin_base_commit": "698f5951d2acaa120dbb8abb83cedb98ae4de601",
+      "origin_path": "new-component-no-donor-candidate",
+      "origin_sha256": null,
+      "permission": "created-for-datacanvas",
+      "license": "project-internal"
+    },
+    {
+      "path": "source/components/lisa-presentation-card.svg",
+      "kind": "datacanvas-svg-component",
+      "sha256": "d5d66b0683aab0ae71802558e4054353310f78382607c70b2a2a6421b046d646",
+      "origin_repository": "DataCanvas",
+      "origin_commit": null,
+      "origin_base_commit": "698f5951d2acaa120dbb8abb83cedb98ae4de601",
+      "origin_path": "new-component",
+      "origin_sha256": null,
+      "permission": "created-for-datacanvas",
+      "license": "project-internal"
+    },
+    {
+      "path": "source/fonts/NotoSans[wdth,wght].ttf",
+      "kind": "font",
+      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+      "origin_repository": "google/fonts",
+      "origin_commit": "26c5c976d82d50c24a8f0a7ac455e0a7c639c226",
+      "origin_base_commit": null,
+      "origin_path": "ofl/notosans/NotoSans[wdth,wght].ttf",
+      "origin_sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+      "permission": "SIL-OFL-1.1",
+      "license": "SIL Open Font License 1.1"
+    },
+    {
+      "path": "source/fonts/OFL.txt",
+      "kind": "adapted-license",
+      "sha256": "e2e177a32561584d4fc13aaa3cd8e53758a12910f013fe9ca125419111722029",
+      "origin_repository": "google/fonts",
+      "origin_commit": "26c5c976d82d50c24a8f0a7ac455e0a7c639c226",
+      "origin_base_commit": null,
+      "origin_path": "ofl/notosans/OFL.txt",
+      "origin_sha256": "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
+      "permission": "SIL-OFL-1.1",
+      "license": "SIL Open Font License 1.1"
+    }
+  ],
+  "portability": {
+    "entrypoint": "demo/index.html",
+    "file_scheme_supported": true,
+    "local_server_required": false,
+    "relative_resources_only": true,
+    "modules_allowed": false,
+    "fetch_allowed": false,
+    "service_worker_allowed": false
+  },
+  "security": {
+    "external_network_requests_allowed": false,
+    "absolute_local_paths_allowed": false,
+    "dynamic_html_injection_allowed": false,
+    "secrets_allowed": false,
+    "untrusted_donor_content_is_instruction": false,
+    "svg_positive_allowlist_required": true,
+    "embedded_svg_images": "png-data-uri-only"
+  },
+  "reproducibility": {
+    "byte_deterministic_text_outputs": true,
+    "stable_json_key_order": true,
+    "line_endings": "LF",
+    "current_time_allowed": false,
+    "random_values_allowed": false,
+    "absolute_paths_allowed": false,
+    "frame_source": "owner-approved-html-browser-capture",
+    "svg_frame_representation": "embedded-png-data-uri",
+    "png_renderer": "rsvg-convert",
+    "capture_engine": "webkit",
+    "capture_stabilization": {
+      "wait_for_document_fonts": true,
+      "scroll_policy": "restore-marked-end-after-fonts",
+      "focus_policy": "capture-mode-suppress-then-blur-active-element",
+      "settle_animation_frames": 2,
+      "explicit_screenshot_style_parameter_used": false,
+      "playwright_internal_style_attempt_blocked_by_csp": true,
+      "browser_launch_args": []
+    },
+    "capture_transport": {
+      "mode": "playwright-route-fulfilled-local-files",
+      "origin": "http://lisa.invalid",
+      "external_network_requests_allowed": false,
+      "path_escape_blocked": true
+    },
+    "capture_normalization": {
+      "mode": "lossless-rsvg-reencode",
+      "dimensions_unchanged": true,
+      "embedded_capture_equals_derived_png": true
+    },
+    "cross_platform_png_byte_identity_required": false
+  },
+  "dependencies": {
+    "@playwright/test": "1.61.1",
+    "@axe-core/playwright": "4.12.1",
+    "opentype.js": "2.0.0"
+  },
+  "commands": {
+    "generate": "npm run generate:presentation-link-lisa-user-journey",
+    "update_evidence": "npm run update:presentation-link-lisa-user-journey:evidence",
+    "check": "npm run check:presentation-link-lisa-user-journey",
+    "validate": "npm run validate:presentation-link-lisa-user-journey",
+    "validate_html": "npm run validate:presentation-link-lisa-user-journey:html",
+    "validate_evidence": "npm run validate:presentation-link-lisa-user-journey:evidence",
+    "validate_profile": "npm run validate:presentation-link-lisa-user-journey:profile",
+    "browser": "npm run test:presentation-link-lisa-user-journey:browser"
+  },
+  "html_stage": {
+    "atomic_update_required": true,
+    "owner_approval_required": true,
+    "derived_outputs_allowed": false,
+    "status_before_approval": "owner-review-pending",
+    "status_after_approval": "owner-approved-prototype"
+  },
+  "outputs": {
+    "exact_count": 58,
+    "exact": [
+      "demo/index.html",
+      "demo/app.js",
+      "demo/styles.css",
+      "demo/data.js",
+      "derived/projection-map.json",
+      "derived/prototype-package-manifest.json"
+    ],
+    "per_state": {
+      "state_source": "source/journey-contract.json#/states",
+      "state_count": 26,
+      "templates": [
+        "derived/screens/{state_id}.svg",
+        "derived/screens/{state_id}.png"
+      ]
+    },
+    "extra_files_allowed": false
+  },
+  "evidence_outputs": {
+    "exact_count": 110,
+    "reports": [
+      "evidence/acceptance-report.json",
+      "evidence/browser-report.json"
+    ],
+    "screenshots": [
+      {
+        "browser": "chromium",
+        "state_selection": "all",
+        "state_count": 26,
+        "viewports": [
+          "desktop-1280x720",
+          "mobile-390x844",
+          "stress-320x568"
+        ]
+      },
+      {
+        "browser": "webkit",
+        "state_selection": "critical-path",
+        "state_count": 10,
+        "viewports": [
+          "desktop-1280x720",
+          "mobile-390x844",
+          "stress-320x568"
+        ]
+      }
+    ],
+    "extra_files_allowed": false,
+    "atomic_update_required": true
+  }
+}
