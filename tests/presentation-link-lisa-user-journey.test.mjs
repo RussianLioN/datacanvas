@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
@@ -8,14 +7,19 @@ import test from "node:test";
 import playwrightConfig from "./presentation-link-lisa-user-journey.playwright.config.mjs";
 import * as documentationArchive from "../scripts/lib/documentation-archive.mjs";
 import {
+  WEBKIT_EVIDENCE_STATE_IDS,
+  assertLosslessPngPixels,
   buildNormalizedModel,
+  compareGeneratedPackage,
   createFontEngine,
   generatePrototypePackage,
   generateHtmlPrototype,
   loadContracts,
   measureVariableText,
+  parsePresentationLinkLisaValidationArguments,
   parseStateSearch,
   resolvePresentationBinding,
+  stabilizeBrowserCapture,
   validateLayoutBoxes,
   validateContracts,
   validateGeneratedPackage,
@@ -23,7 +27,6 @@ import {
   validateSvgSecurity,
   wrapMeasuredText,
 } from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
-import * as journeyLibrary from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
 
 const root = process.cwd();
 const packageRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
@@ -670,16 +673,16 @@ test("browser profile bounds each engine lifetime without hiding flaky results",
 
 test("validator command line keeps local freshness strict and rejects unknown modes", () => {
   assert.deepEqual(
-    journeyLibrary.parsePresentationLinkLisaValidationArguments([]),
+    parsePresentationLinkLisaValidationArguments([]),
     { savedOnly: false },
   );
   assert.deepEqual(
-    journeyLibrary.parsePresentationLinkLisaValidationArguments(["--saved-only"]),
+    parsePresentationLinkLisaValidationArguments(["--saved-only"]),
     { savedOnly: true },
   );
   assert.throws(
     () =>
-      journeyLibrary.parsePresentationLinkLisaValidationArguments([
+      parsePresentationLinkLisaValidationArguments([
         "--unknown-mode",
       ]),
     /неизвестный аргумент/u,
@@ -760,10 +763,10 @@ test("package contract registers the source fixture, slide contract and HTML gat
     (entry) => entry.browser === "webkit",
   );
   assert.equal(
-    journeyLibrary.WEBKIT_EVIDENCE_STATE_IDS.length,
+    WEBKIT_EVIDENCE_STATE_IDS.length,
     webkitEvidence.state_count,
   );
-  assert.deepEqual(journeyLibrary.WEBKIT_EVIDENCE_STATE_IDS, [
+  assert.deepEqual(WEBKIT_EVIDENCE_STATE_IDS, [
     "lisa-materials-ready",
     "lisa-presentation-generating",
     "lisa-presentation-ready-unread",
@@ -1163,6 +1166,54 @@ test("generated package validation rejects corrupt outputs and unsafe archive va
       ),
     );
 
+    const coherentlyTamperedArchive = new Map(originalArchive);
+    const coherentlyTamperedApp = Buffer.concat([
+      coherentlyTamperedArchive.get("demo/app.js"),
+      Buffer.from("\n// согласованная подмена\n", "utf8"),
+    ]);
+    coherentlyTamperedArchive.set("demo/app.js", coherentlyTamperedApp);
+    const coherentlyTamperedInternalManifest = JSON.parse(
+      coherentlyTamperedArchive.get("manifest.json").toString("utf8"),
+    );
+    const coherentlyTamperedMemberRecord =
+      coherentlyTamperedInternalManifest.members.find(
+        (member) => member.path === "demo/app.js",
+      );
+    coherentlyTamperedMemberRecord.bytes = coherentlyTamperedApp.length;
+    coherentlyTamperedMemberRecord.sha256 = createHash("sha256")
+      .update(coherentlyTamperedApp)
+      .digest("hex");
+    coherentlyTamperedArchive.set(
+      "manifest.json",
+      Buffer.from(
+        `${JSON.stringify(coherentlyTamperedInternalManifest, null, 2)}\n`,
+        "utf8",
+      ),
+    );
+    writeArchive(coherentlyTamperedArchive);
+    const coherentlyTamperedArchiveBytes = fs.readFileSync(archivePath);
+    const coherentlyTamperedExternalManifest = JSON.parse(originalManifest);
+    const coherentlyTamperedArchiveRecord =
+      coherentlyTamperedExternalManifest.outputs.find(
+        (output) => output.path === portableArchiveRelativePath,
+      );
+    coherentlyTamperedArchiveRecord.bytes = coherentlyTamperedArchiveBytes.length;
+    coherentlyTamperedArchiveRecord.sha256 = createHash("sha256")
+      .update(coherentlyTamperedArchiveBytes)
+      .digest("hex");
+    fs.writeFileSync(
+      manifestPath,
+      `${JSON.stringify(coherentlyTamperedExternalManifest, null, 2)}\n`,
+    );
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes(
+          "portable archive member differs from canonical source: demo/app.js",
+        ),
+      ),
+    );
+    fs.writeFileSync(manifestPath, originalManifest);
+
     const missingMemberArchive = new Map(originalArchive);
     missingMemberArchive.delete("demo/app.js");
     writeArchive(missingMemberArchive);
@@ -1254,34 +1305,54 @@ test("generated package validation rejects corrupt outputs and unsafe archive va
   }
 });
 
-test("package check reports a stale generated portable archive", () => {
-  const archivePath = absolute(`${packageRoot}/${portableArchiveRelativePath}`);
-  assert.ok(fs.existsSync(archivePath), "portable archive must be generated first");
-  const originalArchive = fs.readFileSync(archivePath);
+test("package comparison reports a stale temporary archive without mutating the repository", () => {
+  const repositoryArchivePath = absolute(
+    `${packageRoot}/${portableArchiveRelativePath}`,
+  );
+  assert.ok(
+    fs.existsSync(repositoryArchivePath),
+    "portable archive must be generated first",
+  );
+  const repositoryArchiveBefore = fs.readFileSync(repositoryArchivePath);
+  const outputRoot = fs.mkdtempSync(
+    path.join(os.tmpdir(), "datacanvas-lisa-stale-check-"),
+  );
   try {
+    fs.cpSync(
+      absolute(packageRoot),
+      path.join(outputRoot, packageRoot),
+      { recursive: true },
+    );
+    const temporaryArchivePath = path.join(
+      outputRoot,
+      packageRoot,
+      portableArchiveRelativePath,
+    );
     fs.writeFileSync(
-      archivePath,
-      Buffer.concat([originalArchive, Buffer.from("устарел", "utf8")]),
+      temporaryArchivePath,
+      Buffer.concat([
+        fs.readFileSync(temporaryArchivePath),
+        Buffer.from("устарел", "utf8"),
+      ]),
     );
-    const result = spawnSync(
-      process.execPath,
-      ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"],
-      {
-        cwd: root,
-        encoding: "utf8",
-        maxBuffer: 20 * 1024 * 1024,
-      },
-    );
-    assert.equal(result.status, 1, result.stderr || result.stdout);
-    assert.match(
-      `${result.stdout}\n${result.stderr}`,
-      new RegExp(
-        `stale generated output: ${packageRoot}/${portableArchiveRelativePath.replaceAll(".", "\\.")}`,
-        "u",
+    const differences = compareGeneratedPackage(root, outputRoot);
+    assert.ok(
+      differences.includes(
+        `stale generated output: ${packageRoot}/${portableArchiveRelativePath}`,
       ),
     );
+    assert.deepEqual(
+      fs.readFileSync(repositoryArchivePath),
+      repositoryArchiveBefore,
+      "package comparison must not mutate the repository archive",
+    );
   } finally {
-    fs.writeFileSync(archivePath, originalArchive);
+    fs.rmSync(outputRoot, { recursive: true, force: true });
+    assert.deepEqual(
+      fs.readFileSync(repositoryArchivePath),
+      repositoryArchiveBefore,
+      "repository archive must remain unchanged even when the test fails",
+    );
   }
 });
 
@@ -1370,8 +1441,8 @@ test("browser capture stabilization restores direct-state scroll after fonts set
   };
 
   try {
-    assert.equal(typeof journeyLibrary.stabilizeBrowserCapture, "function");
-    await journeyLibrary.stabilizeBrowserCapture(page, {
+    assert.equal(typeof stabilizeBrowserCapture, "function");
+    await stabilizeBrowserCapture(page, {
       wait_for_document_fonts: true,
       scroll_policy: "restore-marked-end-after-fonts",
       focus_policy: "capture-mode-suppress-then-blur-active-element",
@@ -1383,7 +1454,7 @@ test("browser capture stabilization restores direct-state scroll after fonts set
 
     content.scrollTop = 17;
     globalThis.document.querySelector = () => null;
-    await journeyLibrary.stabilizeBrowserCapture(page, {
+    await stabilizeBrowserCapture(page, {
       wait_for_document_fonts: true,
       scroll_policy: "restore-marked-end-after-fonts",
       focus_policy: "capture-mode-suppress-then-blur-active-element",
@@ -1552,12 +1623,12 @@ test("lossless PNG proof rejects a pixel mismatch", () => {
   );
 
   assert.equal(
-    typeof journeyLibrary.assertLosslessPngPixels,
+    typeof assertLosslessPngPixels,
     "function",
     "pixel equality proof must be part of the generation contract",
   );
   assert.doesNotThrow(() =>
-    journeyLibrary.assertLosslessPngPixels(
+    assertLosslessPngPixels(
       first,
       samePixels,
       "same-pixel-frame",
@@ -1565,7 +1636,7 @@ test("lossless PNG proof rejects a pixel mismatch", () => {
   );
   assert.throws(
     () =>
-      journeyLibrary.assertLosslessPngPixels(
+      assertLosslessPngPixels(
         first,
         different,
         "different-pixel-frame",

@@ -44,7 +44,7 @@ function readScanUnits(relativePath) {
   if (/\.zip$/iu.test(relativePath)) {
     const archive = readStoredZip(fs.readFileSync(path.join(root, relativePath)));
     return [...archive.entries()]
-      .filter(([name]) => /\.(?:csv|html|json|md|puml|svg)$/iu.test(name))
+      .filter(([name]) => /\.(?:css|csv|html|js|json|md|puml|svg|txt)$/iu.test(name))
       .map(([name, content]) => ({ member_path: name, text: content.toString("utf8") }));
   }
   return [{ member_path: relativePath, text: readText(relativePath) }];

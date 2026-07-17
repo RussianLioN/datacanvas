@@ -41,9 +41,9 @@
       "sha256": "58bcacc18152c7895baca6d1da661c911047fabcae234f4d7aade2f34100bcf9"
     },
     {
-      "bytes": 14894,
+      "bytes": 19134,
       "path": "scripts/lib/documentation-archive.mjs",
-      "sha256": "555308927d260e3ee07de0d5013e144d45106782829cde176477ceadda026fa5"
+      "sha256": "d1805fd049c21d678daed7814b7475a3a0fc4a4a67d224ef805178b680857adf"
     },
     {
       "bytes": 70314,
@@ -51,9 +51,9 @@
       "sha256": "0a3f58e7353e3b8e920ffa971f4af4b173ba63d398e0aab9e190d933d9db593b"
     },
     {
-      "bytes": 105212,
+      "bytes": 106553,
       "path": "scripts/lib/presentation-link-lisa-user-journey.mjs",
-      "sha256": "7484b4728197d75e9266609d6aaeb26046139bc6c62d11b46cddf1007356a46f"
+      "sha256": "073a5e020f1985ad64e3d083768e4baac9f8b0e09c0b0d0e6f6cff4ec8741cab"
     },
     {
       "bytes": 561,

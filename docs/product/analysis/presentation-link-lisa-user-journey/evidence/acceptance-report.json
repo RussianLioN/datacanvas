@@ -100,7 +100,7 @@
   },
   "package_manifest": {
     "path": "derived/prototype-package-manifest.json",
-    "sha256": "3aabd548ca55a67c42cb1530c3e875c4e0dd2223547fa3c07dfa96076b1a3c70"
+    "sha256": "b002cf6d4ce0272147dc1b302eb32c1ef0c43935bc9539b9da507751f7028612"
   },
   "result": "conditional_pass_with_tooling_limitation",
   "rights": {

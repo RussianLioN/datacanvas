@@ -1983,7 +1983,7 @@ function readPortableArchiveMember(sourceRoot, outputRoot, memberPath) {
   return fs.readFileSync(filePath);
 }
 
-function buildPortablePrototypeArchive(
+function buildPortablePrototypePayload(
   sourceRoot,
   outputRoot,
   packageContract,
@@ -1998,7 +1998,15 @@ function buildPortablePrototypeArchive(
         : readPortableArchiveMember(sourceRoot, outputRoot, memberPath),
     );
   }
-  const manifest = Buffer.from(
+  return payload;
+}
+
+function renderPortablePrototypeManifest(
+  sourceRoot,
+  packageContract,
+  payload,
+) {
+  return Buffer.from(
     stableStringify({
       version: packageContract.archive.manifest_version,
       status: packageContract.archive.status,
@@ -2019,6 +2027,23 @@ function buildPortablePrototypeArchive(
       })),
     }),
     "utf8",
+  );
+}
+
+function buildPortablePrototypeArchive(
+  sourceRoot,
+  outputRoot,
+  packageContract,
+) {
+  const payload = buildPortablePrototypePayload(
+    sourceRoot,
+    outputRoot,
+    packageContract,
+  );
+  const manifest = renderPortablePrototypeManifest(
+    sourceRoot,
+    packageContract,
+    payload,
   );
   return createStoredZip(
     packageContract.archive.exact_members.map((memberPath) => ({
@@ -2227,13 +2252,19 @@ export function generatePrototypePackage({
   };
 }
 
-export function compareGeneratedPackage(root = process.cwd()) {
+export function compareGeneratedPackage(
+  sourceRoot = process.cwd(),
+  expectedRoot = sourceRoot,
+) {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-package-check-"));
   try {
-    const generated = generatePrototypePackage({ sourceRoot: root, outputRoot: tempRoot });
+    const generated = generatePrototypePackage({
+      sourceRoot,
+      outputRoot: tempRoot,
+    });
     const differences = [];
     for (const relativePath of generated.generatedPaths) {
-      const expected = absolute(root, relativePath);
+      const expected = absolute(expectedRoot, relativePath);
       const actual = absolute(tempRoot, relativePath);
       if (!fs.existsSync(expected)) {
         differences.push(`missing generated output: ${relativePath}`);
@@ -2733,6 +2764,30 @@ function validatePortablePrototypeArchive(
     issues.push("portable archive includes the external package manifest");
   }
 
+  let expectedPayload;
+  let expectedManifestBytes;
+  try {
+    expectedPayload = buildPortablePrototypePayload(
+      sourceRoot,
+      outputRoot,
+      packageContract,
+    );
+    expectedManifestBytes = renderPortablePrototypeManifest(
+      sourceRoot,
+      packageContract,
+      expectedPayload,
+    );
+  } catch (error) {
+    issues.push(`portable archive canonical payload is unavailable: ${error.message}`);
+    return issues;
+  }
+  for (const [memberPath, expectedContent] of expectedPayload) {
+    const archivedContent = archive.get(memberPath);
+    if (archivedContent && !archivedContent.equals(expectedContent)) {
+      issues.push(`portable archive member differs from canonical source: ${memberPath}`);
+    }
+  }
+
   const readme = archive.get("README.md")?.toString("utf8") ?? "";
   for (const requiredText of [
     "Распакуйте архив",
@@ -2749,6 +2804,9 @@ function validatePortablePrototypeArchive(
   if (!manifestBytes) {
     issues.push("portable archive manifest is missing");
     return issues;
+  }
+  if (!manifestBytes.equals(expectedManifestBytes)) {
+    issues.push("portable archive manifest differs from the canonical manifest");
   }
   let manifest;
   try {

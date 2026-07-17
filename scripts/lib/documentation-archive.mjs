@@ -1,10 +1,19 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { TextDecoder } from "node:util";
 
 const ZIP_LOCAL = 0x04034b50;
 const ZIP_CENTRAL = 0x02014b50;
 const ZIP_END = 0x06054b50;
+const ZIP_VERSION_NEEDED = 20;
+const ZIP_VERSION_MADE_BY = 0x0314;
+const ZIP_UTF8_FLAGS = 0x0800;
+const ZIP_STORED_METHOD = 0;
+const ZIP_DOS_TIME = 0;
+const ZIP_DOS_DATE = 0x0021;
+const ZIP_EXTERNAL_FILE_ATTRIBUTES = (0o100644 << 16) >>> 0;
+const strictUtf8Decoder = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
 
 const crcTable = Array.from({ length: 256 }, (_, value) => {
   let crc = value;
@@ -23,13 +32,43 @@ function sha256(buffer) {
 }
 
 function assertSafeRelativePath(relativePath) {
-  if (!relativePath || path.isAbsolute(relativePath) || relativePath.includes("\\")) {
-    throw new Error(`небезопасный путь архива: ${relativePath}`);
+  if (
+    typeof relativePath !== "string" ||
+    !relativePath ||
+    relativePath.startsWith("/") ||
+    relativePath.includes("\\") ||
+    /[:\u0000-\u001f\u007f]/u.test(relativePath)
+  ) {
+    throw new Error(`небезопасный путь архива: ${JSON.stringify(relativePath)}`);
+  }
+  const encoded = Buffer.from(relativePath, "utf8");
+  let decoded;
+  try {
+    decoded = strictUtf8Decoder.decode(encoded);
+  } catch {
+    throw new Error(`небезопасный путь архива: ${JSON.stringify(relativePath)}`);
+  }
+  if (decoded !== relativePath || !Buffer.from(decoded, "utf8").equals(encoded)) {
+    throw new Error(`небезопасный путь архива: ${JSON.stringify(relativePath)}`);
   }
   const normalized = path.posix.normalize(relativePath);
   if (normalized !== relativePath || normalized === ".." || normalized.startsWith("../")) {
-    throw new Error(`путь выходит за корень архива: ${relativePath}`);
+    throw new Error(`путь выходит за корень архива: ${JSON.stringify(relativePath)}`);
   }
+}
+
+function decodeArchivePath(rawName, recordLabel) {
+  let name;
+  try {
+    name = strictUtf8Decoder.decode(rawName);
+  } catch {
+    throw new Error(`некорректная UTF-8 последовательность в имени ${recordLabel}`);
+  }
+  if (!Buffer.from(name, "utf8").equals(rawName)) {
+    throw new Error(`неканоничная UTF-8 последовательность в имени ${recordLabel}`);
+  }
+  assertSafeRelativePath(name);
+  return name;
 }
 
 function mediaType(relativePath) {
@@ -144,11 +183,11 @@ export function createStoredZip(entries) {
     const checksum = crc32(entry.content);
     const local = Buffer.alloc(30);
     local.writeUInt32LE(ZIP_LOCAL, 0);
-    local.writeUInt16LE(20, 4);
-    local.writeUInt16LE(0x0800, 6);
-    local.writeUInt16LE(0, 8);
-    local.writeUInt16LE(0, 10);
-    local.writeUInt16LE(0x0021, 12);
+    local.writeUInt16LE(ZIP_VERSION_NEEDED, 4);
+    local.writeUInt16LE(ZIP_UTF8_FLAGS, 6);
+    local.writeUInt16LE(ZIP_STORED_METHOD, 8);
+    local.writeUInt16LE(ZIP_DOS_TIME, 10);
+    local.writeUInt16LE(ZIP_DOS_DATE, 12);
     local.writeUInt32LE(checksum, 14);
     local.writeUInt32LE(entry.content.length, 18);
     local.writeUInt32LE(entry.content.length, 22);
@@ -157,17 +196,17 @@ export function createStoredZip(entries) {
 
     const central = Buffer.alloc(46);
     central.writeUInt32LE(ZIP_CENTRAL, 0);
-    central.writeUInt16LE(0x0314, 4);
-    central.writeUInt16LE(20, 6);
-    central.writeUInt16LE(0x0800, 8);
-    central.writeUInt16LE(0, 10);
-    central.writeUInt16LE(0, 12);
-    central.writeUInt16LE(0x0021, 14);
+    central.writeUInt16LE(ZIP_VERSION_MADE_BY, 4);
+    central.writeUInt16LE(ZIP_VERSION_NEEDED, 6);
+    central.writeUInt16LE(ZIP_UTF8_FLAGS, 8);
+    central.writeUInt16LE(ZIP_STORED_METHOD, 10);
+    central.writeUInt16LE(ZIP_DOS_TIME, 12);
+    central.writeUInt16LE(ZIP_DOS_DATE, 14);
     central.writeUInt32LE(checksum, 16);
     central.writeUInt32LE(entry.content.length, 20);
     central.writeUInt32LE(entry.content.length, 24);
     central.writeUInt16LE(name.length, 28);
-    central.writeUInt32LE((0o100644 << 16) >>> 0, 38);
+    central.writeUInt32LE(ZIP_EXTERNAL_FILE_ATTRIBUTES, 38);
     central.writeUInt32LE(offset, 42);
     centralParts.push(central, name);
     offset += local.length + name.length + entry.content.length;
@@ -200,18 +239,26 @@ export function readStoredZip(buffer) {
       throw new Error(`повреждена структура ZIP: ${label}`);
     }
   };
+  const requireCanonical = (condition, label) => {
+    if (!condition) throw new Error(`неканоничный ZIP: ${label}`);
+  };
   const entries = new Map();
   const localRecords = new Map();
+  const localOrder = [];
   let offset = 0;
   while (offset + 4 <= buffer.length && buffer.readUInt32LE(offset) === ZIP_LOCAL) {
     const localOffset = offset;
     requireBytes(offset, 30, "неполный локальный заголовок");
+    const versionNeeded = buffer.readUInt16LE(offset + 4);
     const flags = buffer.readUInt16LE(offset + 6);
     const method = buffer.readUInt16LE(offset + 8);
-    if (method !== 0) throw new Error("архив использует неподдерживаемое сжатие");
-    if (flags !== 0 && flags !== 0x0800) {
-      throw new Error("архив использует неподдерживаемые флаги ZIP");
-    }
+    const modifiedTime = buffer.readUInt16LE(offset + 10);
+    const modifiedDate = buffer.readUInt16LE(offset + 12);
+    requireCanonical(versionNeeded === ZIP_VERSION_NEEDED, "версия локальной записи");
+    requireCanonical(flags === ZIP_UTF8_FLAGS, "флаги локальной записи");
+    if (method !== ZIP_STORED_METHOD) throw new Error("архив использует неподдерживаемое сжатие");
+    requireCanonical(modifiedTime === ZIP_DOS_TIME, "время локальной записи");
+    requireCanonical(modifiedDate === ZIP_DOS_DATE, "дата локальной записи");
     const checksum = buffer.readUInt32LE(offset + 14);
     const compressedSize = buffer.readUInt32LE(offset + 18);
     const size = buffer.readUInt32LE(offset + 22);
@@ -220,20 +267,25 @@ export function readStoredZip(buffer) {
     }
     const nameLength = buffer.readUInt16LE(offset + 26);
     const extraLength = buffer.readUInt16LE(offset + 28);
+    requireCanonical(extraLength === 0, "дополнительное поле локальной записи");
     const nameStart = offset + 30;
     requireBytes(
       nameStart,
       nameLength + extraLength + compressedSize,
       "локальная запись выходит за границы архива",
     );
-    const name = buffer.subarray(nameStart, nameStart + nameLength).toString("utf8");
-    assertSafeRelativePath(name);
+    const name = decodeArchivePath(
+      buffer.subarray(nameStart, nameStart + nameLength),
+      "локальной записи",
+    );
     const contentStart = nameStart + nameLength + extraLength;
     const content = buffer.subarray(contentStart, contentStart + compressedSize);
     if (crc32(content) !== checksum) throw new Error(`повреждён член ZIP: ${name}`);
     if (entries.has(name)) throw new Error(`дублирующийся член ZIP: ${name}`);
     entries.set(name, Buffer.from(content));
-    localRecords.set(localOffset, { name, flags, method, checksum, size });
+    const localRecord = { offset: localOffset, name, flags, method, checksum, size };
+    localRecords.set(localOffset, localRecord);
+    localOrder.push(localRecord);
     offset = contentStart + compressedSize;
   }
 
@@ -248,8 +300,12 @@ export function readStoredZip(buffer) {
   let centralCount = 0;
   while (offset + 4 <= buffer.length && buffer.readUInt32LE(offset) === ZIP_CENTRAL) {
     requireBytes(offset, 46, "неполная запись центрального каталога");
+    const versionMadeBy = buffer.readUInt16LE(offset + 4);
+    const versionNeeded = buffer.readUInt16LE(offset + 6);
     const flags = buffer.readUInt16LE(offset + 8);
     const method = buffer.readUInt16LE(offset + 10);
+    const modifiedTime = buffer.readUInt16LE(offset + 12);
+    const modifiedDate = buffer.readUInt16LE(offset + 14);
     const checksum = buffer.readUInt32LE(offset + 16);
     const compressedSize = buffer.readUInt32LE(offset + 20);
     const size = buffer.readUInt32LE(offset + 24);
@@ -257,22 +313,42 @@ export function readStoredZip(buffer) {
     const extraLength = buffer.readUInt16LE(offset + 30);
     const commentLength = buffer.readUInt16LE(offset + 32);
     const diskNumber = buffer.readUInt16LE(offset + 34);
+    const internalAttributes = buffer.readUInt16LE(offset + 36);
+    const externalAttributes = buffer.readUInt32LE(offset + 38);
     const localOffset = buffer.readUInt32LE(offset + 42);
+    requireCanonical(versionMadeBy === ZIP_VERSION_MADE_BY, "версия создателя центральной записи");
+    requireCanonical(versionNeeded === ZIP_VERSION_NEEDED, "версия центральной записи");
+    requireCanonical(flags === ZIP_UTF8_FLAGS, "флаги центральной записи");
+    requireCanonical(method === ZIP_STORED_METHOD, "метод центральной записи");
+    requireCanonical(modifiedTime === ZIP_DOS_TIME, "время центральной записи");
+    requireCanonical(modifiedDate === ZIP_DOS_DATE, "дата центральной записи");
+    requireCanonical(extraLength === 0, "дополнительное поле центральной записи");
+    requireCanonical(commentLength === 0, "комментарий центральной записи");
+    requireCanonical(diskNumber === 0, "номер диска центральной записи");
+    requireCanonical(internalAttributes === 0, "внутренние атрибуты центральной записи");
+    requireCanonical(
+      externalAttributes === ZIP_EXTERNAL_FILE_ATTRIBUTES,
+      "внешние атрибуты центральной записи",
+    );
     const nameStart = offset + 46;
     requireBytes(
       nameStart,
       nameLength + extraLength + commentLength,
       "запись центрального каталога выходит за границы архива",
     );
-    const name = buffer.subarray(nameStart, nameStart + nameLength).toString("utf8");
-    assertSafeRelativePath(name);
-    if (diskNumber !== 0) throw new Error("многодисковый ZIP не поддерживается");
+    const name = decodeArchivePath(
+      buffer.subarray(nameStart, nameStart + nameLength),
+      "центральной записи",
+    );
     const local = localRecords.get(localOffset);
     if (!local) {
       throw new Error(`центральный каталог ссылается на неизвестную запись: ${name}`);
     }
     if (referencedLocalOffsets.has(localOffset)) {
       throw new Error(`центральный каталог повторяет локальную запись: ${name}`);
+    }
+    if (localOffset !== localOrder[centralCount]?.offset) {
+      throw new Error(`порядок записей центрального каталога не совпадает с локальным: ${name}`);
     }
     if (name !== local.name) {
       throw new Error(
@@ -305,6 +381,7 @@ export function readStoredZip(buffer) {
   const declaredCentralSize = buffer.readUInt32LE(offset + 12);
   const declaredCentralOffset = buffer.readUInt32LE(offset + 16);
   const commentLength = buffer.readUInt16LE(offset + 20);
+  requireCanonical(commentLength === 0, "комментарий конечной записи");
   requireBytes(offset + 22, commentLength, "неполный комментарий конечной записи ZIP");
   if (offset + 22 + commentLength !== buffer.length) {
     throw new Error("после конечной записи ZIP обнаружены лишние данные");
