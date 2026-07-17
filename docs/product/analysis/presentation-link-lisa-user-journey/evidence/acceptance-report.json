@@ -1,7 +1,7 @@
 {
   "browser_report": {
     "path": "evidence/browser-report.json",
-    "sha256": "739560526315408773e7de3f8a166236de0a475b1c919e2fc9b07e74559153cc"
+    "sha256": "837712d870d0378e050b50b641acc6c5b1851abcd289ec6253ec9dfed6aa445e"
   },
   "canonical_contracts": [
     {
@@ -18,7 +18,7 @@
     },
     {
       "path": "source/visual-components-contract.json",
-      "sha256": "7e416becce3d87b103808ec94f762f7ace07dd18845063b0399004c4191eb092"
+      "sha256": "da813857c290c63bb43e11dced7acbae59f455899e4839b22dd6fa349f87be41"
     },
     {
       "path": "source/frame-contract.json",
@@ -68,7 +68,7 @@
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-      "sha256": "69218fd0d34aaa7b133f6845e52ea4778ba4d685ee9686e2a9f6a1c4e6e93780"
+      "sha256": "8fd93ea9648c43291d35183570a8386cf1ba3b81489097c47a04fb007cb3f508"
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
@@ -78,15 +78,15 @@
   "html_files": [
     {
       "path": "demo/index.html",
-      "sha256": "996578956267e0c5faa5223323b87607cabe39b803c98dc7786f73a76f2d80ef"
+      "sha256": "c5cd8051f7002eff6c9872b2e72f4ed37ee50dc2a93941a3d5fd99785bee4ed7"
     },
     {
       "path": "demo/app.js",
-      "sha256": "822e2f03eb0194c3ff5206cf998b3f66336009a68ebb3cffa8dd870462657bda"
+      "sha256": "c40e18667e6013efdc46919eedbdeedb95ae283509a17850565207277a6132c0"
     },
     {
       "path": "demo/styles.css",
-      "sha256": "7a91dde2afe80712a22b33ceeacaff0d4425061e887eaed61c0b0684281f4d5e"
+      "sha256": "3bb92d1c0dddbac125c25fafb46b10d6585d6c324f3782b8fb4cd1b8224010e0"
     },
     {
       "path": "demo/data.js",
@@ -100,7 +100,7 @@
   },
   "package_manifest": {
     "path": "derived/prototype-package-manifest.json",
-    "sha256": "c764216114ef7dbe8a9cd13291664714ed0eac66da345f874547868d7f78f018"
+    "sha256": "4856925e4e828c321ba1a8f639b1dc0210421847b3b8eab1a9abf6ed2a9534a4"
   },
   "result": "conditional_pass_with_tooling_limitation",
   "rights": {

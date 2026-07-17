@@ -30,7 +30,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 65354,
+      "bytes": 64785,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -78,7 +78,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "bf38da000dcbe72e2e947df93747b4c2134a082c0f5ea76bb081a13e11cbb5bb",
+      "sha256": "c8cb6e8f99395505e2fce9d5acec78cede92146541305e69d0c2e8aea01ab749",
       "state_id": "lisa-materials-ready",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -89,7 +89,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 51994,
+      "bytes": 51394,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -137,7 +137,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "8ec95d9679ebcee7fc78df664f71661b794fecdf764ae5090e70c3318d01f8fa",
+      "sha256": "4a799a6b2216fa65e5af7f4e7b8e05840784ae2fbbb1bc6da75184dd846175c9",
       "state_id": "lisa-materials-email-sent",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -148,7 +148,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 39563,
+      "bytes": 38972,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -196,7 +196,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "341ded25d2ed95ae040170efff197bd8c50b60061e5a6fa20594731c8da31a0c",
+      "sha256": "d696e60f453e0e6d20774945c894954af6005fafea911011376e2eb1edb025de",
       "state_id": "lisa-presentation-order-submitting",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -207,7 +207,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 52182,
+      "bytes": 51601,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -255,7 +255,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "0eed370fe8f2364da9d894a3ee4ca4a88baa4b3a0ffc00a4fd1e6ae667052172",
+      "sha256": "8c9824dd02e660f0e460b3796ed04d18a24bfb0e55292ae647a3fe863e796a27",
       "state_id": "lisa-presentation-order-failed",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -266,7 +266,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 52188,
+      "bytes": 51647,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -314,7 +314,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "2064be59ddcadc8f217ecefdba019c44e84508301dce99ccca182b1336456d45",
+      "sha256": "2224a9db68249a4bd598e855b73d52b0348fe80237284992d6d2d32cb16c738a",
       "state_id": "lisa-presentation-generating",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -325,7 +325,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 59623,
+      "bytes": 59075,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -373,7 +373,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "f935b0b19aa810cf64d9f7b3b5f7a7d84f50e42676715627acea74378961bd31",
+      "sha256": "090aae11f55da03074cb4446f366dd37fb69c772c1f46de58413fee8b363bd37",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -384,7 +384,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 20897,
+      "bytes": 20325,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -432,7 +432,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "6d3431433e62f9428b3d73b357c6c0268ad0ad613d0911cb55c98ec5feecb933",
+      "sha256": "ea1e560c3a4f9d7ee328ac1432ee017cd7e4721ca0f94da40b42417d7fb932d8",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -443,7 +443,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 25763,
+      "bytes": 25225,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -491,7 +491,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "4e4c3b06bed5d74b4385388830bb2992d6f1724069fe1f1ec02e0b5d9dfd98f8",
+      "sha256": "a186ba0ad367151e9dcd237e0d0267c7a32ddfe9a87009a2908da479f4db4a47",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -502,7 +502,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 38941,
+      "bytes": 38393,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -550,7 +550,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "6133543534722b8a89ef6feedcba55b203ec5eecb2ae9090d80664cdec0b6e53",
+      "sha256": "51c68a5c8adf40699980f172221d9cba3ece4ffb51d421e2b688495d233016de",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -561,7 +561,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 25704,
+      "bytes": 25164,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -609,7 +609,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "d2ff427f21dd4ad7550c21c7ee83c00ce64bb4590dcdf5f2d33b861fc6a982db",
+      "sha256": "f23b0de6a17d3b14d8625a57262edf0ccc697a29b3217ab3e3218df6213388c8",
       "state_id": "lisa-notifications-list-read",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -620,7 +620,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 41178,
+      "bytes": 40620,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -668,7 +668,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "9635a5a6a194413158fd75c41102b1b8e44824de40d6d97ee3cf9fbe1cfaffb9",
+      "sha256": "e45d8144e2fd3c4a4e46299a35f407d315451c27451ebc24b0d6f4fb68580a95",
       "state_id": "lisa-notification-detail-read",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -797,7 +797,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 66696,
+      "bytes": 66196,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -845,7 +845,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "64fff2cb465ac2f48c42089a2755874b4f7299e2cbf2669d1f2d00079004dadc",
+      "sha256": "32eadc81ee90dcbae596da5cc04495eeb19832e00f38f898db0ebe8fcc5d53fa",
       "state_id": "lisa-returned-to-chat",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -856,7 +856,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 59788,
+      "bytes": 59244,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -904,7 +904,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "f4b89a270ec3671b2de2b269c18a3ed892cdf248d50c9a6fb62faa16c734a38f",
+      "sha256": "113731c1519db3c5ffaa48a95a47a292a2170d3e6288495b875f56b766630a8f",
       "state_id": "lisa-presentation-email-submitting",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -915,7 +915,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 57015,
+      "bytes": 56497,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -963,7 +963,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "90dbd0ab3d7c6c31b666aa6cf523429e4795b82c81d8740b6e653b0bead017cc",
+      "sha256": "f33e3f16e7c2faad68620b19b5c9cd86a64acfdb76fe4a94670edd9559aef4ad",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -974,7 +974,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 67153,
+      "bytes": 66626,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1022,7 +1022,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "e42673e9d77424afdb619adecb90f620d3e166197efc9f32babe62b302facd6b",
+      "sha256": "b011c84206d30d916cb7f46aa3eec654f045a6c5cc627aaf4a1ed8db7567e1e4",
       "state_id": "lisa-presentation-email-partial-failure",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1033,7 +1033,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 63309,
+      "bytes": 62774,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1081,7 +1081,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "d8c6ebb5999ffa0774262902323861d0497fa73be32f16fe9e45ef187100f42b",
+      "sha256": "9525276c5e350cc10173240e0ce1b1b4eb0718c07532ef268585bc2ad2c480a2",
       "state_id": "lisa-presentation-email-failed",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1092,7 +1092,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 34306,
+      "bytes": 33735,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1140,7 +1140,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "ea2015ac740ada702181e116edf422e12f4691579d9676f1c1332b81b46dba2f",
+      "sha256": "812105c1eef1a7e537a4749ebc7d11fa5ea9fa6756d47a359d04c7c653aab7eb",
       "state_id": "lisa-result-not-ready",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1151,7 +1151,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36482,
+      "bytes": 35928,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1199,7 +1199,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "eae1b9ccf397319c956c0d16e7ee668eefb219bdd1d8fc2abd1aca06c6e91f9f",
+      "sha256": "410b111b6d071d2f68991dfb7ae71e5d6ada082694fef8c39f02c5a733bd2216",
       "state_id": "lisa-link-invalid",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1210,7 +1210,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36873,
+      "bytes": 36321,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1258,7 +1258,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "ff10c993832b6f9ae61dfb1ac7b26ca9f12cd8d180fef9f6deb780252397d7bb",
+      "sha256": "61ae67b67bd294f0d8dc2b8317b420d8f54278b43509364ff1fed0b3cd6db33e",
       "state_id": "lisa-link-expired",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1269,7 +1269,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36850,
+      "bytes": 36300,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1317,7 +1317,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "12dffff46900203868db683c9a6de77847d30fe9f70f7c2e512a2c630153c31c",
+      "sha256": "7b87f99d0a87e3b6d0a7ce2c1aba6421a4e607b263f50cc9fc5a9170b0ac5358",
       "state_id": "lisa-access-denied",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1328,7 +1328,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 43308,
+      "bytes": 42716,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1376,7 +1376,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "3dc121ceae4d42caa0b70be5af0df48e1083d0e285fe1b28984df5ca58da14ac",
+      "sha256": "46295851306c58e2fc2e637432b40f37c7975c13cbf6da3d7fee1c38b7818f45",
       "state_id": "lisa-offline",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1387,7 +1387,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 35696,
+      "bytes": 35149,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1435,7 +1435,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "e8f507737c6c333a53c853483611a49b1360c3cfd7d76981fe3a2f12f645e71b",
+      "sha256": "2504e072946404188d00750b1b5e342f8975e153a4d7aa021cee4ce217dead2f",
       "state_id": "lisa-notification-failed-chat-available",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1446,7 +1446,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 34025,
+      "bytes": 33456,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1494,7 +1494,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "3eb38f7f2203e91dff30e9cb85f6dffc83c5eac0b17f085d750d7700992ac985",
+      "sha256": "597dd9117f68d11045987122c0fb749a9f8afe6e0f6afd5f515f96449fa9b80c",
       "state_id": "lisa-result-cancelled",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1505,7 +1505,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36355,
+      "bytes": 35803,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1553,7 +1553,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "0385fdaf413bd7ebc7e05d28d24571e900ff9ae9298ffbb484a84af86d777bf4",
+      "sha256": "5f96dfaa1513b2bebb65831bf603f9e270022d9b551b60a7debe85abaf540287",
       "state_id": "lisa-result-revoked",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -1564,7 +1564,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 76031,
+      "bytes": 75461,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1612,7 +1612,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "d0ae6733f3c5116d927517bec590ff35b21c3d0965b09c73efc0f6365467fed0",
+      "sha256": "1b813d1adf9ffedc8bc3376266c662dafa1ad4cf1aec7bba86cdf2f024cd3498",
       "state_id": "lisa-materials-ready",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1623,7 +1623,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 52543,
+      "bytes": 51919,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1671,7 +1671,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "8fc0383a8201b98a82199d307366c995a5d5715757c92c44b41445816ee8a157",
+      "sha256": "74bc3d27530a977627ef63950c446b879991dd9628be3f394b98211674963522",
       "state_id": "lisa-materials-email-sent",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1682,7 +1682,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 39803,
+      "bytes": 39200,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1730,7 +1730,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "83f9686af8a5bdf5db5d4527a2a54cbe81d16ec82a1cf530c4daddfc7727c04a",
+      "sha256": "7532196a7c2229711e80756d88c1b1566a5be220d5121d755838cc692baa1bf3",
       "state_id": "lisa-presentation-order-submitting",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1741,7 +1741,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 52845,
+      "bytes": 52208,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1789,7 +1789,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "d060aa3ab1782d9769e2296541e1fd92dd9ba03a130c231a43414b1942c0389b",
+      "sha256": "e48e222fa150a391fe2e67338980c426be38c2ddad966ec262481781e470defb",
       "state_id": "lisa-presentation-order-failed",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1800,7 +1800,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 55568,
+      "bytes": 54945,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1848,7 +1848,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "b39d77b235af69bb1901b8180f97eddf6248e40018d704ac7d1cb1751932567f",
+      "sha256": "cfa2ec542fe96783affd15eff275b02e4ff97c4bbce30ac6f30e46d2af0b2459",
       "state_id": "lisa-presentation-generating",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1859,7 +1859,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 60244,
+      "bytes": 59700,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1907,7 +1907,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "bb99ffb32b6647c77eda90c97223c83e77bdcd5af8308f56bd12e9ad171f4c52",
+      "sha256": "4eb11d7565ae8d7a86b2439890a421d06ed5de643722a77faffeafebad593d57",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1918,7 +1918,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 20543,
+      "bytes": 20006,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -1966,7 +1966,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "d6d99676cbee078d5aec5de29f7c08c4edb2fe3cbac53c88201469ecacb2168b",
+      "sha256": "de2971091b05aa9be30766e15f130895efb88f613287db76f00073d3b244a78f",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -1977,7 +1977,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 25443,
+      "bytes": 24923,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2025,7 +2025,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "22d96c03ccd231727b91732ec5b854268588f1a5217ddeb71f12751238e8c8ef",
+      "sha256": "247ca025898ee422a69fb8c87c8411c0f3f7d994b496bfc525c42cb431f8f25d",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2036,7 +2036,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 39041,
+      "bytes": 38511,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2084,7 +2084,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "af11f4a83a6b50d32bfbd0342bf495760951cf07deaaa5a295897e9133269178",
+      "sha256": "ab67a2698a2b560fc8572ecc0b8b4f2a48033f9d399c6a5d93fe0099afa1a09c",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2095,7 +2095,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 25430,
+      "bytes": 24909,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2143,7 +2143,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "33354be4619bfeaf3a573ff8c483765d1531148ae84e2870e6413a1795e9b15b",
+      "sha256": "8ee643b7fda8532219bedab029dbacb551668d0aca203f89f69535030e3911dd",
       "state_id": "lisa-notifications-list-read",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2154,7 +2154,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 41664,
+      "bytes": 41132,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2202,7 +2202,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "8e66253a7b0c2d3bb9ab4b756051d2c33c66185bf832cba52365931614adf781",
+      "sha256": "900b36b8e07f5c1e2ade6ce37c0900a9e37b75460132da63c9890f36da48ef80",
       "state_id": "lisa-notification-detail-read",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2331,7 +2331,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 74279,
+      "bytes": 73726,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2379,7 +2379,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "69c7df5008c0c42c609a2b840ea0be6140f05dc05134bfcb8b2062da7377a896",
+      "sha256": "a06b6438fcf89ee19b60f2a9adeaa3d3c97e33a136838190bdf385bf54b995c7",
       "state_id": "lisa-returned-to-chat",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2390,7 +2390,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 70978,
+      "bytes": 70444,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2438,7 +2438,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "1bfeefe2de0a9abe601ae89c9e40e9f0e69b048c3e590cd4ffe1145694661da3",
+      "sha256": "0d9ce74b826f0c3a4d2120bce1b4bc76aa40c021e340f6c92b802e0fb7cbd9c9",
       "state_id": "lisa-presentation-email-submitting",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2449,7 +2449,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 69634,
+      "bytes": 69105,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2497,7 +2497,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "bc5e68aee7482356c12ab0e5eb8d4f53fafe609427213bd43ffe2f8dc46e30bb",
+      "sha256": "0bef8504f7dfaede92a1852eb8260317a65fec311864fc3bb7097f4c41815694",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2508,7 +2508,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 74501,
+      "bytes": 73950,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2556,7 +2556,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "e3fb95d5907ec9afa366cd5bb1d93c87020a24039868f3a5f5cc6de9a4254847",
+      "sha256": "3fb919dcd2ea2013a72fe9d0776a13cb1588f26c5a8ee61618af856ae8998c72",
       "state_id": "lisa-presentation-email-partial-failure",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2567,7 +2567,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 70705,
+      "bytes": 70212,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2615,7 +2615,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "a59077b4802abc51592ec74865d6a8458bf3821e1cfddac60950d0195749a7ea",
+      "sha256": "413284551afe36a8a850af860bf4cceaa680afcada88e8c2fb07fd07d00c9e8b",
       "state_id": "lisa-presentation-email-failed",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2626,7 +2626,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 34402,
+      "bytes": 33825,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2674,7 +2674,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "d6b286eece04e962aa0e095492c6a7b12656c31139229e01ad120c8bd508d430",
+      "sha256": "849b4c08c4952ed23133c7a33c60d7481daeccb8d35def6a89c2c3a9dd17e093",
       "state_id": "lisa-result-not-ready",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2685,7 +2685,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36401,
+      "bytes": 35835,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2733,7 +2733,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "61cbc06ddf826069cf4ad3d03615074112e5b4fdd1c9aaba4682ed7e491ef2cf",
+      "sha256": "84cc837548f6f2677b00f8ced2bc8f6c23983e051f09f11e95692b08d4d0be2b",
       "state_id": "lisa-link-invalid",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2744,7 +2744,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36851,
+      "bytes": 36287,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2792,7 +2792,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "5eaa61d53e5ddd367014d8d9d3b7fd27aede1fb6d1867fc144760a48e6e07fce",
+      "sha256": "326bf7b7d92cec0688acd888af42252b76b5cccd14b388710cabf40335b3b132",
       "state_id": "lisa-link-expired",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2803,7 +2803,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36731,
+      "bytes": 36168,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2851,7 +2851,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "bdbc65cbe155f19a64adbcb3f54a0226ce35a325d2696eee5f743dd3a3434308",
+      "sha256": "c7348d1f7177899fcc3e64e64f4f186e1bf32128758b418e366fb7dc7007e3a5",
       "state_id": "lisa-access-denied",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2862,7 +2862,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 43755,
+      "bytes": 43163,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2910,7 +2910,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "e17f5678258a707df6e7349322a45b5af448ef991c15d2a35b6a4a92bff55ab4",
+      "sha256": "e7f56c14b834729ccdd317ef1cdc850b1be3ec67d4c10ff120f33394aa917a8e",
       "state_id": "lisa-offline",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2921,7 +2921,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 35923,
+      "bytes": 35363,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -2969,7 +2969,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "e700be625d5ca34b90158cfb4bc89b02f9878b9fc3bf6c52f602b9d24c5200e5",
+      "sha256": "03796a01e69ef7ad1c2533de0c7fe7a7abbb1fe553a5641a3f8f5332b60a6304",
       "state_id": "lisa-notification-failed-chat-available",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -2980,7 +2980,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 34222,
+      "bytes": 33651,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3028,7 +3028,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "a1b389f2bbf2f56e54b99eeb8df64bd67bf3ed7e484b827123687eb60d48c360",
+      "sha256": "270010352784f69d4a5a83877a37f31f125e35867a285c462462c258aa92673a",
       "state_id": "lisa-result-cancelled",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -3039,7 +3039,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36337,
+      "bytes": 35772,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3087,7 +3087,7 @@
         "height": 812,
         "width": 374
       },
-      "sha256": "81416982983766f6ce59b37674571e323d76005fee3bfa1091ed27acb9e9dddd",
+      "sha256": "097f869f4aed8929acf8b6bf8a9170eded98249d4eb228234ae39c29169f25a5",
       "state_id": "lisa-result-revoked",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -3098,7 +3098,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 41929,
+      "bytes": 41272,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3146,7 +3146,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "9e25ccdd4d24135b0271c75e0ae1a67057fb6b080b47b76548e3b9e279fdc9c7",
+      "sha256": "219240b3c3c0929e35ce7ec30c1e46932663d41acb10cf90f4833bac09ba9f44",
       "state_id": "lisa-materials-ready",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3157,7 +3157,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 48662,
+      "bytes": 48028,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3205,7 +3205,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "8933ec2d5759d51ed083dd9d6c083edefb7262501b9f7f78b67592b5d42cd205",
+      "sha256": "5c16820cc512be180e7e70e1413e33daff3e68858f715bd658a5d16f2c29814a",
       "state_id": "lisa-materials-email-sent",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3216,7 +3216,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 36597,
+      "bytes": 35985,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3264,7 +3264,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "aa0e4d595de5ee231f4efcf687eb29bd8362be6a438c8d049cf29209bc47084c",
+      "sha256": "5982548c648af570f806d75d75b22fcce7b074d60a07aa04861a69402573648a",
       "state_id": "lisa-presentation-order-submitting",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3275,7 +3275,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 46384,
+      "bytes": 45738,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3323,7 +3323,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "b52dc40f88256b22bb2e0558dab1735888e90d52e5f4283138afdf2c3179e829",
+      "sha256": "8adb3066030f921db32d219bf3669eb2560607b470bb2848e7078c3cd80823fc",
       "state_id": "lisa-presentation-order-failed",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3334,7 +3334,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 46986,
+      "bytes": 46330,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3382,7 +3382,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "12e1fb800437426979cf9a7b043d5a4cad449f1f47332ccb3f2f91d5acda8e03",
+      "sha256": "d5df8de8eac7e925ca40e77574652e7716b6a40298f520b40aaae4281322497f",
       "state_id": "lisa-presentation-generating",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3393,7 +3393,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 42367,
+      "bytes": 41796,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3441,7 +3441,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "1d74e37a07d57d2ee003c5b61b7e4e195704c93af9febe3b5c3762aeb5afc0dc",
+      "sha256": "b976da398891e18cf1343d19f4c04b46ff45da7b176a47465195bd58ca29267f",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3452,7 +3452,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 18032,
+      "bytes": 17436,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3500,7 +3500,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "4c5c97c868257328ae77257945fd86f1eaa7422d37e8a1c3b0564bfa8cad8464",
+      "sha256": "64d69a2279a213d8f511f51988cc2e52e0f935636bcd987e93e46aed760d07b7",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3511,7 +3511,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 22674,
+      "bytes": 22093,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3559,7 +3559,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "55958a1439b0460c753dc064f6568e30dfd0d06caffe091426916a161841e671",
+      "sha256": "d53cdc4119f16107db79553ea61975a96ea0d5d15077004a3dd765ab993bdece",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3570,7 +3570,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 35490,
+      "bytes": 34901,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3618,7 +3618,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "38de737f9dcf43f4f19607723ea911c3c4707572d2087b1ce0b28f27c5a42a42",
+      "sha256": "de452e4da3159b4de4044bea29262aa0d735e0253832c15a98e30bd2aa851bb9",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3629,7 +3629,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 22633,
+      "bytes": 22054,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3677,7 +3677,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "a978e1c98147d6932343f280c0fbea8e6b0bdd2adb260425daebe516e3c86f8f",
+      "sha256": "9d64bd93a6eb362922358148276d126546bdec9b2b14ddc57d2f75ed02cecc24",
       "state_id": "lisa-notifications-list-read",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3688,7 +3688,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 37903,
+      "bytes": 37313,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3736,7 +3736,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "e30771cb4036a3ea52e95aa9ca367f93d64bae5af75fc209c8448a859e57803a",
+      "sha256": "422a10cf01d55b53ac594ff675bb842f1aa0ebcd121ec1fbe3db5812e1c51345",
       "state_id": "lisa-notification-detail-read",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3865,7 +3865,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 47339,
+      "bytes": 46754,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3913,7 +3913,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "cd8aa9a4ff060c77846514321382b44018294aac042f5ebc5ce5acc4373b5e38",
+      "sha256": "312fd05105025bf8b8a861c9909c02024bfb53dd006db2510b8539d6007e03df",
       "state_id": "lisa-returned-to-chat",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3924,7 +3924,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 42756,
+      "bytes": 42191,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -3972,7 +3972,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "ae8c58ba7ce3a2024210c760a1ca38930fa48086f05fed1880d848d5a14b91b9",
+      "sha256": "dc5e33d2ec6ae28a8871fce25646af4c3a1a42368015fcf37ee7d55cb1114480",
       "state_id": "lisa-presentation-email-submitting",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -3983,7 +3983,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 38072,
+      "bytes": 37508,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4031,7 +4031,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "92457c17dc424a6e1c2f9bc6731b72bf952826f7adbe3d76ba0aff0ff0bb1533",
+      "sha256": "37eebc2b4b42419aa44f7bc101700821fbc16f8b276eb0b6bb9a2f473ec5d1db",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4042,7 +4042,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 46517,
+      "bytes": 45933,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4090,7 +4090,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "6ddec14aeca98512ed610979b701bc6e8c9445a4145cebb8dbce3c86788b6f7c",
+      "sha256": "2a0b700ee49e5ec008d3fd323eb46d661e4418229c4fbbde4c267db596af62ef",
       "state_id": "lisa-presentation-email-partial-failure",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4101,7 +4101,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 44111,
+      "bytes": 43510,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4149,7 +4149,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "c6b96b24f077d1d6a1237635da17bca4acb6d9832d3154feef203fbc57ce5ab9",
+      "sha256": "f5a55f60bd5b1e909f0bde94ed2384adec0582502408a1b4a7e7244d12c2ed70",
       "state_id": "lisa-presentation-email-failed",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4160,7 +4160,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 31850,
+      "bytes": 31268,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4208,7 +4208,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "af989bf92fef673d0d90f3f4a560f6a00a32308f3b296e8e8ac8558ae1e61309",
+      "sha256": "e395d216d54caeb293fec873cbcbc6d4198997bd2722e52b272b03743476feb5",
       "state_id": "lisa-result-not-ready",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4219,7 +4219,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 33706,
+      "bytes": 33135,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4267,7 +4267,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "ae271f6c8fc27baceb8d54b0fcbfd42a342ff9d57bf1af799dcfa6c2545f9f80",
+      "sha256": "88c4adf7ba893ab226b9c044b73e74dc9e91a5d6da75f6db7ff705ea13b66d95",
       "state_id": "lisa-link-invalid",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4278,7 +4278,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 33712,
+      "bytes": 33149,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4326,7 +4326,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "afdf022933c8e9fe4614b2f7f6bb41ac913c21fbec8f6faa04cbd6b0c0250654",
+      "sha256": "f94950ddcede8eb445698246be23ad1dcf30d0f450d895795c0a1eaa629073f1",
       "state_id": "lisa-link-expired",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4337,7 +4337,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 34731,
+      "bytes": 34154,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4385,7 +4385,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "1f6be3f540cff0a8b9b697a49f84c1b41d6aea05de90a950e0746f608af527aa",
+      "sha256": "cc3dc52e4afe555c48fb586f10b07b8ca7d6bfb9237109595ee67804105c6c46",
       "state_id": "lisa-access-denied",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4396,7 +4396,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 39972,
+      "bytes": 39358,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4444,7 +4444,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "6d930e2e79d68e1ef7abbe7f1db305d082ee6e6c42044e2ae9f25e9640899f15",
+      "sha256": "636c97ac0a9f5f0849f840f34b693c75cb67eadfc9b16dd999c41a307bc6149b",
       "state_id": "lisa-offline",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4455,7 +4455,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 33294,
+      "bytes": 32720,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4503,7 +4503,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "7b9640908628d7cdd25c5049e1907df14cb59aeef284213ad961ed1b585a99f2",
+      "sha256": "93e0b511d0271d8d0158fcd07e81b983dbf14398c5fe39b4f108467daf27e796",
       "state_id": "lisa-notification-failed-chat-available",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4514,7 +4514,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 31138,
+      "bytes": 30562,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4562,7 +4562,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "067cd2a6a4fed47c38fc6a12c96c5bfc93f7a7f2a8394ae8f71f74fa7fd1a84b",
+      "sha256": "6f578859cb1e5865820d1519148f1cd412bf311aca60d7f0e821b6a11c4ba589",
       "state_id": "lisa-result-cancelled",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4573,7 +4573,7 @@
     {
       "browser": "chromium",
       "browser_version": "149.0.7827.55",
-      "bytes": 33497,
+      "bytes": 32910,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4621,7 +4621,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "d497f41a74012b741ef3560b828cf8a0dee1729b4f56be99335619f7e2c6cb11",
+      "sha256": "dad17732a7d4b23d4ed6cb9c3cabb7016238dda1e99121fe001b4daed06af04f",
       "state_id": "lisa-result-revoked",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -4632,7 +4632,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 96536,
+      "bytes": 96060,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4684,7 +4684,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "7d0982a82432a777409901213968bea90bff51754b4bba410fe6e0b8c70ab860",
+      "sha256": "c8c02a29295729fb184a71875459c6134a81bdb502fa8d5f1464e691cc967f8e",
       "state_id": "lisa-materials-ready",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -4695,7 +4695,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 71846,
+      "bytes": 71128,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4747,7 +4747,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "ff24b87c14ce5e9b7298e8b20f1e00f817dd854c3c9809096178f093b5fb974c",
+      "sha256": "ae9682a598002dc8dbe55b94f340c4d1a84827356d77ac590995d108f67ed846",
       "state_id": "lisa-presentation-generating",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -4758,7 +4758,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 78775,
+      "bytes": 78059,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4810,7 +4810,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "913dd9d0ea271c03ae7bba5af6522bc66de6ef4bdd4cf6aeb59e5a44b09eb882",
+      "sha256": "6b0e3574305eb2bb476ee383df5dff2f7ab7b5df9ccc9db82844f1af5a0f4760",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -4821,7 +4821,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 29215,
+      "bytes": 28503,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4873,7 +4873,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "b68228c9173b477ffe58951236d854a0a3572405b9ef618783b2365234cd2226",
+      "sha256": "90e4059ba78da2e483f679ca5697b78a86d3999d73dcd6807cdb97d38c11779d",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -4884,7 +4884,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 34703,
+      "bytes": 33799,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4936,7 +4936,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "a94745862cb501e7d2300264c1bafb02298c7ddcab3b5212d67da7848ab893a9",
+      "sha256": "63ba5893832c196d1ea677cb373b19fc6ca10b5757df63fc30724f45b47834fa",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -4947,7 +4947,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 64713,
+      "bytes": 63778,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -4999,7 +4999,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "5fd12a1a03a64356c5bdc221123c91a6d846c252d3e11a83e07af9d67a606281",
+      "sha256": "aadce82807021c355ef65ca73ec21e793b587f80162dec668b8f803e71f60f20",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -5010,7 +5010,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 67540,
+      "bytes": 66586,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5062,7 +5062,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "9bd33128b1e547f58e9164f1cef21f7b1252a3824d1146bff751483a69f3f874",
+      "sha256": "bb1687fc8c42df0d3e3aa3c6da2ea7e1b2c84c5a5ae00703e7fdf91c0c3505d4",
       "state_id": "lisa-notification-detail-read",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -5136,7 +5136,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 101856,
+      "bytes": 101112,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5188,7 +5188,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "08f998b3ea36da7db21e5191eb9ca416ac0dffda6dca21f3d31989eba7dd0067",
+      "sha256": "7ecb107f3d78739dc5d0802816533a44d4809d8729d7d5c1e4b5812f4863b177",
       "state_id": "lisa-returned-to-chat",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -5199,7 +5199,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 73327,
+      "bytes": 72619,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5251,7 +5251,7 @@
         "height": 704,
         "width": 376
       },
-      "sha256": "c2c7ff4a4d14373cc2ab21008c04622e10521a83d55becfdce3b89cb5b545a22",
+      "sha256": "4f04cbc193d6d507aac9305a41b9586ebde8e899ca4b4cd1baa54ca8ae3f8a94",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "desktop-1280x720",
       "viewport_dimensions": {
@@ -5262,7 +5262,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 109191,
+      "bytes": 108401,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5314,7 +5314,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "a69e67838fe48945cc12b4850c032afcc8e7229e3fc57c870eb644c2404168e6",
+      "sha256": "8283f8e58583a42f490dbd60609383b57e1d0b87d5b0b87d48a83ca679ebc022",
       "state_id": "lisa-materials-ready",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5325,7 +5325,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 75287,
+      "bytes": 74538,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5377,7 +5377,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "9d3d713ae88436aa1b0c6349ee690d250fcf7c611b57a25b11856defa566c676",
+      "sha256": "cb14332ba29c1c44e09622dc7b7dfcdfdad3123892c144db6bca67197786c11f",
       "state_id": "lisa-presentation-generating",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5388,7 +5388,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 78765,
+      "bytes": 78008,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5440,7 +5440,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "9a96ba94078b970019f42507618d6765e8880245a480fc75555fff71c7c93538",
+      "sha256": "ed8a9133bcee8149ff270f8892a5bc42bf8e290b3bef4dca94062e73dfc5f5ca",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5451,7 +5451,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 29963,
+      "bytes": 29135,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5503,7 +5503,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "44e768a240d7c1750eaf44d835e88bd0838bc2bca3454e80eb5a8c070124ad43",
+      "sha256": "973a2c5f6bb823ad54f388e15d473ce28d1ae5f49b99f640dc9800cc9a77fd3f",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5514,7 +5514,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 34731,
+      "bytes": 33767,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5566,7 +5566,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "4cab54c4957bb94cae27fb0a49717f6b66702bdc148ccadd0f033b21b523e2b5",
+      "sha256": "2aff5728582e8c03ed14764f3d83d7152bbe17bbe31e5330d00530b9778e5aa5",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5577,7 +5577,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 64263,
+      "bytes": 63190,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5629,7 +5629,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "2ea0196c74d5dcccda1407b00f319b28a299d6d8ab37b7c2e891c8a38bbd28fd",
+      "sha256": "4b09e7554e0a8fdedf2e9b8fbe7f6963ba05aafb1bb9244da41a23330f32b43d",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5640,7 +5640,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 67379,
+      "bytes": 66329,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5692,7 +5692,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "84717954a715aa2a90d57a452a5ec2e129b244dfa82f30dac52297862f57e5e5",
+      "sha256": "3db8e66146830b53cf92d18ed2f02f075608e9b3033461d4dd80c290af064a76",
       "state_id": "lisa-notification-detail-read",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5766,7 +5766,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 109151,
+      "bytes": 108396,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5818,7 +5818,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "a60a55c61e12139506f282626dafb1bc7fadfaf5cd0cb3abe498ce4d732a8d19",
+      "sha256": "348fc2087d288ba9dcd2ec4f2dd671d84864aee5008b5100a7a956c611849174",
       "state_id": "lisa-returned-to-chat",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5829,7 +5829,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 87550,
+      "bytes": 86898,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5881,7 +5881,7 @@
         "height": 813,
         "width": 374
       },
-      "sha256": "880854f78874b48be47c06e10010643716bf7bef98adebc7bb7690be82ceca5d",
+      "sha256": "a2d2d658b65ec81de1534cb9ee974f61acbab6d47f996da97dc50a62b9fb55ea",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "mobile-390x844",
       "viewport_dimensions": {
@@ -5892,7 +5892,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 64641,
+      "bytes": 64018,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -5944,7 +5944,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "3265227d0a3418a15eecb6be698720bae2d64440fa68f4d996545a3e6828fe60",
+      "sha256": "c82a071438ed1cc36c0df827909bfd4bc5054991d3ec6c6aa52570e313013100",
       "state_id": "lisa-materials-ready",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -5955,7 +5955,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 63474,
+      "bytes": 62781,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6007,7 +6007,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "85fee3ab9223fff800020d741acf104674ff48c3b356582d0cd5b0c3dd2a8b74",
+      "sha256": "c7ab251a3f11d07d9e5adc78346c8b277556c9460f15437527df14345a6b2fe6",
       "state_id": "lisa-presentation-generating",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6018,7 +6018,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 53914,
+      "bytes": 53164,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6070,7 +6070,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "bad64db63122dcbf2a8862e22ca4172ebc118e68d845788b1b202e48b58967d9",
+      "sha256": "9fbd567a2dcf94fa548d99bc69047b074d2bbaa3bbd010e1069347939906dc76",
       "state_id": "lisa-presentation-ready-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6081,7 +6081,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 24510,
+      "bytes": 23740,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6133,7 +6133,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "acbd8d73a2583fbb2b584505bb912bc2f9c966b5e9116f547009bb782e0258ab",
+      "sha256": "958c018e3cde47f588dfa0a54c1a12c06a9f37b228a7e9e01ce6f2e30a6b1278",
       "state_id": "lisa-notifications-list-empty",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6144,7 +6144,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 29292,
+      "bytes": 28700,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6196,7 +6196,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "64338c594d707809b0c7af0f9e06a5609cc1af50ad920dd76f1a9cf704f18059",
+      "sha256": "57caeba131a1884d4e6f3fb5ac14b29d833f55c5995c556426d5dbb011d256a8",
       "state_id": "lisa-notifications-list-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6207,7 +6207,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 53652,
+      "bytes": 53271,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6259,7 +6259,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "1747be5c5948ffb78153a9d9004e8f12f976fdc41600fe6ba30cf0cb9205ab04",
+      "sha256": "75446b5aba833a52f48b3302f1ed7fe9527f25498543f0757d9618c826374ccb",
       "state_id": "lisa-notification-detail-unread",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6270,7 +6270,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 56225,
+      "bytes": 55418,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6322,7 +6322,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "1b6fc4bce4177f1551fadbbfd3d460c8254a15a497ef3c637a1e5782ad75a50b",
+      "sha256": "a638bc3e038f33190864c47851484f924412db6eb675a5d59ce47dba83ea3a43",
       "state_id": "lisa-notification-detail-read",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6396,7 +6396,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 69863,
+      "bytes": 69137,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6448,7 +6448,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "f19fff0708b863c41eef3c82530692530c164f20c62e6082abbe0e7defed9704",
+      "sha256": "b6c9a77d10f7c031b03b05a1cc5824fb839cfac14e378c373c9551a83d2a7a23",
       "state_id": "lisa-returned-to-chat",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
@@ -6459,7 +6459,7 @@
     {
       "browser": "webkit",
       "browser_version": "26.5",
-      "bytes": 49464,
+      "bytes": 48718,
       "checks": {
         "accessibility": {
           "axe_violation_count": 0,
@@ -6511,7 +6511,7 @@
         "height": 552,
         "width": 304
       },
-      "sha256": "c27d0522af9c173fd329cf8ec0400568b4ca378a953d408eb36b1b43c23ff581",
+      "sha256": "16793f0fcf2d50319f4a7269e7cd433ac5ed9ccf3a343e2525d1e6f366d883fc",
       "state_id": "lisa-presentation-email-sent",
       "viewport": "stress-320x568",
       "viewport_dimensions": {
