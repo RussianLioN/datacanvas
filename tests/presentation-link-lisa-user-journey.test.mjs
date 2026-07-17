@@ -1,10 +1,12 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import playwrightConfig from "./presentation-link-lisa-user-journey.playwright.config.mjs";
+import * as documentationArchive from "../scripts/lib/documentation-archive.mjs";
 import {
   buildNormalizedModel,
   createFontEngine,
@@ -25,6 +27,18 @@ import * as journeyLibrary from "../scripts/lib/presentation-link-lisa-user-jour
 
 const root = process.cwd();
 const packageRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
+const portableArchiveRelativePath =
+  "derived/lisa-presentation-user-journey-demo.zip";
+const portableArchiveMembers = [
+  "README.md",
+  "manifest.json",
+  "demo/index.html",
+  "demo/app.js",
+  "demo/data.js",
+  "demo/styles.css",
+  "source/fonts/NotoSans[wdth,wght].ttf",
+  "source/fonts/OFL.txt",
+];
 const expectedStateIds = [
   "lisa-materials-ready",
   "lisa-materials-email-sent",
@@ -518,7 +532,7 @@ test("visual and frame contracts make narrow screens a first-class layout", () =
 test("prototype package contract is portable, deterministic and network-free", () => {
   const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
 
-  assert.equal(contract.version, "1.8.0");
+  assert.equal(contract.version, "1.9.0");
   assert.equal(contract.portability.entrypoint, "demo/index.html");
   assert.equal(contract.portability.file_scheme_supported, true);
   assert.equal(contract.portability.local_server_required, false);
@@ -562,13 +576,26 @@ test("prototype package contract is portable, deterministic and network-free", (
   assert.equal(contract.dependencies["@playwright/test"], "1.61.1");
   assert.equal(contract.dependencies["@axe-core/playwright"], "4.12.1");
   assert.equal(contract.dependencies["opentype.js"], "2.0.0");
-  assert.equal(contract.outputs.exact_count, 58);
+  assert.deepEqual(contract.archive, {
+    path: portableArchiveRelativePath,
+    format: "zip",
+    compression: "stored",
+    manifest_version: "1.0.0",
+    status: "generated",
+    data_class: "internal",
+    entrypoint: "demo/index.html",
+    exact_members: portableArchiveMembers,
+    extra_members_allowed: false,
+    external_package_manifest_included: false,
+  });
+  assert.equal(contract.outputs.exact_count, 59);
   assert.deepEqual(contract.outputs.per_state.templates, [
     "derived/screens/{state_id}.svg",
     "derived/screens/{state_id}.png",
   ]);
   assert.equal(contract.outputs.per_state.state_count, expectedStateIds.length);
   assert.ok(contract.outputs.exact.includes("derived/prototype-package-manifest.json"));
+  assert.ok(contract.outputs.exact.includes(portableArchiveRelativePath));
   assert.ok(contract.outputs.exact.includes("demo/index.html"));
   assert.equal(contract.outputs.extra_files_allowed, false);
   assert.ok(
@@ -588,6 +615,22 @@ test("prototype package contract is portable, deterministic and network-free", (
       "698f5951d2acaa120dbb8abb83cedb98ae4de601",
     );
   }
+});
+
+test("stored ZIP builder is exported for deterministic prototype archives", () => {
+  assert.equal(typeof documentationArchive.createStoredZip, "function");
+  const members = [
+    { name: "README.md", content: Buffer.from("Проверка\n", "utf8") },
+    { name: "demo/index.html", content: Buffer.from("<!doctype html>\n", "utf8") },
+  ];
+  const first = documentationArchive.createStoredZip(members);
+  const second = documentationArchive.createStoredZip(members);
+
+  assert.deepEqual(first, second);
+  assert.deepEqual(
+    [...documentationArchive.readStoredZip(first).keys()],
+    members.map((member) => member.name),
+  );
 });
 
 test("profile generator, validator and browser contract are registered as source files", () => {
@@ -900,11 +943,79 @@ test("approved full visual generation emits the exact registered package", () =>
   try {
     const generated = generatePrototypePackage({ sourceRoot: root, outputRoot });
     assert.equal(generated.model.status, "owner-approved-prototype");
-    assert.equal(generated.generatedPaths.length, 58);
-    assert.equal(generated.manifest.inventory.generated_output_count, 58);
+    assert.equal(generated.generatedPaths.length, 59);
+    assert.equal(generated.manifest.inventory.generated_output_count, 59);
     for (const relativePath of generated.generatedPaths) {
       assert.ok(fs.existsSync(path.join(outputRoot, relativePath)), relativePath);
     }
+    const archivePath = path.join(
+      outputRoot,
+      packageRoot,
+      portableArchiveRelativePath,
+    );
+    const firstArchiveBytes = fs.readFileSync(archivePath);
+    const archive = documentationArchive.readStoredZip(firstArchiveBytes);
+    assert.deepEqual([...archive.keys()], portableArchiveMembers);
+    assert.equal(
+      [...archive.keys()].some(
+        (member) =>
+          member === "derived/prototype-package-manifest.json" ||
+          member.includes("__MACOSX") ||
+          member.endsWith(".DS_Store") ||
+          member.endsWith(".svg") ||
+          member.endsWith(".png"),
+      ),
+      false,
+    );
+    assert.match(
+      archive.get("README.md").toString("utf8"),
+      /Распакуйте архив[\s\S]*demo\/index\.html[\s\S]*данные[^.]*синтетические[\s\S]*сеть не нужна/iu,
+    );
+    const archiveManifest = JSON.parse(
+      archive.get("manifest.json").toString("utf8"),
+    );
+    assert.equal(archiveManifest.version, "1.0.0");
+    assert.equal(archiveManifest.status, "generated");
+    assert.equal(archiveManifest.data_class, "internal");
+    assert.equal(archiveManifest.entrypoint, "demo/index.html");
+    assert.deepEqual(archiveManifest.inventory, {
+      exact_count: portableArchiveMembers.length,
+      exact_members: portableArchiveMembers,
+    });
+    assert.deepEqual(archiveManifest.contract_fingerprint, {
+      path: "source/prototype-package-contract.json",
+      sha256: createHash("sha256")
+        .update(
+          fs.readFileSync(
+            absolute(`${packageRoot}/source/prototype-package-contract.json`),
+          ),
+        )
+        .digest("hex"),
+    });
+    assert.deepEqual(
+      archiveManifest.members.map((member) => member.path),
+      portableArchiveMembers.filter((member) => member !== "manifest.json"),
+    );
+    for (const member of archiveManifest.members) {
+      const content = archive.get(member.path);
+      assert.ok(content, `archive manifest member is missing: ${member.path}`);
+      assert.equal(member.bytes, content.length, member.path);
+      assert.equal(
+        member.sha256,
+        createHash("sha256").update(content).digest("hex"),
+        member.path,
+      );
+    }
+    const externalArchiveRecord = generated.manifest.outputs.find(
+      (output) => output.path === portableArchiveRelativePath,
+    );
+    assert.deepEqual(externalArchiveRecord, {
+      path: portableArchiveRelativePath,
+      bytes: firstArchiveBytes.length,
+      sha256: createHash("sha256").update(firstArchiveBytes).digest("hex"),
+    });
+    generatePrototypePackage({ sourceRoot: root, outputRoot });
+    assert.deepEqual(fs.readFileSync(archivePath), firstArchiveBytes);
     for (const stateId of [
       "lisa-materials-ready",
       "lisa-presentation-generating",
@@ -959,7 +1070,7 @@ test("approved full visual generation emits the exact registered package", () =>
   }
 });
 
-test("generated package validation rejects a corrupt manifest, path escape and extra file", () => {
+test("generated package validation rejects corrupt outputs and unsafe archive variants", () => {
   const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-corrupt-"));
   try {
     generatePrototypePackage({ sourceRoot: root, outputRoot });
@@ -988,6 +1099,23 @@ test("generated package validation rejects a corrupt manifest, path escape and e
     );
 
     fs.writeFileSync(manifestPath, originalManifest);
+    const wrongSizeManifest = JSON.parse(originalManifest);
+    wrongSizeManifest.outputs.find(
+      (output) => output.path === portableArchiveRelativePath,
+    ).bytes += 1;
+    fs.writeFileSync(
+      manifestPath,
+      `${JSON.stringify(wrongSizeManifest, null, 2)}\n`,
+    );
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes(
+          `manifest size mismatch: ${portableArchiveRelativePath}`,
+        ),
+      ),
+    );
+
+    fs.writeFileSync(manifestPath, originalManifest);
     fs.writeFileSync(
       path.join(outputRoot, packageRoot, "derived/screens/unregistered.png"),
       "лишний файл\n",
@@ -997,8 +1125,163 @@ test("generated package validation rejects a corrupt manifest, path escape and e
         issue.includes("unregistered generated output"),
       ),
     );
+    fs.rmSync(
+      path.join(outputRoot, packageRoot, "derived/screens/unregistered.png"),
+    );
+
+    assert.equal(typeof documentationArchive.createStoredZip, "function");
+    const archivePath = path.join(
+      outputRoot,
+      packageRoot,
+      portableArchiveRelativePath,
+    );
+    const originalArchiveBytes = fs.readFileSync(archivePath);
+    const originalArchive = documentationArchive.readStoredZip(
+      originalArchiveBytes,
+    );
+    const writeArchive = (entries) => {
+      fs.writeFileSync(
+        archivePath,
+        documentationArchive.createStoredZip(
+          [...entries].map(([name, content]) => ({ name, content })),
+        ),
+      );
+    };
+
+    const tamperedMemberArchive = new Map(originalArchive);
+    tamperedMemberArchive.set(
+      "demo/app.js",
+      Buffer.concat([
+        tamperedMemberArchive.get("demo/app.js"),
+        Buffer.from("\n// искажение\n", "utf8"),
+      ]),
+    );
+    writeArchive(tamperedMemberArchive);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes("portable archive member hash mismatch: demo/app.js"),
+      ),
+    );
+
+    const missingMemberArchive = new Map(originalArchive);
+    missingMemberArchive.delete("demo/app.js");
+    writeArchive(missingMemberArchive);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes("portable archive member inventory differs from the contract"),
+      ),
+    );
+
+    const missingManifestArchive = new Map(originalArchive);
+    missingManifestArchive.delete("manifest.json");
+    writeArchive(missingManifestArchive);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes("portable archive manifest is missing"),
+      ),
+    );
+
+    const corruptManifestArchive = new Map(originalArchive);
+    corruptManifestArchive.set("manifest.json", Buffer.from("{", "utf8"));
+    writeArchive(corruptManifestArchive);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes("portable archive manifest is invalid"),
+      ),
+    );
+
+    const serviceMemberArchive = new Map(originalArchive);
+    serviceMemberArchive.set(
+      "__MACOSX/._index.html",
+      Buffer.from("служебный файл\n", "utf8"),
+    );
+    writeArchive(serviceMemberArchive);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some((issue) =>
+        issue.includes("portable archive service member is forbidden"),
+      ),
+    );
+
+    const unsafeArchiveBytes = Buffer.from(originalArchiveBytes);
+    const safeNameOffset = unsafeArchiveBytes.indexOf(
+      Buffer.from("README.md", "utf8"),
+    );
+    assert.ok(safeNameOffset >= 0);
+    unsafeArchiveBytes.write("../bad.md", safeNameOffset, "utf8");
+    fs.writeFileSync(archivePath, unsafeArchiveBytes);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some(
+        (issue) =>
+          issue.includes("portable archive is invalid") &&
+          issue.includes("выходит за корень архива"),
+      ),
+    );
+
+    const unsafeCentralArchiveBytes = Buffer.from(originalArchiveBytes);
+    const centralNameOffset = unsafeCentralArchiveBytes.lastIndexOf(
+      Buffer.from("README.md", "utf8"),
+    );
+    assert.ok(centralNameOffset > safeNameOffset);
+    unsafeCentralArchiveBytes.write("../bad.md", centralNameOffset, "utf8");
+    fs.writeFileSync(archivePath, unsafeCentralArchiveBytes);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some(
+        (issue) =>
+          issue.includes("portable archive is invalid") &&
+          issue.includes("выходит за корень архива"),
+      ),
+    );
+
+    const invalidEndRecordArchiveBytes = Buffer.from(originalArchiveBytes);
+    const endRecordOffset = invalidEndRecordArchiveBytes.lastIndexOf(
+      Buffer.from([0x50, 0x4b, 0x05, 0x06]),
+    );
+    assert.ok(endRecordOffset > centralNameOffset);
+    invalidEndRecordArchiveBytes.writeUInt16LE(
+      portableArchiveMembers.length - 1,
+      endRecordOffset + 10,
+    );
+    fs.writeFileSync(archivePath, invalidEndRecordArchiveBytes);
+    assert.ok(
+      validateGeneratedPackage(outputRoot, root).some(
+        (issue) =>
+          issue.includes("portable archive is invalid") &&
+          issue.includes("число записей ZIP"),
+      ),
+    );
   } finally {
     fs.rmSync(outputRoot, { recursive: true, force: true });
+  }
+});
+
+test("package check reports a stale generated portable archive", () => {
+  const archivePath = absolute(`${packageRoot}/${portableArchiveRelativePath}`);
+  assert.ok(fs.existsSync(archivePath), "portable archive must be generated first");
+  const originalArchive = fs.readFileSync(archivePath);
+  try {
+    fs.writeFileSync(
+      archivePath,
+      Buffer.concat([originalArchive, Buffer.from("устарел", "utf8")]),
+    );
+    const result = spawnSync(
+      process.execPath,
+      ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"],
+      {
+        cwd: root,
+        encoding: "utf8",
+        maxBuffer: 20 * 1024 * 1024,
+      },
+    );
+    assert.equal(result.status, 1, result.stderr || result.stdout);
+    assert.match(
+      `${result.stdout}\n${result.stderr}`,
+      new RegExp(
+        `stale generated output: ${packageRoot}/${portableArchiveRelativePath.replaceAll(".", "\\.")}`,
+        "u",
+      ),
+    );
+  } finally {
+    fs.writeFileSync(archivePath, originalArchive);
   }
 });
 

@@ -41,14 +41,19 @@
       "sha256": "58bcacc18152c7895baca6d1da661c911047fabcae234f4d7aade2f34100bcf9"
     },
     {
+      "bytes": 14894,
+      "path": "scripts/lib/documentation-archive.mjs",
+      "sha256": "555308927d260e3ee07de0d5013e144d45106782829cde176477ceadda026fa5"
+    },
+    {
       "bytes": 70314,
       "path": "scripts/lib/presentation-link-lisa-html-runtime.mjs",
       "sha256": "0a3f58e7353e3b8e920ffa971f4af4b173ba63d398e0aab9e190d933d9db593b"
     },
     {
-      "bytes": 95970,
+      "bytes": 105212,
       "path": "scripts/lib/presentation-link-lisa-user-journey.mjs",
-      "sha256": "b673b15a9ab4aeffad7975b52c530c6861815ec704509a7e3147493b1443f7a5"
+      "sha256": "7484b4728197d75e9266609d6aaeb26046139bc6c62d11b46cddf1007356a46f"
     },
     {
       "bytes": 561,
@@ -91,9 +96,9 @@
       "sha256": "3cffb9230335f6689dc799e0c6f337d36cc2d80eaa390f44e2cfcd00c1fa4605"
     },
     {
-      "bytes": 7445,
+      "bytes": 8086,
       "path": "source/prototype-package-contract.json",
-      "sha256": "ff6bd4c74ecb7a82d9e18f0c3caabf3da302093d8c3e0923815ac1974767e496"
+      "sha256": "0f81cd51496aa123e15e9d32700d9640cf2496bd1bcf3dc6c1d1de742db94641"
     },
     {
       "bytes": 2787,
@@ -111,9 +116,9 @@
       "sha256": "feaacbc03750f56f38372c6836b927942b7d3d6d04ec9c253bcd5c3e6435f45d"
     },
     {
-      "bytes": 13621,
+      "bytes": 14998,
       "path": "source/schemas/prototype-package-contract.schema.json",
-      "sha256": "928e727b4668e4b8f59fc2ae235d8aadccf614cdadea68f313e735ca87dbbe69"
+      "sha256": "16b43792f64c993f3d033b19ee5af6c04193127612bb90d40eac61ca091a442b"
     },
     {
       "bytes": 1485,
@@ -142,6 +147,7 @@
       "demo/data.js",
       "demo/index.html",
       "demo/styles.css",
+      "derived/lisa-presentation-user-journey-demo.zip",
       "derived/projection-map.json",
       "derived/prototype-package-manifest.json",
       "derived/screens/lisa-access-denied.png",
@@ -197,7 +203,7 @@
       "derived/screens/lisa-returned-to-chat.png",
       "derived/screens/lisa-returned-to-chat.svg"
     ],
-    "generated_output_count": 58
+    "generated_output_count": 59
   },
   "outputs": [
     {
@@ -224,6 +230,11 @@
       "bytes": 4967,
       "path": "derived/projection-map.json",
       "sha256": "70778524c179d5d59f9159777b22303787caad1c30a4803c043006cd48a7d263"
+    },
+    {
+      "bytes": 2230583,
+      "path": "derived/lisa-presentation-user-journey-demo.zip",
+      "sha256": "1fdd9e146fdfa58296bdd6c1133431845fe2335689bb26c4f3481da13589c31b"
     },
     {
       "bytes": 135218,

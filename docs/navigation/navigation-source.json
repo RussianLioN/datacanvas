@@ -3997,6 +3997,11 @@
       "description": "Производный манифест HTML, SVG, PNG и контрольных сумм визуального пакета."
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
       "description": "Производный отчёт браузерных, геометрических и проверок доступности."

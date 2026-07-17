@@ -134,7 +134,7 @@ function renderHtml(contract, chain, memberData) {
 <section><h2>Производные файловые представления</h2><ul>${derivatives}</ul></section></body></html>\n`, "utf8");
 }
 
-function createStoredZip(entries) {
+export function createStoredZip(entries) {
   const localParts = [];
   const centralParts = [];
   let offset = 0;
@@ -195,25 +195,136 @@ export function buildDocumentationArchive(root, contract, chain) {
 }
 
 export function readStoredZip(buffer) {
+  const requireBytes = (start, length, label) => {
+    if (start < 0 || length < 0 || start + length > buffer.length) {
+      throw new Error(`повреждена структура ZIP: ${label}`);
+    }
+  };
   const entries = new Map();
+  const localRecords = new Map();
   let offset = 0;
   while (offset + 4 <= buffer.length && buffer.readUInt32LE(offset) === ZIP_LOCAL) {
+    const localOffset = offset;
+    requireBytes(offset, 30, "неполный локальный заголовок");
+    const flags = buffer.readUInt16LE(offset + 6);
     const method = buffer.readUInt16LE(offset + 8);
     if (method !== 0) throw new Error("архив использует неподдерживаемое сжатие");
+    if (flags !== 0 && flags !== 0x0800) {
+      throw new Error("архив использует неподдерживаемые флаги ZIP");
+    }
     const checksum = buffer.readUInt32LE(offset + 14);
-    const size = buffer.readUInt32LE(offset + 18);
+    const compressedSize = buffer.readUInt32LE(offset + 18);
+    const size = buffer.readUInt32LE(offset + 22);
+    if (compressedSize !== size) {
+      throw new Error("stored ZIP содержит разные сжатый и исходный размеры");
+    }
     const nameLength = buffer.readUInt16LE(offset + 26);
     const extraLength = buffer.readUInt16LE(offset + 28);
     const nameStart = offset + 30;
+    requireBytes(
+      nameStart,
+      nameLength + extraLength + compressedSize,
+      "локальная запись выходит за границы архива",
+    );
     const name = buffer.subarray(nameStart, nameStart + nameLength).toString("utf8");
     assertSafeRelativePath(name);
     const contentStart = nameStart + nameLength + extraLength;
-    const content = buffer.subarray(contentStart, contentStart + size);
-    if (content.length !== size || crc32(content) !== checksum) throw new Error(`повреждён член ZIP: ${name}`);
+    const content = buffer.subarray(contentStart, contentStart + compressedSize);
+    if (crc32(content) !== checksum) throw new Error(`повреждён член ZIP: ${name}`);
     if (entries.has(name)) throw new Error(`дублирующийся член ZIP: ${name}`);
     entries.set(name, Buffer.from(content));
-    offset = contentStart + size;
+    localRecords.set(localOffset, { name, flags, method, checksum, size });
+    offset = contentStart + compressedSize;
   }
-  if (buffer.readUInt32LE(offset) !== ZIP_CENTRAL) throw new Error("центральный каталог ZIP отсутствует");
+
+  const centralStart = offset;
+  if (
+    centralStart + 4 > buffer.length ||
+    buffer.readUInt32LE(centralStart) !== ZIP_CENTRAL
+  ) {
+    throw new Error("центральный каталог ZIP отсутствует");
+  }
+  const referencedLocalOffsets = new Set();
+  let centralCount = 0;
+  while (offset + 4 <= buffer.length && buffer.readUInt32LE(offset) === ZIP_CENTRAL) {
+    requireBytes(offset, 46, "неполная запись центрального каталога");
+    const flags = buffer.readUInt16LE(offset + 8);
+    const method = buffer.readUInt16LE(offset + 10);
+    const checksum = buffer.readUInt32LE(offset + 16);
+    const compressedSize = buffer.readUInt32LE(offset + 20);
+    const size = buffer.readUInt32LE(offset + 24);
+    const nameLength = buffer.readUInt16LE(offset + 28);
+    const extraLength = buffer.readUInt16LE(offset + 30);
+    const commentLength = buffer.readUInt16LE(offset + 32);
+    const diskNumber = buffer.readUInt16LE(offset + 34);
+    const localOffset = buffer.readUInt32LE(offset + 42);
+    const nameStart = offset + 46;
+    requireBytes(
+      nameStart,
+      nameLength + extraLength + commentLength,
+      "запись центрального каталога выходит за границы архива",
+    );
+    const name = buffer.subarray(nameStart, nameStart + nameLength).toString("utf8");
+    assertSafeRelativePath(name);
+    if (diskNumber !== 0) throw new Error("многодисковый ZIP не поддерживается");
+    const local = localRecords.get(localOffset);
+    if (!local) {
+      throw new Error(`центральный каталог ссылается на неизвестную запись: ${name}`);
+    }
+    if (referencedLocalOffsets.has(localOffset)) {
+      throw new Error(`центральный каталог повторяет локальную запись: ${name}`);
+    }
+    if (name !== local.name) {
+      throw new Error(
+        `имя центрального каталога не совпадает с локальным заголовком: ${name}`,
+      );
+    }
+    if (
+      flags !== local.flags ||
+      method !== local.method ||
+      checksum !== local.checksum ||
+      compressedSize !== local.size ||
+      size !== local.size
+    ) {
+      throw new Error(`метаданные центрального каталога не совпадают: ${name}`);
+    }
+    referencedLocalOffsets.add(localOffset);
+    centralCount += 1;
+    offset = nameStart + nameLength + extraLength + commentLength;
+  }
+
+  const centralSize = offset - centralStart;
+  requireBytes(offset, 22, "конечная запись ZIP отсутствует");
+  if (buffer.readUInt32LE(offset) !== ZIP_END) {
+    throw new Error("конечная запись ZIP отсутствует");
+  }
+  const diskNumber = buffer.readUInt16LE(offset + 4);
+  const centralDiskNumber = buffer.readUInt16LE(offset + 6);
+  const diskEntryCount = buffer.readUInt16LE(offset + 8);
+  const totalEntryCount = buffer.readUInt16LE(offset + 10);
+  const declaredCentralSize = buffer.readUInt32LE(offset + 12);
+  const declaredCentralOffset = buffer.readUInt32LE(offset + 16);
+  const commentLength = buffer.readUInt16LE(offset + 20);
+  requireBytes(offset + 22, commentLength, "неполный комментарий конечной записи ZIP");
+  if (offset + 22 + commentLength !== buffer.length) {
+    throw new Error("после конечной записи ZIP обнаружены лишние данные");
+  }
+  if (diskNumber !== 0 || centralDiskNumber !== 0) {
+    throw new Error("многодисковый ZIP не поддерживается");
+  }
+  if (
+    diskEntryCount !== centralCount ||
+    totalEntryCount !== centralCount ||
+    centralCount !== localRecords.size ||
+    referencedLocalOffsets.size !== localRecords.size
+  ) {
+    throw new Error("число записей ZIP не совпадает с каталогом");
+  }
+  if (
+    declaredCentralSize !== centralSize ||
+    declaredCentralOffset !== centralStart
+  ) {
+    throw new Error("границы центрального каталога ZIP не совпадают");
+  }
   return entries;
 }

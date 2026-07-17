@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/prototype-package-contract.schema.json",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "status": "active",
   "canonical_contracts": [
     "source/journey-contract.json",
@@ -123,6 +123,27 @@
     },
     "cross_platform_png_byte_identity_required": false
   },
+  "archive": {
+    "path": "derived/lisa-presentation-user-journey-demo.zip",
+    "format": "zip",
+    "compression": "stored",
+    "manifest_version": "1.0.0",
+    "status": "generated",
+    "data_class": "internal",
+    "entrypoint": "demo/index.html",
+    "exact_members": [
+      "README.md",
+      "manifest.json",
+      "demo/index.html",
+      "demo/app.js",
+      "demo/data.js",
+      "demo/styles.css",
+      "source/fonts/NotoSans[wdth,wght].ttf",
+      "source/fonts/OFL.txt"
+    ],
+    "extra_members_allowed": false,
+    "external_package_manifest_included": false
+  },
   "dependencies": {
     "@playwright/test": "1.61.1",
     "@axe-core/playwright": "4.12.1",
@@ -148,14 +169,15 @@
     "status_after_approval": "owner-approved-prototype"
   },
   "outputs": {
-    "exact_count": 58,
+    "exact_count": 59,
     "exact": [
       "demo/index.html",
       "demo/app.js",
       "demo/styles.css",
       "demo/data.js",
       "derived/projection-map.json",
-      "derived/prototype-package-manifest.json"
+      "derived/prototype-package-manifest.json",
+      "derived/lisa-presentation-user-journey-demo.zip"
     ],
     "per_state": {
       "state_source": "source/journey-contract.json#/states",

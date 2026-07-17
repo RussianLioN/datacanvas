@@ -10,6 +10,10 @@ import {
   renderLisaDemoApp,
   renderLisaDemoStyles,
 } from "./presentation-link-lisa-html-runtime.mjs";
+import {
+  createStoredZip,
+  readStoredZip,
+} from "./documentation-archive.mjs";
 
 export const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey";
 export const CONTRACT_PATHS = {
@@ -31,6 +35,8 @@ export const SCHEMA_PATHS = {
 export const STATE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 export const FIXED_EPOCH = "2026-07-16T00:00:00Z";
 export const BROWSER_SCREENSHOT_RENDERER = "playwright-locator-screenshot";
+export const PORTABLE_ARCHIVE_RELATIVE_PATH =
+  "derived/lisa-presentation-user-journey-demo.zip";
 
 export function parsePresentationLinkLisaValidationArguments(args) {
   const supportedArguments = new Set(["--saved-only"]);
@@ -100,6 +106,18 @@ const generatedBasePaths = [
   `${PACKAGE_PATH}/demo/styles.css`,
   `${PACKAGE_PATH}/demo/data.js`,
   `${PACKAGE_PATH}/derived/projection-map.json`,
+  `${PACKAGE_PATH}/${PORTABLE_ARCHIVE_RELATIVE_PATH}`,
+];
+
+const PORTABLE_ARCHIVE_MEMBERS = [
+  "README.md",
+  "manifest.json",
+  "demo/index.html",
+  "demo/app.js",
+  "demo/data.js",
+  "demo/styles.css",
+  "source/fonts/NotoSans[wdth,wght].ttf",
+  "source/fonts/OFL.txt",
 ];
 
 function absolute(root, relativePath) {
@@ -217,6 +235,34 @@ export function validateContracts(root = process.cwd(), contracts = loadContract
     if (!validate(contracts[name])) {
       issues.push(`${CONTRACT_PATHS[name]}: ${formatAjvErrors(validate.errors)}`);
     }
+  }
+
+  const archiveContract = contracts.package.archive;
+  if (!archiveContract) {
+    issues.push("prototype package archive contract is missing");
+  } else {
+    if (archiveContract.path !== PORTABLE_ARCHIVE_RELATIVE_PATH) {
+      issues.push("portable archive path differs from the generator output");
+    }
+    if (
+      JSON.stringify(archiveContract.exact_members) !==
+      JSON.stringify(PORTABLE_ARCHIVE_MEMBERS)
+    ) {
+      issues.push("portable archive member inventory differs from the generator contract");
+    }
+    if (
+      archiveContract.external_package_manifest_included !== false ||
+      archiveContract.exact_members?.includes(
+        "derived/prototype-package-manifest.json",
+      )
+    ) {
+      issues.push("portable archive must not include the external package manifest");
+    }
+  }
+  if (
+    !contracts.package.outputs?.exact?.includes(PORTABLE_ARCHIVE_RELATIVE_PATH)
+  ) {
+    issues.push("portable archive is missing from exact generated outputs");
   }
 
   const packageSourceRoot = path.resolve(root, PACKAGE_PATH, "source");
@@ -1900,9 +1946,86 @@ function sourceInputPaths(contracts) {
     FONT_LICENSE_RELATIVE_PATH,
     "scripts/capture-presentation-link-lisa-derived-frames.mjs",
     "scripts/generate-presentation-link-lisa-user-journey.mjs",
+    "scripts/lib/documentation-archive.mjs",
     "scripts/lib/presentation-link-lisa-html-runtime.mjs",
     "scripts/lib/presentation-link-lisa-user-journey.mjs",
   ];
+}
+
+function renderPortableArchiveReadme() {
+  return Buffer.from(
+    [
+      "# Переносимая демонстрация пользовательского пути Лисы",
+      "",
+      "Распакуйте архив и откройте `demo/index.html` в браузере.",
+      "",
+      "Все данные в демонстрации синтетические. Сеть не нужна.",
+      "",
+    ].join("\n"),
+    "utf8",
+  );
+}
+
+function readPortableArchiveMember(sourceRoot, outputRoot, memberPath) {
+  let memberRoot;
+  if (memberPath.startsWith("demo/")) {
+    memberRoot = outputRoot;
+  } else if (memberPath.startsWith("source/fonts/")) {
+    memberRoot = sourceRoot;
+  } else {
+    throw new Error(`unsupported portable archive member: ${memberPath}`);
+  }
+  const filePath = absolute(memberRoot, `${PACKAGE_PATH}/${memberPath}`);
+  const stat = fs.lstatSync(filePath);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error(`portable archive member must be a regular file: ${memberPath}`);
+  }
+  return fs.readFileSync(filePath);
+}
+
+function buildPortablePrototypeArchive(
+  sourceRoot,
+  outputRoot,
+  packageContract,
+) {
+  const payload = new Map();
+  for (const memberPath of packageContract.archive.exact_members) {
+    if (memberPath === "manifest.json") continue;
+    payload.set(
+      memberPath,
+      memberPath === "README.md"
+        ? renderPortableArchiveReadme()
+        : readPortableArchiveMember(sourceRoot, outputRoot, memberPath),
+    );
+  }
+  const manifest = Buffer.from(
+    stableStringify({
+      version: packageContract.archive.manifest_version,
+      status: packageContract.archive.status,
+      data_class: packageContract.archive.data_class,
+      entrypoint: packageContract.archive.entrypoint,
+      contract_fingerprint: {
+        path: "source/prototype-package-contract.json",
+        sha256: sha256File(absolute(sourceRoot, CONTRACT_PATHS.package)),
+      },
+      inventory: {
+        exact_count: packageContract.archive.exact_members.length,
+        exact_members: packageContract.archive.exact_members,
+      },
+      members: [...payload].map(([memberPath, content]) => ({
+        path: memberPath,
+        bytes: content.length,
+        sha256: sha256Bytes(content),
+      })),
+    }),
+    "utf8",
+  );
+  return createStoredZip(
+    packageContract.archive.exact_members.map((memberPath) => ({
+      name: memberPath,
+      content: memberPath === "manifest.json" ? manifest : payload.get(memberPath),
+    })),
+  );
 }
 
 function manifestFor(
@@ -2069,6 +2192,12 @@ export function generatePrototypePackage({
       writeFile(outputRoot, pngRelative, fs.readFileSync(sourcePng));
     }
   }
+
+  writeFile(
+    outputRoot,
+    `${PACKAGE_PATH}/${contracts.package.archive.path}`,
+    buildPortablePrototypeArchive(sourceRoot, outputRoot, contracts.package),
+  );
 
   const manifest = manifestFor(
     outputRoot,
@@ -2553,6 +2682,146 @@ function isSafePackageOutputPath(relativePath) {
   );
 }
 
+function isPortableArchiveServiceMember(memberPath) {
+  return memberPath
+    .split("/")
+    .some(
+      (segment) =>
+        segment === "__MACOSX" ||
+        segment === ".DS_Store" ||
+        segment.startsWith("._"),
+    );
+}
+
+function validatePortablePrototypeArchive(
+  outputRoot,
+  sourceRoot,
+  packageContract,
+) {
+  const issues = [];
+  if (!packageContract.archive) {
+    return ["portable archive contract is missing"];
+  }
+  const archivePath = absolute(
+    outputRoot,
+    `${PACKAGE_PATH}/${packageContract.archive.path}`,
+  );
+  if (!fs.existsSync(archivePath)) {
+    return ["portable archive is missing"];
+  }
+  const archiveStat = fs.lstatSync(archivePath);
+  if (!archiveStat.isFile() || archiveStat.isSymbolicLink()) {
+    return ["portable archive must be a regular file"];
+  }
+  let archive;
+  try {
+    archive = readStoredZip(fs.readFileSync(archivePath));
+  } catch (error) {
+    return [`portable archive is invalid: ${error.message}`];
+  }
+  const archiveMembers = [...archive.keys()];
+  for (const memberPath of archiveMembers.filter(isPortableArchiveServiceMember)) {
+    issues.push(`portable archive service member is forbidden: ${memberPath}`);
+  }
+  if (
+    JSON.stringify(archiveMembers) !==
+    JSON.stringify(packageContract.archive.exact_members)
+  ) {
+    issues.push("portable archive member inventory differs from the contract");
+  }
+  if (archive.has("derived/prototype-package-manifest.json")) {
+    issues.push("portable archive includes the external package manifest");
+  }
+
+  const readme = archive.get("README.md")?.toString("utf8") ?? "";
+  for (const requiredText of [
+    "Распакуйте архив",
+    "demo/index.html",
+    "данные в демонстрации синтетические",
+    "Сеть не нужна",
+  ]) {
+    if (!readme.includes(requiredText)) {
+      issues.push(`portable archive README is missing required text: ${requiredText}`);
+    }
+  }
+
+  const manifestBytes = archive.get("manifest.json");
+  if (!manifestBytes) {
+    issues.push("portable archive manifest is missing");
+    return issues;
+  }
+  let manifest;
+  try {
+    manifest = JSON.parse(manifestBytes.toString("utf8"));
+  } catch (error) {
+    issues.push(`portable archive manifest is invalid: ${error.message}`);
+    return issues;
+  }
+  for (const [field, expected] of [
+    ["version", packageContract.archive.manifest_version],
+    ["status", packageContract.archive.status],
+    ["data_class", packageContract.archive.data_class],
+    ["entrypoint", packageContract.archive.entrypoint],
+  ]) {
+    if (manifest[field] !== expected) {
+      issues.push(`portable archive manifest ${field} differs from the contract`);
+    }
+  }
+  const expectedContractFingerprint = {
+    path: "source/prototype-package-contract.json",
+    sha256: sha256File(absolute(sourceRoot, CONTRACT_PATHS.package)),
+  };
+  if (
+    JSON.stringify(manifest.contract_fingerprint) !==
+    JSON.stringify(expectedContractFingerprint)
+  ) {
+    issues.push("portable archive contract fingerprint differs from the source");
+  }
+  const expectedInventory = {
+    exact_count: packageContract.archive.exact_members.length,
+    exact_members: packageContract.archive.exact_members,
+  };
+  if (JSON.stringify(manifest.inventory) !== JSON.stringify(expectedInventory)) {
+    issues.push("portable archive manifest inventory differs from the contract");
+  }
+
+  const manifestMembers = Array.isArray(manifest.members) ? manifest.members : [];
+  if (!Array.isArray(manifest.members)) {
+    issues.push("portable archive manifest members must be an array");
+  }
+  const expectedManifestMemberPaths = packageContract.archive.exact_members.filter(
+    (memberPath) => memberPath !== "manifest.json",
+  );
+  const manifestMemberPaths = manifestMembers.map((member) => member?.path);
+  if (
+    JSON.stringify(manifestMemberPaths) !==
+    JSON.stringify(expectedManifestMemberPaths)
+  ) {
+    issues.push("portable archive manifest member inventory differs from the contract");
+  }
+  if (new Set(manifestMemberPaths).size !== manifestMemberPaths.length) {
+    issues.push("portable archive manifest contains duplicate member paths");
+  }
+  for (const member of manifestMembers) {
+    if (!isSafePackageOutputPath(member?.path)) {
+      issues.push(`portable archive manifest member path is unsafe: ${String(member?.path)}`);
+      continue;
+    }
+    const content = archive.get(member.path);
+    if (!content) {
+      issues.push(`portable archive manifest member is missing: ${member.path}`);
+      continue;
+    }
+    if (member.bytes !== content.length) {
+      issues.push(`portable archive member size mismatch: ${member.path}`);
+    }
+    if (member.sha256 !== sha256Bytes(content)) {
+      issues.push(`portable archive member hash mismatch: ${member.path}`);
+    }
+  }
+  return issues;
+}
+
 export function validateGeneratedPackage(
   outputRoot = process.cwd(),
   sourceRoot = outputRoot,
@@ -2560,6 +2829,13 @@ export function validateGeneratedPackage(
   const contracts = loadContracts(sourceRoot);
   const issues = validateContracts(sourceRoot, contracts);
   const model = buildNormalizedModel(contracts);
+  issues.push(
+    ...validatePortablePrototypeArchive(
+      outputRoot,
+      sourceRoot,
+      contracts.package,
+    ),
+  );
   const packageRoot = absolute(outputRoot, PACKAGE_PATH);
   const manifestRelativePath = "derived/prototype-package-manifest.json";
   const manifestPath = path.join(packageRoot, manifestRelativePath);
@@ -2601,6 +2877,9 @@ export function validateGeneratedPackage(
     if (!fs.existsSync(target)) {
       issues.push(`manifest output is missing: ${output.path}`);
       continue;
+    }
+    if (fs.statSync(target).size !== output.bytes) {
+      issues.push(`manifest size mismatch: ${output.path}`);
     }
     if (sha256File(target) !== output.sha256) {
       issues.push(`manifest hash mismatch: ${output.path}`);

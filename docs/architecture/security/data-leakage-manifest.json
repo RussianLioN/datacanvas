@@ -323,6 +323,12 @@
           "reason": "Это точная формулировка запрета в основной матрице трассируемости, а не необработанная трасса или внутренний промпт."
         }
       ]
+    },
+    {
+      "id": "DLT-052",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "sink": "export",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],

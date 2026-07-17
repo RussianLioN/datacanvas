@@ -9423,6 +9423,24 @@
       "owner_role": "QA Lead",
       "status": "active",
       "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-859",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "type": "portable-prototype-archive",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/generate-presentation-link-lisa-user-journey.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "HTML-демонстрация, шрифт, лицензия, архивный договор или генератор меняются."
     }
   ]
 }

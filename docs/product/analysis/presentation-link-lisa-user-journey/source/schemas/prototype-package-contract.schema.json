@@ -12,6 +12,7 @@
     "portability",
     "security",
     "reproducibility",
+    "archive",
     "dependencies",
     "commands",
     "html_stage",
@@ -23,7 +24,7 @@
       "type": "string"
     },
     "version": {
-      "const": "1.8.0"
+      "const": "1.9.0"
     },
     "status": {
       "type": "string"
@@ -315,6 +316,63 @@
         }
       }
     },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "format",
+        "compression",
+        "manifest_version",
+        "status",
+        "data_class",
+        "entrypoint",
+        "exact_members",
+        "extra_members_allowed",
+        "external_package_manifest_included"
+      ],
+      "properties": {
+        "path": {
+          "const": "derived/lisa-presentation-user-journey-demo.zip"
+        },
+        "format": {
+          "const": "zip"
+        },
+        "compression": {
+          "const": "stored"
+        },
+        "manifest_version": {
+          "const": "1.0.0"
+        },
+        "status": {
+          "const": "generated"
+        },
+        "data_class": {
+          "const": "internal"
+        },
+        "entrypoint": {
+          "const": "demo/index.html"
+        },
+        "exact_members": {
+          "const": [
+            "README.md",
+            "manifest.json",
+            "demo/index.html",
+            "demo/app.js",
+            "demo/data.js",
+            "demo/styles.css",
+            "source/fonts/NotoSans[wdth,wght].ttf",
+            "source/fonts/OFL.txt"
+          ]
+        },
+        "extra_members_allowed": {
+          "const": false
+        },
+        "external_package_manifest_included": {
+          "const": false
+        }
+      }
+    },
     "dependencies": {
       "type": "object",
       "additionalProperties": false,
@@ -422,11 +480,11 @@
       ],
       "properties": {
         "exact_count": {
-          "const": 58
+          "const": 59
         },
         "exact": {
           "type": "array",
-          "minItems": 6,
+          "minItems": 7,
           "uniqueItems": true,
           "items": {
             "type": "string"
