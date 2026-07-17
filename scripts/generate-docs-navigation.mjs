@@ -2,6 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
@@ -11,6 +12,11 @@ const outputPaths = [
   "docs/navigation/orphan-docs-report.md",
   "docs/navigation/stale-status-report.md",
 ];
+const documentationFormatByExtension = new Map([
+  [".json", "json"],
+  [".md", "md"],
+  [".zip", "zip"],
+]);
 
 function fail(message) {
   console.error(`ERROR: ${message}`);
@@ -273,6 +279,16 @@ function readArtifactRegistry() {
   return new Map(readJson(registryPath).artifacts.map((artifact) => [artifact.path, artifact.id]));
 }
 
+export function documentationFormat(filePath) {
+  const format = documentationFormatByExtension.get(
+    path.extname(filePath).toLowerCase(),
+  );
+  if (!format) {
+    throw new Error(`unsupported documentation index format: ${filePath}`);
+  }
+  return format;
+}
+
 function buildEntries(source) {
   const generatedPaths = new Set(source.generated_output_paths.map((entry) => entry.path));
   const files = new Set();
@@ -291,7 +307,7 @@ function buildEntries(source) {
   const artifactIds = readArtifactRegistry();
   return stableSort([...files]).map((filePath) => {
     const generated = generatedPaths.has(filePath);
-    const format = path.extname(filePath) === ".md" ? "md" : "json";
+    const format = documentationFormat(filePath);
     const metadata = metadataFor(source, filePath);
     let title = generated ? generatedTitle(filePath) : filePath;
     let anchors = [];
@@ -660,9 +676,14 @@ function checkOutputs() {
   console.log("docs navigation generated outputs are current");
 }
 
-if (process.argv.includes("--check")) {
-  checkOutputs();
-} else {
-  buildOutputs(root);
-  console.log("docs navigation artifacts written");
+const invokedAsMain = process.argv[1]
+  && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (invokedAsMain) {
+  if (process.argv.includes("--check")) {
+    checkOutputs();
+  } else {
+    buildOutputs(root);
+    console.log("docs navigation artifacts written");
+  }
 }

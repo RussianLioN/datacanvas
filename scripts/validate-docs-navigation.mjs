@@ -5,6 +5,8 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import { documentationFormat } from "./generate-docs-navigation.mjs";
+
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
 const indexPath = "docs/navigation/documentation-index.json";
@@ -594,6 +596,11 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
     }
 
+    const archiveIndexEntry = indexByPath.get(portableArchive);
+    if (archiveIndexEntry?.format !== "zip") {
+      fail("Lisa prototype archive must be classified as ZIP in the documentation index");
+    }
+
     const map = readText("docs/navigation/navigation-map.md");
     const mapTarget = path.posix.relative("docs/navigation", packageReadme);
     if (!map.includes(`[${packageReadme}](${mapTarget})`)) {
@@ -684,6 +691,17 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
       cwd: root,
       stdio: "inherit",
     });
+  },
+  "negative-unsupported-documentation-format": () => {
+    let rejection;
+    try {
+      documentationFormat("docs/navigation/unsupported.bin");
+    } catch (error) {
+      rejection = error;
+    }
+    if (!rejection || !/unsupported documentation index format/u.test(rejection.message)) {
+      fail("unknown documentation index format must fail closed");
+    }
   },
 });
 

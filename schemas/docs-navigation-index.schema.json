@@ -150,7 +150,7 @@
         "section": { "type": "string", "minLength": 1 },
         "navigation_domain": { "$ref": "#/$defs/navigationDomain" },
         "navigation_group": { "$ref": "#/$defs/navigationGroup" },
-        "format": { "type": "string", "enum": ["md", "json"] },
+        "format": { "type": "string", "enum": ["md", "json", "zip"] },
         "owner_role": { "type": "string", "minLength": 1 },
         "lifecycle": { "type": "string", "minLength": 1 },
         "status": { "type": "string", "minLength": 1 },

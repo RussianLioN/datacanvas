@@ -8848,7 +8848,7 @@
       "section": "generated-artifacts",
       "navigation_domain": "documentation_operations",
       "navigation_group": "generated",
-      "format": "json",
+      "format": "zip",
       "owner_role": "Documentation Owner / QA Lead",
       "lifecycle": "generated",
       "status": "generated",

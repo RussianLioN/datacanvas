@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "191f040e9d43e66d333e3bcb0d3e90ec5e2892117208029c76a072deb81c9d60"
+      "sha256": "2f5ade62e07f501099e64b564a5c46df8b019ba2376cf287cbcd87036e2f7452"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "61e31289a3a2637f7cd64e036177da89b4eb93a91234eddcda49744b14d3f236"
+      "sha256": "24f526e9a6840e673945d39970aa4d8284c7f7b48ea456f3745d7d306f6f6c60"
     },
     {
       "artifact_id": "ART-201",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "c5f1bfc564be68e132560e4b828df6b75497578acfb7d6c57d568e9a693f9156"
+      "sha256": "e6e5119cf54b7e814a811d1aa3688592eaeccb1226b928869856590bb284e8f1"
     },
     {
       "artifact_id": "ART-411",
@@ -2072,12 +2072,12 @@
     {
       "artifact_id": "ART-415",
       "path": "schemas/docs-navigation-index.schema.json",
-      "sha256": "2506adb235cbc68cfa361f62fea4586304f96954db1229549bf7b02c2c6b12ce"
+      "sha256": "634a22247788ab8ea3160763ffed209b412f663216e3e71b41209acc3adad1cb"
     },
     {
       "artifact_id": "ART-416",
       "path": "scripts/generate-docs-navigation.mjs",
-      "sha256": "b5123c3c6aec47f8ff525b5ae80ff3bd0b0849f93227420c587a5f0ce814f6e7"
+      "sha256": "6b4b7b336f12244d8d167d25a7680c51781c4dcc5ca86d65a6787430df95eb34"
     },
     {
       "artifact_id": "ART-417",
@@ -2087,7 +2087,7 @@
     {
       "artifact_id": "ART-418",
       "path": "scripts/validate-docs-navigation.mjs",
-      "sha256": "e412bb5d06d2acfde5b0c939f51259abbb8d0dc8ea553b9424e076f6a051f64e"
+      "sha256": "69cfaa8c09cd0586c690bdb35c8cb5ff4e3820f6d8786ffc909ef47bb8061bc1"
     },
     {
       "artifact_id": "ART-419",
@@ -2112,7 +2112,7 @@
     {
       "artifact_id": "ART-423",
       "path": "tests/docs-navigation/negative/cases.json",
-      "sha256": "515c0ac0e5a6f924deeec47182d6fe997f5a659923eb21e3685868ac1e275176"
+      "sha256": "cc99413320dda4a2392d0c671e91d6b04db87ddb6f40293ecfd4e7c3baf46b88"
     },
     {
       "artifact_id": "ART-424",

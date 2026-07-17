@@ -44,6 +44,10 @@
     {
       "id": "negative-stale-generated-map",
       "expected_failure": "Generated map устарел после изменения source."
+    },
+    {
+      "id": "negative-unsupported-documentation-format",
+      "expected_failure": "Generated output с неизвестным расширением отклоняется до формирования индекса."
     }
   ]
 }
