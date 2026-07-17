@@ -159,10 +159,21 @@ button:disabled {
   overflow: hidden;
   border: 0;
   border-radius: 48px;
-  background:
-    url("../source/components/lisa-phone-shell.svg") center / 100% 100% no-repeat,
-    var(--phone);
+  background: var(--phone);
   box-shadow: 0 20px 48px rgb(43 40 49 / 14%);
+}
+
+.phone-shell-shape {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.phone > :not(.phone-shell-shape) {
+  z-index: 1;
 }
 
 .phone-standalone {
@@ -1232,13 +1243,18 @@ dialog p {
 `;
 }
 
-export function renderLisaDemoApp() {
+export function renderLisaDemoApp(inlineVisualComponents) {
+  const serializedInlineVisualComponents = JSON.stringify(inlineVisualComponents);
+  if (!serializedInlineVisualComponents) {
+    throw new Error("Inline visual components are required for the Lisa HTML mock.");
+  }
   return String.raw`(() => {
   "use strict";
 
   const data = window.LISA_PROTOTYPE_DATA;
   if (!data) throw new Error("Данные прототипа не загружены.");
   const captureMode = window.__DATACANVAS_LISA_CAPTURE__ === true;
+  const inlineVisualComponents = Object.freeze(${serializedInlineVisualComponents});
 
   const root = document.getElementById("phone-root");
   const selector = document.getElementById("state-select");
@@ -1273,6 +1289,35 @@ export function renderLisaDemoApp() {
       node.setAttribute(name, value === true ? "" : String(value));
     }
     return node;
+  }
+
+  function inlineSvgComponent(componentId, className) {
+    const component = inlineVisualComponents[componentId];
+    if (!component) {
+      throw new Error("Встроенный SVG-компонент не зарегистрирован: " + componentId);
+    }
+    const parsed = new DOMParser().parseFromString(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' +
+        component.viewBox +
+        '">' +
+        component.body +
+        "</svg>",
+      "image/svg+xml",
+    );
+    if (parsed.querySelector("parsererror")) {
+      throw new Error("Встроенный SVG-компонент повреждён: " + componentId);
+    }
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", className);
+    svg.setAttribute("viewBox", component.viewBox);
+    svg.setAttribute("data-component-id", componentId);
+    svg.setAttribute("data-component-source-sha256", component.sha256);
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    for (const child of parsed.documentElement.childNodes) {
+      svg.append(document.importNode(child, true));
+    }
+    return svg;
   }
 
   function agendaLabel(labels, value) {
@@ -1377,16 +1422,7 @@ export function renderLisaDemoApp() {
         "data-action-id": "open-notifications",
       },
     });
-    button.append(
-      element("img", {
-        className: "bell-shape",
-        attributes: {
-          src: "../source/components/lisa-notification-bell.svg",
-          alt: "",
-          "aria-hidden": "true",
-        },
-      }),
-    );
+    button.append(inlineSvgComponent("lisa-notification-bell", "bell-shape"));
     if (unread) {
       button.append(
         element("span", {
@@ -2290,6 +2326,7 @@ export function renderLisaDemoApp() {
         "aria-labelledby": "screen-title",
       },
     });
+    phone.append(inlineSvgComponent("lisa-phone-shell", "phone-shell-shape"));
     const header = element("header", { className: "phone-header" });
     header.append(
       element("span", { className: "phone-context", text: surfaceTitle(state) }),
@@ -2471,7 +2508,10 @@ export function renderLisaDemoApp() {
     });
     button.addEventListener("click", () => navigate(data.initial_state_id));
     error.append(button);
-    phone.append(error);
+    phone.append(
+      inlineSvgComponent("lisa-phone-shell", "phone-shell-shape"),
+      error,
+    );
     root.append(phone);
     document.getElementById("screen-title").focus();
   }

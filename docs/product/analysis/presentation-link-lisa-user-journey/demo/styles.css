@@ -158,10 +158,21 @@ button:disabled {
   overflow: hidden;
   border: 0;
   border-radius: 48px;
-  background:
-    url("../source/components/lisa-phone-shell.svg") center / 100% 100% no-repeat,
-    var(--phone);
+  background: var(--phone);
   box-shadow: 0 20px 48px rgb(43 40 49 / 14%);
+}
+
+.phone-shell-shape {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.phone > :not(.phone-shell-shape) {
+  z-index: 1;
 }
 
 .phone-standalone {

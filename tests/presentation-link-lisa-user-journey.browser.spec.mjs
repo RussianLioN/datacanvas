@@ -1318,6 +1318,53 @@ test("переносимая копия работает из каталога �
   }
 });
 
+test("мок телефона не зависит от внешних изображений", async ({ page }) => {
+  await openState(page, "lisa-materials-ready", demoPath);
+  const dependencies = await page.locator(".phone").evaluate((phone) => {
+    const nodes = [phone, ...phone.querySelectorAll("*")];
+    return {
+      elementSources: [
+        ...phone.querySelectorAll(
+          "img[src], img[srcset], image[href], image[xlink\\:href], use[href], use[xlink\\:href], feImage[href], feImage[xlink\\:href], object[data], embed[src], video[poster], input[type=image][src], source[src], source[srcset]",
+        ),
+      ].map((node) => ({
+        tag: node.tagName,
+        source:
+          node.getAttribute("src") ||
+          node.getAttribute("srcset") ||
+          node.getAttribute("href") ||
+          node.getAttribute("xlink:href") ||
+          node.getAttribute("poster") ||
+          node.getAttribute("data"),
+      })),
+      cssImageSources: nodes
+        .flatMap((node) => {
+          const style = getComputedStyle(node);
+          return [...style]
+            .map((property) => ({
+              tag: node.tagName,
+              className: node.getAttribute("class") || "",
+              property,
+              value: style.getPropertyValue(property),
+            }))
+            .filter(({ value }) => value.includes("url("));
+        }),
+      inlineComponentIds: [
+        ...phone.querySelectorAll("svg[data-component-id]"),
+      ]
+        .map((node) => node.getAttribute("data-component-id"))
+        .sort(),
+    };
+  });
+
+  expect(dependencies.elementSources).toEqual([]);
+  expect(dependencies.cssImageSources).toEqual([]);
+  expect(dependencies.inlineComponentIds).toEqual([
+    "lisa-notification-bell",
+    "lisa-phone-shell",
+  ]);
+});
+
 for (const viewport of requiredViewports) {
   test(`${viewport.id}: ключевые экраны помещаются в реальном окне`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });

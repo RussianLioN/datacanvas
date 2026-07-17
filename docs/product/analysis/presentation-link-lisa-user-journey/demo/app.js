@@ -4,6 +4,7 @@
   const data = window.LISA_PROTOTYPE_DATA;
   if (!data) throw new Error("Данные прототипа не загружены.");
   const captureMode = window.__DATACANVAS_LISA_CAPTURE__ === true;
+  const inlineVisualComponents = Object.freeze({"lisa-phone-shell":{"viewBox":"0 0 375 812","body":"<rect x=\"0.5\" y=\"0.5\" width=\"374\" height=\"811\" rx=\"48\" fill=\"#FBFAFD\" stroke=\"#D8D3DC\"/>","sha256":"3aa87320b9ea0a60fb187514e55526f8b6b25d33bcb9326e2aa3063c12c00efc"},"lisa-notification-bell":{"viewBox":"0 0 24 24","body":"<path d=\"M6 9A6 6 0 0 1 18 9V13L20 16H4L6 13V9Z\" fill=\"none\" stroke=\"#201F25\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <path d=\"M10 19H14\" fill=\"none\" stroke=\"#201F25\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>","sha256":"2515edeac1dd323351961e481d6eda1d117bd2ff23891b41855ac111957acb34"}});
 
   const root = document.getElementById("phone-root");
   const selector = document.getElementById("state-select");
@@ -38,6 +39,35 @@
       node.setAttribute(name, value === true ? "" : String(value));
     }
     return node;
+  }
+
+  function inlineSvgComponent(componentId, className) {
+    const component = inlineVisualComponents[componentId];
+    if (!component) {
+      throw new Error("Встроенный SVG-компонент не зарегистрирован: " + componentId);
+    }
+    const parsed = new DOMParser().parseFromString(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' +
+        component.viewBox +
+        '">' +
+        component.body +
+        "</svg>",
+      "image/svg+xml",
+    );
+    if (parsed.querySelector("parsererror")) {
+      throw new Error("Встроенный SVG-компонент повреждён: " + componentId);
+    }
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", className);
+    svg.setAttribute("viewBox", component.viewBox);
+    svg.setAttribute("data-component-id", componentId);
+    svg.setAttribute("data-component-source-sha256", component.sha256);
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    for (const child of parsed.documentElement.childNodes) {
+      svg.append(document.importNode(child, true));
+    }
+    return svg;
   }
 
   function agendaLabel(labels, value) {
@@ -142,16 +172,7 @@
         "data-action-id": "open-notifications",
       },
     });
-    button.append(
-      element("img", {
-        className: "bell-shape",
-        attributes: {
-          src: "../source/components/lisa-notification-bell.svg",
-          alt: "",
-          "aria-hidden": "true",
-        },
-      }),
-    );
+    button.append(inlineSvgComponent("lisa-notification-bell", "bell-shape"));
     if (unread) {
       button.append(
         element("span", {
@@ -1055,6 +1076,7 @@
         "aria-labelledby": "screen-title",
       },
     });
+    phone.append(inlineSvgComponent("lisa-phone-shell", "phone-shell-shape"));
     const header = element("header", { className: "phone-header" });
     header.append(
       element("span", { className: "phone-context", text: surfaceTitle(state) }),
@@ -1236,7 +1258,10 @@
     });
     button.addEventListener("click", () => navigate(data.initial_state_id));
     error.append(button);
-    phone.append(error);
+    phone.append(
+      inlineSvgComponent("lisa-phone-shell", "phone-shell-shape"),
+      error,
+    );
     root.append(phone);
     document.getElementById("screen-title").focus();
   }

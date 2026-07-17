@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -16,6 +17,7 @@ import {
   validateLayoutBoxes,
   validateContracts,
   validateGeneratedPackage,
+  validateInlineSvgComponentSecurity,
   validateSvgSecurity,
   wrapMeasuredText,
 } from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
@@ -206,7 +208,18 @@ test("active SVG sources are rendered by the approved HTML and reference-only SV
     absolute("scripts/lib/presentation-link-lisa-html-runtime.mjs"),
     "utf8",
   );
-  assert.equal(visual.version, "1.3.0");
+  const generatedApp = fs.readFileSync(`${packageRoot}/demo/app.js`, "utf8");
+  const generatedStyles = fs.readFileSync(`${packageRoot}/demo/styles.css`, "utf8");
+  assert.equal(visual.version, "1.5.0");
+  assert.deepEqual(visual.phone_mock_image_policy, {
+    external_image_elements_allowed: false,
+    external_css_image_urls_allowed: false,
+    inline_svg_resource_references_allowed: false,
+    content_security_policy_img_src: "none",
+    browser_computed_style_url_audit: "all-properties",
+    svg_delivery: "inline-dom-from-canonical-source",
+    source_assets_remain_canonical: true,
+  });
   assert.deepEqual(visual.capture_stability, {
     notification_card_boundary: "solid-border",
     compositor_dependent_inset_shadow_allowed: false,
@@ -219,16 +232,21 @@ test("active SVG sources are rendered by the approved HTML and reference-only SV
       { id: "lisa-presentation-card", usage: "reference-only" },
     ],
   );
-  assert.ok(
-    runtime.includes("../source/components/lisa-phone-shell.svg"),
-  );
-  assert.ok(
-    runtime.includes("../source/components/lisa-notification-bell.svg"),
-  );
+  assert.equal(runtime.includes("../source/components/lisa-phone-shell.svg"), false);
+  assert.equal(runtime.includes("../source/components/lisa-notification-bell.svg"), false);
+  assert.match(runtime, /inlineSvgComponent\("lisa-phone-shell"/u);
+  assert.match(runtime, /inlineSvgComponent\("lisa-notification-bell"/u);
   assert.equal(
     runtime.includes("../source/components/lisa-presentation-card.svg"),
     false,
   );
+  assert.doesNotMatch(generatedApp, /element\("img"/u);
+  assert.doesNotMatch(
+    generatedStyles,
+    /url\(["']?\.\.\/source\/components\//u,
+  );
+  const generatedIndex = fs.readFileSync(`${packageRoot}/demo/index.html`, "utf8");
+  assert.match(generatedIndex, /img-src 'none'/u);
   assert.match(
     runtime,
     /\.notification-card \{[\s\S]*?border-color: var\(--border\);[\s\S]*?box-shadow: none;/u,
@@ -819,6 +837,37 @@ test("HTML generation rejects local filesystem paths from untrusted content", ()
   }
 });
 
+test("HTML generation rejects resource references in canonical inline SVG", () => {
+  const sourceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-svg-ref-"));
+  try {
+    const sourceDirectory = path.join(sourceRoot, packageRoot, "source");
+    fs.mkdirSync(path.dirname(sourceDirectory), { recursive: true });
+    fs.cpSync(absolute(`${packageRoot}/source`), sourceDirectory, { recursive: true });
+    const unsafeSvg =
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><use href="https://example.test/bell.svg#shape"/></svg>\n';
+    fs.writeFileSync(
+      path.join(sourceDirectory, "components/lisa-notification-bell.svg"),
+      unsafeSvg,
+    );
+    const packageContractPath = path.join(
+      sourceDirectory,
+      "prototype-package-contract.json",
+    );
+    const packageContract = JSON.parse(fs.readFileSync(packageContractPath, "utf8"));
+    packageContract.source_assets.find(
+      (asset) => asset.path === "source/components/lisa-notification-bell.svg",
+    ).sha256 = createHash("sha256").update(unsafeSvg).digest("hex");
+    fs.writeFileSync(packageContractPath, `${JSON.stringify(packageContract, null, 2)}\n`);
+
+    assert.throws(
+      () => generateHtmlPrototype({ sourceRoot, outputRoot: sourceRoot }),
+      /inline SVG component lisa-notification-bell failed security validation/u,
+    );
+  } finally {
+    fs.rmSync(sourceRoot, { recursive: true, force: true });
+  }
+});
+
 test("full visual generation requires explicit owner approval", () => {
   const sourceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-unapproved-"));
   try {
@@ -1277,6 +1326,29 @@ test("SVG component boundary allows simple geometry and blocks active or remote 
     '<!DOCTYPE svg [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><svg xmlns="http://www.w3.org/2000/svg"/>',
   ]) {
     assert.notDeepEqual(validateSvgSecurity(unsafe, limits), [], unsafe);
+  }
+});
+
+test("inline phone SVG boundary rejects every resource-reference form", () => {
+  const limits = {
+    component_max_bytes: 4096,
+    max_nodes: 20,
+    single_path_data_max_chars: 100,
+    total_path_data_max_chars: 200,
+  };
+  const safe =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Колокольчик</title><path d="M6 9h12"/></svg>';
+  assert.deepEqual(validateInlineSvgComponentSecurity(safe, limits), []);
+
+  for (const unsafe of [
+    '<svg xmlns="http://www.w3.org/2000/svg"><image href="data:image/png;base64,iVBORw0KGgo="/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg"><use href="#shape"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><image xlink:href="https://example.test/x.png"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg"><defs><feImage href="https://example.test/x.png"/></defs></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg"><style>path{fill:url(https://example.test/x.svg)}</style><path d="M0 0"/></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0" fill="url(#paint)"/></svg>',
+  ]) {
+    assert.notDeepEqual(validateInlineSvgComponentSecurity(unsafe, limits), [], unsafe);
   }
 });
 

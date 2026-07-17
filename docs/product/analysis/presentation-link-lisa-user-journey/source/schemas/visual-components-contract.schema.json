@@ -14,6 +14,7 @@
     "motion",
     "accessibility",
     "capture_stability",
+    "phone_mock_image_policy",
     "components",
     "svg_security_limits"
   ],
@@ -22,7 +23,7 @@
       "type": "string"
     },
     "version": {
-      "const": "1.3.0"
+      "const": "1.5.0"
     },
     "status": {
       "type": "string"
@@ -157,6 +158,42 @@
         },
         "compositor_dependent_inset_shadow_allowed": {
           "const": false
+        }
+      }
+    },
+    "phone_mock_image_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_image_elements_allowed",
+        "external_css_image_urls_allowed",
+        "inline_svg_resource_references_allowed",
+        "content_security_policy_img_src",
+        "browser_computed_style_url_audit",
+        "svg_delivery",
+        "source_assets_remain_canonical"
+      ],
+      "properties": {
+        "external_image_elements_allowed": {
+          "const": false
+        },
+        "external_css_image_urls_allowed": {
+          "const": false
+        },
+        "inline_svg_resource_references_allowed": {
+          "const": false
+        },
+        "content_security_policy_img_src": {
+          "const": "none"
+        },
+        "browser_computed_style_url_audit": {
+          "const": "all-properties"
+        },
+        "svg_delivery": {
+          "const": "inline-dom-from-canonical-source"
+        },
+        "source_assets_remain_canonical": {
+          "const": true
         }
       }
     },

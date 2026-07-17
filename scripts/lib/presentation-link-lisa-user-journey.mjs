@@ -1015,9 +1015,42 @@ function loadComponent(root, component) {
     id: component.id,
     path: `${PACKAGE_PATH}/source/${component.source_svg}`,
     sha256: sha256Bytes(source),
+    source,
     viewBox: viewBoxMatch[2],
     body,
   };
+}
+
+function loadHtmlInlineComponents(root, contracts) {
+  const definitions = new Map(
+    contracts.visual.components.map((component) => [component.id, component]),
+  );
+  return Object.fromEntries(
+    ["lisa-phone-shell", "lisa-notification-bell"].map((componentId) => {
+      const definition = definitions.get(componentId);
+      if (!definition) {
+        throw new Error(`inline HTML component is not registered: ${componentId}`);
+      }
+      const component = loadComponent(root, definition);
+      const securityIssues = validateInlineSvgComponentSecurity(
+        component.source,
+        contracts.visual.svg_security_limits,
+      );
+      if (securityIssues.length > 0) {
+        throw new Error(
+          `inline SVG component ${componentId} failed security validation: ${securityIssues.join("; ")}`,
+        );
+      }
+      return [
+        componentId,
+        {
+          viewBox: component.viewBox,
+          body: component.body,
+          sha256: component.sha256,
+        },
+      ];
+    }),
+  );
 }
 
 function loadRenderAssets(root, contracts) {
@@ -1337,7 +1370,7 @@ function renderDemoIndex() {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
     <title>Лиса — путь заказа презентации</title>
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -1390,11 +1423,11 @@ const htmlPrototypePaths = [
   `${PACKAGE_PATH}/demo/data.js`,
 ];
 
-function buildHtmlOutputMap(model) {
+function buildHtmlOutputMap(model, inlineVisualComponents) {
   return new Map([
     ["index.html", renderDemoIndex()],
     ["styles.css", renderLisaDemoStyles()],
-    ["app.js", renderLisaDemoApp()],
+    ["app.js", renderLisaDemoApp(inlineVisualComponents)],
     ["data.js", `window.LISA_PROTOTYPE_DATA = ${JSON.stringify(model, null, 2)};\n`],
   ]);
 }
@@ -1439,8 +1472,8 @@ function validateHtmlOutputMap(outputs) {
   }
 }
 
-function writeHtmlPrototype(outputRoot, model) {
-  const outputs = buildHtmlOutputMap(model);
+function writeHtmlPrototype(outputRoot, model, inlineVisualComponents) {
+  const outputs = buildHtmlOutputMap(model, inlineVisualComponents);
   validateHtmlOutputMap(outputs);
   const packageDirectory = absolute(outputRoot, PACKAGE_PATH);
   const targetDirectory = path.join(packageDirectory, "demo");
@@ -1584,7 +1617,8 @@ export function generateHtmlPrototype({
     throw new Error(`contract validation failed:\n- ${issues.join("\n- ")}`);
   }
   const model = buildNormalizedModel(contracts);
-  writeHtmlPrototype(outputRoot, model);
+  const inlineVisualComponents = loadHtmlInlineComponents(sourceRoot, contracts);
+  writeHtmlPrototype(outputRoot, model, inlineVisualComponents);
   return {
     model,
     generatedPaths: [...htmlPrototypePaths],
@@ -1976,10 +2010,11 @@ export function generatePrototypePackage({
   }
   const model = buildNormalizedModel(contracts);
   const assets = loadRenderAssets(sourceRoot, contracts);
+  const inlineVisualComponents = loadHtmlInlineComponents(sourceRoot, contracts);
   const generatedPaths = generatedPathsForStates(model.states);
 
   mirrorRuntimeAssetsForPortableCapture(sourceRoot, outputRoot, contracts);
-  writeHtmlPrototype(outputRoot, model);
+  writeHtmlPrototype(outputRoot, model, inlineVisualComponents);
   writeFile(
     outputRoot,
     `${PACKAGE_PATH}/derived/projection-map.json`,
@@ -2290,6 +2325,35 @@ export function validateSvgSecurity(svg, limits = {}) {
     issues.push("total SVG path data exceeds complexity limit");
   }
   return issues;
+}
+
+export function validateInlineSvgComponentSecurity(svg, limits = {}) {
+  const issues = [...validateSvgSecurity(svg, limits)];
+  let tags;
+  try {
+    tags = scanXmlTags(svg);
+  } catch {
+    return [...new Set(issues)];
+  }
+
+  for (const tag of tags) {
+    if (tag.declaration) continue;
+    const elementName = tag.name.toLowerCase();
+    if (["image", "use", "feimage", "style", "script", "foreignobject"].includes(elementName)) {
+      issues.push(`resource-capable inline SVG element is forbidden: ${tag.name}`);
+    }
+    for (const [name, value] of Object.entries(tag.attrs)) {
+      const attributeName = name.toLowerCase();
+      if (attributeName === "href" || attributeName.endsWith(":href")) {
+        issues.push(`resource reference is forbidden in inline SVG: ${name}`);
+      }
+      if (/url\s*\(/iu.test(value)) {
+        issues.push(`CSS resource reference is forbidden in inline SVG: ${name}`);
+      }
+    }
+  }
+
+  return [...new Set(issues)];
 }
 
 function pngDimensionsFromBytes(bytes, label = "PNG") {
