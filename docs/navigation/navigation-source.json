@@ -3328,6 +3328,26 @@
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
+      "route_id": "presentation-link-lisa-user-journey-technical-passport",
+      "section": "product",
+      "owner_role": "Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Происхождение, договор отрисовки, состав пакета или проверки пользовательского пути меняются.",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
     }
   ],
   "role_routes": [
@@ -3877,8 +3897,7 @@
       "navigation_group": "business",
       "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "next_paths": [
-        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md"
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
       ],
       "owner_role": "Product Owner / Documentation Owner",
       "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"

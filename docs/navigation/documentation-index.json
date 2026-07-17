@@ -8892,16 +8892,16 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "title": "Варианты доноров и решение владельца",
+      "title": "Технический паспорт пользовательского пути: происхождение, отрисовка и проверки",
       "section": "product",
-      "navigation_domain": "product",
-      "navigation_group": "business",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
       "format": "md",
-      "owner_role": "Product Owner / Documentation Owner",
+      "owner_role": "Documentation Owner / QA Lead",
       "lifecycle": "active",
       "status": "active",
       "data_class": "internal",
@@ -8914,17 +8914,31 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": "ART-829",
       "outgoing_links": [
+        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/question-bank.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-phone-shell.svg",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-presentation-card.svg",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
-        "варианты-доноров-и-решение-владельца",
+        "технический-паспорт-пользовательского-пути-происхождение-отрисовка-и-проверки",
+        "назначение-технического-паспорта",
+        "прямое-открытие-и-соответствие-состояний",
+        "сжатое-время-автоматического-показа",
+        "слои-и-машинные-источники-пакета",
+        "генерация-и-проверки",
         "результат-исследования",
         "закреплённые-договоры-основного-донора",
         "доказательство-отсутствия-готового-экрана-уведомлений-лисы",
@@ -8976,7 +8990,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
@@ -9002,7 +9016,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -9025,15 +9039,7 @@
       "artifact_registry_id": "ART-828",
       "outgoing_links": [
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-phone-shell.svg",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-presentation-card.svg",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
@@ -9044,10 +9050,8 @@
         "пользовательский-путь-заказа-и-получения-презентации-в-лисе",
         "назначение",
         "маршрут-по-пакету",
-        "прямое-открытие-состояний",
-        "слои-пакета",
-        "команды",
-        "границы-чтения-результата"
+        "границы-чтения-результата",
+        "техническое-сопровождение"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -9098,7 +9102,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
@@ -9146,7 +9150,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/frame-contract.schema.json",
@@ -9361,10 +9365,7 @@
       "artifact_registry_id": "ART-830",
       "outgoing_links": [
         "docs/product-vision.md",
-        "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
-        "docs/product/analysis/agent-launch-requirements-analysis/question-bank.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/README.md",
         "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
         "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
@@ -35622,8 +35623,7 @@
         "navigation_group": "business",
         "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "next_paths": [
-          "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-          "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md"
+          "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
         ],
         "owner_role": "Product Owner / Documentation Owner",
         "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"

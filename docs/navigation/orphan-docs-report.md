@@ -52,7 +52,7 @@
 |---|---|---|
 | `business` | `1` | 12 |
 | `business` | `2` | 32 |
-| `business` | `3` | 11 |
+| `business` | `3` | 10 |
 | `business` | `4` | 5 |
 | `business` | `hidden` | 65 |
 | `delivery` | `1` | 2 |
@@ -70,6 +70,6 @@
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 12 |
-| `technical` | `3` | 3 |
-| `technical` | `4` | 1 |
+| `technical` | `3` | 2 |
+| `technical` | `4` | 3 |
 | `technical` | `hidden` | 108 |
