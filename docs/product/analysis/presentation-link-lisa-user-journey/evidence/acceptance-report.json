@@ -26,7 +26,7 @@
     },
     {
       "path": "source/prototype-package-contract.json",
-      "sha256": "ff6bd4c74ecb7a82d9e18f0c3caabf3da302093d8c3e0923815ac1974767e496"
+      "sha256": "0f81cd51496aa123e15e9d32700d9640cf2496bd1bcf3dc6c1d1de742db94641"
     }
   ],
   "commands": {
@@ -38,7 +38,7 @@
   "documentation": [
     {
       "path": "README.md",
-      "sha256": "838ed06d056f040fd48f4cb880e97af72df301eb94593f8bb982662efea324bd"
+      "sha256": "ed2c12225a4170eb98541e94f19a81fc6f0be771bcfc9e00ab41d63c20200bb6"
     },
     {
       "path": "donor-options.md",
@@ -68,7 +68,7 @@
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-      "sha256": "8fd93ea9648c43291d35183570a8386cf1ba3b81489097c47a04fb007cb3f508"
+      "sha256": "8249aeacd099f8b50676062cd0bf37554b023e1e619a934b84523033e0f88e90"
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
@@ -100,7 +100,7 @@
   },
   "package_manifest": {
     "path": "derived/prototype-package-manifest.json",
-    "sha256": "4856925e4e828c321ba1a8f639b1dc0210421847b3b8eab1a9abf6ed2a9534a4"
+    "sha256": "3aabd548ca55a67c42cb1530c3e875c4e0dd2223547fa3c07dfa96076b1a3c70"
   },
   "result": "conditional_pass_with_tooling_limitation",
   "rights": {

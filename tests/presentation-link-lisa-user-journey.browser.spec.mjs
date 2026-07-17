@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { readStoredZip } from "../scripts/lib/documentation-archive.mjs";
 import { WEBKIT_EVIDENCE_STATE_IDS } from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
 
 const root = process.cwd();
@@ -12,6 +13,10 @@ const packageRoot = path.join(
   "docs/product/analysis/presentation-link-lisa-user-journey",
 );
 const demoPath = path.join(packageRoot, "demo/index.html");
+const portableArchivePath = path.join(
+  packageRoot,
+  "derived/lisa-presentation-user-journey-demo.zip",
+);
 const virtualOrigin = "http://lisa.invalid";
 const demoStylesUrl = new URL("/demo/styles.css", virtualOrigin).href;
 const contentTypes = new Map([
@@ -45,6 +50,16 @@ function demoUrl(targetDemoPath = null) {
   return targetDemoPath
     ? pathToFileURL(targetDemoPath)
     : new URL("/demo/index.html", virtualOrigin);
+}
+
+function extractPortableArchive(targetRoot) {
+  const members = readStoredZip(fs.readFileSync(portableArchivePath));
+  for (const [relativePath, content] of members) {
+    const targetPath = path.join(targetRoot, ...relativePath.split("/"));
+    fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+    fs.writeFileSync(targetPath, content);
+  }
+  return [...members.keys()];
 }
 
 async function openState(page, stateId, targetDemoPath = null) {
@@ -1299,12 +1314,17 @@ test("переносимая копия работает из каталога �
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "Лиса прототип с пробелами "));
   const copiedPackageRoot = path.join(tempRoot, "пакет прототипа");
   try {
-    fs.cpSync(path.join(packageRoot, "demo"), path.join(copiedPackageRoot, "demo"), {
-      recursive: true,
-    });
-    fs.cpSync(path.join(packageRoot, "source"), path.join(copiedPackageRoot, "source"), {
-      recursive: true,
-    });
+    const archiveMembers = extractPortableArchive(copiedPackageRoot);
+    expect(archiveMembers).toEqual([
+      "README.md",
+      "manifest.json",
+      "demo/index.html",
+      "demo/app.js",
+      "demo/data.js",
+      "demo/styles.css",
+      "source/fonts/NotoSans[wdth,wght].ttf",
+      "source/fonts/OFL.txt",
+    ]);
     const copiedDemo = path.join(copiedPackageRoot, "demo/index.html");
     await openState(page, "lisa-materials-ready", copiedDemo);
     const geometry = await collectGeometry(page);
