@@ -131,7 +131,9 @@ async function collectGeometry(page) {
     }
     return {
       documentScrollWidth: document.documentElement.scrollWidth,
+      documentScrollHeight: document.documentElement.scrollHeight,
       viewportWidth: window.innerWidth,
+      viewportHeight: window.innerHeight,
       phone: {
         left: phoneRect.left,
         right: phoneRect.right,
@@ -408,6 +410,26 @@ test("стартовый экран сохраняет структуру ито
   await expect(page.getByText("Савёлов Антон Игоревич")).toBeVisible();
   await expect(page.getByText("Эквайринг", { exact: true })).toBeVisible();
   await expect(page.getByText("1 250 млн ₽", { exact: true })).toBeVisible();
+  for (const label of [
+    "Обязательно",
+    "Дополнительно",
+    "Наблюдение",
+    "Договорённость",
+    "Новость",
+  ]) {
+    await expect(page.locator(".material-tag", { hasText: label }).first()).toBeVisible();
+  }
+  for (const internalValue of [
+    "mandatory",
+    "optional",
+    "insight",
+    "agreement",
+    "news",
+  ]) {
+    await expect(
+      page.locator(".material-tag").filter({ hasText: new RegExp(`^${internalValue}$`, "u") }),
+    ).toHaveCount(0);
+  }
   await expect(page.locator(".phone-status .time")).toHaveText("13:24");
   await expect(page.locator('a[href^="http"]')).toHaveCount(0);
 });
@@ -1311,6 +1333,7 @@ for (const viewport of requiredViewports) {
       await openState(page, stateId);
       const geometry = await collectGeometry(page);
       expect(geometry.documentScrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+      expect(geometry.documentScrollHeight).toBeLessThanOrEqual(geometry.viewportHeight + 1);
       expect(geometry.phone.left).toBeGreaterThanOrEqual(-1);
       expect(geometry.phone.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
       expect(geometry.textOverflow).toEqual([]);

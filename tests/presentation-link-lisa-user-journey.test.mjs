@@ -358,7 +358,7 @@ test("meeting material preserves the exact synthetic Lisa fixture as 33 typed un
     normalized_material_sha256:
       "7676d6df83ce1df90d390f0e80741a480e586bb18da8593cebbf458986c2c3da",
     data_classification: "synthetic",
-    owner_permission: "owner-approved-use-2026-07-16",
+    owner_permission: "owner-reconfirmed-synthetic-use-2026-07-17",
     trust: "untrusted-data-only",
     copied_executable_code: false,
     active_external_links: false,
@@ -500,7 +500,7 @@ test("visual and frame contracts make narrow screens a first-class layout", () =
 test("prototype package contract is portable, deterministic and network-free", () => {
   const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
 
-  assert.equal(contract.version, "1.7.0");
+  assert.equal(contract.version, "1.8.0");
   assert.equal(contract.portability.entrypoint, "demo/index.html");
   assert.equal(contract.portability.file_scheme_supported, true);
   assert.equal(contract.portability.local_server_required, false);
@@ -537,6 +537,10 @@ test("prototype package contract is portable, deterministic and network-free", (
     dimensions_unchanged: true,
     embedded_capture_equals_derived_png: true,
   });
+  assert.equal(
+    contract.reproducibility.cross_platform_png_byte_identity_required,
+    false,
+  );
   assert.equal(contract.dependencies["@playwright/test"], "1.61.1");
   assert.equal(contract.dependencies["@axe-core/playwright"], "4.12.1");
   assert.equal(contract.dependencies["opentype.js"], "2.0.0");
@@ -603,6 +607,57 @@ test("browser profile bounds each engine lifetime without hiding flaky results",
   assert.equal(playwrightConfig.fullyParallel, true);
 });
 
+test("validator command line keeps local freshness strict and rejects unknown modes", () => {
+  assert.deepEqual(
+    journeyLibrary.parsePresentationLinkLisaValidationArguments([]),
+    { savedOnly: false },
+  );
+  assert.deepEqual(
+    journeyLibrary.parsePresentationLinkLisaValidationArguments(["--saved-only"]),
+    { savedOnly: true },
+  );
+  assert.throws(
+    () =>
+      journeyLibrary.parsePresentationLinkLisaValidationArguments([
+        "--unknown-mode",
+      ]),
+    /неизвестный аргумент/u,
+  );
+});
+
+test("local release profile stays strict while CI runs cross-platform browser checks", () => {
+  const packageJson = readJson("package.json");
+  const localProfile =
+    packageJson.scripts["validate:presentation-link-lisa-user-journey:profile"];
+  assert.match(
+    localProfile,
+    /check:presentation-link-lisa-user-journey &&/u,
+  );
+  assert.match(
+    localProfile,
+    /check:presentation-link-lisa-user-journey:evidence/u,
+  );
+  assert.doesNotMatch(localProfile, /--saved-only/u);
+
+  const workflow = fs.readFileSync(absolute(".github/workflows/docs-check.yml"), "utf8");
+  const repositoryGate = workflow.indexOf("run: npm test");
+  const browserInstall = workflow.indexOf(
+    "run: npx playwright install --with-deps chromium webkit",
+  );
+  const lisaCiProfile = workflow.indexOf(
+    "run: npm run validate:presentation-link-lisa-user-journey:ci",
+  );
+  const cleanTreeGate = workflow.indexOf("run: git diff --exit-code");
+  assert.ok(repositoryGate >= 0, "CI must run the repository quality gate");
+  assert.ok(browserInstall > repositoryGate, "browser install must follow npm test");
+  assert.ok(lisaCiProfile > browserInstall, "Lisa CI profile must follow browser install");
+  assert.ok(cleanTreeGate > lisaCiProfile, "generated-file gate must follow Lisa CI profile");
+  assert.doesNotMatch(
+    workflow,
+    /run: npm run validate:presentation-link-lisa-user-journey:profile/u,
+  );
+});
+
 test("package contract registers the source fixture, slide contract and HTML gate", () => {
   const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
 
@@ -617,8 +672,25 @@ test("package contract registers the source fixture, slide contract and HTML gat
     "npm run validate:presentation-link-lisa-user-journey:evidence",
   );
   assert.equal(
+    contract.commands.check_evidence,
+    "npm run check:presentation-link-lisa-user-journey:evidence",
+  );
+  assert.equal(
     contract.commands.validate_profile,
     "npm run validate:presentation-link-lisa-user-journey:profile",
+  );
+  assert.equal(
+    contract.commands.validate_ci,
+    "npm run validate:presentation-link-lisa-user-journey:ci",
+  );
+  const packageJson = readJson("package.json");
+  assert.equal(
+    packageJson.scripts["validate:presentation-link-lisa-user-journey:ci"],
+    "npm run check:presentation-link-lisa-user-journey:html && " +
+      "node --test tests/presentation-link-lisa-user-journey.test.mjs && " +
+      "node scripts/validate-presentation-link-lisa-user-journey.mjs --saved-only && " +
+      "npm run validate:presentation-link-lisa-user-journey:evidence && " +
+      "npm run test:presentation-link-lisa-user-journey:browser",
   );
   assert.equal(contract.html_stage.atomic_update_required, true);
   assert.equal(contract.html_stage.owner_approval_required, true);

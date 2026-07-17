@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { execFileSync, spawnSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -30,6 +30,20 @@ export const SCHEMA_PATHS = {
 };
 export const STATE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 export const FIXED_EPOCH = "2026-07-16T00:00:00Z";
+export const BROWSER_SCREENSHOT_RENDERER = "playwright-locator-screenshot";
+
+export function parsePresentationLinkLisaValidationArguments(args) {
+  const supportedArguments = new Set(["--saved-only"]);
+  const unknownArguments = args.filter(
+    (argument) => !supportedArguments.has(argument),
+  );
+  if (unknownArguments.length > 0) {
+    throw new Error(
+      `неизвестный аргумент проверки: ${unknownArguments.join(", ")}`,
+    );
+  }
+  return { savedOnly: args.includes("--saved-only") };
+}
 export const FONT_RELATIVE_PATH = `${PACKAGE_PATH}/source/fonts/NotoSans[wdth,wght].ttf`;
 export const FONT_LICENSE_RELATIVE_PATH = `${PACKAGE_PATH}/source/fonts/OFL.txt`;
 export const EXPECTED_FONT_SHA256 =
@@ -2686,12 +2700,4 @@ export function listGeneratedOutputHashes(root = process.cwd()) {
       ],
     ].sort(([left], [right]) => left.localeCompare(right, "en")),
   );
-}
-
-export function rendererVersion() {
-  try {
-    return execFileSync("rsvg-convert", ["--version"], { encoding: "utf8" }).trim();
-  } catch {
-    return "rsvg-convert unavailable";
-  }
 }

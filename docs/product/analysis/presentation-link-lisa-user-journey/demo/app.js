@@ -12,6 +12,15 @@
   const globalLiveRegion = document.getElementById("prototype-live-region");
   const knownStates = new Map(data.states.map((state) => [state.id, state]));
   const material = knownStates.get(data.initial_state_id).content;
+  const agendaGroupLabels = Object.freeze({
+    mandatory: "Обязательно",
+    optional: "Дополнительно",
+  });
+  const agendaTagLabels = Object.freeze({
+    insight: "Наблюдение",
+    agreement: "Договорённость",
+    news: "Новость",
+  });
   const activatedButtons = new WeakSet();
   let activeSequence = null;
   let notificationReturnContext = null;
@@ -29,6 +38,12 @@
       node.setAttribute(name, value === true ? "" : String(value));
     }
     return node;
+  }
+
+  function agendaLabel(labels, value) {
+    const label = labels[value];
+    if (!label) throw new Error("Неизвестная метка повестки: " + value);
+    return label;
   }
 
   function parseLocation() {
@@ -229,8 +244,14 @@
         );
         const tags = element("span", { className: "agenda-tags" });
         tags.append(
-          element("span", { className: "material-tag", text: item.group }),
-          element("span", { className: "material-tag", text: item.tag }),
+          element("span", {
+            className: "material-tag",
+            text: agendaLabel(agendaGroupLabels, item.group),
+          }),
+          element("span", {
+            className: "material-tag",
+            text: agendaLabel(agendaTagLabels, item.tag),
+          }),
         );
         if (item.source_label) {
           tags.append(element("span", { className: "source-label", text: item.source_label }));

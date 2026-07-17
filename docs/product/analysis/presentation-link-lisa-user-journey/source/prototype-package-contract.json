@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/prototype-package-contract.schema.json",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "status": "active",
   "canonical_contracts": [
     "source/journey-contract.json",
@@ -135,7 +135,9 @@
     "validate": "npm run validate:presentation-link-lisa-user-journey",
     "validate_html": "npm run validate:presentation-link-lisa-user-journey:html",
     "validate_evidence": "npm run validate:presentation-link-lisa-user-journey:evidence",
+    "check_evidence": "npm run check:presentation-link-lisa-user-journey:evidence",
     "validate_profile": "npm run validate:presentation-link-lisa-user-journey:profile",
+    "validate_ci": "npm run validate:presentation-link-lisa-user-journey:ci",
     "browser": "npm run test:presentation-link-lisa-user-journey:browser"
   },
   "html_stage": {

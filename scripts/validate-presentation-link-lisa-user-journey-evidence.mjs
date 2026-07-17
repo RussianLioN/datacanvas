@@ -3,6 +3,7 @@ import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
 import {
+  BROWSER_SCREENSHOT_RENDERER,
   FIXED_EPOCH,
   PACKAGE_PATH,
   WEBKIT_EVIDENCE_STATE_IDS,
@@ -292,10 +293,22 @@ function validateScreenshotRecord(
   }
   if (
     checks.geometry?.phone_inside_viewport !== true ||
+    !Number.isFinite(checks.geometry?.document_scroll_width) ||
+    !Number.isFinite(checks.geometry?.viewport_width) ||
+    !Number.isFinite(checks.geometry?.document_scroll_height) ||
+    !Number.isFinite(checks.geometry?.viewport_height) ||
     checks.geometry?.document_scroll_width >
-      checks.geometry?.viewport_width + 1
+      checks.geometry?.viewport_width + 1 ||
+    checks.geometry?.document_scroll_height >
+      checks.geometry?.viewport_height + 1
   ) {
     issues.push(`${label}: геометрия выходит за границы окна`);
+  }
+  if (
+    checks.geometry?.viewport_width !== record.viewport_dimensions?.width ||
+    checks.geometry?.viewport_height !== record.viewport_dimensions?.height
+  ) {
+    issues.push(`${label}: размер окна не совпадает с договором`);
   }
   if (
     checks.overflow?.passed !== true ||
@@ -390,10 +403,12 @@ function validateBrowserReport(root, evidenceRoot, report, issues) {
     issues.push("browser-report.json содержит неверную версию, статус или эпоху");
   }
   if (
-    typeof report.playwright_version !== "string" ||
-    report.playwright_version.length === 0
+    report.playwright_version !==
+    contracts.package.dependencies["@playwright/test"]
   ) {
-    issues.push("browser-report.json не содержит версию Playwright");
+    issues.push(
+      "browser-report.json: версия Playwright не соответствует договору",
+    );
   }
   for (const browser of ["chromium", "webkit"]) {
     if (
@@ -410,6 +425,9 @@ function validateBrowserReport(root, evidenceRoot, report, issues) {
     issues.push(
       "browser-report.json содержит неверную политику стабилизации кадров",
     );
+  }
+  if (report.renderer !== BROWSER_SCREENSHOT_RENDERER) {
+    issues.push("browser-report.json содержит неверный способ создания снимков браузера");
   }
   if (canonicalJson(report.viewports) !== canonicalJson(EVIDENCE_VIEWPORTS)) {
     issues.push("browser-report.json содержит неверный набор размеров окна");
@@ -652,15 +670,35 @@ function validateAcceptanceReport(root, evidenceRoot, report, issues) {
     );
   }
   if (
-    report.tooling?.chrome_devtools_mcp?.available !== false ||
+    report.tooling?.chrome_devtools_mcp?.generator_integration !== false ||
+    report.tooling?.chrome_devtools_mcp?.availability_assessed !== false ||
+    Object.hasOwn(report.tooling?.chrome_devtools_mcp ?? {}, "available") ||
     typeof report.tooling.chrome_devtools_mcp.limitation !== "string" ||
     report.tooling.chrome_devtools_mcp.limitation.length === 0 ||
-    report.tooling?.playwright?.used !== true ||
-    typeof report.tooling.playwright.version !== "string" ||
-    report.tooling.playwright.version.length === 0
+    report.tooling?.playwright?.used !== true
   ) {
     issues.push(
-      "acceptance-report.json должен явно фиксировать ограничение Chrome DevTools MCP и применение Playwright",
+      "acceptance-report.json должен отличать невстроенный Chrome DevTools MCP от применения Playwright",
+    );
+  }
+  if (
+    report.tooling?.playwright?.version !==
+    contracts.package.dependencies["@playwright/test"]
+  ) {
+    issues.push(
+      "acceptance-report.json: версия Playwright не соответствует договору",
+    );
+  }
+  if (
+    report.commands?.update !==
+      "npm run update:presentation-link-lisa-user-journey:evidence" ||
+    report.commands?.validate !==
+      "npm run validate:presentation-link-lisa-user-journey:evidence" ||
+    report.commands?.check !==
+      "npm run check:presentation-link-lisa-user-journey:evidence"
+  ) {
+    issues.push(
+      "acceptance-report.json содержит неверные команды обновления и проверки evidence",
     );
   }
 }

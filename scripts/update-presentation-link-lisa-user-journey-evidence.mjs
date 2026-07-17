@@ -1,16 +1,17 @@
 import { createRequire } from "node:module";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, webkit } from "@playwright/test";
 import {
+  BROWSER_SCREENSHOT_RENDERER,
   FIXED_EPOCH,
   PACKAGE_PATH,
   WEBKIT_EVIDENCE_STATE_IDS,
   loadContracts,
-  rendererVersion,
   sha256File,
   stabilizeBrowserCapture,
   stableStringify,
@@ -19,7 +20,9 @@ import {
 import {
   EVIDENCE_VIEWPORTS,
   classifyExpectedToolingConsoleMessage,
+  expectedEvidencePaths,
   publishEvidenceAtomically,
+  validateEvidencePackage,
 } from "./validate-presentation-link-lisa-user-journey-evidence.mjs";
 
 const require = createRequire(import.meta.url);
@@ -32,6 +35,75 @@ const MANIFEST_PATH = path.join(
   "derived/prototype-package-manifest.json",
 );
 const EVIDENCE_ROOT = path.join(PACKAGE_ROOT, "evidence");
+const EVIDENCE_REPOSITORY_INPUTS = [
+  "package.json",
+  "package-lock.json",
+  "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+  "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+  "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
+  "scripts/lib/presentation-link-lisa-html-runtime.mjs",
+  "scripts/lib/presentation-link-lisa-user-journey.mjs",
+  "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
+  "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
+  "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
+];
+
+function walkFiles(directory, relativeDirectory = "") {
+  const files = [];
+  for (const entry of fs
+    .readdirSync(path.join(directory, relativeDirectory), { withFileTypes: true })
+    .sort((left, right) => left.name.localeCompare(right.name, "en"))) {
+    const relativePath = path.join(relativeDirectory, entry.name);
+    if (relativeDirectory === "" && entry.name === "evidence") continue;
+    if (entry.name.startsWith(".evidence-staging-")) continue;
+    if (entry.isDirectory()) {
+      files.push(...walkFiles(directory, relativePath));
+    } else if (entry.isFile()) {
+      files.push(relativePath);
+    }
+  }
+  return files;
+}
+
+export function snapshotEvidenceInputs({
+  root = ROOT,
+  packageRoot = path.join(root, PACKAGE_PATH),
+} = {}) {
+  const records = {};
+  for (const relativePath of walkFiles(packageRoot)) {
+    const repositoryPath = path
+      .relative(root, path.join(packageRoot, relativePath))
+      .split(path.sep)
+      .join("/");
+    records[repositoryPath] = sha256File(path.join(packageRoot, relativePath));
+  }
+  for (const relativePath of EVIDENCE_REPOSITORY_INPUTS) {
+    const target = path.join(root, relativePath);
+    if (!fs.existsSync(target)) {
+      records[relativePath] = "missing";
+      continue;
+    }
+    records[relativePath] = sha256File(target);
+  }
+  return records;
+}
+
+function compareEvidenceRoots(root, savedRoot, generatedRoot) {
+  const differences = [];
+  for (const evidencePath of expectedEvidencePaths(root)) {
+    const relativePath = evidencePath.slice("evidence/".length);
+    const savedPath = path.join(savedRoot, relativePath);
+    const generatedPath = path.join(generatedRoot, relativePath);
+    if (!fs.existsSync(savedPath) || !fs.existsSync(generatedPath)) {
+      differences.push(evidencePath);
+      continue;
+    }
+    if (sha256File(savedPath) !== sha256File(generatedPath)) {
+      differences.push(evidencePath);
+    }
+  }
+  return differences;
+}
 
 function readPngDimensions(filePath) {
   const bytes = fs.readFileSync(filePath);
@@ -232,7 +304,9 @@ async function collectGeometry(page) {
     return {
       missingPhone: false,
       documentScrollWidth: document.documentElement.scrollWidth,
+      documentScrollHeight: document.documentElement.scrollHeight,
       viewportWidth: window.innerWidth,
+      viewportHeight: window.innerHeight,
       phone: {
         left: phoneRect.left,
         right: phoneRect.right,
@@ -397,6 +471,7 @@ async function captureBrowser({
             const geometryPassed =
               !geometry.missingPhone &&
               geometry.documentScrollWidth <= geometry.viewportWidth + 1 &&
+              geometry.documentScrollHeight <= geometry.viewportHeight + 1 &&
               geometry.phoneInsideViewport === true;
             records.push({
               browser: browserName,
@@ -416,8 +491,12 @@ async function captureBrowser({
                   passed: geometryPassed,
                   document_scroll_width:
                     geometry.documentScrollWidth ?? Number.MAX_SAFE_INTEGER,
+                  document_scroll_height:
+                    geometry.documentScrollHeight ?? Number.MAX_SAFE_INTEGER,
                   viewport_width:
                     geometry.viewportWidth ?? viewport.width,
+                  viewport_height:
+                    geometry.viewportHeight ?? viewport.height,
                   phone_inside_viewport:
                     geometry.phoneInsideViewport === true,
                   phone_width: geometry.phone?.width ?? 0,
@@ -485,7 +564,7 @@ export function buildBrowserReport({
     playwright_version: playwrightVersion,
     browser_versions: browserVersions,
     capture_stabilization: captureStabilization,
-    renderer: rendererVersion(),
+    renderer: BROWSER_SCREENSHOT_RENDERER,
     viewports: EVIDENCE_VIEWPORTS,
     screenshot_count: records.length,
     screenshots: records,
@@ -632,9 +711,10 @@ export function buildAcceptanceReport({
     },
     tooling: {
       chrome_devtools_mcp: {
-        available: false,
+        generator_integration: false,
+        availability_assessed: false,
         limitation:
-          "Chrome DevTools MCP недоступен в текущем сеансе; это ограничение результата.",
+          "Генератор evidence использует Playwright и не оценивает доступность Chrome DevTools MCP в сеансе; ручная проверка фиксируется отдельно.",
       },
       playwright: {
         used: true,
@@ -647,6 +727,8 @@ export function buildAcceptanceReport({
         "npm run update:presentation-link-lisa-user-journey:evidence",
       validate:
         "npm run validate:presentation-link-lisa-user-journey:evidence",
+      check:
+        "npm run check:presentation-link-lisa-user-journey:evidence",
     },
   };
 }
@@ -731,8 +813,85 @@ export async function generateEvidence({
   }
 }
 
+export async function checkEvidenceFreshness({
+  root = ROOT,
+  packageRoot = path.join(root, PACKAGE_PATH),
+  evidenceRoot = path.join(root, PACKAGE_PATH, "evidence"),
+  createTemporaryRoot = () =>
+    fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-evidence-check-")),
+  generateEvidenceFn = generateEvidence,
+  validateEvidenceFn = validateEvidencePackage,
+  snapshotInputsFn = snapshotEvidenceInputs,
+} = {}) {
+  const savedIssues = validateEvidenceFn(root, { evidenceRoot });
+  if (savedIssues.length > 0) {
+    throw new Error(
+      `сохранённый evidence-пакет не прошёл быструю проверку:\n- ${savedIssues.join("\n- ")}`,
+    );
+  }
+
+  const inputsBefore = snapshotInputsFn({ root, packageRoot });
+  const temporaryRoot = createTemporaryRoot();
+  const generatedEvidenceRoot = path.join(temporaryRoot, "evidence");
+  const startedAt = Date.now();
+  try {
+    const generation = await generateEvidenceFn({
+      root,
+      packageRoot,
+      evidenceRoot: generatedEvidenceRoot,
+    });
+    const inputsAfter = snapshotInputsFn({ root, packageRoot });
+    if (stableStringify(inputsBefore) !== stableStringify(inputsAfter)) {
+      throw new Error(
+        "входы evidence изменились во время повторной съёмки; результат проверки недействителен",
+      );
+    }
+
+    const generatedIssues = validateEvidenceFn(root, {
+      evidenceRoot: generatedEvidenceRoot,
+    });
+    if (generatedIssues.length > 0) {
+      throw new Error(
+        `повторно созданный evidence-пакет не прошёл проверку:\n- ${generatedIssues.join("\n- ")}`,
+      );
+    }
+
+    const differences = compareEvidenceRoots(
+      root,
+      evidenceRoot,
+      generatedEvidenceRoot,
+    );
+    if (differences.length > 0) {
+      const shown = differences.slice(0, 10);
+      const remainder = differences.length - shown.length;
+      throw new Error(
+        `evidence-пакет не воспроизводится (${differences.length} отличий):\n- ` +
+          shown.join("\n- ") +
+          (remainder > 0 ? `\n- и ещё ${remainder}` : ""),
+      );
+    }
+
+    return {
+      fileCount: generation.fileCount,
+      screenshotCount: generation.screenshotCount,
+      browserVersions: generation.browserVersions,
+      durationMs: Date.now() - startedAt,
+    };
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+}
+
 export async function main() {
   try {
+    if (process.argv.includes("--check")) {
+      const result = await checkEvidenceFreshness();
+      console.log(
+        `presentation link Lisa evidence is fresh: ${result.fileCount} files, ` +
+          `${result.screenshotCount} screenshots, ${result.durationMs} ms`,
+      );
+      return;
+    }
     const result = await generateEvidence();
     console.log(
       `presentation link Lisa evidence written: ${result.fileCount} files, ` +

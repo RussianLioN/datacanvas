@@ -23,7 +23,7 @@
       "type": "string"
     },
     "version": {
-      "const": "1.7.0"
+      "const": "1.8.0"
     },
     "status": {
       "type": "string"
@@ -342,11 +342,13 @@
         "generate",
         "update_evidence",
         "check",
-      "validate",
-      "validate_html",
-      "validate_evidence",
-      "validate_profile",
-      "browser"
+        "validate",
+        "validate_html",
+        "validate_evidence",
+        "check_evidence",
+        "validate_profile",
+        "validate_ci",
+        "browser"
       ],
       "properties": {
         "generate": {
@@ -361,16 +363,22 @@
         "validate": {
           "const": "npm run validate:presentation-link-lisa-user-journey"
         },
-      "validate_html": {
-        "const": "npm run validate:presentation-link-lisa-user-journey:html"
-      },
-      "validate_evidence": {
-        "const": "npm run validate:presentation-link-lisa-user-journey:evidence"
-      },
-      "validate_profile": {
-        "const": "npm run validate:presentation-link-lisa-user-journey:profile"
-      },
-      "browser": {
+        "validate_html": {
+          "const": "npm run validate:presentation-link-lisa-user-journey:html"
+        },
+        "validate_evidence": {
+          "const": "npm run validate:presentation-link-lisa-user-journey:evidence"
+        },
+        "check_evidence": {
+          "const": "npm run check:presentation-link-lisa-user-journey:evidence"
+        },
+        "validate_profile": {
+          "const": "npm run validate:presentation-link-lisa-user-journey:profile"
+        },
+        "validate_ci": {
+          "const": "npm run validate:presentation-link-lisa-user-journey:ci"
+        },
+        "browser": {
           "const": "npm run test:presentation-link-lisa-user-journey:browser"
         }
       }

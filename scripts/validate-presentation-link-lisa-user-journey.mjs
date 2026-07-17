@@ -7,19 +7,30 @@ import {
   compareGeneratedPackage,
   loadContracts,
   measureVariableText,
+  parsePresentationLinkLisaValidationArguments,
   validateContracts,
   validateGeneratedPackage,
   validateSvgSecurity,
 } from "./lib/presentation-link-lisa-user-journey.mjs";
 
 const root = process.cwd();
+let validationMode;
+try {
+  validationMode = parsePresentationLinkLisaValidationArguments(
+    process.argv.slice(2),
+  );
+} catch (error) {
+  console.error(`ERROR: ${error.message}`);
+  process.exit(1);
+}
 const issues = [];
 const contracts = loadContracts(root);
 issues.push(...validateContracts(root, contracts));
 issues.push(...validateGeneratedPackage(root));
 
-const stale = compareGeneratedPackage(root);
-issues.push(...stale);
+if (!validationMode.savedOnly) {
+  issues.push(...compareGeneratedPackage(root));
+}
 
 const componentRoot = path.join(root, PACKAGE_PATH, "source/components");
 let libraryBytes = 0;
@@ -81,4 +92,8 @@ if (issues.length > 0) {
   process.exit(1);
 }
 
-console.log("presentation link Lisa user journey validation passed");
+console.log(
+  validationMode.savedOnly
+    ? "presentation link Lisa saved package validation passed"
+    : "presentation link Lisa user journey validation passed",
+);

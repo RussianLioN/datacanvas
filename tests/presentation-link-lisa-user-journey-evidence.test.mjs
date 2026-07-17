@@ -92,7 +92,9 @@ function buildSyntheticEvidence() {
             geometry: {
               passed: true,
               document_scroll_width: viewport.width,
+              document_scroll_height: viewport.height,
               viewport_width: viewport.width,
+              viewport_height: viewport.height,
               phone_inside_viewport: true,
             },
             overflow: {
@@ -135,6 +137,7 @@ function buildSyntheticEvidence() {
     },
     capture_stabilization:
       contracts.package.reproducibility.capture_stabilization,
+    renderer: "playwright-locator-screenshot",
     viewports: EVIDENCE_VIEWPORTS,
     screenshot_count: screenshots.length,
     screenshots,
@@ -204,6 +207,21 @@ test("evidence updater classifies external transport and removes local paths", (
   assert.match(sanitized, /\[локальный-ресурс\]/u);
 });
 
+test("browser report records the actual stable Playwright capture mechanism", () => {
+  const report = evidenceUpdater.buildBrowserReport({
+    records: [],
+    browserVersions: {
+      chromium: "test-chromium-1",
+      webkit: "test-webkit-1",
+    },
+    captureStabilization: {},
+    playwrightVersion: "1.61.1",
+  });
+
+  assert.equal(report.renderer, "playwright-locator-screenshot");
+  assert.doesNotMatch(report.renderer, /rsvg-convert|version/iu);
+});
+
 test("evidence updater rejects an invalid canonical contract before capture", () => {
   const contracts = structuredClone(loadContracts(root));
   contracts.package.version = "0.0.0";
@@ -212,6 +230,126 @@ test("evidence updater rejects an invalid canonical contract before capture", ()
     () => evidenceUpdater.assertEvidenceContracts(root, contracts),
     /канонические договоры.*не прошли проверку/u,
   );
+});
+
+test("evidence freshness check compares a temporary recapture without changing saved files", async (t) => {
+  const fixture = buildSyntheticEvidence();
+  t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+  assert.equal(typeof evidenceUpdater.checkEvidenceFreshness, "function");
+
+  const savedReportPath = path.join(fixture.evidenceRoot, "browser-report.json");
+  const savedReportHash = sha256File(savedReportPath);
+  let temporaryRoot;
+  const result = await evidenceUpdater.checkEvidenceFreshness({
+    root,
+    packageRoot,
+    evidenceRoot: fixture.evidenceRoot,
+    createTemporaryRoot() {
+      temporaryRoot = fs.mkdtempSync(
+        path.join(os.tmpdir(), "datacanvas-lisa-evidence-check-test-"),
+      );
+      return temporaryRoot;
+    },
+    async generateEvidenceFn({ evidenceRoot }) {
+      fs.cpSync(fixture.evidenceRoot, evidenceRoot, { recursive: true });
+      return { fileCount: 110, screenshotCount: 108 };
+    },
+    snapshotInputsFn: () => ({ fixture: "stable" }),
+  });
+
+  assert.equal(result.fileCount, 110);
+  assert.equal(result.screenshotCount, 108);
+  assert.equal(sha256File(savedReportPath), savedReportHash);
+  assert.equal(fs.existsSync(temporaryRoot), false);
+});
+
+test("evidence freshness check rejects a self-consistent stale recapture", async (t) => {
+  const fixture = buildSyntheticEvidence();
+  t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+  let temporaryRoot;
+
+  await assert.rejects(
+    evidenceUpdater.checkEvidenceFreshness({
+      root,
+      packageRoot,
+      evidenceRoot: fixture.evidenceRoot,
+      createTemporaryRoot() {
+        temporaryRoot = fs.mkdtempSync(
+          path.join(os.tmpdir(), "datacanvas-lisa-evidence-stale-test-"),
+        );
+        return temporaryRoot;
+      },
+      async generateEvidenceFn({ evidenceRoot }) {
+        fs.cpSync(fixture.evidenceRoot, evidenceRoot, { recursive: true });
+        const reportPath = path.join(evidenceRoot, "browser-report.json");
+        const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+        const record = report.screenshots[0];
+        const screenshotPath = path.join(
+          evidenceRoot,
+          record.path.slice("evidence/".length),
+        );
+        fs.appendFileSync(screenshotPath, Buffer.from([0]));
+        record.bytes = fs.statSync(screenshotPath).size;
+        record.sha256 = sha256File(screenshotPath);
+        writeJson(reportPath, report);
+        const acceptancePath = path.join(evidenceRoot, "acceptance-report.json");
+        const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+        acceptance.browser_report.sha256 = sha256File(reportPath);
+        writeJson(acceptancePath, acceptance);
+        return { fileCount: 110, screenshotCount: 108 };
+      },
+      snapshotInputsFn: () => ({ fixture: "stable" }),
+    }),
+    /evidence-пакет не воспроизводится/u,
+  );
+  assert.equal(fs.existsSync(temporaryRoot), false);
+});
+
+test("evidence freshness check reports input races and cleans temporary files", async (t) => {
+  const fixture = buildSyntheticEvidence();
+  t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+  let temporaryRoot;
+  let snapshots = 0;
+  await assert.rejects(
+    evidenceUpdater.checkEvidenceFreshness({
+      root,
+      packageRoot,
+      evidenceRoot: fixture.evidenceRoot,
+      createTemporaryRoot() {
+        temporaryRoot = fs.mkdtempSync(
+          path.join(os.tmpdir(), "datacanvas-lisa-evidence-race-test-"),
+        );
+        return temporaryRoot;
+      },
+      async generateEvidenceFn({ evidenceRoot }) {
+        fs.cpSync(fixture.evidenceRoot, evidenceRoot, { recursive: true });
+        return { fileCount: 110, screenshotCount: 108 };
+      },
+      snapshotInputsFn: () => ({ revision: ++snapshots }),
+    }),
+    /входы evidence изменились во время повторной съёмки/u,
+  );
+  assert.equal(fs.existsSync(temporaryRoot), false);
+});
+
+test("evidence freshness check rejects a corrupt saved package before capture", async (t) => {
+  const fixture = buildSyntheticEvidence();
+  t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+  fs.writeFileSync(path.join(fixture.evidenceRoot, "browser-report.json"), "{");
+  let captureStarted = false;
+  await assert.rejects(
+    evidenceUpdater.checkEvidenceFreshness({
+      root,
+      packageRoot,
+      evidenceRoot: fixture.evidenceRoot,
+      async generateEvidenceFn() {
+        captureStarted = true;
+      },
+      snapshotInputsFn: () => ({ fixture: "stable" }),
+    }),
+    /сохранённый evidence-пакет не прошёл быструю проверку/u,
+  );
+  assert.equal(captureStarted, false);
 });
 
 test("network guard aborts HTTP and closes WebSocket before publication", async () => {
@@ -291,8 +429,14 @@ test("acceptance report binds owner approval and current package hashes", (t) =>
   assert.equal(report.canonical_contracts.length, 6);
   assert.equal(report.evidence_file_count, 110);
   assert.equal(report.owner_approval.playwright_substitution_confirmed, true);
-  assert.equal(report.tooling.chrome_devtools_mcp.available, false);
+  assert.equal(report.tooling.chrome_devtools_mcp.generator_integration, false);
+  assert.equal(report.tooling.chrome_devtools_mcp.availability_assessed, false);
+  assert.equal("available" in report.tooling.chrome_devtools_mcp, false);
   assert.equal(report.tooling.playwright.used, true);
+  assert.equal(
+    report.commands.check,
+    "npm run check:presentation-link-lisa-user-journey:evidence",
+  );
   assert.deepEqual(
     report.documentation.map((record) => record.path),
     ["README.md", "donor-options.md", "user-journey.md"],
@@ -384,6 +528,110 @@ test("validator rejects corrupt reports, missing files, extra files and hash dri
     assert.match(
       validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
       /не совпадает SHA-256/u,
+    );
+  });
+
+  await t.test("wrong browser screenshot mechanism", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const reportPath = path.join(fixture.evidenceRoot, "browser-report.json");
+    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+    report.renderer = "rsvg-convert version 2.61.3";
+    writeJson(reportPath, report);
+    const acceptancePath = path.join(
+      fixture.evidenceRoot,
+      "acceptance-report.json",
+    );
+    const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+    acceptance.browser_report.sha256 = sha256File(reportPath);
+    writeJson(acceptancePath, acceptance);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /неверный способ создания снимков браузера/u,
+    );
+  });
+
+  await t.test("browser report Playwright version differs from the contract", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const reportPath = path.join(fixture.evidenceRoot, "browser-report.json");
+    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+    report.playwright_version = "0.0.0";
+    writeJson(reportPath, report);
+    const acceptancePath = path.join(
+      fixture.evidenceRoot,
+      "acceptance-report.json",
+    );
+    const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+    acceptance.browser_report.sha256 = sha256File(reportPath);
+    writeJson(acceptancePath, acceptance);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /browser-report\.json.*версия Playwright.*договор/u,
+    );
+  });
+
+  await t.test("acceptance report Playwright version differs from the contract", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const acceptancePath = path.join(
+      fixture.evidenceRoot,
+      "acceptance-report.json",
+    );
+    const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+    acceptance.tooling.playwright.version = "0.0.0";
+    writeJson(acceptancePath, acceptance);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /acceptance-report\.json.*версия Playwright.*договор/u,
+    );
+  });
+
+  await t.test("document height outside viewport", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const reportPath = path.join(fixture.evidenceRoot, "browser-report.json");
+    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+    const geometry = report.screenshots[0].checks.geometry;
+    geometry.document_scroll_height =
+      report.screenshots[0].viewport_dimensions.height + 17;
+    geometry.viewport_height = report.screenshots[0].viewport_dimensions.height;
+    writeJson(reportPath, report);
+    const acceptancePath = path.join(
+      fixture.evidenceRoot,
+      "acceptance-report.json",
+    );
+    const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+    acceptance.browser_report.sha256 = sha256File(reportPath);
+    writeJson(acceptancePath, acceptance);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /геометрия выходит за границы окна/u,
+    );
+  });
+
+  await t.test("reported viewport cannot exceed the contracted dimensions", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const reportPath = path.join(fixture.evidenceRoot, "browser-report.json");
+    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+    const record = report.screenshots[0];
+    const geometry = record.checks.geometry;
+    geometry.document_scroll_width = record.viewport_dimensions.width + 17;
+    geometry.viewport_width = record.viewport_dimensions.width + 34;
+    geometry.document_scroll_height = record.viewport_dimensions.height + 17;
+    geometry.viewport_height = record.viewport_dimensions.height + 34;
+    writeJson(reportPath, report);
+    const acceptancePath = path.join(
+      fixture.evidenceRoot,
+      "acceptance-report.json",
+    );
+    const acceptance = JSON.parse(fs.readFileSync(acceptancePath, "utf8"));
+    acceptance.browser_report.sha256 = sha256File(reportPath);
+    writeJson(acceptancePath, acceptance);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /размер окна не совпадает с договором/u,
     );
   });
 
@@ -486,6 +734,19 @@ test("validator rejects acceptance documentation and donor-safety drift", async 
     assert.match(
       validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
       /отсутствие записи в доноры/u,
+    );
+  });
+
+  await t.test("freshness command drift", () => {
+    const fixture = buildSyntheticEvidence();
+    t.after(() => fs.rmSync(fixture.temporaryRoot, { recursive: true, force: true }));
+    const reportPath = path.join(fixture.evidenceRoot, "acceptance-report.json");
+    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
+    report.commands.check = "npm run unsafe-check";
+    writeJson(reportPath, report);
+    assert.match(
+      validateEvidencePackage(root, { evidenceRoot: fixture.evidenceRoot }).join("\n"),
+      /неверные команды обновления и проверки evidence/u,
     );
   });
 });
