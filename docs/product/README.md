@@ -34,6 +34,12 @@
 - [Бизнес-анализ](analysis/README.md)
 - [Specs - спецификации](specs/README.md)
 
+## Пользовательские пути и интерактивные прототипы
+
+- [Путь заказа и получения презентации в Лисе](analysis/presentation-link-lisa-user-journey/README.md) — описание сценария, состояний и границ прототипа.
+- [Открыть автономную демонстрацию](analysis/presentation-link-lisa-user-journey/demo/index.html) — запустить прототип непосредственно из рабочей копии без локального сервера.
+- [Скачать переносимый ZIP локально](analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) или [скачать ZIP из GitHub](analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip?raw=true) — получить готовый пакет для показа на другом компьютере.
+
 ## Таблицы Excel
 
 - [Контролируемый XLSX-источник](sources/reference/datacanvas-backlog-source-sanitized.xlsx) — очищенная копия исходного бэклога Product Owner без служебного локального пути.

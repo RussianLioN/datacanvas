@@ -126,7 +126,8 @@ function parseMarkdownLinks(markdown, fromPath) {
       continue;
     }
 
-    const [pathPart, anchorPart] = target.split("#");
+    const [targetWithoutFragment, anchorPart] = target.split("#");
+    const [pathPart] = targetWithoutFragment.split("?");
     if (!pathPart) {
       continue;
     }
@@ -421,8 +422,8 @@ function link(label, target) {
 
 function renderRoutesTable(routes, routeField) {
   const rows = routes.map((route) => {
-    const next = route.next_paths.map((target) => `\`${target}\``).join(", ");
-    return `| \`${route.id}\` | ${route[routeField]} | \`${route.navigation_domain}\` | \`${route.navigation_group}\` | \`${route.start_path}\` | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
+    const next = route.next_paths.map((target) => link(target, target)).join(", ");
+    return `| \`${route.id}\` | ${route[routeField]} | \`${route.navigation_domain}\` | \`${route.navigation_group}\` | ${link(route.start_path, route.start_path)} | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
   });
   return ["| ID | Маршрут | Контур | Группа | Старт | Дальше | Владелец | Проверка |", "|---|---|---|---|---|---|---|---|", ...rows].join("\n");
 }

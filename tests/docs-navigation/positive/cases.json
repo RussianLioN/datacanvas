@@ -20,6 +20,10 @@
     {
       "id": "positive-nested-readmes-managed-or-ignored",
       "description": "Каждый вложенный README управляется navigation source или явно исключен."
+    },
+    {
+      "id": "positive-lisa-prototype-discoverable-and-downloadable",
+      "description": "Путь презентации в Лисе виден на каждом уровне навигации, а переносимый ZIP доступен локально и через ссылку скачивания GitHub."
     }
   ]
 }

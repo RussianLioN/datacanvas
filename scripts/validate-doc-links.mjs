@@ -123,7 +123,8 @@ for (const sourcePath of markdownFiles) {
       fail(`${sourcePath}: absolute local links are forbidden: ${rawTarget}`);
     }
 
-    const [pathPart, anchorPart] = rawTarget.split("#");
+    const [targetWithoutFragment, anchorPart] = rawTarget.split("#");
+    const [pathPart] = targetWithoutFragment.split("?");
     const decodedPath = decodeURIComponent(pathPart);
     const normalizedTarget = path.resolve(path.dirname(absolute(sourcePath)), decodedPath);
     assertInsideRepo(normalizedTarget, sourcePath, rawTarget);

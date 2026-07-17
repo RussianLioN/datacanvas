@@ -9061,7 +9061,7 @@
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",

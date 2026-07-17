@@ -7869,7 +7869,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
@@ -7991,7 +7991,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
@@ -8843,6 +8843,32 @@
       "click_depth": 3
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "section": "generated-artifacts",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "generated",
+      "format": "json",
+      "owner_role": "Documentation Owner / QA Lead",
+      "lifecycle": "generated",
+      "status": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json"
+      ],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": "ART-859",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 1
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
       "section": "generated-artifacts",
@@ -8892,7 +8918,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
@@ -8964,7 +8990,7 @@
         "проверки-обязательные-для-выбранного-варианта"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
@@ -8990,7 +9016,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
@@ -9016,7 +9042,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -9031,7 +9057,7 @@
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": false,
+      "navigable": true,
       "generated": false,
       "canonical_source": null,
       "generated_from": [],
@@ -9039,6 +9065,7 @@
       "artifact_registry_id": "ART-828",
       "outgoing_links": [
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/analysis/README.md",
@@ -9048,13 +9075,14 @@
       ],
       "anchors": [
         "пользовательский-путь-заказа-и-получения-презентации-в-лисе",
+        "открыть-или-скачать-прототип",
         "назначение",
         "маршрут-по-пакету",
         "границы-чтения-результата",
         "техническое-сопровождение"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 1
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/frame-contract.json",
@@ -9102,7 +9130,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
@@ -9150,7 +9178,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/frame-contract.schema.json",
@@ -9318,7 +9346,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
@@ -9413,7 +9441,7 @@
         "связанные-источники"
       ],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/README.md",
@@ -9443,6 +9471,8 @@
         "docs/product/analysis/ba/open-decisions-ledger.md",
         "docs/product/analysis/ba/stakeholder-register.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -9451,6 +9481,7 @@
       "anchors": [
         "аналитические-артефакты-datacanvas",
         "назначение",
+        "пользовательские-пути-и-интерактивные-прототипы",
         "документы"
       ],
       "reachable_from_root": true,
@@ -11349,6 +11380,9 @@
         "docs/architecture/system-analysis/README.md",
         "docs/process/current/process-backlog.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/eval-backlog.md",
         "docs/product/backlog/product-backlog.md",
@@ -11372,6 +11406,7 @@
         "продукт-datacanvas",
         "порядок-чтения",
         "индексы-слоев",
+        "пользовательские-пути-и-интерактивные-прототипы",
         "таблицы-excel",
         "если-нужно-понять-изменения-и-ревизию",
         "разделение-источников",
@@ -13129,6 +13164,9 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
         "docs/product/bmc/README.md",
@@ -35044,6 +35082,9 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
         "docs/product/bmc/README.md",
@@ -35617,8 +35658,8 @@
       },
       {
         "id": "task-review-presentation-link-lisa-user-journey",
-        "label": "Проверить путь презентации в Лисе",
-        "task": "Проверить пользовательский путь заказа, получения и просмотра презентации в Лисе",
+        "label": "Открыть или скачать прототип пути презентации в Лисе",
+        "task": "Открыть интерактивный прототип пути презентации в Лисе или скачать переносимый архив для показа",
         "navigation_domain": "product",
         "navigation_group": "business",
         "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -35640,14 +35681,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1237,
+    "total_entries": 1238,
     "manual_entries": 1229,
-    "generated_entries": 8,
+    "generated_entries": 9,
     "public_navigable_entries": 34,
     "searchable_entries": 1187,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 184,
+    "reachable_from_root": 185,
     "orphan_entries": 0
   },
   "ignored_paths": [

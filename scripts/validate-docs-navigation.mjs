@@ -71,7 +71,8 @@ function parseMarkdownLinks(markdown, fromPath) {
     if (!target || target.startsWith("#") || isExternalLink(target)) {
       continue;
     }
-    const [pathPart] = target.split("#");
+    const [targetWithoutFragment] = target.split("#");
+    const [pathPart] = targetWithoutFragment.split("?");
     if (!pathPart) {
       continue;
     }
@@ -531,6 +532,72 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       if (!sourceManagedByPath.has(entry.path) && !ignored) {
         fail(`README missing managed/ignored classification: ${entry.path}`);
       }
+    }
+  },
+  "positive-lisa-prototype-discoverable-and-downloadable": () => {
+    const packageReadme = "docs/product/analysis/presentation-link-lisa-user-journey/README.md";
+    const demoEntrypoint = "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html";
+    const portableArchive = "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip";
+    const navigationEntries = [
+      "README.md",
+      "docs/README.md",
+      "docs/product/README.md",
+      "docs/product/analysis/README.md",
+    ];
+
+    for (const navigationEntry of navigationEntries) {
+      const markdown = readText(navigationEntry);
+      const linkedPaths = new Set(parseMarkdownLinks(markdown, navigationEntry));
+      for (const requiredPath of [packageReadme, demoEntrypoint, portableArchive]) {
+        if (!linkedPaths.has(requiredPath)) {
+          fail(`Lisa prototype route is missing from ${navigationEntry}: ${requiredPath}`);
+        }
+      }
+      const relativeArchive = path.posix.relative(
+        path.posix.dirname(navigationEntry),
+        portableArchive,
+      );
+      if (!markdown.includes(`(${relativeArchive})`)) {
+        fail(`local Lisa prototype archive link is missing from ${navigationEntry}`);
+      }
+      if (!markdown.includes(`(${relativeArchive}?raw=true)`)) {
+        fail(`GitHub Lisa prototype download link is missing from ${navigationEntry}`);
+      }
+    }
+
+    const packageMarkdown = readText(packageReadme);
+    const packageLinks = new Set(parseMarkdownLinks(packageMarkdown, packageReadme));
+    for (const requiredPath of [demoEntrypoint, portableArchive]) {
+      if (!packageLinks.has(requiredPath)) {
+        fail(`Lisa prototype package entrypoint is missing: ${requiredPath}`);
+      }
+    }
+    const packageArchiveTarget = path.posix.relative(
+      path.posix.dirname(packageReadme),
+      portableArchive,
+    );
+    if (!packageMarkdown.includes(`(${packageArchiveTarget})`)) {
+      fail("local Lisa prototype archive link is missing from package README");
+    }
+    if (!packageMarkdown.includes(`(${packageArchiveTarget}?raw=true)`)) {
+      fail("GitHub download link for Lisa prototype is missing from package README");
+    }
+
+    const route = source.task_routes.find((item) => item.id === "task-review-presentation-link-lisa-user-journey");
+    if (!route || !/открыть|скачать/i.test(`${route.label} ${route.task}`)) {
+      fail("Lisa prototype task route must explain how to open or download the prototype");
+    }
+
+    const managedEntry = sourceManagedByPath.get(packageReadme);
+    const registryEntry = registryByPath.get(packageReadme);
+    if (!managedEntry?.navigable || !registryEntry?.navigable) {
+      fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
+    }
+
+    const map = readText("docs/navigation/navigation-map.md");
+    const mapTarget = path.posix.relative("docs/navigation", packageReadme);
+    if (!map.includes(`[${packageReadme}](${mapTarget})`)) {
+      fail("generated task route must render the Lisa prototype start path as a clickable link");
     }
   },
 });
