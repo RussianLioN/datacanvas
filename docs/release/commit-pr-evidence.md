@@ -21,8 +21,8 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Текущий `origin/main` для stale-status validation: `0fd398698f9041e9e812f02609f9e6728e004518`
-- Дата проверки текущего `main`: `2026-07-12T19:44:50Z`
+- Текущий `origin/main` для stale-status validation: `698f5951d2acaa120dbb8abb83cedb98ae4de601`
+- Дата проверки текущего `main`: `2026-07-17T07:18:44Z`
 
 ## Evidence по backlog-closure feature branch
 
@@ -74,7 +74,7 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 0fd398698f9041e9e812f02609f9e6728e004518
+git rev-parse origin/main for stale-status validation: 698f5951d2acaa120dbb8abb83cedb98ae4de601
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 GitHub Actions docs-check PR #6 run: https://github.com/RussianLioN/datacanvas/actions/runs/28402608407
 GitHub Actions docs-check main run after PR #6 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28402695336
