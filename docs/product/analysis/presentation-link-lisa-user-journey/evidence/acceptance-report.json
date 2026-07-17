@@ -1,7 +1,7 @@
 {
   "browser_report": {
     "path": "evidence/browser-report.json",
-    "sha256": "d1fa62c310e1be6548359736ce15b515e3a34296d7e47b0dd8c5b61a78c76c99"
+    "sha256": "739560526315408773e7de3f8a166236de0a475b1c919e2fc9b07e74559153cc"
   },
   "canonical_contracts": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "path": "source/source-fixture-manifest.json",
-      "sha256": "3b149d8d5a93aeaef42fa3b788261ab7ff3254746c468362ec26503fe8b1ae1c"
+      "sha256": "d97b1ad34f61e5dc55dfef8a7178ae0795afabb96c34e6e88f7df5e933052198"
     },
     {
       "path": "source/presentation-preview-contract.json",
@@ -26,10 +26,11 @@
     },
     {
       "path": "source/prototype-package-contract.json",
-      "sha256": "ac2326c24ea31a9c0fb23f9071c33a3e936f24e30e310f2c2548154a9207dc55"
+      "sha256": "ff6bd4c74ecb7a82d9e18f0c3caabf3da302093d8c3e0923815ac1974767e496"
     }
   ],
   "commands": {
+    "check": "npm run check:presentation-link-lisa-user-journey:evidence",
     "update": "npm run update:presentation-link-lisa-user-journey:evidence",
     "validate": "npm run validate:presentation-link-lisa-user-journey:evidence"
   },
@@ -37,15 +38,15 @@
   "documentation": [
     {
       "path": "README.md",
-      "sha256": "dde2145a034f9d0caadb540d6e4db9f9a69024a6802b6d77e8a3b71e5c2ff502"
+      "sha256": "838ed06d056f040fd48f4cb880e97af72df301eb94593f8bb982662efea324bd"
     },
     {
       "path": "donor-options.md",
-      "sha256": "08b9cbb2a26e84d595184ad93ba45e4a1ac2f7a3f4f770b01fac96809c3b1404"
+      "sha256": "a5df5475c747d88208f3fc342eba35470bd6aaeddd025d7727d2284679722e3c"
     },
     {
       "path": "user-journey.md",
-      "sha256": "069adef3d1653aea1e282735f0e3831d087d0af2810f0a2b71c6a0e83f7c9572"
+      "sha256": "1a6abfbcce1fe1ff13d18d145733340b38ed5d9ef1b609f293e35556167b9667"
     }
   ],
   "donor_operations": {
@@ -55,19 +56,19 @@
   "evidence_toolchain": [
     {
       "path": "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-      "sha256": "66a7e512be228e11d1ddd82d3075b70318e66f284804d42d9f5509f778f3f885"
+      "sha256": "cb374019956095c18330ca620bd679864982a32355272313e5afd6c460d1342f"
     },
     {
       "path": "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
-      "sha256": "199f3d543fa6cc3268f9651a7c6907a21771f3de9e071702b728546f56abea76"
+      "sha256": "c387c66cc1b2f3a70765a4ad8a41e5c407d60980a0b8bcc98e5597f401fc3ce9"
     },
     {
       "path": "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
-      "sha256": "035cd6aff5074da1f132b44d42933cc457645217f6e94bf45234862d42c4a071"
+      "sha256": "05a9c734e3007e04f54e9db06051fb41e741b968b87712e3fc0485dde74ba951"
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-      "sha256": "1af6dccc91a72e733d7c7692a26cf6f1e7c907001ca596add36e0cf3d080c3e0"
+      "sha256": "69218fd0d34aaa7b133f6845e52ea4778ba4d685ee9686e2a9f6a1c4e6e93780"
     },
     {
       "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
@@ -81,15 +82,15 @@
     },
     {
       "path": "demo/app.js",
-      "sha256": "10e94448995ce424ca1c765bb1398f4f446c34921ea7514b523596cd7ab45a96"
+      "sha256": "822e2f03eb0194c3ff5206cf998b3f66336009a68ebb3cffa8dd870462657bda"
     },
     {
       "path": "demo/styles.css",
-      "sha256": "a492beeb5b35ae61f77dc9fdc4c080aa6cb53c9b21679262e2b0087a3d026538"
+      "sha256": "7a91dde2afe80712a22b33ceeacaff0d4425061e887eaed61c0b0684281f4d5e"
     },
     {
       "path": "demo/data.js",
-      "sha256": "3be165bd35a0ff9d74b5b080042d9ffd296b1210d1173f43ded4f310ca1daef7"
+      "sha256": "aeed8d8b2ec7a12b93fb38453ee2ede9fead5bcde609a94b2b32f42c3f2e320d"
     }
   ],
   "owner_approval": {
@@ -99,7 +100,7 @@
   },
   "package_manifest": {
     "path": "derived/prototype-package-manifest.json",
-    "sha256": "5aad7432178cc3fb695d76b0ed7c9e7c239fb8b836e1f963405cfc7445cb5fb9"
+    "sha256": "c764216114ef7dbe8a9cd13291664714ed0eac66da345f874547868d7f78f018"
   },
   "result": "conditional_pass_with_tooling_limitation",
   "rights": {
@@ -118,8 +119,9 @@
   "status": "owner-approved-prototype",
   "tooling": {
     "chrome_devtools_mcp": {
-      "available": false,
-      "limitation": "Chrome DevTools MCP недоступен в текущем сеансе; это ограничение результата."
+      "availability_assessed": false,
+      "generator_integration": false,
+      "limitation": "Генератор evidence использует Playwright и не оценивает доступность Chrome DevTools MCP в сеансе; ручная проверка фиксируется отдельно."
     },
     "playwright": {
       "owner_approved_substitution": true,
