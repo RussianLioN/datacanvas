@@ -1,0 +1,207 @@
+{
+  "configVersion": "0.1.0",
+  "outputs": [
+    {
+      "taskId": "docs-navigation",
+      "path": "docs/navigation/documentation-index.json"
+    },
+    {
+      "taskId": "docs-navigation",
+      "path": "docs/navigation/navigation-map.md"
+    },
+    {
+      "taskId": "docs-navigation",
+      "path": "docs/navigation/orphan-docs-report.md"
+    },
+    {
+      "taskId": "docs-navigation",
+      "path": "docs/navigation/stale-status-report.md"
+    },
+    {
+      "taskId": "artifact-hash-manifest",
+      "path": "docs/architecture/schemas/artifact-hash-manifest.json"
+    },
+    {
+      "taskId": "documentation-archive",
+      "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "docs-navigation",
+      "kind": "docs-navigation",
+      "sourcePath": "docs/navigation/navigation-source.json",
+      "artifactRegistryPath": "docs/architecture/schemas/artifact-registry.json",
+      "outputPaths": {
+        "index": "docs/navigation/documentation-index.json",
+        "navigationMap": "docs/navigation/navigation-map.md",
+        "orphanReport": "docs/navigation/orphan-docs-report.md",
+        "staleStatusReport": "docs/navigation/stale-status-report.md"
+      },
+      "generatedBy": "scripts/generate-docs-navigation.mjs",
+      "reachabilityEntrypoints": [
+        {
+          "path": "README.md"
+        }
+      ],
+      "parentReadmeFallback": "docs/README.md",
+      "generatedTitles": {
+        "docs/navigation/documentation-index.json": "Generated Documentation Index",
+        "docs/navigation/navigation-map.md": "Карта Навигации Документации",
+        "docs/navigation/orphan-docs-report.md": "Отчет По Orphan Docs И Вложенности",
+        "docs/navigation/stale-status-report.md": "Отчет По Устаревшим Статусам"
+      },
+      "defaultMetadata": {
+        "section": "root",
+        "navigationDomain": "documentation_operations",
+        "navigationGroup": "governance",
+        "ownerRole": "Documentation Owner",
+        "lifecycle": "draft",
+        "dataClass": "confidential",
+        "visibility": "restricted",
+        "searchable": false,
+        "navigable": false,
+        "canonicalSource": null,
+        "generatedFrom": [],
+        "redactionStatus": "metadata_only",
+        "updateTrigger": "Classify this path in docs/navigation/navigation-source.json before exposing it."
+      },
+      "reportLabels": {
+        "navigationTitle": "Карта Навигации Документации",
+        "navigationBreadcrumb": "Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / Карта навигации",
+        "statusLabel": "Статус",
+        "sourceLabel": "Источник",
+        "quickRoutesTitle": "Быстрые маршруты по контурам",
+        "roleRoutesTitle": "Маршруты по ролям",
+        "taskRoutesTitle": "Маршруты по задачам",
+        "sourcesOfTruthTitle": "Источники Истины",
+        "currentPointersTitle": "Текущие Указатели",
+        "evidenceTitle": "Evidence и registry",
+        "noPublicRoutesText": "Публичных навигационных маршрутов нет.",
+        "routeTableHeaders": [
+          "ID",
+          "Маршрут",
+          "Контур",
+          "Группа",
+          "Старт",
+          "Дальше",
+          "Владелец",
+          "Проверка"
+        ],
+        "orphanTitle": "Отчет По Orphan Docs И Вложенности",
+        "orphanBreadcrumb": "Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / Orphan docs и вложенность",
+        "orphanDocsTitle": "Orphan Docs",
+        "readmeNestingTitle": "README По Уровням Вложенности",
+        "depthSummaryTitle": "Сводка Глубины",
+        "staleTitle": "Отчет По Устаревшим Статусам",
+        "staleBreadcrumb": "Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / Stale status",
+        "noStaleStatusText": "Устаревшие статусы не найдены.",
+        "lifecycleColumn": "Lifecycle",
+        "navigableColumn": "Navigable"
+      },
+      "sourceOfTruthPaths": [
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "docs/process/current/process-registry.md",
+        "docs/release/mvp-release-evidence-pack.json"
+      ],
+      "evidenceLinks": [
+        {
+          "label": "Evidence hub",
+          "path": "docs/knowledge/evidence-index.md"
+        },
+        {
+          "label": "Artifact registry",
+          "path": "docs/architecture/schemas/artifact-registry.json"
+        },
+        {
+          "label": "Hash manifest",
+          "path": "docs/architecture/schemas/artifact-hash-manifest.json"
+        },
+        {
+          "label": "Documentation index",
+          "path": "docs/navigation/documentation-index.json"
+        }
+      ],
+      "navigationGroupOrder": {
+        "business": [
+          "docs/product/README.md",
+          "docs/product-vision.md",
+          "docs/product/change-orders/README.md",
+          "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
+          "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+          "docs/product/bmc/README.md",
+          "docs/product/requirements/user-stories.md",
+          "docs/product/requirements/README.md",
+          "docs/product/requirements/business-requirements.md",
+          "docs/product/requirements/non-functional-requirements.md",
+          "docs/product/requirements/acceptance-criteria.md",
+          "docs/stories.md",
+          "docs/product/backlog/README.md",
+          "docs/product/backlog/product-backlog.md",
+          "docs/product/roadmap/README.md",
+          "docs/product/roadmap/roadmap-v0.1.md",
+          "docs/product/hypotheses/README.md",
+          "docs/product/hypotheses/hypothesis-board.md",
+          "docs/product/hypotheses/hypothesis-validation.md",
+          "docs/product/requirements/traceability-matrix.json",
+          "docs/product/sources/README.md",
+          "docs/product/analysis/README.md",
+          "docs/product/specs/README.md"
+        ]
+      },
+      "fallbackClassificationRules": [
+        {
+          "id": "documentation-default",
+          "pathPrefix": "docs",
+          "defaults": {
+            "section": "knowledge",
+            "navigationDomain": "documentation_operations",
+            "navigationGroup": "governance",
+            "ownerRole": "Documentation Owner",
+            "lifecycle": "draft",
+            "dataClass": "confidential",
+            "visibility": "restricted",
+            "searchable": false,
+            "navigable": false,
+            "canonicalSource": null,
+            "generatedFrom": [],
+            "redactionStatus": "metadata_only",
+            "updateTrigger": "Classify this path in docs/navigation/navigation-source.json before exposing it."
+          }
+        }
+      ]
+    },
+    {
+      "id": "artifact-hash-manifest",
+      "kind": "artifact-hash-manifest",
+      "registryPath": "docs/architecture/schemas/artifact-registry.json",
+      "sourceRegistryPath": "docs/architecture/schemas/artifact-registry.json",
+      "outputPath": "docs/architecture/schemas/artifact-hash-manifest.json",
+      "version": "0.1.0",
+      "exclusions": [
+        {
+          "path": "docs/architecture/schemas/artifact-hash-manifest.json",
+          "reason": "self-referential generated manifest"
+        },
+        {
+          "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+          "reason": "self-referential generated documentation package validated by npm run validate:documentation-archive"
+        }
+      ]
+    },
+    {
+      "id": "documentation-archive",
+      "kind": "documentation-archive",
+      "contractPath": "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+      "chainPath": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+      "outputPath": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "presentationOverrides": {
+        "readmeIntro": "Локальный архив главной цепочки документации. Все ссылки относительные и работают после распаковки.",
+        "htmlIntro": "Автономная навигация по главным документам и производным файлам DataCanvas.",
+        "manifestMode": "legacy-v0-without-description"
+      }
+    }
+  ]
+}

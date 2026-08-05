@@ -1,0 +1,19 @@
+{
+  "contractVersion": "0.1.0",
+  "pinFormatVersion": 1,
+  "consumerId": "datacanvas",
+  "candidateMode": "shadow-only",
+  "legacyNormativePath": "scripts/generate-docs-navigation.mjs",
+  "minimumNormativeVersion": "1.0.0",
+  "tool": {
+    "name": "project-docs-automation",
+    "version": "0.1.0",
+    "sourceCommit": "0f149283c88108296433612aa8ebfe266298f5fc"
+  },
+  "archivePath": "vendor/project-docs-automation/0.1.0-candidate/project-docs-automation-0.1.0.tgz",
+  "archiveSha256": "27d186da5b85b5397b557a709c3aee401cb79728d61b6f0d2d9e7cfe2a7f7728",
+  "releaseManifest": {
+    "path": "vendor/project-docs-automation/0.1.0-candidate/manifest.json",
+    "sha256": "bd99bd15bae45cfaf4734a82e1d373e0609e694c922de9e1bcc566ee6964c052"
+  }
+}

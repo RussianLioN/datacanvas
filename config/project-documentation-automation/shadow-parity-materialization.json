@@ -1,0 +1,54 @@
+{
+  "contractVersion": "0.1.0",
+  "legacy": {
+    "materializationId": "datacanvas-legacy-3547bd5",
+    "commands": [
+      {
+        "id": "materialize-docs-navigation",
+        "executable": "node",
+        "args": [
+          "scripts/generate-docs-navigation.mjs"
+        ]
+      },
+      {
+        "id": "materialize-artifact-hash-manifest",
+        "executable": "node",
+        "args": [
+          "scripts/generate-artifact-hash-manifest.mjs"
+        ]
+      },
+      {
+        "id": "materialize-documentation-archive",
+        "executable": "node",
+        "args": [
+          "scripts/generate-documentation-archive.mjs"
+        ]
+      }
+    ]
+  },
+  "candidate": {
+    "materializationId": "datacanvas-candidate-3547bd5",
+    "consumerConfigPath": "config/project-documentation-automation/consumer-materialization.json",
+    "commandIds": [
+      "materialize-docs-navigation",
+      "materialize-artifact-hash-manifest",
+      "materialize-documentation-archive"
+    ]
+  },
+  "allowedWrites": [
+    "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    "docs/architecture/schemas/artifact-hash-manifest.json",
+    "docs/navigation/documentation-index.json",
+    "docs/navigation/navigation-map.md",
+    "docs/navigation/orphan-docs-report.md",
+    "docs/navigation/stale-status-report.md"
+  ],
+  "outputs": [
+    "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    "docs/architecture/schemas/artifact-hash-manifest.json",
+    "docs/navigation/documentation-index.json",
+    "docs/navigation/navigation-map.md",
+    "docs/navigation/orphan-docs-report.md",
+    "docs/navigation/stale-status-report.md"
+  ]
+}
