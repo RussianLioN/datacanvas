@@ -218,16 +218,25 @@ try {
   assertFailedWithoutOutput(unknownXlsx, worktree, unknownXlsxOutput, /source identity/u);
 
   assert.equal(exec("git", ["status", "--porcelain=v1"], worktree), "");
+  const archiveRefresh = runNodeScript(worktree, "scripts/generate-documentation-archive.mjs", []);
+  assert.equal(archiveRefresh.status, 0, output(archiveRefresh));
   const hashRefresh = runNodeScript(worktree, "scripts/generate-artifact-hash-manifest.mjs", []);
   assert.equal(hashRefresh.status, 0, output(hashRefresh));
   const hashRefreshStatus = exec("git", ["status", "--porcelain=v1"], worktree);
   assert.equal(
     hashRefreshStatus,
-    "M docs/architecture/schemas/artifact-hash-manifest.json",
-    "подготовительная правка Vision должна менять только манифест хэшей",
+    [
+      "M artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      " M docs/architecture/schemas/artifact-hash-manifest.json",
+    ].join("\n"),
+    "подготовительная правка Vision должна обновлять архив документации и манифест хэшей",
   );
-  exec("git", ["add", "docs/architecture/schemas/artifact-hash-manifest.json"], worktree);
-  commitTestChange(worktree, "test: refresh hash manifest after planner delta");
+  exec("git", [
+    "add",
+    "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    "docs/architecture/schemas/artifact-hash-manifest.json",
+  ], worktree);
+  commitTestChange(worktree, "test: refresh generated artifacts after planner delta");
 
   const lifecycleBaseSha = exec("git", ["rev-parse", "HEAD"], worktree);
   const lifecycleSourcePath = "docs/process/current/process-backlog.md";
