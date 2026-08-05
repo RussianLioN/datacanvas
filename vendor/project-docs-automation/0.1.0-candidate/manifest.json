@@ -1031,8 +1031,8 @@
       {
         "mode": "0644",
         "path": "package/dist/parity/contracts.d.ts",
-        "sha256": "d9e0a6b7350c9be9d1e48d53739d744be7a44625e998df9c467bcb5a14d58a31",
-        "size": 7475
+        "sha256": "e35696b6ec8a82822b22f124e0a11c241ca4c2cd0fa9c4f3dc3c07f5f2d3a4c6",
+        "size": 7508
       },
       {
         "mode": "0644",
@@ -1043,14 +1043,14 @@
       {
         "mode": "0644",
         "path": "package/dist/parity/materialization.d.ts",
-        "sha256": "0b1bee49726f4796a85a9d7efbf8b291a0cd7d1cf89c28db68a044db9f4d3a31",
-        "size": 1270
+        "sha256": "a2815fcff31de50d434cc613a31f70f448d02f9bb572f0200531bdef2195235b",
+        "size": 1303
       },
       {
         "mode": "0644",
         "path": "package/dist/parity/materialization.js",
-        "sha256": "fbebf40c9fe3deed5e19f5f7a5c1674f6b352c5147920fc91887b9a1d95e8dc5",
-        "size": 14898
+        "sha256": "72a9ec193336d543b72430d19eb52ed9902bcd9a9b3639138427c38dfd14c0ba",
+        "size": 16055
       },
       {
         "mode": "0644",
@@ -1073,8 +1073,8 @@
       {
         "mode": "0644",
         "path": "package/dist/parity/run-shadow-parity.js",
-        "sha256": "b7d9b1a0e2024936d22bc2030331e3a63247a25f829d3153a23c974487652f52",
-        "size": 46580
+        "sha256": "21bf6f4941d71fe32d455fe8ff01d9936bf53c2b643b0521f014e215bcf51e72",
+        "size": 49498
       },
       {
         "mode": "0644",
@@ -1103,8 +1103,8 @@
       {
         "mode": "0644",
         "path": "package/release-provenance.json",
-        "sha256": "b93416634a7ed15ecd6dff7d6eac67e4c346b1b149ea7f2b7ee50875ee40f37f",
-        "size": 1056
+        "sha256": "23b78513dbc0601e52bef0390d336de85a46693e9d10c76b562aa03238b91791",
+        "size": 1040
       },
       {
         "mode": "0644",
@@ -1205,8 +1205,8 @@
       {
         "mode": "0644",
         "path": "package/schemas/materialization-evidence.schema.json",
-        "sha256": "013db1c0fd04035fee316377de06d6b491cb2951c20fab2172558b18ebf7dbbc",
-        "size": 5474
+        "sha256": "de2b89f1608ac23846560df61b94eedc1e7f7be14ddf5d4d43bd20b4e4b2656b",
+        "size": 5653
       },
       {
         "mode": "0644",
@@ -1301,8 +1301,8 @@
       {
         "mode": "0755",
         "path": "package/scripts/run-shadow-parity.mjs",
-        "sha256": "0ef56f658fd064ac6d541bb097f280e9587edb0bc5e7cd2dd1f6af4fadfe953f",
-        "size": 3727
+        "sha256": "fdf57a6b19aef8fbaeb72bd37a77484627e0b60dcd3ef7490138fdf48ff81557",
+        "size": 3681
       },
       {
         "mode": "0644",
@@ -1551,7 +1551,7 @@
         "size": 1583
       }
     ],
-    "sha256": "27d186da5b85b5397b557a709c3aee401cb79728d61b6f0d2d9e7cfe2a7f7728"
+    "sha256": "f7077b76aaed674cf435dc867790d733042d5a69894ca3f6543f5d9cacef0ada"
   },
   "blockersBeforeRelease": [
     "Закрыть приемку этапов 6-9.",
@@ -1668,10 +1668,10 @@
     "verified": true
   },
   "source": {
-    "gitSha": "0f149283c88108296433612aa8ebfe266298f5fc"
+    "gitSha": "c5246bfdafd1d84ba8a4958cd160b82ee8c82c9f"
   },
   "tools": {
-    "git": "git version 2.50.1 (Apple Git-155)",
+    "git": "git version 2.53.0",
     "node": "v22.20.0",
     "npm": "11.8.0"
   }
