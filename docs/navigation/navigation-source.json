@@ -3228,6 +3228,66 @@
       "critical": true,
       "breadcrumb_required": false,
       "artifact_registry_required": true
+    },
+    {
+      "path": "docs/plans/project-documentation-automation-extraction-implementation-plan.md",
+      "route_id": "project-documentation-automation-extraction-implementation-plan",
+      "section": "plans",
+      "owner_role": "Process Owner",
+      "lifecycle": "in_progress",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Границы, этапы, контракты, выпускные пороги или миграция автоматизации проектной документации меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+      "route_id": "proc-064-project-documentation-automation-extraction",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/current/process-change-ledger.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Принятые границы двух репозиториев, правила извлечения, миграции, совместимости или выпуска меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/process/audits/project-documentation-automation-stage-0-consilium.md",
+      "route_id": "project-documentation-automation-stage-0-consilium",
+      "section": "process",
+      "owner_role": "Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Факты, выводы или принятые решения консилиума этапа 0 меняются.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations"
     }
   ],
   "role_routes": [
@@ -3768,6 +3828,23 @@
       ],
       "owner_role": "Product Owner / Process Owner / Delivery/GitOps Lead",
       "validation_command": "npm run validate:xlsx-backlog && npm run validate:jira-field-mapping"
+    },
+    {
+      "id": "task-extract-project-documentation-automation",
+      "label": "Выделить автоматизацию документации",
+      "task": "Выделить автоматизацию проектной документации из пилота DataCanvas в отдельный проект",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "start_path": "docs/plans/project-documentation-automation-extraction-implementation-plan.md",
+      "next_paths": [
+        "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+        "docs/process/audits/project-documentation-automation-stage-0-consilium.md",
+        "docs/process/universal-documentation-workflow/README.md",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/generator-contracts.json"
+      ],
+      "owner_role": "Process Owner / AI Agent Architect / Delivery/GitOps Lead",
+      "validation_command": "npm run validate:process-change-ledger"
     }
   ],
   "ignored_paths": [

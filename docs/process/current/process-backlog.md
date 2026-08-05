@@ -16,6 +16,12 @@
 | PROC-048 | Закрепить обязательное CLI-friendly форматирование таблиц | Использовать установленный навык `cli-table-output` и обновить проектные инструкции DataCanvas: табличные данные в чате, опросниках, планах и отчетах выводить через этот навык или его правила компактного CLI-friendly представления | governance | 2 | done | `docs/process/change-requests/PROC-048-cli-table-output.md`; `docs/process/audits/codex-cli-table-output-process-audit.md` | `npm run validate:universal-documentation-workflow` |
 | PROC-062 | Защитить XLSX-источник и историю Git | Удалить локальные пути из активной истории, разделить оригинальный SHA, очищенный источник и рабочую книгу, блокировать проверку не того SHA | security | 1 | done | `docs/process/change-requests/PROC-062-xlsx-source-history-hygiene.md` | `npm run validate:xlsx-source-security`; `npm run validate:git-history-hygiene` |
 
+## В Работе
+
+| ID | Название | Цель | Тип | Приоритет | Статус | Доказательства | Проверка |
+|---|---|---|---|---:|---|---|---|
+| PROC-064 | Выделить автоматизацию проектной документации в отдельный проект | Создать переносимое ядро для нового и существующего неполного проекта, сохранив DataCanvas пилотом и эталоном видов, связей, форматов и проверок без переноса продуктового содержания | automation | 1 | in_progress | `docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md`; `docs/process/audits/project-documentation-automation-stage-0-consilium.md` | `npm run validate:process-change-ledger`; `npm run validate:docs-navigation` |
+
 ## Ready
 
 | ID | Название | Цель | Тип | Приоритет | Статус | Evidence | Проверка |

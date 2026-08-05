@@ -303,12 +303,51 @@
       ],
       "migration_notes": "Текущий BMC-пакет перегенерирован. README показывает актуальные SVG/PNG/PDF. PNG проверяется по защитным зонам и отдельно по каждому блоку, PDF независимо растеризуется через системный PDF-движок. Старые browser/PDF raster snapshots остаются историческим evidence своего спринта и исключены из актуального BMC manifest.",
       "rollback": "До merge удалить PROC-063 и откатить визуальный валидатор одним коммитом. После merge выполнить revert отдельным PR, не возвращая старые снимки в актуальный acceptance manifest и не ослабляя покадровую проверку PNG/PDF, защитные зоны или связь PDF с каноническим SVG."
+    },
+    {
+      "process_change_id": "PROC-064",
+      "title": "Выделить автоматизацию проектной документации в отдельный проект",
+      "status": "accepted",
+      "decision": "accept",
+      "source": "docs/plans/project-documentation-automation-extraction-implementation-plan.md",
+      "pcr_path": "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+      "changelog_anchor": "PROC-064",
+      "affected_artifacts": [
+        "docs/plans/project-documentation-automation-extraction-implementation-plan.md",
+        "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+        "docs/process/audits/project-documentation-automation-stage-0-consilium.md",
+        "docs/plans/README.md",
+        "docs/process/README.md",
+        "docs/process/current/process-backlog.md",
+        "docs/process/current/process-change-ledger.json",
+        "docs/process/current/process-changelog.md",
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ],
+      "validation_commands": [
+        "npm run validate:process-change-ledger",
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation",
+        "npm run validate:universal-documentation-workflow",
+        "npm run validate:artifact-registry",
+        "npm run validate:artifact-hashes",
+        "npm test"
+      ],
+      "migration_notes": "Автоматизация переносится в закрытый проект кластерами с полным реестром извлечения и теневым равенством на точном SHA. DataCanvas остается пилотом и нормативным путем до выпуска 1.0.0; его продуктовый смысл не переносится. После переключения старые команды работают через совместимые обертки 90 дней.",
+      "rollback": "До появления потребителей отменить процессное решение отдельным коммитом и оставить DataCanvas автономным. После появления потребителей закрепить их на последней проверенной версии, вернуть DataCanvas к старому нормативному пути отдельным PR и сохранить снимки до доказанной сохранности данных."
     }
   ],
   "known_limitations": [
     "Ledger проверяет lifecycle evidence, но не заменяет командное решение на ретроспективе.",
     "PROC-007 остается draft и не включается как accepted managed improvement.",
-    "Новая версия процесса 0.2.0 должна быть создана отдельным PCR, если команда решит изменить cadence, роли или gates."
+    "Новая версия процесса 0.2.0 должна быть создана отдельным PCR, если команда решит изменить cadence, роли или gates.",
+    "Реальные проекты для приемки 1.0.0 по PROC-064 еще не выбраны; это не блокирует создание и проверку версии 0.1.0."
   ],
-  "next_safe_step": "После первой командной ретроспективы добавить реальный PCR с actor/decision metadata и обновить ledger."
+  "next_safe_step": "Создать закрытый проект project-docs-automation, сначала зафиксировать падающие проверки нейтральных контрактов, затем построить полный реестр извлечения DataCanvas без немых пропусков."
 }

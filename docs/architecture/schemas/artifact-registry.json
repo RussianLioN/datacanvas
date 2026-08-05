@@ -9050,6 +9050,54 @@
       ],
       "redaction_status": "metadata_only",
       "update_trigger": "Любое байтовое изменение любого разрешенного входного документа или производного файла."
+    },
+    {
+      "id": "ART-828",
+      "path": "docs/plans/project-documentation-automation-extraction-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Process Owner",
+      "status": "in_progress",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Границы, этапы, контракты, выпускные пороги или миграция автоматизации проектной документации меняются."
+    },
+    {
+      "id": "ART-829",
+      "path": "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+      "type": "process-change-request",
+      "owner_role": "Process Owner",
+      "status": "accepted",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/current/process-change-ledger.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Принятые границы двух репозиториев, правила извлечения, миграции, совместимости или выпуска меняются."
+    },
+    {
+      "id": "ART-830",
+      "path": "docs/process/audits/project-documentation-automation-stage-0-consilium.md",
+      "type": "audit",
+      "owner_role": "Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/process/change-requests/PROC-064-project-documentation-automation-extraction.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Факты, выводы или принятые решения консилиума этапа 0 меняются."
     }
   ]
 }
