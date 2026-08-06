@@ -1,0 +1,33 @@
+{
+  "contractVersion": "0.1.0",
+  "profileId": "datacanvas-shadow-parity-preflight",
+  "differences": [
+    {
+      "id": "diff-cluster-1-structural-contracts",
+      "path": null,
+      "class": "preflight_blocker",
+      "reason": "structural_mapping_missing",
+      "owner": "Владелец процесса документации",
+      "decision": "owner_decision_required",
+      "status": "blocked"
+    },
+    {
+      "id": "diff-cluster-2-structural-mapping",
+      "path": null,
+      "class": "preflight_blocker",
+      "reason": "structural_mapping_missing",
+      "owner": "Владелец процесса документации",
+      "decision": "owner_decision_required",
+      "status": "blocked"
+    },
+    {
+      "id": "diff-cluster-5-product-office",
+      "path": null,
+      "class": "preflight_blocker",
+      "reason": "structural_mapping_missing",
+      "owner": "Product Owner / Security Lead",
+      "decision": "owner_decision_required",
+      "status": "blocked"
+    }
+  ]
+}

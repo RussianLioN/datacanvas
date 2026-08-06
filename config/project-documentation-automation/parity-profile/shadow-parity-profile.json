@@ -1,0 +1,287 @@
+{
+  "contractVersion": "0.1.0",
+  "profileId": "datacanvas-shadow-parity-preflight",
+  "status": "preflight",
+  "source": {
+    "repository": "RussianLioN/datacanvas",
+    "gitSha": "ee84ecea771b149a9d9ddaa2121642610ed18349"
+  },
+  "extractionArtifacts": [
+    {
+      "path": "source-snapshot.json",
+      "sha256": "12e43d6706df11d8ba098f6354e7c6b08b8ee125d7b6e07c9c79b6d04f83a546"
+    },
+    {
+      "path": "extraction-policy.json",
+      "sha256": "095c4a436e301b09e612a93f07bdaab5e9a14f55291c151d5859feafc8641278"
+    },
+    {
+      "path": "extraction-manifest.json",
+      "sha256": "e8e69c72cfeea39d12a068d60192a07f4baec80e780f7898c57034389ad635bf"
+    },
+    {
+      "path": "source:docs/process/universal-documentation-workflow/generator-contracts.json",
+      "sha256": "a3d6e5125db153e0d31d40527a03c1128b84fc66f529868a8140926098ef5fee"
+    }
+  ],
+  "semanticJson": {
+    "volatilePointers": [
+      "/captured_at",
+      "/generated_at",
+      "/updated_at",
+      "/created_at",
+      "/completed_at",
+      "/run_id",
+      "/source/captured_at",
+      "/source/observed_identity_sha256"
+    ]
+  },
+  "acceptedDifferences": {
+    "path": "accepted-differences.json",
+    "sha256": "1ea4f2122a7f0a857daacf5493e37e951302e2604b0c1139ec21c1285eae2bb5"
+  },
+  "requiredGenerators": [
+    {
+      "id": "docs-navigation",
+      "commands": [
+        "materialize-docs-navigation"
+      ],
+      "inputs": [
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ],
+      "requiredCapability": "node"
+    },
+    {
+      "id": "artifact-hash-manifest",
+      "commands": [
+        "materialize-artifact-hash-manifest"
+      ],
+      "inputs": [
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [
+        "docs/architecture/schemas/artifact-hash-manifest.json"
+      ],
+      "requiredCapability": "node"
+    },
+    {
+      "id": "datacanvas-bmc",
+      "commands": [
+        "materialize-datacanvas-bmc"
+      ],
+      "inputs": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/product-source-registry.json",
+        "schemas/bmc-trace.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/lib/bmc-visual-layout.mjs"
+      ],
+      "outputs": [
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/bmc-validation-needs.json",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/bmc/source/derived/datacanvas-bmc.png",
+        "docs/product/bmc/source/derived/datacanvas-bmc.puml",
+        "docs/product/bmc/source/derived/datacanvas-bmc.svg"
+      ],
+      "requiredCapability": "office"
+    },
+    {
+      "id": "datacanvas-xlsx-sanitized-reference",
+      "commands": [
+        "materialize-datacanvas-xlsx-sanitized-reference"
+      ],
+      "inputs": [
+        "scripts/datacanvas_source_security.py"
+      ],
+      "outputs": [
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json"
+      ],
+      "requiredCapability": "office"
+    },
+    {
+      "id": "documentation-archive",
+      "commands": [
+        "materialize-documentation-archive"
+      ],
+      "inputs": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "scripts/generate-documentation-archive.mjs",
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "requiredCapability": "node"
+    }
+  ],
+  "clusters": [
+    {
+      "id": "cluster-1",
+      "title": "Нейтральные контракты и ядро",
+      "inventoryCluster": "cluster-1",
+      "status": "blocked",
+      "blocker": "structural_mapping_missing",
+      "requiredCapabilities": [
+        "git",
+        "node"
+      ],
+      "inputs": [],
+      "outputs": [],
+      "comparisons": [],
+      "owner": "Владелец процесса документации",
+      "decision": "preflight_only",
+      "structuralMapping": {
+        "path": "structural-mapping.json",
+        "sha256": "3040aaa070da3fd4250c6681c736f2ed2ddfdd5d1742ad8f23e618f70bdd0db4"
+      }
+    },
+    {
+      "id": "cluster-2",
+      "title": "Шаблоны и создание нового проекта",
+      "inventoryCluster": "cluster-2",
+      "status": "blocked",
+      "blocker": "structural_mapping_missing",
+      "requiredCapabilities": [
+        "git",
+        "node"
+      ],
+      "inputs": [],
+      "outputs": [],
+      "comparisons": [],
+      "owner": "Владелец процесса документации",
+      "decision": "owner_mapping_required",
+      "structuralMapping": {
+        "path": "structural-mapping.json",
+        "sha256": "3040aaa070da3fd4250c6681c736f2ed2ddfdd5d1742ad8f23e618f70bdd0db4"
+      }
+    },
+    {
+      "id": "cluster-3",
+      "title": "Навигация, реестры и контрольные суммы",
+      "inventoryCluster": "cluster-3",
+      "status": "ready",
+      "blocker": null,
+      "requiredCapabilities": [
+        "git",
+        "node"
+      ],
+      "inputs": [
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json"
+      ],
+      "outputs": [
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "docs/navigation/documentation-index.json",
+        "docs/navigation/navigation-map.md",
+        "docs/navigation/orphan-docs-report.md",
+        "docs/navigation/stale-status-report.md"
+      ],
+      "comparisons": [
+        { "path": "docs/architecture/schemas/artifact-hash-manifest.json", "mode": "exact-sha" },
+        { "path": "docs/navigation/documentation-index.json", "mode": "exact-sha" },
+        { "path": "docs/navigation/navigation-map.md", "mode": "exact-sha" },
+        { "path": "docs/navigation/orphan-docs-report.md", "mode": "exact-sha" },
+        { "path": "docs/navigation/stale-status-report.md", "mode": "exact-sha" }
+      ],
+      "owner": "Documentation Owner",
+      "decision": "preflight_only",
+      "structuralMapping": null
+    },
+    {
+      "id": "cluster-4",
+      "title": "Каскадный анализ, вопросы и планирование",
+      "inventoryCluster": "cluster-4",
+      "status": "blocked",
+      "blocker": "comparison_paths_missing",
+      "requiredCapabilities": [
+        "git",
+        "node"
+      ],
+      "inputs": [],
+      "outputs": [],
+      "comparisons": [],
+      "owner": "Process Owner / Documentation Owner",
+      "decision": "owner_mapping_required",
+      "structuralMapping": null
+    },
+    {
+      "id": "cluster-5",
+      "title": "Адаптеры, BMC и XLSX",
+      "inventoryCluster": "cluster-5",
+      "status": "blocked",
+      "blocker": "structural_mapping_missing",
+      "requiredCapabilities": [
+        "git",
+        "node",
+        "office"
+      ],
+      "inputs": [
+        "docs/product-vision.md",
+        "docs/product/bmc/bmc-trace.v0.1.json",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/product-source-registry.json",
+        "scripts/datacanvas_source_security.py"
+      ],
+      "outputs": [
+        "docs/product/bmc/README.md",
+        "docs/product/bmc/bmc-derived-manifest.json",
+        "docs/product/bmc/bmc-v0.2.md",
+        "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx"
+      ],
+      "comparisons": [
+        { "path": "docs/product/bmc/README.md", "mode": "structural" },
+        { "path": "docs/product/bmc/bmc-derived-manifest.json", "mode": "structural" },
+        { "path": "docs/product/bmc/bmc-v0.2.md", "mode": "structural" },
+        { "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf", "mode": "exact-sha" },
+        { "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx", "mode": "exact-sha" }
+      ],
+      "owner": "Product Owner / Security Lead",
+      "decision": "preflight_only",
+      "structuralMapping": {
+        "path": "structural-mapping.json",
+        "sha256": "3040aaa070da3fd4250c6681c736f2ed2ddfdd5d1742ad8f23e618f70bdd0db4"
+      }
+    },
+    {
+      "id": "cluster-6",
+      "title": "Архив документации и производные форматы",
+      "inventoryCluster": "cluster-6",
+      "status": "ready",
+      "blocker": null,
+      "requiredCapabilities": [
+        "git",
+        "node"
+      ],
+      "inputs": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "scripts/generate-documentation-archive.mjs",
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [
+        "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ],
+      "comparisons": [
+        { "path": "artifacts/documentation-archive/datacanvas-main-documentation.zip", "mode": "exact-sha" }
+      ],
+      "owner": "Documentation Owner / Security Lead",
+      "decision": "preflight_only",
+      "structuralMapping": null
+    }
+  ]
+}

@@ -1,0 +1,739 @@
+{
+  "contract_version": "0.1.0",
+  "repository": "RussianLioN/datacanvas",
+  "source_git_sha": "ee84ecea771b149a9d9ddaa2121642610ed18349",
+  "generator_contract_catalog": "docs/process/universal-documentation-workflow/generator-contracts.json",
+  "generator_owner_overrides": [
+    {
+      "id": "historical-cascade-runs-predate-shared-root-contracts",
+      "pattern": "^docs/process/cascading-governance/runs/.+\\.json$",
+      "generator_id": null,
+      "reason": "Git-история относит эти файлы к 2 июля 2026 года, а общий корень четырех действующих договоров генераторов появился в коммите 728efbb76edaa89c75b67b6266159578c9aa76cf от 12 июля 2026 года; достоверный владелец экземпляра не установлен."
+    }
+  ],
+  "rules": [
+    {
+      "id": "generated-archive-output",
+      "priority": 1200,
+      "kinds": [
+        "file"
+      ],
+      "generator_ids": [
+        "documentation-archive"
+      ],
+      "category": "generated",
+      "generated": true,
+      "data_class": "restricted",
+      "cluster": "cluster-6",
+      "target_package": "consumer-generated-artifacts",
+      "migration_action": "regenerate",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": true
+    },
+    {
+      "id": "generated-business-model-output",
+      "priority": 1190,
+      "kinds": [
+        "file"
+      ],
+      "generator_ids": [
+        "datacanvas-bmc"
+      ],
+      "category": "generated",
+      "generated": true,
+      "data_class": "restricted",
+      "cluster": "cluster-5",
+      "target_package": "consumer-generated-artifacts",
+      "migration_action": "regenerate",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": true
+    },
+    {
+      "id": "generated-workbook-output",
+      "priority": 1180,
+      "kinds": [
+        "file"
+      ],
+      "generator_ids": [
+        "datacanvas-xlsx-sanitized-reference"
+      ],
+      "category": "generated",
+      "generated": true,
+      "data_class": "restricted",
+      "cluster": "cluster-5",
+      "target_package": "consumer-generated-artifacts",
+      "migration_action": "regenerate",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": true
+    },
+    {
+      "id": "generated-navigation-output",
+      "priority": 1170,
+      "kinds": [
+        "file"
+      ],
+      "generator_ids": [
+        "docs-navigation",
+        "artifact-hash-manifest"
+      ],
+      "category": "generated",
+      "generated": true,
+      "data_class": "internal",
+      "cluster": "cluster-3",
+      "target_package": "consumer-generated-artifacts",
+      "migration_action": "regenerate",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": true
+    },
+    {
+      "id": "new-project-bootstrap-json-source",
+      "priority": 1168,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/process/universal-documentation-workflow/product-bootstrap-pack.json",
+        "docs/process/universal-documentation-workflow/portability-pack.json",
+        "docs/process/portability/process-portability-pack.json",
+        "schemas/product-bootstrap-pack.schema.json",
+        "schemas/workflow-portability-pack.schema.json",
+        "schemas/process-portability-pack.schema.json"
+      ],
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-2",
+      "target_package": "templates/new-project/contracts",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "new-project-bootstrap-markdown-source",
+      "priority": 1167,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/process/(?:templates|methodology/templates|portability)/.*\\.md|docs/release/templates/.*\\.md|docs/product/change-orders/product-change-order-template\\.md)$",
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-2",
+      "target_package": "templates/new-project/markdown",
+      "migration_required": true,
+      "migration_action": "parameterize",
+      "parity_mode": "markdown-semantic",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "navigation-registry-hash-source",
+      "priority": 1166,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/navigation/navigation-source.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/universal-documentation-workflow/artifact-inventory.json",
+        "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
+        "scripts/generate-docs-navigation.mjs",
+        "scripts/validate-docs-navigation.mjs",
+        "scripts/validate-doc-links.mjs",
+        "scripts/validate-doc-stale-status.mjs",
+        "scripts/lib/doc-stale-status.mjs",
+        "scripts/generate-artifact-hash-manifest.mjs",
+        "scripts/validate-artifact-hash-manifest.mjs",
+        "scripts/validate-artifact-registry.mjs",
+        "schemas/artifact-registry.schema.json",
+        "schemas/artifact-hash-manifest.schema.json",
+        "schemas/documentation-artifact-inventory.schema.json"
+      ],
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-3",
+      "target_package": "src/catalogs/navigation-registry-hashes",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "cascade-analysis-question-planning-source",
+      "priority": 1165,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/process/cascading-governance/|scripts/(?:cascade-|complete-cascade|finalize-cascade|run-cascade|verify-cascade|plan-documentation-cascade|documentation-impact-graph)|schemas/(?:cascade-|documentation-change-request|artifact-dependency-graph|capacity-plan|workflow-decision-queue|decision-ledger|run-ledger|event-log|acceptance-records|process-event-log|traceability-graph))",
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-4",
+      "target_package": "src/core/cascade-planning",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "documentation-archive-source",
+      "priority": 1164,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "scripts/generate-documentation-archive.mjs",
+        "scripts/validate-documentation-archive.mjs",
+        "scripts/validate-main-artifact-lifecycle-chain.mjs",
+        "scripts/lib/documentation-archive.mjs",
+        "schemas/documentation-archive-contract.schema.json",
+        "schemas/main-artifact-lifecycle-chain.schema.json"
+      ],
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-6",
+      "target_package": "src/adapters/documentation-archive",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "datacanvas-bmc-xlsx-profile-source",
+      "priority": 1163,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "schemas/datacanvas-documentation-profile.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/prepare-bmc-interview-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/validate-bmc-interview.mjs",
+        "scripts/validate-bmc-interview-runtime.mjs",
+        "scripts/validate-bmc-interview-replay.mjs",
+        "scripts/validate-bmc-russian-language.mjs",
+        "scripts/validate-bmc-content-classic.mjs",
+        "scripts/validate-bmc-package.mjs",
+        "scripts/validate-bmc-render-parity.mjs",
+        "scripts/validate-bmc-visual.mjs",
+        "scripts/lib/bmc-visual-layout.mjs",
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-datacanvas-xlsx-backlog.py",
+        "scripts/classify-datacanvas-xlsx-change.py"
+      ],
+      "category": "profile",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-5",
+      "target_package": "profiles/datacanvas/bmc-xlsx",
+      "migration_required": true,
+      "migration_action": "retain",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Пилотный профиль DataCanvas сохраняется отдельно от универсального ядра; переносится механизм и договоры, а не продуктовые значения."
+    },
+    {
+      "id": "generated-output-quarantine",
+      "priority": 1160,
+      "kinds": [
+        "file"
+      ],
+      "generator_outputs": true,
+      "category": "generated",
+      "generated": true,
+      "data_class": "restricted",
+      "cluster": "cluster-0",
+      "target_package": "quarantine/generated-output",
+      "migration_action": "retain",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Производный результат имеет точного владельца, но еще не получил отдельного решения о переносе и чувствительности.",
+      "migration_required": false
+    },
+    {
+      "id": "historical-cascade-evidence",
+      "priority": 1169,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^docs/process/cascading-governance/runs/",
+      "category": "evidence",
+      "generated": false,
+      "data_class": "confidential",
+      "cluster": "cluster-4",
+      "target_package": "consumer-evidence/cascade-runs",
+      "migration_action": "retain",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Историческое свидетельство предшествует действующим договорам общего корня; происхождение не приписывается задним числом.",
+      "migration_required": false
+    },
+    {
+      "id": "pilot-profile-source",
+      "priority": 1140,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/process/universal-documentation-workflow/datacanvas-profile.json",
+        "schemas/datacanvas-documentation-profile.schema.json",
+        "scripts/generate-bmc-artifacts.mjs",
+        "scripts/prepare-bmc-interview-artifacts.mjs",
+        "scripts/validate-bmc-trace.mjs",
+        "scripts/lib/bmc-visual-layout.mjs"
+      ],
+      "category": "profile",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-5",
+      "target_package": "profiles/datacanvas",
+      "migration_action": "retain",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Пилотный профиль и его специализированные генераторы не являются универсальным ядром; продуктовые значения остаются в профиле DataCanvas.",
+      "migration_required": true
+    },
+    {
+      "id": "consumer-process-state",
+      "priority": 1130,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/process/current/|docs/process/cascading-governance/(?:capacity-plan|documentation-change-request|impact-analysis-report|reprioritization-impact-report|jira-|supersession-ledger|user-decision-queue)|docs/.*/(?:workflow-state|run-ledger|event-log|decision-ledger|decision-queue|acceptance-records).*\\.json$|docs/product/.*(?:state|queue|ledger)\\.json$)",
+      "category": "consumer_state",
+      "generated": false,
+      "data_class": "confidential",
+      "cluster": "cluster-4",
+      "target_package": "consumer-state",
+      "migration_action": "retain",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": false
+    },
+    {
+      "id": "pilot-evidence",
+      "priority": 1120,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/(?:sprints|release)/|artifacts/|tests/(?:golden|provider|evals)/|.*evidence/)",
+      "category": "evidence",
+      "generated": false,
+      "data_class": "restricted",
+      "cluster": "cluster-0",
+      "target_package": "consumer-evidence",
+      "migration_action": "retain",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": false
+    },
+    {
+      "id": "pilot-product-private-workbook-source",
+      "priority": 1117,
+      "kinds": [
+        "file"
+      ],
+      "exact": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "category": "profile",
+      "generated": false,
+      "data_class": "confidential",
+      "cluster": "cluster-5",
+      "target_package": "profiles/datacanvas/xlsx-private-source",
+      "migration_required": false,
+      "migration_action": "retain",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Закрытая рабочая книга пилота остается источником DataCanvas и не переносится в универсальное ядро."
+    },
+    {
+      "id": "pilot-product-json-content",
+      "priority": 1116,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/(?:product|architecture|knowledge)/.*\\.json)$",
+      "category": "product_content",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-0",
+      "target_package": "consumer-product-content",
+      "migration_required": false,
+      "migration_action": "retain",
+      "parity_mode": "semantic-json",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "pilot-product-content",
+      "priority": 1110,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:docs/(?:product|architecture|knowledge)/|docs/(?:stories|project-map|product-vision|datacanvas-documentation-implementation-plan)\\.md$)",
+      "category": "product_content",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-0",
+      "target_package": "consumer-product-content",
+      "migration_action": "retain",
+      "parity_mode": "markdown-semantic",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null,
+      "migration_required": false
+    },
+    {
+      "id": "portable-mechanism-candidate",
+      "priority": 1000,
+      "kinds": [
+        "file"
+      ],
+      "pattern": "^(?:scripts/(?:cascade-|complete-cascade|finalize-cascade|run-cascade|verify-cascade|.*document|.*doc-|.*artifact|.*process|.*risk|.*trace|validate-json-schema)|schemas/(?:.*documentation.*|.*workflow.*|.*artifact.*|.*cascade.*|.*process.*|.*risk.*|common-defs|generator-contracts|acceptance-records|decision-ledger|event-log|run-ledger|capacity-plan|traceability-graph).*|docs/process/(?:universal-documentation-workflow|cascading-governance)/)",
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-1",
+      "target_package": "src/core/contracts",
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Нейтральные договоры и ядро извлекаются как механизм; продуктовые значения DataCanvas не переносятся.",
+      "migration_required": true
+    },
+    {
+      "id": "unreviewed-file-fallback",
+      "priority": 100,
+      "kinds": [
+        "file"
+      ],
+      "match_all": true,
+      "category": "deferred",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-0",
+      "target_package": "quarantine/unreviewed-files",
+      "migration_action": "defer",
+      "parity_mode": "none",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Резервное правило не принимает смыслового решения и направляет единицу на явное рассмотрение.",
+      "migration_required": false
+    },
+    {
+      "id": "pilot-specific-command",
+      "priority": 900,
+      "kinds": [
+        "package_command"
+      ],
+      "pattern": "^npm run .*?(?:provider|llm|review-runtime|real-uat|uat|pilot|export|renderer).*$",
+      "category": "excluded",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-0",
+      "target_package": null,
+      "migration_action": "exclude",
+      "parity_mode": "none",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Команда обслуживает пилотную реализацию продукта, а не универсальное изготовление проектной документации.",
+      "migration_required": false
+    },
+    {
+      "id": "documentation-command-candidate",
+      "priority": 800,
+      "kinds": [
+        "package_command"
+      ],
+      "pattern": "^npm run (?:generate:golden|test|(?:generate|check|validate|scan|cascade|docs|prepare):.*)$",
+      "category": "deferred",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-7",
+      "target_package": "quarantine/compatibility-command-candidates",
+      "migration_action": "defer",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Кандидат на совместимую обертку; точная заменяющая команда и равенство поведения еще не доказаны.",
+      "migration_required": false
+    },
+    {
+      "id": "unreviewed-command-fallback",
+      "priority": 100,
+      "kinds": [
+        "package_command"
+      ],
+      "match_all": true,
+      "category": "deferred",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-0",
+      "target_package": "quarantine/unreviewed-commands",
+      "migration_action": "defer",
+      "parity_mode": "none",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Команда не получила предметного решения и остается на рассмотрении.",
+      "migration_required": false
+    },
+    {
+      "id": "private-workbook-family",
+      "priority": 900,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "exact": [
+        "family:datacanvas-xlsx-sanitized-reference"
+      ],
+      "category": "profile",
+      "generated": false,
+      "data_class": "confidential",
+      "cluster": "cluster-5",
+      "target_package": "profiles/datacanvas/generators",
+      "migration_action": "retain",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Семейство связано с закрытым внешним источником пилота.",
+      "migration_required": true
+    },
+    {
+      "id": "navigation-registry-hash-generator-family",
+      "priority": 910,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "exact": [
+        "family:docs-navigation",
+        "family:artifact-hash-manifest"
+      ],
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-3",
+      "target_package": "src/catalogs/navigation-registry-hashes",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "cascade-generator-family",
+      "priority": 909,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "pattern": "^family:documentation-cascade-",
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-4",
+      "target_package": "src/core/cascade-planning",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "documentation-archive-generator-family",
+      "priority": 908,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "exact": [
+        "family:documentation-archive"
+      ],
+      "category": "core",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-6",
+      "target_package": "src/adapters/documentation-archive",
+      "migration_required": true,
+      "migration_action": "extract",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": null
+    },
+    {
+      "id": "datacanvas-bmc-generator-family",
+      "priority": 907,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "exact": [
+        "family:datacanvas-bmc"
+      ],
+      "category": "profile",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-5",
+      "target_package": "profiles/datacanvas/bmc-xlsx",
+      "migration_required": true,
+      "migration_action": "retain",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Семейство BMC используется как профильный пилот; продуктовые значения DataCanvas не переносятся в ядро."
+    },
+    {
+      "id": "generator-family-candidate",
+      "priority": 100,
+      "kinds": [
+        "dynamic_family"
+      ],
+      "match_all": true,
+      "category": "deferred",
+      "generated": false,
+      "data_class": "internal",
+      "cluster": "cluster-5",
+      "target_package": "quarantine/generator-family-candidates",
+      "migration_action": "defer",
+      "parity_mode": "structural",
+      "wrapper_until": null,
+      "review_due": "2027-02-05",
+      "review_owner": "Владелец процесса документации",
+      "replacement_command": null,
+      "reason": "Полный договор семейства сохранен, но его универсальность и границы чувствительности требуют отдельного решения.",
+      "migration_required": false
+    },
+    {
+      "id": "external-private-input",
+      "priority": 100,
+      "kinds": [
+        "external_input"
+      ],
+      "match_all": true,
+      "category": "consumer_state",
+      "generated": false,
+      "data_class": "confidential",
+      "cluster": "cluster-5",
+      "target_package": "external-private-input",
+      "migration_action": "retain",
+      "parity_mode": "exact-sha",
+      "wrapper_until": null,
+      "review_due": null,
+      "review_owner": null,
+      "replacement_command": null,
+      "reason": "Хэш объявлен по историческому свидетельству очистки; текущие байты внешнего источника в этом запуске недоступны и не считаются проверенными.",
+      "migration_required": false
+    }
+  ],
+  "external_inputs": [
+    {
+      "path_or_command": "external:owner-xlsx-original",
+      "source_sha256": "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9",
+      "source_verification": "declared_from_evidence",
+      "source_of_truth": "Историческое свидетельство очистки закрытой исходной книги вне Git",
+      "inputs": [],
+      "outputs": [
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+        "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json"
+      ],
+      "commands": [
+        "npm run generate:xlsx-source-reference"
+      ]
+    }
+  ]
+}

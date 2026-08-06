@@ -1,0 +1,13 @@
+{
+  "contractVersion": "0.1.0",
+  "mappingId": "datacanvas-structural-mapping-preflight",
+  "status": "blocked",
+  "owner": "Владелец процесса документации / Product Owner / Security Lead",
+  "decision": "owner_decision_required",
+  "blockers": [
+    "owner_decision_required:cluster-1-structural-contracts",
+    "owner_decision_required:cluster-2-template-inventory",
+    "owner_decision_required:cluster-5-product-and-office-derivatives"
+  ],
+  "rules": []
+}
