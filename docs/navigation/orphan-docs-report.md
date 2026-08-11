@@ -65,10 +65,10 @@
 | `evidence` | `hidden` | 3 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 8 |
-| `governance` | `2` | 59 |
+| `governance` | `2` | 60 |
 | `governance` | `3` | 14 |
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 13 |
-| `technical` | `3` | 4 |
-| `technical` | `hidden` | 108 |
+| `technical` | `3` | 7 |
+| `technical` | `hidden` | 105 |

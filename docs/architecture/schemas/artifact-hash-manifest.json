@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "2f5ade62e07f501099e64b564a5c46df8b019ba2376cf287cbcd87036e2f7452"
+      "sha256": "a0957a5e135e829de323c5a1a27b9fb5fd294774271e2aa050124fb59dc0cace"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "24f526e9a6840e673945d39970aa4d8284c7f7b48ea456f3745d7d306f6f6c60"
+      "sha256": "657835994d94edfb121697113e8b90e5678289af029f382a28415a4127f4d170"
     },
     {
       "artifact_id": "ART-201",
@@ -2027,7 +2027,7 @@
     {
       "artifact_id": "ART-406",
       "path": "docs/plans/README.md",
-      "sha256": "c329840886f07080a35ed3b2231402e08355e8e848a50eef5d1e7bbce6ee8f48"
+      "sha256": "993e6e468f4b2e24204fb4658c30616c9716c9e0c76a99da3d128ecffaf108ec"
     },
     {
       "artifact_id": "ART-407",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "485dde068e931290bf72d050c3231ffb905a63278586e1d70ecec2d7775100db"
+      "sha256": "f4bd8b18c672e36fc5dc423243df1bc4b4c0c6205f760661153cf84ed10e3480"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "e6e5119cf54b7e814a811d1aa3688592eaeccb1226b928869856590bb284e8f1"
+      "sha256": "d4b234a6aad54f239c299df6fb6e5c2d87c2165abb0d2b70b785af9ca1f237e9"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "36728eac6df511afb30dd9c553096ec54345a9da1a4aa1a66cf22a9f336b1e98"
+      "sha256": "3200d84f8938b7679b36bd193712bf236067f316436ace1f157325e2fe50fd2e"
     },
     {
       "artifact_id": "ART-413",
@@ -4288,6 +4288,11 @@
       "artifact_id": "ART-859",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
       "sha256": "1fdd9e146fdfa58296bdd6c1133431845fe2335689bb26c4f3481da13589c31b"
+    },
+    {
+      "artifact_id": "ART-860",
+      "path": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "sha256": "3caeae24e05d76a81862a4f81b1154c64e98aa4e2b342a203cc670e8df8ca844"
     }
   ],
   "exclusions": [

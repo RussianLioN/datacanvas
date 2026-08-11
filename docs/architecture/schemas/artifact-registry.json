@@ -9441,6 +9441,22 @@
       ],
       "redaction_status": "not_required",
       "update_trigger": "HTML-демонстрация, шрифт, лицензия, архивный договор или генератор меняются."
+    },
+    {
+      "id": "ART-860",
+      "path": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "type": "plan",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "draft",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "План реализации HTML-прототипа пути заказа презентации в Лисе, его граница P1/P2, проверка или передача на последующую миграцию меняются."
     }
   ]
 }

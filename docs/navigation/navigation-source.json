@@ -2850,6 +2850,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "route_id": "datacanvas-lisa-p1-p2-html-prototype-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "План реализации HTML-прототипа пути заказа презентации в Лисе, его граница P1/P2, проверка или передача на последующую миграцию меняются.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/process/cascading-governance/README.md",
       "route_id": "cascading-governance-readme",
       "section": "process",
