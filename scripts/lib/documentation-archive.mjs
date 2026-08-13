@@ -105,7 +105,7 @@ function renderMarkdown(contract, chain, memberData) {
     }
     lines.push("");
   }
-  lines.push("## Производные файловые представления", "");
+  lines.push("## Дополнительные материалы", "");
   for (const entry of memberData.filter((item) => item.role === "derivative")) {
     lines.push(`- [${entry.label}](${contract.archive_root}/${entry.path})`);
   }
@@ -130,8 +130,8 @@ function renderHtml(contract, chain, memberData) {
   return Buffer.from(`<!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${escapeHtml(contract.title)}</title><style>body{font:16px/1.5 system-ui,sans-serif;max-width:960px;margin:auto;padding:24px;color:#172033}a{color:#075aa8}section{border-top:1px solid #ccd3df}code{word-break:break-all}</style></head>
-<body><h1>${escapeHtml(contract.title)}</h1><p>Автономная навигация по главным документам и производным файлам DataCanvas.</p>${sections}
-<section><h2>Производные файловые представления</h2><ul>${derivatives}</ul></section></body></html>\n`, "utf8");
+<body><h1>${escapeHtml(contract.title)}</h1><p>Автономная навигация по главным документам и дополнительным материалам DataCanvas.</p>${sections}
+<section><h2>Дополнительные материалы</h2><ul>${derivatives}</ul></section></body></html>\n`, "utf8");
 }
 
 function createStoredZip(entries) {

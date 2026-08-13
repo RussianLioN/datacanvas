@@ -46,7 +46,9 @@
 
 После проверки командой реализации черновые значения заменяются утвержденными значениями или фиксируется блокер оценки.
 
-Принятие рабочей Excel-редакции Product Owner подтверждает формулировки, приоритеты и допустимость черновых значений для обсуждения, но не заменяет согласование трудозатрат командой реализации. До отдельной записи командного согласования манифест использует `approval_status: owner_approved` и `team_validation_status: pending_team_review`, запрещает перенос значений в sprint backlog и Jira и требует `requires_team_approval_record: true`.
+Принятие рабочей Excel-редакции Product Owner подтверждает формулировки, приоритеты и допустимость текущих ресурсных значений, но само по себе не заменяет согласование трудозатрат командой реализации. По умолчанию до отдельного полномочия манифест использует `approval_status: owner_approved` и `team_validation_status: pending_team_review`, запрещает перенос значений в sprint backlog и Jira и требует `requires_team_approval_record: true`.
+
+Для текущей книги действует узкое исключение по `UDW-DEC-019` — решению Product Owner и Process Owner о выгрузке текущих ресурсных значений в Jira. Книга и все одиннадцать строк получают `team_validation_status: approved` только в связке с `jira_export_authority: process_owner_and_product_owner` и `jira_export_decision_id: UDW-DEC-019`; `approval_status` остается `owner_approved`. Политика устанавливает `may_export_to_jira: true`, но сохраняет `may_update_sprint_backlog: false` и `requires_team_approval_record: false`: отдельная запись принятия оценок командой не создается, а список работ спринта не разрешается. Статус `draft_unapproved` безусловно запрещает экспорт независимо от заполненных полей полномочия.
 
 ## Обратная Синхронизация Из Excel
 

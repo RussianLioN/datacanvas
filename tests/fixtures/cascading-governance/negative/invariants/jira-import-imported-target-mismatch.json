@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "package_id": "JIP-2026-07-02-207",
+  "status": "imported",
+  "target_project": "DATACANVAS",
+  "csv_path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+  "mapping_request_path": "tests/fixtures/cascading-governance/jira-field-mapping-ignored-by-design.json",
+  "field_mapping_status": "approved",
+  "import_completion_claim": "imported_by_external_agent",
+  "validation_commands": [
+    "npm run validate:jira-story-import",
+    "npm run validate:jira-field-mapping"
+  ]
+}

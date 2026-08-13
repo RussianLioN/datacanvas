@@ -1,9 +1,9 @@
 {
   "$schema": "../../../schemas/xlsx-opml-jira-recovery-index.schema.json",
   "version": "0.1.0",
-  "status": "draft",
+  "status": "active",
   "index_id": "XLSX-OPML-JIRA-RECOVERY-2026-07-08",
-  "updated_at": "2026-07-10T00:00:00Z",
+  "updated_at": "2026-07-13T00:00:00Z",
   "items": [
     {
       "item_id": "sanitized-source-xlsx",
@@ -30,33 +30,34 @@
         "owner_approved_priority_source",
         "draft_effort_estimation",
         "team_estimation_review",
+        "jira_resource_estimate_export",
         "cascade_synchronization"
       ],
-      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и черновых ПШЕ для DC-ST-23..DC-ST-33. Командное согласование трудозатрат еще не получено; sprint backlog и Jira остаются заблокированными до отдельной записи такого согласования."
+      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и текущих ресурсных значений для DC-ST-23..DC-ST-33. UDW-DEC-019 разрешает экспорт этих значений в Jira, но не является отдельным принятием оценок командой реализации; sprint backlog остается заблокированным до решения о емкости, порядке работ и вытеснении."
     },
     {
       "item_id": "historical-stories-opml",
       "kind": "opml",
-      "status": "not_found",
+      "status": "found",
       "path": null,
       "source_id": null,
-      "sha256": null,
+      "sha256": "f593ea2cb27b8b397d1bbb82de531e4c1b8fde39179e199ee38a11e97832605f",
       "downstream_use": [
         "derived_reconstruction_only"
       ],
-      "notes": "В проектных документах есть историческое упоминание передачи stories.opml Product Owner, но физический source artifact не найден."
+      "notes": "Внешний исторический OPML обнаружен. Сохранён только предоставленный внешний отпечаток SHA-256; он не подтверждён чтением локального файла. Источник содержит 14 ранних верхнеуровневых пользовательских историй и не содержит ресурсных значений. Локальный путь и содержимое в репозитории не сохраняются."
     },
     {
       "item_id": "jira-import-package",
       "kind": "jira_import",
-      "status": "pending_external",
+      "status": "found",
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "source_id": null,
       "sha256": null,
       "downstream_use": [
-        "jira_import_after_mapping_approval"
+        "manual_jira_import"
       ],
-      "notes": "Импорт в Jira не переводится в ready без утвержденного JiraFieldMappingRequest."
+      "notes": "Пакет и утверждённое сопоставление готовы к ручному импорту в Jira. Фактический импорт ещё не выполнялся и не заявляется."
     },
     {
       "item_id": "confluence-import-map",

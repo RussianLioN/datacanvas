@@ -1,0 +1,24 @@
+{
+  "version": "0.1.0",
+  "mapping_request_id": "JFMR-2026-07-02-206",
+  "status": "approved",
+  "target_project": "selected_during_import",
+  "issue_types": ["Story"],
+  "required_custom_fields": [],
+  "csv_columns": ["Issue Type", "Business Value"],
+  "jira_field_mapping": [
+    {
+      "csv_column": "Issue Type",
+      "jira_field": "Issue Type",
+      "status": "mapped"
+    },
+    {
+      "csv_column": "Business Value",
+      "jira_field": null,
+      "status": "unresolved"
+    }
+  ],
+  "unresolved_fields": ["Business Value"],
+  "approving_stakeholder": "Product Owner / Process Owner",
+  "import_readiness_status": "ready"
+}

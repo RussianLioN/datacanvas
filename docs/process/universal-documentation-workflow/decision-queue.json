@@ -179,6 +179,17 @@
       "subject": "Добавить DC-ST-29 как недостающую P1-историю генерации редактируемого файла презентации из проверенных и нормализованных данных без создания BT-019.",
       "acceptance_record_id": "UDW-ACC-024",
       "rationale": "Product Owner указал на пробел: процесс генерации презентации из полученных очищенных данных отсутствовал в stories. По подтвержденному варианту добавляется DC-ST-29, связанная с BT-012, BT-002 и BT-014; отдельный BT-019 не создается."
+    },
+    {
+      "decision_id": "UDW-DEC-019",
+      "decision_type": "owner_decision_acceptance",
+      "authority": "evidence",
+      "status": "accepted",
+      "blocking": false,
+      "owner_role": "Product Owner / Process Owner",
+      "subject": "Разрешить экспорт в Jira текущих ресурсных значений из принятой рабочей Excel-редакции для DC-ST-23..DC-ST-33 без разрешения изменять sprint backlog и без заявления об отдельном принятии оценок командой реализации.",
+      "acceptance_record_id": "UDW-ACC-026",
+      "rationale": "Product Owner и Process Owner явно разрешили использовать текущие ресурсные значения только для экспорта в Jira. Полномочие фиксируется отдельными полями манифеста происхождения; approval_status остается owner_approved, sprint backlog остается заблокированным до отдельного решения о емкости, порядке работ и вытеснении, а draft_unapproved безусловно запрещает экспорт."
     }
   ]
 }

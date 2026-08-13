@@ -5303,7 +5303,7 @@
       "path": "docs/process/cascading-governance/jira-field-mapping-request.json",
       "type": "evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -5319,7 +5319,7 @@
       "path": "docs/process/cascading-governance/jira-import-package-manifest.json",
       "type": "evidence",
       "owner_role": "Delivery/GitOps Lead",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -7763,7 +7763,7 @@
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "type": "source-recovery-index",
       "owner_role": "Product Owner / Process Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -9050,6 +9050,90 @@
       ],
       "redaction_status": "metadata_only",
       "update_trigger": "Любое байтовое изменение любого разрешенного входного документа или производного файла."
+    },
+    {
+      "id": "ART-828",
+      "path": "docs/process/cascading-governance/jira-story-import-contract.json",
+      "type": "process-contract",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются строки, поля, формат CSV или полномочие владельцев на экспорт в Jira."
+    },
+    {
+      "id": "ART-829",
+      "path": "schemas/jira-story-import-contract.schema.json",
+      "type": "schema",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-830",
+      "path": "scripts/generate-datacanvas-jira-stories.py",
+      "type": "generator",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-831",
+      "path": "scripts/validate-datacanvas-jira-story-import.py",
+      "type": "validator",
+      "owner_role": "Process Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-832",
+      "path": "tests/test_datacanvas_jira_story_import.py",
+      "type": "test",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-833",
+      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "type": "jira-story-import-csv",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/process/cascading-governance/jira-story-import-contract.json",
+      "generated_from": [
+        "docs/process/cascading-governance/jira-story-import-contract.json",
+        "scripts/generate-datacanvas-jira-stories.py",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+      ],
+      "redaction_status": "metadata_only",
+      "update_trigger": "Меняется договор, рабочая XLSX-книга, эталон или полномочие на экспорт в Jira."
+    },
+    {
+      "id": "ART-834",
+      "path": "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+      "type": "process-guide",
+      "owner_role": "Product Owner / Process Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются CSV, сопоставление полей или порядок ручного массового импорта в Jira."
     }
   ]
 }

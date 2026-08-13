@@ -1,12 +1,66 @@
 export function approvalConsistencyProblems({
   approvalStatus,
   teamValidationStatus,
+  rowApprovalStatuses = [],
   rowTeamValidationStatuses = [],
   downstreamPolicy = null,
 }) {
   const problems = [];
+  const jiraExportRequested = downstreamPolicy?.may_export_to_jira === true;
+  const ownerJiraExportProblems = [];
 
-  if (teamValidationStatus === "approved" && approvalStatus !== "team_approved") {
+  if (jiraExportRequested) {
+    if (approvalStatus !== "owner_approved") {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires workbook approval_status=owner_approved; received " + approvalStatus,
+      );
+    }
+    if (teamValidationStatus !== "approved") {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires workbook team_validation_status=approved; received "
+          + teamValidationStatus,
+      );
+    }
+    if (downstreamPolicy.may_update_sprint_backlog !== false) {
+      ownerJiraExportProblems.push("owner-authorized Jira export must keep sprint backlog updates forbidden");
+    }
+    if (downstreamPolicy.requires_team_approval_record !== false) {
+      ownerJiraExportProblems.push("owner-authorized Jira export requires requires_team_approval_record=false");
+    }
+    if (downstreamPolicy.jira_export_authority !== "process_owner_and_product_owner") {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires jira_export_authority=process_owner_and_product_owner",
+      );
+    }
+    if (downstreamPolicy.jira_export_decision_id !== "UDW-DEC-019") {
+      ownerJiraExportProblems.push("owner-authorized Jira export requires jira_export_decision_id=UDW-DEC-019");
+    }
+    if (
+      rowApprovalStatuses.length === 0
+      || rowApprovalStatuses.some((status) => status !== "owner_approved")
+    ) {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires all row approval statuses=owner_approved",
+      );
+    }
+    if (
+      rowTeamValidationStatuses.length === 0
+      || rowTeamValidationStatuses.some((status) => status !== "approved")
+    ) {
+      ownerJiraExportProblems.push(
+        "owner-authorized Jira export requires all workbook rows to have team_validation_status=approved",
+      );
+    }
+  }
+
+  const ownerJiraExportAuthorized = jiraExportRequested && ownerJiraExportProblems.length === 0;
+  problems.push(...ownerJiraExportProblems);
+
+  if (
+    teamValidationStatus === "approved"
+    && approvalStatus !== "team_approved"
+    && !ownerJiraExportAuthorized
+  ) {
     problems.push("team approval requires approval_status=team_approved");
   }
   if (approvalStatus === "team_approved" && teamValidationStatus !== "approved") {
@@ -47,8 +101,12 @@ export function planningReadinessProblems({ teamValidationStatus, backlogStatuse
   return problems;
 }
 
-export function pendingTeamDownstreamUseProblems({ teamValidationStatus, downstreamUse }) {
-  if (teamValidationStatus !== "pending_team_review") {
+export function pendingTeamDownstreamUseProblems({
+  teamValidationStatus,
+  downstreamUse,
+  downstreamPolicy = null,
+}) {
+  if (teamValidationStatus !== "pending_team_review" && downstreamPolicy?.may_export_to_jira !== true) {
     return [];
   }
 
@@ -58,6 +116,17 @@ export function pendingTeamDownstreamUseProblems({ teamValidationStatus, downstr
     "jira_import_preparation",
     "opml_export_preparation",
   ]);
+  if (downstreamPolicy?.may_export_to_jira === true) {
+    const problems = downstreamUse
+      .filter((use) => forbiddenUses.has(use))
+      .map((use) => "owner-authorized Jira export forbids downstream use: " + use);
+    if (!downstreamUse.includes("jira_resource_estimate_export")) {
+      problems.push(
+        "owner-authorized Jira export requires downstream use: jira_resource_estimate_export",
+      );
+    }
+    return problems;
+  }
   return downstreamUse
     .filter((use) => forbiddenUses.has(use))
     .map((use) => `pending team validation forbids downstream use: ${use}`);

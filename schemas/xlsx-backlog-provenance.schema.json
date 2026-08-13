@@ -68,10 +68,105 @@
         "may_update_sprint_backlog": { "type": "boolean" },
         "may_export_to_jira": { "type": "boolean" },
         "requires_team_approval_record": { "type": "boolean" },
+        "jira_export_authority": {
+          "type": "string",
+          "enum": ["process_owner_and_product_owner"]
+        },
+        "jira_export_decision_id": {
+          "type": "string",
+          "pattern": "^UDW-DEC-[0-9]{3}$"
+        },
         "notes": { "type": "string", "minLength": 1 }
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "downstream_policy": {
+            "type": "object",
+            "properties": {
+              "may_export_to_jira": { "const": true }
+            },
+            "required": ["may_export_to_jira"]
+          }
+        },
+        "required": ["downstream_policy"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "workbook": {
+            "type": "object",
+            "properties": {
+              "approval_status": { "const": "owner_approved" },
+              "team_validation_status": { "const": "approved" }
+            },
+            "required": ["approval_status", "team_validation_status"]
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 11,
+            "maxItems": 11,
+            "items": {
+              "type": "object",
+              "properties": {
+                "approval_status": { "const": "owner_approved" },
+                "team_validation_status": { "const": "approved" }
+              },
+              "required": ["approval_status", "team_validation_status"]
+            }
+          },
+          "downstream_policy": {
+            "type": "object",
+            "properties": {
+              "may_update_sprint_backlog": { "const": false },
+              "may_export_to_jira": { "const": true },
+              "requires_team_approval_record": { "const": false },
+              "jira_export_authority": {
+                "const": "process_owner_and_product_owner"
+              },
+              "jira_export_decision_id": {
+                "const": "UDW-DEC-019"
+              }
+            },
+            "required": [
+              "may_update_sprint_backlog",
+              "may_export_to_jira",
+              "requires_team_approval_record",
+              "jira_export_authority",
+              "jira_export_decision_id"
+            ]
+          }
+        },
+        "required": ["workbook", "rows", "downstream_policy"]
+      }
+    },
+    {
+      "not": {
+        "type": "object",
+        "properties": {
+          "workbook": {
+            "type": "object",
+            "properties": {
+              "approval_status": { "const": "draft_unapproved" }
+            },
+            "required": ["approval_status"]
+          },
+          "downstream_policy": {
+            "type": "object",
+            "properties": {
+              "may_export_to_jira": { "const": true }
+            },
+            "required": ["may_export_to_jira"]
+          }
+        },
+        "required": ["workbook", "downstream_policy"]
+      }
+    }
+  ],
   "$defs": {
     "repoPath": {
       "type": "string",

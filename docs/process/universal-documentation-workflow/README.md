@@ -109,7 +109,7 @@ DataCanvas используется только как пилотный про�
 - [Validation command catalog](validation-command-catalog.json) — каталог команд проверки по уровням gate — проверочных барьеров.
 - [Artifact inventory](artifact-inventory.json) — инвентарь источников, generated artifacts — автоматически создаваемых артефактов, и evidence — проверочных свидетельств.
 - [Generator contracts](generator-contracts.json) — контракты генераторов, разрешенные записи и проверки воспроизводимости.
-- [Контракт локального архива главной цепочки](documentation-archive-contract.json) — точный состав из основных артефактов жизненного цикла, разрешённые производные, классификация доступа и обязательные команды обновления и проверки.
+- [Контракт локального архива главной цепочки](documentation-archive-contract.json) — точный состав из основных артефактов жизненного цикла и дополнительных материалов, включая руководство и подготовленный CSV для импорта пользовательских историй в Jira, классификация доступа и обязательные команды обновления и проверки.
 - [Artifact dependency graph](../cascading-governance/artifact-dependency-graph.json) — канонический граф направленных связей и явно разрешенных циклов между главными артефактами.
 - [Cascade impact cone schema](../../../schemas/cascade-impact-cone.schema.json) — контракт полного конуса влияния вверх и вниз.
 - [Cascade baseline manifest schema](../../../schemas/cascade-baseline-manifest.schema.json), [cascade resolution input schema](../../../schemas/cascade-resolution-input.schema.json) и [cascade verification evidence schema](../../../schemas/cascade-verification-evidence.schema.json) — контракты исходного состояния, явного разрешения каждого элемента конуса и независимого доказательства завершения.

@@ -23,6 +23,7 @@
 - `cascading-update-run.schema.json`
 - `xlsx-change-analysis.schema.json`
 - `jira-field-mapping-request.schema.json`
+- `jira-story-import-contract.schema.json`
 - `jira-import-package-manifest.schema.json`
 - `agent-launch-requirements-analysis-state.schema.json`
 - `agent-launch-requirements-impact-map.schema.json`

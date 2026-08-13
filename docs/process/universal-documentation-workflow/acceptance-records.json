@@ -408,6 +408,23 @@
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
         "docs/product/sources/product-source-registry.json"
       ]
+    },
+    {
+      "acceptance_record_id": "UDW-ACC-026",
+      "acceptance_type": "owner_decision_acceptance",
+      "status": "accepted",
+      "owner_role": "Product Owner / Process Owner",
+      "subject": "Принято разрешение владельцев на экспорт в Jira текущих ресурсных значений для DC-ST-23..DC-ST-33 без разрешения изменять sprint backlog и без отдельной записи принятия оценок командой реализации.",
+      "linked_decision_ids": [
+        "UDW-DEC-019"
+      ],
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "schemas/xlsx-backlog-provenance.schema.json"
+      ]
     }
   ]
 }

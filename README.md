@@ -11,6 +11,7 @@ DataCanvas - проект AI-агента, который формирует к�
 | Проверить исходные документы и принятые изменения | [Исходные документы](docs/product/sources/README.md) и [change orders](docs/product/change-orders/README.md) | Реестр источников, аудит источников и принятые изменения продукта. |
 | Найти методику и исследования | [Методика проектной документации](docs/process/methodology/README.md) | Правила ведения документации, BABOK-источник и исследование процесса разработки с поддержкой ИИ. |
 | Запустить или проверить рабочий процесс документации | [Универсальный рабочий процесс](docs/process/universal-documentation-workflow/README.md) | Runbook, состояние запуска, журналы, правила переноса и проверки. |
+| Импортировать пользовательские истории в Jira | [Руководство по массовому импорту](docs/process/guides/datacanvas-jira-story-bulk-import.md) и [готовый CSV](artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv) | Подготовка, проверка и загрузка пользовательских историй DataCanvas в Jira. |
 | Подготовить сдачу или найти evidence | [Release](docs/release/README.md) и [evidence index](docs/knowledge/evidence-index.md) | Релизные доказательства, PR evidence, pilot и handoff-материалы. |
 | Найти архитектуру, схемы и проверки | [Архитектура](docs/architecture/README.md), [схемы](schemas/README.md), [команды](package.json) | ADR, схемы, границы доверия, проверки и полный список команд. |
 
@@ -26,7 +27,7 @@ DataCanvas - проект AI-агента, который формирует к�
 | Требования и критерии приемки | [docs/product/requirements/README.md](docs/product/requirements/README.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](docs/product/backlog/README.md) и [docs/product/sources/README.md](docs/product/sources/README.md) |
 | Таблицы Excel с исходным бэклогом и рабочей оценкой | [Контролируемый XLSX-источник](docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx) и [рабочая XLSX-версия с оценкой ПШЕ](docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx) |
-| Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, производные BMC, CSV и оба XLSX с автономной навигацией. |
+| Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, включая рабочий XLSX, и восемь дополнительных материалов: представления BMC, выгрузка кандидатных историй, очищенный XLSX-источник, руководство и подготовленный CSV для импорта пользовательских историй в Jira; после распаковки доступна автономная навигация. |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](docs/product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](docs/product/hypotheses/README.md) |
 | BA/SA - бизнес-анализ и системный анализ | [docs/product/analysis/README.md](docs/product/analysis/README.md) и [docs/architecture/system-analysis/README.md](docs/architecture/system-analysis/README.md) |
