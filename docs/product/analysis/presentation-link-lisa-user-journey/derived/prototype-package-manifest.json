@@ -3,14 +3,14 @@
   "status": "portable-ten-screen-prototype",
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e310a0c042a57fb9e90f2f88dc198017bd31b53e181204f2a705e12340599fae"
+    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
   },
   "state_ids": [
-    "lisa-client-answer",
     "lisa-materials-summary",
     "lisa-materials-full-reference",
     "lisa-presentation-order",
     "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
     "lisa-presentation-sent",
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
@@ -25,33 +25,18 @@
     },
     {
       "path": "app.js",
-      "bytes": 21569,
-      "sha256": "3eac21ebeb315c3db8867e75b06fb47fa9c1f9b6e651257206400d2979992ad6"
+      "bytes": 21642,
+      "sha256": "5ede4d98f79d840ae88a65e76b48474d0867ccfc2d5bb71dfe54255e0726f3a1"
     },
     {
       "path": "data.js",
-      "bytes": 36698,
-      "sha256": "aa39ce27f35ec33e7b0802372c59352bb4226d7949aeccc1ff8db62b66127a71"
+      "bytes": 36867,
+      "sha256": "030b6c980088c02b3b2580ac6ec98435db4a9b106b12d156b64d87c38cdd69fd"
     },
     {
       "path": "styles.css",
       "bytes": 9170,
       "sha256": "10b3d2ffb4a8763ccddf47e85391d08833e23f497ede3d7a1c9dd3cd268f2aa7"
-    },
-    {
-      "path": "assets/lisa-client-answer-status-3x.png",
-      "bytes": 25385,
-      "sha256": "2d3705a250c1d650df3dbb90f1dd7fd039eebd400aff2eab5dcfa9aab879ca95"
-    },
-    {
-      "path": "assets/lisa-client-answer-content-3x.png",
-      "bytes": 1083285,
-      "sha256": "0e9ef29cf53278824d2804f9a005b855a494caf074732e23e6911581fe162d73"
-    },
-    {
-      "path": "assets/lisa-client-answer-home-3x.png",
-      "bytes": 42279,
-      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
     },
     {
       "path": "assets/lisa-materials-summary-status-3x.png",
@@ -60,13 +45,13 @@
     },
     {
       "path": "assets/lisa-materials-summary-content-3x.png",
-      "bytes": 462472,
-      "sha256": "744749fe4ceda40314e42f3be2e6aeeeed9c9de1ce58f8dc0261fbe8f21ee2fc"
+      "bytes": 373347,
+      "sha256": "52976defe720f09ffce1b3360b8d12a9a4f67451edaa85ff95ee36d5da295336"
     },
     {
       "path": "assets/lisa-materials-summary-home-3x.png",
-      "bytes": 4364,
-      "sha256": "88ecaae93ffa2fd968cc1a640a888396bc2bff5beff1f975464f4ea6e253baef"
+      "bytes": 3551,
+      "sha256": "3534614c3738f1a669d493915f2b60a6cb376fdbd81ca631d4b8030c9fc04716"
     },
     {
       "path": "assets/lisa-materials-full-reference-status-3x.png",
@@ -75,8 +60,8 @@
     },
     {
       "path": "assets/lisa-materials-full-reference-content-3x.png",
-      "bytes": 4033609,
-      "sha256": "0b75a7d866b0a7c48861b7da13f3917bfc95b23e3112903951a96bc563fe523e"
+      "bytes": 3999378,
+      "sha256": "001e508363a86f210068c3252615b05260edb4e3a5a24c58a750ffaaf832ba42"
     },
     {
       "path": "assets/lisa-materials-full-reference-home-3x.png",
@@ -90,8 +75,8 @@
     },
     {
       "path": "assets/lisa-presentation-order-content-3x.png",
-      "bytes": 571403,
-      "sha256": "757417a0b142d9919f73ca1a489d3af758b54593b8a6bd226c2d9b4acaa3ec79"
+      "bytes": 520205,
+      "sha256": "6a8bb4a71591109092556598ae8ce12a3e7be22fbe90a8e0a216a1bab865fa5e"
     },
     {
       "path": "assets/lisa-presentation-order-home-3x.png",
@@ -105,13 +90,28 @@
     },
     {
       "path": "assets/lisa-presentation-generating-content-3x.png",
-      "bytes": 694334,
-      "sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
+      "bytes": 626414,
+      "sha256": "811ae53103ba0a72118b5b8e2c01f4398942d723b76eaf5e424fc1ce62e51f6e"
     },
     {
       "path": "assets/lisa-presentation-generating-home-3x.png",
       "bytes": 42279,
       "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-status-3x.png",
+      "bytes": 36031,
+      "sha256": "9473be7a41efcc3e904751fb1c214b8e23c3763b7832c18496b88b555afe7ad2"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-content-3x.png",
+      "bytes": 522516,
+      "sha256": "277eb69745388e28c2a6b2304781fad6c0ba773442aa6536f75cbcab2cb557ba"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-home-3x.png",
+      "bytes": 11715,
+      "sha256": "8c0e1c0a973c1b5bb81ca1847964104e3a5ad9ae90cff7dde25845740fdd6648"
     },
     {
       "path": "assets/lisa-presentation-sent-status-3x.png",
@@ -120,8 +120,8 @@
     },
     {
       "path": "assets/lisa-presentation-sent-content-3x.png",
-      "bytes": 561478,
-      "sha256": "578d2dd6a067e061e6eb25187266477773b549c31830904abfbc89478ba3545e"
+      "bytes": 522006,
+      "sha256": "8dc1d504d4efdb7d075610fc6a677c4c3fd845eb829e72c8e3cfbd1058e6f251"
     },
     {
       "path": "assets/lisa-presentation-sent-home-3x.png",
@@ -151,8 +151,8 @@
   ],
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 15479586,
-    "sha256": "0ec46bb332c3bff80c3d701477b5f892fc8c1c5f2aa1a599647fcd0fec266fc0",
+    "bytes": 14616484,
+    "sha256": "2d2301a92372c9ce7365b76b0bf013adf4a366c8ca8b9558a5570467dc8f0b81",
     "members": [
       "README.md",
       "manifest.json",
@@ -160,9 +160,6 @@
       "app.js",
       "data.js",
       "styles.css",
-      "assets/lisa-client-answer-status-3x.png",
-      "assets/lisa-client-answer-content-3x.png",
-      "assets/lisa-client-answer-home-3x.png",
       "assets/lisa-materials-summary-status-3x.png",
       "assets/lisa-materials-summary-content-3x.png",
       "assets/lisa-materials-summary-home-3x.png",
@@ -175,6 +172,9 @@
       "assets/lisa-presentation-generating-status-3x.png",
       "assets/lisa-presentation-generating-content-3x.png",
       "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-presentation-chat-list-content-3x.png",
+      "assets/lisa-presentation-chat-list-home-3x.png",
       "assets/lisa-presentation-sent-status-3x.png",
       "assets/lisa-presentation-sent-content-3x.png",
       "assets/lisa-presentation-sent-home-3x.png",

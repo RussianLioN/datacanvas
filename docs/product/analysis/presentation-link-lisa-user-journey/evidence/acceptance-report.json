@@ -3,11 +3,11 @@
   "status": "passed",
   "route_id": "lisa-presentation-ten-screen-route",
   "active_state_ids": [
-    "lisa-client-answer",
     "lisa-materials-summary",
     "lisa-materials-full-reference",
     "lisa-presentation-order",
     "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
     "lisa-presentation-sent",
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
@@ -16,7 +16,7 @@
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e310a0c042a57fb9e90f2f88dc198017bd31b53e181204f2a705e12340599fae"
+    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
   },
   "browser_report": "evidence/browser-report.json",
   "acceptance": {
@@ -26,7 +26,7 @@
     "system_top_and_bottom_remain_fixed": true,
     "application_content_scrolls_between_system_regions": true,
     "service_text_and_navigation_are_outside_phone": true,
-    "four_order_buttons_open_generating_state": true,
+    "three_order_buttons_open_generating_state": true,
     "email_is_separate_uncropped_screen": true,
     "three_presentation_documents_follow_email": true,
     "final_mag_screen_disables_forward_navigation": true,

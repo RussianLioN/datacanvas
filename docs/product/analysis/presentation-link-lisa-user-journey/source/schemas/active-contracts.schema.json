@@ -27,11 +27,11 @@
     },
     "active_state_ids": {
       "const": [
-        "lisa-client-answer",
         "lisa-materials-summary",
         "lisa-materials-full-reference",
         "lisa-presentation-order",
         "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
         "lisa-presentation-sent",
         "lisa-presentation-email",
         "lisa-presentation-slidedoc",

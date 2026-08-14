@@ -4,11 +4,11 @@
   "status": "active",
   "source_root": "editable-sources",
   "active_source_ids": [
-    "1.1",
     "5.2",
     "5.4",
     "7.1",
     "7.2",
+    "08",
     "7.3",
     "7.4",
     "szh-dense-slidedoc",
@@ -17,25 +17,11 @@
   ],
   "sources": [
     {
-      "id": "1.1",
-      "state_id": "lisa-client-answer",
-      "path": "editable-sources/1.1.svg",
-      "media_type": "image/svg+xml",
-      "sha256": "f2b443c4e3141a929d1185147438613ff93cf1eb830f55b2cbbf2e07ba43f5bf",
-      "logical_dimensions": {
-        "width": 521,
-        "height": 1542
-      },
-      "presentation": "phone",
-      "scrollable": true,
-      "classification": "active-basis"
-    },
-    {
       "id": "5.2",
       "state_id": "lisa-materials-summary",
       "path": "editable-sources/5.2.svg",
       "media_type": "image/svg+xml",
-      "sha256": "5ac62c67c8c567570f9f3e48d475018db257058012590c1d67627211927fc5ea",
+      "sha256": "1effbbbea608c5bd256f0399c580e394c9991dfd4a9c4f4834b002fffd0ae74a",
       "logical_dimensions": {
         "width": 521,
         "height": 980
@@ -49,7 +35,7 @@
       "state_id": "lisa-materials-full-reference",
       "path": "editable-sources/5.4.svg",
       "media_type": "image/svg+xml",
-      "sha256": "032b59433428c56232fcfcc0ccc83e753d801e23c1f85963cf6042ae9ff4a01e",
+      "sha256": "32e9986b59425d6f3882b8eb689355da4d1459c1adf9cfc23b38c9f4ad43edff",
       "logical_dimensions": {
         "width": 521,
         "height": 5194
@@ -63,7 +49,7 @@
       "state_id": "lisa-presentation-order",
       "path": "editable-sources/7.1 — Холдинг.svg",
       "media_type": "image/svg+xml",
-      "sha256": "a83e313adb0aaaf4c102397fde0b252fae6095cd1cb888bccb3871df445c2903",
+      "sha256": "71e3387399ab698e149fa322458afcc7d0f9e3cb869acc803e4b38f6928791a2",
       "logical_dimensions": {
         "width": 521,
         "height": 980
@@ -77,7 +63,21 @@
       "state_id": "lisa-presentation-generating",
       "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
       "media_type": "image/svg+xml",
-      "sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+      "sha256": "c90a57eed1faa601834d97f160d7a4b190f7d310136607080cb3339dc3bdc942",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "08",
+      "state_id": "lisa-presentation-chat-list",
+      "path": "editable-sources/08.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "9b623121af1f30dc62ef848265197d941528c5ff6cce7fd96d6bf37ecf6c22ce",
       "logical_dimensions": {
         "width": 521,
         "height": 980
@@ -91,7 +91,7 @@
       "state_id": "lisa-presentation-sent",
       "path": "editable-sources/7.3 — Презентация.svg",
       "media_type": "image/svg+xml",
-      "sha256": "7a0ae91bea7a98ef31ea0b4b186ee2482877f2b633868c5e39d2f692c73302a5",
+      "sha256": "9cf7614c450e991b59e41403b592620fe19437c631328756773b5c3f1da3d398",
       "logical_dimensions": {
         "width": 521,
         "height": 980

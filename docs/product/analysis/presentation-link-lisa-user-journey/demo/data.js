@@ -1,7 +1,10 @@
 window.LISA_PROTOTYPE_DATA = Object.freeze({
   "version": "3.0.0",
-  "initial_state_id": "lisa-client-answer",
+  "initial_state_id": "lisa-materials-summary",
   "order_target_state_id": "lisa-presentation-generating",
+  "navigation": {
+    "display_total": 11
+  },
   "device": {
     "model": "iPhone 12 Pro Max",
     "body_mm": {
@@ -32,229 +35,9 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
   },
   "states": [
     {
-      "id": "lisa-client-answer",
-      "order": 1,
-      "source_id": "1.1",
-      "caption": "Справка по клиенту: можно заказать презентацию",
-      "presentation": "phone",
-      "scrollable": true,
-      "action_ids": [
-        "order-presentation"
-      ],
-      "viewport": {
-        "width": 393,
-        "height": 852
-      },
-      "content": {
-        "width": 393,
-        "height": 1414
-      },
-      "logical_dimensions": {
-        "width": 521,
-        "height": 1542
-      },
-      "cta_rect": {
-        "x": 80,
-        "y": 1316,
-        "width": 361,
-        "height": 40
-      },
-      "raster_layers": [
-        {
-          "role": "system_top",
-          "src": "assets/lisa-client-answer-status-3x.png",
-          "source_rect": {
-            "x": 64,
-            "y": 48,
-            "width": 393,
-            "height": 53
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 0,
-            "width": 393,
-            "height": 53
-          },
-          "destination_rect": {
-            "x": 0,
-            "y": 0,
-            "width": 393,
-            "height": 53
-          },
-          "pixel_dimensions": {
-            "width": 1179,
-            "height": 159
-          },
-          "logical_dimensions": {
-            "width": 393,
-            "height": 53
-          },
-          "raster_scale": 3
-        },
-        {
-          "role": "scroll_content",
-          "src": "assets/lisa-client-answer-content-3x.png",
-          "source_rect": {
-            "x": 64,
-            "y": 101,
-            "width": 393,
-            "height": 1327
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 53,
-            "width": 393,
-            "height": 765
-          },
-          "destination_rect": {
-            "x": 0,
-            "y": 53,
-            "width": 393,
-            "height": 765
-          },
-          "pixel_dimensions": {
-            "width": 1179,
-            "height": 3981
-          },
-          "logical_dimensions": {
-            "width": 393,
-            "height": 1327
-          },
-          "raster_scale": 3
-        },
-        {
-          "role": "system_bottom",
-          "src": "assets/lisa-client-answer-home-3x.png",
-          "source_rect": {
-            "x": 64,
-            "y": 1428,
-            "width": 393,
-            "height": 34
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 818,
-            "width": 393,
-            "height": 34
-          },
-          "destination_rect": {
-            "x": 0,
-            "y": 818,
-            "width": 393,
-            "height": 34
-          },
-          "pixel_dimensions": {
-            "width": 1179,
-            "height": 102
-          },
-          "logical_dimensions": {
-            "width": 393,
-            "height": 34
-          },
-          "raster_scale": 3
-        }
-      ],
-      "asset": {
-        "layers": [
-          {
-            "role": "system_top",
-            "src": "assets/lisa-client-answer-status-3x.png",
-            "source_rect": {
-              "x": 64,
-              "y": 48,
-              "width": 393,
-              "height": 53
-            },
-            "viewport_rect": {
-              "x": 0,
-              "y": 0,
-              "width": 393,
-              "height": 53
-            },
-            "destination_rect": {
-              "x": 0,
-              "y": 0,
-              "width": 393,
-              "height": 53
-            },
-            "pixel_dimensions": {
-              "width": 1179,
-              "height": 159
-            },
-            "logical_dimensions": {
-              "width": 393,
-              "height": 53
-            },
-            "raster_scale": 3
-          },
-          {
-            "role": "scroll_content",
-            "src": "assets/lisa-client-answer-content-3x.png",
-            "source_rect": {
-              "x": 64,
-              "y": 101,
-              "width": 393,
-              "height": 1327
-            },
-            "viewport_rect": {
-              "x": 0,
-              "y": 53,
-              "width": 393,
-              "height": 765
-            },
-            "destination_rect": {
-              "x": 0,
-              "y": 53,
-              "width": 393,
-              "height": 765
-            },
-            "pixel_dimensions": {
-              "width": 1179,
-              "height": 3981
-            },
-            "logical_dimensions": {
-              "width": 393,
-              "height": 1327
-            },
-            "raster_scale": 3
-          },
-          {
-            "role": "system_bottom",
-            "src": "assets/lisa-client-answer-home-3x.png",
-            "source_rect": {
-              "x": 64,
-              "y": 1428,
-              "width": 393,
-              "height": 34
-            },
-            "viewport_rect": {
-              "x": 0,
-              "y": 818,
-              "width": 393,
-              "height": 34
-            },
-            "destination_rect": {
-              "x": 0,
-              "y": 818,
-              "width": 393,
-              "height": 34
-            },
-            "pixel_dimensions": {
-              "width": 1179,
-              "height": 102
-            },
-            "logical_dimensions": {
-              "width": 393,
-              "height": 34
-            },
-            "raster_scale": 3
-          }
-        ]
-      }
-    },
-    {
       "id": "lisa-materials-summary",
-      "order": 2,
+      "order": 1,
+      "display_order": 2,
       "source_id": "5.2",
       "caption": "Краткие материалы: заказ доступен сразу",
       "presentation": "phone",
@@ -475,7 +258,8 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     },
     {
       "id": "lisa-materials-full-reference",
-      "order": 3,
+      "order": 2,
+      "display_order": 3,
       "source_id": "5.4",
       "caption": "Полная справка: прокрутите материалы или оформите заказ",
       "presentation": "phone",
@@ -696,7 +480,8 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     },
     {
       "id": "lisa-presentation-order",
-      "order": 4,
+      "order": 3,
+      "display_order": 4,
       "source_id": "7.1",
       "caption": "Заказ презентации по подготовленным материалам",
       "presentation": "phone",
@@ -917,7 +702,8 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     },
     {
       "id": "lisa-presentation-generating",
-      "order": 5,
+      "order": 4,
+      "display_order": 5,
       "source_id": "7.2",
       "caption": "Презентация формируется",
       "presentation": "phone",
@@ -1130,8 +916,224 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       }
     },
     {
+      "id": "lisa-presentation-chat-list",
+      "order": 5,
+      "display_order": 6,
+      "source_id": "08",
+      "caption": "Чаты: ГК Достовалова",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": [],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "cta_rect": null,
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "src": "assets/lisa-presentation-chat-list-status-3x.png",
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          },
+          "destination_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          },
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "logical_dimensions": {
+            "width": 393,
+            "height": 53
+          },
+          "raster_scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "src": "assets/lisa-presentation-chat-list-content-3x.png",
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          },
+          "destination_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          },
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 2295
+          },
+          "logical_dimensions": {
+            "width": 393,
+            "height": 765
+          },
+          "raster_scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "src": "assets/lisa-presentation-chat-list-home-3x.png",
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          },
+          "destination_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          },
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "logical_dimensions": {
+            "width": 393,
+            "height": 34
+          },
+          "raster_scale": 3
+        }
+      ],
+      "asset": {
+        "layers": [
+          {
+            "role": "system_top",
+            "src": "assets/lisa-presentation-chat-list-status-3x.png",
+            "source_rect": {
+              "x": 64,
+              "y": 48,
+              "width": 393,
+              "height": 53
+            },
+            "viewport_rect": {
+              "x": 0,
+              "y": 0,
+              "width": 393,
+              "height": 53
+            },
+            "destination_rect": {
+              "x": 0,
+              "y": 0,
+              "width": 393,
+              "height": 53
+            },
+            "pixel_dimensions": {
+              "width": 1179,
+              "height": 159
+            },
+            "logical_dimensions": {
+              "width": 393,
+              "height": 53
+            },
+            "raster_scale": 3
+          },
+          {
+            "role": "scroll_content",
+            "src": "assets/lisa-presentation-chat-list-content-3x.png",
+            "source_rect": {
+              "x": 64,
+              "y": 101,
+              "width": 393,
+              "height": 765
+            },
+            "viewport_rect": {
+              "x": 0,
+              "y": 53,
+              "width": 393,
+              "height": 765
+            },
+            "destination_rect": {
+              "x": 0,
+              "y": 53,
+              "width": 393,
+              "height": 765
+            },
+            "pixel_dimensions": {
+              "width": 1179,
+              "height": 2295
+            },
+            "logical_dimensions": {
+              "width": 393,
+              "height": 765
+            },
+            "raster_scale": 3
+          },
+          {
+            "role": "system_bottom",
+            "src": "assets/lisa-presentation-chat-list-home-3x.png",
+            "source_rect": {
+              "x": 64,
+              "y": 866,
+              "width": 393,
+              "height": 34
+            },
+            "viewport_rect": {
+              "x": 0,
+              "y": 818,
+              "width": 393,
+              "height": 34
+            },
+            "destination_rect": {
+              "x": 0,
+              "y": 818,
+              "width": 393,
+              "height": 34
+            },
+            "pixel_dimensions": {
+              "width": 1179,
+              "height": 102
+            },
+            "logical_dimensions": {
+              "width": 393,
+              "height": 34
+            },
+            "raster_scale": 3
+          }
+        ]
+      }
+    },
+    {
       "id": "lisa-presentation-sent",
       "order": 6,
+      "display_order": 7,
       "source_id": "7.3",
       "caption": "Презентация сформирована и отправлена",
       "presentation": "phone",
@@ -1346,6 +1348,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     {
       "id": "lisa-presentation-email",
       "order": 7,
+      "display_order": 8,
       "source_id": "7.4",
       "caption": "Письмо с версиями презентации в ODT и PDF",
       "presentation": "desktop",
@@ -1380,6 +1383,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     {
       "id": "lisa-presentation-slidedoc",
       "order": 8,
+      "display_order": 9,
       "source_id": "szh-dense-slidedoc",
       "caption": "Презентация: вариант SlideDoc",
       "presentation": "desktop",
@@ -1414,6 +1418,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     {
       "id": "lisa-presentation-sber2025",
       "order": 9,
+      "display_order": 10,
       "source_id": "szh-dense-sber2025",
       "caption": "Презентация: вариант Sber 2025",
       "presentation": "desktop",
@@ -1448,6 +1453,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
     {
       "id": "lisa-presentation-mag",
       "order": 10,
+      "display_order": 11,
       "source_id": "szh-dense-mag",
       "caption": "Презентация: вариант MAG",
       "presentation": "desktop",
@@ -1487,7 +1493,6 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "accessible_label": "Сформировать презентацию",
       "target_state_id": "lisa-presentation-generating",
       "source_state_ids": [
-        "lisa-client-answer",
         "lisa-materials-summary",
         "lisa-materials-full-reference",
         "lisa-presentation-order"

@@ -20,16 +20,6 @@ const zipPath = path.join(packageRoot, "derived/lisa-presentation-user-journey-d
 
 const expectedStates = Object.freeze([
   Object.freeze({
-    id: "lisa-client-answer",
-    sourceId: "1.1",
-    caption: "Справка по клиенту: можно заказать презентацию",
-    logicalDimensions: Object.freeze({ width: 521, height: 1542 }),
-    pixelDimensions: Object.freeze({ width: 1563, height: 4626 }),
-    hasImmediateCta: true,
-    scrollable: true,
-    presentation: "phone",
-  }),
-  Object.freeze({
     id: "lisa-materials-summary",
     sourceId: "5.2",
     caption: "Краткие материалы: заказ доступен сразу",
@@ -63,6 +53,16 @@ const expectedStates = Object.freeze([
     id: "lisa-presentation-generating",
     sourceId: "7.2",
     caption: "Презентация формируется",
+    logicalDimensions: Object.freeze({ width: 521, height: 980 }),
+    pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
+    hasImmediateCta: false,
+    scrollable: false,
+    presentation: "phone",
+  }),
+  Object.freeze({
+    id: "lisa-presentation-chat-list",
+    sourceId: "08",
+    caption: "Чаты: ГК Достовалова",
     logicalDimensions: Object.freeze({ width: 521, height: 980 }),
     pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
     hasImmediateCta: false,
@@ -128,6 +128,7 @@ const expectedStates = Object.freeze([
 ]);
 
 const expectedStateIds = expectedStates.map((state) => state.id);
+const expectedDisplayOrders = Object.freeze([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
 const expectedEmailState = expectedStates.find((state) => state.id === "lisa-presentation-email");
 const expectedDocumentStates = expectedStates.filter((state) => state.document);
 const expectedDocumentStateIds = expectedDocumentStates.map((state) => state.id);
@@ -151,11 +152,6 @@ const expectedPhoneLayerSuffixes = Object.freeze({
   system_bottom: "home",
 });
 const expectedPhoneLayerSources = Object.freeze({
-  "lisa-client-answer": Object.freeze({
-    system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
-    scroll_content: Object.freeze({ x: 64, y: 101, width: 393, height: 1327 }),
-    system_bottom: Object.freeze({ x: 64, y: 1428, width: 393, height: 34 }),
-  }),
   "lisa-materials-full-reference": Object.freeze({
     system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
     scroll_content: Object.freeze({ x: 64, y: 101, width: 393, height: 4979 }),
@@ -352,6 +348,12 @@ test("активный договор и demo/data.js фиксируют ров�
     expectedStateIds,
     "journey-contract должен повторять порядок десяти экранов без старых состояний",
   );
+  assert.equal(journey.navigation?.display_total, 11, "договор должен фиксировать отображаемый общий номер 11");
+  assert.deepEqual(
+    journey.states.map((state) => state.display_order),
+    expectedDisplayOrders,
+    "договор должен показывать экраны как №2–11 без исключённого №1",
+  );
   assert.deepEqual(
     stateIds(data.states),
     expectedStateIds,
@@ -372,6 +374,12 @@ test("активный договор и demo/data.js фиксируют ров�
     "demo/data.js должен отдавать ровно десять публичных data-state-id",
   );
   assert.equal(data.initial_state_id ?? expectedStateIds[0], expectedStateIds[0], "начальное состояние должно быть первым в десятиэкранном порядке");
+  assert.equal(data.navigation?.display_total, 11, "runtime должен передавать отображаемый общий номер 11");
+  assert.deepEqual(
+    Array.from(data.states, (state) => state.display_order),
+    expectedDisplayOrders,
+    "runtime должен передавать отображаемые номера экранов №2–11",
+  );
   assert.deepEqual(
     expectedStateIds.slice(expectedStateIds.indexOf("lisa-presentation-email") + 1),
     expectedDocumentStateIds,
@@ -491,7 +499,7 @@ test("проверка переносимости отвергает непер�
   );
 });
 
-test("действие order-presentation доступно с четырёх экранов и ведёт сразу к подготовке", () => {
+test("действие order-presentation доступно с трёх активных экранов и ведёт сразу к подготовке", () => {
   const data = loadDemoData();
   assert.equal(
     data.order_target_state_id,

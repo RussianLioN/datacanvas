@@ -37,63 +37,6 @@
   },
   "frames": [
     {
-      "state_id": "lisa-client-answer",
-      "presentation": "phone",
-      "viewport": {
-        "width": 393,
-        "height": 852
-      },
-      "content": {
-        "width": 393,
-        "height": 1414
-      },
-      "scrollable": true,
-      "regions": {
-        "system_top": {
-          "source_rect": {
-            "x": 64,
-            "y": 48,
-            "width": 393,
-            "height": 53
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 0,
-            "width": 393,
-            "height": 53
-          }
-        },
-        "scroll_content": {
-          "source_rect": {
-            "x": 64,
-            "y": 101,
-            "width": 393,
-            "height": 1327
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 53,
-            "width": 393,
-            "height": 765
-          }
-        },
-        "system_bottom": {
-          "source_rect": {
-            "x": 64,
-            "y": 1428,
-            "width": 393,
-            "height": 34
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 818,
-            "width": 393,
-            "height": 34
-          }
-        }
-      }
-    },
-    {
       "state_id": "lisa-materials-summary",
       "presentation": "phone",
       "viewport": {
@@ -266,6 +209,63 @@
     },
     {
       "state_id": "lisa-presentation-generating",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
       "presentation": "phone",
       "viewport": {
         "width": 393,

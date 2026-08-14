@@ -261,6 +261,9 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     const visualState = visualById.get(stateId);
     if (!journeyState || !frame || !visualState) fail(`${stateId}: отсутствует в договоре пути, кадров или визуальной основы`);
     if (journeyState.order !== undefined && journeyState.order !== index + 1) fail(`${stateId}: нарушен номер в маршруте`);
+    if (!Number.isInteger(journeyState.display_order) || journeyState.display_order < 1) {
+      fail(`${stateId}: не задан отображаемый номер`);
+    }
     const presentation = journeyState.presentation;
     if (!["phone", "desktop"].includes(presentation)) fail(`${stateId}: неверный вид представления`);
     if (frame.presentation !== presentation) fail(`${stateId}: представление в кадре не совпадает с договором пути`);
@@ -279,6 +282,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     const state = {
       id: stateId,
       order: index + 1,
+      display_order: journeyState.display_order,
       source_id: journeyState.source_id,
       caption: journeyState.caption,
       presentation,
@@ -302,6 +306,9 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   });
 
   if (journey.initial_state_id !== states[0].id) fail("начальным должен быть первый экран маршрута");
+  if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total < states.at(-1).display_order) {
+    fail("не задан корректный общий отображаемый номер маршрута");
+  }
   const orderAction = (journey.actions || []).find((action) => action.id === "order-presentation");
   if (!orderAction || !states.some((state) => state.id === orderAction.target_state_id)) {
     fail("не задан переход заказа презентации в активное состояние");
@@ -349,6 +356,9 @@ function renderRuntimeData(contracts) {
     version: contracts.journey.version,
     initial_state_id: contracts.journey.initial_state_id,
     order_target_state_id: contracts.orderAction.target_state_id,
+    navigation: {
+      display_total: contracts.journey.navigation.display_total,
+    },
     device: {
       ...contracts.journey.device,
       ...contracts.frameDevice,
@@ -357,6 +367,7 @@ function renderRuntimeData(contracts) {
       const common = {
         id: state.id,
         order: state.order,
+        display_order: state.display_order,
         source_id: state.source_id,
         caption: state.caption,
         presentation: state.presentation,

@@ -23,29 +23,63 @@ const EXPECTED_LAYER_SUFFIXES = Object.freeze({
 const PNG_SIGNATURE = Buffer.from("89504e470d0a1a0a", "hex");
 const TIME_PATH_MARKER = `<path id="Time" d="__TIME__" fill="rgb(0,0,0)" fill-rule="nonzero" />`;
 const EXPECTED_TIME_LAYOUT = Object.freeze({
-  "1.1.svg": Object.freeze({
-    d_sha256: "85c53bf16f947a646a41b41df2e8307c1edcd65c1344b77493306a6a15de29da",
-    remainder_sha256: "adc47214aad5257476bb2139f9708299b7c2ec55224d8011286e894cfc6bab44",
-  }),
   "5.2.svg": Object.freeze({
     d_sha256: "85c53bf16f947a646a41b41df2e8307c1edcd65c1344b77493306a6a15de29da",
-    remainder_sha256: "a9552ea961187a4c2cc344e3c41ccb15c982f2933c5d3770a57de05efb8275e7",
+    remainder_sha256: "657a0ecaa3d90bbac7f6a23cdfacc0b4be97e2a33060e0e5d3ec26b2c0efb22b",
   }),
   "5.4.svg": Object.freeze({
     d_sha256: "85c53bf16f947a646a41b41df2e8307c1edcd65c1344b77493306a6a15de29da",
-    remainder_sha256: "7c38451ecd128247be2831228263cc180fd77152f8a65d2ee510e42221603903",
+    remainder_sha256: "8ea290229c387f5f06d97c6599c7ce404cabefc82415fce49f7b3c22d62d99f4",
   }),
   "7.1 — Холдинг.svg": Object.freeze({
     d_sha256: "85c53bf16f947a646a41b41df2e8307c1edcd65c1344b77493306a6a15de29da",
-    remainder_sha256: "d0be387b1500e6b53fc17b0cc62d313d47cb17e912ea79a80ba0417d71f3c7aa",
+    remainder_sha256: "f59b185414b8f9550f0b3d2eee945d8669f4e8693a49f4958ebd825a9a776184",
   }),
   "7.2 — Длинное название клиента + холдинг.svg": Object.freeze({
     d_sha256: "9fa1a746cb4eb3710c1bb64205c08087904d9c782d813b007ce0743b02e6deee",
-    remainder_sha256: "8844d4c1afc92ced27608ac4a22954046509c1fef3147035b9bdb73498b671d2",
+    remainder_sha256: "cdd8fbbdb0c7a0d43de98c5e411b5b24d2f1cf763740e882e207c311048b94df",
   }),
   "7.3 — Презентация.svg": Object.freeze({
     d_sha256: "a54014443503072a026301601bf17905fa21a98669578eedf7e1c9135797bb0c",
-    remainder_sha256: "36f3b158a877e61b173dcf2bc3f7c5b3b84a28549d129b6105df821ec51449eb",
+    remainder_sha256: "87ecbd1898509be0e6abf6493dc8f25c6406e719bd51cbe406184c6206af0284",
+  }),
+  "08.svg": Object.freeze({
+    d_sha256: "9fa1a746cb4eb3710c1bb64205c08087904d9c782d813b007ce0743b02e6deee",
+    remainder_sha256: "d1e440844b408fb5a550717dd5c96f37ff6404bdc36a73551782ffc499e26a73",
+  }),
+});
+const EXPECTED_MEETING_ROW_REMOVAL = Object.freeze({
+  "5.4.svg": Object.freeze({
+    card_clip_path: "2054",
+    old_height: "128.000000",
+    new_height: "96.000000",
+    x: "80.000000",
+    y: "281.000000",
+    rx: "16.000000",
+  }),
+  "7.1 — Холдинг.svg": Object.freeze({
+    card_clip_path: "204",
+    old_height: "140.000000",
+    new_height: "108.000000",
+    x: "80.000000",
+    y: "522.001221",
+    rx: "24.000000",
+  }),
+  "7.2 — Длинное название клиента + холдинг.svg": Object.freeze({
+    card_clip_path: "235",
+    old_height: "212.000000",
+    new_height: "180.000000",
+    x: "80.000000",
+    y: "226.000000",
+    rx: "24.000000",
+  }),
+  "7.3 — Презентация.svg": Object.freeze({
+    card_clip_path: "274",
+    old_height: "140.000000",
+    new_height: "108.000000",
+    x: "80.000000",
+    y: "188.000000",
+    rx: "24.000000",
   }),
 });
 
@@ -169,8 +203,99 @@ test("фиксирует утверждённую раскладку систе�
   }
 });
 
+test("удаляет всю строку регулярной встречи и сокращает карточку документа", () => {
+  for (const [source, expected] of Object.entries(EXPECTED_MEETING_ROW_REMOVAL)) {
+    const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, source), "utf8");
+    assert.match(
+      svg,
+      /<g id="Frame 2131330376" opacity="0" customFrame="url\(#clipPath_[0-9]+\)">/u,
+      `${source}: строка встречи должна быть скрыта целиком`,
+    );
+    const expectedRect = `<rect id="Frame 2131330375" width="361.000000" height="${expected.new_height}" x="${expected.x}" y="${expected.y}" rx="${expected.rx}"`;
+    const removedRect = `<rect id="Frame 2131330375" width="361.000000" height="${expected.old_height}" x="${expected.x}" y="${expected.y}" rx="${expected.rx}"`;
+    assert.ok(svg.includes(expectedRect), `${source}: карточка должна быть сокращена на 32 точки`);
+    assert.equal(svg.includes(removedRect), false, `${source}: прежняя высота карточки не допускается`);
+    assert.match(
+      svg,
+      new RegExp(`<clipPath id="clipPath_${expected.card_clip_path}">\\s*<rect width="361\\.000000" height="${expected.new_height}" x="${expected.x}" y="${expected.y}" rx="${expected.rx}"`, "u"),
+      `${source}: отсечение карточки должно повторять сокращённую геометрию`,
+    );
+  }
+});
+
+test("заменяет текст плашки четвёртого кадра без изменения её габаритов", () => {
+  const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, "7.1 — Холдинг.svg"), "utf8");
+  const chip = svg.match(/<g id="lisa-edit-7-1-full-reference-chip">([\s\S]*?)<\/g>/u)?.[1] ?? "";
+
+  assert.match(
+    chip,
+    /<rect x="215" y="400" width="226" height="48" rx="24" fill="rgb\(238\.345,238\.243,244\)" \/>/u,
+    "плашка полной справки должна сохранять исходную геометрию",
+  );
+  assert.equal(
+    (chip.match(/<path d="[^"]+" fill="rgb\(29,37,50\)" fill-rule="nonzero" \/>/gu) ?? []).length,
+    3,
+    "новая фраза должна быть записана отдельными контурами трёх слов",
+  );
+  assert.doesNotMatch(chip, /NaN/u, "контуры новой фразы не должны содержать недопустимых координат");
+});
+
+test("убирает белую подложку статуса формирования и скрывает только прежние перекрываемые строки", () => {
+  const source = "7.2 — Длинное название клиента + холдинг.svg";
+  const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, source), "utf8");
+
+  assert.match(
+    svg,
+    /<g id="presentation-status-line-1" fill="rgb\(144,150,169\)" fill-rule="nonzero">/u,
+    "первая исходная строка со сроком должна оставаться видимой",
+  );
+  for (const line of [2, 3, 4]) {
+    assert.match(
+      svg,
+      new RegExp(`<g id="presentation-status-line-${line}" opacity="0" fill="rgb\\(144,150,169\\)" fill-rule="nonzero">`, "u"),
+      `исходная строка ${line} должна быть скрыта, чтобы не дублировать новый текст`,
+    );
+  }
+  assert.match(
+    svg,
+    /<g id="lisa-edit-7-2-email-text"><text x="80" y="739"/u,
+    "новый текст должен начинаться без фонового прямоугольника",
+  );
+  assert.doesNotMatch(
+    svg,
+    /<g id="lisa-edit-7-2-email-text"><rect\b/u,
+    "у нового текста не должно быть белой подложки",
+  );
+});
+
+test("переносит название справки в выбранный чат и возвращает нижнюю строку шестого кадра", () => {
+  const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, "08.svg"), "utf8");
+
+  assert.match(
+    svg,
+    /<g id="lisa-edit-08-client-name"><rect x="84" y="476" width="289" height="29" fill="rgb\(238,238,244\)" \/>/u,
+    "маска названия должна завершаться на правой границе выбранного чата",
+  );
+  assert.doesNotMatch(
+    svg,
+    /<g id="lisa-edit-08-client-name"><rect x="84" y="476" width="230" height="29"/u,
+    "прежняя короткая маска не покрывает новое название",
+  );
+  assert.doesNotMatch(
+    svg,
+    /id="lisa-edit-08-meeting-title"/u,
+    "нижняя строка должна быть исходной, без выступающей маски",
+  );
+  const selectedChatOverlay = svg.match(/<g id="lisa-edit-08-client-name">([\s\S]*?)<\/g>/u)?.[1] ?? "";
+  assert.doesNotMatch(
+    selectedChatOverlay,
+    /NaN/u,
+    "контуры длинного названия не должны содержать недопустимых координат",
+  );
+});
+
 test("отклоняет синтетическую замену fill в path id=\"Time\"", () => {
-  const source = "1.1.svg";
+  const source = "08.svg";
   const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, source), "utf8");
   const { timePath } = inspectApprovedTimePath(svg, source);
   const mutated = svg.replace(timePath, timePath.replace('fill="rgb(0,0,0)"', 'fill="rgb(1,0,0)"'));
@@ -223,7 +348,7 @@ test("пишет и проверяет утверждённые SVG как тр�
 
 test("останавливается при изменении SHA-256 утверждённого SVG", async () => {
   const root = makeTempRoot();
-  fs.appendFileSync(path.join(root, SOURCE_ROOT, "1.1.svg"), "\n");
+  fs.appendFileSync(path.join(root, SOURCE_ROOT, "08.svg"), "\n");
 
   await assert.rejects(
     () => buildApprovedEditableSourceRasters({ root, write: true }),

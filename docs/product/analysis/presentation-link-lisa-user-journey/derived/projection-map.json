@@ -1,11 +1,11 @@
 {
   "version": "3.0.0",
   "state_ids": [
-    "lisa-client-answer",
     "lisa-materials-summary",
     "lisa-materials-full-reference",
     "lisa-presentation-order",
     "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
     "lisa-presentation-sent",
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
@@ -13,68 +13,6 @@
     "lisa-presentation-mag"
   ],
   "states": [
-    {
-      "state_id": "lisa-client-answer",
-      "source_id": "1.1",
-      "presentation": "phone",
-      "caption": "Справка по клиенту: можно заказать презентацию",
-      "asset_paths": [
-        "assets/lisa-client-answer-status-3x.png",
-        "assets/lisa-client-answer-content-3x.png",
-        "assets/lisa-client-answer-home-3x.png"
-      ],
-      "layers": [
-        {
-          "role": "system_top",
-          "source_rect": {
-            "x": 64,
-            "y": 48,
-            "width": 393,
-            "height": 53
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 0,
-            "width": 393,
-            "height": 53
-          },
-          "raster_sha256": "2d3705a250c1d650df3dbb90f1dd7fd039eebd400aff2eab5dcfa9aab879ca95"
-        },
-        {
-          "role": "scroll_content",
-          "source_rect": {
-            "x": 64,
-            "y": 101,
-            "width": 393,
-            "height": 1327
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 53,
-            "width": 393,
-            "height": 765
-          },
-          "raster_sha256": "0e9ef29cf53278824d2804f9a005b855a494caf074732e23e6911581fe162d73"
-        },
-        {
-          "role": "system_bottom",
-          "source_rect": {
-            "x": 64,
-            "y": 1428,
-            "width": 393,
-            "height": 34
-          },
-          "viewport_rect": {
-            "x": 0,
-            "y": 818,
-            "width": 393,
-            "height": 34
-          },
-          "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
-        }
-      ],
-      "projection_sha256": "db42dd48f3ba6733c096d25f10d62d0a4eb5957b5b94fab138b862647de5f02a"
-    },
     {
       "state_id": "lisa-materials-summary",
       "source_id": "5.2",
@@ -116,7 +54,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "744749fe4ceda40314e42f3be2e6aeeeed9c9de1ce58f8dc0261fbe8f21ee2fc"
+          "raster_sha256": "52976defe720f09ffce1b3360b8d12a9a4f67451edaa85ff95ee36d5da295336"
         },
         {
           "role": "system_bottom",
@@ -132,10 +70,10 @@
             "width": 393,
             "height": 34
           },
-          "raster_sha256": "88ecaae93ffa2fd968cc1a640a888396bc2bff5beff1f975464f4ea6e253baef"
+          "raster_sha256": "3534614c3738f1a669d493915f2b60a6cb376fdbd81ca631d4b8030c9fc04716"
         }
       ],
-      "projection_sha256": "48ddda986099afd1f032d0ae3727604a1c07c6ef6c00a9988a4cd0b79af250df"
+      "projection_sha256": "01c0385fa609c5c2b9205449bb798fc69e6fff21e484552b21a32c15150a8bec"
     },
     {
       "state_id": "lisa-materials-full-reference",
@@ -178,7 +116,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "0b75a7d866b0a7c48861b7da13f3917bfc95b23e3112903951a96bc563fe523e"
+          "raster_sha256": "001e508363a86f210068c3252615b05260edb4e3a5a24c58a750ffaaf832ba42"
         },
         {
           "role": "system_bottom",
@@ -197,7 +135,7 @@
           "raster_sha256": "bcfc9a632b701d9bd7941a4ce98b192da575867e3088ca2cb02e50a40dc7ef6a"
         }
       ],
-      "projection_sha256": "df4ca9211a4e055288a7de4bb9d72da685b962294caa41958a6d569ffcaa35cd"
+      "projection_sha256": "b137168848694b7567d56746a58af2014ddd6243616aea85f6d8c25c5b158495"
     },
     {
       "state_id": "lisa-presentation-order",
@@ -240,7 +178,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "757417a0b142d9919f73ca1a489d3af758b54593b8a6bd226c2d9b4acaa3ec79"
+          "raster_sha256": "6a8bb4a71591109092556598ae8ce12a3e7be22fbe90a8e0a216a1bab865fa5e"
         },
         {
           "role": "system_bottom",
@@ -259,7 +197,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "9e4bdaf7cfd41a9ffb35219811aa4c6b5d7757ae7f27abff54e05b6deeaba6c4"
+      "projection_sha256": "1428f582bda3b1d0ff42d16c085a464caed0422dfab2deeb77276ba5707a1923"
     },
     {
       "state_id": "lisa-presentation-generating",
@@ -302,7 +240,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
+          "raster_sha256": "811ae53103ba0a72118b5b8e2c01f4398942d723b76eaf5e424fc1ce62e51f6e"
         },
         {
           "role": "system_bottom",
@@ -321,7 +259,69 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "8871647029a52fc0a06de910f6655a35843471a3a6ce9364df19f374e080c1ce"
+      "projection_sha256": "8503cc3c5bfd363b4380aa5bb20f195c3e0afba88563f4e71801221f880e93f1"
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
+      "source_id": "08",
+      "presentation": "phone",
+      "caption": "Чаты: ГК Достовалова",
+      "asset_paths": [
+        "assets/lisa-presentation-chat-list-status-3x.png",
+        "assets/lisa-presentation-chat-list-content-3x.png",
+        "assets/lisa-presentation-chat-list-home-3x.png"
+      ],
+      "layers": [
+        {
+          "role": "system_top",
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          },
+          "raster_sha256": "9473be7a41efcc3e904751fb1c214b8e23c3763b7832c18496b88b555afe7ad2"
+        },
+        {
+          "role": "scroll_content",
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          },
+          "raster_sha256": "277eb69745388e28c2a6b2304781fad6c0ba773442aa6536f75cbcab2cb557ba"
+        },
+        {
+          "role": "system_bottom",
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          },
+          "raster_sha256": "8c0e1c0a973c1b5bb81ca1847964104e3a5ad9ae90cff7dde25845740fdd6648"
+        }
+      ],
+      "projection_sha256": "4f91f39b3418aa62a03c939a10a36c417d195ce381735b17f88be971b007b053"
     },
     {
       "state_id": "lisa-presentation-sent",
@@ -364,7 +364,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "578d2dd6a067e061e6eb25187266477773b549c31830904abfbc89478ba3545e"
+          "raster_sha256": "8dc1d504d4efdb7d075610fc6a677c4c3fd845eb829e72c8e3cfbd1058e6f251"
         },
         {
           "role": "system_bottom",
@@ -383,7 +383,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "45b19078c05df17eaca3911169a6dd12abf607ae6f870a7cefeba858d415248e"
+      "projection_sha256": "29e30fd289b570b50874e87612f05ccadfa1b1ba1cb2cd1b2d317b0adcf72bd1"
     },
     {
       "state_id": "lisa-presentation-email",

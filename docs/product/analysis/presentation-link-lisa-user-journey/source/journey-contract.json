@@ -1,13 +1,13 @@
 {
   "$schema": "schemas/journey-contract.schema.json",
   "version": "3.0.0",
-  "initial_state_id": "lisa-client-answer",
+  "initial_state_id": "lisa-materials-summary",
   "state_ids": [
-    "lisa-client-answer",
     "lisa-materials-summary",
     "lisa-materials-full-reference",
     "lisa-presentation-order",
     "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
     "lisa-presentation-sent",
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
@@ -16,19 +16,9 @@
   ],
   "states": [
     {
-      "id": "lisa-client-answer",
-      "order": 1,
-      "source_id": "1.1",
-      "caption": "Справка по клиенту: можно заказать презентацию",
-      "presentation": "phone",
-      "scrollable": true,
-      "action_ids": [
-        "order-presentation"
-      ]
-    },
-    {
       "id": "lisa-materials-summary",
-      "order": 2,
+      "order": 1,
+      "display_order": 2,
       "source_id": "5.2",
       "caption": "Краткие материалы: заказ доступен сразу",
       "presentation": "phone",
@@ -39,7 +29,8 @@
     },
     {
       "id": "lisa-materials-full-reference",
-      "order": 3,
+      "order": 2,
+      "display_order": 3,
       "source_id": "5.4",
       "caption": "Полная справка: прокрутите материалы или оформите заказ",
       "presentation": "phone",
@@ -50,7 +41,8 @@
     },
     {
       "id": "lisa-presentation-order",
-      "order": 4,
+      "order": 3,
+      "display_order": 4,
       "source_id": "7.1",
       "caption": "Заказ презентации по подготовленным материалам",
       "presentation": "phone",
@@ -61,7 +53,8 @@
     },
     {
       "id": "lisa-presentation-generating",
-      "order": 5,
+      "order": 4,
+      "display_order": 5,
       "source_id": "7.2",
       "caption": "Презентация формируется",
       "presentation": "phone",
@@ -69,8 +62,19 @@
       "action_ids": []
     },
     {
+      "id": "lisa-presentation-chat-list",
+      "order": 5,
+      "display_order": 6,
+      "source_id": "08",
+      "caption": "Чаты: ГК Достовалова",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": []
+    },
+    {
       "id": "lisa-presentation-sent",
       "order": 6,
+      "display_order": 7,
       "source_id": "7.3",
       "caption": "Презентация сформирована и отправлена",
       "presentation": "phone",
@@ -80,6 +84,7 @@
     {
       "id": "lisa-presentation-email",
       "order": 7,
+      "display_order": 8,
       "source_id": "7.4",
       "caption": "Письмо с версиями презентации в ODT и PDF",
       "presentation": "desktop",
@@ -89,6 +94,7 @@
     {
       "id": "lisa-presentation-slidedoc",
       "order": 8,
+      "display_order": 9,
       "source_id": "szh-dense-slidedoc",
       "caption": "Презентация: вариант SlideDoc",
       "presentation": "desktop",
@@ -98,6 +104,7 @@
     {
       "id": "lisa-presentation-sber2025",
       "order": 9,
+      "display_order": 10,
       "source_id": "szh-dense-sber2025",
       "caption": "Презентация: вариант Sber 2025",
       "presentation": "desktop",
@@ -107,6 +114,7 @@
     {
       "id": "lisa-presentation-mag",
       "order": 10,
+      "display_order": 11,
       "source_id": "szh-dense-mag",
       "caption": "Презентация: вариант MAG",
       "presentation": "desktop",
@@ -119,7 +127,6 @@
       "id": "order-presentation",
       "target_state_id": "lisa-presentation-generating",
       "source_state_ids": [
-        "lisa-client-answer",
         "lisa-materials-summary",
         "lisa-materials-full-reference",
         "lisa-presentation-order"
@@ -129,6 +136,7 @@
   "navigation": {
     "mode": "linear",
     "wrap": false,
+    "display_total": 11,
     "keyboard": {
       "previous": "ArrowLeft",
       "next": "ArrowRight",

@@ -3,11 +3,11 @@
   "status": "passed",
   "route_id": "lisa-presentation-ten-screen-route",
   "active_state_ids": [
-    "lisa-client-answer",
     "lisa-materials-summary",
     "lisa-materials-full-reference",
     "lisa-presentation-order",
     "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
     "lisa-presentation-sent",
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
@@ -16,12 +16,12 @@
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e310a0c042a57fb9e90f2f88dc198017bd31b53e181204f2a705e12340599fae"
+    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
   },
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 15479586,
-    "sha256": "0ec46bb332c3bff80c3d701477b5f892fc8c1c5f2aa1a599647fcd0fec266fc0",
+    "bytes": 14616484,
+    "sha256": "2d2301a92372c9ce7365b76b0bf013adf4a366c8ca8b9558a5570467dc8f0b81",
     "members": [
       "README.md",
       "manifest.json",
@@ -29,9 +29,6 @@
       "app.js",
       "data.js",
       "styles.css",
-      "assets/lisa-client-answer-status-3x.png",
-      "assets/lisa-client-answer-content-3x.png",
-      "assets/lisa-client-answer-home-3x.png",
       "assets/lisa-materials-summary-status-3x.png",
       "assets/lisa-materials-summary-content-3x.png",
       "assets/lisa-materials-summary-home-3x.png",
@@ -44,6 +41,9 @@
       "assets/lisa-presentation-generating-status-3x.png",
       "assets/lisa-presentation-generating-content-3x.png",
       "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-presentation-chat-list-content-3x.png",
+      "assets/lisa-presentation-chat-list-home-3x.png",
       "assets/lisa-presentation-sent-status-3x.png",
       "assets/lisa-presentation-sent-content-3x.png",
       "assets/lisa-presentation-sent-home-3x.png",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "journey-contract.schema.json",
-  "title": "Договор десятиэкранного маршрута заказа презентации",
+  "title": "Договор маршрута заказа презентации с сохранением отображаемой нумерации",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -68,6 +68,7 @@
       "required": [
         "id",
         "order",
+        "display_order",
         "source_id",
         "caption",
         "presentation",
@@ -79,6 +80,10 @@
           "$ref": "#/$defs/state_id"
         },
         "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "display_order": {
           "type": "integer",
           "minimum": 1
         },
@@ -139,6 +144,7 @@
       "required": [
         "mode",
         "wrap",
+        "display_total",
         "keyboard"
       ],
       "properties": {
@@ -147,6 +153,10 @@
         },
         "wrap": {
           "const": false
+        },
+        "display_total": {
+          "type": "integer",
+          "minimum": 1
         },
         "keyboard": {
           "type": "object",

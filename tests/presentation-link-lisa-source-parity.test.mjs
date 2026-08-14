@@ -183,7 +183,6 @@ test("договор кадров непрерывно собирает экра
   assert.deepEqual(
     frame.frames.filter((item) => item.scrollable).map((item) => item.state_id),
     [
-      "lisa-client-answer",
       "lisa-materials-full-reference",
       "lisa-presentation-slidedoc",
       "lisa-presentation-sber2025",
@@ -206,11 +205,11 @@ test("человекочитаемые договоры фиксируют сл�
   assert.match(documents, /18\s+телефонных\s+PNG-сегмент/iu);
 });
 
-test("начальный кадр 1.1 остаётся источником первого активного состояния", () => {
+test("экран 5.2 становится источником первого активного состояния", () => {
   const journey = readJson(`${sourceRoot}/journey-contract.json`);
   const catalog = readJson(`${sourceRoot}/source-render-catalog.json`);
-  const initial = catalog.sources.find((source) => source.id === "1.1");
-  assert.equal(journey.initial_state_id, "lisa-client-answer");
+  const initial = catalog.sources.find((source) => source.id === "5.2");
+  assert.equal(journey.initial_state_id, "lisa-materials-summary");
   assert.equal(initial?.state_id, journey.initial_state_id);
   assert.equal(initial?.classification, "active-basis");
 });

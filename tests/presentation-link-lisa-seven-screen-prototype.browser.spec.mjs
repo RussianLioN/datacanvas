@@ -22,15 +22,6 @@ test.afterAll(() => {
 
 const expectedStates = Object.freeze([
   Object.freeze({
-    id: "lisa-client-answer",
-    caption: "Справка по клиенту: можно заказать презентацию",
-    logicalDimensions: Object.freeze({ width: 521, height: 1542 }),
-    pixelDimensions: Object.freeze({ width: 1563, height: 4626 }),
-    hasImmediateCta: true,
-    scrollable: true,
-    presentation: "phone",
-  }),
-  Object.freeze({
     id: "lisa-materials-summary",
     caption: "Краткие материалы: заказ доступен сразу",
     logicalDimensions: Object.freeze({ width: 521, height: 980 }),
@@ -60,6 +51,15 @@ const expectedStates = Object.freeze([
   Object.freeze({
     id: "lisa-presentation-generating",
     caption: "Презентация формируется",
+    logicalDimensions: Object.freeze({ width: 521, height: 980 }),
+    pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
+    hasImmediateCta: false,
+    scrollable: false,
+    presentation: "phone",
+  }),
+  Object.freeze({
+    id: "lisa-presentation-chat-list",
+    caption: "Чаты: ГК Достовалова",
     logicalDimensions: Object.freeze({ width: 521, height: 980 }),
     pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
     hasImmediateCta: false,
@@ -136,11 +136,6 @@ const expectedPhoneLayerSuffixes = Object.freeze({
   system_bottom: "home",
 });
 const expectedPhoneLayerSources = Object.freeze({
-  "lisa-client-answer": Object.freeze({
-    system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
-    scroll_content: Object.freeze({ x: 64, y: 101, width: 393, height: 1327 }),
-    system_bottom: Object.freeze({ x: 64, y: 1428, width: 393, height: 34 }),
-  }),
   "lisa-materials-full-reference": Object.freeze({
     system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
     scroll_content: Object.freeze({ x: 64, y: 101, width: 393, height: 4979 }),
@@ -546,7 +541,7 @@ test("постраничная навигация презентаций раб�
     { width: 768, height: 1024 },
   ];
 
-  for (const stateId of ["lisa-client-answer", "lisa-presentation-email"]) {
+  for (const stateId of ["lisa-materials-summary", "lisa-presentation-email"]) {
     await openState(page, stateId);
     await expect(previousSlideButton(page), `${stateId}: кнопка предыдущего слайда должна быть в DOM`).toHaveCount(1);
     await expect(nextSlideButton(page), `${stateId}: кнопка следующего слайда должна быть в DOM`).toHaveCount(1);
@@ -637,7 +632,7 @@ test("постраничная навигация презентаций раб�
   }
 });
 
-test("кнопка на четырёх разрешённых экранах сразу переводит в lisa-presentation-generating", async ({ page }) => {
+test("кнопка на трёх разрешённых экранах сразу переводит в lisa-presentation-generating", async ({ page }) => {
   for (const stateId of immediateCtaStateIds) {
     await openState(page, stateId);
     await expect(presentationCta(page), `${stateId}: CTA должен быть публичным data-testid=order-presentation`).toHaveText(
@@ -655,7 +650,7 @@ test("кнопка на четырёх разрешённых экранах с�
 test("трёхслойный телефон закрепляет системные слои, прокручивает только середину и держит служебную панель сбоку", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
 
-  for (const stateId of ["lisa-client-answer", "lisa-materials-full-reference"]) {
+  for (const stateId of ["lisa-materials-full-reference"]) {
     await openState(page, stateId);
     await expect(phoneSystemTop(page), `${stateId}: нужен закреплённый верхний системный слой`).toHaveCount(1);
     await expect(phoneScrollViewport(page), `${stateId}: нужен отдельный viewport средней прокрутки`).toHaveCount(1);
@@ -723,7 +718,7 @@ test("трёхслойный телефон закрепляет системн�
     await expect(phoneSystemBottom(page)).toHaveJSProperty("scrollTop", 0);
   }
 
-  await openState(page, "lisa-client-answer");
+  await openState(page, "lisa-materials-summary");
   await expect(servicePanel(page), "на широком окне служебные элементы должны быть в service-panel").toHaveCount(1);
   for (const locator of [serviceHeading(page), stateCaption(page), page.getByTestId("state-counter"), previousButton(page), nextButton(page)]) {
     await expect(locator).toHaveCount(1);
@@ -734,7 +729,7 @@ test("трёхслойный телефон закрепляет системн�
   expectCloseCssPx(phoneBox.x + phoneBox.width / 2, 856, "телефон должен быть центрирован в рабочей области справа от панели");
 
   await page.setViewportSize({ width: 1024, height: 1100 });
-  await openState(page, "lisa-client-answer");
+  await openState(page, "lisa-materials-summary");
   const boundaryPanelBox = await requiredBox(servicePanel(page), "боковая панель на границе широкого режима должна быть видима");
   const boundaryPhoneBox = await requiredBox(page.getByTestId("phone-stage"), "телефон на границе широкого режима должен быть видим");
   expectCloseCssPx(
@@ -745,7 +740,7 @@ test("трёхслойный телефон закрепляет системн�
   expect(boxesOverlap(boundaryPanelBox, boundaryPhoneBox), "боковая панель не должна пересекать центрированный телефон").toBe(false);
 
   await page.setViewportSize({ width: 900, height: 900 });
-  await openState(page, "lisa-client-answer");
+  await openState(page, "lisa-materials-summary");
   await expect(serviceHeading(page), "на узком окне заголовок скрыт").toBeHidden();
   await expect(stateCaption(page), "на узком окне пояснение скрыто").toBeHidden();
   await expect(page.getByTestId("state-counter"), "на узком окне счётчик скрыт").toBeHidden();
@@ -770,7 +765,7 @@ test("геометрия исправленного фрейма центрир�
 
   for (const viewport of controlViewports) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await openState(page, "lisa-client-answer");
+    await openState(page, "lisa-materials-summary");
 
     const panelBox = await requiredBox(servicePanel(page), `${viewport.width}: служебная панель должна быть видима`);
     const phoneBox = await requiredBox(page.getByTestId("phone-stage"), `${viewport.width}: телефон должен быть видим`);
@@ -1057,7 +1052,7 @@ test("почтовый кадр на тройной плотности запо�
   }
 });
 
-test("внутренняя телефонная прокрутка есть только у 1.1 и 5.4, а её положение сбрасывается при переходе", async ({ page }) => {
+test("внутренняя телефонная прокрутка есть только у 5.4, а её положение сбрасывается при переходе", async ({ page }) => {
   for (const stateId of scrollablePhoneStateIds) {
     await openState(page, stateId);
     await page.evaluate(() => window.scrollTo(0, 0));
@@ -1167,7 +1162,7 @@ test("слайды автоматически масштабируются по�
 });
 
 test("колесо и перетаскивание прокручивают только содержимое смартфона", async ({ page }) => {
-  await openState(page, "lisa-client-answer");
+  await openState(page, "lisa-materials-full-reference");
   const phoneScroll = phoneScrollViewport(page);
   await expect(phoneScroll, "нужен новый viewport средней прокрутки").toHaveCount(1);
   await phoneScroll.hover();

@@ -415,7 +415,7 @@
     root.dataset.imageReady = "false";
     root.dataset.pendingImages = state.presentation === "phone" ? "3" : "1";
     caption.textContent = state.caption;
-    counter.textContent = `${currentIndex + 1} / ${data.states.length}`;
+    counter.textContent = `${state.display_order} / ${data.navigation.display_total}`;
     previousButton.disabled = currentIndex === 0;
     nextButton.disabled = currentIndex === data.states.length - 1;
     const scene = state.presentation === "desktop" ? createDesktopScene(state) : createPhoneScene(state);
@@ -433,7 +433,8 @@
     if (!Number.isInteger(nextIndex) || nextIndex < 0 || nextIndex >= data.states.length || nextIndex === currentIndex) return;
     currentIndex = nextIndex;
     render();
-    announce(message || `Открыт экран ${currentIndex + 1} из ${data.states.length}.`);
+    const state = data.states[currentIndex];
+    announce(message || `Открыт экран ${state.display_order} из ${data.navigation.display_total}.`);
   }
 
   function navigateToId(stateId, message) {

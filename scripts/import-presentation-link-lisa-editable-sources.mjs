@@ -34,22 +34,10 @@ const PHONE_SEGMENT_ROLES = Object.freeze(["system_top", "scroll_content", "syst
 
 export const APPROVED_EDITABLE_SOURCE_RASTERS = Object.freeze([
   Object.freeze({
-    state_id: "lisa-client-answer",
-    source: "1.1.svg",
-    legacy_output: "lisa-client-answer-3x.png",
-    sha256: "f2b443c4e3141a929d1185147438613ff93cf1eb830f55b2cbbf2e07ba43f5bf",
-    dimensions: Object.freeze({ width: 521, height: 1542 }),
-    source_rects: Object.freeze({
-      system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
-      scroll_content: Object.freeze({ x: 64, y: 101, width: 393, height: 1327 }),
-      system_bottom: Object.freeze({ x: 64, y: 1428, width: 393, height: 34 }),
-    }),
-  }),
-  Object.freeze({
     state_id: "lisa-materials-summary",
     source: "5.2.svg",
     legacy_output: "lisa-materials-summary-3x.png",
-    sha256: "5ac62c67c8c567570f9f3e48d475018db257058012590c1d67627211927fc5ea",
+    sha256: "1effbbbea608c5bd256f0399c580e394c9991dfd4a9c4f4834b002fffd0ae74a",
     dimensions: Object.freeze({ width: 521, height: 980 }),
     source_rects: DEFAULT_PHONE_SEGMENT_SOURCE_RECTS,
   }),
@@ -57,7 +45,7 @@ export const APPROVED_EDITABLE_SOURCE_RASTERS = Object.freeze([
     state_id: "lisa-materials-full-reference",
     source: "5.4.svg",
     legacy_output: "lisa-materials-full-reference-3x.png",
-    sha256: "032b59433428c56232fcfcc0ccc83e753d801e23c1f85963cf6042ae9ff4a01e",
+    sha256: "32e9986b59425d6f3882b8eb689355da4d1459c1adf9cfc23b38c9f4ad43edff",
     dimensions: Object.freeze({ width: 521, height: 5194 }),
     source_rects: Object.freeze({
       system_top: Object.freeze({ x: 64, y: 48, width: 393, height: 53 }),
@@ -69,7 +57,7 @@ export const APPROVED_EDITABLE_SOURCE_RASTERS = Object.freeze([
     state_id: "lisa-presentation-order",
     source: "7.1 — Холдинг.svg",
     legacy_output: "lisa-presentation-order-3x.png",
-    sha256: "a83e313adb0aaaf4c102397fde0b252fae6095cd1cb888bccb3871df445c2903",
+    sha256: "71e3387399ab698e149fa322458afcc7d0f9e3cb869acc803e4b38f6928791a2",
     dimensions: Object.freeze({ width: 521, height: 980 }),
     source_rects: DEFAULT_PHONE_SEGMENT_SOURCE_RECTS,
   }),
@@ -77,7 +65,15 @@ export const APPROVED_EDITABLE_SOURCE_RASTERS = Object.freeze([
     state_id: "lisa-presentation-generating",
     source: "7.2 — Длинное название клиента + холдинг.svg",
     legacy_output: "lisa-presentation-generating-3x.png",
-    sha256: "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+    sha256: "c90a57eed1faa601834d97f160d7a4b190f7d310136607080cb3339dc3bdc942",
+    dimensions: Object.freeze({ width: 521, height: 980 }),
+    source_rects: DEFAULT_PHONE_SEGMENT_SOURCE_RECTS,
+  }),
+  Object.freeze({
+    state_id: "lisa-presentation-chat-list",
+    source: "08.svg",
+    legacy_output: "lisa-presentation-chat-list-3x.png",
+    sha256: "9b623121af1f30dc62ef848265197d941528c5ff6cce7fd96d6bf37ecf6c22ce",
     dimensions: Object.freeze({ width: 521, height: 980 }),
     source_rects: DEFAULT_PHONE_SEGMENT_SOURCE_RECTS,
   }),
@@ -85,7 +81,7 @@ export const APPROVED_EDITABLE_SOURCE_RASTERS = Object.freeze([
     state_id: "lisa-presentation-sent",
     source: "7.3 — Презентация.svg",
     legacy_output: "lisa-presentation-sent-3x.png",
-    sha256: "7a0ae91bea7a98ef31ea0b4b186ee2482877f2b633868c5e39d2f692c73302a5",
+    sha256: "9cf7614c450e991b59e41403b592620fe19437c631328756773b5c3f1da3d398",
     dimensions: Object.freeze({ width: 521, height: 980 }),
     source_rects: DEFAULT_PHONE_SEGMENT_SOURCE_RECTS,
   }),
@@ -101,6 +97,11 @@ const allowedSvgElements = new Set([
   "rect",
   "circle",
   "path",
+  "text",
+  "image",
+  "pattern",
+  "use",
+  "radialGradient",
   "mask",
   "filter",
   "effect",
@@ -251,8 +252,32 @@ function matchForeignObjects(svg, label) {
   );
 }
 
+function sanitizeEmbeddedPngImages(svg, label) {
+  const imageTags = [...svg.matchAll(/<image\b[^>]*\/\s*>/giu)];
+  if (imageTags.length === 0) return svg;
+  return svg.replace(/<image\b[^>]*\/\s*>/giu, (tag) => {
+    const names = [...tag.matchAll(/\s([A-Za-z][\w:-]*)\s*=/gu)].map((match) => match[1]);
+    if (names.some((name) => !["id", "width", "height", "x", "y", "xlink:href"].includes(name))) {
+      fail(`${label}: встроенный PNG содержит неразрешённый атрибут`);
+    }
+    const width = Number(tag.match(/\bwidth\s*=\s*(["'])\s*([0-9.]+)\s*\1/iu)?.[2]);
+    const height = Number(tag.match(/\bheight\s*=\s*(["'])\s*([0-9.]+)\s*\1/iu)?.[2]);
+    const encoded = tag.match(/\bxlink:href\s*=\s*(["'])data:image\/png;base64,([A-Za-z0-9+/=]+)\1/iu)?.[2];
+    if (!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1 || !encoded) {
+      fail(`${label}: встроенный PNG должен быть локальным PNG с целыми размерами`);
+    }
+    const bytes = Buffer.from(encoded, "base64");
+    if (bytes.length === 0 || bytes.toString("base64") !== encoded) {
+      fail(`${label}: встроенный PNG имеет неверное base64-кодирование`);
+    }
+    const clean = sanitizePng(bytes, { width, height }, `${label}: встроенный PNG`);
+    return tag.replace(encoded, clean.toString("base64"));
+  });
+}
+
 function validateApprovedSvg(bytes, dimensions, label) {
-  const svg = decodeUtf8(bytes, `${label}: SVG не является точным UTF-8`);
+  const decoded = decodeUtf8(bytes, `${label}: SVG не является точным UTF-8`);
+  const svg = sanitizeEmbeddedPngImages(decoded, label);
   if (svg.length === 0 || bytes.length > MAX_SVG_BYTES || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/u.test(svg)) {
     fail(`${label}: SVG содержит недопустимые управляющие данные`);
   }
@@ -260,12 +285,19 @@ function validateApprovedSvg(bytes, dimensions, label) {
   const protocolProbe = svg.replace(
     /\bxmlns(?::[A-Za-z][\w.-]*)?\s*=\s*(["'])https?:\/\/www\.w3\.org\/[^"']+\1/giu,
     "",
-  );
+  ).replace(/\bxlink:href\s*=\s*(["'])data:image\/png;base64,[A-Za-z0-9+/=]+\1/giu, "");
   if (/(?:https?:|file:|data:|javascript:|vbscript:|mailto:)/iu.test(protocolProbe)) fail(`${label}: SVG содержит внешний протокол`);
-  if (/\bon[a-z]+\s*=/iu.test(svg) || /\b(?:href|xlink:href|src)\s*=/iu.test(svg)) {
+  const embeddedImageIds = new Set([...svg.matchAll(/<image\b[^>]*\bid\s*=\s*(["'])([A-Za-z][\w.-]*)\1[^>]*\/\s*>/giu)].map((match) => match[2]));
+  for (const match of svg.matchAll(/\bxlink:href\s*=\s*(["'])#([A-Za-z][\w.-]*)\1/giu)) {
+    if (!embeddedImageIds.has(match[2])) fail(`${label}: SVG ссылается не на встроенный PNG`);
+  }
+  const referenceProbe = svg
+    .replace(/\bxlink:href\s*=\s*(["'])data:image\/png;base64,[A-Za-z0-9+/=]+\1/giu, "")
+    .replace(/\bxlink:href\s*=\s*(["'])#[A-Za-z][\w.-]*\1/giu, "");
+  if (/\bon[a-z]+\s*=/iu.test(svg) || /\b(?:href|xlink:href|src)\s*=/iu.test(referenceProbe)) {
     fail(`${label}: SVG содержит обработчик или внешний ресурс`);
   }
-  if (/<\/?\s*(?:script|image|iframe|embed|object|use|style|animate(?:[A-Za-z]*)?|set|audio|video|link)\b/iu.test(svg)) {
+  if (/<\/?\s*(?:script|iframe|embed|object|style|animate(?:[A-Za-z]*)?|set|audio|video|link)\b/iu.test(svg)) {
     fail(`${label}: SVG содержит запрещённый активный или внешний элемент`);
   }
   for (const match of svg.matchAll(/<\/?\s*([A-Za-z][A-Za-z0-9:-]*)\b/gu)) {
@@ -492,7 +524,10 @@ async function buildOne(root, spec) {
 
 function assertUniqueOutputSet(results) {
   const outputs = results.map((result) => result.output);
-  if (outputs.length !== 18 || new Set(outputs).size !== 18) fail("кандидат должен содержать ровно 18 уникальных PNG-сегментов");
+  const expectedCount = APPROVED_EDITABLE_SOURCE_RASTERS.length * PHONE_SEGMENT_ROLES.length;
+  if (outputs.length !== expectedCount || new Set(outputs).size !== expectedCount) {
+    fail(`кандидат должен содержать ровно ${expectedCount} уникальных PNG-сегментов`);
+  }
 }
 
 function publishPngSet(root, results) {

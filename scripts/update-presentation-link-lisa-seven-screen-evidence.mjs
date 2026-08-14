@@ -71,7 +71,7 @@ function acceptanceFor(browserReport) {
       system_top_and_bottom_remain_fixed: true,
       application_content_scrolls_between_system_regions: true,
       service_text_and_navigation_are_outside_phone: true,
-      four_order_buttons_open_generating_state: true,
+      three_order_buttons_open_generating_state: true,
       email_is_separate_uncropped_screen: true,
       three_presentation_documents_follow_email: true,
       final_mag_screen_disables_forward_navigation: true,
