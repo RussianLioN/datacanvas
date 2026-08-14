@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "package_id": "JIP-2026-07-02-202",
+  "status": "ready",
+  "target_project": "selected_during_import",
+  "csv_path": "artifacts/generated/jira/missing-datacanvas-stories.csv",
+  "mapping_request_path": "tests/fixtures/cascading-governance/jira-field-mapping-ignored-by-design.json",
+  "field_mapping_status": "approved",
+  "import_completion_claim": "prepared",
+  "validation_commands": [
+    "npm run validate:jira-story-import",
+    "npm run validate:jira-field-mapping"
+  ]
+}

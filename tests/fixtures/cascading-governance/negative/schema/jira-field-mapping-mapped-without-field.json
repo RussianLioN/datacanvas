@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "mapping_request_id": "JFMR-2026-07-02-210",
+  "status": "draft",
+  "target_project": "selected_during_import",
+  "issue_types": ["Story"],
+  "required_custom_fields": [],
+  "csv_columns": ["Issue Type"],
+  "jira_field_mapping": [
+    {
+      "csv_column": "Issue Type",
+      "jira_field": null,
+      "status": "mapped"
+    }
+  ],
+  "unresolved_fields": [],
+  "approving_stakeholder": null,
+  "import_readiness_status": "pending_external"
+}

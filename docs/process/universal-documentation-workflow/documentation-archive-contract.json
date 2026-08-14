@@ -33,6 +33,14 @@
     {
       "path": "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
       "label": "Контролируемый очищенный XLSX-источник"
+    },
+    {
+      "path": "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+      "label": "Руководство по массовому импорту пользовательских историй DataCanvas в Jira"
+    },
+    {
+      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "label": "Подготовленный CSV для импорта пользовательских историй DataCanvas в Jira"
     }
   ],
   "embedded_navigation": [

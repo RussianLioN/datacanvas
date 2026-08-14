@@ -15,14 +15,28 @@ const root = path.resolve(import.meta.dirname, "..");
 const contract = JSON.parse(fs.readFileSync(path.join(root, "docs/process/universal-documentation-workflow/documentation-archive-contract.json"), "utf8"));
 const chain = JSON.parse(fs.readFileSync(path.join(root, contract.source_chain_path), "utf8"));
 
-test("контракт включает все основные файлы цепочки и 6 производных", () => {
+const jiraImportArtifacts = [
+  {
+    path: "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+    label: "Руководство по массовому импорту пользовательских историй DataCanvas в Jira",
+  },
+  {
+    path: "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+    label: "Подготовленный CSV для импорта пользовательских историй DataCanvas в Jira",
+  },
+];
+
+test("контракт включает все основные файлы цепочки и 8 дополнительных материалов", () => {
   const members = resolveArchiveMembers(root, contract, chain);
   const expectedPrimaryCount = chain.stages.reduce((count, stage) => count + stage.primary_artifacts.length, 0);
   assert.equal(members.filter((entry) => entry.role === "primary").length, expectedPrimaryCount);
-  assert.equal(members.filter((entry) => entry.role === "derivative").length, 6);
-  assert.equal(new Set(members.map((entry) => entry.path)).size, 25);
+  assert.equal(members.filter((entry) => entry.role === "derivative").length, 8);
+  assert.equal(new Set(members.map((entry) => entry.path)).size, 27);
   assert.ok(members.some((entry) => entry.path.endsWith("datacanvas-backlog-source-sanitized.xlsx")));
   assert.ok(members.some((entry) => entry.path.endsWith("datacanvas-backlog-draft-pshe-2026-07-08.xlsx")));
+  for (const expected of jiraImportArtifacts) {
+    assert.ok(members.some((entry) => entry.path === expected.path && entry.label === expected.label));
+  }
 });
 
 test("повторная сборка архива побайтно детерминирована", () => {
@@ -33,18 +47,25 @@ test("повторная сборка архива побайтно детерм
 
 test("архив содержит локальную навигацию и точные исходные пути", () => {
   const archive = readStoredZip(buildDocumentationArchive(root, contract, chain));
-  assert.equal(archive.size, 28);
+  assert.equal(archive.size, 30);
   for (const required of ["index.html", "README.md", "manifest.json"]) {
     assert.ok(archive.has(required), `нет ${required}`);
   }
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
-  assert.equal(manifest.entries.length, 25);
+  assert.equal(manifest.entries.length, 27);
   for (const entry of manifest.entries) {
     assert.ok(archive.has(`repository/${entry.path}`), `нет repository/${entry.path}`);
   }
   const html = archive.get("index.html").toString("utf8");
+  const readme = archive.get("README.md").toString("utf8");
   assert.match(html, /Принятое продуктовое решение/u);
   assert.match(html, /repository\/docs\/product-vision\.md/u);
+  for (const expected of jiraImportArtifacts) {
+    const markdownLink = `[${expected.label}](repository/${expected.path})`;
+    const htmlLink = `<a href="repository/${expected.path}">${expected.label}</a>`;
+    assert.ok(readme.includes(markdownLink), `нет ссылки в README.md: ${markdownLink}`);
+    assert.ok(html.includes(htmlLink), `нет ссылки в index.html: ${htmlLink}`);
+  }
 });
 
 test("изменение каждого входного файла меняет байты архива", () => {

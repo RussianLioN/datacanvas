@@ -17,6 +17,12 @@
       ]
     },
     {
+      "generator_id": "datacanvas-jira-stories",
+      "allowed_writes": [
+        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+      ]
+    },
+    {
       "generator_id": "docs-navigation",
       "allowed_writes": [
         "docs/navigation/documentation-index.json",

@@ -274,6 +274,38 @@ const xlsxNavigationTargets = [
   "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
 ];
 
+const jiraImportNavigationTargets = [
+  "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+  "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+];
+
+function jiraImportQuickRouteDiagnostic(markdown, fromPath) {
+  const routeTitle = "Импортировать пользовательские истории в Jira";
+  const lines = markdown.split("\n");
+  const sectionStart = lines.findIndex((line) => line.trim() === "## Быстрые маршруты");
+  if (sectionStart === -1) {
+    return `Jira import quick routes section is missing: ${fromPath}`;
+  }
+  const nextSectionOffset = lines
+    .slice(sectionStart + 1)
+    .findIndex((line) => /^##(?:\s+|$)/.test(line.trim()));
+  const sectionEnd = nextSectionOffset === -1 ? lines.length : sectionStart + 1 + nextSectionOffset;
+  const routeLine = lines.slice(sectionStart + 1, sectionEnd).find((line) => {
+    const trimmedLine = line.trim();
+    return trimmedLine.startsWith("|") && trimmedLine.slice(1).split("|")[0].trim() === routeTitle;
+  });
+  if (!routeLine) {
+    return `Jira import quick route row is missing or has the wrong title: ${fromPath}`;
+  }
+  const linkedPaths = new Set(parseMarkdownLinks(routeLine, fromPath));
+  for (const targetPath of jiraImportNavigationTargets) {
+    if (!linkedPaths.has(targetPath)) {
+      return `Jira import package is missing from quick route row: ${fromPath} -> ${targetPath}`;
+    }
+  }
+  return null;
+}
+
 for (const navigationEntry of [
   "README.md",
   "docs/README.md",
@@ -616,6 +648,14 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       fail("generated task route must render the Lisa prototype start path as a clickable link");
     }
   },
+  "positive-jira-import-package-in-quick-routes": () => {
+    for (const navigationEntry of ["README.md", "docs/README.md"]) {
+      const diagnostic = jiraImportQuickRouteDiagnostic(readText(navigationEntry), navigationEntry);
+      if (diagnostic) {
+        fail(diagnostic);
+      }
+    }
+  },
 });
 
 assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/cases.json", {
@@ -686,6 +726,25 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
       if (!sourceManagedByPath.has(entry.path) && !productReadmeLinkSet.has(entry.path)) {
         fail(`public product document is not routed: ${entry.path}`);
       }
+    }
+  },
+  "negative-jira-import-links-outside-route-row": () => {
+    const syntheticMarkdown = [
+      "# Проверка навигации",
+      "",
+      "## Быстрые маршруты",
+      "",
+      "| Что ищете | Куда идти сначала |",
+      "|---|---|",
+      "| Импортировать пользовательские истории в Jira | Ссылки вынесены из этой строки. |",
+      "| Открыть руководство | [Руководство](docs/process/guides/datacanvas-jira-story-bulk-import.md) |",
+      "| Скачать пакет | [CSV](artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv) |",
+      "",
+      "## Другой раздел",
+    ].join("\n");
+    const diagnostic = jiraImportQuickRouteDiagnostic(syntheticMarkdown, "README.md");
+    if (!diagnostic) {
+      fail("Jira import quick route accepts links outside its table row");
     }
   },
   "negative-public-reachable-local-path": () => {

@@ -301,6 +301,21 @@
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md"
       ],
       "notes": "Product Owner принял текущую рабочую Excel-редакцию приоритетов и черновых рольных значений ПШЕ для DC-ST-23..DC-ST-33 как ресурсный вход. После CO-2026-002 рабочая книга и зависимые артефакты синхронизированы: DC-ST-23..DC-ST-29 отражают P1-контур основного маршрута, а DC-ST-30..DC-ST-33 — группу возможностей P2. Командное принятие трудозатрат остается отдельным обязательным решением до sprint backlog и Jira-экспорта."
+    },
+    {
+      "decision_id": "UDW-DEC-019",
+      "decision_type": "owner_decision_acceptance",
+      "accepted_status": "accepted",
+      "owner_role": "Product Owner / Process Owner",
+      "acceptance_record_id": "UDW-ACC-026",
+      "linked_artifacts": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "schemas/xlsx-backlog-provenance.schema.json"
+      ],
+      "notes": "Product Owner и Process Owner разрешили экспорт в Jira текущих ресурсных значений для DC-ST-23..DC-ST-33. Это узкое разрешение не является отдельным утверждением оценок командой реализации и не разрешает перенос в sprint backlog; связь полномочия с этим решением обязательна в манифесте происхождения."
     }
   ]
 }

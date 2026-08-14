@@ -21,8 +21,17 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Текущий `origin/main` для stale-status validation: `698f5951d2acaa120dbb8abb83cedb98ae4de601`
-- Дата проверки текущего `main`: `2026-07-17T07:18:44Z`
+- Текущий `origin/main` для stale-status validation: `00523fbb40bd50c71b0322dda2c5877323bccde4`
+- Дата проверки текущего `main`: `2026-08-13T13:09:28Z`
+
+## Evidence по Jira import package
+
+- PR URL: `https://github.com/RussianLioN/datacanvas/pull/23`
+- Merge SHA: `00523fbb40bd50c71b0322dda2c5877323bccde4`
+- PR CI run URL: `https://github.com/RussianLioN/datacanvas/actions/runs/31703212502`
+- PR CI job URL: `https://github.com/RussianLioN/datacanvas/actions/runs/31703212502/job/94457183932`
+- PR CI status: `passed`
+- Граница готовности: CSV и сопоставление полей подготовлены; внешний импорт в Jira не выполнялся и не подтверждён.
 
 ## Evidence по backlog-closure feature branch
 
@@ -74,7 +83,7 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 698f5951d2acaa120dbb8abb83cedb98ae4de601
+git rev-parse origin/main for stale-status validation: 00523fbb40bd50c71b0322dda2c5877323bccde4
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 GitHub Actions docs-check PR #6 run: https://github.com/RussianLioN/datacanvas/actions/runs/28402608407
 GitHub Actions docs-check main run after PR #6 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28402695336

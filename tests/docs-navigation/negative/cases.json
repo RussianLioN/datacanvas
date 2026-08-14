@@ -42,6 +42,10 @@
       "expected_failure": "Public docs/product/** документ отсутствует в docs/product/README.md и managed navigation source."
     },
     {
+      "id": "negative-jira-import-links-outside-route-row",
+      "expected_failure": "Название маршрута Jira и обе ссылки находятся в разделе быстрых маршрутов, но ссылки вынесены из строки этого маршрута."
+    },
+    {
       "id": "negative-stale-generated-map",
       "expected_failure": "Generated map устарел после изменения source."
     },

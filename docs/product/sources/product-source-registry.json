@@ -264,6 +264,7 @@
         "owner_approved_priority_source",
         "draft_effort_estimation",
         "team_refinement_input",
+        "jira_resource_estimate_export",
         "cascade_synchronization"
       ],
       "affected_artifacts": [
@@ -282,7 +283,7 @@
         "docs/product/sources/xlsx-opml-jira-recovery-index.json",
         "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
       ],
-      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял формулировки, приоритеты и текущие черновые ПШЕ: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. Приоритеты и смысловые поля сверяются с каноническим каталогом пользовательских историй. Команда реализации еще должна подтвердить трудозатраты, емкость и порядок работ до переноса в sprint backlog или Jira.",
+      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял формулировки, приоритеты и текущие ресурсные значения: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. UDW-DEC-019 разрешает экспорт этих значений в Jira, но не является отдельным принятием оценок командой реализации и не разрешает перенос в sprint backlog до решения о емкости, порядке работ и вытеснении.",
       "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "derived_from": [
         "SRC-DC-STORIES-XLSX-SANITIZED"
@@ -290,7 +291,7 @@
       "verifier_command": "npm run validate:xlsx-backlog",
       "allowed_delta": "Accepted added rows 26-36 for DC-ST-23..DC-ST-33 may differ from the controlled source workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
       "approval_status": "owner_approved",
-      "team_validation_status": "pending_team_review",
+      "team_validation_status": "approved",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
     },
     {
@@ -691,9 +692,9 @@
       "path": "docs/product/sources/xlsx-opml-jira-recovery-index.json",
       "source_role": "evidence",
       "owner_role": "Product Owner / Process Owner",
-      "lifecycle": "draft",
+      "lifecycle": "active",
       "trust_level": "internal_evidence",
-      "effective_date": "2026-07-10",
+      "effective_date": "2026-07-13",
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
         "opml_conversion_recovery",
@@ -703,17 +704,18 @@
       "affected_artifacts": [
         "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
         "docs/product/sources/product-source-registry.json",
-        "docs/process/guides/datacanvas-excel-backlog-sync.md"
+        "docs/process/guides/datacanvas-excel-backlog-sync.md",
+        "docs/process/guides/datacanvas-jira-story-bulk-import.md"
       ],
-      "notes": "Машинный индекс текущего состояния цепочки XLSX -> OPML -> Jira: контролируемый и рабочий XLSX зарегистрированы, рабочая версия принята для DC-ST-23..DC-ST-33, исторический OPML не найден, импорт в Jira ожидает внешнего согласования соответствия полей.",
+      "notes": "Машинный индекс текущего состояния цепочки XLSX -> OPML -> Jira: контролируемый и рабочий XLSX зарегистрированы, внешний отпечаток исторического OPML зафиксирован без локального пути и содержимого и не подтверждён чтением локального файла, пакет Jira и сопоставление полей подготовлены и согласованы, фактический импорт не выполнялся.",
       "sha256": null,
       "derived_from": [
         "SRC-DC-STORIES-XLSX-ORIGIN-METADATA",
         "SRC-DC-STORIES-XLSX-SANITIZED",
         "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08"
       ],
-      "verifier_command": "npm run validate:xlsx-backlog",
-      "allowed_delta": "Derived reconstruction artifacts must not be marked as historical sources unless the physical original is found.",
+      "verifier_command": "npm run validate:product-sources && npm run validate:jira-field-mapping",
+      "allowed_delta": "Метаданные внешнего отпечатка OPML нельзя представлять как локально проверенный источник, пока физический оригинал не найден и не проверен.",
       "approval_status": null,
       "team_validation_status": null,
       "provenance_manifest": null

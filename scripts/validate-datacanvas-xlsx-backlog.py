@@ -386,6 +386,33 @@ def parse_markdown_story_catalog(path: Path) -> dict[str, dict[str, str]]:
     return result
 
 
+def assert_provenance_downstream_policy(provenance: dict) -> None:
+    workbook = provenance["workbook"]
+    rows = provenance["rows"]
+    policy = provenance["downstream_policy"]
+
+    if policy.get("may_export_to_jira") is not True:
+        return
+    if workbook.get("approval_status") == "draft_unapproved":
+        fail("draft_unapproved workbook must never permit Jira export")
+    if workbook.get("approval_status") != "owner_approved":
+        fail("owner-authorized Jira export requires workbook approval_status=owner_approved")
+    if workbook.get("team_validation_status") != "approved":
+        fail("owner-authorized Jira export requires workbook team_validation_status=approved")
+    if not rows or any(row.get("approval_status") != "owner_approved" for row in rows):
+        fail("owner-authorized Jira export requires approval_status=owner_approved for all workbook rows")
+    if any(row.get("team_validation_status") != "approved" for row in rows):
+        fail("owner-authorized Jira export requires all workbook rows to have team_validation_status=approved")
+    if policy.get("may_update_sprint_backlog") is not False:
+        fail("owner-authorized Jira export must keep sprint backlog updates forbidden")
+    if policy.get("requires_team_approval_record") is not False:
+        fail("owner-authorized Jira export requires requires_team_approval_record=false")
+    if policy.get("jira_export_authority") != "process_owner_and_product_owner":
+        fail("owner-authorized Jira export requires jira_export_authority=process_owner_and_product_owner")
+    if policy.get("jira_export_decision_id") != "UDW-DEC-019":
+        fail("owner-authorized Jira export requires jira_export_decision_id=UDW-DEC-019")
+
+
 def validate_pair(
     source_path: Path,
     working_path: Path,
@@ -399,6 +426,7 @@ def validate_pair(
     expectations = load_json(expectations_path)
     provenance = load_json(provenance_path)
     source_manifest = load_json(source_manifest_path)
+    assert_provenance_downstream_policy(provenance)
 
     assert_equal("source workbook path", relpath(source_path), expectations["source_path"])
     assert_equal("provenance path", relpath(provenance_path), expectations["provenance_path"])
@@ -705,6 +733,115 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
     }
     with tempfile.TemporaryDirectory(prefix="datacanvas-xlsx-validator-") as tmp:
         tmp_path = Path(tmp)
+
+        authorized_provenance = deepcopy(load_json(provenance_path))
+        authorized_provenance["workbook"]["team_validation_status"] = "approved"
+        for row in authorized_provenance["rows"]:
+            row["team_validation_status"] = "approved"
+        authorized_provenance["downstream_policy"] = {
+            "may_update_sprint_backlog": False,
+            "may_export_to_jira": True,
+            "requires_team_approval_record": False,
+            "jira_export_authority": "process_owner_and_product_owner",
+            "jira_export_decision_id": "UDW-DEC-019",
+            "notes": "Тестовое разрешение владельцев только для экспорта текущих оценок в Jira.",
+        }
+        authorized_expectations = deepcopy(load_json(expectations_path))
+        for row in authorized_expectations["new_rows"]:
+            row["team_validation_status"] = "approved"
+
+        def write_policy_fixture(scenario_id: str, provenance_data: dict, expectations_data: dict) -> tuple[Path, Path]:
+            scenario_provenance_path = tmp_path / f"{scenario_id}.provenance.json"
+            scenario_expectations_path = tmp_path / f"{scenario_id}.expectations.json"
+            scenario_expectations = deepcopy(expectations_data)
+            scenario_expectations["provenance_path"] = relpath(scenario_provenance_path)
+            scenario_provenance_path.write_text(
+                json.dumps(provenance_data, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            scenario_expectations_path.write_text(
+                json.dumps(scenario_expectations, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            return scenario_provenance_path, scenario_expectations_path
+
+        authorized_provenance_path, authorized_expectations_path = write_policy_fixture(
+            "authorized-jira-export",
+            authorized_provenance,
+            authorized_expectations,
+        )
+        validate_pair(
+            source_path,
+            working_path,
+            authorized_expectations_path,
+            authorized_provenance_path,
+            source_manifest_path,
+            ROOT / "docs/product/requirements/user-stories.md",
+        )
+
+        def expect_policy_failure(
+            scenario_id: str,
+            mutate_provenance,
+            expected_fragment: str,
+            mutate_expectations=None,
+        ) -> None:
+            scenario_provenance = deepcopy(authorized_provenance)
+            scenario_expectations = deepcopy(authorized_expectations)
+            mutate_provenance(scenario_provenance)
+            if mutate_expectations is not None:
+                mutate_expectations(scenario_expectations)
+            scenario_provenance_path, scenario_expectations_path = write_policy_fixture(
+                scenario_id,
+                scenario_provenance,
+                scenario_expectations,
+            )
+            try:
+                validate_pair(
+                    source_path,
+                    working_path,
+                    scenario_expectations_path,
+                    scenario_provenance_path,
+                    source_manifest_path,
+                    ROOT / "docs/product/requirements/user-stories.md",
+                )
+            except ValidationError as error:
+                if expected_fragment not in str(error):
+                    fail(f"self-test scenario failed for an unexpected reason: {scenario_id}: {error}")
+                return
+            fail(f"self-test scenario did not fail as expected: {scenario_id}")
+
+        expect_policy_failure(
+            "jira-export-without-authority",
+            lambda data: data["downstream_policy"].pop("jira_export_authority"),
+            "jira_export_authority",
+        )
+        expect_policy_failure(
+            "jira-export-without-decision",
+            lambda data: data["downstream_policy"].pop("jira_export_decision_id"),
+            "jira_export_decision_id",
+        )
+        expect_policy_failure(
+            "jira-export-from-draft",
+            lambda data: data["workbook"].update({"approval_status": "draft_unapproved"}),
+            "draft_unapproved",
+        )
+        expect_policy_failure(
+            "jira-export-with-sprint-update",
+            lambda data: data["downstream_policy"].update({"may_update_sprint_backlog": True}),
+            "sprint backlog",
+        )
+        expect_policy_failure(
+            "jira-export-with-team-record-requirement",
+            lambda data: data["downstream_policy"].update({"requires_team_approval_record": True}),
+            "requires_team_approval_record",
+        )
+        expect_policy_failure(
+            "jira-export-with-pending-row",
+            lambda data: data["rows"][0].update({"team_validation_status": "pending_team_review"}),
+            "all workbook rows",
+            lambda data: data["new_rows"][0].update({"team_validation_status": "pending_team_review"}),
+        )
+
         for scenario_id, replacements in scenarios.items():
             mutant = tmp_path / f"{scenario_id}.xlsx"
             rewrite_zip(working_path, mutant, replacements)
