@@ -1,0 +1,160 @@
+{
+  "$schema": "schemas/source-render-catalog.schema.json",
+  "version": "3.0.0",
+  "status": "active",
+  "source_root": "editable-sources",
+  "active_source_ids": [
+    "1.1",
+    "5.2",
+    "5.4",
+    "7.1",
+    "7.2",
+    "7.3",
+    "7.4",
+    "szh-dense-slidedoc",
+    "szh-dense-sber2025",
+    "szh-dense-mag"
+  ],
+  "sources": [
+    {
+      "id": "1.1",
+      "state_id": "lisa-client-answer",
+      "path": "editable-sources/1.1.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "f2b443c4e3141a929d1185147438613ff93cf1eb830f55b2cbbf2e07ba43f5bf",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 1542
+      },
+      "presentation": "phone",
+      "scrollable": true,
+      "classification": "active-basis"
+    },
+    {
+      "id": "5.2",
+      "state_id": "lisa-materials-summary",
+      "path": "editable-sources/5.2.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "5ac62c67c8c567570f9f3e48d475018db257058012590c1d67627211927fc5ea",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "5.4",
+      "state_id": "lisa-materials-full-reference",
+      "path": "editable-sources/5.4.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "032b59433428c56232fcfcc0ccc83e753d801e23c1f85963cf6042ae9ff4a01e",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 5194
+      },
+      "presentation": "phone",
+      "scrollable": true,
+      "classification": "active-basis"
+    },
+    {
+      "id": "7.1",
+      "state_id": "lisa-presentation-order",
+      "path": "editable-sources/7.1 — Холдинг.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "a83e313adb0aaaf4c102397fde0b252fae6095cd1cb888bccb3871df445c2903",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "7.2",
+      "state_id": "lisa-presentation-generating",
+      "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "7.3",
+      "state_id": "lisa-presentation-sent",
+      "path": "editable-sources/7.3 — Презентация.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "7a0ae91bea7a98ef31ea0b4b186ee2482877f2b633868c5e39d2f692c73302a5",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "7.4",
+      "state_id": "lisa-presentation-email",
+      "path": "editable-sources/7.4 — Письмо с презентацией.png",
+      "media_type": "image/png",
+      "sha256": "60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755",
+      "logical_dimensions": {
+        "width": 1553,
+        "height": 1013
+      },
+      "presentation": "desktop",
+      "scrollable": false,
+      "classification": "active-basis"
+    },
+    {
+      "id": "szh-dense-slidedoc",
+      "state_id": "lisa-presentation-slidedoc",
+      "path": "editable-sources/szh-dense-slidedoc-4x.png",
+      "media_type": "image/png",
+      "sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32",
+      "logical_dimensions": {
+        "width": 960,
+        "height": 1620
+      },
+      "presentation": "desktop",
+      "scrollable": true,
+      "classification": "active-basis"
+    },
+    {
+      "id": "szh-dense-sber2025",
+      "state_id": "lisa-presentation-sber2025",
+      "path": "editable-sources/szh-dense-sber2025-4x.png",
+      "media_type": "image/png",
+      "sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7",
+      "logical_dimensions": {
+        "width": 960,
+        "height": 1620
+      },
+      "presentation": "desktop",
+      "scrollable": true,
+      "classification": "active-basis"
+    },
+    {
+      "id": "szh-dense-mag",
+      "state_id": "lisa-presentation-mag",
+      "path": "editable-sources/szh-dense-mag-4x.png",
+      "media_type": "image/png",
+      "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303",
+      "logical_dimensions": {
+        "width": 960,
+        "height": 1620
+      },
+      "presentation": "desktop",
+      "scrollable": true,
+      "classification": "active-basis"
+    }
+  ]
+}

@@ -1,0 +1,436 @@
+{
+  "$schema": "schemas/visual-basis-contract.schema.json",
+  "version": "3.0.0",
+  "states": [
+    {
+      "state_id": "lisa-client-answer",
+      "source": {
+        "path": "editable-sources/1.1.svg",
+        "sha256": "f2b443c4e3141a929d1185147438613ff93cf1eb830f55b2cbbf2e07ba43f5bf",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 1542
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-client-answer-status-3x.png",
+          "runtime_path": "demo/assets/lisa-client-answer-status-3x.png",
+          "sha256": "2d3705a250c1d650df3dbb90f1dd7fd039eebd400aff2eab5dcfa9aab879ca95",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-client-answer-content-3x.png",
+          "runtime_path": "demo/assets/lisa-client-answer-content-3x.png",
+          "sha256": "0e9ef29cf53278824d2804f9a005b855a494caf074732e23e6911581fe162d73",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 3981
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-client-answer-home-3x.png",
+          "runtime_path": "demo/assets/lisa-client-answer-home-3x.png",
+          "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": {
+        "x": 80,
+        "y": 1316,
+        "width": 361,
+        "height": 40
+      }
+    },
+    {
+      "state_id": "lisa-materials-summary",
+      "source": {
+        "path": "editable-sources/5.2.svg",
+        "sha256": "5ac62c67c8c567570f9f3e48d475018db257058012590c1d67627211927fc5ea",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 980
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-materials-summary-status-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-summary-status-3x.png",
+          "sha256": "75a411fe23b5e812371ca228c36edd5b2e98a4103af2dac1946462c5e72771a7",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-materials-summary-content-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-summary-content-3x.png",
+          "sha256": "744749fe4ceda40314e42f3be2e6aeeeed9c9de1ce58f8dc0261fbe8f21ee2fc",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 2295
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-materials-summary-home-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-summary-home-3x.png",
+          "sha256": "88ecaae93ffa2fd968cc1a640a888396bc2bff5beff1f975464f4ea6e253baef",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": {
+        "x": 80,
+        "y": 754,
+        "width": 361,
+        "height": 40
+      }
+    },
+    {
+      "state_id": "lisa-materials-full-reference",
+      "source": {
+        "path": "editable-sources/5.4.svg",
+        "sha256": "032b59433428c56232fcfcc0ccc83e753d801e23c1f85963cf6042ae9ff4a01e",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 5194
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-materials-full-reference-status-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-full-reference-status-3x.png",
+          "sha256": "f2fc9e526a8ecd325f8d65999cdba0c973874a47914ba880c4adf4054b4d4964",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-materials-full-reference-content-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-full-reference-content-3x.png",
+          "sha256": "0b75a7d866b0a7c48861b7da13f3917bfc95b23e3112903951a96bc563fe523e",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 14937
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-materials-full-reference-home-3x.png",
+          "runtime_path": "demo/assets/lisa-materials-full-reference-home-3x.png",
+          "sha256": "bcfc9a632b701d9bd7941a4ce98b192da575867e3088ca2cb02e50a40dc7ef6a",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": {
+        "x": 80,
+        "y": 4968,
+        "width": 361,
+        "height": 40
+      }
+    },
+    {
+      "state_id": "lisa-presentation-order",
+      "source": {
+        "path": "editable-sources/7.1 — Холдинг.svg",
+        "sha256": "a83e313adb0aaaf4c102397fde0b252fae6095cd1cb888bccb3871df445c2903",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 980
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-presentation-order-status-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-order-status-3x.png",
+          "sha256": "f24c3d0c7624347a734ed9687a55fa506fc53b0ab62479ac7a1aee8868d04b93",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-presentation-order-content-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-order-content-3x.png",
+          "sha256": "757417a0b142d9919f73ca1a489d3af758b54593b8a6bd226c2d9b4acaa3ec79",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 2295
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-presentation-order-home-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-order-home-3x.png",
+          "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": {
+        "x": 80,
+        "y": 678,
+        "width": 361,
+        "height": 40
+      }
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "source": {
+        "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
+        "sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 980
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-presentation-generating-status-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-generating-status-3x.png",
+          "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-presentation-generating-content-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-generating-content-3x.png",
+          "sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 2295
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-presentation-generating-home-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-generating-home-3x.png",
+          "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-presentation-sent",
+      "source": {
+        "path": "editable-sources/7.3 — Презентация.svg",
+        "sha256": "7a0ae91bea7a98ef31ea0b4b186ee2482877f2b633868c5e39d2f692c73302a5",
+        "logical_dimensions": {
+          "width": 521,
+          "height": 980
+        }
+      },
+      "raster_layers": [
+        {
+          "role": "system_top",
+          "source_path": "source/bases/lisa-presentation-sent-status-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-sent-status-3x.png",
+          "sha256": "bd0d012a3fc93be1faacda7c4eb4a82f8d599543da723a16a40033d331d31f22",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 159
+          },
+          "scale": 3
+        },
+        {
+          "role": "scroll_content",
+          "source_path": "source/bases/lisa-presentation-sent-content-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-sent-content-3x.png",
+          "sha256": "578d2dd6a067e061e6eb25187266477773b549c31830904abfbc89478ba3545e",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 2295
+          },
+          "scale": 3
+        },
+        {
+          "role": "system_bottom",
+          "source_path": "source/bases/lisa-presentation-sent-home-3x.png",
+          "runtime_path": "demo/assets/lisa-presentation-sent-home-3x.png",
+          "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1",
+          "pixel_dimensions": {
+            "width": 1179,
+            "height": 102
+          },
+          "scale": 3
+        }
+      ],
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-presentation-email",
+      "source": {
+        "path": "editable-sources/7.4 — Письмо с презентацией.png",
+        "sha256": "60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755",
+        "logical_dimensions": {
+          "width": 1553,
+          "height": 1013
+        }
+      },
+      "raster": {
+        "source_path": "editable-sources/7.4 — Письмо с презентацией.png",
+        "runtime_path": "demo/assets/lisa-presentation-email.png",
+        "sha256": "fd2caa529f7eb96543949e2a5b5bb34755540b96703ed99a721579862308c0c3",
+        "pixel_dimensions": {
+          "width": 1553,
+          "height": 1013
+        },
+        "scale": 1
+      },
+      "viewport": {
+        "width": 1553,
+        "height": 1013
+      },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "source": {
+        "path": "editable-sources/szh-dense-slidedoc-4x.png",
+        "sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32",
+        "logical_dimensions": {
+          "width": 960,
+          "height": 1620
+        }
+      },
+      "raster": {
+        "source_path": "editable-sources/szh-dense-slidedoc-4x.png",
+        "runtime_path": "demo/assets/szh-dense-slidedoc-4x.png",
+        "sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32",
+        "pixel_dimensions": {
+          "width": 3840,
+          "height": 6480
+        },
+        "scale": 4
+      },
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "source": {
+        "path": "editable-sources/szh-dense-sber2025-4x.png",
+        "sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7",
+        "logical_dimensions": {
+          "width": 960,
+          "height": 1620
+        }
+      },
+      "raster": {
+        "source_path": "editable-sources/szh-dense-sber2025-4x.png",
+        "runtime_path": "demo/assets/szh-dense-sber2025-4x.png",
+        "sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7",
+        "pixel_dimensions": {
+          "width": 3840,
+          "height": 6480
+        },
+        "scale": 4
+      },
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "source": {
+        "path": "editable-sources/szh-dense-mag-4x.png",
+        "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303",
+        "logical_dimensions": {
+          "width": 960,
+          "height": 1620
+        }
+      },
+      "raster": {
+        "source_path": "editable-sources/szh-dense-mag-4x.png",
+        "runtime_path": "demo/assets/szh-dense-mag-4x.png",
+        "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303",
+        "pixel_dimensions": {
+          "width": 3840,
+          "height": 6480
+        },
+        "scale": 4
+      },
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "cta_rect": null
+    }
+  ]
+}

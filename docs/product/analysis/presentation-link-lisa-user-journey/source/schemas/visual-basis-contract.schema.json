@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-basis-contract.schema.json",
+  "title": "Договор визуальных основ десятиэкранного маршрута Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "states"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/visual-basis-contract.schema.json"
+    },
+    "version": {
+      "const": "3.0.0"
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/state"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "phone_state_id": {
+      "type": "string",
+      "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "y": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "logical_dimensions"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^editable-sources/"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "logical_dimensions": {
+          "$ref": "#/$defs/dimensions"
+        }
+      }
+    },
+    "raster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_path",
+        "runtime_path",
+        "sha256",
+        "pixel_dimensions",
+        "scale"
+      ],
+      "properties": {
+        "source_path": {
+          "type": "string",
+          "pattern": "^editable-sources/"
+        },
+        "runtime_path": {
+          "type": "string",
+          "pattern": "^demo/assets/[a-z0-9-]+\\.png$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "pixel_dimensions": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "raster_layer_role": {
+      "enum": [
+        "system_top",
+        "scroll_content",
+        "system_bottom"
+      ]
+    },
+    "raster_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "source_path",
+        "runtime_path",
+        "sha256",
+        "pixel_dimensions",
+        "scale"
+      ],
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/raster_layer_role"
+        },
+        "source_path": {
+          "type": "string",
+          "pattern": "^source/bases/lisa-[a-z0-9-]+-(?:status|content|home)-3x\\.png$"
+        },
+        "runtime_path": {
+          "type": "string",
+          "pattern": "^demo/assets/lisa-[a-z0-9-]+-(?:status|content|home)-3x\\.png$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "pixel_dimensions": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "scale": {
+          "const": 3
+        }
+      }
+    },
+    "raster_layers": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/raster_layer"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "const": "system_top"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "const": "scroll_content"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "const": "system_bottom"
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "phone_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "source",
+        "raster_layers",
+        "viewport",
+        "cta_rect"
+      ],
+      "properties": {
+        "state_id": {
+          "$ref": "#/$defs/phone_state_id"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "raster_layers": {
+          "$ref": "#/$defs/raster_layers"
+        },
+        "viewport": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "cta_rect": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/rect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "email_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "source",
+        "raster",
+        "viewport",
+        "cta_rect"
+      ],
+      "properties": {
+        "state_id": {
+          "$ref": "#/$defs/phone_state_id"
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "raster": {
+          "$ref": "#/$defs/raster"
+        },
+        "viewport": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "cta_rect": {
+          "type": "null"
+        }
+      }
+    },
+    "state": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/phone_state"
+        },
+        {
+          "$ref": "#/$defs/email_state"
+        }
+      ]
+    }
+  }
+}

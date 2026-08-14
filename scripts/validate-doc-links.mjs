@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
+import { isTransientFullPackageReleasePath } from "./generate-docs-navigation.mjs";
+
 const root = process.cwd();
 const scanRoots = ["README.md", "AGENTS.md", ".github/PULL_REQUEST_TEMPLATE.md", "docs"];
 
@@ -36,6 +38,9 @@ function listMarkdownFiles(relativeRoot) {
   function walk(currentRelative) {
     for (const entry of fs.readdirSync(absolute(currentRelative), { withFileTypes: true })) {
       const child = repoPath(currentRelative, entry.name);
+      if (isTransientFullPackageReleasePath(child)) {
+        continue;
+      }
       if (entry.isDirectory()) {
         walk(child);
       } else if (entry.isFile() && child.endsWith(".md")) {

@@ -1,1022 +1,165 @@
 {
   "$schema": "schemas/journey-contract.schema.json",
-  "version": "1.2.0",
-  "status": "owner-approved-prototype",
-  "route": {
-    "surface": "lisa",
-    "interaction_mode": "lisa_dialog",
-    "datacanvas_launch_mode": "other_agent",
-    "initiator": "user_action"
-  },
-  "initial_state_id": "lisa-materials-ready",
-  "result_ref": "secure-pdf-copy-001",
-  "copy": {
-    "generation_started": "Мы начали подготовку презентации. Ожидаемое время готовности — 20 минут. По готовности здесь появится уведомление.",
-    "ready_title": "Презентация готова",
-    "ready_body": "Откройте нередактируемую PDF-копию или вернитесь к ней позже из уведомлений.",
-    "email_sent": "Презентация отправлена на почту в форматах PDF и PPTX."
-  },
-  "prototype_timeline": {
-    "start_time": "13:24",
-    "ready_time": "13:44",
-    "generation_started_at_ms": 600,
-    "clock_animation_ends_at_ms": 7600,
-    "ready_at_ms": 8000,
-    "direct_state_autoplay": false
-  },
-  "notification": {
-    "kind": "lisa_notification_center_item",
-    "push_supported": false,
-    "unread_indicator": "red_dot_on_bell",
-    "list_open_marks_read": false,
-    "result_open_marks_read": true,
-    "minimum_visible_data": [
-      "Презентация готова",
-      "Время готовности",
-      "Действие открытия"
-    ],
-    "forbidden_visible_data": [
-      "Полный адрес защищённой ссылки",
-      "Название клиента",
-      "Содержание презентации"
-    ]
-  },
-  "email_delivery": {
-    "prototype_only_deviation": true,
-    "recipient_copy": "ваша рабочая почта",
-    "recipient_rule_confirmed": false,
-    "message_count": 1,
-    "required_attachments": [
-      "pdf",
-      "pptx"
-    ],
-    "success_requires_all_attachments": true,
-    "retry_scope": "failed_attachment_only",
-    "success_semantics": "accepted_by_mail_transport",
-    "revoked_link_does_not_revoke_attachments": true,
-    "entry_surfaces": [
-      "chat-ready-card",
-      "viewer-from-chat",
-      "viewer-from-notification"
-    ]
-  },
-  "prototype_semantics": {
-    "scope": "visual-validation-only",
-    "fields": [
-      "prototype_timeline",
-      "notification.kind",
-      "notification.list_open_marks_read",
-      "notification.result_open_marks_read",
-      "notification.minimum_visible_data",
-      "email_delivery.recipient_copy",
-      "email_delivery.message_count",
-      "email_delivery.retry_scope",
-      "email_delivery.revoked_link_does_not_revoke_attachments",
-      "invariants.one-order-per-material-version",
-      "invariants.one-ready-event-two-projections",
-      "invariants.duplicate-ready-events-do-not-create-duplicates"
-    ]
-  },
-  "invariants": [
-    "one-order-per-material-version",
-    "one-ready-event-two-projections",
-    "same-result-ref-for-chat-and-notification",
-    "duplicate-ready-events-do-not-duplicate-surfaces",
-    "notification-projection-order-is-not-promised",
-    "data-canvas-asks-no-confirmation-after-handoff",
-    "pdf-link-is-view-only",
-    "pptx-is-email-attachment-only"
+  "version": "3.0.0",
+  "initial_state_id": "lisa-client-answer",
+  "state_ids": [
+    "lisa-client-answer",
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
   ],
   "states": [
     {
-      "id": "lisa-materials-ready",
-      "kind": "chat",
-      "display_name": "Итоговые материалы — действия",
-      "title": "Материалы к встрече готовы",
-      "eyebrow": "Подготовка к встрече",
-      "body": "Итоговые материалы собраны по текущей встрече.",
-      "detail_lines": [],
-      "content": {
-        "type": "meeting-material",
-        "data_classification": "synthetic",
-        "external_links_allowed": false,
-        "initial_scroll_anchor": "material-start",
-        "action_anchor": "material-actions",
-        "header": {
-          "title": "Подготовка к встрече",
-          "holding": "Холдинг ГК Достовалова",
-          "company": "ИП Достовалова",
-          "meta": "Регулярная встреча · материалы актуальны на 11 июля 2026"
-        },
-        "sections": [
-          {
-            "id": "participants",
-            "title": "Участники встречи",
-            "blocks": [
-              {
-                "id": "meeting-participants",
-                "type": "participants",
-                "items": [
-                  {
-                    "id": "p1",
-                    "name": "Достовалова Ирина Антоновна",
-                    "role": "Бенефициар"
-                  },
-                  {
-                    "id": "p2",
-                    "name": "Савёлов Антон Игоревич",
-                    "role": "Генеральный директор"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "agenda",
-            "title": "Повестка встречи",
-            "blocks": [
-              {
-                "id": "agenda-items",
-                "type": "agenda",
-                "items": [
-                  {
-                    "id": "a1",
-                    "title": "Эквайринг",
-                    "description": "Клиент сообщил о конкуренции с ВТБ — конкурент предлагает ставку 1,5% против текущих условий Сбера (1,7–1,8%). Есть риск оттока по этому продукту. Стоит обсудить возможность пересмотра тарифа, чтобы удержать клиента.",
-                    "tag": "insight",
-                    "group": "mandatory",
-                    "numeric_facts": {
-                      "competitor_rate_percent": 1.5,
-                      "sber_rate_percent_min": 1.7,
-                      "sber_rate_percent_max": 1.8
-                    }
-                  },
-                  {
-                    "id": "a2",
-                    "title": "Поставки из Индии",
-                    "description": "На предыдущей встрече клиент запросил пересмотр условий работы с индийским подрядчиком. Нужно предоставить итоги переговоров — обсуждается тариф 0,25% для любых сумм платежей, а также возможность поиска альтернативных поставщиков по сниженной цене.",
-                    "tag": "agreement",
-                    "group": "mandatory",
-                    "numeric_facts": {
-                      "tariff_percent": 0.25
-                    }
-                  },
-                  {
-                    "id": "a3",
-                    "title": "Новые площади в Красноярске",
-                    "description": "Клиент приобрёл имущество обанкротившейся компании АО «Сельэлектрострой» в Красноярске — здания, гаражи, склады и земельные участки общей площадью 2,4 гектара. Стоит уточнить планы по застройке нового объекта и потребность в кредитовании.",
-                    "tag": "news",
-                    "group": "mandatory",
-                    "source_label": "Подробности сделки",
-                    "numeric_facts": {
-                      "area_hectares": 2.4
-                    }
-                  },
-                  {
-                    "id": "a4",
-                    "title": "СберСпасибо",
-                    "description": "На предыдущей встрече обсуждались технические особенности подключения к программе лояльности. Клиент ждёт обратной связи от команды СберСпасибо о дальнейших шагах интеграции кассового ПО.",
-                    "tag": "agreement",
-                    "group": "optional"
-                  },
-                  {
-                    "id": "a5",
-                    "title": "BNPL",
-                    "description": "Клиент заинтересовался продуктом BNPL, но действующая ставка 4,5% видится ему высокой. Стоит подготовить аргументы в пользу продукта и проверить возможность более выгодных условий или альтернативного коммерческого предложения.",
-                    "tag": "insight",
-                    "group": "optional",
-                    "numeric_facts": {
-                      "rate_percent": 4.5
-                    }
-                  },
-                  {
-                    "id": "a6",
-                    "title": "КСО",
-                    "description": "На предыдущей встрече проговорили необходимость диалога с ДЗО в рамках старта сотрудничества по кассовому оборудованию. Важно учитывать, что Альфа-Банк предлагает бесплатные КСО с абонентской платой 5 000 ₽/мес — это выглядит для клиента привлекательнее текущих условий Сбера.",
-                    "tag": "insight",
-                    "group": "optional",
-                    "numeric_facts": {
-                      "subscription_rub_per_month": 5000
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "cooperation",
-            "title": "Сотрудничество",
-            "blocks": [
-              {
-                "id": "products-overview",
-                "type": "paragraph",
-                "text": "Основные продукты: активы (кредитный портфель), НКД (эквайринг, инкассация), пассивы (овернайт), ФОТ, экосистема."
-              },
-              {
-                "id": "top-three",
-                "type": "bullet-list",
-                "label": "ТОП-3 по ЧОД",
-                "items": [
-                  {
-                    "id": "assets",
-                    "text": "Активы — остаток 1 250 млн ₽, доля Сбера 83%"
-                  },
-                  {
-                    "id": "non-credit-income",
-                    "text": "НКД — 15 млн ₽, сформирован за счёт эквайринга и инкассации"
-                  },
-                  {
-                    "id": "liabilities",
-                    "text": "Пассивы — 115 млн ₽, большей частью за счёт овернайта"
-                  }
-                ]
-              },
-              {
-                "id": "metrics",
-                "type": "metrics",
-                "label": "Условия по текущим якорным продуктам",
-                "items": [
-                  {
-                    "id": "assets",
-                    "label": "Активы",
-                    "value": "1 250 млн ₽",
-                    "amount_mln_rub": 1250,
-                    "sber_share_percent": 83
-                  },
-                  {
-                    "id": "liabilities",
-                    "label": "Пассивы",
-                    "value": "115 млн ₽ — овернайт",
-                    "amount_mln_rub": 115
-                  },
-                  {
-                    "id": "non-credit-income",
-                    "label": "НКД",
-                    "value": "15 млн ₽ — эквайринг и инкассация",
-                    "amount_mln_rub": 15
-                  },
-                  {
-                    "id": "payroll",
-                    "label": "ФОТ",
-                    "value": "14 млн ₽ — снижение за 3 мес.",
-                    "amount_mln_rub": 14
-                  },
-                  {
-                    "id": "ecosystem",
-                    "label": "Экосистема",
-                    "value": "8 млн ₽ — СберЗдоровье, СберМаркетинг",
-                    "amount_mln_rub": 8
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "preapproved-offers",
-            "title": "Предодобренные предложения",
-            "blocks": [
-              {
-                "id": "offers",
-                "type": "offers",
-                "items": [
-                  {
-                    "id": "customs-guarantee",
-                    "title": "Банковская гарантия (таможенная)",
-                    "amount": "19 млрд ₽",
-                    "maximum_term": "14 мес.",
-                    "limit_bln_rub": 19,
-                    "max_term_months": 14
-                  },
-                  {
-                    "id": "short-financing",
-                    "title": "Краткосрочное финансирование",
-                    "amount": "16 млрд ₽",
-                    "maximum_term": "36 мес.",
-                    "warning": "Отклонение: нет БО по клиенту",
-                    "limit_bln_rub": 16,
-                    "max_term_months": 36
-                  },
-                  {
-                    "id": "leasing",
-                    "title": "Лизинг СБЛ",
-                    "amount": "2 млрд ₽",
-                    "maximum_term": "84 мес.",
-                    "limit_bln_rub": 2,
-                    "max_term_months": 84
-                  }
-                ]
-              },
-              {
-                "id": "risk-status",
-                "type": "callout",
-                "tone": "success",
-                "text": "Риски отсутствуют — компании холдинга не в стадии ликвидации, стоп-лист не применяется"
-              }
-            ]
-          },
-          {
-            "id": "past-agreements",
-            "title": "Договорённости с прошлой встречи",
-            "blocks": [
-              {
-                "id": "agreements",
-                "type": "bullet-list",
-                "items": [
-                  {
-                    "id": "india-suppliers",
-                    "text": "Поиск альтернативных поставщиков оборудования из Индии по сниженной цене"
-                  },
-                  {
-                    "id": "kso-consultation",
-                    "text": "Консультация технических специалистов по внедрению КСО"
-                  },
-                  {
-                    "id": "currency-hedging",
-                    "text": "Предоставление информации и поддержки по валютному хеджированию"
-                  },
-                  {
-                    "id": "frp-credit",
-                    "text": "Получение ясности по срокам кредита от ФРП"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "competitor-risks",
-            "title": "Риски и инсайты о других банках",
-            "blocks": [
-              {
-                "id": "risks",
-                "type": "bullet-list",
-                "items": [
-                  {
-                    "id": "alfa-acquiring",
-                    "text": "Альфа-Банк — эквайринг 1,5% (у Сбера 1,7%) + бесплатные КСО с абонплатой 5 000 ₽"
-                  },
-                  {
-                    "id": "vtb-acquiring",
-                    "text": "ВТБ — предложили эквайринг 1,7% без НДС"
-                  },
-                  {
-                    "id": "payroll-and-foreign-trade",
-                    "text": "Открытие, ВТБ — уже занимают часть ФОТ и ВЭД"
-                  },
-                  {
-                    "id": "salary-project-perception",
-                    "text": "Клиент называет зарплатный проект Сбера «скучным и невыгодным»"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "id": "dialog-starters",
-            "title": "С чего начать диалог",
-            "blocks": [
-              {
-                "id": "small-talk",
-                "type": "sourced-list",
-                "label": "Темы для смолл-толка",
-                "items": [
-                  {
-                    "id": "market-transformation",
-                    "text": "Трансформация спроса в сегменте сантехники и отделочных материалов в 2026 году — смещение от премиум-импорта к локальным брендам и «тихим» параллельным поставкам.",
-                    "source_label": "Аналитика рынка"
-                  },
-                  {
-                    "id": "retail-automation",
-                    "text": "Кадровый голод в рознице и стройке — переход к автоматизации складов, чат-ботам и CRM вместо расширения штата продавцов.",
-                    "source_label": "Подробнее"
-                  },
-                  {
-                    "id": "property-yield",
-                    "text": "Сравнение доходности: долгосрочная аренда действующих коммерческих площадей vs перепродажа объектов после разделения на лоты.",
-                    "source_label": "Кейс"
-                  }
-                ]
-              },
-              {
-                "id": "company-news",
-                "type": "sourced-list",
-                "label": "Новости о компании",
-                "items": [
-                  {
-                    "id": "kalinina-property",
-                    "text": "Хозяйка сети «Водолей», одна из богатейших женщин Красноярска — купила два гектара земли и офисы на Калинина за 260 млн ₽.",
-                    "source_label": "Читать новость"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "action_ids": [
-        "edit-materials",
-        "email-materials",
-        "order-presentation"
-      ]
-    },
-    {
-      "id": "lisa-materials-email-sent",
-      "kind": "chat",
-      "display_name": "Итоговые материалы — отправлены",
-      "title": "Материалы отправлены",
-      "eyebrow": "Подготовка к встрече",
-      "body": "Материалы к встрече отправлены на вашу рабочую почту.",
-      "detail_lines": [
-        "Можно продолжить работу в чате или заказать презентацию по собранным материалам."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready"
-      ],
+      "id": "lisa-client-answer",
+      "order": 1,
+      "source_id": "1.1",
+      "caption": "Справка по клиенту: можно заказать презентацию",
+      "presentation": "phone",
+      "scrollable": true,
       "action_ids": [
         "order-presentation"
       ]
     },
     {
-      "id": "lisa-presentation-order-submitting",
-      "kind": "chat",
-      "display_name": "Заказ презентации — передача",
-      "title": "Передаём заказ",
-      "eyebrow": "DataCanvas",
-      "body": "Агент «Подготовка к встрече» передаёт в DataCanvas текущую версию материалов.",
-      "detail_lines": [
-        "Повторное нажатие не создаст ещё один заказ."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready"
-      ],
-      "action_ids": []
+      "id": "lisa-materials-summary",
+      "order": 2,
+      "source_id": "5.2",
+      "caption": "Краткие материалы: заказ доступен сразу",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": [
+        "order-presentation"
+      ]
     },
     {
-      "id": "lisa-presentation-order-failed",
-      "kind": "error",
-      "display_name": "Заказ презентации — ошибка передачи",
-      "title": "Заказ не передан",
-      "eyebrow": "DataCanvas",
-      "body": "Не удалось передать материалы для подготовки презентации.",
-      "detail_lines": [
-        "Новый заказ не создан. Повторите отправку, когда соединение восстановится."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready"
-      ],
+      "id": "lisa-materials-full-reference",
+      "order": 3,
+      "source_id": "5.4",
+      "caption": "Полная справка: прокрутите материалы или оформите заказ",
+      "presentation": "phone",
+      "scrollable": true,
       "action_ids": [
-        "retry-order",
-        "return-to-materials"
+        "order-presentation"
+      ]
+    },
+    {
+      "id": "lisa-presentation-order",
+      "order": 4,
+      "source_id": "7.1",
+      "caption": "Заказ презентации по подготовленным материалам",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": [
+        "order-presentation"
       ]
     },
     {
       "id": "lisa-presentation-generating",
-      "kind": "chat",
-      "display_name": "Заказ презентации — подготовка",
-      "title": "Презентация готовится",
-      "eyebrow": "DataCanvas",
-      "body": "Мы начали подготовку презентации. Ожидаемое время готовности — 20 минут. По готовности здесь появится уведомление.",
-      "detail_lines": [
-        "Можно продолжить работу в текущем чате."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready"
-      ],
+      "order": 5,
+      "source_id": "7.2",
+      "caption": "Презентация формируется",
+      "presentation": "phone",
+      "scrollable": false,
       "action_ids": []
     },
     {
-      "id": "lisa-presentation-ready-unread",
-      "kind": "chat-ready",
-      "display_name": "Чат — презентация готова, не прочитано",
-      "title": "Презентация готова",
-      "eyebrow": "DataCanvas",
-      "body": "Нередактируемая PDF-копия доступна в защищённом хранилище.",
-      "detail_lines": [
-        "Новая запись также появилась в уведомлениях Лисы."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": true,
-      "action_ids": [
-        "open-result-from-chat"
-      ]
-    },
-    {
-      "id": "lisa-notifications-list-empty",
-      "kind": "notification-list",
-      "display_name": "Уведомления — новых записей нет",
-      "title": "Уведомления",
-      "eyebrow": "Лиса",
-      "body": "Новых уведомлений пока нет.",
-      "detail_lines": [],
-      "notification_unread": false,
-      "action_ids": [
-        "close-notifications-empty"
-      ]
-    },
-    {
-      "id": "lisa-notifications-list-unread",
-      "kind": "notification-list",
-      "display_name": "Уведомления — есть новое",
-      "title": "Уведомления",
-      "eyebrow": "Лиса",
-      "body": "Одно новое уведомление",
-      "detail_lines": [
-        "Презентация готова",
-        "Сегодня, 13:44"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": true,
-      "action_ids": [
-        "open-notification-unread",
-        "close-notifications-unread"
-      ]
-    },
-    {
-      "id": "lisa-notification-detail-unread",
-      "kind": "notification-detail",
-      "display_name": "Уведомление — есть новое",
-      "title": "Презентация готова",
-      "eyebrow": "Уведомление Лисы",
-      "body": "Откройте нередактируемую PDF-копию презентации.",
-      "detail_lines": [
-        "Сегодня, 13:44"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": true,
-      "action_ids": [
-        "open-result-from-notification",
-        "close-notifications-unread"
-      ]
-    },
-    {
-      "id": "lisa-notifications-list-read",
-      "kind": "notification-list",
-      "display_name": "Уведомления — всё прочитано",
-      "title": "Уведомления",
-      "eyebrow": "Лиса",
-      "body": "Новых уведомлений нет",
-      "detail_lines": [
-        "Презентация готова",
-        "Сегодня, 13:44"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "open-notification-read",
-        "close-notifications-read"
-      ]
-    },
-    {
-      "id": "lisa-notification-detail-read",
-      "kind": "notification-detail",
-      "display_name": "Уведомление — прочитано",
-      "title": "Презентация готова",
-      "eyebrow": "Уведомление Лисы",
-      "body": "Презентация уже открывалась. Нередактируемая PDF-копия остаётся доступной.",
-      "detail_lines": [
-        "Сегодня, 13:44"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "open-result-from-notification",
-        "close-notifications-read"
-      ]
-    },
-    {
-      "id": "lisa-result-view-from-chat",
-      "kind": "viewer",
-      "display_name": "Просмотр PDF — переход из чата",
-      "title": "Презентация для встречи",
-      "eyebrow": "PDF · только просмотр",
-      "body": "Краткая презентация по материалам подготовки к встрече.",
-      "detail_lines": [
-        "1. Контекст рынка",
-        "2. Ситуация клиента",
-        "3. Возможности для разговора"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "return_anchor": "presentation-ready-card",
-      "action_ids": [
-        "close-result",
-        "email-presentation"
-      ]
-    },
-    {
-      "id": "lisa-result-view-from-notification",
-      "kind": "viewer",
-      "display_name": "Просмотр PDF — переход из уведомления",
-      "title": "Презентация для встречи",
-      "eyebrow": "PDF · только просмотр",
-      "body": "Краткая презентация по материалам подготовки к встрече.",
-      "detail_lines": [
-        "1. Контекст рынка",
-        "2. Ситуация клиента",
-        "3. Возможности для разговора"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "return_anchor": "presentation-ready-card",
-      "action_ids": [
-        "close-result",
-        "email-presentation"
-      ]
-    },
-    {
-      "id": "lisa-returned-to-chat",
-      "kind": "chat-ready",
-      "display_name": "Чат — презентация доступна после просмотра",
-      "title": "Презентация готова",
-      "eyebrow": "DataCanvas",
-      "body": "Презентацию можно открыть повторно или отправить на почту. Текущий контекст разговора сохранён.",
-      "detail_lines": [
-        "PDF будет приложен для просмотра, PPTX — для редактирования."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "open-result-from-chat",
-        "email-presentation"
-      ]
-    },
-    {
-      "id": "lisa-presentation-email-submitting",
-      "kind": "chat",
-      "display_name": "Отправка презентации — выполняется",
-      "title": "Отправляем презентацию",
-      "eyebrow": "DataCanvas",
-      "body": "Готовим одно письмо с двумя вложениями: PDF и PPTX.",
-      "detail_lines": [
-        "Сообщение появится, когда письмо с обоими файлами будет принято к отправке."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating",
-        "lisa-returned-to-chat"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
+      "id": "lisa-presentation-sent",
+      "order": 6,
+      "source_id": "7.3",
+      "caption": "Презентация сформирована и отправлена",
+      "presentation": "phone",
+      "scrollable": false,
       "action_ids": []
     },
     {
-      "id": "lisa-presentation-email-sent",
-      "kind": "success",
-      "display_name": "Отправка презентации — завершена",
-      "title": "Презентация отправлена",
-      "eyebrow": "DataCanvas",
-      "body": "Письмо с презентацией отправлено на вашу рабочую почту.",
-      "detail_lines": [
-        "Вложения: PDF и PPTX."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating",
-        "lisa-returned-to-chat"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "return-to-ready"
-      ]
+      "id": "lisa-presentation-email",
+      "order": 7,
+      "source_id": "7.4",
+      "caption": "Письмо с версиями презентации в ODT и PDF",
+      "presentation": "desktop",
+      "scrollable": false,
+      "action_ids": []
     },
     {
-      "id": "lisa-presentation-email-partial-failure",
-      "kind": "error",
-      "display_name": "Отправка презентации — не добавлен PPTX",
-      "title": "Не удалось добавить PPTX",
-      "eyebrow": "DataCanvas",
-      "body": "Письмо ещё не отправлено: PDF готов, а PPTX добавить не удалось.",
-      "detail_lines": [
-        "Повторная попытка касается только PPTX; письмо уйдёт после подготовки обоих файлов."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating",
-        "lisa-returned-to-chat"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "retry-failed-attachment",
-        "return-to-ready"
-      ]
+      "id": "lisa-presentation-slidedoc",
+      "order": 8,
+      "source_id": "szh-dense-slidedoc",
+      "caption": "Презентация: вариант SlideDoc",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
     },
     {
-      "id": "lisa-presentation-email-failed",
-      "kind": "error",
-      "display_name": "Отправка презентации — ошибка",
-      "title": "Презентация не отправлена",
-      "eyebrow": "DataCanvas",
-      "body": "Не удалось отправить письмо с вложениями.",
-      "detail_lines": [
-        "Повторите попытку позже. Ссылка на PDF остаётся доступной в Лисе."
-      ],
-      "history_state_ids": [
-        "lisa-materials-ready",
-        "lisa-presentation-generating",
-        "lisa-returned-to-chat"
-      ],
-      "result_ref": "secure-pdf-copy-001",
-      "notification_unread": false,
-      "action_ids": [
-        "retry-email",
-        "return-to-ready"
-      ]
+      "id": "lisa-presentation-sber2025",
+      "order": 9,
+      "source_id": "szh-dense-sber2025",
+      "caption": "Презентация: вариант Sber 2025",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
     },
     {
-      "id": "lisa-result-not-ready",
-      "kind": "error",
-      "display_name": "Открытие презентации — ещё не готова",
-      "title": "Презентация ещё готовится",
-      "eyebrow": "DataCanvas",
-      "body": "Результат пока нельзя открыть.",
-      "detail_lines": [
-        "Вернитесь в чат: готовность появится отдельной карточкой и уведомлением."
-      ],
-      "action_ids": [
-        "return-to-generation"
-      ]
-    },
-    {
-      "id": "lisa-link-invalid",
-      "kind": "error",
-      "display_name": "Открытие презентации — неверная ссылка",
-      "title": "Ссылка недействительна",
-      "eyebrow": "Защищённое хранилище",
-      "body": "Лиса не может открыть результат по этой ссылке.",
-      "detail_lines": [
-        "Вернитесь к карточке результата и попробуйте снова."
-      ],
-      "action_ids": [
-        "return-to-ready"
-      ]
-    },
-    {
-      "id": "lisa-link-expired",
-      "kind": "error",
-      "display_name": "Открытие презентации — истёкшая ссылка",
-      "title": "Срок действия ссылки истёк",
-      "eyebrow": "Защищённое хранилище",
-      "body": "Результат больше нельзя открыть по этой ссылке.",
-      "detail_lines": [
-        "Вернитесь в чат: результат нельзя открыть по этой ссылке."
-      ],
-      "action_ids": [
-        "return-to-ready"
-      ]
-    },
-    {
-      "id": "lisa-access-denied",
-      "kind": "error",
-      "display_name": "Открытие презентации — нет доступа",
-      "title": "Нет доступа",
-      "eyebrow": "Защищённое хранилище",
-      "body": "У текущего пользователя нет доступа к этой копии презентации.",
-      "detail_lines": [
-        "Вернитесь в чат. Дополнительный доступ в этом сценарии не запрашивается."
-      ],
-      "action_ids": [
-        "return-to-ready"
-      ]
-    },
-    {
-      "id": "lisa-offline",
-      "kind": "error",
-      "display_name": "Открытие презентации — нет сети",
-      "title": "Нет соединения",
-      "eyebrow": "Лиса",
-      "body": "Не удалось открыть презентацию без сети.",
-      "detail_lines": [
-        "Текущий чат сохранён. Повторите попытку после восстановления соединения."
-      ],
-      "action_ids": [
-        "retry-open-result",
-        "return-to-ready"
-      ]
-    },
-    {
-      "id": "lisa-notification-failed-chat-available",
-      "kind": "warning",
-      "display_name": "Уведомление — ошибка доставки, чат доступен",
-      "title": "Уведомление не доставлено",
-      "eyebrow": "Лиса",
-      "body": "Карточка готовой презентации доступна в чате, но запись центра уведомлений не создана.",
-      "detail_lines": [
-        "Откройте результат из карточки в чате."
-      ],
-      "notification_unread": false,
-      "action_ids": [
-        "open-result-from-chat"
-      ]
-    },
-    {
-      "id": "lisa-result-cancelled",
-      "kind": "error",
-      "display_name": "Подготовка презентации — отменена",
-      "title": "Подготовка отменена",
-      "eyebrow": "DataCanvas",
-      "body": "Презентация не была подготовлена.",
-      "detail_lines": [
-        "Новый заказ можно оформить с экрана итоговых материалов."
-      ],
-      "action_ids": [
-        "return-to-materials"
-      ]
-    },
-    {
-      "id": "lisa-result-revoked",
-      "kind": "error",
-      "display_name": "Открытие презентации — результат отозван",
-      "title": "Результат отозван",
-      "eyebrow": "Защищённое хранилище",
-      "body": "Ссылка на PDF-копию больше не открывается.",
-      "detail_lines": [
-        "Вернитесь к итоговым материалам: этот результат нельзя открыть повторно."
-      ],
-      "action_ids": [
-        "return-to-materials"
-      ]
+      "id": "lisa-presentation-mag",
+      "order": 10,
+      "source_id": "szh-dense-mag",
+      "caption": "Презентация: вариант MAG",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
     }
   ],
   "actions": [
     {
-      "id": "edit-materials",
-      "label": "Редактировать",
-      "accessible_label": "Редактировать материалы к встрече",
-      "variant": "secondary",
-      "behavior": "open-materials-dialog"
-    },
-    {
-      "id": "email-materials",
-      "label": "Отправить в почту",
-      "accessible_label": "Отправить материалы к встрече на почту",
-      "variant": "secondary",
-      "target_state_id": "lisa-materials-email-sent"
-    },
-    {
       "id": "order-presentation",
-      "label": "Заказать презентацию",
-      "variant": "primary",
-      "target_state_id": "lisa-presentation-order-submitting",
-      "prototype_sequence": [
-        {
-          "state_id": "lisa-presentation-generating",
-          "at_ms": 600
-        },
-        {
-          "state_id": "lisa-presentation-ready-unread",
-          "at_ms": 8000
-        }
+      "target_state_id": "lisa-presentation-generating",
+      "source_state_ids": [
+        "lisa-client-answer",
+        "lisa-materials-summary",
+        "lisa-materials-full-reference",
+        "lisa-presentation-order"
       ]
-    },
-    {
-      "id": "retry-order",
-      "label": "Повторить передачу",
-      "variant": "primary",
-      "target_state_id": "lisa-presentation-order-submitting",
-      "prototype_sequence": [
-        {
-          "state_id": "lisa-presentation-generating",
-          "at_ms": 600
-        },
-        {
-          "state_id": "lisa-presentation-ready-unread",
-          "at_ms": 8000
-        }
-      ]
-    },
-    {
-      "id": "return-to-materials",
-      "label": "Вернуться к материалам",
-      "variant": "secondary",
-      "target_state_id": "lisa-materials-ready"
-    },
-    {
-      "id": "open-result-from-chat",
-      "label": "Открыть презентацию",
-      "variant": "primary",
-      "target_state_id": "lisa-result-view-from-chat"
-    },
-    {
-      "id": "open-notification-unread",
-      "label": "Открыть уведомление",
-      "variant": "primary",
-      "target_state_id": "lisa-notification-detail-unread"
-    },
-    {
-      "id": "open-notification-read",
-      "label": "Открыть уведомление",
-      "variant": "primary",
-      "target_state_id": "lisa-notification-detail-read"
-    },
-    {
-      "id": "close-notifications-unread",
-      "label": "Закрыть уведомления",
-      "variant": "secondary",
-      "target_state_id": "lisa-presentation-ready-unread"
-    },
-    {
-      "id": "close-notifications-empty",
-      "label": "Закрыть уведомления",
-      "variant": "secondary",
-      "target_state_id": "lisa-materials-ready"
-    },
-    {
-      "id": "close-notifications-read",
-      "label": "Закрыть уведомления",
-      "variant": "secondary",
-      "target_state_id": "lisa-returned-to-chat"
-    },
-    {
-      "id": "open-result-from-notification",
-      "label": "Открыть презентацию",
-      "variant": "primary",
-      "target_state_id": "lisa-result-view-from-notification"
-    },
-    {
-      "id": "close-result",
-      "label": "Закрыть презентацию",
-      "variant": "secondary",
-      "target_state_id": "lisa-returned-to-chat"
-    },
-    {
-      "id": "email-presentation",
-      "label": "Отправить презентацию на почту",
-      "variant": "primary",
-      "target_state_id": "lisa-presentation-email-submitting",
-      "prototype_sequence": [
-        {
-          "state_id": "lisa-presentation-email-sent",
-          "at_ms": 900
-        }
-      ]
-    },
-    {
-      "id": "retry-failed-attachment",
-      "label": "Повторить отправку PPTX",
-      "variant": "primary",
-      "target_state_id": "lisa-presentation-email-submitting",
-      "prototype_sequence": [
-        {
-          "state_id": "lisa-presentation-email-sent",
-          "at_ms": 900
-        }
-      ]
-    },
-    {
-      "id": "retry-email",
-      "label": "Повторить отправку",
-      "variant": "primary",
-      "target_state_id": "lisa-presentation-email-submitting",
-      "prototype_sequence": [
-        {
-          "state_id": "lisa-presentation-email-sent",
-          "at_ms": 900
-        }
-      ]
-    },
-    {
-      "id": "return-to-ready",
-      "label": "Вернуться к результату",
-      "variant": "secondary",
-      "target_state_id": "lisa-returned-to-chat"
-    },
-    {
-      "id": "return-to-generation",
-      "label": "Вернуться в чат",
-      "variant": "secondary",
-      "target_state_id": "lisa-presentation-generating"
-    },
-    {
-      "id": "retry-open-result",
-      "label": "Повторить открытие",
-      "variant": "primary",
-      "target_state_id": "lisa-result-view-from-chat"
     }
   ],
-  "open_product_decisions": [
-    "Срок жизни ссылки",
-    "Правила выдачи и отзыва доступа",
-    "Допустимая задержка между двумя проекциями события готовности",
-    "Порядок появления карточки чата и записи центра уведомлений",
-    "Промышленная идемпотентность и ключ устранения дублей",
-    "Поведение на нескольких устройствах",
-    "Повторная доставка после отказа отдельной поверхности",
-    "Точные правила работы без сети",
-    "Целевая поверхность открытия результата",
-    "Допустимый состав данных уведомления",
-    "Правила определения получателя и адреса электронной почты",
-    "Число почтовых сообщений и правила повторной отправки вложений",
-    "Связь отзыва защищённой ссылки с ранее отправленными файлами",
-    "Точное разделение ответственности смежных команд",
-    "Числовое соглашение о времени готовности"
-  ]
+  "navigation": {
+    "mode": "linear",
+    "wrap": false,
+    "keyboard": {
+      "previous": "ArrowLeft",
+      "next": "ArrowRight",
+      "activate": "Enter"
+    }
+  },
+  "device": {
+    "model": "iPhone 12 Pro Max",
+    "body_mm": {
+      "width": 78.1,
+      "height": 160.8
+    },
+    "screen_px": {
+      "width": 428,
+      "height": 926
+    },
+    "inner_window_px": {
+      "width": 521,
+      "height": 980
+    },
+    "source_body_viewport": {
+      "x": 64,
+      "y": 48,
+      "width": 393,
+      "height": 852
+    },
+    "source_canvas_margins": {
+      "left": 64,
+      "top": 48,
+      "right": 64,
+      "bottom": 80
+    }
+  }
 }

@@ -1,1817 +1,1252 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import playwrightConfig from "./presentation-link-lisa-user-journey.playwright.config.mjs";
-import * as documentationArchive from "../scripts/lib/documentation-archive.mjs";
 import {
-  WEBKIT_EVIDENCE_STATE_IDS,
-  assertLosslessPngPixels,
-  buildNormalizedModel,
-  compareGeneratedPackage,
-  createFontEngine,
-  generatePrototypePackage,
-  generateHtmlPrototype,
   loadContracts,
-  measureVariableText,
-  parsePresentationLinkLisaValidationArguments,
-  parseStateSearch,
-  resolvePresentationBinding,
-  stabilizeBrowserCapture,
-  validateLayoutBoxes,
   validateContracts,
   validateGeneratedPackage,
-  validateInlineSvgComponentSecurity,
-  validateSvgSecurity,
-  wrapMeasuredText,
 } from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
+import {
+  CANONICAL_RASTER_DIAGNOSTIC_RELATIVE_PATH,
+  captureCanonicalRasterSet,
+} from "../scripts/lib/presentation-link-lisa-canonical-raster.mjs";
+import { readStoredZip } from "../scripts/lib/documentation-archive.mjs";
+import {
+  DEFAULT_FULL_PACKAGE_TOOLCHAIN_PATHS,
+  runFullPackageReleaseTransaction,
+} from "../scripts/lib/presentation-link-lisa-full-package-transaction.mjs";
+import { resolveEvidenceRoots } from "../scripts/validate-presentation-link-lisa-user-journey-evidence.mjs";
 
 const root = process.cwd();
-const packageRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
-const portableArchiveRelativePath =
-  "derived/lisa-presentation-user-journey-demo.zip";
-const portableArchiveMembers = [
-  "README.md",
-  "manifest.json",
-  "demo/index.html",
-  "demo/app.js",
-  "demo/data.js",
-  "demo/styles.css",
-  "source/fonts/NotoSans[wdth,wght].ttf",
-  "source/fonts/OFL.txt",
+const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
+const packageRoot = process.env.LISA_PROTOTYPE_PACKAGE_ROOT
+  ? path.resolve(process.env.LISA_PROTOTYPE_PACKAGE_ROOT)
+  : path.join(root, packagePath);
+const activeContractsRelativePath = `${packagePath}/source/active-contracts.json`;
+const scopeRelativePath = `${packagePath}/source/prototype-scope-contract.json`;
+const sourceFixtureRelativePath = `${packagePath}/source/source-fixture-manifest.json`;
+const journeyRelativePath = `${packagePath}/source/journey-contract.json`;
+const packageContractRelativePath = `${packagePath}/source/prototype-package-contract.json`;
+const activeContractIds = [
+  "scope",
+  "fixture",
+  "source-catalog",
+  "journey",
+  "frames",
+  "visual",
+  "visual-basis",
+  "package",
 ];
-const expectedStateIds = [
-  "lisa-materials-ready",
-  "lisa-materials-email-sent",
-  "lisa-presentation-order-submitting",
-  "lisa-presentation-order-failed",
-  "lisa-presentation-generating",
-  "lisa-presentation-ready-unread",
-  "lisa-notifications-list-empty",
-  "lisa-notifications-list-unread",
-  "lisa-notification-detail-unread",
-  "lisa-notifications-list-read",
-  "lisa-notification-detail-read",
-  "lisa-result-view-from-chat",
-  "lisa-result-view-from-notification",
+const canonicalViewportDefinitions = [
+  {
+    id: "desktop-1280x720",
+    width: 1280,
+    height: 720,
+    png_path_format: "evidence/screenshots/webkit/desktop-1280x720/{state_id}.png",
+  },
+  {
+    id: "mobile-390x844",
+    width: 390,
+    height: 844,
+    png_path_format: "evidence/screenshots/webkit/mobile-390x844/{state_id}.png",
+  },
+  {
+    id: "stress-320x568",
+    width: 320,
+    height: 568,
+    png_path_format: "evidence/screenshots/webkit/stress-320x568/{state_id}.png",
+  },
+];
+const runtimeRequiredChecks = ["behavior", "accessibility", "geometry", "network"];
+const canonicalRasterManifestRelativePath =
+  "derived/canonical-raster-manifest.json";
+const candidateFingerprintInputScopes = Object.freeze({
+  active_contracts: "active-contract",
+  generated_html: "generated",
+  registered_source_assets: "source-asset",
+  capture_toolchain: "toolchain",
+});
+const expectedCaptureToolWarnings = Object.freeze([
+  Object.freeze({
+    classification: "playwright-webkit-screenshot-inline-style",
+    message:
+      "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.",
+    count: 1,
+  }),
+]);
+const forbiddenActiveSurfaces = [
+  "result-link",
+  "presentation-viewer",
+  "notification-center",
+  "presentation-editing",
+  "pdf-file-surface",
+  "pptx-file-surface",
+];
+const newWorkbookSha256 =
+  "e4cd5a60e2b1b1df2b99978d20c6047d6590368e13d23bc4cd455de4151e1cdf";
+const visualArchiveSha256 =
+  "b755549c84e059b8d999fcc12e55f6c3903aafe549935b90f2f1b84bb7852026";
+const legacyStateFragments = [
+  "lisa-presentation-ready",
+  "lisa-notification",
+  "lisa-result-view",
   "lisa-returned-to-chat",
-  "lisa-presentation-email-submitting",
-  "lisa-presentation-email-sent",
-  "lisa-presentation-email-partial-failure",
-  "lisa-presentation-email-failed",
-  "lisa-result-not-ready",
-  "lisa-link-invalid",
-  "lisa-link-expired",
+  "lisa-link-",
   "lisa-access-denied",
   "lisa-offline",
-  "lisa-notification-failed-chat-available",
-  "lisa-result-cancelled",
-  "lisa-result-revoked",
+  "lisa-presentation-email",
 ];
 
 function absolute(relativePath) {
+  if (process.env.LISA_PROTOTYPE_PACKAGE_ROOT && relativePath.startsWith(`${packagePath}/`)) {
+    return path.join(packageRoot, relativePath.slice(`${packagePath}/`.length));
+  }
   return path.join(root, relativePath);
 }
 
 function readJson(relativePath) {
-  assert.ok(fs.existsSync(absolute(relativePath)), `missing required file: ${relativePath}`);
+  assert.ok(fs.existsSync(absolute(relativePath)), `Отсутствует обязательный файл: ${relativePath}`);
   return JSON.parse(fs.readFileSync(absolute(relativePath), "utf8"));
 }
 
-test("canonical journey contract fixes the Lisa route and all public states", () => {
-  const journey = readJson(`${packageRoot}/source/journey-contract.json`);
-  const state = (stateId) => journey.states.find((candidate) => candidate.id === stateId);
-  const action = (actionId) => journey.actions.find((candidate) => candidate.id === actionId);
+function hasOwn(object, key) {
+  return Object.prototype.hasOwnProperty.call(object, key);
+}
 
-  assert.equal(journey.status, "owner-approved-prototype");
-  assert.equal(journey.initial_state_id, "lisa-materials-ready");
-  assert.deepEqual(
-    journey.route,
-    {
-      surface: "lisa",
-      interaction_mode: "lisa_dialog",
-      datacanvas_launch_mode: "other_agent",
-      initiator: "user_action",
-    },
+function collectStrings(value) {
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return value.flatMap((item) => collectStrings(item));
+  if (!value || typeof value !== "object") return [];
+  return Object.values(value).flatMap((item) => collectStrings(item));
+}
+
+function readActiveContracts() {
+  const registry = readJson(activeContractsRelativePath);
+  assert.ok(
+    Array.isArray(registry.active_contracts),
+    "Активный реестр должен содержать массив active_contracts",
   );
+  return registry;
+}
+
+function contractEntry(registry, id) {
+  const entry = registry.active_contracts.find((candidate) => candidate.id === id);
+  assert.ok(entry, `В активном реестре отсутствует договор ${id}`);
+  assert.equal(typeof entry.path, "string", `${id}: не задан относительный path`);
+  assert.equal(path.isAbsolute(entry.path), false, `${id}: path должен быть относительным`);
+  return entry;
+}
+
+function readRegisteredContract(registry, id) {
+  return readJson(`${packagePath}/${contractEntry(registry, id).path}`);
+}
+
+function activeStateIdsFromRegistry(registry = readActiveContracts()) {
+  const stateIds = registry.active_state_ids;
+  const journey = readRegisteredContract(registry, "journey");
+
+  assert.ok(Array.isArray(stateIds), "Реестр обязан содержать active_state_ids");
+  assert.equal(stateIds.length, 20, "В активном MVP ожидаются 20 состояний P1/P2");
+  assert.equal(new Set(stateIds).size, stateIds.length, "active_state_ids не должен содержать дубликатов");
   assert.deepEqual(
+    stateIds,
     journey.states.map((state) => state.id),
-    expectedStateIds,
+    "Порядок состояний определяется активным реестром, а не списком в тесте",
   );
-  assert.equal(new Set(journey.states.map((state) => state.id)).size, expectedStateIds.length);
-  assert.match(journey.copy.generation_started, /20 минут/u);
-  assert.equal(journey.notification.kind, "lisa_notification_center_item");
-  assert.equal(journey.notification.push_supported, false);
-  assert.equal(journey.notification.list_open_marks_read, false);
-  assert.equal(journey.notification.result_open_marks_read, true);
-  assert.equal(state("lisa-notifications-list-empty").result_ref, undefined);
+  return stateIds;
+}
+
+function cloneLoadedContracts(contracts) {
+  const clone = structuredClone(contracts);
+  Object.defineProperties(clone, {
+    __root: { value: contracts.__root, enumerable: false },
+    __descriptors: { value: structuredClone(contracts.__descriptors), enumerable: false },
+  });
+  return clone;
+}
+
+function listFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const target = path.join(directory, entry.name);
+    return entry.isDirectory() ? listFiles(target) : [target];
+  });
+}
+
+function formatStatePath(pathFormat, stateId) {
   assert.equal(
-    state("lisa-notification-failed-chat-available").result_ref,
-    undefined,
+    pathFormat.split("{state_id}").length - 1,
+    1,
+    `Формат пути должен содержать ровно один {state_id}: ${pathFormat}`,
   );
-  assert.deepEqual(state("lisa-notifications-list-empty").action_ids, [
-    "close-notifications-empty",
-  ]);
-  assert.equal(
-    action("close-notifications-empty").target_state_id,
-    "lisa-materials-ready",
+  return pathFormat.replace("{state_id}", stateId);
+}
+
+function expectedCanonicalRasterPaths(packageContract, states) {
+  assert.ok(Array.isArray(states), "Для матрицы растров требуется активный реестр состояний");
+  const matrix = packageContract.outputs?.published_raster_matrix;
+  assert.ok(Array.isArray(matrix), "Договор должен содержать published_raster_matrix");
+  assert.equal(matrix.length, 1, "Канонический опубликованный растр создаёт только WebKit");
+  const [entry] = matrix;
+  assert.equal(entry.browser, "webkit");
+  return entry.viewports.flatMap((viewport) =>
+    states.map((stateId) => formatStatePath(viewport.png_path_format, stateId)),
   );
-  assert.equal(journey.email_delivery.message_count, 1);
-  assert.deepEqual(journey.email_delivery.required_attachments, ["pdf", "pptx"]);
-  assert.equal(journey.email_delivery.success_requires_all_attachments, true);
-  assert.equal(journey.email_delivery.retry_scope, "failed_attachment_only");
-  assert.equal(journey.prototype_semantics.scope, "visual-validation-only");
-  assert.ok(
-    journey.prototype_semantics.fields.includes(
-      "email_delivery.recipient_copy",
-    ),
-  );
-  assert.ok(
-    journey.open_product_decisions.includes(
-      "Правила определения получателя и адреса электронной почты",
-    ),
-  );
-  assert.ok(
-    journey.open_product_decisions.includes(
-      "Промышленная идемпотентность и ключ устранения дублей",
-    ),
-  );
-  assert.ok(journey.invariants.includes("one-order-per-material-version"));
-  assert.ok(journey.invariants.includes("one-ready-event-two-projections"));
-  assert.ok(journey.invariants.includes("same-result-ref-for-chat-and-notification"));
+}
+
+function sha256Bytes(bytes) {
+  return createHash("sha256").update(bytes).digest("hex");
+}
+
+function assertCandidateFingerprint(value, label) {
+  assert.ok(value && typeof value === "object" && !Array.isArray(value), `${label}: объект отсутствует`);
+  assert.deepEqual(Object.keys(value).sort(), ["algorithm", "inputs", "sha256"]);
+  assert.equal(value.algorithm, "sha256", `${label}: разрешён только sha256`);
+  assert.match(value.sha256, /^[a-f0-9]{64}$/u, `${label}: неверный SHA-256`);
+  assert.ok(value.inputs && typeof value.inputs === "object" && !Array.isArray(value.inputs));
   assert.deepEqual(
-    state("lisa-materials-ready").content.sections.map((section) => section.title),
-    [
-      "Участники встречи",
-      "Повестка встречи",
-      "Сотрудничество",
-      "Предодобренные предложения",
-      "Договорённости с прошлой встречи",
-      "Риски и инсайты о других банках",
-      "С чего начать диалог",
-    ],
+    Object.keys(value.inputs).sort(),
+    Object.keys(candidateFingerprintInputScopes).sort(),
+    `${label}: набор входов не соответствует договору`,
   );
-  assert.equal(state("lisa-materials-ready").content.data_classification, "synthetic");
-  assert.equal(state("lisa-materials-ready").content.external_links_allowed, false);
-  assert.equal(state("lisa-materials-ready").content.initial_scroll_anchor, "material-start");
-  assert.equal(state("lisa-materials-ready").content.action_anchor, "material-actions");
-  assert.deepEqual(state("lisa-presentation-generating").history_state_ids, [
-    "lisa-materials-ready",
-  ]);
-  assert.deepEqual(state("lisa-presentation-ready-unread").history_state_ids, [
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-  ]);
-  assert.deepEqual(state("lisa-returned-to-chat").history_state_ids, [
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-  ]);
-  assert.deepEqual(state("lisa-presentation-ready-unread").action_ids, [
-    "open-result-from-chat",
-  ]);
-  assert.equal(action("open-notifications"), undefined);
-  assert.deepEqual(action("retry-order").prototype_sequence, [
-    { state_id: "lisa-presentation-generating", at_ms: 600 },
-    { state_id: "lisa-presentation-ready-unread", at_ms: 8000 },
-  ]);
-  assert.deepEqual(action("retry-failed-attachment").prototype_sequence, [
-    { state_id: "lisa-presentation-email-sent", at_ms: 900 },
-  ]);
-  assert.deepEqual(action("retry-email").prototype_sequence, [
-    { state_id: "lisa-presentation-email-sent", at_ms: 900 },
-  ]);
-  assert.deepEqual(
-    journey.actions
-      .filter((item) => item.id.startsWith("retry-"))
-      .map((item) => item.id)
-      .sort(),
-    [
-      "retry-email",
-      "retry-failed-attachment",
-      "retry-open-result",
-      "retry-order",
-    ],
-  );
-  assert.equal(action("retry-open-result").target_state_id, "lisa-result-view-from-chat");
-  assert.equal(action("close-result").target_state_id, "lisa-returned-to-chat");
-  assert.equal(
-    state("lisa-result-view-from-notification").return_anchor,
-    "presentation-ready-card",
-  );
-  assert.equal(new Set(journey.states.map((item) => item.display_name)).size, journey.states.length);
-  for (const item of journey.states) {
-    assert.match(item.display_name, /[А-Яа-яЁё]/u);
-    assert.notEqual(item.display_name, item.id);
+  for (const [inputType, scope] of Object.entries(candidateFingerprintInputScopes)) {
+    const records = value.inputs[inputType];
+    assert.ok(Array.isArray(records) && records.length > 0, `${label}: ${inputType} пуст`);
+    const paths = records.map((record) => record.path);
+    assert.deepEqual(
+      paths,
+      [...paths].sort((left, right) => left.localeCompare(right, "en")),
+      `${label}: ${inputType} должен быть отсортирован по относительному пути`,
+    );
+    assert.equal(new Set(paths).size, paths.length, `${label}: ${inputType} содержит дубликат пути`);
+    for (const record of records) {
+      assert.deepEqual(Object.keys(record).sort(), ["bytes", "path", "scope", "sha256"]);
+      assert.equal(record.scope, scope, `${label}: ${record.path}: неверная область входа`);
+      assert.equal(typeof record.path, "string");
+      assert.equal(path.isAbsolute(record.path), false, `${label}: абсолютный путь запрещён`);
+      assert.doesNotMatch(record.path, /(?:^|\/)\.\.?\/|\\|file:\/\/|\/Users\/|@|^test-results\//u);
+      assert.ok(Number.isInteger(record.bytes) && record.bytes > 0, `${label}: ${record.path}: размер`);
+      assert.match(record.sha256, /^[a-f0-9]{64}$/u, `${label}: ${record.path}: SHA-256`);
+    }
   }
-  const normalized = buildNormalizedModel(loadContracts(root));
-  assert.equal(normalized.status, journey.status);
-  assert.deepEqual(
-    normalized.states.map(({ id, display_name: displayName }) => ({
-      id,
-      display_name: displayName,
-    })),
-    journey.states.map(({ id, display_name: displayName }) => ({
-      id,
-      display_name: displayName,
-    })),
-  );
-});
+}
 
-test("active SVG sources are rendered by the approved HTML and reference-only SVG is explicit", () => {
-  const visual = readJson(`${packageRoot}/source/visual-components-contract.json`);
-  const runtime = fs.readFileSync(
-    absolute("scripts/lib/presentation-link-lisa-html-runtime.mjs"),
-    "utf8",
-  );
-  const generatedApp = fs.readFileSync(`${packageRoot}/demo/app.js`, "utf8");
-  const generatedStyles = fs.readFileSync(`${packageRoot}/demo/styles.css`, "utf8");
-  assert.equal(visual.version, "1.5.0");
-  assert.deepEqual(visual.phone_mock_image_policy, {
-    external_image_elements_allowed: false,
-    external_css_image_urls_allowed: false,
-    inline_svg_resource_references_allowed: false,
-    content_security_policy_img_src: "none",
-    browser_computed_style_url_audit: "all-properties",
-    svg_delivery: "inline-dom-from-canonical-source",
-    source_assets_remain_canonical: true,
-  });
-  assert.deepEqual(visual.capture_stability, {
-    notification_card_boundary: "solid-border",
-    compositor_dependent_inset_shadow_allowed: false,
-  });
+function assertCaptureToolWarnings(rendererProfile, label) {
+  assert.ok(rendererProfile && typeof rendererProfile === "object", `${label}: отсутствует renderer_profile`);
   assert.deepEqual(
-    visual.components.map(({ id, usage }) => ({ id, usage })),
-    [
-      { id: "lisa-phone-shell", usage: "rendered-in-html" },
-      { id: "lisa-notification-bell", usage: "rendered-in-html" },
-      { id: "lisa-presentation-card", usage: "reference-only" },
-    ],
+    rendererProfile.capture_tool_warnings,
+    expectedCaptureToolWarnings,
+    `${label}: допустимо только одно точное предупреждение Playwright о внутреннем stylesheet`,
   );
-  assert.equal(runtime.includes("../source/components/lisa-phone-shell.svg"), false);
-  assert.equal(runtime.includes("../source/components/lisa-notification-bell.svg"), false);
-  assert.match(runtime, /inlineSvgComponent\("lisa-phone-shell"/u);
-  assert.match(runtime, /inlineSvgComponent\("lisa-notification-bell"/u);
-  assert.equal(
-    runtime.includes("../source/components/lisa-presentation-card.svg"),
-    false,
-  );
-  assert.doesNotMatch(generatedApp, /element\("img"/u);
-  assert.doesNotMatch(
-    generatedStyles,
-    /url\(["']?\.\.\/source\/components\//u,
-  );
-  const generatedIndex = fs.readFileSync(`${packageRoot}/demo/index.html`, "utf8");
-  assert.match(generatedIndex, /img-src 'none'/u);
-  assert.match(
-    runtime,
-    /\.notification-card \{[\s\S]*?border-color: var\(--border\);[\s\S]*?box-shadow: none;/u,
-  );
-  assert.doesNotMatch(
-    runtime,
-    /\.notification-card \{[^}]*box-shadow: inset/u,
-  );
+}
+
+function readPngDimensions(bytes, label) {
+  assert.ok(Buffer.isBuffer(bytes), `${label}: PNG должен быть Buffer`);
   assert.ok(
-    runtime.includes(
-      '!captureMode && state.id === "lisa-notification-detail-read"',
-    ),
+    bytes.subarray(0, 8).equals(Buffer.from("89504e470d0a1a0a", "hex")),
+    `${label}: неверная сигнатура PNG`,
   );
-});
+  assert.ok(bytes.length >= 24, `${label}: PNG слишком короткий`);
+  return {
+    width: bytes.readUInt32BE(16),
+    height: bytes.readUInt32BE(20),
+  };
+}
 
-test("meeting material preserves the exact synthetic Lisa fixture as 33 typed units", () => {
-  const journey = readJson(`${packageRoot}/source/journey-contract.json`);
-  const material = journey.states.find((state) => state.id === "lisa-materials-ready").content;
-  const fixture = readJson(`${packageRoot}/source/source-fixture-manifest.json`);
+function activeReleaseTexts() {
+  const paths = [
+    path.join(packageRoot, "demo/index.html"),
+    path.join(packageRoot, "demo/app.js"),
+    path.join(packageRoot, "demo/data.js"),
+    path.join(packageRoot, "demo/styles.css"),
+    path.join(packageRoot, "derived/projection-map.json"),
+    path.join(packageRoot, canonicalRasterManifestRelativePath),
+    path.join(packageRoot, "derived/prototype-package-manifest.json"),
+  ].filter((candidate) => fs.existsSync(candidate));
+  return paths.map((candidate) => ({
+    path: path.relative(root, candidate),
+    text: fs.readFileSync(candidate, "utf8"),
+  }));
+}
 
-  assert.equal(journey.version, "1.2.0");
-  assert.deepEqual(material.header, {
-    title: "Подготовка к встрече",
-    holding: "Холдинг ГК Достовалова",
-    company: "ИП Достовалова",
-    meta: "Регулярная встреча · материалы актуальны на 11 июля 2026",
-  });
-  assert.equal(material.data_classification, "synthetic");
-  assert.equal(material.external_links_allowed, false);
-  assert.equal(material.sections.length, 7);
-  assert.equal(
-    material.sections.reduce(
-      (total, section) =>
-        total +
-        section.blocks.reduce(
-          (sectionTotal, block) =>
-            sectionTotal +
-            (Array.isArray(block.items) ? block.items.length : 1),
-          0,
-        ),
-      0,
-    ),
-    33,
-  );
+function publicationSnapshot() {
+  return listFiles(packageRoot)
+    .map((filePath) => path.relative(packageRoot, filePath).split(path.sep).join("/"))
+    .filter((relativePath) => /^(?:demo|derived|evidence)\//u.test(relativePath))
+    .sort((left, right) => left.localeCompare(right, "en"))
+    .map((relativePath) => ({
+      path: relativePath,
+      sha256: sha256Bytes(fs.readFileSync(path.join(packageRoot, relativePath))),
+    }));
+}
 
-  const participants = material.sections.find((section) => section.id === "participants");
-  assert.deepEqual(participants.blocks, [
+function runGeneratorCli(args) {
+  return spawnSync(
+    process.execPath,
+    [path.join(root, "scripts/generate-presentation-link-lisa-user-journey.mjs"), ...args],
     {
-      id: "meeting-participants",
-      type: "participants",
-      items: [
-        {
-          id: "p1",
-          name: "Достовалова Ирина Антоновна",
-          role: "Бенефициар",
-        },
-        {
-          id: "p2",
-          name: "Савёлов Антон Игоревич",
-          role: "Генеральный директор",
-        },
-      ],
+      cwd: root,
+      encoding: "utf8",
+      timeout: 30_000,
+      maxBuffer: 2 * 1024 * 1024,
     },
-  ]);
-
-  const agenda = material.sections.find((section) => section.id === "agenda");
-  assert.deepEqual(
-    agenda.blocks[0].items.map(({ id, title, tag, group }) => ({ id, title, tag, group })),
-    [
-      { id: "a1", title: "Эквайринг", tag: "insight", group: "mandatory" },
-      { id: "a2", title: "Поставки из Индии", tag: "agreement", group: "mandatory" },
-      {
-        id: "a3",
-        title: "Новые площади в Красноярске",
-        tag: "news",
-        group: "mandatory",
-      },
-      { id: "a4", title: "СберСпасибо", tag: "agreement", group: "optional" },
-      { id: "a5", title: "BNPL", tag: "insight", group: "optional" },
-      { id: "a6", title: "КСО", tag: "insight", group: "optional" },
-    ],
   );
+}
 
-  const cooperation = material.sections.find((section) => section.id === "cooperation");
-  assert.deepEqual(
-    cooperation.blocks.find((block) => block.type === "metrics").items.map((item) => item.value),
-    [
-      "1 250 млн ₽",
-      "115 млн ₽ — овернайт",
-      "15 млн ₽ — эквайринг и инкассация",
-      "14 млн ₽ — снижение за 3 мес.",
-      "8 млн ₽ — СберЗдоровье, СберМаркетинг",
-    ],
+function copyFullReleaseToolchain(destinationRoot) {
+  for (const relativePath of DEFAULT_FULL_PACKAGE_TOOLCHAIN_PATHS) {
+    const sourcePath = path.join(root, relativePath);
+    const destinationPath = path.join(destinationRoot, relativePath);
+    assert.ok(fs.existsSync(sourcePath), `Отсутствует инструмент полного выпуска: ${relativePath}`);
+    fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+    fs.copyFileSync(sourcePath, destinationPath);
+  }
+}
+
+function assertDeferredPreviewIsAbsentFromGeneratedCandidate({
+  releaseRoot,
+  previewPayload,
+  label,
+}) {
+  const generatedPackageRoot = path.join(releaseRoot, packagePath);
+  const demoDirectory = path.join(generatedPackageRoot, "demo");
+  const forbiddenSurface = /presentation-preview|lisa-presentation-ready|lisa-result-view|notification|viewer/u;
+  const previewBytes = Buffer.from(previewPayload, "utf8");
+  for (const filename of ["index.html", "app.js", "data.js", "styles.css"]) {
+    const target = path.join(demoDirectory, filename);
+    assert.ok(fs.existsSync(target), `${label}: отсутствует заново созданный demo/${filename}`);
+    const content = fs.readFileSync(target, "utf8");
+    assert.doesNotMatch(content, forbiddenSurface, `${label}: demo/${filename} содержит P3/P4-поверхность`);
+    assert.equal(
+      Buffer.from(content, "utf8").includes(previewBytes),
+      false,
+      `${label}: demo/${filename} содержит повреждённый неактивный договор`,
+    );
+  }
+
+  const archivePath = path.join(
+    generatedPackageRoot,
+    "derived/lisa-presentation-user-journey-demo.zip",
   );
-
-  const offers = material.sections.find((section) => section.id === "preapproved-offers");
-  assert.deepEqual(
-    offers.blocks.find((block) => block.type === "offers").items.map((item) => ({
-      title: item.title,
-      amount: item.amount,
-      maximum_term: item.maximum_term,
-    })),
-    [
-      {
-        title: "Банковская гарантия (таможенная)",
-        amount: "19 млрд ₽",
-        maximum_term: "14 мес.",
-      },
-      {
-        title: "Краткосрочное финансирование",
-        amount: "16 млрд ₽",
-        maximum_term: "36 мес.",
-      },
-      {
-        title: "Лизинг СБЛ",
-        amount: "2 млрд ₽",
-        maximum_term: "84 мес.",
-      },
-    ],
+  assert.ok(fs.existsSync(archivePath), `${label}: отсутствует заново созданный ZIP`);
+  const archive = readStoredZip(fs.readFileSync(archivePath));
+  const demoIndex = archive.get("demo/index.html");
+  assert.ok(demoIndex, `${label}: ZIP не содержит заново созданный demo/index.html`);
+  assert.ok(
+    demoIndex.equals(fs.readFileSync(path.join(demoDirectory, "index.html"))),
+    `${label}: ZIP не соответствует заново созданному demo/index.html`,
   );
-
-  assert.deepEqual(fixture, {
-    $schema: "schemas/source-fixture-manifest.schema.json",
-    version: "1.0.0",
-    source_file: "lisa-prototype_7.html",
-    source_sha256: "d60267513a5d2081bcc5d9fb74305e8b7c4fa4edf82653423456537d809cd5ad",
-    normalized_material_sha256:
-      "7676d6df83ce1df90d390f0e80741a480e586bb18da8593cebbf458986c2c3da",
-    data_classification: "synthetic",
-    owner_permission: "owner-reconfirmed-synthetic-use-2026-07-17",
-    trust: "untrusted-data-only",
-    copied_executable_code: false,
-    active_external_links: false,
-    external_source_occurrences: 5,
-    external_source_count: 4,
-  });
-});
-
-test("presentation preview contract defines three traceable 16:9 slides without invented totals", () => {
-  const preview = readJson(`${packageRoot}/source/presentation-preview-contract.json`);
-
-  assert.equal(preview.version, "1.0.0");
-  assert.equal(preview.status, "owner-approved-prototype");
-  assert.equal(preview.audience, "internal-client-manager-and-leader");
-  assert.equal(preview.aspect_ratio, "16:9");
-  assert.equal(preview.slides.length, 3);
-  assert.deepEqual(
-    preview.slides.map((slide) => slide.title),
-    [
-      "Активы задают масштаб отношений, но остальные направления заметно уступают",
-      "Главные возможности сосредоточены в гарантии и краткосрочном финансировании, а давление — в эквайринге",
-      "Встреча должна завершиться следующими шагами по эквайрингу, поставкам из Индии и новым площадям",
-    ],
-  );
-  assert.deepEqual(preview.slides[2].data_bindings, [
-    "sections.agenda.blocks.agenda-items.items.a1",
-    "sections.agenda.blocks.agenda-items.items.a2",
-    "sections.agenda.blocks.agenda-items.items.a3",
-  ]);
-  assert.deepEqual(
-    preview.slides[2].card_summaries.map((card) => card.binding),
-    preview.slides[2].data_bindings,
-  );
-  assert.ok(preview.slides.every((slide) => slide.data_bindings.length > 0));
-  assert.equal(JSON.stringify(preview).includes("37 млрд"), false);
-
-  const journey = readJson(`${packageRoot}/source/journey-contract.json`);
-  const material = journey.states.find((state) => state.id === "lisa-materials-ready").content;
-  for (const slide of preview.slides) {
-    for (const binding of slide.data_bindings) {
-      assert.notEqual(
-        resolvePresentationBinding(material, binding),
-        undefined,
-        `${slide.id}: unresolved ${binding}`,
+  for (const [memberPath, content] of archive) {
+    assert.doesNotMatch(memberPath, forbiddenSurface, `${label}: ZIP содержит P3/P4-файл ${memberPath}`);
+    assert.equal(
+      content.includes(previewBytes),
+      false,
+      `${label}: ZIP содержит повреждённый неактивный договор в ${memberPath}`,
+    );
+    if (/\.(?:html|js|css|json|md)$/u.test(memberPath)) {
+      assert.doesNotMatch(
+        content.toString("utf8"),
+        forbiddenSurface,
+        `${label}: ZIP содержит P3/P4-поверхность в ${memberPath}`,
       );
     }
   }
+}
+
+test("активный реестр содержит восемь договоров MVP, двадцать состояний P1/P2 и одну отложенную Q4-запись", () => {
+  const registry = readActiveContracts();
+  const active = registry.active_contracts;
+  const inactive = registry.inactive_contracts;
+  const activeStateIds = activeStateIdsFromRegistry(registry);
+
+  assert.deepEqual(active.map((entry) => entry.id), activeContractIds);
+  assert.deepEqual(registry.active_state_ids, activeStateIds);
+  assert.deepEqual(registry.bootstrap_contract.id, "package");
+  assert.deepEqual(registry.forbidden_active_surfaces, forbiddenActiveSurfaces);
+  assert.deepEqual(inactive.map((entry) => entry.id), ["presentation-preview"]);
+  assert.equal(inactive[0].status, "deferred-q4");
+  assert.match(JSON.stringify(registry.future_scope), /Q4/u);
+  assert.match(JSON.stringify(registry.future_scope), /P3/u);
+  assert.match(JSON.stringify(registry.future_scope), /P4/u);
+  assert.match(JSON.stringify(registry.future_scope), /preserved-not-rendered/u);
+
+  for (const entry of active) {
+    assert.doesNotMatch(entry.path, /presentation-preview|notification|viewer/u);
+  }
 });
 
-test("order timeline is absolute, lasts eight seconds and viewer can email from both entries", () => {
-  const journey = readJson(`${packageRoot}/source/journey-contract.json`);
-  const frames = readJson(`${packageRoot}/source/frame-contract.json`);
-  const action = (actionId) => journey.actions.find((candidate) => candidate.id === actionId);
-  const state = (stateId) => journey.states.find((candidate) => candidate.id === stateId);
-  const frame = (stateId) => frames.frames.find((candidate) => candidate.state_id === stateId);
+test("реестр активных состояний управляет проверкой пути, а не параллельный список в коде", () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-registry-states-"));
+  try {
+    fs.mkdirSync(path.join(temporaryRoot, "docs/product/analysis"), { recursive: true });
+    fs.cpSync(packageRoot, path.join(temporaryRoot, packagePath), { recursive: true });
+    const registryPath = path.join(temporaryRoot, activeContractsRelativePath);
+    const registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
+    registry.active_state_ids = [...activeStateIdsFromRegistry(readActiveContracts())].reverse();
+    fs.writeFileSync(registryPath, `${JSON.stringify(registry, null, 2)}\n`, "utf8");
 
-  assert.deepEqual(action("order-presentation").prototype_sequence, [
+    const issues = validateContracts(temporaryRoot, loadContracts(temporaryRoot));
+    assert.ok(
+      issues.some((issue) => /реестр.*состояни|состояни.*реестр|активн.*состояни|состояни.*активн|пут[ьи].*состояни/u.test(issue)),
+      `изменение порядка в реестре должно блокировать путь, получено: ${issues.join(" | ")}`,
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("основной CLI допускает только полный транзакционный выпуск, проверку или восстановление", () => {
+  const source = fs.readFileSync(
+    path.join(root, "scripts/generate-presentation-link-lisa-user-journey.mjs"),
+    "utf8",
+  );
+
+  assert.match(source, /runFullPackageReleaseTransaction\(/u);
+  assert.match(source, /recoverFullPackageReleaseTransaction\(/u);
+  assert.match(source, /compareGeneratedPackage\(root\)/u);
+  assert.match(source, /validateGeneratedPackage\(root, root\)/u);
+  assert.match(source, /validateEvidencePackage\(/u);
+  assert.match(
+    source,
+    /else if \(htmlOnlyMode\) \{\s*throw new Error\(\s*"частичная публикация HTML запрещена; используйте обычный запуск полного транзакционного выпуска",\s*\);\s*\}/u,
+  );
+  assert.doesNotMatch(source, /generateHtmlPrototype|generatePrototypePackage/u);
+});
+
+test("CLI блокирует старую частичную публикацию HTML и не меняет активный пакет", () => {
+  const before = publicationSnapshot();
+  const result = runGeneratorCli(["--html-only"]);
+  const output = `${result.stdout}\n${result.stderr}`;
+
+  assert.notEqual(result.status, 0, output);
+  assert.match(output, /частичная публикация HTML запрещена/u);
+  assert.deepEqual(publicationSnapshot(), before);
+});
+
+test("CLI допускает только проверку HTML без публикации, когда явно передан --check", () => {
+  const before = publicationSnapshot();
+  const result = runGeneratorCli(["--html-only", "--check"]);
+  const output = `${result.stdout}\n${result.stderr}`;
+
+  assert.equal(result.signal, null, output);
+  assert.equal(result.status, 0, output);
+  assert.match(output, /HTML outputs are current/u);
+  assert.doesNotMatch(output, /full package published by recoverable switch/u);
+  assert.deepEqual(publicationSnapshot(), before);
+});
+
+test("только CLI --check разрешает проверять активный пакет, не ослабляя защиту кандидата", () => {
+  const source = fs.readFileSync(
+    path.join(root, "scripts/generate-presentation-link-lisa-user-journey.mjs"),
+    "utf8",
+  );
+  const activeEvidenceOptions = {
+    toolchainRoot: root,
+    contractRoot: root,
+    packageRoot,
+    evidenceRoot: path.join(packageRoot, "evidence"),
+  };
+
+  assert.equal(
+    (source.match(/allowActivePackage:\s*true/g) || []).length,
+    1,
+    "CLI не должен открывать активный пакет несколькими ветками",
+  );
+  assert.match(
+    source,
+    /else if \(checkMode\) \{[\s\S]*?allowActivePackage:\s*true,[\s\S]*?requireCandidate:\s*false,/u,
+    "явное разрешение активного пакета допустимо только в ветке --check",
+  );
+  assert.throws(
+    () => resolveEvidenceRoots({ ...activeEvidenceOptions, allowActivePackage: false }),
+    /операция кандидата не может подписывать активный пакет/u,
+    "обычный путь валидатора обязан отклонять активный packageRoot",
+  );
+  const roots = resolveEvidenceRoots({ ...activeEvidenceOptions, allowActivePackage: true });
+  assert.equal(roots.isActivePackage, true);
+  assert.equal(roots.packageRoot, fs.realpathSync(packageRoot));
+});
+
+test("договор области MVP и манифест источника привязывают новую книгу без локального пути", () => {
+  const scope = readJson(scopeRelativePath);
+  const fixture = readJson(sourceFixtureRelativePath);
+  const serializedScope = JSON.stringify(scope);
+  const serializedFixture = JSON.stringify(fixture);
+
+  assert.deepEqual(scope.implemented_priorities, ["P1", "P2"]);
+  assert.deepEqual(scope.forbidden_active_surfaces, forbiddenActiveSurfaces);
+  assert.deepEqual(scope.future_scope, {
+    quarter: "Q4",
+    priorities: ["P3", "P4"],
+    disposition: "preserved-not-rendered",
+  });
+  assert.equal(scope.demonstration_context.not_my_client_control_visible, false);
+  assert.match(serializedFixture, /datacanvas-backlog-draft-pshe-2026-08-11\.xlsx/u);
+  assert.match(serializedFixture, /2026-08-11/u);
+  assert.match(serializedFixture, new RegExp(newWorkbookSha256, "u"));
+  assert.equal(fixture.product_backlog.raw_file_tracked, false);
+  assert.equal(fixture.absolute_local_paths_stored, false);
+  assert.match(serializedFixture, new RegExp(visualArchiveSha256, "u"));
+  assert.equal(fixture.visual_reference_archive.embedded_raw_svg_allowed, false);
+  assert.equal(fixture.visual_reference_archive.treatment, "rasterized-png-only");
+  assert.doesNotMatch(`${serializedScope}\n${serializedFixture}`, /\/Users\/|file:\/\/|absPath/u);
+});
+
+test("зарегистрированная фикстура задаёт один, несколько и ноль результатов поиска и договорную ветку my/not-my", () => {
+  const journey = readRegisteredContract(readActiveContracts(), "journey");
+  assert.ok(journey.client_search, "Договор пути должен содержать client_search");
+  const serialized = JSON.stringify(journey.client_search);
+  const candidates = new Map(
+    journey.client_search.candidates.map((candidate) => [candidate.id, candidate]),
+  );
+  const multiple = journey.client_search.cases.find((entry) => entry.id === "multiple-clients");
+  const referenceAction = journey.actions.find(
+    (action) => action.id === "show-preparation-reference",
+  );
+
+  for (const [id, query] of [
+    ["single-client", "7700000000"],
+    ["multiple-clients", "Достовалова"],
+    ["no-client", "0000000000"],
+  ]) {
+    assert.match(serialized, new RegExp(id, "u"));
+    assert.match(serialized, new RegExp(query, "u"));
+  }
+  assert.equal(candidates.get("client-dostovalova")?.relationship, "my");
+  assert.equal(candidates.get("client-dostovalova-trade")?.relationship, "not-my");
+  assert.deepEqual(multiple?.candidate_ids, ["client-dostovalova", "client-dostovalova-trade"]);
+  assert.deepEqual(journey.client_search.forbidden_control_ids, ["not-my-client"]);
+  assert.deepEqual(
+    {
+      availability: referenceAction?.availability,
+      not_my_client_visibility: referenceAction?.not_my_client_visibility,
+    },
+    { availability: "my-client-only", not_my_client_visibility: "not-rendered" },
+  );
+  assert.ok(journey.invariants.includes("not-my-client-control-is-never-visible"));
+  assert.ok(journey.invariants.includes("not-my-client-preparation-suggestion-is-not-rendered"));
+  assert.doesNotMatch(serialized, /не мой клиент|недоступен|нет прав|причина отказа/iu);
+  assert.doesNotMatch(serialized, /\/Users\/|file:\/\/|absPath|@/u);
+});
+
+test("договор пути получает двадцать состояний из активного реестра, направленные действия и две точные статусные реплики", () => {
+  const registry = readActiveContracts();
+  const journey = readRegisteredContract(registry, "journey");
+  const activeStateIds = activeStateIdsFromRegistry(registry);
+  const statesById = new Map(journey.states.map((state) => [state.id, state]));
+  const actionsById = new Map(journey.actions.map((action) => [action.id, action]));
+
+  assert.equal(journey.initial_state_id, "lisa-client-answer");
+  assert.deepEqual(journey.states.map((state) => state.id), activeStateIds);
+  assert.equal(activeStateIds.length, 20);
+  assert.equal(
+    statesById.get("lisa-presentation-generating")?.body,
+    journey.copy.generation_started,
+  );
+  assert.equal(statesById.get("lisa-presentation-sent")?.body, journey.copy.presentation_sent);
+  assert.deepEqual(statesById.get("lisa-presentation-order")?.action_ids, ["order-presentation"]);
+  assert.deepEqual(statesById.get("lisa-presentation-generating")?.action_ids, []);
+  assert.deepEqual(statesById.get("lisa-presentation-sent")?.action_ids, []);
+  assert.deepEqual(actionsById.get("order-presentation")?.prototype_sequence, [
     { state_id: "lisa-presentation-generating", at_ms: 600 },
-    { state_id: "lisa-presentation-ready-unread", at_ms: 8000 },
-  ]);
-  assert.deepEqual(action("retry-order").prototype_sequence, [
-    { state_id: "lisa-presentation-generating", at_ms: 600 },
-    { state_id: "lisa-presentation-ready-unread", at_ms: 8000 },
+    { state_id: "lisa-presentation-sent", at_ms: 8000 },
   ]);
   assert.deepEqual(journey.prototype_timeline, {
-    start_time: "13:24",
-    ready_time: "13:44",
     generation_started_at_ms: 600,
     clock_animation_ends_at_ms: 7600,
     ready_at_ms: 8000,
     direct_state_autoplay: false,
   });
-  for (const stateId of [
-    "lisa-result-view-from-chat",
-    "lisa-result-view-from-notification",
-  ]) {
-    assert.deepEqual(state(stateId).action_ids, ["close-result", "email-presentation"]);
-    assert.deepEqual(frame(stateId).action_ids, ["close-result", "email-presentation"]);
-    assert.equal(frame(stateId).region_id, "viewer-surface");
+
+  for (const state of journey.states) {
+    assert.notEqual(state.kind, "viewer");
+    assert.equal(state.kind.startsWith("notification"), false);
+    assert.equal(hasOwn(state, "result_ref"), false);
+    assert.equal(hasOwn(state, "notification_unread"), false);
   }
-  assert.deepEqual(journey.email_delivery.entry_surfaces, [
-    "chat-ready-card",
-    "viewer-from-chat",
-    "viewer-from-notification",
-  ]);
+  for (const action of journey.actions) {
+    assert.doesNotMatch(action.id, /view|notification|email|link|edit/u);
+    assert.doesNotMatch(action.label, /PDF|PPTX|уведомлен|ссылк|редактир/iu);
+  }
 });
 
-test("visual and frame contracts make narrow screens a first-class layout", () => {
-  const visual = readJson(`${packageRoot}/source/visual-components-contract.json`);
-  const frames = readJson(`${packageRoot}/source/frame-contract.json`);
+test("проверка договоров отклоняет P3/P4-поверхность в активной модели", () => {
+  const baselineIssues = validateContracts(root, loadContracts(root));
+  const contracts = cloneLoadedContracts(loadContracts(root));
+  contracts.journey.states.push({
+    id: "lisa-presentation-viewer",
+    kind: "viewer",
+    display_name: "Просмотр презентации",
+    title: "Просмотр презентации",
+    eyebrow: "P4",
+    body: "Запрещённая поверхность",
+    detail_lines: [],
+    action_ids: [],
+  });
 
-  assert.equal(visual.layout.phone_max_width_px, 375);
-  assert.equal(visual.layout.phone_max_height_px, 812);
-  assert.equal(visual.layout.action_two_column_min_content_width_px, 356);
-  assert.equal(visual.layout.minimum_target_px, 44);
-  assert.equal(visual.layout.minimum_action_gap_px, 8);
-  assert.equal(visual.layout.whole_phone_transform_scale_allowed, false);
-  assert.deepEqual(visual.layout.vertical_scroll_regions, [
-    "chat",
-    "notifications-list",
-  ]);
-  assert.deepEqual(visual.layout.horizontal_scroll_regions, []);
-  assert.deepEqual(visual.accessibility.axe_tags, ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]);
-  assert.equal(visual.viewer.minimum_scale, 1);
-  assert.equal(visual.viewer.maximum_scale, 3);
-  assert.equal(visual.viewer.slide_count, 3);
-  assert.equal(visual.motion.clock_overlay.pointer_events, "none");
-  assert.equal(visual.motion.clock_overlay.reduced_motion_rotation, false);
-
-  assert.equal(frames.frames.length, expectedStateIds.length);
-  assert.deepEqual(
-    frames.frames.map((frame) => frame.state_id),
-    expectedStateIds,
-  );
-  const firstFrame = frames.frames.find((frame) => frame.state_id === "lisa-materials-ready");
-  assert.deepEqual(firstFrame.action_ids, [
-    "edit-materials",
-    "email-materials",
-    "order-presentation",
-  ]);
-  assert.ok(frames.allowed_overlaps.some((item) => item.id === "notification-dot-on-bell"));
-  assert.deepEqual(
-    frames.regions.map((region) => region.id),
-    [
-      "phone-shell",
-      "header",
-      "chat",
-      "notifications-list",
-      "composer",
-      "time-lapse-overlay",
-      "viewer-surface",
-      "viewer-toolbar",
-      "viewer-stage",
-      "viewer-actions",
-    ],
+  const issues = validateContracts(root, contracts);
+  const newlyIntroducedIssues = issues.filter((issue) => !baselineIssues.includes(issue));
+  assert.ok(
+    newlyIntroducedIssues.some((issue) => /states|MVP|forbidden active surface|P3|P4|неактивн/u.test(issue)),
+    `P3/P4-поверхность должна добавить ошибку проверки, получено: ${issues.join(" | ")}`,
   );
 });
 
-test("prototype package contract is portable, deterministic and network-free", () => {
-  const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
+test("неактивный предпросмотр Q4 не участвует в новом полном кандидате, ZIP и опубликованной временной копии", async () => {
+  const activePackageBefore = publicationSnapshot();
+  const temporaryRoot = fs.mkdtempSync(path.join(root, ".datacanvas-lisa-active-contracts-"));
+  const temporaryPackageRoot = path.join(temporaryRoot, packagePath);
+  const previewPayload = "{P3P4-DEFERRED-PREVIEW-MUST-NOT-BE-LOADED}";
+  let candidateChecked = false;
+  try {
+    fs.mkdirSync(path.join(temporaryRoot, "docs/product/analysis"), { recursive: true });
+    fs.cpSync(packageRoot, temporaryPackageRoot, { recursive: true });
+    copyFullReleaseToolchain(temporaryRoot);
+    for (const generatedDirectory of ["demo", "derived", "evidence"]) {
+      fs.rmSync(path.join(temporaryPackageRoot, generatedDirectory), {
+        recursive: true,
+        force: true,
+      });
+    }
+    fs.writeFileSync(
+      path.join(temporaryPackageRoot, "source/presentation-preview-contract.json"),
+      previewPayload,
+      "utf8",
+    );
 
-  assert.equal(contract.version, "1.9.0");
-  assert.equal(contract.portability.entrypoint, "demo/index.html");
-  assert.equal(contract.portability.file_scheme_supported, true);
-  assert.equal(contract.portability.local_server_required, false);
-  assert.equal(contract.security.external_network_requests_allowed, false);
-  assert.equal(contract.security.absolute_local_paths_allowed, false);
-  assert.equal(contract.security.dynamic_html_injection_allowed, false);
-  assert.equal(contract.reproducibility.byte_deterministic_text_outputs, true);
+    const result = await runFullPackageReleaseTransaction({
+      root: temporaryRoot,
+      packageRoot: temporaryPackageRoot,
+      toolchainPaths: DEFAULT_FULL_PACKAGE_TOOLCHAIN_PATHS,
+      hooks: {
+        afterCandidateBuilt({ candidate }) {
+          candidateChecked = true;
+          assert.notEqual(
+            path.resolve(candidate.packageRoot),
+            path.resolve(temporaryPackageRoot),
+            "полный выпуск обязан собираться в отдельном кандидате до переключения",
+          );
+          assert.equal(
+            fs.readFileSync(
+              path.join(candidate.packageRoot, "source/presentation-preview-contract.json"),
+              "utf8",
+            ),
+            previewPayload,
+            "кандидат должен содержать повреждённый неактивный preview-договор",
+          );
+          assertDeferredPreviewIsAbsentFromGeneratedCandidate({
+            releaseRoot: candidate.root,
+            previewPayload,
+            label: "временный полный кандидат",
+          });
+          assert.deepEqual(
+            validateGeneratedPackage(candidate.root, candidate.root),
+            [],
+            "пакетный валидатор должен принять заново созданный полный кандидат",
+          );
+        },
+      },
+    });
+
+    assert.equal(result.status, "COMMITTED");
+    assert.equal(candidateChecked, true, "должен быть проверен временный полный кандидат");
+    assertDeferredPreviewIsAbsentFromGeneratedCandidate({
+      releaseRoot: temporaryRoot,
+      previewPayload,
+      label: "временная опубликованная копия",
+    });
+    assert.deepEqual(
+      validateGeneratedPackage(temporaryRoot, temporaryRoot),
+      [],
+      "пакетный валидатор не должен читать повреждённый неактивный договор",
+    );
+    assert.deepEqual(
+      publicationSnapshot(),
+      activePackageBefore,
+      "полная транзакция временной копии не должна публиковать ничего в активный пакет",
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("договор пакета задаёт единственный WebKit-растр, три независимых прогона и обязательную проверку обоих движков", () => {
+  const activeStateIds = activeStateIdsFromRegistry();
+  const packageContract = readJson(packageContractRelativePath);
+  const reproducibility = packageContract.reproducibility;
+  const canonicalRasterPolicy = reproducibility.canonical_raster_policy;
+  const candidateFingerprint = reproducibility.candidate_fingerprint;
+  const [publishedRaster] = packageContract.outputs.published_raster_matrix;
+  const runtimeMatrix = packageContract.evidence_outputs.runtime_validation_matrix;
+
+  assert.equal(hasOwn(packageContract.outputs, "exact_count"), false);
+  assert.equal(hasOwn(packageContract.evidence_outputs, "exact_count"), false);
+  assert.equal(hasOwn(packageContract.archive, "exact_count"), false);
+  assert.deepEqual(packageContract.outputs.fixed, [
+    "demo/index.html",
+    "demo/app.js",
+    "demo/styles.css",
+    "demo/data.js",
+    "derived/projection-map.json",
+    canonicalRasterManifestRelativePath,
+    "derived/prototype-package-manifest.json",
+    "derived/lisa-presentation-user-journey-demo.zip",
+  ]);
+  assert.equal(packageContract.outputs.state_source, "source/journey-contract.json#/states");
+  assert.equal(hasOwn(packageContract.outputs, "state_formats"), false);
+  assert.equal(hasOwn(packageContract.evidence_outputs, "matrix"), false);
+
+  assert.deepEqual(candidateFingerprint, {
+    algorithm: "sha256",
+    scope: "full-candidate",
+    active_contract_registry: "source/active-contracts.json",
+    include_active_contracts: true,
+    include_generated_html: true,
+    include_registered_source_assets: true,
+    include_capture_toolchain: true,
+    relative_paths_only: true,
+    must_match_all_repeats: true,
+  });
+  assert.deepEqual(canonicalRasterPolicy, {
+    engine: "webkit",
+    capture_method: "playwright-webkit-page-screenshot",
+    renderer_profile: {
+      capture_tool_warnings: expectedCaptureToolWarnings,
+    },
+    repeat_count: 3,
+    independence: "separate-child-processes-and-browser-instances",
+    comparison: "exact-byte-equality",
+    normalization: "forbidden",
+    publish_after_all_repeats_match: true,
+    mismatch_action: "block",
+    diagnostic_bundle: {
+      path: "test-results/presentation-link-lisa-user-journey/raster-mismatch",
+      must_be_gitignored: true,
+      published: false,
+      retained_on_success: false,
+      members: [
+        "candidate-fingerprint.json",
+        "run-1",
+        "run-2",
+        "run-3",
+        "sha256.json",
+      ],
+    },
+    cross_platform_png_byte_identity_required: false,
+  });
   assert.equal(
-    contract.reproducibility.frame_source,
-    "owner-approved-html-browser-capture",
+    hasOwn(canonicalRasterPolicy, "retry_or_majority_selection"),
+    false,
+    "Канонический выпуск не допускает повторную попытку вместо падения или выбор большинства",
   );
-  assert.equal(
-    contract.reproducibility.svg_frame_representation,
-    "embedded-png-data-uri",
+
+  assert.deepEqual(packageContract.outputs.published_raster_matrix.length, 1);
+  assert.equal(publishedRaster.browser, "webkit");
+  assert.equal(publishedRaster.state_selection, "all");
+  assert.equal(publishedRaster.state_source, "source/journey-contract.json#/states");
+  assert.deepEqual(publishedRaster.viewports, canonicalViewportDefinitions);
+  const canonicalPaths = expectedCanonicalRasterPaths(packageContract, activeStateIds);
+  assert.equal(canonicalPaths.length, activeStateIds.length * canonicalViewportDefinitions.length);
+  assert.equal(new Set(canonicalPaths).size, canonicalPaths.length);
+  assert.equal(canonicalPaths.some((item) => item.includes("chromium")), false);
+  assert.ok(canonicalPaths.every((item) => item.startsWith("evidence/screenshots/webkit/")));
+
+  assert.deepEqual(packageContract.outputs.svg_wrapper, {
+    state_selection: "all",
+    state_source: "source/journey-contract.json#/states",
+    raster_viewport: "mobile-390x844",
+    canonical_png_path_format:
+      "evidence/screenshots/webkit/mobile-390x844/{state_id}.png",
+    raster_png_path_format: "derived/screens/{state_id}.png",
+    raster_png_byte_copy_of_canonical_required: true,
+    svg_path_format: "derived/screens/{state_id}.svg",
+    source_png_sha256_attribute: "data-capture-sha256",
+    embedded_png_byte_equality_required: true,
+  });
+
+  assert.deepEqual(runtimeMatrix.map((entry) => entry.browser), ["chromium", "webkit"]);
+  for (const entry of runtimeMatrix) {
+    assert.equal(entry.state_selection, "all");
+    assert.equal(entry.state_source, "source/journey-contract.json#/states");
+    assert.deepEqual(entry.viewports, canonicalViewportDefinitions.map((viewport) => viewport.id));
+    assert.deepEqual(entry.required_checks, runtimeRequiredChecks);
+    assert.equal(entry.published_png, false);
+    assert.equal(entry.retained_png, false);
+  }
+  assert.ok(Array.isArray(packageContract.archive.members));
+  assert.equal(hasOwn(packageContract.archive, "exact_members"), false);
+});
+
+test("проверка договоров блокирует ослабление WebKit-правила, Chromium PNG и неверное окно", () => {
+  const baselineIssues = validateContracts(root, loadContracts(root));
+  const cases = [
+    ["движок Chromium", (contracts) => {
+      contracts.package.reproducibility.canonical_raster_policy.engine = "chromium";
+    }],
+    ["два независимых прогона", (contracts) => {
+      contracts.package.reproducibility.canonical_raster_policy.repeat_count = 2;
+    }],
+    ["допуск по визуальному сходству", (contracts) => {
+      contracts.package.reproducibility.canonical_raster_policy.comparison = "threshold";
+    }],
+    ["нормализация PNG", (contracts) => {
+      contracts.package.reproducibility.canonical_raster_policy.normalization = "lossless-rsvg-reencode";
+    }],
+    ["выбор большинства", (contracts) => {
+      contracts.package.reproducibility.canonical_raster_policy.retry_or_majority_selection = "allowed";
+    }],
+    ["опубликованный PNG Chromium", (contracts) => {
+      contracts.package.evidence_outputs.runtime_validation_matrix[0].published_png = true;
+    }],
+    ["стресс-окно с неверным размером", (contracts) => {
+      contracts.package.outputs.published_raster_matrix[0].viewports[2].height = 569;
+    }],
+  ];
+
+  for (const [label, mutate] of cases) {
+    const contracts = cloneLoadedContracts(loadContracts(root));
+    mutate(contracts);
+    const issues = validateContracts(root, contracts);
+    const introducedIssues = issues.filter((issue) => !baselineIssues.includes(issue));
+    assert.ok(
+      introducedIssues.length > 0,
+      `${label} должен быть блокирующей ошибкой договора, получено: ${issues.join(" | ")}`,
+    );
+  }
+});
+
+test("канонический манифест доказывает 60 WebKit-кадров, три независимых совпадающих прогона и единый отпечаток кандидата", () => {
+  const activeStateIds = activeStateIdsFromRegistry();
+  const packageContract = readJson(packageContractRelativePath);
+  const packageManifest = readJson(
+    `${packagePath}/derived/prototype-package-manifest.json`,
   );
-  assert.deepEqual(contract.reproducibility.capture_stabilization, {
-    wait_for_document_fonts: true,
-    scroll_policy: "restore-marked-end-after-fonts",
-    focus_policy: "capture-mode-suppress-then-blur-active-element",
-    settle_animation_frames: 2,
-    explicit_screenshot_style_parameter_used: false,
-    playwright_internal_style_attempt_blocked_by_csp: true,
-    browser_launch_args: [],
-  });
-  assert.equal(contract.reproducibility.capture_engine, "webkit");
-  assert.deepEqual(contract.reproducibility.capture_transport, {
-    mode: "playwright-route-fulfilled-local-files",
-    origin: "http://lisa.invalid",
-    external_network_requests_allowed: false,
-    path_escape_blocked: true,
-  });
-  assert.deepEqual(contract.reproducibility.capture_normalization, {
-    mode: "lossless-rsvg-reencode",
-    dimensions_unchanged: true,
-    embedded_capture_equals_derived_png: true,
-  });
+  const canonicalManifest = readJson(
+    `${packagePath}/${canonicalRasterManifestRelativePath}`,
+  );
+  const browserReport = readJson(`${packagePath}/evidence/browser-report.json`);
+  const acceptanceReport = readJson(`${packagePath}/evidence/acceptance-report.json`);
+  const candidateFingerprint = packageManifest.candidate_fingerprint;
+  const expectedPaths = expectedCanonicalRasterPaths(packageContract, activeStateIds).sort();
+
+  assertCandidateFingerprint(candidateFingerprint, "prototype-package-manifest.json candidate_fingerprint");
+  assert.deepEqual(canonicalManifest.candidate_fingerprint, candidateFingerprint);
+  assert.deepEqual(browserReport.candidate_fingerprint, candidateFingerprint);
+  assert.deepEqual(acceptanceReport.candidate_fingerprint, candidateFingerprint);
+  assert.ok(
+    canonicalManifest.renderer_profile && typeof canonicalManifest.renderer_profile === "object",
+    "Канонический манифест должен фиксировать профиль WebKit-рендера",
+  );
+  assert.equal(Object.hasOwn(canonicalManifest, "capture_tool_warnings"), false);
+  assertCaptureToolWarnings(canonicalManifest.renderer_profile, "канонический WebKit-профиль");
+  assert.doesNotMatch(JSON.stringify(canonicalManifest.renderer_profile), /\/Users\/|file:\/\/|absPath/u);
+
+  assert.ok(Array.isArray(canonicalManifest.records));
+  assert.equal(canonicalManifest.records.length, activeStateIds.length * canonicalViewportDefinitions.length);
+  assert.deepEqual(
+    canonicalManifest.records.map((record) => record.path).sort(),
+    expectedPaths,
+  );
+  for (const record of canonicalManifest.records) {
+    assert.equal(record.browser, "webkit");
+    assert.ok(canonicalViewportDefinitions.some((viewport) => viewport.id === record.viewport));
+    assert.ok(activeStateIds.includes(record.state_id));
+    assert.ok(expectedPaths.includes(record.path));
+    assert.match(record.sha256, /^[a-f0-9]{64}$/u);
+    assert.ok(Number.isInteger(record.bytes) && record.bytes > 0);
+    assert.ok(record.png_dimensions && typeof record.png_dimensions === "object");
+    assert.deepEqual(record.runs.map((run) => run.run), [1, 2, 3]);
+
+    const png = fs.readFileSync(path.join(packageRoot, record.path));
+    assert.equal(record.sha256, sha256Bytes(png), `${record.path}: SHA опубликованного PNG`);
+    assert.equal(record.bytes, png.length, `${record.path}: размер опубликованного PNG`);
+    const viewport = canonicalViewportDefinitions.find((candidate) => candidate.id === record.viewport);
+    assert.deepEqual(readPngDimensions(png, record.path), {
+      width: viewport.width,
+      height: viewport.height,
+    });
+    assert.deepEqual(record.png_dimensions, {
+      width: viewport.width,
+      height: viewport.height,
+    });
+    for (const run of record.runs) {
+      assert.equal(run.sha256, record.sha256, `${record.path}: повтор ${run.run} изменил байты PNG`);
+      assert.equal(run.bytes, record.bytes, `${record.path}: повтор ${run.run} изменил размер PNG`);
+      assert.equal(hasOwn(run, "path"), false, `${record.path}: успешный манифест не хранит временный путь повтора`);
+    }
+  }
+});
+
+test("мобильный производный PNG и SVG побайтно наследуют канонический WebKit-кадр", () => {
+  const activeStateIds = activeStateIdsFromRegistry();
+  const packageContract = readJson(packageContractRelativePath);
+  const wrapper = packageContract.outputs.svg_wrapper;
+  for (const stateId of activeStateIds) {
+    const canonicalPath = path.join(
+      packageRoot,
+      formatStatePath(wrapper.canonical_png_path_format, stateId),
+    );
+    const derivedPngPath = path.join(
+      packageRoot,
+      formatStatePath(wrapper.raster_png_path_format, stateId),
+    );
+    const svgPath = path.join(
+      packageRoot,
+      formatStatePath(wrapper.svg_path_format, stateId),
+    );
+    const canonicalPng = fs.readFileSync(canonicalPath);
+    const derivedPng = fs.readFileSync(derivedPngPath);
+    const svg = fs.readFileSync(svgPath, "utf8");
+    const embedded = svg.match(/href="data:image\/png;base64,([A-Za-z0-9+/]+={0,2})"/u)?.[1];
+
+    assert.ok(embedded, `${stateId}: SVG должен содержать встроенный PNG`);
+    assert.equal(
+      derivedPng.equals(canonicalPng),
+      true,
+      `${stateId}: derived PNG отличается от канонического mobile PNG`,
+    );
+    assert.equal(
+      Buffer.from(embedded, "base64").equals(canonicalPng),
+      true,
+      `${stateId}: SVG содержит иной PNG`,
+    );
+    assert.match(
+      svg,
+      new RegExp(`${wrapper.source_png_sha256_attribute}="${sha256Bytes(canonicalPng)}"`, "u"),
+    );
+  }
+});
+
+test("диагностика расхождения не публикуется и остаётся в игнорируемой Git-зоне", () => {
+  const packageContract = readJson(packageContractRelativePath);
+  const diagnosticPath = packageContract.reproducibility.canonical_raster_policy.diagnostic_bundle.path;
+  const gitignore = fs.readFileSync(path.join(root, ".gitignore"), "utf8");
+  const publishedPaths = listFiles(packageRoot)
+    .map((filePath) => path.relative(root, filePath).split(path.sep).join("/"));
+
+  assert.equal(diagnosticPath, "test-results/presentation-link-lisa-user-journey/raster-mismatch");
+  assert.match(gitignore, /\/test-results\/presentation-link-lisa-user-journey\//u);
   assert.equal(
-    contract.reproducibility.cross_platform_png_byte_identity_required,
+    publishedPaths.some((relativePath) => relativePath.includes("raster-mismatch")),
     false,
   );
-  assert.equal(contract.dependencies["@playwright/test"], "1.61.1");
-  assert.equal(contract.dependencies["@axe-core/playwright"], "4.12.1");
-  assert.equal(contract.dependencies["opentype.js"], "2.0.0");
-  assert.deepEqual(contract.archive, {
-    path: portableArchiveRelativePath,
-    format: "zip",
-    compression: "stored",
-    manifest_version: "1.0.0",
-    status: "generated",
-    data_class: "internal",
-    entrypoint: "demo/index.html",
-    exact_members: portableArchiveMembers,
-    extra_members_allowed: false,
-    external_package_manifest_included: false,
-  });
-  assert.equal(contract.outputs.exact_count, 59);
-  assert.deepEqual(contract.outputs.per_state.templates, [
-    "derived/screens/{state_id}.svg",
-    "derived/screens/{state_id}.png",
-  ]);
-  assert.equal(contract.outputs.per_state.state_count, expectedStateIds.length);
-  assert.ok(contract.outputs.exact.includes("derived/prototype-package-manifest.json"));
-  assert.ok(contract.outputs.exact.includes(portableArchiveRelativePath));
-  assert.ok(contract.outputs.exact.includes("demo/index.html"));
-  assert.equal(contract.outputs.extra_files_allowed, false);
-  assert.ok(
-    contract.source_assets.some(
-      (asset) =>
-        asset.path === "source/fonts/NotoSans[wdth,wght].ttf" &&
-        asset.sha256 ===
-          "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
-    ),
-  );
-  for (const asset of contract.source_assets.filter(
-    (candidate) => candidate.origin_repository === "DataCanvas",
-  )) {
-    assert.equal(asset.origin_commit, null);
-    assert.equal(
-      asset.origin_base_commit,
-      "698f5951d2acaa120dbb8abb83cedb98ae4de601",
-    );
-  }
 });
 
-test("stored ZIP builder is exported for deterministic prototype archives", () => {
-  assert.equal(typeof documentationArchive.createStoredZip, "function");
-  const members = [
-    { name: "README.md", content: Buffer.from("Проверка\n", "utf8") },
-    { name: "demo/index.html", content: Buffer.from("<!doctype html>\n", "utf8") },
-  ];
-  const first = documentationArchive.createStoredZip(members);
-  const second = documentationArchive.createStoredZip(members);
-
-  assert.deepEqual(first, second);
-  assert.deepEqual(
-    [...documentationArchive.readStoredZip(first).keys()],
-    members.map((member) => member.name),
-  );
-});
-
-test("profile generator, validator and browser contract are registered as source files", () => {
-  for (const relativePath of [
-    "scripts/lib/presentation-link-lisa-user-journey.mjs",
-    "scripts/lib/presentation-link-lisa-html-runtime.mjs",
-    "scripts/capture-presentation-link-lisa-derived-frames.mjs",
-    "scripts/generate-presentation-link-lisa-user-journey.mjs",
-    "scripts/validate-presentation-link-lisa-user-journey.mjs",
-    "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-    "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
-    "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
-    "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-    "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
-  ]) {
-    assert.ok(fs.existsSync(absolute(relativePath)), `missing required source: ${relativePath}`);
-  }
-  for (const relativePath of [
-    "scripts/capture-presentation-link-lisa-derived-frames.mjs",
-    "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-  ]) {
-    assert.ok(
-      fs
-        .readFileSync(absolute(relativePath), "utf8")
-        .includes("__DATACANVAS_LISA_CAPTURE__"),
-      `${relativePath}: capture mode marker is missing`,
-    );
-  }
-});
-
-test("browser profile bounds each engine lifetime without hiding flaky results", () => {
-  assert.equal(playwrightConfig.workers, 2);
-  assert.equal(playwrightConfig.retries, 0);
-  assert.equal(playwrightConfig.failOnFlakyTests, true);
-  assert.equal(playwrightConfig.fullyParallel, true);
-});
-
-test("validator command line keeps local freshness strict and rejects unknown modes", () => {
-  assert.deepEqual(
-    parsePresentationLinkLisaValidationArguments([]),
-    { savedOnly: false },
-  );
-  assert.deepEqual(
-    parsePresentationLinkLisaValidationArguments(["--saved-only"]),
-    { savedOnly: true },
-  );
-  assert.throws(
-    () =>
-      parsePresentationLinkLisaValidationArguments([
-        "--unknown-mode",
-      ]),
-    /неизвестный аргумент/u,
-  );
-});
-
-test("local release profile stays strict while CI runs cross-platform browser checks", () => {
-  const packageJson = readJson("package.json");
-  const localProfile =
-    packageJson.scripts["validate:presentation-link-lisa-user-journey:profile"];
-  assert.match(
-    localProfile,
-    /check:presentation-link-lisa-user-journey &&/u,
-  );
-  assert.match(
-    localProfile,
-    /check:presentation-link-lisa-user-journey:evidence/u,
-  );
-  assert.doesNotMatch(localProfile, /--saved-only/u);
-
-  const workflow = fs.readFileSync(absolute(".github/workflows/docs-check.yml"), "utf8");
-  const repositoryGate = workflow.indexOf("run: npm test");
-  const browserInstall = workflow.indexOf(
-    "run: npx playwright install --with-deps chromium webkit",
-  );
-  const lisaCiProfile = workflow.indexOf(
-    "run: npm run validate:presentation-link-lisa-user-journey:ci",
-  );
-  const cleanTreeGate = workflow.indexOf("run: git diff --exit-code");
-  assert.ok(repositoryGate >= 0, "CI must run the repository quality gate");
-  assert.ok(browserInstall > repositoryGate, "browser install must follow npm test");
-  assert.ok(lisaCiProfile > browserInstall, "Lisa CI profile must follow browser install");
-  assert.ok(cleanTreeGate > lisaCiProfile, "generated-file gate must follow Lisa CI profile");
-  assert.doesNotMatch(
-    workflow,
-    /run: npm run validate:presentation-link-lisa-user-journey:profile/u,
-  );
-});
-
-test("package contract registers the source fixture, slide contract and HTML gate", () => {
-  const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
-
-  assert.ok(contract.canonical_contracts.includes("source/source-fixture-manifest.json"));
-  assert.ok(contract.canonical_contracts.includes("source/presentation-preview-contract.json"));
-  assert.equal(
-    contract.commands.validate_html,
-    "npm run validate:presentation-link-lisa-user-journey:html",
-  );
-  assert.equal(
-    contract.commands.validate_evidence,
-    "npm run validate:presentation-link-lisa-user-journey:evidence",
-  );
-  assert.equal(
-    contract.commands.check_evidence,
-    "npm run check:presentation-link-lisa-user-journey:evidence",
-  );
-  assert.equal(
-    contract.commands.validate_profile,
-    "npm run validate:presentation-link-lisa-user-journey:profile",
-  );
-  assert.equal(
-    contract.commands.validate_ci,
-    "npm run validate:presentation-link-lisa-user-journey:ci",
-  );
-  const packageJson = readJson("package.json");
-  assert.equal(
-    packageJson.scripts["validate:presentation-link-lisa-user-journey:ci"],
-    "npm run check:presentation-link-lisa-user-journey:html && " +
-      "node --test tests/presentation-link-lisa-user-journey.test.mjs && " +
-      "node scripts/validate-presentation-link-lisa-user-journey.mjs --saved-only && " +
-      "npm run validate:presentation-link-lisa-user-journey:evidence && " +
-      "npm run test:presentation-link-lisa-user-journey:browser",
-  );
-  assert.equal(contract.html_stage.atomic_update_required, true);
-  assert.equal(contract.html_stage.owner_approval_required, true);
-  assert.equal(contract.html_stage.derived_outputs_allowed, false);
-  const webkitEvidence = contract.evidence_outputs.screenshots.find(
-    (entry) => entry.browser === "webkit",
-  );
-  assert.equal(
-    WEBKIT_EVIDENCE_STATE_IDS.length,
-    webkitEvidence.state_count,
-  );
-  assert.deepEqual(WEBKIT_EVIDENCE_STATE_IDS, [
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-    "lisa-presentation-ready-unread",
-    "lisa-notifications-list-empty",
-    "lisa-notifications-list-unread",
-    "lisa-notification-detail-unread",
-    "lisa-notification-detail-read",
-    "lisa-result-view-from-notification",
-    "lisa-returned-to-chat",
-    "lisa-presentation-email-sent",
-  ]);
-});
-
-test("failed HTML staging leaves the previous four-file prototype intact", (context) => {
-  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-atomic-"));
-  const demoRoot = path.join(outputRoot, packageRoot, "demo");
-  const fileNames = ["app.js", "data.js", "index.html", "styles.css"];
-  try {
-    fs.mkdirSync(demoRoot, { recursive: true });
-    for (const name of fileNames) {
-      fs.writeFileSync(path.join(demoRoot, name), `принятый комплект: ${name}\n`);
-    }
-    const before = new Map(
-      fileNames.map((name) => [name, fs.readFileSync(path.join(demoRoot, name))]),
-    );
-    const originalWriteFileSync = fs.writeFileSync;
-    let stagedWriteCount = 0;
-    context.mock.method(fs, "writeFileSync", (...args) => {
-      if (String(args[0]).includes(".demo-next-")) {
-        stagedWriteCount += 1;
-        if (stagedWriteCount === 2) throw new Error("проверочный сбой второй записи");
-      }
-      return originalWriteFileSync(...args);
-    });
-
-    assert.throws(
-      () => generateHtmlPrototype({ sourceRoot: root, outputRoot }),
-      /проверочный сбой второй записи/u,
-    );
-    for (const [name, bytes] of before) {
-      assert.deepEqual(fs.readFileSync(path.join(demoRoot, name)), bytes);
-    }
-    assert.deepEqual(
-      fs
-        .readdirSync(path.join(outputRoot, packageRoot))
-        .filter((name) => name.startsWith(".demo-") || name === ".html-generation.lock"),
-      [],
-    );
-  } finally {
-    context.mock.restoreAll();
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-  }
-});
-
-test("a competing HTML generation cannot remove another process lock", () => {
-  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-lock-"));
-  const packageDirectory = path.join(outputRoot, packageRoot);
-  const lockPath = path.join(packageDirectory, ".html-generation.lock");
-  try {
-    fs.mkdirSync(packageDirectory, { recursive: true });
-    fs.writeFileSync(lockPath, "занято другим процессом\n");
-    assert.throws(
-      () => generateHtmlPrototype({ sourceRoot: root, outputRoot }),
-      (error) => error && error.code === "EEXIST",
-    );
-    assert.equal(fs.readFileSync(lockPath, "utf8"), "занято другим процессом\n");
-  } finally {
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-  }
-});
-
-test("HTML staging neither follows old symlinks nor preserves unregistered extras", () => {
-  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-symlink-"));
-  const demoRoot = path.join(outputRoot, packageRoot, "demo");
-  const externalFile = path.join(outputRoot, "external-control.txt");
-  try {
-    fs.mkdirSync(path.join(demoRoot, "stale"), { recursive: true });
-    fs.writeFileSync(externalFile, "внешний файл не изменён\n");
-    fs.symlinkSync(externalFile, path.join(demoRoot, "app.js"));
-    fs.writeFileSync(path.join(demoRoot, "obsolete.js"), "устаревший файл\n");
-    fs.writeFileSync(path.join(demoRoot, "stale", "old.png"), "не снимок\n");
-
-    generateHtmlPrototype({ sourceRoot: root, outputRoot });
-
-    assert.equal(fs.readFileSync(externalFile, "utf8"), "внешний файл не изменён\n");
-    assert.equal(fs.lstatSync(path.join(demoRoot, "app.js")).isFile(), true);
-    assert.equal(fs.lstatSync(path.join(demoRoot, "app.js")).isSymbolicLink(), false);
-    assert.deepEqual(
-      fs.readdirSync(demoRoot).sort((left, right) => left.localeCompare(right, "en")),
-      ["app.js", "data.js", "index.html", "styles.css"],
-    );
-  } finally {
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-  }
-});
-
-test("HTML generation rejects local filesystem paths from untrusted content", () => {
-  const sourceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-local-path-"));
-  try {
-    const sourceDirectory = path.join(sourceRoot, packageRoot, "source");
-    fs.mkdirSync(path.dirname(sourceDirectory), { recursive: true });
-    fs.cpSync(absolute(`${packageRoot}/source`), sourceDirectory, { recursive: true });
-    const journeyPath = path.join(sourceDirectory, "journey-contract.json");
-    const journey = JSON.parse(fs.readFileSync(journeyPath, "utf8"));
-    journey.states.find((state) => state.id === "lisa-materials-email-sent").body =
-      "Проверочный закрытый путь file:///etc/passwd";
-    fs.writeFileSync(journeyPath, `${JSON.stringify(journey, null, 2)}\n`);
-    assert.throws(
-      () => generateHtmlPrototype({ sourceRoot, outputRoot: sourceRoot }),
-      /absolute local path/u,
-    );
-  } finally {
-    fs.rmSync(sourceRoot, { recursive: true, force: true });
-  }
-});
-
-test("HTML generation rejects resource references in canonical inline SVG", () => {
-  const sourceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-svg-ref-"));
-  try {
-    const sourceDirectory = path.join(sourceRoot, packageRoot, "source");
-    fs.mkdirSync(path.dirname(sourceDirectory), { recursive: true });
-    fs.cpSync(absolute(`${packageRoot}/source`), sourceDirectory, { recursive: true });
-    const unsafeSvg =
-      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><use href="https://example.test/bell.svg#shape"/></svg>\n';
-    fs.writeFileSync(
-      path.join(sourceDirectory, "components/lisa-notification-bell.svg"),
-      unsafeSvg,
-    );
-    const packageContractPath = path.join(
-      sourceDirectory,
-      "prototype-package-contract.json",
-    );
-    const packageContract = JSON.parse(fs.readFileSync(packageContractPath, "utf8"));
-    packageContract.source_assets.find(
-      (asset) => asset.path === "source/components/lisa-notification-bell.svg",
-    ).sha256 = createHash("sha256").update(unsafeSvg).digest("hex");
-    fs.writeFileSync(packageContractPath, `${JSON.stringify(packageContract, null, 2)}\n`);
-
-    assert.throws(
-      () => generateHtmlPrototype({ sourceRoot, outputRoot: sourceRoot }),
-      /inline SVG component lisa-notification-bell failed security validation/u,
-    );
-  } finally {
-    fs.rmSync(sourceRoot, { recursive: true, force: true });
-  }
-});
-
-test("full visual generation requires explicit owner approval", () => {
-  const sourceRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-unapproved-"));
-  try {
-    const copiedPackageRoot = path.join(sourceRoot, packageRoot);
-    fs.mkdirSync(copiedPackageRoot, { recursive: true });
-    fs.cpSync(absolute(`${packageRoot}/source`), path.join(copiedPackageRoot, "source"), {
-      recursive: true,
-    });
-    for (const relativePath of [
-      "source/journey-contract.json",
-      "source/presentation-preview-contract.json",
-    ]) {
-      const target = path.join(copiedPackageRoot, relativePath);
-      const contract = JSON.parse(fs.readFileSync(target, "utf8"));
-      contract.status = "owner-review-pending";
-      fs.writeFileSync(target, `${JSON.stringify(contract, null, 2)}\n`);
-    }
-
-    assert.throws(
-      () => generatePrototypePackage({ sourceRoot, outputRoot: sourceRoot }),
-      /owner-approved-prototype/u,
-    );
-  } finally {
-    fs.rmSync(sourceRoot, { recursive: true, force: true });
-  }
-});
-
-test("approved full visual generation emits the exact registered package", () => {
-  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-approved-"));
-  try {
-    const generated = generatePrototypePackage({ sourceRoot: root, outputRoot });
-    assert.equal(generated.model.status, "owner-approved-prototype");
-    assert.equal(generated.generatedPaths.length, 59);
-    assert.equal(generated.manifest.inventory.generated_output_count, 59);
-    for (const relativePath of generated.generatedPaths) {
-      assert.ok(fs.existsSync(path.join(outputRoot, relativePath)), relativePath);
-    }
-    const archivePath = path.join(
-      outputRoot,
-      packageRoot,
-      portableArchiveRelativePath,
-    );
-    const firstArchiveBytes = fs.readFileSync(archivePath);
-    const archive = documentationArchive.readStoredZip(firstArchiveBytes);
-    assert.deepEqual([...archive.keys()], portableArchiveMembers);
-    assert.equal(
-      [...archive.keys()].some(
-        (member) =>
-          member === "derived/prototype-package-manifest.json" ||
-          member.includes("__MACOSX") ||
-          member.endsWith(".DS_Store") ||
-          member.endsWith(".svg") ||
-          member.endsWith(".png"),
-      ),
-      false,
-    );
-    assert.match(
-      archive.get("README.md").toString("utf8"),
-      /Распакуйте архив[\s\S]*demo\/index\.html[\s\S]*данные[^.]*синтетические[\s\S]*сеть не нужна/iu,
-    );
-    const archiveManifest = JSON.parse(
-      archive.get("manifest.json").toString("utf8"),
-    );
-    assert.equal(archiveManifest.version, "1.0.0");
-    assert.equal(archiveManifest.status, "generated");
-    assert.equal(archiveManifest.data_class, "internal");
-    assert.equal(archiveManifest.entrypoint, "demo/index.html");
-    assert.deepEqual(archiveManifest.inventory, {
-      exact_count: portableArchiveMembers.length,
-      exact_members: portableArchiveMembers,
-    });
-    assert.deepEqual(archiveManifest.contract_fingerprint, {
-      path: "source/prototype-package-contract.json",
-      sha256: createHash("sha256")
-        .update(
-          fs.readFileSync(
-            absolute(`${packageRoot}/source/prototype-package-contract.json`),
-          ),
-        )
-        .digest("hex"),
-    });
-    assert.deepEqual(
-      archiveManifest.members.map((member) => member.path),
-      portableArchiveMembers.filter((member) => member !== "manifest.json"),
-    );
-    for (const member of archiveManifest.members) {
-      const content = archive.get(member.path);
-      assert.ok(content, `archive manifest member is missing: ${member.path}`);
-      assert.equal(member.bytes, content.length, member.path);
-      assert.equal(
-        member.sha256,
-        createHash("sha256").update(content).digest("hex"),
-        member.path,
-      );
-    }
-    const externalArchiveRecord = generated.manifest.outputs.find(
-      (output) => output.path === portableArchiveRelativePath,
-    );
-    assert.deepEqual(externalArchiveRecord, {
-      path: portableArchiveRelativePath,
-      bytes: firstArchiveBytes.length,
-      sha256: createHash("sha256").update(firstArchiveBytes).digest("hex"),
-    });
-    generatePrototypePackage({ sourceRoot: root, outputRoot });
-    assert.deepEqual(fs.readFileSync(archivePath), firstArchiveBytes);
-    for (const stateId of [
-      "lisa-materials-ready",
-      "lisa-presentation-generating",
-      "lisa-notifications-list-unread",
-      "lisa-result-view-from-chat",
-    ]) {
-      const svg = fs.readFileSync(
-        path.join(outputRoot, packageRoot, "derived/screens", `${stateId}.svg`),
-        "utf8",
-      );
-      assert.match(svg, /data-render-source="owner-approved-html"/u);
-      assert.match(svg, /data-capture-sha256="[a-f0-9]{64}"/u);
-      assert.match(svg, /<image\b[^>]*href="data:image\/png;base64,/u);
-      const encoded = svg.match(/href="data:image\/png;base64,([^"]+)"/u)?.[1];
-      assert.ok(encoded, `${stateId}: embedded browser frame is missing`);
-      const embeddedCapture = Buffer.from(encoded, "base64");
-      assert.equal(embeddedCapture.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
-      assert.deepEqual(
-        embeddedCapture,
-        fs.readFileSync(
-          path.join(outputRoot, packageRoot, "derived/screens", `${stateId}.png`),
-        ),
-      );
-    }
-    assert.match(
-      generated.manifest.generation.frame_capture,
-      /^Playwright WebKit /u,
-    );
-    assert.equal(generated.manifest.generation.capture_engine, "webkit");
-    assert.deepEqual(generated.manifest.generation.capture_stabilization, {
-      wait_for_document_fonts: true,
-      scroll_policy: "restore-marked-end-after-fonts",
-      focus_policy: "capture-mode-suppress-then-blur-active-element",
-      settle_animation_frames: 2,
-      explicit_screenshot_style_parameter_used: false,
-      playwright_internal_style_attempt_blocked_by_csp: true,
-      browser_launch_args: [],
-    });
-    assert.deepEqual(generated.manifest.generation.capture_transport, {
-      mode: "playwright-route-fulfilled-local-files",
-      origin: "http://lisa.invalid",
-      external_network_requests_allowed: false,
-      path_escape_blocked: true,
-    });
-    assert.deepEqual(generated.manifest.generation.capture_normalization, {
-      mode: "lossless-rsvg-reencode",
-      dimensions_unchanged: true,
-      embedded_capture_equals_derived_png: true,
-    });
-  } finally {
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-  }
-});
-
-test("generated package validation rejects corrupt outputs and unsafe archive variants", () => {
-  const outputRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-corrupt-"));
-  try {
-    generatePrototypePackage({ sourceRoot: root, outputRoot });
-    const manifestPath = path.join(
-      outputRoot,
-      packageRoot,
-      "derived/prototype-package-manifest.json",
-    );
-    const originalManifest = fs.readFileSync(manifestPath);
-
-    fs.writeFileSync(manifestPath, '{"version":');
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("prototype package manifest is invalid"),
-      ),
-    );
-
-    fs.writeFileSync(manifestPath, originalManifest);
-    const escapedManifest = JSON.parse(originalManifest);
-    escapedManifest.outputs[0].path = "../outside-package.txt";
-    fs.writeFileSync(manifestPath, `${JSON.stringify(escapedManifest, null, 2)}\n`);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("manifest output path escapes package"),
-      ),
-    );
-
-    fs.writeFileSync(manifestPath, originalManifest);
-    const wrongSizeManifest = JSON.parse(originalManifest);
-    wrongSizeManifest.outputs.find(
-      (output) => output.path === portableArchiveRelativePath,
-    ).bytes += 1;
-    fs.writeFileSync(
-      manifestPath,
-      `${JSON.stringify(wrongSizeManifest, null, 2)}\n`,
-    );
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes(
-          `manifest size mismatch: ${portableArchiveRelativePath}`,
-        ),
-      ),
-    );
-
-    fs.writeFileSync(manifestPath, originalManifest);
-    fs.writeFileSync(
-      path.join(outputRoot, packageRoot, "derived/screens/unregistered.png"),
-      "лишний файл\n",
-    );
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("unregistered generated output"),
-      ),
-    );
-    fs.rmSync(
-      path.join(outputRoot, packageRoot, "derived/screens/unregistered.png"),
-    );
-
-    assert.equal(typeof documentationArchive.createStoredZip, "function");
-    const archivePath = path.join(
-      outputRoot,
-      packageRoot,
-      portableArchiveRelativePath,
-    );
-    const originalArchiveBytes = fs.readFileSync(archivePath);
-    const originalArchive = documentationArchive.readStoredZip(
-      originalArchiveBytes,
-    );
-    const writeArchive = (entries) => {
-      fs.writeFileSync(
-        archivePath,
-        documentationArchive.createStoredZip(
-          [...entries].map(([name, content]) => ({ name, content })),
-        ),
-      );
-    };
-
-    const tamperedMemberArchive = new Map(originalArchive);
-    tamperedMemberArchive.set(
-      "demo/app.js",
-      Buffer.concat([
-        tamperedMemberArchive.get("demo/app.js"),
-        Buffer.from("\n// искажение\n", "utf8"),
-      ]),
-    );
-    writeArchive(tamperedMemberArchive);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("portable archive member hash mismatch: demo/app.js"),
-      ),
-    );
-
-    const coherentlyTamperedArchive = new Map(originalArchive);
-    const coherentlyTamperedApp = Buffer.concat([
-      coherentlyTamperedArchive.get("demo/app.js"),
-      Buffer.from("\n// согласованная подмена\n", "utf8"),
-    ]);
-    coherentlyTamperedArchive.set("demo/app.js", coherentlyTamperedApp);
-    const coherentlyTamperedInternalManifest = JSON.parse(
-      coherentlyTamperedArchive.get("manifest.json").toString("utf8"),
-    );
-    const coherentlyTamperedMemberRecord =
-      coherentlyTamperedInternalManifest.members.find(
-        (member) => member.path === "demo/app.js",
-      );
-    coherentlyTamperedMemberRecord.bytes = coherentlyTamperedApp.length;
-    coherentlyTamperedMemberRecord.sha256 = createHash("sha256")
-      .update(coherentlyTamperedApp)
-      .digest("hex");
-    coherentlyTamperedArchive.set(
-      "manifest.json",
-      Buffer.from(
-        `${JSON.stringify(coherentlyTamperedInternalManifest, null, 2)}\n`,
-        "utf8",
-      ),
-    );
-    writeArchive(coherentlyTamperedArchive);
-    const coherentlyTamperedArchiveBytes = fs.readFileSync(archivePath);
-    const coherentlyTamperedExternalManifest = JSON.parse(originalManifest);
-    const coherentlyTamperedArchiveRecord =
-      coherentlyTamperedExternalManifest.outputs.find(
-        (output) => output.path === portableArchiveRelativePath,
-      );
-    coherentlyTamperedArchiveRecord.bytes = coherentlyTamperedArchiveBytes.length;
-    coherentlyTamperedArchiveRecord.sha256 = createHash("sha256")
-      .update(coherentlyTamperedArchiveBytes)
-      .digest("hex");
-    fs.writeFileSync(
-      manifestPath,
-      `${JSON.stringify(coherentlyTamperedExternalManifest, null, 2)}\n`,
-    );
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes(
-          "portable archive member differs from canonical source: demo/app.js",
-        ),
-      ),
-    );
-    fs.writeFileSync(manifestPath, originalManifest);
-
-    const missingMemberArchive = new Map(originalArchive);
-    missingMemberArchive.delete("demo/app.js");
-    writeArchive(missingMemberArchive);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("portable archive member inventory differs from the contract"),
-      ),
-    );
-
-    const missingManifestArchive = new Map(originalArchive);
-    missingManifestArchive.delete("manifest.json");
-    writeArchive(missingManifestArchive);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("portable archive manifest is missing"),
-      ),
-    );
-
-    const corruptManifestArchive = new Map(originalArchive);
-    corruptManifestArchive.set("manifest.json", Buffer.from("{", "utf8"));
-    writeArchive(corruptManifestArchive);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("portable archive manifest is invalid"),
-      ),
-    );
-
-    const serviceMemberArchive = new Map(originalArchive);
-    serviceMemberArchive.set(
-      "__MACOSX/._index.html",
-      Buffer.from("служебный файл\n", "utf8"),
-    );
-    writeArchive(serviceMemberArchive);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some((issue) =>
-        issue.includes("portable archive service member is forbidden"),
-      ),
-    );
-
-    const unsafeArchiveBytes = Buffer.from(originalArchiveBytes);
-    const safeNameOffset = unsafeArchiveBytes.indexOf(
-      Buffer.from("README.md", "utf8"),
-    );
-    assert.ok(safeNameOffset >= 0);
-    unsafeArchiveBytes.write("../bad.md", safeNameOffset, "utf8");
-    fs.writeFileSync(archivePath, unsafeArchiveBytes);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some(
-        (issue) =>
-          issue.includes("portable archive is invalid") &&
-          issue.includes("выходит за корень архива"),
-      ),
-    );
-
-    const unsafeCentralArchiveBytes = Buffer.from(originalArchiveBytes);
-    const centralNameOffset = unsafeCentralArchiveBytes.lastIndexOf(
-      Buffer.from("README.md", "utf8"),
-    );
-    assert.ok(centralNameOffset > safeNameOffset);
-    unsafeCentralArchiveBytes.write("../bad.md", centralNameOffset, "utf8");
-    fs.writeFileSync(archivePath, unsafeCentralArchiveBytes);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some(
-        (issue) =>
-          issue.includes("portable archive is invalid") &&
-          issue.includes("выходит за корень архива"),
-      ),
-    );
-
-    const invalidEndRecordArchiveBytes = Buffer.from(originalArchiveBytes);
-    const endRecordOffset = invalidEndRecordArchiveBytes.lastIndexOf(
-      Buffer.from([0x50, 0x4b, 0x05, 0x06]),
-    );
-    assert.ok(endRecordOffset > centralNameOffset);
-    invalidEndRecordArchiveBytes.writeUInt16LE(
-      portableArchiveMembers.length - 1,
-      endRecordOffset + 10,
-    );
-    fs.writeFileSync(archivePath, invalidEndRecordArchiveBytes);
-    assert.ok(
-      validateGeneratedPackage(outputRoot, root).some(
-        (issue) =>
-          issue.includes("portable archive is invalid") &&
-          issue.includes("число записей ZIP"),
-      ),
-    );
-  } finally {
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-  }
-});
-
-test("package comparison reports a stale temporary archive without mutating the repository", () => {
-  const repositoryArchivePath = absolute(
-    `${packageRoot}/${portableArchiveRelativePath}`,
-  );
-  assert.ok(
-    fs.existsSync(repositoryArchivePath),
-    "portable archive must be generated first",
-  );
-  const repositoryArchiveBefore = fs.readFileSync(repositoryArchivePath);
-  const outputRoot = fs.mkdtempSync(
-    path.join(os.tmpdir(), "datacanvas-lisa-stale-check-"),
-  );
-  try {
-    fs.cpSync(
-      absolute(packageRoot),
-      path.join(outputRoot, packageRoot),
-      { recursive: true },
-    );
-    const temporaryArchivePath = path.join(
-      outputRoot,
-      packageRoot,
-      portableArchiveRelativePath,
-    );
-    fs.writeFileSync(
-      temporaryArchivePath,
-      Buffer.concat([
-        fs.readFileSync(temporaryArchivePath),
-        Buffer.from("устарел", "utf8"),
-      ]),
-    );
-    const differences = compareGeneratedPackage(root, outputRoot);
-    assert.ok(
-      differences.includes(
-        `stale generated output: ${packageRoot}/${portableArchiveRelativePath}`,
-      ),
-    );
-    assert.deepEqual(
-      fs.readFileSync(repositoryArchivePath),
-      repositoryArchiveBefore,
-      "package comparison must not mutate the repository archive",
-    );
-  } finally {
-    fs.rmSync(outputRoot, { recursive: true, force: true });
-    assert.deepEqual(
-      fs.readFileSync(repositoryArchivePath),
-      repositoryArchiveBefore,
-      "repository archive must remain unchanged even when the test fails",
-    );
-  }
-});
-
-test("canonical contracts pass their schemas and cross-contract invariants", () => {
-  assert.deepEqual(validateContracts(root, loadContracts(root)), []);
-});
-
-test("source asset hashes are verified even when source and output roots are the same", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const adaptedAsset = contracts.package.source_assets.find(
-    (asset) => asset.kind === "adapted-svg-component",
-  );
-  const copiedAsset = contracts.package.source_assets.find(
-    (asset) => asset.path === "source/fonts/NotoSans[wdth,wght].ttf",
-  );
-  adaptedAsset.sha256 = "0".repeat(64);
-  copiedAsset.origin_sha256 = "1".repeat(64);
-
-  const issues = validateContracts(root, contracts);
-  assert.ok(
-    issues.some((issue) =>
-      issue.includes(`source asset hash mismatch: ${adaptedAsset.path}`),
-    ),
-  );
-  assert.ok(
-    issues.some((issue) =>
-      issue.includes(`source asset origin hash mismatch: ${copiedAsset.path}`),
-    ),
-  );
-});
-
-test("normalized font license preserves its pinned origin without trailing whitespace", () => {
-  const contract = readJson(`${packageRoot}/source/prototype-package-contract.json`);
-  const licenseAsset = contract.source_assets.find(
-    (asset) => asset.path === "source/fonts/OFL.txt",
-  );
-  const licenseText = fs.readFileSync(
-    absolute(`${packageRoot}/source/fonts/OFL.txt`),
+test("сбой WebKit сохраняет причину и console/page/network-диагностику вне кандидата", () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-raster-diagnostic-"));
+  const candidateRoot = path.join(temporaryRoot, "candidate");
+  const diagnosticRoot = path.join(temporaryRoot, "diagnostics");
+  const candidatePackageRoot = path.join(candidateRoot, packagePath);
+  const demoPath = path.join(candidatePackageRoot, "demo", "index.html");
+  const captureScriptPath = path.join(temporaryRoot, "failed-canonical-capture.mjs");
+  const candidateFingerprint = {
+    algorithm: "sha256",
+    sha256: "1".repeat(64),
+    inputs: {
+      active_contracts: [{ scope: "active-contract", path: "source/active-contracts.json", bytes: 1, sha256: "2".repeat(64) }],
+      generated_html: [{ scope: "generated", path: "demo/index.html", bytes: 1, sha256: "3".repeat(64) }],
+      registered_source_assets: [{ scope: "source-asset", path: "source/reference.png", bytes: 1, sha256: "4".repeat(64) }],
+      capture_toolchain: [{ scope: "toolchain", path: "scripts/capture.mjs", bytes: 1, sha256: "5".repeat(64) }],
+    },
+  };
+  const states = activeStateIdsFromRegistry().map((id, index) => ({
+    id,
+    projection_sha256: "6789a".at(index).repeat(64),
+  }));
+  fs.mkdirSync(path.dirname(demoPath), { recursive: true });
+  fs.mkdirSync(diagnosticRoot, { recursive: true });
+  fs.writeFileSync(
+    demoPath,
+    "<!doctype html><html><body>Кандидатный HTML</body></html>",
     "utf8",
   );
+  fs.writeFileSync(
+    captureScriptPath,
+    `import fs from "node:fs";
+const [requestPath, reportPath] = process.argv.slice(2);
+const request = JSON.parse(fs.readFileSync(requestPath, "utf8"));
+fs.writeFileSync(reportPath, JSON.stringify({
+  version: request.version,
+  status: "failed",
+  capture_engine: "webkit",
+  run: request.run,
+  candidate_fingerprint: request.candidate_fingerprint,
+  viewport: request.viewport,
+  failure: {
+    state_id: request.states[0].id,
+    message: "TDD child capture failure",
+    console_errors: ["TDD console sentinel"],
+    page_errors: ["TDD page sentinel"],
+    network_attempts: ["https://example.invalid/tdd-network-sentinel"]
+  }
+}));
+process.stderr.write("TDD child capture failure\\n");
+process.exit(1);
+`,
+    "utf8",
+  );
+  try {
+    assert.throws(
+      () => captureCanonicalRasterSet({
+        sourceRoot: root,
+        diagnosticRoot,
+        outputRoot: candidateRoot,
+        packageRelativePath: packagePath,
+        captureScriptPath,
+        demoPath,
+        states,
+        captureStabilization: {
+          wait_for_document_fonts: true,
+          scroll_policy: "restore-marked-end-after-fonts",
+          focus_policy: "capture-mode-suppress-then-blur-active-element",
+          settle_animation_frames: 2,
+          explicit_screenshot_style_parameter_used: false,
+          playwright_internal_style_attempt_blocked_by_csp: true,
+          browser_launch_args: [],
+        },
+        rendererProfilePolicy: {
+          capture_tool_warnings: expectedCaptureToolWarnings,
+        },
+        captureTransport: {
+          mode: "playwright-route-fulfilled-local-files",
+          origin: "http://lisa.invalid",
+          external_network_requests_allowed: false,
+          path_escape_blocked: true,
+        },
+        candidateFingerprint,
+      }),
+      /канонический дочерний захват не выполнен/u,
+    );
 
-  assert.equal(licenseAsset.kind, "adapted-license");
-  assert.notEqual(licenseAsset.sha256, licenseAsset.origin_sha256);
-  assert.doesNotMatch(licenseText, /[\t ]+$/mu);
+    const diagnosticPath = path.join(diagnosticRoot, CANONICAL_RASTER_DIAGNOSTIC_RELATIVE_PATH);
+    const summary = JSON.parse(fs.readFileSync(path.join(diagnosticPath, "sha256.json"), "utf8"));
+    const childReport = JSON.parse(
+      fs.readFileSync(path.join(diagnosticPath, "run-1", "desktop-1280x720", "report.json"), "utf8"),
+    );
+    assert.match(summary.reason, /дочерний захват/u);
+    assert.equal(childReport.status, "failed");
+    assert.ok(childReport.failure.console_errors.includes("TDD console sentinel"));
+    assert.ok(childReport.failure.page_errors.includes("TDD page sentinel"));
+    assert.ok(childReport.failure.network_attempts.includes("https://example.invalid/tdd-network-sentinel"));
+    assert.equal(JSON.stringify(childReport.failure).includes("/Users/"), false);
+    assert.equal(JSON.stringify(candidateFingerprint).includes("test-results"), false);
+    assert.equal(fs.existsSync(path.join(candidateRoot, CANONICAL_RASTER_DIAGNOSTIC_RELATIVE_PATH)), false);
+
+    const packageContract = readJson(packageContractRelativePath);
+    const archive = readStoredZip(fs.readFileSync(path.join(packageRoot, packageContract.archive.path)));
+    assert.equal([...archive.keys()].some((member) => member.startsWith("test-results/")), false);
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 });
 
-test("browser capture stabilization restores direct-state scroll after fonts settle", async () => {
-  let fontsReady = false;
-  let blurred = false;
-  let animationFrames = 0;
-  const content = { scrollTop: 0, scrollHeight: 420 };
-  const originalDocument = globalThis.document;
-  const originalHTMLElement = globalThis.HTMLElement;
-  const originalWindow = globalThis.window;
-  class FakeHTMLElement {
-    blur() {
-      blurred = true;
+test("визуальный договор разрешает только проверенные PNG-растры выбранных доноров", () => {
+  const registry = readActiveContracts();
+  const visual = readRegisteredContract(registry, "visual");
+
+  assert.ok(Array.isArray(visual.raster_donors));
+  assert.ok(visual.raster_donors.length > 0);
+  assert.match(JSON.stringify(visual.raster_donors), new RegExp(visualArchiveSha256, "u"));
+  for (const donor of visual.raster_donors) {
+    assert.match(donor.path, /^components\/[a-z0-9-]+\.png$/u);
+    assert.match(donor.source_member, /\.svg$/u);
+    assert.match(donor.sha256, /^[a-f0-9]{64}$/u);
+    assert.ok(Number.isInteger(donor.width) && donor.width > 0);
+    assert.ok(Number.isInteger(donor.height) && donor.height > 0);
+    const png = fs.readFileSync(path.join(packageRoot, "source", donor.path));
+    assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(
+      createHash("sha256").update(png).digest("hex"),
+      donor.sha256,
+      `${donor.path}: контрольная сумма растра`,
+    );
+    assert.equal(png.includes(Buffer.from("<foreignObject", "utf8")), false);
+  }
+});
+
+test("активный HTML, производные файлы и ZIP не содержат P3/P4, сеть, почту или локальные пути", () => {
+  const release = activeReleaseTexts();
+  assert.ok(release.length >= 7, "Активный выпуск должен содержать HTML, данные, стили и оба манифеста");
+  const text = release.map((item) => item.text).join("\n");
+  for (const forbidden of [
+    ...legacyStateFragments,
+    "presentation-preview",
+    "mailto:",
+    "fetch(",
+    "foreignObject",
+    "file://",
+    "/Users/",
+    ".pdf",
+    ".pptx",
+  ]) {
+    assert.equal(text.includes(forbidden), false, `Активный выпуск содержит ${forbidden}`);
+  }
+
+  const packageContract = readJson(packageContractRelativePath);
+  const archivePath = path.join(packageRoot, packageContract.archive.path);
+  const archive = readStoredZip(fs.readFileSync(archivePath));
+  assert.deepEqual([...archive.keys()], packageContract.archive.members);
+  for (const [memberPath, content] of archive) {
+    const memberText = content.toString("utf8");
+    assert.equal(/\.xlsx$|\.svg$/u.test(memberPath), false, `ZIP содержит неразрешённый вход: ${memberPath}`);
+    for (const forbidden of ["mailto:", "fetch(", "foreignObject", "file://", "/Users/"]) {
+      assert.equal(memberText.includes(forbidden), false, `${memberPath}: содержит ${forbidden}`);
     }
   }
-  globalThis.HTMLElement = FakeHTMLElement;
-  globalThis.document = {
-    fonts: {
-      ready: Promise.resolve().then(() => {
-        fontsReady = true;
-      }),
-    },
-    activeElement: new FakeHTMLElement(),
-    querySelector(selector) {
-      assert.equal(fontsReady, true);
-      return selector ===
-        '.phone-content[data-capture-scroll-anchor="end"]'
-        ? content
-        : null;
-    },
-  };
-  globalThis.window = {
-    requestAnimationFrame(callback) {
-      animationFrames += 1;
-      queueMicrotask(callback);
-    },
-  };
-  const page = {
-    evaluate(callback, policy) {
-      return callback(policy);
-    },
-  };
-
-  try {
-    assert.equal(typeof stabilizeBrowserCapture, "function");
-    await stabilizeBrowserCapture(page, {
-      wait_for_document_fonts: true,
-      scroll_policy: "restore-marked-end-after-fonts",
-      focus_policy: "capture-mode-suppress-then-blur-active-element",
-      settle_animation_frames: 2,
-    });
-    assert.equal(content.scrollTop, content.scrollHeight);
-    assert.equal(blurred, true);
-    assert.equal(animationFrames, 2);
-
-    content.scrollTop = 17;
-    globalThis.document.querySelector = () => null;
-    await stabilizeBrowserCapture(page, {
-      wait_for_document_fonts: true,
-      scroll_policy: "restore-marked-end-after-fonts",
-      focus_policy: "capture-mode-suppress-then-blur-active-element",
-      settle_animation_frames: 2,
-    });
-    assert.equal(content.scrollTop, 17);
-  } finally {
-    globalThis.document = originalDocument;
-    globalThis.HTMLElement = originalHTMLElement;
-    globalThis.window = originalWindow;
-  }
 });
 
-test("adapted source origin is fixed independently from the package manifest", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const adaptedAsset = contracts.package.source_assets.find(
-    (asset) => asset.kind === "adapted-svg-component",
-  );
-  adaptedAsset.origin_sha256 = "2".repeat(64);
-
-  assert.ok(
-    validateContracts(root, contracts).some((issue) =>
-      issue.includes(`source asset pinned origin mismatch: ${adaptedAsset.path}`),
-    ),
-  );
-});
-
-test("typed material blocks reject an item shape from another block type", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const participants = contracts.journey.states
-    .find((state) => state.id === "lisa-materials-ready")
-    .content.sections.find((section) => section.id === "participants")
-    .blocks.find((block) => block.id === "meeting-participants");
-  participants.items = [{ id: "p1", text: "Недопустимый элемент списка" }];
-  assert.ok(
-    validateContracts(root, contracts).some((issue) =>
-      issue.includes("journey-contract.json"),
-    ),
-  );
-});
-
-test("fixture hash rejects a silent substitution inside the 33 source units", () => {
-  const contracts = structuredClone(loadContracts(root));
-  contracts.journey.states
-    .find((state) => state.id === "lisa-materials-ready")
-    .content.sections.find((section) => section.id === "dialog-starters")
-    .blocks.find((block) => block.id === "company-news")
-    .items[0].text = "Подменённый синтетический текст";
-  assert.ok(
-    validateContracts(root, contracts).some((issue) =>
-      issue.includes("meeting material hash mismatch"),
-    ),
-  );
-});
-
-test("direct state links reject duplicates, executable input and unknown states", () => {
-  const known = new Set(expectedStateIds);
-
-  assert.deepEqual(parseStateSearch("", expectedStateIds[0], known), {
-    ok: true,
-    stateId: expectedStateIds[0],
-    explicit: false,
-  });
-  assert.deepEqual(parseStateSearch("?state=lisa-offline", expectedStateIds[0], known), {
-    ok: true,
-    stateId: "lisa-offline",
-    explicit: true,
-  });
-  assert.equal(
-    parseStateSearch(
-      "?state=lisa-materials-ready&state=lisa-offline",
-      expectedStateIds[0],
-      known,
-    ).reason,
-    "duplicate-state",
-  );
-  assert.equal(
-    parseStateSearch("?state=%3Cscript%3E", expectedStateIds[0], known).reason,
-    "malformed-state",
-  );
-  assert.equal(
-    parseStateSearch("?state=lisa-unregistered", expectedStateIds[0], known).reason,
-    "unknown-state",
-  );
-});
-
-test("cross-contract checks reject a different result in chat and notification", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const notification = contracts.journey.states.find(
-    (state) => state.id === "lisa-notifications-list-unread",
-  );
-  notification.result_ref = "other-secure-copy";
-
-  assert.ok(
-    validateContracts(root, contracts).some((issue) =>
-      issue.includes("chat and notification must reference the same result"),
-    ),
-  );
-});
-
-for (const stateId of [
-  "lisa-notification-detail-unread",
-  "lisa-notifications-list-read",
-  "lisa-presentation-email-submitting",
-  "lisa-presentation-email-sent",
-  "lisa-presentation-email-partial-failure",
-  "lisa-presentation-email-failed",
-]) {
-  test(`cross-contract checks reject a different result in ${stateId}`, () => {
-    const contracts = structuredClone(loadContracts(root));
-    const state = contracts.journey.states.find(
-      (candidate) => candidate.id === stateId,
-    );
-    state.result_ref = "other-secure-copy";
-
-    assert.ok(
-      validateContracts(root, contracts).some((issue) =>
-        issue.includes(
-          `chat and notification must reference the same result: ${stateId}`,
-        ),
-      ),
-    );
-  });
-}
-
-test("cross-contract checks reject push semantics and an invalid notification target", () => {
-  const contracts = structuredClone(loadContracts(root));
-  contracts.journey.notification.push_supported = true;
-  const action = contracts.journey.actions.find(
-    (candidate) => candidate.id === "open-result-from-notification",
-  );
-  action.target_state_id = "lisa-result-view-from-chat";
-
-  const issues = validateContracts(root, contracts);
-  assert.ok(issues.some((issue) => issue.includes("push notifications are outside this prototype")));
-  assert.ok(
-    issues.some((issue) => issue.includes("notification result action must open notification viewer")),
-  );
-});
-
-test("cross-contract checks reject a result reference when notification delivery failed", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const state = contracts.journey.states.find(
-    (candidate) => candidate.id === "lisa-notification-failed-chat-available",
-  );
-  state.result_ref = contracts.journey.result_ref;
-
-  assert.ok(
-    validateContracts(root, contracts).some((issue) =>
-      issue.includes("failed notification delivery cannot create a notification result reference"),
-    ),
-  );
-});
-
-test("lossless PNG proof rejects a pixel mismatch", () => {
-  const first = fs.readFileSync(
-    absolute(
-      `${packageRoot}/derived/screens/lisa-presentation-ready-unread.png`,
-    ),
-  );
-  const samePixels = Buffer.from(first);
-  const different = fs.readFileSync(
-    absolute(
-      `${packageRoot}/derived/screens/lisa-presentation-generating.png`,
-    ),
-  );
-
-  assert.equal(
-    typeof assertLosslessPngPixels,
-    "function",
-    "pixel equality proof must be part of the generation contract",
-  );
-  assert.doesNotThrow(() =>
-    assertLosslessPngPixels(
-      first,
-      samePixels,
-      "same-pixel-frame",
-    ),
-  );
-  assert.throws(
-    () =>
-      assertLosslessPngPixels(
-        first,
-        different,
-        "different-pixel-frame",
-      ),
-    /Нормализация изменила пиксели кадра different-pixel-frame/u,
-  );
-});
-
-test("cross-contract checks reject unknown and self-referencing chat history", () => {
-  const contracts = structuredClone(loadContracts(root));
-  const state = contracts.journey.states.find(
-    (candidate) => candidate.id === "lisa-presentation-generating",
-  );
-  state.history_state_ids = ["lisa-materials-ready", "lisa-unknown", state.id];
-
-  const issues = validateContracts(root, contracts);
-  assert.ok(issues.some((issue) => issue.includes("unknown history state lisa-unknown")));
-  assert.ok(issues.some((issue) => issue.includes("cannot include itself in chat history")));
-});
-
-test("SVG component boundary allows simple geometry and blocks active or remote content", () => {
-  const limits = {
-    component_max_bytes: 4096,
-    max_nodes: 20,
-    single_path_data_max_chars: 100,
-    total_path_data_max_chars: 200,
-  };
-  const safe =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Колокольчик</title><path d="M6 9h12"/></svg>';
-  assert.deepEqual(validateSvgSecurity(safe, limits), []);
-  const safeEmbeddedPng =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" data-render-source="owner-approved-html" data-capture-sha256="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"><image x="0" y="0" width="1" height="1" href="data:image/png;base64,iVBORw0KGgo="/></svg>';
-  assert.deepEqual(validateSvgSecurity(safeEmbeddedPng, limits), []);
-
-  for (const unsafe of [
-    '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><foreignObject/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><image href="https://example.test/x.png"/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><image href="data:text/html;base64,PHNjcmlwdD4="/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg" onclick="alert(1)"></svg>',
-    '<!DOCTYPE svg [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><svg xmlns="http://www.w3.org/2000/svg"/>',
-  ]) {
-    assert.notDeepEqual(validateSvgSecurity(unsafe, limits), [], unsafe);
-  }
-});
-
-test("inline phone SVG boundary rejects every resource-reference form", () => {
-  const limits = {
-    component_max_bytes: 4096,
-    max_nodes: 20,
-    single_path_data_max_chars: 100,
-    total_path_data_max_chars: 200,
-  };
-  const safe =
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Колокольчик</title><path d="M6 9h12"/></svg>';
-  assert.deepEqual(validateInlineSvgComponentSecurity(safe, limits), []);
-
-  for (const unsafe of [
-    '<svg xmlns="http://www.w3.org/2000/svg"><image href="data:image/png;base64,iVBORw0KGgo="/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><use href="#shape"/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><image xlink:href="https://example.test/x.png"/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><defs><feImage href="https://example.test/x.png"/></defs></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><style>path{fill:url(https://example.test/x.svg)}</style><path d="M0 0"/></svg>',
-    '<svg xmlns="http://www.w3.org/2000/svg"><path d="M0 0" fill="url(#paint)"/></svg>',
-  ]) {
-    assert.notDeepEqual(validateInlineSvgComponentSecurity(unsafe, limits), [], unsafe);
-  }
-});
-
-test("vendored variable font is parsed from bytes and applies both registered axes", () => {
-  const fontPath = absolute(`${packageRoot}/source/fonts/NotoSans[wdth,wght].ttf`);
-  const regular = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 400,
-    wdth: 100,
-  });
-  const bold = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 700,
-    wdth: 100,
-  });
-  const narrow = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 400,
-    wdth: 75,
-  });
-  const regularAgain = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 400,
-    wdth: 100,
-  });
-
-  assert.ok(Math.abs(regular - 176.08) < 0.5, regular);
-  assert.ok(Math.abs(bold - 188.288) < 0.5, bold);
-  assert.ok(Math.abs(narrow - 142.96) < 0.5, narrow);
-  assert.ok(Math.abs(regular - regularAgain) < 0.001);
-});
-
-test("measured wrapping fails before a word or text flow can overflow", () => {
-  const fontPath = absolute(`${packageRoot}/source/fonts/NotoSans[wdth,wght].ttf`);
-  const font = createFontEngine(
-    fontPath,
-    "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
-  );
-  assert.throws(
-    () =>
-      wrapMeasuredText(font, "НеразрывноеСверхдлинноеСлово", {
-        maxWidth: 20,
-        maxLines: 2,
-        fontSize: 16,
-      }),
-    /Неразрывное слово/u,
-  );
-  assert.throws(
-    () =>
-      wrapMeasuredText(font, "один два три четыре пять шесть", {
-        maxWidth: 45,
-        maxLines: 2,
-        fontSize: 16,
-      }),
-    /число строк/u,
-  );
-});
-
-test("geometry ledger rejects overflow, intersections and undersized controls", () => {
-  const issues = validateLayoutBoxes(
-    [
-      { id: "canvas-child", x: 380, y: 20, width: 30, height: 30 },
-      {
-        id: "first",
-        x: 20,
-        y: 20,
-        width: 44,
-        height: 44,
-        interactive: true,
-        collisionGroup: "actions",
-      },
-      {
-        id: "second",
-        x: 40,
-        y: 40,
-        width: 20,
-        height: 20,
-        interactive: true,
-        collisionGroup: "actions",
-      },
-    ],
-    { canvasWidth: 390, canvasHeight: 844, minimumTarget: 44 },
-  );
-  assert.ok(issues.some((issue) => issue.includes("выходит за холст")));
-  assert.ok(issues.some((issue) => issue.includes("пересекается")));
-  assert.ok(issues.some((issue) => issue.includes("область нажатия меньше")));
-});
-
-test("geometry ledger treats lines of one text flow as one layout object", () => {
-  const shared = {
-    x: 20,
-    width: 180,
-    height: 18,
-    collisionGroup: "message-content",
-    flowId: "message-title",
-    requireGap: true,
-  };
+test("проверка сгенерированного активного выпуска отвергает лишний P3/P4-кадр", () => {
   assert.deepEqual(
-    validateLayoutBoxes([
-      { ...shared, id: "message-title-1", y: 20 },
-      { ...shared, id: "message-title-2", y: 36 },
-    ]),
+    validateGeneratedPackage(root, root),
     [],
+    "Перед отрицательной проверкой активный выпуск должен быть целостным",
+  );
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-mvp-output-"));
+  try {
+    fs.mkdirSync(path.join(temporaryRoot, "docs/product/analysis"), { recursive: true });
+    fs.cpSync(packageRoot, path.join(temporaryRoot, packagePath), { recursive: true });
+    const staleFrame = path.join(
+      temporaryRoot,
+      packagePath,
+      "derived/screens/lisa-result-view-from-chat.png",
+    );
+    fs.mkdirSync(path.dirname(staleFrame), { recursive: true });
+    fs.writeFileSync(staleFrame, "устаревший P3/P4-кадр\n", "utf8");
+
+    const issues = validateGeneratedPackage(temporaryRoot, root);
+    assert.ok(
+      issues.some(
+        (issue) =>
+          /unregistered generated output|лишний generated-выход|P3|P4|неактивн/u.test(issue) &&
+          issue.includes("lisa-result-view-from-chat.png"),
+      ),
+      `Лишний P3/P4-кадр должен остановить выпуск, получено: ${issues.join(" | ")}`,
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("в активных договорах нет локальных путей, почтовых адресов и третьей статусной реплики", () => {
+  const registry = readActiveContracts();
+  const activeContracts = registry.active_contracts
+    .map((entry) => readRegisteredContract(registry, entry.id));
+  const journey = readRegisteredContract(registry, "journey");
+  const text = collectStrings(activeContracts).join("\n");
+  const statusBodies = journey.states
+    .map((state) => state.body)
+    .filter((body) => typeof body === "string" && body.includes("Презентация"));
+
+  assert.deepEqual(statusBodies, [journey.copy.generation_started, journey.copy.presentation_sent]);
+  assert.doesNotMatch(text, /\bPDF\b|\bPPTX\b|mailto:|\/Users\/|file:\/\/|absPath|@[A-Za-z0-9._-]+/u);
+  assert.doesNotMatch(text, /Презентация готова|Открыть презентацию|Уведомления|Редактировать/u);
+});
+
+test("raster-base-local-overlay: активный HTML связывает 20 состояний с нативными PNG и search-input-slot без ручной phone-оболочки", () => {
+  const registry = readActiveContracts();
+  const journey = readRegisteredContract(registry, "journey");
+  const sourceCatalog = readRegisteredContract(registry, "source-catalog");
+  const visualBasis = readRegisteredContract(registry, "visual-basis");
+  const packageContract = readJson(packageContractRelativePath);
+  const runtimeAssets = packageContract.raster_base_local_overlay?.runtime_assets;
+  const demoIndex = fs.readFileSync(path.join(packageRoot, "demo/index.html"), "utf8");
+  const demoApp = fs.readFileSync(path.join(packageRoot, "demo/app.js"), "utf8");
+  const demoData = fs.readFileSync(path.join(packageRoot, "demo/data.js"), "utf8");
+  const demoCss = fs.readFileSync(path.join(packageRoot, "demo/styles.css"), "utf8");
+  const initialBinding = visualBasis.state_bindings.find(
+    (binding) => binding.state_id === journey.initial_state_id,
+  );
+  const searchSlot = initialBinding?.slots.find((slot) => slot.id === "search-input-slot");
+  const microphoneSlot = initialBinding?.slots.find(
+    (slot) => slot.semantic_control_id === "client-answer-microphone-control",
+  );
+  const deferredSourceIds = sourceCatalog.members
+    .filter((member) => member.classification === "deferred-q4")
+    .map((member) => member.id);
+
+  assert.equal(visualBasis.rendering_pipeline, "raster-base-local-overlay");
+  assert.deepEqual(runtimeAssets, {
+    demo_asset_root: "demo/assets/",
+    data_and_runtime_reference_prefix: "assets/",
+    base_path_prefix: "assets/bases/",
+    patch_path_prefix: "assets/patches/",
+    font_path_prefix: "assets/fonts/",
+    source_paths_runtime_dependency: false,
+    parent_directory_references_allowed: false,
+  });
+  assert.deepEqual(registry.active_state_ids, journey.states.map((state) => state.id));
+  assert.equal(registry.active_state_ids.length, 20);
+  assert.equal(visualBasis.state_bindings.length, 20);
+  assert.equal(journey.initial_state_id, "lisa-client-answer");
+  assert.equal(initialBinding?.base_id, "1.1");
+  assert.deepEqual(searchSlot, {
+    id: "search-input-slot",
+    kind: "transparent-semantic-slot",
+    semantic_control_id: "client-search-input",
+    semantic_role: "input",
+    rect: { x: 88, y: 1372, width: 305, height: 32 },
+    visible_patch_path: null,
+    visible_patch_sha256: null,
+  });
+  assert.equal(microphoneSlot?.semantic_role, "microphone");
+  assert.notEqual(searchSlot?.semantic_control_id, microphoneSlot?.semantic_control_id);
+  assert.deepEqual(deferredSourceIds, ["5.3", "5.6", "6.1", "6.2", "7.3"]);
+  assert.equal(
+    visualBasis.state_bindings.some((binding) => deferredSourceIds.includes(binding.base_id)),
+    false,
+  );
+  assert.equal(
+    packageContract.archive.members.filter((member) => member.startsWith("demo/assets/bases/")).length,
+    20,
+  );
+  assert.equal(
+    packageContract.archive.members.filter((member) => member.startsWith("demo/assets/patches/")).length,
+    4,
+  );
+  assert.ok(
+    packageContract.archive.members.includes("demo/assets/fonts/NotoSans[wdth,wght].ttf"),
+    "runtime-версия шрифта должна находиться рядом с demo/index.html",
+  );
+  assert.ok(
+    packageContract.archive.members.includes("demo/assets/fonts/OFL.txt"),
+    "лицензионный файл переносимой копии шрифта должен находиться рядом с demo/index.html",
+  );
+  assert.equal(
+    packageContract.archive.members.some((member) => member.startsWith("source/")),
+    false,
+    "исполняемый ZIP не должен подменять runtime-ресурсы исходным source/**",
   );
 
-  const differentFlows = validateLayoutBoxes([
-    { ...shared, id: "message-title-1", y: 20 },
-    {
-      ...shared,
-      id: "message-body-1",
-      y: 36,
-      flowId: "message-body",
-    },
-  ]);
-  assert.ok(differentFlows.some((issue) => issue.includes("пересекается")));
+  assert.match(demoApp, /data-prototype-scene/u);
+  assert.match(demoApp, /data-slot-id/u);
+  assert.match(demoApp, /data-semantic-control-id/u);
+  assert.match(demoApp, /(?:element|createElement)\(\s*["']img["']/u);
+  assert.doesNotMatch(demoApp, /className:\s*["']phone(?:["']|\s)/u);
+  assert.doesNotMatch(demoCss, /(?:^|[^\w-])\.phone(?![\w-])/mu);
+  assert.doesNotMatch(demoCss, /\.phone-(?:header|content|composer)\b|\.clock-(?:face|hand)\b/u);
+  for (const [relativePath, generatedSource] of Object.entries({
+    "demo/index.html": demoIndex,
+    "demo/app.js": demoApp,
+    "demo/data.js": demoData,
+    "demo/styles.css": demoCss,
+  })) {
+    assert.doesNotMatch(
+      generatedSource,
+      /\.\.\/source\//u,
+      `${relativePath}: статический runtime-маршрут не должен зависеть от source/**`,
+    );
+    assert.doesNotMatch(
+      generatedSource,
+      /\.\.\//u,
+      `${relativePath}: договор запрещает родительские runtime-ссылки при прямом file:// открытии`,
+    );
+  }
+  assert.match(demoData, /assets\/bases\/[a-z0-9-]+\.png/u);
+  assert.match(demoData, /assets\/patches\/[a-z0-9-]+\.png/u);
+  assert.match(demoCss, /url\(["']?assets\/fonts\/NotoSans\[wdth,wght\]\.ttf["']?\)/u);
+  assert.match(demoIndex, /Content-Security-Policy/u);
 });

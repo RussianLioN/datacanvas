@@ -1,133 +1,40 @@
 {
-  "browser_report": {
-    "path": "evidence/browser-report.json",
-    "sha256": "837712d870d0378e050b50b641acc6c5b1851abcd289ec6253ec9dfed6aa445e"
-  },
-  "canonical_contracts": [
-    {
-      "path": "source/journey-contract.json",
-      "sha256": "c14fc2b0cc99d27508a3d2288a1e26392f2e788441d050388e8cc28f29d4464d"
-    },
-    {
-      "path": "source/source-fixture-manifest.json",
-      "sha256": "d97b1ad34f61e5dc55dfef8a7178ae0795afabb96c34e6e88f7df5e933052198"
-    },
-    {
-      "path": "source/presentation-preview-contract.json",
-      "sha256": "3cffb9230335f6689dc799e0c6f337d36cc2d80eaa390f44e2cfcd00c1fa4605"
-    },
-    {
-      "path": "source/visual-components-contract.json",
-      "sha256": "da813857c290c63bb43e11dced7acbae59f455899e4839b22dd6fa349f87be41"
-    },
-    {
-      "path": "source/frame-contract.json",
-      "sha256": "909a5b18cd86303bc99a0f256f54eddc57337f62aae3cb6fa425e58326e10ff6"
-    },
-    {
-      "path": "source/prototype-package-contract.json",
-      "sha256": "0f81cd51496aa123e15e9d32700d9640cf2496bd1bcf3dc6c1d1de742db94641"
-    }
+  "version": "3.0.0",
+  "status": "passed",
+  "route_id": "lisa-presentation-ten-screen-route",
+  "active_state_ids": [
+    "lisa-client-answer",
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
   ],
-  "commands": {
-    "check": "npm run check:presentation-link-lisa-user-journey:evidence",
-    "update": "npm run update:presentation-link-lisa-user-journey:evidence",
-    "validate": "npm run validate:presentation-link-lisa-user-journey:evidence"
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "e310a0c042a57fb9e90f2f88dc198017bd31b53e181204f2a705e12340599fae"
   },
-  "deterministic_epoch": "2026-07-16T00:00:00Z",
-  "documentation": [
-    {
-      "path": "README.md",
-      "sha256": "ed2c12225a4170eb98541e94f19a81fc6f0be771bcfc9e00ab41d63c20200bb6"
-    },
-    {
-      "path": "donor-options.md",
-      "sha256": "a5df5475c747d88208f3fc342eba35470bd6aaeddd025d7727d2284679722e3c"
-    },
-    {
-      "path": "user-journey.md",
-      "sha256": "1a6abfbcce1fe1ff13d18d145733340b38ed5d9ef1b609f293e35556167b9667"
-    }
-  ],
-  "donor_operations": {
-    "write_operations_performed": false
-  },
-  "evidence_file_count": 110,
-  "evidence_toolchain": [
-    {
-      "path": "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-      "sha256": "cb374019956095c18330ca620bd679864982a32355272313e5afd6c460d1342f"
-    },
-    {
-      "path": "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
-      "sha256": "c387c66cc1b2f3a70765a4ad8a41e5c407d60980a0b8bcc98e5597f401fc3ce9"
-    },
-    {
-      "path": "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
-      "sha256": "05a9c734e3007e04f54e9db06051fb41e741b968b87712e3fc0485dde74ba951"
-    },
-    {
-      "path": "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-      "sha256": "8249aeacd099f8b50676062cd0bf37554b023e1e619a934b84523033e0f88e90"
-    },
-    {
-      "path": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
-      "sha256": "71c38c6e71030b4c4352bcc96a585891dc3350b847a42fde986fe6201306366a"
-    }
-  ],
-  "html_files": [
-    {
-      "path": "demo/index.html",
-      "sha256": "c5cd8051f7002eff6c9872b2e72f4ed37ee50dc2a93941a3d5fd99785bee4ed7"
-    },
-    {
-      "path": "demo/app.js",
-      "sha256": "c40e18667e6013efdc46919eedbdeedb95ae283509a17850565207277a6132c0"
-    },
-    {
-      "path": "demo/styles.css",
-      "sha256": "3bb92d1c0dddbac125c25fafb46b10d6585d6c324f3782b8fb4cd1b8224010e0"
-    },
-    {
-      "path": "demo/data.js",
-      "sha256": "aeed8d8b2ec7a12b93fb38453ee2ede9fead5bcde609a94b2b32f42c3f2e320d"
-    }
-  ],
-  "owner_approval": {
-    "journey_status": "owner-approved-prototype",
-    "playwright_substitution_confirmed": true,
-    "presentation_preview_status": "owner-approved-prototype"
-  },
-  "package_manifest": {
-    "path": "derived/prototype-package-manifest.json",
-    "sha256": "b002cf6d4ce0272147dc1b302eb32c1ef0c43935bc9539b9da507751f7028612"
-  },
-  "result": "conditional_pass_with_tooling_limitation",
-  "rights": {
-    "external_distribution_requires_separate_review": true,
-    "restricted_source_assets": [
-      {
-        "license": "repository-license-not-found",
-        "origin_commit": "b5ad803b8826ec6487534c4c88d59a3c93f8be4b",
-        "origin_repository": "RussianLioN/AI-agent-platform",
-        "path": "source/components/lisa-phone-shell.svg",
-        "permission": "owner-explicit-svg-source-internal-adaptation-2026-07-16"
-      }
-    ]
-  },
-  "state_count": 26,
-  "status": "owner-approved-prototype",
-  "tooling": {
-    "chrome_devtools_mcp": {
-      "availability_assessed": false,
-      "generator_integration": false,
-      "limitation": "Генератор evidence использует Playwright и не оценивает доступность Chrome DevTools MCP в сеансе; ручная проверка фиксируется отдельно."
-    },
-    "playwright": {
-      "owner_approved_substitution": true,
-      "used": true,
-      "version": "1.61.1"
-    }
-  },
-  "version": "2.2.0"
+  "browser_report": "evidence/browser-report.json",
+  "acceptance": {
+    "exact_ten_screen_order": true,
+    "runtime_only_from_demo_assets": true,
+    "internal_scroll_only_for_long_phone_screens_and_presentation_documents": true,
+    "system_top_and_bottom_remain_fixed": true,
+    "application_content_scrolls_between_system_regions": true,
+    "service_text_and_navigation_are_outside_phone": true,
+    "four_order_buttons_open_generating_state": true,
+    "email_is_separate_uncropped_screen": true,
+    "three_presentation_documents_follow_email": true,
+    "final_mag_screen_disables_forward_navigation": true,
+    "unpacked_archive_works_via_file_url": true,
+    "chromium_and_webkit_passed": true,
+    "phone_and_document_raster_upscaling_blocked_at_device_scale_factor_3": true,
+    "email_fills_viewer_at_high_device_scale_factor": true,
+    "physical_phone_body_ratio_78_1_by_160_8": true,
+    "protected_phone_raster_is_not_stretched": true
+  }
 }

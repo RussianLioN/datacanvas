@@ -1,122 +1,116 @@
 import { createRequire } from "node:module";
+import { randomUUID } from "node:crypto";
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import AxeBuilder from "@axe-core/playwright";
 import { chromium, webkit } from "@playwright/test";
 import {
-  BROWSER_SCREENSHOT_RENDERER,
   FIXED_EPOCH,
   PACKAGE_PATH,
-  WEBKIT_EVIDENCE_STATE_IDS,
-  loadContracts,
   sha256File,
   stabilizeBrowserCapture,
   stableStringify,
   validateContracts,
 } from "./lib/presentation-link-lisa-user-journey.mjs";
 import {
+  EVIDENCE_NETWORK_GUARD_SCOPE,
+  EVIDENCE_REPORT_VERSION,
   EVIDENCE_VIEWPORTS,
-  classifyExpectedToolingConsoleMessage,
-  expectedEvidencePaths,
+  buildCandidateFingerprint,
+  buildEvidenceMatrix,
+  expectedEvidenceBrowserLaunchArgs,
   publishEvidenceAtomically,
+  readCanonicalRasterManifest,
+  resolveEvidenceRoots,
+  selectEvidenceBrowserLaunchArgs,
   validateEvidencePackage,
 } from "./validate-presentation-link-lisa-user-journey-evidence.mjs";
+import {
+  runRuntimeBrowserWorker,
+} from "./capture-presentation-link-lisa-runtime-evidence.mjs";
+
+export { runRuntimeBrowserWorker } from "./capture-presentation-link-lisa-runtime-evidence.mjs";
 
 const require = createRequire(import.meta.url);
 const { version: PLAYWRIGHT_VERSION } = require("@playwright/test/package.json");
 const ROOT = process.cwd();
-const PACKAGE_ROOT = path.join(ROOT, PACKAGE_PATH);
-const DEMO_PATH = path.join(PACKAGE_ROOT, "demo/index.html");
-const MANIFEST_PATH = path.join(
-  PACKAGE_ROOT,
-  "derived/prototype-package-manifest.json",
-);
-const EVIDENCE_ROOT = path.join(PACKAGE_ROOT, "evidence");
-const EVIDENCE_REPOSITORY_INPUTS = [
-  "package.json",
-  "package-lock.json",
-  "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+const EVIDENCE_TOOLCHAIN_PATHS = Object.freeze([
+  "scripts/capture-presentation-link-lisa-runtime-evidence.mjs",
   "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
   "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
-  "scripts/lib/presentation-link-lisa-html-runtime.mjs",
-  "scripts/lib/presentation-link-lisa-user-journey.mjs",
-  "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
-  "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-  "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
-];
+]);
+const DOCUMENTATION_PATHS = Object.freeze([
+  "README.md",
+  "donor-options.md",
+  "user-journey.md",
+]);
+const HTML_PATHS = Object.freeze([
+  "demo/index.html",
+  "demo/app.js",
+  "demo/styles.css",
+  "demo/data.js",
+]);
+
+function toPosix(value) {
+  return value.split(path.sep).join("/");
+}
+
+function sameOrderedValues(left, right) {
+  return Array.isArray(left) && Array.isArray(right) &&
+    left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function normalizedOptions(options = {}) {
+  return {
+    toolchainRoot: options.toolchainRoot ?? options.root ?? ROOT,
+    contractRoot: options.contractRoot ?? options.root ?? options.toolchainRoot ?? ROOT,
+    packageRoot: options.packageRoot,
+    evidenceRoot: options.evidenceRoot,
+  };
+}
+
+function relativePath(root, target) {
+  return toPosix(path.relative(root, target));
+}
+
+function hashRecord(root, relative) {
+  const target = path.join(root, relative);
+  return { path: relative, sha256: sha256File(target), bytes: fs.statSync(target).size };
+}
 
 function walkFiles(directory, relativeDirectory = "") {
   const files = [];
-  for (const entry of fs
-    .readdirSync(path.join(directory, relativeDirectory), { withFileTypes: true })
-    .sort((left, right) => left.name.localeCompare(right.name, "en"))) {
-    const relativePath = path.join(relativeDirectory, entry.name);
+  for (const entry of fs.readdirSync(path.join(directory, relativeDirectory), { withFileTypes: true }).sort(
+    (left, right) => left.name.localeCompare(right.name, "en"),
+  )) {
+    const relative = path.join(relativeDirectory, entry.name);
     if (relativeDirectory === "" && entry.name === "evidence") continue;
     if (entry.name.startsWith(".evidence-staging-")) continue;
-    if (entry.isDirectory()) {
-      files.push(...walkFiles(directory, relativePath));
-    } else if (entry.isFile()) {
-      files.push(relativePath);
-    }
+    if (entry.isDirectory()) files.push(...walkFiles(directory, relative));
+    else if (entry.isFile()) files.push(relative);
   }
   return files;
 }
 
-export function snapshotEvidenceInputs({
-  root = ROOT,
-  packageRoot = path.join(root, PACKAGE_PATH),
-} = {}) {
+/** Captures a read-only fingerprint of candidate inputs; evidence itself is excluded. */
+export function snapshotEvidenceInputs(options = {}) {
+  const input = normalizedOptions(options);
+  const roots = resolveEvidenceRoots({
+    ...input,
+    allowActivePackage: options.allowActivePackage ?? false,
+    requireCandidate: options.requireCandidate ?? false,
+  });
   const records = {};
-  for (const relativePath of walkFiles(packageRoot)) {
-    const repositoryPath = path
-      .relative(root, path.join(packageRoot, relativePath))
-      .split(path.sep)
-      .join("/");
-    records[repositoryPath] = sha256File(path.join(packageRoot, relativePath));
+  for (const relative of walkFiles(roots.packageRoot)) {
+    records[`candidate/${toPosix(relative)}`] = sha256File(path.join(roots.packageRoot, relative));
   }
-  for (const relativePath of EVIDENCE_REPOSITORY_INPUTS) {
-    const target = path.join(root, relativePath);
-    if (!fs.existsSync(target)) {
-      records[relativePath] = "missing";
-      continue;
-    }
-    records[relativePath] = sha256File(target);
+  for (const relative of EVIDENCE_TOOLCHAIN_PATHS) {
+    const target = path.join(roots.toolchainRoot, relative);
+    records[`toolchain/${relative}`] = fs.existsSync(target) ? sha256File(target) : "missing";
   }
   return records;
-}
-
-function compareEvidenceRoots(root, savedRoot, generatedRoot) {
-  const differences = [];
-  for (const evidencePath of expectedEvidencePaths(root)) {
-    const relativePath = evidencePath.slice("evidence/".length);
-    const savedPath = path.join(savedRoot, relativePath);
-    const generatedPath = path.join(generatedRoot, relativePath);
-    if (!fs.existsSync(savedPath) || !fs.existsSync(generatedPath)) {
-      differences.push(evidencePath);
-      continue;
-    }
-    if (sha256File(savedPath) !== sha256File(generatedPath)) {
-      differences.push(evidencePath);
-    }
-  }
-  return differences;
-}
-
-function readPngDimensions(filePath) {
-  const bytes = fs.readFileSync(filePath);
-  if (
-    bytes.length < 24 ||
-    bytes.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a"
-  ) {
-    throw new Error(`неверная сигнатура PNG: ${path.basename(filePath)}`);
-  }
-  return {
-    width: bytes.readUInt32BE(16),
-    height: bytes.readUInt32BE(20),
-  };
 }
 
 export function isExternalNetworkUrl(rawUrl) {
@@ -129,22 +123,27 @@ export function isExternalNetworkUrl(rawUrl) {
 
 export function sanitizeDiagnostic(value) {
   return String(value)
-    .replace(
-      /file:\/\/\/(?:Users|home)\/[^\s"'<>)]*/gu,
-      "[локальный-ресурс]",
-    )
+    .replace(/file:\/\/(?:\/)?(?:Users|home)\/[^\s"'<>)]*/gu, "[локальный-ресурс]")
     .replace(/\/(?:Users|home)\/[^\s"'<>)]*/gu, "[локальный-ресурс]")
-    .replace(
-      /[A-Za-z]:\\(?:Users|Documents and Settings)\\[^\s"'<>)]*/gu,
-      "[локальный-ресурс]",
-    );
+    .replace(/[A-Za-z]:\\(?:Users|Documents and Settings)\\[^\s"'<>)]*/gu, "[локальный-ресурс]");
 }
 
-function relativeEvidencePath(filePath, evidenceRoot) {
-  return `evidence/${path
-    .relative(evidenceRoot, filePath)
-    .split(path.sep)
-    .join("/")}`;
+function classifyExpectedToolingConsoleMessage(message) {
+  if (
+    message.includes("connect-src") &&
+    message.includes("styles.css") &&
+    (message.includes("violates") || message.includes("Refused to connect"))
+  ) {
+    return "axe-stylesheet-connect-src";
+  }
+  if (
+    message === "Refused to apply a stylesheet because its hash, its nonce, or " +
+      "'unsafe-inline' does not appear in the style-src directive of the " +
+      "Content Security Policy."
+  ) {
+    return "playwright-webkit-screenshot-inline-style";
+  }
+  return null;
 }
 
 function inspectResourceUrls(resourceUrls, packageRoot) {
@@ -158,181 +157,70 @@ function inspectResourceUrls(resourceUrls, packageRoot) {
       issues.push("ресурс содержит некорректный URL");
       continue;
     }
-    if (!["file:", "data:", "blob:", "about:"].includes(url.protocol)) {
+    if (!['file:', 'data:', 'about:'].includes(url.protocol)) {
       issues.push(`запрещён внешний протокол ресурса: ${url.protocol}`);
+      continue;
+    }
+    if (url.protocol === "data:" && !/^data:image\/png;base64,[A-Za-z0-9+/=]+$/u.test(rawUrl)) {
+      issues.push("разрешены только проверенные data:image/png ресурсы");
       continue;
     }
     if (url.protocol === "file:") {
       const resourcePath = path.resolve(fileURLToPath(url));
-      if (
-        resourcePath !== resolvedPackageRoot &&
-        !resourcePath.startsWith(`${resolvedPackageRoot}${path.sep}`)
-      ) {
+      if (!resourcePath.startsWith(`${resolvedPackageRoot}${path.sep}`) || !fs.existsSync(resourcePath)) {
         issues.push("локальный ресурс находится вне переносимого пакета");
-      } else if (!fs.existsSync(resourcePath)) {
-        issues.push("локальный ресурс отсутствует");
       }
     }
   }
   return issues;
 }
 
-async function collectGeometry(page) {
+async function collectGeometry(page, expectedSlots = []) {
   return page.evaluate(() => {
-    const phone = document.querySelector(".phone");
-    if (!phone) {
-      return { missingPhone: true };
-    }
-    const phoneRect = phone.getBoundingClientRect();
+    const scene = document.querySelector(".prototype-scene[data-prototype-scene]");
+    const base = scene?.querySelector("img.scene-base[data-source-base-id]");
+    const stage = document.querySelector(".scene-stage");
+    if (!scene || !base || !stage) return { missingScene: true };
+    const sceneRect = scene.getBoundingClientRect();
+    const baseRect = base.getBoundingClientRect();
     const visible = (element) => {
       const style = getComputedStyle(element);
       const rect = element.getBoundingClientRect();
-      return (
-        style.display !== "none" &&
-        style.visibility !== "hidden" &&
-        rect.width > 0 &&
-        rect.height > 0
-      );
+      return style.display !== "none" && style.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
     };
-    const textNodes = [
-      ...phone.querySelectorAll(
-        ".message-card h2, .message-card h3, .message-card p, .message-card li, " +
-          ".message-card span, .notification-card h3, .notification-card p, " +
-          ".notification-card span, .notification-card time, .viewer-card h2, " +
-          ".viewer-card p, .viewer-card li, .button",
-      ),
-    ].filter(visible);
-    const textIssues = textNodes
-      .filter(
-        (node) =>
-          node.scrollWidth > node.clientWidth + 1 ||
-          node.scrollHeight > node.clientHeight + 1,
-      )
-      .map((node) => ({
-        tag: node.tagName,
-        text: node.textContent.trim().slice(0, 80),
-      }));
-    const actions = [...phone.querySelectorAll("button:not([disabled])")]
-      .filter(visible)
-      .map((element) => {
-        const rect = element.getBoundingClientRect();
-        return {
-          id:
-            element.getAttribute("data-action-id") ||
-            element.getAttribute("aria-label") ||
-            element.textContent.trim(),
-          left: rect.left,
-          right: rect.right,
-          top: rect.top,
-          bottom: rect.bottom,
-          width: rect.width,
-          height: rect.height,
-          scrollWidth: element.scrollWidth,
-          clientWidth: element.clientWidth,
-          scrollHeight: element.scrollHeight,
-          clientHeight: element.clientHeight,
-          fullyInsidePhone:
-            rect.left >= phoneRect.left - 1 &&
-            rect.right <= phoneRect.right + 1 &&
-            rect.top >= phoneRect.top - 1 &&
-            rect.bottom <= phoneRect.bottom + 1,
-        };
-      });
-    const actionIssues = [];
-    for (const action of actions) {
-      if (action.width < 44 || action.height < 44) {
-        actionIssues.push(`${action.id}: область нажатия меньше 44 px`);
-      }
-      if (
-        action.scrollWidth > action.clientWidth + 1 ||
-        action.scrollHeight > action.clientHeight + 1
-      ) {
-        actionIssues.push(`${action.id}: содержимое области действия переполнено`);
-      }
-      if (!action.fullyInsidePhone) {
-        actionIssues.push(`${action.id}: область действия выходит за телефон`);
-      }
-    }
-    for (const group of phone.querySelectorAll(".actions")) {
-      const groupActions = [...group.querySelectorAll(":scope > button")]
-        .filter(visible)
-        .map((element) => {
-          const rect = element.getBoundingClientRect();
-          return {
-            id: element.getAttribute("data-action-id") || element.textContent.trim(),
-            left: rect.left,
-            right: rect.right,
-            top: rect.top,
-            bottom: rect.bottom,
-          };
-        });
-      for (let leftIndex = 0; leftIndex < groupActions.length; leftIndex += 1) {
-        for (
-          let rightIndex = leftIndex + 1;
-          rightIndex < groupActions.length;
-          rightIndex += 1
-        ) {
-          const left = groupActions[leftIndex];
-          const right = groupActions[rightIndex];
-          const overlapWidth =
-            Math.min(left.right, right.right) - Math.max(left.left, right.left);
-          const overlapHeight =
-            Math.min(left.bottom, right.bottom) - Math.max(left.top, right.top);
-          if (overlapWidth > 1 && overlapHeight > 1) {
-            actionIssues.push(`${left.id} пересекается с ${right.id}`);
-            continue;
-          }
-          const horizontalGap = Math.max(
-            right.left - left.right,
-            left.left - right.right,
-            0,
-          );
-          const verticalGap = Math.max(
-            right.top - left.bottom,
-            left.top - right.bottom,
-            0,
-          );
-          const gap = Math.max(horizontalGap, verticalGap);
-          if (gap > 0 && gap < 8) {
-            actionIssues.push(
-              `${left.id} и ${right.id}: интервал меньше 8 px`,
-            );
-          }
-        }
-      }
-    }
+    const slots = [...scene.querySelectorAll("[data-slot-id][data-semantic-control-id]")];
+    const slotIds = slots.map((element) => element.getAttribute("data-slot-id"));
+    const semanticControlIds = slots.map((element) => element.getAttribute("data-semantic-control-id"));
+    const actions = slots.filter((element) => !element.hasAttribute("disabled")).filter(visible).map((element) => {
+      const rect = element.getBoundingClientRect();
+      return {
+        id: element.getAttribute("data-action-id") || element.getAttribute("data-semantic-control-id"),
+        width: rect.width,
+        height: rect.height,
+        inside: rect.left >= sceneRect.left - 1 && rect.right <= sceneRect.right + 1 &&
+          rect.top >= sceneRect.top - 1 && rect.bottom <= sceneRect.bottom + 1,
+      };
+    });
     return {
-      missingPhone: false,
+      missingScene: false,
       documentScrollWidth: document.documentElement.scrollWidth,
       documentScrollHeight: document.documentElement.scrollHeight,
       viewportWidth: window.innerWidth,
       viewportHeight: window.innerHeight,
-      phone: {
-        left: phoneRect.left,
-        right: phoneRect.right,
-        top: phoneRect.top,
-        bottom: phoneRect.bottom,
-        width: phoneRect.width,
-        height: phoneRect.height,
-      },
-      phoneInsideViewport:
-        phoneRect.left >= -1 &&
-        phoneRect.right <= window.innerWidth + 1 &&
-        phoneRect.top >= -1 &&
-        phoneRect.bottom <= window.innerHeight + 1,
-      textIssues,
-      actionCount: actions.length,
-      actionIssues,
-      resourceUrls: [
-        ...new Set([
-          ...[...document.querySelectorAll("[src], [href]")].map(
-            (element) => element.src || element.href,
-          ),
-          ...performance.getEntriesByType("resource").map((entry) => entry.name),
-        ]),
-      ],
+      sceneInsideViewportHorizontally: sceneRect.left >= -1 && sceneRect.right <= window.innerWidth + 1,
+      sceneMatchesBase: base.complete && base.naturalWidth > 0 && base.naturalHeight > 0 &&
+        Math.abs(sceneRect.width - baseRect.width) < 0.1 && Math.abs(sceneRect.height - baseRect.height) < 0.1 &&
+        Math.abs((baseRect.width / base.naturalWidth) - (baseRect.height / base.naturalHeight)) < 0.001,
+      slotIds,
+      semanticControlIds,
+      actionOutsideSceneCount: actions.filter((action) => !action.inside).length,
+      stageContainsScene: stage.contains(scene),
+      resourceUrls: [...new Set([
+        ...[...document.querySelectorAll("[src], [href]")].map((element) => element.src || element.href),
+        ...performance.getEntriesByType("resource").map((entry) => entry.name),
+      ])],
     };
-  });
+  }, expectedSlots);
 }
 
 function compactAxeViolations(violations) {
@@ -344,46 +232,98 @@ function compactAxeViolations(violations) {
   }));
 }
 
-export async function installNetworkGuards(page, attemptedNetwork) {
-  const recordAttempt = (rawUrl) => {
-    if (isExternalNetworkUrl(rawUrl)) attemptedNetwork.add(rawUrl);
-  };
-  page.on("request", (request) => recordAttempt(request.url()));
-  await page.route(/^(?:https?|wss?):/u, async (route) => {
-    recordAttempt(route.request().url());
-    await route.abort("blockedbyclient");
-  });
-  if (typeof page.routeWebSocket === "function") {
-    await page.routeWebSocket(/^(?:ws|wss):/u, (webSocket) => {
-      const rawUrl = webSocket.url();
-      if (isExternalNetworkUrl(rawUrl)) {
-        attemptedNetwork.add(rawUrl);
-        webSocket.close({
-          code: 1008,
-          reason: "Внешняя сеть запрещена",
-        });
-      }
-    });
+/** Enforces that the guard is installed on BrowserContext, never Page. */
+export function assertContextNetworkGuard(context) {
+  if (
+    !context ||
+    typeof context.newPage !== "function" ||
+    typeof context.route !== "function" ||
+    typeof context.routeWebSocket !== "function"
+  ) {
+    throw new Error("защита сети evidence должна устанавливаться на BrowserContext, а не на Page");
   }
 }
 
-async function captureBrowser({
+export async function installNetworkGuards(context, attemptedNetwork) {
+  assertContextNetworkGuard(context);
+  const recordAttempt = (rawUrl) => {
+    if (isExternalNetworkUrl(rawUrl)) attemptedNetwork.add(rawUrl);
+  };
+  context.on("request", (request) => recordAttempt(request.url()));
+  await context.route(/^(?:https?|wss?):/u, async (route) => {
+    recordAttempt(route.request().url());
+    await route.abort("blockedbyclient");
+  });
+  await context.routeWebSocket(/^(?:ws|wss):/u, (socket) => {
+    recordAttempt(socket.url());
+    socket.close({ code: 1008, reason: "Внешняя сеть запрещена" });
+  });
+}
+
+function runtimeRecord({ browserName, browserVersion, plan, checks }) {
+  return {
+    browser: browserName,
+    viewport: plan.viewport,
+    state_id: plan.state_id,
+    checks,
+  };
+}
+
+function runtimeChecks({ renderedStateId, expectedStateId, expectedSlots, consoleErrors, pageErrors, axeViolations, geometry, resourceIssues, attemptedNetwork }) {
+  const relevantConsoleErrors = consoleErrors
+    .filter((message) => classifyExpectedToolingConsoleMessage(message) === null)
+    .map(sanitizeDiagnostic);
+  const sanitizedPageErrors = pageErrors.map(sanitizeDiagnostic);
+  const attempts = [...attemptedNetwork].sort((left, right) => left.localeCompare(right, "en"));
+  const behaviorPassed = renderedStateId === expectedStateId && relevantConsoleErrors.length === 0 && sanitizedPageErrors.length === 0;
+  const expectedSlotIds = expectedSlots.map((slot) => slot.id);
+  const expectedControlIds = expectedSlots.map((slot) => slot.semantic_control_id);
+  const geometryPassed = !geometry.missingScene &&
+    geometry.documentScrollWidth <= geometry.viewportWidth + 1 &&
+    geometry.documentScrollHeight <= geometry.viewportHeight + 1 &&
+    geometry.sceneInsideViewportHorizontally === true && geometry.sceneMatchesBase === true &&
+    geometry.stageContainsScene === true && geometry.actionOutsideSceneCount === 0 &&
+    sameOrderedValues([...geometry.slotIds].sort((left, right) => String(left).localeCompare(String(right), "en")), [...expectedSlotIds].sort((left, right) => left.localeCompare(right, "en"))) &&
+    sameOrderedValues([...geometry.semanticControlIds].sort((left, right) => String(left).localeCompare(String(right), "en")), [...expectedControlIds].sort((left, right) => left.localeCompare(right, "en"))) &&
+    resourceIssues.length === 0;
+  return {
+    behavior: { passed: behaviorPassed },
+    accessibility: {
+      passed: axeViolations.length === 0,
+      axe_violation_count: axeViolations.length,
+    },
+    geometry: { passed: geometryPassed },
+    network: {
+      passed: attempts.length === 0,
+      network_attempts: attempts,
+      console_errors: relevantConsoleErrors,
+      page_errors: sanitizedPageErrors,
+    },
+  };
+}
+
+/**
+ * Runs interaction/accessibility/layout/network checks only. It deliberately
+ * never calls screenshot(), so Chromium cannot publish an unstable PNG.
+ */
+export async function captureBrowser({
   browserType,
   browserName,
-  states,
-  stagingRoot,
+  runtimePlans,
   packageRoot,
-  demoPath,
+  demoPath = path.join(packageRoot, "demo/index.html"),
   captureStabilization,
+  browserLaunchArgs,
 }) {
-  const browser = await browserType.launch({
-    headless: true,
-    args: captureStabilization.browser_launch_args,
-  });
+  const appliedBrowserLaunchArgs = browserLaunchArgs ??
+    selectEvidenceBrowserLaunchArgs(captureStabilization, browserName);
+  const browser = await browserType.launch({ headless: true, args: appliedBrowserLaunchArgs });
   const browserVersion = browser.version();
-  const records = [];
+  const results = [];
   try {
     for (const viewport of EVIDENCE_VIEWPORTS) {
+      const plans = runtimePlans.filter((plan) => plan.viewport === viewport.id);
+      if (plans.length === 0) continue;
       const context = await browser.newContext({
         viewport: { width: viewport.width, height: viewport.height },
         deviceScaleFactor: 1,
@@ -393,146 +333,50 @@ async function captureBrowser({
         reducedMotion: "reduce",
         serviceWorkers: "block",
       });
+      const attemptedNetwork = new Set();
       try {
-        for (const state of states) {
+        await installNetworkGuards(context, attemptedNetwork);
+        for (const plan of plans) {
           const page = await context.newPage();
-          const attemptedNetwork = new Set();
           const consoleErrors = [];
           const pageErrors = [];
           page.on("console", (message) => {
             if (message.type() === "error") consoleErrors.push(message.text());
           });
           page.on("pageerror", (error) => pageErrors.push(error.message));
-          await installNetworkGuards(page, attemptedNetwork);
           await page.addInitScript(() => {
             Date.now = () => 1784150400000;
             window.__DATACANVAS_LISA_CAPTURE__ = true;
           });
           try {
             const url = pathToFileURL(demoPath);
-            url.searchParams.set("state", state.id);
+            url.searchParams.set("state", plan.state_id);
             await page.goto(url.href, { waitUntil: "load" });
-            const phone = page.locator(".phone");
-            await phone.waitFor();
+            const scene = page.locator(".prototype-scene[data-prototype-scene]");
+            await scene.waitFor();
             await stabilizeBrowserCapture(page, captureStabilization);
-            const renderedStateId = await phone.getAttribute("data-state-id");
-            if (renderedStateId !== state.id) {
-              throw new Error(
-                `${state.id}: отрисовано другое состояние ${renderedStateId}`,
-              );
-            }
-
-            const geometry = await collectGeometry(page);
-            const resourceIssues = inspectResourceUrls(
-              geometry.resourceUrls ?? [],
-              packageRoot,
-            );
-            const screenshotPath = path.join(
-              stagingRoot,
-              "screenshots",
-              browserName,
-              viewport.id,
-              `${state.id}.png`,
-            );
-            fs.mkdirSync(path.dirname(screenshotPath), { recursive: true });
-            await phone.screenshot({
-              path: screenshotPath,
-              animations: "disabled",
-              caret: "hide",
-              scale: "css",
-            });
+            const renderedStateId = await scene.getAttribute("data-state-id");
+            const geometry = await collectGeometry(page, plan.semantic_slots ?? []);
+            const resourceIssues = inspectResourceUrls(geometry.resourceUrls ?? [], packageRoot);
             const axe = await new AxeBuilder({ page })
               .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
               .analyze();
-            const toolingConsoleMessages = consoleErrors.flatMap((message) => {
-              const classification =
-                classifyExpectedToolingConsoleMessage(message);
-              return classification
-                ? [
-                    {
-                      classification,
-                      message: sanitizeDiagnostic(message),
-                    },
-                  ]
-                : [];
-            });
-            const relevantConsoleErrors = consoleErrors
-              .filter(
-                (message) =>
-                  classifyExpectedToolingConsoleMessage(message) === null,
-              )
-              .map(sanitizeDiagnostic);
-            const sanitizedPageErrors = pageErrors.map(sanitizeDiagnostic);
-            const networkAttempts = [...attemptedNetwork].sort((left, right) =>
-              left.localeCompare(right, "en"),
-            );
-            const axeViolations = compactAxeViolations(axe.violations);
-            const dimensions = readPngDimensions(screenshotPath);
-            const geometryPassed =
-              !geometry.missingPhone &&
-              geometry.documentScrollWidth <= geometry.viewportWidth + 1 &&
-              geometry.documentScrollHeight <= geometry.viewportHeight + 1 &&
-              geometry.phoneInsideViewport === true;
-            records.push({
-              browser: browserName,
-              browser_version: browserVersion,
-              viewport: viewport.id,
-              viewport_dimensions: {
-                width: viewport.width,
-                height: viewport.height,
-              },
-              state_id: state.id,
-              path: relativeEvidencePath(screenshotPath, stagingRoot),
-              bytes: fs.statSync(screenshotPath).size,
-              sha256: sha256File(screenshotPath),
-              png_dimensions: dimensions,
-              checks: {
-                geometry: {
-                  passed: geometryPassed,
-                  document_scroll_width:
-                    geometry.documentScrollWidth ?? Number.MAX_SAFE_INTEGER,
-                  document_scroll_height:
-                    geometry.documentScrollHeight ?? Number.MAX_SAFE_INTEGER,
-                  viewport_width:
-                    geometry.viewportWidth ?? viewport.width,
-                  viewport_height:
-                    geometry.viewportHeight ?? viewport.height,
-                  phone_inside_viewport:
-                    geometry.phoneInsideViewport === true,
-                  phone_width: geometry.phone?.width ?? 0,
-                  phone_height: geometry.phone?.height ?? 0,
-                },
-                overflow: {
-                  passed: (geometry.textIssues?.length ?? 1) === 0,
-                  text_issue_count: geometry.textIssues?.length ?? 1,
-                  issues: geometry.textIssues ?? [
-                    { text: "Не удалось измерить текст" },
-                  ],
-                },
-                actions: {
-                  passed: (geometry.actionIssues?.length ?? 1) === 0,
-                  action_count: geometry.actionCount ?? 0,
-                  issue_count: geometry.actionIssues?.length ?? 1,
-                  issues: geometry.actionIssues ?? [
-                    "Не удалось измерить области действий",
-                  ],
-                },
-                accessibility: {
-                  passed: axeViolations.length === 0,
-                  axe_violation_count: axeViolations.length,
-                  axe_violations: axeViolations,
-                },
-                resources: {
-                  passed: resourceIssues.length === 0,
-                  issue_count: resourceIssues.length,
-                  issues: resourceIssues,
-                },
-                tooling_console_messages: toolingConsoleMessages,
-                console_errors: relevantConsoleErrors,
-                page_errors: sanitizedPageErrors,
-                network_attempts: networkAttempts,
-              },
-            });
+            results.push(runtimeRecord({
+              browserName,
+              browserVersion,
+              plan,
+              checks: runtimeChecks({
+                renderedStateId,
+                expectedStateId: plan.state_id,
+                expectedSlots: plan.semantic_slots ?? [],
+                consoleErrors,
+                pageErrors,
+                axeViolations: compactAxeViolations(axe.violations),
+                geometry,
+                resourceIssues,
+                attemptedNetwork,
+              }),
+            }));
           } finally {
             await page.close();
           }
@@ -544,118 +388,109 @@ async function captureBrowser({
   } finally {
     await browser.close();
   }
-  return { browserVersion, records };
+  return {
+    browserVersion,
+    runtimeResults: results,
+    browserLaunchArgs: [...appliedBrowserLaunchArgs],
+  };
 }
 
-function sumRecords(records, selector) {
-  return records.reduce((total, record) => total + selector(record), 0);
+function runtimeTotals(records, canonicalPngCount) {
+  const checkList = records.map((record) => record.checks);
+  return {
+    chromium_runtime_results: records.filter((record) => record.browser === "chromium").length,
+    webkit_runtime_results: records.filter((record) => record.browser === "webkit").length,
+    canonical_webkit_pngs: canonicalPngCount,
+    console_errors: checkList.reduce((count, checks) => count + checks.network.console_errors.length, 0),
+    page_errors: checkList.reduce((count, checks) => count + checks.network.page_errors.length, 0),
+    network_attempts: checkList.reduce((count, checks) => count + checks.network.network_attempts.length, 0),
+    failed_checks: checkList.reduce((count, checks) => count + [
+      checks.behavior,
+      checks.accessibility,
+      checks.geometry,
+      checks.network,
+    ].filter((check) => check.passed !== true).length, 0),
+  };
 }
 
 export function buildBrowserReport({
-  records,
+  runtimeResults,
   browserVersions,
+  browserLaunchArgsApplied,
   captureStabilization,
+  activeEvidence,
+  canonicalRasterManifest,
+  candidateFingerprint,
   playwrightVersion = PLAYWRIGHT_VERSION,
 }) {
+  const matrix = activeEvidence;
+  const context = matrix.context;
+  const launchArgs = browserLaunchArgsApplied ?? expectedEvidenceBrowserLaunchArgs(captureStabilization);
   return {
-    version: "2.1.0",
+    version: EVIDENCE_REPORT_VERSION,
     status: "generated",
     deterministic_epoch: FIXED_EPOCH,
     playwright_version: playwrightVersion,
-    browser_versions: browserVersions,
-    capture_stabilization: captureStabilization,
-    renderer: BROWSER_SCREENSHOT_RENDERER,
-    viewports: EVIDENCE_VIEWPORTS,
-    screenshot_count: records.length,
-    screenshots: records,
-    totals: {
-      chromium_screenshots: records.filter(
-        (record) => record.browser === "chromium",
-      ).length,
-      webkit_screenshots: records.filter(
-        (record) => record.browser === "webkit",
-      ).length,
-      console_errors: sumRecords(
-        records,
-        (record) => record.checks.console_errors.length,
-      ),
-      tooling_console_messages: sumRecords(
-        records,
-        (record) => record.checks.tooling_console_messages.length,
-      ),
-      page_errors: sumRecords(
-        records,
-        (record) => record.checks.page_errors.length,
-      ),
-      network_attempts: sumRecords(
-        records,
-        (record) => record.checks.network_attempts.length,
-      ),
-      geometry_failures: sumRecords(
-        records,
-        (record) => (record.checks.geometry.passed ? 0 : 1),
-      ),
-      overflow_failures: sumRecords(
-        records,
-        (record) => (record.checks.overflow.passed ? 0 : 1),
-      ),
-      action_failures: sumRecords(
-        records,
-        (record) => (record.checks.actions.passed ? 0 : 1),
-      ),
-      axe_violations: sumRecords(
-        records,
-        (record) => record.checks.accessibility.axe_violation_count,
-      ),
+    active_state_ids: [...context.activeStateIds],
+    active_contract_ids: [...context.activeContractIds],
+    active_contracts_sha256: context.activeContractsSha256,
+    mvp_scope: "P1/P2",
+    candidate_fingerprint: candidateFingerprint,
+    renderer_profile: canonicalRasterManifest.manifest.renderer_profile,
+    source_parity: canonicalRasterManifest.manifest.source_parity,
+    canonical_raster_manifest: {
+      path: canonicalRasterManifest.path,
+      sha256: canonicalRasterManifest.sha256,
     },
+    runtime_profile: Object.fromEntries(["chromium", "webkit"].map((browser) => [
+      browser,
+      {
+        browser,
+        browser_version: browserVersions[browser],
+        launch_args: launchArgs[browser],
+        runtime_check_only: true,
+        published_png: false,
+        retained_png: false,
+        network_guard_scope: EVIDENCE_NETWORK_GUARD_SCOPE,
+      },
+    ])),
+    runtime_results: runtimeResults,
+    totals: runtimeTotals(runtimeResults, matrix.canonicalPngCount),
     network_policy: {
       external_protocols: ["http", "https", "ws", "wss"],
       blocked_before_send: true,
       publication_requires_zero_attempts: true,
+      guard_scope: EVIDENCE_NETWORK_GUARD_SCOPE,
     },
   };
 }
 
-export function assertEvidenceContracts(root, contracts) {
-  const issues = validateContracts(root, contracts);
+export function assertEvidenceContracts(contractRoot = process.cwd()) {
+  const matrix = buildEvidenceMatrix({ contractRoot });
+  const issues = validateContracts(contractRoot, matrix.context.contracts);
   if (issues.length > 0) {
-    throw new Error(
-      `канонические договоры не прошли проверку: ${issues.join("; ")}`,
-    );
+    throw new Error(`канонические договоры не прошли проверку: ${issues.join("; ")}`);
   }
-  if (
-    contracts.journey.status !== "owner-approved-prototype" ||
-    contracts.preview.status !== "owner-approved-prototype"
-  ) {
-    throw new Error(
-      "генерация evidence остановлена: владелец ещё не подтвердил прототип",
-    );
+  if (matrix.context.contracts.journey.status !== "owner-approved-prototype") {
+    throw new Error("генерация evidence остановлена: владелец ещё не подтвердил прототип");
   }
+  return matrix;
 }
 
 export function buildAcceptanceReport({
-  root = process.cwd(),
-  evidenceRoot = path.join(root, PACKAGE_PATH, "evidence"),
+  roots,
+  activeEvidence,
+  canonicalRasterManifest,
+  candidateFingerprint,
+  browserReport,
   playwrightVersion = PLAYWRIGHT_VERSION,
 }) {
-  const contracts = loadContracts(root);
-  if (
-    contracts.journey.status !== "owner-approved-prototype" ||
-    contracts.preview.status !== "owner-approved-prototype"
-  ) {
-    throw new Error(
-      "evidence разрешён только для подтверждённого владельцем прототипа",
-    );
-  }
-  const packageRoot = path.join(root, PACKAGE_PATH);
-  const hashRecord = (relativePath) => ({
-    path: relativePath,
-    sha256: sha256File(path.join(packageRoot, relativePath)),
-  });
-  const repositoryHashRecord = (relativePath) => ({
-    path: relativePath,
-    sha256: sha256File(path.join(root, relativePath)),
-  });
+  const matrix = activeEvidence;
+  const context = matrix.context;
+  const contracts = context.contracts;
+  const contractHash = (relative) => hashRecord(roots.contractPackageRoot, relative);
+  const candidateHash = (relative) => hashRecord(roots.packageRoot, relative);
+  const toolchainHash = (relative) => hashRecord(roots.toolchainRoot, relative);
   const restrictedSourceAssets = contracts.package.source_assets
     .filter((asset) => asset.license === "repository-license-not-found")
     .map((asset) => ({
@@ -666,246 +501,264 @@ export function buildAcceptanceReport({
       permission: asset.permission,
     }));
   return {
-    version: "2.2.0",
+    version: EVIDENCE_REPORT_VERSION,
     status: "owner-approved-prototype",
     deterministic_epoch: FIXED_EPOCH,
     result: "conditional_pass_with_tooling_limitation",
-    state_count: contracts.journey.states.length,
-    evidence_file_count: 110,
-    documentation: [
-      "README.md",
-      "donor-options.md",
-      "user-journey.md",
-    ].map(hashRecord),
-    evidence_toolchain: [
-      "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-      "scripts/validate-presentation-link-lisa-user-journey-evidence.mjs",
-      "tests/presentation-link-lisa-user-journey-evidence.test.mjs",
-      "tests/presentation-link-lisa-user-journey.browser.spec.mjs",
-      "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
-    ].map(repositoryHashRecord),
-    html_files: [
-      "demo/index.html",
-      "demo/app.js",
-      "demo/styles.css",
-      "demo/data.js",
-    ].map(hashRecord),
-    canonical_contracts: contracts.package.canonical_contracts.map(hashRecord),
-    package_manifest: hashRecord("derived/prototype-package-manifest.json"),
+    active_state_ids: [...context.activeStateIds],
+    active_contract_ids: [...context.activeContractIds],
+    active_contracts_sha256: context.activeContractsSha256,
+    mvp_scope: "P1/P2",
+    candidate_fingerprint: candidateFingerprint,
+    renderer_profile: canonicalRasterManifest.manifest.renderer_profile,
+    source_parity: canonicalRasterManifest.manifest.source_parity,
+    canonical_raster_manifest: {
+      path: canonicalRasterManifest.path,
+      sha256: canonicalRasterManifest.sha256,
+    },
+    status_messages: [...context.statusMessages],
+    timeline: {
+      generation_started_at_ms: contracts.journey.prototype_timeline.generation_started_at_ms,
+      clock_animation_ends_at_ms: contracts.journey.prototype_timeline.clock_animation_ends_at_ms,
+      ready_at_ms: contracts.journey.prototype_timeline.ready_at_ms,
+      direct_state_autoplay: contracts.journey.prototype_timeline.direct_state_autoplay,
+    },
+    state_count: context.activeStateIds.length,
+    evidence_file_count: matrix.fileCount,
+    canonical_webkit_png_count: matrix.canonicalPngCount,
+    runtime_check_count: matrix.runtimeCount,
+    documentation: DOCUMENTATION_PATHS.map(contractHash),
+    evidence_toolchain: EVIDENCE_TOOLCHAIN_PATHS.map(toolchainHash),
+    html_files: HTML_PATHS.map(candidateHash),
+    canonical_contracts: context.activeContractPaths.map(contractHash),
+    active_contract_registry: contractHash("source/active-contracts.json"),
+    package_manifest: candidateHash("derived/prototype-package-manifest.json"),
     browser_report: {
       path: "evidence/browser-report.json",
-      sha256: sha256File(path.join(evidenceRoot, "browser-report.json")),
+      sha256: sha256File(path.join(roots.evidenceRoot, "browser-report.json")),
     },
     owner_approval: {
       journey_status: contracts.journey.status,
-      presentation_preview_status: contracts.preview.status,
+      active_registry_status: context.registry.status,
       playwright_substitution_confirmed: true,
     },
-    donor_operations: {
-      write_operations_performed: false,
-    },
+    donor_operations: { write_operations_performed: false },
     rights: {
       restricted_source_assets: restrictedSourceAssets,
-      external_distribution_requires_separate_review:
-        restrictedSourceAssets.length > 0,
+      external_distribution_requires_separate_review: restrictedSourceAssets.length > 0,
     },
     tooling: {
-      chrome_devtools_mcp: {
-        generator_integration: false,
-        availability_assessed: false,
-        limitation:
-          "Генератор evidence использует Playwright и не оценивает доступность Chrome DevTools MCP в сеансе; ручная проверка фиксируется отдельно.",
-      },
       playwright: {
         used: true,
         version: playwrightVersion,
-        owner_approved_substitution: true,
+        runtime_checks_only: true,
       },
     },
+    browser_report_runtime_result_count: browserReport.runtime_results.length,
     commands: {
-      update:
-        "npm run update:presentation-link-lisa-user-journey:evidence",
-      validate:
-        "npm run validate:presentation-link-lisa-user-journey:evidence",
-      check:
-        "npm run check:presentation-link-lisa-user-journey:evidence",
+      update: "npm run update:presentation-link-lisa-user-journey:evidence",
+      validate: "npm run validate:presentation-link-lisa-user-journey:evidence",
+      check: "npm run check:presentation-link-lisa-user-journey:evidence",
     },
   };
 }
 
-export async function generateEvidence({
-  root = ROOT,
-  packageRoot = path.join(root, PACKAGE_PATH),
-  evidenceRoot = path.join(root, PACKAGE_PATH, "evidence"),
-} = {}) {
-  const contracts = loadContracts(root);
-  assertEvidenceContracts(root, contracts);
-  const demoPath = path.join(packageRoot, "demo/index.html");
-  const manifestPath = path.join(
-    packageRoot,
-    "derived/prototype-package-manifest.json",
-  );
-  for (const requiredPath of [demoPath, manifestPath]) {
-    if (!fs.existsSync(requiredPath)) {
-      throw new Error(`обязательный вход отсутствует: ${path.basename(requiredPath)}`);
-    }
+function copyCanonicalRastersToStaging({ roots, matrix, stagingRoot }) {
+  for (const record of matrix.canonicalRecords) {
+    const source = path.join(roots.packageRoot, record.path);
+    const target = path.join(stagingRoot, record.path.slice("evidence/".length));
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(source, target, fs.constants.COPYFILE_EXCL);
   }
-  const stagingRoot = path.join(
-    path.dirname(evidenceRoot),
-    `.evidence-staging-${process.pid}`,
-  );
-  fs.rmSync(stagingRoot, { recursive: true, force: true });
-  fs.mkdirSync(stagingRoot, { recursive: true });
+}
+
+function createRuntimeDiagnosticRunRoot({ toolchainRoot, supervision }) {
+  const resolvedToolchainRoot = path.resolve(toolchainRoot);
+  const relativeDiagnosticPath = supervision?.diagnostic_report?.path;
+  if (
+    typeof relativeDiagnosticPath !== "string" ||
+    path.isAbsolute(relativeDiagnosticPath) ||
+    relativeDiagnosticPath.split(/[\\/]/u).some((part) => part === ".." || part.length === 0)
+  ) {
+    throw new Error("runtime_capture_supervision содержит небезопасный путь диагностики");
+  }
+  const diagnosticRoot = path.resolve(resolvedToolchainRoot, relativeDiagnosticPath);
+  if (!diagnosticRoot.startsWith(`${resolvedToolchainRoot}${path.sep}`)) {
+    throw new Error("диагностика runtime browser-worker находится вне toolchainRoot");
+  }
+  fs.mkdirSync(diagnosticRoot, { recursive: true });
+  const diagnosticRunRoot = path.join(diagnosticRoot, `run-${randomUUID()}`);
+  fs.mkdirSync(diagnosticRunRoot, { recursive: false });
+  return diagnosticRunRoot;
+}
+
+/**
+ * Creates evidence only for an explicit non-active candidate. Unix-produced
+ * WebKit PNGs must already exist and pass the three-run manifest check.
+ */
+export async function generateEvidence(options = {}) {
+  const input = normalizedOptions(options);
+  if (!input.packageRoot) {
+    throw new Error("generateEvidence требует явный candidate packageRoot; активный пакет не подписывается");
+  }
+  const roots = resolveEvidenceRoots({
+    ...input,
+    requireCandidate: true,
+    allowActivePackage: false,
+  });
+  const matrix = assertEvidenceContracts(roots.contractRoot);
+  const canonicalRasterManifest = readCanonicalRasterManifest({ roots, matrix });
+  const candidateFingerprint = buildCandidateFingerprint({
+    roots,
+    matrix,
+    canonicalRasterManifest,
+  });
+  if (stableStringify(canonicalRasterManifest.manifest.candidate_fingerprint) !== stableStringify(candidateFingerprint)) {
+    throw new Error("Unix canonical raster manifest не совпадает с candidate_fingerprint кандидата");
+  }
+  const stagingRoot = fs.mkdtempSync(path.join(roots.packageRoot, ".evidence-staging-"));
+  const supervision = matrix.context.contracts.package.reproducibility.runtime_capture_supervision;
+  const runRuntimeBrowserWorkerFn = options.runRuntimeBrowserWorkerFn ?? runRuntimeBrowserWorker;
+  let diagnosticRunRoot = null;
+  let evidencePublished = false;
   try {
-    const chromiumCapture = await captureBrowser({
-      browserType: chromium,
-      browserName: "chromium",
-      states: contracts.journey.states,
-      stagingRoot,
-      packageRoot,
-      demoPath,
-      captureStabilization:
-        contracts.package.reproducibility.capture_stabilization,
+    copyCanonicalRastersToStaging({ roots, matrix, stagingRoot });
+    const demoPath = path.join(roots.packageRoot, "demo/index.html");
+    const captureStabilization = matrix.context.contracts.package.reproducibility.capture_stabilization;
+    const captures = {};
+    diagnosticRunRoot = createRuntimeDiagnosticRunRoot({
+      toolchainRoot: roots.toolchainRoot,
+      supervision,
     });
-    const criticalStateIds = new Set(WEBKIT_EVIDENCE_STATE_IDS);
-    const webkitCapture = await captureBrowser({
-      browserType: webkit,
-      browserName: "webkit",
-      states: contracts.journey.states.filter((state) =>
-        criticalStateIds.has(state.id),
-      ),
-      stagingRoot,
-      packageRoot,
-      demoPath,
-      captureStabilization:
-        contracts.package.reproducibility.capture_stabilization,
-    });
-    const records = [...chromiumCapture.records, ...webkitCapture.records];
+    for (const browserName of supervision.browser_execution_order) {
+      const capture = await runRuntimeBrowserWorkerFn({
+        toolchainRoot: roots.toolchainRoot,
+        packageRoot: roots.packageRoot,
+        demoPath,
+        browserName,
+        runtimePlans: matrix.runtimeRecords.filter((record) => record.browser === browserName),
+        runtimeViewports: EVIDENCE_VIEWPORTS.map((viewport) => ({
+          id: viewport.id,
+          width: viewport.width,
+          height: viewport.height,
+        })),
+        captureStabilization,
+        browserLaunchArgs: selectEvidenceBrowserLaunchArgs(captureStabilization, browserName),
+        supervision,
+        diagnosticRunRoot,
+      });
+      captures[browserName] = capture;
+    }
+    const chromiumCapture = captures.chromium;
+    const webkitCapture = captures.webkit;
     const browserReport = buildBrowserReport({
-      records,
+      runtimeResults: [...chromiumCapture.runtimeResults, ...webkitCapture.runtimeResults],
       browserVersions: {
         chromium: chromiumCapture.browserVersion,
         webkit: webkitCapture.browserVersion,
       },
-      captureStabilization:
-        contracts.package.reproducibility.capture_stabilization,
+      browserLaunchArgsApplied: {
+        chromium: chromiumCapture.browserLaunchArgs,
+        webkit: webkitCapture.browserLaunchArgs,
+      },
+      captureStabilization,
+      activeEvidence: matrix,
+      canonicalRasterManifest,
+      candidateFingerprint,
     });
-    fs.writeFileSync(
-      path.join(stagingRoot, "browser-report.json"),
-      stableStringify(browserReport),
-    );
-    const acceptanceReport = buildAcceptanceReport({
-      root,
+    fs.writeFileSync(path.join(stagingRoot, "browser-report.json"), stableStringify(browserReport));
+    const stagingRoots = resolveEvidenceRoots({
+      toolchainRoot: roots.toolchainRoot,
+      contractRoot: roots.contractRoot,
+      packageRoot: roots.packageRoot,
       evidenceRoot: stagingRoot,
+      requireCandidate: true,
     });
-    fs.writeFileSync(
-      path.join(stagingRoot, "acceptance-report.json"),
-      stableStringify(acceptanceReport),
-    );
-    publishEvidenceAtomically(root, { stagingRoot, targetRoot: evidenceRoot });
+    const acceptanceReport = buildAcceptanceReport({
+      roots: stagingRoots,
+      activeEvidence: matrix,
+      canonicalRasterManifest,
+      candidateFingerprint,
+      browserReport,
+    });
+    fs.writeFileSync(path.join(stagingRoot, "acceptance-report.json"), stableStringify(acceptanceReport));
+    publishEvidenceAtomically({
+      toolchainRoot: roots.toolchainRoot,
+      contractRoot: roots.contractRoot,
+      packageRoot: roots.packageRoot,
+      evidenceRoot: roots.evidenceRoot,
+      stagingRoot,
+    });
+    evidencePublished = true;
     return {
-      fileCount: 110,
-      screenshotCount: records.length,
-      browserVersions: browserReport.browser_versions,
+      fileCount: matrix.fileCount,
+      screenshotCount: matrix.canonicalPngCount,
+      runtimeCheckCount: matrix.runtimeCount,
+      browserVersions: browserReport.runtime_profile,
     };
   } finally {
-    fs.rmSync(stagingRoot, { recursive: true, force: true });
+    if (fs.existsSync(stagingRoot)) fs.rmSync(stagingRoot, { recursive: true, force: true });
+    if (evidencePublished && diagnosticRunRoot && fs.existsSync(diagnosticRunRoot)) {
+      fs.rmSync(diagnosticRunRoot, { recursive: true, force: true });
+    }
   }
 }
 
-export async function checkEvidenceFreshness({
-  root = ROOT,
-  packageRoot = path.join(root, PACKAGE_PATH),
-  evidenceRoot = path.join(root, PACKAGE_PATH, "evidence"),
-  createTemporaryRoot = () =>
-    fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-evidence-check-")),
-  generateEvidenceFn = generateEvidence,
-  validateEvidenceFn = validateEvidencePackage,
-  snapshotInputsFn = snapshotEvidenceInputs,
-} = {}) {
-  const savedIssues = validateEvidenceFn(root, { evidenceRoot });
-  if (savedIssues.length > 0) {
-    throw new Error(
-      `сохранённый evidence-пакет не прошёл быструю проверку:\n- ${savedIssues.join("\n- ")}`,
-    );
-  }
+/**
+ * Freshness is now a read-only contract check. It never repeats a raster
+ * capture, because repeatability belongs to Unix canonical generation.
+ */
+export async function checkEvidenceFreshness(options = {}) {
+  const input = normalizedOptions(options);
+  const roots = resolveEvidenceRoots({
+    ...input,
+    allowActivePackage: options.allowActivePackage ?? false,
+    requireCandidate: options.requireCandidate ?? Boolean(input.packageRoot),
+  });
+  const issues = validateEvidencePackage({
+    toolchainRoot: roots.toolchainRoot,
+    contractRoot: roots.contractRoot,
+    packageRoot: roots.packageRoot,
+    evidenceRoot: roots.evidenceRoot,
+    allowActivePackage: roots.isActivePackage,
+    requireCandidate: !roots.isActivePackage,
+  });
+  if (issues.length > 0) throw new Error(`evidence-пакет не прошёл проверку:\n- ${issues.join("\n- ")}`);
+  const matrix = buildEvidenceMatrix({ contractRoot: roots.contractRoot });
+  return { fileCount: matrix.fileCount, screenshotCount: matrix.canonicalPngCount, runtimeCheckCount: matrix.runtimeCount };
+}
 
-  const inputsBefore = snapshotInputsFn({ root, packageRoot });
-  const temporaryRoot = createTemporaryRoot();
-  const generatedEvidenceRoot = path.join(temporaryRoot, "evidence");
-  const startedAt = Date.now();
-  try {
-    const generation = await generateEvidenceFn({
-      root,
-      packageRoot,
-      evidenceRoot: generatedEvidenceRoot,
-    });
-    const inputsAfter = snapshotInputsFn({ root, packageRoot });
-    if (stableStringify(inputsBefore) !== stableStringify(inputsAfter)) {
-      throw new Error(
-        "входы evidence изменились во время повторной съёмки; результат проверки недействителен",
-      );
-    }
-
-    const generatedIssues = validateEvidenceFn(root, {
-      evidenceRoot: generatedEvidenceRoot,
-    });
-    if (generatedIssues.length > 0) {
-      throw new Error(
-        `повторно созданный evidence-пакет не прошёл проверку:\n- ${generatedIssues.join("\n- ")}`,
-      );
-    }
-
-    const differences = compareEvidenceRoots(
-      root,
-      evidenceRoot,
-      generatedEvidenceRoot,
-    );
-    if (differences.length > 0) {
-      const shown = differences.slice(0, 10);
-      const remainder = differences.length - shown.length;
-      throw new Error(
-        `evidence-пакет не воспроизводится (${differences.length} отличий):\n- ` +
-          shown.join("\n- ") +
-          (remainder > 0 ? `\n- и ещё ${remainder}` : ""),
-      );
-    }
-
-    return {
-      fileCount: generation.fileCount,
-      screenshotCount: generation.screenshotCount,
-      browserVersions: generation.browserVersions,
-      durationMs: Date.now() - startedAt,
-    };
-  } finally {
-    fs.rmSync(temporaryRoot, { recursive: true, force: true });
-  }
+function cliValue(name) {
+  const index = process.argv.indexOf(name);
+  return index >= 0 ? process.argv[index + 1] : undefined;
 }
 
 export async function main() {
   try {
+    const packageRoot = cliValue("--package-root");
+    const options = {
+      toolchainRoot: cliValue("--toolchain-root") ?? ROOT,
+      contractRoot: cliValue("--contract-root") ?? ROOT,
+      packageRoot,
+      evidenceRoot: cliValue("--evidence-root"),
+    };
     if (process.argv.includes("--check")) {
-      const result = await checkEvidenceFreshness();
-      console.log(
-        `presentation link Lisa evidence is fresh: ${result.fileCount} files, ` +
-          `${result.screenshotCount} screenshots, ${result.durationMs} ms`,
-      );
+      const result = await checkEvidenceFreshness({
+        ...options,
+        allowActivePackage: !packageRoot,
+        requireCandidate: Boolean(packageRoot),
+      });
+      console.log(`presentation link Lisa evidence valid: ${result.fileCount} files, ${result.runtimeCheckCount} runtime checks`);
       return;
     }
-    const result = await generateEvidence();
-    console.log(
-      `presentation link Lisa evidence written: ${result.fileCount} files, ` +
-        `${result.screenshotCount} screenshots`,
-    );
+    const result = await generateEvidence(options);
+    console.log(`presentation link Lisa evidence written: ${result.fileCount} files, ${result.runtimeCheckCount} runtime checks`);
   } catch (error) {
-    console.error(`ERROR: ${error.message}`);
+    console.error(`ERROR: ${error instanceof Error ? error.message : "evidence не создан"}`);
     process.exitCode = 1;
   }
 }
 
-if (
-  process.argv[1] &&
-  import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
-) {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   await main();
 }

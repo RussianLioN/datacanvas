@@ -1,99 +1,70 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import Ajv2020 from "ajv/dist/2020.js";
 import {
-  CONTRACT_PATHS,
   PACKAGE_PATH,
-  compareGeneratedPackage,
-  loadContracts,
-  measureVariableText,
-  parsePresentationLinkLisaValidationArguments,
-  validateContracts,
-  validateGeneratedPackage,
-  validateSvgSecurity,
-} from "./lib/presentation-link-lisa-user-journey.mjs";
+  compareSevenScreenPrototype,
+  buildSevenScreenPrototype,
+  validateSavedSevenScreenPrototype,
+} from "./lib/presentation-link-lisa-seven-screen-prototype.mjs";
 
-const root = process.cwd();
-let validationMode;
+function readJson(target) {
+  return JSON.parse(fs.readFileSync(target, "utf8"));
+}
+
+function formatAjvErrors(errors) {
+  return (errors || []).map((error) => `${error.instancePath || "/"}: ${error.message}`).join("; ");
+}
+
+function validateActiveContracts(root) {
+  const issues = [];
+  const registryPath = path.join(root, PACKAGE_PATH, "source/active-contracts.json");
+  let registry;
+  try {
+    registry = readJson(registryPath);
+  } catch (error) {
+    return [`реестр активных договоров не прочитан: ${error instanceof Error ? error.message : "неизвестная ошибка"}`];
+  }
+  const descriptors = [
+    { path: "source/active-contracts.json", schema: "source/schemas/active-contracts.schema.json" },
+    ...(Array.isArray(registry.active_contracts) ? registry.active_contracts : []),
+  ];
+  for (const descriptor of descriptors) {
+    try {
+      const schema = readJson(path.join(root, PACKAGE_PATH, descriptor.schema));
+      const data = readJson(path.join(root, PACKAGE_PATH, descriptor.path));
+      const ajv = new Ajv2020({ allErrors: true, strict: true });
+      const validate = ajv.compile(schema);
+      if (!validate(data)) issues.push(`${descriptor.path}: ${formatAjvErrors(validate.errors)}`);
+      const text = JSON.stringify(data);
+      if (/\/Users\/|file:\/\/|\\\\(?:Users|home)\\/u.test(text)) issues.push(`${descriptor.path}: найден локальный абсолютный путь`);
+    } catch (error) {
+      issues.push(`${descriptor.path}: договор или схема не проверены (${error instanceof Error ? error.message : "неизвестная ошибка"})`);
+    }
+  }
+  return issues;
+}
+
+function parseArguments(args) {
+  if (args.length === 0) return { savedOnly: false };
+  if (args.length === 1 && args[0] === "--saved-only") return { savedOnly: true };
+  throw new Error("использование: node scripts/validate-presentation-link-lisa-user-journey.mjs [--saved-only]");
+}
+
 try {
-  validationMode = parsePresentationLinkLisaValidationArguments(
-    process.argv.slice(2),
-  );
+  const mode = parseArguments(process.argv.slice(2));
+  const root = process.cwd();
+  const issues = [...validateActiveContracts(root), ...validateSavedSevenScreenPrototype(root)];
+  if (!mode.savedOnly) {
+    const built = await buildSevenScreenPrototype(root, { writeRasters: false });
+    issues.push(...compareSevenScreenPrototype(root, built));
+  }
+  if (issues.length > 0) throw new Error(`проверка не пройдена:\n- ${issues.join("\n- ")}`);
+  process.stdout.write(mode.savedOnly
+    ? "Проверка сохранённого пакета из десяти состояний пройдена.\n"
+    : "Проверка пакета из десяти состояний и исходных растров пройдена.\n");
 } catch (error) {
-  console.error(`ERROR: ${error.message}`);
-  process.exit(1);
+  process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "проверка не выполнена"}\n`);
+  process.exitCode = 1;
 }
-const issues = [];
-const contracts = loadContracts(root);
-issues.push(...validateContracts(root, contracts));
-issues.push(...validateGeneratedPackage(root));
-
-if (!validationMode.savedOnly) {
-  issues.push(...compareGeneratedPackage(root));
-}
-
-const componentRoot = path.join(root, PACKAGE_PATH, "source/components");
-let libraryBytes = 0;
-for (const component of contracts.visual.components) {
-  const componentPath = path.join(componentRoot, path.basename(component.source_svg));
-  if (!fs.existsSync(componentPath)) {
-    issues.push(`source SVG component is missing: ${component.source_svg}`);
-    continue;
-  }
-  const svg = fs.readFileSync(componentPath, "utf8");
-  libraryBytes += Buffer.byteLength(svg);
-  issues.push(
-    ...validateSvgSecurity(svg, contracts.visual.svg_security_limits).map(
-      (issue) => `${component.source_svg}: ${issue}`,
-    ),
-  );
-}
-if (libraryBytes > contracts.visual.svg_security_limits.library_max_bytes) {
-  issues.push(
-    `source SVG component library exceeds ${contracts.visual.svg_security_limits.library_max_bytes} bytes`,
-  );
-}
-
-const fontPath = path.join(root, PACKAGE_PATH, "source/fonts/NotoSans[wdth,wght].ttf");
-if (!fs.existsSync(fontPath)) {
-  issues.push("vendored Noto Sans font is missing");
-} else {
-  const regular = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 400,
-    wdth: 100,
-  });
-  const bold = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 700,
-    wdth: 100,
-  });
-  const regularAgain = measureVariableText(fontPath, "Заказать презентацию", 16, {
-    wght: 400,
-    wdth: 100,
-  });
-  if (!(bold > regular)) {
-    issues.push(`variable font weight is not applied: regular=${regular}, bold=${bold}`);
-  }
-  if (Math.abs(regular - regularAgain) > 0.001) {
-    issues.push(
-      `variable font measurement leaks state: first=${regular}, repeated=${regularAgain}`,
-    );
-  }
-}
-
-for (const relativePath of Object.values(CONTRACT_PATHS)) {
-  const text = fs.readFileSync(path.join(root, relativePath), "utf8");
-  if (text.includes("/Users/") || text.includes("file://")) {
-    issues.push(`contract contains a local path: ${relativePath}`);
-  }
-}
-
-if (issues.length > 0) {
-  console.error(`ERROR: presentation link Lisa validation failed:\n- ${issues.join("\n- ")}`);
-  process.exit(1);
-}
-
-console.log(
-  validationMode.savedOnly
-    ? "presentation link Lisa saved package validation passed"
-    : "presentation link Lisa user journey validation passed",
-);

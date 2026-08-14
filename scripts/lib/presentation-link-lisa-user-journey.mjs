@@ -3,7 +3,6 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { inflateSync } from "node:zlib";
 import Ajv2020 from "ajv/dist/2020.js";
 import opentype from "opentype.js";
 import {
@@ -14,128 +13,129 @@ import {
   createStoredZip,
   readStoredZip,
 } from "./documentation-archive.mjs";
+import {
+  CANONICAL_RASTER_CANDIDATE_COUNT,
+  CANONICAL_RASTER_MANIFEST_RELATIVE_PATH,
+  CANONICAL_RASTER_VIEWPORTS,
+  buildCanonicalRasterManifest,
+  canonicalRasterCandidateFingerprint,
+  canonicalRasterExpectedPaths,
+  canonicalRasterPath,
+  captureCanonicalRasterSet,
+  hasCanonicalCaptureToolWarnings,
+  readCanonicalRasterManifest,
+  stableCanonicalRasterJson,
+  writeCanonicalRasterManifest,
+} from "./presentation-link-lisa-canonical-raster.mjs";
+export {
+  CANONICAL_RASTER_CANDIDATE_COUNT,
+  CANONICAL_RASTER_MANIFEST_RELATIVE_PATH,
+  CANONICAL_RASTER_VIEWPORTS,
+} from "./presentation-link-lisa-canonical-raster.mjs";
 
 export const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey";
-export const CONTRACT_PATHS = {
-  journey: `${PACKAGE_PATH}/source/journey-contract.json`,
-  fixture: `${PACKAGE_PATH}/source/source-fixture-manifest.json`,
-  preview: `${PACKAGE_PATH}/source/presentation-preview-contract.json`,
-  visual: `${PACKAGE_PATH}/source/visual-components-contract.json`,
-  frames: `${PACKAGE_PATH}/source/frame-contract.json`,
-  package: `${PACKAGE_PATH}/source/prototype-package-contract.json`,
-};
-export const SCHEMA_PATHS = {
-  journey: `${PACKAGE_PATH}/source/schemas/journey-contract.schema.json`,
-  fixture: `${PACKAGE_PATH}/source/schemas/source-fixture-manifest.schema.json`,
-  preview: `${PACKAGE_PATH}/source/schemas/presentation-preview-contract.schema.json`,
-  visual: `${PACKAGE_PATH}/source/schemas/visual-components-contract.schema.json`,
-  frames: `${PACKAGE_PATH}/source/schemas/frame-contract.schema.json`,
-  package: `${PACKAGE_PATH}/source/schemas/prototype-package-contract.schema.json`,
-};
+export const ACTIVE_CONTRACTS_PATH = `${PACKAGE_PATH}/source/active-contracts.json`;
+export const CONTRACT_PATHS = Object.freeze({
+  active: ACTIVE_CONTRACTS_PATH,
+});
+export const SCHEMA_PATHS = Object.freeze({
+  active: `${PACKAGE_PATH}/source/schemas/active-contracts.schema.json`,
+});
 export const STATE_ID_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
-export const FIXED_EPOCH = "2026-07-16T00:00:00Z";
-export const BROWSER_SCREENSHOT_RENDERER = "playwright-locator-screenshot";
+export const FIXED_EPOCH = "2026-08-11T00:00:00Z";
+export const BROWSER_SCREENSHOT_RENDERER = "playwright-webkit-page-screenshot";
 export const PORTABLE_ARCHIVE_RELATIVE_PATH =
   "derived/lisa-presentation-user-journey-demo.zip";
-
-export function parsePresentationLinkLisaValidationArguments(args) {
-  const supportedArguments = new Set(["--saved-only"]);
-  const unknownArguments = args.filter(
-    (argument) => !supportedArguments.has(argument),
-  );
-  if (unknownArguments.length > 0) {
-    throw new Error(
-      `неизвестный аргумент проверки: ${unknownArguments.join(", ")}`,
-    );
-  }
-  return { savedOnly: args.includes("--saved-only") };
-}
-export const FONT_RELATIVE_PATH = `${PACKAGE_PATH}/source/fonts/NotoSans[wdth,wght].ttf`;
+export const FONT_RELATIVE_PATH =
+  `${PACKAGE_PATH}/source/fonts/NotoSans[wdth,wght].ttf`;
 export const FONT_LICENSE_RELATIVE_PATH = `${PACKAGE_PATH}/source/fonts/OFL.txt`;
 export const EXPECTED_FONT_SHA256 =
   "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d";
-const PINNED_EXTERNAL_SOURCE_ORIGINS = new Map([
-  [
-    "source/components/lisa-phone-shell.svg",
-    {
-      origin_repository: "RussianLioN/AI-agent-platform",
-      origin_commit: "b5ad803b8826ec6487534c4c88d59a3c93f8be4b",
-      origin_path:
-        "presentation-output/agent-factory-design-package-v1/exports/svg/figma-ready/lisa-home-screen-clean-v1.svg",
-      origin_sha256:
-        "39d86d4d49c08137865ba88eda52f305e6fb132094c40af85da6577def73c7b7",
-    },
-  ],
-  [
-    "source/fonts/NotoSans[wdth,wght].ttf",
-    {
-      origin_repository: "google/fonts",
-      origin_commit: "26c5c976d82d50c24a8f0a7ac455e0a7c639c226",
-      origin_path: "ofl/notosans/NotoSans[wdth,wght].ttf",
-      origin_sha256:
-        "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
-    },
-  ],
-  [
-    "source/fonts/OFL.txt",
-    {
-      origin_repository: "google/fonts",
-      origin_commit: "26c5c976d82d50c24a8f0a7ac455e0a7c639c226",
-      origin_path: "ofl/notosans/OFL.txt",
-      origin_sha256:
-        "cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a",
-    },
-  ],
-]);
-export const WEBKIT_EVIDENCE_STATE_IDS = [
-  "lisa-materials-ready",
-  "lisa-presentation-generating",
-  "lisa-presentation-ready-unread",
-  "lisa-notifications-list-empty",
-  "lisa-notifications-list-unread",
-  "lisa-notification-detail-unread",
-  "lisa-notification-detail-read",
-  "lisa-result-view-from-notification",
-  "lisa-returned-to-chat",
-  "lisa-presentation-email-sent",
-];
-
-const generatedBasePaths = [
-  `${PACKAGE_PATH}/demo/index.html`,
-  `${PACKAGE_PATH}/demo/app.js`,
-  `${PACKAGE_PATH}/demo/styles.css`,
-  `${PACKAGE_PATH}/demo/data.js`,
-  `${PACKAGE_PATH}/derived/projection-map.json`,
-  `${PACKAGE_PATH}/${PORTABLE_ARCHIVE_RELATIVE_PATH}`,
-];
-
-const PORTABLE_ARCHIVE_MEMBERS = [
-  "README.md",
-  "manifest.json",
+const DEMO_ASSETS_DIRECTORY = "demo/assets";
+const HTML_OUTPUT_PATHS = Object.freeze([
   "demo/index.html",
   "demo/app.js",
-  "demo/data.js",
   "demo/styles.css",
-  "source/fonts/NotoSans[wdth,wght].ttf",
-  "source/fonts/OFL.txt",
-];
+  "demo/data.js",
+]);
+const FORBIDDEN_GENERATED_PATTERNS = Object.freeze([
+  /mailto:/iu,
+  /\bfetch\s*\(/iu,
+  /\bXMLHttpRequest\b/u,
+  /\bWebSocket\b/u,
+  /\bforeignObject\b/iu,
+  /\blisa-(?:notification|notifications|result|link|offline|access-denied)/iu,
+  /\b(?:presentation-viewer|notification-center|result-link)\b/iu,
+  /\b(?:pdf|pptx)\b/iu,
+  /file:\/\//iu,
+  /(?:^|[\s"'(])\/(?:Users|home|root|etc|var|private|opt|tmp)\//mu,
+]);
+const SAFE_PNG_SIGNATURE = Buffer.from("89504e470d0a1a0a", "hex");
+const REQUIRED_TIMELINE = Object.freeze({
+  generation_started_at_ms: 600,
+  clock_animation_ends_at_ms: 7600,
+  ready_at_ms: 8000,
+});
+const REQUIRED_COPY = Object.freeze({
+  generation_started:
+    "Презентация будет изготовлена и отправлена на электронную почту в течение 20 минут",
+  presentation_sent: "Презентация отправлена на электронную почту",
+});
+
+function toPosix(value) {
+  return value.split(path.sep).join("/");
+}
 
 function absolute(root, relativePath) {
   return path.join(root, relativePath);
+}
+
+function packagePath(root, relativePath = "") {
+  return path.join(root, PACKAGE_PATH, relativePath);
 }
 
 function ensureParent(filePath) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
 }
 
-function writeFile(root, relativePath, bytes) {
-  const target = absolute(root, relativePath);
-  ensureParent(target);
-  fs.writeFileSync(target, bytes);
+function assertSafePackageRelativePath(relativePath, label = "путь") {
+  if (
+    typeof relativePath !== "string" ||
+    relativePath.length === 0 ||
+    path.isAbsolute(relativePath) ||
+    relativePath.includes("\\") ||
+    relativePath.includes("\0") ||
+    relativePath.split("/").some((segment) => segment === "" || segment === "." || segment === "..") ||
+    path.posix.normalize(relativePath) !== relativePath
+  ) {
+    throw new Error(`${label} небезопасен: ${String(relativePath)}`);
+  }
 }
 
-function readJson(root, relativePath) {
-  return JSON.parse(fs.readFileSync(absolute(root, relativePath), "utf8"));
+function resolvePackagePath(root, relativePath, label) {
+  assertSafePackageRelativePath(relativePath, label);
+  const packageRoot = path.resolve(root, PACKAGE_PATH);
+  const target = path.resolve(packageRoot, relativePath);
+  if (!target.startsWith(`${packageRoot}${path.sep}`)) {
+    throw new Error(`${label} выходит за границы пакета: ${relativePath}`);
+  }
+  return target;
+}
+
+function readJsonFile(filePath, label) {
+  try {
+    const stat = fs.lstatSync(filePath);
+    if (!stat.isFile() || stat.isSymbolicLink()) {
+      throw new Error("не является обычным файлом");
+    }
+    return JSON.parse(fs.readFileSync(filePath, "utf8"));
+  } catch (error) {
+    throw new Error(`${label}: ${error instanceof Error ? error.message : "не прочитан"}`);
+  }
+}
+
+function readPackageJson(root, relativePath, label) {
+  return readJsonFile(resolvePackagePath(root, relativePath, label), label);
 }
 
 export function sha256Bytes(bytes) {
@@ -148,9 +148,7 @@ export function sha256File(filePath) {
 
 export function stableStringify(value, indentation = 2) {
   const normalize = (item) => {
-    if (Array.isArray(item)) {
-      return item.map(normalize);
-    }
+    if (Array.isArray(item)) return item.map(normalize);
     if (item && typeof item === "object") {
       return Object.fromEntries(
         Object.keys(item)
@@ -163,530 +161,1136 @@ export function stableStringify(value, indentation = 2) {
   return `${JSON.stringify(normalize(value), null, indentation)}\n`;
 }
 
+export function parsePresentationLinkLisaValidationArguments(args) {
+  const supported = new Set(["--saved-only"]);
+  const unknown = args.filter((item) => !supported.has(item));
+  if (unknown.length > 0) {
+    throw new Error(`неизвестный аргумент проверки: ${unknown.join(", ")}`);
+  }
+  return { savedOnly: args.includes("--saved-only") };
+}
+
 export async function stabilizeBrowserCapture(page, policy) {
   await page.evaluate(async (capturePolicy) => {
-    if (capturePolicy.wait_for_document_fonts) {
-      await document.fonts.ready;
-    }
-    if (capturePolicy.scroll_policy === "restore-marked-end-after-fonts") {
-      const content = document.querySelector(
-        '.phone-content[data-capture-scroll-anchor="end"]',
-      );
-      if (content) content.scrollTop = content.scrollHeight;
-    }
+    if (capturePolicy?.wait_for_document_fonts) await document.fonts.ready;
     if (
-      capturePolicy.focus_policy ===
+      capturePolicy?.focus_policy ===
         "capture-mode-suppress-then-blur-active-element" &&
       document.activeElement instanceof HTMLElement
     ) {
       document.activeElement.blur();
     }
+    const count = Number.isInteger(capturePolicy?.settle_animation_frames)
+      ? capturePolicy.settle_animation_frames
+      : 2;
     await new Promise((resolve) => {
-      let remaining = capturePolicy.settle_animation_frames;
+      let remaining = Math.max(1, count);
       const settle = () => {
         remaining -= 1;
-        if (remaining <= 0) {
-          resolve();
-          return;
-        }
-        window.requestAnimationFrame(settle);
+        if (remaining <= 0) resolve();
+        else window.requestAnimationFrame(settle);
       };
       window.requestAnimationFrame(settle);
     });
   }, policy);
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
-}
-
-function escapeXml(value) {
-  return escapeHtml(value);
-}
-
 function formatAjvErrors(errors) {
-  return (errors ?? []).map((error) => `${error.instancePath || "/"} ${error.message}`).join("; ");
+  return (errors ?? [])
+    .map((error) => `${error.instancePath || "/"} ${error.message}`)
+    .join("; ");
+}
+
+function validateJsonSchema(root, schemaRelativePath, value, label, issues) {
+  try {
+    const schema = readPackageJson(root, schemaRelativePath, `${label}: схема`);
+    const ajv = new Ajv2020({
+      allErrors: true,
+      strict: true,
+      strictRequired: false,
+    });
+    const validate = ajv.compile(schema);
+    if (!validate(value)) {
+      issues.push(`${label}: ${formatAjvErrors(validate.errors)}`);
+    }
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : `${label}: схема недоступна`);
+  }
+}
+
+function validateRegistryDescriptor(descriptor, label, issues) {
+  if (!descriptor || typeof descriptor !== "object") {
+    issues.push(`${label}: описание договора отсутствует`);
+    return false;
+  }
+  if (typeof descriptor.id !== "string" || descriptor.id.length === 0) {
+    issues.push(`${label}: неизвестная роль ${String(descriptor.id)}`);
+    return false;
+  }
+  try {
+    assertSafePackageRelativePath(descriptor.path, `${label}: путь`);
+    assertSafePackageRelativePath(descriptor.schema, `${label}: схема`);
+  } catch (error) {
+    issues.push(error.message);
+    return false;
+  }
+  if (!descriptor.path.startsWith("source/") || !descriptor.schema.startsWith("source/schemas/")) {
+    issues.push(`${label}: договор и схема должны находиться в source/`);
+    return false;
+  }
+  return true;
 }
 
 export function loadContracts(root = process.cwd()) {
-  return Object.fromEntries(
-    Object.entries(CONTRACT_PATHS).map(([name, relativePath]) => [
-      name,
-      readJson(root, relativePath),
-    ]),
+  const registry = readPackageJson(root, "source/active-contracts.json", "реестр активных договоров");
+  if (!Array.isArray(registry.active_contracts)) {
+    throw new Error("реестр активных договоров не содержит active_contracts");
+  }
+  const contracts = { registry };
+  const seen = new Set();
+  for (const descriptor of registry.active_contracts) {
+    if (!descriptor || typeof descriptor !== "object") {
+      throw new Error("реестр активных договоров содержит повреждённое описание");
+    }
+    if (typeof descriptor.id !== "string" || descriptor.id.length === 0 || seen.has(descriptor.id)) {
+      throw new Error(`реестр активных договоров содержит недопустимую роль: ${String(descriptor.id)}`);
+    }
+    assertSafePackageRelativePath(descriptor.path, "путь активного договора");
+    contracts[descriptor.id] = readPackageJson(root, descriptor.path, `активный договор ${descriptor.id}`);
+    seen.add(descriptor.id);
+  }
+  if (seen.size === 0) {
+    throw new Error("реестр активных договоров не содержит договоров MVP");
+  }
+  Object.defineProperties(contracts, {
+    __root: { value: root, enumerable: false },
+    __descriptors: { value: registry.active_contracts, enumerable: false },
+  });
+  return contracts;
+}
+
+export function activeStateIds(contracts) {
+  const stateIds = contracts?.registry?.active_state_ids;
+  if (!Array.isArray(stateIds) || stateIds.length === 0) {
+    throw new Error("реестр активных договоров не содержит active_state_ids");
+  }
+  if (
+    new Set(stateIds).size !== stateIds.length ||
+    stateIds.some((stateId) => typeof stateId !== "string" || !STATE_ID_PATTERN.test(stateId))
+  ) {
+    throw new Error("реестр активных договоров содержит недопустимые active_state_ids");
+  }
+  return [...stateIds];
+}
+
+function exactStringArray(value, expected) {
+  return Array.isArray(value) && JSON.stringify(value) === JSON.stringify(expected);
+}
+
+function exactObjectKeys(value, expected) {
+  return value && typeof value === "object" && !Array.isArray(value) &&
+    JSON.stringify(Object.keys(value).sort((left, right) => left.localeCompare(right, "en"))) ===
+      JSON.stringify([...expected].sort((left, right) => left.localeCompare(right, "en")));
+}
+
+function hasRuntimeCaptureSupervision(value) {
+  const diagnosticReport = value?.diagnostic_report;
+  const postKillGroupExitConfirmation = value?.post_kill_group_exit_confirmation;
+  return exactObjectKeys(value, [
+    "browser_process_model",
+    "browser_execution_order",
+    "diagnostic_report",
+    "page_timeout_ms",
+    "browser_worker_timeout_ms",
+    "graceful_cleanup_timeout_ms",
+    "force_termination_after_graceful_cleanup",
+    "force_termination_scope",
+    "post_kill_group_exit_confirmation",
+    "partial_browser_or_acceptance_reports_on_failure_allowed",
+  ]) &&
+    value.browser_process_model === "isolated-child-process-per-browser" &&
+    exactStringArray(value.browser_execution_order, ["chromium", "webkit"]) &&
+    exactObjectKeys(diagnosticReport, ["path", "must_be_gitignored", "published", "content"]) &&
+    diagnosticReport.path === "test-results/presentation-link-lisa-user-journey/runtime-capture" &&
+    diagnosticReport.must_be_gitignored === true &&
+    diagnosticReport.published === false &&
+    diagnosticReport.content === "deterministic-report-only" &&
+    value.page_timeout_ms === 45_000 &&
+    value.browser_worker_timeout_ms === 480_000 &&
+    value.graceful_cleanup_timeout_ms === 5_000 &&
+    value.force_termination_after_graceful_cleanup === true &&
+    value.force_termination_scope === "isolated-child-process-group" &&
+    exactObjectKeys(postKillGroupExitConfirmation, [
+      "timeout_ms",
+      "required_state",
+      "timeout_state",
+      "timeout_action",
+    ]) &&
+    postKillGroupExitConfirmation.timeout_ms === 5_000 &&
+    postKillGroupExitConfirmation.required_state === "process-group-exited" &&
+    postKillGroupExitConfirmation.timeout_state === "process-group-exit-unconfirmed" &&
+    postKillGroupExitConfirmation.timeout_action === "fail-runtime-capture-and-rollback" &&
+    value.partial_browser_or_acceptance_reports_on_failure_allowed === false;
+}
+
+function registeredSourceAssets(contracts) {
+  return Array.isArray(contracts.package?.source_assets)
+    ? contracts.package.source_assets
+    : [];
+}
+
+function isRelativeRasterPath(value, directory) {
+  return typeof value === "string" &&
+    new RegExp(`^source/${directory}/[a-z0-9-]+\\.png$`, "u").test(value);
+}
+
+function activeRasterAssetPaths(contracts) {
+  const bindings = Array.isArray(contracts["visual-basis"]?.state_bindings)
+    ? contracts["visual-basis"].state_bindings
+    : [];
+  const paths = new Set();
+  for (const binding of bindings) {
+    if (isRelativeRasterPath(binding?.base_path, "bases")) paths.add(binding.base_path);
+    for (const slot of Array.isArray(binding?.slots) ? binding.slots : []) {
+      if (isRelativeRasterPath(slot?.visible_patch_path, "patches")) {
+        paths.add(slot.visible_patch_path);
+      }
+    }
+  }
+  return [...paths].sort((left, right) => left.localeCompare(right, "en"));
+}
+
+function sourceAssetParts(sourcePath) {
+  const match = typeof sourcePath === "string"
+    ? /^source\/(bases|patches|fonts)\/([A-Za-z0-9\[\],-]+\.(?:png|ttf|txt))$/u.exec(sourcePath)
+    : null;
+  if (!match) {
+    throw new Error(`исходный ресурс не может быть помещён в demo/assets: ${String(sourcePath)}`);
+  }
+  return { kind: match[1], fileName: match[2] };
+}
+
+function demoAssetPathFromSourcePath(sourcePath, runtimeAssets = null) {
+  const { kind, fileName } = sourceAssetParts(sourcePath);
+  const root = runtimeAssets?.demo_asset_root ?? `${DEMO_ASSETS_DIRECTORY}/`;
+  return `${root}${kind}/${fileName}`;
+}
+
+function runtimeAssetPathFromSourcePath(sourcePath, runtimeAssets) {
+  const { kind, fileName } = sourceAssetParts(sourcePath);
+  const prefixes = {
+    bases: runtimeAssets.base_path_prefix,
+    patches: runtimeAssets.patch_path_prefix,
+    fonts: runtimeAssets.font_path_prefix,
+  };
+  return `${prefixes[kind]}${fileName}`;
+}
+
+function sourcePathFromDemoAssetPath(demoAssetPath) {
+  if (
+    typeof demoAssetPath !== "string" ||
+    !/^demo\/assets\/(?:bases|patches|fonts)\/[A-Za-z0-9\[\],-]+\.(?:png|ttf|txt)$/u.test(demoAssetPath)
+  ) {
+    throw new Error(`ресурс demo/assets имеет недопустимый путь: ${String(demoAssetPath)}`);
+  }
+  return `source/${demoAssetPath.slice("demo/assets/".length)}`;
+}
+
+function demoAssetPaths(contracts) {
+  const runtimeAssets = runtimeAssetPolicy(contracts);
+  const sourcePaths = [
+    ...registeredSourceAssets(contracts).map((asset) => asset?.path),
+    ...activeRasterAssetPaths(contracts),
+  ];
+  const paths = sourcePaths.map((sourcePath) => demoAssetPathFromSourcePath(sourcePath, runtimeAssets));
+  if (new Set(paths).size !== paths.length) {
+    throw new Error("активные ресурсы demo/assets повторяются");
+  }
+  return paths.sort((left, right) => left.localeCompare(right, "en"));
+}
+
+function runtimeAssetPolicy(contracts) {
+  const policy = contracts.package?.raster_base_local_overlay?.runtime_assets;
+  if (
+    !exactObjectKeys(policy, [
+      "demo_asset_root",
+      "data_and_runtime_reference_prefix",
+      "base_path_prefix",
+      "patch_path_prefix",
+      "font_path_prefix",
+      "source_paths_runtime_dependency",
+      "parent_directory_references_allowed",
+    ]) ||
+    policy.demo_asset_root !== "demo/assets/" ||
+    policy.data_and_runtime_reference_prefix !== "assets/" ||
+    policy.base_path_prefix !== "assets/bases/" ||
+    policy.patch_path_prefix !== "assets/patches/" ||
+    policy.font_path_prefix !== "assets/fonts/" ||
+    policy.source_paths_runtime_dependency !== false ||
+    policy.parent_directory_references_allowed !== false
+  ) {
+    throw new Error("договор пакета не фиксирует автономные ресурсы demo/assets для file://");
+  }
+  return policy;
+}
+
+function portableArchiveMembers(contracts) {
+  const members = contracts.package?.archive?.members;
+  if (!Array.isArray(members) || members.length === 0) {
+    throw new Error("договор пакета не содержит archive.members");
+  }
+  for (const member of members) assertSafePackageRelativePath(member, "член переносимого ZIP");
+  return [...members];
+}
+
+function expectedPortableArchiveMembers(contracts) {
+  const runtimeAssets = runtimeAssetPolicy(contracts);
+  const bindings = Array.isArray(contracts["visual-basis"]?.state_bindings)
+    ? contracts["visual-basis"].state_bindings
+    : [];
+  return [
+    "README.md",
+    "manifest.json",
+    "demo/index.html",
+    "demo/app.js",
+    "demo/data.js",
+    "demo/styles.css",
+    ...registeredSourceAssets(contracts).map((asset) => demoAssetPathFromSourcePath(asset.path, runtimeAssets)),
+    ...bindings.map((binding) => demoAssetPathFromSourcePath(binding.base_path, runtimeAssets)),
+    ...bindings.flatMap((binding) =>
+      (Array.isArray(binding.slots) ? binding.slots : [])
+        .map((slot) => slot.visible_patch_path ? demoAssetPathFromSourcePath(slot.visible_patch_path, runtimeAssets) : null)
+        .filter(Boolean),
+    ),
+  ];
+}
+
+function assertContractPngAsset(root, relativePath, sha256, dimensions, label) {
+  if (!isRelativeRasterPath(relativePath, "bases") && !isRelativeRasterPath(relativePath, "patches")) {
+    throw new Error(`${label}: путь PNG не входит в разрешённые bases/patches`);
+  }
+  if (typeof sha256 !== "string" || !/^[a-f0-9]{64}$/u.test(sha256)) {
+    throw new Error(`${label}: не задан SHA-256`);
+  }
+  const target = resolvePackagePath(root, relativePath, `${label}: путь`);
+  const stat = fs.lstatSync(target);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error(`${label}: PNG должен быть обычным файлом`);
+  }
+  const bytes = fs.readFileSync(target);
+  if (sha256Bytes(bytes) !== sha256) throw new Error(`${label}: SHA-256 PNG не совпадает с договором`);
+  const actual = readPngDimensions(bytes, label);
+  if (
+    !dimensions ||
+    !Number.isInteger(dimensions.width) ||
+    !Number.isInteger(dimensions.height) ||
+    dimensions.width <= 0 ||
+    dimensions.height <= 0 ||
+    actual.width !== dimensions.width ||
+    actual.height !== dimensions.height
+  ) {
+    throw new Error(`${label}: размеры PNG не совпадают с договором`);
+  }
+  return { bytes, dimensions: actual };
+}
+
+function validateVisualBasisBindings(contracts, root = contracts.__root ?? process.cwd()) {
+  const journey = contracts.journey;
+  const basis = contracts["visual-basis"];
+  const sourceCatalog = contracts["source-catalog"];
+  const runtimeAssets = runtimeAssetPolicy(contracts);
+  const registeredIds = activeStateIds(contracts);
+  if (!basis || basis.rendering_pipeline !== "raster-base-local-overlay") {
+    throw new Error("визуальный договор не задаёт raster-base-local-overlay");
+  }
+  const bindings = Array.isArray(basis.state_bindings) ? basis.state_bindings : [];
+  if (!exactStringArray(bindings.map((binding) => binding?.state_id), registeredIds)) {
+    throw new Error("визуальный договор должен задавать основы в порядке активного реестра");
+  }
+  const sourceById = new Map(
+    (Array.isArray(sourceCatalog?.members) ? sourceCatalog.members : []).map((source) => [source?.id, source]),
   );
+  const actionsById = new Map(
+    (Array.isArray(journey?.actions) ? journey.actions : []).map((action) => [action?.id, action]),
+  );
+  const statesById = new Map(
+    (Array.isArray(journey?.states) ? journey.states : []).map((state) => [state?.id, state]),
+  );
+  const interactions = Array.isArray(basis.interaction_slots) ? basis.interaction_slots : [];
+  const interactionByKey = new Map();
+  for (const interaction of interactions) {
+    const key = `${interaction?.state_id}\u0000${interaction?.slot_id}`;
+    if (interactionByKey.has(key)) throw new Error(`semantic slot повторён: ${key}`);
+    interactionByKey.set(key, interaction);
+  }
+  const result = [];
+  for (const binding of bindings) {
+    const state = statesById.get(binding.state_id);
+    const source = sourceById.get(binding.base_id);
+    if (!state) throw new Error(`${binding.state_id}: отсутствует активное состояние`);
+    if (!source || !["active-basis", "active-variant", "optional-branch"].includes(source.classification)) {
+      throw new Error(`${binding.state_id}: base_id ${String(binding.base_id)} не относится к активному P1/P2`);
+    }
+    if (binding.render_mode !== "raster-base-local-overlay") {
+      throw new Error(`${binding.state_id}: недопустимый режим отрисовки`);
+    }
+    assertContractPngAsset(root, binding.base_path, binding.base_sha256, binding.natural_dimensions, `${binding.state_id}: основа`);
+    const slotIds = new Set();
+    const slots = [];
+    for (const slot of Array.isArray(binding.slots) ? binding.slots : []) {
+      if (!slot || typeof slot.id !== "string" || slotIds.has(slot.id)) {
+        throw new Error(`${binding.state_id}: semantic slot отсутствует или повторён`);
+      }
+      slotIds.add(slot.id);
+      if (
+        typeof slot.semantic_control_id !== "string" ||
+        !slot.rect ||
+        !Number.isInteger(slot.rect.x) ||
+        !Number.isInteger(slot.rect.y) ||
+        !Number.isInteger(slot.rect.width) ||
+        !Number.isInteger(slot.rect.height) ||
+        slot.rect.x < 0 || slot.rect.y < 0 || slot.rect.width <= 0 || slot.rect.height <= 0 ||
+        slot.rect.x + slot.rect.width > binding.natural_dimensions.width ||
+        slot.rect.y + slot.rect.height > binding.natural_dimensions.height
+      ) {
+        throw new Error(`${binding.state_id}: semantic slot ${slot.id} выходит за границы основы`);
+      }
+      const interaction = interactionByKey.get(`${binding.state_id}\u0000${slot.id}`) ?? null;
+      if (interaction) {
+        const action = actionsById.get(interaction.action_id);
+        if (!action || !state.action_ids?.includes(action.id)) {
+          throw new Error(`${binding.state_id}: action semantic slot не относится к состоянию`);
+        }
+      }
+      let visiblePatch = null;
+      if (slot.visible_patch_path !== null || slot.visible_patch_sha256 !== null) {
+        const asset = assertContractPngAsset(
+          root,
+          slot.visible_patch_path,
+          slot.visible_patch_sha256,
+          { width: slot.rect.width, height: slot.rect.height },
+          `${binding.state_id}: заплата ${slot.id}`,
+        );
+        visiblePatch = {
+          src: runtimeAssetPathFromSourcePath(slot.visible_patch_path, runtimeAssets),
+          sha256: slot.visible_patch_sha256,
+          natural_dimensions: asset.dimensions,
+        };
+      }
+      slots.push({
+        id: slot.id,
+        kind: slot.kind,
+        semantic_control_id: slot.semantic_control_id,
+        semantic_role: slot.semantic_role ?? null,
+        rect: { ...slot.rect },
+        action_id: interaction?.action_id ?? null,
+        visible_patch: visiblePatch,
+      });
+    }
+    for (const actionId of state.action_ids ?? []) {
+      const found = slots.some((slot) => slot.action_id === actionId);
+      if (!found) throw new Error(`${binding.state_id}: действие ${actionId} не имеет semantic slot`);
+    }
+    result.push({
+      state_id: binding.state_id,
+      base: {
+        id: binding.base_id,
+        src: runtimeAssetPathFromSourcePath(binding.base_path, runtimeAssets),
+        sha256: binding.base_sha256,
+        natural_dimensions: { ...binding.natural_dimensions },
+      },
+      slots,
+      protected_regions: Array.isArray(binding.protected_regions) ? binding.protected_regions.map((region) => ({ ...region })) : [],
+    });
+  }
+  return result;
+}
+
+function readSafePng(bytes, label) {
+  if (!Buffer.isBuffer(bytes) || bytes.length < 45 || !bytes.subarray(0, 8).equals(SAFE_PNG_SIGNATURE)) {
+    throw new Error(`${label}: неверная сигнатура PNG`);
+  }
+  let offset = 8;
+  const chunkTypes = [];
+  let width = 0;
+  let height = 0;
+  while (offset < bytes.length) {
+    if (offset + 12 > bytes.length) throw new Error(`${label}: повреждён PNG`);
+    const length = bytes.readUInt32BE(offset);
+    const type = bytes.subarray(offset + 4, offset + 8).toString("ascii");
+    const end = offset + 12 + length;
+    if (end > bytes.length) throw new Error(`${label}: повреждён PNG`);
+    chunkTypes.push(type);
+    if (type === "IHDR") {
+      if (length !== 13) throw new Error(`${label}: неверный IHDR`);
+      width = bytes.readUInt32BE(offset + 8);
+      height = bytes.readUInt32BE(offset + 12);
+    }
+    offset = end;
+    if (type === "IEND") break;
+  }
+  if (offset !== bytes.length || JSON.stringify(chunkTypes) !== JSON.stringify(["IHDR", "IDAT", "IEND"])) {
+    throw new Error(`${label}: PNG содержит неразрешённые метаданные или чанки`);
+  }
+  if (width !== 390 || height !== 844) {
+    throw new Error(`${label}: PNG должен иметь размер 390×844`);
+  }
+  return { width, height, chunkTypes };
+}
+
+function referencePngAsset(contracts, root = contracts.__root ?? process.cwd()) {
+  const expectedPath = "source/components/lisa-external-visual-reference.png";
+  const asset = registeredSourceAssets(contracts).find((item) => item?.path === expectedPath);
+  if (!asset) {
+    throw new Error("активный договор пакета не регистрирует безопасный PNG-визуал");
+  }
+  if (asset.usage !== "reference-only") {
+    throw new Error("PNG-визуал должен иметь статус reference-only и не может быть содержимым демонстрации");
+  }
+  if (typeof asset.sha256 !== "string" || !/^[a-f0-9]{64}$/u.test(asset.sha256)) {
+    throw new Error("безопасный PNG-визуал не содержит SHA-256");
+  }
+  const donor = Array.isArray(contracts.visual?.raster_donors)
+    ? contracts.visual.raster_donors.find((item) => item?.path === "components/lisa-external-visual-reference.png")
+    : undefined;
+  if (!donor || donor.usage !== "reference-only" || donor.sha256 !== asset.sha256) {
+    throw new Error("визуальный договор не подтверждает reference-only происхождение PNG-визуала");
+  }
+  const target = resolvePackagePath(root, expectedPath, "безопасный PNG-визуал");
+  const stat = fs.lstatSync(target);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error("безопасный PNG-визуал должен быть обычным файлом");
+  }
+  const bytes = fs.readFileSync(target);
+  if (sha256Bytes(bytes) !== asset.sha256) {
+    throw new Error("SHA-256 безопасного PNG-визуала не совпадает с договором");
+  }
+  const png = readSafePng(bytes, "безопасный PNG-визуал");
+  return { path: expectedPath, bytes, sha256: asset.sha256, ...png };
+}
+
+function activeContractRelativePaths(contracts) {
+  return ["source/active-contracts.json", ...contracts.__descriptors.map((item) => item.path)];
+}
+
+function outputFixedPaths(contracts) {
+  const fixed = contracts.package?.outputs?.fixed;
+  if (!Array.isArray(fixed) || fixed.length === 0) {
+    throw new Error("договор пакета не содержит фиксированные generated-выходы");
+  }
+  for (const item of fixed) assertSafePackageRelativePath(item, "фиксированный generated-путь");
+  return [...fixed];
+}
+
+function interpolateStatePath(format, stateId, label) {
+  if (
+    typeof format !== "string" ||
+    format.split("{state_id}").length !== 2 ||
+    !STATE_ID_PATTERN.test(stateId)
+  ) {
+    throw new Error(`${label} не содержит единственный безопасный placeholder состояния`);
+  }
+  const result = format.replace("{state_id}", stateId);
+  assertSafePackageRelativePath(result, label);
+  return result;
+}
+
+function publishedRasterConfiguration(contracts) {
+  const entry = contracts.package?.outputs?.published_raster_matrix?.[0];
+  if (
+    !entry ||
+    entry.browser !== "webkit" ||
+    entry.state_selection !== "all" ||
+    entry.state_source !== "source/journey-contract.json#/states" ||
+    !Array.isArray(entry.viewports) ||
+    entry.viewports.length !== CANONICAL_RASTER_VIEWPORTS.length
+  ) {
+    throw new Error("договор пакета не задаёт единственную каноническую WebKit-матрицу");
+  }
+  const viewports = entry.viewports.map((item, index) => {
+    const expected = CANONICAL_RASTER_VIEWPORTS[index];
+    if (
+      !item ||
+      item.id !== expected.id ||
+      item.width !== expected.width ||
+      item.height !== expected.height ||
+      typeof item.png_path_format !== "string"
+    ) {
+      throw new Error("договор пакета задаёт неверный viewport канонического растра");
+    }
+    return { ...item };
+  });
+  return { entry, viewports };
+}
+
+function svgWrapperConfiguration(contracts) {
+  const wrapper = contracts.package?.outputs?.svg_wrapper;
+  if (
+    !wrapper ||
+    wrapper.state_selection !== "all" ||
+    wrapper.state_source !== "source/journey-contract.json#/states" ||
+    wrapper.raster_viewport !== "mobile-390x844" ||
+    wrapper.canonical_png_path_format !==
+      "evidence/screenshots/webkit/mobile-390x844/{state_id}.png" ||
+    typeof wrapper.raster_png_path_format !== "string" ||
+    typeof wrapper.svg_path_format !== "string" ||
+    wrapper.raster_png_byte_copy_of_canonical_required !== true ||
+    wrapper.source_png_sha256_attribute !== "data-capture-sha256" ||
+    wrapper.embedded_png_byte_equality_required !== true
+  ) {
+    throw new Error("договор пакета задаёт неверную связь PNG и SVG-обёртки");
+  }
+  return wrapper;
+}
+
+function canonicalRasterPathsForStates(contracts, states) {
+  const { viewports } = publishedRasterConfiguration(contracts);
+  const expected = [];
+  for (const viewport of viewports) {
+    for (const state of states) {
+      expected.push(interpolateStatePath(viewport.png_path_format, state.id, "путь канонического PNG"));
+    }
+  }
+  const byContract = expected.slice().sort((left, right) => left.localeCompare(right, "en"));
+  const byRuntime = canonicalRasterExpectedPaths(states.map((state) => state.id));
+  if (!exactStringArray(byContract, byRuntime)) {
+    throw new Error("договор пакета задаёт неверные пути канонических PNG");
+  }
+  return byContract;
+}
+
+function generatedRelativePaths(contracts, states) {
+  const wrapper = svgWrapperConfiguration(contracts);
+  const paths = [
+    ...outputFixedPaths(contracts),
+    ...demoAssetPaths(contracts),
+    ...canonicalRasterPathsForStates(contracts, states),
+    ...states.flatMap((state) => [
+      interpolateStatePath(wrapper.raster_png_path_format, state.id, "путь производного PNG"),
+      interpolateStatePath(wrapper.svg_path_format, state.id, "путь SVG-обёртки"),
+    ]),
+  ].sort((left, right) => left.localeCompare(right, "en"));
+  if (new Set(paths).size !== paths.length) {
+    throw new Error("договор пакета задаёт повторяющиеся generated-пути");
+  }
+  return paths;
+}
+
+function validateLegacyContracts(root = process.cwd(), contracts = loadContracts(root)) {
+  const issues = [];
+  const registry = contracts.registry;
+  validateJsonSchema(root, "source/schemas/active-contracts.schema.json", registry, "реестр активных договоров", issues);
+  if (registry?.status !== "active") issues.push("реестр активных договоров должен быть active");
+  const activeDescriptors = Array.isArray(registry?.active_contracts)
+    ? registry.active_contracts
+    : [];
+  const activeDescriptorIds = activeDescriptors.map((item) => item?.id);
+  if (
+    activeDescriptorIds.length === 0 ||
+    activeDescriptorIds.some((id) => typeof id !== "string" || id.length === 0) ||
+    new Set(activeDescriptorIds).size !== activeDescriptorIds.length
+  ) {
+    issues.push("реестр активных договоров должен задавать неповторяющийся набор MVP");
+  }
+  for (const [index, descriptor] of activeDescriptors.entries()) {
+    if (!validateRegistryDescriptor(descriptor, `active_contracts[${index}]`, issues)) continue;
+    validateJsonSchema(root, descriptor.schema, contracts[descriptor.id], `договор ${descriptor.id}`, issues);
+  }
+  const inactive = Array.isArray(registry?.inactive_contracts)
+    ? registry.inactive_contracts
+    : [];
+  if (inactive.some((item) => item?.id === "presentation-preview" && activeDescriptors.some((active) => active.path === item.path))) {
+    issues.push("неактивный предпросмотр не может быть входом MVP");
+  }
+  if (!exactStringArray(contracts.scope?.implemented_priorities, ["P1", "P2"])) {
+    issues.push("договор области должен ограничивать активный MVP приоритетами P1 и P2");
+  }
+  if (contracts.scope?.demonstration_context?.not_my_client_control_visible !== false) {
+    issues.push("активный MVP не показывает управление «не мой клиент»");
+  }
+  let registeredStateIds = [];
+  try {
+    registeredStateIds = activeStateIds(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "реестр активных договоров не содержит состояния MVP");
+  }
+  const states = Array.isArray(contracts.journey?.states) ? contracts.journey.states : [];
+  const stateIds = states.map((state) => state?.id);
+  const forbiddenSurfaces = new Set([
+    ...(Array.isArray(registry?.forbidden_active_surfaces)
+      ? registry.forbidden_active_surfaces
+      : []),
+    ...(Array.isArray(contracts.scope?.forbidden_active_surfaces)
+      ? contracts.scope.forbidden_active_surfaces
+      : []),
+  ]);
+  for (const stateId of stateIds) {
+    const surfaceId = String(stateId).replace(/^lisa-/u, "");
+    if (forbiddenSurfaces.has(stateId) || forbiddenSurfaces.has(surfaceId)) {
+      issues.push(
+        `состояние ${stateId} запрещено: поверхность ${surfaceId} относится к P3/P4 и не входит в активный MVP`,
+      );
+    }
+  }
+  if (!exactStringArray(stateIds, registeredStateIds)) {
+    issues.push(`договор пути должен содержать состояния из активного реестра: ${registeredStateIds.join(", ")}`);
+  }
+  if (contracts.journey?.initial_state_id !== registeredStateIds[0]) {
+    issues.push("начальным состоянием MVP должно быть первое состояние активного реестра");
+  }
+  if (
+    contracts.journey?.copy?.generation_started !== REQUIRED_COPY.generation_started
+  ) {
+    issues.push("договор пути содержит неточный первый статус подготовки");
+  }
+  if (
+    contracts.journey?.copy?.presentation_sent !== REQUIRED_COPY.presentation_sent
+  ) {
+    issues.push("договор пути содержит неточный второй статус отправки");
+  }
+  if (
+    JSON.stringify(contracts.journey?.prototype_timeline) !==
+    JSON.stringify({ ...REQUIRED_TIMELINE, direct_state_autoplay: false })
+  ) {
+    issues.push("договор пути должен фиксировать шкалу 600–7600–8000 мс без автозапуска прямого состояния");
+  }
+  const searchCases = Array.isArray(contracts.journey?.client_search?.cases)
+    ? contracts.journey.client_search.cases
+    : [];
+  const normalizedSearchCases = searchCases.map((entry) => ({
+    query: entry?.query,
+    target_state_id: entry?.target_state_id,
+    candidate_ids: entry?.candidate_ids,
+  }));
+  if (
+    JSON.stringify(normalizedSearchCases) !==
+    JSON.stringify([
+      {
+        query: "7700000000",
+        target_state_id: "lisa-materials",
+        candidate_ids: ["client-dostovalova"],
+      },
+      {
+        query: "Достовалова",
+        target_state_id: "lisa-client-selection",
+        candidate_ids: ["client-dostovalova", "client-dostovalova-trade"],
+      },
+      {
+        query: "0000000000",
+        target_state_id: "lisa-client-search",
+        candidate_ids: [],
+      },
+    ])
+  ) {
+    issues.push("договор пути должен фиксировать три проверяемых исхода поиска клиента");
+  }
+  const frames = Array.isArray(contracts.frames?.frames) ? contracts.frames.frames : [];
+  if (!exactStringArray(frames.map((frame) => frame?.state_id), registeredStateIds)) {
+    issues.push("договор кадров должен содержать состояния из активного реестра MVP");
+  }
+  if (Array.isArray(contracts.visual?.components) && contracts.visual.components.some((component) => String(component?.source_svg ?? "").endsWith(".svg"))) {
+    issues.push("активный MVP не должен подключать исходные SVG-компоненты");
+  }
+  try {
+    referencePngAsset(contracts, root);
+  } catch (error) {
+    issues.push(error.message);
+  }
+  const archive = contracts.package?.archive;
+  if (!archive || archive.path !== PORTABLE_ARCHIVE_RELATIVE_PATH) {
+    issues.push("договор пакета содержит неверный путь переносимого ZIP");
+  } else if (!exactStringArray(archive.members, expectedPortableArchiveMembers(contracts))) {
+    issues.push("договор пакета содержит неверный состав переносимого ZIP");
+  }
+  try {
+    const fixed = outputFixedPaths(contracts);
+    if (!fixed.includes(CANONICAL_RASTER_MANIFEST_RELATIVE_PATH)) {
+      throw new Error("фиксированные generated-выходы не содержат манифест канонического растра");
+    }
+    canonicalRasterPathsForStates(contracts, states);
+    svgWrapperConfiguration(contracts);
+    captureRendererProfilePolicy(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "договор пакета содержит неверный состав generated-выходов MVP");
+  }
+  const runtimeMatrix = contracts.package?.evidence_outputs?.runtime_validation_matrix;
+  if (
+    !Array.isArray(runtimeMatrix) ||
+    !exactStringArray(runtimeMatrix.map((entry) => entry?.browser), ["chromium", "webkit"]) ||
+    runtimeMatrix.some(
+      (entry) =>
+        entry?.state_selection !== "all" ||
+        entry?.state_source !== "source/journey-contract.json#/states" ||
+        entry?.published_png !== false ||
+        entry?.retained_png !== false,
+    )
+  ) {
+    issues.push("договор пакета содержит неверную матрицу runtime-проверки для всех активных состояний");
+  }
+  if (Array.isArray(contracts.package?.canonical_contracts)) {
+    const expectedContractPaths = activeContractRelativePaths(contracts).filter((item) => item !== "source/active-contracts.json");
+    if (!exactStringArray(contracts.package.canonical_contracts, expectedContractPaths)) {
+      issues.push("договор пакета дублирует состав активных договоров неверно");
+    }
+  }
+  for (const asset of registeredSourceAssets(contracts)) {
+    try {
+      assertSafePackageRelativePath(asset?.path, "путь исходного актива");
+      if (!asset.path.startsWith("source/")) throw new Error("исходный актив находится вне source/");
+      const assetPath = resolvePackagePath(root, asset.path, "путь исходного актива");
+      const stat = fs.lstatSync(assetPath);
+      if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("исходный актив должен быть обычным файлом");
+      if (typeof asset.sha256 !== "string" || sha256File(assetPath) !== asset.sha256) {
+        throw new Error("SHA-256 исходного актива не совпадает с договором");
+      }
+      if (asset.path.endsWith(".svg")) throw new Error("исходный SVG не входит в активный MVP");
+    } catch (error) {
+      issues.push(`${String(asset?.path)}: ${error.message}`);
+    }
+  }
+  return issues;
 }
 
 export function validateContracts(root = process.cwd(), contracts = loadContracts(root)) {
   const issues = [];
-  const ajv = new Ajv2020({
-    allErrors: true,
-    strict: true,
-    strictRequired: false,
-  });
-  for (const name of Object.keys(CONTRACT_PATHS)) {
-    const schema = readJson(root, SCHEMA_PATHS[name]);
-    const validate = ajv.compile(schema);
-    if (!validate(contracts[name])) {
-      issues.push(`${CONTRACT_PATHS[name]}: ${formatAjvErrors(validate.errors)}`);
-    }
-  }
+  const registry = contracts.registry;
+  validateJsonSchema(root, "source/schemas/active-contracts.schema.json", registry, "реестр активных договоров", issues);
+  if (registry?.status !== "active") issues.push("реестр активных договоров должен быть active");
 
-  const archiveContract = contracts.package.archive;
-  if (!archiveContract) {
-    issues.push("prototype package archive contract is missing");
-  } else {
-    if (archiveContract.path !== PORTABLE_ARCHIVE_RELATIVE_PATH) {
-      issues.push("portable archive path differs from the generator output");
-    }
-    if (
-      JSON.stringify(archiveContract.exact_members) !==
-      JSON.stringify(PORTABLE_ARCHIVE_MEMBERS)
-    ) {
-      issues.push("portable archive member inventory differs from the generator contract");
-    }
-    if (
-      archiveContract.external_package_manifest_included !== false ||
-      archiveContract.exact_members?.includes(
-        "derived/prototype-package-manifest.json",
-      )
-    ) {
-      issues.push("portable archive must not include the external package manifest");
-    }
-  }
-  if (
-    !contracts.package.outputs?.exact?.includes(PORTABLE_ARCHIVE_RELATIVE_PATH)
-  ) {
-    issues.push("portable archive is missing from exact generated outputs");
-  }
-
-  const packageSourceRoot = path.resolve(root, PACKAGE_PATH, "source");
-  for (const asset of contracts.package.source_assets) {
-    const relativeAssetPath = asset.path;
-    const assetPath = path.resolve(root, PACKAGE_PATH, relativeAssetPath);
-    if (
-      !isSafePackageOutputPath(relativeAssetPath) ||
-      !relativeAssetPath.startsWith("source/") ||
-      !assetPath.startsWith(`${packageSourceRoot}${path.sep}`)
-    ) {
-      issues.push(`source asset path escapes package source: ${relativeAssetPath}`);
-      continue;
-    }
-    let stat;
-    try {
-      stat = fs.lstatSync(assetPath);
-    } catch {
-      issues.push(`source asset is missing: ${relativeAssetPath}`);
-      continue;
-    }
-    if (!stat.isFile() || stat.isSymbolicLink()) {
-      issues.push(`source asset must be a regular file: ${relativeAssetPath}`);
-      continue;
-    }
-    const actualSha256 = sha256File(assetPath);
-    if (actualSha256 !== asset.sha256) {
-      issues.push(
-        `source asset hash mismatch: ${relativeAssetPath}; expected ${asset.sha256}, got ${actualSha256}`,
-      );
-    }
-    const pinnedOrigin = PINNED_EXTERNAL_SOURCE_ORIGINS.get(relativeAssetPath);
-    if (asset.origin_commit !== null && !pinnedOrigin) {
-      issues.push(`source asset origin is not independently pinned: ${relativeAssetPath}`);
-    } else if (
-      pinnedOrigin &&
-      Object.entries(pinnedOrigin).some(
-        ([key, expected]) => asset[key] !== expected,
-      )
-    ) {
-      issues.push(`source asset pinned origin mismatch: ${relativeAssetPath}`);
-    }
-    const adapted = asset.kind.startsWith("adapted-");
-    if (asset.origin_commit !== null && asset.origin_sha256 === null) {
-      issues.push(`source asset origin hash is missing: ${relativeAssetPath}`);
-    } else if (asset.origin_sha256 !== null) {
-      if (adapted && actualSha256 === asset.origin_sha256) {
-        issues.push(
-          `adapted source asset must differ from its origin: ${relativeAssetPath}`,
-        );
-      } else if (!adapted && actualSha256 !== asset.origin_sha256) {
-        issues.push(
-          `source asset origin hash mismatch: ${relativeAssetPath}; expected ${asset.origin_sha256}, got ${actualSha256}`,
-        );
-      }
-    }
-  }
-
-  const stateIds = contracts.journey.states.map((state) => state.id);
-  const stateIdSet = new Set(stateIds);
-  const actionIds = contracts.journey.actions.map((action) => action.id);
-  const actionIdSet = new Set(actionIds);
-  const frameStateIds = contracts.frames.frames.map((frame) => frame.state_id);
-
-  if (stateIdSet.size !== stateIds.length) {
-    issues.push("journey contract contains duplicate state ids");
-  }
-  if (actionIdSet.size !== actionIds.length) {
-    issues.push("journey contract contains duplicate action ids");
-  }
-  if (!stateIdSet.has(contracts.journey.initial_state_id)) {
-    issues.push(`initial state is unknown: ${contracts.journey.initial_state_id}`);
-  }
-  if (frameStateIds.length !== stateIds.length || frameStateIds.some((id, index) => id !== stateIds[index])) {
-    issues.push("frame contract state order must exactly match journey contract");
-  }
-
-  for (const state of contracts.journey.states) {
-    for (const actionId of state.action_ids) {
-      if (!actionIdSet.has(actionId)) {
-        issues.push(`state ${state.id} references unknown action ${actionId}`);
-      }
-    }
-    for (const historyStateId of state.history_state_ids ?? []) {
-      if (!stateIdSet.has(historyStateId)) {
-        issues.push(`state ${state.id} references unknown history state ${historyStateId}`);
-      }
-      if (historyStateId === state.id) {
-        issues.push(`state ${state.id} cannot include itself in chat history`);
-      }
-    }
-  }
-  for (const action of contracts.journey.actions) {
-    if (action.target_state_id && !stateIdSet.has(action.target_state_id)) {
-      issues.push(`action ${action.id} references unknown state ${action.target_state_id}`);
-    }
-    for (const step of action.prototype_sequence ?? []) {
-      if (!stateIdSet.has(step.state_id)) {
-        issues.push(`action ${action.id} sequence references unknown state ${step.state_id}`);
-      }
-    }
-  }
-  for (const frame of contracts.frames.frames) {
-    const state = contracts.journey.states.find((item) => item.id === frame.state_id);
-    if (state && JSON.stringify(state.action_ids) !== JSON.stringify(frame.action_ids)) {
-      issues.push(`frame actions differ from journey state ${frame.state_id}`);
-    }
-  }
-
-  const componentIds = new Set(contracts.visual.components.map((component) => component.id));
-  if (componentIds.size !== contracts.visual.components.length) {
-    issues.push("visual contract contains duplicate component ids");
-  }
-  const componentUsage = new Map(
-    contracts.visual.components.map((component) => [
-      component.id,
-      component.usage,
-    ]),
-  );
-  for (const componentId of ["lisa-phone-shell", "lisa-notification-bell"]) {
-    if (componentUsage.get(componentId) !== "rendered-in-html") {
-      issues.push(`${componentId} must be rendered by the approved HTML`);
-    }
-  }
-  if (componentUsage.get("lisa-presentation-card") !== "reference-only") {
-    issues.push("lisa-presentation-card must be explicitly reference-only");
-  }
-
-  const statesById = new Map(contracts.journey.states.map((state) => [state.id, state]));
-  const actionsById = new Map(contracts.journey.actions.map((action) => [action.id, action]));
-  const resultProjectionStateIds = [
-    "lisa-presentation-ready-unread",
-    "lisa-notifications-list-unread",
-    "lisa-notification-detail-unread",
-    "lisa-notifications-list-read",
-    "lisa-notification-detail-read",
-    "lisa-result-view-from-chat",
-    "lisa-result-view-from-notification",
-    "lisa-returned-to-chat",
-    "lisa-presentation-email-submitting",
-    "lisa-presentation-email-sent",
-    "lisa-presentation-email-partial-failure",
-    "lisa-presentation-email-failed",
+  const descriptors = Array.isArray(registry?.active_contracts) ? registry.active_contracts : [];
+  const descriptorIds = descriptors.map((descriptor) => descriptor?.id);
+  const requiredDescriptorIds = [
+    "scope",
+    "fixture",
+    "source-catalog",
+    "journey",
+    "frames",
+    "visual",
+    "visual-basis",
+    "package",
   ];
-  for (const stateId of resultProjectionStateIds) {
-    const state = statesById.get(stateId);
-    if (state && state.result_ref !== contracts.journey.result_ref) {
-      issues.push(
-        `chat and notification must reference the same result: ${stateId} uses ${state.result_ref}`,
-      );
-    }
+  if (!exactStringArray(descriptorIds, requiredDescriptorIds)) {
+    issues.push("реестр активных договоров задаёт неверный состав MVP");
   }
-  if (contracts.journey.notification.push_supported !== false) {
-    issues.push("push notifications are outside this prototype");
+  for (const [index, descriptor] of descriptors.entries()) {
+    if (!validateRegistryDescriptor(descriptor, `active_contracts[${index}]`, issues)) continue;
+    validateJsonSchema(root, descriptor.schema, contracts[descriptor.id], `договор ${descriptor.id}`, issues);
   }
-  if (contracts.journey.notification.kind !== "lisa_notification_center_item") {
-    issues.push("notification surface must be the Lisa notification center");
+
+  if (!exactStringArray(contracts.scope?.implemented_priorities, ["P1", "P2"])) {
+    issues.push("договор области должен ограничивать активный MVP приоритетами P1 и P2");
   }
-  if (
-    statesById.get("lisa-notification-failed-chat-available")?.result_ref !==
-    undefined
-  ) {
-    issues.push(
-      "failed notification delivery cannot create a notification result reference",
-    );
+  if (contracts.scope?.demonstration_context?.not_my_client_control_visible !== false) {
+    issues.push("активный MVP не показывает управление «не мой клиент»");
   }
-  if (
-    actionsById.get("open-result-from-notification")?.target_state_id !==
-    "lisa-result-view-from-notification"
-  ) {
-    issues.push("notification result action must open notification viewer");
+
+  let registeredStateIds = [];
+  try {
+    registeredStateIds = activeStateIds(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "реестр активных договоров не содержит состояния MVP");
   }
-  if (
-    actionsById.get("close-result")?.target_state_id !==
-      "lisa-returned-to-chat" ||
-    statesById.get("lisa-result-view-from-notification")?.return_anchor !==
-      "presentation-ready-card"
-  ) {
-    issues.push("closing either viewer must return to the current Lisa chat");
+  const states = Array.isArray(contracts.journey?.states) ? contracts.journey.states : [];
+  const stateIds = states.map((state) => state?.id);
+  if (!exactStringArray(stateIds, registeredStateIds)) {
+    issues.push("договор пути должен содержать состояния из активного реестра MVP");
   }
-  if (
-    actionsById.get("open-result-from-chat")?.target_state_id !==
-    "lisa-result-view-from-chat"
-  ) {
-    issues.push("chat result action must open chat viewer");
+  if (contracts.journey?.initial_state_id !== registeredStateIds[0]) {
+    issues.push("начальным состоянием MVP должно быть первое состояние активного реестра");
   }
-  if (
-    contracts.journey.email_delivery.message_count !== 1 ||
-    JSON.stringify(contracts.journey.email_delivery.required_attachments) !==
-      JSON.stringify(["pdf", "pptx"]) ||
-    contracts.journey.email_delivery.success_requires_all_attachments !== true
-  ) {
-    issues.push("email prototype must send one message with PDF and PPTX before success");
-  }
-  const requiredPrototypeSequences = new Map([
-    [
-      "order-presentation",
-      [
-        { state_id: "lisa-presentation-generating", at_ms: 600 },
-        { state_id: "lisa-presentation-ready-unread", at_ms: 8000 },
-      ],
-    ],
-    [
-      "retry-order",
-      [
-        { state_id: "lisa-presentation-generating", at_ms: 600 },
-        { state_id: "lisa-presentation-ready-unread", at_ms: 8000 },
-      ],
-    ],
-    [
-      "retry-failed-attachment",
-      [{ state_id: "lisa-presentation-email-sent", at_ms: 900 }],
-    ],
-    [
-      "retry-email",
-      [{ state_id: "lisa-presentation-email-sent", at_ms: 900 }],
-    ],
-    [
-      "email-presentation",
-      [{ state_id: "lisa-presentation-email-sent", at_ms: 900 }],
-    ],
+
+  const forbiddenSurfaces = new Set([
+    ...(Array.isArray(registry?.forbidden_active_surfaces) ? registry.forbidden_active_surfaces : []),
+    ...(Array.isArray(contracts.scope?.forbidden_active_surfaces) ? contracts.scope.forbidden_active_surfaces : []),
   ]);
-  for (const [actionId, expectedSequence] of requiredPrototypeSequences) {
+  for (const state of states) {
+    const surfaceId = String(state?.id ?? "").replace(/^lisa-/u, "");
     if (
-      JSON.stringify(actionsById.get(actionId)?.prototype_sequence ?? []) !==
-      JSON.stringify(expectedSequence)
+      forbiddenSurfaces.has(state?.id) ||
+      forbiddenSurfaces.has(surfaceId) ||
+      /(?:viewer|notification|result|link|offline|access-denied)/u.test(surfaceId)
     ) {
-      issues.push(`action ${actionId} must complete its prototype retry sequence`);
+      issues.push(`состояние ${String(state?.id)} запрещено: поверхность относится к P3/P4 и не входит в активный MVP`);
+    }
+    if (!Array.isArray(state?.action_ids) || new Set(state.action_ids).size !== state.action_ids.length) {
+      issues.push(`состояние ${String(state?.id)} содержит неверные действия`);
     }
   }
-  const timeline = contracts.journey.prototype_timeline;
+
+  const timeline = contracts.journey?.prototype_timeline;
+  if (JSON.stringify(timeline) !== JSON.stringify({ ...REQUIRED_TIMELINE, direct_state_autoplay: false })) {
+    issues.push("договор пути должен фиксировать шкалу 600–7600–8000 мс без автозапуска прямого состояния");
+  }
+  const copy = contracts.journey?.copy;
+  const statesById = new Map(states.map((state) => [state?.id, state]));
   if (
-    timeline.generation_started_at_ms !== 600 ||
-    timeline.clock_animation_ends_at_ms !== 7600 ||
-    timeline.ready_at_ms !== 8000 ||
-    timeline.direct_state_autoplay !== false
+    typeof copy?.generation_started !== "string" ||
+    typeof copy?.presentation_sent !== "string" ||
+    statesById.get("lisa-presentation-generating")?.body !== copy.generation_started ||
+    statesById.get("lisa-presentation-sent")?.body !== copy.presentation_sent
   ) {
-    issues.push("prototype timeline must run from 13:24 to 13:44 over exactly 8000ms");
+    issues.push("договор пути должен содержать две точные статусные реплики");
   }
 
-  const material = statesById.get("lisa-materials-ready")?.content;
-  if (material) {
-    const normalizedMaterialSha256 = sha256Bytes(stableStringify(material));
-    if (normalizedMaterialSha256 !== contracts.fixture.normalized_material_sha256) {
-      issues.push(
-        `meeting material hash mismatch: expected ${contracts.fixture.normalized_material_sha256}, got ${normalizedMaterialSha256}`,
-      );
-    }
-    const unitCount = material.sections.reduce(
-      (total, section) =>
-        total +
-        section.blocks.reduce(
-          (sectionTotal, block) =>
-            sectionTotal + (Array.isArray(block.items) ? block.items.length : 1),
-          0,
-        ),
-      0,
-    );
-    if (unitCount !== 33) {
-      issues.push(`meeting material must contain exactly 33 typed units, got ${unitCount}`);
-    }
-    const ids = material.sections.flatMap((section) =>
-      section.blocks.flatMap((block) => [
-        `${section.id}.${block.id}`,
-        ...(block.items ?? []).map((item) => `${section.id}.${block.id}.${item.id}`),
-      ]),
-    );
-    if (new Set(ids).size !== ids.length) {
-      issues.push("meeting material contains duplicate typed unit ids");
-    }
-    for (const slide of contracts.preview.slides) {
-      for (const binding of slide.data_bindings) {
-        if (resolvePresentationBinding(material, binding) === undefined) {
-          issues.push(`slide ${slide.id} contains unresolved data binding ${binding}`);
-        }
-      }
-      for (const card of slide.card_summaries ?? []) {
-        if (!slide.data_bindings.includes(card.binding)) {
-          issues.push(`slide ${slide.id} card summary is not declared in data bindings`);
-        }
-        if (resolvePresentationBinding(material, card.binding) === undefined) {
-          issues.push(`slide ${slide.id} contains unresolved card binding ${card.binding}`);
-        }
-      }
-    }
+  const expectedSearchCases = [
+    { id: "single-client", query: "7700000000", target_state_id: "lisa-client-answer", candidate_ids: ["client-dostovalova"] },
+    { id: "multiple-clients", query: "Достовалова", target_state_id: "lisa-client-selection-list", candidate_ids: ["client-dostovalova", "client-dostovalova-trade"] },
+    { id: "no-client", query: "0000000000", target_state_id: "lisa-client-answer", candidate_ids: [] },
+  ];
+  const actualSearchCases = Array.isArray(contracts.journey?.client_search?.cases)
+    ? contracts.journey.client_search.cases.map((entry) => ({
+      id: entry?.id,
+      query: entry?.query,
+      target_state_id: entry?.target_state_id,
+      candidate_ids: entry?.candidate_ids,
+    }))
+    : [];
+  if (JSON.stringify(actualSearchCases) !== JSON.stringify(expectedSearchCases)) {
+    issues.push("договор пути должен фиксировать три проверяемых исхода поиска клиента");
   }
-  if (JSON.stringify(contracts.preview).includes("37 млрд")) {
-    issues.push("presentation preview must not sum independent offer limits");
+  const candidates = Array.isArray(contracts.journey?.client_search?.candidates)
+    ? contracts.journey.client_search.candidates
+    : [];
+  if (
+    candidates.filter((candidate) => candidate?.relationship === "my").length !== 1 ||
+    candidates.filter((candidate) => candidate?.relationship === "not-my").length !== 1 ||
+    candidates.some((candidate) => !candidate?.id || !candidate?.display_name)
+  ) {
+    issues.push("договор пути должен содержать одного my и одного not-my клиента");
   }
 
+  const actions = Array.isArray(contracts.journey?.actions) ? contracts.journey.actions : [];
+  const actionIds = actions.map((action) => action?.id);
+  if (new Set(actionIds).size !== actionIds.length || actionIds.some((id) => typeof id !== "string")) {
+    issues.push("договор пути содержит повторяющиеся или неверные действия");
+  }
+  for (const state of states) {
+    for (const actionId of state.action_ids ?? []) {
+      if (!actionIds.includes(actionId)) issues.push(`${state.id}: действие ${actionId} не зарегистрировано`);
+    }
+  }
+  for (const action of actions) {
+    if (action?.id === "search-client" && action?.behavior === "submit-client-search") {
+      continue;
+    }
+    if (action?.id === "order-presentation") {
+      if (
+        JSON.stringify(action.prototype_sequence) !==
+        JSON.stringify([
+          { state_id: "lisa-presentation-generating", at_ms: 600 },
+          { state_id: "lisa-presentation-sent", at_ms: 8000 },
+        ])
+      ) {
+        issues.push("заказ презентации должен иметь последовательность 600 и 8000 мс");
+      }
+    } else if (!registeredStateIds.includes(action?.target_state_id)) {
+      issues.push(`действие ${String(action?.id)} ведёт вне активного MVP`);
+    }
+  }
+
+  const frames = Array.isArray(contracts.frames?.frames) ? contracts.frames.frames : [];
+  if (!exactStringArray(frames.map((frame) => frame?.state_id), registeredStateIds)) {
+    issues.push("договор кадров должен содержать состояния из активного реестра MVP");
+  }
+  try {
+    validateVisualBasisBindings(contracts, root);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "визуальный договор не проверен");
+  }
+
+  const archive = contracts.package?.archive;
+  try {
+    const expectedMembers = expectedPortableArchiveMembers(contracts);
+    if (!exactStringArray(portableArchiveMembers(contracts), expectedMembers)) {
+      issues.push("договор пакета содержит неверный состав archive.members");
+    }
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "договор пакета не содержит archive.members");
+  }
+  if (!archive || archive.path !== PORTABLE_ARCHIVE_RELATIVE_PATH || archive.extra_members_allowed !== false) {
+    issues.push("договор пакета содержит неверные правила переносимого ZIP");
+  }
+
+  try {
+    const fixed = outputFixedPaths(contracts);
+    if (!fixed.includes(CANONICAL_RASTER_MANIFEST_RELATIVE_PATH)) {
+      throw new Error("фиксированные generated-выходы не содержат манифест канонического растра");
+    }
+    canonicalRasterPathsForStates(contracts, states);
+    svgWrapperConfiguration(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "договор пакета содержит неверные generated-выходы");
+  }
+
+  const policy = contracts.package?.reproducibility?.canonical_raster_policy;
+  if (
+    policy?.engine !== "webkit" ||
+    policy?.capture_method !== BROWSER_SCREENSHOT_RENDERER ||
+    policy?.repeat_count !== 3 ||
+    policy?.independence !== "separate-child-processes-and-browser-instances" ||
+    policy?.comparison !== "exact-byte-equality" ||
+    policy?.normalization !== "forbidden" ||
+    policy?.mismatch_action !== "block" ||
+    policy?.publish_after_all_repeats_match !== true ||
+    Object.hasOwn(policy ?? {}, "retry_or_majority_selection")
+  ) {
+    issues.push("договор пакета ослабляет правило канонического WebKit-растра");
+  }
+  try {
+    captureRendererProfilePolicy(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "договор пакета не фиксирует предупреждение WebKit");
+  }
+  if (!hasRuntimeCaptureSupervision(contracts.package?.reproducibility?.runtime_capture_supervision)) {
+    issues.push("договор пакета содержит неверный надзор runtime-захвата браузеров");
+  }
+  const runtimeMatrix = contracts.package?.evidence_outputs?.runtime_validation_matrix;
+  if (
+    !Array.isArray(runtimeMatrix) ||
+    !exactStringArray(runtimeMatrix.map((entry) => entry?.browser), ["chromium", "webkit"]) ||
+    runtimeMatrix.some((entry) =>
+      entry?.state_selection !== "all" ||
+      entry?.state_source !== "source/journey-contract.json#/states" ||
+      entry?.published_png !== false ||
+      entry?.retained_png !== false,
+    )
+  ) {
+    issues.push("договор пакета содержит неверную матрицу runtime-проверки");
+  }
+
+  for (const asset of registeredSourceAssets(contracts)) {
+    try {
+      assertSafePackageRelativePath(asset?.path, "путь исходного актива");
+      if (!asset.path.startsWith("source/") || asset.path.endsWith(".svg")) {
+        throw new Error("исходный актив не разрешён для активного MVP");
+      }
+      const target = resolvePackagePath(root, asset.path, "путь исходного актива");
+      const stat = fs.lstatSync(target);
+      if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("исходный актив должен быть обычным файлом");
+      if (typeof asset.sha256 !== "string" || sha256File(target) !== asset.sha256) {
+        throw new Error("SHA-256 исходного актива не совпадает с договором");
+      }
+    } catch (error) {
+      issues.push(`${String(asset?.path)}: ${error instanceof Error ? error.message : "не проверен"}`);
+    }
+  }
   return issues;
 }
 
-export function resolvePresentationBinding(material, binding) {
-  let current = material;
-  for (const segment of binding.split(".")) {
-    if (["__proto__", "prototype", "constructor"].includes(segment)) {
-      return undefined;
-    }
-    if (Array.isArray(current)) {
-      current = current.find((item) => item?.id === segment);
-      continue;
-    }
-    if (
-      !current ||
-      typeof current !== "object" ||
-      !Object.prototype.hasOwnProperty.call(current, segment)
-    ) {
-      return undefined;
-    }
-    current = current[segment];
-  }
-  return current;
-}
-
-function collectContentStrings(value, key = "") {
-  if (typeof value === "string") {
-    return ["id", "type", "tag", "group"].includes(key) ? [] : [value];
-  }
-  if (Array.isArray(value)) {
-    return value.flatMap((item) => collectContentStrings(item));
-  }
-  if (value && typeof value === "object") {
-    return Object.entries(value).flatMap(([childKey, childValue]) =>
-      collectContentStrings(childValue, childKey),
-    );
-  }
-  return [];
-}
-
-export function buildNormalizedModel(contracts) {
-  const actionsById = new Map(contracts.journey.actions.map((action) => [action.id, action]));
-  const framesByState = new Map(contracts.frames.frames.map((frame) => [frame.state_id, frame]));
-  const states = contracts.journey.states.map((state) => {
-    const frame = framesByState.get(state.id);
-    const actions = state.action_ids.map((actionId) => actionsById.get(actionId));
-    const contentTexts = state.content ? collectContentStrings(state.content) : [];
+export function buildNormalizedModel(contracts, root = contracts.__root ?? process.cwd()) {
+  const journey = contracts.journey;
+  const registeredStateIds = activeStateIds(contracts);
+  const visualBindings = validateVisualBasisBindings(contracts, root);
+  const bindingByStateId = new Map(visualBindings.map((binding) => [binding.state_id, binding]));
+  const sourceStates = new Map(journey.states.map((state) => [state.id, state]));
+  const states = registeredStateIds.map((id) => {
+    const source = sourceStates.get(id) ?? {};
+    const binding = bindingByStateId.get(id);
+    if (!binding) throw new Error(`${id}: отсутствует активная растровая основа`);
     const projection = {
-      state_id: state.id,
-      display_name: state.display_name,
-      kind: state.kind,
-      texts: [
-        state.eyebrow,
-        state.title,
-        state.body,
-        ...state.detail_lines,
-        ...contentTexts,
-        ...actions.map((action) => action.label),
-      ],
-      actions: actions.map((action) => ({
-        id: action.id,
-        label: action.label,
-        accessible_label: action.accessible_label ?? null,
-        variant: action.variant,
-        target_state_id: action.target_state_id ?? null,
-        behavior: action.behavior ?? null,
-        prototype_sequence: action.prototype_sequence ?? [],
-      })),
-      result_ref: state.result_ref ?? null,
-      history_state_ids: state.history_state_ids ?? [],
-      region_id: frame.region_id,
-      component_ids:
-        state.kind === "viewer"
-          ? []
-          : ["lisa-phone-shell", "lisa-notification-bell"],
+      state_id: id,
+      display_name: source.display_name ?? id,
+      kind: source.kind ?? "lisa-chat",
+      title: source.title ?? source.display_name ?? id,
+      eyebrow: source.eyebrow ?? "Подготовка к встрече",
+      body: source.body ?? "",
+      action_ids: Array.isArray(source.action_ids) ? [...source.action_ids] : [],
+      active_priorities: ["P1", "P2"],
+      base: binding.base,
+      slots: binding.slots,
+      sequence:
+        id === "lisa-presentation-generating"
+          ? [REQUIRED_TIMELINE.generation_started_at_ms, REQUIRED_TIMELINE.clock_animation_ends_at_ms]
+          : id === "lisa-presentation-sent"
+            ? [REQUIRED_TIMELINE.ready_at_ms]
+            : [],
     };
     return {
-      ...state,
-      actions,
-      region_id: frame.region_id,
+      id,
+      display_name: projection.display_name,
+      kind: projection.kind,
+      title: projection.title,
+      eyebrow: projection.eyebrow,
+      body: projection.body,
+      action_ids: projection.action_ids,
+      base: binding.base,
+      slots: binding.slots,
       projection,
       projection_sha256: sha256Bytes(stableStringify(projection)),
     };
   });
-
   return {
-    version: "1.2.0",
-    status: contracts.journey.status,
-    initial_state_id: contracts.journey.initial_state_id,
-    route: contracts.journey.route,
-    result_ref: contracts.journey.result_ref,
-    notification: contracts.journey.notification,
-    email_delivery: contracts.journey.email_delivery,
-    prototype_semantics: contracts.journey.prototype_semantics,
-    open_product_decisions: contracts.journey.open_product_decisions,
-    prototype_timeline: contracts.journey.prototype_timeline,
-    presentation: contracts.preview,
-    source_fixture: contracts.fixture,
-    layout: contracts.visual.layout,
-    viewer: contracts.visual.viewer,
-    motion: contracts.visual.motion,
-    accessibility: contracts.visual.accessibility,
-    tokens: contracts.visual.tokens,
-    visual_components: contracts.visual.components,
+    version: "3.0.0",
+    status: journey.status ?? "active",
+    initial_state_id: registeredStateIds[0],
     states,
+    copy: {
+      search_placeholder: journey.copy.search_placeholder,
+      search_no_results: journey.copy.search_no_results,
+      generation_started: journey.copy.generation_started,
+      presentation_sent: journey.copy.presentation_sent,
+    },
+    timeline: { ...REQUIRED_TIMELINE },
+    search: {
+      placeholder: journey.copy.search_placeholder,
+      no_results: journey.copy.search_no_results,
+      selection_prompt: journey.copy.selection_prompt,
+      cases: journey.client_search.cases.map((entry) => ({
+        id: entry.id,
+        query: entry.query,
+        target_state_id: entry.target_state_id,
+        candidate_ids: [...entry.candidate_ids],
+      })),
+      candidates: journey.client_search.candidates.map((candidate) => ({
+        id: candidate.id,
+        display_name: candidate.display_name,
+        holding: candidate.holding,
+        relationship: candidate.relationship,
+      })),
+    },
+    actions: journey.actions.map((action) => ({
+      id: action.id,
+      label: action.label,
+      accessible_label: action.accessible_label,
+      target_state_id: action.target_state_id ?? null,
+      behavior: action.behavior,
+      availability: action.availability ?? null,
+      not_my_client_visibility: action.not_my_client_visibility ?? null,
+      prototype_sequence: Array.isArray(action.prototype_sequence)
+        ? action.prototype_sequence.map((entry) => ({ ...entry }))
+        : null,
+    })),
+    visual_basis_sha256: sha256File(
+      resolvePackagePath(root, "source/visual-basis-contract.json", "визуальный договор"),
+    ),
   };
+}
+
+export function resolvePresentationBinding(material, binding) {
+  let current = material;
+  for (const segment of String(binding).split(".")) {
+    if (["__proto__", "prototype", "constructor"].includes(segment)) return undefined;
+    if (Array.isArray(current)) current = current.find((item) => item?.id === segment);
+    else if (current && typeof current === "object" && Object.hasOwn(current, segment)) current = current[segment];
+    else return undefined;
+  }
+  return current;
 }
 
 export function parseStateSearch(search, initialStateId, knownStateIds) {
   let params;
   try {
-    params = new URLSearchParams(search.startsWith("?") ? search.slice(1) : search);
+    params = new URLSearchParams(String(search).startsWith("?") ? String(search).slice(1) : String(search));
   } catch {
     return { ok: false, reason: "malformed-query" };
   }
   const values = params.getAll("state");
-  if (values.length === 0) {
-    return { ok: true, stateId: initialStateId, explicit: false };
-  }
-  if (values.length !== 1) {
-    return { ok: false, reason: "duplicate-state" };
-  }
+  if (values.length === 0) return { ok: true, stateId: initialStateId, explicit: false };
+  if (values.length !== 1) return { ok: false, reason: "duplicate-state" };
   const stateId = values[0];
-  if (!STATE_ID_PATTERN.test(stateId)) {
-    return { ok: false, reason: "malformed-state" };
-  }
-  if (!knownStateIds.has(stateId)) {
-    return { ok: false, reason: "unknown-state" };
-  }
+  if (!STATE_ID_PATTERN.test(stateId)) return { ok: false, reason: "malformed-state" };
+  if (!knownStateIds.has(stateId)) return { ok: false, reason: "unknown-state" };
   return { ok: true, stateId, explicit: true };
-}
-
-export function measureVariableText(fontPath, text, fontSize, variation = { wght: 400, wdth: 100 }) {
-  return createFontEngine(fontPath).measure(text, fontSize, variation);
 }
 
 export class LayoutError extends Error {
@@ -705,708 +1309,92 @@ export function createFontEngine(fontPath, expectedSha256 = null) {
   const bytes = fs.readFileSync(fontPath);
   const actualSha256 = sha256Bytes(bytes);
   if (expectedSha256 && actualSha256 !== expectedSha256) {
-    throw new Error(
-      `vendored font hash mismatch: expected ${expectedSha256}, received ${actualSha256}`,
-    );
+    throw new Error(`vendored font hash mismatch: expected ${expectedSha256}, received ${actualSha256}`);
   }
   const font = opentype.parse(toArrayBuffer(bytes));
-  const axes = new Map((font.tables.fvar?.axes ?? []).map((axis) => [axis.tag, axis]));
-  for (const [tag, expected] of [
-    ["wght", { min: 100, max: 900 }],
-    ["wdth", { min: 62.51, max: 100 }],
-  ]) {
-    const axis = axes.get(tag);
-    if (!axis || axis.minValue > expected.min || axis.maxValue < expected.max) {
-      throw new Error(`vendored font does not expose required ${tag} variation axis`);
-    }
-  }
-
-  function glyphRun(text, fontSize, variation) {
-    const sourceGlyphs = font.stringToGlyphs(text);
-    const run = [];
-    let advance = 0;
-    for (let index = 0; index < sourceGlyphs.length; index += 1) {
-      const sourceGlyph = sourceGlyphs[index];
-      if (sourceGlyph.index === 0 && text[index] !== "\u0000") {
-        throw new LayoutError(`vendored font has no glyph for text: ${text}`);
-      }
-      const glyph = font.variation.getTransform(sourceGlyph, variation);
-      run.push({ glyph, x: advance });
-      advance += ((glyph.advanceWidth ?? font.unitsPerEm) / font.unitsPerEm) * fontSize;
-      const nextSource = sourceGlyphs[index + 1];
-      if (nextSource) {
-        advance +=
-          (font.getKerningValue(sourceGlyph, nextSource) / font.unitsPerEm) * fontSize;
-      }
-    }
-    return { run, advance };
-  }
-
   return {
-    sha256: actualSha256,
     measure(text, fontSize, variation = { wght: 400, wdth: 100 }) {
-      return glyphRun(text, fontSize, variation).advance;
-    },
-    pathData(text, x, baseline, fontSize, variation = { wght: 400, wdth: 100 }) {
-      const shaped = glyphRun(text, fontSize, variation);
-      return shaped.run
-        .map(({ glyph, x: glyphX }) =>
-          glyph
-            .getPath(x + glyphX, baseline, fontSize, { hinting: false }, font)
-            .toPathData(2),
-        )
-        .join("");
-    },
-    textBox(text, x, baseline, fontSize, variation = { wght: 400, wdth: 100 }) {
-      const width = glyphRun(text, fontSize, variation).advance;
-      const ascender = (font.ascender / font.unitsPerEm) * fontSize;
-      const descender = Math.abs((font.descender / font.unitsPerEm) * fontSize);
-      return {
-        x,
-        y: baseline - ascender,
-        width,
-        height: ascender + descender,
-      };
+      if (!Number.isFinite(fontSize) || fontSize <= 0) throw new LayoutError("font size must be positive");
+      const glyphs = font.stringToGlyphs(String(text));
+      let advance = 0;
+      for (let index = 0; index < glyphs.length; index += 1) {
+        const sourceGlyph = glyphs[index];
+        const glyph = font.variation?.getTransform
+          ? font.variation.getTransform(sourceGlyph, variation)
+          : sourceGlyph;
+        advance += ((glyph.advanceWidth ?? font.unitsPerEm) / font.unitsPerEm) * fontSize;
+        if (glyphs[index + 1]) {
+          advance += (font.getKerningValue(sourceGlyph, glyphs[index + 1]) / font.unitsPerEm) * fontSize;
+        }
+      }
+      return advance;
     },
   };
 }
 
+export function measureVariableText(fontPath, text, fontSize, variation = { wght: 400, wdth: 100 }) {
+  return createFontEngine(fontPath).measure(text, fontSize, variation);
+}
+
 export function wrapMeasuredText(fontEngine, text, options) {
-  const {
-    maxWidth,
-    maxLines,
-    fontSize,
-    variation = { wght: 400, wdth: 100 },
-  } = options;
+  const width = options?.width;
+  const fontSize = options?.fontSize;
+  if (!Number.isFinite(width) || width <= 0) throw new LayoutError("wrap width must be positive");
   const words = String(text).trim().split(/\s+/u).filter(Boolean);
   const lines = [];
-  let current = "";
+  let line = "";
   for (const word of words) {
-    if (fontEngine.measure(word, fontSize, variation) > maxWidth) {
-      throw new LayoutError("Неразрывное слово не помещается в текстовую область", {
-        word,
-        maxWidth,
-      });
-    }
-    const candidate = current ? `${current} ${word}` : word;
-    if (fontEngine.measure(candidate, fontSize, variation) <= maxWidth) {
-      current = candidate;
-      continue;
-    }
-    if (!current) {
-      throw new LayoutError("Не удалось сформировать строку текста", { text });
-    }
-    lines.push(current);
-    current = word;
-    if (lines.length >= maxLines) {
-      throw new LayoutError("Текст превышает допустимое число строк", {
-        text,
-        maxLines,
-      });
+    const candidate = line ? `${line} ${word}` : word;
+    if (line && fontEngine.measure(candidate, fontSize, options.variation) > width) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = candidate;
     }
   }
-  if (current) lines.push(current);
-  if (lines.length > maxLines) {
-    throw new LayoutError("Текст превышает допустимое число строк", { text, maxLines });
-  }
+  if (line) lines.push(line);
   return lines;
 }
 
-function rectanglesOverlap(left, right, tolerance = 0) {
-  const overlapWidth =
-    Math.min(left.x + left.width, right.x + right.width) - Math.max(left.x, right.x);
-  const overlapHeight =
-    Math.min(left.y + left.height, right.y + right.height) - Math.max(left.y, right.y);
-  return overlapWidth > tolerance && overlapHeight > tolerance;
-}
-
 export function validateLayoutBoxes(boxes, options = {}) {
-  const {
-    canvasWidth = 390,
-    canvasHeight = 844,
-    minimumTarget = 44,
-    minimumGap = 8,
-    tolerance = 1,
-  } = options;
   const issues = [];
-  const byId = new Map(boxes.map((box) => [box.id, box]));
-  for (const box of boxes) {
-    if (
-      ![box.x, box.y, box.width, box.height].every(Number.isFinite) ||
-      box.width <= 0 ||
-      box.height <= 0
-    ) {
-      issues.push(`${box.id}: некорректная геометрия`);
+  const width = options.width ?? Infinity;
+  const height = options.height ?? Infinity;
+  for (const box of boxes ?? []) {
+    if (!Number.isFinite(box?.x) || !Number.isFinite(box?.y) || !Number.isFinite(box?.width) || !Number.isFinite(box?.height) || box.width < 0 || box.height < 0) {
+      issues.push(`invalid layout box: ${box?.id ?? "unknown"}`);
       continue;
     }
-    if (
-      box.x < -tolerance ||
-      box.y < -tolerance ||
-      box.x + box.width > canvasWidth + tolerance ||
-      box.y + box.height > canvasHeight + tolerance
-    ) {
-      issues.push(`${box.id}: элемент выходит за холст`);
-    }
-    if (box.parentId) {
-      const parent = byId.get(box.parentId);
-      if (!parent) {
-        issues.push(`${box.id}: неизвестный владелец ${box.parentId}`);
-      } else if (
-        box.x < parent.x - tolerance ||
-        box.y < parent.y - tolerance ||
-        box.x + box.width > parent.x + parent.width + tolerance ||
-        box.y + box.height > parent.y + parent.height + tolerance
-      ) {
-        issues.push(`${box.id}: элемент выходит за границы ${box.parentId}`);
-      }
-    }
-    if (
-      box.interactive &&
-      (box.width < minimumTarget - tolerance || box.height < minimumTarget - tolerance)
-    ) {
-      issues.push(`${box.id}: область нажатия меньше ${minimumTarget}px`);
-    }
-  }
-  const collisionGroups = new Map();
-  for (const box of boxes.filter((item) => item.collisionGroup)) {
-    const group = collisionGroups.get(box.collisionGroup) ?? [];
-    group.push(box);
-    collisionGroups.set(box.collisionGroup, group);
-  }
-  for (const [groupId, group] of collisionGroups) {
-    for (let leftIndex = 0; leftIndex < group.length; leftIndex += 1) {
-      for (let rightIndex = leftIndex + 1; rightIndex < group.length; rightIndex += 1) {
-        const left = group[leftIndex];
-        const right = group[rightIndex];
-        if (left.flowId && left.flowId === right.flowId) continue;
-        if (rectanglesOverlap(left, right, tolerance)) {
-          issues.push(`${groupId}: ${left.id} пересекается с ${right.id}`);
-          continue;
-        }
-        if (left.requireGap && right.requireGap) {
-          const horizontalGap = Math.max(
-            right.x - (left.x + left.width),
-            left.x - (right.x + right.width),
-            0,
-          );
-          const verticalGap = Math.max(
-            right.y - (left.y + left.height),
-            left.y - (right.y + right.height),
-            0,
-          );
-          const meaningfulGap = Math.max(horizontalGap, verticalGap);
-          if (meaningfulGap > 0 && meaningfulGap < minimumGap - tolerance) {
-            issues.push(`${groupId}: интервал между ${left.id} и ${right.id} меньше ${minimumGap}px`);
-          }
-        }
-      }
+    if (box.x < 0 || box.y < 0 || box.x + box.width > width || box.y + box.height > height) {
+      issues.push(`layout box outside canvas: ${box.id ?? "unknown"}`);
     }
   }
   return issues;
 }
 
-function renderTextPath(fontEngine, text, x, baseline, options = {}) {
-  const {
-    fontSize = 16,
-    weight = 400,
-    width = 100,
-    fill = "#201F25",
-    anchor = "start",
-  } = options;
-  const variation = { wght: weight, wdth: width };
-  const textWidth = fontEngine.measure(text, fontSize, variation);
-  const startX = anchor === "middle" ? x - textWidth / 2 : x;
-  return {
-    svg: `<path d="${fontEngine.pathData(text, startX, baseline, fontSize, variation)}" fill="${fill}"/>`,
-    box: fontEngine.textBox(text, startX, baseline, fontSize, variation),
-  };
+export function validateSvgSecurity(svg, limits = {}) {
+  const issues = [];
+  const maxBytes = limits.component_max_bytes ?? 262144;
+  if (Buffer.byteLength(String(svg), "utf8") > maxBytes) issues.push("SVG exceeds byte limit");
+  const forbidden = ["script", "foreignObject", "iframe", "object", "embed", "animate", "set"];
+  for (const name of forbidden) {
+    if (new RegExp(`<\\s*${name}\\b`, "iu").test(String(svg))) issues.push(`SVG contains forbidden element: ${name}`);
+  }
+  if (/\bon\w+\s*=/iu.test(String(svg))) issues.push("SVG contains event handler");
+  if (/\b(?:href|src)\s*=\s*["']\s*(?:https?:|file:|javascript:)/iu.test(String(svg))) issues.push("SVG contains external or executable reference");
+  return issues;
 }
 
-function renderTextBlock(fontEngine, lines, x, baseline, options = {}) {
-  const { lineHeight = 24, id = "text", parentId, collisionGroup, ...textOptions } = options;
-  const rendered = lines.map((line, index) =>
-    renderTextPath(fontEngine, line, x, baseline + index * lineHeight, textOptions),
-  );
-  return {
-    svg: rendered.map((item) => item.svg).join("\n"),
-    boxes: rendered.map((item, index) => ({
-      id: `${id}-${index + 1}`,
-      ...item.box,
-      parentId,
-      collisionGroup,
-      flowId: id,
-      requireGap: true,
-    })),
-  };
+export function validateInlineSvgComponentSecurity(svg, limits = {}) {
+  return validateSvgSecurity(svg, limits);
 }
 
-function actionRows(state) {
-  if (state.id === "lisa-materials-ready") {
-    return [
-      {
-        y: 642,
-        actions: state.actions.slice(0, 2),
-        columns: 2,
-      },
-      {
-        y: 708,
-        actions: state.actions.slice(2),
-        columns: 1,
-      },
-    ];
+export function assertLosslessPngPixels(beforeBytes, afterBytes, label = "PNG") {
+  readSafePng(beforeBytes, `${label} before`);
+  readSafePng(afterBytes, `${label} after`);
+  if (!Buffer.from(beforeBytes).equals(Buffer.from(afterBytes))) {
+    throw new Error(`${label}: PNG bytes differ`);
   }
-  if (state.actions.length === 2) {
-    return [
-      {
-        y: 708,
-        actions: state.actions,
-        columns: 2,
-      },
-    ];
-  }
-  return [
-    {
-      y: 708,
-      actions: state.actions.slice(0, 1),
-      columns: 1,
-    },
-  ];
-}
-
-function renderActionSvg(fontEngine, action, x, y, width, height) {
-  const primary = action.variant === "primary";
-  const fill = primary ? "#F06D78" : "#FFFFFF";
-  const stroke = primary ? "#F06D78" : "#D9D4DE";
-  const textFill = primary ? "#FFFFFF" : "#201F25";
-  const fontSize = width < 180 ? 12.5 : 14;
-  const lines = wrapMeasuredText(fontEngine, action.label, {
-    maxWidth: width - 24,
-    maxLines: 2,
-    fontSize,
-    variation: { wght: 700, wdth: 100 },
-  });
-  const baseline = lines.length === 1 ? y + 34 : y + 24;
-  const textBlock = renderTextBlock(fontEngine, lines, x + width / 2, baseline, {
-    id: `action-${action.id}-text`,
-    lineHeight: 17,
-    fontSize,
-    weight: 700,
-    fill: textFill,
-    anchor: "middle",
-    parentId: `action-${action.id}`,
-    collisionGroup: `action-${action.id}-text-flow`,
-  });
-  return {
-    svg: [
-      `<g data-action-id="${escapeXml(action.id)}">`,
-      `  <rect x="${x}" y="${y}" width="${width}" height="${height}" rx="18" fill="${fill}" stroke="${stroke}"/>`,
-      ...textBlock.svg.split("\n").map((line) => `  ${line}`),
-      "</g>",
-    ].join("\n"),
-    boxes: [
-      {
-        id: `action-${action.id}`,
-        x,
-        y,
-        width,
-        height,
-        interactive: true,
-        collisionGroup: "screen-structure",
-        requireGap: true,
-      },
-      ...textBlock.boxes,
-    ],
-  };
-}
-
-function prefixComponentIds(body, prefix) {
-  const ids = [...body.matchAll(/\bid=(["'])([^"']+)\1/gu)].map((match) => match[2]);
-  let result = body;
-  for (const id of ids) {
-    const prefixed = `${prefix}-${id}`;
-    result = result
-      .replaceAll(`id="${id}"`, `id="${prefixed}"`)
-      .replaceAll(`id='${id}'`, `id='${prefixed}'`)
-      .replaceAll(`url(#${id})`, `url(#${prefixed})`)
-      .replaceAll(`"#${id}"`, `"#${prefixed}"`)
-      .replaceAll(`'#${id}'`, `'#${prefixed}'`);
-  }
-  return result;
-}
-
-function loadComponent(root, component) {
-  const componentRoot = path.resolve(root, PACKAGE_PATH, "source/components");
-  const target = path.resolve(componentRoot, path.basename(component.source_svg));
-  if (!target.startsWith(`${componentRoot}${path.sep}`)) {
-    throw new Error(`component path escapes source root: ${component.source_svg}`);
-  }
-  const stat = fs.lstatSync(target);
-  if (stat.isSymbolicLink() || !stat.isFile()) {
-    throw new Error(`component must be a regular file: ${component.source_svg}`);
-  }
-  const source = fs.readFileSync(target, "utf8");
-  const rootMatch = source.match(/<svg\b([^>]*)>([\s\S]*)<\/svg>\s*$/u);
-  if (!rootMatch) {
-    throw new Error(`component has no SVG root: ${component.source_svg}`);
-  }
-  const viewBoxMatch = rootMatch[1].match(/\bviewBox=(["'])([^"']+)\1/u);
-  if (!viewBoxMatch) {
-    throw new Error(`component has no viewBox: ${component.source_svg}`);
-  }
-  const body = rootMatch[2]
-    .replace(/<title\b[^>]*>[\s\S]*?<\/title>/gu, "")
-    .replace(/<desc\b[^>]*>[\s\S]*?<\/desc>/gu, "")
-    .trim();
-  return {
-    id: component.id,
-    path: `${PACKAGE_PATH}/source/${component.source_svg}`,
-    sha256: sha256Bytes(source),
-    source,
-    viewBox: viewBoxMatch[2],
-    body,
-  };
-}
-
-function loadHtmlInlineComponents(root, contracts) {
-  const definitions = new Map(
-    contracts.visual.components.map((component) => [component.id, component]),
-  );
-  return Object.fromEntries(
-    ["lisa-phone-shell", "lisa-notification-bell"].map((componentId) => {
-      const definition = definitions.get(componentId);
-      if (!definition) {
-        throw new Error(`inline HTML component is not registered: ${componentId}`);
-      }
-      const component = loadComponent(root, definition);
-      const securityIssues = validateInlineSvgComponentSecurity(
-        component.source,
-        contracts.visual.svg_security_limits,
-      );
-      if (securityIssues.length > 0) {
-        throw new Error(
-          `inline SVG component ${componentId} failed security validation: ${securityIssues.join("; ")}`,
-        );
-      }
-      return [
-        componentId,
-        {
-          viewBox: component.viewBox,
-          body: component.body,
-          sha256: component.sha256,
-        },
-      ];
-    }),
-  );
-}
-
-function loadRenderAssets(root, contracts) {
-  const fontPath = absolute(root, FONT_RELATIVE_PATH);
-  const fontEngine = createFontEngine(fontPath, EXPECTED_FONT_SHA256);
-  const components = new Map(
-    contracts.visual.components.map((component) => {
-      const loaded = loadComponent(root, component);
-      return [loaded.id, loaded];
-    }),
-  );
-  const visualInputSha256 = sha256Bytes(
-    stableStringify({
-      font: fontEngine.sha256,
-      components: [...components.values()].map((component) => ({
-        id: component.id,
-        sha256: component.sha256,
-      })),
-    }),
-  );
-  return { fontEngine, components, visualInputSha256 };
-}
-
-function renderComponent(component, instanceId, x, y, width, height) {
-  return [
-    `<svg x="${x}" y="${y}" width="${width}" height="${height}" viewBox="${component.viewBox}" data-component-id="${component.id}" data-component-source-sha256="${component.sha256}">`,
-    ...prefixComponentIds(component.body, instanceId)
-      .split("\n")
-      .map((line) => `  ${line}`),
-    "</svg>",
-  ].join("\n");
-}
-
-export function renderScreenSvg(state, model, assets) {
-  const { fontEngine, components, visualInputSha256 } = assets;
-  const unread = state.notification_unread === true;
-  const contentX = 16;
-  const contentWidth = 358;
-  const cardX = 24;
-  const cardWidth = 342;
-  const cardBottom = state.id === "lisa-materials-ready" ? 622 : 688;
-  const titleLines = wrapMeasuredText(fontEngine, state.title, {
-    maxWidth: 302,
-    maxLines: 2,
-    fontSize: 21,
-    variation: { wght: 700, wdth: 100 },
-  });
-  const bodyLines = wrapMeasuredText(fontEngine, state.body, {
-    maxWidth: 302,
-    maxLines: 6,
-    fontSize: 14.5,
-    variation: { wght: 400, wdth: 100 },
-  });
-  const detailLines = state.detail_lines.flatMap((line) =>
-    wrapMeasuredText(fontEngine, line, {
-      maxWidth: 282,
-      maxLines: 4,
-      fontSize: 12.5,
-      variation: { wght: 400, wdth: 100 },
-    }),
-  );
-  const isViewer = state.kind === "viewer";
-  const isNotification = state.kind.startsWith("notification");
-  const cardFill =
-    state.kind === "error"
-      ? "#FFF4F4"
-      : state.kind === "warning"
-        ? "#FFF8E8"
-        : state.kind === "success"
-          ? "#F0FAF5"
-          : "#FFFFFF";
-
-  const bodyParts = [];
-  const boxes = [
-    {
-      id: "phone",
-      x: 8,
-      y: 16,
-      width: 375,
-      height: 812,
-    },
-    {
-      id: "composer",
-      x: 24,
-      y: 778,
-      width: 346,
-      height: 44,
-      parentId: "phone",
-      collisionGroup: "screen-structure",
-      requireGap: true,
-    },
-  ];
-  bodyParts.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="screen-title screen-desc" data-state-id="${escapeXml(state.id)}" data-projection-sha256="${state.projection_sha256}" data-visual-input-sha256="${visualInputSha256}">`,
-    `  <title id="screen-title">${escapeXml(state.title)}</title>`,
-    `  <desc id="screen-desc">${escapeXml([state.body, ...state.detail_lines].join(" "))}</desc>`,
-    '  <rect width="390" height="844" fill="#F1F0F5"/>',
-    ...renderComponent(components.get("lisa-phone-shell"), "screen-shell", 8, 16, 375, 812)
-      .split("\n")
-      .map((line) => `  ${line}`),
-    '  <rect x="150" y="30" width="90" height="28" rx="14" fill="#111115"/>',
-    `  ${renderTextPath(fontEngine, "13:44", 34, 53, {
-      fontSize: 16,
-      weight: 700,
-    }).svg}`,
-    ...renderComponent(
-      components.get("lisa-notification-bell"),
-      "screen-bell",
-      337,
-      64,
-      24,
-      24,
-    )
-      .split("\n")
-      .map((line) => `  ${line}`),
-  );
-  if (unread) {
-    bodyParts.push(
-      '  <circle data-component-id="notification-dot" cx="361" cy="66" r="7" fill="#D9253A" stroke="#FBFAFD" stroke-width="3"/>',
-    );
-  }
-  const contextLabel = isViewer
-    ? "Просмотр презентации"
-    : isNotification
-      ? "Уведомления Лисы"
-      : "Лиса · Подготовка к встрече";
-  bodyParts.push(
-    `  ${renderTextPath(fontEngine, contextLabel, contentX, 92, {
-      fontSize: 14,
-      weight: 700,
-      fill: "#65616D",
-    }).svg}`,
-    '  <line x1="16" y1="108" x2="374" y2="108" stroke="#E5E1E9"/>',
-  );
-
-  if (isViewer) {
-    boxes.push({
-      id: "viewer-card",
-      x: 24,
-      y: 132,
-      width: 342,
-      height: 462,
-      parentId: "phone",
-      collisionGroup: "screen-structure",
-      requireGap: true,
-    });
-    bodyParts.push(
-      ...renderComponent(
-        components.get("lisa-presentation-card"),
-        `screen-card-${state.id}`,
-        24,
-        132,
-        342,
-        462,
-      )
-        .split("\n")
-        .map((line) => `  ${line}`),
-      `  ${renderTextPath(fontEngine, "Подготовка к встрече", 82, 205, {
-        fontSize: 18,
-        weight: 700,
-      }).svg}`,
-      `  ${renderTextPath(fontEngine, "Краткая презентация по материалам агента", 82, 229, {
-        fontSize: 12,
-        weight: 400,
-        fill: "#65616D",
-      }).svg}`,
-      `  ${renderTextPath(fontEngine, "PDF · только просмотр", 195, 548, {
-        fontSize: 13,
-        weight: 700,
-        fill: "#65616D",
-        anchor: "middle",
-      }).svg}`,
-    );
-  } else {
-    boxes.push({
-      id: "message-card",
-      x: cardX,
-      y: 132,
-      width: cardWidth,
-      height: cardBottom - 132,
-      parentId: "phone",
-      collisionGroup: "screen-structure",
-      requireGap: true,
-    });
-    const eyebrow = renderTextPath(fontEngine, state.eyebrow, 44, 162, {
-      fontSize: 13,
-      weight: 700,
-      fill: "#B63F52",
-    });
-    const titleBlock = renderTextBlock(fontEngine, titleLines, 44, 198, {
-      id: "message-title",
-      lineHeight: 27,
-      fontSize: 21,
-      weight: 700,
-      parentId: "message-card",
-      collisionGroup: "message-flow",
-    });
-    const bodyBaseline = 198 + (titleLines.length - 1) * 27 + 38;
-    const bodyBlock = renderTextBlock(fontEngine, bodyLines, 44, bodyBaseline, {
-      id: "message-body",
-      lineHeight: 22,
-      fontSize: 14.5,
-      weight: 400,
-      parentId: "message-card",
-      collisionGroup: "message-flow",
-    });
-    let detailBaseline = bodyBaseline + (bodyLines.length - 1) * 22 + 30;
-    const detailBlocks = [];
-    for (const [index, line] of detailLines.entries()) {
-      const text = renderTextPath(fontEngine, line, 62, detailBaseline, {
-        fontSize: 12.5,
-        weight: 400,
-        fill: "#4F4B56",
-      });
-      detailBlocks.push({
-        svg: [
-          `<circle cx="50" cy="${detailBaseline - 5}" r="3" fill="#F06D78"/>`,
-          text.svg,
-        ].join("\n"),
-        box: {
-          id: `message-detail-${index + 1}`,
-          ...text.box,
-          parentId: "message-card",
-          collisionGroup: "message-flow",
-          flowId: "message-detail",
-          requireGap: true,
-        },
-      });
-      detailBaseline += 18;
-    }
-    bodyParts.push(
-      `  <rect x="${cardX}" y="132" width="${cardWidth}" height="${cardBottom - 132}" rx="22" fill="${cardFill}" stroke="#E5E1E9"/>`,
-      `  ${eyebrow.svg}`,
-      ...titleBlock.svg.split("\n").map((line) => `  ${line}`),
-      ...bodyBlock.svg.split("\n").map((line) => `  ${line}`),
-      ...detailBlocks.flatMap((block) =>
-        block.svg.split("\n").map((line) => `  ${line}`),
-      ),
-    );
-    boxes.push(
-      {
-        id: "message-eyebrow",
-        ...eyebrow.box,
-        parentId: "message-card",
-        collisionGroup: "message-flow",
-        requireGap: true,
-      },
-      ...titleBlock.boxes,
-      ...bodyBlock.boxes,
-      ...detailBlocks.map((block) => block.box),
-    );
-  }
-
-  for (const row of actionRows(state)) {
-    if (row.columns === 2) {
-      const widths = [173, 173];
-      row.actions.forEach((action, index) => {
-        const rendered = renderActionSvg(
-          fontEngine,
-          action,
-          contentX + index * 185,
-          row.y,
-          widths[index],
-          54,
-        );
-        bodyParts.push(rendered.svg);
-        boxes.push(...rendered.boxes);
-      });
-    } else {
-      row.actions.forEach((action, index) => {
-        const rendered = renderActionSvg(
-          fontEngine,
-          action,
-          contentX,
-          row.y + index * 62,
-          contentWidth,
-          54,
-        );
-        bodyParts.push(rendered.svg);
-        boxes.push(...rendered.boxes);
-      });
-    }
-  }
-
-  const composerLabel = renderTextPath(fontEngine, "Задайте любой вопрос…", 44, 806, {
-    fontSize: 15,
-    weight: 400,
-    fill: "#8B8692",
-  });
-  bodyParts.push(
-    '  <rect x="24" y="778" width="300" height="44" rx="22" fill="#FFFFFF" stroke="#E5E1E9"/>',
-    `  ${composerLabel.svg}`,
-    '  <circle cx="348" cy="800" r="22" fill="#F06D78"/>',
-    '  <path d="M348 810V790m0 0-7 7m7-7 7 7" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
-    "</svg>",
-    "",
-  );
-  const geometryIssues = validateLayoutBoxes(boxes, {
-    canvasWidth: 390,
-    canvasHeight: 844,
-    minimumTarget: model.layout.minimum_target_px,
-    minimumGap: model.layout.minimum_action_gap_px,
-    tolerance: model.layout.intersection_tolerance_square_px,
-  });
-  if (geometryIssues.length > 0) {
-    throw new LayoutError(`Геометрия состояния ${state.id} не прошла проверку`, {
-      issues: geometryIssues,
-    });
-  }
-  return bodyParts.join("\n");
 }
 
 function renderDemoIndex() {
@@ -1415,551 +1403,287 @@ function renderDemoIndex() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="color-scheme" content="light">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-    <title>Лиса — путь заказа презентации</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'self'; form-action 'none'; frame-src 'none'; img-src 'self'; media-src 'none'; object-src 'none'; script-src 'self'; style-src 'self'; worker-src 'none'">
+    <title>Лиса — заказ презентации</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
-    <main class="demo-shell">
-      <section class="prototype-tools" aria-labelledby="tools-title">
-        <div>
-          <p class="tools-eyebrow">Проверяемый прототип DataCanvas</p>
-          <h1 id="tools-title">Путь заказа презентации в Лисе</h1>
-          <p>Выберите состояние или пройдите сценарий кнопками внутри телефона.</p>
-          <p id="prototype-review-status" class="review-status"></p>
-        </div>
-        <label for="state-select">Состояние</label>
-        <select id="state-select" aria-describedby="state-help"></select>
-        <p id="state-help">Адрес обновляется в формате <code>?state=...</code>.</p>
+    <div class="demo-shell">
+      <section class="scene-stage" aria-label="Экран Лисы" tabindex="0">
+        <div id="prototype-root"></div>
       </section>
-      <section class="phone-stage" aria-label="Экран телефона Лисы">
-        <div id="phone-root"></div>
-      </section>
-      <p id="prototype-live-region" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
-    </main>
-    <dialog id="materials-dialog" aria-labelledby="materials-dialog-title">
-      <form method="dialog">
-        <h2 id="materials-dialog-title">Редактирование материалов</h2>
-        <p>В промышленном сценарии здесь открывается редактор материалов вызывающего агента. В этом прототипе данные не изменяются.</p>
-        <button type="submit" class="button button-primary">Закрыть</button>
-      </form>
-    </dialog>
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+    </div>
+    <p id="prototype-live-region" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
   </body>
 </html>
 `;
 }
 
-function generatedPathsForStates(states) {
-  return [
-    ...generatedBasePaths,
-    ...states.flatMap((state) => [
-      `${PACKAGE_PATH}/derived/screens/${state.id}.svg`,
-      `${PACKAGE_PATH}/derived/screens/${state.id}.png`,
-    ]),
-  ];
-}
-
-const htmlPrototypePaths = [
-  `${PACKAGE_PATH}/demo/index.html`,
-  `${PACKAGE_PATH}/demo/app.js`,
-  `${PACKAGE_PATH}/demo/styles.css`,
-  `${PACKAGE_PATH}/demo/data.js`,
-];
-
-function buildHtmlOutputMap(model, inlineVisualComponents) {
+function buildHtmlOutputMap(model) {
+  const data = {
+    version: model.version,
+    initial_state_id: model.initial_state_id,
+    states: model.states.map((state) => ({
+      id: state.id,
+      display_name: state.display_name,
+      title: state.title,
+      eyebrow: state.eyebrow,
+      body: state.body,
+      action_ids: state.action_ids,
+      base: state.base,
+      slots: state.slots,
+      projection_sha256: state.projection_sha256,
+    })),
+    copy: model.copy,
+    timeline: model.timeline,
+    search: model.search,
+    actions: model.actions,
+  };
   return new Map([
     ["index.html", renderDemoIndex()],
     ["styles.css", renderLisaDemoStyles()],
-    ["app.js", renderLisaDemoApp(inlineVisualComponents)],
-    ["data.js", `window.LISA_PROTOTYPE_DATA = ${JSON.stringify(model, null, 2)};\n`],
+    ["data.js", `window.LISA_PROTOTYPE_DATA = Object.freeze(${stableStringify(data, 0).trimEnd()});\n`],
+    ["app.js", renderLisaDemoApp()],
   ]);
 }
 
 function validateHtmlOutputMap(outputs) {
-  const expectedNames = ["app.js", "data.js", "index.html", "styles.css"];
-  const maximumBytes = new Map([
-    ["index.html", 32 * 1024],
-    ["styles.css", 128 * 1024],
-    ["app.js", 256 * 1024],
-    ["data.js", 512 * 1024],
-  ]);
-  const actualNames = [...outputs.keys()].sort((left, right) => left.localeCompare(right, "en"));
-  if (JSON.stringify(actualNames) !== JSON.stringify(expectedNames)) {
-    throw new Error("HTML generation must produce exactly app.js, data.js, index.html and styles.css");
+  const required = ["index.html", "app.js", "data.js", "styles.css"];
+  if (!exactStringArray([...outputs.keys()].sort(), [...required].sort())) {
+    throw new Error("HTML-кандидат содержит неверный состав файлов");
   }
   for (const [name, content] of outputs) {
-    if (typeof content !== "string" || content.length === 0) {
-      throw new Error(`HTML output is empty: ${name}`);
+    if (typeof content !== "string" || !content.endsWith("\n")) {
+      throw new Error(`HTML-выход должен быть детерминированным текстом: ${name}`);
     }
-    const outputBytes = Buffer.byteLength(content, "utf8");
-    if (outputBytes > maximumBytes.get(name)) {
-      throw new Error(
-        `HTML output exceeds its size limit: ${name} is ${outputBytes} bytes`,
-      );
+    for (const pattern of FORBIDDEN_GENERATED_PATTERNS) {
+      if (pattern.test(content)) throw new Error(`HTML-выход содержит запрещённый контент: ${name}`);
     }
-    const networkRelevantContent = content.replaceAll(
-      "http://www.w3.org/2000/svg",
-      "",
-    );
-    if (/https?:\/\/|wss?:\/\//u.test(networkRelevantContent)) {
-      throw new Error(`HTML output contains an active network address: ${name}`);
-    }
-    if (
-      /file:/iu.test(content) ||
-      /(?:^|[\s"'(])\/(?:Users|home|root|etc|var|private|opt|tmp)\//mu.test(content) ||
-      /(?:^|[\s"'(])[A-Za-z]:[\\/]/mu.test(content) ||
-      /\\\\[A-Za-z0-9_.-]+\\/u.test(content)
-    ) {
-      throw new Error(`HTML output contains an absolute local path: ${name}`);
-    }
+  }
+  if (!outputs.get("index.html").includes("Content-Security-Policy")) {
+    throw new Error("HTML-выход не содержит CSP");
+  }
+  if (!outputs.get("index.html").includes("img-src 'self'")) {
+    throw new Error("CSP HTML-выхода должен разрешать только локальные PNG");
+  }
+  const app = outputs.get("app.js");
+  const css = outputs.get("styles.css");
+  const data = outputs.get("data.js");
+  if (!/data-prototype-scene/u.test(app) || !/data-source-base-id/u.test(app) || !/(?:element|createElement)\(\s*["']img["']/u.test(app)) {
+    throw new Error("HTML-рантайм не создаёт контрактную растровую сцену");
+  }
+  if (
+    /(?:^|[^\w-])\.phone(?![\w-])/mu.test(css) ||
+    /\.phone-(?:header|content|composer)\b/u.test(css) ||
+    /\.clock-(?:face|hand)\b/u.test(css) ||
+    /className:\s*["']phone(?:["']|\s)/u.test(app)
+  ) {
+    throw new Error("HTML-выход содержит запрещённую ручную CSS-оболочку телефона");
+  }
+  if (/<\/?svg\b|data:image\/|\b(?:https?:|file:|javascript:)/iu.test(`${app}\n${data}\n${css}`)) {
+    throw new Error("HTML-выход содержит неразрешённый источник изображения или ссылку");
+  }
+  if (/\.\.\//u.test(`${app}\n${data}\n${css}\n${outputs.get("index.html")}`)) {
+    throw new Error("HTML-выход не должен содержать ссылок на родительский каталог");
+  }
+  const fontUrl = 'url("assets/fonts/NotoSans[wdth,wght].ttf")';
+  const cssUrls = css.match(/url\([^)]*\)/gu) ?? [];
+  if (cssUrls.some((value) => value !== fontUrl)) {
+    throw new Error("CSS-выход содержит неразрешённую ссылку на ресурс");
+  }
+  const relativeSources = data.match(/assets\/(?:bases|patches)\/[a-z0-9-]+\.png/gu) ?? [];
+  if (
+    relativeSources.length === 0 ||
+    relativeSources.some((value) => !/^assets\/(?:bases|patches)\/[a-z0-9-]+\.png$/u.test(value))
+  ) {
+    throw new Error("data.js содержит неразрешённый путь к автономному ресурсу demo/assets");
   }
 }
 
-function writeHtmlPrototype(outputRoot, model, inlineVisualComponents) {
-  const outputs = buildHtmlOutputMap(model, inlineVisualComponents);
-  validateHtmlOutputMap(outputs);
-  const packageDirectory = absolute(outputRoot, PACKAGE_PATH);
-  const targetDirectory = path.join(packageDirectory, "demo");
-  const lockPath = path.join(packageDirectory, ".html-generation.lock");
-  fs.mkdirSync(packageDirectory, { recursive: true });
-  let lockHandle;
-  let stagingDirectory;
-  let backupDirectory;
-  let operationError;
-  try {
-    lockHandle = fs.openSync(lockPath, "wx");
-    stagingDirectory = fs.mkdtempSync(path.join(packageDirectory, ".demo-next-"));
-    for (const [name, content] of outputs) {
-      fs.writeFileSync(path.join(stagingDirectory, name), content, {
-        encoding: "utf8",
-        flag: "wx",
-      });
-    }
-    for (const name of outputs.keys()) {
-      if (!fs.lstatSync(path.join(stagingDirectory, name)).isFile()) {
-        throw new Error(`HTML staging output is not a regular file: ${name}`);
-      }
-    }
-    const stagedEntries = fs
-      .readdirSync(stagingDirectory)
-      .sort((left, right) => left.localeCompare(right, "en"));
-    const expectedEntries = [...outputs.keys()].sort((left, right) =>
-      left.localeCompare(right, "en"),
-    );
-    if (JSON.stringify(stagedEntries) !== JSON.stringify(expectedEntries)) {
-      throw new Error("HTML staging directory contains unexpected files");
-    }
-    if (fs.existsSync(targetDirectory)) {
-      backupDirectory = path.join(
-        packageDirectory,
-        `.demo-backup-${process.pid}-${Date.now()}`,
-      );
-      fs.renameSync(targetDirectory, backupDirectory);
-    }
-    try {
-      fs.renameSync(stagingDirectory, targetDirectory);
-      stagingDirectory = null;
-    } catch (publishError) {
-      if (backupDirectory && fs.existsSync(backupDirectory)) {
-        try {
-          fs.renameSync(backupDirectory, targetDirectory);
-          backupDirectory = null;
-        } catch (rollbackError) {
-          throw new AggregateError(
-            [publishError, rollbackError],
-            `HTML publication and rollback failed; preserved backup: ${backupDirectory}`,
-          );
-        }
-      }
-      throw publishError;
-    }
-    if (backupDirectory) {
-      try {
-        fs.rmSync(backupDirectory, {
-          recursive: true,
-          force: true,
-          maxRetries: 3,
-          retryDelay: 50,
-        });
-        backupDirectory = null;
-      } catch (backupCleanupError) {
-        const failedPublicationDirectory = path.join(
-          packageDirectory,
-          `.demo-failed-publication-${process.pid}-${Date.now()}`,
-        );
-        try {
-          fs.renameSync(targetDirectory, failedPublicationDirectory);
-          fs.renameSync(backupDirectory, targetDirectory);
-          backupDirectory = null;
-        } catch (rollbackError) {
-          throw new AggregateError(
-            [backupCleanupError, rollbackError],
-            "HTML backup cleanup and publication rollback failed; preserved available copies",
-          );
-        }
-        try {
-          fs.rmSync(failedPublicationDirectory, {
-            recursive: true,
-            force: true,
-            maxRetries: 3,
-            retryDelay: 50,
-          });
-        } catch (failedPublicationCleanupError) {
-          throw new AggregateError(
-            [backupCleanupError, failedPublicationCleanupError],
-            `Previous HTML restored; failed publication preserved: ${failedPublicationDirectory}`,
-          );
-        }
-        throw backupCleanupError;
-      }
-    }
-  } catch (error) {
-    operationError = error;
-    throw error;
-  } finally {
-    const cleanupErrors = [];
-    if (stagingDirectory) {
-      try {
-        fs.rmSync(stagingDirectory, { recursive: true, force: true });
-      } catch (cleanupError) {
-        cleanupErrors.push(cleanupError);
-      }
-    }
-    if (lockHandle !== undefined) {
-      try {
-        fs.closeSync(lockHandle);
-      } catch (cleanupError) {
-        cleanupErrors.push(cleanupError);
-      } finally {
-        try {
-          fs.rmSync(lockPath, { force: true });
-        } catch (cleanupError) {
-          cleanupErrors.push(cleanupError);
-        }
-      }
-    }
-    if (cleanupErrors.length > 0) {
-      if (operationError) {
-        throw new AggregateError(
-          [operationError, ...cleanupErrors],
-          "HTML generation failed and cleanup was incomplete",
-        );
-      }
-      throw new AggregateError(cleanupErrors, "HTML generation cleanup was incomplete");
-    }
+function writeHtmlDirectory(targetDirectory, outputs) {
+  fs.mkdirSync(targetDirectory, { recursive: true });
+  for (const [name, content] of outputs) {
+    fs.writeFileSync(path.join(targetDirectory, name), content, { encoding: "utf8", flag: "wx" });
+  }
+  const entries = fs.readdirSync(targetDirectory).sort((left, right) => left.localeCompare(right, "en"));
+  const expected = [...outputs.keys()].sort((left, right) => left.localeCompare(right, "en"));
+  if (!exactStringArray(entries, expected)) throw new Error("HTML-кандидат содержит лишние файлы");
+}
+
+function copyDemoAsset(sourceRoot, outputRoot, sourceRelativePath, demoRelativePath) {
+  const source = packagePath(sourceRoot, sourceRelativePath);
+  const target = packagePath(outputRoot, demoRelativePath);
+  const sourceStat = fs.lstatSync(source);
+  if (!sourceStat.isFile() || sourceStat.isSymbolicLink()) {
+    throw new Error(`активный ресурс demo/assets недоступен: ${sourceRelativePath}`);
+  }
+  const bytes = fs.readFileSync(source);
+  if (path.resolve(source) === path.resolve(target)) return;
+  ensureParent(target);
+  fs.writeFileSync(target, bytes, { flag: "wx" });
+  if (!bytes.equals(fs.readFileSync(target))) {
+    throw new Error(`ресурс demo/assets не является побайтной копией source/: ${demoRelativePath}`);
   }
 }
 
-export function generateHtmlPrototype({
-  sourceRoot = process.cwd(),
-  outputRoot = process.cwd(),
-} = {}) {
-  const contracts = loadContracts(sourceRoot);
-  const issues = validateContracts(sourceRoot, contracts);
-  if (issues.length) {
-    throw new Error(`contract validation failed:\n- ${issues.join("\n- ")}`);
+function copyDemoAssets(sourceRoot, outputRoot, contracts) {
+  const runtimeAssets = runtimeAssetPolicy(contracts);
+  const sourcePaths = [
+    ...registeredSourceAssets(contracts).map((asset) => asset.path),
+    ...activeRasterAssetPaths(contracts),
+  ];
+  for (const sourceRelativePath of sourcePaths) {
+    copyDemoAsset(
+      sourceRoot,
+      outputRoot,
+      sourceRelativePath,
+      demoAssetPathFromSourcePath(sourceRelativePath, runtimeAssets),
+    );
   }
-  const model = buildNormalizedModel(contracts);
-  const inlineVisualComponents = loadHtmlInlineComponents(sourceRoot, contracts);
-  writeHtmlPrototype(outputRoot, model, inlineVisualComponents);
+}
+
+function capturePolicy(contracts) {
+  const configured = contracts.package?.reproducibility?.capture_stabilization;
   return {
-    model,
-    generatedPaths: [...htmlPrototypePaths],
+    wait_for_document_fonts: configured?.wait_for_document_fonts ?? true,
+    scroll_policy: "restore-marked-end-after-fonts",
+    focus_policy: "capture-mode-suppress-then-blur-active-element",
+    settle_animation_frames: configured?.settle_animation_frames ?? 2,
+    explicit_screenshot_style_parameter_used:
+      configured?.explicit_screenshot_style_parameter_used ?? false,
+    playwright_internal_style_attempt_blocked_by_csp:
+      configured?.playwright_internal_style_attempt_blocked_by_csp ?? true,
+    browser_launch_args: configured?.browser_launch_args?.webkit ?? [],
   };
 }
 
-export function compareGeneratedHtml(root = process.cwd()) {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-html-check-"));
-  try {
-    const generated = generateHtmlPrototype({ sourceRoot: root, outputRoot: tempRoot });
-    const differences = [];
-    for (const relativePath of generated.generatedPaths) {
-      const expected = absolute(root, relativePath);
-      const actual = absolute(tempRoot, relativePath);
-      if (!fs.existsSync(expected)) {
-        differences.push(`missing generated HTML output: ${relativePath}`);
-        continue;
-      }
-      if (!fs.readFileSync(expected).equals(fs.readFileSync(actual))) {
-        differences.push(`stale generated HTML output: ${relativePath}`);
-      }
-    }
-    return differences;
-  } finally {
-    fs.rmSync(tempRoot, { recursive: true, force: true });
+function captureRendererProfilePolicy(contracts) {
+  const rendererProfile =
+    contracts.package?.reproducibility?.canonical_raster_policy?.renderer_profile;
+  if (!hasCanonicalCaptureToolWarnings(rendererProfile?.capture_tool_warnings)) {
+    throw new Error("договор пакета не фиксирует единственное предупреждение Playwright CSP");
   }
+  return {
+    capture_tool_warnings: rendererProfile.capture_tool_warnings.map((warning) => ({ ...warning })),
+  };
 }
 
-function renderPng(svgPath, pngPath) {
-  ensureParent(pngPath);
-  const result = spawnSync(
-    "rsvg-convert",
-    ["-w", "390", "-h", "844", "-f", "png", svgPath, "-o", pngPath],
-    {
-      encoding: "utf8",
-      maxBuffer: 10 * 1024 * 1024,
-      env: {
-        ...process.env,
-        SOURCE_DATE_EPOCH: "0",
-      },
-    },
-  );
-  if (result.status !== 0) {
-    throw new Error(`rsvg-convert failed for ${svgPath}: ${result.stderr || result.stdout}`);
-  }
+function captureTransport() {
+  return {
+    mode: "playwright-route-fulfilled-local-files",
+    origin: "http://lisa.invalid",
+    external_network_requests_allowed: false,
+    path_escape_blocked: true,
+  };
 }
 
-function normalizeCapturedPng(rawBytes, tempRoot, stateId) {
-  const normalizationRoot = path.join(tempRoot, "normalized");
-  const svgPath = path.join(normalizationRoot, `${stateId}.svg`);
-  const pngPath = path.join(normalizationRoot, `${stateId}.png`);
-  ensureParent(svgPath);
-  fs.writeFileSync(
-    svgPath,
-    [
-      '<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844">',
-      `  <image x="0" y="0" width="390" height="844" href="data:image/png;base64,${rawBytes.toString("base64")}"/>`,
-      "</svg>",
-      "",
-    ].join("\n"),
-  );
-  renderPng(svgPath, pngPath);
-  return fs.readFileSync(pngPath);
+function readPngDimensions(bytes, label) {
+  if (!Buffer.isBuffer(bytes) || bytes.length < 24 || !bytes.subarray(0, 8).equals(SAFE_PNG_SIGNATURE)) {
+    throw new Error(`${label}: неверная сигнатура PNG`);
+  }
+  return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
 }
 
-function validateCapturedFrame(state, record) {
-  const issues = [];
-  if (record.state_id !== state.id) {
-    issues.push(`ожидалось состояние ${state.id}, получено ${record.state_id}`);
+function hashCandidateInput(root, relativePath, scope) {
+  const target = relativePath.startsWith("scripts/") || relativePath === "package.json"
+    ? absolute(root, relativePath)
+    : packagePath(root, relativePath);
+  const stat = fs.lstatSync(target);
+  if (!stat.isFile() || stat.isSymbolicLink()) {
+    throw new Error(`кандидатный вход недоступен: ${relativePath}`);
   }
-  if (record.projection_sha256 !== state.projection_sha256) {
-    issues.push("не совпадает проекция канонического состояния");
-  }
-  if (
-    record.document_width !== 390 ||
-    record.phone.width > 375 ||
-    record.phone.height > 812 ||
-    record.phone.left < -1 ||
-    record.phone.right > 391 ||
-    record.phone.top < -1 ||
-    record.phone.bottom > 845
-  ) {
-    issues.push("экран не помещается в кадр 390×844");
-  }
-  if (record.console_errors.length > 0 || record.page_errors.length > 0) {
-    issues.push(
-      `ошибки браузера: ${[...record.console_errors, ...record.page_errors].join("; ")}`,
-    );
-  }
-  if (
-    !["BODY", "HTML"].includes(record.active_element_tag) ||
-    record.active_action_id !== null
-  ) {
-    issues.push("перед созданием кадра не снят программный фокус");
-  }
-  const notificationSurface = state.kind.startsWith("notification");
-  if (state.kind === "viewer") {
-    if (
-      record.viewer_surface_count !== 1 ||
-      record.viewer_toolbar_count !== 1 ||
-      record.viewer_slide_count !== 3 ||
-      record.composer_count !== 0 ||
-      !record.visible_action_labels.includes("Отправить презентацию на почту")
-    ) {
-      issues.push("просмотрщик не содержит три слайда, панель управления и отправку на почту");
-    }
-  } else if (notificationSurface) {
-    if (record.notification_surface_count !== 1 || record.composer_count !== 0) {
-      issues.push("центр уведомлений не должен содержать поле ввода чата");
-    }
-  } else if (record.composer_count !== 1) {
-    issues.push("экран чата должен содержать одно поле ввода");
-  }
-  if (state.id === "lisa-presentation-generating") {
-    if (
-      record.clock_overlay_count !== 1 ||
-      record.clock_mode !== "static" ||
-      !record.clock_text?.includes("Проходит 20 минут") ||
-      !record.clock_text?.includes("13:24 → 13:44")
-    ) {
-      issues.push("кадр подготовки не содержит согласованные часы и сжатие 20 минут");
-    }
-  }
-  if (
-    state.id === "lisa-materials-ready" &&
-    (record.material_section_count !== 7 ||
-      !record.visible_action_labels.includes("Заказать презентацию"))
-  ) {
-    issues.push("начальный кадр не содержит семь разделов материалов и кнопку заказа");
-  }
-  if (
-    state.notification_unread === true &&
-    state.kind !== "viewer" &&
-    record.notification_dot_count !== 1
-  ) {
-    issues.push("непрочитанное событие не обозначено красной точкой у колокольчика");
-  }
-  if (
-    state.id === "lisa-returned-to-chat" &&
-    !record.visible_action_labels.includes("Отправить презентацию на почту")
-  ) {
-    issues.push("после возврата в чат отсутствует отправка презентации на почту");
-  }
-  if (issues.length > 0) {
-    throw new Error(`Кадр ${state.id} не прошёл проверку соответствия HTML:\n- ${issues.join("\n- ")}`);
-  }
+  return { scope, path: relativePath, bytes: stat.size, sha256: sha256File(target) };
 }
 
-function captureHtmlFrames(
-  sourceRoot,
-  outputRoot,
-  model,
-  captureEngine,
-  captureStabilization,
-  captureTransport,
-) {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-frames-"));
-  const requestPath = path.join(tempRoot, "request.json");
-  const reportPath = path.join(tempRoot, "report.json");
-  const frameRoot = path.join(tempRoot, "frames");
-  try {
-    const outputFontPath = absolute(outputRoot, FONT_RELATIVE_PATH);
-    if (!fs.existsSync(outputFontPath)) {
-      ensureParent(outputFontPath);
-      fs.copyFileSync(absolute(sourceRoot, FONT_RELATIVE_PATH), outputFontPath);
-    }
-    fs.writeFileSync(
-      requestPath,
-      stableStringify({
-        version: "1.0.0",
-        demo_path: absolute(outputRoot, `${PACKAGE_PATH}/demo/index.html`),
-        output_directory: frameRoot,
-        viewport: { width: 390, height: 844 },
-        capture_engine: captureEngine,
-        capture_stabilization: captureStabilization,
-        capture_transport: captureTransport,
-        states: model.states.map((state) => ({
-          id: state.id,
-          projection_sha256: state.projection_sha256,
-        })),
-      }),
-    );
-    const helperPath = absolute(
-      sourceRoot,
-      "scripts/capture-presentation-link-lisa-derived-frames.mjs",
-    );
-    const result = spawnSync(process.execPath, [helperPath, requestPath, reportPath], {
-      cwd: sourceRoot,
-      encoding: "utf8",
-      maxBuffer: 10 * 1024 * 1024,
-      env: {
-        ...process.env,
-        TZ: "UTC",
-      },
-    });
-    if (result.status !== 0) {
-      throw new Error(
-        `Не удалось создать кадры из HTML: ${result.stderr || result.stdout}`,
-      );
-    }
-    const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-    if (
-      report.version !== "1.0.0" ||
-      report.network_requests !== 0 ||
-      report.viewport?.width !== 390 ||
-      report.viewport?.height !== 844 ||
-      report.capture_engine !== captureEngine ||
-      stableStringify(report.capture_stabilization) !==
-        stableStringify(captureStabilization) ||
-      stableStringify(report.capture_transport) !==
-        stableStringify(captureTransport) ||
-      !Number.isInteger(report.virtual_origin_requests) ||
-      report.virtual_origin_requests < model.states.length ||
-      !Number.isInteger(report.tooling_console_messages) ||
-      report.tooling_console_messages < 0 ||
-      report.records?.length !== model.states.length
-    ) {
-      throw new Error("Отчёт создания кадров из HTML не соответствует контракту.");
-    }
-    const frames = new Map();
-    for (const state of model.states) {
-      const record = report.records.find((candidate) => candidate.state_id === state.id);
-      if (!record || path.basename(record.frame_path) !== `${state.id}.png`) {
-        throw new Error(`В отчёте отсутствует кадр ${state.id}.`);
-      }
-      validateCapturedFrame(state, record);
-      const framePath = path.join(frameRoot, path.basename(record.frame_path));
-      const rawBytes = fs.readFileSync(framePath);
-      const rawDimensions = pngDimensionsFromBytes(rawBytes);
-      const bytes = normalizeCapturedPng(rawBytes, tempRoot, state.id);
-      const dimensions = pngDimensionsFromBytes(bytes);
-      if (
-        rawDimensions.width !== 390 ||
-        rawDimensions.height !== 844 ||
-        dimensions.width !== rawDimensions.width ||
-        dimensions.height !== rawDimensions.height
-      ) {
-        throw new Error(
-          `Нормализация изменила размер кадра ${state.id}: ` +
-            `${rawDimensions.width}×${rawDimensions.height} → ` +
-            `${dimensions.width}×${dimensions.height}.`,
-        );
-      }
-      assertLosslessPngPixels(rawBytes, bytes, state.id);
-      frames.set(state.id, {
-        bytes,
-        sha256: sha256Bytes(bytes),
-      });
-    }
-    return {
-      browser: report.browser,
-      toolingConsoleMessages: report.tooling_console_messages,
-      frames,
-    };
-  } finally {
-    fs.rmSync(tempRoot, { recursive: true, force: true });
-  }
-}
-
-function renderCapturedScreenSvg(state, capture, visualInputSha256) {
-  return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-labelledby="screen-title screen-desc" data-state-id="${escapeXml(state.id)}" data-projection-sha256="${state.projection_sha256}" data-visual-input-sha256="${visualInputSha256}" data-render-source="owner-approved-html" data-capture-sha256="${capture.sha256}">`,
-    `  <title id="screen-title">${escapeXml(state.title)}</title>`,
-    `  <desc id="screen-desc">${escapeXml([state.body, ...state.detail_lines].join(" "))}</desc>`,
-    `  <image x="0" y="0" width="390" height="844" href="data:image/png;base64,${capture.bytes.toString("base64")}"/>`,
-    "</svg>",
-    "",
-  ].join("\n");
-}
-
-function sourceInputPaths(contracts) {
-  return [
-    ...Object.values(CONTRACT_PATHS),
-    ...Object.values(SCHEMA_PATHS),
-    ...contracts.visual.components.map(
-      (component) => `${PACKAGE_PATH}/source/${component.source_svg}`,
-    ),
-    FONT_RELATIVE_PATH,
-    FONT_LICENSE_RELATIVE_PATH,
+function canonicalCandidateFingerprintFor(sourceRoot, outputRoot, contracts) {
+  const contractPaths = [
+    "source/active-contracts.json",
+    ...contracts.__descriptors.map((item) => item.path),
+    "source/schemas/active-contracts.schema.json",
+    ...contracts.__descriptors.map((item) => item.schema),
+  ].sort((left, right) => left.localeCompare(right, "en"));
+  const assetPaths = [
+    ...registeredSourceAssets(contracts).map((asset) => asset.path),
+    ...activeRasterAssetPaths(contracts),
+  ]
+    .sort((left, right) => left.localeCompare(right, "en"));
+  const toolchainPaths = [
+    "package.json",
     "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+    "scripts/capture-presentation-link-lisa-runtime-evidence.mjs",
     "scripts/generate-presentation-link-lisa-user-journey.mjs",
     "scripts/lib/documentation-archive.mjs",
+    "scripts/lib/presentation-link-lisa-canonical-raster.mjs",
     "scripts/lib/presentation-link-lisa-html-runtime.mjs",
     "scripts/lib/presentation-link-lisa-user-journey.mjs",
-  ];
+  ].sort((left, right) => left.localeCompare(right, "en"));
+  const preRasterGeneratedPaths = [
+    ...HTML_OUTPUT_PATHS,
+    "derived/projection-map.json",
+  ].sort((left, right) => left.localeCompare(right, "en"));
+  return canonicalRasterCandidateFingerprint({
+    active_contracts: contractPaths.map((item) => hashCandidateInput(sourceRoot, item, "active-contract")),
+    generated_html: preRasterGeneratedPaths.map((item) => hashCandidateInput(outputRoot, item, "generated")),
+    registered_source_assets: assetPaths.map((item) => hashCandidateInput(sourceRoot, item, "source-asset")),
+    capture_toolchain: toolchainPaths.map((item) => hashCandidateInput(sourceRoot, item, "toolchain")),
+  });
+}
+
+function captureHtmlFrames(sourceRoot, outputRoot, model, contracts, diagnosticRoot) {
+  const candidateFingerprint = canonicalCandidateFingerprintFor(sourceRoot, outputRoot, contracts);
+  const states = model.states.map((state) => ({
+    id: state.id,
+    projection_sha256: state.projection_sha256,
+  }));
+  const capture = captureCanonicalRasterSet({
+    sourceRoot,
+    diagnosticRoot,
+    outputRoot,
+    packageRelativePath: PACKAGE_PATH,
+    captureScriptPath: path.join(sourceRoot, "scripts/capture-presentation-link-lisa-derived-frames.mjs"),
+    demoPath: packagePath(outputRoot, "demo/index.html"),
+    states,
+    captureStabilization: capturePolicy(contracts),
+    rendererProfilePolicy: captureRendererProfilePolicy(contracts),
+    captureTransport: captureTransport(),
+    candidateFingerprint,
+  });
+  const frames = new Map();
+  for (const state of model.states) {
+    const canonicalPath = canonicalRasterPath("mobile-390x844", state.id);
+    const bytes = capture.frames.get(canonicalPath);
+    if (!bytes) throw new Error(`канонический PNG для ${state.id} отсутствует`);
+    const dimensions = readPngDimensions(bytes, `кадр ${state.id}`);
+    if (dimensions.width !== 390 || dimensions.height !== 844) {
+      throw new Error(`кадр ${state.id} имеет неверный размер`);
+    }
+    frames.set(state.id, bytes);
+  }
+  return { frames, canonicalManifest: capture.manifest, candidateFingerprint };
+}
+
+export function renderScreenSvg(state, model, assets = {}) {
+  const bytes = assets.frames?.get(state.id) ?? assets.frame;
+  if (!bytes) throw new Error(`для SVG-кадра отсутствует PNG состояния ${state.id}`);
+  readPngDimensions(bytes, `SVG-кадр ${state.id}`);
+  const captureSha256 = sha256Bytes(bytes);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" data-render-source="approved-html-browser-capture" data-state-id="${state.id}" data-projection-sha256="${state.projection_sha256}" data-capture-sha256="${captureSha256}">
+  <image x="0" y="0" width="390" height="844" href="data:image/png;base64,${Buffer.from(bytes).toString("base64")}"/>
+</svg>
+`;
 }
 
 function renderPortableArchiveReadme() {
   return Buffer.from(
     [
-      "# Переносимая демонстрация пользовательского пути Лисы",
+      "# Переносимая демонстрация заказа презентации в Лисе",
       "",
       "Распакуйте архив и откройте `demo/index.html` в браузере.",
       "",
-      "Все данные в демонстрации синтетические. Сеть не нужна.",
+      "Все данные синтетические. Сеть не нужна.",
       "",
     ].join("\n"),
     "utf8",
@@ -1967,58 +1691,45 @@ function renderPortableArchiveReadme() {
 }
 
 function readPortableArchiveMember(sourceRoot, outputRoot, memberPath) {
-  let memberRoot;
+  let target;
   if (memberPath.startsWith("demo/")) {
-    memberRoot = outputRoot;
-  } else if (memberPath.startsWith("source/fonts/")) {
-    memberRoot = sourceRoot;
+    target = packagePath(outputRoot, memberPath);
   } else {
-    throw new Error(`unsupported portable archive member: ${memberPath}`);
+    throw new Error(`неподдерживаемый член переносимого ZIP: ${memberPath}`);
   }
-  const filePath = absolute(memberRoot, `${PACKAGE_PATH}/${memberPath}`);
-  const stat = fs.lstatSync(filePath);
+  const stat = fs.lstatSync(target);
   if (!stat.isFile() || stat.isSymbolicLink()) {
-    throw new Error(`portable archive member must be a regular file: ${memberPath}`);
+    throw new Error(`член переносимого ZIP должен быть обычным файлом: ${memberPath}`);
   }
-  return fs.readFileSync(filePath);
+  return fs.readFileSync(target);
 }
 
-function buildPortablePrototypePayload(
-  sourceRoot,
-  outputRoot,
-  packageContract,
-) {
+function buildPortablePrototypeArchive(sourceRoot, outputRoot, contracts, candidateFingerprint) {
+  if (!candidateFingerprint || typeof candidateFingerprint !== "object") {
+    throw new Error("переносимый ZIP требует отпечаток кандидатной сборки");
+  }
+  const members = portableArchiveMembers(contracts);
+  if (!exactStringArray(members, expectedPortableArchiveMembers(contracts))) {
+    throw new Error("договор переносимого ZIP не соответствует активным PNG-ресурсам");
+  }
   const payload = new Map();
-  for (const memberPath of packageContract.archive.exact_members) {
-    if (memberPath === "manifest.json") continue;
-    payload.set(
-      memberPath,
-      memberPath === "README.md"
-        ? renderPortableArchiveReadme()
-        : readPortableArchiveMember(sourceRoot, outputRoot, memberPath),
-    );
+  for (const member of members) {
+    if (member === "README.md" || member === "manifest.json") continue;
+    payload.set(member, readPortableArchiveMember(sourceRoot, outputRoot, member));
   }
-  return payload;
-}
-
-function renderPortablePrototypeManifest(
-  sourceRoot,
-  packageContract,
-  payload,
-) {
-  return Buffer.from(
+  const manifest = Buffer.from(
     stableStringify({
-      version: packageContract.archive.manifest_version,
-      status: packageContract.archive.status,
-      data_class: packageContract.archive.data_class,
-      entrypoint: packageContract.archive.entrypoint,
+      version: contracts.package?.archive?.manifest_version ?? "2.0.0",
+      status: "generated",
+      data_class: "internal",
+      entrypoint: "demo/index.html",
       contract_fingerprint: {
-        path: "source/prototype-package-contract.json",
-        sha256: sha256File(absolute(sourceRoot, CONTRACT_PATHS.package)),
+        path: "source/active-contracts.json",
+        sha256: sha256File(packagePath(sourceRoot, "source/active-contracts.json")),
       },
+      candidate_fingerprint: candidateFingerprint,
       inventory: {
-        exact_count: packageContract.archive.exact_members.length,
-        exact_members: packageContract.archive.exact_members,
+        members,
       },
       members: [...payload].map(([memberPath, content]) => ({
         path: memberPath,
@@ -2028,1077 +1739,709 @@ function renderPortablePrototypeManifest(
     }),
     "utf8",
   );
-}
-
-function buildPortablePrototypeArchive(
-  sourceRoot,
-  outputRoot,
-  packageContract,
-) {
-  const payload = buildPortablePrototypePayload(
-    sourceRoot,
-    outputRoot,
-    packageContract,
-  );
-  const manifest = renderPortablePrototypeManifest(
-    sourceRoot,
-    packageContract,
-    payload,
-  );
   return createStoredZip(
-    packageContract.archive.exact_members.map((memberPath) => ({
-      name: memberPath,
-      content: memberPath === "manifest.json" ? manifest : payload.get(memberPath),
+    members.map((name) => ({
+      name,
+      content:
+        name === "README.md"
+          ? renderPortableArchiveReadme()
+          : name === "manifest.json"
+            ? manifest
+            : payload.get(name),
     })),
   );
 }
 
-function manifestFor(
-  root,
-  sourceRoot,
-  contracts,
-  model,
-  generatedPaths,
-  frameCapture,
-  captureEngine,
-  captureStabilization,
-  captureTransport,
-  toolingConsoleMessages,
-) {
-  const inputs = sourceInputPaths(contracts)
-    .map((relativePath) => ({
-      path: relativePath.replace(`${PACKAGE_PATH}/`, ""),
-      bytes: fs.statSync(absolute(sourceRoot, relativePath)).size,
-      sha256: sha256File(absolute(sourceRoot, relativePath)),
-    }))
+function sourceInputPaths(contracts) {
+  const paths = new Set([
+    ...activeContractRelativePaths(contracts),
+    "source/schemas/active-contracts.schema.json",
+    ...contracts.__descriptors.map((item) => item.schema),
+    ...registeredSourceAssets(contracts).map((asset) => asset.path),
+    ...activeRasterAssetPaths(contracts),
+    "scripts/capture-presentation-link-lisa-derived-frames.mjs",
+    "scripts/generate-presentation-link-lisa-user-journey.mjs",
+    "scripts/lib/documentation-archive.mjs",
+    "scripts/lib/presentation-link-lisa-canonical-raster.mjs",
+    "scripts/lib/presentation-link-lisa-html-runtime.mjs",
+    "scripts/lib/presentation-link-lisa-user-journey.mjs",
+  ]);
+  return [...paths].sort((left, right) => left.localeCompare(right, "en"));
+}
+
+function sourceInputRecord(sourceRoot, relativePath) {
+  const target = relativePath.startsWith("scripts/")
+    ? absolute(sourceRoot, relativePath)
+    : packagePath(sourceRoot, relativePath);
+  const stat = fs.statSync(target);
+  return { path: relativePath, bytes: stat.size, sha256: sha256File(target) };
+}
+
+function manifestFor(sourceRoot, outputRoot, contracts, model, generatedPaths, canonicalManifest) {
+  const outputs = generatedPaths
+    .filter((item) => item !== "derived/prototype-package-manifest.json")
+    .map((relativePath) => {
+      const target = packagePath(outputRoot, relativePath);
+      const stat = fs.statSync(target);
+      return { path: relativePath, bytes: stat.size, sha256: sha256File(target) };
+    })
     .sort((left, right) => left.path.localeCompare(right.path, "en"));
-  const outputs = generatedPaths.map((relativePath) => ({
-    path: relativePath.replace(`${PACKAGE_PATH}/`, ""),
-    bytes: fs.statSync(absolute(root, relativePath)).size,
-    sha256: sha256File(absolute(root, relativePath)),
-  }));
   return {
-    version: "1.0.0",
+    version: "2.0.0",
     status: "generated",
     deterministic_epoch: FIXED_EPOCH,
-    state_count: model.states.length,
-    inputs,
-    inventory: {
-      generated_output_count: generatedPaths.length + 1,
-      exact_generated_paths: [
-        ...generatedPaths.map((relativePath) => relativePath.replace(`${PACKAGE_PATH}/`, "")),
-        "derived/prototype-package-manifest.json",
-      ].sort((left, right) => left.localeCompare(right, "en")),
+    active_contract_registry: {
+      path: "source/active-contracts.json",
+      sha256: sha256File(packagePath(sourceRoot, "source/active-contracts.json")),
     },
-    outputs,
-    self: {
-      path: "derived/prototype-package-manifest.json",
-      sha256: null,
-      reason: "Самохэширование невозможно; хэш хранится во внешнем реестре артефактов.",
-    },
+    state_ids: model.states.map((state) => state.id),
+    candidate_fingerprint: canonicalManifest.candidate_fingerprint,
     generation: {
-      command: "npm run generate:presentation-link-lisa-user-journey",
-      frame_capture: frameCapture,
-      capture_engine: captureEngine,
-      capture_stabilization: captureStabilization,
-      capture_transport: captureTransport,
-      capture_normalization:
-        contracts.package.reproducibility.capture_normalization,
-      tooling_console_messages: toolingConsoleMessages,
-      renderer: "rsvg-convert",
-      viewport: "390x844",
-      network_required: false,
+      renderer: BROWSER_SCREENSHOT_RENDERER,
+      capture_engine: "webkit",
+      renderer_profile: canonicalManifest.renderer_profile,
+      canonical_raster_manifest: {
+        path: CANONICAL_RASTER_MANIFEST_RELATIVE_PATH,
+        sha256: sha256File(packagePath(outputRoot, CANONICAL_RASTER_MANIFEST_RELATIVE_PATH)),
+      },
+      external_network_requests_allowed: false,
+      source_visual_sha256: model.visual_basis_sha256,
     },
-    portability: {
-      entrypoint: "demo/index.html",
-      file_scheme_supported: true,
-      relative_resources_only: true,
+    inputs: sourceInputPaths(contracts).map((item) => sourceInputRecord(sourceRoot, item)),
+    outputs,
+    inventory: {
+      exact_generated_paths: generatedPaths,
+      generated_output_count: generatedPaths.length,
     },
   };
 }
 
-function mirrorRuntimeAssetsForPortableCapture(
-  sourceRoot,
-  outputRoot,
-  contracts,
-) {
-  if (path.resolve(sourceRoot) === path.resolve(outputRoot)) return;
-  for (const asset of contracts.package.source_assets) {
-    const sourcePath = absolute(sourceRoot, `${PACKAGE_PATH}/${asset.path}`);
-    const sourceStat = fs.lstatSync(sourcePath);
-    if (!sourceStat.isFile() || sourceStat.isSymbolicLink()) {
-      throw new Error(`portable runtime asset must be a regular file: ${asset.path}`);
-    }
-    if (sha256File(sourcePath) !== asset.sha256) {
-      throw new Error(`portable runtime asset hash differs from contract: ${asset.path}`);
-    }
-    const targetPath = absolute(outputRoot, `${PACKAGE_PATH}/${asset.path}`);
-    fs.mkdirSync(path.dirname(targetPath), { recursive: true });
-    fs.writeFileSync(targetPath, fs.readFileSync(sourcePath));
-  }
+function writeFile(root, relativePath, content) {
+  const target = packagePath(root, relativePath);
+  ensureParent(target);
+  fs.writeFileSync(target, content, { flag: "wx" });
 }
 
-export function generatePrototypePackage({
-  sourceRoot = process.cwd(),
-  outputRoot = process.cwd(),
-  renderRaster = true,
-} = {}) {
-  const contracts = loadContracts(sourceRoot);
-  const issues = validateContracts(sourceRoot, contracts);
-  if (issues.length) {
-    throw new Error(`contract validation failed:\n- ${issues.join("\n- ")}`);
-  }
-  if (
-    contracts.journey.status !== "owner-approved-prototype" ||
-    contracts.preview.status !== "owner-approved-prototype"
-  ) {
-    throw new Error(
-      "full visual generation requires owner-approved-prototype status in journey and presentation preview contracts",
-    );
-  }
-  const model = buildNormalizedModel(contracts);
-  const assets = loadRenderAssets(sourceRoot, contracts);
-  const inlineVisualComponents = loadHtmlInlineComponents(sourceRoot, contracts);
-  const generatedPaths = generatedPathsForStates(model.states);
-
-  mirrorRuntimeAssetsForPortableCapture(sourceRoot, outputRoot, contracts);
-  writeHtmlPrototype(outputRoot, model, inlineVisualComponents);
+function writePackageCandidate(sourceRoot, outputRoot, contracts, model, diagnosticRoot) {
+  const packageDirectory = packagePath(outputRoot);
+  fs.mkdirSync(packageDirectory, { recursive: true });
+  const html = buildHtmlOutputMap(model);
+  validateHtmlOutputMap(html);
+  writeHtmlDirectory(path.join(packageDirectory, "demo"), html);
+  copyDemoAssets(sourceRoot, outputRoot, contracts);
   writeFile(
     outputRoot,
-    `${PACKAGE_PATH}/derived/projection-map.json`,
+    "derived/projection-map.json",
     stableStringify({
-      version: "1.0.0",
+      version: "2.0.0",
       states: model.states.map((state) => ({
         state_id: state.id,
         projection_sha256: state.projection_sha256,
-        result_ref: state.result_ref ?? null,
       })),
     }),
   );
-  const captureStabilization =
-    contracts.package.reproducibility.capture_stabilization;
-  const captureEngine =
-    contracts.package.reproducibility.capture_engine;
-  const captureTransport =
-    contracts.package.reproducibility.capture_transport;
-  const capturedFrames = captureHtmlFrames(
-    sourceRoot,
-    outputRoot,
-    model,
-    captureEngine,
-    captureStabilization,
-    captureTransport,
-  );
-
-  for (const state of model.states) {
-    const svgRelative = `${PACKAGE_PATH}/derived/screens/${state.id}.svg`;
-    const pngRelative = `${PACKAGE_PATH}/derived/screens/${state.id}.png`;
-    writeFile(
-      outputRoot,
-      svgRelative,
-      renderCapturedScreenSvg(
-        state,
-        capturedFrames.frames.get(state.id),
-        assets.visualInputSha256,
-      ),
-    );
-    if (renderRaster) {
-      renderPng(absolute(outputRoot, svgRelative), absolute(outputRoot, pngRelative));
-    }
-  }
-
-  if (!renderRaster) {
-    for (const state of model.states) {
-      const pngRelative = `${PACKAGE_PATH}/derived/screens/${state.id}.png`;
-      const sourcePng = absolute(sourceRoot, pngRelative);
-      if (!fs.existsSync(sourcePng)) {
-        throw new Error(`PNG source required when renderRaster=false: ${pngRelative}`);
-      }
-      writeFile(outputRoot, pngRelative, fs.readFileSync(sourcePng));
-    }
-  }
-
+  const capture = captureHtmlFrames(sourceRoot, outputRoot, model, contracts, diagnosticRoot);
   writeFile(
     outputRoot,
-    `${PACKAGE_PATH}/${contracts.package.archive.path}`,
-    buildPortablePrototypeArchive(sourceRoot, outputRoot, contracts.package),
+    PORTABLE_ARCHIVE_RELATIVE_PATH,
+    buildPortablePrototypeArchive(
+      sourceRoot,
+      outputRoot,
+      contracts,
+      capture.candidateFingerprint,
+    ),
   );
-
+  writeCanonicalRasterManifest(
+    packagePath(outputRoot, CANONICAL_RASTER_MANIFEST_RELATIVE_PATH),
+    capture.canonicalManifest,
+  );
+  const wrapper = svgWrapperConfiguration(contracts);
+  for (const state of model.states) {
+    const png = capture.frames.get(state.id);
+    writeFile(
+      outputRoot,
+      interpolateStatePath(wrapper.raster_png_path_format, state.id, "путь производного PNG"),
+      png,
+    );
+    writeFile(
+      outputRoot,
+      interpolateStatePath(wrapper.svg_path_format, state.id, "путь SVG-обёртки"),
+      renderScreenSvg(state, model, { frames: capture.frames }),
+    );
+  }
+  const generatedPaths = generatedRelativePaths(contracts, model.states);
   const manifest = manifestFor(
-    outputRoot,
     sourceRoot,
+    outputRoot,
     contracts,
     model,
     generatedPaths,
-    capturedFrames.browser,
-    captureEngine,
-    captureStabilization,
-    captureTransport,
-    capturedFrames.toolingConsoleMessages,
+    capture.canonicalManifest,
   );
-  writeFile(
-    outputRoot,
-    `${PACKAGE_PATH}/derived/prototype-package-manifest.json`,
-    stableStringify(manifest),
-  );
+  writeFile(outputRoot, "derived/prototype-package-manifest.json", stableStringify(manifest));
+  return {
+    generatedPaths,
+    manifest,
+    canonicalRasterManifest: capture.canonicalManifest,
+  };
+}
 
+function createCandidateRoot(outputRoot) {
+  fs.mkdirSync(outputRoot, { recursive: true });
+  return fs.mkdtempSync(path.join(outputRoot, ".lisa-mvp-next-"));
+}
+
+function acquirePackageLock(packageDirectory) {
+  fs.mkdirSync(packageDirectory, { recursive: true });
+  const lockPath = path.join(packageDirectory, ".mvp-package-generation.lock");
+  const handle = fs.openSync(lockPath, "wx");
+  try {
+    fs.writeSync(handle, `${process.pid}\n`);
+  } catch (error) {
+    fs.closeSync(handle);
+    fs.rmSync(lockPath, { force: true });
+    throw error;
+  }
+  return { handle, lockPath };
+}
+
+function releasePackageLock(lock) {
+  try {
+    fs.closeSync(lock.handle);
+  } finally {
+    fs.rmSync(lock.lockPath, { force: true });
+  }
+}
+
+function movePublishedDirectories({ targetPackageRoot, candidatePackageRoot, names, afterPublish = () => {} }) {
+  const backupRoot = fs.mkdtempSync(path.join(targetPackageRoot, ".mvp-backup-"));
+  const recoveryRoot = path.join(targetPackageRoot, `.mvp-failed-publication-${process.pid}-${Date.now()}`);
+  const movedOld = [];
+  const movedNew = [];
+  try {
+    for (const name of names) {
+      const source = path.join(candidatePackageRoot, name);
+      const target = path.join(targetPackageRoot, name);
+      const stat = fs.lstatSync(source);
+      if (!stat.isDirectory() || stat.isSymbolicLink()) {
+        throw new Error(`кандидатный каталог ${name} отсутствует или небезопасен`);
+      }
+      if (fs.existsSync(target)) {
+        const targetStat = fs.lstatSync(target);
+        if (!targetStat.isDirectory() || targetStat.isSymbolicLink()) {
+          throw new Error(`активный каталог ${name} отсутствует или небезопасен`);
+        }
+        fs.renameSync(target, path.join(backupRoot, name));
+        movedOld.push(name);
+      }
+    }
+    for (const name of names) {
+      fs.renameSync(path.join(candidatePackageRoot, name), path.join(targetPackageRoot, name));
+      movedNew.push(name);
+    }
+    afterPublish();
+    fs.rmSync(backupRoot, { recursive: true, force: true, maxRetries: 3 });
+  } catch (publicationError) {
+    const rollbackErrors = [];
+    try { fs.mkdirSync(recoveryRoot, { recursive: true }); } catch (error) { rollbackErrors.push(error); }
+    for (const name of [...movedNew].reverse()) {
+      const target = path.join(targetPackageRoot, name);
+      if (!fs.existsSync(target)) continue;
+      try {
+        fs.renameSync(target, path.join(recoveryRoot, name));
+      } catch (error) {
+        rollbackErrors.push(error);
+      }
+    }
+    for (const name of [...movedOld].reverse()) {
+      const backup = path.join(backupRoot, name);
+      const target = path.join(targetPackageRoot, name);
+      if (!fs.existsSync(backup) || fs.existsSync(target)) continue;
+      try {
+        fs.renameSync(backup, target);
+      } catch (error) {
+        rollbackErrors.push(error);
+      }
+    }
+    if (rollbackErrors.length > 0) {
+      throw new AggregateError(
+        [publicationError, ...rollbackErrors],
+        `публикация MVP и откат не выполнены; резерв сохранён: ${backupRoot}`,
+      );
+    }
+    fs.rmSync(backupRoot, { recursive: true, force: true, maxRetries: 3 });
+    throw publicationError;
+  }
+}
+
+function validateCandidateOrThrow(outputRoot, sourceRoot) {
+  const issues = validateGeneratedPackage(outputRoot, sourceRoot);
+  if (issues.length > 0) throw new Error(`кандидат MVP не прошёл проверку:\n- ${issues.join("\n- ")}`);
+}
+
+function clearGeneratedCandidateDirectories(outputRoot) {
+  const packageDirectory = packagePath(outputRoot);
+  for (const name of ["demo", "derived", "evidence"]) {
+    const target = path.join(packageDirectory, name);
+    if (!fs.existsSync(target)) continue;
+    const stat = fs.lstatSync(target);
+    if (!stat.isDirectory() || stat.isSymbolicLink()) {
+      throw new Error(`staging-каталог ${name} небезопасен`);
+    }
+    fs.rmSync(target, { recursive: true, force: true, maxRetries: 3 });
+  }
+}
+
+export function generatePrototypeCandidate({
+  sourceRoot,
+  outputRoot,
+  packageRoot,
+  diagnosticRoot = sourceRoot,
+} = {}) {
+  if (!sourceRoot || !outputRoot || !packageRoot) {
+    throw new Error("кандидат MVP требует явные sourceRoot, outputRoot и packageRoot");
+  }
+  const expectedPackageRoot = packagePath(outputRoot);
+  if (path.resolve(packageRoot) !== path.resolve(expectedPackageRoot)) {
+    throw new Error("packageRoot кандидата не совпадает с outputRoot");
+  }
+  if (typeof diagnosticRoot !== "string" || !path.isAbsolute(diagnosticRoot)) {
+    throw new Error("кандидат MVP требует абсолютный diagnosticRoot");
+  }
+  const diagnosticRootStat = fs.lstatSync(diagnosticRoot);
+  if (!diagnosticRootStat.isDirectory() || diagnosticRootStat.isSymbolicLink()) {
+    throw new Error("diagnosticRoot кандидата должен быть обычным каталогом");
+  }
+  const contracts = loadContracts(sourceRoot);
+  const issues = validateContracts(sourceRoot, contracts);
+  if (issues.length > 0) throw new Error(`проверка договоров не пройдена:\n- ${issues.join("\n- ")}`);
+  const model = buildNormalizedModel(contracts, sourceRoot);
+  fs.mkdirSync(expectedPackageRoot, { recursive: true });
+  clearGeneratedCandidateDirectories(outputRoot);
+  const candidate = writePackageCandidate(sourceRoot, outputRoot, contracts, model, diagnosticRoot);
+  const candidateIssues = validateGeneratedPackage(outputRoot, sourceRoot);
+  if (candidateIssues.length > 0) {
+    throw new Error(`кандидат MVP не прошёл проверку:\n- ${candidateIssues.join("\n- ")}`);
+  }
   return {
     model,
-    generatedPaths: [
-      ...generatedPaths,
-      `${PACKAGE_PATH}/derived/prototype-package-manifest.json`,
-    ],
-    manifest,
+    packageRoot: expectedPackageRoot,
+    generatedPaths: candidate.generatedPaths.map((item) => `${PACKAGE_PATH}/${item}`),
+    manifest: candidate.manifest,
+    canonicalRasterManifest: candidate.canonicalRasterManifest,
+    candidateFingerprint: candidate.canonicalRasterManifest.candidate_fingerprint,
   };
 }
 
-export function compareGeneratedPackage(
+export function generateHtmlPrototype({
   sourceRoot = process.cwd(),
-  expectedRoot = sourceRoot,
-) {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-package-check-"));
-  try {
-    const generated = generatePrototypePackage({
-      sourceRoot,
-      outputRoot: tempRoot,
-    });
-    const differences = [];
-    for (const relativePath of generated.generatedPaths) {
-      const expected = absolute(expectedRoot, relativePath);
-      const actual = absolute(tempRoot, relativePath);
-      if (!fs.existsSync(expected)) {
-        differences.push(`missing generated output: ${relativePath}`);
-        continue;
-      }
-      if (!fs.readFileSync(expected).equals(fs.readFileSync(actual))) {
-        differences.push(`stale generated output: ${relativePath}`);
-      }
-    }
-    return differences;
-  } finally {
-    fs.rmSync(tempRoot, { recursive: true, force: true });
+  outputRoot,
+} = {}) {
+  if (!outputRoot) {
+    throw new Error("HTML-кандидат требует явный изолированный outputRoot; частичная публикация запрещена");
   }
-}
-
-function scanXmlTags(xml) {
-  const tags = [];
-  let index = 0;
-  while (index < xml.length) {
-    const start = xml.indexOf("<", index);
-    if (start === -1) break;
-    if (xml.startsWith("<!--", start)) {
-      const commentEnd = xml.indexOf("-->", start + 4);
-      if (commentEnd === -1) throw new Error("unterminated XML comment");
-      index = commentEnd + 3;
-      continue;
-    }
-    const endMarker = xml[start + 1];
-    if (endMarker === "?" || endMarker === "!") {
-      const declarationEnd = xml.indexOf(">", start + 2);
-      if (declarationEnd === -1) throw new Error("unterminated XML declaration");
-      tags.push({ declaration: xml.slice(start, declarationEnd + 1) });
-      index = declarationEnd + 1;
-      continue;
-    }
-    let cursor = start + 1;
-    let quote = null;
-    while (cursor < xml.length) {
-      const char = xml[cursor];
-      if (quote) {
-        if (char === quote) quote = null;
-      } else if (char === '"' || char === "'") {
-        quote = char;
-      } else if (char === ">") {
-        break;
-      }
-      cursor += 1;
-    }
-    if (cursor >= xml.length) throw new Error("unterminated XML tag");
-    const raw = xml.slice(start + 1, cursor).trim();
-    if (!raw.startsWith("/")) {
-      const selfClosing = raw.endsWith("/");
-      const clean = selfClosing ? raw.slice(0, -1).trim() : raw;
-      let nameEnd = 0;
-      while (nameEnd < clean.length && !/\s/u.test(clean[nameEnd])) nameEnd += 1;
-      const name = clean.slice(0, nameEnd);
-      const attrs = {};
-      let attrIndex = nameEnd;
-      while (attrIndex < clean.length) {
-        while (/\s/u.test(clean[attrIndex])) attrIndex += 1;
-        if (attrIndex >= clean.length) break;
-        let attrEnd = attrIndex;
-        while (attrEnd < clean.length && !/[\s=]/u.test(clean[attrEnd])) attrEnd += 1;
-        const attrName = clean.slice(attrIndex, attrEnd);
-        attrIndex = attrEnd;
-        while (/\s/u.test(clean[attrIndex])) attrIndex += 1;
-        if (clean[attrIndex] !== "=") throw new Error(`attribute without value: ${attrName}`);
-        attrIndex += 1;
-        while (/\s/u.test(clean[attrIndex])) attrIndex += 1;
-        const attrQuote = clean[attrIndex];
-        if (attrQuote !== '"' && attrQuote !== "'") {
-          throw new Error(`unquoted attribute: ${attrName}`);
-        }
-        attrIndex += 1;
-        const valueStart = attrIndex;
-        while (attrIndex < clean.length && clean[attrIndex] !== attrQuote) attrIndex += 1;
-        if (attrIndex >= clean.length) throw new Error(`unterminated attribute: ${attrName}`);
-        attrs[attrName] = clean.slice(valueStart, attrIndex);
-        attrIndex += 1;
-      }
-      tags.push({ name, attrs, selfClosing });
-    }
-    index = cursor + 1;
+  if (path.resolve(sourceRoot) === path.resolve(outputRoot)) {
+    throw new Error("HTML-кандидат нельзя создавать в активном пакете; используйте изолированный outputRoot");
   }
-  return tags;
-}
-
-export function validateSvgSecurity(svg, limits = {}) {
-  const issues = [];
-  const allowedElements = new Set([
-    "svg",
-    "title",
-    "desc",
-    "g",
-    "rect",
-    "circle",
-    "ellipse",
-    "line",
-    "path",
-    "text",
-    "tspan",
-    "defs",
-    "linearGradient",
-    "radialGradient",
-    "stop",
-    "clipPath",
-    "image",
-  ]);
-  const allowedAttributes = new Set([
-    "xmlns",
-    "width",
-    "height",
-    "viewBox",
-    "role",
-    "aria-labelledby",
-    "id",
-    "class",
-    "data-state-id",
-    "data-projection-sha256",
-    "data-visual-input-sha256",
-    "data-component-source-sha256",
-    "data-render-source",
-    "data-capture-sha256",
-    "data-component-id",
-    "data-action-id",
-    "href",
-    "x",
-    "y",
-    "x1",
-    "y1",
-    "x2",
-    "y2",
-    "cx",
-    "cy",
-    "r",
-    "rx",
-    "ry",
-    "d",
-    "fill",
-    "fill-opacity",
-    "stroke",
-    "stroke-width",
-    "stroke-linecap",
-    "stroke-linejoin",
-    "stroke-opacity",
-    "opacity",
-    "transform",
-    "font-family",
-    "font-size",
-    "font-weight",
-    "text-anchor",
-    "dy",
-    "offset",
-    "stop-color",
-    "stop-opacity",
-    "clip-path",
-    "gradientUnits",
-    "gradientTransform",
-  ]);
-  const maxBytes = limits.component_max_bytes ?? 262144;
-  if (Buffer.byteLength(svg) > maxBytes) issues.push(`SVG exceeds ${maxBytes} bytes`);
-  if (svg.includes("<!DOCTYPE") || svg.includes("<!ENTITY")) {
-    issues.push("SVG declarations and entities are forbidden");
+  const contracts = loadContracts(sourceRoot);
+  const issues = validateContracts(sourceRoot, contracts);
+  if (issues.length > 0) throw new Error(`проверка договоров не пройдена:\n- ${issues.join("\n- ")}`);
+  const model = buildNormalizedModel(contracts, sourceRoot);
+  const targetDemoDirectory = packagePath(outputRoot, "demo");
+  if (fs.existsSync(targetDemoDirectory)) {
+    throw new Error("изолированный outputRoot уже содержит demo; HTML-кандидат не перезаписывает существующие файлы");
   }
-  let tags;
-  try {
-    tags = scanXmlTags(svg);
-  } catch (error) {
-    return [...issues, `SVG parse failed: ${error.message}`];
-  }
-  if (tags.length > (limits.max_nodes ?? 500)) {
-    issues.push(`SVG node count exceeds ${limits.max_nodes ?? 500}`);
-  }
-  let totalPathData = 0;
-  const ids = new Set();
-  for (const tag of tags) {
-    if (tag.declaration) {
-      if (!tag.declaration.startsWith("<?xml")) {
-        issues.push(`forbidden SVG declaration: ${tag.declaration.slice(0, 32)}`);
-      }
-      continue;
-    }
-    if (!allowedElements.has(tag.name)) {
-      issues.push(`forbidden SVG element: ${tag.name}`);
-    }
-    for (const [name, value] of Object.entries(tag.attrs)) {
-      if (name.toLowerCase().startsWith("on")) {
-        issues.push(`event attribute is forbidden: ${name}`);
-      } else if (!allowedAttributes.has(name)) {
-        issues.push(`forbidden SVG attribute: ${name}`);
-      }
-      if (name === "id") {
-        if (ids.has(value)) issues.push(`duplicate SVG id: ${value}`);
-        ids.add(value);
-      }
-      if (name === "d") {
-        totalPathData += value.length;
-        if (value.length > (limits.single_path_data_max_chars ?? 25000)) {
-          issues.push("single SVG path exceeds complexity limit");
-        }
-      }
-      if (name === "href") {
-        if (!/^data:image\/png;base64,[A-Za-z0-9+/]+={0,2}$/u.test(value)) {
-          issues.push(`only embedded PNG data is allowed in SVG href`);
-        }
-      } else if (
-        name !== "xmlns" &&
-        /^(?:https?:|file:|data:|javascript:)/iu.test(value)
-      ) {
-        issues.push(`external or executable SVG value is forbidden: ${name}`);
-      }
-      if (name === "clip-path" && !/^url\(#[A-Za-z][A-Za-z0-9._:-]*\)$/u.test(value)) {
-        issues.push(`non-local clip-path is forbidden: ${value}`);
-      }
-    }
-  }
-  if (totalPathData > (limits.total_path_data_max_chars ?? 200000)) {
-    issues.push("total SVG path data exceeds complexity limit");
-  }
-  return issues;
-}
-
-export function validateInlineSvgComponentSecurity(svg, limits = {}) {
-  const issues = [...validateSvgSecurity(svg, limits)];
-  let tags;
-  try {
-    tags = scanXmlTags(svg);
-  } catch {
-    return [...new Set(issues)];
-  }
-
-  for (const tag of tags) {
-    if (tag.declaration) continue;
-    const elementName = tag.name.toLowerCase();
-    if (["image", "use", "feimage", "style", "script", "foreignobject"].includes(elementName)) {
-      issues.push(`resource-capable inline SVG element is forbidden: ${tag.name}`);
-    }
-    for (const [name, value] of Object.entries(tag.attrs)) {
-      const attributeName = name.toLowerCase();
-      if (attributeName === "href" || attributeName.endsWith(":href")) {
-        issues.push(`resource reference is forbidden in inline SVG: ${name}`);
-      }
-      if (/url\s*\(/iu.test(value)) {
-        issues.push(`CSS resource reference is forbidden in inline SVG: ${name}`);
-      }
-    }
-  }
-
-  return [...new Set(issues)];
-}
-
-function pngDimensionsFromBytes(bytes, label = "PNG") {
-  if (bytes.length < 24 || bytes.subarray(0, 8).toString("hex") !== "89504e470d0a1a0a") {
-    throw new Error(`invalid PNG signature: ${label}`);
-  }
+  const html = buildHtmlOutputMap(model);
+  validateHtmlOutputMap(html);
+  writeHtmlDirectory(targetDemoDirectory, html);
+  copyDemoAssets(sourceRoot, outputRoot, contracts);
+  const assetIssues = validateDemoAssets(outputRoot, sourceRoot, contracts);
+  if (assetIssues.length > 0) throw new Error(`HTML-кандидат не прошёл проверку ресурсов:\n- ${assetIssues.join("\n- ")}`);
   return {
-    width: bytes.readUInt32BE(16),
-    height: bytes.readUInt32BE(20),
+    model,
+    generatedPaths: [...HTML_OUTPUT_PATHS, ...demoAssetPaths(contracts)]
+      .map((item) => `${PACKAGE_PATH}/${item}`),
   };
 }
 
-function pngDimensions(filePath) {
-  return pngDimensionsFromBytes(fs.readFileSync(filePath), filePath);
+export function generatePrototypePackage({
+  sourceRoot,
+  outputRoot,
+  packageRoot = outputRoot ? packagePath(outputRoot) : undefined,
+  diagnosticRoot = sourceRoot,
+} = {}) {
+  return generatePrototypeCandidate({
+    sourceRoot,
+    outputRoot,
+    packageRoot,
+    diagnosticRoot,
+  });
 }
 
-function paethPredictor(left, above, upperLeft) {
-  const estimate = left + above - upperLeft;
-  const leftDistance = Math.abs(estimate - left);
-  const aboveDistance = Math.abs(estimate - above);
-  const upperLeftDistance = Math.abs(estimate - upperLeft);
-  if (leftDistance <= aboveDistance && leftDistance <= upperLeftDistance) return left;
-  if (aboveDistance <= upperLeftDistance) return above;
-  return upperLeft;
-}
-
-function decodePngRgba(bytes, label) {
-  const dimensions = pngDimensionsFromBytes(bytes, label);
-  const bitDepth = bytes[24];
-  const colorType = bytes[25];
-  const compressionMethod = bytes[26];
-  const filterMethod = bytes[27];
-  const interlaceMethod = bytes[28];
-  const channelCount = new Map([
-    [0, 1],
-    [2, 3],
-    [4, 2],
-    [6, 4],
-  ]).get(colorType);
-  if (
-    bitDepth !== 8 ||
-    channelCount === undefined ||
-    compressionMethod !== 0 ||
-    filterMethod !== 0 ||
-    interlaceMethod !== 0
-  ) {
-    throw new Error(
-      `unsupported PNG encoding: ${label}; bit_depth=${bitDepth}, color_type=${colorType}, interlace=${interlaceMethod}`,
-    );
-  }
-
-  const idatChunks = [];
-  let offset = 8;
-  let sawIend = false;
-  while (offset + 12 <= bytes.length) {
-    const chunkLength = bytes.readUInt32BE(offset);
-    const chunkType = bytes.subarray(offset + 4, offset + 8).toString("ascii");
-    const chunkEnd = offset + 12 + chunkLength;
-    if (chunkEnd > bytes.length) {
-      throw new Error(`truncated PNG chunk: ${label}`);
-    }
-    if (chunkType === "IDAT") {
-      idatChunks.push(bytes.subarray(offset + 8, offset + 8 + chunkLength));
-    }
-    offset = chunkEnd;
-    if (chunkType === "IEND") {
-      sawIend = true;
-      break;
-    }
-  }
-  if (!sawIend || idatChunks.length === 0) {
-    throw new Error(`PNG image data is incomplete: ${label}`);
-  }
-
-  const rowByteCount = dimensions.width * channelCount;
-  const inflated = inflateSync(Buffer.concat(idatChunks));
-  const expectedInflatedBytes = (rowByteCount + 1) * dimensions.height;
-  if (inflated.length !== expectedInflatedBytes) {
-    throw new Error(
-      `unexpected PNG image data size: ${label}; expected ${expectedInflatedBytes}, got ${inflated.length}`,
-    );
-  }
-
-  const rgba = Buffer.alloc(dimensions.width * dimensions.height * 4);
-  let sourceOffset = 0;
-  let targetOffset = 0;
-  let previousRow = Buffer.alloc(rowByteCount);
-  for (let y = 0; y < dimensions.height; y += 1) {
-    const filterType = inflated[sourceOffset];
-    sourceOffset += 1;
-    const filteredRow = inflated.subarray(sourceOffset, sourceOffset + rowByteCount);
-    sourceOffset += rowByteCount;
-    const row = Buffer.allocUnsafe(rowByteCount);
-    for (let x = 0; x < rowByteCount; x += 1) {
-      const left = x >= channelCount ? row[x - channelCount] : 0;
-      const above = previousRow[x];
-      const upperLeft = x >= channelCount ? previousRow[x - channelCount] : 0;
-      let predictor;
-      if (filterType === 0) predictor = 0;
-      else if (filterType === 1) predictor = left;
-      else if (filterType === 2) predictor = above;
-      else if (filterType === 3) predictor = Math.floor((left + above) / 2);
-      else if (filterType === 4) {
-        predictor = paethPredictor(left, above, upperLeft);
-      } else {
-        throw new Error(`unsupported PNG row filter ${filterType}: ${label}`);
-      }
-      row[x] = (filteredRow[x] + predictor) & 0xff;
-    }
-
-    for (let x = 0; x < dimensions.width; x += 1) {
-      const pixelOffset = x * channelCount;
-      if (colorType === 0) {
-        rgba[targetOffset] = row[pixelOffset];
-        rgba[targetOffset + 1] = row[pixelOffset];
-        rgba[targetOffset + 2] = row[pixelOffset];
-        rgba[targetOffset + 3] = 255;
-      } else if (colorType === 2) {
-        rgba[targetOffset] = row[pixelOffset];
-        rgba[targetOffset + 1] = row[pixelOffset + 1];
-        rgba[targetOffset + 2] = row[pixelOffset + 2];
-        rgba[targetOffset + 3] = 255;
-      } else if (colorType === 4) {
-        rgba[targetOffset] = row[pixelOffset];
-        rgba[targetOffset + 1] = row[pixelOffset];
-        rgba[targetOffset + 2] = row[pixelOffset];
-        rgba[targetOffset + 3] = row[pixelOffset + 1];
-      } else {
-        rgba[targetOffset] = row[pixelOffset];
-        rgba[targetOffset + 1] = row[pixelOffset + 1];
-        rgba[targetOffset + 2] = row[pixelOffset + 2];
-        rgba[targetOffset + 3] = row[pixelOffset + 3];
-      }
-      targetOffset += 4;
-    }
-    previousRow = row;
-  }
-  return { ...dimensions, rgba };
-}
-
-export function assertLosslessPngPixels(beforeBytes, afterBytes, label = "PNG") {
-  const before = decodePngRgba(beforeBytes, `${label}: исходный PNG`);
-  const after = decodePngRgba(afterBytes, `${label}: нормализованный PNG`);
-  if (
-    before.width !== after.width ||
-    before.height !== after.height ||
-    !before.rgba.equals(after.rgba)
-  ) {
-    const sharedPixelCount = Math.min(before.rgba.length, after.rgba.length) / 4;
-    let firstDifferentPixel = 0;
-    while (
-      firstDifferentPixel < sharedPixelCount &&
-      before.rgba
-        .subarray(firstDifferentPixel * 4, firstDifferentPixel * 4 + 4)
-        .equals(
-          after.rgba.subarray(
-            firstDifferentPixel * 4,
-            firstDifferentPixel * 4 + 4,
-          ),
-        )
-    ) {
-      firstDifferentPixel += 1;
-    }
-    const x = firstDifferentPixel % Math.max(1, before.width);
-    const y = Math.floor(firstDifferentPixel / Math.max(1, before.width));
-    throw new Error(
-      `Нормализация изменила пиксели кадра ${label}: первое различие x=${x}, y=${y}; ` +
-        `${before.width}×${before.height} → ${after.width}×${after.height}.`,
-    );
-  }
-}
-
-function listRegularFiles(rootDirectory) {
-  if (!fs.existsSync(rootDirectory)) return [];
+function listFiles(directory, relative = "") {
+  if (!fs.existsSync(directory)) return [];
   const files = [];
-  const visit = (currentDirectory) => {
-    for (const entry of fs.readdirSync(currentDirectory, { withFileTypes: true })) {
-      const target = path.join(currentDirectory, entry.name);
-      if (entry.isDirectory()) visit(target);
-      else if (entry.isFile()) files.push(target);
-      else files.push(target);
-    }
-  };
-  visit(rootDirectory);
+  for (const entry of fs.readdirSync(path.join(directory, relative), { withFileTypes: true }).sort((left, right) => left.name.localeCompare(right.name, "en"))) {
+    const item = path.join(relative, entry.name);
+    if (entry.isDirectory()) files.push(...listFiles(directory, item));
+    else if (entry.isFile()) files.push(toPosix(item));
+    else files.push(toPosix(item));
+  }
   return files;
 }
 
-function isSafePackageOutputPath(relativePath) {
-  return (
-    typeof relativePath === "string" &&
-    relativePath.length > 0 &&
-    !path.posix.isAbsolute(relativePath) &&
-    !relativePath.includes("\\") &&
-    path.posix.normalize(relativePath) === relativePath &&
-    relativePath !== ".." &&
-    !relativePath.startsWith("../")
-  );
+function generatedInventory(root) {
+  const packageRoot = packagePath(root);
+  return [
+    ...listFiles(path.join(packageRoot, "demo")).map((item) => `demo/${item}`),
+    ...listFiles(path.join(packageRoot, "derived")).map((item) => `derived/${item}`),
+    ...listFiles(path.join(packageRoot, "evidence", "screenshots"))
+      .map((item) => `evidence/screenshots/${item}`),
+  ].sort((left, right) => left.localeCompare(right, "en"));
 }
 
-function isPortableArchiveServiceMember(memberPath) {
-  return memberPath
-    .split("/")
-    .some(
-      (segment) =>
-        segment === "__MACOSX" ||
-        segment === ".DS_Store" ||
-        segment.startsWith("._"),
-    );
-}
-
-function validatePortablePrototypeArchive(
-  outputRoot,
-  sourceRoot,
-  packageContract,
-) {
-  const issues = [];
-  if (!packageContract.archive) {
-    return ["portable archive contract is missing"];
+export function compareGeneratedHtml(root = process.cwd()) {
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-mvp-html-check-"));
+  try {
+    const generated = generateHtmlPrototype({ sourceRoot: root, outputRoot: tempRoot });
+    const differences = [];
+    for (const prefixed of generated.generatedPaths) {
+      const relative = prefixed.slice(`${PACKAGE_PATH}/`.length);
+      const expected = packagePath(root, relative);
+      const actual = packagePath(tempRoot, relative);
+      if (!fs.existsSync(expected)) differences.push(`отсутствует generated HTML: ${relative}`);
+      else if (!fs.readFileSync(expected).equals(fs.readFileSync(actual))) differences.push(`устарел generated HTML: ${relative}`);
+    }
+    return differences;
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 3 });
   }
-  const archivePath = absolute(
-    outputRoot,
-    `${PACKAGE_PATH}/${packageContract.archive.path}`,
-  );
+}
+
+export function compareGeneratedPackage(sourceRoot = process.cwd(), expectedRoot = sourceRoot) {
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-mvp-package-check-"));
+  try {
+    const generated = generatePrototypeCandidate({
+      sourceRoot,
+      outputRoot: tempRoot,
+      packageRoot: packagePath(tempRoot),
+    });
+    const expectedPaths = generated.generatedPaths.map((item) => item.slice(`${PACKAGE_PATH}/`.length)).sort((left, right) => left.localeCompare(right, "en"));
+    const actualPaths = generatedInventory(expectedRoot);
+    const differences = [];
+    for (const relative of expectedPaths) {
+      const expected = packagePath(expectedRoot, relative);
+      const actual = packagePath(tempRoot, relative);
+      if (!fs.existsSync(expected)) differences.push(`отсутствует generated-выход: ${relative}`);
+      else if (!fs.readFileSync(expected).equals(fs.readFileSync(actual))) differences.push(`устарел generated-выход: ${relative}`);
+    }
+    for (const actualPath of actualPaths) {
+      if (!expectedPaths.includes(actualPath)) differences.push(`лишний generated-выход: ${actualPath}`);
+    }
+    return differences;
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 3 });
+  }
+}
+
+function validatePortablePrototypeArchive(outputRoot, sourceRoot, contracts, issues) {
+  const archivePath = packagePath(outputRoot, PORTABLE_ARCHIVE_RELATIVE_PATH);
   if (!fs.existsSync(archivePath)) {
-    return ["portable archive is missing"];
+    issues.push("переносимый ZIP отсутствует");
+    return;
   }
-  const archiveStat = fs.lstatSync(archivePath);
-  if (!archiveStat.isFile() || archiveStat.isSymbolicLink()) {
-    return ["portable archive must be a regular file"];
-  }
-  let archive;
   try {
-    archive = readStoredZip(fs.readFileSync(archivePath));
+    const stat = fs.lstatSync(archivePath);
+    if (!stat.isFile() || stat.isSymbolicLink()) throw new Error("ZIP должен быть обычным файлом");
+    const archive = readStoredZip(fs.readFileSync(archivePath));
+    const members = [...archive.keys()];
+    const expectedMembers = portableArchiveMembers(contracts);
+    if (!exactStringArray(members, expectedMembers)) throw new Error("состав ZIP отличается от договора archive.members");
+    for (const member of members) {
+      if (member.includes("..") || member.startsWith("/") || member.includes("\\")) throw new Error(`ZIP содержит небезопасный путь: ${member}`);
+      const content = archive.get(member);
+      if (member.startsWith("demo/") && !member.startsWith("demo/assets/")) {
+        const active = fs.readFileSync(packagePath(outputRoot, member));
+        if (!content.equals(active)) throw new Error(`ZIP содержит неактуальный файл: ${member}`);
+        for (const pattern of FORBIDDEN_GENERATED_PATTERNS) {
+          if (pattern.test(content.toString("utf8"))) throw new Error(`ZIP содержит запрещённый контент: ${member}`);
+        }
+      }
+      if (member.startsWith("demo/assets/")) {
+        const sourcePath = sourcePathFromDemoAssetPath(member);
+        const source = fs.readFileSync(packagePath(sourceRoot, sourcePath));
+        if (!content.equals(source)) throw new Error(`ZIP содержит неактуальный автономный ресурс: ${member}`);
+      }
+    }
+    const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
+    if (!exactStringArray(manifest?.inventory?.members, expectedMembers)) {
+      throw new Error("манифест ZIP содержит неверную инвентаризацию");
+    }
+    if (manifest?.contract_fingerprint?.sha256 !== sha256File(packagePath(sourceRoot, "source/active-contracts.json"))) {
+      throw new Error("манифест ZIP содержит неверный отпечаток активного реестра");
+    }
+    const candidateFingerprint = canonicalCandidateFingerprintFor(sourceRoot, outputRoot, contracts);
+    if (
+      contracts.package?.archive?.candidate_fingerprint_required !== true ||
+      stableCanonicalRasterJson(manifest?.candidate_fingerprint) !==
+        stableCanonicalRasterJson(candidateFingerprint)
+    ) {
+      throw new Error("манифест ZIP не содержит точный отпечаток кандидатной сборки");
+    }
   } catch (error) {
-    return [`portable archive is invalid: ${error.message}`];
+    issues.push(`переносимый ZIP: ${error.message}`);
   }
-  const archiveMembers = [...archive.keys()];
-  for (const memberPath of archiveMembers.filter(isPortableArchiveServiceMember)) {
-    issues.push(`portable archive service member is forbidden: ${memberPath}`);
-  }
-  if (
-    JSON.stringify(archiveMembers) !==
-    JSON.stringify(packageContract.archive.exact_members)
-  ) {
-    issues.push("portable archive member inventory differs from the contract");
-  }
-  if (archive.has("derived/prototype-package-manifest.json")) {
-    issues.push("portable archive includes the external package manifest");
-  }
+}
 
-  let expectedPayload;
-  let expectedManifestBytes;
+function validateDerivedSvg(svgPath, pngPath, canonicalPngPath, state, issues) {
   try {
-    expectedPayload = buildPortablePrototypePayload(
-      sourceRoot,
-      outputRoot,
-      packageContract,
-    );
-    expectedManifestBytes = renderPortablePrototypeManifest(
-      sourceRoot,
-      packageContract,
-      expectedPayload,
-    );
+    const svg = fs.readFileSync(svgPath, "utf8");
+    const svgIssues = validateSvgSecurity(svg);
+    if (svgIssues.length > 0) throw new Error(svgIssues.join(", "));
+    const data = svg.match(/href="data:image\/png;base64,([A-Za-z0-9+/]+={0,2})"/u)?.[1];
+    if (!data) throw new Error("SVG не содержит PNG data URI");
+    const embedded = Buffer.from(data, "base64");
+    const png = fs.readFileSync(pngPath);
+    const canonicalPng = fs.readFileSync(canonicalPngPath);
+    if (!embedded.equals(png)) throw new Error("встроенный PNG не совпадает с производным PNG");
+    if (!png.equals(canonicalPng)) throw new Error("производный PNG не является побайтной копией канонического PNG");
+    readPngDimensions(embedded, `SVG-кадр ${state.id}`);
+    const captureSha256 = svg.match(/\bdata-capture-sha256="([a-f0-9]{64})"/u)?.[1];
+    if (captureSha256 !== sha256Bytes(canonicalPng)) {
+      throw new Error("SVG не подтверждает SHA-256 канонического PNG");
+    }
+    if (!svg.includes(`data-state-id="${state.id}"`) || !svg.includes(`data-projection-sha256="${state.projection_sha256}"`)) {
+      throw new Error("SVG не подтверждает активное состояние");
+    }
   } catch (error) {
-    issues.push(`portable archive canonical payload is unavailable: ${error.message}`);
-    return issues;
+    issues.push(`производный SVG ${state.id}: ${error.message}`);
   }
-  for (const [memberPath, expectedContent] of expectedPayload) {
-    const archivedContent = archive.get(memberPath);
-    if (archivedContent && !archivedContent.equals(expectedContent)) {
-      issues.push(`portable archive member differs from canonical source: ${memberPath}`);
-    }
-  }
+}
 
-  const readme = archive.get("README.md")?.toString("utf8") ?? "";
-  for (const requiredText of [
-    "Распакуйте архив",
-    "demo/index.html",
-    "данные в демонстрации синтетические",
-    "Сеть не нужна",
-  ]) {
-    if (!readme.includes(requiredText)) {
-      issues.push(`portable archive README is missing required text: ${requiredText}`);
-    }
-  }
-
-  const manifestBytes = archive.get("manifest.json");
-  if (!manifestBytes) {
-    issues.push("portable archive manifest is missing");
-    return issues;
-  }
-  if (!manifestBytes.equals(expectedManifestBytes)) {
-    issues.push("portable archive manifest differs from the canonical manifest");
-  }
+function validateCanonicalRaster(outputRoot, sourceRoot, contracts, model, issues) {
+  const packageRoot = packagePath(outputRoot);
+  const manifestPath = path.join(packageRoot, CANONICAL_RASTER_MANIFEST_RELATIVE_PATH);
   let manifest;
   try {
-    manifest = JSON.parse(manifestBytes.toString("utf8"));
+    manifest = readCanonicalRasterManifest(manifestPath);
+    const normalized = buildCanonicalRasterManifest({
+      candidateFingerprint: manifest.candidate_fingerprint,
+      rendererProfile: manifest.renderer_profile,
+      records: manifest.records,
+    });
+    if (stableCanonicalRasterJson(normalized) !== stableCanonicalRasterJson(manifest)) {
+      throw new Error("манифест канонического растра не имеет детерминированный формат");
+    }
+    const expectedFingerprint = canonicalCandidateFingerprintFor(sourceRoot, outputRoot, contracts);
+    if (
+      manifest.candidate_fingerprint?.sha256 !== expectedFingerprint.sha256 ||
+      stableCanonicalRasterJson(manifest.candidate_fingerprint?.inputs) !==
+        stableCanonicalRasterJson(expectedFingerprint.inputs)
+    ) {
+      throw new Error("манифест канонического растра содержит неверный отпечаток кандидата");
+    }
+    const expectedPaths = canonicalRasterPathsForStates(contracts, model.states);
+    const records = Array.isArray(manifest.records) ? manifest.records : [];
+    if (!exactStringArray(records.map((record) => record.path), expectedPaths)) {
+      throw new Error("манифест канонического растра содержит неверную инвентаризацию PNG");
+    }
+    for (const record of records) {
+      const target = packagePath(outputRoot, record.path);
+      const bytes = fs.readFileSync(target);
+      const dimensions = readPngDimensions(bytes, `канонический PNG ${record.path}`);
+      const viewport = CANONICAL_RASTER_VIEWPORTS.find((item) => item.id === record.viewport);
+      if (
+        !viewport ||
+        dimensions.width !== viewport.width ||
+        dimensions.height !== viewport.height ||
+        record.bytes !== bytes.length ||
+        record.sha256 !== sha256Bytes(bytes) ||
+        !Array.isArray(record.runs) ||
+        record.runs.length !== CANONICAL_RASTER_CANDIDATE_COUNT ||
+        record.runs.some((run, index) =>
+          run?.run !== index + 1 || run?.sha256 !== record.sha256 || run?.bytes !== record.bytes,
+        )
+      ) {
+        throw new Error(`канонический PNG не совпадает с манифестом: ${record.path}`);
+      }
+    }
   } catch (error) {
-    issues.push(`portable archive manifest is invalid: ${error.message}`);
+    issues.push(`канонический растр: ${error instanceof Error ? error.message : "не проверен"}`);
+  }
+  return manifest;
+}
+
+function validateGeneratedText(pathName, issues) {
+  try {
+    const content = fs.readFileSync(pathName, "utf8");
+    for (const pattern of FORBIDDEN_GENERATED_PATTERNS) {
+      if (pattern.test(content)) issues.push(`generated-файл содержит запрещённый контент: ${toPosix(pathName)}`);
+    }
+  } catch (error) {
+    issues.push(`generated-файл не прочитан: ${toPosix(pathName)}`);
+  }
+}
+
+function validateDemoAssets(outputRoot, sourceRoot, contracts, issues = []) {
+  let runtimeAssets;
+  let expectedPaths;
+  try {
+    runtimeAssets = runtimeAssetPolicy(contracts);
+    expectedPaths = demoAssetPaths(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "автономные ресурсы demo/assets не описаны");
     return issues;
   }
-  for (const [field, expected] of [
-    ["version", packageContract.archive.manifest_version],
-    ["status", packageContract.archive.status],
-    ["data_class", packageContract.archive.data_class],
-    ["entrypoint", packageContract.archive.entrypoint],
-  ]) {
-    if (manifest[field] !== expected) {
-      issues.push(`portable archive manifest ${field} differs from the contract`);
-    }
+  const assetRoot = packagePath(outputRoot, runtimeAssets.demo_asset_root);
+  const actualPaths = listFiles(assetRoot)
+    .map((item) => `${runtimeAssets.demo_asset_root}${item}`)
+    .sort((left, right) => left.localeCompare(right, "en"));
+  if (!exactStringArray(actualPaths, expectedPaths)) {
+    issues.push("demo/assets содержит неверную инвентаризацию автономных ресурсов");
   }
-  const expectedContractFingerprint = {
-    path: "source/prototype-package-contract.json",
-    sha256: sha256File(absolute(sourceRoot, CONTRACT_PATHS.package)),
-  };
-  if (
-    JSON.stringify(manifest.contract_fingerprint) !==
-    JSON.stringify(expectedContractFingerprint)
-  ) {
-    issues.push("portable archive contract fingerprint differs from the source");
-  }
-  const expectedInventory = {
-    exact_count: packageContract.archive.exact_members.length,
-    exact_members: packageContract.archive.exact_members,
-  };
-  if (JSON.stringify(manifest.inventory) !== JSON.stringify(expectedInventory)) {
-    issues.push("portable archive manifest inventory differs from the contract");
-  }
-
-  const manifestMembers = Array.isArray(manifest.members) ? manifest.members : [];
-  if (!Array.isArray(manifest.members)) {
-    issues.push("portable archive manifest members must be an array");
-  }
-  const expectedManifestMemberPaths = packageContract.archive.exact_members.filter(
-    (memberPath) => memberPath !== "manifest.json",
-  );
-  const manifestMemberPaths = manifestMembers.map((member) => member?.path);
-  if (
-    JSON.stringify(manifestMemberPaths) !==
-    JSON.stringify(expectedManifestMemberPaths)
-  ) {
-    issues.push("portable archive manifest member inventory differs from the contract");
-  }
-  if (new Set(manifestMemberPaths).size !== manifestMemberPaths.length) {
-    issues.push("portable archive manifest contains duplicate member paths");
-  }
-  for (const member of manifestMembers) {
-    if (!isSafePackageOutputPath(member?.path)) {
-      issues.push(`portable archive manifest member path is unsafe: ${String(member?.path)}`);
-      continue;
-    }
-    const content = archive.get(member.path);
-    if (!content) {
-      issues.push(`portable archive manifest member is missing: ${member.path}`);
-      continue;
-    }
-    if (member.bytes !== content.length) {
-      issues.push(`portable archive member size mismatch: ${member.path}`);
-    }
-    if (member.sha256 !== sha256Bytes(content)) {
-      issues.push(`portable archive member hash mismatch: ${member.path}`);
+  for (const demoRelativePath of expectedPaths) {
+    try {
+      const target = packagePath(outputRoot, demoRelativePath);
+      const stat = fs.lstatSync(target);
+      if (!stat.isFile() || stat.isSymbolicLink()) {
+        throw new Error("должен быть обычным файлом");
+      }
+      const sourceRelativePath = sourcePathFromDemoAssetPath(demoRelativePath);
+      const source = packagePath(sourceRoot, sourceRelativePath);
+      const sourceStat = fs.lstatSync(source);
+      if (!sourceStat.isFile() || sourceStat.isSymbolicLink()) {
+        throw new Error("исходный ресурс недоступен");
+      }
+      if (!fs.readFileSync(target).equals(fs.readFileSync(source))) {
+        throw new Error("не является побайтной копией source-ресурса");
+      }
+    } catch (error) {
+      issues.push(`${demoRelativePath}: ${error instanceof Error ? error.message : "не проверен"}`);
     }
   }
   return issues;
 }
 
-export function validateGeneratedPackage(
-  outputRoot = process.cwd(),
-  sourceRoot = outputRoot,
-) {
-  const contracts = loadContracts(sourceRoot);
-  const issues = validateContracts(sourceRoot, contracts);
-  const model = buildNormalizedModel(contracts);
-  issues.push(
-    ...validatePortablePrototypeArchive(
-      outputRoot,
-      sourceRoot,
-      contracts.package,
-    ),
-  );
-  const packageRoot = absolute(outputRoot, PACKAGE_PATH);
-  const manifestRelativePath = "derived/prototype-package-manifest.json";
-  const manifestPath = path.join(packageRoot, manifestRelativePath);
-  if (!fs.existsSync(manifestPath)) {
-    return [...issues, "prototype package manifest is missing"];
-  }
-  let manifest;
+export function validateGeneratedPackage(outputRoot = process.cwd(), sourceRoot = outputRoot) {
+  const issues = [];
+  let contracts;
   try {
-    manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    contracts = loadContracts(sourceRoot);
+    issues.push(...validateContracts(sourceRoot, contracts));
   } catch (error) {
-    return [...issues, `prototype package manifest is invalid: ${error.message}`];
+    return [error instanceof Error ? error.message : "активные договоры не прочитаны"];
   }
-  const expectedOutputs = generatedPathsForStates(model.states)
-    .map((relativePath) => relativePath.replace(`${PACKAGE_PATH}/`, ""))
-    .sort((left, right) => left.localeCompare(right, "en"));
-  const expectedInventory = [...expectedOutputs, manifestRelativePath].sort((left, right) =>
-    left.localeCompare(right, "en"),
-  );
-  const manifestOutputs = Array.isArray(manifest.outputs) ? manifest.outputs : [];
-  if (!Array.isArray(manifest.outputs)) {
-    issues.push("prototype package manifest outputs must be an array");
+  let model;
+  try {
+    model = buildNormalizedModel(contracts, sourceRoot);
+  } catch (error) {
+    return [...issues, error instanceof Error ? error.message : "модель MVP не построена"];
   }
-  const outputPaths = manifestOutputs.map((output) => output?.path);
-  if (new Set(outputPaths).size !== outputPaths.length) {
-    issues.push("prototype package manifest contains duplicate output paths");
+  let expected = [];
+  try {
+    expected = generatedRelativePaths(contracts, model.states);
+  } catch (error) {
+    return [...issues, error instanceof Error ? error.message : "состав generated-выходов не построен"];
   }
-  const safeOutputPaths = [];
-  for (const output of manifestOutputs) {
-    if (!isSafePackageOutputPath(output?.path)) {
-      issues.push(`manifest output path escapes package: ${String(output?.path)}`);
-      continue;
-    }
-    safeOutputPaths.push(output.path);
-    const target = path.resolve(packageRoot, output.path);
-    if (!target.startsWith(`${path.resolve(packageRoot)}${path.sep}`)) {
-      issues.push(`manifest output path escapes package: ${output.path}`);
-      continue;
-    }
-    if (!fs.existsSync(target)) {
-      issues.push(`manifest output is missing: ${output.path}`);
-      continue;
-    }
-    if (fs.statSync(target).size !== output.bytes) {
-      issues.push(`manifest size mismatch: ${output.path}`);
-    }
-    if (sha256File(target) !== output.sha256) {
-      issues.push(`manifest hash mismatch: ${output.path}`);
+  const actual = generatedInventory(outputRoot);
+  for (const pathName of expected) {
+    if (!actual.includes(pathName)) issues.push(`отсутствует зарегистрированный generated-выход: ${pathName}`);
+  }
+  for (const pathName of actual) {
+    if (!expected.includes(pathName)) issues.push(`лишний generated-выход: ${pathName}`);
+  }
+  const packageRoot = packagePath(outputRoot);
+  for (const relative of actual) {
+    const target = path.join(packageRoot, relative);
+    try {
+      const stat = fs.lstatSync(target);
+      if (!stat.isFile() || stat.isSymbolicLink()) issues.push(`generated-выход должен быть обычным файлом: ${relative}`);
+    } catch {
+      issues.push(`generated-выход недоступен: ${relative}`);
     }
   }
-  const sortedSafeOutputPaths = [...safeOutputPaths].sort((left, right) =>
-    left.localeCompare(right, "en"),
-  );
-  if (JSON.stringify(sortedSafeOutputPaths) !== JSON.stringify(expectedOutputs)) {
-    issues.push("prototype package manifest output inventory differs from the contract");
+  for (const relative of ["demo/index.html", "demo/app.js", "demo/data.js", "demo/styles.css", "derived/projection-map.json"]) {
+    if (fs.existsSync(path.join(packageRoot, relative))) validateGeneratedText(path.join(packageRoot, relative), issues);
   }
-  if (
-    JSON.stringify(
-      [...(manifest.inventory?.exact_generated_paths ?? [])].sort((left, right) =>
-        left.localeCompare(right, "en"),
-      ),
-    ) !== JSON.stringify(expectedInventory)
-  ) {
-    issues.push("prototype package exact generated paths differ from the contract");
-  }
-  if (manifest.inventory?.generated_output_count !== expectedInventory.length) {
-    issues.push("prototype package generated output count differs from the contract");
-  }
-  const actualOutputs = [
-    ...listRegularFiles(path.join(packageRoot, "demo")),
-    ...listRegularFiles(path.join(packageRoot, "derived")),
-  ]
-    .map((filePath) => path.relative(packageRoot, filePath).split(path.sep).join("/"))
-    .sort((left, right) => left.localeCompare(right, "en"));
-  for (const actualOutput of actualOutputs) {
-    if (!expectedInventory.includes(actualOutput)) {
-      issues.push(`unregistered generated output: ${actualOutput}`);
-    }
-  }
-  for (const expectedOutput of expectedInventory) {
-    if (!actualOutputs.includes(expectedOutput)) {
-      issues.push(`registered generated output is missing: ${expectedOutput}`);
-    }
-  }
-
-  const demoRelativePaths = [
-    "demo/index.html",
-    "demo/app.js",
-    "demo/styles.css",
-    "demo/data.js",
-  ];
-  const missingDemoPaths = demoRelativePaths.filter(
-    (relativePath) => !fs.existsSync(path.join(packageRoot, relativePath)),
-  );
-  for (const relativePath of missingDemoPaths) {
-    issues.push(`portable demo resource is missing: ${relativePath}`);
-  }
-  const demoText = demoRelativePaths
-    .filter((relativePath) => !missingDemoPaths.includes(relativePath))
-    .map((relativePath) => fs.readFileSync(path.join(packageRoot, relativePath), "utf8"))
-    .join("\n")
-    .replaceAll("http://www.w3.org/2000/svg", "");
-  for (const forbidden of [
-    "/Users/",
-    "localhost",
-    "http://",
-    "https://",
-    "innerHTML",
-    "document.write",
-    "new Function",
-    "eval(",
-    "fetch(",
-  ]) {
-    if (demoText.includes(forbidden)) {
-      issues.push(`portable demo contains forbidden token: ${forbidden}`);
-    }
-  }
-
-  for (const state of model.states) {
-    const svgPath = path.join(packageRoot, `derived/screens/${state.id}.svg`);
-    const pngPath = path.join(packageRoot, `derived/screens/${state.id}.png`);
-    if (!fs.existsSync(svgPath)) {
-      issues.push(`state SVG is missing: ${state.id}`);
-      continue;
-    }
-    const svg = fs.readFileSync(svgPath, "utf8");
-    issues.push(
-      ...validateSvgSecurity(svg, contracts.visual.svg_security_limits).map(
-        (issue) => `${state.id}: ${issue}`,
-      ),
+  validateDemoAssets(outputRoot, sourceRoot, contracts, issues);
+  try {
+    const html = new Map(
+      ["index.html", "app.js", "data.js", "styles.css"].map((name) => [
+        name,
+        fs.readFileSync(path.join(packageRoot, "demo", name), "utf8"),
+      ]),
     );
-    if (!svg.includes(`data-projection-sha256="${state.projection_sha256}"`)) {
-      issues.push(`SVG projection mismatch: ${state.id}`);
-    }
-    if (!svg.includes('data-render-source="owner-approved-html"')) {
-      issues.push(`SVG is not captured from the owner-approved HTML: ${state.id}`);
-    }
-    const captureSha256 = svg.match(/\bdata-capture-sha256="([a-f0-9]{64})"/u)?.[1];
-    const captureData = svg.match(
-      /\bhref="data:image\/png;base64,([A-Za-z0-9+/]+={0,2})"/u,
-    )?.[1];
-    if (!captureSha256 || !captureData) {
-      issues.push(`embedded HTML capture is missing: ${state.id}`);
-    } else {
-      const captureBytes = Buffer.from(captureData, "base64");
-      if (sha256Bytes(captureBytes) !== captureSha256) {
-        issues.push(`embedded HTML capture hash mismatch: ${state.id}`);
-      }
+    validateHtmlOutputMap(html);
+  } catch (error) {
+    issues.push(`HTML-выход: ${error instanceof Error ? error.message : "не проверен"}`);
+  }
+  validateCanonicalRaster(outputRoot, sourceRoot, contracts, model, issues);
+  let wrapper;
+  try {
+    wrapper = svgWrapperConfiguration(contracts);
+  } catch (error) {
+    issues.push(error instanceof Error ? error.message : "SVG-обёртка не описана");
+  }
+  for (const state of model.states) {
+    if (!wrapper) continue;
+    const canonicalPng = packagePath(
+      outputRoot,
+      interpolateStatePath(wrapper.canonical_png_path_format, state.id, "путь канонического PNG"),
+    );
+    const png = packagePath(
+      outputRoot,
+      interpolateStatePath(wrapper.raster_png_path_format, state.id, "путь производного PNG"),
+    );
+    const svg = packagePath(
+      outputRoot,
+      interpolateStatePath(wrapper.svg_path_format, state.id, "путь SVG-обёртки"),
+    );
+    if (fs.existsSync(png)) {
       try {
-        const captureDimensions = pngDimensionsFromBytes(
-          captureBytes,
-          `${state.id} embedded capture`,
-        );
-        if (captureDimensions.width !== 390 || captureDimensions.height !== 844) {
-          issues.push(
-            `unexpected embedded capture dimensions for ${state.id}: ${captureDimensions.width}x${captureDimensions.height}`,
-          );
+        const dimensions = readPngDimensions(fs.readFileSync(png), `производный PNG ${state.id}`);
+        if (dimensions.width !== 390 || dimensions.height !== 844) issues.push(`производный PNG имеет неверный размер: ${state.id}`);
+        if (!fs.existsSync(canonicalPng) || !fs.readFileSync(png).equals(fs.readFileSync(canonicalPng))) {
+          issues.push(`производный PNG не совпадает с каноническим mobile PNG: ${state.id}`);
         }
       } catch (error) {
         issues.push(error.message);
       }
     }
-    if (!fs.existsSync(pngPath)) {
-      issues.push(`state PNG is missing: ${state.id}`);
-      continue;
-    }
-    if (
-      captureData &&
-      !Buffer.from(captureData, "base64").equals(fs.readFileSync(pngPath))
-    ) {
-      issues.push(`embedded capture differs from derived PNG: ${state.id}`);
-    }
-    try {
-      const dimensions = pngDimensions(pngPath);
-      if (dimensions.width !== 390 || dimensions.height !== 844) {
-        issues.push(`unexpected PNG dimensions for ${state.id}: ${dimensions.width}x${dimensions.height}`);
-      }
-    } catch (error) {
-      issues.push(error.message);
+    if (fs.existsSync(svg) && fs.existsSync(png) && fs.existsSync(canonicalPng)) {
+      validateDerivedSvg(svg, png, canonicalPng, state, issues);
     }
   }
-
-  const dataPath = path.join(packageRoot, "demo/data.js");
-  if (fs.existsSync(dataPath)) {
-    const dataText = fs.readFileSync(dataPath, "utf8");
-    for (const state of model.states) {
-      if (!dataText.includes(`"projection_sha256": "${state.projection_sha256}"`)) {
-        issues.push(`HTML data projection mismatch: ${state.id}`);
+  const chromiumPngs = listFiles(path.join(packageRoot, "evidence", "screenshots", "chromium"));
+  for (const relative of chromiumPngs) {
+    issues.push(`публикуемый Chromium PNG запрещён: evidence/screenshots/chromium/${relative}`);
+  }
+  const manifestPath = path.join(packageRoot, "derived/prototype-package-manifest.json");
+  try {
+    const manifest = readJsonFile(manifestPath, "манифест MVP");
+    if (!exactStringArray(manifest?.state_ids, model.states.map((state) => state.id))) issues.push("манифест MVP содержит неверный набор состояний");
+    if (!exactStringArray(manifest?.inventory?.exact_generated_paths, expected)) issues.push("манифест MVP содержит неверный exact inventory");
+    if (manifest?.inventory?.generated_output_count !== expected.length) issues.push("манифест MVP содержит неверное число выходов");
+    const outputs = Array.isArray(manifest?.outputs) ? manifest.outputs : [];
+    const expectedHashed = expected.filter((item) => item !== "derived/prototype-package-manifest.json");
+    if (!exactStringArray(outputs.map((item) => item?.path).sort(), expectedHashed.slice().sort())) issues.push("манифест MVP содержит неверные хешированные выходы");
+    for (const output of outputs) {
+      const target = path.join(packageRoot, output.path ?? "");
+      if (!fs.existsSync(target) || sha256File(target) !== output.sha256 || fs.statSync(target).size !== output.bytes) {
+        issues.push(`манифест MVP не подтверждает выход: ${String(output.path)}`);
       }
     }
+  } catch (error) {
+    issues.push(error.message);
   }
+  validatePortablePrototypeArchive(outputRoot, sourceRoot, contracts, issues);
   return issues;
 }
 
 export function listGeneratedOutputHashes(root = process.cwd()) {
-  const manifest = readJson(root, `${PACKAGE_PATH}/derived/prototype-package-manifest.json`);
-  return Object.fromEntries(
-    [
-      ...manifest.outputs.map((output) => [
-        `${PACKAGE_PATH}/${output.path}`,
-        sha256File(absolute(root, `${PACKAGE_PATH}/${output.path}`)),
-      ]),
-      [
-        `${PACKAGE_PATH}/derived/prototype-package-manifest.json`,
-        sha256File(absolute(root, `${PACKAGE_PATH}/derived/prototype-package-manifest.json`)),
-      ],
-    ].sort(([left], [right]) => left.localeCompare(right, "en")),
-  );
+  const hashes = {};
+  for (const relative of generatedInventory(root)) {
+    const target = packagePath(root, relative);
+    hashes[relative] = sha256File(target);
+  }
+  return hashes;
 }

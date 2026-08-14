@@ -1,14 +1,87 @@
 {
   "$schema": "schemas/source-fixture-manifest.schema.json",
-  "version": "1.0.0",
-  "source_file": "lisa-prototype_7.html",
-  "source_sha256": "d60267513a5d2081bcc5d9fb74305e8b7c4fa4edf82653423456537d809cd5ad",
-  "normalized_material_sha256": "7676d6df83ce1df90d390f0e80741a480e586bb18da8593cebbf458986c2c3da",
-  "data_classification": "synthetic",
-  "owner_permission": "owner-reconfirmed-synthetic-use-2026-07-17",
+  "version": "2.3.0",
+  "status": "active",
+  "product_backlog": {
+    "file_name": "datacanvas-backlog-draft-pshe-2026-08-11.xlsx",
+    "source_date": "2026-08-11",
+    "source_sha256": "e4cd5a60e2b1b1df2b99978d20c6047d6590368e13d23bc4cd455de4151e1cdf",
+    "source_role": "prototype-local-product-source",
+    "data_classification": "synthetic",
+    "raw_file_tracked": false,
+    "formal_sanitization": "deferred"
+  },
+  "visual_reference_archive": {
+    "file_name": "DialogFile3255926770227232252.zip",
+    "source_sha256": "b755549c84e059b8d999fcc12e55f6c3903aafe549935b90f2f1b84bb7852026",
+    "member_count": 25,
+    "data_classification": "synthetic",
+    "raw_archive_tracked": false,
+    "source_path_stored": false,
+    "embedded_raw_svg_allowed": false,
+    "source_svg_persisted": false,
+    "treatment": "rasterized-png-only",
+    "source_catalog": "source/source-render-catalog.json",
+    "snapshot_renderer": "playwright-webkit-no-network",
+    "foreign_object_policy": "snapshot-only-strict-empty-xhtml-div",
+    "source_only_fragment": {
+      "id": "Frame 2131330393",
+      "active_base_allowed": false,
+      "treatment": "source-only-fragment"
+    }
+  },
+  "transient_raster_text_font": {
+    "family": "SB Sans Display",
+    "file_name": "SBSansDisplay-Regular.otf",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "provenance": "owner-supplied-transient-raster-text-input",
+    "source_path_stored": false,
+    "copied_to_package": false,
+    "usage": "transient-raster-text-inserts-only"
+  },
+  "approved_presentation_pdfs": [
+    {
+      "file_name": "szh_dense_slidedoc.pdf",
+      "source_sha256": "f28bb0685c4788cdf9d81366531ae8d0847921dd53042406d5b7ef9212a5b569",
+      "output_sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32",
+      "page_count": 3,
+      "page_dimensions": { "width": 960, "height": 540 },
+      "scale": 4,
+      "rendered_dimensions": { "width": 3840, "height": 6480 },
+      "output_file": "szh-dense-slidedoc-4x.png",
+      "raw_file_tracked": false,
+      "source_path_stored": false,
+      "copied_to_package": false
+    },
+    {
+      "file_name": "szh_dense_sber2025.pdf",
+      "source_sha256": "90af1070bbdbbe8eccdef05dab20dafed1563fe58ebd2ea8004a5ab0c39e3500",
+      "output_sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7",
+      "page_count": 3,
+      "page_dimensions": { "width": 960, "height": 540 },
+      "scale": 4,
+      "rendered_dimensions": { "width": 3840, "height": 6480 },
+      "output_file": "szh-dense-sber2025-4x.png",
+      "raw_file_tracked": false,
+      "source_path_stored": false,
+      "copied_to_package": false
+    },
+    {
+      "file_name": "szh_dense_mag.pdf",
+      "source_sha256": "d237e832e90978bc3af5784439ed0b63334e348c3fd58f29e86a57ca9d579bfc",
+      "output_sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303",
+      "page_count": 3,
+      "page_dimensions": { "width": 960, "height": 540 },
+      "scale": 4,
+      "rendered_dimensions": { "width": 3840, "height": 6480 },
+      "output_file": "szh-dense-mag-4x.png",
+      "raw_file_tracked": false,
+      "source_path_stored": false,
+      "copied_to_package": false
+    }
+  ],
   "trust": "untrusted-data-only",
   "copied_executable_code": false,
   "active_external_links": false,
-  "external_source_occurrences": 5,
-  "external_source_count": 4
+  "absolute_local_paths_stored": false
 }

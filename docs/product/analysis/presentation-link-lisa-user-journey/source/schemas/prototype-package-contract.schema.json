@@ -1,395 +1,76 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "prototype-package-contract.schema.json",
-  "title": "Контракт переносимого пакета прототипа",
+  "title": "Договор минимального автономного пакета десятиэкранного маршрута Лисы",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "version",
-    "status",
-    "canonical_contracts",
-    "source_assets",
-    "portability",
-    "security",
-    "reproducibility",
-    "archive",
-    "dependencies",
-    "commands",
-    "html_stage",
-    "outputs",
-    "evidence_outputs"
+    "runtime_root",
+    "asset_root",
+    "archive_path",
+    "archive_members",
+    "prohibitions",
+    "commands"
   ],
   "properties": {
     "$schema": {
-      "type": "string"
+      "const": "schemas/prototype-package-contract.schema.json"
     },
     "version": {
-      "const": "1.9.0"
+      "const": "3.0.0"
     },
-    "status": {
-      "type": "string"
+    "runtime_root": {
+      "const": "demo"
     },
-    "canonical_contracts": {
+    "asset_root": {
+      "const": "demo/assets"
+    },
+    "archive_path": {
+      "const": "derived/lisa-presentation-user-journey-demo.zip"
+    },
+    "archive_members": {
       "type": "array",
-      "minItems": 6,
+      "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "type": "string"
+        "type": "string",
+        "pattern": "^(?:README\\.md|manifest\\.json|index\\.html|app\\.js|data\\.js|styles\\.css|assets/[a-z0-9]+(?:-[a-z0-9]+)*\\.png)$"
       }
     },
-    "source_assets": {
-      "type": "array",
-      "minItems": 5,
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "path",
-          "kind",
-          "sha256",
-          "origin_repository",
-          "origin_commit",
-          "origin_base_commit",
-          "origin_path",
-          "origin_sha256",
-          "permission",
-          "license"
-        ],
-        "properties": {
-          "path": {
-            "type": "string",
-            "pattern": "^source/"
-          },
-          "kind": {
-            "type": "string",
-            "minLength": 1
-          },
-          "sha256": {
-            "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
-          },
-          "origin_repository": {
-            "type": "string",
-            "minLength": 1
-          },
-          "origin_commit": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 1
-          },
-          "origin_base_commit": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^[a-f0-9]{40}$"
-          },
-          "origin_path": {
-            "type": "string",
-            "minLength": 1
-          },
-          "origin_sha256": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "pattern": "^[a-f0-9]{64}$"
-          },
-          "permission": {
-            "type": "string",
-            "minLength": 1
-          },
-          "license": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      }
-    },
-    "portability": {
+    "prohibitions": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "entrypoint",
-        "file_scheme_supported",
-        "local_server_required",
-        "relative_resources_only",
-        "modules_allowed",
-        "fetch_allowed",
-        "service_worker_allowed"
+        "source_runtime_dependency",
+        "parent_directory_references",
+        "network_requests",
+        "absolute_local_paths",
+        "raw_svg_in_archive",
+        "generated_outputs_as_contract_inputs",
+        "old_twenty_state_route_active"
       ],
       "properties": {
-        "entrypoint": {
-          "const": "demo/index.html"
-        },
-        "file_scheme_supported": {
-          "const": true
-        },
-        "local_server_required": {
+        "source_runtime_dependency": {
           "const": false
         },
-        "relative_resources_only": {
-          "const": true
-        },
-        "modules_allowed": {
+        "parent_directory_references": {
           "const": false
         },
-        "fetch_allowed": {
+        "network_requests": {
           "const": false
         },
-        "service_worker_allowed": {
-          "const": false
-        }
-      }
-    },
-    "security": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "external_network_requests_allowed",
-        "absolute_local_paths_allowed",
-        "dynamic_html_injection_allowed",
-        "secrets_allowed",
-        "untrusted_donor_content_is_instruction",
-        "svg_positive_allowlist_required",
-        "embedded_svg_images"
-      ],
-      "properties": {
-        "external_network_requests_allowed": {
+        "absolute_local_paths": {
           "const": false
         },
-        "absolute_local_paths_allowed": {
+        "raw_svg_in_archive": {
           "const": false
         },
-        "dynamic_html_injection_allowed": {
+        "generated_outputs_as_contract_inputs": {
           "const": false
         },
-        "secrets_allowed": {
+        "old_twenty_state_route_active": {
           "const": false
-        },
-        "untrusted_donor_content_is_instruction": {
-          "const": false
-        },
-        "svg_positive_allowlist_required": {
-          "const": true
-        },
-        "embedded_svg_images": {
-          "const": "png-data-uri-only"
-        }
-      }
-    },
-    "reproducibility": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "byte_deterministic_text_outputs",
-        "stable_json_key_order",
-        "line_endings",
-        "current_time_allowed",
-        "random_values_allowed",
-        "absolute_paths_allowed",
-        "frame_source",
-        "svg_frame_representation",
-        "png_renderer",
-        "capture_engine",
-        "capture_stabilization",
-        "capture_transport",
-        "capture_normalization",
-        "cross_platform_png_byte_identity_required"
-      ],
-      "properties": {
-        "byte_deterministic_text_outputs": {
-          "const": true
-        },
-        "stable_json_key_order": {
-          "const": true
-        },
-        "line_endings": {
-          "const": "LF"
-        },
-        "current_time_allowed": {
-          "const": false
-        },
-        "random_values_allowed": {
-          "const": false
-        },
-        "absolute_paths_allowed": {
-          "const": false
-        },
-        "frame_source": {
-          "const": "owner-approved-html-browser-capture"
-        },
-        "svg_frame_representation": {
-          "const": "embedded-png-data-uri"
-        },
-        "png_renderer": {
-          "const": "rsvg-convert"
-        },
-        "capture_engine": {
-          "const": "webkit"
-        },
-        "capture_stabilization": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "wait_for_document_fonts",
-            "scroll_policy",
-            "focus_policy",
-            "settle_animation_frames",
-            "explicit_screenshot_style_parameter_used",
-            "playwright_internal_style_attempt_blocked_by_csp",
-            "browser_launch_args"
-          ],
-          "properties": {
-            "wait_for_document_fonts": {
-              "const": true
-            },
-            "scroll_policy": {
-              "const": "restore-marked-end-after-fonts"
-            },
-            "focus_policy": {
-              "const": "capture-mode-suppress-then-blur-active-element"
-            },
-            "settle_animation_frames": {
-              "const": 2
-            },
-            "explicit_screenshot_style_parameter_used": {
-              "const": false
-            },
-            "playwright_internal_style_attempt_blocked_by_csp": {
-              "const": true
-            },
-            "browser_launch_args": {
-              "const": []
-            }
-          }
-        },
-        "capture_transport": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "mode",
-            "origin",
-            "external_network_requests_allowed",
-            "path_escape_blocked"
-          ],
-          "properties": {
-            "mode": {
-              "const": "playwright-route-fulfilled-local-files"
-            },
-            "origin": {
-              "const": "http://lisa.invalid"
-            },
-            "external_network_requests_allowed": {
-              "const": false
-            },
-            "path_escape_blocked": {
-              "const": true
-            }
-          }
-        },
-        "capture_normalization": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "mode",
-            "dimensions_unchanged",
-            "embedded_capture_equals_derived_png"
-          ],
-          "properties": {
-            "mode": {
-              "const": "lossless-rsvg-reencode"
-            },
-            "dimensions_unchanged": {
-              "const": true
-            },
-            "embedded_capture_equals_derived_png": {
-              "const": true
-            }
-          }
-        },
-        "cross_platform_png_byte_identity_required": {
-          "const": false
-        }
-      }
-    },
-    "archive": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "path",
-        "format",
-        "compression",
-        "manifest_version",
-        "status",
-        "data_class",
-        "entrypoint",
-        "exact_members",
-        "extra_members_allowed",
-        "external_package_manifest_included"
-      ],
-      "properties": {
-        "path": {
-          "const": "derived/lisa-presentation-user-journey-demo.zip"
-        },
-        "format": {
-          "const": "zip"
-        },
-        "compression": {
-          "const": "stored"
-        },
-        "manifest_version": {
-          "const": "1.0.0"
-        },
-        "status": {
-          "const": "generated"
-        },
-        "data_class": {
-          "const": "internal"
-        },
-        "entrypoint": {
-          "const": "demo/index.html"
-        },
-        "exact_members": {
-          "const": [
-            "README.md",
-            "manifest.json",
-            "demo/index.html",
-            "demo/app.js",
-            "demo/data.js",
-            "demo/styles.css",
-            "source/fonts/NotoSans[wdth,wght].ttf",
-            "source/fonts/OFL.txt"
-          ]
-        },
-        "extra_members_allowed": {
-          "const": false
-        },
-        "external_package_manifest_included": {
-          "const": false
-        }
-      }
-    },
-    "dependencies": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "@playwright/test",
-        "@axe-core/playwright",
-        "opentype.js"
-      ],
-      "properties": {
-        "@playwright/test": {
-          "const": "1.61.1"
-        },
-        "@axe-core/playwright": {
-          "const": "4.12.1"
-        },
-        "opentype.js": {
-          "const": "2.0.0"
         }
       }
     },
@@ -398,193 +79,21 @@
       "additionalProperties": false,
       "required": [
         "generate",
-        "update_evidence",
-        "check",
         "validate",
-        "validate_html",
-        "validate_evidence",
-        "check_evidence",
-        "validate_profile",
-        "validate_ci",
-        "browser"
+        "check"
       ],
       "properties": {
         "generate": {
-          "const": "npm run generate:presentation-link-lisa-user-journey"
-        },
-        "update_evidence": {
-          "const": "npm run update:presentation-link-lisa-user-journey:evidence"
-        },
-        "check": {
-          "const": "npm run check:presentation-link-lisa-user-journey"
+          "type": "string",
+          "minLength": 1
         },
         "validate": {
-          "const": "npm run validate:presentation-link-lisa-user-journey"
+          "type": "string",
+          "minLength": 1
         },
-        "validate_html": {
-          "const": "npm run validate:presentation-link-lisa-user-journey:html"
-        },
-        "validate_evidence": {
-          "const": "npm run validate:presentation-link-lisa-user-journey:evidence"
-        },
-        "check_evidence": {
-          "const": "npm run check:presentation-link-lisa-user-journey:evidence"
-        },
-        "validate_profile": {
-          "const": "npm run validate:presentation-link-lisa-user-journey:profile"
-        },
-        "validate_ci": {
-          "const": "npm run validate:presentation-link-lisa-user-journey:ci"
-        },
-        "browser": {
-          "const": "npm run test:presentation-link-lisa-user-journey:browser"
-        }
-      }
-    },
-    "html_stage": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "atomic_update_required",
-        "owner_approval_required",
-        "derived_outputs_allowed",
-        "status_before_approval",
-        "status_after_approval"
-      ],
-      "properties": {
-        "atomic_update_required": {
-          "const": true
-        },
-        "owner_approval_required": {
-          "const": true
-        },
-        "derived_outputs_allowed": {
-          "const": false
-        },
-        "status_before_approval": {
-          "const": "owner-review-pending"
-        },
-        "status_after_approval": {
-          "const": "owner-approved-prototype"
-        }
-      }
-    },
-    "outputs": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "exact_count",
-        "exact",
-        "per_state",
-        "extra_files_allowed"
-      ],
-      "properties": {
-        "exact_count": {
-          "const": 59
-        },
-        "exact": {
-          "type": "array",
-          "minItems": 7,
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          }
-        },
-        "per_state": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "state_source",
-            "state_count",
-            "templates"
-          ],
-          "properties": {
-            "state_source": {
-              "const": "source/journey-contract.json#/states"
-            },
-            "state_count": {
-              "const": 26
-            },
-            "templates": {
-              "type": "array",
-              "minItems": 2,
-              "maxItems": 2,
-              "uniqueItems": true,
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "extra_files_allowed": {
-          "const": false
-        }
-      }
-    },
-    "evidence_outputs": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "exact_count",
-        "reports",
-        "screenshots",
-        "extra_files_allowed",
-        "atomic_update_required"
-      ],
-      "properties": {
-        "exact_count": {
-          "const": 110
-        },
-        "reports": {
-          "type": "array",
-          "minItems": 2,
-          "uniqueItems": true,
-          "items": {
-            "type": "string"
-          }
-        },
-        "screenshots": {
-          "type": "array",
-          "minItems": 2,
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "browser",
-              "state_selection",
-              "state_count",
-              "viewports"
-            ],
-            "properties": {
-              "browser": {
-                "enum": [
-                  "chromium",
-                  "webkit"
-                ]
-              },
-              "state_selection": {
-                "type": "string"
-              },
-              "state_count": {
-                "type": "integer",
-                "minimum": 1
-              },
-              "viewports": {
-                "type": "array",
-                "minItems": 3,
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        },
-        "extra_files_allowed": {
-          "const": false
-        },
-        "atomic_update_required": {
-          "const": true
+        "check": {
+          "type": "string",
+          "minLength": 1
         }
       }
     }

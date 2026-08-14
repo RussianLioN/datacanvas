@@ -1,250 +1,138 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { pathToFileURL } from "node:url";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { readStoredZip } from "../scripts/lib/documentation-archive.mjs";
-import { WEBKIT_EVIDENCE_STATE_IDS } from "../scripts/lib/presentation-link-lisa-user-journey.mjs";
 
 const root = process.cwd();
-const packageRoot = path.join(
-  root,
-  "docs/product/analysis/presentation-link-lisa-user-journey",
-);
-const demoPath = path.join(packageRoot, "demo/index.html");
-const portableArchivePath = path.join(
-  packageRoot,
-  "derived/lisa-presentation-user-journey-demo.zip",
-);
+const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
+const packageRoot = process.env.LISA_PROTOTYPE_PACKAGE_ROOT
+  ? path.resolve(process.env.LISA_PROTOTYPE_PACKAGE_ROOT)
+  : path.join(root, packagePath);
+const activeContractsPath = path.join(packageRoot, "source/active-contracts.json");
+const journeyPath = path.join(packageRoot, "source/journey-contract.json");
+const packageContractPath = path.join(packageRoot, "source/prototype-package-contract.json");
+const sourceCatalogPath = path.join(packageRoot, "source/source-render-catalog.json");
+const visualBasisPath = path.join(packageRoot, "source/visual-basis-contract.json");
 const virtualOrigin = "http://lisa.invalid";
-const demoStylesUrl = new URL("/demo/styles.css", virtualOrigin).href;
+const runtimeViewports = [
+  { id: "desktop-1280x720", width: 1280, height: 720 },
+  { id: "mobile-390x844", width: 390, height: 844 },
+  { id: "stress-320x568", width: 320, height: 568 },
+];
+const webkitCaptureToolWarning =
+  "Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear in the style-src directive of the Content Security Policy.";
 const contentTypes = new Map([
   [".css", "text/css; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
   [".js", "text/javascript; charset=utf-8"],
   [".json", "application/json; charset=utf-8"],
   [".png", "image/png"],
-  [".svg", "image/svg+xml"],
   [".ttf", "font/ttf"],
 ]);
-const journey = JSON.parse(
-  fs.readFileSync(path.join(packageRoot, "source/journey-contract.json"), "utf8"),
-);
-const presentationPreview = JSON.parse(
-  fs.readFileSync(
-    path.join(packageRoot, "source/presentation-preview-contract.json"),
-    "utf8",
-  ),
-);
-const allStateIds = journey.states.map((state) => state.id);
-const statesById = new Map(journey.states.map((state) => [state.id, state]));
-const webkitCriticalStateIds = new Set(WEBKIT_EVIDENCE_STATE_IDS);
-const requiredViewports = [
-  { id: "desktop-1280x720", width: 1280, height: 720 },
-  { id: "mobile-390x844", width: 390, height: 844 },
-  { id: "stress-320x568", width: 320, height: 568 },
-];
+
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+function readRasterContracts() {
+  return {
+    registry: readJson(activeContractsPath),
+    journey: readJson(journeyPath),
+    packageContract: readJson(packageContractPath),
+    sourceCatalog: readJson(sourceCatalogPath),
+    visualBasis: readJson(visualBasisPath),
+  };
+}
+
+function activeStateIds(contracts) {
+  const ids = contracts.registry.active_state_ids;
+  expect(Array.isArray(ids)).toBe(true);
+  expect(ids.length).toBe(20);
+  expect(new Set(ids).size).toBe(ids.length);
+  expect(ids).toEqual(contracts.journey.states.map((state) => state.id));
+  return ids;
+}
+
+function bindingForState(visualBasis, stateId) {
+  const binding = visualBasis.state_bindings.find((candidate) => candidate.state_id === stateId);
+  expect(binding, `${stateId}: отсутствует binding растровой основы`).toBeTruthy();
+  return binding;
+}
+
+function actionFor(journey, actionId) {
+  const action = journey.actions.find((candidate) => candidate.id === actionId);
+  expect(action, `отсутствует действие ${actionId}`).toBeTruthy();
+  return action;
+}
+
+function interactionFor(visualBasis, stateId, actionId) {
+  const interaction = visualBasis.interaction_slots.find(
+    (candidate) => candidate.state_id === stateId && candidate.action_id === actionId,
+  );
+  expect(interaction, `${stateId}: отсутствует semantic slot для ${actionId}`).toBeTruthy();
+  return interaction;
+}
+
+function slotForInteraction(visualBasis, stateId, actionId) {
+  const binding = bindingForState(visualBasis, stateId);
+  const interaction = interactionFor(visualBasis, stateId, actionId);
+  const slot = binding.slots.find((candidate) => candidate.id === interaction.slot_id);
+  expect(slot, `${stateId}: отсутствует slot ${interaction.slot_id}`).toBeTruthy();
+  return slot;
+}
+
+function prototypeScene(page) {
+  return page.locator("[data-prototype-scene]");
+}
+
+function expectedDemoAssetPath(sourcePath) {
+  expect(sourcePath).toMatch(/^source\/(?:bases|patches)\/[a-z0-9-]+\.png$/u);
+  return `assets/${sourcePath.slice("source/".length)}`;
+}
+
+function expectedRasterPaths(binding) {
+  return [
+    expectedDemoAssetPath(binding.base_path),
+    ...binding.slots
+      .map((slot) => slot.visible_patch_path)
+      .filter(Boolean)
+      .map((sourcePath) => expectedDemoAssetPath(sourcePath)),
+  ].sort((left, right) => left.localeCompare(right, "en"));
+}
+
+function expectedPortableRasterMembers(visualBasis) {
+  return visualBasis.state_bindings
+    .flatMap((binding) => [
+      `demo/${expectedDemoAssetPath(binding.base_path)}`,
+      ...binding.slots
+        .map((slot) => slot.visible_patch_path)
+        .filter(Boolean)
+        .map((sourcePath) => `demo/${expectedDemoAssetPath(sourcePath)}`),
+    ])
+    .sort((left, right) => left.localeCompare(right, "en"));
+}
+
+function assertPortableRuntimeAssetsInDemo() {
+  for (const relativePath of ["demo/index.html", "demo/app.js", "demo/data.js", "demo/styles.css"]) {
+    const source = fs.readFileSync(path.join(packageRoot, relativePath), "utf8");
+    expect(
+      source,
+      `${relativePath}: демо не должно зависеть от исходных source/** при прямом file:// открытии`,
+    ).not.toMatch(/\.\.\//u);
+    expect(
+      source,
+      `${relativePath}: исполняемое демо не должно ссылаться на source/bases, source/patches или source/fonts`,
+    ).not.toMatch(/source\/(?:bases|patches|fonts)\//u);
+  }
+}
 
 function demoUrl(targetDemoPath = null) {
   return targetDemoPath
     ? pathToFileURL(targetDemoPath)
     : new URL("/demo/index.html", virtualOrigin);
-}
-
-function extractPortableArchive(targetRoot) {
-  const members = readStoredZip(fs.readFileSync(portableArchivePath));
-  for (const [relativePath, content] of members) {
-    const targetPath = path.join(targetRoot, ...relativePath.split("/"));
-    fs.mkdirSync(path.dirname(targetPath), { recursive: true });
-    fs.writeFileSync(targetPath, content);
-  }
-  return [...members.keys()];
-}
-
-async function openState(page, stateId, targetDemoPath = null) {
-  const url = demoUrl(targetDemoPath);
-  url.searchParams.set("state", stateId);
-  await page.goto(url.href, { waitUntil: "load" });
-  await page.evaluate(() => document.fonts.ready);
-  await expect(page.locator(".phone")).toHaveAttribute("data-state-id", stateId);
-}
-
-async function collectGeometry(page) {
-  return page.evaluate(() => {
-    const phone = document.querySelector(".phone");
-    const phoneRect = phone.getBoundingClientRect();
-    const visible = (element) => {
-      const style = getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      return (
-        style.display !== "none" &&
-        style.visibility !== "hidden" &&
-        rect.width > 0 &&
-        rect.height > 0
-      );
-    };
-    const intersection = (left, right) => {
-      const width = Math.max(0, Math.min(left.right, right.right) - Math.max(left.left, right.left));
-      const height = Math.max(
-        0,
-        Math.min(left.bottom, right.bottom) - Math.max(left.top, right.top),
-      );
-      return { width, height, area: width * height };
-    };
-    const interactive = [...phone.querySelectorAll("button:not([disabled])")].filter(visible);
-    const textNodes = [
-      ...phone.querySelectorAll(
-        ".message-card h2, .message-card h3, .message-card p, .message-card li, .message-card span, .notification-card h3, .notification-card p, .notification-card span, .notification-card time, .viewer-card h2, .viewer-card p, .viewer-card li, .button",
-      ),
-    ].filter(visible);
-    const actionGroups = [...phone.querySelectorAll(".actions")].map((group) => ({
-      width: group.getBoundingClientRect().width,
-      items: [...group.querySelectorAll(":scope > button")].filter(visible).map((button) => {
-        const rect = button.getBoundingClientRect();
-        return {
-          id: button.getAttribute("data-action-id"),
-          left: rect.left,
-          right: rect.right,
-          top: rect.top,
-          bottom: rect.bottom,
-          width: rect.width,
-          height: rect.height,
-        };
-      }),
-    }));
-    const actionIssues = [];
-    for (const group of actionGroups) {
-      for (let leftIndex = 0; leftIndex < group.items.length; leftIndex += 1) {
-        for (let rightIndex = leftIndex + 1; rightIndex < group.items.length; rightIndex += 1) {
-          const left = group.items[leftIndex];
-          const right = group.items[rightIndex];
-          const overlapWidth =
-            Math.min(left.right, right.right) - Math.max(left.left, right.left);
-          const overlapHeight =
-            Math.min(left.bottom, right.bottom) - Math.max(left.top, right.top);
-          if (overlapWidth > 1 && overlapHeight > 1) {
-            actionIssues.push(`${left.id} пересекается с ${right.id}`);
-            continue;
-          }
-          const horizontalGap = Math.max(
-            right.left - left.right,
-            left.left - right.right,
-            0,
-          );
-          const verticalGap = Math.max(
-            right.top - left.bottom,
-            left.top - right.bottom,
-            0,
-          );
-          const gap = Math.max(horizontalGap, verticalGap);
-          if (gap > 0 && gap < 8) {
-            actionIssues.push(`${left.id} и ${right.id}: интервал ${gap}px`);
-          }
-        }
-      }
-    }
-    return {
-      documentScrollWidth: document.documentElement.scrollWidth,
-      documentScrollHeight: document.documentElement.scrollHeight,
-      viewportWidth: window.innerWidth,
-      viewportHeight: window.innerHeight,
-      phone: {
-        left: phoneRect.left,
-        right: phoneRect.right,
-        top: phoneRect.top,
-        bottom: phoneRect.bottom,
-        width: phoneRect.width,
-        height: phoneRect.height,
-        transform: getComputedStyle(phone).transform,
-      },
-      actions: interactive.map((action) => {
-        const rect = action.getBoundingClientRect();
-        return {
-          id:
-            action.getAttribute("data-action-id") ||
-            action.getAttribute("aria-label") ||
-            action.textContent.trim(),
-          width: rect.width,
-          height: rect.height,
-          scrollWidth: action.scrollWidth,
-          clientWidth: action.clientWidth,
-          scrollHeight: action.scrollHeight,
-          clientHeight: action.clientHeight,
-          left: rect.left,
-          right: rect.right,
-          top: rect.top,
-          bottom: rect.bottom,
-          visibleArea: intersection(rect, phoneRect).area,
-          area: rect.width * rect.height,
-          fullyInsidePhone:
-            rect.left >= phoneRect.left - 1 &&
-            rect.right <= phoneRect.right + 1 &&
-            rect.top >= phoneRect.top - 1 &&
-            rect.bottom <= phoneRect.bottom + 1,
-        };
-      }),
-      textOverflow: textNodes
-        .filter(
-          (node) =>
-            node.scrollWidth > node.clientWidth + 1 ||
-            node.scrollHeight > node.clientHeight + 1,
-        )
-        .map((node) => ({
-          tag: node.tagName,
-          className: node.className,
-          text: node.textContent.trim().slice(0, 80),
-          scrollWidth: node.scrollWidth,
-          clientWidth: node.clientWidth,
-          scrollHeight: node.scrollHeight,
-          clientHeight: node.clientHeight,
-        })),
-      actionGroups,
-      actionIssues,
-      fontLoaded: document.fonts.check('16px "Noto Sans"'),
-      resourceUrls: [
-        ...new Set([
-          ...[...document.querySelectorAll("[src], [href]")].map(
-            (element) => element.src || element.href,
-          ),
-          ...performance.getEntriesByType("resource").map((entry) => entry.name),
-        ]),
-      ],
-    };
-  });
-}
-
-function assertLocalResources(resourceUrls, expectedPackageRoot = packageRoot) {
-  for (const resourceUrl of resourceUrls) {
-    const url = new URL(resourceUrl);
-    expect(["file:", "http:", "data:", "blob:", "about:"]).toContain(url.protocol);
-    if (url.protocol === "http:") {
-      expect(url.origin).toBe(virtualOrigin);
-      const relativePath = decodeURIComponent(url.pathname).replace(/^\/+/u, "");
-      const resourcePath = path.resolve(packageRoot, relativePath);
-      const resolvedRoot = path.resolve(packageRoot);
-      expect(
-        resourcePath === resolvedRoot || resourcePath.startsWith(`${resolvedRoot}${path.sep}`),
-      ).toBe(true);
-    }
-    if (url.protocol === "file:") {
-      const resourcePath = path.resolve(fileURLToPath(url));
-      const resolvedRoot = path.resolve(expectedPackageRoot);
-      expect(
-        resourcePath === resolvedRoot || resourcePath.startsWith(`${resolvedRoot}${path.sep}`),
-      ).toBe(true);
-    }
-  }
-}
-
-function isAxeStylesheetConnectNoise(message) {
-  const chromiumMessage =
-    `Connecting to '${demoStylesUrl}' violates the following Content Security Policy ` +
-    `directive: "connect-src 'none'". The action has been blocked.`;
-  const webkitMessage =
-    `Refused to connect to ${demoStylesUrl} because it does not appear in the ` +
-    "connect-src directive of the Content Security Policy.";
-  return message === chromiumMessage || message === webkitMessage;
 }
 
 async function installVirtualPackageRoute(context) {
@@ -254,7 +142,7 @@ async function installVirtualPackageRoute(context) {
       await route.abort("blockedbyclient");
       return;
     }
-    const relativePath = decodeURIComponent(requestUrl.pathname).replace(/^\/+/u, "");
+    const relativePath = decodeURIComponent(requestUrl.pathname).replace(/^\/+/, "");
     const targetPath = path.resolve(packageRoot, relativePath);
     const resolvedRoot = path.resolve(packageRoot);
     if (
@@ -275,10 +163,148 @@ async function installVirtualPackageRoute(context) {
   });
 }
 
-test.beforeEach(async ({ context, page }) => {
+async function openPrototypeScene(page, stateId, targetDemoPath = null) {
+  const url = demoUrl(targetDemoPath);
+  url.searchParams.set("state", stateId);
+  await page.goto(url.href, { waitUntil: "load" });
+  await page.evaluate(() => document.fonts.ready);
+  await expect(prototypeScene(page)).toHaveCount(1);
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", stateId);
+}
+
+async function assertRegisteredRasterScene(page, binding) {
+  const images = await prototypeScene(page).locator("img").evaluateAll((nodes) =>
+    nodes.map((node) => ({
+      src: node.getAttribute("src"),
+      alt: node.getAttribute("alt"),
+      ariaHidden: node.getAttribute("aria-hidden"),
+      complete: node.complete,
+      naturalWidth: node.naturalWidth,
+      naturalHeight: node.naturalHeight,
+    })),
+  );
+  expect(
+    images.map((image) => image.src).sort((left, right) => left.localeCompare(right, "en")),
+  ).toEqual(expectedRasterPaths(binding));
+  for (const image of images) {
+    expect(image.src).toMatch(/^assets\/(?:bases|patches)\/[a-z0-9-]+\.png$/u);
+    expect(image.alt).toBe("");
+    expect(image.ariaHidden).toBe("true");
+    expect(image.complete).toBe(true);
+    expect(image.naturalWidth).toBeGreaterThan(0);
+    expect(image.naturalHeight).toBeGreaterThan(0);
+  }
+  const base = images.find((image) => image.src === expectedDemoAssetPath(binding.base_path));
+  expect(base, `${binding.state_id}: отсутствует нативная PNG-основа`).toBeTruthy();
+  expect(base.naturalWidth).toBe(binding.natural_dimensions.width);
+  expect(base.naturalHeight).toBe(binding.natural_dimensions.height);
+}
+
+async function assertSemanticSlots(page, binding) {
+  for (const slot of binding.slots) {
+    await expect(
+      prototypeScene(page).locator(
+        `[data-slot-id="${slot.id}"][data-semantic-control-id="${slot.semantic_control_id}"]`,
+      ),
+    ).toHaveCount(1);
+  }
+}
+
+async function activateSlotAction(page, contracts, stateId, actionId, useKeyboard = false) {
+  const slot = slotForInteraction(contracts.visualBasis, stateId, actionId);
+  const control = prototypeScene(page).locator(
+    `[data-slot-id="${slot.id}"][data-semantic-control-id="${slot.semantic_control_id}"][data-action-id="${actionId}"]`,
+  );
+  expect(await control.count(), `${stateId}: ${actionId} не привязан к semantic slot`).toBeGreaterThan(0);
+  const action = actionFor(contracts.journey, actionId);
+  await expect(control.first()).toHaveAttribute("data-action-id", actionId);
+  if (useKeyboard) {
+    await control.first().focus();
+    await page.keyboard.press("Enter");
+  } else {
+    await control.first().click();
+  }
+  return action;
+}
+
+function assertNoManualPhoneShellInSource() {
+  const css = fs.readFileSync(path.join(packageRoot, "demo/styles.css"), "utf8");
+  const app = fs.readFileSync(path.join(packageRoot, "demo/app.js"), "utf8");
+  expect(css).not.toMatch(/(?:^|[^\w-])\.phone(?![\w-])/mu);
+  expect(css).not.toMatch(/\.phone-(?:header|content|composer)\b|\.clock-(?:face|hand)\b/u);
+  expect(app).not.toMatch(/className:\s*["']phone(?:["']|\s)/u);
+}
+
+async function installControlledTimerSeam(page) {
+  await page.addInitScript(() => {
+    const state = { nextId: 1_000_000, now: 0, timers: new Map() };
+    const nativeSetTimeout = window.setTimeout.bind(window);
+    const nativeClearTimeout = window.clearTimeout.bind(window);
+    function nextDueTimer(targetTime) {
+      return [...state.timers.entries()]
+        .filter(([, timer]) => timer.dueAt <= targetTime)
+        .sort(([leftId, left], [rightId, right]) => left.dueAt - right.dueAt || leftId - rightId)[0];
+    }
+    window.setTimeout = (callback, delay = 0, ...args) => {
+      if (typeof callback !== "function") return nativeSetTimeout(callback, delay, ...args);
+      const id = state.nextId;
+      state.nextId += 1;
+      state.timers.set(id, {
+        callback,
+        args,
+        dueAt: state.now + (Number.isFinite(Number(delay)) ? Math.max(0, Number(delay)) : 0),
+      });
+      return id;
+    };
+    window.clearTimeout = (id) => {
+      if (!state.timers.delete(id)) nativeClearTimeout(id);
+    };
+    Object.defineProperty(window, "__lisaPrototypeTestClock", {
+      configurable: false,
+      value: Object.freeze({
+        advanceBy(milliseconds) {
+          if (!Number.isSafeInteger(milliseconds) || milliseconds < 0) {
+            throw new Error("Тестовые часы принимают только неотрицательные целые миллисекунды");
+          }
+          const targetTime = state.now + milliseconds;
+          for (let due = nextDueTimer(targetTime); due; due = nextDueTimer(targetTime)) {
+            const [id, timer] = due;
+            state.timers.delete(id);
+            state.now = timer.dueAt;
+            timer.callback(...timer.args);
+          }
+          state.now = targetTime;
+          return Object.freeze({ now: state.now, pending: state.timers.size });
+        },
+      }),
+    });
+  });
+}
+
+async function advanceControlledClock(page, milliseconds) {
+  return page.evaluate((duration) => {
+    if (!window.__lisaPrototypeTestClock) {
+      throw new Error("Браузер-независимые тестовые часы не установлены");
+    }
+    return window.__lisaPrototypeTestClock.advanceBy(duration);
+  }, milliseconds);
+}
+
+function extractPortableArchive(targetRoot, archivePath) {
+  const members = readStoredZip(fs.readFileSync(archivePath));
+  for (const [relativePath, content] of members) {
+    const targetPath = path.join(targetRoot, ...relativePath.split("/"));
+    fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+    fs.writeFileSync(targetPath, content);
+  }
+  return [...members.keys()];
+}
+
+test.beforeEach(async ({ context, page }, testInfo) => {
   const attemptedNetwork = [];
   const consoleErrors = [];
   const pageErrors = [];
+  const captureToolWarnings = [];
   page.on("request", (request) => {
     const requestUrl = new URL(request.url());
     if (
@@ -289,7 +315,16 @@ test.beforeEach(async ({ context, page }) => {
     }
   });
   page.on("console", (message) => {
-    if (message.type() === "error") consoleErrors.push(message.text());
+    if (message.type() !== "error") return;
+    if (
+      testInfo.project.name === "webkit" &&
+      message.text() === webkitCaptureToolWarning &&
+      captureToolWarnings.length === 0
+    ) {
+      captureToolWarnings.push(message.text());
+      return;
+    }
+    consoleErrors.push(message.text());
   });
   page.on("pageerror", (error) => pageErrors.push(error.message));
   await installVirtualPackageRoute(context);
@@ -302,1109 +337,457 @@ test.beforeEach(async ({ context, page }) => {
   page.__attemptedNetwork = attemptedNetwork;
   page.__consoleErrors = consoleErrors;
   page.__pageErrors = pageErrors;
+  page.__captureToolWarnings = captureToolWarnings;
 });
 
-for (const stateId of allStateIds) {
-  test(`${stateId}: доступность, геометрия и автономность`, async ({ page, browserName }) => {
-    test.skip(
-      browserName === "webkit" && !webkitCriticalStateIds.has(stateId),
-      "WebKit проверяет согласованный критический путь",
-    );
-    await openState(page, stateId);
-    const state = statesById.get(stateId);
-    const geometry = await collectGeometry(page);
-    expect(geometry.documentScrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-    expect(geometry.phone.left).toBeGreaterThanOrEqual(-1);
-    expect(geometry.phone.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-    expect(geometry.phone.width).toBeLessThanOrEqual(375);
-    expect(geometry.phone.height).toBeLessThanOrEqual(812);
-    expect(geometry.phone.transform).toBe("none");
-    expect(geometry.fontLoaded).toBe(true);
-    expect(geometry.textOverflow).toEqual([]);
-    expect(geometry.actionIssues).toEqual([]);
-    for (const action of geometry.actions) {
-      expect(action.width, `${action.id}: ширина области нажатия`).toBeGreaterThanOrEqual(44);
-      expect(action.height, `${action.id}: высота области нажатия`).toBeGreaterThanOrEqual(44);
-      expect(action.scrollWidth, `${action.id}: горизонтальное переполнение`).toBeLessThanOrEqual(
-        action.clientWidth + 1,
-      );
-      expect(action.scrollHeight, `${action.id}: вертикальное переполнение`).toBeLessThanOrEqual(
-        action.clientHeight + 1,
-      );
-      expect(action.visibleArea, `${action.id}: действие не пересекается с телефоном`).toBeGreaterThan(
-        0,
-      );
-    }
-    const standaloneSurface =
-      state.kind === "viewer" || state.kind.startsWith("notification");
-    await expect(page.locator(".phone-composer")).toHaveCount(standaloneSurface ? 0 : 1);
-    assertLocalResources(geometry.resourceUrls);
-    expect(page.__consoleErrors).toEqual([]);
-    expect(page.__pageErrors).toEqual([]);
-    const axe = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-      .analyze();
-    expect(axe.violations).toEqual([]);
-    expect(page.__attemptedNetwork).toEqual([]);
-    const unexpectedAuditConsoleErrors = page.__consoleErrors.filter(
-      (message) => !isAxeStylesheetConnectNoise(message),
-    );
-    expect(unexpectedAuditConsoleErrors).toEqual([]);
-    expect(page.__pageErrors).toEqual([]);
+test("raster-base-local-overlay: HTML не содержит ручную CSS-оболочку телефона или нарисованные CSS-часы", async ({ page }) => {
+  const contracts = readRasterContracts();
+  assertNoManualPhoneShellInSource();
+  await openPrototypeScene(page, contracts.journey.initial_state_id);
+  await expect(
+    page.locator("main.phone, .phone-header, .phone-content, .phone-composer, .clock-face, .clock-hand"),
+  ).toHaveCount(0);
+});
+
+test("raster-base-local-overlay: каждый из 20 активных экранов показывает только зарегистрированную PNG-основу и локальные заплаты", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const sourceById = new Map(contracts.sourceCatalog.members.map((member) => [member.id, member]));
+  const activeSourceClasses = new Set(["active-basis", "active-variant", "optional-branch"]);
+
+  expect(contracts.visualBasis.rendering_pipeline).toBe("raster-base-local-overlay");
+  for (const stateId of activeStateIds(contracts)) {
+    const binding = bindingForState(contracts.visualBasis, stateId);
+    const source = sourceById.get(binding.base_id);
+    expect(source, `${stateId}: base_id отсутствует в source catalog`).toBeTruthy();
+    expect(activeSourceClasses.has(source.classification)).toBe(true);
+    await openPrototypeScene(page, stateId);
+    await assertRegisteredRasterScene(page, binding);
+    await assertSemanticSlots(page, binding);
+    await expect(prototypeScene(page).locator("svg, canvas")).toHaveCount(0);
+  }
+});
+
+test("raster-base-local-overlay: исходный экран 1.1 предоставляет реальное поле ИНН или названия поверх search-input-slot, а не через микрофон", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const initialBinding = bindingForState(
+    contracts.visualBasis,
+    contracts.journey.initial_state_id,
+  );
+  const searchSlot = initialBinding.slots.find((slot) => slot.id === "search-input-slot");
+  const microphoneSlot = initialBinding.slots.find(
+    (slot) => slot.semantic_control_id === "client-answer-microphone-control",
+  );
+
+  expect(contracts.journey.initial_state_id).toBe("lisa-client-answer");
+  expect(initialBinding.base_id).toBe("1.1");
+  expect(searchSlot).toEqual(
+    expect.objectContaining({
+      id: "search-input-slot",
+      semantic_control_id: "client-search-input",
+      semantic_role: "input",
+      rect: { x: 88, y: 1372, width: 305, height: 32 },
+      visible_patch_path: null,
+      visible_patch_sha256: null,
+    }),
+  );
+  expect(microphoneSlot).toEqual(
+    expect.objectContaining({
+      semantic_control_id: "client-answer-microphone-control",
+      semantic_role: "microphone",
+    }),
+  );
+
+  await openPrototypeScene(page, contracts.journey.initial_state_id);
+  const search = prototypeScene(page).getByRole("searchbox", {
+    name: contracts.journey.copy.search_placeholder,
   });
-}
+  await expect(search).toHaveAttribute("type", "search");
+  await expect(search).toHaveAttribute("data-slot-id", "search-input-slot");
+  await expect(search).toHaveAttribute("data-semantic-control-id", "client-search-input");
+  await expect(search).toHaveAttribute("data-action-id", "search-client");
+  await expect(search).not.toHaveAttribute(
+    "data-semantic-control-id",
+    "client-answer-microphone-control",
+  );
+  await search.fill("7700000000");
+  await search.press("Enter");
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-client-answer");
+});
 
-test("компоновка действий зависит от фактической ширины содержимого", async ({ page }) => {
-  for (const viewport of [
-    { width: 320, height: 812 },
-    { width: 375, height: 812 },
-    { width: 389, height: 812 },
-    { width: 390, height: 844 },
-    { width: 1280, height: 720 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await openState(page, "lisa-materials-ready");
-    const layout = await page.locator(".actions-materials").evaluate((group) => {
-      const width = group.getBoundingClientRect().width;
-      const boxes = [...group.querySelectorAll(":scope > .button")].map((item) => {
-        const rect = item.getBoundingClientRect();
-        return { top: Math.round(rect.top), left: Math.round(rect.left) };
-      });
-      return {
-        width,
-        firstRowCount: boxes.filter((box) => box.top === boxes[0].top).length,
-      };
+test("raster-base-local-overlay: один, несколько и ноль результатов сохраняют P1/P2-маршрут без раскрытия причины", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const [single, multiple, noResult] = contracts.journey.client_search.cases;
+  const initialStateId = contracts.journey.initial_state_id;
+
+  await openPrototypeScene(page, initialStateId);
+  let search = prototypeScene(page).getByRole("searchbox", {
+    name: contracts.journey.copy.search_placeholder,
+  });
+  await search.fill(single.query);
+  await search.press("Enter");
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", single.target_state_id);
+
+  await openPrototypeScene(page, initialStateId);
+  search = prototypeScene(page).getByRole("searchbox", {
+    name: contracts.journey.copy.search_placeholder,
+  });
+  await search.fill(multiple.query);
+  await search.press("Enter");
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", multiple.target_state_id);
+  const selectAction = await activateSlotAction(
+    page,
+    contracts,
+    multiple.target_state_id,
+    "select-client",
+    true,
+  );
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", selectAction.target_state_id);
+
+  await openPrototypeScene(page, initialStateId);
+  search = prototypeScene(page).getByRole("searchbox", {
+    name: contracts.journey.copy.search_placeholder,
+  });
+  await search.fill(noResult.query);
+  await search.press("Enter");
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", noResult.target_state_id);
+  await expect(prototypeScene(page)).not.toContainText(/недоступен|нет прав|не мой клиент|причина/iu);
+  await expect(prototypeScene(page).locator("[data-client-id]")).toHaveCount(0);
+});
+
+test("raster-base-local-overlay: справка доступна только для my-клиента по данным договора, без отдельного not-my-контроля", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const { client_search: clientSearch, invariants } = contracts.journey;
+  const candidatesByRelationship = new Map(
+    clientSearch.candidates.map((candidate) => [candidate.relationship, candidate]),
+  );
+  const myClient = candidatesByRelationship.get("my");
+  const notMyClient = candidatesByRelationship.get("not-my");
+  const multipleCase = clientSearch.cases.find((candidate) => candidate.id === "multiple-clients");
+  const selectionAction = actionFor(contracts.journey, "select-client");
+  const referenceAction = actionFor(contracts.journey, "show-preparation-reference");
+  const selectionSlot = slotForInteraction(
+    contracts.visualBasis,
+    multipleCase?.target_state_id,
+    "select-client",
+  );
+  const suggestionSlot = slotForInteraction(
+    contracts.visualBasis,
+    "lisa-client-answer",
+    "show-preparation-reference",
+  );
+
+  expect(myClient, "Договор обязан явно пометить одного клиента как my").toBeTruthy();
+  expect(notMyClient, "Договор обязан явно пометить одного клиента как not-my").toBeTruthy();
+  expect(multipleCase, "Договор обязан задавать сценарий выбора нескольких клиентов").toBeTruthy();
+  expect(multipleCase.candidate_ids).toEqual(expect.arrayContaining([myClient.id, notMyClient.id]));
+  expect(referenceAction).toEqual(
+    expect.objectContaining({
+      availability: "my-client-only",
+      not_my_client_visibility: "not-rendered",
+    }),
+  );
+  expect(invariants).toEqual(
+    expect.arrayContaining([
+      "not-my-client-control-is-never-visible",
+      "not-my-client-preparation-suggestion-is-not-rendered",
+    ]),
+  );
+  expect(clientSearch.forbidden_control_ids).toContain("not-my-client");
+
+  async function selectFromMultipleCandidates(candidate) {
+    await openPrototypeScene(page, contracts.journey.initial_state_id);
+    const search = prototypeScene(page).getByRole("searchbox", {
+      name: contracts.journey.copy.search_placeholder,
     });
-    expect(layout.firstRowCount).toBe(layout.width >= 356 ? 2 : 1);
-  }
-});
+    await search.fill(multipleCase.query);
+    await search.press("Enter");
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", multipleCase.target_state_id);
 
-test("неизвестное и повторённое состояние открывает безопасную ошибку", async ({ page }) => {
-  for (const search of [
-    "?state=unknown",
-    "?state=lisa-materials-ready&state=lisa-offline",
-    "?state=%3Cscript%3E",
-  ]) {
-    const url = demoUrl();
-    url.search = search;
-    await page.goto(url.href);
-    await expect(page.getByRole("alert")).toContainText("Не удалось открыть состояние");
-    await expect(page.getByRole("button", { name: "Открыть начало" })).toBeVisible();
+    const control = prototypeScene(page).locator(
+      `[data-slot-id="${selectionSlot.id}"][data-semantic-control-id="${selectionSlot.semantic_control_id}"][data-action-id="select-client"][data-client-id="${candidate.id}"]`,
+    );
+    await expect(control).toHaveCount(1);
+    await expect(control).toHaveAttribute("data-client-relationship", candidate.relationship);
+    await expect(control).toHaveAccessibleName(new RegExp(candidate.display_name, "u"));
+    await control.click();
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", selectionAction.target_state_id);
   }
-});
 
-test("основной браузерный профиль использует безопасный виртуальный адрес", async ({
-  page,
-}) => {
-  await openState(page, "lisa-materials-ready");
-  const currentUrl = new URL(page.url());
-  expect(currentUrl.origin).toBe("http://lisa.invalid");
-  expect(currentUrl.pathname).toBe("/demo/index.html");
-  expect(page.__attemptedNetwork).toEqual([]);
-});
+  const suggestionControl = () =>
+    prototypeScene(page).locator(
+      `[data-slot-id="${suggestionSlot.id}"][data-semantic-control-id="${suggestionSlot.semantic_control_id}"][data-action-id="show-preparation-reference"]`,
+    );
+  const suggestionRaster = () =>
+    prototypeScene(page).locator(`img[src="${expectedDemoAssetPath(suggestionSlot.visible_patch_path)}"]`);
 
-test("стартовый экран сохраняет структуру итоговых материалов вызывающего агента", async ({
-  page,
-}) => {
-  await openState(page, "lisa-materials-ready");
-  for (const heading of [
-    "Участники встречи",
-    "Повестка встречи",
-    "Сотрудничество",
-    "Предодобренные предложения",
-    "Договорённости с прошлой встречи",
-    "Риски и инсайты о других банках",
-    "С чего начать диалог",
-  ]) {
-    await expect(page.getByRole("heading", { name: heading })).toHaveCount(1);
-  }
-  await expect(page.getByRole("button", { name: "Заказать презентацию" })).toBeVisible();
-  await expect(page.getByText("Холдинг ГК Достовалова")).toBeVisible();
-  await expect(page.getByText("ИП Достовалова", { exact: true })).toBeVisible();
-  await expect(page.getByText("Достовалова Ирина Антоновна")).toBeVisible();
-  await expect(page.getByText("Савёлов Антон Игоревич")).toBeVisible();
-  await expect(page.getByText("Эквайринг", { exact: true })).toBeVisible();
-  await expect(page.getByText("1 250 млн ₽", { exact: true })).toBeVisible();
-  for (const label of [
-    "Обязательно",
-    "Дополнительно",
-    "Наблюдение",
-    "Договорённость",
-    "Новость",
-  ]) {
-    await expect(page.locator(".material-tag", { hasText: label }).first()).toBeVisible();
-  }
-  for (const internalValue of [
-    "mandatory",
-    "optional",
-    "insight",
-    "agreement",
-    "news",
-  ]) {
+  await selectFromMultipleCandidates(notMyClient);
+  await expect(suggestionControl()).toHaveCount(0);
+  await expect(suggestionRaster()).toHaveCount(0);
+  for (const controlId of clientSearch.forbidden_control_ids) {
     await expect(
-      page.locator(".material-tag").filter({ hasText: new RegExp(`^${internalValue}$`, "u") }),
+      prototypeScene(page).locator(
+        `[data-semantic-control-id="${controlId}"], [data-control-id="${controlId}"], #${controlId}`,
+      ),
     ).toHaveCount(0);
   }
-  await expect(page.locator(".phone-status .time")).toHaveText("13:24");
-  await expect(page.locator('a[href^="http"]')).toHaveCount(0);
+  await expect(prototypeScene(page).getByRole("button", { name: /не мой клиент/iu })).toHaveCount(0);
+
+  await selectFromMultipleCandidates(myClient);
+  await expect(suggestionControl()).toHaveCount(1);
+  await expect(suggestionRaster()).toHaveCount(1);
 });
 
-test("заказ использует точную восьмисекундную шкалу и конечную анимацию часов", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await page.emulateMedia({ reducedMotion: "no-preference" });
-  await openState(page, "lisa-materials-ready");
-  await page.getByRole("button", { name: "Заказать презентацию" }).click();
+test("raster-base-local-overlay: semantic slots проводят выбор my-клиента через ответ и мастер 2.*–5.* к заказу", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const multipleCase = contracts.journey.client_search.cases.find(
+    (candidate) => candidate.id === "multiple-clients",
+  );
+  const myClient = contracts.journey.client_search.candidates.find(
+    (candidate) => candidate.relationship === "my",
+  );
+  expect(multipleCase).toBeTruthy();
+  expect(myClient).toBeTruthy();
+  const selectionSlot = slotForInteraction(
+    contracts.visualBasis,
+    multipleCase.target_state_id,
+    "select-client",
+  );
+  const directedRoute = [
+    ["lisa-client-answer", "show-preparation-reference"],
+    ["lisa-preparation-loading", "continue-preparation"],
+    ["lisa-preparation-type", "choose-preparation-type"],
+    ["lisa-preparation-topics", "open-topic-details"],
+    ["lisa-preparation-topic-details", "add-custom-topic"],
+    ["lisa-preparation-custom-topic", "confirm-custom-topic"],
+    ["lisa-preparation-custom-topic-added", "cancel-topic"],
+    ["lisa-preparation-topic-cancelled", "open-participants"],
+    ["lisa-preparation-participants-empty", "add-participant"],
+    ["lisa-preparation-participants", "expand-participants"],
+    ["lisa-preparation-participants-expanded", "choose-holding-participants"],
+    ["lisa-preparation-holding-participants", "gather-materials"],
+    ["lisa-materials-gathering", "show-materials-summary"],
+    ["lisa-materials-summary", "open-full-reference"],
+    ["lisa-materials-full-reference", "open-presentation-order"],
+  ];
 
-  await page.clock.runFor(599);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-order-submitting",
-  );
-  await page.clock.runFor(1);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  await expect(page.getByRole("status")).toContainText("Презентация готовится");
-  await expect(page.getByRole("heading", { name: "Презентация готовится" })).toBeFocused();
-  const overlay = page.locator('[data-region-id="time-lapse-overlay"]');
-  await expect(overlay).toBeVisible();
-  await expect(overlay).toContainText("Проходит 20 минут");
-  await expect(overlay).toHaveCSS("pointer-events", "none");
-  const initialMinuteTransform = await overlay
-    .locator(".clock-hand-minute")
-    .evaluate((node) => getComputedStyle(node).transform);
-
-  await page.clock.runFor(6999);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  const finalMinuteTransform = await overlay
-    .locator(".clock-hand-minute")
-    .evaluate((node) => getComputedStyle(node).transform);
-  expect(finalMinuteTransform).not.toBe(initialMinuteTransform);
-  await page.clock.runFor(400);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  await page.clock.runFor(1);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-  );
-  await expect(overlay).toHaveCount(0);
-  await expect(page.locator(".phone-status .time")).toHaveText("13:44");
-});
-
-test("прямая ссылка на подготовку не запускает автоматическую готовность", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await openState(page, "lisa-presentation-generating");
-  await page.clock.runFor(10000);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-});
-
-test("колокольчик не отменяет и не ускоряет фоновую подготовку", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await openState(page, "lisa-materials-ready");
-  await page.getByRole("button", { name: "Заказать презентацию" }).click();
-  await page.clock.runFor(600);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-
-  await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-empty",
-  );
-  await expect(
-    page.getByRole("button", { name: "Презентация готова, сегодня в 13:44" }),
-  ).toHaveCount(0);
-  await page.getByRole("button", { name: "Закрыть уведомления" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  await expect(page.getByRole("button", { name: "Уведомления", exact: true })).toBeFocused();
-
-  await page.clock.runFor(6999);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  await page.clock.runFor(400);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-  await page.clock.runFor(1);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-  );
-});
-
-test("возврат из центра уведомлений кнопкой браузера не отменяет подготовку", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await openState(page, "lisa-materials-ready");
-  await page.getByRole("button", { name: "Заказать презентацию" }).click();
-  await page.clock.runFor(600);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-
-  await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-empty",
-  );
-  await page.goBack();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-
-  await page.clock.runFor(7400);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-  );
-});
-
-test("готовность в открытом центре уведомлений не оставляет в завершённой генерации", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await openState(page, "lisa-materials-ready");
-  await page.getByRole("button", { name: "Заказать презентацию" }).click();
-  await page.clock.runFor(600);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-
-  await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-empty",
-  );
-  await page.clock.runFor(7400);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-  );
-
-  await page.goBack();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-materials-ready",
-  );
-  await page.clock.runFor(20000);
-  await expect(page.locator(".phone")).not.toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-  );
-});
-
-test("при сокращённом движении часы сохраняют время, но не вращаются", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(browserName !== "chromium", "Управляемое время проверяется один раз в Chromium");
-  const startTime = new Date("2026-07-16T10:24:00Z");
-  await page.clock.install({ time: startTime });
-  await page.clock.pauseAt(startTime);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await openState(page, "lisa-materials-ready");
-  await page.getByRole("button", { name: "Заказать презентацию" }).click();
-  await page.clock.runFor(600);
-  const overlay = page.locator('[data-region-id="time-lapse-overlay"]');
-  await expect(overlay).toContainText("13:24 → 13:44");
-  const transformBefore = await overlay
-    .locator(".clock-hand-minute")
-    .evaluate((node) => getComputedStyle(node).transform);
-  await page.clock.runFor(6999);
-  const transformAfter = await overlay
-    .locator(".clock-hand-minute")
-    .evaluate((node) => getComputedStyle(node).transform);
-  expect(transformAfter).toBe(transformBefore);
-  await page.clock.runFor(401);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-  );
-});
-
-test("просмотрщик содержит три слайда, управление масштабом и отправку на почту", async ({
-  page,
-}) => {
-  await openState(page, "lisa-result-view-from-chat");
-  await expect(page.locator(".viewer-surface")).toBeVisible();
-  await expect(page.locator('[data-slide-id]')).toHaveCount(3);
-  await expect(page.getByText("1 из 3", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Предыдущий слайд" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Следующий слайд" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Увеличить" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Уменьшить" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Масштаб 100 %" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Отправить презентацию на почту" })).toBeVisible();
-  await expect(page.locator(".phone-header")).toHaveCount(0);
-  await expect(page.locator(".phone-composer")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /Уведомления/u })).toHaveCount(0);
-
-  await page.getByRole("button", { name: "Следующий слайд" }).click();
-  await expect(page.getByText("2 из 3", { exact: true })).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText(
-    "Слайд 2 из 3: Возможности и давление",
-  );
-  await page.getByRole("button", { name: "Увеличить" }).click();
-  await expect(page.getByRole("button", { name: "Масштаб 125 %" })).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText("Масштаб 125 %");
-  await page.getByRole("button", { name: "Масштаб 125 %" }).click();
-  await expect(page.getByRole("button", { name: "Масштаб 100 %" })).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText("Масштаб 100 %");
-  await page.keyboard.press("Escape");
-  await expect(page.locator(".phone")).toHaveAttribute("data-state-id", "lisa-returned-to-chat");
-
-  await openState(page, "lisa-result-view-from-notification");
-  const email = page.getByRole("button", { name: "Отправить презентацию на почту" });
-  await email.evaluate((button) => {
-    button.click();
-    button.click();
+  await openPrototypeScene(page, contracts.journey.initial_state_id);
+  const search = prototypeScene(page).getByRole("searchbox", {
+    name: contracts.journey.copy.search_placeholder,
   });
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-submitting",
+  await search.fill(multipleCase.query);
+  await search.press("Enter");
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", multipleCase.target_state_id);
+  const mySelectionControl = prototypeScene(page).locator(
+    `[data-slot-id="${selectionSlot.id}"][data-semantic-control-id="${selectionSlot.semantic_control_id}"][data-action-id="select-client"][data-client-id="${myClient.id}"][data-client-relationship="my"]`,
   );
-  await expect(page.getByRole("status")).toHaveText("");
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-sent",
-    { timeout: 2500 },
-  );
-  await expect(page.getByText("Вложения: PDF и PPTX.")).toHaveCount(1);
+  await expect(mySelectionControl).toHaveCount(1);
+  await mySelectionControl.click();
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-client-answer");
+
+  for (const [stateId, actionId] of directedRoute) {
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", stateId);
+    const action = await activateSlotAction(page, contracts, stateId, actionId);
+    expect(action.target_state_id, `${actionId}: отсутствует направленный target_state_id`).toBeTruthy();
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", action.target_state_id);
+  }
+  await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-order");
 });
 
-test("просмотрщик различает перелистывание и перемещение увеличенного слайда", async ({
-  page,
-}) => {
-  await openState(page, "lisa-result-view-from-chat");
-  const stage = page.locator(".viewer-stage");
-  const box = await stage.boundingBox();
-  expect(box).not.toBeNull();
-  const centerX = box.x + box.width / 2;
-  const centerY = box.y + box.height / 2;
-  await stage.dispatchEvent("pointerdown", {
-    pointerId: 1,
-    pointerType: "touch",
-    clientX: centerX + 70,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointermove", {
-    pointerId: 1,
-    pointerType: "touch",
-    clientX: centerX - 70,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerup", {
-    pointerId: 1,
-    pointerType: "touch",
-    clientX: centerX - 70,
-    clientY: centerY,
-  });
-  await expect(page.getByText("2 из 3", { exact: true })).toBeVisible();
+test("raster-base-local-overlay: заказ через semantic slot показывает точные состояния и статусы на 600 и 8000 мс", async ({ page }) => {
+  const contracts = readRasterContracts();
+  await installControlledTimerSeam(page);
 
-  await page.getByRole("button", { name: "Увеличить" }).click();
-  const activeSlide = page.locator('[data-slide-id="opportunities-and-pressure"]');
-  const before = await activeSlide.evaluate((node) => getComputedStyle(node).transform);
-  await stage.dispatchEvent("pointerdown", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointermove", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX + 36,
-    clientY: centerY + 20,
-  });
-  await stage.dispatchEvent("pointerup", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX + 36,
-    clientY: centerY + 20,
-  });
-  const after = await activeSlide.evaluate((node) => getComputedStyle(node).transform);
-  expect(after).not.toBe(before);
-  await expect(page.getByText("2 из 3", { exact: true })).toBeVisible();
-
-  await page.getByRole("button", { name: "Масштаб 125 %" }).click();
-  await stage.dblclick();
-  await expect(page.getByRole("button", { name: "Масштаб 200 %" })).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.locator(".phone")).toHaveAttribute("data-state-id", "lisa-returned-to-chat");
-});
-
-test("двойное касание увеличивает слайд в мобильной модели браузера", async ({
-  browser,
-}) => {
-  const context = await browser.newContext({
-    viewport: { width: 390, height: 844 },
-    hasTouch: true,
-    isMobile: true,
-    locale: "ru-RU",
-    serviceWorkers: "block",
-  });
-  await installVirtualPackageRoute(context);
-  const touchPage = await context.newPage();
-  try {
-    await openState(touchPage, "lisa-result-view-from-chat");
-    const box = await touchPage.locator(".viewer-stage").boundingBox();
-    expect(box).not.toBeNull();
-    const x = box.x + box.width / 2;
-    const y = box.y + box.height / 2;
-    await touchPage.touchscreen.tap(x, y);
-    await touchPage.waitForTimeout(80);
-    await touchPage.touchscreen.tap(x, y);
+  for (const reducedMotion of ["no-preference", "reduce"]) {
+    await page.emulateMedia({ reducedMotion });
+    await openPrototypeScene(page, "lisa-presentation-order");
+    const order = await activateSlotAction(
+      page,
+      contracts,
+      "lisa-presentation-order",
+      "order-presentation",
+    );
+    expect(order.target_state_id).toBeNull();
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-order");
     await expect(
-      touchPage.getByRole("button", { name: "Масштаб 200 %" }),
-    ).toBeVisible();
-  } finally {
-    await context.close();
+      prototypeScene(page).locator('[data-semantic-control-id="presentation-generating-status"]'),
+    ).toHaveCount(0);
+
+    await advanceControlledClock(page, 599);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-order");
+    await advanceControlledClock(page, 1);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-generating");
+    const generating = prototypeScene(page).locator(
+      '[data-slot-id="visible-patch-generating"][data-semantic-control-id="presentation-generating-status"]',
+    );
+    await expect(generating).toHaveAttribute("role", "status");
+    await expect(generating).toHaveText(contracts.journey.copy.generation_started);
+
+    await advanceControlledClock(page, 6999);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-generating");
+    await advanceControlledClock(page, 1);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-generating");
+    await advanceControlledClock(page, 399);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-generating");
+    await advanceControlledClock(page, 1);
+    await expect(prototypeScene(page)).toHaveAttribute("data-state-id", "lisa-presentation-sent");
+    const sent = prototypeScene(page).locator(
+      '[data-slot-id="visible-patch-sent"][data-semantic-control-id="presentation-sent-status"]',
+    );
+    await expect(sent).toHaveAttribute("role", "status");
+    await expect(sent).toHaveText(contracts.journey.copy.presentation_sent);
   }
 });
 
-test("свайп между одиночными касаниями не считается двойным касанием", async ({ page }) => {
-  await openState(page, "lisa-result-view-from-chat");
-  const stage = page.locator(".viewer-stage");
-  const box = await stage.boundingBox();
-  expect(box).not.toBeNull();
-  const centerX = box.x + box.width / 2;
-  const centerY = box.y + box.height / 2;
+test("raster-base-local-overlay: P3/P4 не получают основу, semantic slot, внешнюю сеть, почту или файловую поверхность", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const deferredSourceIds = contracts.sourceCatalog.members
+    .filter((member) => member.classification === "deferred-q4")
+    .map((member) => member.id);
+  const activeBaseIds = new Set(contracts.visualBasis.state_bindings.map((binding) => binding.base_id));
 
-  await stage.dispatchEvent("pointerdown", {
-    pointerId: 1,
-    pointerType: "touch",
-    clientX: centerX,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerup", {
-    pointerId: 1,
-    pointerType: "touch",
-    clientX: centerX,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerdown", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX + 70,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointermove", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX - 70,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerup", {
-    pointerId: 2,
-    pointerType: "touch",
-    clientX: centerX - 70,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerdown", {
-    pointerId: 3,
-    pointerType: "touch",
-    clientX: centerX,
-    clientY: centerY,
-  });
-  await stage.dispatchEvent("pointerup", {
-    pointerId: 3,
-    pointerType: "touch",
-    clientX: centerX,
-    clientY: centerY,
-  });
-
-  await expect(page.getByText("2 из 3", { exact: true })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Масштаб 100 %" })).toBeVisible();
-});
-
-test("каждый слайд целиком помещается в 16:9 на мобильных размерах", async ({ page }) => {
-  for (const viewport of [
-    { width: 390, height: 844 },
-    { width: 320, height: 568 },
-  ]) {
-    await page.setViewportSize(viewport);
-    await openState(page, "lisa-result-view-from-chat");
-    for (const [index, slide] of presentationPreview.slides.entries()) {
-      const geometry = await page
-        .locator(`[data-slide-id="${slide.id}"]`)
-        .evaluate((node) => ({
-          scrollHeight: node.scrollHeight,
-          clientHeight: node.clientHeight,
-          contentScrollHeight: node.querySelector(".slide-content").scrollHeight,
-          contentClientHeight: node.querySelector(".slide-content").clientHeight,
-        }));
-      expect(
-        geometry.scrollHeight,
-        `${viewport.width}x${viewport.height}: ${slide.id} выходит за слайд`,
-      ).toBeLessThanOrEqual(geometry.clientHeight + 1);
-      expect(
-        geometry.contentScrollHeight,
-        `${viewport.width}x${viewport.height}: содержимое ${slide.id} обрезано`,
-      ).toBeLessThanOrEqual(geometry.contentClientHeight + 1);
-      if (index < 2) {
-        await page.getByRole("button", { name: "Следующий слайд" }).click();
-      }
-    }
+  expect(deferredSourceIds).toEqual(["5.3", "5.6", "6.1", "6.2", "7.3"]);
+  for (const sourceId of deferredSourceIds) {
+    expect(activeBaseIds.has(sourceId), `${sourceId}: P3/P4 нельзя рендерить в активном MVP`).toBe(false);
   }
-});
-
-test("закреплённые действия просмотрщика полностью видимы на 320x568", async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 568 });
-  for (const stateId of [
+  for (const unregisteredStateId of [
+    "lisa-presentation-preview",
+    "lisa-presentation-viewer",
+    "lisa-notifications-list-unread",
     "lisa-result-view-from-chat",
-    "lisa-result-view-from-notification",
   ]) {
-    await openState(page, stateId);
-    const geometry = await collectGeometry(page);
-    for (const action of geometry.actions) {
-      expect(action.fullyInsidePhone, `${stateId}: ${action.id} обрезано телефоном`).toBe(true);
-    }
+    const url = demoUrl();
+    url.searchParams.set("state", unregisteredStateId);
+    await page.goto(url.href, { waitUntil: "load" });
+    await expect(prototypeScene(page)).toHaveAttribute(
+      "data-state-id",
+      contracts.journey.initial_state_id,
+    );
   }
-});
-
-test("основной путь автоматически доводит заказ до готовности и отправки письма", async ({
-  page,
-}) => {
-  await openState(page, "lisa-materials-ready");
-  const order = page.getByRole("button", { name: "Заказать презентацию" });
-  await order.evaluate((button) => {
-    button.click();
-    button.click();
-  });
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-order-submitting",
-  );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-    { timeout: 2000 },
-  );
-  await expect(page.locator('[data-entry-state-id="lisa-materials-ready"]')).toHaveCount(1);
-  await expect(page.locator('[data-entry-state-id="lisa-presentation-generating"]')).toHaveCount(1);
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-    { timeout: 10000 },
-  );
-  await expect(page.locator('[data-entry-state-id="lisa-materials-ready"]')).toHaveCount(1);
-  await expect(page.locator('[data-entry-state-id="lisa-presentation-generating"]')).toHaveCount(1);
-  await expect(page.locator('[data-entry-state-id="lisa-presentation-ready-unread"]')).toHaveCount(
-    1,
-  );
-  expect(
-    await page
-      .locator('[data-scroll-region="chat"] [data-entry-state-id]')
-      .evaluateAll((nodes) => nodes.map((node) => node.dataset.entryStateId)),
-  ).toEqual([
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-    "lisa-presentation-ready-unread",
-  ]);
-  await expect(page.getByRole("status")).toHaveText("Презентация готова");
-  await expect(page.getByRole("button", { name: "Уведомления, одно новое" })).toBeVisible();
-  await page.getByRole("button", { name: "Уведомления, одно новое" }).click();
-  await expect(page.locator('[data-notification-id="presentation-ready"]')).toHaveCount(1);
-  await page.getByRole("button", { name: "Закрыть уведомления" }).click();
-  const readyCard = page.getByRole("button", {
-    name: "Презентация готова. Открыть презентацию",
-  });
-  await readyCard.click();
-  await expect(page.getByText("PDF · только просмотр")).toBeVisible();
-  await expect(page.getByRole("status")).toHaveText("");
-  await expect(page.locator(".phone-composer")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: /Уведомления/u })).toHaveCount(0);
-  await page.getByRole("button", { name: "Закрыть презентацию" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute("data-state-id", "lisa-returned-to-chat");
-  await expect(page.locator('[data-entry-state-id="lisa-materials-ready"]')).toHaveCount(1);
-  await expect(page.locator('[data-entry-state-id="lisa-presentation-generating"]')).toHaveCount(1);
-  await expect(page.locator('[data-entry-state-id="lisa-returned-to-chat"]')).toHaveCount(1);
-  expect(
-    await page
-      .locator('[data-scroll-region="chat"] [data-entry-state-id]')
-      .evaluateAll((nodes) => nodes.map((node) => node.dataset.entryStateId)),
-  ).toEqual([
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-    "lisa-returned-to-chat",
-  ]);
+  await openPrototypeScene(page, contracts.journey.initial_state_id);
   await expect(
-    page.getByRole("button", { name: "Презентация готова. Открыть презентацию" }),
-  ).toBeFocused();
-  await page.getByRole("button", { name: "Отправить презентацию на почту" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-submitting",
-  );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-sent",
-    { timeout: 2500 },
-  );
-  await expect(page.getByRole("status")).toContainText("Презентация отправлена");
-  await expect(page.getByRole("heading", { name: "Презентация отправлена" })).toBeFocused();
-  await expect(page.getByText("Вложения: PDF и PPTX.", { exact: true })).toBeVisible();
-  expect(
-    await page
-      .locator('[data-scroll-region="chat"] [data-entry-state-id]')
-      .evaluateAll((nodes) => nodes.map((node) => node.dataset.entryStateId)),
-  ).toEqual([
-    "lisa-materials-ready",
-    "lisa-presentation-generating",
-    "lisa-returned-to-chat",
-    "lisa-presentation-email-sent",
-  ]);
+    prototypeScene(page).locator('a[href^="mailto:"], a[href*=".pdf" i], a[href*=".pptx" i]'),
+  ).toHaveCount(0);
   expect(page.__attemptedNetwork).toEqual([]);
+  expect(page.__consoleErrors).toEqual([]);
+  expect(page.__pageErrors).toEqual([]);
 });
 
-test("повторные попытки завершают заказ и отправку, а не застревают", async ({ page }) => {
-  await openState(page, "lisa-presentation-order-failed");
-  await page.getByRole("button", { name: "Повторить передачу" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-order-submitting",
+test("raster-base-local-overlay: прямое file:// открытие проверяемого demo/index.html загружает base и patch без source/**", async ({ page, browserName }) => {
+  test.skip(browserName !== "webkit", "Safari-дефект воспроизводится и принимается в WebKit");
+  const contracts = readRasterContracts();
+  assertPortableRuntimeAssetsInDemo();
+  await openPrototypeScene(
+    page,
+    contracts.journey.initial_state_id,
+    path.join(packageRoot, "demo/index.html"),
   );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-generating",
-    { timeout: 2000 },
-  );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-ready-unread",
-    { timeout: 10000 },
-  );
-
-  await openState(page, "lisa-presentation-email-partial-failure");
-  await page.getByRole("button", { name: "Повторить отправку PPTX" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-submitting",
-  );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-sent",
-    { timeout: 2500 },
-  );
-
-  await openState(page, "lisa-presentation-email-failed");
-  await page.getByRole("button", { name: "Повторить отправку" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-submitting",
-  );
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-presentation-email-sent",
-    { timeout: 2500 },
-  );
-
-  await openState(page, "lisa-offline");
-  await page.getByRole("button", { name: "Повторить открытие" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-result-view-from-chat",
+  expect(new URL(page.url()).protocol).toBe("file:");
+  await assertRegisteredRasterScene(
+    page,
+    bindingForState(contracts.visualBasis, contracts.journey.initial_state_id),
   );
 });
 
-test("центр уведомлений не снимает красную точку до открытия презентации", async ({ page }) => {
-  await openState(page, "lisa-presentation-ready-unread");
-  await page.getByRole("button", { name: "Уведомления, одно новое" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-unread",
-  );
-  await expect(page.getByRole("button", { name: "Уведомления, одно новое" })).toBeVisible();
-  await page
-    .getByRole("button", { name: "Презентация готова, сегодня в 13:44" })
-    .click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notification-detail-unread",
-  );
-  await expect(page.getByRole("button", { name: "Уведомления, одно новое" })).toBeVisible();
-  await page.getByRole("button", { name: "Открыть презентацию" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-result-view-from-notification",
-  );
-  await expect(page.getByRole("button", { name: /Уведомления/u })).toHaveCount(0);
-  await page.getByRole("button", { name: "Закрыть презентацию" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-returned-to-chat",
-  );
-  await expect(
-    page.getByRole("button", { name: "Отправить презентацию на почту" }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-read",
-  );
-  await expect(page.getByText("Новых уведомлений нет")).toBeVisible();
-  await page.getByRole("button", { name: "Закрыть уведомления" }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-returned-to-chat",
-  );
-  await expect(page.getByRole("button", { name: "Уведомления", exact: true })).toBeVisible();
-});
-
-test("ошибка доставки уведомления не создаёт запись в центре уведомлений", async ({
-  page,
-}) => {
-  await openState(page, "lisa-notification-failed-chat-available");
-  await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notifications-list-empty",
-  );
-  await expect(page.locator("[data-notification-id]")).toHaveCount(0);
-  await expect(page.getByText("Новых уведомлений пока нет.")).toBeVisible();
-});
-
-test("после отправки по почте готовое уведомление остаётся доступным", async ({
-  page,
-}) => {
-  for (const stateId of [
-    "lisa-presentation-email-submitting",
-    "lisa-presentation-email-sent",
-    "lisa-presentation-email-partial-failure",
-    "lisa-presentation-email-failed",
-  ]) {
-    await openState(page, stateId);
-    await page.getByRole("button", { name: "Уведомления", exact: true }).click();
-    await expect(page.locator(".phone")).toHaveAttribute(
-      "data-state-id",
-      "lisa-notifications-list-read",
-    );
-    await expect(
-      page.getByRole("button", { name: "Презентация готова, сегодня в 13:44" }),
-    ).toBeVisible();
-  }
-});
-
-test("действия центра уведомлений размещены на целых пикселях в Chromium", async ({
-  page,
-  browserName,
-}) => {
-  test.skip(
-    browserName !== "chromium",
-    "Целочисленная фаза закрепляет защиту от растрового дефекта Chromium",
-  );
-  for (const stateId of [
-    "lisa-notifications-list-empty",
-    "lisa-notifications-list-unread",
-    "lisa-notification-detail-unread",
-    "lisa-notifications-list-read",
-    "lisa-notification-detail-read",
-  ]) {
-    await openState(page, stateId);
-    const actions = await page
-      .locator(".notification-surface button:not([disabled])")
-      .evaluateAll((buttons) =>
-      buttons.map((button) => {
-        const rect = button.getBoundingClientRect();
-        return {
-          id:
-            button.getAttribute("data-action-id") ||
-            button.getAttribute("aria-label") ||
-            button.textContent.trim(),
-          top: rect.top,
-          bottom: rect.bottom,
-        };
-      }),
-      );
-    for (const action of actions) {
-      expect(
-        Math.abs(action.top - Math.round(action.top)),
-        `${stateId}: верхняя граница ${action.id}`,
-      ).toBeLessThanOrEqual(0.001);
-      expect(
-        Math.abs(action.bottom - Math.round(action.bottom)),
-        `${stateId}: нижняя граница ${action.id}`,
-      ).toBeLessThanOrEqual(0.001);
-    }
-  }
-});
-
-test("контуры уведомления используют воспроизводимую обычную границу", async ({ page }) => {
-  await openState(page, "lisa-notification-detail-read");
-  const appearance = await page.locator(".notification-card").evaluate((element) => {
-    const style = getComputedStyle(element);
-    return {
-      borderColor: style.borderColor,
-      boxShadow: style.boxShadow,
-    };
-  });
-  expect(appearance.borderColor).toBe("rgb(229, 225, 233)");
-  expect(appearance.boxShadow).toBe("none");
-});
-
-test("обычная прямая ссылка сохраняет перенос фокуса на кнопку уведомления", async ({
-  page,
-}) => {
-  await openState(page, "lisa-notification-detail-read");
-  await expect(
-    page.getByRole("button", { name: "Открыть презентацию" }),
-  ).toBeFocused();
-});
-
-test("технический режим создания кадров подавляет начальный фокус", async ({
-  page,
-}) => {
-  await page.addInitScript(() => {
-    window.__DATACANVAS_LISA_CAPTURE__ = true;
-  });
-  await openState(page, "lisa-notification-detail-read");
-  await expect(
-    page.getByRole("button", { name: "Открыть презентацию" }),
-  ).not.toBeFocused();
-  await expect(page.locator("body")).toBeFocused();
-});
-
-test("переход из списка переносит фокус на действие уведомления", async ({
-  page,
-}) => {
-  await openState(page, "lisa-notifications-list-read");
-  await page
-    .getByRole("button", { name: "Презентация готова, сегодня в 13:44" })
-    .click();
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notification-detail-read",
-  );
-  await expect(
-    page.getByRole("button", { name: "Открыть презентацию" }),
-  ).toBeFocused();
-});
-
-test("закрытие центра уведомлений возвращает в исходный контекст", async ({ page }) => {
-  for (const [stateId, notificationStateId] of [
-    ["lisa-materials-ready", "lisa-notifications-list-empty"],
-    ["lisa-presentation-order-failed", "lisa-notifications-list-empty"],
-    ["lisa-offline", "lisa-notifications-list-empty"],
-    ["lisa-link-expired", "lisa-notifications-list-empty"],
-    ["lisa-presentation-ready-unread", "lisa-notifications-list-unread"],
-  ]) {
-    await openState(page, stateId);
-    await page.getByRole("button", { name: /Уведомления/u }).click();
-    await expect(page.locator(".phone")).toHaveAttribute(
-      "data-state-id",
-      notificationStateId,
-    );
-    await page.getByRole("button", { name: "Закрыть уведомления" }).click();
-    await expect(page.locator(".phone")).toHaveAttribute("data-state-id", stateId);
-    await expect(page.getByRole("button", { name: /Уведомления/u })).toBeFocused();
-  }
-});
-
-test("карточка списка уведомлений использует корректное содержимое кнопки", async ({ page }) => {
-  await openState(page, "lisa-notifications-list-unread");
-  const card = page.getByRole("button", {
-    name: "Презентация готова, сегодня в 13:44",
-  });
-  await expect(card).toBeVisible();
-  await expect(
-    card.locator(
-      "p, h1, h2, h3, h4, h5, h6, div, article, section, ul, ol, li, button, a, input, select, textarea",
-    ),
-  ).toHaveCount(0);
-  await card.focus();
-  await page.keyboard.press("Enter");
-  await expect(page.locator(".phone")).toHaveAttribute(
-    "data-state-id",
-    "lisa-notification-detail-unread",
-  );
-});
-
-test("прямая ссылка просмотра возвращает на поверхность, указанную контрактом", async ({
-  page,
-}) => {
-  for (const [viewerStateId, expectedReturnStateId] of [
-    ["lisa-result-view-from-chat", "lisa-returned-to-chat"],
-    ["lisa-result-view-from-notification", "lisa-returned-to-chat"],
-  ]) {
-    await openState(page, viewerStateId);
-    await page.getByRole("button", { name: "Закрыть презентацию" }).click();
-    await expect(page.locator(".phone")).toHaveAttribute(
-      "data-state-id",
-      expectedReturnStateId,
-    );
-  }
-});
-
-test("переключатель состояний даёт русское название рядом с устойчивым идентификатором", async ({
-  page,
-}) => {
-  await openState(page, "lisa-materials-ready");
-  expect(await page.locator("#state-select option").allTextContents()).toEqual(
-    journey.states.map((state) => `${state.display_name} — ${state.id}`),
-  );
-  const reviewStatus = page.locator(
-    '#prototype-review-status[data-status="owner-approved-prototype"]',
-  );
-  await expect(reviewStatus).toHaveText(
-    "HTML-прототип подтверждён владельцем",
-  );
-});
-
-test("диалог редактирования закрывается Escape и возвращает фокус", async ({ page }) => {
-  await openState(page, "lisa-materials-ready");
-  const edit = page.getByRole("button", { name: "Редактировать материалы" });
-  await edit.click();
-  const dialog = page.getByRole("dialog", { name: "Редактирование материалов" });
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("button", { name: "Закрыть" })).toBeFocused();
-  await page.keyboard.press("Escape");
-  await expect(dialog).toBeHidden();
-  await expect(edit).toBeFocused();
-});
-
-test("переносимая копия работает из каталога с пробелами и кириллицей", async ({ page }) => {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "Лиса прототип с пробелами "));
-  const copiedPackageRoot = path.join(tempRoot, "пакет прототипа");
+test("raster-base-local-overlay: автономный ZIP содержит ровно активные PNG в demo/assets и загружает их через file://", async ({ page }) => {
+  const contracts = readRasterContracts();
+  const archivePath = path.join(packageRoot, contracts.packageContract.archive.path);
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "Лиса растровый MVP "));
+  const extractionRoot = path.join(temporaryRoot, "пакет презентации");
   try {
-    const archiveMembers = extractPortableArchive(copiedPackageRoot);
-    expect(archiveMembers).toEqual([
-      "README.md",
-      "manifest.json",
-      "demo/index.html",
-      "demo/app.js",
-      "demo/data.js",
-      "demo/styles.css",
-      "source/fonts/NotoSans[wdth,wght].ttf",
-      "source/fonts/OFL.txt",
-    ]);
-    const copiedDemo = path.join(copiedPackageRoot, "demo/index.html");
-    await openState(page, "lisa-materials-ready", copiedDemo);
-    const geometry = await collectGeometry(page);
-    expect(geometry.fontLoaded).toBe(true);
-    assertLocalResources(geometry.resourceUrls, copiedPackageRoot);
-    expect(page.__attemptedNetwork).toEqual([]);
-    expect(page.__consoleErrors).toEqual([]);
-    expect(page.__pageErrors).toEqual([]);
+    const archiveMembers = extractPortableArchive(extractionRoot, archivePath);
+    expect(archiveMembers).toEqual(contracts.packageContract.archive.members);
+    expect(
+      archiveMembers
+        .filter(
+          (member) => member.startsWith("demo/assets/bases/") || member.startsWith("demo/assets/patches/"),
+        )
+        .sort((left, right) => left.localeCompare(right, "en")),
+    ).toEqual(expectedPortableRasterMembers(contracts.visualBasis));
+    expect(archiveMembers.some((member) => member.startsWith("source/"))).toBe(false);
+    expect(archiveMembers.some((member) => /\.xlsx$|\.svg$/u.test(member))).toBe(false);
+    const copiedDemo = path.join(extractionRoot, "demo/index.html");
+    for (const relativePath of ["demo/index.html", "demo/app.js", "demo/data.js", "demo/styles.css"]) {
+      const source = fs.readFileSync(path.join(extractionRoot, relativePath), "utf8");
+      expect(source).not.toMatch(/\.\.\//u);
+      expect(source).not.toMatch(/source\/(?:bases|patches|fonts)\//u);
+    }
+    await openPrototypeScene(page, contracts.journey.initial_state_id, copiedDemo);
+    expect(new URL(page.url()).protocol).toBe("file:");
+    await assertRegisteredRasterScene(
+      page,
+      bindingForState(contracts.visualBasis, contracts.journey.initial_state_id),
+    );
+    const rawPaths = await prototypeScene(page).locator("[src], [href]").evaluateAll((nodes) =>
+      nodes.map((node) => node.getAttribute("src") || node.getAttribute("href")),
+    );
+    for (const rawPath of rawPaths.filter(Boolean)) {
+      expect(rawPath).not.toMatch(/^https?:|^file:\/\/\/Users\//u);
+    }
   } finally {
-    fs.rmSync(tempRoot, { recursive: true, force: true });
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
 });
 
-test("мок телефона не зависит от внешних изображений", async ({ page }) => {
-  await openState(page, "lisa-materials-ready", demoPath);
-  const dependencies = await page.locator(".phone").evaluate((phone) => {
-    const nodes = [phone, ...phone.querySelectorAll("*")];
-    return {
-      elementSources: [
-        ...phone.querySelectorAll(
-          "img[src], img[srcset], image[href], image[xlink\\:href], use[href], use[xlink\\:href], feImage[href], feImage[xlink\\:href], object[data], embed[src], video[poster], input[type=image][src], source[src], source[srcset]",
-        ),
-      ].map((node) => ({
-        tag: node.tagName,
-        source:
-          node.getAttribute("src") ||
-          node.getAttribute("srcset") ||
-          node.getAttribute("href") ||
-          node.getAttribute("xlink:href") ||
-          node.getAttribute("poster") ||
-          node.getAttribute("data"),
-      })),
-      cssImageSources: nodes
-        .flatMap((node) => {
-          const style = getComputedStyle(node);
-          return [...style]
-            .map((property) => ({
-              tag: node.tagName,
-              className: node.getAttribute("class") || "",
-              property,
-              value: style.getPropertyValue(property),
-            }))
-            .filter(({ value }) => value.includes("url("));
-        }),
-      inlineComponentIds: [
-        ...phone.querySelectorAll("svg[data-component-id]"),
-      ]
-        .map((node) => node.getAttribute("data-component-id"))
-        .sort(),
-    };
-  });
-
-  expect(dependencies.elementSources).toEqual([]);
-  expect(dependencies.cssImageSources).toEqual([]);
-  expect(dependencies.inlineComponentIds).toEqual([
-    "lisa-notification-bell",
-    "lisa-phone-shell",
-  ]);
-});
-
-for (const viewport of requiredViewports) {
-  test(`${viewport.id}: ключевые экраны помещаются в реальном окне`, async ({ page }) => {
+for (const viewport of runtimeViewports) {
+  test(`raster-base-local-overlay: ${viewport.id} сохраняет геометрию и доступность всех активных сцен`, async ({ page }) => {
+    const contracts = readRasterContracts();
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    for (const stateId of [
-      "lisa-materials-ready",
-      "lisa-presentation-generating",
-      "lisa-presentation-ready-unread",
-      "lisa-notifications-list-unread",
-      "lisa-result-view-from-notification",
-      "lisa-returned-to-chat",
-      "lisa-offline",
-    ]) {
-      await openState(page, stateId);
-      const geometry = await collectGeometry(page);
-      expect(geometry.documentScrollWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-      expect(geometry.documentScrollHeight).toBeLessThanOrEqual(geometry.viewportHeight + 1);
-      expect(geometry.phone.left).toBeGreaterThanOrEqual(-1);
-      expect(geometry.phone.right).toBeLessThanOrEqual(geometry.viewportWidth + 1);
-      expect(geometry.textOverflow).toEqual([]);
-      expect(geometry.actionIssues).toEqual([]);
+    for (const stateId of activeStateIds(contracts)) {
+      const binding = bindingForState(contracts.visualBasis, stateId);
+      await openPrototypeScene(page, stateId);
+      const geometry = await prototypeScene(page).evaluate((scene) => {
+        const base = scene.querySelector("img");
+        const sceneRect = scene.getBoundingClientRect();
+        const baseRect = base?.getBoundingClientRect();
+        const controls = [...scene.querySelectorAll("[data-slot-id]")].map((control) => {
+          const rect = control.getBoundingClientRect();
+          return {
+            left: rect.left,
+            right: rect.right,
+            top: rect.top,
+            bottom: rect.bottom,
+            width: rect.width,
+            height: rect.height,
+          };
+        });
+        return {
+          documentWidth: document.documentElement.scrollWidth,
+          viewportWidth: window.innerWidth,
+          sceneWidth: sceneRect.width,
+          base: baseRect && {
+            left: baseRect.left,
+            right: baseRect.right,
+            top: baseRect.top,
+            bottom: baseRect.bottom,
+            width: baseRect.width,
+            height: baseRect.height,
+          },
+          controls,
+        };
+      });
+      expect(geometry.documentWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+      expect(geometry.sceneWidth).toBeLessThanOrEqual(geometry.viewportWidth + 1);
+      expect(geometry.base).toBeTruthy();
+      expect(Math.abs(geometry.base.width / geometry.base.height - binding.natural_dimensions.width / binding.natural_dimensions.height)).toBeLessThan(0.002);
+      for (const control of geometry.controls) {
+        expect(control.width).toBeGreaterThan(0);
+        expect(control.height).toBeGreaterThan(0);
+        expect(control.left).toBeGreaterThanOrEqual(geometry.base.left - 1);
+        expect(control.right).toBeLessThanOrEqual(geometry.base.right + 1);
+        expect(control.top).toBeGreaterThanOrEqual(geometry.base.top - 1);
+        expect(control.bottom).toBeLessThanOrEqual(geometry.base.bottom + 1);
+      }
+      const axe = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+        .analyze();
+      expect(axe.violations).toEqual([]);
     }
   });
 }
+
+test.afterEach(async ({ page }) => {
+  expect(page.__attemptedNetwork).toEqual([]);
+  expect(page.__consoleErrors).toEqual([]);
+  expect(page.__pageErrors).toEqual([]);
+  expect(page.__captureToolWarnings.length).toBeLessThanOrEqual(1);
+});

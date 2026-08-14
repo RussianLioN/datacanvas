@@ -1,0 +1,39 @@
+{
+  "$schema": "schemas/prototype-scope-contract.schema.json",
+  "version": "2.0.0",
+  "status": "active",
+  "scope_id": "mvp-p1-p2-presentation-order",
+  "implemented_priorities": [
+    "P1",
+    "P2"
+  ],
+  "demonstration_context": {
+    "client_search_by_inn_or_name": true,
+    "multiple_candidates_require_selection": true,
+    "materials_before_order": true,
+    "not_my_client_control_visible": false
+  },
+  "forbidden_active_surfaces": [
+    "result-link",
+    "presentation-viewer",
+    "notification-center",
+    "presentation-editing",
+    "pdf-file-surface",
+    "pptx-file-surface"
+  ],
+  "future_scope": {
+    "quarter": "Q4",
+    "priorities": [
+      "P3",
+      "P4"
+    ],
+    "disposition": "preserved-not-rendered"
+  },
+  "migration_boundary": {
+    "scope": "local-prototype-package-only",
+    "global_product_source_registry": "deferred",
+    "global_documentation_and_navigation": "deferred",
+    "formal_xlsx_sanitization": "deferred",
+    "previous_prototype_contracts": "preserved-inactive"
+  }
+}

@@ -52,16 +52,16 @@
 |---|---|---|
 | `business` | `1` | 13 |
 | `business` | `2` | 32 |
-| `business` | `3` | 11 |
+| `business` | `3` | 9 |
 | `business` | `4` | 3 |
-| `business` | `hidden` | 65 |
+| `business` | `hidden` | 67 |
 | `delivery` | `1` | 2 |
 | `delivery` | `2` | 10 |
 | `delivery` | `hidden` | 828 |
 | `evidence` | `1` | 1 |
 | `evidence` | `2` | 1 |
 | `evidence` | `3` | 3 |
-| `evidence` | `4` | 3 |
+| `evidence` | `4` | 7 |
 | `evidence` | `hidden` | 3 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 8 |
@@ -69,6 +69,6 @@
 | `governance` | `3` | 14 |
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
-| `technical` | `2` | 13 |
+| `technical` | `2` | 16 |
 | `technical` | `3` | 7 |
-| `technical` | `hidden` | 105 |
+| `technical` | `hidden` | 110 |

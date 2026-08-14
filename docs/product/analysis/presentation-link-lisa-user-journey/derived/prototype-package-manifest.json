@@ -1,513 +1,187 @@
 {
-  "deterministic_epoch": "2026-07-16T00:00:00Z",
-  "generation": {
-    "capture_engine": "webkit",
-    "capture_normalization": {
-      "dimensions_unchanged": true,
-      "embedded_capture_equals_derived_png": true,
-      "mode": "lossless-rsvg-reencode"
-    },
-    "capture_stabilization": {
-      "browser_launch_args": [],
-      "explicit_screenshot_style_parameter_used": false,
-      "focus_policy": "capture-mode-suppress-then-blur-active-element",
-      "playwright_internal_style_attempt_blocked_by_csp": true,
-      "scroll_policy": "restore-marked-end-after-fonts",
-      "settle_animation_frames": 2,
-      "wait_for_document_fonts": true
-    },
-    "capture_transport": {
-      "external_network_requests_allowed": false,
-      "mode": "playwright-route-fulfilled-local-files",
-      "origin": "http://lisa.invalid",
-      "path_escape_blocked": true
-    },
-    "command": "npm run generate:presentation-link-lisa-user-journey",
-    "frame_capture": "Playwright WebKit 26.5",
-    "network_required": false,
-    "renderer": "rsvg-convert",
-    "tooling_console_messages": 26,
-    "viewport": "390x844"
+  "version": "3.0.0",
+  "status": "portable-ten-screen-prototype",
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "e310a0c042a57fb9e90f2f88dc198017bd31b53e181204f2a705e12340599fae"
   },
-  "inputs": [
+  "state_ids": [
+    "lisa-client-answer",
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "runtime_files": [
     {
-      "bytes": 11651,
-      "path": "scripts/capture-presentation-link-lisa-derived-frames.mjs",
-      "sha256": "7f9b2d5f212b763a36ebdc9f443f7368638e1cdde637d4ee05bc9c4bd4071489"
+      "path": "index.html",
+      "bytes": 2840,
+      "sha256": "3b4cf0f4b89469358d2f09f51269eab7ea425782995deca2a40c91b6f4d361dc"
     },
     {
-      "bytes": 1505,
-      "path": "scripts/generate-presentation-link-lisa-user-journey.mjs",
-      "sha256": "58bcacc18152c7895baca6d1da661c911047fabcae234f4d7aade2f34100bcf9"
+      "path": "app.js",
+      "bytes": 21569,
+      "sha256": "3eac21ebeb315c3db8867e75b06fb47fa9c1f9b6e651257206400d2979992ad6"
     },
     {
-      "bytes": 19134,
-      "path": "scripts/lib/documentation-archive.mjs",
-      "sha256": "d1805fd049c21d678daed7814b7475a3a0fc4a4a67d224ef805178b680857adf"
+      "path": "data.js",
+      "bytes": 36698,
+      "sha256": "aa39ce27f35ec33e7b0802372c59352bb4226d7949aeccc1ff8db62b66127a71"
     },
     {
-      "bytes": 70314,
-      "path": "scripts/lib/presentation-link-lisa-html-runtime.mjs",
-      "sha256": "0a3f58e7353e3b8e920ffa971f4af4b173ba63d398e0aab9e190d933d9db593b"
+      "path": "styles.css",
+      "bytes": 9170,
+      "sha256": "10b3d2ffb4a8763ccddf47e85391d08833e23f497ede3d7a1c9dd3cd268f2aa7"
     },
     {
-      "bytes": 106553,
-      "path": "scripts/lib/presentation-link-lisa-user-journey.mjs",
-      "sha256": "073a5e020f1985ad64e3d083768e4baac9f8b0e09c0b0d0e6f6cff4ec8741cab"
+      "path": "assets/lisa-client-answer-status-3x.png",
+      "bytes": 25385,
+      "sha256": "2d3705a250c1d650df3dbb90f1dd7fd039eebd400aff2eab5dcfa9aab879ca95"
     },
     {
-      "bytes": 561,
-      "path": "source/components/lisa-notification-bell.svg",
-      "sha256": "2515edeac1dd323351961e481d6eda1d117bd2ff23891b41855ac111957acb34"
+      "path": "assets/lisa-client-answer-content-3x.png",
+      "bytes": 1083285,
+      "sha256": "0e9ef29cf53278824d2804f9a005b855a494caf074732e23e6911581fe162d73"
     },
     {
-      "bytes": 478,
-      "path": "source/components/lisa-phone-shell.svg",
-      "sha256": "3aa87320b9ea0a60fb187514e55526f8b6b25d33bcb9326e2aa3063c12c00efc"
+      "path": "assets/lisa-client-answer-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
     },
     {
-      "bytes": 1138,
-      "path": "source/components/lisa-presentation-card.svg",
-      "sha256": "d5d66b0683aab0ae71802558e4054353310f78382607c70b2a2a6421b046d646"
+      "path": "assets/lisa-materials-summary-status-3x.png",
+      "bytes": 23662,
+      "sha256": "75a411fe23b5e812371ca228c36edd5b2e98a4103af2dac1946462c5e72771a7"
     },
     {
-      "bytes": 2049096,
-      "path": "source/fonts/NotoSans[wdth,wght].ttf",
-      "sha256": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d"
+      "path": "assets/lisa-materials-summary-content-3x.png",
+      "bytes": 462472,
+      "sha256": "744749fe4ceda40314e42f3be2e6aeeeed9c9de1ce58f8dc0261fbe8f21ee2fc"
     },
     {
-      "bytes": 4395,
-      "path": "source/fonts/OFL.txt",
-      "sha256": "e2e177a32561584d4fc13aaa3cd8e53758a12910f013fe9ca125419111722029"
+      "path": "assets/lisa-materials-summary-home-3x.png",
+      "bytes": 4364,
+      "sha256": "88ecaae93ffa2fd968cc1a640a888396bc2bff5beff1f975464f4ea6e253baef"
     },
     {
-      "bytes": 6560,
-      "path": "source/frame-contract.json",
-      "sha256": "909a5b18cd86303bc99a0f256f54eddc57337f62aae3cb6fa425e58326e10ff6"
+      "path": "assets/lisa-materials-full-reference-status-3x.png",
+      "bytes": 25446,
+      "sha256": "f2fc9e526a8ecd325f8d65999cdba0c973874a47914ba880c4adf4054b4d4964"
     },
     {
-      "bytes": 42719,
-      "path": "source/journey-contract.json",
-      "sha256": "c14fc2b0cc99d27508a3d2288a1e26392f2e788441d050388e8cc28f29d4464d"
+      "path": "assets/lisa-materials-full-reference-content-3x.png",
+      "bytes": 4033609,
+      "sha256": "0b75a7d866b0a7c48861b7da13f3917bfc95b23e3112903951a96bc563fe523e"
     },
     {
-      "bytes": 3217,
-      "path": "source/presentation-preview-contract.json",
-      "sha256": "3cffb9230335f6689dc799e0c6f337d36cc2d80eaa390f44e2cfcd00c1fa4605"
+      "path": "assets/lisa-materials-full-reference-home-3x.png",
+      "bytes": 3495,
+      "sha256": "bcfc9a632b701d9bd7941a4ce98b192da575867e3088ca2cb02e50a40dc7ef6a"
     },
     {
-      "bytes": 8086,
-      "path": "source/prototype-package-contract.json",
-      "sha256": "0f81cd51496aa123e15e9d32700d9640cf2496bd1bcf3dc6c1d1de742db94641"
+      "path": "assets/lisa-presentation-order-status-3x.png",
+      "bytes": 25447,
+      "sha256": "f24c3d0c7624347a734ed9687a55fa506fc53b0ab62479ac7a1aee8868d04b93"
     },
     {
-      "bytes": 2787,
-      "path": "source/schemas/frame-contract.schema.json",
-      "sha256": "7c115422b491e86671b984b886a5b5092849d4280f85a18e4ed0c09e4f8c1803"
+      "path": "assets/lisa-presentation-order-content-3x.png",
+      "bytes": 571403,
+      "sha256": "757417a0b142d9919f73ca1a489d3af758b54593b8a6bd226c2d9b4acaa3ec79"
     },
     {
-      "bytes": 21989,
-      "path": "source/schemas/journey-contract.schema.json",
-      "sha256": "97f58e16f5246604483f7dbbb9f5dd57092e41f313a6bf7e74619f4267e07da5"
+      "path": "assets/lisa-presentation-order-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
     },
     {
-      "bytes": 2734,
-      "path": "source/schemas/presentation-preview-contract.schema.json",
-      "sha256": "feaacbc03750f56f38372c6836b927942b7d3d6d04ec9c253bcd5c3e6435f45d"
+      "path": "assets/lisa-presentation-generating-status-3x.png",
+      "bytes": 25053,
+      "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59"
     },
     {
-      "bytes": 14998,
-      "path": "source/schemas/prototype-package-contract.schema.json",
-      "sha256": "16b43792f64c993f3d033b19ee5af6c04193127612bb90d40eac61ca091a442b"
+      "path": "assets/lisa-presentation-generating-content-3x.png",
+      "bytes": 694334,
+      "sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
     },
     {
-      "bytes": 1485,
-      "path": "source/schemas/source-fixture-manifest.schema.json",
-      "sha256": "bef974d4d833c6bc8ce12df194b186363ce9f69fd7870b3ed87daa3fe56d0cdd"
+      "path": "assets/lisa-presentation-generating-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
     },
     {
-      "bytes": 5627,
-      "path": "source/schemas/visual-components-contract.schema.json",
-      "sha256": "fe382731c987aaf27b2da5b1487deff2719eedec6f7ba6c016eaa6200320c6b8"
+      "path": "assets/lisa-presentation-sent-status-3x.png",
+      "bytes": 25361,
+      "sha256": "bd0d012a3fc93be1faacda7c4eb4a82f8d599543da723a16a40033d331d31f22"
     },
     {
-      "bytes": 589,
-      "path": "source/source-fixture-manifest.json",
-      "sha256": "d97b1ad34f61e5dc55dfef8a7178ae0795afabb96c34e6e88f7df5e933052198"
+      "path": "assets/lisa-presentation-sent-content-3x.png",
+      "bytes": 561478,
+      "sha256": "578d2dd6a067e061e6eb25187266477773b549c31830904abfbc89478ba3545e"
     },
     {
-      "bytes": 4733,
-      "path": "source/visual-components-contract.json",
-      "sha256": "da813857c290c63bb43e11dced7acbae59f455899e4839b22dd6fa349f87be41"
+      "path": "assets/lisa-presentation-sent-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-presentation-email.png",
+      "bytes": 1165728,
+      "sha256": "fd2caa529f7eb96543949e2a5b5bb34755540b96703ed99a721579862308c0c3"
+    },
+    {
+      "path": "assets/szh-dense-slidedoc-4x.png",
+      "bytes": 2130179,
+      "sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32"
+    },
+    {
+      "path": "assets/szh-dense-sber2025-4x.png",
+      "bytes": 2323723,
+      "sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7"
+    },
+    {
+      "path": "assets/szh-dense-mag-4x.png",
+      "bytes": 2045113,
+      "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303"
     }
   ],
-  "inventory": {
-    "exact_generated_paths": [
-      "demo/app.js",
-      "demo/data.js",
-      "demo/index.html",
-      "demo/styles.css",
-      "derived/lisa-presentation-user-journey-demo.zip",
-      "derived/projection-map.json",
-      "derived/prototype-package-manifest.json",
-      "derived/screens/lisa-access-denied.png",
-      "derived/screens/lisa-access-denied.svg",
-      "derived/screens/lisa-link-expired.png",
-      "derived/screens/lisa-link-expired.svg",
-      "derived/screens/lisa-link-invalid.png",
-      "derived/screens/lisa-link-invalid.svg",
-      "derived/screens/lisa-materials-email-sent.png",
-      "derived/screens/lisa-materials-email-sent.svg",
-      "derived/screens/lisa-materials-ready.png",
-      "derived/screens/lisa-materials-ready.svg",
-      "derived/screens/lisa-notification-detail-read.png",
-      "derived/screens/lisa-notification-detail-read.svg",
-      "derived/screens/lisa-notification-detail-unread.png",
-      "derived/screens/lisa-notification-detail-unread.svg",
-      "derived/screens/lisa-notification-failed-chat-available.png",
-      "derived/screens/lisa-notification-failed-chat-available.svg",
-      "derived/screens/lisa-notifications-list-empty.png",
-      "derived/screens/lisa-notifications-list-empty.svg",
-      "derived/screens/lisa-notifications-list-read.png",
-      "derived/screens/lisa-notifications-list-read.svg",
-      "derived/screens/lisa-notifications-list-unread.png",
-      "derived/screens/lisa-notifications-list-unread.svg",
-      "derived/screens/lisa-offline.png",
-      "derived/screens/lisa-offline.svg",
-      "derived/screens/lisa-presentation-email-failed.png",
-      "derived/screens/lisa-presentation-email-failed.svg",
-      "derived/screens/lisa-presentation-email-partial-failure.png",
-      "derived/screens/lisa-presentation-email-partial-failure.svg",
-      "derived/screens/lisa-presentation-email-sent.png",
-      "derived/screens/lisa-presentation-email-sent.svg",
-      "derived/screens/lisa-presentation-email-submitting.png",
-      "derived/screens/lisa-presentation-email-submitting.svg",
-      "derived/screens/lisa-presentation-generating.png",
-      "derived/screens/lisa-presentation-generating.svg",
-      "derived/screens/lisa-presentation-order-failed.png",
-      "derived/screens/lisa-presentation-order-failed.svg",
-      "derived/screens/lisa-presentation-order-submitting.png",
-      "derived/screens/lisa-presentation-order-submitting.svg",
-      "derived/screens/lisa-presentation-ready-unread.png",
-      "derived/screens/lisa-presentation-ready-unread.svg",
-      "derived/screens/lisa-result-cancelled.png",
-      "derived/screens/lisa-result-cancelled.svg",
-      "derived/screens/lisa-result-not-ready.png",
-      "derived/screens/lisa-result-not-ready.svg",
-      "derived/screens/lisa-result-revoked.png",
-      "derived/screens/lisa-result-revoked.svg",
-      "derived/screens/lisa-result-view-from-chat.png",
-      "derived/screens/lisa-result-view-from-chat.svg",
-      "derived/screens/lisa-result-view-from-notification.png",
-      "derived/screens/lisa-result-view-from-notification.svg",
-      "derived/screens/lisa-returned-to-chat.png",
-      "derived/screens/lisa-returned-to-chat.svg"
-    ],
-    "generated_output_count": 59
-  },
-  "outputs": [
-    {
-      "bytes": 2238,
-      "path": "demo/index.html",
-      "sha256": "c5cd8051f7002eff6c9872b2e72f4ed37ee50dc2a93941a3d5fd99785bee4ed7"
-    },
-    {
-      "bytes": 50516,
-      "path": "demo/app.js",
-      "sha256": "c40e18667e6013efdc46919eedbdeedb95ae283509a17850565207277a6132c0"
-    },
-    {
-      "bytes": 20037,
-      "path": "demo/styles.css",
-      "sha256": "3bb92d1c0dddbac125c25fafb46b10d6585d6c324f3782b8fb4cd1b8224010e0"
-    },
-    {
-      "bytes": 101459,
-      "path": "demo/data.js",
-      "sha256": "aeed8d8b2ec7a12b93fb38453ee2ede9fead5bcde609a94b2b32f42c3f2e320d"
-    },
-    {
-      "bytes": 4967,
-      "path": "derived/projection-map.json",
-      "sha256": "70778524c179d5d59f9159777b22303787caad1c30a4803c043006cd48a7d263"
-    },
-    {
-      "bytes": 2230583,
-      "path": "derived/lisa-presentation-user-journey-demo.zip",
-      "sha256": "1fdd9e146fdfa58296bdd6c1133431845fe2335689bb26c4f3481da13589c31b"
-    },
-    {
-      "bytes": 135218,
-      "path": "derived/screens/lisa-materials-ready.svg",
-      "sha256": "0e778bb0559f59aa01addd568cac975a0295b47345e0be513e52156792b0ff8e"
-    },
-    {
-      "bytes": 100829,
-      "path": "derived/screens/lisa-materials-ready.png",
-      "sha256": "8da115d429942a3798d51f9d24610e644f92f5f87bbee8f2092d534c6138447e"
-    },
-    {
-      "bytes": 100107,
-      "path": "derived/screens/lisa-materials-email-sent.svg",
-      "sha256": "894cff8a23bfc1a66112f556ade099500982c23863ccbf5813470aa3dd73b75d"
-    },
-    {
-      "bytes": 74377,
-      "path": "derived/screens/lisa-materials-email-sent.png",
-      "sha256": "8d0061a2c4485905e3f3199e698854ed24ae270cf67541d8693c58e6d9e0aa1b"
-    },
-    {
-      "bytes": 73804,
-      "path": "derived/screens/lisa-presentation-order-submitting.svg",
-      "sha256": "fbdf814551cff84c377d0cad07be56b390f695de4f8a72fc34385bdf9f932a00"
-    },
-    {
-      "bytes": 54678,
-      "path": "derived/screens/lisa-presentation-order-submitting.png",
-      "sha256": "dc410281ce721448e2d37a3f7e75cb5a0fa90bd25e16a9c648654000a595ba0f"
-    },
-    {
-      "bytes": 101424,
-      "path": "derived/screens/lisa-presentation-order-failed.svg",
-      "sha256": "758350652427bcdf58c2c6ea25e18572424ae40c3159555d81590e32e78156a1"
-    },
-    {
-      "bytes": 75371,
-      "path": "derived/screens/lisa-presentation-order-failed.png",
-      "sha256": "b802f091cfae1200a073fdf355b5fe0d05f17b7f23dc7aa5ebd9546e677eb5c2"
-    },
-    {
-      "bytes": 97355,
-      "path": "derived/screens/lisa-presentation-generating.svg",
-      "sha256": "6c98acfd9930d1e02555e81b7948d612236f9a6da8fbdee98d29bafa6abe4a86"
-    },
-    {
-      "bytes": 72283,
-      "path": "derived/screens/lisa-presentation-generating.png",
-      "sha256": "b6294a100d5bfe848b553934d5b17bde9e7c25e262585e944952eb3083329adb"
-    },
-    {
-      "bytes": 105086,
-      "path": "derived/screens/lisa-presentation-ready-unread.svg",
-      "sha256": "565595cce3b4b424b5418f769dcc760f10c53b626c09d776b23f1269e6f5dc09"
-    },
-    {
-      "bytes": 78150,
-      "path": "derived/screens/lisa-presentation-ready-unread.png",
-      "sha256": "5ffe8091c86bdcb7ff9a2954435134d3cca2a0a956a6c8eb7585255b4f22c799"
-    },
-    {
-      "bytes": 44352,
-      "path": "derived/screens/lisa-notifications-list-empty.svg",
-      "sha256": "4a02547c6df06cf6cddab9b2f8c18f7c05518e5da4a7caabeeebbc0e20d85de4"
-    },
-    {
-      "bytes": 32719,
-      "path": "derived/screens/lisa-notifications-list-empty.png",
-      "sha256": "841b0756733e3aaf53eee25ea7786a030a04e943c90cec236b0e9d2d3ec7b8fb"
-    },
-    {
-      "bytes": 51911,
-      "path": "derived/screens/lisa-notifications-list-unread.svg",
-      "sha256": "aaa7969ea93bd15c798d63133c30e6d4771367f802f42508244863a879663250"
-    },
-    {
-      "bytes": 38351,
-      "path": "derived/screens/lisa-notifications-list-unread.png",
-      "sha256": "e50fe855572d58d8128182508f050a4fe2b20fec67be9cc5ce12669ea63b8ab4"
-    },
-    {
-      "bytes": 80177,
-      "path": "derived/screens/lisa-notification-detail-unread.svg",
-      "sha256": "a73e78b3d67703f609d7210a7ae9ba113eafc5bed29cfeb3b0da80dd32833e0d"
-    },
-    {
-      "bytes": 59533,
-      "path": "derived/screens/lisa-notification-detail-unread.png",
-      "sha256": "c600bcc99ebdde08ef891f1695bae5e69000a0ab1f8432efc7cbf58f13eac726"
-    },
-    {
-      "bytes": 51875,
-      "path": "derived/screens/lisa-notifications-list-read.svg",
-      "sha256": "f52336d1392d9928555475d02092a49186352f45a1aae4c8e5bbca7b528b9915"
-    },
-    {
-      "bytes": 38328,
-      "path": "derived/screens/lisa-notifications-list-read.png",
-      "sha256": "fe06d9372d7fc02a766ba4bfdcf26cdf49c5f39c19f34469c95954a213ecf810"
-    },
-    {
-      "bytes": 83969,
-      "path": "derived/screens/lisa-notification-detail-read.svg",
-      "sha256": "ec707b7db2624bf5f55347508969961c478e0f0ea24cfc7581997fd0e3621504"
-    },
-    {
-      "bytes": 62341,
-      "path": "derived/screens/lisa-notification-detail-read.png",
-      "sha256": "c2eb769c18ef75f7f9cbb58b087854662c6501b863e5c875a861b52c7a2a3408"
-    },
-    {
-      "bytes": 202422,
-      "path": "derived/screens/lisa-result-view-from-chat.svg",
-      "sha256": "7ef7b46f5129a43b122d28bafcdb1edee09c44f76d00770042c208c929428153"
-    },
-    {
-      "bytes": 151131,
-      "path": "derived/screens/lisa-result-view-from-chat.png",
-      "sha256": "ac62951d9125cc4ef14f36e587fe40db580b7e0b16b2850ba2dba13dcf63a13b"
-    },
-    {
-      "bytes": 202430,
-      "path": "derived/screens/lisa-result-view-from-notification.svg",
-      "sha256": "455a9e52c65caed442d2a8ff6131a6bc827197d68a9c71b8f6753839834bc165"
-    },
-    {
-      "bytes": 151131,
-      "path": "derived/screens/lisa-result-view-from-notification.png",
-      "sha256": "ac62951d9125cc4ef14f36e587fe40db580b7e0b16b2850ba2dba13dcf63a13b"
-    },
-    {
-      "bytes": 132633,
-      "path": "derived/screens/lisa-returned-to-chat.svg",
-      "sha256": "3396f7721e0ea13cbea89e4eb035a661e0e3bb655b229c8e8666d989f402ccec"
-    },
-    {
-      "bytes": 98752,
-      "path": "derived/screens/lisa-returned-to-chat.png",
-      "sha256": "fa446f92945663b4e3aeb57990856b0ea178ccae385d8da41b3ef759f06b52cb"
-    },
-    {
-      "bytes": 119420,
-      "path": "derived/screens/lisa-presentation-email-submitting.svg",
-      "sha256": "2310ea2a7a93afa03e3008d98d3954d650b7ce9ea69757e7df93a1841f1be0b1"
-    },
-    {
-      "bytes": 88870,
-      "path": "derived/screens/lisa-presentation-email-submitting.png",
-      "sha256": "3f3442df5a8a405d70090c241b6823d7ce4ea99209179a5762f91d26cc63aeb5"
-    },
-    {
-      "bytes": 113739,
-      "path": "derived/screens/lisa-presentation-email-sent.svg",
-      "sha256": "e5be44cf61d2467512a12b42f3573acf3491d144e77efed1424ba088d845ddda"
-    },
-    {
-      "bytes": 84682,
-      "path": "derived/screens/lisa-presentation-email-sent.png",
-      "sha256": "fa6eee2ddac5f51adc94bfe43af51650d182a57bd2ef741bf4f5b6a31f486398"
-    },
-    {
-      "bytes": 130750,
-      "path": "derived/screens/lisa-presentation-email-partial-failure.svg",
-      "sha256": "f4ea92e0b7f27be1eac871e124de01271d399a4073797c4992676af7c34d0251"
-    },
-    {
-      "bytes": 97341,
-      "path": "derived/screens/lisa-presentation-email-partial-failure.png",
-      "sha256": "c0a86a11dbbabbef792a664f6037a7fa494199b6fd6655a87d8d2648c226e453"
-    },
-    {
-      "bytes": 125682,
-      "path": "derived/screens/lisa-presentation-email-failed.svg",
-      "sha256": "13d15910823a93abeff7847edc21d33500feaa1ad17fc57cefc7a245a16a2d07"
-    },
-    {
-      "bytes": 93589,
-      "path": "derived/screens/lisa-presentation-email-failed.png",
-      "sha256": "98bbb2287a6a6cd52c81032f47d74538d093219752f93e9fc2b641e67965248b"
-    },
-    {
-      "bytes": 66459,
-      "path": "derived/screens/lisa-result-not-ready.svg",
-      "sha256": "70485ffd7026db735e35c82f774946b40df21b844a760cd81b801ac83754ebde"
-    },
-    {
-      "bytes": 49180,
-      "path": "derived/screens/lisa-result-not-ready.png",
-      "sha256": "cc16725f0acddd9592b93c53b81f64f3e891b9614e6c7e68306826897d69d421"
-    },
-    {
-      "bytes": 69269,
-      "path": "derived/screens/lisa-link-invalid.svg",
-      "sha256": "dbd0c65221cde7c28019188de0d35da6a1d83e7dae8cc1cffe7dc688a8ec36dc"
-    },
-    {
-      "bytes": 51302,
-      "path": "derived/screens/lisa-link-invalid.png",
-      "sha256": "b284804c7dda2d42d0e0f22e371b44a9fa0037a780a929206000ab737ec99271"
-    },
-    {
-      "bytes": 69761,
-      "path": "derived/screens/lisa-link-expired.svg",
-      "sha256": "2489bae7da7e7e0000a97f3ed9de7e09f0d0ae4864e833e375a462075139e90d"
-    },
-    {
-      "bytes": 51659,
-      "path": "derived/screens/lisa-link-expired.png",
-      "sha256": "4e84e63b27baa16028bb8b087903101b13da96976e660c579168b3ec2ceacf18"
-    },
-    {
-      "bytes": 69877,
-      "path": "derived/screens/lisa-access-denied.svg",
-      "sha256": "10140f3dd8d48f41e51db6e93f2fc45a847d7570065bda0257e96258b1c060c9"
-    },
-    {
-      "bytes": 51725,
-      "path": "derived/screens/lisa-access-denied.png",
-      "sha256": "7e2570b2137a2fe1f9be661c8784b35752b2fef8a273bec4ea847f579e9da0f7"
-    },
-    {
-      "bytes": 87904,
-      "path": "derived/screens/lisa-offline.svg",
-      "sha256": "767327738fc7fb23d59ff6808d1d06db5af99dd631900df1ff710a9282b35088"
-    },
-    {
-      "bytes": 65272,
-      "path": "derived/screens/lisa-offline.png",
-      "sha256": "e0f839c5eb3d952ecb6a74be1829d1dcef3c521ddca1f161a090a9e646dcae0d"
-    },
-    {
-      "bytes": 68916,
-      "path": "derived/screens/lisa-notification-failed-chat-available.svg",
-      "sha256": "0114c3d1f5ade5f87d8c52ec55b48a9b0cb83a582d474d7ede9ce5a7620bac75"
-    },
-    {
-      "bytes": 50980,
-      "path": "derived/screens/lisa-notification-failed-chat-available.png",
-      "sha256": "7910f652dfa1d8a487723db220577f9400132294050cfeb3b3bf8511ff02fd67"
-    },
-    {
-      "bytes": 65960,
-      "path": "derived/screens/lisa-result-cancelled.svg",
-      "sha256": "01af2d48e8f71e7e2e93c8aefc2c6b437d0ddc982d195061c7e455ac7958344d"
-    },
-    {
-      "bytes": 48833,
-      "path": "derived/screens/lisa-result-cancelled.png",
-      "sha256": "f1cff02cb56683332a49deac93298fc8dd69c1c098077dd437af087c4cb817a0"
-    },
-    {
-      "bytes": 69516,
-      "path": "derived/screens/lisa-result-revoked.svg",
-      "sha256": "bc74cb1024e02458384034c8c5f23778ad325d894ef227ebb21c6db6d21d8bc9"
-    },
-    {
-      "bytes": 51473,
-      "path": "derived/screens/lisa-result-revoked.png",
-      "sha256": "d51e37208dac7ca132b88abda6c33c42eaa2c64a7722dec2c2b84f157f3688b4"
-    }
-  ],
-  "portability": {
-    "entrypoint": "demo/index.html",
-    "file_scheme_supported": true,
-    "relative_resources_only": true
-  },
-  "self": {
-    "path": "derived/prototype-package-manifest.json",
-    "reason": "Самохэширование невозможно; хэш хранится во внешнем реестре артефактов.",
-    "sha256": null
-  },
-  "state_count": 26,
-  "status": "generated",
-  "version": "1.0.0"
+  "archive": {
+    "path": "derived/lisa-presentation-user-journey-demo.zip",
+    "bytes": 15479586,
+    "sha256": "0ec46bb332c3bff80c3d701477b5f892fc8c1c5f2aa1a599647fcd0fec266fc0",
+    "members": [
+      "README.md",
+      "manifest.json",
+      "index.html",
+      "app.js",
+      "data.js",
+      "styles.css",
+      "assets/lisa-client-answer-status-3x.png",
+      "assets/lisa-client-answer-content-3x.png",
+      "assets/lisa-client-answer-home-3x.png",
+      "assets/lisa-materials-summary-status-3x.png",
+      "assets/lisa-materials-summary-content-3x.png",
+      "assets/lisa-materials-summary-home-3x.png",
+      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-materials-full-reference-content-3x.png",
+      "assets/lisa-materials-full-reference-home-3x.png",
+      "assets/lisa-presentation-order-status-3x.png",
+      "assets/lisa-presentation-order-content-3x.png",
+      "assets/lisa-presentation-order-home-3x.png",
+      "assets/lisa-presentation-generating-status-3x.png",
+      "assets/lisa-presentation-generating-content-3x.png",
+      "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-presentation-sent-content-3x.png",
+      "assets/lisa-presentation-sent-home-3x.png",
+      "assets/lisa-presentation-email.png",
+      "assets/szh-dense-slidedoc-4x.png",
+      "assets/szh-dense-sber2025-4x.png",
+      "assets/szh-dense-mag-4x.png"
+    ]
+  }
 }

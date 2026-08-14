@@ -5,7 +5,11 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { documentationFormat } from "./generate-docs-navigation.mjs";
+import {
+  documentationFormat,
+  isTransientFullPackageReleasePath,
+  navigationIgnoredReason,
+} from "./generate-docs-navigation.mjs";
 
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
@@ -200,6 +204,11 @@ const sourceManagedByPath = new Map(source.managed_entries.map((entry) => [entry
 const configuredNavigationDomains = new Set(source.navigation_domains.map((domain) => domain.id));
 const configuredNavigationGroups = new Set(source.navigation_groups.map((group) => group.id));
 
+const transientReleaseEntries = index.entries.filter((entry) => isTransientFullPackageReleasePath(entry.path));
+if (transientReleaseEntries.length > 0) {
+  fail(`служебные каталоги полного выпуска попали в индекс документации: ${transientReleaseEntries.map((entry) => entry.path).join(", ")}`);
+}
+
 for (const entry of index.entries) {
   const expectedParentReadme = parentReadmeFor(entry.path);
   if (entry.parent_readme !== expectedParentReadme) {
@@ -280,7 +289,7 @@ for (const navigationEntry of [
 }
 
 for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
-  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  const ignored = navigationIgnoredReason(source, entry.path);
   if (!sourceManagedByPath.has(entry.path) && !ignored) {
     fail(`nested README must be managed or explicitly ignored: ${entry.path}`);
   }
@@ -314,7 +323,7 @@ for (const route of [...source.role_routes, ...source.task_routes]) {
       if (generatedEntry.navigation_group !== "business") {
         fail(`business route points outside business navigation group: ${route.id} -> ${target}`);
       }
-      const ignored = source.ignored_paths.find((entry) => matchesPrefix(target, entry.path));
+      const ignored = navigationIgnoredReason(source, target);
       if (ignored) {
         fail(`business route points to ignored path: ${route.id} -> ${target}`);
       }
@@ -338,7 +347,7 @@ for (const entry of index.entries) {
   if (!matchesPrefix(entry.path, "docs/product") || entry.generated || entry.visibility !== "public") {
     continue;
   }
-  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  const ignored = navigationIgnoredReason(source, entry.path);
   if (ignored) {
     continue;
   }
@@ -530,7 +539,7 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
   },
   "positive-nested-readmes-managed-or-ignored": () => {
     for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
-      const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+      const ignored = navigationIgnoredReason(source, entry.path);
       if (!sourceManagedByPath.has(entry.path) && !ignored) {
         fail(`README missing managed/ignored classification: ${entry.path}`);
       }

@@ -9152,7 +9152,7 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
       "type": "visual-contract",
       "owner_role": "Product Owner / QA Lead",
-      "status": "active",
+      "status": "planned",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -9161,14 +9161,14 @@
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Состав синтетической презентации, слайды или действия просмотра меняются."
+      "update_trigger": "Граница будущей реализации P4 четвёртого квартала, состав синтетической презентации, слайды или действия просмотра меняются."
     },
     {
       "id": "ART-836",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-preview-contract.schema.json",
       "type": "schema",
       "owner_role": "QA Lead",
-      "status": "active",
+      "status": "planned",
       "sprint_id": "SPRINT-2026-W27"
     },
     {
@@ -9311,8 +9311,8 @@
       "navigable": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
       "generated_from": [
-        "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
-        "tests/presentation-link-lisa-user-journey.browser.spec.mjs"
+        "scripts/update-presentation-link-lisa-seven-screen-evidence.mjs",
+        "tests/presentation-link-lisa-seven-screen-prototype.browser.spec.mjs"
       ],
       "redaction_status": "not_required",
       "update_trigger": "HTML, браузеры, размеры окна, доступность, геометрия или снимки меняются."
@@ -9330,11 +9330,11 @@
       "navigable": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
       "generated_from": [
-        "scripts/update-presentation-link-lisa-user-journey-evidence.mjs",
+        "scripts/update-presentation-link-lisa-seven-screen-evidence.mjs",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json"
       ],
       "redaction_status": "not_required",
-      "update_trigger": "Подтверждение владельца, контрольные суммы, ограничения инструментов или итог проверок меняются."
+      "update_trigger": "Активный маршрут, контрольные суммы, ограничения инструментов или итог проверок меняются."
     },
     {
       "id": "ART-848",
@@ -9447,7 +9447,7 @@
       "path": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
       "type": "plan",
       "owner_role": "Product Owner / Process Owner",
-      "status": "draft",
+      "status": "active",
       "sprint_id": "SPRINT-2026-W27",
       "data_class": "internal",
       "visibility": "internal",
@@ -9457,6 +9457,195 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "План реализации HTML-прототипа пути заказа презентации в Лисе, его граница P1/P2, проверка или передача на последующую миграцию меняются."
+    },
+    {
+      "id": "ART-861",
+      "path": "docs/knowledge/rca/2026-08-11-lisa-browser-evidence-contour.md",
+      "type": "root-cause-analysis",
+      "owner_role": "QA Lead / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Повторяемость канонического растра, границы межбраузерной проверки, выпускной контур или его защитные проверки меняются."
+    },
+    {
+      "id": "ART-862",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+      "type": "active-contract-registry",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-scope-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав активных договоров MVP, набор состояний или отложенная граница P3/P4 меняются."
+    },
+    {
+      "id": "ART-863",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/active-contracts.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-864",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-scope-contract.json",
+      "type": "scope-contract",
+      "owner_role": "Product Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Граница MVP P1/P2, запрещённые активные поверхности или будущий объём P3/P4 меняются."
+    },
+    {
+      "id": "ART-865",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/prototype-scope-contract.schema.json",
+      "type": "schema",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-866",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-external-visual-reference.png",
+      "type": "safe-visual-reference",
+      "owner_role": "Documentation Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
+      "generated_from": [
+        "scripts/import-presentation-link-lisa-visual-donor.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Проверенный растровый ориентир, его происхождение, контрольная сумма или ограничение reference-only меняются."
+    },
+    {
+      "id": "ART-867",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
+      "type": "generated-manifest",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/generate-presentation-link-lisa-user-journey.mjs",
+        "scripts/lib/presentation-link-lisa-canonical-raster.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Канонический браузер, набор WebKit PNG, три независимых запуска или отпечаток кандидата меняются."
+    },
+    {
+      "id": "ART-868",
+      "path": "scripts/import-presentation-link-lisa-visual-donor.mjs",
+      "type": "visual-importer",
+      "owner_role": "Documentation Owner / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-869",
+      "path": "tests/presentation-link-lisa-visual-donor.test.mjs",
+      "type": "test",
+      "owner_role": "QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-870",
+      "path": "scripts/lib/presentation-link-lisa-canonical-raster.mjs",
+      "type": "generator-library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-871",
+      "path": "scripts/lib/presentation-link-lisa-full-package-transaction.mjs",
+      "type": "release-transaction-library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-872",
+      "path": "tests/presentation-link-lisa-full-package-transaction.test.mjs",
+      "type": "test",
+      "owner_role": "QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27"
+    },
+    {
+      "id": "ART-873",
+      "path": "docs/knowledge/rca/2026-08-12-lisa-raster-base-source-parity.md",
+      "type": "root-cause-analysis",
+      "owner_role": "QA Lead / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Правило растровой основы, source parity, локальные слоты или защита от ручной CSS-отрисовки прототипа Лисы меняются."
+    },
+    {
+      "id": "ART-874",
+      "path": "docs/knowledge/rca/2026-08-12-lisa-runtime-webkit-timeout.md",
+      "type": "root-cause-analysis",
+      "owner_role": "QA Lead / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Договорный срок WebKit, изоляция браузерных дочерних процессов, фазовая диагностика или правило отката кандидатного выпуска Лисы меняются."
+    },
+    {
+      "id": "ART-875",
+      "path": "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
+      "type": "root-cause-analysis",
+      "owner_role": "QA Lead / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Расположение runtime-ресурсов автономной демонстрации Лисы, состав demo/assets, переносимый ZIP или проверка прямого file:// открытия меняются."
     }
   ]
 }

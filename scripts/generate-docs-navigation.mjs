@@ -17,6 +17,15 @@ const documentationFormatByExtension = new Map([
   [".md", "md"],
   [".zip", "zip"],
 ]);
+const transientFullPackageReleasePrefixes = [
+  "docs/product/analysis/.presentation-link-lisa-full-package-candidate-",
+  "docs/product/analysis/.presentation-link-lisa-full-package-backup-",
+  "docs/product/analysis/.presentation-link-lisa-full-package-failed-",
+];
+const transientFullPackageReleaseFiles = new Set([
+  "docs/product/analysis/.presentation-link-lisa-user-journey.full-package-release.json",
+  "docs/product/analysis/.presentation-link-lisa-full-package-release.lock",
+]);
 
 function fail(message) {
   console.error(`ERROR: ${message}`);
@@ -173,7 +182,17 @@ function matchesPrefix(relativePath, prefix) {
   return relativePath === prefix || relativePath.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`);
 }
 
-function ignoredReason(source, relativePath) {
+export function isTransientFullPackageReleasePath(relativePath) {
+  return (
+    transientFullPackageReleaseFiles.has(relativePath) ||
+    transientFullPackageReleasePrefixes.some((prefix) => relativePath.startsWith(prefix))
+  );
+}
+
+export function navigationIgnoredReason(source, relativePath) {
+  if (isTransientFullPackageReleasePath(relativePath)) {
+    return "Служебные данные полного выпуска: кандидат, резерв, неудавшаяся попытка, журнал и блокировка не являются документацией.";
+  }
   const match = source.ignored_paths.find((entry) => matchesPrefix(relativePath, entry.path));
   return match ? match.reason : null;
 }
@@ -294,7 +313,7 @@ function buildEntries(source) {
   const files = new Set();
   for (const sourceRoot of source.source_roots) {
     for (const filePath of listFiles(sourceRoot.path, sourceRoot.formats)) {
-      if (!generatedPaths.has(filePath) && !ignoredReason(source, filePath)) {
+      if (!generatedPaths.has(filePath) && !navigationIgnoredReason(source, filePath)) {
         files.add(filePath);
       }
     }
