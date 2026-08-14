@@ -8,6 +8,7 @@ import {
   APPROVED_EDITABLE_SOURCE_RASTERS,
   __test,
   buildApprovedEditableSourceRasters,
+  canonicalizeApprovedPng,
 } from "../scripts/import-presentation-link-lisa-editable-sources.mjs";
 
 const SOURCE_ROOT = "docs/product/analysis/presentation-link-lisa-user-journey/editable-sources";
@@ -228,6 +229,19 @@ test("останавливается при изменении SHA-256 утве�
     () => buildApprovedEditableSourceRasters({ root, write: true }),
     /SHA-256 исходного SVG не совпадает/u,
   );
+});
+
+test("канонизация удаляет служебный PNG-член sBIT из снимка WebKit", () => {
+  const source = Buffer.concat([
+    PNG_SIGNATURE,
+    pngChunk("IHDR", Buffer.from([0, 0, 0, 1, 0, 0, 0, 1, 8, 6, 0, 0, 0])),
+    pngChunk("sBIT", Buffer.from([8, 8, 8, 8])),
+    pngChunk("IDAT", Buffer.from("webkit-sbit-fixture", "utf8")),
+    pngChunk("IEND", Buffer.alloc(0)),
+  ]);
+
+  const canonical = canonicalizeApprovedPng(source, { width: 1, height: 1 }, "webkit-sbit-fixture");
+  assert.deepEqual(__test.inspectSafePng(canonical).chunks, ["IHDR", "IDAT", "IEND"]);
 });
 
 test("откатывает весь управляемый набор при сбое rename в середине cutover", async () => {

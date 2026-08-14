@@ -342,7 +342,7 @@ function inspectSafePng(png, label = "PNG", { allowCanonicalizationMetadata = fa
     } else if (type === "IEND" && !seenIend && length === 0 && idat.length > 0) {
       seenIend = true;
       chunks.push(type);
-    } else if (allowCanonicalizationMetadata && ["sRGB", "gAMA", "pHYs", "bKGD", "eXIf", "caBX"].includes(type) && !seenIend) {
+    } else if (allowCanonicalizationMetadata && ["sRGB", "gAMA", "pHYs", "bKGD", "eXIf", "sBIT", "caBX"].includes(type) && !seenIend) {
       // Служебные PNG-блоки снимка принимаются только до канонизации.
     } else {
       fail(`${label} содержит неразрешённый PNG-член ${type}`);
