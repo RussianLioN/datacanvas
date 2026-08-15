@@ -11,3 +11,9 @@ __pycache__/
 ~$*.xlsx
 /artifacts/manual/.tmp-cascade-cli-*
 /docs/process/cascading-governance/runs/.tmp-cascade-cli-*
+/test-results/presentation-link-lisa-user-journey/
+/docs/product/analysis/.presentation-link-lisa-full-package-candidate-*/
+/docs/product/analysis/.presentation-link-lisa-full-package-backup-*/
+/docs/product/analysis/.presentation-link-lisa-full-package-failed-*/
+/docs/product/analysis/.presentation-link-lisa-full-package-release.lock
+/docs/product/analysis/.presentation-link-lisa-user-journey.full-package-release.json

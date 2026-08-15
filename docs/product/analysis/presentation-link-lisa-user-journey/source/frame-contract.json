@@ -1,0 +1,434 @@
+{
+  "$schema": "schemas/frame-contract.schema.json",
+  "version": "3.0.0",
+  "device": {
+    "model": "iPhone 12 Pro Max",
+    "body_mm": {
+      "width": 78.1,
+      "height": 160.8
+    },
+    "screen_px": {
+      "width": 428,
+      "height": 926
+    },
+    "inner_window_px": {
+      "width": 521,
+      "height": 980
+    },
+    "protected_image": {
+      "width": 393,
+      "height": 852,
+      "role": "three-layer-raster-basis",
+      "scale": 3
+    },
+    "source_body_viewport": {
+      "x": 64,
+      "y": 48,
+      "width": 393,
+      "height": 852
+    },
+    "source_body_corner_radius": 32,
+    "source_canvas_margins": {
+      "left": 64,
+      "top": 48,
+      "right": 64,
+      "bottom": 80
+    }
+  },
+  "frames": [
+    {
+      "state_id": "lisa-materials-summary",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-materials-full-reference",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 5066
+      },
+      "scrollable": true,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 4979
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 5080,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-order",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-sent",
+      "presentation": "phone",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "content": {
+        "width": 393,
+        "height": 852
+      },
+      "scrollable": false,
+      "regions": {
+        "system_top": {
+          "source_rect": {
+            "x": 64,
+            "y": 48,
+            "width": 393,
+            "height": 53
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 0,
+            "width": 393,
+            "height": 53
+          }
+        },
+        "scroll_content": {
+          "source_rect": {
+            "x": 64,
+            "y": 101,
+            "width": 393,
+            "height": 765
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 53,
+            "width": 393,
+            "height": 765
+          }
+        },
+        "system_bottom": {
+          "source_rect": {
+            "x": 64,
+            "y": 866,
+            "width": 393,
+            "height": 34
+          },
+          "viewport_rect": {
+            "x": 0,
+            "y": 818,
+            "width": 393,
+            "height": 34
+          }
+        }
+      }
+    },
+    {
+      "state_id": "lisa-presentation-email",
+      "presentation": "desktop",
+      "viewport": {
+        "width": 1553,
+        "height": 1013
+      },
+      "content": {
+        "width": 1553,
+        "height": 1013
+      },
+      "scrollable": false
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "presentation": "desktop",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "content": {
+        "width": 960,
+        "height": 1620
+      },
+      "scrollable": true
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "presentation": "desktop",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "content": {
+        "width": 960,
+        "height": 1620
+      },
+      "scrollable": true
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "presentation": "desktop",
+      "viewport": {
+        "width": 960,
+        "height": 540
+      },
+      "content": {
+        "width": 960,
+        "height": 1620
+      },
+      "scrollable": true
+    }
+  ]
+}

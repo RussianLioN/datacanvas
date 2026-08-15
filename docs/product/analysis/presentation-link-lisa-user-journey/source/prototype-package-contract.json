@@ -1,0 +1,51 @@
+{
+  "$schema": "schemas/prototype-package-contract.schema.json",
+  "version": "3.0.0",
+  "runtime_root": "demo",
+  "asset_root": "demo/assets",
+  "archive_path": "derived/lisa-presentation-user-journey-demo.zip",
+  "archive_members": [
+    "README.md",
+    "manifest.json",
+    "index.html",
+    "app.js",
+    "data.js",
+    "styles.css",
+    "assets/lisa-materials-summary-status-3x.png",
+    "assets/lisa-materials-summary-content-3x.png",
+    "assets/lisa-materials-summary-home-3x.png",
+    "assets/lisa-materials-full-reference-status-3x.png",
+    "assets/lisa-materials-full-reference-content-3x.png",
+    "assets/lisa-materials-full-reference-home-3x.png",
+    "assets/lisa-presentation-order-status-3x.png",
+    "assets/lisa-presentation-order-content-3x.png",
+    "assets/lisa-presentation-order-home-3x.png",
+    "assets/lisa-presentation-generating-status-3x.png",
+    "assets/lisa-presentation-generating-content-3x.png",
+    "assets/lisa-presentation-generating-home-3x.png",
+    "assets/lisa-presentation-chat-list-status-3x.png",
+    "assets/lisa-presentation-chat-list-content-3x.png",
+    "assets/lisa-presentation-chat-list-home-3x.png",
+    "assets/lisa-presentation-sent-status-3x.png",
+    "assets/lisa-presentation-sent-content-3x.png",
+    "assets/lisa-presentation-sent-home-3x.png",
+    "assets/lisa-presentation-email.png",
+    "assets/szh-dense-slidedoc-4x.png",
+    "assets/szh-dense-sber2025-4x.png",
+    "assets/szh-dense-mag-4x.png"
+  ],
+  "prohibitions": {
+    "source_runtime_dependency": false,
+    "parent_directory_references": false,
+    "network_requests": false,
+    "absolute_local_paths": false,
+    "raw_svg_in_archive": false,
+    "generated_outputs_as_contract_inputs": false,
+    "old_twenty_state_route_active": false
+  },
+  "commands": {
+    "generate": "npm run generate:presentation-link-lisa-user-journey",
+    "validate": "npm run validate:presentation-link-lisa-user-journey",
+    "check": "npm run check:presentation-link-lisa-user-journey"
+  }
+}

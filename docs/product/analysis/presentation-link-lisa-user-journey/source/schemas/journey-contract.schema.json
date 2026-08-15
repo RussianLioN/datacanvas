@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "journey-contract.schema.json",
+  "title": "Договор маршрута заказа презентации с сохранением отображаемой нумерации",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "initial_state_id",
+    "state_ids",
+    "states",
+    "actions",
+    "navigation",
+    "device"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/journey-contract.schema.json"
+    },
+    "version": {
+      "const": "3.0.0"
+    },
+    "initial_state_id": {
+      "$ref": "#/$defs/state_id"
+    },
+    "state_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/state_id"
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/state"
+      }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "navigation": {
+      "$ref": "#/$defs/navigation"
+    },
+    "device": {
+      "$ref": "#/$defs/device"
+    }
+  },
+  "$defs": {
+    "state_id": {
+      "type": "string",
+      "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "order",
+        "display_order",
+        "source_id",
+        "caption",
+        "presentation",
+        "scrollable",
+        "action_ids"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/state_id"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "display_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_id": {
+          "$ref": "#/$defs/source_id"
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1
+        },
+        "presentation": {
+          "enum": [
+            "phone",
+            "desktop"
+          ]
+        },
+        "scrollable": {
+          "type": "boolean"
+        },
+        "action_ids": {
+          "type": "array",
+          "items": {
+            "const": "order-presentation"
+          },
+          "uniqueItems": true,
+          "maxItems": 1
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "target_state_id",
+        "source_state_ids"
+      ],
+      "properties": {
+        "id": {
+          "const": "order-presentation"
+        },
+        "target_state_id": {
+          "$ref": "#/$defs/state_id"
+        },
+        "source_state_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/state_id"
+          }
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "wrap",
+        "display_total",
+        "keyboard"
+      ],
+      "properties": {
+        "mode": {
+          "const": "linear"
+        },
+        "wrap": {
+          "const": false
+        },
+        "display_total": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "keyboard": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "previous",
+            "next",
+            "activate"
+          ],
+          "properties": {
+            "previous": {
+              "type": "string",
+              "minLength": 1
+            },
+            "next": {
+              "type": "string",
+              "minLength": 1
+            },
+            "activate": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "body_mm",
+        "screen_px",
+        "inner_window_px",
+        "source_body_viewport",
+        "source_canvas_margins"
+      ],
+      "properties": {
+        "model": {
+          "const": "iPhone 12 Pro Max"
+        },
+        "body_mm": {
+          "$ref": "#/$defs/body_mm"
+        },
+        "screen_px": {
+          "$ref": "#/$defs/screen_px"
+        },
+        "inner_window_px": {
+          "$ref": "#/$defs/phone_viewport"
+        },
+        "source_body_viewport": {
+          "$ref": "#/$defs/source_body_viewport"
+        },
+        "source_canvas_margins": {
+          "$ref": "#/$defs/source_canvas_margins"
+        }
+      }
+    },
+    "body_mm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "const": 78.1
+        },
+        "height": {
+          "const": 160.8
+        }
+      }
+    },
+    "screen_px": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "const": 428
+        },
+        "height": {
+          "const": 926
+        }
+      }
+    },
+    "phone_viewport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "const": 521
+        },
+        "height": {
+          "const": 980
+        }
+      }
+    },
+    "source_body_viewport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "x": {
+          "const": 64
+        },
+        "y": {
+          "const": 48
+        },
+        "width": {
+          "const": 393
+        },
+        "height": {
+          "const": 852
+        }
+      }
+    },
+    "source_canvas_margins": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "left",
+        "top",
+        "right",
+        "bottom"
+      ],
+      "properties": {
+        "left": {
+          "const": 64
+        },
+        "top": {
+          "const": 48
+        },
+        "right": {
+          "const": 64
+        },
+        "bottom": {
+          "const": 80
+        }
+      }
+    }
+  }
+}

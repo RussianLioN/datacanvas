@@ -1,0 +1,173 @@
+{
+  "$schema": "schemas/journey-contract.schema.json",
+  "version": "3.0.0",
+  "initial_state_id": "lisa-materials-summary",
+  "state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "states": [
+    {
+      "id": "lisa-materials-summary",
+      "order": 1,
+      "display_order": 2,
+      "source_id": "5.2",
+      "caption": "Краткие материалы: заказ доступен сразу",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": [
+        "order-presentation"
+      ]
+    },
+    {
+      "id": "lisa-materials-full-reference",
+      "order": 2,
+      "display_order": 3,
+      "source_id": "5.4",
+      "caption": "Полная справка: прокрутите материалы или оформите заказ",
+      "presentation": "phone",
+      "scrollable": true,
+      "action_ids": [
+        "order-presentation"
+      ]
+    },
+    {
+      "id": "lisa-presentation-order",
+      "order": 3,
+      "display_order": 4,
+      "source_id": "7.1",
+      "caption": "Заказ презентации по подготовленным материалам",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": [
+        "order-presentation"
+      ]
+    },
+    {
+      "id": "lisa-presentation-generating",
+      "order": 4,
+      "display_order": 5,
+      "source_id": "7.2",
+      "caption": "Презентация формируется",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-chat-list",
+      "order": 5,
+      "display_order": 6,
+      "source_id": "08",
+      "caption": "Чаты: ГК Достовалова",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-sent",
+      "order": 6,
+      "display_order": 7,
+      "source_id": "7.3",
+      "caption": "Презентация сформирована и отправлена",
+      "presentation": "phone",
+      "scrollable": false,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-email",
+      "order": 7,
+      "display_order": 8,
+      "source_id": "7.4",
+      "caption": "Письмо с версиями презентации в ODT и PDF",
+      "presentation": "desktop",
+      "scrollable": false,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-slidedoc",
+      "order": 8,
+      "display_order": 9,
+      "source_id": "szh-dense-slidedoc",
+      "caption": "Презентация: вариант SlideDoc",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-sber2025",
+      "order": 9,
+      "display_order": 10,
+      "source_id": "szh-dense-sber2025",
+      "caption": "Презентация: вариант Sber 2025",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-mag",
+      "order": 10,
+      "display_order": 11,
+      "source_id": "szh-dense-mag",
+      "caption": "Презентация: вариант MAG",
+      "presentation": "desktop",
+      "scrollable": true,
+      "action_ids": []
+    }
+  ],
+  "actions": [
+    {
+      "id": "order-presentation",
+      "target_state_id": "lisa-presentation-generating",
+      "source_state_ids": [
+        "lisa-materials-summary",
+        "lisa-materials-full-reference",
+        "lisa-presentation-order"
+      ]
+    }
+  ],
+  "navigation": {
+    "mode": "linear",
+    "wrap": false,
+    "display_total": 11,
+    "keyboard": {
+      "previous": "ArrowLeft",
+      "next": "ArrowRight",
+      "activate": "Enter"
+    }
+  },
+  "device": {
+    "model": "iPhone 12 Pro Max",
+    "body_mm": {
+      "width": 78.1,
+      "height": 160.8
+    },
+    "screen_px": {
+      "width": 428,
+      "height": 926
+    },
+    "inner_window_px": {
+      "width": 521,
+      "height": 980
+    },
+    "source_body_viewport": {
+      "x": 64,
+      "y": 48,
+      "width": 393,
+      "height": 852
+    },
+    "source_canvas_margins": {
+      "left": 64,
+      "top": 48,
+      "right": 64,
+      "bottom": 80
+    }
+  }
+}

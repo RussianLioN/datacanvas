@@ -1,0 +1,40 @@
+{
+  "version": "3.0.0",
+  "status": "passed",
+  "route_id": "lisa-presentation-ten-screen-route",
+  "active_state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
+  },
+  "browser_report": "evidence/browser-report.json",
+  "acceptance": {
+    "exact_ten_screen_order": true,
+    "runtime_only_from_demo_assets": true,
+    "internal_scroll_only_for_long_phone_screens_and_presentation_documents": true,
+    "system_top_and_bottom_remain_fixed": true,
+    "application_content_scrolls_between_system_regions": true,
+    "service_text_and_navigation_are_outside_phone": true,
+    "three_order_buttons_open_generating_state": true,
+    "email_is_separate_uncropped_screen": true,
+    "three_presentation_documents_follow_email": true,
+    "final_mag_screen_disables_forward_navigation": true,
+    "unpacked_archive_works_via_file_url": true,
+    "chromium_and_webkit_passed": true,
+    "phone_and_document_raster_upscaling_blocked_at_device_scale_factor_3": true,
+    "email_fills_viewer_at_high_device_scale_factor": true,
+    "physical_phone_body_ratio_78_1_by_160_8": true,
+    "protected_phone_raster_is_not_stretched": true
+  }
+}

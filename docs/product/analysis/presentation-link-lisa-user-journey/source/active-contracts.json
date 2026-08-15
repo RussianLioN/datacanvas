@@ -1,0 +1,50 @@
+{
+  "$schema": "schemas/active-contracts.schema.json",
+  "version": "3.0.0",
+  "status": "active",
+  "route_id": "lisa-presentation-ten-screen-route",
+  "active_state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "active_contracts": [
+    {
+      "id": "journey",
+      "path": "source/journey-contract.json",
+      "schema": "source/schemas/journey-contract.schema.json"
+    },
+    {
+      "id": "frame",
+      "path": "source/frame-contract.json",
+      "schema": "source/schemas/frame-contract.schema.json"
+    },
+    {
+      "id": "source-render-catalog",
+      "path": "source/source-render-catalog.json",
+      "schema": "source/schemas/source-render-catalog.schema.json"
+    },
+    {
+      "id": "visual-basis",
+      "path": "source/visual-basis-contract.json",
+      "schema": "source/schemas/visual-basis-contract.schema.json"
+    },
+    {
+      "id": "prototype-package",
+      "path": "source/prototype-package-contract.json",
+      "schema": "source/schemas/prototype-package-contract.schema.json"
+    }
+  ],
+  "inactive_contract_policy": {
+    "old_twenty_state_route_active": false,
+    "inactive_contracts_are_not_generator_inputs": true,
+    "active_registry_is_single_source": true
+  }
+}

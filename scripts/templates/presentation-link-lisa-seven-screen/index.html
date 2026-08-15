@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; connect-src 'none'; font-src 'none'; form-action 'none'; frame-src 'none'; img-src 'self'; media-src 'none'; object-src 'none'; script-src 'self'; style-src 'self'; worker-src 'none'">
+    <title>Лиса — заказ презентации</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="prototype-shell" aria-labelledby="prototype-title">
+      <aside class="service-panel" data-testid="service-panel" aria-label="Управление просмотром">
+        <header class="prototype-heading" data-testid="service-heading">
+          <h1 id="prototype-title">Заказ презентации</h1>
+          <p id="state-caption" data-testid="state-caption"></p>
+        </header>
+
+        <nav class="prototype-navigation" aria-label="Переход между экранами">
+          <button id="previous-state" data-testid="previous-state" type="button" aria-label="Предыдущий экран">
+            <span aria-hidden="true">←</span>
+            <span class="button-label">Назад</span>
+          </button>
+          <p id="state-counter" data-testid="state-counter" aria-live="polite"></p>
+          <button id="next-state" data-testid="next-state" type="button" aria-label="Следующий экран">
+            <span class="button-label">Вперёд</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </nav>
+
+        <nav id="slide-navigation" class="slide-navigation" aria-label="Переход между слайдами" hidden>
+          <button id="previous-slide" data-testid="previous-slide" type="button" aria-label="Предыдущий слайд" hidden>
+            <span aria-hidden="true">↑</span>
+            <span class="slide-button-label">Предыдущий слайд</span>
+          </button>
+          <button id="next-slide" data-testid="next-slide" type="button" aria-label="Следующий слайд" hidden>
+            <span class="slide-button-label">Следующий слайд</span>
+            <span aria-hidden="true">↓</span>
+          </button>
+        </nav>
+      </aside>
+
+      <section class="viewer" aria-label="Просмотр пользовательского пути">
+        <div id="prototype-root" class="visual-stage" data-testid="prototype-root"></div>
+      </section>
+    </main>
+    <p id="prototype-live-region" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+  </body>
+</html>

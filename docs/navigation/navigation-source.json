@@ -187,6 +187,86 @@
       }
     },
     {
+      "id": "presentation-link-lisa-user-journey",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey",
+      "defaults": {
+        "section": "product",
+        "owner_role": "Product Owner / Documentation Owner",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Пользовательский путь MVP P1/P2 заказа и моделируемой почтовой отправки, либо сохранённая граница P3/P4 четвёртого квартала меняются.",
+        "navigation_domain": "product",
+        "navigation_group": "business"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-source",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/source",
+      "defaults": {
+        "section": "schemas-scripts-tests",
+        "owner_role": "Product Owner / QA Lead",
+        "lifecycle": "active",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Активные договоры P1/P2, визуальный договор, безопасный растровый ориентир или схема пакета меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "technical"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-derived",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/derived",
+      "defaults": {
+        "section": "generated-artifacts",
+        "owner_role": "Documentation Owner / QA Lead",
+        "lifecycle": "generated",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+        "generated_from": [
+          "scripts/generate-presentation-link-lisa-user-journey.mjs"
+        ],
+        "redaction_status": "not_required",
+        "update_trigger": "Канонический визуальный источник, договор кадров или генератор пользовательского пути меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "generated"
+      }
+    },
+    {
+      "id": "presentation-link-lisa-user-journey-evidence",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/evidence",
+      "defaults": {
+        "section": "release-evidence",
+        "owner_role": "QA Lead / Documentation Owner",
+        "lifecycle": "generated",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": false,
+        "navigable": false,
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+        "generated_from": [
+          "scripts/update-presentation-link-lisa-seven-screen-evidence.mjs"
+        ],
+        "redaction_status": "not_required",
+        "update_trigger": "HTML-прототип, браузерная матрица, доказательный валидатор или набор снимков меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "evidence"
+      }
+    },
+    {
       "id": "ux-uat",
       "path_prefix": "docs/product/ux",
       "defaults": {
@@ -2770,6 +2850,106 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "route_id": "datacanvas-lisa-p1-p2-html-prototype-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "owner_role": "Product Owner / Process Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "План реализации HTML-прототипа пути заказа презентации в Лисе, его граница P1/P2, проверка или передача на последующую миграцию меняются.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-08-11-lisa-browser-evidence-contour.md",
+      "route_id": "rca-2026-08-11-lisa-browser-evidence-contour",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Повторяемость канонического растра, граница межбраузерной проверки, выпускной контур или его защитные проверки меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-08-12-lisa-raster-base-source-parity.md",
+      "route_id": "rca-2026-08-12-lisa-raster-base-source-parity",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Правило растровой основы, source parity, локальные слоты или защита от ручной CSS-отрисовки прототипа Лисы меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-08-12-lisa-runtime-webkit-timeout.md",
+      "route_id": "rca-2026-08-12-lisa-runtime-webkit-timeout",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Договорный срок WebKit, изоляция браузерных дочерних процессов, фазовая диагностика или правило отката кандидатного выпуска Лисы меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
+      "route_id": "rca-2026-08-12-lisa-file-standalone-demo-assets",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/plans/datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Расположение runtime-ресурсов автономной демонстрации Лисы, состав demo/assets, переносимый ZIP или проверка прямого file:// открытия меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/process/cascading-governance/README.md",
       "route_id": "cascading-governance-readme",
       "section": "process",
@@ -3268,6 +3448,86 @@
       "critical": true,
       "breadcrumb_required": false,
       "artifact_registry_required": true
+    },
+    {
+      "route_id": "presentation-link-lisa-user-journey",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Состав пакета, точка входа, подтверждение владельца или профиль проверки меняются.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
+      "route_id": "presentation-link-lisa-user-journey-technical-passport",
+      "section": "product",
+      "owner_role": "Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Происхождение, договор отрисовки, состав пакета или проверки пользовательского пути меняются.",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
+      "route_id": "presentation-link-lisa-user-journey-presentation-preview-q4",
+      "section": "schemas-scripts-tests",
+      "navigation_group": "technical",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-scope-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Сохранённый договор предпросмотра P3/P4 для реализации в четвёртом квартале 2026; не является входом, кадром, архивом или доказательством MVP P1/P2.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-preview-contract.schema.json",
+      "route_id": "presentation-link-lisa-user-journey-presentation-preview-q4-schema",
+      "section": "schemas-scripts-tests",
+      "navigation_group": "technical",
+      "owner_role": "QA Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Сохранённая схема договора предпросмотра P3/P4 для реализации в четвёртом квартале 2026; не является входом, кадром, архивом или доказательством MVP P1/P2.",
+      "critical": false,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
     }
   ],
   "role_routes": [
@@ -3809,9 +4069,34 @@
       ],
       "owner_role": "Product Owner / Process Owner / Delivery/GitOps Lead",
       "validation_command": "npm run validate:xlsx-backlog && npm run validate:jira-field-mapping"
+    },
+    {
+      "id": "task-review-presentation-link-lisa-user-journey",
+      "label": "Открыть или скачать прототип пути презентации в Лисе",
+      "task": "Открыть интерактивный прототип пути презентации в Лисе или скачать переносимый архив для показа",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "next_paths": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+      ],
+      "owner_role": "Product Owner / Documentation Owner",
+      "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"
     }
   ],
   "ignored_paths": [
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
+      "reason": "Сохранённый исходный SVG P3/P4 для четвёртого квартала; не входит в активный MVP, кадры, ZIP или доказательства."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-presentation-card.svg",
+      "reason": "Сохранённый исходный SVG P3/P4 для четвёртого квартала; не входит в активный MVP, кадры, ZIP или доказательства."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-phone-shell.svg",
+      "reason": "Сохранённый исходный SVG предыдущей модели для четвёртого квартала; не входит в активный MVP, кадры, ZIP или доказательства."
+    },
     {
       "path": "docs/product/sources/reference",
       "reason": "Контролируемый XLSX и его машинный манифест происхождения учитываются через product-source-registry.json и не выводятся как навигационные документы."
@@ -3893,6 +4178,36 @@
       "path": "docs/navigation/stale-status-report.md",
       "canonical_source": "docs/navigation/navigation-source.json",
       "description": "Generated stale status scan report."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "description": "Производное сопоставление устойчивых состояний HTML-демонстрации и кадров."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный манифест HTML, SVG, PNG и контрольных сумм визуального пакета."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный манифест канонических WebKit PNG, их трёх независимых запусков и отпечатка кандидатной сборки."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный отчёт браузерных, геометрических и проверок доступности."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "description": "Производный отчёт приёмки визуального пакета и ограничений проверочного инструментария."
     }
   ],
   "current_pointers": {

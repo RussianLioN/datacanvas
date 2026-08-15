@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prototype-scope-contract.schema.json",
+  "title": "Договор области MVP P1/P2 заказа презентации",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "scope_id",
+    "implemented_priorities",
+    "demonstration_context",
+    "forbidden_active_surfaces",
+    "future_scope",
+    "migration_boundary"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/prototype-scope-contract.schema.json"
+    },
+    "version": {
+      "const": "2.0.0"
+    },
+    "status": {
+      "const": "active"
+    },
+    "scope_id": {
+      "const": "mvp-p1-p2-presentation-order"
+    },
+    "implemented_priorities": {
+      "const": [
+        "P1",
+        "P2"
+      ]
+    },
+    "demonstration_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "client_search_by_inn_or_name",
+        "multiple_candidates_require_selection",
+        "materials_before_order",
+        "not_my_client_control_visible"
+      ],
+      "properties": {
+        "client_search_by_inn_or_name": {
+          "const": true
+        },
+        "multiple_candidates_require_selection": {
+          "const": true
+        },
+        "materials_before_order": {
+          "const": true
+        },
+        "not_my_client_control_visible": {
+          "const": false
+        }
+      }
+    },
+    "forbidden_active_surfaces": {
+      "const": [
+        "result-link",
+        "presentation-viewer",
+        "notification-center",
+        "presentation-editing",
+        "pdf-file-surface",
+        "pptx-file-surface"
+      ]
+    },
+    "future_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quarter",
+        "priorities",
+        "disposition"
+      ],
+      "properties": {
+        "quarter": {
+          "const": "Q4"
+        },
+        "priorities": {
+          "const": [
+            "P3",
+            "P4"
+          ]
+        },
+        "disposition": {
+          "const": "preserved-not-rendered"
+        }
+      }
+    },
+    "migration_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "global_product_source_registry",
+        "global_documentation_and_navigation",
+        "formal_xlsx_sanitization",
+        "previous_prototype_contracts"
+      ],
+      "properties": {
+        "scope": {
+          "const": "local-prototype-package-only"
+        },
+        "global_product_source_registry": {
+          "const": "deferred"
+        },
+        "global_documentation_and_navigation": {
+          "const": "deferred"
+        },
+        "formal_xlsx_sanitization": {
+          "const": "deferred"
+        },
+        "previous_prototype_contracts": {
+          "const": "preserved-inactive"
+        }
+      }
+    }
+  }
+}

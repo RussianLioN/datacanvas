@@ -1,0 +1,187 @@
+{
+  "version": "3.0.0",
+  "status": "portable-ten-screen-prototype",
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
+  },
+  "state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "runtime_files": [
+    {
+      "path": "index.html",
+      "bytes": 2840,
+      "sha256": "3b4cf0f4b89469358d2f09f51269eab7ea425782995deca2a40c91b6f4d361dc"
+    },
+    {
+      "path": "app.js",
+      "bytes": 21642,
+      "sha256": "5ede4d98f79d840ae88a65e76b48474d0867ccfc2d5bb71dfe54255e0726f3a1"
+    },
+    {
+      "path": "data.js",
+      "bytes": 36867,
+      "sha256": "030b6c980088c02b3b2580ac6ec98435db4a9b106b12d156b64d87c38cdd69fd"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 9170,
+      "sha256": "10b3d2ffb4a8763ccddf47e85391d08833e23f497ede3d7a1c9dd3cd268f2aa7"
+    },
+    {
+      "path": "assets/lisa-materials-summary-status-3x.png",
+      "bytes": 23662,
+      "sha256": "75a411fe23b5e812371ca228c36edd5b2e98a4103af2dac1946462c5e72771a7"
+    },
+    {
+      "path": "assets/lisa-materials-summary-content-3x.png",
+      "bytes": 373347,
+      "sha256": "52976defe720f09ffce1b3360b8d12a9a4f67451edaa85ff95ee36d5da295336"
+    },
+    {
+      "path": "assets/lisa-materials-summary-home-3x.png",
+      "bytes": 3551,
+      "sha256": "3534614c3738f1a669d493915f2b60a6cb376fdbd81ca631d4b8030c9fc04716"
+    },
+    {
+      "path": "assets/lisa-materials-full-reference-status-3x.png",
+      "bytes": 25446,
+      "sha256": "f2fc9e526a8ecd325f8d65999cdba0c973874a47914ba880c4adf4054b4d4964"
+    },
+    {
+      "path": "assets/lisa-materials-full-reference-content-3x.png",
+      "bytes": 3999378,
+      "sha256": "001e508363a86f210068c3252615b05260edb4e3a5a24c58a750ffaaf832ba42"
+    },
+    {
+      "path": "assets/lisa-materials-full-reference-home-3x.png",
+      "bytes": 3495,
+      "sha256": "bcfc9a632b701d9bd7941a4ce98b192da575867e3088ca2cb02e50a40dc7ef6a"
+    },
+    {
+      "path": "assets/lisa-presentation-order-status-3x.png",
+      "bytes": 25447,
+      "sha256": "f24c3d0c7624347a734ed9687a55fa506fc53b0ab62479ac7a1aee8868d04b93"
+    },
+    {
+      "path": "assets/lisa-presentation-order-content-3x.png",
+      "bytes": 520205,
+      "sha256": "6a8bb4a71591109092556598ae8ce12a3e7be22fbe90a8e0a216a1bab865fa5e"
+    },
+    {
+      "path": "assets/lisa-presentation-order-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-presentation-generating-status-3x.png",
+      "bytes": 25053,
+      "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59"
+    },
+    {
+      "path": "assets/lisa-presentation-generating-content-3x.png",
+      "bytes": 626414,
+      "sha256": "811ae53103ba0a72118b5b8e2c01f4398942d723b76eaf5e424fc1ce62e51f6e"
+    },
+    {
+      "path": "assets/lisa-presentation-generating-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-status-3x.png",
+      "bytes": 36031,
+      "sha256": "9473be7a41efcc3e904751fb1c214b8e23c3763b7832c18496b88b555afe7ad2"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-content-3x.png",
+      "bytes": 522516,
+      "sha256": "277eb69745388e28c2a6b2304781fad6c0ba773442aa6536f75cbcab2cb557ba"
+    },
+    {
+      "path": "assets/lisa-presentation-chat-list-home-3x.png",
+      "bytes": 11715,
+      "sha256": "8c0e1c0a973c1b5bb81ca1847964104e3a5ad9ae90cff7dde25845740fdd6648"
+    },
+    {
+      "path": "assets/lisa-presentation-sent-status-3x.png",
+      "bytes": 25361,
+      "sha256": "bd0d012a3fc93be1faacda7c4eb4a82f8d599543da723a16a40033d331d31f22"
+    },
+    {
+      "path": "assets/lisa-presentation-sent-content-3x.png",
+      "bytes": 522006,
+      "sha256": "8dc1d504d4efdb7d075610fc6a677c4c3fd845eb829e72c8e3cfbd1058e6f251"
+    },
+    {
+      "path": "assets/lisa-presentation-sent-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-presentation-email.png",
+      "bytes": 1165728,
+      "sha256": "fd2caa529f7eb96543949e2a5b5bb34755540b96703ed99a721579862308c0c3"
+    },
+    {
+      "path": "assets/szh-dense-slidedoc-4x.png",
+      "bytes": 2130179,
+      "sha256": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32"
+    },
+    {
+      "path": "assets/szh-dense-sber2025-4x.png",
+      "bytes": 2323723,
+      "sha256": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7"
+    },
+    {
+      "path": "assets/szh-dense-mag-4x.png",
+      "bytes": 2045113,
+      "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303"
+    }
+  ],
+  "archive": {
+    "path": "derived/lisa-presentation-user-journey-demo.zip",
+    "bytes": 14616484,
+    "sha256": "2d2301a92372c9ce7365b76b0bf013adf4a366c8ca8b9558a5570467dc8f0b81",
+    "members": [
+      "README.md",
+      "manifest.json",
+      "index.html",
+      "app.js",
+      "data.js",
+      "styles.css",
+      "assets/lisa-materials-summary-status-3x.png",
+      "assets/lisa-materials-summary-content-3x.png",
+      "assets/lisa-materials-summary-home-3x.png",
+      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-materials-full-reference-content-3x.png",
+      "assets/lisa-materials-full-reference-home-3x.png",
+      "assets/lisa-presentation-order-status-3x.png",
+      "assets/lisa-presentation-order-content-3x.png",
+      "assets/lisa-presentation-order-home-3x.png",
+      "assets/lisa-presentation-generating-status-3x.png",
+      "assets/lisa-presentation-generating-content-3x.png",
+      "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-presentation-chat-list-content-3x.png",
+      "assets/lisa-presentation-chat-list-home-3x.png",
+      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-presentation-sent-content-3x.png",
+      "assets/lisa-presentation-sent-home-3x.png",
+      "assets/lisa-presentation-email.png",
+      "assets/szh-dense-slidedoc-4x.png",
+      "assets/szh-dense-sber2025-4x.png",
+      "assets/szh-dense-mag-4x.png"
+    ]
+  }
+}

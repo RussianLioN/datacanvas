@@ -31,7 +31,7 @@
     "validate:git-history-hygiene": "python3 scripts/datacanvas_source_security.py scan-history --base origin/main --head HEAD",
     "validate:ci-exact-sha": "LOCAL_EXPECTED_GIT_SHA=$(git rev-parse HEAD) node scripts/validate-ci-exact-sha.mjs",
     "validate:doc-links": "node scripts/validate-doc-links.mjs",
-    "validate:docs-navigation": "node scripts/validate-docs-navigation.mjs",
+    "validate:docs-navigation": "node --test tests/docs-navigation-transient-release-paths.test.mjs && node scripts/validate-docs-navigation.mjs",
     "validate:doc-stale-status": "node --test tests/doc-stale-status.test.mjs && node scripts/validate-doc-stale-status.mjs",
     "validate:provider-experiment": "node scripts/validate-provider-experiment.mjs",
     "validate:provider-evals": "node scripts/validate-provider-eval-delta.mjs",
@@ -66,6 +66,21 @@
     "validate:external-blocker-closure-map": "node scripts/validate-external-blocker-closure-map.mjs",
     "validate:external-evidence-readiness": "node scripts/validate-external-evidence-readiness.mjs",
     "generate:bmc": "node scripts/generate-bmc-artifacts.mjs",
+    "generate:presentation-link-lisa-user-journey": "node scripts/generate-presentation-link-lisa-user-journey.mjs",
+    "generate:presentation-link-lisa-user-journey:html": "node scripts/generate-presentation-link-lisa-user-journey.mjs --html-only",
+    "generate:presentation-link-lisa-user-journey:rasters": "node scripts/import-presentation-link-lisa-editable-sources.mjs",
+    "check:presentation-link-lisa-user-journey:pdf-slides": "node scripts/import-presentation-link-lisa-pdf-slides.mjs --check",
+    "publish:presentation-link-lisa-user-journey": "node scripts/generate-presentation-link-lisa-user-journey.mjs",
+    "update:presentation-link-lisa-user-journey:evidence": "node scripts/update-presentation-link-lisa-seven-screen-evidence.mjs",
+    "check:presentation-link-lisa-user-journey:evidence": "node scripts/update-presentation-link-lisa-seven-screen-evidence.mjs --check",
+    "check:presentation-link-lisa-user-journey": "node scripts/generate-presentation-link-lisa-user-journey.mjs --check",
+    "check:presentation-link-lisa-user-journey:html": "node scripts/generate-presentation-link-lisa-user-journey.mjs --html-only --check",
+    "validate:presentation-link-lisa-user-journey:html": "node --test tests/presentation-link-lisa-seven-screen-prototype.test.mjs && npm run check:presentation-link-lisa-user-journey:html && npm run test:presentation-link-lisa-user-journey:browser",
+    "validate:presentation-link-lisa-user-journey": "node --test tests/presentation-link-lisa-editable-sources.test.mjs tests/presentation-link-lisa-pdf-slides.test.mjs tests/presentation-link-lisa-seven-screen-prototype.test.mjs && npm run check:presentation-link-lisa-user-journey:pdf-slides && node scripts/validate-presentation-link-lisa-user-journey.mjs",
+    "validate:presentation-link-lisa-user-journey:evidence": "npm run check:presentation-link-lisa-user-journey:evidence",
+    "validate:presentation-link-lisa-user-journey:profile": "npm run check:presentation-link-lisa-user-journey && npm run validate:presentation-link-lisa-user-journey && npm run validate:presentation-link-lisa-user-journey:evidence",
+    "validate:presentation-link-lisa-user-journey:ci": "npm run check:presentation-link-lisa-user-journey:pdf-slides && node --test tests/presentation-link-lisa-pdf-slides.test.mjs tests/presentation-link-lisa-seven-screen-prototype.test.mjs && node scripts/validate-presentation-link-lisa-user-journey.mjs --saved-only && npm run test:presentation-link-lisa-user-journey:browser",
+    "test:presentation-link-lisa-user-journey:browser": "playwright test --config tests/presentation-link-lisa-user-journey.playwright.config.mjs",
     "prepare:bmc-interview": "node scripts/prepare-bmc-interview-artifacts.mjs",
     "validate:bmc-interview": "node scripts/validate-bmc-interview.mjs",
     "validate:bmc-russian-language": "node scripts/validate-bmc-russian-language.mjs",
@@ -160,7 +175,10 @@
     "validate:business-claim-map": "node scripts/validate-business-claim-map.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.12.1",
+    "@playwright/test": "1.61.1",
     "ajv": "^8.17.1",
-    "ajv-formats": "^3.0.1"
+    "ajv-formats": "^3.0.1",
+    "opentype.js": "2.0.0"
   }
 }

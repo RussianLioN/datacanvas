@@ -1,0 +1,333 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "frame-contract.schema.json",
+  "title": "Договор кадров десятиэкранного маршрута Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "device",
+    "frames"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/frame-contract.schema.json"
+    },
+    "version": {
+      "const": "3.0.0"
+    },
+    "device": {
+      "$ref": "#/$defs/device"
+    },
+    "frames": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/frame"
+      }
+    }
+  },
+  "$defs": {
+    "state_id": {
+      "type": "string",
+      "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "phone_state_id": {
+      "type": "string",
+      "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "y": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_rect",
+        "viewport_rect"
+      ],
+      "properties": {
+        "source_rect": {
+          "$ref": "#/$defs/rect"
+        },
+        "viewport_rect": {
+          "$ref": "#/$defs/rect"
+        }
+      }
+    },
+    "regions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system_top",
+        "scroll_content",
+        "system_bottom"
+      ],
+      "properties": {
+        "system_top": {
+          "$ref": "#/$defs/region"
+        },
+        "scroll_content": {
+          "$ref": "#/$defs/region"
+        },
+        "system_bottom": {
+          "$ref": "#/$defs/region"
+        }
+      }
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "body_mm",
+        "screen_px",
+        "inner_window_px",
+        "protected_image",
+        "source_body_viewport",
+        "source_body_corner_radius",
+        "source_canvas_margins"
+      ],
+      "properties": {
+        "model": {
+          "const": "iPhone 12 Pro Max"
+        },
+        "body_mm": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "const": 78.1
+            },
+            "height": {
+              "const": 160.8
+            }
+          }
+        },
+        "screen_px": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "const": 428
+            },
+            "height": {
+              "const": 926
+            }
+          }
+        },
+        "inner_window_px": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height"
+          ],
+          "properties": {
+            "width": {
+              "const": 521
+            },
+            "height": {
+              "const": 980
+            }
+          }
+        },
+        "protected_image": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "width",
+            "height",
+            "role",
+            "scale"
+          ],
+          "properties": {
+            "width": {
+              "const": 393
+            },
+            "height": {
+              "const": 852
+            },
+            "role": {
+              "const": "three-layer-raster-basis"
+            },
+            "scale": {
+              "const": 3
+            }
+          }
+        },
+        "source_body_viewport": {
+          "$ref": "#/$defs/rect"
+        },
+        "source_body_corner_radius": {
+          "const": 32
+        },
+        "source_canvas_margins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "left",
+            "top",
+            "right",
+            "bottom"
+          ],
+          "properties": {
+            "left": {
+              "const": 64
+            },
+            "top": {
+              "const": 48
+            },
+            "right": {
+              "const": 64
+            },
+            "bottom": {
+              "const": 80
+            }
+          }
+        }
+      }
+    },
+    "base_frame_properties": {
+      "state_id": {
+        "$ref": "#/$defs/state_id"
+      },
+      "presentation": {
+        "enum": [
+          "phone",
+          "desktop"
+        ]
+      },
+      "viewport": {
+        "$ref": "#/$defs/dimensions"
+      },
+      "content": {
+        "$ref": "#/$defs/dimensions"
+      },
+      "scrollable": {
+        "type": "boolean"
+      }
+    },
+    "phone_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "presentation",
+        "viewport",
+        "content",
+        "scrollable",
+        "regions"
+      ],
+      "properties": {
+        "state_id": {
+          "$ref": "#/$defs/phone_state_id"
+        },
+        "presentation": {
+          "const": "phone"
+        },
+        "viewport": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "content": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "scrollable": {
+          "type": "boolean"
+        },
+        "regions": {
+          "$ref": "#/$defs/regions"
+        }
+      }
+    },
+    "desktop_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_id",
+        "presentation",
+        "viewport",
+        "content",
+        "scrollable"
+      ],
+      "properties": {
+        "state_id": {
+          "$ref": "#/$defs/state_id"
+        },
+        "presentation": {
+          "const": "desktop"
+        },
+        "viewport": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "content": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "scrollable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "frame": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/phone_frame"
+        },
+        {
+          "$ref": "#/$defs/desktop_frame"
+        }
+      ]
+    }
+  }
+}

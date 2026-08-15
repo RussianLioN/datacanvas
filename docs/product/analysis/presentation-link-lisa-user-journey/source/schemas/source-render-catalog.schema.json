@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-render-catalog.schema.json",
+  "title": "Каталог утвержденных исходных кадров Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "status",
+    "source_root",
+    "active_source_ids",
+    "sources"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "schemas/source-render-catalog.schema.json"
+    },
+    "version": {
+      "const": "3.0.0"
+    },
+    "status": {
+      "const": "active"
+    },
+    "source_root": {
+      "const": "editable-sources"
+    },
+    "active_source_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/source_id"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "state_id": {
+      "type": "string",
+      "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "width",
+        "height"
+      ],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "state_id",
+        "path",
+        "media_type",
+        "sha256",
+        "logical_dimensions",
+        "presentation",
+        "scrollable",
+        "classification"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/source_id"
+        },
+        "state_id": {
+          "$ref": "#/$defs/state_id"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^editable-sources/"
+        },
+        "media_type": {
+          "enum": [
+            "image/svg+xml",
+            "image/png"
+          ]
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "logical_dimensions": {
+          "$ref": "#/$defs/dimensions"
+        },
+        "presentation": {
+          "enum": [
+            "phone",
+            "desktop"
+          ]
+        },
+        "scrollable": {
+          "type": "boolean"
+        },
+        "classification": {
+          "const": "active-basis"
+        }
+      }
+    }
+  }
+}

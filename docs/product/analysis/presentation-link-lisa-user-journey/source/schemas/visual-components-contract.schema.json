@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "visual-components-contract.schema.json",
+  "title": "Договор растровой визуальной основы MVP Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "status", "design_language", "tokens", "layout", "motion", "accessibility", "capture_stability", "phone_mock_image_policy", "raster_base_local_overlay", "components", "svg_security_limits"],
+  "properties": {
+    "$schema": { "const": "schemas/visual-components-contract.schema.json" },
+    "version": { "const": "2.2.0" },
+    "status": { "const": "active" },
+    "design_language": { "$ref": "#/$defs/design_language" },
+    "tokens": { "$ref": "#/$defs/tokens" },
+    "layout": { "$ref": "#/$defs/layout" },
+    "motion": { "$ref": "#/$defs/motion" },
+    "accessibility": { "$ref": "#/$defs/accessibility" },
+    "capture_stability": { "$ref": "#/$defs/capture_stability" },
+    "phone_mock_image_policy": { "$ref": "#/$defs/image_policy" },
+    "raster_base_local_overlay": { "$ref": "#/$defs/raster_overlay" },
+    "components": { "const": [] },
+    "svg_security_limits": { "$ref": "#/$defs/svg_security_limits" }
+  },
+  "$defs": {
+    "source_parity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["comparison", "outside_slots", "mask_coordinate_space", "failure_action"],
+      "properties": {
+        "comparison": { "const": "pixel-exact-outside-slots" },
+        "outside_slots": { "const": "must-match" },
+        "mask_coordinate_space": { "const": "natural-source-pixels" },
+        "failure_action": { "const": "block-release" }
+      }
+    },
+    "design_language": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "principles"],
+      "properties": {
+        "source": { "const": "provided-lisa-reference-frames" },
+        "principles": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    },
+    "colors": {
+      "type": "object", "additionalProperties": false,
+      "required": ["canvas", "phone", "surface", "surface_soft", "text", "text_muted", "border", "accent", "accent_end", "accent_lilac", "accent_dark", "accent_soft", "glow_peach", "glow_lilac", "success", "focus"],
+      "properties": {
+        "canvas": { "const": "#F2F1F7" }, "phone": { "const": "#FBFAFD" }, "surface": { "const": "#FFFFFF" }, "surface_soft": { "const": "#F8F7FA" }, "text": { "const": "#1B1B23" }, "text_muted": { "const": "#65616D" }, "border": { "const": "#E5E1E9" }, "accent": { "const": "#FF8A3D" }, "accent_end": { "const": "#FF5F9E" }, "accent_lilac": { "const": "#C76BD6" }, "accent_dark": { "const": "#1B1B23" }, "accent_soft": { "const": "#FFEDE0" }, "glow_peach": { "const": "#FFD9B8" }, "glow_lilac": { "const": "#E6D9FB" }, "success": { "const": "#287A58" }, "focus": { "const": "#135FB8" }
+      }
+    },
+    "tokens": {
+      "type": "object", "additionalProperties": false,
+      "required": ["colors", "radii_px", "spacing_px", "font"],
+      "properties": {
+        "colors": { "$ref": "#/$defs/colors" },
+        "radii_px": { "type": "object", "additionalProperties": false, "required": ["phone", "card", "button", "pill"], "properties": { "phone": { "const": 48 }, "card": { "const": 22 }, "button": { "const": 18 }, "pill": { "const": 999 } } },
+        "spacing_px": { "const": [4, 8, 12, 16, 20, 24, 32] },
+        "font": { "type": "object", "additionalProperties": false, "required": ["family", "body_px", "secondary_px", "title_px", "button_px", "body_weight", "strong_weight"], "properties": { "family": { "const": "Noto Sans" }, "body_px": { "const": 16 }, "secondary_px": { "const": 14 }, "title_px": { "const": 22 }, "button_px": { "const": 16 }, "body_weight": { "const": 400 }, "strong_weight": { "const": 700 } } }
+      }
+    },
+    "layout": {
+      "type": "object", "additionalProperties": false,
+      "required": ["phone_max_width_px", "phone_max_height_px", "action_two_column_min_content_width_px", "minimum_target_px", "minimum_action_gap_px", "button_min_height_px", "whole_phone_transform_scale_allowed", "vertical_scroll_regions", "horizontal_scroll_regions", "desktop_shell_breakpoint_px", "horizontal_overflow_tolerance_px", "intersection_tolerance_square_px"],
+      "properties": {
+        "phone_max_width_px": { "const": 375 }, "phone_max_height_px": { "const": 812 }, "action_two_column_min_content_width_px": { "const": 356 }, "minimum_target_px": { "const": 44 }, "minimum_action_gap_px": { "const": 8 }, "button_min_height_px": { "const": 54 }, "whole_phone_transform_scale_allowed": { "const": false },
+        "vertical_scroll_regions": { "const": ["client-answer", "client-selection", "preparation", "materials", "presentation-order", "chat"] }, "horizontal_scroll_regions": { "const": [] }, "desktop_shell_breakpoint_px": { "const": 1080 }, "horizontal_overflow_tolerance_px": { "const": 1 }, "intersection_tolerance_square_px": { "const": 1 }
+      }
+    },
+    "motion": {
+      "type": "object", "additionalProperties": false, "required": ["clock_overlay"],
+      "properties": { "clock_overlay": { "type": "object", "additionalProperties": false, "required": ["starts_at_ms", "ends_at_ms", "ready_at_ms", "pointer_events", "reduced_motion_rotation"], "properties": { "starts_at_ms": { "const": 600 }, "ends_at_ms": { "const": 7600 }, "ready_at_ms": { "const": 8000 }, "pointer_events": { "const": "none" }, "reduced_motion_rotation": { "const": false } } } }
+    },
+    "accessibility": {
+      "type": "object", "additionalProperties": false,
+      "required": ["standard", "axe_tags", "async_chat_status_live_region", "reduced_motion_preserves_timing", "minimum_text_contrast_ratio", "minimum_large_text_contrast_ratio"],
+      "properties": { "standard": { "const": "WCAG 2.1 AA" }, "axe_tags": { "const": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] }, "async_chat_status_live_region": { "const": "polite" }, "reduced_motion_preserves_timing": { "const": true }, "minimum_text_contrast_ratio": { "const": 4.5 }, "minimum_large_text_contrast_ratio": { "const": 3 } }
+    },
+    "capture_stability": {
+      "type": "object", "additionalProperties": false, "required": ["compositor_dependent_inset_shadow_allowed"],
+      "properties": { "compositor_dependent_inset_shadow_allowed": { "const": false } }
+    },
+    "image_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["relative_png_image_elements_allowed", "external_image_elements_allowed", "external_css_image_urls_allowed", "css_url_values_allowed", "data_image_urls_allowed", "absolute_file_urls_allowed", "inline_svg_resource_references_allowed", "raw_svg_assets_allowed", "content_security_policy_img_src", "browser_computed_style_url_audit", "reference_frame_delivery", "source_assets_remain_canonical", "runtime_asset_reference_prefix", "source_paths_runtime_dependency", "parent_directory_references_allowed"],
+      "properties": {
+        "relative_png_image_elements_allowed": { "const": true }, "external_image_elements_allowed": { "const": false }, "external_css_image_urls_allowed": { "const": false }, "css_url_values_allowed": { "const": false }, "data_image_urls_allowed": { "const": false }, "absolute_file_urls_allowed": { "const": false }, "inline_svg_resource_references_allowed": { "const": false }, "raw_svg_assets_allowed": { "const": false }, "content_security_policy_img_src": { "const": "'self'" }, "browser_computed_style_url_audit": { "const": "all-properties" }, "reference_frame_delivery": { "const": "relative-png-only" }, "source_assets_remain_canonical": { "const": true }, "runtime_asset_reference_prefix": { "const": "assets/" }, "source_paths_runtime_dependency": { "const": false }, "parent_directory_references_allowed": { "const": false }
+      }
+    },
+    "raster_overlay": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_fixture_manifest", "source_catalog", "visual_basis", "rendering_pipeline", "base_path_prefix", "patch_path_prefix", "source_path_role", "runtime_assets", "source_svg_persisted", "raw_archive_persisted", "manual_css_phone_shell_rendering", "source_parity"],
+      "properties": {
+        "source_fixture_manifest": { "const": "source/source-fixture-manifest.json" }, "source_catalog": { "const": "source/source-render-catalog.json" }, "visual_basis": { "const": "source/visual-basis-contract.json" }, "rendering_pipeline": { "const": "raster-base-local-overlay" }, "base_path_prefix": { "const": "source/bases/" }, "patch_path_prefix": { "const": "source/patches/" }, "source_path_role": { "const": "provenance-and-fingerprint-only" }, "runtime_assets": { "$ref": "#/$defs/runtime_assets" }, "source_svg_persisted": { "const": false }, "raw_archive_persisted": { "const": false }, "manual_css_phone_shell_rendering": { "const": "forbidden" }, "source_parity": { "$ref": "#/$defs/source_parity" }
+      }
+    },
+    "runtime_assets": {
+      "type": "object", "additionalProperties": false,
+      "required": ["demo_asset_root", "data_and_runtime_reference_prefix", "base_path_prefix", "patch_path_prefix", "font_path_prefix", "source_paths_runtime_dependency", "parent_directory_references_allowed"],
+      "properties": {
+        "demo_asset_root": { "const": "demo/assets/" }, "data_and_runtime_reference_prefix": { "const": "assets/" }, "base_path_prefix": { "const": "assets/bases/" }, "patch_path_prefix": { "const": "assets/patches/" }, "font_path_prefix": { "const": "assets/fonts/" }, "source_paths_runtime_dependency": { "const": false }, "parent_directory_references_allowed": { "const": false }
+      }
+    },
+    "svg_security_limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["component_max_bytes", "library_max_bytes", "max_nodes", "max_depth", "single_path_data_max_chars", "total_path_data_max_chars", "view_box_axis_max", "parse_timeout_ms", "memory_limit_mib"],
+      "properties": { "component_max_bytes": { "const": 262144 }, "library_max_bytes": { "const": 1048576 }, "max_nodes": { "const": 500 }, "max_depth": { "const": 16 }, "single_path_data_max_chars": { "const": 25000 }, "total_path_data_max_chars": { "const": 200000 }, "view_box_axis_max": { "const": 4096 }, "parse_timeout_ms": { "const": 5000 }, "memory_limit_mib": { "const": 256 } }
+    }
+  }
+}

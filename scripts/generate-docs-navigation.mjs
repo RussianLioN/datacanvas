@@ -2,6 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
@@ -11,6 +12,20 @@ const outputPaths = [
   "docs/navigation/orphan-docs-report.md",
   "docs/navigation/stale-status-report.md",
 ];
+const documentationFormatByExtension = new Map([
+  [".json", "json"],
+  [".md", "md"],
+  [".zip", "zip"],
+]);
+const transientFullPackageReleasePrefixes = [
+  "docs/product/analysis/.presentation-link-lisa-full-package-candidate-",
+  "docs/product/analysis/.presentation-link-lisa-full-package-backup-",
+  "docs/product/analysis/.presentation-link-lisa-full-package-failed-",
+];
+const transientFullPackageReleaseFiles = new Set([
+  "docs/product/analysis/.presentation-link-lisa-user-journey.full-package-release.json",
+  "docs/product/analysis/.presentation-link-lisa-full-package-release.lock",
+]);
 
 function fail(message) {
   console.error(`ERROR: ${message}`);
@@ -126,7 +141,8 @@ function parseMarkdownLinks(markdown, fromPath) {
       continue;
     }
 
-    const [pathPart, anchorPart] = target.split("#");
+    const [targetWithoutFragment, anchorPart] = target.split("#");
+    const [pathPart] = targetWithoutFragment.split("?");
     if (!pathPart) {
       continue;
     }
@@ -166,7 +182,17 @@ function matchesPrefix(relativePath, prefix) {
   return relativePath === prefix || relativePath.startsWith(prefix.endsWith("/") ? prefix : `${prefix}/`);
 }
 
-function ignoredReason(source, relativePath) {
+export function isTransientFullPackageReleasePath(relativePath) {
+  return (
+    transientFullPackageReleaseFiles.has(relativePath) ||
+    transientFullPackageReleasePrefixes.some((prefix) => relativePath.startsWith(prefix))
+  );
+}
+
+export function navigationIgnoredReason(source, relativePath) {
+  if (isTransientFullPackageReleasePath(relativePath)) {
+    return "Служебные данные полного выпуска: кандидат, резерв, неудавшаяся попытка, журнал и блокировка не являются документацией.";
+  }
   const match = source.ignored_paths.find((entry) => matchesPrefix(relativePath, entry.path));
   return match ? match.reason : null;
 }
@@ -272,12 +298,22 @@ function readArtifactRegistry() {
   return new Map(readJson(registryPath).artifacts.map((artifact) => [artifact.path, artifact.id]));
 }
 
+export function documentationFormat(filePath) {
+  const format = documentationFormatByExtension.get(
+    path.extname(filePath).toLowerCase(),
+  );
+  if (!format) {
+    throw new Error(`unsupported documentation index format: ${filePath}`);
+  }
+  return format;
+}
+
 function buildEntries(source) {
   const generatedPaths = new Set(source.generated_output_paths.map((entry) => entry.path));
   const files = new Set();
   for (const sourceRoot of source.source_roots) {
     for (const filePath of listFiles(sourceRoot.path, sourceRoot.formats)) {
-      if (!generatedPaths.has(filePath) && !ignoredReason(source, filePath)) {
+      if (!generatedPaths.has(filePath) && !navigationIgnoredReason(source, filePath)) {
         files.add(filePath);
       }
     }
@@ -290,7 +326,7 @@ function buildEntries(source) {
   const artifactIds = readArtifactRegistry();
   return stableSort([...files]).map((filePath) => {
     const generated = generatedPaths.has(filePath);
-    const format = path.extname(filePath) === ".md" ? "md" : "json";
+    const format = documentationFormat(filePath);
     const metadata = metadataFor(source, filePath);
     let title = generated ? generatedTitle(filePath) : filePath;
     let anchors = [];
@@ -421,8 +457,8 @@ function link(label, target) {
 
 function renderRoutesTable(routes, routeField) {
   const rows = routes.map((route) => {
-    const next = route.next_paths.map((target) => `\`${target}\``).join(", ");
-    return `| \`${route.id}\` | ${route[routeField]} | \`${route.navigation_domain}\` | \`${route.navigation_group}\` | \`${route.start_path}\` | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
+    const next = route.next_paths.map((target) => link(target, target)).join(", ");
+    return `| \`${route.id}\` | ${route[routeField]} | \`${route.navigation_domain}\` | \`${route.navigation_group}\` | ${link(route.start_path, route.start_path)} | ${next} | ${route.owner_role} | \`${route.validation_command}\` |`;
   });
   return ["| ID | Маршрут | Контур | Группа | Старт | Дальше | Владелец | Проверка |", "|---|---|---|---|---|---|---|---|", ...rows].join("\n");
 }
@@ -659,9 +695,14 @@ function checkOutputs() {
   console.log("docs navigation generated outputs are current");
 }
 
-if (process.argv.includes("--check")) {
-  checkOutputs();
-} else {
-  buildOutputs(root);
-  console.log("docs navigation artifacts written");
+const invokedAsMain = process.argv[1]
+  && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+
+if (invokedAsMain) {
+  if (process.argv.includes("--check")) {
+    checkOutputs();
+  } else {
+    buildOutputs(root);
+    console.log("docs navigation artifacts written");
+  }
 }

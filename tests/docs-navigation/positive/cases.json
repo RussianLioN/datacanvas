@@ -22,6 +22,10 @@
       "description": "Каждый вложенный README управляется navigation source или явно исключен."
     },
     {
+      "id": "positive-lisa-prototype-discoverable-and-downloadable",
+      "description": "Путь презентации в Лисе виден на каждом уровне навигации, а переносимый ZIP доступен локально и через ссылку скачивания GitHub."
+    },
+    {
       "id": "positive-jira-import-package-in-quick-routes",
       "description": "Быстрые маршруты из корневого и документационного README напрямую ведут к руководству и CSV для импорта пользовательских историй в Jira."
     }

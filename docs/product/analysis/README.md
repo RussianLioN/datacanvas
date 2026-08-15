@@ -10,6 +10,12 @@
 
 Раздел хранит БА артефакты, полученные из безопасных interview summaries и подтвержденных claim objects.
 
+## Пользовательские пути и интерактивные прототипы
+
+- [Путь заказа и получения презентации в Лисе](presentation-link-lisa-user-journey/README.md) — описание сценария, состояний и границ прототипа.
+- [Открыть автономную демонстрацию](presentation-link-lisa-user-journey/demo/index.html) — запустить прототип непосредственно из рабочей копии без локального сервера.
+- [Скачать переносимый ZIP локально](presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) или [скачать ZIP из GitHub](presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip?raw=true) — получить готовый пакет для показа на другом компьютере.
+
 ## Документы
 
 - [Stakeholder register](ba/stakeholder-register.md)

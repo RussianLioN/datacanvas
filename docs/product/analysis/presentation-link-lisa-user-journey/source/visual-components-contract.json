@@ -1,0 +1,118 @@
+{
+  "$schema": "schemas/visual-components-contract.schema.json",
+  "version": "2.2.0",
+  "status": "active",
+  "design_language": {
+    "source": "provided-lisa-reference-frames",
+    "principles": [
+      "Растровая основа исходного кадра остаётся неизменной вне локальных слотов.",
+      "Ручная CSS-отрисовка phone shell запрещена.",
+      "Видимые изменения допускаются только как утверждённые локальные PNG-заплаты."
+    ]
+  },
+  "tokens": {
+    "colors": {
+      "canvas": "#F2F1F7",
+      "phone": "#FBFAFD",
+      "surface": "#FFFFFF",
+      "surface_soft": "#F8F7FA",
+      "text": "#1B1B23",
+      "text_muted": "#65616D",
+      "border": "#E5E1E9",
+      "accent": "#FF8A3D",
+      "accent_end": "#FF5F9E",
+      "accent_lilac": "#C76BD6",
+      "accent_dark": "#1B1B23",
+      "accent_soft": "#FFEDE0",
+      "glow_peach": "#FFD9B8",
+      "glow_lilac": "#E6D9FB",
+      "success": "#287A58",
+      "focus": "#135FB8"
+    },
+    "radii_px": { "phone": 48, "card": 22, "button": 18, "pill": 999 },
+    "spacing_px": [4, 8, 12, 16, 20, 24, 32],
+    "font": { "family": "Noto Sans", "body_px": 16, "secondary_px": 14, "title_px": 22, "button_px": 16, "body_weight": 400, "strong_weight": 700 }
+  },
+  "layout": {
+    "phone_max_width_px": 375,
+    "phone_max_height_px": 812,
+    "action_two_column_min_content_width_px": 356,
+    "minimum_target_px": 44,
+    "minimum_action_gap_px": 8,
+    "button_min_height_px": 54,
+    "whole_phone_transform_scale_allowed": false,
+    "vertical_scroll_regions": ["client-answer", "client-selection", "preparation", "materials", "presentation-order", "chat"],
+    "horizontal_scroll_regions": [],
+    "desktop_shell_breakpoint_px": 1080,
+    "horizontal_overflow_tolerance_px": 1,
+    "intersection_tolerance_square_px": 1
+  },
+  "motion": {
+    "clock_overlay": { "starts_at_ms": 600, "ends_at_ms": 7600, "ready_at_ms": 8000, "pointer_events": "none", "reduced_motion_rotation": false }
+  },
+  "accessibility": {
+    "standard": "WCAG 2.1 AA",
+    "axe_tags": ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"],
+    "async_chat_status_live_region": "polite",
+    "reduced_motion_preserves_timing": true,
+    "minimum_text_contrast_ratio": 4.5,
+    "minimum_large_text_contrast_ratio": 3
+  },
+  "capture_stability": { "compositor_dependent_inset_shadow_allowed": false },
+  "phone_mock_image_policy": {
+    "relative_png_image_elements_allowed": true,
+    "external_image_elements_allowed": false,
+    "external_css_image_urls_allowed": false,
+    "css_url_values_allowed": false,
+    "data_image_urls_allowed": false,
+    "absolute_file_urls_allowed": false,
+    "inline_svg_resource_references_allowed": false,
+    "raw_svg_assets_allowed": false,
+    "content_security_policy_img_src": "'self'",
+    "browser_computed_style_url_audit": "all-properties",
+    "reference_frame_delivery": "relative-png-only",
+    "source_assets_remain_canonical": true,
+    "runtime_asset_reference_prefix": "assets/",
+    "source_paths_runtime_dependency": false,
+    "parent_directory_references_allowed": false
+  },
+  "raster_base_local_overlay": {
+    "source_fixture_manifest": "source/source-fixture-manifest.json",
+    "source_catalog": "source/source-render-catalog.json",
+    "visual_basis": "source/visual-basis-contract.json",
+    "rendering_pipeline": "raster-base-local-overlay",
+    "base_path_prefix": "source/bases/",
+    "patch_path_prefix": "source/patches/",
+    "source_path_role": "provenance-and-fingerprint-only",
+    "runtime_assets": {
+      "demo_asset_root": "demo/assets/",
+      "data_and_runtime_reference_prefix": "assets/",
+      "base_path_prefix": "assets/bases/",
+      "patch_path_prefix": "assets/patches/",
+      "font_path_prefix": "assets/fonts/",
+      "source_paths_runtime_dependency": false,
+      "parent_directory_references_allowed": false
+    },
+    "source_svg_persisted": false,
+    "raw_archive_persisted": false,
+    "manual_css_phone_shell_rendering": "forbidden",
+    "source_parity": {
+      "comparison": "pixel-exact-outside-slots",
+      "outside_slots": "must-match",
+      "mask_coordinate_space": "natural-source-pixels",
+      "failure_action": "block-release"
+    }
+  },
+  "components": [],
+  "svg_security_limits": {
+    "component_max_bytes": 262144,
+    "library_max_bytes": 1048576,
+    "max_nodes": 500,
+    "max_depth": 16,
+    "single_path_data_max_chars": 25000,
+    "total_path_data_max_chars": 200000,
+    "view_box_axis_max": 4096,
+    "parse_timeout_ms": 5000,
+    "memory_limit_mib": 256
+  }
+}

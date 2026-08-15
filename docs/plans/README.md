@@ -15,6 +15,7 @@
 - [Business and technical navigation separation implementation plan](datacanvas-business-technical-navigation-separation-implementation-plan.md)
 - [Backlog closure validation implementation plan](datacanvas-backlog-closure-validation-implementation-plan.md)
 - [Business requirements P1-P2 implementation plan](datacanvas-p1-p2-business-requirements-implementation-plan.md)
+- [План реализации HTML-прототипа пути заказа презентации в Лисе](datacanvas-lisa-p1-p2-html-prototype-implementation-plan.md)
 - [BA/SA interview change-order implementation plan](datacanvas-ba-sa-interview-change-order-implementation-plan.md)
 - [Cascading documentation governance plan](datacanvas-cascading-documentation-governance-plan.md)
 - [Cascading governance correction plan](datacanvas-cascading-governance-correction-plan.md)

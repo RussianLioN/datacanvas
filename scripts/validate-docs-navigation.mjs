@@ -5,6 +5,12 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
+import {
+  documentationFormat,
+  isTransientFullPackageReleasePath,
+  navigationIgnoredReason,
+} from "./generate-docs-navigation.mjs";
+
 const root = process.cwd();
 const sourcePath = "docs/navigation/navigation-source.json";
 const indexPath = "docs/navigation/documentation-index.json";
@@ -71,7 +77,8 @@ function parseMarkdownLinks(markdown, fromPath) {
     if (!target || target.startsWith("#") || isExternalLink(target)) {
       continue;
     }
-    const [pathPart] = target.split("#");
+    const [targetWithoutFragment] = target.split("#");
+    const [pathPart] = targetWithoutFragment.split("?");
     if (!pathPart) {
       continue;
     }
@@ -197,6 +204,11 @@ const sourceManagedByPath = new Map(source.managed_entries.map((entry) => [entry
 const configuredNavigationDomains = new Set(source.navigation_domains.map((domain) => domain.id));
 const configuredNavigationGroups = new Set(source.navigation_groups.map((group) => group.id));
 
+const transientReleaseEntries = index.entries.filter((entry) => isTransientFullPackageReleasePath(entry.path));
+if (transientReleaseEntries.length > 0) {
+  fail(`служебные каталоги полного выпуска попали в индекс документации: ${transientReleaseEntries.map((entry) => entry.path).join(", ")}`);
+}
+
 for (const entry of index.entries) {
   const expectedParentReadme = parentReadmeFor(entry.path);
   if (entry.parent_readme !== expectedParentReadme) {
@@ -309,7 +321,7 @@ for (const navigationEntry of [
 }
 
 for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
-  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  const ignored = navigationIgnoredReason(source, entry.path);
   if (!sourceManagedByPath.has(entry.path) && !ignored) {
     fail(`nested README must be managed or explicitly ignored: ${entry.path}`);
   }
@@ -343,7 +355,7 @@ for (const route of [...source.role_routes, ...source.task_routes]) {
       if (generatedEntry.navigation_group !== "business") {
         fail(`business route points outside business navigation group: ${route.id} -> ${target}`);
       }
-      const ignored = source.ignored_paths.find((entry) => matchesPrefix(target, entry.path));
+      const ignored = navigationIgnoredReason(source, target);
       if (ignored) {
         fail(`business route points to ignored path: ${route.id} -> ${target}`);
       }
@@ -367,7 +379,7 @@ for (const entry of index.entries) {
   if (!matchesPrefix(entry.path, "docs/product") || entry.generated || entry.visibility !== "public") {
     continue;
   }
-  const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+  const ignored = navigationIgnoredReason(source, entry.path);
   if (ignored) {
     continue;
   }
@@ -559,10 +571,81 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
   },
   "positive-nested-readmes-managed-or-ignored": () => {
     for (const entry of index.entries.filter((item) => item.path.startsWith("docs/") && item.path.endsWith("README.md") && !item.generated)) {
-      const ignored = source.ignored_paths.find((ignoredEntry) => matchesPrefix(entry.path, ignoredEntry.path));
+      const ignored = navigationIgnoredReason(source, entry.path);
       if (!sourceManagedByPath.has(entry.path) && !ignored) {
         fail(`README missing managed/ignored classification: ${entry.path}`);
       }
+    }
+  },
+  "positive-lisa-prototype-discoverable-and-downloadable": () => {
+    const packageReadme = "docs/product/analysis/presentation-link-lisa-user-journey/README.md";
+    const demoEntrypoint = "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html";
+    const portableArchive = "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip";
+    const navigationEntries = [
+      "README.md",
+      "docs/README.md",
+      "docs/product/README.md",
+      "docs/product/analysis/README.md",
+    ];
+
+    for (const navigationEntry of navigationEntries) {
+      const markdown = readText(navigationEntry);
+      const linkedPaths = new Set(parseMarkdownLinks(markdown, navigationEntry));
+      for (const requiredPath of [packageReadme, demoEntrypoint, portableArchive]) {
+        if (!linkedPaths.has(requiredPath)) {
+          fail(`Lisa prototype route is missing from ${navigationEntry}: ${requiredPath}`);
+        }
+      }
+      const relativeArchive = path.posix.relative(
+        path.posix.dirname(navigationEntry),
+        portableArchive,
+      );
+      if (!markdown.includes(`(${relativeArchive})`)) {
+        fail(`local Lisa prototype archive link is missing from ${navigationEntry}`);
+      }
+      if (!markdown.includes(`(${relativeArchive}?raw=true)`)) {
+        fail(`GitHub Lisa prototype download link is missing from ${navigationEntry}`);
+      }
+    }
+
+    const packageMarkdown = readText(packageReadme);
+    const packageLinks = new Set(parseMarkdownLinks(packageMarkdown, packageReadme));
+    for (const requiredPath of [demoEntrypoint, portableArchive]) {
+      if (!packageLinks.has(requiredPath)) {
+        fail(`Lisa prototype package entrypoint is missing: ${requiredPath}`);
+      }
+    }
+    const packageArchiveTarget = path.posix.relative(
+      path.posix.dirname(packageReadme),
+      portableArchive,
+    );
+    if (!packageMarkdown.includes(`(${packageArchiveTarget})`)) {
+      fail("local Lisa prototype archive link is missing from package README");
+    }
+    if (!packageMarkdown.includes(`(${packageArchiveTarget}?raw=true)`)) {
+      fail("GitHub download link for Lisa prototype is missing from package README");
+    }
+
+    const route = source.task_routes.find((item) => item.id === "task-review-presentation-link-lisa-user-journey");
+    if (!route || !/открыть|скачать/i.test(`${route.label} ${route.task}`)) {
+      fail("Lisa prototype task route must explain how to open or download the prototype");
+    }
+
+    const managedEntry = sourceManagedByPath.get(packageReadme);
+    const registryEntry = registryByPath.get(packageReadme);
+    if (!managedEntry?.navigable || !registryEntry?.navigable) {
+      fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
+    }
+
+    const archiveIndexEntry = indexByPath.get(portableArchive);
+    if (archiveIndexEntry?.format !== "zip") {
+      fail("Lisa prototype archive must be classified as ZIP in the documentation index");
+    }
+
+    const map = readText("docs/navigation/navigation-map.md");
+    const mapTarget = path.posix.relative("docs/navigation", packageReadme);
+    if (!map.includes(`[${packageReadme}](${mapTarget})`)) {
+      fail("generated task route must render the Lisa prototype start path as a clickable link");
     }
   },
   "positive-jira-import-package-in-quick-routes": () => {
@@ -676,6 +759,17 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
       cwd: root,
       stdio: "inherit",
     });
+  },
+  "negative-unsupported-documentation-format": () => {
+    let rejection;
+    try {
+      documentationFormat("docs/navigation/unsupported.bin");
+    } catch (error) {
+      rejection = error;
+    }
+    if (!rejection || !/unsupported documentation index format/u.test(rejection.message)) {
+      fail("unknown documentation index format must fail closed");
+    }
   },
 });
 

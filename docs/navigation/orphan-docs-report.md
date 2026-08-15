@@ -28,6 +28,7 @@
 | `docs/process/versions/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `-` |
 | `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
 | `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `true` | `1` |
 | `docs/product/analysis/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
 | `docs/product/backlog/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/bmc/interviews/README.md` | `docs/product/bmc/README.md` | `business` | `restricted` | `false` | `-` |
@@ -49,8 +50,8 @@
 
 | Группа | Глубина | Количество |
 |---|---|---|
-| `business` | `1` | 12 |
-| `business` | `2` | 31 |
+| `business` | `1` | 13 |
+| `business` | `2` | 32 |
 | `business` | `3` | 9 |
 | `business` | `4` | 3 |
 | `business` | `hidden` | 67 |
@@ -60,14 +61,14 @@
 | `evidence` | `1` | 1 |
 | `evidence` | `2` | 1 |
 | `evidence` | `3` | 3 |
-| `evidence` | `4` | 3 |
+| `evidence` | `4` | 7 |
 | `evidence` | `hidden` | 3 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 9 |
-| `governance` | `2` | 59 |
+| `governance` | `2` | 60 |
 | `governance` | `3` | 14 |
 | `governance` | `hidden` | 46 |
 | `technical` | `1` | 2 |
-| `technical` | `2` | 12 |
-| `technical` | `3` | 1 |
-| `technical` | `hidden` | 99 |
+| `technical` | `2` | 16 |
+| `technical` | `3` | 7 |
+| `technical` | `hidden` | 110 |

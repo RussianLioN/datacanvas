@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-fixture-manifest.schema.json",
+  "title": "Манифест очищенного происхождения растровых основ Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "status", "product_backlog", "visual_reference_archive", "transient_raster_text_font", "approved_presentation_pdfs", "trust", "copied_executable_code", "active_external_links", "absolute_local_paths_stored"],
+  "properties": {
+    "$schema": { "const": "schemas/source-fixture-manifest.schema.json" },
+    "version": { "const": "2.3.0" },
+    "status": { "const": "active" },
+    "product_backlog": { "$ref": "#/$defs/product_backlog" },
+    "visual_reference_archive": { "$ref": "#/$defs/visual_reference_archive" },
+    "transient_raster_text_font": { "$ref": "#/$defs/transient_font" },
+    "approved_presentation_pdfs": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        { "$ref": "#/$defs/szh_dense_slidedoc_pdf" },
+        { "$ref": "#/$defs/szh_dense_sber2025_pdf" },
+        { "$ref": "#/$defs/szh_dense_mag_pdf" }
+      ],
+      "items": false
+    },
+    "trust": { "const": "untrusted-data-only" },
+    "copied_executable_code": { "const": false },
+    "active_external_links": { "const": false },
+    "absolute_local_paths_stored": { "const": false }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "pdf_page_dimensions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "const": 960 },
+        "height": { "const": 540 }
+      }
+    },
+    "pdf_rendered_dimensions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "const": 3840 },
+        "height": { "const": 6480 }
+      }
+    },
+    "presentation_pdf_common": {
+      "type": "object", "additionalProperties": false,
+      "required": ["file_name", "source_sha256", "output_sha256", "page_count", "page_dimensions", "scale", "rendered_dimensions", "output_file", "raw_file_tracked", "source_path_stored", "copied_to_package"],
+      "properties": {
+        "file_name": { "type": "string" },
+        "source_sha256": { "$ref": "#/$defs/sha256" },
+        "output_sha256": { "$ref": "#/$defs/sha256" },
+        "page_count": { "const": 3 },
+        "page_dimensions": { "$ref": "#/$defs/pdf_page_dimensions" },
+        "scale": { "const": 4 },
+        "rendered_dimensions": { "$ref": "#/$defs/pdf_rendered_dimensions" },
+        "output_file": { "type": "string" },
+        "raw_file_tracked": { "const": false },
+        "source_path_stored": { "const": false },
+        "copied_to_package": { "const": false }
+      }
+    },
+    "szh_dense_slidedoc_pdf": {
+      "allOf": [
+        { "$ref": "#/$defs/presentation_pdf_common" },
+        {
+          "type": "object",
+          "properties": {
+            "file_name": { "const": "szh_dense_slidedoc.pdf" },
+            "source_sha256": { "const": "f28bb0685c4788cdf9d81366531ae8d0847921dd53042406d5b7ef9212a5b569" },
+            "output_sha256": { "const": "d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32" },
+            "output_file": { "const": "szh-dense-slidedoc-4x.png" }
+          }
+        }
+      ]
+    },
+    "szh_dense_sber2025_pdf": {
+      "allOf": [
+        { "$ref": "#/$defs/presentation_pdf_common" },
+        {
+          "type": "object",
+          "properties": {
+            "file_name": { "const": "szh_dense_sber2025.pdf" },
+            "source_sha256": { "const": "90af1070bbdbbe8eccdef05dab20dafed1563fe58ebd2ea8004a5ab0c39e3500" },
+            "output_sha256": { "const": "3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7" },
+            "output_file": { "const": "szh-dense-sber2025-4x.png" }
+          }
+        }
+      ]
+    },
+    "szh_dense_mag_pdf": {
+      "allOf": [
+        { "$ref": "#/$defs/presentation_pdf_common" },
+        {
+          "type": "object",
+          "properties": {
+            "file_name": { "const": "szh_dense_mag.pdf" },
+            "source_sha256": { "const": "d237e832e90978bc3af5784439ed0b63334e348c3fd58f29e86a57ca9d579bfc" },
+            "output_sha256": { "const": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303" },
+            "output_file": { "const": "szh-dense-mag-4x.png" }
+          }
+        }
+      ]
+    },
+    "product_backlog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["file_name", "source_date", "source_sha256", "source_role", "data_classification", "raw_file_tracked", "formal_sanitization"],
+      "properties": {
+        "file_name": { "const": "datacanvas-backlog-draft-pshe-2026-08-11.xlsx" },
+        "source_date": { "const": "2026-08-11" },
+        "source_sha256": { "const": "e4cd5a60e2b1b1df2b99978d20c6047d6590368e13d23bc4cd455de4151e1cdf" },
+        "source_role": { "const": "prototype-local-product-source" },
+        "data_classification": { "const": "synthetic" },
+        "raw_file_tracked": { "const": false },
+        "formal_sanitization": { "const": "deferred" }
+      }
+    },
+    "visual_reference_archive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["file_name", "source_sha256", "member_count", "data_classification", "raw_archive_tracked", "source_path_stored", "embedded_raw_svg_allowed", "source_svg_persisted", "treatment", "source_catalog", "snapshot_renderer", "foreign_object_policy", "source_only_fragment"],
+      "properties": {
+        "file_name": { "const": "DialogFile3255926770227232252.zip" },
+        "source_sha256": { "const": "b755549c84e059b8d999fcc12e55f6c3903aafe549935b90f2f1b84bb7852026" },
+        "member_count": { "const": 25 },
+        "data_classification": { "const": "synthetic" },
+        "raw_archive_tracked": { "const": false },
+        "source_path_stored": { "const": false },
+        "embedded_raw_svg_allowed": { "const": false },
+        "source_svg_persisted": { "const": false },
+        "treatment": { "const": "rasterized-png-only" },
+        "source_catalog": { "const": "source/source-render-catalog.json" },
+        "snapshot_renderer": { "const": "playwright-webkit-no-network" },
+        "foreign_object_policy": { "const": "snapshot-only-strict-empty-xhtml-div" },
+        "source_only_fragment": {
+          "type": "object", "additionalProperties": false,
+          "required": ["id", "active_base_allowed", "treatment"],
+          "properties": {
+            "id": { "const": "Frame 2131330393" },
+            "active_base_allowed": { "const": false },
+            "treatment": { "const": "source-only-fragment" }
+          }
+        }
+      }
+    },
+    "transient_font": {
+      "type": "object", "additionalProperties": false,
+      "required": ["family", "file_name", "sha256", "provenance", "source_path_stored", "copied_to_package", "usage"],
+      "properties": {
+        "family": { "const": "SB Sans Display" },
+        "file_name": { "const": "SBSansDisplay-Regular.otf" },
+        "sha256": { "const": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136" },
+        "provenance": { "const": "owner-supplied-transient-raster-text-input" },
+        "source_path_stored": { "const": false },
+        "copied_to_package": { "const": false },
+        "usage": { "const": "transient-raster-text-inserts-only" }
+      }
+    }
+  }
+}
