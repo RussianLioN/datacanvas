@@ -24,7 +24,15 @@
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
-    "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md"
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/analysis/ba/business-rules.json",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/roadmap/roadmap-v0.1.md",
+    "docs/product/requirements/traceability-matrix.json"
   ],
   "affected_requirements": [
     "BT-015",
@@ -32,6 +40,9 @@
     "BT-017",
     "BT-018",
     "BT-019",
+    "BT-022",
+    "BT-023",
+    "BT-024",
     "NFR-003"
   ],
   "affected_ports_adapters": [
@@ -51,8 +62,12 @@
   },
   "rollback": "Исключить Q4_2026-контур из будущих производных требований и планирования, сохранив исторические решения CO-2026-001 и CO-2026-002 без правок; затем повторить профильные проверки.",
   "validation_plan": [
-    "npm run validate:co-questionnaire -- docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+    "npm run validate:co-questionnaire",
     "npm run validate:schemas",
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:business-docs",
+    "npm run validate:traceability-graph",
     "npm run validate:data-leakage"
   ],
   "impact_assessment_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json"

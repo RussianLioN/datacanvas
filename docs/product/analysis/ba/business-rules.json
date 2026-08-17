@@ -29,6 +29,42 @@
       "owner_role": "Security/Privacy Lead",
       "verification": "npm run validate:interface-contracts",
       "source_claim_ids": ["BASA-CLM-004"]
+    },
+    {
+      "rule_id": "BRULE-004",
+      "scope": "profile_addresses",
+      "summary": "Адреса получателей результата определяются только через сервис «Профиль сотрудника»; произвольный адрес из запроса не используется.",
+      "exceptions": [],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-011"]
+    },
+    {
+      "rule_id": "BRULE-005",
+      "scope": "one_order_per_session_user",
+      "summary": "Для пары идентификаторов сеанса и пользователя допускается один заказ; повтор возможен только до принятия запроса.",
+      "exceptions": [],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-012"]
+    },
+    {
+      "rule_id": "BRULE-006",
+      "scope": "safe_lisa_status",
+      "summary": "Пользователь видит в том же чате Лисы только безопасное состояние заказа; личные сведения и содержание запроса не показываются.",
+      "exceptions": [],
+      "owner_role": "Security/Privacy Lead",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-013"]
+    },
+    {
+      "rule_id": "BRULE-007",
+      "scope": "q4_scope_boundary",
+      "summary": "В Q4_2026 входят адреса через «Профиль сотрудника», ODT/PDF, почта и состояние в том же чате; ссылка, хранилище, PUSH и расширенное редактирование структуры относятся к будущему объему.",
+      "exceptions": ["Новое принятое решение Product Owner"],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-014"]
     }
   ]
 }

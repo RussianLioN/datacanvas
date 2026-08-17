@@ -19,6 +19,15 @@
       "impact_assessment_path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope-impact.json",
       "owner_role": "Product Owner",
       "validation_commands": ["npm run validate:product-change-orders", "npm run validate:change-impact", "npm run validate:business-docs", "npm run validate:traceability-graph"]
+    },
+    {
+      "id": "CO-2026-003",
+      "title": "Q4_2026: Лиса, Профиль сотрудника и почтовая доставка результата",
+      "status": "accepted",
+      "order_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+      "impact_assessment_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+      "owner_role": "Product Owner",
+      "validation_commands": ["npm run validate:product-change-orders", "npm run validate:change-impact", "npm run validate:business-docs", "npm run validate:traceability-graph", "npm run validate:data-leakage"]
     }
   ]
 }

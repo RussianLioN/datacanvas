@@ -64,20 +64,24 @@
 
 - [Состояние интервью](co-2026-003-q4-lisa-profile-questionnaire-state.json)
 - [Журнал интервью](co-2026-003-q4-lisa-profile-questionnaire-log.md)
+- [Карта влияния](co-2026-003-q4-lisa-profile-impact.json)
 - [План реализации](../../plans/co-2026-003-q4-lisa-profile-implementation-plan.md)
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx` —
   очищенная рабочая книга, источник сроков и ресурсов.
 
 ## Проверка
 
-Пока заявка не добавлена в реестр `product-change-order-ledger.json` вместе с
-картой влияния `co-2026-003-q4-lisa-profile-impact.json`, проверка
-`npm run validate:product-change-orders` не проверяет CO-2026-003. До этой
-интеграции валидность заявки и состояния подтверждают проверка схемы, отдельная
-проверка состояния интервью и проверка нераскрытия данных.
+Заявка зарегистрирована в реестре `product-change-order-ledger.json` вместе с
+картой влияния `co-2026-003-q4-lisa-profile-impact.json`. Проверка должна
+подтверждать согласованность заявки, карты влияния и производных продуктовых
+артефактов.
 
 ```bash
 npm run validate:co-questionnaire -- docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json
 npm run validate:schemas
+npm run validate:product-change-orders
+npm run validate:change-impact
+npm run validate:business-docs
+npm run validate:traceability-graph
 npm run validate:data-leakage
 ```
