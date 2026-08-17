@@ -28,6 +28,40 @@ function fail(message) {
   process.exit(1);
 }
 
+function collectStringValues(value) {
+  if (typeof value === "string") {
+    return [value];
+  }
+  if (Array.isArray(value)) {
+    return value.flatMap(collectStringValues);
+  }
+  if (value && typeof value === "object") {
+    return Object.values(value).flatMap(collectStringValues);
+  }
+  return [];
+}
+
+function validateSafeInterviewData(state) {
+  if (state.mode !== "product_owner_interview") {
+    return;
+  }
+
+  const log = fs.readFileSync(absolute(state.artifact_paths.log_path), "utf8");
+  for (const [location, values] of [
+    ["interview log", [log]],
+    ["interview state", collectStringValues(state)],
+  ]) {
+    for (const value of values) {
+      if (value.includes("@")) {
+        fail(`${location} must not contain email addresses`);
+      }
+      if (/\b(?:payload|session_id|user_id)\s*[:=]\s*\S/i.test(value)) {
+        fail(`${location} must not contain raw request or identity values`);
+      }
+    }
+  }
+}
+
 try {
   requireFile(schemaPath);
   requireFile(statePath);
@@ -45,6 +79,7 @@ try {
   for (const artifactPath of Object.values(state.artifact_paths)) {
     requireFile(artifactPath);
   }
+  validateSafeInterviewData(state);
 
   const answered = new Set(state.answered_questions.map((question) => question.question_id));
   if (answered.has(state.current_question.question_id)) {

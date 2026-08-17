@@ -28,10 +28,10 @@
   "properties": {
     "$schema": { "type": "string" },
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-    "questionnaire_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}-PO-ACCEPTANCE$" },
+    "questionnaire_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}-PO-(?:ACCEPTANCE|INTERVIEW)$" },
     "change_order_id": { "type": "string", "pattern": "^CO-[0-9]{4}-[0-9]{3}$" },
     "status": { "type": "string", "enum": ["not_started", "in_progress", "paused", "completed", "abandoned"] },
-    "mode": { "type": "string", "enum": ["product_owner_acceptance"] },
+    "mode": { "type": "string", "enum": ["product_owner_acceptance", "product_owner_interview"] },
     "owner_role": { "type": "string", "minLength": 1 },
     "started_at": { "type": "string", "format": "date-time" },
     "updated_at": { "type": "string", "format": "date-time" },
@@ -42,7 +42,7 @@
       "required": ["question_id", "title", "state", "next_action"],
       "additionalProperties": false,
       "properties": {
-        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "question_id": { "$ref": "#/$defs/questionId" },
         "title": { "type": "string", "minLength": 1 },
         "state": { "type": "string", "enum": ["next", "blocked", "not_applicable"] },
         "next_action": { "type": "string", "minLength": 1 }
@@ -125,7 +125,56 @@
       "items": { "type": "string", "minLength": 1 }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "mode": { "const": "product_owner_interview" } },
+        "required": ["mode"]
+      },
+      "then": {
+        "properties": {
+          "answered_questions": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/questionRecord" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "answer_id": {},
+                    "decision_source": {},
+                    "declaration_date": {}
+                  },
+                  "required": ["answer_id", "decision_source", "declaration_date"]
+                }
+              ]
+            }
+          },
+          "agreed_decisions": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/decisionRecord" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "decision_source": {},
+                    "declaration_date": {}
+                  },
+                  "required": ["decision_source", "declaration_date"]
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
+    "questionId": {
+      "type": "string",
+      "pattern": "^(?:PRODUCT|Q4)-[0-9]{2}$"
+    },
     "repoPath": {
       "type": "string",
       "minLength": 1,
@@ -142,10 +191,13 @@
       "required": ["question_id", "title", "status", "safe_summary", "answered_at"],
       "additionalProperties": false,
       "properties": {
-        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "question_id": { "$ref": "#/$defs/questionId" },
+        "answer_id": { "type": "string", "pattern": "^ANSWER-[0-9]{3}$" },
         "title": { "type": "string", "minLength": 1 },
         "status": { "type": "string", "enum": ["confirmed", "deferred", "not_applicable"] },
         "safe_summary": { "type": "string", "minLength": 1 },
+        "decision_source": { "type": "string", "minLength": 1 },
+        "declaration_date": { "type": "string", "format": "date" },
         "answered_at": { "type": "string", "format": "date-time" }
       }
     },
@@ -154,10 +206,12 @@
       "required": ["decision_id", "question_id", "decision_status", "safe_summary", "affected_artifacts"],
       "additionalProperties": false,
       "properties": {
-        "decision_id": { "type": "string", "pattern": "^DEC-[0-9]{3}$" },
-        "question_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "decision_id": { "type": "string", "pattern": "^(?:DEC|CO3-DEC)-[0-9]{3}$" },
+        "question_id": { "$ref": "#/$defs/questionId" },
         "decision_status": { "type": "string", "enum": ["confirmed", "deferred", "open"] },
         "safe_summary": { "type": "string", "minLength": 1 },
+        "decision_source": { "type": "string", "minLength": 1 },
+        "declaration_date": { "type": "string", "format": "date" },
         "affected_artifacts": {
           "type": "array",
           "items": { "$ref": "#/$defs/repoPath" }
@@ -169,7 +223,7 @@
       "required": ["item_id", "title", "status"],
       "additionalProperties": false,
       "properties": {
-        "item_id": { "type": "string", "pattern": "^PRODUCT-[0-9]{2}$" },
+        "item_id": { "$ref": "#/$defs/questionId" },
         "title": { "type": "string", "minLength": 1 },
         "status": { "type": "string", "enum": ["pending", "paused", "completed", "deferred"] }
       }

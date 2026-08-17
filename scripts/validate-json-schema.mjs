@@ -237,6 +237,14 @@ const cases = [
     data: "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
   },
   {
+    schema: "schemas/product-change-order.schema.json",
+    data: "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+  },
+  {
+    schema: "schemas/product-change-questionnaire-state.schema.json",
+    data: "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+  },
+  {
     schema: "schemas/change-impact-assessment.schema.json",
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
