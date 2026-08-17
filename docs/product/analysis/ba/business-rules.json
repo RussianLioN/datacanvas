@@ -65,6 +65,15 @@
       "owner_role": "Product Owner",
       "verification": "npm run validate:business-rules",
       "source_claim_ids": ["BASA-CLM-014"]
+    },
+    {
+      "rule_id": "BRULE-008",
+      "scope": "closed_session_after_delivery_problem",
+      "summary": "После задержанной, частичной или неподтвержденной доставки принятый заказ не дублируется: сеанс переходит на сопровождение, закрывается и не принимает новый заказ.",
+      "exceptions": [],
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-013", "BASA-CLM-014"]
     }
   ]
 }

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
@@ -32,6 +33,7 @@ const paths = {
   boundaryMatrix: "docs/architecture/security/integration-boundary-matrix.json",
   runLedger: "docs/architecture/observability/process-run-ledger.json",
   baSaEvals: "tests/evals/ba-sa-eval-cases.json",
+  q4Fixture: "tests/fixtures/ba-sa-q4-lisa-profile.json",
 };
 
 const requiredDomains = [
@@ -130,6 +132,76 @@ function assertNoForbiddenRawAnswerKeys(value, location) {
 
 function ids(items, field) {
   return new Set(items.map((item) => item[field]));
+}
+
+function requireIds(actualIds, requiredIds, subject) {
+  for (const id of requiredIds) {
+    if (!actualIds.has(id)) {
+      fail(`${subject} is missing required item: ${id}`);
+    }
+  }
+}
+
+function q4Fixture() {
+  return readJson(paths.q4Fixture);
+}
+
+const q4OpenExternalInterfaceIds = new Set(["IF-006", "IF-007"]);
+const preciseExternalContractClaim = /\b(?:REST(?:\s+API)?|GraphQL|gRPC|SOAP|OAuth(?:\s*2(?:\.0)?)?|OpenID Connect|SAML|Basic(?:\s+auth(?:entication)?)?|Bearer|HTTP(?:\/\d(?:\.\d)?)?|HTTPS|SMTP|IMAP|POP3|TCP|UDP|webhook)\b|\b(?:GET|POST|PUT|PATCH|DELETE)\s+\/|\bAPI\s*(?:v)?\d+|\/v\d+(?:\/|$)/iu;
+
+export function validateOpenExternalQ4Interfaces(interfaces) {
+  const byId = new Map(interfaces.map((item) => [item.interface_id, item]));
+  for (const interfaceId of q4OpenExternalInterfaceIds) {
+    const item = byId.get(interfaceId);
+    if (!item) {
+      throw new Error(`Q4 interface is missing: ${interfaceId}`);
+    }
+    if (!Array.isArray(item.open_questions) || item.open_questions.length === 0) {
+      throw new Error(`Q4 interface must keep open questions: ${interfaceId}`);
+    }
+    const externalContractText = [item.contract_status, ...item.open_questions].filter(Boolean).join("\n");
+    if (preciseExternalContractClaim.test(externalContractText)) {
+      throw new Error(`Q4 interface must not define a precise API, authentication, or protocol claim: ${interfaceId}`);
+    }
+  }
+}
+
+export function validateQ4DeliveryProblemClosure({ baSpec, businessRules, saSpec, stateModel, errorTaxonomy }) {
+  const requireText = (value, pattern, message) => {
+    if (!pattern.test(value ?? "")) {
+      throw new Error(message);
+    }
+  };
+  const byId = (items, field) => new Map(items.map((item) => [item[field], item]));
+  const baRequirements = byId(baSpec.requirements, "requirement_id");
+  const rules = byId(businessRules.rules, "rule_id");
+  const saRequirements = byId(saSpec.requirements, "requirement_id");
+  const lifecycleStates = byId(stateModel.states, "name");
+  const saLifecycleStates = byId(saSpec.lifecycle_states, "name");
+  const errors = byId(errorTaxonomy.errors, "error_id");
+
+  requireText(
+    baRequirements.get("BT-024")?.summary,
+    /задержанн.*сопровожден.*закрыва.*новый заказ/iu,
+    "BT-024 must close the delayed-delivery session and block a new order",
+  );
+  requireText(
+    rules.get("BRULE-008")?.summary,
+    /задержанн.*сопровожден.*закрыва.*новый заказ/iu,
+    "BRULE-008 must close the delayed-delivery session and block a new order",
+  );
+  requireText(
+    saRequirements.get("BT-024")?.verification_method,
+    /задержанн.*support_pending.*session_closed/iu,
+    "SA BT-024 must describe delayed to support_pending to session_closed",
+  );
+  for (const [states, subject] of [[lifecycleStates, "state model"], [saLifecycleStates, "SA lifecycle"]]) {
+    requireText(states.get("delayed")?.exit_condition, /support_pending/u, `${subject} delayed must transfer to support_pending`);
+    requireText(states.get("support_pending")?.exit_condition, /session_closed/u, `${subject} support_pending must close the session`);
+    requireText(states.get("session_closed")?.exit_condition, /новый заказ не создается/iu, `${subject} session_closed must block a new order`);
+  }
+  requireText(errors.get("ERR-009")?.retry_policy, /support_pending/u, "ERR-009 must transfer delayed delivery to support_pending");
+  requireText(errors.get("ERR-009")?.rollback_signal, /закрыть сеанс.*новый заказ/iu, "ERR-009 must close the session and block a new order");
 }
 
 function validateInterview() {
@@ -237,6 +309,16 @@ function validateBaSpec() {
     }
   }
 
+  const q4 = q4Fixture();
+  requireIds(ids(baSpec.claims, "claim_id"), q4.required_claim_ids, "BA spec claims");
+  requireIds(ids(baSpec.business_rules, "rule_id"), q4.required_rule_ids, "BA spec business rules");
+  requireIds(ids(baSpec.requirements, "requirement_id"), ["BT-019", "BT-022", "BT-023", "BT-024"], "BA spec requirements");
+  for (const claimId of q4.required_claim_ids) {
+    if (claimById.get(claimId).trust_status !== "confirmed") {
+      fail(`Q4 claim must be confirmed: ${claimId}`);
+    }
+  }
+
   console.log("BA spec validation passed");
 }
 
@@ -244,13 +326,26 @@ function validateBusinessRules() {
   validateBaSpec();
   const baSpec = readJson(paths.baSpec);
   const rules = readJson(paths.businessRules);
-  const specRuleIds = ids(baSpec.business_rules, "rule_id");
+  const specRules = new Map(baSpec.business_rules.map((rule) => [rule.rule_id, rule]));
+  const q4RuleIds = new Set(q4Fixture().required_rule_ids);
   for (const rule of rules.rules) {
-    if (!specRuleIds.has(rule.rule_id)) {
+    const specRule = specRules.get(rule.rule_id);
+    if (!specRule) {
       fail(`business rule is missing from BA spec: ${rule.rule_id}`);
+    }
+    if (q4RuleIds.has(rule.rule_id)) {
+      for (const field of ["summary", "owner_role", "verification"]) {
+        if (rule[field] !== specRule[field]) {
+          fail(`business rule diverges from BA spec: ${rule.rule_id}/${field}`);
+        }
+      }
+      if (JSON.stringify(rule.source_claim_ids) !== JSON.stringify(specRule.source_claim_ids)) {
+        fail(`business rule diverges from BA spec: ${rule.rule_id}/source_claim_ids`);
+      }
     }
     validateCommand(rule.verification);
   }
+  requireIds(ids(rules.rules, "rule_id"), q4Fixture().required_rule_ids, "business rules");
   console.log("business rules validation passed");
 }
 
@@ -278,6 +373,20 @@ function validateSaSpec() {
       requireFile(outputPath);
     }
   }
+  const q4 = q4Fixture();
+  requireIds(ids(saSpec.interfaces, "interface_id"), q4.required_interface_ids, "SA spec interfaces");
+  requireIds(ids(saSpec.requirements, "requirement_id"), ["BT-019", "BT-022", "BT-023", "BT-024"], "SA spec requirements");
+  for (const interfaceId of q4.required_interface_ids) {
+    const item = saSpec.interfaces.find((candidate) => candidate.interface_id === interfaceId);
+    if (!item.contract_status || !Array.isArray(item.open_questions) || item.open_questions.length === 0) {
+      fail(`Q4 interface must keep its external contract open: ${interfaceId}`);
+    }
+  }
+  try {
+    validateOpenExternalQ4Interfaces(saSpec.interfaces);
+  } catch (error) {
+    fail(error.message);
+  }
   console.log("SA spec validation passed");
 }
 
@@ -293,6 +402,27 @@ function validateStateModel() {
   if (!deliveryState?.entry_condition?.includes("канал доставки файла по CO-2026-001 принят")) {
     fail("delivery_acceptance must reflect accepted CO-2026-001 delivery channel");
   }
+  const q4 = q4Fixture();
+  requireIds(ids(stateModel.states, "name"), q4.required_state_names, "Q4 lifecycle states");
+  const byName = new Map(stateModel.states.map((state) => [state.name, state]));
+  if (!byName.get("accepted_locked")?.exit_condition.includes("повторный запрос")) {
+    fail("accepted_locked must block duplicate requests");
+  }
+  if (!byName.get("delivery_confirmed")?.exit_condition.includes("Кнопка недоступна")) {
+    fail("delivery_confirmed must disable the action until session end");
+  }
+  if (!byName.get("delivery_partial")?.exit_condition.includes("support_pending")) {
+    fail("delivery_partial must transfer to support_pending");
+  }
+  if (!byName.get("delayed")?.exit_condition.includes("support_pending")) {
+    fail("delayed must transfer to support_pending");
+  }
+  if (!byName.get("support_pending")?.exit_condition.includes("session_closed")) {
+    fail("support_pending must close the session");
+  }
+  if (!byName.get("session_closed")?.exit_condition.includes("новый заказ не создается")) {
+    fail("session_closed must block a new order");
+  }
   console.log("state model validation passed");
 }
 
@@ -307,6 +437,26 @@ function validateErrorTaxonomy() {
     if (!error.retry_policy || !error.rollback_signal || !error.redaction_rule) {
       fail(`error taxonomy entry is incomplete: ${error.error_id}`);
     }
+  }
+  const q4 = q4Fixture();
+  requireIds(ids(taxonomy.errors, "error_id"), q4.required_error_ids, "Q4 errors");
+  const q4Errors = taxonomy.errors.filter((error) => q4.required_error_ids.includes(error.error_id));
+  if (q4Errors.some((error) => /\\b[0-9]+\\s*(?:раз|повтор)/iu.test(error.retry_policy))) {
+    fail("Q4 error taxonomy must not invent a numeric retry policy");
+  }
+  if (!q4Errors.find((error) => error.error_id === "ERR-010")?.rollback_signal.includes("Закрыть сеанс")) {
+    fail("ERR-010 must close the session");
+  }
+  try {
+    validateQ4DeliveryProblemClosure({
+      baSpec: readJson(paths.baSpec),
+      businessRules: readJson(paths.businessRules),
+      saSpec: readJson(paths.saSpec),
+      stateModel: readJson(paths.stateModel),
+      errorTaxonomy: taxonomy,
+    });
+  } catch (error) {
+    fail(error.message);
   }
   console.log("error taxonomy validation passed");
 }
@@ -432,6 +582,14 @@ function validateSpecReadiness() {
 
 function validateInterfaces() {
   validateSaSpec();
+  const saSpec = readJson(paths.saSpec);
+  const byId = new Map(saSpec.interfaces.map((item) => [item.interface_id, item]));
+  if (!byId.get("IF-008")?.contract_status.includes("прямой маршрут DataCanvas в Лису не утвержден")) {
+    fail("IF-008 must keep direct DataCanvas to Lisa delivery unapproved");
+  }
+  if (!byId.get("IF-009")?.contract_status.includes("прямую доставку DataCanvas в Лису этот контракт не фиксирует")) {
+    fail("IF-009 must not define direct DataCanvas to Lisa delivery");
+  }
   const matrix = readJson(paths.boundaryMatrix);
   for (const boundary of matrix.boundaries) {
     if (boundary.stop_rules.length === 0) {
@@ -461,12 +619,14 @@ const runners = {
   "error-taxonomy": validateErrorTaxonomy,
 };
 
-if (target === "all") {
-  for (const runner of Object.values(runners)) {
-    runner();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  if (target === "all") {
+    for (const runner of Object.values(runners)) {
+      runner();
+    }
+  } else if (target in runners) {
+    runners[target]();
+  } else {
+    fail(`unknown BA/SA validation target: ${target}`);
   }
-} else if (target in runners) {
-  runners[target]();
-} else {
-  fail(`unknown BA/SA validation target: ${target}`);
 }

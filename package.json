@@ -123,6 +123,7 @@
     "validate:state-model": "node scripts/validate-ba-sa-artifacts.mjs state-model",
     "validate:error-taxonomy": "node scripts/validate-ba-sa-artifacts.mjs error-taxonomy",
     "validate:ba-sa": "node scripts/validate-ba-sa-artifacts.mjs all",
+    "test:ba-sa-q4-lisa-profile": "node --test tests/ba-sa-q4-lisa-profile.test.mjs",
     "validate:agent-launch-requirements-analysis": "node scripts/validate-agent-launch-requirements-analysis.mjs",
     "validate:prompt-only-artifact-review": "node scripts/validate-prompt-only-artifact-review.mjs",
     "validate:documentation-core": "node scripts/validate-universal-documentation-workflow.mjs documentation-core",
