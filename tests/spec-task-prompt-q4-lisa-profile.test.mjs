@@ -30,6 +30,7 @@ test("Q4_2026 SSD-пакет хранит полный ожидаемый сос
       const refs = readJson(path).traceability_refs;
       assert.ok(refs, `${path} не содержит traceability_refs`);
       assert.deepEqual(refs.change_order_ids, [fixture.change_order_id]);
+      assert.ok(refs.decision_ids?.length, `${path} не содержит decision_ids`);
       for (const key of fixture.required_traceability_keys) {
         assert.ok(refs[key]?.length, `${path} не содержит ${key}`);
       }

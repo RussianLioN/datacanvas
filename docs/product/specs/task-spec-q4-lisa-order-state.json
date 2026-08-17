@@ -16,6 +16,7 @@
   "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
   "eval_cases": ["BASA-EVAL-006"],
   "traceability_refs": {
+    "decision_ids": ["CO3-DEC-002", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-008", "CO3-DEC-009"],
     "change_order_ids": ["CO-2026-003"],
     "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-34"],
     "acceptance_scenario_ids": ["q4_lisa_order"],

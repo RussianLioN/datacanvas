@@ -20,6 +20,7 @@
     "Выдавать будущий объем за утвержденный Q4_2026"
   ],
   "traceability_refs": {
+    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006"],
     "change_order_ids": ["CO-2026-003"],
     "story_ids": ["DC-ST-25", "DC-ST-29", "DC-ST-30"],
     "acceptance_scenario_ids": ["q4_profile_addresses", "q4_profile_email_delivery"],

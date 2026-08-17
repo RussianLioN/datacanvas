@@ -6,6 +6,8 @@
 Владелец: Product Owner
 Проверка: `npm run validate:business-rules`
 
+`BRULE-004`–`BRULE-008` используют `CO3-DEC-003`, `CO3-DEC-004`, `CO3-DEC-006` и `CO3-DEC-007` [реестра интервью](../../change-orders/co-2026-003-authoritative-interview-decision-register.md), равноправного очищенной рабочей книге.
+
 | ID | Область | Правило | Owner | Проверка |
 |---|---|---|---|---|
 | `BRULE-001` — правило продвижения утверждений в требования | interview_to_requirement | Только подтвержденное утверждение с подтверждающим материалом может стать критерием приемки | Product Owner | `npm run validate:business-rules` |

@@ -140,6 +140,18 @@ const expectedPhoneStates = expectedStates.filter((state) => state.presentation 
 const expectedPhoneStateIds = expectedPhoneStates.map((state) => state.id);
 
 const expectedOrderLabel = "Сформировать презентацию";
+const expectedLifecycleStateIds = Object.freeze([
+  "eligible",
+  "validating",
+  "rejected_retryable",
+  "accepted_locked",
+  "generating",
+  "delivery_confirmed",
+  "delayed",
+  "delivery_partial",
+  "support_pending",
+  "session_closed",
+]);
 const expectedPhoneLayerRoles = Object.freeze(["system_top", "scroll_content", "system_bottom"]);
 const expectedPhoneLayerViewportRects = Object.freeze({
   system_top: Object.freeze({ x: 0, y: 0, width: 393, height: 53 }),
@@ -319,6 +331,40 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /\b(?:fetch|XMLHttpRequest|WebSocket)\b/u, `${label}: runtime не должен открывать сеть`);
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
+
+test("исходный договор задаёт вариантный жизненный цикл заказа Лисы до визуального выпуска", () => {
+  const contracts = loadSevenScreenContracts(root);
+  const lifecycle = contracts.journey.lifecycle;
+  const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
+  const templateRoot = path.join(root, "scripts/templates/presentation-link-lisa-seven-screen");
+  const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
+
+  assert.equal(lifecycle?.model, "variant");
+  assert.equal(lifecycle?.review_status, "pending_product_owner");
+  assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
+  assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
+  assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);
+  assert.ok(lifecycle?.button?.disabled_in?.includes("accepted_locked"));
+  assert.equal(lifecycle?.button?.submission, "immediate_without_confirmation");
+  assert.equal(lifecycle?.chat?.delivery, "same_chat_on_return");
+  assert.equal(lifecycle?.chat?.system_push, false);
+  assert.equal(lifecycle?.scope?.result_link, false);
+  assert.equal(lifecycle?.scope?.separate_storage, false);
+  assert.equal(lifecycle?.scope?.rich_structure_editing, false);
+  assert.deepEqual(
+    lifecycle?.messages?.map((message) => message.id),
+    ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"],
+  );
+  assert.match(runtimeSource, /"lifecycle"/u, "генератор обязан передавать модель в будущий runtime");
+  assert.match(appSource, /lifecycle\?\.button/u, "шаблон обязан брать доступность CTA из жизненного цикла");
+  assert.match(appSource, /disabled/u, "шаблон обязан блокировать CTA после принятия заказа");
+  assert.equal(lifecycle?.screen_sequence?.decision_id, "CO3-DEC-009");
+  assert.equal(lifecycle?.screen_sequence?.preserve_existing_source_order, true);
+  assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
+  assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
+  assert.equal(lifecycle?.screen_sequence?.generation_status, "blocked_pending_authoritative_text");
+  assert.ok(lifecycle?.messages?.every((message) => message.authoritative_text_status === "not_agreed"));
+});
 
 test("активный договор и demo/data.js фиксируют ровно десять состояний в утверждённом порядке", () => {
   const registry = readJson("source/active-contracts.json");
@@ -714,6 +760,11 @@ test("публикация demo откатывает весь комплект �
   fs.writeFileSync(path.join(temporaryDemo, "assets", "previous.png"), Buffer.from("previous-png"));
   const before = snapshotDirectory(temporaryDemo);
   const built = {
+    contracts: {
+      lifecycle: {
+        review_status: "approved_product_owner",
+      },
+    },
     runtimeEntries: [
       { name: "index.html", content: Buffer.from("candidate:index") },
       { name: "app.js", content: Buffer.from("candidate:app") },

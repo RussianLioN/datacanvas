@@ -19,6 +19,8 @@
     "служба сопровождения"
   ],
   "affected_artifacts": [
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
     "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
@@ -54,6 +56,7 @@
   "adr_impact": "До реализации системный анализ определяет точные API, аутентификацию и протоколы. Нельзя утверждать прямую доставку DataCanvas в Лису: получателем статуса может быть Client Info, Orchestrator или Лиса.",
   "sprint_impact": "Очищенная книга от 2026-08-17 является источником сроков и ресурсов Q4_2026. Она не подменяет детальное планирование и не разрешает включать будущий объём в Q4_2026.",
   "sprint_goal_test": "До начала реализации системный анализ подтверждает контракт Профиля сотрудника, почтового сервиса и получателя статуса без раскрытия личных сведений и без расширения границы Q4_2026.",
+  "authoritative_decision_ids": ["CO3-DEC-001", "CO3-DEC-002", "CO3-DEC-003", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-006", "CO3-DEC-007", "CO3-DEC-008", "CO3-DEC-009"],
   "product_owner_decision": {
     "decision": "accepted",
     "decided_by_role": "Product Owner",

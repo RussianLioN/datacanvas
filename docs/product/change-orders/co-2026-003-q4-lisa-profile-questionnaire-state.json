@@ -7,7 +7,7 @@
   "mode": "product_owner_interview",
   "owner_role": "Product Owner",
   "started_at": "2026-08-17T00:00:00Z",
-  "updated_at": "2026-08-17T00:00:00Z",
+  "updated_at": "2026-08-18T00:00:00Z",
   "paused_at": null,
   "completed_at": "2026-08-17T00:00:00Z",
   "current_question": {
@@ -43,7 +43,8 @@
     "vision_path": "docs/product-vision.md",
     "stories_path": "docs/product/requirements/user-stories.md",
     "candidate_stories_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-    "candidate_stories_csv_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv"
+    "candidate_stories_csv_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+    "authoritative_interview_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
   },
   "answered_questions": [
     {
@@ -268,6 +269,12 @@
     "Интервью CO-2026-003 завершено.",
     "Перед продолжением проверить это состояние и журнал, затем применять решения только в пределах Q4_2026.",
     "Точный контракт Профиля сотрудника, почтового сервиса, получателя статуса, числовых повторов и канала сопровождения должен определить системный анализ.",
-    "Не переносить в производные артефакты личные сведения, почтовые адреса, исходное содержимое запроса или полные идентификаторы."
-  ]
+    "Не переносить в производные артефакты личные сведения, почтовые адреса, исходное содержимое запроса или полные идентификаторы.",
+    "Использовать курируемый реестр согласованных формулировок наравне с очищенной рабочей книгой; не заменять согласованный текст парафразом."
+  ],
+  "review_checkpoint": {
+    "status": "rejected_for_revision",
+    "reason": "Product Owner отклонил контрольную точку: согласованное интервью является источником истины наравне с очищенной рабочей книгой, поэтому согласованные формулировки нельзя свободно переписывать. Визуальный выпуск не разрешен до повторного одобрения.",
+    "authoritative_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
+  }
 }

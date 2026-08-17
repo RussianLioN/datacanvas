@@ -19,6 +19,8 @@
     "команда реализации"
   ],
   "affected_artifacts": [
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",

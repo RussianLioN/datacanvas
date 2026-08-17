@@ -26,6 +26,25 @@ const SOURCE_BODY_CORNER_RADIUS = 32;
 const PHONE_LAYER_ROLES = Object.freeze(["system_top", "scroll_content", "system_bottom"]);
 const STATIC_RUNTIME_FILES = ["index.html", "styles.css", "app.js", "data.js"];
 const ARCHIVE_STATIC_MEMBERS = ["README.md", "manifest.json", "index.html", "app.js", "data.js", "styles.css"];
+const LIFECYCLE_STATE_IDS = Object.freeze([
+  "eligible",
+  "validating",
+  "rejected_retryable",
+  "accepted_locked",
+  "generating",
+  "delivery_confirmed",
+  "delayed",
+  "delivery_partial",
+  "support_pending",
+  "session_closed",
+]);
+const LIFECYCLE_MESSAGE_IDS = Object.freeze([
+  "order_started",
+  "order_not_accepted",
+  "delivery_confirmed",
+  "delivery_delayed",
+  "delivery_partial",
+]);
 let runtimePublishRenameHook = null;
 
 function fail(message) {
@@ -209,6 +228,64 @@ function normalizeDesktopRaster(visualState, stateId) {
   };
 }
 
+function validateLifecycle(lifecycle, ctaStates, orderedStateIds) {
+  if (!lifecycle || lifecycle.model !== "variant") fail("договор пути должен содержать вариантный жизненный цикл");
+  if (!Array.isArray(lifecycle.states)) fail("вариантный жизненный цикл должен содержать состояния");
+  const stateIds = lifecycle.states.map((state) => state?.id);
+  assertSameStringArray(stateIds, LIFECYCLE_STATE_IDS, "вариантный жизненный цикл/states");
+  for (const state of lifecycle.states) {
+    if (!Array.isArray(state.next_state_ids)) fail(`${state.id}: не заданы допустимые переходы`);
+    for (const targetStateId of state.next_state_ids) {
+      if (!stateIds.includes(targetStateId)) fail(`${state.id}: переход ведёт в неизвестное состояние ${targetStateId}`);
+    }
+  }
+  const button = lifecycle.button;
+  if (!button || button.submission !== "immediate_without_confirmation") {
+    fail("кнопка заказа должна отправлять запрос сразу, без второго подтверждения");
+  }
+  assertSameStringArray(button.source_state_ids, ctaStates, "источники CTA вариантного жизненного цикла");
+  if (button.retry_after !== "rejected_retryable" || !button.enabled_in?.includes("rejected_retryable")) {
+    fail("повтор заказа допускается только после исправления непринятого запроса");
+  }
+  if (!button.enabled_in?.includes("eligible") || !button.disabled_in?.includes("accepted_locked")) {
+    fail("CTA должна быть доступна до принятия и заблокирована после принятия заказа");
+  }
+  const buttonStateIds = [...(button.enabled_in || []), ...(button.disabled_in || [])];
+  assertSameStringArray([...buttonStateIds].sort(), [...LIFECYCLE_STATE_IDS].sort(), "доступность CTA по состояниям");
+  if (new Set(buttonStateIds).size !== buttonStateIds.length) fail("состояние CTA не может быть одновременно доступно и заблокировано");
+  const lock = lifecycle.single_order_lock;
+  if (lock?.scope !== "session_user_pair" || lock.locks_on !== "accepted_locked" || lock.duplicate_behavior !== "reject_after_acceptance") {
+    fail("договор должен блокировать повторный заказ для пары сеанс/пользователь после принятия");
+  }
+  const chat = lifecycle.chat;
+  if (chat?.delivery !== "same_chat_on_return" || chat.persistence !== true || chat.system_push !== false || chat.safe_message_only !== true) {
+    fail("безопасное состояние должно сохраняться и возвращаться в тот же чат без системного PUSH");
+  }
+  const scope = lifecycle.scope;
+  if (scope?.result_link !== false || scope.separate_storage !== false || scope.rich_structure_editing !== false) {
+    fail("договор пути не должен включать ссылку, отдельное хранилище или расширенное редактирование структуры");
+  }
+  const variants = lifecycle.delivery_variants || [];
+  assertSameStringArray(variants.map((variant) => variant?.id), ["one_contour", "two_contours"], "варианты доставки");
+  if (variants[0]?.contour_count !== 1 || variants[1]?.contour_count !== 2) fail("варианты доставки должны различать один и два контура");
+  const messages = lifecycle.messages || [];
+  assertSameStringArray(messages.map((message) => message?.id), LIFECYCLE_MESSAGE_IDS, "каталог сообщений");
+  for (const message of messages) {
+    if (message.decision_id !== "CO3-DEC-007" || message.authoritative_text_status !== "not_agreed") {
+      fail(`${message.id}: текст статуса нельзя выдумывать до отдельного согласования`);
+    }
+  }
+  const screenSequence = lifecycle.screen_sequence;
+  if (screenSequence?.decision_id !== "CO3-DEC-009" || screenSequence.preserve_existing_source_order !== true) {
+    fail("договор должен сохранять согласованный исходный порядок экранов");
+  }
+  assertSameStringArray(screenSequence.existing_state_ids, orderedStateIds, "сохраненный исходный порядок экранов");
+  if (screenSequence.additional_status_placement !== "after_existing_presentation_states" || screenSequence.generation_status !== "blocked_pending_authoritative_text") {
+    fail("дополнительные статусы допускаются только в конце и после согласования текста");
+  }
+  return lifecycle;
+}
+
 export function loadSevenScreenContracts(root = process.cwd()) {
   const registry = readJson(root, ACTIVE_CONTRACTS_PATH);
   const journey = readJson(root, JOURNEY_CONTRACT_PATH);
@@ -317,6 +394,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   if (JSON.stringify(orderAction.source_state_ids) !== JSON.stringify(ctaStates)) {
     fail("источники действия заказа не совпадают с CTA визуального договора");
   }
+  const lifecycle = validateLifecycle(journey.lifecycle, ctaStates, states.map((state) => state.id));
   const expectedArchiveMembers = [
     ...ARCHIVE_STATIC_MEMBERS,
     ...states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)),
@@ -335,6 +413,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     },
     states,
     orderAction,
+    lifecycle,
   };
 }
 
@@ -356,6 +435,7 @@ function renderRuntimeData(contracts) {
     version: contracts.journey.version,
     initial_state_id: contracts.journey.initial_state_id,
     order_target_state_id: contracts.orderAction.target_state_id,
+    lifecycle: contracts.lifecycle,
     navigation: {
       display_total: contracts.journey.navigation.display_total,
     },
@@ -659,6 +739,9 @@ function withRuntimePublishRenameHook(hook, callback) {
 }
 
 export function publishSevenScreenRuntime(root, built) {
+  if (built?.contracts?.lifecycle?.review_status !== "approved_product_owner") {
+    fail("визуальный выпуск заблокирован до контрольного просмотра Product Owner");
+  }
   const packageRoot = path.join(root, PACKAGE_PATH);
   const demoRoot = path.join(packageRoot, "demo");
   fs.mkdirSync(packageRoot, { recursive: true });

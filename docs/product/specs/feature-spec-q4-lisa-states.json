@@ -20,6 +20,7 @@
     "Изобретать внешний контракт внутреннего получателя статуса либо адаптера Лисы"
   ],
   "traceability_refs": {
+    "decision_ids": ["CO3-DEC-002", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-007", "CO3-DEC-008", "CO3-DEC-009"],
     "change_order_ids": ["CO-2026-003"],
     "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-27", "DC-ST-34", "DC-ST-35", "DC-ST-36"],
     "acceptance_scenario_ids": ["q4_lisa_order", "q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],

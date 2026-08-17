@@ -8,6 +8,11 @@
 
 ## Причина
 
+Согласованные формулировки имеют силу наравне с очищенной рабочей книгой и
+закреплены в [реестре решений интервью](co-2026-003-authoritative-interview-decision-register.md).
+Производные документы ссылаются на `CO3-DEC-*` — решения интервью CO-2026-003 —
+и не подменяют их свободным пересказом.
+
 Очищенная рабочая книга от `2026-08-17` и интервью Product Owner определили
 отдельный объём `Q4_2026`: пользователь Лисы оформляет заказ, адреса определяются
 через сервис «Профиль сотрудника», результат в форматах `ODT` и `PDF` отправляется
@@ -64,6 +69,7 @@
 
 - [Состояние интервью](co-2026-003-q4-lisa-profile-questionnaire-state.json)
 - [Журнал интервью](co-2026-003-q4-lisa-profile-questionnaire-log.md)
+- [Реестр согласованных формулировок](co-2026-003-authoritative-interview-decision-register.md)
 - [Карта влияния](co-2026-003-q4-lisa-profile-impact.json)
 - [План реализации](../../plans/co-2026-003-q4-lisa-profile-implementation-plan.md)
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx` —

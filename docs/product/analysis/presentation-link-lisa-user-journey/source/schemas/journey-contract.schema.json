@@ -10,6 +10,7 @@
     "state_ids",
     "states",
     "actions",
+    "lifecycle",
     "navigation",
     "device"
   ],
@@ -45,6 +46,9 @@
       "items": {
         "$ref": "#/$defs/action"
       }
+    },
+    "lifecycle": {
+      "$ref": "#/$defs/lifecycle"
     },
     "navigation": {
       "$ref": "#/$defs/navigation"
@@ -136,6 +140,158 @@
             "$ref": "#/$defs/state_id"
           }
         }
+      }
+    },
+    "lifecycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "review_status",
+        "states",
+        "button",
+        "single_order_lock",
+        "chat",
+        "scope",
+        "delivery_variants",
+        "screen_sequence",
+        "messages"
+      ],
+      "properties": {
+        "model": { "const": "variant" },
+        "review_status": { "enum": ["pending_product_owner", "approved_product_owner"] },
+        "states": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/lifecycle_state" }
+        },
+        "button": { "$ref": "#/$defs/lifecycle_button" },
+        "single_order_lock": { "$ref": "#/$defs/single_order_lock" },
+        "chat": { "$ref": "#/$defs/chat" },
+        "scope": { "$ref": "#/$defs/q4_scope" },
+        "delivery_variants": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "#/$defs/delivery_variant" }
+        },
+        "screen_sequence": { "$ref": "#/$defs/screen_sequence" },
+        "messages": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": { "$ref": "#/$defs/lifecycle_message" }
+        }
+      }
+    },
+    "lifecycle_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "next_state_ids"],
+      "properties": {
+        "id": {
+          "enum": [
+            "eligible",
+            "validating",
+            "rejected_retryable",
+            "accepted_locked",
+            "generating",
+            "delivery_confirmed",
+            "delayed",
+            "delivery_partial",
+            "support_pending",
+            "session_closed"
+          ]
+        },
+        "next_state_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "lifecycle_button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_state_ids", "enabled_in", "disabled_in", "submission", "retry_after"],
+      "properties": {
+        "source_state_ids": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/state_id" }
+        },
+        "enabled_in": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "disabled_in": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "submission": { "const": "immediate_without_confirmation" },
+        "retry_after": { "const": "rejected_retryable" }
+      }
+    },
+    "single_order_lock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scope", "locks_on", "duplicate_behavior"],
+      "properties": {
+        "scope": { "const": "session_user_pair" },
+        "locks_on": { "const": "accepted_locked" },
+        "duplicate_behavior": { "const": "reject_after_acceptance" }
+      }
+    },
+    "chat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["delivery", "persistence", "system_push", "safe_message_only"],
+      "properties": {
+        "delivery": { "const": "same_chat_on_return" },
+        "persistence": { "const": true },
+        "system_push": { "const": false },
+        "safe_message_only": { "const": true }
+      }
+    },
+    "q4_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["result_link", "separate_storage", "rich_structure_editing"],
+      "properties": {
+        "result_link": { "const": false },
+        "separate_storage": { "const": false },
+        "rich_structure_editing": { "const": false }
+      }
+    },
+    "delivery_variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "contour_count"],
+      "properties": {
+        "id": { "enum": ["one_contour", "two_contours"] },
+        "contour_count": { "enum": [1, 2] }
+      }
+    },
+    "lifecycle_message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "decision_id", "authoritative_text_status"],
+      "properties": {
+        "id": {
+          "enum": ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"]
+        },
+        "decision_id": { "const": "CO3-DEC-007" },
+        "authoritative_text_status": { "const": "not_agreed" }
+      }
+    },
+    "screen_sequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision_id", "preserve_existing_source_order", "existing_state_ids", "additional_status_state_ids", "additional_status_placement", "generation_status"],
+      "properties": {
+        "decision_id": { "const": "CO3-DEC-009" },
+        "preserve_existing_source_order": { "const": true },
+        "existing_state_ids": { "type": "array", "minItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
+        "additional_status_state_ids": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
+        "additional_status_placement": { "const": "after_existing_presentation_states" },
+        "generation_status": { "const": "blocked_pending_authoritative_text" }
       }
     },
     "navigation": {

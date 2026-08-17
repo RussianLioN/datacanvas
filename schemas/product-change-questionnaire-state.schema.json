@@ -95,6 +95,7 @@
         "stories_path": { "$ref": "#/$defs/repoPath" },
         "candidate_stories_path": { "$ref": "#/$defs/repoPath" },
         "candidate_stories_csv_path": { "$ref": "#/$defs/repoPath" }
+        ,"authoritative_interview_register_path": { "$ref": "#/$defs/repoPath" }
       }
     },
     "answered_questions": {
@@ -123,6 +124,16 @@
       "type": "array",
       "minItems": 1,
       "items": { "type": "string", "minLength": 1 }
+    },
+    "review_checkpoint": {
+      "type": "object",
+      "required": ["status", "reason", "authoritative_register_path"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["rejected_for_revision", "approved"] },
+        "reason": { "type": "string", "minLength": 1 },
+        "authoritative_register_path": { "$ref": "#/$defs/repoPath" }
+      }
     }
   },
   "allOf": [

@@ -37,6 +37,7 @@ const paths = {
   runLedger: "docs/architecture/observability/process-run-ledger.json",
   baSaEvals: "tests/evals/ba-sa-eval-cases.json",
   q4Fixture: "tests/fixtures/ba-sa-q4-lisa-profile.json",
+  q4DecisionRegister: "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
 };
 
 const requiredDomains = [
@@ -579,6 +580,8 @@ function validateSpecReadiness() {
   const evals = readJson(paths.baSaEvals);
   const businessRules = readJson(paths.businessRules);
   const q4SpecFixture = readJson(paths.q4SpecFixture);
+  const q4DecisionRegister = validateSchema("schemas/authoritative-interview-decision-register.schema.json", paths.q4DecisionRegister);
+  const q4DecisionIds = new Set(q4DecisionRegister.decisions.map((decision) => decision.decision_id));
   const claimById = new Map(baSpec.claims.map((claim) => [claim.claim_id, claim]));
   const evalIds = ids(evals.cases, "id");
   const ruleIds = ids(businessRules.rules, "rule_id");
@@ -647,6 +650,12 @@ function validateSpecReadiness() {
           fail(`Q4 spec has incomplete traceability_refs.${key}: ${specPath}`);
         }
       }
+      if (!Array.isArray(refs.decision_ids) || refs.decision_ids.length === 0) {
+        fail(`Q4 spec must reference authoritative interview decisions: ${specPath}`);
+      }
+      for (const decisionId of refs.decision_ids) {
+        if (!q4DecisionIds.has(decisionId)) fail(`Q4 spec references unknown authoritative decision: ${decisionId}`);
+      }
       for (const interfaceId of refs.interface_ids) {
         if (!interfaceIds.has(interfaceId)) {
           fail(`Q4 spec references unknown interface: ${interfaceId}`);
@@ -696,6 +705,11 @@ function validateSpecReadiness() {
     const found = trace.links.some((link) => Object.entries(expectedLink).every(([key, value]) => link[key] === value));
     if (!found) {
       fail(`Q4 interview-to-spec trace is missing: ${expectedLink.claim_id}/${expectedLink.task_id}`);
+    }
+  }
+  for (const link of trace.links.filter((link) => ["FS-002", "FS-003"].includes(link.feature_id))) {
+    if (!link.decision_id || !q4DecisionIds.has(link.decision_id)) {
+      fail(`Q4 interview-to-spec trace lacks an authoritative decision: ${link.claim_id}/${link.task_id}`);
     }
   }
   for (const output of manifest.outputs) {

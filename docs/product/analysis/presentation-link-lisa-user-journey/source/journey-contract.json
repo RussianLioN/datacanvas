@@ -133,6 +133,108 @@
       ]
     }
   ],
+  "lifecycle": {
+    "model": "variant",
+    "review_status": "pending_product_owner",
+    "states": [
+      { "id": "eligible", "next_state_ids": ["validating"] },
+      { "id": "validating", "next_state_ids": ["rejected_retryable", "accepted_locked"] },
+      { "id": "rejected_retryable", "next_state_ids": ["validating"] },
+      { "id": "accepted_locked", "next_state_ids": ["generating"] },
+      { "id": "generating", "next_state_ids": ["delivery_confirmed", "delayed", "delivery_partial"] },
+      { "id": "delivery_confirmed", "next_state_ids": ["session_closed"] },
+      { "id": "delayed", "next_state_ids": ["support_pending"] },
+      { "id": "delivery_partial", "next_state_ids": ["support_pending"] },
+      { "id": "support_pending", "next_state_ids": ["session_closed"] },
+      { "id": "session_closed", "next_state_ids": [] }
+    ],
+    "button": {
+      "source_state_ids": [
+        "lisa-materials-summary",
+        "lisa-materials-full-reference",
+        "lisa-presentation-order"
+      ],
+      "enabled_in": ["eligible", "rejected_retryable"],
+      "disabled_in": [
+        "validating",
+        "accepted_locked",
+        "generating",
+        "delivery_confirmed",
+        "delayed",
+        "delivery_partial",
+        "support_pending",
+        "session_closed"
+      ],
+      "submission": "immediate_without_confirmation",
+      "retry_after": "rejected_retryable"
+    },
+    "single_order_lock": {
+      "scope": "session_user_pair",
+      "locks_on": "accepted_locked",
+      "duplicate_behavior": "reject_after_acceptance"
+    },
+    "chat": {
+      "delivery": "same_chat_on_return",
+      "persistence": true,
+      "system_push": false,
+      "safe_message_only": true
+    },
+    "scope": {
+      "result_link": false,
+      "separate_storage": false,
+      "rich_structure_editing": false
+    },
+    "delivery_variants": [
+      { "id": "one_contour", "contour_count": 1 },
+      { "id": "two_contours", "contour_count": 2 }
+    ],
+    "screen_sequence": {
+      "decision_id": "CO3-DEC-009",
+      "preserve_existing_source_order": true,
+      "existing_state_ids": [
+        "lisa-materials-summary",
+        "lisa-materials-full-reference",
+        "lisa-presentation-order",
+        "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
+        "lisa-presentation-sent",
+        "lisa-presentation-email",
+        "lisa-presentation-slidedoc",
+        "lisa-presentation-sber2025",
+        "lisa-presentation-mag"
+      ],
+      "additional_status_state_ids": ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
+      "additional_status_placement": "after_existing_presentation_states",
+      "generation_status": "blocked_pending_authoritative_text"
+    },
+    "messages": [
+      {
+        "id": "order_started",
+        "decision_id": "CO3-DEC-007",
+        "authoritative_text_status": "not_agreed"
+      },
+      {
+        "id": "order_not_accepted",
+        "decision_id": "CO3-DEC-007",
+        "authoritative_text_status": "not_agreed"
+      },
+      {
+        "id": "delivery_confirmed",
+        "decision_id": "CO3-DEC-007",
+        "authoritative_text_status": "not_agreed"
+      },
+      {
+        "id": "delivery_delayed",
+        "decision_id": "CO3-DEC-007",
+        "authoritative_text_status": "not_agreed"
+      },
+      {
+        "id": "delivery_partial",
+        "decision_id": "CO3-DEC-007",
+        "authoritative_text_status": "not_agreed"
+      }
+    ]
+  },
   "navigation": {
     "mode": "linear",
     "wrap": false,

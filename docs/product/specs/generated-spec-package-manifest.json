@@ -5,6 +5,10 @@
   "package_id": "SPEC-PKG-2026-001",
   "source_hashes": [
     {
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+      "sha256": "f0352dc1acc6d6dcae98eac1aaf30c9079c9869299d583cf4b10ed8259e48401"
+    },
+    {
       "path": "docs/product/analysis/ba/ba-spec.json",
       "sha256": "ef3491fa0fdce5428c7654ef21a417ff4e2c5680e9d3156025e36845247710c1"
     },

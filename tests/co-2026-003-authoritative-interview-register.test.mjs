@@ -9,8 +9,9 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   const register = readJson("docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json");
   assert.equal(register.change_order_id, "CO-2026-003");
   assert.equal(register.source_of_truth_policy.interview_precedence, "equal_to_controlled_xlsx");
-  assert.ok(register.decisions.length >= 8);
-  assert.ok(register.verbatim_wordings.length >= 16);
+  assert.ok(register.decisions.length >= 9);
+  assert.ok(register.verbatim_wordings.length >= 25);
+  assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-009");
   assert.ok(register.unresolved_authoritative_text_ids.includes("CO3-MSG-001"));
   assert.ok(register.unresolved_authoritative_text_ids.includes("CO3-MSG-005"));
   assert.equal(JSON.stringify(register).includes("@"), false);
