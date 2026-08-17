@@ -36,6 +36,45 @@
       ]
     },
     {
+      "generator_id": "datacanvas-xlsx-backlog-2026-08-17-working",
+      "owner_role": "Product Owner / Security Lead",
+      "inputs": [
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "outputs": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ],
+      "allowed_writes": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ],
+      "generate_command": "npm run generate:xlsx-backlog-2026-08-17 -- --source <external-owner-xlsx> --expected-original-sha256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1",
+      "check_command": "npm run validate:xlsx-backlog-2026-08-17",
+      "deterministic_environment": "Python 3, неизменяемый внешний Excel Product Owner с независимо закрепленным SHA-256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1, без сети; допускается удаление absPath, очистка персонального автора в core/comments и принятое Product Owner переименование строки старого PUSH на листе СОЗАВИСИМОСТЬ Q3_2026 без изменения формул и структуры",
+      "dependencies": [
+        "datacanvas-xlsx-sanitized-reference"
+      ],
+      "post_validators": [
+        "npm run validate:xlsx-backlog-2026-08-17",
+        "npm run validate:xlsx-source-security",
+        "npm run validate:xlsx-backlog",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "original_source_hash_mismatch",
+        "missing_abs_path",
+        "unexpected_ooxml_part_change",
+        "local_pointer_remains",
+        "personal_comment_metadata_remains",
+        "formula_removed",
+        "wrong_total_source",
+        "stale_push_label_remains",
+        "invalid_xlsx_package"
+      ]
+    },
+    {
       "generator_id": "datacanvas-jira-stories",
       "owner_role": "Product Owner / Process Owner",
       "inputs": [

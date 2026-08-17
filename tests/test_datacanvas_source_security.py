@@ -28,6 +28,40 @@ def write_xlsx(path: Path, workbook_xml: bytes) -> None:
         archive.writestr("xl/worksheets/sheet1.xml", b"<worksheet><value>42</value></worksheet>")
 
 
+def write_august_profile_fixture(path: Path) -> None:
+    with ZipFile(path, "w", ZIP_DEFLATED) as archive:
+        archive.writestr(
+            "xl/comments1.xml",
+            (
+                '<comments xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                '<authors><author>Личный автор</author></authors>'
+                '<commentList><comment ref="A1" authorId="0"><text><r><t>Личная запись</t></r></text></comment></commentList>'
+                "</comments>"
+            ).encode("utf-8"),
+        )
+        archive.writestr("xl/workbook.xml", b'<workbook><x:absPath url="/Users/private/source" xmlns:x="urn:abs"/></workbook>')
+        archive.writestr(
+            "xl/sharedStrings.xml",
+            (
+                '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                '<si><t>3. Добавляем PUSH уведомление - отображение готовности во всплывающем сообщении</t></si>'
+                "</sst>"
+            ).encode("utf-8"),
+        )
+        archive.writestr(
+            "docProps/core.xml",
+            (
+                '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
+                'xmlns:dc="http://purl.org/dc/elements/1.1/">'
+                "<dc:creator>Личный автор</dc:creator>"
+                "<cp:lastModifiedBy>Личный автор</cp:lastModifiedBy>"
+                "</cp:coreProperties>"
+            ).encode("utf-8"),
+        )
+        archive.writestr("xl/worksheets/sheet3.xml", b"<worksheet><f>SUM(G4:G6)</f></worksheet>")
+        archive.writestr("[Content_Types].xml", b"<Types/>")
+
+
 def git(repo: Path, *args: str) -> str:
     result = subprocess.run(
         ["git", *args],
@@ -43,6 +77,7 @@ def git(repo: Path, *args: str) -> str:
 class SourceSanitizerTest(unittest.TestCase):
     def test_repository_commands_pin_the_independent_owner_source_hash(self) -> None:
         expected_hash = "202e17b20408fc496e3bed3094bb8bf3b5a5cf73004fce7e446a17faec11afd9"
+        august_expected_hash = "722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1"
         package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
         contracts = json.loads(
             (ROOT / "docs/process/universal-documentation-workflow/generator-contracts.json").read_text(
@@ -57,6 +92,13 @@ class SourceSanitizerTest(unittest.TestCase):
 
         self.assertIn(expected_hash, package["scripts"]["validate:xlsx-source-security"])
         self.assertIn(expected_hash, contract["generate_command"])
+        self.assertIn(august_expected_hash, package["scripts"]["validate:xlsx-backlog-2026-08-17-source-security"])
+        august_contract = next(
+            item
+            for item in contracts["contracts"]
+            if item["generator_id"] == "datacanvas-xlsx-backlog-2026-08-17-working"
+        )
+        self.assertIn(august_expected_hash, august_contract["generate_command"])
 
     def test_removes_abs_path_with_any_namespace_without_rewriting_other_xml(self) -> None:
         source = (
@@ -134,6 +176,68 @@ class SourceSanitizerTest(unittest.TestCase):
                 MODULE.sanitize_xlsx(source, target, "0" * 64)
 
             self.assertFalse(target.exists())
+
+    def test_august_profile_redacts_owner_metadata_renames_status_and_preserves_formulas(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "source.xlsx"
+            target = root / "sanitized.xlsx"
+            write_august_profile_fixture(source)
+
+            manifest = MODULE.sanitize_xlsx(
+                source,
+                target,
+                MODULE.sha256_file(source),
+                profile=MODULE.BACKLOG_2026_08_17_WORKING_PROFILE,
+            )
+
+            self.assertEqual(set(manifest["changed_parts"]), {
+                "xl/workbook.xml",
+                "xl/sharedStrings.xml",
+                "xl/comments1.xml",
+                "docProps/core.xml",
+            })
+            self.assertEqual(manifest["cleared_comment_texts"], 1)
+            with ZipFile(target) as workbook:
+                package_text = "\n".join(
+                    workbook.read(part).decode("utf-8", errors="ignore")
+                    for part in workbook.namelist()
+                    if part.endswith((".xml", ".vml", ".txt"))
+                )
+                self.assertNotIn("/Users/private", package_text)
+                self.assertNotIn("Личный автор", package_text)
+                self.assertNotIn("Личная запись", package_text)
+                self.assertNotIn(MODULE.BACKLOG_2026_08_17_OLD_PUSH_TEXT, package_text)
+                self.assertIn(MODULE.BACKLOG_2026_08_17_STATUS_TEXT, package_text)
+                self.assertEqual(workbook.read("xl/worksheets/sheet3.xml"), b"<worksheet><f>SUM(G4:G6)</f></worksheet>")
+                self.assertIn(b"<text/>", workbook.read("xl/comments1.xml"))
+
+    def test_generated_august_working_copy_has_no_local_or_personal_owner_metadata_and_keeps_formulas(self) -> None:
+        workbook_path = ROOT / "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"
+        provenance_path = ROOT / "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+        self.assertTrue(workbook_path.exists(), "2026-08-17 controlled working XLSX must be generated")
+        self.assertTrue(provenance_path.exists(), "2026-08-17 provenance manifest must be generated")
+
+        provenance = json.loads(provenance_path.read_text(encoding="utf-8"))
+        self.assertEqual(provenance["original_sha256"], "722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1")
+        self.assertEqual(provenance["sanitized_sha256"], MODULE.sha256_file(workbook_path))
+        self.assertEqual(provenance["profile"], MODULE.BACKLOG_2026_08_17_WORKING_PROFILE)
+        self.assertEqual(provenance["renamed_status_labels"], 1)
+
+        with ZipFile(workbook_path) as workbook:
+            self.assertEqual(MODULE._xlsx_findings(workbook_path.read_bytes(), "HEAD", workbook_path.as_posix()), [])
+            self.assertEqual(MODULE._xlsx_personal_metadata_findings(workbook_path.read_bytes(), "HEAD", workbook_path.as_posix()), [])
+            shared_text = workbook.read("xl/sharedStrings.xml").decode("utf-8")
+            self.assertIn(MODULE.BACKLOG_2026_08_17_STATUS_TEXT, shared_text)
+            self.assertNotIn("PUSH", shared_text)
+            sheet1 = workbook.read("xl/worksheets/sheet1.xml").decode("utf-8")
+            sheet2 = workbook.read("xl/worksheets/sheet2.xml").decode("utf-8")
+            sheet3 = workbook.read("xl/worksheets/sheet3.xml").decode("utf-8")
+            self.assertIn("<f t=\"shared\" ref=\"J1:V1\" si=\"0\">J2*$C$1</f>", sheet1)
+            self.assertIn("<f>SUBTOTAL(9,J$4:J$496)</f>", sheet1)
+            self.assertIn("<f>SUM(C4:H4)</f><v>304.39999999999998</v>", sheet2)
+            self.assertIn("<f>SUM(C8:H8)</f><v>219.4</v>", sheet2)
+            self.assertIn("<f>SUM(G4:G6)</f>", sheet3)
 
 
 class HistoryHygieneTest(unittest.TestCase):

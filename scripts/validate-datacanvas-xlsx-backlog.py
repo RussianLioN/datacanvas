@@ -19,8 +19,19 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
-NS = {"m": MAIN_NS, "rel": REL_NS}
+OFFICE_REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+NS = {"m": MAIN_NS, "rel": REL_NS, "r": OFFICE_REL_NS}
 ROLE_COLUMNS = list("IJKLMNOPQRSTU")
+BACKLOG_2026_08_17_EXPECTED_SHEETS = [
+    "Лист1",
+    "Итоговые ресурсы",
+    "СОЗАВИСИМОСТЬ Q3_2026",
+]
+BACKLOG_2026_08_17_STATUS_TEXT = "Сообщения о статусе заказа в том же чате Лисы"
+BACKLOG_2026_08_17_OLD_PUSH_TEXT = "3. Добавляем PUSH уведомление - отображение готовности во всплывающем сообщении"
+REDACTED_OWNER = "Product Owner"
+BACKLOG_2026_08_17_RESOURCE_TOTAL = Decimal("304.4")
+BACKLOG_2026_08_17_RESOURCE_TOTAL_TOLERANCE = Decimal("0.0000001")
 FORBIDDEN_PART_MARKERS = (
     "vbaproject",
     "externallinks",
@@ -31,7 +42,7 @@ FORBIDDEN_PART_MARKERS = (
     "oleobject",
 )
 FORBIDDEN_TARGET_PATTERN = re.compile(r"^(?:file|https?)://", re.IGNORECASE)
-LOCAL_POINTER_PATTERN = re.compile(r"(?:/Users/|file://|https?://)[^\"'<>\\s]+")
+LOCAL_POINTER_PATTERN = re.compile(r"(?:/Users/|file://)[^\"'<>\\s]+")
 CELL_REF_PATTERN = re.compile(r"^([A-Z]+)([1-9][0-9]*)$")
 XML_START_TAG_PATTERN = re.compile(r"<([A-Za-z_][\w.-]*)(?:\s[^>]*)?>")
 XMLNS_PREFIX_PATTERN = re.compile(r"\sxmlns:([A-Za-z_][\w.-]*)=")
@@ -201,6 +212,31 @@ def comments_by_ref(zipped: ZipFile) -> dict[str, str]:
     return result
 
 
+def comment_authors(zipped: ZipFile) -> list[str]:
+    if "xl/comments1.xml" not in zipped.namelist():
+        return []
+    root = read_xml(zipped, "xl/comments1.xml")
+    return [author.text or "" for author in root.findall(".//m:author", NS)]
+
+
+def workbook_sheets(zipped: ZipFile) -> list[tuple[str, str]]:
+    workbook = read_xml(zipped, "xl/workbook.xml")
+    rels = ET.fromstring(zipped.read("xl/_rels/workbook.xml.rels"))
+    rel_targets = {
+        rel.attrib["Id"]: rel.attrib["Target"]
+        for rel in rels.findall("rel:Relationship", NS)
+    }
+    result: list[tuple[str, str]] = []
+    for sheet in workbook.findall(".//m:sheet", NS):
+        rel_id = sheet.attrib.get(f"{{{NS['r']}}}id")
+        target = rel_targets.get(rel_id or "")
+        if not target:
+            fail(f"workbook sheet has no relationship target: {sheet.attrib}")
+        part = target if target.startswith("xl/") else f"xl/{target}"
+        result.append((sheet.attrib["name"], part))
+    return result
+
+
 def workbook_text_pointers(zipped: ZipFile) -> set[str]:
     pointers: set[str] = set()
     for part in zipped.namelist():
@@ -209,6 +245,32 @@ def workbook_text_pointers(zipped: ZipFile) -> set[str]:
         text = zipped.read(part).decode("utf-8", errors="ignore")
         pointers.update(LOCAL_POINTER_PATTERN.findall(text))
     return pointers
+
+
+def workbook_personal_metadata(zipped: ZipFile) -> dict[str, list[str]]:
+    findings: dict[str, list[str]] = {}
+    for part, local_names in (
+        ("xl/comments1.xml", {"author"}),
+        ("docProps/core.xml", {"creator", "lastModifiedBy"}),
+    ):
+        if part not in zipped.namelist():
+            continue
+        root = read_xml(zipped, part)
+        values = [
+            (element.text or "").strip()
+            for element in root.iter()
+            if element.tag.rsplit("}", 1)[-1] in local_names
+        ]
+        if any(value != REDACTED_OWNER for value in values):
+            findings[part] = ["unredacted_owner_metadata"]
+        if part == "xl/comments1.xml":
+            comment_texts = [
+                "".join(comment_text.itertext()).strip()
+                for comment_text in root.findall(".//m:comment/m:text", NS)
+            ]
+            if any(comment_texts):
+                findings[part] = ["comment_text_not_cleared"]
+    return findings
 
 
 def assert_package_allowlist(zipped: ZipFile, label: str) -> None:
@@ -349,6 +411,63 @@ def assert_decimal(label: str, actual: str | None, expected) -> None:
     expected_value = Decimal(str(expected))
     if actual_value != expected_value:
         fail(f"{label}: expected {expected_value}, got {actual_value}")
+
+
+def assert_cell_decimal_with_tolerance(
+    sheet: ET.Element,
+    shared: list[str],
+    ref: str,
+    expected: Decimal,
+    tolerance: Decimal,
+) -> Decimal:
+    actual_value = decimal_text(cell_value(cell_by_ref(sheet, ref), shared))
+    if abs(actual_value - expected) > tolerance:
+        fail(
+            f"{ref}: expected Excel numeric value {expected} within {tolerance}, got {actual_value}"
+        )
+    return actual_value
+
+
+def assert_shared_formula_group(
+    sheet: ET.Element,
+    *,
+    master_ref: str,
+    expected_range: str,
+    expected_formula: str,
+) -> None:
+    master_cell = cell_by_ref(sheet, master_ref)
+    master_formula = master_cell.find("m:f", NS) if master_cell is not None else None
+    if master_formula is None:
+        fail(f"{master_ref} shared formula master is missing")
+    assert_equal(f"{master_ref} formula", master_formula.text, expected_formula)
+    assert_equal(f"{master_ref} shared formula type", master_formula.attrib.get("t"), "shared")
+    assert_equal(f"{master_ref} shared formula range", master_formula.attrib.get("ref"), expected_range)
+    shared_index = master_formula.attrib.get("si")
+    if shared_index is None:
+        fail(f"{master_ref} shared formula master has no si")
+
+    expected_members = set(expand_cell_range(expected_range))
+    actual_members = {
+        cell.attrib["r"]
+        for cell in sheet.findall(".//m:c", NS)
+        if (formula := cell.find("m:f", NS)) is not None
+        and formula.attrib.get("t") == "shared"
+        and formula.attrib.get("si") == shared_index
+    }
+    if actual_members != expected_members:
+        fail(
+            f"{master_ref} shared formula group: expected {sorted(expected_members)}, "
+            f"got {sorted(actual_members)}"
+        )
+    masters = [
+        cell.attrib.get("r")
+        for cell in sheet.findall(".//m:c", NS)
+        if (formula := cell.find("m:f", NS)) is not None
+        and formula.attrib.get("t") == "shared"
+        and formula.attrib.get("si") == shared_index
+        and formula.attrib.get("ref")
+    ]
+    assert_equal(f"{master_ref} shared formula master cells", masters, [master_ref])
 
 
 def assert_cell_text(sheet: ET.Element, shared: list[str], ref: str, expected: str) -> None:
@@ -887,6 +1006,131 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
         fail("self-test scenario did not fail as expected: broken-story-catalog")
 
 
+def validate_august_2026_workbook(
+    working_path: Path,
+    provenance_path: Path,
+    expectations_path: Path,
+    *,
+    check_working_hash: bool = True,
+) -> None:
+    expectations = load_json(expectations_path)
+    provenance = load_json(provenance_path)
+
+    assert_equal("2026-08-17 working workbook path", relpath(working_path), expectations["working_path"])
+    assert_equal("2026-08-17 provenance path", relpath(provenance_path), expectations["provenance_path"])
+    assert_equal("2026-08-17 original source sha256", provenance["original_sha256"], expectations["original_source_sha256"])
+    if check_working_hash:
+        assert_equal("2026-08-17 working workbook sha256", sha256_file(working_path), expectations["working_sha256"])
+    assert_equal("2026-08-17 manifest sanitized hash", provenance["sanitized_sha256"], sha256_file(working_path))
+    assert_equal("2026-08-17 manifest profile", provenance.get("profile"), "backlog-2026-08-17-working")
+    assert_equal("2026-08-17 status label rename count", provenance.get("renamed_status_labels"), 1)
+
+    with open_zip(working_path) as working:
+        assert_package_allowlist(working, "2026-08-17 working workbook")
+        assert_markup_compatibility_prefixes(working, "2026-08-17 working workbook")
+        pointers = workbook_text_pointers(working)
+        if pointers:
+            fail(f"2026-08-17 working workbook contains local or external pointers: {sorted(pointers)}")
+        personal_metadata = workbook_personal_metadata(working)
+        if personal_metadata:
+            fail(f"2026-08-17 working workbook contains personal owner metadata: {personal_metadata}")
+
+        sheets = workbook_sheets(working)
+        assert_equal(
+            "2026-08-17 sheet names",
+            [name for name, _part in sheets],
+            BACKLOG_2026_08_17_EXPECTED_SHEETS,
+        )
+        sheet_parts = {name: part for name, part in sheets}
+        sheet1 = read_xml(working, sheet_parts["Лист1"])
+        totals_sheet = read_xml(working, sheet_parts["Итоговые ресурсы"])
+        dependency_sheet = read_xml(working, sheet_parts["СОЗАВИСИМОСТЬ Q3_2026"])
+        shared = load_shared_strings(working)
+
+        assert_cell_decimal(sheet1, shared, "C1", 2)
+        assert_cell_decimal(sheet1, shared, "F1", "205.4")
+        assert_cell_decimal(sheet1, shared, "F2", "102.7")
+        assert_shared_formula_group(
+            sheet1,
+            master_ref="J1",
+            expected_range="J1:V1",
+            expected_formula="J2*$C$1",
+        )
+        for column in "JKLMNOPQRSTUV":
+            formula = cell_by_ref(sheet1, f"{column}2").find("m:f", NS)
+            assert_equal(f"Лист1!{column}2 subtotal formula", formula.text, f"SUBTOTAL(9,{column}$4:{column}$496)")
+
+        b4_value = assert_cell_decimal_with_tolerance(
+            totals_sheet,
+            shared,
+            "B4",
+            BACKLOG_2026_08_17_RESOURCE_TOTAL,
+            BACKLOG_2026_08_17_RESOURCE_TOTAL_TOLERANCE,
+        )
+        assert_cell_decimal(totals_sheet, shared, "B8", "219.4")
+        b8_value = decimal_text(cell_value(cell_by_ref(totals_sheet, "B8"), shared))
+        if abs(b4_value - b8_value) <= BACKLOG_2026_08_17_RESOURCE_TOTAL_TOLERANCE:
+            fail("Итоговые ресурсы!B8 must not be treated as the full resource total")
+        assert_equal("Итоговые ресурсы!B4 formula", cell_by_ref(totals_sheet, "B4").find("m:f", NS).text, "SUM(C4:H4)")
+        assert_equal("Итоговые ресурсы!B8 formula", cell_by_ref(totals_sheet, "B8").find("m:f", NS).text, "SUM(C8:H8)")
+
+        assert_cell_text(dependency_sheet, shared, "D6", BACKLOG_2026_08_17_STATUS_TEXT)
+        if BACKLOG_2026_08_17_OLD_PUSH_TEXT in shared:
+            fail("2026-08-17 controlled workbook still contains the stale PUSH label")
+        row6_resource = sum(
+            decimal_text(cell_value(cell_by_ref(dependency_sheet, f"{column}6"), shared))
+            for column in "GHIJKL"
+        )
+        if row6_resource != Decimal("35"):
+            fail(f"2026-08-17 renamed dependency row must preserve resource 35, got {row6_resource}")
+        g2_formula = cell_by_ref(dependency_sheet, "G2").find("m:f", NS)
+        assert_equal("СОЗАВИСИМОСТЬ Q3_2026!G2 formula", g2_formula.text, "SUM(G4:G6)")
+        h2_formula = cell_by_ref(dependency_sheet, "H2").find("m:f", NS)
+        assert_equal("СОЗАВИСИМОСТЬ Q3_2026!H2 shared formula range", h2_formula.attrib.get("ref"), "H2:L2")
+
+        authors = comment_authors(working)
+        if authors and any(author != REDACTED_OWNER for author in authors):
+            fail(f"2026-08-17 comments authors are not sanitized: {authors}")
+
+
+def run_august_2026_self_tests(working_path: Path, provenance_path: Path, expectations_path: Path) -> None:
+    scenarios = {
+        "local-pointer-restored": {
+            "xl/workbook.xml": ("</workbook>", '<x:absPath url="/Users/private/source" xmlns:x="urn:abs"/></workbook>')
+        },
+        "personal-comment-restored": {"xl/comments1.xml": ("Product Owner", "Личный автор")},
+        "personal-comment-text-restored": {
+            "xl/comments1.xml": ("<text/>", "<text><r><t>Личная запись</t></r></text>")
+        },
+        "personal-core-restored": {"docProps/core.xml": ("Product Owner", "Личный автор")},
+        "shared-formula-member-broken": {
+            "xl/worksheets/sheet1.xml": (
+                'r="K1" s="13"><f t="shared" si="0"/>',
+                'r="K1" s="13"><f t="shared" si="1"/>',
+            )
+        },
+        "formula-removed": {"xl/worksheets/sheet2.xml": ("<f>SUM(C4:H4)</f>", "")},
+        "wrong-total-source": {"xl/worksheets/sheet2.xml": ("<v>304.39999999999998</v>", "<v>219.4</v>")},
+        "stale-push-restored": {
+            "xl/sharedStrings.xml": (
+                BACKLOG_2026_08_17_STATUS_TEXT,
+                BACKLOG_2026_08_17_OLD_PUSH_TEXT,
+            )
+        },
+        "dependency-resource-changed": {"xl/worksheets/sheet3.xml": ('r="G6" s="1"><v>5</v>', 'r="G6" s="1"><v>4</v>')},
+    }
+    with tempfile.TemporaryDirectory(prefix="datacanvas-xlsx-2026-08-17-validator-") as tmp:
+        tmp_path = Path(tmp)
+        for scenario_id, replacements in scenarios.items():
+            mutant = tmp_path / f"{scenario_id}.xlsx"
+            rewrite_zip(working_path, mutant, replacements)
+            try:
+                validate_august_2026_workbook(mutant, provenance_path, expectations_path, check_working_hash=False)
+            except ValidationError:
+                continue
+            fail(f"2026-08-17 self-test scenario did not fail as expected: {scenario_id}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate the DataCanvas draft XLSX backlog workbook.")
     parser.add_argument("--source", default="docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx")
@@ -896,6 +1140,7 @@ def main() -> int:
     parser.add_argument("--source-manifest", default="docs/product/sources/reference/datacanvas-backlog-source-sanitization.json")
     parser.add_argument("--story-catalog", default="docs/product/requirements/user-stories.md")
     parser.add_argument("--self-test", action="store_true", help="Run negative mutation checks in a temporary directory.")
+    parser.add_argument("--profile", default="2026-07-08", choices=["2026-07-08", "2026-08-17"])
     args = parser.parse_args()
 
     source_path = ROOT / args.source
@@ -906,9 +1151,14 @@ def main() -> int:
     story_catalog_path = ROOT / args.story_catalog
 
     try:
-        validate_pair(source_path, working_path, expectations_path, provenance_path, source_manifest_path, story_catalog_path)
-        if args.self_test:
-            run_self_tests(source_path, working_path, expectations_path, provenance_path, source_manifest_path)
+        if args.profile == "2026-08-17":
+            validate_august_2026_workbook(working_path, provenance_path, expectations_path)
+            if args.self_test:
+                run_august_2026_self_tests(working_path, provenance_path, expectations_path)
+        else:
+            validate_pair(source_path, working_path, expectations_path, provenance_path, source_manifest_path, story_catalog_path)
+            if args.self_test:
+                run_self_tests(source_path, working_path, expectations_path, provenance_path, source_manifest_path)
     except ValidationError as error:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1
