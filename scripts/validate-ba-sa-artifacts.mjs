@@ -30,6 +30,9 @@ const paths = {
   promptSpec: "docs/product/specs/agent-prompt-spec-a2a-launch.json",
   specTrace: "docs/product/specs/interview-to-spec-trace.json",
   specManifest: "docs/product/specs/generated-spec-package-manifest.json",
+  q4SpecFixture: "tests/fixtures/spec-task-prompt-q4-lisa-profile.json",
+  userStories: "docs/product/requirements/user-stories.md",
+  traceabilityMatrix: "docs/product/requirements/traceability-matrix.json",
   boundaryMatrix: "docs/architecture/security/integration-boundary-matrix.json",
   runLedger: "docs/architecture/observability/process-run-ledger.json",
   baSaEvals: "tests/evals/ba-sa-eval-cases.json",
@@ -144,6 +147,41 @@ function requireIds(actualIds, requiredIds, subject) {
 
 function q4Fixture() {
   return readJson(paths.q4Fixture);
+}
+
+export function validateQ4TraceabilityReferences(refs, knownStoryIds, knownAcceptanceScenarioIds, subject) {
+  for (const storyId of refs.story_ids ?? []) {
+    if (!knownStoryIds.has(storyId)) {
+      throw new Error(`${subject} references unknown story: ${storyId}`);
+    }
+  }
+  for (const acceptanceScenarioId of refs.acceptance_scenario_ids ?? []) {
+    if (!knownAcceptanceScenarioIds.has(acceptanceScenarioId)) {
+      throw new Error(`${subject} references unknown acceptance scenario: ${acceptanceScenarioId}`);
+    }
+  }
+}
+
+function storyIdsFromAuthoritativeCatalog() {
+  const storyIds = new Set(
+    [...readText(paths.userStories).matchAll(/^\|\s*(DC-ST-\d+)\s*\|/gmu)].map((match) => match[1]),
+  );
+  if (storyIds.size === 0) {
+    fail(`authoritative story catalog contains no story IDs: ${paths.userStories}`);
+  }
+  return storyIds;
+}
+
+function acceptanceScenarioIdsFromAuthoritativeMatrix() {
+  const matrix = readJson(paths.traceabilityMatrix);
+  if (!Array.isArray(matrix.links)) {
+    fail(`authoritative traceability matrix must contain links: ${paths.traceabilityMatrix}`);
+  }
+  const scenarioIds = new Set(matrix.links.flatMap((entry) => entry.acceptance_scenarios ?? []));
+  if (scenarioIds.size === 0) {
+    fail(`authoritative traceability matrix contains no acceptance scenarios: ${paths.traceabilityMatrix}`);
+  }
+  return scenarioIds;
 }
 
 const q4OpenExternalInterfaceIds = new Set(["IF-006", "IF-007"]);
@@ -536,43 +574,129 @@ function validateCoverage() {
 }
 
 function validateSpecReadiness() {
-  const feature = validateSchema("schemas/feature-spec.schema.json", paths.featureSpec);
-  const task = validateSchema("schemas/task-spec.schema.json", paths.taskSpec);
-  const prompt = validateSchema("schemas/agent-prompt-spec.schema.json", paths.promptSpec);
   const manifest = validateSchema("schemas/generated-spec-package-manifest.schema.json", paths.specManifest);
   const baSpec = validateSchema("schemas/ba-spec.schema.json", paths.baSpec);
   const evals = readJson(paths.baSaEvals);
+  const businessRules = readJson(paths.businessRules);
+  const q4SpecFixture = readJson(paths.q4SpecFixture);
   const claimById = new Map(baSpec.claims.map((claim) => [claim.claim_id, claim]));
   const evalIds = ids(evals.cases, "id");
+  const ruleIds = ids(businessRules.rules, "rule_id");
+  const interfaceIds = ids(validateSchema("schemas/sa-spec.schema.json", paths.saSpec).interfaces, "interface_id");
+  const authoritativeStoryIds = storyIdsFromAuthoritativeCatalog();
+  const authoritativeAcceptanceScenarioIds = acceptanceScenarioIdsFromAuthoritativeMatrix();
+  const defaultSpecSet = {
+    feature_spec_path: paths.featureSpec,
+    task_spec_path: paths.taskSpec,
+    prompt_spec_path: paths.promptSpec,
+  };
+  const specSets = manifest.spec_sets ?? [defaultSpecSet];
 
-  if (task.feature_id !== feature.feature_id) {
-    fail("TaskSpec feature_id does not match FeatureSpec");
-  }
-  if (prompt.task_id !== task.task_id) {
-    fail("AgentPromptSpec task_id does not match TaskSpec");
-  }
-  if (feature.priority !== task.priority) {
-    fail("FeatureSpec and TaskSpec priorities differ");
-  }
-  for (const claimId of feature.source_claim_ids) {
-    const claim = claimById.get(claimId);
-    if (!claim) {
-      fail(`FeatureSpec references unknown claim: ${claimId}`);
+  for (const specSet of specSets) {
+    const feature = validateSchema("schemas/feature-spec.schema.json", specSet.feature_spec_path);
+    const task = validateSchema("schemas/task-spec.schema.json", specSet.task_spec_path);
+    const prompt = validateSchema("schemas/agent-prompt-spec.schema.json", specSet.prompt_spec_path);
+
+    if (task.feature_id !== feature.feature_id) {
+      fail("TaskSpec feature_id does not match FeatureSpec");
     }
-    if (claim.trust_status !== "confirmed") {
-      fail(`FeatureSpec references non-confirmed claim: ${claimId}`);
+    if (prompt.task_id !== task.task_id) {
+      fail("AgentPromptSpec task_id does not match TaskSpec");
+    }
+    if (feature.priority !== task.priority) {
+      fail("FeatureSpec and TaskSpec priorities differ");
+    }
+    for (const claimId of feature.source_claim_ids) {
+      const claim = claimById.get(claimId);
+      if (!claim) {
+        fail(`FeatureSpec references unknown claim: ${claimId}`);
+      }
+      if (claim.trust_status !== "confirmed") {
+        fail(`FeatureSpec references non-confirmed claim: ${claimId}`);
+      }
+    }
+    for (const evalId of [...feature.eval_cases, ...task.eval_cases]) {
+      if (!evalIds.has(evalId)) {
+        fail(`spec references unknown BA/SA eval: ${evalId}`);
+      }
+    }
+    for (const command of [...feature.validation_commands, ...task.validation_commands, ...prompt.validation_commands]) {
+      validateCommand(command);
+    }
+    if (prompt.raw_transcript_included !== false) {
+      fail("AgentPromptSpec must not include raw transcript");
     }
   }
-  for (const evalId of [...feature.eval_cases, ...task.eval_cases]) {
-    if (!evalIds.has(evalId)) {
-      fail(`spec references unknown BA/SA eval: ${evalId}`);
+
+  for (const expected of q4SpecFixture.spec_sets) {
+    const specSet = specSets.find((candidate) =>
+      candidate.feature_spec_path === expected.feature_path &&
+      candidate.task_spec_path === expected.task_path &&
+      candidate.prompt_spec_path === expected.prompt_path,
+    );
+    if (!specSet) {
+      fail(`Q4 spec set is missing from manifest: ${expected.task_id}`);
+    }
+    for (const specPath of [expected.feature_path, expected.task_path, expected.prompt_path]) {
+      const refs = readJson(specPath).traceability_refs;
+      if (!refs || refs.change_order_ids?.length !== 1 || refs.change_order_ids[0] !== q4SpecFixture.change_order_id) {
+        fail(`Q4 spec must reference ${q4SpecFixture.change_order_id}: ${specPath}`);
+      }
+      for (const key of q4SpecFixture.required_traceability_keys) {
+        if (!Array.isArray(refs[key]) || refs[key].length === 0) {
+          fail(`Q4 spec has incomplete traceability_refs.${key}: ${specPath}`);
+        }
+      }
+      for (const interfaceId of refs.interface_ids) {
+        if (!interfaceIds.has(interfaceId)) {
+          fail(`Q4 spec references unknown interface: ${interfaceId}`);
+        }
+      }
+      for (const ruleId of refs.business_rule_ids) {
+        if (!ruleIds.has(ruleId)) {
+          fail(`Q4 spec references unknown business rule: ${ruleId}`);
+        }
+      }
+      try {
+        validateQ4TraceabilityReferences(refs, authoritativeStoryIds, authoritativeAcceptanceScenarioIds, specPath);
+      } catch (error) {
+        fail(error.message);
+      }
     }
   }
-  for (const command of [...feature.validation_commands, ...task.validation_commands, ...prompt.validation_commands]) {
-    validateCommand(command);
+
+  const q4Traceability = q4SpecFixture.expected_traceability_by_path;
+  const actualQ4StoryIds = new Set(q4Traceability.flatMap((entry) => readJson(entry.path).traceability_refs.story_ids));
+  const actualQ4AcceptanceScenarioIds = new Set(q4Traceability.flatMap((entry) => readJson(entry.path).traceability_refs.acceptance_scenario_ids));
+  requireIds(actualQ4StoryIds, q4SpecFixture.required_q4_story_ids, "Q4 spec traceability stories");
+  requireIds(actualQ4AcceptanceScenarioIds, q4SpecFixture.required_q4_acceptance_scenario_ids, "Q4 spec traceability acceptance scenarios");
+
+  const validationResults = new Map();
+  for (const result of manifest.validation_results) {
+    if (validationResults.has(result.command)) {
+      fail(`spec package manifest records duplicate validation result: ${result.command}`);
+    }
+    validationResults.set(result.command, result.status);
   }
-  if (prompt.raw_transcript_included !== false) {
-    fail("AgentPromptSpec must not include raw transcript");
+  for (const command of q4SpecFixture.required_validation_commands) {
+    if (validationResults.get(command) !== "passed") {
+      fail(`Q4 spec package manifest lacks a passed validation result: ${command}`);
+    }
+  }
+
+  const trace = readJson(paths.specTrace);
+  assertNoForbiddenRawAnswerKeys(trace, paths.specTrace);
+  for (const link of trace.links) {
+    const claim = claimById.get(link.claim_id);
+    if (!claim || claim.trust_status !== "confirmed" || link.trust_status !== "confirmed") {
+      fail(`interview-to-spec trace has non-confirmed claim: ${link.claim_id}`);
+    }
+  }
+  for (const expectedLink of q4SpecFixture.required_trace_links) {
+    const found = trace.links.some((link) => Object.entries(expectedLink).every(([key, value]) => link[key] === value));
+    if (!found) {
+      fail(`Q4 interview-to-spec trace is missing: ${expectedLink.claim_id}/${expectedLink.task_id}`);
+    }
   }
   for (const output of manifest.outputs) {
     requireFile(output.path);

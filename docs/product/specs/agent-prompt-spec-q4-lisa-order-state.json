@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "prompt_id": "APS-004",
+  "status": "draft",
+  "task_id": "TSK-004",
+  "safe_context": "Используй подтвержденные BA/SA-утверждения: BASA-CLM-012 — для пары сеанс/пользователь принимается один заказ, BASA-CLM-013 — в том же чате показывается только безопасное состояние, и BASA-CLM-014 — граница Q4_2026. Состояния eligible, validating, rejected_retryable и accepted_locked определены системным анализом. IF-008 и IF-009 не утверждают прямую доставку DataCanvas в Лису.",
+  "goal": "Подготовить проверяемую документационную задачу приема одного заказа из Лисы, блокировки повтора после принятия и безопасного возврата непринятого запроса к исправлению.",
+  "constraints": [
+    "Не использовать сырые ответы или журнал интервью",
+    "Не записывать полные идентификаторы сеанса либо пользователя, личные сведения и содержание запроса",
+    "Не проектировать прямой маршрут DataCanvas в Лису или внешний договор IF-008/IF-009",
+    "Не добавлять второй шаг подтверждения для допустимого запроса и не создавать заказ до принятия"
+  ],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_inputs": ["raw interview transcript", "full session or user identifier", "unreviewed status recipient contract", "unreviewed Lisa adapter payload"],
+  "forbidden_behaviors": ["Создавать повторный заказ после accepted_locked", "Фиксировать прямую доставку DataCanvas в Лису", "Раскрывать личные сведения или содержание запроса"],
+  "raw_transcript_included": false,
+  "traceability_refs": {
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-34"],
+    "acceptance_scenario_ids": ["q4_lisa_order"],
+    "interface_ids": ["IF-008", "IF-009"],
+    "business_rule_ids": ["BRULE-005", "BRULE-006", "BRULE-007"]
+  }
+}

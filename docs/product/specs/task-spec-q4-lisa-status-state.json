@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "task_id": "TSK-005",
+  "status": "draft",
+  "feature_id": "FS-003",
+  "priority": "P1",
+  "owned_paths": ["docs/product/specs/task-spec-q4-lisa-status-state.json", "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json"],
+  "allowed_edit_scope": "Разрешенная область правки: документационная спецификация безопасных состояний в том же чате и терминального закрытия сеанса; без изменения пути пользователя, прямого маршрута DataCanvas в Лису, PUSH, ссылки, хранилища, числового числа повторов или канала сопровождения.",
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json", "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json", "docs/architecture/system-analysis/error-taxonomy.json"],
+  "done_when": [
+    "Безопасное состояние начала, успеха, задержки, частичной доставки или непринятого запроса остается доступным в том же чате без PUSH и ссылки на файл",
+    "delayed и delivery_partial переходят через support_pending в session_closed без задания числа повторов или канала сопровождения",
+    "В закрытом сеансе новый заказ не создается, а личные сведения и содержание запроса не отображаются"
+  ],
+  "rollback_or_forward_fix": "Откатить только Q4-спецификацию статусов; при появлении внешнего контракта сопровождения оформить его отдельным системным анализом и повторить проверки состояния и ошибок.",
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:error-taxonomy", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "eval_cases": ["BASA-EVAL-007", "BASA-EVAL-008"],
+  "traceability_refs": {
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-27", "DC-ST-35", "DC-ST-36"],
+    "acceptance_scenario_ids": ["q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
+    "interface_ids": ["IF-008", "IF-009"],
+    "business_rule_ids": ["BRULE-006", "BRULE-007", "BRULE-008"]
+  }
+}

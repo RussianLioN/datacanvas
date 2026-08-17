@@ -36,6 +36,69 @@
       "task_id": "TSK-001",
       "prompt_id": "APS-001",
       "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-011",
+      "feature_id": "FS-002",
+      "task_id": "TSK-002",
+      "prompt_id": "APS-002",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-002",
+      "task_id": "TSK-002",
+      "prompt_id": "APS-002",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-011",
+      "feature_id": "FS-002",
+      "task_id": "TSK-003",
+      "prompt_id": "APS-003",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-002",
+      "task_id": "TSK-003",
+      "prompt_id": "APS-003",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-012",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-013",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-013",
+      "feature_id": "FS-003",
+      "task_id": "TSK-005",
+      "prompt_id": "APS-005",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-003",
+      "task_id": "TSK-005",
+      "prompt_id": "APS-005",
+      "trust_status": "confirmed"
     }
   ]
 }

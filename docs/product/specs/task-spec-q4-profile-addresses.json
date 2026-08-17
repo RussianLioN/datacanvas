@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "task_id": "TSK-002",
+  "status": "draft",
+  "feature_id": "FS-002",
+  "priority": "P1",
+  "owned_paths": ["docs/product/specs/task-spec-q4-profile-addresses.json", "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json"],
+  "allowed_edit_scope": "Разрешенная область правки: безопасная спецификация определения допустимых адресов через «Профиль сотрудника» и проверки документационного контура; без внешних вызовов, точного API, аутентификации, протокола, адресов получателей или исходного содержания запроса.",
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json", "docs/architecture/system-analysis/datacanvas-interface-control.md"],
+  "done_when": [
+    "Допустимые адреса описаны как результат функционального интерфейса IF-006 без моделирования его внешнего договора",
+    "Произвольный адрес из запроса не используется",
+    "При отсутствии адреса или недоступности профиля заказ и отправка не создаются, а в контур передается только безопасное резюме"
+  ],
+  "rollback_or_forward_fix": "Откатить только Q4-спецификацию адресов; при уточнении внешнего договора подготовить отдельное решение системного анализа и затем повторить проверки.",
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "eval_cases": ["BASA-EVAL-005"],
+  "traceability_refs": {
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-25"],
+    "acceptance_scenario_ids": ["q4_profile_addresses"],
+    "interface_ids": ["IF-006"],
+    "business_rule_ids": ["BRULE-004", "BRULE-007"]
+  }
+}

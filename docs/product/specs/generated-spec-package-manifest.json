@@ -6,7 +6,7 @@
   "source_hashes": [
     {
       "path": "docs/product/analysis/ba/ba-spec.json",
-      "sha256": "caa0990c0d55d23fb8962dc6e7d202bcb92adeec6114649ed840ceca557bfbce"
+      "sha256": "ef3491fa0fdce5428c7654ef21a417ff4e2c5680e9d3156025e36845247710c1"
     },
     {
       "path": "docs/product/interviews/ba-sa/interview-answer-set.json",
@@ -14,7 +14,15 @@
     },
     {
       "path": "docs/architecture/system-analysis/sa-spec.json",
-      "sha256": "c54340024028978ceb464961512706d53cd534055dae44c4305250cc31043d12"
+      "sha256": "4bc678c7a4488520ffaa65ca2f7868f387c7bd439534770b3fe14b84b02aaa2d"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+      "sha256": "f33c3f1bf11543f5b749e720d2d2d2067c9000604e17a9c81a2d2ea608cc74f4"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+      "sha256": "49f7f2e3caf60c6764bc1f25c91b9aa933968af5aa23e629dbf112f7a1463c8e"
     }
   ],
   "generator_version": "manual-source-baseline-v0.1",
@@ -26,6 +34,22 @@
   "validation_results": [
     {
       "command": "npm run validate:spec-task-prompt-readiness",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:interface-contracts",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:state-model",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:error-taxonomy",
+      "status": "passed"
+    },
+    {
+      "command": "npm run validate:data-leakage",
       "status": "passed"
     }
   ],
@@ -47,6 +71,93 @@
       "data_class": "internal",
       "visibility": "internal",
       "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+      "data_class": "internal",
+      "visibility": "internal",
+      "redaction_status": "not_required"
+    }
+  ],
+  "spec_sets": [
+    {
+      "feature_spec_path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "task_spec_path": "docs/product/specs/task-spec-a2a-launch.json",
+      "prompt_spec_path": "docs/product/specs/agent-prompt-spec-a2a-launch.json"
+    },
+    {
+      "feature_spec_path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "task_spec_path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "prompt_spec_path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json"
+    },
+    {
+      "feature_spec_path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "task_spec_path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "prompt_spec_path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json"
+    },
+    {
+      "feature_spec_path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "task_spec_path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "prompt_spec_path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json"
+    },
+    {
+      "feature_spec_path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "task_spec_path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "prompt_spec_path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json"
     }
   ],
   "rollback_signals": ["validation failure", "unconfirmed claim promoted to must", "raw transcript detected"]
