@@ -317,6 +317,14 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeR
   if (screenSequence.additional_status_placement !== "after_existing_presentation_states" || screenSequence.generation_status !== "source_ready_visual_generation_not_run") {
     fail("дополнительные статусы допускаются только в конце; визуальная генерация не должна считаться выполненной");
   }
+  if (
+    screenSequence.delivery_failure_presentation?.decision_id !== "CO3-DEC-009" ||
+    screenSequence.delivery_failure_presentation?.presentation_state_id !== "lisa-delivery-partial" ||
+    screenSequence.delivery_failure_presentation?.lifecycle_message_id !== "delivery_partial" ||
+    screenSequence.delivery_failure_presentation?.separate_screen !== false
+  ) {
+    fail("полная недоставка должна использовать экран и согласованный текст частичной доставки без отдельного экрана");
+  }
   return lifecycle;
 }
 

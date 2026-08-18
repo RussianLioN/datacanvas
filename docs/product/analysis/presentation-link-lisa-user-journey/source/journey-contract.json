@@ -206,6 +206,12 @@
       ],
       "additional_status_state_ids": ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
       "additional_status_placement": "after_existing_presentation_states",
+      "delivery_failure_presentation": {
+        "decision_id": "CO3-DEC-009",
+        "presentation_state_id": "lisa-delivery-partial",
+        "lifecycle_message_id": "delivery_partial",
+        "separate_screen": false
+      },
       "generation_status": "source_ready_visual_generation_not_run"
     },
     "messages": [

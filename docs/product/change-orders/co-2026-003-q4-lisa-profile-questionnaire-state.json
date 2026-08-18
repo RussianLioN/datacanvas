@@ -11,10 +11,10 @@
   "paused_at": null,
   "completed_at": "2026-08-17T00:00:00Z",
   "current_question": {
-    "question_id": "Q4-09",
-    "title": "Интервью завершено; системный анализ готовит внешние контракты",
+    "question_id": "Q4-10",
+    "title": "Интервью завершено; ожидается повторное согласование выпуска",
     "state": "not_applicable",
-    "next_action": "Сохранить решения в производных требованиях и системном анализе, не раскрывая личные сведения и не расширяя границу Q4_2026."
+    "next_action": "Сохранить решения в производных требованиях и системном анализе, не раскрывая личные сведения и не расширяя границу Q4_2026; не запускать визуальную генерацию до отдельных одобрений содержания и визуального выпуска."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -126,6 +126,16 @@
       "decision_source": "Декларация Product Owner.",
       "declaration_date": "2026-08-17",
       "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-09",
+      "answer_id": "ANSWER-009",
+      "title": "Демонстрация полной недоставки в прототипе",
+      "status": "confirmed",
+      "safe_summary": "Полная недоставка показывается тем же экраном и дословным сообщением, что и частичная доставка; нового текста и отдельного экрана не будет.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
     }
   ],
   "agreed_decisions": [
@@ -216,6 +226,18 @@
       "affected_artifacts": [
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
       ]
+    },
+    {
+      "decision_id": "CO3-DEC-009",
+      "question_id": "Q4-09",
+      "decision_status": "confirmed",
+      "safe_summary": "Полная недоставка использует существующий экран и дословное сообщение частичной доставки; новый экран и текст не создаются.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+      ]
     }
   ],
   "agreed_message_wordings": [
@@ -301,12 +323,17 @@
       "item_id": "Q4-08",
       "title": "Отправка с существующих экранов Лисы",
       "status": "completed"
+    },
+    {
+      "item_id": "Q4-09",
+      "title": "Демонстрация полной недоставки в прототипе",
+      "status": "completed"
     }
   ],
   "periodic_stop": {
-    "last_stop_after_answer_count": 8,
-    "reason": "Интервью завершено; принятые границы и открытые системные решения записаны безопасными резюме.",
-    "next_stop_after_answer_count": 13
+    "last_stop_after_answer_count": 9,
+    "reason": "Интервью завершено; уточнение представления полной недоставки сохранено безопасным резюме.",
+    "next_stop_after_answer_count": 14
   },
   "resume_instructions": [
     "Интервью CO-2026-003 завершено.",
@@ -317,7 +344,7 @@
   ],
   "review_checkpoint": {
     "status": "approved",
-    "reason": "Product Owner дословно согласовал пять пользовательских сообщений. Они закреплены в курируемом реестре и могут быть переданы производным требованиям; визуальная генерация и выпуск этим решением не выполняются.",
+    "reason": "Product Owner дословно согласовал пять пользовательских сообщений и уточнил, что полная недоставка использует экран частичной доставки. Решения закреплены в курируемом реестре и могут быть переданы производным требованиям; визуальная генерация и выпуск этим решением не выполняются.",
     "authoritative_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
   }
 }

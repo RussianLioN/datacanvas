@@ -11,8 +11,13 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.equal(register.change_order_id, "CO-2026-003");
   assert.equal(register.source_of_truth_policy.interview_precedence, "equal_to_controlled_xlsx");
   assert.ok(register.decisions.length >= 9);
-  assert.ok(register.verbatim_wordings.length >= 25);
+  assert.ok(register.verbatim_wordings.length >= 28);
   assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-009");
+  assert.equal(register.decisions.at(-1).authoritative_wording_id, "CO3-WRD-026");
+  assert.equal(
+    register.verbatim_wordings.find((wording) => wording.wording_id === "CO3-WRD-026")?.text,
+    "Полная недоставка показывается тем же экраном и дословным сообщением, что и частичная доставка; нового текста и отдельного экрана не будет.",
+  );
   assert.deepEqual(register.unresolved_authoritative_text_ids, []);
   assert.deepEqual(register.visual_release_gate, {
     content_review_status: "pending_product_owner",

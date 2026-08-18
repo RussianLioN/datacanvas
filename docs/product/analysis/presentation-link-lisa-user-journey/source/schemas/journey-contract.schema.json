@@ -295,13 +295,24 @@
     "screen_sequence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["decision_id", "preserve_existing_source_order", "existing_state_ids", "additional_status_state_ids", "additional_status_placement", "generation_status"],
+      "required": ["decision_id", "preserve_existing_source_order", "existing_state_ids", "additional_status_state_ids", "additional_status_placement", "delivery_failure_presentation", "generation_status"],
       "properties": {
         "decision_id": { "const": "CO3-DEC-009" },
         "preserve_existing_source_order": { "const": true },
         "existing_state_ids": { "type": "array", "minItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
         "additional_status_state_ids": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
         "additional_status_placement": { "const": "after_existing_presentation_states" },
+        "delivery_failure_presentation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["decision_id", "presentation_state_id", "lifecycle_message_id", "separate_screen"],
+          "properties": {
+            "decision_id": { "const": "CO3-DEC-009" },
+            "presentation_state_id": { "const": "lisa-delivery-partial" },
+            "lifecycle_message_id": { "const": "delivery_partial" },
+            "separate_screen": { "const": false }
+          }
+        },
         "generation_status": { "const": "source_ready_visual_generation_not_run" }
       }
     },

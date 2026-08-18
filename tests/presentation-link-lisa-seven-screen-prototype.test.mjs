@@ -365,6 +365,12 @@ test("исходный договор хранит согласованные с
   assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
   assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
   assert.equal(lifecycle?.screen_sequence?.generation_status, "source_ready_visual_generation_not_run");
+  assert.deepEqual(lifecycle?.screen_sequence?.delivery_failure_presentation, {
+    decision_id: "CO3-DEC-009",
+    presentation_state_id: "lisa-delivery-partial",
+    lifecycle_message_id: "delivery_partial",
+    separate_screen: false,
+  });
   assert.deepEqual(
     lifecycle?.messages,
     [
