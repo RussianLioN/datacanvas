@@ -13,6 +13,7 @@
 - [Commit/PR evidence](commit-pr-evidence.md)
 - [Pilot report](pilot-report.md)
 - [Pilot execution handoff](pilot-execution-handoff.md)
+- [Доказательства проверок профиля Q4_2026 для Лисы](co-2026-003-q4-lisa-profile-validation-evidence.md)
 - [Commit/PR evidence template](templates/commit-pr-evidence-template.md)
 
 ## Перед Review

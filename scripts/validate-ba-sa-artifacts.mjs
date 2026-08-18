@@ -163,6 +163,33 @@ export function validateQ4TraceabilityReferences(refs, knownStoryIds, knownAccep
   }
 }
 
+/**
+ * Проверяет ссылки Q4 на уже зарегистрированные решения, интерфейсы и правила.
+ * Истории и сценарии приёмки проверяются отдельно: их каталогами владеют
+ * продуктовые требования, а не SSD-пакет.
+ */
+export function validateQ4ReferenceBoundary(
+  refs,
+  { knownDecisionIds, knownInterfaceIds, knownBusinessRuleIds },
+  subject,
+) {
+  for (const decisionId of refs.decision_ids ?? []) {
+    if (!knownDecisionIds.has(decisionId)) {
+      throw new Error(`${subject} references unknown authoritative decision: ${decisionId}`);
+    }
+  }
+  for (const interfaceId of refs.interface_ids ?? []) {
+    if (!knownInterfaceIds.has(interfaceId)) {
+      throw new Error(`${subject} references unknown interface: ${interfaceId}`);
+    }
+  }
+  for (const ruleId of refs.business_rule_ids ?? []) {
+    if (!knownBusinessRuleIds.has(ruleId)) {
+      throw new Error(`${subject} references unknown business rule: ${ruleId}`);
+    }
+  }
+}
+
 function storyIdsFromAuthoritativeCatalog() {
   const storyIds = new Set(
     [...readText(paths.userStories).matchAll(/^\|\s*(DC-ST-\d+)\s*\|/gmu)].map((match) => match[1]),
@@ -653,21 +680,13 @@ function validateSpecReadiness() {
       if (!Array.isArray(refs.decision_ids) || refs.decision_ids.length === 0) {
         fail(`Q4 spec must reference authoritative interview decisions: ${specPath}`);
       }
-      for (const decisionId of refs.decision_ids) {
-        if (!q4DecisionIds.has(decisionId)) fail(`Q4 spec references unknown authoritative decision: ${decisionId}`);
-      }
-      for (const interfaceId of refs.interface_ids) {
-        if (!interfaceIds.has(interfaceId)) {
-          fail(`Q4 spec references unknown interface: ${interfaceId}`);
-        }
-      }
-      for (const ruleId of refs.business_rule_ids) {
-        if (!ruleIds.has(ruleId)) {
-          fail(`Q4 spec references unknown business rule: ${ruleId}`);
-        }
-      }
       try {
         validateQ4TraceabilityReferences(refs, authoritativeStoryIds, authoritativeAcceptanceScenarioIds, specPath);
+        validateQ4ReferenceBoundary(refs, {
+          knownDecisionIds: q4DecisionIds,
+          knownInterfaceIds: interfaceIds,
+          knownBusinessRuleIds: ruleIds,
+        }, specPath);
       } catch (error) {
         fail(error.message);
       }

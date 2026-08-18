@@ -14252,6 +14252,42 @@
       "click_depth": 1
     },
     {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "title": "Доказательства проверок профиля Q4_2026 для Лисы",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Delivery/GitOps Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/README.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "доказательства-проверок-профиля-q42026-для-лисы",
+        "результаты",
+        "отрицательные-проверки",
+        "ограничение-визуального-выпуска",
+        "внешние-решения",
+        "безопасность-доказательств"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/release/commit-pr-evidence.md",
       "title": "Commit And PR Evidence",
       "section": "release-evidence",
@@ -14510,6 +14546,7 @@
       "artifact_registry_id": "ART-404",
       "outgoing_links": [
         "docs/README.md",
+        "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.json",
         "docs/release/mvp-release-evidence-pack.md",
@@ -36757,14 +36794,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1273,
-    "manual_entries": 1263,
+    "total_entries": 1274,
+    "manual_entries": 1264,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1208,
+    "searchable_entries": 1209,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 201,
+    "reachable_from_root": 202,
     "orphan_entries": 0
   },
   "ignored_paths": [

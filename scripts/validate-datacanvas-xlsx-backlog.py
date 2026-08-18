@@ -825,7 +825,14 @@ def rewrite_zip(source: Path, target: Path, replacements: dict[str, tuple[str, s
             dst.writestr(part, data)
 
 
-def run_self_tests(source_path: Path, working_path: Path, expectations_path: Path, provenance_path: Path, source_manifest_path: Path) -> None:
+def run_self_tests(
+    source_path: Path,
+    working_path: Path,
+    expectations_path: Path,
+    provenance_path: Path,
+    source_manifest_path: Path,
+    story_catalog_path: Path,
+) -> None:
     scenarios = {
         "broken-pane": {"xl/worksheets/sheet1.xml": ('topLeftCell="C12"', 'topLeftCell="C11"')},
         "broken-filter": {"xl/worksheets/sheet1.xml": ('ref="B3:U36"', 'ref="B3:U35"')},
@@ -895,7 +902,7 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
             authorized_expectations_path,
             authorized_provenance_path,
             source_manifest_path,
-            ROOT / "docs/product/requirements/user-stories.md",
+            story_catalog_path,
         )
 
         def expect_policy_failure(
@@ -921,7 +928,7 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
                     scenario_expectations_path,
                     scenario_provenance_path,
                     source_manifest_path,
-                    ROOT / "docs/product/requirements/user-stories.md",
+                    story_catalog_path,
                 )
             except ValidationError as error:
                 if expected_fragment not in str(error):
@@ -965,7 +972,7 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
             mutant = tmp_path / f"{scenario_id}.xlsx"
             rewrite_zip(working_path, mutant, replacements)
             try:
-                validate_pair(source_path, mutant, expectations_path, provenance_path, source_manifest_path, ROOT / "docs/product/requirements/user-stories.md", check_working_hash=False)
+                validate_pair(source_path, mutant, expectations_path, provenance_path, source_manifest_path, story_catalog_path, check_working_hash=False)
             except ValidationError:
                 continue
             fail(f"self-test scenario did not fail as expected: {scenario_id}")
@@ -975,15 +982,15 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
         broken_provenance_path = tmp_path / "broken-selected-value.provenance.json"
         broken_provenance_path.write_text(json.dumps(broken_provenance, ensure_ascii=False, indent=2), encoding="utf-8")
         try:
-            validate_pair(source_path, working_path, expectations_path, broken_provenance_path, source_manifest_path, ROOT / "docs/product/requirements/user-stories.md")
+            validate_pair(source_path, working_path, expectations_path, broken_provenance_path, source_manifest_path, story_catalog_path)
         except ValidationError:
             pass
         else:
             fail("self-test scenario did not fail as expected: broken-selected-provenance-value")
 
-        broken_story_catalog = (ROOT / "docs/product/requirements/user-stories.md").read_text(encoding="utf-8").replace(
-            "| DC-ST-27 | Статусы обработки | P1 |",
-            "| DC-ST-27 | Статусы обработки | P1 | Искаженная формулировка. ",
+        broken_story_catalog = story_catalog_path.read_text(encoding="utf-8").replace(
+            "| DC-ST-30 | Расширенная доставка | P2 |",
+            "| DC-ST-30 | Расширенная доставка | P1 |",
             1,
         )
         broken_story_catalog_path = tmp_path / "broken-user-stories.md"
@@ -1000,7 +1007,7 @@ def run_self_tests(source_path: Path, working_path: Path, expectations_path: Pat
         broken_expectations_path = tmp_path / "broken-expectations.json"
         broken_expectations_path.write_text(json.dumps(broken_expectations, ensure_ascii=False, indent=2), encoding="utf-8")
         try:
-            validate_pair(source_path, working_path, broken_expectations_path, provenance_path, source_manifest_path, ROOT / "docs/product/requirements/user-stories.md", check_working_hash=False)
+            validate_pair(source_path, working_path, broken_expectations_path, provenance_path, source_manifest_path, story_catalog_path, check_working_hash=False)
         except ValidationError:
             return
         fail("self-test scenario did not fail as expected: broken-story-catalog")
@@ -1138,7 +1145,7 @@ def main() -> int:
     parser.add_argument("--expectations", default="tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json")
     parser.add_argument("--provenance", default="docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json")
     parser.add_argument("--source-manifest", default="docs/product/sources/reference/datacanvas-backlog-source-sanitization.json")
-    parser.add_argument("--story-catalog", default="docs/product/requirements/user-stories.md")
+    parser.add_argument("--story-catalog", default="tests/fixtures/xlsx-backlog-draft-pshe-2026-07-08-story-catalog.md")
     parser.add_argument("--self-test", action="store_true", help="Run negative mutation checks in a temporary directory.")
     parser.add_argument("--profile", default="2026-07-08", choices=["2026-07-08", "2026-08-17"])
     args = parser.parse_args()
@@ -1158,7 +1165,7 @@ def main() -> int:
         else:
             validate_pair(source_path, working_path, expectations_path, provenance_path, source_manifest_path, story_catalog_path)
             if args.self_test:
-                run_self_tests(source_path, working_path, expectations_path, provenance_path, source_manifest_path)
+                run_self_tests(source_path, working_path, expectations_path, provenance_path, source_manifest_path, story_catalog_path)
     except ValidationError as error:
         print(f"ERROR: {error}", file=sys.stderr)
         return 1

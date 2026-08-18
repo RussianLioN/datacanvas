@@ -1,0 +1,7 @@
+{
+  "story": {"story_ids": ["DC-ST-999"], "acceptance_scenario_ids": ["q4_lisa_order"]},
+  "acceptance_scenario": {"story_ids": ["DC-ST-34"], "acceptance_scenario_ids": ["q4_unknown"]},
+  "decision": {"decision_ids": ["CO3-DEC-999"], "interface_ids": ["IF-006"], "business_rule_ids": ["BRULE-004"]},
+  "interface": {"decision_ids": ["CO3-DEC-001"], "interface_ids": ["IF-999"], "business_rule_ids": ["BRULE-004"]},
+  "business_rule": {"decision_ids": ["CO3-DEC-001"], "interface_ids": ["IF-006"], "business_rule_ids": ["BRULE-999"]}
+}

@@ -22,6 +22,7 @@ VALIDATOR_PATH = ROOT / "scripts/validate-datacanvas-jira-story-import.py"
 OUTPUT_PATH = ROOT / "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
 EXPECTATIONS_PATH = ROOT / "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
 PROVENANCE_PATH = ROOT / "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
+HISTORICAL_STORY_CATALOG_PATH = ROOT / "tests/fixtures/xlsx-backlog-draft-pshe-2026-07-08-story-catalog.md"
 
 EXPECTED_COLUMNS = [
     "Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"
@@ -99,6 +100,11 @@ class JiraStoryImportContractTest(unittest.TestCase):
             contract["formatting"],
             {"empty_resource_value": "0", "decimal_separator": ",", "forbidden_comment_character": ";"},
         )
+        self.assertEqual(
+            contract["source"]["story_catalog_path"],
+            HISTORICAL_STORY_CATALOG_PATH.relative_to(ROOT).as_posix(),
+        )
+        self.assertTrue(HISTORICAL_STORY_CATALOG_PATH.exists())
 
     def test_contract_requires_the_exact_owner_export_decision(self) -> None:
         self.assertTrue(CONTRACT_PATH.exists(), "машинный контракт импорта в Jira ещё не создан")
