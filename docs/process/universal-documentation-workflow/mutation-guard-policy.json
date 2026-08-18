@@ -17,6 +17,13 @@
       ]
     },
     {
+      "generator_id": "datacanvas-xlsx-backlog-2026-08-17-working",
+      "allowed_writes": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ]
+    },
+    {
       "generator_id": "datacanvas-jira-stories",
       "allowed_writes": [
         "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"

@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "039eb832eafd4fd04d4382e2aabebacd405775fa30139a306d4c850c4ad517ad"
+      "sha256": "c704e33fd3af9cff8331ed1838b451f6f478e075d441882a9068bb7ab88bfec3"
     },
     {
       "artifact_id": "ART-411",
@@ -3242,7 +3242,7 @@
     {
       "artifact_id": "ART-649",
       "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
-      "sha256": "dfe82140b1995263f0a58b358cefec2e8afd0b9ab7d3b15d1a1803bda98b6259"
+      "sha256": "55aaaf876843c39d236a6bdd2fb8b5c4c58cd6b13c21a29a9cce14edf17b9588"
     },
     {
       "artifact_id": "ART-650",
@@ -3282,7 +3282,7 @@
     {
       "artifact_id": "ART-657",
       "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
-      "sha256": "978b767be68cfee425d1bae502c9db444cacdb00bcdbb7ca3eb4155fbbbc15c5"
+      "sha256": "0042197c22b76076346ed227707f933eb606347ce14659804c849363147f5134"
     },
     {
       "artifact_id": "ART-658",
@@ -3612,7 +3612,7 @@
     {
       "artifact_id": "ART-723",
       "path": "docs/product/requirements/business-claim-map.json",
-      "sha256": "a25d7f599f6797707d504d6033647c17842c56928089bd35cd0a48db55c96363"
+      "sha256": "0d8e54a899d186c21a02a369528af838b44b3f96fdd664bf337490bf59d863eb"
     },
     {
       "artifact_id": "ART-724",
@@ -4177,17 +4177,17 @@
     {
       "artifact_id": "ART-837",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-      "sha256": "ebcd821a18cda4660c9b1c287920a58ba05ef669dae07090a5c81c0e506cfae3"
+      "sha256": "a4ba21e63a4bd1bac8a324240bafdbda44244f006bfc8e6094a4041d06a0ffbd"
     },
     {
       "artifact_id": "ART-838",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
-      "sha256": "2fffeeb540b5c1a8147c33a0b99ed6ef9216a47617107146a7464a94ad0bbe15"
+      "sha256": "6a9b46efeed447a520d93e37a761c2d38d73400cf42f6ee5c06720fa7fc82693"
     },
     {
       "artifact_id": "ART-839",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/journey-contract.schema.json",
-      "sha256": "02c08a23c54a22dae2976bd57a4b17f45c62218969df758aeb3358f4e4403b55"
+      "sha256": "daa33836dd4621d8e7b120c902ce4649c35a21055b8167ed2ceddee83e8759f8"
     },
     {
       "artifact_id": "ART-840",

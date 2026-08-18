@@ -4,6 +4,7 @@ import test from "node:test";
 
 const root = new URL("../", import.meta.url);
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(new URL(relativePath, root), "utf8"));
+const readText = (relativePath) => fs.readFileSync(new URL(relativePath, root), "utf8");
 
 test("CO-2026-003 хранит безопасный реестр согласованных формулировок как источник истины", () => {
   const register = readJson("docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json");
@@ -29,4 +30,8 @@ test("CO-2026-003 хранит безопасный реестр согласо�
     ],
   );
   assert.equal(JSON.stringify(register).includes("@"), false);
+  const journey = readText("docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md");
+  assert.match(journey, /Статус содержания: ожидается повторное согласование\./);
+  assert.match(journey, /Все существующие десять экранов сохраняются в исходном порядке/);
+  assert.doesNotMatch(journey, /Статус содержания: согласовано\./);
 });
