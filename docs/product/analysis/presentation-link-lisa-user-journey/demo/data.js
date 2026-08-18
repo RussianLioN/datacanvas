@@ -142,19 +142,25 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         {
           "state_id": "lisa-order-not-accepted",
           "base_state_id": "lisa-presentation-generating",
+          "source_id": "status-order-not-accepted",
           "lifecycle_message_id": "order_not_accepted",
+          "prototype_preview_text": "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
           "caption": "Данные для формирования презентации не приняты"
         },
         {
           "state_id": "lisa-delivery-delayed",
           "base_state_id": "lisa-presentation-generating",
+          "source_id": "status-delivery-delayed",
           "lifecycle_message_id": "delivery_delayed",
+          "prototype_preview_text": "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.",
           "caption": "Отправка презентации задерживается"
         },
         {
           "state_id": "lisa-delivery-partial",
           "base_state_id": "lisa-presentation-generating",
+          "source_id": "status-delivery-partial",
           "lifecycle_message_id": "delivery_partial",
+          "prototype_preview_text": "Презентация сформирована и направлена в OMEGA. Отправка в SIGMA пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
           "caption": "Частичная или неподтверждённая доставка презентации"
         }
       ],
@@ -1693,7 +1699,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "id": "lisa-order-not-accepted",
       "order": 11,
       "display_order": 12,
-      "source_id": "7.2",
+      "source_id": "status-order-not-accepted",
       "caption": "Данные для формирования презентации не приняты",
       "presentation": "phone",
       "scrollable": false,
@@ -1711,14 +1717,10 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "height": 980
       },
       "cta_rect": null,
-      "status_message": {
-        "id": "order_not_accepted",
-        "text": "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение."
-      },
       "raster_layers": [
         {
           "role": "system_top",
-          "src": "assets/lisa-presentation-generating-status-3x.png",
+          "src": "assets/lisa-order-not-accepted-status-3x.png",
           "source_rect": {
             "x": 64,
             "y": 48,
@@ -1749,7 +1751,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "scroll_content",
-          "src": "assets/lisa-presentation-generating-content-3x.png",
+          "src": "assets/lisa-order-not-accepted-content-3x.png",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -1780,7 +1782,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "system_bottom",
-          "src": "assets/lisa-presentation-generating-home-3x.png",
+          "src": "assets/lisa-order-not-accepted-home-3x.png",
           "source_rect": {
             "x": 64,
             "y": 866,
@@ -1814,7 +1816,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "layers": [
           {
             "role": "system_top",
-            "src": "assets/lisa-presentation-generating-status-3x.png",
+            "src": "assets/lisa-order-not-accepted-status-3x.png",
             "source_rect": {
               "x": 64,
               "y": 48,
@@ -1845,7 +1847,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "scroll_content",
-            "src": "assets/lisa-presentation-generating-content-3x.png",
+            "src": "assets/lisa-order-not-accepted-content-3x.png",
             "source_rect": {
               "x": 64,
               "y": 101,
@@ -1876,7 +1878,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "system_bottom",
-            "src": "assets/lisa-presentation-generating-home-3x.png",
+            "src": "assets/lisa-order-not-accepted-home-3x.png",
             "source_rect": {
               "x": 64,
               "y": 866,
@@ -1912,7 +1914,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "id": "lisa-delivery-delayed",
       "order": 12,
       "display_order": 13,
-      "source_id": "7.2",
+      "source_id": "status-delivery-delayed",
       "caption": "Отправка презентации задерживается",
       "presentation": "phone",
       "scrollable": false,
@@ -1930,14 +1932,10 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "height": 980
       },
       "cta_rect": null,
-      "status_message": {
-        "id": "delivery_delayed",
-        "text": "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."
-      },
       "raster_layers": [
         {
           "role": "system_top",
-          "src": "assets/lisa-presentation-generating-status-3x.png",
+          "src": "assets/lisa-delivery-delayed-status-3x.png",
           "source_rect": {
             "x": 64,
             "y": 48,
@@ -1968,7 +1966,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "scroll_content",
-          "src": "assets/lisa-presentation-generating-content-3x.png",
+          "src": "assets/lisa-delivery-delayed-content-3x.png",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -1999,7 +1997,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "system_bottom",
-          "src": "assets/lisa-presentation-generating-home-3x.png",
+          "src": "assets/lisa-delivery-delayed-home-3x.png",
           "source_rect": {
             "x": 64,
             "y": 866,
@@ -2033,7 +2031,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "layers": [
           {
             "role": "system_top",
-            "src": "assets/lisa-presentation-generating-status-3x.png",
+            "src": "assets/lisa-delivery-delayed-status-3x.png",
             "source_rect": {
               "x": 64,
               "y": 48,
@@ -2064,7 +2062,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "scroll_content",
-            "src": "assets/lisa-presentation-generating-content-3x.png",
+            "src": "assets/lisa-delivery-delayed-content-3x.png",
             "source_rect": {
               "x": 64,
               "y": 101,
@@ -2095,7 +2093,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "system_bottom",
-            "src": "assets/lisa-presentation-generating-home-3x.png",
+            "src": "assets/lisa-delivery-delayed-home-3x.png",
             "source_rect": {
               "x": 64,
               "y": 866,
@@ -2131,7 +2129,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "id": "lisa-delivery-partial",
       "order": 13,
       "display_order": 14,
-      "source_id": "7.2",
+      "source_id": "status-delivery-partial",
       "caption": "Частичная или неподтверждённая доставка презентации",
       "presentation": "phone",
       "scrollable": false,
@@ -2149,14 +2147,10 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "height": 980
       },
       "cta_rect": null,
-      "status_message": {
-        "id": "delivery_partial",
-        "text": "Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена."
-      },
       "raster_layers": [
         {
           "role": "system_top",
-          "src": "assets/lisa-presentation-generating-status-3x.png",
+          "src": "assets/lisa-delivery-partial-status-3x.png",
           "source_rect": {
             "x": 64,
             "y": 48,
@@ -2187,7 +2181,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "scroll_content",
-          "src": "assets/lisa-presentation-generating-content-3x.png",
+          "src": "assets/lisa-delivery-partial-content-3x.png",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -2218,7 +2212,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         },
         {
           "role": "system_bottom",
-          "src": "assets/lisa-presentation-generating-home-3x.png",
+          "src": "assets/lisa-delivery-partial-home-3x.png",
           "source_rect": {
             "x": 64,
             "y": 866,
@@ -2252,7 +2246,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
         "layers": [
           {
             "role": "system_top",
-            "src": "assets/lisa-presentation-generating-status-3x.png",
+            "src": "assets/lisa-delivery-partial-status-3x.png",
             "source_rect": {
               "x": 64,
               "y": 48,
@@ -2283,7 +2277,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "scroll_content",
-            "src": "assets/lisa-presentation-generating-content-3x.png",
+            "src": "assets/lisa-delivery-partial-content-3x.png",
             "source_rect": {
               "x": 64,
               "y": 101,
@@ -2314,7 +2308,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           },
           {
             "role": "system_bottom",
-            "src": "assets/lisa-presentation-generating-home-3x.png",
+            "src": "assets/lisa-delivery-partial-home-3x.png",
             "source_rect": {
               "x": 64,
               "y": 866,

@@ -36,7 +36,7 @@
 разрешены штатная генерация прототипа, проверка его свежести и сборка ZIP-файла
 поставки; архив обязан включать именно заново сформированный прототип.
 
-После согласования сначала применяются команды прототипа и доказательств: `npm run generate:presentation-link-lisa-user-journey`, `npm run update:presentation-link-lisa-user-journey:evidence` и `npm run validate:presentation-link-lisa-user-journey:profile`. Затем применяются команды из контракта архива поставки: `npm run generate:co-2026-003-delivery-archive`, `npm run check:co-2026-003-delivery-archive` и `npm run validate:co-2026-003-delivery-archive`.
+После согласования сначала применяются команды прототипа и доказательств в точном порядке: `npm run generate:presentation-link-lisa-user-journey`, затем `npm run update:presentation-link-lisa-user-journey:evidence` и `npm run validate:presentation-link-lisa-user-journey:profile`. Если после первого шага изменён любой исходник, договор, генератор или производный файл прототипа, последовательность повторяется с первого шага: нельзя собирать архив по снимкам или отчёту от предыдущего кандидата. Только после успешной профильной проверки применяются команды из контракта архива поставки: `npm run generate:co-2026-003-delivery-archive`, `npm run check:co-2026-003-delivery-archive` и `npm run validate:co-2026-003-delivery-archive`.
 
 ## Связанные источники
 

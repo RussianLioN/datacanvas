@@ -1580,6 +1580,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/release/co-2026-003-visual-prototype-rca.md",
+      "route_id": "co-2026-003-visual-prototype-rca",
+      "section": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / UX Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Обнаружен визуальный дефект, меняются SVG-источники, визуальные проверки или порядок генерации прототипа.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "route_id": "co-2026-003-prototype-delivery-archive-contract",
       "section": "release-evidence",

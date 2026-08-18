@@ -287,7 +287,7 @@ function phoneLayerSrc(stateId, role) {
 }
 
 function expectedPhoneRasterLayers(stateId) {
-  const sourceStateId = expectedStatusStateIds.includes(stateId) ? "lisa-presentation-generating" : stateId;
+  const sourceStateId = stateId;
   const sources = expectedPhoneLayerSources[sourceStateId] ?? expectedDefaultPhoneLayerSources;
   return expectedPhoneLayerRoles.map((role) => {
     const sourceRect = sources[role];
@@ -442,7 +442,7 @@ test("только одобрение обоих выпускных решени
   }
 });
 
-test("активный договор сохраняет десять исходных экранов, а demo добавляет три ошибочных экрана в конце", () => {
+test("активный договор сохраняет десять исходных экранов и три канонических экрана статусов в конце", () => {
   const registry = readJson("source/active-contracts.json");
   const journey = readJson("source/journey-contract.json");
   const visualBasis = readJson("source/visual-basis-contract.json");
@@ -463,18 +463,18 @@ test("активный договор сохраняет десять исход
     "договор должен сохранять заданную рабочую область экрана",
   );
 
-  assert.deepEqual(registry.active_state_ids, expectedStateIds, "active_state_ids должен быть единственным источником порядка десяти экранов");
-  assert.deepEqual(journey.state_ids, expectedStateIds, "journey-contract/state_ids должен повторять активный порядок");
+  assert.deepEqual(registry.active_state_ids, expectedRuntimeStateIds, "active_state_ids должен быть единым источником порядка всех тринадцати экранов");
+  assert.deepEqual(journey.state_ids, expectedRuntimeStateIds, "journey-contract/state_ids должен повторять активный порядок");
   assert.deepEqual(
     journey.states.map((state) => state.id),
-    expectedStateIds,
-    "journey-contract должен повторять порядок десяти экранов без старых состояний",
+    expectedRuntimeStateIds,
+    "journey-contract должен повторять порядок тринадцати экранов без старых состояний",
   );
   assert.equal(journey.navigation?.display_total, 14, "договор должен фиксировать общий номер с тремя экранами статусов");
   assert.deepEqual(
     journey.states.map((state) => state.display_order),
-    expectedDisplayOrders,
-    "договор должен показывать экраны как №2–11 без исключённого №1",
+    expectedRuntimeDisplayOrders,
+    "договор должен показывать экраны как №2–14 без исключённого №1",
   );
   assert.deepEqual(
     stateIds(data.states),
@@ -483,8 +483,8 @@ test("активный договор сохраняет десять исход
   );
   assert.deepEqual(
     visualBasis.states.map((state) => state.state_id),
-    expectedStateIds,
-    "visual-basis-contract должен описывать основы для тех же десяти состояний",
+    expectedRuntimeStateIds,
+    "visual-basis-contract должен описывать канонические основы всех тринадцати состояний",
   );
   assert.deepEqual(projectionMap.state_ids, expectedRuntimeStateIds, "карта проекций должна содержать все состояния выпуска");
   assert.deepEqual(rasterManifest.state_ids, expectedRuntimeStateIds, "манифест растров должен содержать все состояния выпуска");
@@ -572,12 +572,13 @@ test("активный договор сохраняет десять исход
     assert.ok(baseStatusState, `${stateId}: не найдена базовая визуальная основа`);
     for (const [index, layer] of state.asset.layers.entries()) {
       const baseLayer = baseStatusState.asset.layers[index];
-      assert.equal(layer.src, expectedPhoneRasterLayers(stateId)[index].src, `${stateId}: должен использовать слой экрана с погашенной кнопкой`);
+    assert.equal(layer.src, expectedPhoneRasterLayers(stateId)[index].src, `${stateId}: должен использовать собственный канонический слой SVG-рендера`);
+    assert.notEqual(layer.src, baseLayer.src, `${stateId}: не должен повторно использовать растр базового экрана`);
       assert.deepEqual(layer.source_rect, baseLayer.source_rect, `${stateId}: source_rect должен повторять близкую согласованную основу`);
       assert.deepEqual(layer.viewport_rect, baseLayer.viewport_rect, `${stateId}: viewport_rect должен повторять близкую согласованную основу`);
       assert.deepEqual(layer.pixel_dimensions, baseLayer.pixel_dimensions, `${stateId}: размеры слоя должны повторять близкую согласованную основу`);
     }
-    assert.ok(state.status_message?.text, `${stateId}: должно содержать согласованное сообщение`);
+    assert.equal(state.status_message, undefined, `${stateId}: согласованное сообщение должно быть частью канонического SVG, а не HTML-наложением`);
     assert.equal(state.action_ids.length, 0, `${stateId}: не должен принимать новый заказ`);
   }
 });
@@ -711,6 +712,7 @@ test("runtime-файлы используют только локальные de
     .join("\n");
 
   assert.match(joinedRuntime, /assets\//u, "runtime должен подключать опубликованные demo/assets/**");
+  assert.doesNotMatch(joinedRuntime, /lifecycle-status-message/u, "runtime не должен рисовать HTML-карточку поверх канонического SVG");
   for (const fragment of forbiddenLegacyStateFragments) {
     assert.doesNotMatch(
       joinedRuntime,
@@ -726,7 +728,29 @@ test("runtime-файлы используют только локальные de
   }
 });
 
-test("demo/assets повторно использует 18 телефонных сегментов, почтовую PNG-сцену и три документных PNG", () => {
+test("визуальные доказательства содержат свежий WebKit-снимок каждого активного экрана в трёх размерах", () => {
+  const manifest = readJson("evidence/visual-screenshot-manifest.json");
+  const packageManifest = readJson("derived/prototype-package-manifest.json");
+  const expectedViewports = ["desktop-1280x720", "mobile-390x844", "stress-320x568"];
+  assert.equal(manifest.status, "passed");
+  assert.equal(manifest.renderer, "playwright-webkit");
+  assert.deepEqual(manifest.candidate_fingerprint, packageManifest.candidate_fingerprint, "визуальные снимки должны относиться к текущему кандидату прототипа");
+  assert.deepEqual(manifest.active_state_ids, expectedRuntimeStateIds);
+  assert.deepEqual(manifest.viewports.map((viewport) => viewport.id), expectedViewports);
+  assert.equal(manifest.records.length, expectedRuntimeStateIds.length * expectedViewports.length);
+  const paths = new Set();
+  for (const record of manifest.records) {
+    assert.ok(expectedRuntimeStateIds.includes(record.state_id), `неизвестный экран в снимках: ${record.state_id}`);
+    assert.ok(expectedViewports.includes(record.viewport_id), `неизвестный размер снимка: ${record.viewport_id}`);
+    assert.match(record.path, /^docs\/product\/analysis\/presentation-link-lisa-user-journey\/evidence\/screenshots\/webkit\/.+\.png$/u);
+    assert.match(record.sha256, /^[a-f0-9]{64}$/u);
+    assert.ok(fs.existsSync(path.join(root, record.path)), `${record.path}: свежий PNG-снимок отсутствует`);
+    paths.add(record.path);
+  }
+  assert.equal(paths.size, manifest.records.length, "снимки не должны повторять один и тот же PNG для разных экранов");
+});
+
+test("demo/assets содержит канонические сегменты девяти телефонных экранов, почтовую сцену и три документа", () => {
   const assetRoot = path.join(demoRoot, "assets");
   const assetPaths = listFiles(assetRoot).map(toDemoRelative).sort((left, right) => left.localeCompare(right, "en"));
   const expectedPhoneAssetPaths = [...new Set(expectedRuntimePhoneStateIds
@@ -738,7 +762,7 @@ test("demo/assets повторно использует 18 телефонных 
   const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
   const expectedEmailAssetPath = "assets/lisa-presentation-email.png";
 
-  assert.equal(assetPaths.length, 22, "в runtime должно быть ровно 18 телефонных сегментов, один почтовый PNG и три документных PNG");
+  assert.equal(assetPaths.length, 31, "в runtime должно быть ровно 27 телефонных сегментов, один почтовый PNG и три документных PNG");
   assert.ok(assetPaths.every((assetPath) => /^assets\/[a-z0-9/-]+\.png$/u.test(assetPath)), "assets должны быть PNG внутри demo/assets/**");
   assert.deepEqual(
     assetPaths.filter((assetPath) => assetPath !== expectedEmailAssetPath && !expectedDocumentAssetPaths.includes(assetPath)),
@@ -765,7 +789,7 @@ test("demo/assets повторно использует 18 телефонных 
     "каждый опубликованный PNG должен принадлежать телефонному слою или почтовой сцене",
   );
 
-  for (const stateId of expectedPhoneStateIds) {
+  for (const stateId of expectedRuntimePhoneStateIds) {
     for (const expectedLayer of expectedPhoneRasterLayers(stateId)) {
       assert.deepEqual(
         pngDimensions(path.join(demoRoot, expectedLayer.src)),
@@ -792,7 +816,7 @@ test("demo/assets повторно использует 18 телефонных 
   }
 });
 
-test("ZIP минимален, повторно использует 18 телефонных сегментов, содержит почту и три документа без PDF и source/**", () => {
+test("ZIP минимален, содержит канонические сегменты девяти телефонных экранов, почту и три документа без PDF и source/**", () => {
   const members = unzipList(zipPath);
   const assetMembers = members.filter((member) => member.startsWith("assets/")).sort((left, right) => left.localeCompare(right, "en"));
   const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
@@ -814,8 +838,8 @@ test("ZIP минимален, повторно использует 18 теле�
     [...expectedMembers].sort((left, right) => left.localeCompare(right, "en")),
     "ZIP должен содержать только минимальный автономный runtime, телефонные сегменты, почтовый PNG и три документа",
   );
-  assert.equal(members.length, 28, "ZIP должен содержать ровно 28 файлов");
-  assert.equal(assetMembers.length, 22, "ZIP должен содержать ровно 18 телефонных сегментов, один почтовый PNG и три документа");
+  assert.equal(members.length, 37, "ZIP должен содержать ровно 37 файлов");
+  assert.equal(assetMembers.length, 31, "ZIP должен содержать ровно 27 телефонных сегментов, один почтовый PNG и три документа");
   assert.ok(assetMembers.every((member) => /^assets\/[a-z0-9/-]+\.png$/u.test(member)));
   assert.deepEqual(
     assetMembers.filter((member) => expectedDocumentAssetPaths.includes(member)),

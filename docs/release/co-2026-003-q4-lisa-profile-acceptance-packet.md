@@ -62,7 +62,7 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 ## 5. Пользовательский Путь И Прототип
 
 - [Пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — десять исходных экранов в исходном порядке и три экрана статусов после демонстрации успешного пути.
-- [Технический паспорт визуальной основы](../product/analysis/presentation-link-lisa-user-journey/donor-options.md) — повторное использование исходного экрана `7.2` с погашенной кнопкой для статусов.
+- [Технический паспорт визуальной основы](../product/analysis/presentation-link-lisa-user-journey/donor-options.md) — три канонических SVG-варианта экрана `7.2` с погашенной кнопкой; текст заменяется в SVG до растрирования.
 - [Интерактивная демонстрация](../product/analysis/presentation-link-lisa-user-journey/demo/index.html) и [переносимый архив прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) — результат для просмотра стейкхолдерами и работы дизайнеров.
 
 Машиночитаемые подтверждения: [договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json), [договор состава прототипа](../product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json), [активные договоры](../product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json), [манифест прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json), [отчёт браузерной проверки](../product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json) и [отчёт приёмки прототипа](../product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json).

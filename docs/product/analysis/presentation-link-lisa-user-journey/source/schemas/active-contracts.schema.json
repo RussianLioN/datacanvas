@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "active-contracts.schema.json",
-  "title": "Реестр активных договоров десятиэкранного маршрута Лисы",
+  "title": "Реестр активных договоров тринадцатиэкранного маршрута Лисы",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -23,7 +23,7 @@
       "const": "active"
     },
     "route_id": {
-      "const": "lisa-presentation-ten-screen-route"
+      "const": "lisa-presentation-thirteen-screen-route"
     },
     "active_state_ids": {
       "const": [
@@ -36,7 +36,10 @@
         "lisa-presentation-email",
         "lisa-presentation-slidedoc",
         "lisa-presentation-sber2025",
-        "lisa-presentation-mag"
+        "lisa-presentation-mag",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
       ]
     },
     "active_contracts": {

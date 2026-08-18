@@ -1,0 +1,278 @@
+{
+  "version": "1.0.0",
+  "status": "passed",
+  "renderer": "playwright-webkit",
+  "route_id": "lisa-presentation-thirteen-screen-route",
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
+  },
+  "active_state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "viewports": [
+    {
+      "id": "desktop-1280x720",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": "mobile-390x844",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "id": "stress-320x568",
+      "width": 320,
+      "height": 568
+    }
+  ],
+  "records": [
+    {
+      "state_id": "lisa-materials-summary",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-materials-summary.png",
+      "sha256": "a234c650dfe119cd73f0950b537c2d8983fa5b22cb65c07c275edd60170da3a9"
+    },
+    {
+      "state_id": "lisa-materials-full-reference",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-materials-full-reference.png",
+      "sha256": "35c9cd5e9ab4198ea740cca92dbbae9e8f896493ba0b7ac76648d7ce5e7937b5"
+    },
+    {
+      "state_id": "lisa-presentation-order",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-order.png",
+      "sha256": "8bf7faac727b7a2cb9e9651d89ca506e4318a8e391d1b77a83ffc31007ba944f"
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-generating.png",
+      "sha256": "cb1443eb61ad0d787b141fffccc53d497c0354c6514dc3293474908d584dff05"
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-chat-list.png",
+      "sha256": "7221df9c1bfeed9774c23ed6447f7d9c7f419ed1e393a517fdaf73a2dfb142be"
+    },
+    {
+      "state_id": "lisa-presentation-sent",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-sent.png",
+      "sha256": "2ab7d9ee008e4bd66d3f5af367ff0ff8a03fcaab98dfe5e5d155952eb0ca93a7"
+    },
+    {
+      "state_id": "lisa-presentation-email",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-email.png",
+      "sha256": "1d841a5bf511e9d5ada6182756e6483ab4dcf43d41510d38a391d86b1bc324e2"
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-slidedoc.png",
+      "sha256": "04ed7472c3911960eae9bdbbcbd1ec8dc001cc806dd7e6e0183c83910ef9dbf7"
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-sber2025.png",
+      "sha256": "eea1e29f7f34a7c9b1495ebd328db1b945d82cc7547693ac64542d0a80f66c06"
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-mag.png",
+      "sha256": "b1e2ad6d10c15ffef10d2b1e3f7fe7aae89d0dea63f3bad1bc6f052407fb3ebb"
+    },
+    {
+      "state_id": "lisa-order-not-accepted",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-order-not-accepted.png",
+      "sha256": "f8a0a88068a07cbb19e5ece21af26e1247c0575bcb9475c448428f323aa4ec7d"
+    },
+    {
+      "state_id": "lisa-delivery-delayed",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-delivery-delayed.png",
+      "sha256": "b4610bc86a68de3ac207e0bd8a250cbf38863bbdfa973933749cc3594f00a149"
+    },
+    {
+      "state_id": "lisa-delivery-partial",
+      "viewport_id": "desktop-1280x720",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-delivery-partial.png",
+      "sha256": "e2c425e1c0cc4d1d63d08ec1ceca06a1d7ed41e1734971bc80cb0aa9c33a494d"
+    },
+    {
+      "state_id": "lisa-materials-summary",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-materials-summary.png",
+      "sha256": "7dc0e319c7afe553202860c97739ea8608b5458b7ec21c4e3ebb93d9feae8a7c"
+    },
+    {
+      "state_id": "lisa-materials-full-reference",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-materials-full-reference.png",
+      "sha256": "5bd0207d869f2a1645b217e327c3458f69952ede6e3eefd0c49d5996d16a2320"
+    },
+    {
+      "state_id": "lisa-presentation-order",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-order.png",
+      "sha256": "299350c3106cf0517a94f640672beb773a562438c0c14fc641f792c79d535f56"
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-generating.png",
+      "sha256": "263eaa360e8cc84040b5ca3b08db541743d55bef9338618c778b08e1569816d4"
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-chat-list.png",
+      "sha256": "aaae97d20b9c30cb1f852cbd453110a1d203bddb49ed1c50e0c75b967e1d29a5"
+    },
+    {
+      "state_id": "lisa-presentation-sent",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-sent.png",
+      "sha256": "bea7d4364f6a4b3c2c4ab8089a76a22cce8363cc44a58bf5ea99413219fd8e8a"
+    },
+    {
+      "state_id": "lisa-presentation-email",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-email.png",
+      "sha256": "6b63d97d912a54a62292180fd77ca3f371dfb237c69ce88fa56d24425001c3d7"
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-slidedoc.png",
+      "sha256": "19dc5ad3d9d5cf91366d074c4ca8bda88e714afa02c9056d122ab1a7f93a92a3"
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-sber2025.png",
+      "sha256": "e627538a0ccf030b110ee85b3b09c8bbfc484c8990e3eaff10c42c644a40fd65"
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-mag.png",
+      "sha256": "1b25778a5297447f89e240aa50e23ca125b763d334c1caf3ad13c8112921bbb3"
+    },
+    {
+      "state_id": "lisa-order-not-accepted",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-order-not-accepted.png",
+      "sha256": "bc8b349b6958e2a00f73035c44e2dfe6bb47a833187f3e91751883fed1df4634"
+    },
+    {
+      "state_id": "lisa-delivery-delayed",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-delivery-delayed.png",
+      "sha256": "39485edad7acfa7874071aa1e3acdec145f01ea761357c7d65ce6a2d2d0c41fc"
+    },
+    {
+      "state_id": "lisa-delivery-partial",
+      "viewport_id": "mobile-390x844",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-delivery-partial.png",
+      "sha256": "f66faea00fada1bad517fc41ede77a174a6f4c1e7f2b9fe5c90871ccd5b15563"
+    },
+    {
+      "state_id": "lisa-materials-summary",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-materials-summary.png",
+      "sha256": "ef1242883799a6a84cfd47c81e732f286d93b1605fda73021010936b77ab367c"
+    },
+    {
+      "state_id": "lisa-materials-full-reference",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-materials-full-reference.png",
+      "sha256": "d3b5a1a44d23aafc7648e624b3cc4f90f9689982048d6be4c80e65b1539a191b"
+    },
+    {
+      "state_id": "lisa-presentation-order",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-order.png",
+      "sha256": "d75ba15b2c1aa1058bd706ce6c79609c65cb3649de204b6fcb6dce0322eebdf7"
+    },
+    {
+      "state_id": "lisa-presentation-generating",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-generating.png",
+      "sha256": "fdec36cd91f8b8cbf93afc4572e32241d9873d00fc6231ca747e8d9f15683e72"
+    },
+    {
+      "state_id": "lisa-presentation-chat-list",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-chat-list.png",
+      "sha256": "4551da1bb291a07711c91a00519e0738f3022f9803951dad4ef4a26b7950e0f9"
+    },
+    {
+      "state_id": "lisa-presentation-sent",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-sent.png",
+      "sha256": "372b7f3dea8e60d00f42aa16eca03c9048960331a6ff99ab23a11999293d4aa1"
+    },
+    {
+      "state_id": "lisa-presentation-email",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-email.png",
+      "sha256": "ea128cacc6a1de26047aa6e0a39d87d72ca9d4df93450667083904e3f45ef7e4"
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-slidedoc.png",
+      "sha256": "eb0f54254bffbcc636608cd09681ad9bf7ed40b9515f393b570799272423747f"
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-sber2025.png",
+      "sha256": "bec878372f0097a85948d8a98891be05ef3c3f44273075dfd23b9a4ac7d318a2"
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-mag.png",
+      "sha256": "accf0e479b98d919a8afbab2df9b42a742146b77a90b7bce5811527f44062855"
+    },
+    {
+      "state_id": "lisa-order-not-accepted",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-order-not-accepted.png",
+      "sha256": "617e29d9e48823db9cc719b7ba4da98710a65fc4bddc852b71834cd9e8902f33"
+    },
+    {
+      "state_id": "lisa-delivery-delayed",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-delivery-delayed.png",
+      "sha256": "61d3178e894585f7605c0487e80c13e2ae0f592f9850fd7e6842318bef015b6f"
+    },
+    {
+      "state_id": "lisa-delivery-partial",
+      "viewport_id": "stress-320x568",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-delivery-partial.png",
+      "sha256": "738938733dde255282de631506449b05ec86015715c625d6e9fce559efc6b070"
+    }
+  ]
+}

@@ -64,7 +64,7 @@
     },
     "source_id": {
       "type": "string",
-      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*|status-[a-z0-9]+(?:-[a-z0-9]+)*)$"
     },
     "state": {
       "type": "object",
@@ -488,7 +488,9 @@
             "required": [
               "state_id",
               "base_state_id",
+              "source_id",
               "lifecycle_message_id",
+              "prototype_preview_text",
               "caption"
             ],
             "properties": {
@@ -501,12 +503,23 @@
                   "lisa-presentation-sent"
                 ]
               },
+              "source_id": {
+                "enum": [
+                  "status-order-not-accepted",
+                  "status-delivery-delayed",
+                  "status-delivery-partial"
+                ]
+              },
               "lifecycle_message_id": {
                 "enum": [
                   "order_not_accepted",
                   "delivery_delayed",
                   "delivery_partial"
                 ]
+              },
+              "prototype_preview_text": {
+                "type": "string",
+                "minLength": 1
               },
               "caption": {
                 "type": "string",

@@ -163,11 +163,6 @@ const expectedStatusStateIds = Object.freeze([
   "lisa-delivery-delayed",
   "lisa-delivery-partial",
 ]);
-const expectedStatusAssetStateIds = Object.freeze({
-  "lisa-order-not-accepted": "lisa-presentation-generating",
-  "lisa-delivery-delayed": "lisa-presentation-generating",
-  "lisa-delivery-partial": "lisa-presentation-generating",
-});
 const expectedRuntimeStateIds = expectedStates.map((state) => state.id);
 const expectedSuccessfulStateIds = expectedStates.filter((state) => !state.status).map((state) => state.id);
 const expectedEmailState = expectedStates.find((state) => state.id === "lisa-presentation-email");
@@ -330,8 +325,8 @@ function expectedPhoneRasterLayers(expectedOrStateId) {
     ? expectedStates.find((state) => state.id === expectedOrStateId)
     : expectedOrStateId;
   const requestedStateId = typeof expectedOrStateId === "string" ? expectedOrStateId : expectedOrStateId.id;
-  const stateId = expected?.status ? "lisa-presentation-generating" : requestedStateId;
-  const assetStateId = expected?.assetStateId ?? expectedStatusAssetStateIds[stateId] ?? stateId;
+  const stateId = requestedStateId;
+  const assetStateId = expected?.assetStateId ?? stateId;
   const sources = expectedPhoneLayerSources[stateId] ?? expectedDefaultPhoneLayerSources;
   return expectedPhoneLayerRoles.map((role) => ({
     role,
@@ -438,13 +433,7 @@ async function assertPhoneLayerImagesLoaded(page, expected) {
     );
   }
   if (expected.status) {
-    const statusMessage = page.getByTestId("lifecycle-status-message");
-    await expect(statusMessage, `${expected.id}: нужно сообщение статуса заказа`).toHaveCount(1);
-    await expect(statusMessage, `${expected.id}: неверный идентификатор сообщения`).toHaveAttribute(
-      "data-message-id",
-      expected.statusMessageId,
-    );
-    await expect(statusMessage, `${expected.id}: текст статуса должен быть согласованным`).toContainText(expected.statusText);
+    await expect(page.getByTestId("lifecycle-status-message"), `${expected.id}: запрещено HTML-наложение сообщения статуса`).toHaveCount(0);
     await expect(phoneScrollContent(page).getByTestId("order-presentation"), `${expected.id}: кнопка заказа должна быть погашена`).toHaveCount(0);
   }
 }

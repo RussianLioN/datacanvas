@@ -9324,7 +9324,7 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "title": "Технический паспорт прототипа Лисы: десять исходных экранов и три экрана статусов",
+      "title": "Технический паспорт прототипа Лисы: десять исходных экранов и три канонических экрана статусов",
       "section": "product",
       "navigation_domain": "documentation_operations",
       "navigation_group": "technical",
@@ -9354,7 +9354,7 @@
         "README.md"
       ],
       "anchors": [
-        "технический-паспорт-прототипа-лисы-десять-исходных-экранов-и-три-экрана-статусов",
+        "технический-паспорт-прототипа-лисы-десять-исходных-экранов-и-три-канонических-экрана-статусов",
         "назначение",
         "активные-договоры",
         "исходники",
@@ -9418,6 +9418,32 @@
       "click_depth": 2
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "json",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "generated",
+      "status": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+      "generated_from": [
+        "scripts/update-presentation-link-lisa-seven-screen-evidence.mjs"
+      ],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "title": "Пользовательский путь заказа презентации в Лисе",
       "section": "product",
@@ -9441,6 +9467,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
@@ -9451,6 +9478,7 @@
         "docs/product/README.md",
         "docs/README.md",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+        "docs/release/co-2026-003-visual-prototype-rca.md",
         "README.md"
       ],
       "anchors": [
@@ -14438,11 +14466,13 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+        "docs/release/co-2026-003-visual-prototype-rca.md",
         "docs/release/README.md",
         "README.md"
       ],
@@ -14455,6 +14485,46 @@
         "внешние-решения",
         "безопасность-доказательств",
         "разбор-причин-исправленных-недочётов"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/release/co-2026-003-visual-prototype-rca.md",
+      "title": "RCA: исправление визуального выпуска прототипа Лисы",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Documentation Owner / QA Lead / UX Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+        "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "rca-исправление-визуального-выпуска-прототипа-лисы",
+        "проблема",
+        "корневая-причина",
+        "исправление",
+        "предотвращение-повторения",
+        "дополнительные-причины-обнаруженные-при-исправлении",
+        "связанные-материалы"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -14721,6 +14791,7 @@
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+        "docs/release/co-2026-003-visual-prototype-rca.md",
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.json",
         "docs/release/mvp-release-evidence-pack.md",
@@ -36969,14 +37040,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1277,
-    "manual_entries": 1267,
+    "total_entries": 1279,
+    "manual_entries": 1269,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1211,
+    "searchable_entries": 1212,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 227,
+    "reachable_from_root": 229,
     "orphan_entries": 0
   },
   "ignored_paths": [

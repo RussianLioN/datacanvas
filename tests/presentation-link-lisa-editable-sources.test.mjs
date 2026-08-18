@@ -37,7 +37,7 @@ const EXPECTED_TIME_LAYOUT = Object.freeze({
   }),
   "7.2 — Длинное название клиента + холдинг.svg": Object.freeze({
     d_sha256: "9fa1a746cb4eb3710c1bb64205c08087904d9c782d813b007ce0743b02e6deee",
-    remainder_sha256: "cdd8fbbdb0c7a0d43de98c5e411b5b24d2f1cf763740e882e207c311048b94df",
+    remainder_sha256: "0939cbb6d78a1e2218b05f8c0d148f5f0474d634bcf3bf8eec94760d2e38635a",
   }),
   "7.3 — Презентация.svg": Object.freeze({
     d_sha256: "a54014443503072a026301601bf17905fa21a98669578eedf7e1c9135797bb0c",
@@ -126,7 +126,9 @@ function makeTempRoot() {
   const sourceDirectory = path.join(root, SOURCE_ROOT);
   fs.mkdirSync(sourceDirectory, { recursive: true });
   for (const spec of APPROVED_EDITABLE_SOURCE_RASTERS) {
-    fs.copyFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, spec.source), path.join(sourceDirectory, spec.source));
+    const target = path.join(sourceDirectory, spec.source);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, spec.source), target);
   }
   return root;
 }
@@ -258,8 +260,8 @@ test("убирает белую подложку статуса формиров
   }
   assert.match(
     svg,
-    /<g id="lisa-edit-7-2-email-text"><text x="80" y="739"/u,
-    "новый текст должен начинаться без фонового прямоугольника",
+    /<g id="lisa-edit-7-2-email-text"><path d="/u,
+    "новый текст должен быть сохранён в SVG-векторах, а не в браузерном тексте",
   );
   assert.doesNotMatch(
     svg,

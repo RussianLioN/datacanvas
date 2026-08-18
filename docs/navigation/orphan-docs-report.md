@@ -56,10 +56,10 @@
 | `business` | `4` | 3 |
 | `business` | `hidden` | 63 |
 | `delivery` | `1` | 2 |
-| `delivery` | `2` | 14 |
+| `delivery` | `2` | 15 |
 | `delivery` | `hidden` | 828 |
 | `evidence` | `1` | 1 |
-| `evidence` | `2` | 1 |
+| `evidence` | `2` | 2 |
 | `evidence` | `3` | 3 |
 | `evidence` | `4` | 7 |
 | `evidence` | `hidden` | 3 |

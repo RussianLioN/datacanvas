@@ -429,6 +429,42 @@
         "height": 1620
       },
       "scrollable": true
+    },
+    {
+      "state_id": "lisa-order-not-accepted",
+      "presentation": "phone",
+      "viewport": { "width": 393, "height": 852 },
+      "content": { "width": 393, "height": 852 },
+      "scrollable": false,
+      "regions": {
+        "system_top": { "source_rect": { "x": 64, "y": 48, "width": 393, "height": 53 }, "viewport_rect": { "x": 0, "y": 0, "width": 393, "height": 53 } },
+        "scroll_content": { "source_rect": { "x": 64, "y": 101, "width": 393, "height": 765 }, "viewport_rect": { "x": 0, "y": 53, "width": 393, "height": 765 } },
+        "system_bottom": { "source_rect": { "x": 64, "y": 866, "width": 393, "height": 34 }, "viewport_rect": { "x": 0, "y": 818, "width": 393, "height": 34 } }
+      }
+    },
+    {
+      "state_id": "lisa-delivery-delayed",
+      "presentation": "phone",
+      "viewport": { "width": 393, "height": 852 },
+      "content": { "width": 393, "height": 852 },
+      "scrollable": false,
+      "regions": {
+        "system_top": { "source_rect": { "x": 64, "y": 48, "width": 393, "height": 53 }, "viewport_rect": { "x": 0, "y": 0, "width": 393, "height": 53 } },
+        "scroll_content": { "source_rect": { "x": 64, "y": 101, "width": 393, "height": 765 }, "viewport_rect": { "x": 0, "y": 53, "width": 393, "height": 765 } },
+        "system_bottom": { "source_rect": { "x": 64, "y": 866, "width": 393, "height": 34 }, "viewport_rect": { "x": 0, "y": 818, "width": 393, "height": 34 } }
+      }
+    },
+    {
+      "state_id": "lisa-delivery-partial",
+      "presentation": "phone",
+      "viewport": { "width": 393, "height": 852 },
+      "content": { "width": 393, "height": 852 },
+      "scrollable": false,
+      "regions": {
+        "system_top": { "source_rect": { "x": 64, "y": 48, "width": 393, "height": 53 }, "viewport_rect": { "x": 0, "y": 0, "width": 393, "height": 53 } },
+        "scroll_content": { "source_rect": { "x": 64, "y": 101, "width": 393, "height": 765 }, "viewport_rect": { "x": 0, "y": 53, "width": 393, "height": 765 } },
+        "system_bottom": { "source_rect": { "x": 64, "y": 866, "width": 393, "height": 34 }, "viewport_rect": { "x": 0, "y": 818, "width": 393, "height": 34 } }
+      }
     }
   ]
 }

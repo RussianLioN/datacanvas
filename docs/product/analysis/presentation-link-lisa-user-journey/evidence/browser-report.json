@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
   "status": "passed",
-  "route_id": "lisa-presentation-ten-screen-route",
+  "route_id": "lisa-presentation-thirteen-screen-route",
   "active_state_ids": [
     "lisa-materials-summary",
     "lisa-materials-full-reference",
@@ -19,12 +19,12 @@
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "bb56c9d2a1b27073fcb313b767d205d50222b00ebe4d4d1a1154ade803df3f51"
+    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
   },
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 14643144,
-    "sha256": "d262516580e2860f54aedd34a00a6a36012756d360249940eb6234a7f4ea992e",
+    "bytes": 16099958,
+    "sha256": "29a1aac6666dae3303b234c1bea39e9f3490428030c7c0991baaa81282dee2a5",
     "members": [
       "README.md",
       "manifest.json",
@@ -32,6 +32,12 @@
       "app.js",
       "data.js",
       "styles.css",
+      "assets/lisa-delivery-delayed-content-3x.png",
+      "assets/lisa-delivery-delayed-home-3x.png",
+      "assets/lisa-delivery-delayed-status-3x.png",
+      "assets/lisa-delivery-partial-content-3x.png",
+      "assets/lisa-delivery-partial-home-3x.png",
+      "assets/lisa-delivery-partial-status-3x.png",
       "assets/lisa-materials-full-reference-content-3x.png",
       "assets/lisa-materials-full-reference-home-3x.png",
       "assets/lisa-materials-full-reference-status-3x.png",
@@ -51,11 +57,15 @@
       "assets/lisa-presentation-sent-content-3x.png",
       "assets/lisa-presentation-sent-home-3x.png",
       "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-order-not-accepted-content-3x.png",
+      "assets/lisa-order-not-accepted-home-3x.png",
+      "assets/lisa-order-not-accepted-status-3x.png",
       "assets/szh-dense-mag-4x.png",
       "assets/szh-dense-sber2025-4x.png",
       "assets/szh-dense-slidedoc-4x.png"
     ]
   },
+  "visual_screenshot_manifest": "evidence/visual-screenshot-manifest.json",
   "execution": {
     "command": "npm run test:presentation-link-lisa-user-journey:browser",
     "configuration": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
@@ -86,6 +96,7 @@
     "scroll_isolated_to_middle_phone_region": true,
     "service_controls_in_left_panel_checked": true,
     "iphone_12_pro_max_body_ratio_checked": true,
-    "protected_source_aspect_ratio_preserved": true
+    "protected_source_aspect_ratio_preserved": true,
+    "all_active_states_rendered_as_webkit_png": true
   }
 }

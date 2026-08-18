@@ -238,41 +238,6 @@ button:focus-visible,
   box-shadow: 0 0 0 .16rem #185abd;
 }
 
-.lifecycle-status-message {
-  position: absolute;
-  z-index: 3;
-  right: 5.4%;
-  bottom: 7.4%;
-  left: 5.4%;
-  display: grid;
-  gap: .42rem;
-  max-height: 45%;
-  padding: .78rem .9rem;
-  overflow-y: auto;
-  border: 1px solid rgba(68, 75, 94, .15);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, .97);
-  box-shadow: 0 .4rem 1rem rgba(34, 39, 52, .13);
-  color: #2a2f3b;
-  font-size: clamp(.66rem, 1.4vw, .86rem);
-  line-height: 1.35;
-}
-
-.lifecycle-status-message-label,
-.lifecycle-status-message-text {
-  margin: 0;
-}
-
-.lifecycle-status-message-label {
-  color: #4f5664;
-  font-size: .88em;
-  font-weight: 650;
-}
-
-.lifecycle-status-message-text {
-  color: #242934;
-}
-
 .desktop-scene {
   position: relative;
   display: grid;

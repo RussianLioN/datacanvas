@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
   "status": "passed",
-  "route_id": "lisa-presentation-ten-screen-route",
+  "route_id": "lisa-presentation-thirteen-screen-route",
   "active_state_ids": [
     "lisa-materials-summary",
     "lisa-materials-full-reference",
@@ -19,9 +19,10 @@
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "bb56c9d2a1b27073fcb313b767d205d50222b00ebe4d4d1a1154ade803df3f51"
+    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
   },
   "browser_report": "evidence/browser-report.json",
+  "visual_screenshot_manifest": "evidence/visual-screenshot-manifest.json",
   "acceptance": {
     "exact_success_path_then_status_order": true,
     "runtime_only_from_demo_assets": true,
@@ -38,6 +39,7 @@
     "phone_and_document_raster_upscaling_blocked_at_device_scale_factor_3": true,
     "email_fills_viewer_at_high_device_scale_factor": true,
     "physical_phone_body_ratio_78_1_by_160_8": true,
-    "protected_phone_raster_is_not_stretched": true
+    "protected_phone_raster_is_not_stretched": true,
+    "all_active_states_have_current_visual_evidence": true
   }
 }

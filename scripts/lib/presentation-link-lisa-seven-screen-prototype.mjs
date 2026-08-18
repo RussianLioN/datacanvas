@@ -349,30 +349,6 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeR
   return lifecycle;
 }
 
-function buildStatusPresentationStates(baseStates, lifecycle) {
-  const screenSequence = lifecycle.screen_sequence;
-  const messages = new Map(lifecycle.messages.map((message) => [message.id, message]));
-  return screenSequence.status_presentations.map((presentation, index) => {
-    const base = baseStates.find((state) => state.id === presentation.base_state_id);
-    const message = messages.get(presentation.lifecycle_message_id);
-    if (!base || !message) fail(`${presentation.state_id}: не найдена визуальная основа или согласованный текст`);
-    return {
-      ...base,
-      id: presentation.state_id,
-      order: baseStates.length + index + 1,
-      display_order: baseStates.at(-1).display_order + index + 1,
-      caption: presentation.caption,
-      action_ids: [],
-      cta_rect: null,
-      raster_layers: base.raster_layers,
-      status_message: {
-        id: presentation.lifecycle_message_id,
-        text: message.authoritative_text,
-      },
-    };
-  });
-}
-
 export function loadSevenScreenContracts(root = process.cwd()) {
   const registry = readJson(root, ACTIVE_CONTRACTS_PATH);
   const journey = readJson(root, JOURNEY_CONTRACT_PATH);
@@ -470,8 +446,25 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     return state;
   });
 
-  const lifecycle = validateLifecycle(journey.lifecycle, baseStates.filter((state) => state.cta_rect).map((state) => state.id), baseStates.map((state) => state.id), authoritativeInterviewRegister);
-  const states = [...baseStates, ...buildStatusPresentationStates(baseStates, lifecycle)];
+  const originalStateIds = journey.lifecycle?.screen_sequence?.existing_state_ids;
+  const lifecycle = validateLifecycle(
+    journey.lifecycle,
+    baseStates.filter((state) => state.cta_rect).map((state) => state.id),
+    originalStateIds,
+    authoritativeInterviewRegister,
+  );
+  const statusPresentationById = new Map(lifecycle.screen_sequence.status_presentations.map((item) => [item.state_id, item]));
+  for (const state of baseStates) {
+    const statusPresentation = statusPresentationById.get(state.id);
+    if (!statusPresentation) continue;
+    if (state.source_id !== statusPresentation.source_id) {
+      fail(`${state.id}: канонический SVG статуса должен совпадать с source_id в последовательности экранов`);
+    }
+    if (state.cta_rect !== null || state.action_ids.length !== 0) {
+      fail(`${state.id}: экран статуса не должен содержать активную кнопку заказа`);
+    }
+  }
+  const states = baseStates;
   if (journey.initial_state_id !== states[0].id) fail("начальным должен быть первый экран маршрута");
   if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total !== states.at(-1).display_order) {
     fail("не задан корректный общий отображаемый номер маршрута");

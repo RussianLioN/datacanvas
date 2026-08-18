@@ -174,7 +174,7 @@
       "state_id": "lisa-presentation-generating",
       "source": {
         "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
-        "sha256": "c90a57eed1faa601834d97f160d7a4b190f7d310136607080cb3339dc3bdc942",
+        "sha256": "e94a02181d0fb35dc107d89aef5fbbf37b5c24f6ee050d5e85a59d8556904342",
         "logical_dimensions": {
           "width": 521,
           "height": 980
@@ -196,7 +196,7 @@
           "role": "scroll_content",
           "source_path": "source/bases/lisa-presentation-generating-content-3x.png",
           "runtime_path": "demo/assets/lisa-presentation-generating-content-3x.png",
-          "sha256": "811ae53103ba0a72118b5b8e2c01f4398942d723b76eaf5e424fc1ce62e51f6e",
+          "sha256": "200933cae6e6b5f53f63f91d88e2649c1f309f880129c9ef8bad6657a09ffb84",
           "pixel_dimensions": {
             "width": 1179,
             "height": 2295
@@ -425,6 +425,39 @@
         "width": 960,
         "height": 540
       },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-order-not-accepted",
+      "source": { "path": "editable-sources/status-variants/lisa-order-not-accepted.svg", "sha256": "041241f643687b5b0c2fd8ba718041d388bc9e365009d4d5a0a50cbd80e966d4", "logical_dimensions": { "width": 521, "height": 980 } },
+      "raster_layers": [
+        { "role": "system_top", "source_path": "source/bases/lisa-order-not-accepted-status-3x.png", "runtime_path": "demo/assets/lisa-order-not-accepted-status-3x.png", "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59", "pixel_dimensions": { "width": 1179, "height": 159 }, "scale": 3 },
+        { "role": "scroll_content", "source_path": "source/bases/lisa-order-not-accepted-content-3x.png", "runtime_path": "demo/assets/lisa-order-not-accepted-content-3x.png", "sha256": "428ecb76fbe1554f0ffc7763eabd8253d0a0acdf758793c90487196211451acd", "pixel_dimensions": { "width": 1179, "height": 2295 }, "scale": 3 },
+        { "role": "system_bottom", "source_path": "source/bases/lisa-order-not-accepted-home-3x.png", "runtime_path": "demo/assets/lisa-order-not-accepted-home-3x.png", "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1", "pixel_dimensions": { "width": 1179, "height": 102 }, "scale": 3 }
+      ],
+      "viewport": { "width": 393, "height": 852 },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-delivery-delayed",
+      "source": { "path": "editable-sources/status-variants/lisa-delivery-delayed.svg", "sha256": "5e21f8f55004c195f73a47e12a519347ba67694d816d4bd6ddaa11484ffaf0c3", "logical_dimensions": { "width": 521, "height": 980 } },
+      "raster_layers": [
+        { "role": "system_top", "source_path": "source/bases/lisa-delivery-delayed-status-3x.png", "runtime_path": "demo/assets/lisa-delivery-delayed-status-3x.png", "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59", "pixel_dimensions": { "width": 1179, "height": 159 }, "scale": 3 },
+        { "role": "scroll_content", "source_path": "source/bases/lisa-delivery-delayed-content-3x.png", "runtime_path": "demo/assets/lisa-delivery-delayed-content-3x.png", "sha256": "cb9a05236501b0e30dc51c79caf56ca192d6892bfcd1a196e3763ae3c21b7663", "pixel_dimensions": { "width": 1179, "height": 2295 }, "scale": 3 },
+        { "role": "system_bottom", "source_path": "source/bases/lisa-delivery-delayed-home-3x.png", "runtime_path": "demo/assets/lisa-delivery-delayed-home-3x.png", "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1", "pixel_dimensions": { "width": 1179, "height": 102 }, "scale": 3 }
+      ],
+      "viewport": { "width": 393, "height": 852 },
+      "cta_rect": null
+    },
+    {
+      "state_id": "lisa-delivery-partial",
+      "source": { "path": "editable-sources/status-variants/lisa-delivery-partial.svg", "sha256": "73b3d6fd8535eb87d619d2ce4e7666cf9c0cf978c53493aad800f31ae9f6ed2f", "logical_dimensions": { "width": 521, "height": 980 } },
+      "raster_layers": [
+        { "role": "system_top", "source_path": "source/bases/lisa-delivery-partial-status-3x.png", "runtime_path": "demo/assets/lisa-delivery-partial-status-3x.png", "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59", "pixel_dimensions": { "width": 1179, "height": 159 }, "scale": 3 },
+        { "role": "scroll_content", "source_path": "source/bases/lisa-delivery-partial-content-3x.png", "runtime_path": "demo/assets/lisa-delivery-partial-content-3x.png", "sha256": "924fba00e833654c6bfaf9b6674e5bd4ca0fc54fbd39f1d7ad6332701b4ac026", "pixel_dimensions": { "width": 1179, "height": 2295 }, "scale": 3 },
+        { "role": "system_bottom", "source_path": "source/bases/lisa-delivery-partial-home-3x.png", "runtime_path": "demo/assets/lisa-delivery-partial-home-3x.png", "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1", "pixel_dimensions": { "width": 1179, "height": 102 }, "scale": 3 }
+      ],
+      "viewport": { "width": 393, "height": 852 },
       "cta_rect": null
     }
   ]

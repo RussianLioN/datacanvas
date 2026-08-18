@@ -1,9 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+import { createHash } from "node:crypto";
 import opentype from "opentype.js";
 
 const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey";
 const SOURCE_PATH = `${PACKAGE_PATH}/editable-sources`;
+const SOURCE_RENDER_CATALOG_PATH = `${PACKAGE_PATH}/source/source-render-catalog.json`;
 const FONT_PATH = `${PACKAGE_PATH}/source/fonts/NotoSans[wdth,wght].ttf`;
 const TITLE = "Справка по клиенту";
 const TITLE_FILL = "rgb(29,37,50)";
@@ -107,10 +109,14 @@ function textOverlay(id, paths) {
   return `<g id="${id}">${paths}</g>`;
 }
 
-function textLines(lines, { x, baseline, size, lineHeight, fill }) {
-  return lines.map((line, index) => (
-    `<text x="${x}" y="${baseline + index * lineHeight}" fill="${fill}" font-family="Arial, sans-serif" font-size="${size}" font-weight="400">${line}</text>`
-  )).join("");
+function textLines(font, lines, { x, baseline, size, lineHeight, fill, weight = 400 }) {
+  return lines.map((line, index) => outlinedText(font, line, {
+    x,
+    baseline: baseline + index * lineHeight,
+    size,
+    fill,
+    weight,
+  })).join("");
 }
 
 function replaceExactly(source, search, replacement, label) {
@@ -328,7 +334,7 @@ function rewriteGenerating(font, source) {
   const text = "Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация.";
   const lines = wrapText(font, text, 345, 15);
   if (lines.length !== 3) fail(`7.2: текст должен занимать три строки, получено ${lines.length}`);
-  const paths = textLines(lines, {
+  const paths = textLines(font, lines, {
     x: 80,
     baseline: 739,
     size: 15,
@@ -336,6 +342,75 @@ function rewriteGenerating(font, source) {
     fill: BODY_FILL,
   });
   return replaceOverlay(updated, textOverlay("lisa-edit-7-2-email-text", paths), "7.2: текст ожидания");
+}
+
+const STATUS_VARIANTS = Object.freeze([
+  Object.freeze({
+    state_id: "lisa-order-not-accepted",
+    file_name: "status-variants/lisa-order-not-accepted.svg",
+    message_id: "order_not_accepted",
+    message: "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
+  }),
+  Object.freeze({
+    state_id: "lisa-delivery-delayed",
+    file_name: "status-variants/lisa-delivery-delayed.svg",
+    message_id: "delivery_delayed",
+    message: "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.",
+  }),
+  Object.freeze({
+    state_id: "lisa-delivery-partial",
+    file_name: "status-variants/lisa-delivery-partial.svg",
+    message_id: "delivery_partial",
+    message: "Презентация сформирована и направлена в OMEGA. Отправка в SIGMA пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
+  }),
+]);
+
+function statusVariantMarkup(font, variant) {
+  const title = "Справка по клиенту";
+  const lines = wrapText(font, variant.message, 315, 12.2);
+  if (lines.length > 8) fail(`${variant.state_id}: сообщение не помещается в утверждённую область SVG`);
+  const titlePath = outlinedText(font, title, { x: 128, baseline: 678, size: 14, fill: TITLE_FILL, weight: 700 });
+  const messagePaths = textLines(font, lines, {
+    x: 128,
+    baseline: 699,
+    size: 12.2,
+    lineHeight: 15.2,
+    fill: "rgb(87,92,112)",
+  });
+  return `<g id="lisa-status-${variant.message_id}"><rect x="64" y="638" width="393" height="185" fill="rgb(255,255,255)" /><circle cx="96" cy="671" r="7" fill="rgb(87,92,112)" />${titlePath}${messagePaths}</g>`;
+}
+
+function writeStatusVariants(root, font, source) {
+  for (const variant of STATUS_VARIANTS) {
+    const target = path.join(root, SOURCE_PATH, variant.file_name);
+    const statusMarkup = statusVariantMarkup(font, variant);
+    const withoutOtherStatus = source.replace(/\t<g id="lisa-status-[^"]+">[\s\S]*?<\/g>\n?/gu, "");
+    const output = appendOverlay(withoutOtherStatus, statusMarkup, `${variant.state_id}: канонический SVG статуса`);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    if (!fs.existsSync(target) || fs.readFileSync(target, "utf8") !== output) fs.writeFileSync(target, output, "utf8");
+  }
+}
+
+function sha256File(target) {
+  return createHash("sha256").update(fs.readFileSync(target)).digest("hex");
+}
+
+function syncSourceRenderCatalog(root) {
+  const target = path.join(root, SOURCE_RENDER_CATALOG_PATH);
+  if (!fs.existsSync(target)) return;
+  const catalog = JSON.parse(fs.readFileSync(target, "utf8"));
+  let changed = false;
+  for (const source of catalog.sources ?? []) {
+    if (typeof source.path !== "string" || !source.path.startsWith("editable-sources/")) continue;
+    const sourcePath = path.join(root, PACKAGE_PATH, source.path);
+    if (!fs.existsSync(sourcePath)) fail(`${source.id}: не найден исходник для синхронизации каталога`);
+    const actualHash = sha256File(sourcePath);
+    if (source.sha256 !== actualHash) {
+      source.sha256 = actualHash;
+      changed = true;
+    }
+  }
+  if (changed) fs.writeFileSync(target, `${JSON.stringify(catalog, null, 2)}\n`, "utf8");
 }
 
 function rewriteChatList(font, source) {
@@ -368,6 +443,9 @@ export function updatePresentationLinkLisaEditableSources({ root = process.cwd()
   for (const update of updates) {
     if (update.after !== update.before) fs.writeFileSync(update.filePath, update.after, "utf8");
   }
+  const generatedSource = fs.readFileSync(path.join(root, SOURCE_PATH, "7.2 — Длинное название клиента + холдинг.svg"), "utf8");
+  writeStatusVariants(root, font, generatedSource);
+  syncSourceRenderCatalog(root);
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) {

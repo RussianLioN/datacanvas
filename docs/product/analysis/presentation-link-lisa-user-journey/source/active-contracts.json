@@ -2,7 +2,7 @@
   "$schema": "schemas/active-contracts.schema.json",
   "version": "3.0.0",
   "status": "active",
-  "route_id": "lisa-presentation-ten-screen-route",
+  "route_id": "lisa-presentation-thirteen-screen-route",
   "active_state_ids": [
     "lisa-materials-summary",
     "lisa-materials-full-reference",
@@ -13,7 +13,10 @@
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
     "lisa-presentation-sber2025",
-    "lisa-presentation-mag"
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
   ],
   "active_contracts": [
     {
