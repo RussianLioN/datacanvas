@@ -332,7 +332,7 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
 
-test("исходный договор задаёт вариантный жизненный цикл заказа Лисы до визуального выпуска", () => {
+test("исходный договор задаёт согласованные сообщения жизненного цикла без визуального выпуска", () => {
   const contracts = loadSevenScreenContracts(root);
   const lifecycle = contracts.journey.lifecycle;
   const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
@@ -340,7 +340,7 @@ test("исходный договор задаёт вариантный жизн
   const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
 
   assert.equal(lifecycle?.model, "variant");
-  assert.equal(lifecycle?.review_status, "pending_product_owner");
+  assert.equal(lifecycle?.review_status, "approved_product_owner");
   assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
   assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
   assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);
@@ -362,8 +362,17 @@ test("исходный договор задаёт вариантный жизн
   assert.equal(lifecycle?.screen_sequence?.preserve_existing_source_order, true);
   assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
   assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
-  assert.equal(lifecycle?.screen_sequence?.generation_status, "blocked_pending_authoritative_text");
-  assert.ok(lifecycle?.messages?.every((message) => message.authoritative_text_status === "not_agreed"));
+  assert.equal(lifecycle?.screen_sequence?.generation_status, "source_ready_visual_generation_not_run");
+  assert.deepEqual(
+    lifecycle?.messages,
+    [
+      {"id":"order_started","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-001","authoritative_text_status":"agreed","authoritative_text":"Начал формировать презентацию в ЧЧ:ММ. Это займет не более 20 минут. Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация"},
+      {"id":"order_not_accepted","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-002","authoritative_text_status":"agreed","authoritative_text":"Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение."},
+      {"id":"delivery_confirmed","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-003","authoritative_text_status":"agreed","authoritative_text":"Презентация сформирована и отправлена на почту в ЧЧ:ММ, проверьте почтовый ящик!"},
+      {"id":"delivery_delayed","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-004","authoritative_text_status":"agreed","authoritative_text":"Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."},
+      {"id":"delivery_partial","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-005","authoritative_text_status":"agreed","authoritative_text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
+    ],
+  );
 });
 
 test("активный договор и demo/data.js фиксируют ровно десять состояний в утверждённом порядке", () => {

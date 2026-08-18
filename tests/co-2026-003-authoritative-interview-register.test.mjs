@@ -12,7 +12,16 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.ok(register.decisions.length >= 9);
   assert.ok(register.verbatim_wordings.length >= 25);
   assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-009");
-  assert.ok(register.unresolved_authoritative_text_ids.includes("CO3-MSG-001"));
-  assert.ok(register.unresolved_authoritative_text_ids.includes("CO3-MSG-005"));
+  assert.deepEqual(register.unresolved_authoritative_text_ids, []);
+  assert.deepEqual(
+    register.authoritative_messages,
+    [
+      {"message_id":"CO3-MSG-001","lifecycle_message_id":"order_started","text":"Начал формировать презентацию в ЧЧ:ММ. Это займет не более 20 минут. Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация"},
+      {"message_id":"CO3-MSG-002","lifecycle_message_id":"order_not_accepted","text":"Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение."},
+      {"message_id":"CO3-MSG-003","lifecycle_message_id":"delivery_confirmed","text":"Презентация сформирована и отправлена на почту в ЧЧ:ММ, проверьте почтовый ящик!"},
+      {"message_id":"CO3-MSG-004","lifecycle_message_id":"delivery_delayed","text":"Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."},
+      {"message_id":"CO3-MSG-005","lifecycle_message_id":"delivery_partial","text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
+    ],
+  );
   assert.equal(JSON.stringify(register).includes("@"), false);
 });

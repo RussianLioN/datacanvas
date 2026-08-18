@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/authoritative-interview-decision-register.schema.json",
   "title": "AuthoritativeInterviewDecisionRegister",
   "type": "object",
-  "required": ["version", "change_order_id", "source_of_truth_policy", "decisions", "verbatim_wordings", "unresolved_authoritative_text_ids"],
+  "required": ["version", "change_order_id", "source_of_truth_policy", "decisions", "verbatim_wordings", "authoritative_messages", "unresolved_authoritative_text_ids"],
   "additionalProperties": false,
   "properties": {
     "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
@@ -21,7 +21,8 @@
     },
     "decisions": {"type": "array", "minItems": 8, "items": {"$ref": "#/$defs/decision"}},
     "verbatim_wordings": {"type": "array", "minItems": 24, "items": {"$ref": "#/$defs/wording"}},
-    "unresolved_authoritative_text_ids": {"type": "array", "minItems": 5, "items": {"type": "string", "pattern": "^CO3-MSG-\\d{3}$"}}
+    "authoritative_messages": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/message"}},
+    "unresolved_authoritative_text_ids": {"type": "array", "items": {"type": "string", "pattern": "^CO3-MSG-\\d{3}$"}}
   },
   "$defs": {
     "decision": {
@@ -45,6 +46,23 @@
         "source": {"enum": ["questionnaire_state_answer", "questionnaire_state_decision", "questionnaire_log"]},
         "text": {"type": "string", "minLength": 1}
       }
+    },
+    "message": {
+      "type": "object",
+      "required": ["message_id", "lifecycle_message_id", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "message_id": {"type": "string", "pattern": "^CO3-MSG-\\d{3}$"},
+        "lifecycle_message_id": {"enum": ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"]},
+        "text": {"type": "string", "minLength": 1},
+        "contour_display_rule": {"const": "by_actual_address_lookup"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"lifecycle_message_id": {"const": "delivery_partial"}}, "required": ["lifecycle_message_id"]},
+          "then": {"properties": {"contour_display_rule": {"const": "by_actual_address_lookup"}}, "required": ["contour_display_rule"]}
+        }
+      ]
     }
   }
 }

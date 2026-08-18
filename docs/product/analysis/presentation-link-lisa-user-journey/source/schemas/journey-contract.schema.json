@@ -272,14 +272,23 @@
     "lifecycle_message": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "decision_id", "authoritative_text_status"],
+      "required": ["id", "decision_id", "message_id", "authoritative_text_status", "authoritative_text"],
       "properties": {
         "id": {
           "enum": ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"]
         },
         "decision_id": { "const": "CO3-DEC-007" },
-        "authoritative_text_status": { "const": "not_agreed" }
-      }
+        "message_id": { "type": "string", "pattern": "^CO3-MSG-\\d{3}$" },
+        "authoritative_text_status": { "const": "agreed" },
+        "authoritative_text": { "type": "string", "minLength": 1 },
+        "contour_display_rule": { "const": "by_actual_address_lookup" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "id": { "const": "delivery_partial" } }, "required": ["id"] },
+          "then": { "properties": { "contour_display_rule": { "const": "by_actual_address_lookup" } }, "required": ["contour_display_rule"] }
+        }
+      ]
     },
     "screen_sequence": {
       "type": "object",
@@ -291,7 +300,7 @@
         "existing_state_ids": { "type": "array", "minItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
         "additional_status_state_ids": { "type": "array", "minItems": 3, "uniqueItems": true, "items": { "$ref": "#/$defs/state_id" } },
         "additional_status_placement": { "const": "after_existing_presentation_states" },
-        "generation_status": { "const": "blocked_pending_authoritative_text" }
+        "generation_status": { "const": "source_ready_visual_generation_not_run" }
       }
     },
     "navigation": {

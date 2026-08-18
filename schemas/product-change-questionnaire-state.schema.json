@@ -106,6 +106,11 @@
       "type": "array",
       "items": { "$ref": "#/$defs/decisionRecord" }
     },
+    "agreed_message_wordings": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "$ref": "#/$defs/agreedMessageWording" }
+    },
     "remaining_checklist": {
       "type": "array",
       "items": { "$ref": "#/$defs/checklistItem" }
@@ -137,6 +142,18 @@
     }
   },
   "allOf": [
+    {
+      "if": {
+        "properties": { "change_order_id": { "const": "CO-2026-003" } },
+        "required": ["change_order_id"]
+      },
+      "then": {
+        "required": ["agreed_message_wordings"],
+        "properties": {
+          "agreed_message_wordings": { "type": "array", "minItems": 5, "maxItems": 5 }
+        }
+      }
+    },
     {
       "if": {
         "properties": { "mode": { "const": "product_owner_interview" } },
@@ -228,6 +245,26 @@
           "items": { "$ref": "#/$defs/repoPath" }
         }
       }
+    },
+    "agreedMessageWording": {
+      "type": "object",
+      "required": ["message_id", "lifecycle_message_id", "text", "decision_source", "declaration_date", "answered_at"],
+      "additionalProperties": false,
+      "properties": {
+        "message_id": { "type": "string", "pattern": "^CO3-MSG-[0-9]{3}$" },
+        "lifecycle_message_id": { "enum": ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"] },
+        "text": { "type": "string", "minLength": 1 },
+        "contour_display_rule": { "const": "by_actual_address_lookup" },
+        "decision_source": { "type": "string", "minLength": 1 },
+        "declaration_date": { "type": "string", "format": "date" },
+        "answered_at": { "type": "string", "format": "date-time" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "lifecycle_message_id": { "const": "delivery_partial" } }, "required": ["lifecycle_message_id"] },
+          "then": { "properties": { "contour_display_rule": { "const": "by_actual_address_lookup" } }, "required": ["contour_display_rule"] }
+        }
+      ]
     },
     "checklistItem": {
       "type": "object",

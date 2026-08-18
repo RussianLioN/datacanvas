@@ -20,6 +20,7 @@ const FRAME_CONTRACT_PATH = `${PACKAGE_PATH}/source/frame-contract.json`;
 const SOURCE_RENDER_CATALOG_PATH = `${PACKAGE_PATH}/source/source-render-catalog.json`;
 const VISUAL_BASIS_CONTRACT_PATH = `${PACKAGE_PATH}/source/visual-basis-contract.json`;
 const PROTOTYPE_PACKAGE_CONTRACT_PATH = `${PACKAGE_PATH}/source/prototype-package-contract.json`;
+const AUTHORITATIVE_INTERVIEW_REGISTER_PATH = "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json";
 const EMAIL_SOURCE_FALLBACK = "editable-sources/7.4 — Письмо с презентацией.png";
 const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 const SOURCE_BODY_CORNER_RADIUS = 32;
@@ -228,8 +229,11 @@ function normalizeDesktopRaster(visualState, stateId) {
   };
 }
 
-function validateLifecycle(lifecycle, ctaStates, orderedStateIds) {
+function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeRegister) {
   if (!lifecycle || lifecycle.model !== "variant") fail("договор пути должен содержать вариантный жизненный цикл");
+  if (lifecycle.review_status !== "approved_product_owner") {
+    fail("договор пути должен ссылаться только на согласованные Product Owner сообщения");
+  }
   if (!Array.isArray(lifecycle.states)) fail("вариантный жизненный цикл должен содержать состояния");
   const stateIds = lifecycle.states.map((state) => state?.id);
   assertSameStringArray(stateIds, LIFECYCLE_STATE_IDS, "вариантный жизненный цикл/states");
@@ -270,18 +274,36 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds) {
   if (variants[0]?.contour_count !== 1 || variants[1]?.contour_count !== 2) fail("варианты доставки должны различать один и два контура");
   const messages = lifecycle.messages || [];
   assertSameStringArray(messages.map((message) => message?.id), LIFECYCLE_MESSAGE_IDS, "каталог сообщений");
+  if (!Array.isArray(authoritativeRegister?.authoritative_messages) || authoritativeRegister.authoritative_messages.length !== LIFECYCLE_MESSAGE_IDS.length) {
+    fail("реестр интервью должен содержать пять согласованных сообщений");
+  }
+  if ((authoritativeRegister.unresolved_authoritative_text_ids || []).length !== 0) {
+    fail("реестр интервью не должен оставлять согласованные сообщения неразрешенными");
+  }
+  const authoritativeMessagesById = new Map(authoritativeRegister.authoritative_messages.map((message) => [message.message_id, message]));
   for (const message of messages) {
-    if (message.decision_id !== "CO3-DEC-007" || message.authoritative_text_status !== "not_agreed") {
-      fail(`${message.id}: текст статуса нельзя выдумывать до отдельного согласования`);
+    const authoritativeMessage = authoritativeMessagesById.get(message.message_id);
+    if (
+      message.decision_id !== "CO3-DEC-007" ||
+      message.authoritative_text_status !== "agreed" ||
+      !authoritativeMessage ||
+      authoritativeMessage.lifecycle_message_id !== message.id ||
+      authoritativeMessage.text !== message.authoritative_text
+    ) {
+      fail(`${message.id}: текст статуса должен дословно совпадать с реестром согласованных сообщений`);
     }
+  }
+  const partialMessage = messages.find((message) => message.id === "delivery_partial");
+  if (partialMessage?.contour_display_rule !== "by_actual_address_lookup") {
+    fail("частичная доставка должна подставлять один или два контура по фактическому результату поиска адресов");
   }
   const screenSequence = lifecycle.screen_sequence;
   if (screenSequence?.decision_id !== "CO3-DEC-009" || screenSequence.preserve_existing_source_order !== true) {
     fail("договор должен сохранять согласованный исходный порядок экранов");
   }
   assertSameStringArray(screenSequence.existing_state_ids, orderedStateIds, "сохраненный исходный порядок экранов");
-  if (screenSequence.additional_status_placement !== "after_existing_presentation_states" || screenSequence.generation_status !== "blocked_pending_authoritative_text") {
-    fail("дополнительные статусы допускаются только в конце и после согласования текста");
+  if (screenSequence.additional_status_placement !== "after_existing_presentation_states" || screenSequence.generation_status !== "source_ready_visual_generation_not_run") {
+    fail("дополнительные статусы допускаются только в конце; визуальная генерация не должна считаться выполненной");
   }
   return lifecycle;
 }
@@ -289,6 +311,7 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds) {
 export function loadSevenScreenContracts(root = process.cwd()) {
   const registry = readJson(root, ACTIVE_CONTRACTS_PATH);
   const journey = readJson(root, JOURNEY_CONTRACT_PATH);
+  const authoritativeInterviewRegister = readJson(root, AUTHORITATIVE_INTERVIEW_REGISTER_PATH);
   const frameContract = readJson(root, FRAME_CONTRACT_PATH);
   const sourceRenderCatalog = readJson(root, SOURCE_RENDER_CATALOG_PATH);
   const visualBasis = readJson(root, VISUAL_BASIS_CONTRACT_PATH);
@@ -394,7 +417,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   if (JSON.stringify(orderAction.source_state_ids) !== JSON.stringify(ctaStates)) {
     fail("источники действия заказа не совпадают с CTA визуального договора");
   }
-  const lifecycle = validateLifecycle(journey.lifecycle, ctaStates, states.map((state) => state.id));
+  const lifecycle = validateLifecycle(journey.lifecycle, ctaStates, states.map((state) => state.id), authoritativeInterviewRegister);
   const expectedArchiveMembers = [
     ...ARCHIVE_STATIC_MEMBERS,
     ...states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)),
@@ -404,6 +427,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   return {
     registry,
     journey,
+    authoritativeInterviewRegister,
     frameContract,
     sourceRenderCatalog,
     visualBasis,
