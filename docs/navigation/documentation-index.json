@@ -14437,6 +14437,7 @@
       "parent_readme": "docs/release/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
@@ -14452,7 +14453,8 @@
         "визуальный-выпуск",
         "поставка-прототипа",
         "внешние-решения",
-        "безопасность-доказательств"
+        "безопасность-доказательств",
+        "разбор-причин-исправленных-недочётов"
       ],
       "reachable_from_root": true,
       "click_depth": 2

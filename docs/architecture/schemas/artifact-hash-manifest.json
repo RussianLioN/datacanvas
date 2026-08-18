@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "0f986a277e87950025d7ad950e3cd1abf481b89b493d9d50920dde65a937f3e8"
+      "sha256": "166ab60ef5cb29eaa9b5c990d7d9beeb759d6f34b5a97318f922620c3eef61c7"
     },
     {
       "artifact_id": "ART-411",
@@ -3217,7 +3217,7 @@
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "4301515aef879c0a0d202ca9159af2d1cf751a310b6b9167ff7350d8ecc13396"
+      "sha256": "4581957e318691c27c1d2f9ef119e1722ebee21976f54b7f2b108919f9f5f795"
     },
     {
       "artifact_id": "ART-645",
