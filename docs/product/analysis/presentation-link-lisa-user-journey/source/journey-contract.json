@@ -135,19 +135,70 @@
   ],
   "lifecycle": {
     "model": "variant",
-    "content_review_status": "pending_product_owner",
-    "visual_release_status": "pending_product_owner",
+    "content_review_status": "approved_product_owner",
+    "visual_release_status": "approved_product_owner",
     "states": [
-      { "id": "eligible", "next_state_ids": ["validating"] },
-      { "id": "validating", "next_state_ids": ["rejected_retryable", "accepted_locked"] },
-      { "id": "rejected_retryable", "next_state_ids": ["validating"] },
-      { "id": "accepted_locked", "next_state_ids": ["generating"] },
-      { "id": "generating", "next_state_ids": ["delivery_confirmed", "delayed", "delivery_partial"] },
-      { "id": "delivery_confirmed", "next_state_ids": ["session_closed"] },
-      { "id": "delayed", "next_state_ids": ["support_pending"] },
-      { "id": "delivery_partial", "next_state_ids": ["support_pending"] },
-      { "id": "support_pending", "next_state_ids": ["session_closed"] },
-      { "id": "session_closed", "next_state_ids": [] }
+      {
+        "id": "eligible",
+        "next_state_ids": [
+          "validating"
+        ]
+      },
+      {
+        "id": "validating",
+        "next_state_ids": [
+          "rejected_retryable",
+          "accepted_locked"
+        ]
+      },
+      {
+        "id": "rejected_retryable",
+        "next_state_ids": [
+          "validating"
+        ]
+      },
+      {
+        "id": "accepted_locked",
+        "next_state_ids": [
+          "generating"
+        ]
+      },
+      {
+        "id": "generating",
+        "next_state_ids": [
+          "delivery_confirmed",
+          "delayed",
+          "delivery_partial"
+        ]
+      },
+      {
+        "id": "delivery_confirmed",
+        "next_state_ids": [
+          "session_closed"
+        ]
+      },
+      {
+        "id": "delayed",
+        "next_state_ids": [
+          "support_pending"
+        ]
+      },
+      {
+        "id": "delivery_partial",
+        "next_state_ids": [
+          "support_pending"
+        ]
+      },
+      {
+        "id": "support_pending",
+        "next_state_ids": [
+          "session_closed"
+        ]
+      },
+      {
+        "id": "session_closed",
+        "next_state_ids": []
+      }
     ],
     "button": {
       "source_state_ids": [
@@ -155,7 +206,10 @@
         "lisa-materials-full-reference",
         "lisa-presentation-order"
       ],
-      "enabled_in": ["eligible", "rejected_retryable"],
+      "enabled_in": [
+        "eligible",
+        "rejected_retryable"
+      ],
       "disabled_in": [
         "validating",
         "accepted_locked",
@@ -186,8 +240,14 @@
       "rich_structure_editing": false
     },
     "delivery_variants": [
-      { "id": "one_contour", "contour_count": 1 },
-      { "id": "two_contours", "contour_count": 2 }
+      {
+        "id": "one_contour",
+        "contour_count": 1
+      },
+      {
+        "id": "two_contours",
+        "contour_count": 2
+      }
     ],
     "screen_sequence": {
       "decision_id": "CO3-DEC-009",
@@ -204,7 +264,31 @@
         "lisa-presentation-sber2025",
         "lisa-presentation-mag"
       ],
-      "additional_status_state_ids": ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
+      "additional_status_state_ids": [
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ],
+      "status_presentations": [
+        {
+          "state_id": "lisa-order-not-accepted",
+          "base_state_id": "lisa-presentation-generating",
+          "lifecycle_message_id": "order_not_accepted",
+          "caption": "Данные для формирования презентации не приняты"
+        },
+        {
+          "state_id": "lisa-delivery-delayed",
+          "base_state_id": "lisa-presentation-generating",
+          "lifecycle_message_id": "delivery_delayed",
+          "caption": "Отправка презентации задерживается"
+        },
+        {
+          "state_id": "lisa-delivery-partial",
+          "base_state_id": "lisa-presentation-generating",
+          "lifecycle_message_id": "delivery_partial",
+          "caption": "Частичная или неподтверждённая доставка презентации"
+        }
+      ],
       "additional_status_placement": "after_existing_presentation_states",
       "delivery_failure_presentation": {
         "decision_id": "CO3-DEC-009",
@@ -212,7 +296,7 @@
         "lifecycle_message_id": "delivery_partial",
         "separate_screen": false
       },
-      "generation_status": "source_ready_visual_generation_not_run"
+      "generation_status": "visual_generation_completed"
     },
     "messages": [
       {
@@ -256,7 +340,7 @@
   "navigation": {
     "mode": "linear",
     "wrap": false,
-    "display_total": 11,
+    "display_total": 14,
     "keyboard": {
       "previous": "ArrowLeft",
       "next": "ArrowRight",

@@ -301,6 +301,23 @@
     content.append(control);
   }
 
+  function addStatusMessage(state, content) {
+    if (!state.status_message?.text) return;
+    const card = document.createElement("section");
+    card.className = "lifecycle-status-message";
+    card.dataset.testid = "lifecycle-status-message";
+    card.dataset.messageId = state.status_message.id;
+    card.setAttribute("aria-label", "Сообщение о статусе заказа");
+    const label = document.createElement("p");
+    label.className = "lifecycle-status-message-label";
+    label.textContent = "Справка по клиенту";
+    const text = document.createElement("p");
+    text.className = "lifecycle-status-message-text";
+    text.textContent = state.status_message.text;
+    card.append(label, text);
+    content.append(card);
+  }
+
   function createPhoneScene(state) {
     const topLayer = layerByRole(state, "system_top");
     const contentLayer = layerByRole(state, "scroll_content");
@@ -347,6 +364,7 @@
     content.style.aspectRatio = `${contentDimensions.width} / ${contentDimensions.height}`;
     content.append(createLayerImage(state, contentLayer));
     addCta(state, contentLayer, content);
+    addStatusMessage(state, content);
 
     scroller.append(content);
     screen.append(

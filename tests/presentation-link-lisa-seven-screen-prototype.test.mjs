@@ -130,6 +130,9 @@ const expectedStates = Object.freeze([
 
 const expectedStateIds = expectedStates.map((state) => state.id);
 const expectedDisplayOrders = Object.freeze([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+const expectedStatusStateIds = Object.freeze(["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]);
+const expectedRuntimeStateIds = Object.freeze([...expectedStateIds, ...expectedStatusStateIds]);
+const expectedRuntimeDisplayOrders = Object.freeze([...expectedDisplayOrders, 12, 13, 14]);
 const expectedEmailState = expectedStates.find((state) => state.id === "lisa-presentation-email");
 const expectedDocumentStates = expectedStates.filter((state) => state.document);
 const expectedDocumentStateIds = expectedDocumentStates.map((state) => state.id);
@@ -139,6 +142,7 @@ const immediateCtaStateIds = expectedStates
   .map((state) => state.id);
 const expectedPhoneStates = expectedStates.filter((state) => state.presentation === "phone");
 const expectedPhoneStateIds = expectedPhoneStates.map((state) => state.id);
+const expectedRuntimePhoneStateIds = Object.freeze([...expectedPhoneStateIds, ...expectedStatusStateIds]);
 
 const expectedOrderLabel = "Сформировать презентацию";
 const expectedLifecycleStateIds = Object.freeze([
@@ -284,12 +288,13 @@ function phoneLayerSrc(stateId, role) {
 }
 
 function expectedPhoneRasterLayers(stateId) {
-  const sources = expectedPhoneLayerSources[stateId] ?? expectedDefaultPhoneLayerSources;
+  const sourceStateId = expectedStatusStateIds.includes(stateId) ? "lisa-presentation-generating" : stateId;
+  const sources = expectedPhoneLayerSources[sourceStateId] ?? expectedDefaultPhoneLayerSources;
   return expectedPhoneLayerRoles.map((role) => {
     const sourceRect = sources[role];
     return {
       role,
-      src: phoneLayerSrc(stateId, role),
+      src: phoneLayerSrc(sourceStateId, role),
       source_rect: sourceRect,
       viewport_rect: expectedPhoneLayerViewportRects[role],
       pixel_dimensions: {
@@ -333,7 +338,7 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
 
-test("исходный договор хранит согласованные сообщения, но ожидает повторного согласования содержания", () => {
+test("исходный договор хранит согласованные сообщения и одобрен для визуального выпуска", () => {
   const contracts = loadSevenScreenContracts(root);
   const lifecycle = contracts.journey.lifecycle;
   const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
@@ -341,8 +346,8 @@ test("исходный договор хранит согласованные с
   const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
 
   assert.equal(lifecycle?.model, "variant");
-  assert.equal(lifecycle?.content_review_status, "pending_product_owner");
-  assert.equal(lifecycle?.visual_release_status, "pending_product_owner");
+  assert.equal(lifecycle?.content_review_status, "approved_product_owner");
+  assert.equal(lifecycle?.visual_release_status, "approved_product_owner");
   assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
   assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
   assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);
@@ -364,7 +369,7 @@ test("исходный договор хранит согласованные с
   assert.equal(lifecycle?.screen_sequence?.preserve_existing_source_order, true);
   assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
   assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
-  assert.equal(lifecycle?.screen_sequence?.generation_status, "source_ready_visual_generation_not_run");
+  assert.equal(lifecycle?.screen_sequence?.generation_status, "visual_generation_completed");
   assert.deepEqual(lifecycle?.screen_sequence?.delivery_failure_presentation, {
     decision_id: "CO3-DEC-009",
     presentation_state_id: "lisa-delivery-partial",
@@ -383,13 +388,15 @@ test("исходный договор хранит согласованные с
   );
 });
 
-test("ожидание согласования содержания не блокирует построение кандидата, но блокирует публикацию", async () => {
+test("только одобрение обоих выпускных решений разрешает публикацию кандидата", async () => {
   const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-visual-release-"));
   const built = await buildSevenScreenPrototype(root);
 
   try {
-    assert.equal(built.contracts.lifecycle.content_review_status, "pending_product_owner");
-    assert.equal(built.contracts.lifecycle.visual_release_status, "pending_product_owner");
+    assert.equal(built.contracts.lifecycle.content_review_status, "approved_product_owner");
+    assert.equal(built.contracts.lifecycle.visual_release_status, "approved_product_owner");
+
+    built.contracts.lifecycle.content_review_status = "pending_product_owner";
 
     assert.throws(
       () => publishSevenScreenRuntime(temporaryRoot, built),
@@ -402,6 +409,7 @@ test("ожидание согласования содержания не бло
     );
 
     built.contracts.lifecycle.content_review_status = "approved_product_owner";
+    built.contracts.lifecycle.visual_release_status = "pending_product_owner";
     assert.throws(
       () => publishSevenScreenRuntime(temporaryRoot, built),
       /визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner/u,
@@ -418,7 +426,7 @@ test("ожидание согласования содержания не бло
   }
 });
 
-test("активный договор и demo/data.js фиксируют ровно десять состояний в утверждённом порядке", () => {
+test("активный договор сохраняет десять исходных экранов, а demo добавляет три ошибочных экрана в конце", () => {
   const registry = readJson("source/active-contracts.json");
   const journey = readJson("source/journey-contract.json");
   const visualBasis = readJson("source/visual-basis-contract.json");
@@ -446,7 +454,7 @@ test("активный договор и demo/data.js фиксируют ров�
     expectedStateIds,
     "journey-contract должен повторять порядок десяти экранов без старых состояний",
   );
-  assert.equal(journey.navigation?.display_total, 11, "договор должен фиксировать отображаемый общий номер 11");
+  assert.equal(journey.navigation?.display_total, 14, "договор должен фиксировать общий номер с тремя экранами статусов");
   assert.deepEqual(
     journey.states.map((state) => state.display_order),
     expectedDisplayOrders,
@@ -454,29 +462,29 @@ test("активный договор и demo/data.js фиксируют ров�
   );
   assert.deepEqual(
     stateIds(data.states),
-    expectedStateIds,
-    "demo/data.js должен отдавать ровно десять публичных data-state-id",
+    expectedRuntimeStateIds,
+    "demo/data.js должен добавлять три ошибочных экрана после десяти исходных",
   );
   assert.deepEqual(
     visualBasis.states.map((state) => state.state_id),
     expectedStateIds,
     "visual-basis-contract должен описывать основы для тех же десяти состояний",
   );
-  assert.deepEqual(projectionMap.state_ids, expectedStateIds, "карта проекций должна содержать только десять активных состояний");
-  assert.deepEqual(rasterManifest.state_ids, expectedStateIds, "манифест растров должен содержать только десять активных состояний");
-  assert.deepEqual(browserReport.active_state_ids, expectedStateIds, "браузерный отчёт должен описывать только активный маршрут");
-  assert.deepEqual(acceptanceReport.active_state_ids, expectedStateIds, "отчёт приёмки должен описывать только активный маршрут");
+  assert.deepEqual(projectionMap.state_ids, expectedRuntimeStateIds, "карта проекций должна содержать все состояния выпуска");
+  assert.deepEqual(rasterManifest.state_ids, expectedRuntimeStateIds, "манифест растров должен содержать все состояния выпуска");
+  assert.deepEqual(browserReport.active_state_ids, expectedRuntimeStateIds, "браузерный отчёт должен описывать весь маршрут");
+  assert.deepEqual(acceptanceReport.active_state_ids, expectedRuntimeStateIds, "отчёт приёмки должен описывать весь маршрут");
   assert.deepEqual(
     data.state_ids ? Array.from(data.state_ids) : stateIds(data.states),
-    expectedStateIds,
-    "demo/data.js должен отдавать ровно десять публичных data-state-id",
+    expectedRuntimeStateIds,
+    "demo/data.js должен отдавать все публичные data-state-id",
   );
   assert.equal(data.initial_state_id ?? expectedStateIds[0], expectedStateIds[0], "начальное состояние должно быть первым в десятиэкранном порядке");
-  assert.equal(data.navigation?.display_total, 11, "runtime должен передавать отображаемый общий номер 11");
+  assert.equal(data.navigation?.display_total, 14, "runtime должен передавать общий номер с экранами статусов");
   assert.deepEqual(
     Array.from(data.states, (state) => state.display_order),
-    expectedDisplayOrders,
-    "runtime должен передавать отображаемые номера экранов №2–11",
+    expectedRuntimeDisplayOrders,
+    "runtime должен передавать отображаемые номера экранов №2–14",
   );
   assert.deepEqual(
     expectedStateIds.slice(expectedStateIds.indexOf("lisa-presentation-email") + 1),
@@ -533,6 +541,28 @@ test("активный договор и demo/data.js фиксируют ров�
     }
     assert.equal(Boolean(state.scrollable), expected.scrollable, `${expected.id}: неверный признак внутренней прокрутки`);
     assert.equal(state.presentation, expected.presentation, `${expected.id}: неверный тип представления`);
+  }
+
+  const statusBasisById = new Map(
+    journey.lifecycle.screen_sequence.status_presentations.map((presentation) => [
+      presentation.state_id,
+      presentation.base_state_id,
+    ]),
+  );
+  for (const stateId of expectedStatusStateIds) {
+    const state = data.states.find((candidate) => candidate.id === stateId);
+    const baseStatusState = data.states.find((candidate) => candidate.id === statusBasisById.get(stateId));
+    assert.ok(state, `${stateId}: ошибочный экран отсутствует в runtime`);
+    assert.ok(baseStatusState, `${stateId}: не найдена базовая визуальная основа`);
+    for (const [index, layer] of state.asset.layers.entries()) {
+      const baseLayer = baseStatusState.asset.layers[index];
+      assert.equal(layer.src, expectedPhoneRasterLayers(stateId)[index].src, `${stateId}: должен использовать слой экрана с погашенной кнопкой`);
+      assert.deepEqual(layer.source_rect, baseLayer.source_rect, `${stateId}: source_rect должен повторять близкую согласованную основу`);
+      assert.deepEqual(layer.viewport_rect, baseLayer.viewport_rect, `${stateId}: viewport_rect должен повторять близкую согласованную основу`);
+      assert.deepEqual(layer.pixel_dimensions, baseLayer.pixel_dimensions, `${stateId}: размеры слоя должны повторять близкую согласованную основу`);
+    }
+    assert.ok(state.status_message?.text, `${stateId}: должно содержать согласованное сообщение`);
+    assert.equal(state.action_ids.length, 0, `${stateId}: не должен принимать новый заказ`);
   }
 });
 
@@ -680,16 +710,16 @@ test("runtime-файлы используют только локальные de
   }
 });
 
-test("demo/assets содержит 18 телефонных сегментов, почтовую PNG-сцену и три документных PNG", () => {
+test("demo/assets повторно использует 18 телефонных сегментов, почтовую PNG-сцену и три документных PNG", () => {
   const assetRoot = path.join(demoRoot, "assets");
   const assetPaths = listFiles(assetRoot).map(toDemoRelative).sort((left, right) => left.localeCompare(right, "en"));
-  const expectedPhoneAssetPaths = expectedPhoneStateIds
+  const expectedPhoneAssetPaths = [...new Set(expectedRuntimePhoneStateIds
     .flatMap((stateId) => expectedPhoneRasterLayers(stateId).map((layer) => layer.src))
-    .sort((left, right) => left.localeCompare(right, "en"));
+  )].sort((left, right) => left.localeCompare(right, "en"));
   const expectedDocumentAssetPaths = expectedDocumentStates
     .map((state) => state.assetPath)
     .sort((left, right) => left.localeCompare(right, "en"));
-  const forbiddenFullPhoneAssetPaths = expectedPhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
+  const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
   const expectedEmailAssetPath = "assets/lisa-presentation-email.png";
 
   assert.equal(assetPaths.length, 22, "в runtime должно быть ровно 18 телефонных сегментов, один почтовый PNG и три документных PNG");
@@ -746,10 +776,10 @@ test("demo/assets содержит 18 телефонных сегментов, �
   }
 });
 
-test("ZIP минимален, содержит manifest, 18 телефонных сегментов, почту и три документа без PDF и source/**", () => {
+test("ZIP минимален, повторно использует 18 телефонных сегментов, содержит почту и три документа без PDF и source/**", () => {
   const members = unzipList(zipPath);
   const assetMembers = members.filter((member) => member.startsWith("assets/")).sort((left, right) => left.localeCompare(right, "en"));
-  const forbiddenFullPhoneAssetPaths = expectedPhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
+  const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
   const expectedDocumentAssetPaths = expectedDocumentStates
     .map((state) => state.assetPath)
     .sort((left, right) => left.localeCompare(right, "en"));
@@ -797,8 +827,8 @@ test("ZIP минимален, содержит manifest, 18 телефонных
   assert.deepEqual(manifestAssets, assetMembers, "manifest должен перечислять тот же набор телефонных сегментов и почтовый PNG");
   assert.deepEqual(
     manifest.active_state_ids ?? manifest.states?.map((state) => state.id),
-    expectedStateIds,
-    "manifest должен фиксировать порядок десяти состояний",
+    expectedRuntimeStateIds,
+    "manifest должен фиксировать порядок десяти исходных и трёх ошибочных состояний",
   );
 });
 

@@ -40,6 +40,11 @@
       "id": "prototype-package",
       "path": "source/prototype-package-contract.json",
       "schema": "source/schemas/prototype-package-contract.schema.json"
+    },
+    {
+      "id": "scope",
+      "path": "source/prototype-scope-contract.json",
+      "schema": "source/schemas/prototype-scope-contract.schema.json"
     }
   ],
   "inactive_contract_policy": {

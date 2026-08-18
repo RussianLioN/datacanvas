@@ -18,7 +18,9 @@
   const stateIds = data.states.map((state) => state.id);
   const states = new Map(data.states.map((state) => [state.id, state]));
   const phoneLayerRoles = ["system_top", "scroll_content", "system_bottom"];
+  const lifecycle = data.lifecycle;
   let currentIndex = readInitialIndex();
+  let orderLifecycleState = "eligible";
   let activeDocumentScroller = null;
   let currentSlideIndex = 0;
   let kineticFrame = 0;
@@ -98,6 +100,16 @@
 
   function announce(text) {
     liveRegion.textContent = text;
+  }
+
+  function messageText(messageId) {
+    const message = lifecycle?.messages?.find((candidate) => candidate.id === messageId);
+    if (message?.authoritative_text_status !== "agreed") return "";
+    return message.authoritative_text || "";
+  }
+
+  function canSubmitOrder() {
+    return lifecycle?.button?.enabled_in?.includes(orderLifecycleState) === true;
   }
 
   function cancelKinetics() {
@@ -271,6 +283,8 @@
     control.dataset.testid = "order-presentation";
     control.dataset.actionId = "order-presentation";
     control.setAttribute("aria-label", "Сформировать презентацию");
+    control.disabled = !canSubmitOrder();
+    control.setAttribute("aria-disabled", String(control.disabled));
     control.style.left = `${((ctaRect.x - sourceRect.x) / sourceRect.width) * 100}%`;
     control.style.top = `${((ctaRect.y - sourceRect.y) / sourceRect.height) * 100}%`;
     control.style.width = `${(ctaRect.width / sourceRect.width) * 100}%`;
@@ -279,8 +293,29 @@
     controlLabel.className = "visually-hidden";
     controlLabel.textContent = "Сформировать презентацию";
     control.append(controlLabel);
-    control.addEventListener("click", () => navigateToId(data.order_target_state_id, "Открыт экран формирования презентации."));
+    control.addEventListener("click", () => {
+      if (!canSubmitOrder()) return;
+      orderLifecycleState = "accepted_locked";
+      navigateToId(data.order_target_state_id, messageText("order_started"));
+    });
     content.append(control);
+  }
+
+  function addStatusMessage(state, content) {
+    if (!state.status_message?.text) return;
+    const card = document.createElement("section");
+    card.className = "lifecycle-status-message";
+    card.dataset.testid = "lifecycle-status-message";
+    card.dataset.messageId = state.status_message.id;
+    card.setAttribute("aria-label", "Сообщение о статусе заказа");
+    const label = document.createElement("p");
+    label.className = "lifecycle-status-message-label";
+    label.textContent = "Справка по клиенту";
+    const text = document.createElement("p");
+    text.className = "lifecycle-status-message-text";
+    text.textContent = state.status_message.text;
+    card.append(label, text);
+    content.append(card);
   }
 
   function createPhoneScene(state) {
@@ -329,6 +364,7 @@
     content.style.aspectRatio = `${contentDimensions.width} / ${contentDimensions.height}`;
     content.append(createLayerImage(state, contentLayer));
     addCta(state, contentLayer, content);
+    addStatusMessage(state, content);
 
     scroller.append(content);
     screen.append(

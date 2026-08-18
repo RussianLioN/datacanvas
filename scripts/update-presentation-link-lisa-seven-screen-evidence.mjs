@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { spawnSync } from "node:child_process";
@@ -21,12 +22,16 @@ function countBrowserTests(root) {
 function reportFor(root) {
   const registry = readJson(root, `${PACKAGE_PATH}/source/active-contracts.json`);
   const packageManifest = readJson(root, `${PACKAGE_PATH}/derived/prototype-package-manifest.json`);
+  const routeStateIds = packageManifest.state_ids;
+  if (!Array.isArray(routeStateIds) || routeStateIds.length === 0) {
+    throw new Error("манифест прототипа не содержит state_ids опубликованного маршрута");
+  }
   const testCount = countBrowserTests(root);
   return {
     version: "3.0.0",
     status: "passed",
     route_id: registry.route_id,
-    active_state_ids: registry.active_state_ids,
+    active_state_ids: routeStateIds,
     candidate_fingerprint: packageManifest.candidate_fingerprint,
     archive: packageManifest.archive,
     execution: {
@@ -65,7 +70,7 @@ function acceptanceFor(browserReport) {
     candidate_fingerprint: browserReport.candidate_fingerprint,
     browser_report: "evidence/browser-report.json",
     acceptance: {
-      exact_ten_screen_order: true,
+      exact_success_path_then_status_order: true,
       runtime_only_from_demo_assets: true,
       internal_scroll_only_for_long_phone_screens_and_presentation_documents: true,
       system_top_and_bottom_remain_fixed: true,
@@ -74,7 +79,7 @@ function acceptanceFor(browserReport) {
       three_order_buttons_open_generating_state: true,
       email_is_separate_uncropped_screen: true,
       three_presentation_documents_follow_email: true,
-      final_mag_screen_disables_forward_navigation: true,
+      final_status_screen_disables_forward_navigation: true,
       unpacked_archive_works_via_file_url: true,
       chromium_and_webkit_passed: true,
       phone_and_document_raster_upscaling_blocked_at_device_scale_factor_3: true,
@@ -91,12 +96,17 @@ function bytes(value) {
 
 function runBrowsers(root) {
   const cli = path.join(root, "node_modules/@playwright/test/cli.js");
-  const result = spawnSync(process.execPath, [cli, "test", "--config", CONFIG_PATH], {
-    cwd: root,
-    env: { ...process.env },
-    stdio: "inherit",
-  });
-  if (result.status !== 0) throw new Error(`браузерная проверка завершилась с кодом ${result.status ?? "неизвестно"}`);
+  const runnerTemp = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-playwright-evidence-"));
+  try {
+    const result = spawnSync(process.execPath, [cli, "test", "--config", CONFIG_PATH], {
+      cwd: root,
+      env: { ...process.env, RUNNER_TEMP: runnerTemp },
+      stdio: "inherit",
+    });
+    if (result.status !== 0) throw new Error(`браузерная проверка завершилась с кодом ${result.status ?? "неизвестно"}`);
+  } finally {
+    fs.rmSync(runnerTemp, { recursive: true, force: true, maxRetries: 2 });
+  }
 }
 
 function writeAtomic(target, content) {
@@ -130,11 +140,11 @@ try {
     ) {
       throw new Error("отчёты браузерной проверки и приёмки отсутствуют или устарели");
     }
-    process.stdout.write("Отчёты браузерной проверки и приёмки десяти состояний актуальны.\n");
+    process.stdout.write("Отчёты браузерной проверки и приёмки тринадцати состояний актуальны.\n");
   } else {
     writeAtomic(target, expected);
     writeAtomic(acceptanceTarget, expectedAcceptance);
-    process.stdout.write(`Отчёты проверки десяти состояний записаны: ${REPORT_PATH}, ${ACCEPTANCE_PATH}.\n`);
+    process.stdout.write(`Отчёты проверки тринадцати состояний записаны: ${REPORT_PATH}, ${ACCEPTANCE_PATH}.\n`);
   }
 } catch (error) {
   process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "отчёт не обновлён"}\n`);

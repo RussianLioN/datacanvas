@@ -88,8 +88,11 @@ function mediaType(relativePath) {
 export function resolveArchiveMembers(root, contract, chain) {
   const members = [];
   const seen = new Set();
+  const excludedPrimaryArtifacts = new Set(contract.exclude_primary_artifacts ?? []);
+  for (const relativePath of excludedPrimaryArtifacts) assertSafeRelativePath(relativePath);
   for (const stage of chain.stages) {
     for (const relativePath of stage.primary_artifacts) {
+      if (excludedPrimaryArtifacts.has(relativePath)) continue;
       members.push({
         path: relativePath,
         label: stage.name,

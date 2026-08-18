@@ -41,8 +41,8 @@
     },
     "active_contracts": {
       "type": "array",
-      "minItems": 5,
-      "maxItems": 5,
+      "minItems": 6,
+      "maxItems": 6,
       "prefixItems": [
         {
           "$ref": "#/$defs/journey"
@@ -58,6 +58,9 @@
         },
         {
           "$ref": "#/$defs/prototype_package"
+        },
+        {
+          "$ref": "#/$defs/scope"
         }
       ],
       "items": false
@@ -204,6 +207,27 @@
             },
             "schema": {
               "const": "source/schemas/prototype-package-contract.schema.json"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/descriptor"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "const": "scope"
+            },
+            "path": {
+              "const": "source/prototype-scope-contract.json"
+            },
+            "schema": {
+              "const": "source/schemas/prototype-scope-contract.schema.json"
             }
           }
         }

@@ -311,7 +311,7 @@ test("пишет и проверяет утверждённые SVG как тр�
   seedLegacyFullRasters(root);
   const written = await buildApprovedEditableSourceRasters({ root, write: true });
 
-  assert.equal(written.length, 18);
+  assert.equal(written.length, expectedLayerOutputs().length);
   assert.deepEqual(written.map((item) => item.output), expectedLayerOutputs());
 
   for (const result of written) {

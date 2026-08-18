@@ -9,7 +9,19 @@
   "data_class": "internal",
   "visibility": "restricted",
   "primary_selection": "all_stage_primary_artifacts",
+  "exclude_primary_artifacts": [
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/requirements/traceability-matrix.json"
+  ],
   "additional_artifacts": [
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+      "label": "Очищенная рабочая книга с актуальными сроками и ресурсами 2026-08-17"
+    },
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
+      "label": "Происхождение очищенной рабочей книги 2026-08-17"
+    },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
       "label": "Заявка на изменение Q4_2026"

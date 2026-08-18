@@ -93,6 +93,12 @@ try {
   if (state.status === "completed" && !state.completed_at) {
     fail("completed questionnaire must have completed_at");
   }
+  if (state.status === "completed") {
+    const latestAnswer = Math.max(...state.answered_questions.map((question) => Date.parse(question.answered_at)));
+    if (!Number.isFinite(latestAnswer) || Date.parse(state.completed_at) < latestAnswer) {
+      fail("completed questionnaire must not precede its latest answer");
+    }
+  }
 
   const expectedNextStop = state.periodic_stop.last_stop_after_answer_count + state.save_policy.pause_every_answers;
   if (state.periodic_stop.next_stop_after_answer_count !== expectedNextStop) {

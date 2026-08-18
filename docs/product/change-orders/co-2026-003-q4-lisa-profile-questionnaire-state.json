@@ -9,12 +9,12 @@
   "started_at": "2026-08-17T00:00:00Z",
   "updated_at": "2026-08-18T00:00:00Z",
   "paused_at": null,
-  "completed_at": "2026-08-17T00:00:00Z",
+  "completed_at": "2026-08-18T00:00:00Z",
   "current_question": {
-    "question_id": "Q4-10",
-    "title": "Интервью завершено; ожидается повторное согласование выпуска",
+    "question_id": "Q4-11",
+    "title": "Интервью завершено; выпуск прототипа разрешён",
     "state": "not_applicable",
-    "next_action": "Сохранить решения в производных требованиях и системном анализе, не раскрывая личные сведения и не расширяя границу Q4_2026; не запускать визуальную генерацию до отдельных одобрений содержания и визуального выпуска."
+    "next_action": "Интервью завершено: одобрение содержания и визуального выпуска сохранено. Штатно сформировать, проверить и включить прототип в архив поставки без раскрытия личных сведений и расширения границы Q4_2026."
   },
   "save_policy": {
     "save_after_each_answer": true,
@@ -136,6 +136,16 @@
       "decision_source": "Выбор Product Owner варианта 1.",
       "declaration_date": "2026-08-18",
       "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-10",
+      "answer_id": "ANSWER-010",
+      "title": "Повторное согласование содержания и визуального выпуска",
+      "status": "confirmed",
+      "safe_summary": "Одобрены содержание пользовательского пути, окончательная визуальная генерация прототипа и архив поставки.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
     }
   ],
   "agreed_decisions": [
@@ -238,6 +248,18 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
       ]
+    },
+    {
+      "decision_id": "CO3-DEC-010",
+      "question_id": "Q4-10",
+      "decision_status": "confirmed",
+      "safe_summary": "Одобрены содержание, окончательная визуальная генерация прототипа и архив поставки.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+      ]
     }
   ],
   "agreed_message_wordings": [
@@ -328,15 +350,20 @@
       "item_id": "Q4-09",
       "title": "Демонстрация полной недоставки в прототипе",
       "status": "completed"
+    },
+    {
+      "item_id": "Q4-10",
+      "title": "Повторное согласование содержания и визуального выпуска",
+      "status": "completed"
     }
   ],
   "periodic_stop": {
-    "last_stop_after_answer_count": 9,
-    "reason": "Интервью завершено; уточнение представления полной недоставки сохранено безопасным резюме.",
-    "next_stop_after_answer_count": 14
+    "last_stop_after_answer_count": 10,
+    "reason": "Интервью завершено; одобрены содержание, визуальная генерация и архив поставки.",
+    "next_stop_after_answer_count": 15
   },
   "resume_instructions": [
-    "Интервью CO-2026-003 завершено.",
+    "Интервью CO-2026-003 завершено; одобрение выпуска сохранено.",
     "Перед продолжением проверить это состояние и журнал, затем применять решения только в пределах Q4_2026.",
     "Точный контракт Профиля сотрудника, почтового сервиса, получателя статуса, числовых повторов и канала сопровождения должен определить системный анализ.",
     "Не переносить в производные артефакты личные сведения, почтовые адреса, исходное содержимое запроса или полные идентификаторы.",
@@ -344,7 +371,7 @@
   ],
   "review_checkpoint": {
     "status": "approved",
-    "reason": "Product Owner дословно согласовал пять пользовательских сообщений и уточнил, что полная недоставка использует экран частичной доставки. Решения закреплены в курируемом реестре и могут быть переданы производным требованиям; визуальная генерация и выпуск этим решением не выполняются.",
+    "reason": "Product Owner дословно согласовал пять пользовательских сообщений, уточнил представление полной недоставки и выбрал вариант 1: одобрил содержание, окончательную визуальную генерацию прототипа и архив поставки.",
     "authoritative_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
   }
 }

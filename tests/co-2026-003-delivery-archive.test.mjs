@@ -87,6 +87,20 @@ test("главный архив по умолчанию остаётся обр�
   assert.match(result.stdout, /архив документации актуален/u);
 });
 
+test("специальный архив CO-2026-003 использует рабочую книгу 2026-08-17 вместо исторической книги", () => {
+  const contract = JSON.parse(fs.readFileSync(
+    path.join(repositoryRoot, "docs/release/co-2026-003-prototype-delivery-archive-contract.json"),
+    "utf8",
+  ));
+  const additionalPaths = new Set(contract.additional_artifacts.map((artifact) => artifact.path));
+  assert.deepEqual(contract.exclude_primary_artifacts, [
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/requirements/traceability-matrix.json",
+  ]);
+  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"), true);
+  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), true);
+});
+
 test("контракт поставки с неутверждёнными статусами не создаёт архив и сообщает оба статуса", () => {
   const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-pending-"));
   try {

@@ -314,8 +314,17 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeR
     fail("договор должен сохранять согласованный исходный порядок экранов");
   }
   assertSameStringArray(screenSequence.existing_state_ids, orderedStateIds, "сохраненный исходный порядок экранов");
-  if (screenSequence.additional_status_placement !== "after_existing_presentation_states" || screenSequence.generation_status !== "source_ready_visual_generation_not_run") {
-    fail("дополнительные статусы допускаются только в конце; визуальная генерация не должна считаться выполненной");
+  if (
+    screenSequence.additional_status_placement !== "after_existing_presentation_states" ||
+    !["source_ready_visual_generation_not_run", "visual_generation_completed"].includes(screenSequence.generation_status)
+  ) {
+    fail("дополнительные статусы допускаются только в конце; статус визуальной генерации должен быть задан явно");
+  }
+  if (
+    screenSequence.generation_status === "visual_generation_completed" &&
+    (lifecycle.content_review_status !== "approved_product_owner" || lifecycle.visual_release_status !== "approved_product_owner")
+  ) {
+    fail("завершённая визуальная генерация требует двух одобрений владельца продукта");
   }
   if (
     screenSequence.delivery_failure_presentation?.decision_id !== "CO3-DEC-009" ||
@@ -325,7 +334,43 @@ function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeR
   ) {
     fail("полная недоставка должна использовать экран и согласованный текст частичной доставки без отдельного экрана");
   }
+  const statusPresentations = screenSequence.status_presentations;
+  if (!Array.isArray(statusPresentations) || statusPresentations.length !== screenSequence.additional_status_state_ids.length) {
+    fail("для каждого дополнительного статуса должно быть задано отображение");
+  }
+  assertSameStringArray(statusPresentations.map((item) => item.state_id), screenSequence.additional_status_state_ids, "порядок экранов статусов");
+  const messageIds = new Set(messages.map((message) => message.id));
+  const orderedStateIdSet = new Set(orderedStateIds);
+  for (const presentation of statusPresentations) {
+    if (!orderedStateIdSet.has(presentation.base_state_id) || !messageIds.has(presentation.lifecycle_message_id)) {
+      fail(`${presentation.state_id}: экран статуса должен использовать согласованный экран с погашенной кнопкой и сообщение`);
+    }
+  }
   return lifecycle;
+}
+
+function buildStatusPresentationStates(baseStates, lifecycle) {
+  const screenSequence = lifecycle.screen_sequence;
+  const messages = new Map(lifecycle.messages.map((message) => [message.id, message]));
+  return screenSequence.status_presentations.map((presentation, index) => {
+    const base = baseStates.find((state) => state.id === presentation.base_state_id);
+    const message = messages.get(presentation.lifecycle_message_id);
+    if (!base || !message) fail(`${presentation.state_id}: не найдена визуальная основа или согласованный текст`);
+    return {
+      ...base,
+      id: presentation.state_id,
+      order: baseStates.length + index + 1,
+      display_order: baseStates.at(-1).display_order + index + 1,
+      caption: presentation.caption,
+      action_ids: [],
+      cta_rect: null,
+      raster_layers: base.raster_layers,
+      status_message: {
+        id: presentation.lifecycle_message_id,
+        text: message.authoritative_text,
+      },
+    };
+  });
 }
 
 export function loadSevenScreenContracts(root = process.cwd()) {
@@ -375,7 +420,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   const frameById = new Map(frameContract.frames.map((frame) => [frame.state_id, frame]));
   const visualById = new Map(visualStates.map((state) => [state.state_id || state.id, state]));
 
-  const states = activeStateIds.map((stateId, index) => {
+  const baseStates = activeStateIds.map((stateId, index) => {
     const journeyState = journeyById.get(stateId);
     const frame = frameById.get(stateId);
     const visualState = visualById.get(stateId);
@@ -425,24 +470,27 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     return state;
   });
 
+  const lifecycle = validateLifecycle(journey.lifecycle, baseStates.filter((state) => state.cta_rect).map((state) => state.id), baseStates.map((state) => state.id), authoritativeInterviewRegister);
+  const states = [...baseStates, ...buildStatusPresentationStates(baseStates, lifecycle)];
   if (journey.initial_state_id !== states[0].id) fail("начальным должен быть первый экран маршрута");
-  if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total < states.at(-1).display_order) {
+  if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total !== states.at(-1).display_order) {
     fail("не задан корректный общий отображаемый номер маршрута");
   }
   const orderAction = (journey.actions || []).find((action) => action.id === "order-presentation");
   if (!orderAction || !states.some((state) => state.id === orderAction.target_state_id)) {
     fail("не задан переход заказа презентации в активное состояние");
   }
-  const ctaStates = states.filter((state) => state.cta_rect).map((state) => state.id);
+  const ctaStates = baseStates.filter((state) => state.cta_rect).map((state) => state.id);
   if (JSON.stringify(orderAction.source_state_ids) !== JSON.stringify(ctaStates)) {
     fail("источники действия заказа не совпадают с CTA визуального договора");
   }
-  const lifecycle = validateLifecycle(journey.lifecycle, ctaStates, states.map((state) => state.id), authoritativeInterviewRegister);
   const expectedArchiveMembers = [
     ...ARCHIVE_STATIC_MEMBERS,
-    ...states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)),
+    ...[...new Set(states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)))].sort(),
   ];
-  assertSameStringArray(packageContract.archive_members, expectedArchiveMembers, "договор пакета/archive_members");
+  if (JSON.stringify([...packageContract.archive_members].sort()) !== JSON.stringify([...expectedArchiveMembers].sort())) {
+    fail(`договор пакета/archive_members: состав не совпадает; ожидается ${expectedArchiveMembers.join(", ")}`);
+  }
 
   return {
     registry,
@@ -501,6 +549,7 @@ function renderRuntimeData(contracts) {
         content: state.content,
         logical_dimensions: state.source.logical_dimensions,
         cta_rect: state.cta_rect,
+        status_message: state.status_message,
       };
       if (state.presentation === "phone") {
         const layers = state.raster_layers.map(renderLayerData);
@@ -586,7 +635,7 @@ function bytesFromImportedRaster(resultBySourcePath, raster, label) {
 function buildInternalManifest(contracts, runtimeEntries, candidateFingerprint) {
   return {
     version: "3.0.0",
-    status: "portable-ten-screen-prototype",
+    status: "portable-thirteen-screen-prototype",
     candidate_fingerprint: { algorithm: "sha256", sha256: candidateFingerprint },
     state_ids: contracts.states.map((state) => state.id),
     active_state_ids: contracts.states.map((state) => state.id),
@@ -597,7 +646,7 @@ function buildInternalManifest(contracts, runtimeEntries, candidateFingerprint) 
 function buildArchiveReadme(contracts) {
   return Buffer.from(`# Автономный прототип заказа презентации
 
-В архиве находится один десятиэкранный пользовательский путь. Все изображения и данные синтетические. Сетевые подключения не используются.
+В архиве находятся десять исходных экранов пользовательского пути и три экрана согласованных ошибочных статусов в конце маршрута. Все изображения и данные синтетические. Сетевые подключения не используются.
 
 Откройте \`index.html\` двойным щелчком или перетащите файл в Chromium, Safari либо другой современный браузер. Стрелки в левой панели и клавиши ←/→ переключают экраны. На длинных телефонных экранах прокрутка выполняется внутри средней области смартфона. Три варианта презентации после письма автоматически масштабируются под окно; их страницы прокручиваются внутри десктопной сцены.
 
@@ -647,12 +696,13 @@ export async function buildSevenScreenPrototype(root = process.cwd(), { writeRas
     }
   }
 
+  const uniqueAssetEntries = [...new Map(assetEntries.map((entry) => [entry.name, entry])).values()];
   const runtimeEntries = [
     { name: "index.html", content: readTemplate(root, "index.html") },
     { name: "app.js", content: readTemplate(root, "app.js") },
     { name: "data.js", content: renderRuntimeData(contracts) },
     { name: "styles.css", content: readTemplate(root, "styles.css") },
-    ...assetEntries,
+    ...uniqueAssetEntries,
   ];
   const fingerprintPayload = runtimeEntries.map((entry) => ({ path: entry.name, bytes: entry.content.length, sha256: sha256(entry.content) }));
   const candidateFingerprint = sha256(jsonBytes(fingerprintPayload));
@@ -666,7 +716,7 @@ export async function buildSevenScreenPrototype(root = process.cwd(), { writeRas
   const archive = createStoredZip(archiveEntries);
   const externalManifest = {
     version: "3.0.0",
-    status: "portable-ten-screen-prototype",
+    status: "portable-thirteen-screen-prototype",
     candidate_fingerprint: { algorithm: "sha256", sha256: candidateFingerprint },
     state_ids: contracts.states.map((state) => state.id),
     runtime_files: fingerprintPayload,
@@ -857,7 +907,7 @@ export function compareSevenScreenRuntime(root, built) {
   const expectedAssets = built.runtimeEntries.filter((entry) => entry.name.startsWith("assets/")).map((entry) => path.posix.basename(entry.name)).sort();
   const assetRoot = path.join(root, PACKAGE_PATH, "demo/assets");
   const actualAssets = fs.existsSync(assetRoot) ? fs.readdirSync(assetRoot).sort() : [];
-  if (JSON.stringify(actualAssets) !== JSON.stringify(expectedAssets)) issues.push("demo/assets: состав ресурсов отличается от десятиэкранного договора");
+  if (JSON.stringify(actualAssets) !== JSON.stringify(expectedAssets)) issues.push("demo/assets: состав ресурсов отличается от тринадцатиэкранного маршрута");
   return issues;
 }
 
@@ -904,13 +954,13 @@ export function validateSavedSevenScreenPrototype(root = process.cwd()) {
   } catch {
     return [`${PACKAGE_MANIFEST_RELATIVE_PATH}: манифест не прочитан`];
   }
-  if (JSON.stringify(manifest.state_ids) !== JSON.stringify(contracts.registry.active_state_ids)) {
+  if (JSON.stringify(manifest.state_ids) !== JSON.stringify(contracts.states.map((state) => state.id))) {
     issues.push("манифест содержит неверный порядок состояний");
   }
   for (const relativePath of [PROJECTION_MAP_RELATIVE_PATH, RASTER_MANIFEST_RELATIVE_PATH]) {
     try {
       const value = readJson(root, `${PACKAGE_PATH}/${relativePath}`);
-      if (JSON.stringify(value.state_ids) !== JSON.stringify(contracts.registry.active_state_ids)) {
+      if (JSON.stringify(value.state_ids) !== JSON.stringify(contracts.states.map((state) => state.id))) {
         issues.push(`${relativePath}: неверный порядок состояний`);
       }
     } catch (error) {
@@ -919,7 +969,7 @@ export function validateSavedSevenScreenPrototype(root = process.cwd()) {
   }
   if (!SHA256_PATTERN.test(manifest.candidate_fingerprint?.sha256 || "")) issues.push("манифест не содержит отпечаток кандидата");
 
-  const expectedAssetNames = contracts.states.flatMap(stateAssetNames).sort();
+  const expectedAssetNames = [...new Set(contracts.states.flatMap(stateAssetNames))].sort();
   const assetRoot = path.join(root, PACKAGE_PATH, "demo/assets");
   const actualAssetNames = fs.existsSync(assetRoot) ? fs.readdirSync(assetRoot).sort() : [];
   if (JSON.stringify(actualAssetNames) !== JSON.stringify(expectedAssetNames)) issues.push("demo/assets не содержит договорный набор PNG");

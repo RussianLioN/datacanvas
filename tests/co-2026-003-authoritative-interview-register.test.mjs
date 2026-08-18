@@ -10,18 +10,18 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   const register = readJson("docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json");
   assert.equal(register.change_order_id, "CO-2026-003");
   assert.equal(register.source_of_truth_policy.interview_precedence, "equal_to_controlled_xlsx");
-  assert.ok(register.decisions.length >= 9);
-  assert.ok(register.verbatim_wordings.length >= 28);
-  assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-009");
-  assert.equal(register.decisions.at(-1).authoritative_wording_id, "CO3-WRD-026");
+  assert.ok(register.decisions.length >= 10);
+  assert.ok(register.verbatim_wordings.length >= 30);
+  assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-010");
+  assert.equal(register.decisions.at(-1).authoritative_wording_id, "CO3-WRD-029");
   assert.equal(
     register.verbatim_wordings.find((wording) => wording.wording_id === "CO3-WRD-026")?.text,
     "Полная недоставка показывается тем же экраном и дословным сообщением, что и частичная доставка; нового текста и отдельного экрана не будет.",
   );
   assert.deepEqual(register.unresolved_authoritative_text_ids, []);
   assert.deepEqual(register.visual_release_gate, {
-    content_review_status: "pending_product_owner",
-    visual_release_status: "pending_product_owner",
+    content_review_status: "approved_product_owner",
+    visual_release_status: "approved_product_owner",
     release_condition: "explicit_product_owner_visual_approval",
   });
   assert.deepEqual(
@@ -36,20 +36,28 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   );
   assert.equal(JSON.stringify(register).includes("@"), false);
   const journey = readText("docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md");
-  assert.match(journey, /Статус содержания: ожидается повторное согласование\./);
+  assert.match(journey, /Статус содержания: согласовано\. Статус визуального выпуска: согласовано\./);
   assert.match(journey, /Все существующие десять экранов сохраняются в исходном порядке/);
-  assert.doesNotMatch(journey, /Статус содержания: согласовано\./);
+  assert.doesNotMatch(journey, /Статус содержания: ожидается повторное согласование\./);
 });
 
-test("входные документы CO-2026-003 не выдают ожидающее согласование содержания за принятое", () => {
+test("входные документы CO-2026-003 отражают одобренные содержание и визуальный выпуск", () => {
   const entrypoints = [
     "docs/product/README.md",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
     "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
   ].map(readText);
 
   for (const entrypoint of entrypoints) {
-    assert.match(entrypoint, /ожидает повторного согласования содержания/u);
-    assert.doesNotMatch(entrypoint, /Содержание (пути |Q4_2026 )?согласовано/u);
+    assert.match(entrypoint, /содержание Q4_2026 (?:согласовано|и визуальный выпуск согласованы)/iu);
+    assert.match(entrypoint, /(?:визуальная генерация\s+разрешена|визуальный выпуск (?:согласованы|также согласован)|Штатная генерация опубликовала)/iu);
+    assert.doesNotMatch(entrypoint, /ожидает повторного согласования содержания/u);
+    assert.doesNotMatch(entrypoint, /ещё не\s+согласовано повторно/u);
+    assert.doesNotMatch(entrypoint, /Штатная генерация заменит/u);
   }
+
+  const journey = readText("docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md");
+  assert.match(journey, /ровно десять исходных состояний в указанном порядке/iu);
+  assert.match(journey, /три виртуальных статусных состояния в конце выпуска/iu);
 });

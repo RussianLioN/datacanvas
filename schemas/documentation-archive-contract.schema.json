@@ -34,6 +34,14 @@
     "data_class": { "type": "string", "enum": ["internal"] },
     "visibility": { "type": "string", "enum": ["restricted"] },
     "primary_selection": { "type": "string", "const": "all_stage_primary_artifacts" },
+    "exclude_primary_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+      }
+    },
     "additional_artifacts": {
       "type": "array",
       "minItems": 1,
