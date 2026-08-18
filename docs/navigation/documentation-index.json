@@ -2573,8 +2573,8 @@
       "artifact_registry_id": "ART-109",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/schemas/artifact-registry.json",
@@ -2798,8 +2798,8 @@
       "artifact_registry_id": "ART-214",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/security/export-sanitization-checklist.md",
@@ -3153,8 +3153,8 @@
       "artifact_registry_id": "ART-506",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
@@ -3210,8 +3210,8 @@
       "artifact_registry_id": "ART-508",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/error-taxonomy.md",
@@ -3325,8 +3325,8 @@
       "artifact_registry_id": "ART-502",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/srs-v0.1.md",
@@ -8489,8 +8489,8 @@
       "artifact_registry_id": "ART-487",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/acceptance-delta.md",
@@ -8654,8 +8654,8 @@
       "artifact_registry_id": "ART-482",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/business-rules.md",
@@ -9319,8 +9319,8 @@
       "artifact_registry_id": "ART-852",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
@@ -9388,8 +9388,8 @@
       "artifact_registry_id": "ART-854",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
@@ -9450,6 +9450,7 @@
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/README.md",
         "docs/README.md",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "README.md"
       ],
       "anchors": [
@@ -11614,8 +11615,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
@@ -11645,6 +11646,7 @@
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
         "docs/README.md",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "README.md"
       ],
       "anchors": [
@@ -11786,6 +11788,7 @@
         "docs/product/README.md",
         "docs/product/requirements/business-claim-map.json",
         "docs/README.md",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "README.md"
       ],
       "anchors": [
@@ -12869,8 +12872,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
@@ -12893,8 +12896,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
@@ -12917,8 +12920,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
@@ -12941,8 +12944,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/feature-spec-a2a-launch.json",
@@ -12989,8 +12992,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
@@ -13013,8 +13016,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/generated-spec-package-manifest.json",
@@ -13037,8 +13040,8 @@
       "artifact_registry_id": "ART-499",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/interview-to-spec-trace.json",
@@ -13061,8 +13064,8 @@
       "artifact_registry_id": "ART-498",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/README.md",
@@ -13141,8 +13144,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
@@ -13165,8 +13168,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
@@ -13189,8 +13192,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
@@ -13213,8 +13216,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/ux/export-png-pixel-smoke.json",
@@ -14318,6 +14321,103 @@
       "click_depth": 2
     },
     {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+      "title": "Пакет Приёмки Документации CO-2026-003",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Product Owner / Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
+        "docs/architecture/schemas/artifact-hash-manifest.json",
+        "docs/architecture/security/data-leakage-manifest.json",
+        "docs/architecture/system-analysis/datacanvas-interface-control.md",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json",
+        "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
+        "docs/architecture/system-analysis/error-taxonomy.json",
+        "docs/architecture/system-analysis/error-taxonomy.md",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/architecture/system-analysis/srs-v0.1.json",
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
+        "docs/product/analysis/ba-sa/interview-derived-coverage.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/analysis/ba/business-rules.json",
+        "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+        "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/business-claim-map.json",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/roadmap/roadmap-v0.1.md",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+        "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+        "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+        "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+        "docs/product/specs/feature-spec-q4-lisa-states.json",
+        "docs/product/specs/feature-spec-q4-profile-mail.json",
+        "docs/product/specs/generated-spec-package-manifest.json",
+        "docs/product/specs/interview-to-spec-trace.json",
+        "docs/product/specs/README.md",
+        "docs/product/specs/task-spec-q4-lisa-order-state.json",
+        "docs/product/specs/task-spec-q4-lisa-status-state.json",
+        "docs/product/specs/task-spec-q4-profile-addresses.json",
+        "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+        "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "пакет-приёмки-документации-co-2026-003",
+        "назначение",
+        "1-источник-решений-и-планирования",
+        "2-продуктовый-смысл-и-приёмка",
+        "3-системные-границы",
+        "4-набор-для-разработки-по-спецификациям",
+        "5-пользовательский-путь-и-прототип",
+        "6-доказательства-архив-и-контроль-целостности",
+        "итог-приёмки"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
       "title": "Доказательства проверок профиля Q4_2026 для Лисы",
       "section": "release-evidence",
@@ -14341,6 +14441,7 @@
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/README.md",
         "README.md"
       ],
@@ -14616,6 +14717,7 @@
       "outgoing_links": [
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.json",
@@ -36865,14 +36967,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1276,
-    "manual_entries": 1266,
+    "total_entries": 1277,
+    "manual_entries": 1267,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1210,
+    "searchable_entries": 1211,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 204,
+    "reachable_from_root": 227,
     "orphan_entries": 0
   },
   "ignored_paths": [

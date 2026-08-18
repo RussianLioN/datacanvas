@@ -35,6 +35,10 @@
       "label": "Карта влияния изменения"
     },
     {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+      "label": "Пакет итоговой приёмки документации Q4_2026"
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
       "label": "Путь пользователя в Лисе"
     },
@@ -49,6 +53,50 @@
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
       "label": "Манифест состава и целостности прототипа"
+    },
+    {
+      "path": "docs/product/specs/generated-spec-package-manifest.json",
+      "label": "Манифест набора спецификаций Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "label": "Спецификация адресов и почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "label": "Спецификация состояния заказа в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "label": "Задача получения адресов Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "label": "Задача почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "label": "Задача принятия заказа в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "label": "Задача статусов в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+      "label": "Инструкция агенту для получения адресов Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      "label": "Инструкция агенту для почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+      "label": "Инструкция агенту для принятия заказа Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+      "label": "Инструкция агенту для статусов Q4_2026"
     },
     {
       "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",

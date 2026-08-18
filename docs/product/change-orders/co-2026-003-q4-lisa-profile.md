@@ -81,6 +81,7 @@
 - [Реестр согласованных формулировок](co-2026-003-authoritative-interview-decision-register.md)
 - [Карта влияния](co-2026-003-q4-lisa-profile-impact.md)
 - [План реализации](../../plans/co-2026-003-q4-lisa-profile-implementation-plan.md)
+- [Пакет итоговой приёмки документации](../../release/co-2026-003-q4-lisa-profile-acceptance-packet.md) — маршрут просмотра всех требований, системных документов, спецификаций, прототипа и доказательств.
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx` —
   очищенная рабочая книга, источник сроков и ресурсов.
 

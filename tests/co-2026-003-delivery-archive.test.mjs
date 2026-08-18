@@ -87,7 +87,7 @@ test("главный архив по умолчанию остаётся обр�
   assert.match(result.stdout, /архив документации актуален/u);
 });
 
-test("специальный архив CO-2026-003 использует рабочую книгу 2026-08-17 вместо исторической книги", () => {
+test("специальный архив CO-2026-003 содержит актуальные исходники Q4_2026 для приёмки", () => {
   const contract = JSON.parse(fs.readFileSync(
     path.join(repositoryRoot, "docs/release/co-2026-003-prototype-delivery-archive-contract.json"),
     "utf8",
@@ -99,6 +99,22 @@ test("специальный архив CO-2026-003 использует раб�
   ]);
   assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"), true);
   assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), true);
+  assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"), true);
+  for (const artifactPath of [
+    "docs/product/specs/generated-spec-package-manifest.json",
+    "docs/product/specs/feature-spec-q4-profile-mail.json",
+    "docs/product/specs/feature-spec-q4-lisa-states.json",
+    "docs/product/specs/task-spec-q4-profile-addresses.json",
+    "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+    "docs/product/specs/task-spec-q4-lisa-order-state.json",
+    "docs/product/specs/task-spec-q4-lisa-status-state.json",
+    "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+    "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+    "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+    "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+  ]) {
+    assert.equal(additionalPaths.has(artifactPath), true, `в архиве отсутствует исходник Q4_2026: ${artifactPath}`);
+  }
 });
 
 test("контракт поставки с неутверждёнными статусами не создаёт архив и сообщает оба статуса", () => {

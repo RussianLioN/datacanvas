@@ -1540,6 +1540,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+      "route_id": "co-2026-003-q4-lisa-profile-acceptance-packet",
+      "section": "release-evidence",
+      "owner_role": "Product Owner / Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется источник решений интервью, состав Q4_2026-документов, прототип, архив или доказательства проверок.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
       "route_id": "co-2026-003-prototype-delivery-archive",
       "section": "release-evidence",
