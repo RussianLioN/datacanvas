@@ -26,6 +26,7 @@
 - [План универсального рабочего процесса валидации, правки и генерации артефактов проектной документации](universal-documentation-workflow-implementation-plan.md)
 - [План поиска цепочки XLSX, OPML и импорта в Jira](datacanvas-xlsx-opml-jira-recovery-plan.md)
 - [План формирования полного BA-пакета DataCanvas](datacanvas-ba-package-completion-plan.md)
+- [План реализации CO-2026-003: Q4_2026, Лиса, почта и Профиль сотрудника](co-2026-003-q4-lisa-profile-implementation-plan.md)
 
 ## Правило
 

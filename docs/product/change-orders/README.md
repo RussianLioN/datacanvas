@@ -24,6 +24,9 @@ Product Change Order должен содержать источник измен
 - [Протокол PO-опросника Product Change Order](product-change-questionnaire-protocol.md)
 - [CO-2026-001: приоритет запуска DataCanvas другим агентом](co-2026-001-a2a-first-priority.md)
 - [CO-2026-002: граница P1 и P2 для запуска DataCanvas другим агентом](co-2026-002-agent-launch-delivery-scope.md)
+- [CO-2026-003: Q4_2026 — Лиса, Профиль сотрудника и почтовая доставка](co-2026-003-q4-lisa-profile.md) — подтверждённый объём одного заказа, адресов через Профиль сотрудника, `ODT`/`PDF` и статусов в том же чате.
+- [Реестр согласованных формулировок CO-2026-003](co-2026-003-authoritative-interview-decision-register.md) — дословные безопасные решения владельца продукта.
+- [Карта влияния CO-2026-003](co-2026-003-q4-lisa-profile-impact.md) — куда эти решения внесены в продуктовой документации и пользовательском пути.
 - [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
 
 ## Машинные Артефакты
@@ -35,5 +38,8 @@ Product Change Order должен содержать источник измен
 - `co-2026-001-acceptance-questionnaire-state.json`
 - `co-2026-002-agent-launch-delivery-scope.json`
 - `co-2026-002-agent-launch-delivery-scope-impact.json`
+- `co-2026-003-q4-lisa-profile.json`
+- `co-2026-003-q4-lisa-profile-impact.json`
+- `co-2026-003-authoritative-interview-decision-register.json`
 - `change-impact-assessment.json`
 - `../requirements/business-claim-map.json`

@@ -70,15 +70,17 @@
 - [Состояние интервью](co-2026-003-q4-lisa-profile-questionnaire-state.json)
 - [Журнал интервью](co-2026-003-q4-lisa-profile-questionnaire-log.md)
 - [Реестр согласованных формулировок](co-2026-003-authoritative-interview-decision-register.md)
-- [Карта влияния](co-2026-003-q4-lisa-profile-impact.json)
+- [Карта влияния](co-2026-003-q4-lisa-profile-impact.md)
 - [План реализации](../../plans/co-2026-003-q4-lisa-profile-implementation-plan.md)
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx` —
   очищенная рабочая книга, источник сроков и ресурсов.
 
+Машиночитаемые состояния, реестр и карта связей поддерживают проверки и
+трассировку; для чтения решения сначала используйте Markdown-документы выше.
+
 ## Проверка
 
-Заявка зарегистрирована в реестре `product-change-order-ledger.json` вместе с
-картой влияния `co-2026-003-q4-lisa-profile-impact.json`. Проверка должна
+Заявка зарегистрирована в машинном реестре вместе с картой связей. Проверка должна
 подтверждать согласованность заявки, карты влияния и производных продуктовых
 артефактов.
 
