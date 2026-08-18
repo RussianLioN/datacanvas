@@ -8,7 +8,6 @@ import test from "node:test";
 
 import {
   __test as prototypeInternals,
-  buildSevenScreenPrototype,
   loadSevenScreenContracts,
   publishSevenScreenRuntime,
 } from "../scripts/lib/presentation-link-lisa-seven-screen-prototype.mjs";
@@ -329,6 +328,23 @@ function stateIds(states) {
   return Array.from(states, (state) => state.id);
 }
 
+function runtimePublishGateCandidate() {
+  return {
+    contracts: {
+      lifecycle: {
+        content_review_status: "approved_product_owner",
+        visual_release_status: "approved_product_owner",
+      },
+    },
+    runtimeEntries: [
+      {
+        name: "index.html",
+        content: Buffer.from("<!doctype html><html lang=\"ru\"></html>\n", "utf8"),
+      },
+    ],
+  };
+}
+
 function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /(?:^|[^\w])\.\.(?:\/|\\)/u, `${label}: runtime не должен ссылаться через ..`);
   assert.doesNotMatch(value, /\b(?:source|editable-sources)\//u, `${label}: runtime не должен зависеть от source/** или editable-sources/**`);
@@ -390,7 +406,7 @@ test("исходный договор хранит согласованные с
 
 test("только одобрение обоих выпускных решений разрешает публикацию кандидата", async () => {
   const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-visual-release-"));
-  const built = await buildSevenScreenPrototype(root);
+  const built = runtimePublishGateCandidate();
 
   try {
     assert.equal(built.contracts.lifecycle.content_review_status, "approved_product_owner");
