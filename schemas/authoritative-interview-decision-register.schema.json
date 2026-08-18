@@ -70,7 +70,7 @@
       "additionalProperties": false,
       "required": ["content_review_status", "visual_release_status", "release_condition"],
       "properties": {
-        "content_review_status": {"const": "approved_product_owner"},
+        "content_review_status": {"enum": ["pending_product_owner", "approved_product_owner"]},
         "visual_release_status": {"enum": ["pending_product_owner", "approved_product_owner"]},
         "release_condition": {"const": "explicit_product_owner_visual_approval"}
       }

@@ -231,8 +231,8 @@ function normalizeDesktopRaster(visualState, stateId) {
 
 function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeRegister) {
   if (!lifecycle || lifecycle.model !== "variant") fail("договор пути должен содержать вариантный жизненный цикл");
-  if (lifecycle.content_review_status !== "approved_product_owner") {
-    fail("договор пути должен ссылаться только на согласованные Product Owner сообщения");
+  if (!["pending_product_owner", "approved_product_owner"].includes(lifecycle.content_review_status)) {
+    fail("договор пути должен явно задавать статус согласования содержания");
   }
   if (!["pending_product_owner", "approved_product_owner"].includes(lifecycle.visual_release_status)) {
     fail("договор пути должен явно задавать статус визуального выпуска");
@@ -779,7 +779,7 @@ export function publishSevenScreenRuntime(root, built) {
     built?.contracts?.lifecycle?.content_review_status !== "approved_product_owner" ||
     built?.contracts?.lifecycle?.visual_release_status !== "approved_product_owner"
   ) {
-    fail("визуальный выпуск требует отдельного одобрения Product Owner");
+    fail("визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner");
   }
   const packageRoot = path.join(root, PACKAGE_PATH);
   const demoRoot = path.join(packageRoot, "demo");

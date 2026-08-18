@@ -160,7 +160,7 @@
       ],
       "properties": {
         "model": { "const": "variant" },
-        "content_review_status": { "const": "approved_product_owner" },
+        "content_review_status": { "enum": ["pending_product_owner", "approved_product_owner"] },
         "visual_release_status": { "enum": ["pending_product_owner", "approved_product_owner"] },
         "states": {
           "type": "array",

@@ -19,7 +19,7 @@
   "required_error_ids": ["ERR-004", "ERR-005", "ERR-006", "ERR-007", "ERR-008", "ERR-009", "ERR-010"],
   "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
   "visual_release_gate": {
-    "content_review_status": "approved_product_owner",
+    "content_review_status": "pending_product_owner",
     "visual_release_status": "pending_product_owner",
     "release_condition": "explicit_product_owner_visual_approval"
   }

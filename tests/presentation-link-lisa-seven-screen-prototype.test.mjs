@@ -333,7 +333,7 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
 
-test("исходный договор задаёт согласованные сообщения жизненного цикла без визуального выпуска", () => {
+test("исходный договор хранит согласованные сообщения, но ожидает повторного согласования содержания", () => {
   const contracts = loadSevenScreenContracts(root);
   const lifecycle = contracts.journey.lifecycle;
   const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
@@ -341,7 +341,7 @@ test("исходный договор задаёт согласованные с
   const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
 
   assert.equal(lifecycle?.model, "variant");
-  assert.equal(lifecycle?.content_review_status, "approved_product_owner");
+  assert.equal(lifecycle?.content_review_status, "pending_product_owner");
   assert.equal(lifecycle?.visual_release_status, "pending_product_owner");
   assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
   assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
@@ -377,17 +377,17 @@ test("исходный договор задаёт согласованные с
   );
 });
 
-test("одобрение текстов без отдельного одобрения визуального выпуска блокирует публикацию", async () => {
+test("ожидание согласования содержания не блокирует построение кандидата, но блокирует публикацию", async () => {
   const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-visual-release-"));
   const built = await buildSevenScreenPrototype(root);
 
   try {
-    built.contracts.lifecycle.content_review_status = "approved_product_owner";
-    built.contracts.lifecycle.visual_release_status = "pending_product_owner";
+    assert.equal(built.contracts.lifecycle.content_review_status, "pending_product_owner");
+    assert.equal(built.contracts.lifecycle.visual_release_status, "pending_product_owner");
 
     assert.throws(
       () => publishSevenScreenRuntime(temporaryRoot, built),
-      /визуальный выпуск требует отдельного одобрения Product Owner/u,
+      /визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner/u,
     );
     assert.equal(
       fs.existsSync(path.join(temporaryRoot, packagePath, "demo")),
@@ -395,14 +395,13 @@ test("одобрение текстов без отдельного одобре
       "блокировка не должна создавать визуальные выходные файлы",
     );
 
-    built.contracts.lifecycle.visual_release_status = "approved_product_owner";
-    built.contracts.lifecycle.content_review_status = "pending_product_owner";
+    built.contracts.lifecycle.content_review_status = "approved_product_owner";
     assert.throws(
       () => publishSevenScreenRuntime(temporaryRoot, built),
-      /визуальный выпуск требует отдельного одобрения Product Owner/u,
+      /визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner/u,
     );
 
-    built.contracts.lifecycle.content_review_status = "approved_product_owner";
+    built.contracts.lifecycle.visual_release_status = "approved_product_owner";
     publishSevenScreenRuntime(temporaryRoot, built);
     assert.ok(
       fs.existsSync(path.join(temporaryRoot, packagePath, "demo", "index.html")),

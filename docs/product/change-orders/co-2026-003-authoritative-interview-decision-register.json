@@ -53,7 +53,7 @@
     {"message_id":"CO3-MSG-005","lifecycle_message_id":"delivery_partial","text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
   ],
   "visual_release_gate": {
-    "content_review_status": "approved_product_owner",
+    "content_review_status": "pending_product_owner",
     "visual_release_status": "pending_product_owner",
     "release_condition": "explicit_product_owner_visual_approval"
   },

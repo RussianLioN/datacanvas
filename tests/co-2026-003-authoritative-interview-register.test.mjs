@@ -14,7 +14,7 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.equal(register.decisions.at(-1).decision_id, "CO3-DEC-009");
   assert.deepEqual(register.unresolved_authoritative_text_ids, []);
   assert.deepEqual(register.visual_release_gate, {
-    content_review_status: "approved_product_owner",
+    content_review_status: "pending_product_owner",
     visual_release_status: "pending_product_owner",
     release_condition: "explicit_product_owner_visual_approval",
   });
