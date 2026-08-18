@@ -1,0 +1,67 @@
+{
+  "$schema": "../../schemas/documentation-archive-contract.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "archive_id": "co-2026-003-q4-lisa-profile-delivery",
+  "title": "Пакет поставки CO-2026-003: Лиса, Профиль сотрудника и почтовая доставка",
+  "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  "output_path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
+  "data_class": "internal",
+  "visibility": "restricted",
+  "primary_selection": "all_stage_primary_artifacts",
+  "additional_artifacts": [
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "label": "Заявка на изменение Q4_2026"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "label": "Реестр согласованных решений интервью"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+      "label": "Карта влияния изменения"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "label": "Путь пользователя в Лисе"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "label": "Исходный договор пути пользователя"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "label": "Переносимый прототип пути пользователя"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+      "label": "Манифест состава и целостности прототипа"
+    },
+    {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "label": "Доказательства проверок контура Q4_2026"
+    }
+  ],
+  "embedded_navigation": [
+    "index.html",
+    "README.md",
+    "manifest.json"
+  ],
+  "archive_root": "repository",
+  "integrity_algorithm": "sha256",
+  "zip_method": "store",
+  "fixed_zip_timestamp": "1980-01-01T00:00:00Z",
+  "refresh_policy": {
+    "trigger": "any_byte_change_in_resolved_member_or_contract",
+    "generate_command": "npm run generate:co-2026-003-delivery-archive",
+    "check_command": "npm run check:co-2026-003-delivery-archive",
+    "validation_command": "npm run validate:co-2026-003-delivery-archive"
+  },
+  "release_gate": {
+    "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+    "required_content_review_status": "approved_product_owner",
+    "required_visual_release_status": "approved_product_owner",
+    "prototype_check": "presentation_link_lisa_user_journey"
+  }
+}

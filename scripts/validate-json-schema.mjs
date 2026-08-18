@@ -521,6 +521,10 @@ const cases = [
     data: "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
   },
   {
+    schema: "schemas/documentation-archive-contract.schema.json",
+    data: "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+  },
+  {
     schema: "schemas/workflow-state.schema.json",
     data: "docs/process/universal-documentation-workflow/workflow-state.json",
   },

@@ -97,6 +97,12 @@
       "allowed_writes": [
         "artifacts/documentation-archive/datacanvas-main-documentation.zip"
       ]
+    },
+    {
+      "generator_id": "co-2026-003-prototype-delivery-archive",
+      "allowed_writes": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip"
+      ]
     }
   ],
   "blocked_patterns": [

@@ -138,7 +138,7 @@
     "validate:generator-contracts": "node scripts/validate-universal-documentation-workflow.mjs generator-contracts",
     "validate:schema-coverage": "node scripts/validate-universal-documentation-workflow.mjs schema-coverage",
     "validate:mutation-guard": "node scripts/validate-universal-documentation-workflow.mjs mutation-guard",
-    "validate:universal-documentation-workflow": "node --test tests/universal-workflow-command-catalog.test.mjs && node scripts/validate-universal-documentation-workflow.mjs all",
+    "validate:universal-documentation-workflow": "node --test tests/universal-workflow-command-catalog.test.mjs tests/universal-workflow-release-gate.test.mjs && node scripts/validate-universal-documentation-workflow.mjs all",
     "validate:artifact-registry": "node scripts/validate-artifact-registry.mjs",
     "validate:artifact-hashes": "node scripts/generate-artifact-hash-manifest.mjs --check && node scripts/validate-artifact-hash-manifest.mjs",
     "validate:plan-coverage": "node scripts/validate-plan-coverage.mjs",

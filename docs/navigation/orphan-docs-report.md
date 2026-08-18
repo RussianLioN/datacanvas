@@ -56,7 +56,7 @@
 | `business` | `4` | 3 |
 | `business` | `hidden` | 78 |
 | `delivery` | `1` | 2 |
-| `delivery` | `2` | 11 |
+| `delivery` | `2` | 13 |
 | `delivery` | `hidden` | 828 |
 | `evidence` | `1` | 1 |
 | `evidence` | `2` | 1 |

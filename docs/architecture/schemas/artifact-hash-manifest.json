@@ -2017,7 +2017,7 @@
     {
       "artifact_id": "ART-404",
       "path": "docs/release/README.md",
-      "sha256": "3c23d8ae994c0415107be629e6f560dd79e1060b6d889ca89d03c6e7f4336418"
+      "sha256": "d9513e1cabe85bce1404cde8c91dd0046e468eb3ca9056353363607814cc6d3b"
     },
     {
       "artifact_id": "ART-405",
@@ -2042,22 +2042,22 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "85dcf8c8fc0f14a9df53451d1a8a97da5518adf5c3bbd7144669385e360c59d1"
+      "sha256": "a4523ae9abee48755b280c0252f21f5106ef8d1f203332058f582107f5fe0d56"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "c704e33fd3af9cff8331ed1838b451f6f478e075d441882a9068bb7ab88bfec3"
+      "sha256": "55f6ca986ac0dee9cee72524775902115f40ca75b0c76edb8c9d3f9498f8b9d4"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "8139653ecbc8677a83f3a510f1e1ca5e276061c490a6c4a0e301c39706b931e0"
+      "sha256": "0b3292fbada4013b42b178b46fff225a9b2842ce5c0304ad535b1679d39204f0"
     },
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "1c6b2162c23b735b0818347ebef50362d9d44a3b522bbefc27af46461d0da5bd"
+      "sha256": "563f68e59a817074d7eb7aa2881fb43ef676821a6c8a5b8bf71e2f4d134681b9"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "23ab535cba0225e4d6c1945fac64ebb014156cfcc416d6415924e9de8da2fe01"
+      "sha256": "85e56cfbd8fd69896255b12399eebe2bd5419d1c5ebe70d276acddc3e2f6b6f9"
     },
     {
       "artifact_id": "ART-569",
@@ -3212,12 +3212,12 @@
     {
       "artifact_id": "ART-643",
       "path": "docs/process/universal-documentation-workflow/README.md",
-      "sha256": "db13433aa4310a2ddc6ba880291eca0a3663fd6617e18e321718878c4eecdefc"
+      "sha256": "5ef1434bb81bb681af4ec696b1cd6ae5c400956df066f379f9cceb507c61291e"
     },
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "ce76287753bebfa680123fd9ddee2d2f8b52970376b72a04514ca5fb434d9ff8"
+      "sha256": "dafa59e5d8d3c853e8837bc4de42089e26b360326f2a64e6962c32a9defd1bc2"
     },
     {
       "artifact_id": "ART-645",
@@ -3232,17 +3232,17 @@
     {
       "artifact_id": "ART-647",
       "path": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
-      "sha256": "65ac121d7f9cbe4e2659aa1a85ec7dfc37be2278abb85c69c6c798134b694320"
+      "sha256": "4e2b60054816238e8a200b498e341943624cd426db94b46c6e2769601656e121"
     },
     {
       "artifact_id": "ART-648",
       "path": "docs/process/universal-documentation-workflow/artifact-inventory.json",
-      "sha256": "bb7723196dea4c3690cf99e3aebf64b671bd46db634115513f97be1a1fa64da0"
+      "sha256": "9cb341dc70324187c2d8c3934d7888ce6a728f1bc97f883ee8dec9eb1ece1d70"
     },
     {
       "artifact_id": "ART-649",
       "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
-      "sha256": "55aaaf876843c39d236a6bdd2fb8b5c4c58cd6b13c21a29a9cce14edf17b9588"
+      "sha256": "bfa74229822260594fd2c49507596a85f0cce075f7da9bb9ea09fe2f31fa482e"
     },
     {
       "artifact_id": "ART-650",
@@ -3277,12 +3277,12 @@
     {
       "artifact_id": "ART-656",
       "path": "docs/process/universal-documentation-workflow/schema-coverage-registry.json",
-      "sha256": "2f9cbac448a8de8447168518d0f3af6783c497a16419160af3160428b30dd841"
+      "sha256": "a4fd9170aa22d43d6ba1e6d443eb7d87b1255d5dc0bea1b801f4b1ffec6d139d"
     },
     {
       "artifact_id": "ART-657",
       "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
-      "sha256": "0042197c22b76076346ed227707f933eb606347ce14659804c849363147f5134"
+      "sha256": "a4802487e05085a5fd43d7659779bc0d20d8d01a59e86b0c2aa22bfce9aaf887"
     },
     {
       "artifact_id": "ART-658",
@@ -3357,7 +3357,7 @@
     {
       "artifact_id": "ART-672",
       "path": "schemas/generator-contracts.schema.json",
-      "sha256": "424d0c72314812d7c5e58894d8e6bacf762c5a29471ca590d90cea362190ffd7"
+      "sha256": "1a222be870ef3c456a47e635a9faed70de7d010ced187a822e4438226c727209"
     },
     {
       "artifact_id": "ART-673",
@@ -3382,7 +3382,7 @@
     {
       "artifact_id": "ART-677",
       "path": "scripts/validate-universal-documentation-workflow.mjs",
-      "sha256": "bec713923a1fc35f292a9fce80f4763ebc97b8f1bc1bc918e2f16c49f6bb0469"
+      "sha256": "65d5bd131ceec85cc2e51c060f8a3c411e91873d0b867192565ae6ad9fa4efea"
     },
     {
       "artifact_id": "ART-678",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "0a1bd6cfd581acc3a06990fe630bd76ebb566498a7990ad578e205822d24cd31"
+      "sha256": "18d2d981659457b6a25ed50bd4489141b1561343d562337c970689a6da8f9936"
     },
     {
       "artifact_id": "ART-742",
@@ -4107,7 +4107,7 @@
     {
       "artifact_id": "ART-822",
       "path": "schemas/documentation-archive-contract.schema.json",
-      "sha256": "640f6f8939934b586ba6c558f6a503976cf44a86bfad7fc7fc49a02f97d104c6"
+      "sha256": "381fec8fa22956bb2048ff208a85a5b0bf27bbd3722002bdc609d386155aa375"
     },
     {
       "artifact_id": "ART-823",
@@ -4117,12 +4117,12 @@
     {
       "artifact_id": "ART-824",
       "path": "scripts/generate-documentation-archive.mjs",
-      "sha256": "9d4f152d365b02013d6b7ac8d7cc2c5e3ee281525f666a8191000d2e7824178d"
+      "sha256": "6822594e9064be59c2bb110b753b4f3b66987c51c586424c72f310a69898b712"
     },
     {
       "artifact_id": "ART-825",
       "path": "scripts/validate-documentation-archive.mjs",
-      "sha256": "b2ebebea801150163b1d01b71a89289b7ab67ced267b486705c70a0e4ba789b4"
+      "sha256": "110ee1cae8e5a070db03beaa8162260872c9cc818cf0bd60d213144b490a9a82"
     },
     {
       "artifact_id": "ART-826",

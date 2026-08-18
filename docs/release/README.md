@@ -14,6 +14,7 @@
 - [Pilot report](pilot-report.md)
 - [Pilot execution handoff](pilot-execution-handoff.md)
 - [Доказательства проверок профиля Q4_2026 для Лисы](co-2026-003-q4-lisa-profile-validation-evidence.md)
+- [Архив поставки прототипа CO-2026-003](co-2026-003-prototype-delivery-archive.md) — отдельный состав поставки; прототип собирается и проверяется до ZIP-архива.
 - [Commit/PR evidence template](templates/commit-pr-evidence-template.md)
 
 ## Перед Review

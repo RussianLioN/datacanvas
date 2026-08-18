@@ -7862,6 +7862,8 @@
         "docs/process/universal-documentation-workflow/workflow-state.json",
         "docs/product/requirements/business-claim-map.json",
         "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
         "README.md",
         "schemas/cascade-baseline-manifest.schema.json",
         "schemas/cascade-impact-cone.schema.json",
@@ -14253,6 +14255,68 @@
       "click_depth": 1
     },
     {
+      "path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "title": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "json",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive.md",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
+      "title": "Архив поставки прототипа CO-2026-003",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+        "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "архив-поставки-прототипа-co-2026-003",
+        "назначение",
+        "обязательная-последовательность",
+        "текущее-состояние",
+        "связанные-источники"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
       "title": "Доказательства проверок профиля Q4_2026 для Лисы",
       "section": "release-evidence",
@@ -14274,6 +14338,8 @@
       "outgoing_links": [
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/README.md",
         "README.md"
       ],
@@ -14282,6 +14348,7 @@
         "результаты",
         "отрицательные-проверки",
         "ограничение-визуального-выпуска",
+        "поставка-прототипа",
         "внешние-решения",
         "безопасность-доказательств"
       ],
@@ -14547,6 +14614,7 @@
       "artifact_registry_id": "ART-404",
       "outgoing_links": [
         "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.json",
@@ -36319,6 +36387,7 @@
         "next_paths": [
           "docs/release/commit-pr-evidence.md",
           "docs/release/mvp-release-evidence-pack.md",
+          "docs/release/co-2026-003-prototype-delivery-archive.md",
           "docs/knowledge/evidence-index.md"
         ],
         "owner_role": "Delivery/GitOps Lead",
@@ -36795,14 +36864,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1274,
-    "manual_entries": 1264,
+    "total_entries": 1276,
+    "manual_entries": 1266,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1209,
+    "searchable_entries": 1210,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 202,
+    "reachable_from_root": 204,
     "orphan_entries": 0
   },
   "ignored_paths": [
