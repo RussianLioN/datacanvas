@@ -40,3 +40,16 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.match(journey, /Все существующие десять экранов сохраняются в исходном порядке/);
   assert.doesNotMatch(journey, /Статус содержания: согласовано\./);
 });
+
+test("входные документы CO-2026-003 не выдают ожидающее согласование содержания за принятое", () => {
+  const entrypoints = [
+    "docs/product/README.md",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+    "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+  ].map(readText);
+
+  for (const entrypoint of entrypoints) {
+    assert.match(entrypoint, /ожидает повторного согласования содержания/u);
+    assert.doesNotMatch(entrypoint, /Содержание (пути |Q4_2026 )?согласовано/u);
+  }
+});

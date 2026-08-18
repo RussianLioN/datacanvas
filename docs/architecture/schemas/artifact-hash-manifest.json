@@ -2002,7 +2002,7 @@
     {
       "artifact_id": "ART-401",
       "path": "docs/product/README.md",
-      "sha256": "6a2af16a3b2e2b9372de877dd440abe333b2cf2a5b62cf79e14d2276f8d022bb"
+      "sha256": "3f39c25bd28f94c329efb20bfd670471c6a07c99156b43b028bcc6ce5a5f266d"
     },
     {
       "artifact_id": "ART-402",
@@ -3217,7 +3217,7 @@
     {
       "artifact_id": "ART-644",
       "path": "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
-      "sha256": "dafa59e5d8d3c853e8837bc4de42089e26b360326f2a64e6962c32a9defd1bc2"
+      "sha256": "4301515aef879c0a0d202ca9159af2d1cf751a310b6b9167ff7350d8ecc13396"
     },
     {
       "artifact_id": "ART-645",
@@ -4167,7 +4167,7 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "134563469f31df6a0b555436fc5f6fb3726b7fbc8910ef47fe27e9619f89ce5a"
+      "sha256": "eea68c22a5fef7db2a87365dbb27ebc6941b3543f44a68fc35272518fe0bd3a9"
     },
     {
       "artifact_id": "ART-836",
