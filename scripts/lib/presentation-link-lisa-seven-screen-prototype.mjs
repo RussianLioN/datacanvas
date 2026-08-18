@@ -231,8 +231,20 @@ function normalizeDesktopRaster(visualState, stateId) {
 
 function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeRegister) {
   if (!lifecycle || lifecycle.model !== "variant") fail("договор пути должен содержать вариантный жизненный цикл");
-  if (lifecycle.review_status !== "approved_product_owner") {
+  if (lifecycle.content_review_status !== "approved_product_owner") {
     fail("договор пути должен ссылаться только на согласованные Product Owner сообщения");
+  }
+  if (!["pending_product_owner", "approved_product_owner"].includes(lifecycle.visual_release_status)) {
+    fail("договор пути должен явно задавать статус визуального выпуска");
+  }
+  const visualReleaseGate = authoritativeRegister?.visual_release_gate;
+  if (
+    !visualReleaseGate ||
+    visualReleaseGate.content_review_status !== lifecycle.content_review_status ||
+    visualReleaseGate.visual_release_status !== lifecycle.visual_release_status ||
+    visualReleaseGate.release_condition !== "explicit_product_owner_visual_approval"
+  ) {
+    fail("договор пути и реестр интервью должны согласованно разделять одобрение содержания и визуального выпуска");
   }
   if (!Array.isArray(lifecycle.states)) fail("вариантный жизненный цикл должен содержать состояния");
   const stateIds = lifecycle.states.map((state) => state?.id);
@@ -763,8 +775,11 @@ function withRuntimePublishRenameHook(hook, callback) {
 }
 
 export function publishSevenScreenRuntime(root, built) {
-  if (built?.contracts?.lifecycle?.review_status !== "approved_product_owner") {
-    fail("визуальный выпуск заблокирован до контрольного просмотра Product Owner");
+  if (
+    built?.contracts?.lifecycle?.content_review_status !== "approved_product_owner" ||
+    built?.contracts?.lifecycle?.visual_release_status !== "approved_product_owner"
+  ) {
+    fail("визуальный выпуск требует отдельного одобрения Product Owner");
   }
   const packageRoot = path.join(root, PACKAGE_PATH);
   const demoRoot = path.join(packageRoot, "demo");

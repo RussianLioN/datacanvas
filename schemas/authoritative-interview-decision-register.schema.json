@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/authoritative-interview-decision-register.schema.json",
   "title": "AuthoritativeInterviewDecisionRegister",
   "type": "object",
-  "required": ["version", "change_order_id", "source_of_truth_policy", "decisions", "verbatim_wordings", "authoritative_messages", "unresolved_authoritative_text_ids"],
+  "required": ["version", "change_order_id", "source_of_truth_policy", "decisions", "verbatim_wordings", "authoritative_messages", "visual_release_gate", "unresolved_authoritative_text_ids"],
   "additionalProperties": false,
   "properties": {
     "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
@@ -22,6 +22,7 @@
     "decisions": {"type": "array", "minItems": 8, "items": {"$ref": "#/$defs/decision"}},
     "verbatim_wordings": {"type": "array", "minItems": 24, "items": {"$ref": "#/$defs/wording"}},
     "authoritative_messages": {"type": "array", "minItems": 5, "maxItems": 5, "items": {"$ref": "#/$defs/message"}},
+    "visual_release_gate": {"$ref": "#/$defs/visual_release_gate"},
     "unresolved_authoritative_text_ids": {"type": "array", "items": {"type": "string", "pattern": "^CO3-MSG-\\d{3}$"}}
   },
   "$defs": {
@@ -63,6 +64,16 @@
           "then": {"properties": {"contour_display_rule": {"const": "by_actual_address_lookup"}}, "required": ["contour_display_rule"]}
         }
       ]
+    },
+    "visual_release_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_review_status", "visual_release_status", "release_condition"],
+      "properties": {
+        "content_review_status": {"const": "approved_product_owner"},
+        "visual_release_status": {"enum": ["pending_product_owner", "approved_product_owner"]},
+        "release_condition": {"const": "explicit_product_owner_visual_approval"}
+      }
     }
   }
 }

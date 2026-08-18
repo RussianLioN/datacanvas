@@ -135,7 +135,8 @@
   ],
   "lifecycle": {
     "model": "variant",
-    "review_status": "approved_product_owner",
+    "content_review_status": "approved_product_owner",
+    "visual_release_status": "pending_product_owner",
     "states": [
       { "id": "eligible", "next_state_ids": ["validating"] },
       { "id": "validating", "next_state_ids": ["rejected_retryable", "accepted_locked"] },

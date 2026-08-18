@@ -147,7 +147,8 @@
       "additionalProperties": false,
       "required": [
         "model",
-        "review_status",
+        "content_review_status",
+        "visual_release_status",
         "states",
         "button",
         "single_order_lock",
@@ -159,7 +160,8 @@
       ],
       "properties": {
         "model": { "const": "variant" },
-        "review_status": { "enum": ["pending_product_owner", "approved_product_owner"] },
+        "content_review_status": { "const": "approved_product_owner" },
+        "visual_release_status": { "enum": ["pending_product_owner", "approved_product_owner"] },
         "states": {
           "type": "array",
           "minItems": 1,

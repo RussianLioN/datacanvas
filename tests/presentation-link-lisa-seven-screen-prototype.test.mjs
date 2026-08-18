@@ -8,6 +8,7 @@ import test from "node:test";
 
 import {
   __test as prototypeInternals,
+  buildSevenScreenPrototype,
   loadSevenScreenContracts,
   publishSevenScreenRuntime,
 } from "../scripts/lib/presentation-link-lisa-seven-screen-prototype.mjs";
@@ -340,7 +341,8 @@ test("исходный договор задаёт согласованные с
   const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
 
   assert.equal(lifecycle?.model, "variant");
-  assert.equal(lifecycle?.review_status, "approved_product_owner");
+  assert.equal(lifecycle?.content_review_status, "approved_product_owner");
+  assert.equal(lifecycle?.visual_release_status, "pending_product_owner");
   assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
   assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
   assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);
@@ -373,6 +375,42 @@ test("исходный договор задаёт согласованные с
       {"id":"delivery_partial","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-005","authoritative_text_status":"agreed","authoritative_text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
     ],
   );
+});
+
+test("одобрение текстов без отдельного одобрения визуального выпуска блокирует публикацию", async () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-visual-release-"));
+  const built = await buildSevenScreenPrototype(root);
+
+  try {
+    built.contracts.lifecycle.content_review_status = "approved_product_owner";
+    built.contracts.lifecycle.visual_release_status = "pending_product_owner";
+
+    assert.throws(
+      () => publishSevenScreenRuntime(temporaryRoot, built),
+      /визуальный выпуск требует отдельного одобрения Product Owner/u,
+    );
+    assert.equal(
+      fs.existsSync(path.join(temporaryRoot, packagePath, "demo")),
+      false,
+      "блокировка не должна создавать визуальные выходные файлы",
+    );
+
+    built.contracts.lifecycle.visual_release_status = "approved_product_owner";
+    built.contracts.lifecycle.content_review_status = "pending_product_owner";
+    assert.throws(
+      () => publishSevenScreenRuntime(temporaryRoot, built),
+      /визуальный выпуск требует отдельного одобрения Product Owner/u,
+    );
+
+    built.contracts.lifecycle.content_review_status = "approved_product_owner";
+    publishSevenScreenRuntime(temporaryRoot, built);
+    assert.ok(
+      fs.existsSync(path.join(temporaryRoot, packagePath, "demo", "index.html")),
+      "явное одобрение визуального выпуска должно разрешать публикацию тестового кандидата",
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 });
 
 test("активный договор и demo/data.js фиксируют ровно десять состояний в утверждённом порядке", () => {
@@ -771,7 +809,8 @@ test("публикация demo откатывает весь комплект �
   const built = {
     contracts: {
       lifecycle: {
-        review_status: "approved_product_owner",
+        content_review_status: "approved_product_owner",
+        visual_release_status: "approved_product_owner",
       },
     },
     runtimeEntries: [

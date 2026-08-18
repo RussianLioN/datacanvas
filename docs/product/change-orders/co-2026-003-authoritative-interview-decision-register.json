@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "change_order_id": "CO-2026-003",
   "source_of_truth_policy": {
     "interview_precedence": "equal_to_controlled_xlsx",
@@ -52,5 +52,10 @@
     {"message_id":"CO3-MSG-004","lifecycle_message_id":"delivery_delayed","text":"Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."},
     {"message_id":"CO3-MSG-005","lifecycle_message_id":"delivery_partial","text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
   ],
+  "visual_release_gate": {
+    "content_review_status": "approved_product_owner",
+    "visual_release_status": "pending_product_owner",
+    "release_condition": "explicit_product_owner_visual_approval"
+  },
   "unresolved_authoritative_text_ids": []
 }
