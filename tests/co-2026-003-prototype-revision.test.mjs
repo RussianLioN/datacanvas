@@ -63,6 +63,11 @@ function applyMutation(base, scenario) {
     data[candidatePath].visual_release_gate.owner_selection_complete = false;
     data[candidatePath].visual_release_gate.release_status = "ready_for_visual_render";
     data[candidatePath].visual_release_gate.render_allowed = true;
+  } else if (scenario.mutation === "ready_for_render_with_pending_sources") {
+    data[candidatePath].visual_release_gate.owner_selection_complete = true;
+    data[candidatePath].visual_release_gate.all_external_editable_sources_received = true;
+    data[candidatePath].visual_release_gate.release_status = "ready_for_visual_render";
+    data[candidatePath].visual_release_gate.render_allowed = true;
   } else if (scenario.mutation === "visual_render_without_editable_sources") {
     data[candidatePath].visual_release_gate.owner_selection_complete = true;
     data[candidatePath].visual_release_gate.all_external_editable_sources_received = true;

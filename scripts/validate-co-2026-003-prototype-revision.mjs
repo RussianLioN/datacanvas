@@ -329,6 +329,14 @@ function validateCandidate(candidate) {
   }
 
   const gate = candidate.visual_release_gate;
+  if (
+    gate.release_status !== "blocked_until_owner_selection_and_editable_sources" ||
+    gate.render_allowed !== false ||
+    gate.owner_selection_complete !== false ||
+    gate.all_external_editable_sources_received !== false
+  ) {
+    throw new Error("prototype revision candidate cannot enter ready_for_visual_render in this foundation contract");
+  }
   const sourceIds = gate.required_external_editable_sources.map((source) => source.source_id);
   if (!sameArray(sourceIds, expectedExternalSourceIds)) {
     throw new Error("visual render requires four external editable sources");
@@ -344,6 +352,9 @@ function validateCandidate(candidate) {
     }
     if (actual.canonical_svg_required_before_render !== expected.canonical_svg_required_before_render) {
       throw new Error("external presentation sources must require canonical SVG before render");
+    }
+    if (actual.status !== "pending_owner_attachment") {
+      throw new Error(`external source ${expected.source_id} must remain pending_owner_attachment`);
     }
   }
   if (gate.render_allowed && !gate.owner_selection_complete) {

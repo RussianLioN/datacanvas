@@ -94,11 +94,11 @@
       ],
       "properties": {
         "release_status": {
-          "enum": ["blocked_until_owner_selection_and_editable_sources", "ready_for_visual_render"]
+          "const": "blocked_until_owner_selection_and_editable_sources"
         },
-        "render_allowed": { "type": "boolean" },
-        "owner_selection_complete": { "type": "boolean" },
-        "all_external_editable_sources_received": { "type": "boolean" },
+        "render_allowed": { "const": false },
+        "owner_selection_complete": { "const": false },
+        "all_external_editable_sources_received": { "const": false },
         "required_external_editable_sources": {
           "type": "array",
           "minItems": 1,

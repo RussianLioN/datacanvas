@@ -28,12 +28,17 @@
     {
       "id": "release-without-selection",
       "mutation": "release_without_selection",
-      "expected_error": "visual render must remain blocked until owner selections are complete"
+      "expected_error": "release_status: must be equal to constant"
+    },
+    {
+      "id": "ready-for-render-with-pending-sources",
+      "mutation": "ready_for_render_with_pending_sources",
+      "expected_error": "release_status: must be equal to constant"
     },
     {
       "id": "visual-render-without-editable-sources",
       "mutation": "visual_render_without_editable_sources",
-      "expected_error": "visual render requires four external editable sources"
+      "expected_error": "release_status: must be equal to constant"
     },
     {
       "id": "missing-svg-first-step",
