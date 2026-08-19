@@ -8,6 +8,9 @@ const sourcePath = `${packagePath}/source`;
 const clientDataPath = `${sourcePath}/client-reference-data.json`;
 const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
 const brainstormingPath = `${sourcePath}/brainstorming-contract.json`;
+const candidateMarkdownPath = `${packagePath}/prototype-revision-candidate.md`;
+const activeContractsPath = `${sourcePath}/active-contracts.json`;
+const journeyContractPath = `${sourcePath}/journey-contract.json`;
 
 const expectedGroupIds = Object.freeze([
   "general_information",
@@ -57,8 +60,76 @@ const expectedExternalSourceIds = Object.freeze([
   "presentation_variant_mag_editable_source",
   "email_frame_canonical_svg_source",
 ]);
+const expectedFrameFlow = Object.freeze([
+  "owner_text_selected",
+  "canonical_svg_existing_group_updated",
+  "svg_visual_check",
+  "draft_png_current_resolution_rendered",
+  "owner_frame_approval",
+]);
+const expectedPrototypeFlow = Object.freeze([
+  "all_frames_approved",
+  "draft_full_prototype_current_resolution_rendered",
+  "owner_full_prototype_approval",
+  "high_resolution_render_from_approved_svg_sources",
+  "final_owner_approval",
+]);
+const expectedForbiddenMethods = Object.freeze([
+  "html_overlay",
+  "css_overlay",
+  "png_text_overlay",
+  "additional_svg_message_overlay",
+  "draft_png_upscale_for_final",
+]);
+const expectedSemanticEdges = Object.freeze([
+  "lifecycle:lisa-materials-full-reference:order_button_clicked:validating",
+  "lifecycle:validating:data_not_accepted:lisa-order-not-accepted",
+  "lifecycle:lisa-order-not-accepted:retry_after_data_correction:lisa-materials-full-reference",
+  "lifecycle:validating:data_accepted:lisa-presentation-generating",
+  "lifecycle:lisa-presentation-generating:delivery_confirmed:lisa-presentation-sent",
+  "lifecycle:lisa-presentation-generating:delivery_delayed:lisa-delivery-delayed",
+  "lifecycle:lisa-presentation-generating:delivery_partial_or_unconfirmed:lisa-delivery-partial",
+  "inspection:lisa-presentation-sent:open_chat_list:lisa-presentation-chat-list",
+  "inspection:lisa-presentation-chat-list:return_to_same_chat:lisa-presentation-sent",
+  "inspection:lisa-presentation-sent:open_delivery_email:lisa-presentation-email",
+  "inspection:lisa-presentation-email:open_attachment_slidedoc:lisa-presentation-slidedoc",
+  "inspection:lisa-presentation-slidedoc:back_to_email:lisa-presentation-email",
+  "inspection:lisa-presentation-email:open_attachment_sber2025:lisa-presentation-sber2025",
+  "inspection:lisa-presentation-sber2025:back_to_email:lisa-presentation-email",
+  "inspection:lisa-presentation-email:open_attachment_mag:lisa-presentation-mag",
+  "inspection:lisa-presentation-mag:back_to_email:lisa-presentation-email",
+]);
+const expectedExternalSources = Object.freeze([
+  Object.freeze({
+    source_id: "presentation_variant_slidedoc_editable_source",
+    required_for_frame_id: "lisa-presentation-slidedoc",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_sber2025_editable_source",
+    required_for_frame_id: "lisa-presentation-sber2025",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_mag_editable_source",
+    required_for_frame_id: "lisa-presentation-mag",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+  }),
+  Object.freeze({
+    source_id: "email_frame_canonical_svg_source",
+    required_for_frame_id: "lisa-presentation-email",
+    required_format: "canonical_svg_source",
+    canonical_svg_required_before_render: true,
+  }),
+]);
 const localUsersPrefix = `/${"Users"}/`;
 const localPathPattern = new RegExp(`${localUsersPrefix}|file://|[A-Za-z]:\\\\`, "u");
+const forbiddenTraceKeyPattern = /^(?:source_sha256|sha256|file_name|source_file_name|source_file_path|source_path)$/u;
+const sha256ValuePattern = /\b[a-f0-9]{64}\b/iu;
+const docxValuePattern = /\.docx\b/iu;
 
 function parseArguments(args) {
   if (args.length === 0) return { root: process.cwd() };
@@ -68,6 +139,10 @@ function parseArguments(args) {
 
 function readJson(root, relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+}
+
+function readText(root, relativePath) {
+  return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
 
 function formatAjvErrors(errors) {
@@ -92,6 +167,41 @@ function assertNoLocalOrRawSourcePaths(value) {
   }
 }
 
+function isAllowedExcludedMetadataPath(pathSegments) {
+  return pathSegments.length === 3 &&
+    pathSegments[0] === "source_control" &&
+    pathSegments[1] === "excluded_metadata" &&
+    Number.isInteger(Number(pathSegments[2]));
+}
+
+function assertNoRawSourceTracesInJson(value, pathSegments = []) {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => assertNoRawSourceTracesInJson(item, [...pathSegments, String(index)]));
+    return;
+  }
+  if (value && typeof value === "object") {
+    for (const [key, nested] of Object.entries(value)) {
+      const nestedPath = [...pathSegments, key];
+      if (!isAllowedExcludedMetadataPath(nestedPath) && forbiddenTraceKeyPattern.test(key)) {
+        throw new Error("raw source traces are forbidden outside source_control.excluded_metadata");
+      }
+      assertNoRawSourceTracesInJson(nested, nestedPath);
+    }
+    return;
+  }
+  if (typeof value !== "string") return;
+  if (isAllowedExcludedMetadataPath(pathSegments)) return;
+  if (docxValuePattern.test(value) || sha256ValuePattern.test(value) || localPathPattern.test(value)) {
+    throw new Error("raw source traces are forbidden outside source_control.excluded_metadata");
+  }
+}
+
+function assertNoRawSourceTracesInText(text) {
+  if (docxValuePattern.test(text) || sha256ValuePattern.test(text) || localPathPattern.test(text)) {
+    throw new Error("raw source traces are forbidden outside source_control.excluded_metadata");
+  }
+}
+
 function validateAgainstSchema(root, relativeDataPath, relativeSchemaPath) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   const schema = readJson(root, relativeSchemaPath);
@@ -105,6 +215,7 @@ function validateAgainstSchema(root, relativeDataPath, relativeSchemaPath) {
 
 function validateClientData(clientData) {
   assertNoLocalOrRawSourcePaths(clientData);
+  assertNoRawSourceTracesInJson(clientData);
   if (clientData.client.short_name !== "ООО «Водолей Трейд»") {
     throw new Error("client short_name must be ООО «Водолей Трейд»");
   }
@@ -137,6 +248,7 @@ function validateClientData(clientData) {
 
 function validateBrainstorming(brainstorming) {
   assertNoLocalOrRawSourcePaths(brainstorming);
+  assertNoRawSourceTracesInJson(brainstorming);
   if (!sameArray(brainstorming.topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("brainstorming contract must contain exactly five independent topics in canonical order");
   }
@@ -167,6 +279,7 @@ function validateBrainstorming(brainstorming) {
 
 function validateCandidate(candidate) {
   assertNoLocalOrRawSourcePaths(candidate);
+  assertNoRawSourceTracesInJson(candidate);
   if (!sameArray(candidate.active_future_frame_ids, expectedActiveFutureFrameIds)) {
     throw new Error("candidate active future frame list must contain exactly 11 frames");
   }
@@ -189,17 +302,9 @@ function validateCandidate(candidate) {
   if (!semanticGraph || !galleryGraph) {
     throw new Error("candidate must contain semantic transition graph and gallery order graph");
   }
-  const edges = semanticGraph.edges.map((edge) => `${edge.from}:${edge.event}:${edge.to}`);
-  for (const expectedEdge of [
-    "lisa-materials-full-reference:order_button_clicked:validating",
-    "validating:data_not_accepted:lisa-order-not-accepted",
-    "lisa-order-not-accepted:retry_after_data_correction:lisa-materials-full-reference",
-    "validating:data_accepted:lisa-presentation-generating",
-    "lisa-presentation-generating:delivery_confirmed:lisa-presentation-sent",
-    "lisa-presentation-generating:delivery_delayed:lisa-delivery-delayed",
-    "lisa-presentation-generating:delivery_partial_or_unconfirmed:lisa-delivery-partial",
-  ]) {
-    if (!edges.includes(expectedEdge)) throw new Error(`candidate semantic graph is missing ${expectedEdge}`);
+  const edges = semanticGraph.edges.map((edge) => `${edge.type}:${edge.from}:${edge.event}:${edge.to}`);
+  if (!sameArray(edges, expectedSemanticEdges)) {
+    throw new Error("semantic graph must contain exactly the required lifecycle and inspection edges");
   }
   if (galleryGraph.is_user_scenario_transition !== false || !sameArray(galleryGraph.ordered_state_ids, expectedActiveFutureFrameIds)) {
     throw new Error("gallery order must show successful path first and errors last without becoming a scenario transition");
@@ -212,10 +317,34 @@ function validateCandidate(candidate) {
     throw new Error("candidate message topics must remain pending_owner_selection");
   }
 
+  const visual = candidate.visual_acceptance_contract;
+  if (!sameArray(visual.frame_flow, expectedFrameFlow)) {
+    throw new Error("frame_flow must exactly match SVG-first acceptance steps");
+  }
+  if (!sameArray(visual.prototype_flow, expectedPrototypeFlow)) {
+    throw new Error("prototype_flow must exactly match SVG-first prototype steps");
+  }
+  if (!sameArray(visual.forbidden_methods, expectedForbiddenMethods)) {
+    throw new Error("forbidden_methods must exactly match the five banned overlay and upscale methods");
+  }
+
   const gate = candidate.visual_release_gate;
   const sourceIds = gate.required_external_editable_sources.map((source) => source.source_id);
   if (!sameArray(sourceIds, expectedExternalSourceIds)) {
     throw new Error("visual render requires four external editable sources");
+  }
+  for (let index = 0; index < expectedExternalSources.length; index += 1) {
+    const actual = gate.required_external_editable_sources[index];
+    const expected = expectedExternalSources[index];
+    if (actual.required_for_frame_id !== expected.required_for_frame_id) {
+      throw new Error(`external source ${expected.source_id} must target ${expected.required_for_frame_id}`);
+    }
+    if (actual.required_format !== expected.required_format) {
+      throw new Error(`external source ${expected.source_id} must use required format ${expected.required_format}`);
+    }
+    if (actual.canonical_svg_required_before_render !== expected.canonical_svg_required_before_render) {
+      throw new Error("external presentation sources must require canonical SVG before render");
+    }
   }
   if (gate.render_allowed && !gate.owner_selection_complete) {
     throw new Error("visual render must remain blocked until owner selections are complete");
@@ -228,15 +357,56 @@ function validateCandidate(candidate) {
   }
 }
 
+function validateInactiveCandidateBoundary(root) {
+  const activeContracts = readJson(root, activeContractsPath);
+  const activeContractText = JSON.stringify(activeContracts);
+  if (activeContractText.includes("prototype-revision-candidate")) {
+    throw new Error("prototype revision candidate must not be listed in active-contracts.json");
+  }
+
+  const journey = readJson(root, journeyContractPath);
+  const expectedActiveStateIds = [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial",
+  ];
+  const expectedActionSources = [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+  ];
+  if (
+    !sameArray(journey.state_ids, expectedActiveStateIds) ||
+    !Array.isArray(journey.actions) ||
+    journey.actions.length !== 1 ||
+    !sameArray(journey.actions[0].source_state_ids, expectedActionSources)
+  ) {
+    throw new Error("active journey contract must keep the temporary 13-frame and 3-action-source invariant");
+  }
+}
+
 try {
   const { root } = parseArguments(process.argv.slice(2));
   const clientData = validateAgainstSchema(root, clientDataPath, `${sourcePath}/schemas/client-reference-data.schema.json`);
   const candidate = validateAgainstSchema(root, candidatePath, `${sourcePath}/schemas/prototype-revision-candidate.schema.json`);
   const brainstorming = validateAgainstSchema(root, brainstormingPath, `${sourcePath}/schemas/brainstorming-contract.schema.json`);
+  const candidateMarkdown = readText(root, candidateMarkdownPath);
 
   validateClientData(clientData);
   validateBrainstorming(brainstorming);
   validateCandidate(candidate);
+  assertNoRawSourceTracesInText(candidateMarkdown);
+  validateInactiveCandidateBoundary(root);
 
   process.stdout.write("Проверка кандидата пересборки прототипа CO-2026-003 пройдена.\n");
 } catch (error) {

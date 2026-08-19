@@ -34,6 +34,71 @@
       "id": "visual-render-without-editable-sources",
       "mutation": "visual_render_without_editable_sources",
       "expected_error": "visual render requires four external editable sources"
+    },
+    {
+      "id": "missing-svg-first-step",
+      "mutation": "missing_svg_first_step",
+      "expected_error": "frame_flow must exactly match SVG-first acceptance steps"
+    },
+    {
+      "id": "reordered-svg-first-step",
+      "mutation": "reordered_svg_first_step",
+      "expected_error": "frame_flow must exactly match SVG-first acceptance steps"
+    },
+    {
+      "id": "removed-forbidden-method",
+      "mutation": "removed_forbidden_method",
+      "expected_error": "forbidden_methods must exactly match the five banned overlay and upscale methods"
+    },
+    {
+      "id": "extra-semantic-edge",
+      "mutation": "extra_semantic_edge",
+      "expected_error": "semantic graph must contain exactly the required lifecycle and inspection edges"
+    },
+    {
+      "id": "wrong-external-source-format",
+      "mutation": "wrong_external_source_format",
+      "expected_error": "external source presentation_variant_slidedoc_editable_source must use required format editable_presentation_source"
+    },
+    {
+      "id": "wrong-external-source-frame",
+      "mutation": "wrong_external_source_frame",
+      "expected_error": "external source presentation_variant_sber2025_editable_source must target lisa-presentation-sber2025"
+    },
+    {
+      "id": "missing-presentation-canonical-svg-gate",
+      "mutation": "missing_presentation_canonical_svg_gate",
+      "expected_error": "must have required property 'canonical_svg_required_before_render'"
+    },
+    {
+      "id": "docx-in-client-note",
+      "mutation": "docx_in_client_note",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "sha-in-candidate",
+      "mutation": "sha_in_candidate",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "forbidden-key-in-candidate",
+      "mutation": "forbidden_key_in_candidate",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "docx-in-markdown",
+      "mutation": "docx_in_markdown",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "candidate-added-to-active-contracts",
+      "mutation": "candidate_added_to_active_contracts",
+      "expected_error": "prototype revision candidate must not be listed in active-contracts.json"
+    },
+    {
+      "id": "active-journey-contract-drift",
+      "mutation": "active_journey_contract_drift",
+      "expected_error": "active journey contract must keep the temporary 13-frame and 3-action-source invariant"
     }
   ]
 }

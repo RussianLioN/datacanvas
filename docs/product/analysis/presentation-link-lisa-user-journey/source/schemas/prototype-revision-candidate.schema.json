@@ -161,13 +161,14 @@
     "external_source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source_id", "required_for_frame_id", "required_format", "status"],
+      "required": ["source_id", "required_for_frame_id", "required_format", "canonical_svg_required_before_render", "status"],
       "properties": {
         "source_id": { "type": "string", "minLength": 1 },
         "required_for_frame_id": { "$ref": "#/$defs/state_id" },
         "required_format": {
-          "enum": ["editable_presentation_or_svg_source", "canonical_svg_source"]
+          "enum": ["editable_presentation_source", "canonical_svg_source"]
         },
+        "canonical_svg_required_before_render": { "type": "boolean" },
         "status": { "const": "pending_owner_attachment" },
         "reason": { "type": "string" }
       }
