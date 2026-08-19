@@ -54,7 +54,7 @@
 | `business` | `2` | 35 |
 | `business` | `3` | 28 |
 | `business` | `4` | 3 |
-| `business` | `hidden` | 64 |
+| `business` | `hidden` | 65 |
 | `delivery` | `1` | 2 |
 | `delivery` | `2` | 15 |
 | `delivery` | `hidden` | 828 |
@@ -71,4 +71,4 @@
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
 | `technical` | `3` | 12 |
-| `technical` | `hidden` | 111 |
+| `technical` | `hidden` | 113 |

@@ -1,0 +1,324 @@
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+import Ajv2020 from "ajv/dist/2020.js";
+
+const root = process.cwd();
+const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
+const sourcePath = `${packagePath}/source`;
+const contractPath = `${sourcePath}/canonical-svg-frame-pipeline-contract.json`;
+const schemaPath = `${sourcePath}/schemas/canonical-svg-frame-pipeline-contract.schema.json`;
+const markdownPath = `${sourcePath}/canonical-svg-frame-pipeline-contract.md`;
+const validatorPath = "scripts/validate-canonical-svg-frame-pipeline.mjs";
+const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
+const activeContractsPath = `${sourcePath}/active-contracts.json`;
+const negativeFixturePath = "tests/fixtures/canonical-svg-frame-pipeline-negative.json";
+
+const expectedTopics = Object.freeze([
+  "button_label",
+  "generation_started_message",
+  "delivery_success_message",
+  "email_subject",
+  "email_body",
+]);
+const expectedFrameAcceptanceFlow = Object.freeze([
+  "owner_text_selected",
+  "canonical_svg_existing_group_updated",
+  "svg_visual_check",
+  "draft_png_current_resolution_rendered",
+  "owner_frame_approval",
+]);
+const expectedPrototypeAcceptanceFlow = Object.freeze([
+  "all_frames_approved",
+  "draft_full_prototype_current_resolution_rendered",
+  "owner_full_prototype_approval",
+  "high_resolution_render_from_approved_svg_sources",
+  "final_owner_approval",
+]);
+const expectedForbiddenMethods = Object.freeze([
+  "html_overlay",
+  "css_overlay",
+  "png_text_overlay",
+  "additional_svg_message_overlay",
+  "draft_png_upscale_for_final",
+]);
+const expectedExternalSources = Object.freeze([
+  Object.freeze({
+    source_id: "presentation_variant_slidedoc_editable_source",
+    required_for_frame_id: "lisa-presentation-slidedoc",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_sber2025_editable_source",
+    required_for_frame_id: "lisa-presentation-sber2025",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_mag_editable_source",
+    required_for_frame_id: "lisa-presentation-mag",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "email_frame_canonical_svg_source",
+    required_for_frame_id: "lisa-presentation-email",
+    required_format: "canonical_svg_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+]);
+
+function absolute(relativePath) {
+  return path.join(root, relativePath);
+}
+
+function readJson(relativePath) {
+  assert.ok(fs.existsSync(absolute(relativePath)), `Отсутствует обязательный файл: ${relativePath}`);
+  return JSON.parse(fs.readFileSync(absolute(relativePath), "utf8"));
+}
+
+function clone(value) {
+  return structuredClone(value);
+}
+
+function runValidator(options = {}) {
+  const args = [validatorPath];
+  if (options.contractPath) args.push("--contract", options.contractPath);
+  if (options.activeContractsPath) args.push("--active-contracts", options.activeContractsPath);
+  return spawnSync(process.execPath, args, {
+    cwd: root,
+    encoding: "utf8",
+  });
+}
+
+function writeJson(baseDir, relativePath, value) {
+  const target = path.join(baseDir, relativePath);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.writeFileSync(target, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function copyRequiredInputs(tempRoot, contract, activeContracts) {
+  writeJson(tempRoot, contractPath, contract);
+  writeJson(tempRoot, schemaPath, readJson(schemaPath));
+  writeJson(tempRoot, candidatePath, readJson(candidatePath));
+  writeJson(tempRoot, activeContractsPath, activeContracts);
+}
+
+function schemaValidator() {
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  return ajv.compile(readJson(schemaPath));
+}
+
+function mutate(contract, activeContracts, mutation) {
+  switch (mutation) {
+    case "set-active-true":
+      contract.active = true;
+      break;
+    case "set-render-allowed-true":
+      contract.render_allowed = true;
+      break;
+    case "set-prototype-candidate-version-2":
+      contract.prototype_revision_candidate.expected_version = "2.0.0";
+      break;
+    case "remove-future-frame":
+      contract.future_frame_ids.pop();
+      contract.frame_svg_sources.pop();
+      break;
+    case "add-future-frame":
+      contract.future_frame_ids.push("unexpected-frame");
+      contract.frame_svg_sources.push({
+        frame_id: "unexpected-frame",
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "pending_source",
+        approved_text_status: "pending",
+        svg_visual_check_status: "pending",
+        draft_png_status: "blocked",
+        owner_frame_approval_status: "pending",
+      });
+      break;
+    case "wrong-external-source":
+      contract.external_sources[0].source_id = "wrong_source";
+      break;
+    case "add-selected-text":
+      contract.message_topics[0].selected_text = "Создать презентацию";
+      break;
+    case "swap-frame-acceptance-order":
+      [contract.acceptance.frame_flow[0], contract.acceptance.frame_flow[1]] = [
+        contract.acceptance.frame_flow[1],
+        contract.acceptance.frame_flow[0],
+      ];
+      break;
+    case "remove-forbidden-method":
+      contract.forbidden_methods.pop();
+      break;
+    case "add-local-path":
+      contract.external_sources[0].source_path = "/Users/example/source.svg";
+      break;
+    case "add-docx-name":
+      contract.external_sources[0].source_file_name = "source.docx";
+      break;
+    case "add-sha256":
+      contract.external_sources[0].sha256 = "a".repeat(64);
+      break;
+    case "add-contract-to-active-registry":
+      activeContracts.active_contracts.push({
+        id: "canonical-svg-frame-pipeline",
+        path: "source/canonical-svg-frame-pipeline-contract.json",
+        schema: "source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
+      });
+      break;
+    default:
+      throw new Error(`Неизвестная отрицательная мутация: ${mutation}`);
+  }
+}
+
+test("неактивный договор SVG-first кадров существует рядом со схемой, описанием и валидатором", () => {
+  assert.ok(fs.existsSync(absolute(contractPath)), `Отсутствует обязательный файл: ${contractPath}`);
+  assert.ok(fs.existsSync(absolute(schemaPath)), `Отсутствует обязательный файл: ${schemaPath}`);
+  assert.ok(fs.existsSync(absolute(markdownPath)), `Отсутствует обязательный файл: ${markdownPath}`);
+  assert.ok(fs.existsSync(absolute(validatorPath)), `Отсутствует обязательный файл: ${validatorPath}`);
+});
+
+test("неактивный договор наследует кадры и смысловые ребра из подготовительного кандидата v1", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const contract = readJson(contractPath);
+  const candidate = readJson(candidatePath);
+
+  assert.equal(contract.version, "3.0.0");
+  assert.equal(contract.status, "inactive_pending_owner_selections_and_sources");
+  assert.equal(contract.active, false);
+  assert.equal(contract.generator_input, false);
+  assert.equal(contract.render_allowed, false);
+  assert.equal(contract.archive_allowed, false);
+  assert.equal(contract.prototype_revision_candidate.path, "source/prototype-revision-candidate.json");
+  assert.equal(contract.prototype_revision_candidate.expected_version, "1.0.0");
+  assert.equal(candidate.version, "1.0.0");
+  assert.deepEqual(contract.future_frame_ids, candidate.active_future_frame_ids);
+  assert.deepEqual(contract.historical_reference_frame_ids, candidate.historical_inactive_frame_ids);
+
+  const semanticGraph = candidate.semantic_graphs.find((graph) => graph.graph_type === "semantic_transition");
+  const galleryGraph = candidate.semantic_graphs.find((graph) => graph.graph_id === "stakeholder_gallery_order");
+  assert.deepEqual(contract.scenario_edges, semanticGraph.edges);
+  assert.deepEqual(contract.stakeholder_gallery_order, {
+    graph_id: "stakeholder_gallery_order",
+    is_user_scenario_transition: false,
+    ordered_state_ids: galleryGraph.ordered_state_ids,
+  });
+});
+
+test("тексты, источники и покадровые записи остаются блокирующими до выбора владельца", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const contract = readJson(contractPath);
+  const candidate = readJson(candidatePath);
+
+  assert.deepEqual(contract.message_topics.map((topic) => topic.topic_id), expectedTopics);
+  for (const topic of contract.message_topics) {
+    assert.deepEqual(Object.keys(topic).sort(), ["render_blocker", "status", "topic_id"]);
+    assert.equal(topic.status, "pending_owner_selection");
+    assert.equal(topic.render_blocker, true);
+  }
+
+  assert.deepEqual(contract.external_sources, expectedExternalSources);
+  assert.deepEqual(
+    contract.frame_svg_sources.map((frame) => frame.frame_id),
+    candidate.active_future_frame_ids,
+  );
+  for (const frame of contract.frame_svg_sources) {
+    assert.deepEqual(Object.keys(frame).sort(), [
+      "approved_text_status",
+      "canonical_svg_status",
+      "draft_png_status",
+      "frame_id",
+      "owner_frame_approval_status",
+      "svg_editing_mode",
+      "svg_visual_check_status",
+    ]);
+    assert.equal(frame.svg_editing_mode, "canonical_svg_existing_groups_only");
+    assert.equal(frame.canonical_svg_status, "pending_source");
+    assert.equal(frame.approved_text_status, "pending");
+    assert.equal(frame.svg_visual_check_status, "pending");
+    assert.equal(frame.draft_png_status, "blocked");
+    assert.equal(frame.owner_frame_approval_status, "pending");
+  }
+});
+
+test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const contract = readJson(contractPath);
+
+  assert.deepEqual(contract.acceptance.frame_flow, expectedFrameAcceptanceFlow);
+  assert.deepEqual(contract.acceptance.prototype_flow, expectedPrototypeAcceptanceFlow);
+  assert.deepEqual(contract.forbidden_methods, expectedForbiddenMethods);
+  assert.equal(contract.release_boundary.candidate_evidence_status, "pending");
+  assert.equal(contract.release_boundary.active_release_switch_status, "blocked");
+  assert.equal(contract.release_boundary.rollback_mode, "full_bundle_only");
+  assert.deepEqual(contract.release_boundary.future_transaction_targets, [
+    "active-contracts.json",
+    "journey-contract.json",
+    "frame-or-visual-contract",
+    "source-render-catalog.json",
+    "demo/**",
+    "derived/**",
+    "evidence/**",
+    "portable-zip",
+    "delivery-archive",
+  ]);
+});
+
+test("JSON Schema сама отклоняет дрейф будущих кадров и порядка галереи", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const validate = schemaValidator();
+  const contract = readJson(contractPath);
+
+  const missingFutureFrame = clone(contract);
+  missingFutureFrame.future_frame_ids.pop();
+  assert.equal(validate(missingFutureFrame), false, "Schema должна отклонять пропущенный будущий кадр");
+
+  const extraFutureFrame = clone(contract);
+  extraFutureFrame.future_frame_ids.push("lisa-unexpected-frame");
+  assert.equal(validate(extraFutureFrame), false, "Schema должна отклонять лишний будущий кадр");
+
+  const swappedGalleryOrder = clone(contract);
+  [
+    swappedGalleryOrder.stakeholder_gallery_order.ordered_state_ids[0],
+    swappedGalleryOrder.stakeholder_gallery_order.ordered_state_ids[1],
+  ] = [
+    swappedGalleryOrder.stakeholder_gallery_order.ordered_state_ids[1],
+    swappedGalleryOrder.stakeholder_gallery_order.ordered_state_ids[0],
+  ];
+  assert.equal(validate(swappedGalleryOrder), false, "Schema должна отклонять перестановку галереи");
+});
+
+test("валидатор принимает канонический договор и отклоняет обязательные отрицательные случаи", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const success = runValidator();
+  assert.equal(success.status, 0, success.stderr || success.stdout);
+
+  const baseContract = readJson(contractPath);
+  const baseActiveContracts = readJson(activeContractsPath);
+  const fixture = readJson(negativeFixturePath);
+  assert.equal(fixture.cases.length, 13);
+
+  for (const negativeCase of fixture.cases) {
+    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "canonical-svg-frame-pipeline-"));
+    const mutatedContract = clone(baseContract);
+    const mutatedActiveContracts = clone(baseActiveContracts);
+    mutate(mutatedContract, mutatedActiveContracts, negativeCase.mutation);
+    copyRequiredInputs(tempRoot, mutatedContract, mutatedActiveContracts);
+
+    const result = runValidator({
+      contractPath: path.join(tempRoot, contractPath),
+      activeContractsPath: path.join(tempRoot, activeContractsPath),
+    });
+    assert.notEqual(result.status, 0, `${negativeCase.name}: отрицательный случай должен падать`);
+    assert.match(result.stderr, new RegExp(negativeCase.expected_error.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
+  }
+});

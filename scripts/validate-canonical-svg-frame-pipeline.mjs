@@ -1,0 +1,320 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import process from "node:process";
+import Ajv2020 from "ajv/dist/2020.js";
+
+const defaultPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
+const defaultSourcePath = `${defaultPackagePath}/source`;
+const defaultContractPath = `${defaultSourcePath}/canonical-svg-frame-pipeline-contract.json`;
+const defaultActiveContractsPath = `${defaultSourcePath}/active-contracts.json`;
+
+const expectedTopics = Object.freeze([
+  "button_label",
+  "generation_started_message",
+  "delivery_success_message",
+  "email_subject",
+  "email_body",
+]);
+const expectedFrameAcceptanceFlow = Object.freeze([
+  "owner_text_selected",
+  "canonical_svg_existing_group_updated",
+  "svg_visual_check",
+  "draft_png_current_resolution_rendered",
+  "owner_frame_approval",
+]);
+const expectedPrototypeAcceptanceFlow = Object.freeze([
+  "all_frames_approved",
+  "draft_full_prototype_current_resolution_rendered",
+  "owner_full_prototype_approval",
+  "high_resolution_render_from_approved_svg_sources",
+  "final_owner_approval",
+]);
+const expectedForbiddenMethods = Object.freeze([
+  "html_overlay",
+  "css_overlay",
+  "png_text_overlay",
+  "additional_svg_message_overlay",
+  "draft_png_upscale_for_final",
+]);
+const expectedExternalSources = Object.freeze([
+  Object.freeze({
+    source_id: "presentation_variant_slidedoc_editable_source",
+    required_for_frame_id: "lisa-presentation-slidedoc",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_sber2025_editable_source",
+    required_for_frame_id: "lisa-presentation-sber2025",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "presentation_variant_mag_editable_source",
+    required_for_frame_id: "lisa-presentation-mag",
+    required_format: "editable_presentation_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+  Object.freeze({
+    source_id: "email_frame_canonical_svg_source",
+    required_for_frame_id: "lisa-presentation-email",
+    required_format: "canonical_svg_source",
+    canonical_svg_required_before_render: true,
+    status: "pending_owner_attachment",
+  }),
+]);
+const expectedFutureTransactionTargets = Object.freeze([
+  "active-contracts.json",
+  "journey-contract.json",
+  "frame-or-visual-contract",
+  "source-render-catalog.json",
+  "demo/**",
+  "derived/**",
+  "evidence/**",
+  "portable-zip",
+  "delivery-archive",
+]);
+const forbiddenTracePattern = /(?:\/Users\/|file:\/\/|[A-Za-z]:\\|\.docx\b|\b[a-f0-9]{64}\b|raw_source_content)/iu;
+
+function parseArguments(args) {
+  const options = {
+    contractPath: path.resolve(defaultContractPath),
+    activeContractsPath: path.resolve(defaultActiveContractsPath),
+  };
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--contract" && args[index + 1]) {
+      options.contractPath = path.resolve(args[index + 1]);
+      index += 1;
+    } else if (arg === "--active-contracts" && args[index + 1]) {
+      options.activeContractsPath = path.resolve(args[index + 1]);
+      index += 1;
+    } else {
+      throw new Error("использование: node scripts/validate-canonical-svg-frame-pipeline.mjs [--contract <path>] [--active-contracts <path>]");
+    }
+  }
+  return options;
+}
+
+function readJson(absolutePath) {
+  return JSON.parse(fs.readFileSync(absolutePath, "utf8"));
+}
+
+function sameArray(actual, expected) {
+  return Array.isArray(actual) &&
+    actual.length === expected.length &&
+    actual.every((value, index) => value === expected[index]);
+}
+
+function assertSameArray(actual, expected, message) {
+  if (!sameArray(actual, expected)) {
+    throw new Error(message);
+  }
+}
+
+function assertNoRawSourceTraces(contract) {
+  if (forbiddenTracePattern.test(JSON.stringify(contract))) {
+    throw new Error("local paths, DOCX names, SHA-256 values, and raw source content are forbidden");
+  }
+}
+
+function schemaPathFor(contractPath) {
+  return path.join(path.dirname(contractPath), "schemas/canonical-svg-frame-pipeline-contract.schema.json");
+}
+
+function siblingPath(contractPath, filename) {
+  return path.join(path.dirname(contractPath), filename);
+}
+
+function validateAgainstSchema(contractPath, contract) {
+  const schema = readJson(schemaPathFor(contractPath));
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  const validate = ajv.compile(schema);
+  if (!validate(contract)) {
+    const details = (validate.errors || [])
+      .map((error) => `${error.instancePath || "/"}: ${error.message}`)
+      .join("; ");
+    throw new Error(`canonical SVG frame pipeline contract schema validation failed: ${details}`);
+  }
+}
+
+function scenarioEdges(candidate) {
+  const graph = candidate.semantic_graphs.find((item) => item.graph_type === "semantic_transition");
+  assert.ok(graph, "prototype revision candidate semantic graph is missing");
+  return graph.edges;
+}
+
+function galleryOrder(candidate) {
+  const graph = candidate.semantic_graphs.find((item) => item.graph_id === "stakeholder_gallery_order");
+  assert.ok(graph, "prototype revision candidate stakeholder gallery order is missing");
+  return {
+    graph_id: "stakeholder_gallery_order",
+    is_user_scenario_transition: false,
+    ordered_state_ids: graph.ordered_state_ids,
+  };
+}
+
+function validateTopLevel(contract) {
+  if (contract.active !== false) throw new Error("active must remain false");
+  if (contract.render_allowed !== false) throw new Error("render_allowed must remain false");
+  if (contract.generator_input !== false || contract.archive_allowed !== false) {
+    throw new Error("inactive contract must not be a generator input or archive input");
+  }
+  if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
+    throw new Error("prototype revision candidate expected_version must remain 1.0.0");
+  }
+}
+
+function validateFrames(contract, candidate) {
+  assertSameArray(
+    contract.future_frame_ids,
+    candidate.active_future_frame_ids,
+    "future frame ids must match prototype revision candidate active_future_frame_ids",
+  );
+  assertSameArray(
+    contract.historical_reference_frame_ids,
+    candidate.historical_inactive_frame_ids,
+    "historical reference frame ids must match prototype revision candidate historical_inactive_frame_ids",
+  );
+  assertSameArray(
+    contract.frame_svg_sources.map((frame) => frame.frame_id),
+    candidate.active_future_frame_ids,
+    "future frame ids must match prototype revision candidate active_future_frame_ids",
+  );
+  for (const frame of contract.frame_svg_sources) {
+    if (
+      frame.svg_editing_mode !== "canonical_svg_existing_groups_only" ||
+      frame.canonical_svg_status !== "pending_source" ||
+      frame.approved_text_status !== "pending" ||
+      frame.svg_visual_check_status !== "pending" ||
+      frame.draft_png_status !== "blocked" ||
+      frame.owner_frame_approval_status !== "pending"
+    ) {
+      throw new Error("frame SVG source entries must remain pending and blocked before owner approval");
+    }
+    if ("path" in frame || "svg_path" in frame || "sha256" in frame || "svg_sha256" in frame) {
+      throw new Error("local paths, DOCX names, SHA-256 values, and raw source content are forbidden");
+    }
+  }
+}
+
+function validateScenario(contract, candidate) {
+  assert.deepEqual(contract.scenario_edges, scenarioEdges(candidate), "scenario edges must match prototype revision candidate");
+  assert.deepEqual(contract.stakeholder_gallery_order, galleryOrder(candidate), "gallery order must remain separate from scenario transitions");
+
+  const successEdge = contract.scenario_edges.find((edge) =>
+    edge.type === "lifecycle" &&
+    edge.from === "lisa-presentation-generating" &&
+    edge.event === "delivery_confirmed" &&
+    edge.to === "lisa-presentation-sent"
+  );
+  assert.ok(successEdge, "success must remain a direct outcome of lisa-presentation-generating");
+
+  const forbiddenErrorSources = new Set([
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+  ]);
+  const errorTargets = new Set(["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]);
+  for (const edge of contract.scenario_edges) {
+    if (errorTargets.has(edge.to) && forbiddenErrorSources.has(edge.from)) {
+      throw new Error("error states must not have incoming edges from success, email, or presentation variant states");
+    }
+  }
+}
+
+function validateTexts(contract) {
+  assertSameArray(
+    contract.message_topics.map((topic) => topic.topic_id),
+    expectedTopics,
+    "message topics must contain exactly five pending owner selection topics",
+  );
+  for (const topic of contract.message_topics) {
+    if (topic.status !== "pending_owner_selection" || topic.render_blocker !== true) {
+      throw new Error("message topics must remain pending owner selections and render blockers");
+    }
+    const forbiddenKeys = ["text", "selected_text", "candidate", "candidates", "hash", "sha256", "approved", "approval"];
+    if (forbiddenKeys.some((key) => key in topic)) {
+      throw new Error("message topics must not contain selected text, candidates, hashes, or approvals");
+    }
+  }
+}
+
+function validateExternalSources(contract) {
+  if (JSON.stringify(contract.external_sources) !== JSON.stringify(expectedExternalSources)) {
+    throw new Error("external sources must match the four required pending owner attachments");
+  }
+}
+
+function validateAcceptance(contract) {
+  assertSameArray(
+    contract.acceptance.frame_flow,
+    expectedFrameAcceptanceFlow,
+    "frame acceptance flow must match the required SVG-first order",
+  );
+  assertSameArray(
+    contract.acceptance.prototype_flow,
+    expectedPrototypeAcceptanceFlow,
+    "prototype acceptance flow must match the required SVG-first order",
+  );
+  assertSameArray(
+    contract.forbidden_methods,
+    expectedForbiddenMethods,
+    "forbidden methods must match the five banned methods",
+  );
+}
+
+function validateReleaseBoundary(contract) {
+  const boundary = contract.release_boundary;
+  if (
+    boundary.candidate_evidence_status !== "pending" ||
+    boundary.active_release_switch_status !== "blocked" ||
+    boundary.rollback_mode !== "full_bundle_only"
+  ) {
+    throw new Error("release boundary must remain pending, blocked, and full-bundle rollback only");
+  }
+  assertSameArray(
+    boundary.future_transaction_targets,
+    expectedFutureTransactionTargets,
+    "future transaction targets must match the inactive contract boundary",
+  );
+}
+
+function validateActiveRegistry(contract, activeContracts) {
+  const registryText = JSON.stringify(activeContracts);
+  if (
+    contract.active_contract_registry_policy.listed_in_active_contracts !== false ||
+    registryText.includes("canonical-svg-frame-pipeline")
+  ) {
+    throw new Error("canonical SVG frame pipeline contract must not be listed in active-contracts.json");
+  }
+}
+
+try {
+  const { contractPath, activeContractsPath } = parseArguments(process.argv.slice(2));
+  const contract = readJson(contractPath);
+  const candidate = readJson(siblingPath(contractPath, "prototype-revision-candidate.json"));
+  const activeContracts = readJson(activeContractsPath);
+
+  assertNoRawSourceTraces(contract);
+  validateTopLevel(contract);
+  validateFrames(contract, candidate);
+  validateScenario(contract, candidate);
+  validateTexts(contract);
+  validateExternalSources(contract);
+  validateAcceptance(contract);
+  validateReleaseBoundary(contract);
+  validateActiveRegistry(contract, activeContracts);
+  validateAgainstSchema(contractPath, contract);
+
+  process.stdout.write("Проверка неактивного договора SVG-first кадров CO-2026-003 пройдена.\n");
+} catch (error) {
+  process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "проверка не выполнена"}\n`);
+  process.exitCode = 1;
+}
