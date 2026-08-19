@@ -21,9 +21,9 @@
 - `5.4.svg` — `32e9986b59425d6f3882b8eb689355da4d1459c1adf9cfc23b38c9f4ad43edff`.
 - `7.1 — Холдинг.svg` — `71e3387399ab698e149fa322458afcc7d0f9e3cb869acc803e4b38f6928791a2`.
 - `7.2 — Длинное название клиента + холдинг.svg` — `e94a02181d0fb35dc107d89aef5fbbf37b5c24f6ee050d5e85a59d8556904342`.
-- `status-variants/lisa-order-not-accepted.svg` — `041241f643687b5b0c2fd8ba718041d388bc9e365009d4d5a0a50cbd80e966d4`.
-- `status-variants/lisa-delivery-delayed.svg` — `5e21f8f55004c195f73a47e12a519347ba67694d816d4bd6ddaa11484ffaf0c3`.
-- `status-variants/lisa-delivery-partial.svg` — `73b3d6fd8535eb87d619d2ce4e7666cf9c0cf978c53493aad800f31ae9f6ed2f`.
+- `status-variants/lisa-order-not-accepted.svg` — `6ff5695cd60fe527481e34c840215d7f1d77505dce59b79c34f2df28b001d729`.
+- `status-variants/lisa-delivery-delayed.svg` — `b973ac04a38381676b10c2f36cd8ea6d2120f934f214be87aa6eec2a7517a387`.
+- `status-variants/lisa-delivery-partial.svg` — `320ed2cce82ccbb466e12977717fce909031963766daf549c678fbdf684bb820`.
 - `08.svg` — `9b623121af1f30dc62ef848265197d941528c5ff6cce7fd96d6bf37ecf6c22ce`.
 - `7.3 — Презентация.svg` — `9cf7614c450e991b59e41403b592620fe19437c631328756773b5c3f1da3d398`.
 - `7.4 — Письмо с презентацией.png` — `60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755`.

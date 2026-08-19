@@ -158,6 +158,22 @@ function removeOverlay(source, id) {
   return source.replace(pattern, "");
 }
 
+function hideSourceGroup(source, id, label) {
+  const pattern = new RegExp(`<g id="${id}"([^>]*)>`, "u");
+  const match = source.match(pattern);
+  if (!match) fail(`${label}: не найдена исходная группа SVG`);
+  if (match[1].includes('opacity="0"')) return source;
+  return source.replace(pattern, `<g id="${id}" opacity="0"$1>`);
+}
+
+function showSourceGroup(source, id, label) {
+  const hidden = `<g id="${id}" opacity="0"`;
+  const visible = `<g id="${id}"`;
+  if (source.includes(hidden)) return replaceExactly(source, hidden, visible, `${label}: исходная группа SVG`);
+  if (source.includes(visible)) return source;
+  fail(`${label}: не найдена исходная группа SVG`);
+}
+
 function prepareSvgUpdate(root, fileName, transform) {
   const filePath = path.join(root, SOURCE_PATH, fileName);
   const before = fs.readFileSync(filePath, "utf8");
@@ -319,31 +335,6 @@ function rewriteMeetingCard(source, fileName) {
   );
 }
 
-function rewriteGenerating(font, source) {
-  let updated = rewriteTitle(font, "7-2", source, {
-    x: 94, y: 242, width: 274, height: 26, fill: "rgb(255,255,255)", text_x: 96, baseline: 260, size: 20,
-  });
-  for (const line of [2, 3, 4]) {
-    updated = ensureExactly(
-      updated,
-      `<g id="presentation-status-line-${line}" fill="rgb(144,150,169)" fill-rule="nonzero">`,
-      `<g id="presentation-status-line-${line}" opacity="0" fill="rgb(144,150,169)" fill-rule="nonzero">`,
-      `7.2: исходная строка статуса ${line}`,
-    );
-  }
-  const text = "Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация.";
-  const lines = wrapText(font, text, 345, 15);
-  if (lines.length !== 3) fail(`7.2: текст должен занимать три строки, получено ${lines.length}`);
-  const paths = textLines(font, lines, {
-    x: 80,
-    baseline: 739,
-    size: 15,
-    lineHeight: 25,
-    fill: BODY_FILL,
-  });
-  return replaceOverlay(updated, textOverlay("lisa-edit-7-2-email-text", paths), "7.2: текст ожидания");
-}
-
 const STATUS_VARIANTS = Object.freeze([
   Object.freeze({
     state_id: "lisa-order-not-accepted",
@@ -365,27 +356,91 @@ const STATUS_VARIANTS = Object.freeze([
   }),
 ]);
 
-function statusVariantMarkup(font, variant) {
-  const title = "Справка по клиенту";
-  const lines = wrapText(font, variant.message, 315, 12.2);
-  if (lines.length > 8) fail(`${variant.state_id}: сообщение не помещается в утверждённую область SVG`);
-  const titlePath = outlinedText(font, title, { x: 128, baseline: 678, size: 14, fill: TITLE_FILL, weight: 700 });
-  const messagePaths = textLines(font, lines, {
-    x: 128,
-    baseline: 699,
-    size: 12.2,
-    lineHeight: 15.2,
-    fill: "rgb(87,92,112)",
-  });
-  return `<g id="lisa-status-${variant.message_id}"><rect x="64" y="638" width="393" height="185" fill="rgb(255,255,255)" /><circle cx="96" cy="671" r="7" fill="rgb(87,92,112)" />${titlePath}${messagePaths}</g>`;
+const STATUS_MESSAGE_GROUP_IDS = Object.freeze([
+  "presentation-start-line-1",
+  "presentation-start-line-2",
+  "presentation-status-line-1",
+  "presentation-status-line-2",
+  "presentation-status-line-3",
+  "presentation-status-line-4",
+]);
+
+function escapeXmlAttribute(value) {
+  return value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
 }
 
-function writeStatusVariants(root, font, source) {
-  for (const variant of STATUS_VARIANTS) {
+function outlinedWordPathsWithoutStyle(font, text, options) {
+  let cursor = options.x;
+  return text.split(/\s+/u).map((word) => {
+    const d = font.getPath(word, 0, 0, options.size, {
+      variation: { wght: options.weight ?? 400, wdth: 100 },
+    }).toPathData(3);
+    const glyphPaths = d.includes("NaN")
+      ? [...word].map((character) => {
+        const glyph = font.charToGlyph(character);
+        const glyphPath = glyph.getPath(0, 0, options.size).toPathData(3);
+        if (glyphPath.includes("NaN")) fail(`контур символа «${character}» в слове «${word}» содержит недопустимые координаты`);
+        const transform = `translate(${cursor.toFixed(3)} 0)`;
+        cursor += glyph.advanceWidth * options.size / font.unitsPerEm;
+        return `<path d="${glyphPath}" transform="${transform}" />`;
+      }).join("")
+      : `<path d="${d}" transform="translate(${cursor.toFixed(3)} 0)" />`;
+    if (d.includes("NaN")) cursor += font.getAdvanceWidth(" ", options.size, {
+      variation: { wght: options.weight ?? 400, wdth: 100 },
+    });
+    else cursor += font.getAdvanceWidth(`${word} `, options.size, {
+      variation: { wght: options.weight ?? 400, wdth: 100 },
+    });
+    return glyphPaths;
+  }).join("");
+}
+
+function replaceSvgGroup(source, id, attributes, content, label) {
+  const pattern = new RegExp(`<g id="${id}"[^>]*>[\\s\\S]*?<\\/g>`, "gu");
+  const matches = [...source.matchAll(pattern)];
+  if (matches.length !== 1) fail(`${label}: для ${id} ожидается ровно одна группа SVG, получено ${matches.length}`);
+  return source.replace(pattern, `<g id="${id}"${attributes}>${content}</g>`);
+}
+
+function replaceStatusMessageInExistingGroups(font, source, variant, {
+  group_ids = STATUS_MESSAGE_GROUP_IDS,
+  baseline = 700,
+  max_lines = 5,
+  hide_marker = true,
+} = {}) {
+  const lines = wrapText(font, variant.message, 345, 15);
+  if (lines.length > max_lines) fail(`${variant.state_id}: сообщение не помещается в область исходного чата SVG`);
+  let updated = removeOverlay(source, "lisa-edit-7-2-email-text");
+  if (hide_marker) updated = hideSourceGroup(updated, "marker_md-24", `${variant.state_id}: исходный маркер`);
+  for (const [index, id] of group_ids.entries()) {
+    if (index >= lines.length) {
+      updated = hideSourceGroup(updated, id, `${variant.state_id}: неиспользуемая строка`);
+      continue;
+    }
+    const accessibleMessage = variant.accessibility_message ?? variant.message;
+    const accessibility = index === 0
+      ? ` role="img" aria-label="${escapeXmlAttribute(accessibleMessage)}"`
+      : ' aria-hidden="true"';
+    const attributes = ` data-lisa-message-id="${variant.message_id}"${accessibility} fill="${BODY_FILL}" fill-rule="nonzero" transform="translate(80.000 ${baseline + index * 25})"`;
+    const content = outlinedWordPathsWithoutStyle(font, lines[index], {
+      x: 0,
+      baseline: 0,
+      size: 15,
+    });
+    updated = replaceSvgGroup(updated, id, attributes, content, `${variant.state_id}: строка ${index + 1}`);
+  }
+  return updated;
+}
+
+function writeStatusVariants(root, font, source, stateIds) {
+  const variants = stateIds === undefined
+    ? STATUS_VARIANTS
+    : STATUS_VARIANTS.filter((variant) => stateIds.includes(variant.state_id));
+  if (variants.length === 0) fail("не выбран ни один вариант статуса для обновления SVG");
+  for (const variant of variants) {
     const target = path.join(root, SOURCE_PATH, variant.file_name);
-    const statusMarkup = statusVariantMarkup(font, variant);
-    const withoutOtherStatus = source.replace(/\t<g id="lisa-status-[^"]+">[\s\S]*?<\/g>\n?/gu, "");
-    const output = appendOverlay(withoutOtherStatus, statusMarkup, `${variant.state_id}: канонический SVG статуса`);
+    const output = replaceStatusMessageInExistingGroups(font, source, variant)
+      .replace(/\t<g id="lisa-status-[^"]+">[\s\S]*?<\/g>\n?/gu, "");
     fs.mkdirSync(path.dirname(target), { recursive: true });
     if (!fs.existsSync(target) || fs.readFileSync(target, "utf8") !== output) fs.writeFileSync(target, output, "utf8");
   }
@@ -425,7 +480,10 @@ function rewriteChatList(font, source) {
   return removeOverlay(updated, "lisa-edit-08-meeting-title");
 }
 
-export function updatePresentationLinkLisaEditableSources({ root = process.cwd() } = {}) {
+export function updatePresentationLinkLisaEditableSources({ root = process.cwd(), statusIds } = {}) {
+  if (statusIds !== undefined && (!Array.isArray(statusIds) || statusIds.some((id) => typeof id !== "string"))) {
+    fail("statusIds должен быть массивом идентификаторов состояний");
+  }
   const font = loadFont(root);
   const presentationOrderFont = loadFont(root);
   const updates = [
@@ -434,7 +492,6 @@ export function updatePresentationLinkLisaEditableSources({ root = process.cwd()
     x: 78, y: 190, width: 292, height: 34, fill: "rgb(255,255,255)", text_x: 80, baseline: 218, size: 24,
     })),
     prepareSvgUpdate(root, "7.1 — Холдинг.svg", (source) => rewritePresentationOrder(presentationOrderFont, source)),
-    prepareSvgUpdate(root, "7.2 — Длинное название клиента + холдинг.svg", (source) => rewriteGenerating(font, rewriteMeetingCard(source, "7.2 — Длинное название клиента + холдинг.svg"))),
     prepareSvgUpdate(root, "7.3 — Презентация.svg", (source) => rewriteTitle(font, "7-3", rewriteMeetingCard(source, "7.3 — Презентация.svg"), {
     x: 94, y: 204, width: 274, height: 26, fill: "rgb(255,255,255)", text_x: 96, baseline: 222, size: 20,
     })),
@@ -444,7 +501,7 @@ export function updatePresentationLinkLisaEditableSources({ root = process.cwd()
     if (update.after !== update.before) fs.writeFileSync(update.filePath, update.after, "utf8");
   }
   const generatedSource = fs.readFileSync(path.join(root, SOURCE_PATH, "7.2 — Длинное название клиента + холдинг.svg"), "utf8");
-  writeStatusVariants(root, font, generatedSource);
+  writeStatusVariants(root, font, generatedSource, statusIds);
   syncSourceRenderCatalog(root);
 }
 

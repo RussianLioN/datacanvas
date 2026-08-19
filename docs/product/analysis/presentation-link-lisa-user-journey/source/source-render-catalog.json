@@ -66,7 +66,7 @@
       "state_id": "lisa-presentation-generating",
       "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
       "media_type": "image/svg+xml",
-      "sha256": "e94a02181d0fb35dc107d89aef5fbbf37b5c24f6ee050d5e85a59d8556904342",
+      "sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
       "logical_dimensions": {
         "width": 521,
         "height": 980
@@ -164,8 +164,11 @@
       "state_id": "lisa-order-not-accepted",
       "path": "editable-sources/status-variants/lisa-order-not-accepted.svg",
       "media_type": "image/svg+xml",
-      "sha256": "041241f643687b5b0c2fd8ba718041d388bc9e365009d4d5a0a50cbd80e966d4",
-      "logical_dimensions": { "width": 521, "height": 980 },
+      "sha256": "f4f0ec6f472654b2e5844f50f4ce022ba3deb9bc714dbf11c29ac9d064bcd1d5",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
       "presentation": "phone",
       "scrollable": false,
       "classification": "active-status-variant"
@@ -175,8 +178,11 @@
       "state_id": "lisa-delivery-delayed",
       "path": "editable-sources/status-variants/lisa-delivery-delayed.svg",
       "media_type": "image/svg+xml",
-      "sha256": "5e21f8f55004c195f73a47e12a519347ba67694d816d4bd6ddaa11484ffaf0c3",
-      "logical_dimensions": { "width": 521, "height": 980 },
+      "sha256": "57db88dc89417bb4d67dedb0417482bcc7e6488a8e9128d22a604aef6f18ee94",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
       "presentation": "phone",
       "scrollable": false,
       "classification": "active-status-variant"
@@ -186,8 +192,11 @@
       "state_id": "lisa-delivery-partial",
       "path": "editable-sources/status-variants/lisa-delivery-partial.svg",
       "media_type": "image/svg+xml",
-      "sha256": "73b3d6fd8535eb87d619d2ce4e7666cf9c0cf978c53493aad800f31ae9f6ed2f",
-      "logical_dimensions": { "width": 521, "height": 980 },
+      "sha256": "b12e801fe46aab3f70080859f7e03168d29757a0dc776e0c32f0aa6403d4a55c",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
       "presentation": "phone",
       "scrollable": false,
       "classification": "active-status-variant"
