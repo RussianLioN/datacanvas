@@ -65,9 +65,9 @@
 | `evidence` | `hidden` | 3 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 9 |
-| `governance` | `2` | 61 |
+| `governance` | `2` | 62 |
 | `governance` | `3` | 14 |
-| `governance` | `hidden` | 47 |
+| `governance` | `hidden` | 46 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
 | `technical` | `3` | 12 |
