@@ -197,21 +197,21 @@
 - `lisa-presentation-sent` → `lisa-presentation-chat-list` по `open_chat_list`;
 - `lisa-presentation-chat-list` → `lisa-presentation-sent` по `return_to_same_chat`;
 - `lisa-presentation-sent` → `lisa-presentation-email` по `open_delivery_email`;
-- `lisa-presentation-email` → `lisa-presentation-slidedoc` по `open_slidedoc_attachment`;
-- `lisa-presentation-email` → `lisa-presentation-sber2025` по `open_sber2025_attachment`;
-- `lisa-presentation-email` → `lisa-presentation-mag` по `open_mag_attachment`;
+- `lisa-presentation-email` → `lisa-presentation-slidedoc` по `open_attachment_slidedoc`;
+- `lisa-presentation-email` → `lisa-presentation-sber2025` по `open_attachment_sber2025`;
+- `lisa-presentation-email` → `lisa-presentation-mag` по `open_attachment_mag`;
 - `lisa-presentation-slidedoc` → `lisa-presentation-email` по `back_to_email`;
 - `lisa-presentation-sber2025` → `lisa-presentation-email` по `back_to_email`;
 - `lisa-presentation-mag` → `lisa-presentation-email` по `back_to_email`.
 
 Успех остаётся прямым исходом формирования. Ошибочные состояния `lisa-order-not-accepted`, `lisa-delivery-delayed` и `lisa-delivery-partial` не имеют входящих рёбер из успеха, письма или презентаций.
 
-Порядок демонстрационной галереи ровно из 11 будущих кадров:
+Порядок `stakeholder_gallery_order` для демонстрационной галереи ровно из 11 будущих кадров:
 
 1. `lisa-materials-full-reference`;
 2. `lisa-presentation-generating`;
-3. `lisa-presentation-sent`;
-4. `lisa-presentation-chat-list`;
+3. `lisa-presentation-chat-list`;
+4. `lisa-presentation-sent`;
 5. `lisa-presentation-email`;
 6. `lisa-presentation-slidedoc`;
 7. `lisa-presentation-sber2025`;
