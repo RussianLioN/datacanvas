@@ -1,0 +1,310 @@
+{
+  "$schema": "schemas/client-reference-data.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "approved_for_demo_model",
+  "client": {
+    "short_name": "ООО «Водолей Трейд»",
+    "inn": "2461004230",
+    "holding": "ГК «Водолей»"
+  },
+  "source_control": {
+    "provided_by": "product_owner",
+    "source_classification": "synthetic_demo_data",
+    "git_display_permission": "allowed",
+    "raw_source_storage": "not_stored",
+    "raw_source_path_stored": false,
+    "raw_source_metadata_stored": false,
+    "excluded_metadata": [
+      "source_file_name",
+      "source_file_path",
+      "source_sha256",
+      "author",
+      "last_modified_by",
+      "created_at",
+      "modified_at",
+      "temporary_render_paths"
+    ],
+    "notes": [
+      "Владелец продукта предоставил данные как синтетические и разрешённые для демонстрационного Git-версируемого прототипа.",
+      "Исходный документ, локальный путь, хэш, свойства автора и временные производные файлы в репозитории не сохраняются.",
+      "Глобальные правила защиты данных и проверки утечек не ослабляются."
+    ]
+  },
+  "data_groups": [
+    {
+      "group_id": "general_information",
+      "title": "Общая информация о клиенте",
+      "facts": [
+        { "label": "Сокращённое наименование", "value": "ООО «Водолей Трейд»" },
+        { "label": "ИНН", "value": "2461004230" },
+        { "label": "Клиентский менеджер", "value": "Стручкова Елена Витальевна" },
+        { "label": "ТБ", "value": "Сибирский банк" },
+        { "label": "ГОСБ", "value": "Восточное отделение №8594" },
+        { "label": "Сегмент", "value": "Средний" },
+        { "label": "Приоритет", "value": "А" },
+        { "label": "Уровень доверия", "value": "Друг" },
+        { "label": "Холдинг", "value": "ГК «Водолей»" },
+        { "label": "Направление бизнеса", "value": "Оптовая продажа сантехники, труб и отопительного оборудования в Сибири" },
+        { "label": "Макроотрасль", "value": "Розничная торговля товарами выборочного спроса" },
+        { "label": "Подотрасль", "value": "Стройматериалы, товары для дома, ремонта, сада" },
+        { "label": "Численность", "value": "90 человек" },
+        { "label": "Срок работы", "value": "14 лет" },
+        { "label": "Конкуренты", "value": "Водная компания, Компания X, Мега Вода, Вода PRO, ВодаМастер" },
+        { "label": "Контрагенты", "value": "ВодныйМИР, Спасатель, Поставка, МикроВода" }
+      ]
+    },
+    {
+      "group_id": "business_owners",
+      "title": "Собственники бизнеса",
+      "facts": [
+        { "label": "ФИО", "value": "Доставалова Ирина Антоновна" },
+        { "label": "Роль", "value": "Учредитель, Конечный бенефициар" },
+        { "label": "Доля", "value": "100%" },
+        { "label": "Пакет услуг", "value": "СберПервый" },
+        { "label": "Инсайт 1", "value": "Одна из богатейших женщин Красноярска — купила два гектара земли и офисы на Калинина за 260 млн руб." },
+        { "label": "Инсайт 2", "value": "Увлекается садоводством" }
+      ]
+    },
+    {
+      "group_id": "financial_indicators",
+      "title": "Финансовые показатели",
+      "facts": [
+        { "label": "Выручка, млн руб., 4Q 2025", "value": "2 946,9" },
+        { "label": "Выручка, млн руб., 2Q 2026", "value": "2 598,8" },
+        { "label": "Динамика выручки", "value": "-11,8%" },
+        { "label": "EBITDA, млн руб., 4Q 2025", "value": "190" },
+        { "label": "EBITDA, млн руб., 2Q 2026", "value": "125" },
+        { "label": "Динамика EBITDA", "value": "-35%" },
+        { "label": "Чистая прибыль, млн руб., 4Q 2025", "value": "106,4" },
+        { "label": "Чистая прибыль, млн руб., 2Q 2026", "value": "66,2" },
+        { "label": "Динамика чистой прибыли", "value": "-38%" },
+        { "label": "Долг, млн руб., 4Q 2025", "value": "223" },
+        { "label": "Долг, млн руб., 2Q 2026", "value": "183" },
+        { "label": "Динамика долга", "value": "-40 млн руб." },
+        { "label": "Долг/EBITDA, 4Q 2025", "value": "1,3" },
+        { "label": "Долг/EBITDA, 2Q 2026", "value": "1,6" },
+        { "label": "Динамика долг/EBITDA", "value": "+0,3" },
+        { "label": "Рентабельность продаж, 4Q 2025", "value": "3,6%" },
+        { "label": "Рентабельность продаж, 2Q 2026", "value": "2,5%" },
+        { "label": "Динамика рентабельности продаж", "value": "-1,1 п.п." },
+        { "label": "Вывод", "value": "Компания испытывает финансовые трудности: снизились выручка, EBITDA, чистая прибыль и рентабельность продаж; долговая нагрузка ухудшилась несмотря на снижение долга на 40 млн руб. Рекомендуются меры по восстановлению устойчивости и конкурентоспособности." }
+      ]
+    },
+    {
+      "group_id": "cooperation",
+      "title": "Сотрудничество",
+      "facts": [
+        { "label": "Количество продуктов", "value": "7" },
+        { "label": "ОД, млн руб., Авг 2024 — Июль 2025", "value": "35" },
+        { "label": "ОД, млн руб., Авг 2025 — Июль 2026", "value": "52" },
+        { "label": "Динамика ОД", "value": "+17; положительная динамика, общий доход вырос за счёт НКД и активов" },
+        { "label": "СДО Активы, млн руб., Авг 2024 — Июль 2025", "value": "1100" },
+        { "label": "СДО Активы, млн руб., Авг 2025 — Июль 2026", "value": "1 300" },
+        { "label": "Динамика СДО Активы", "value": "+200; рост может отражать расширение деятельности или вложения в новые проекты" },
+        { "label": "СДО Пассивы, млн руб., Авг 2024 — Июль 2025", "value": "90" },
+        { "label": "СДО Пассивы, млн руб., Авг 2025 — Июль 2026", "value": "115" },
+        { "label": "Динамика СДО Пассивы", "value": "+30; база в основном за счёт овернайта, остатки нестабильны" },
+        { "label": "ФОТ, млн руб., Авг 2024 — Июль 2025", "value": "17" },
+        { "label": "ФОТ, млн руб., Авг 2025 — Июль 2026", "value": "14" },
+        { "label": "Динамика ФОТ", "value": "-3; снижение может указывать на оптимизацию процессов, сокращение персонала или повышение эффективности" },
+        { "label": "НКД, млн руб., Авг 2024 — Июль 2025", "value": "12" },
+        { "label": "НКД, млн руб., Авг 2025 — Июль 2026", "value": "15" },
+        { "label": "Динамика НКД", "value": "+3; прирост в основном за счёт эквайринга и инкассации" },
+        { "label": "Экосистема, млн руб., Авг 2024 — Июль 2025", "value": "7" },
+        { "label": "Экосистема, млн руб., Авг 2025 — Июль 2026", "value": "8" },
+        { "label": "Динамика экосистемы", "value": "+1; представлены СберЗдоровье и СберМаркетинг" },
+        { "label": "ПФИ, млн руб., Авг 2024 — Июль 2025", "value": "2" },
+        { "label": "ПФИ, млн руб., Авг 2025 — Июль 2026", "value": "2" },
+        { "label": "Динамика ПФИ", "value": "-; активности в направлении мало" },
+        { "label": "Уникальные получатели, Авг 2024 — Июль 2025", "value": "45 человек" },
+        { "label": "Уникальные получатели, Авг 2025 — Июль 2026", "value": "80 человек" },
+        { "label": "Динамика уникальных получателей", "value": "+35; позитивный сигнал расширения сотрудничества в части ФОТ" }
+      ]
+    },
+    {
+      "group_id": "sber_share",
+      "title": "Доля в Сбере",
+      "facts": [
+        { "label": "Кошелёк, млн руб.", "value": "В Сбере 1250; в других банках 250; доля Сбера 83%; всего 1500; банк-конкурент Открытие" },
+        { "label": "Уникальные получатели", "value": "В Сбере 80; в других банках 10; доля Сбера 89%; всего 90; конкуренты Открытие, ВТБ" },
+        { "label": "РКО, млн руб.", "value": "В Сбере 750; в других банках 250; доля Сбера 75%; всего 1000; конкуренты Открытие, ВТБ, Райффайзенбанк" },
+        { "label": "Эквайринг", "value": "В Сбере 400; в других банках 200; доля Сбера 67%; всего 600; конкурент Райффайзенбанк" },
+        { "label": "ВЭД", "value": "В Сбере 700; в других банках 400; доля Сбера 64%; всего 1100; конкуренты Открытие, ТКБ" },
+        { "label": "Вывод", "value": "Есть несоответствие доли Сбера по сравнению с долей в кредитном портфеле по РКО, эквайрингу и ВЭД. Рекомендуется нарастить объёмы для достижения доли 83%." }
+      ]
+    },
+    {
+      "group_id": "active_deals",
+      "title": "Сделки в работе",
+      "facts": [
+        { "label": "Банковские гарантии", "value": "1 млрд руб." },
+        { "label": "Эквайринг", "value": "200 млн руб." },
+        { "label": "Инкассация", "value": "500 млн руб." }
+      ]
+    },
+    {
+      "group_id": "potential",
+      "title": "Потенциал",
+      "facts": [
+        { "label": "Краткосрочное кредитование", "value": "500 млн" },
+        { "label": "Телемедицина", "value": "5 млн" }
+      ]
+    },
+    {
+      "group_id": "preapproved_offers",
+      "title": "Предодобренные предложения",
+      "facts": [
+        { "label": "Оборотное кредитование", "value": "ВКЛ на 100 млн рублей до 36 мес" },
+        { "label": "Банковские гарантии", "value": "Гарантии ИФНС на 500 млн руб до 12 мес; отклонение: верификация ОКК" }
+      ]
+    },
+    {
+      "group_id": "insights",
+      "title": "Инсайты",
+      "facts": [
+        { "label": "Альфа-Банк", "value": "Эквайринг 1,5% против 1,7% у Сбера; бесплатные КСО с абонплатой 5 000 ₽" },
+        { "label": "ВТБ", "value": "Предложили эквайринг 1,7% без НДС" },
+        { "label": "Открытие и ВТБ", "value": "Уже занимают часть ФОТ и ВЭД" },
+        { "label": "Отношение клиента", "value": "Клиент называет зарплатный проект Сбера «скучным и невыгодным»" }
+      ]
+    },
+    {
+      "group_id": "meeting_agreements",
+      "title": "Договорённости с последней встречи",
+      "facts": [
+        { "label": "Поставщики", "value": "Поиск альтернативных поставщиков оборудования из Индии по сниженной цене" },
+        { "label": "КСО", "value": "Консультация технических специалистов по внедрению КСО" },
+        { "label": "Валютное хеджирование", "value": "Предоставление информации и поддержки по валютному хеджированию" },
+        { "label": "ФРП", "value": "Получение ясности по срокам кредита от ФРП" }
+      ]
+    },
+    {
+      "group_id": "dynamic_suggestions",
+      "title": "Динамические подсказки",
+      "facts": [
+        { "label": "Вопрос о выручке", "value": "Дай информацию о выручке за 2025 год" },
+        { "label": "Ответ о выручке", "value": "Выручка организации ООО «Водолей Трейд» за 2025 год составила 2 946,9 млн руб." },
+        { "label": "Вопрос о продуктах", "value": "Какими продуктами пользуется клиент?" },
+        { "label": "Ответ о продуктах", "value": "Клиент ООО «Водолей Трейд» пользуется банковскими продуктами: оборотное кредитование, РКО, Инкассация, Эквайринг, СберМаркетинг, СберЗдоровье и зарплатный проект." }
+      ]
+    },
+    {
+      "group_id": "actions",
+      "title": "Действия",
+      "facts": [
+        { "label": "Кнопка", "value": "Направить справку на почту" },
+        { "label": "Кнопка", "value": "Сформировать презентацию" },
+        { "label": "Кнопка", "value": "Подготовиться ко встрече" },
+        { "label": "Вариант подготовки", "value": "регулярная" },
+        { "label": "Вариант подготовки", "value": "стратегический диалог" },
+        { "label": "Вариант подготовки", "value": "ЦТ" }
+      ]
+    }
+  ],
+  "coverage": {
+    "full_reference_frame_id": "lisa-materials-full-reference",
+    "required_group_ids": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "full_reference_covered_group_ids": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "presentation_variants": [
+      {
+        "variant_id": "slidedoc",
+        "frame_id": "lisa-presentation-slidedoc",
+        "page_count": 3,
+        "aggregate_covered_group_ids": [
+          "general_information",
+          "business_owners",
+          "financial_indicators",
+          "cooperation",
+          "sber_share",
+          "active_deals",
+          "potential",
+          "preapproved_offers",
+          "insights",
+          "meeting_agreements",
+          "dynamic_suggestions",
+          "actions"
+        ],
+        "pages": [
+          { "page": 1, "covered_group_ids": ["general_information", "business_owners", "financial_indicators", "cooperation"] },
+          { "page": 2, "covered_group_ids": ["sber_share", "active_deals", "potential", "preapproved_offers"] },
+          { "page": 3, "covered_group_ids": ["insights", "meeting_agreements", "dynamic_suggestions", "actions"] }
+        ]
+      },
+      {
+        "variant_id": "sber2025",
+        "frame_id": "lisa-presentation-sber2025",
+        "page_count": 3,
+        "aggregate_covered_group_ids": [
+          "general_information",
+          "business_owners",
+          "financial_indicators",
+          "cooperation",
+          "sber_share",
+          "active_deals",
+          "potential",
+          "preapproved_offers",
+          "insights",
+          "meeting_agreements",
+          "dynamic_suggestions",
+          "actions"
+        ],
+        "pages": [
+          { "page": 1, "covered_group_ids": ["general_information", "financial_indicators", "sber_share"] },
+          { "page": 2, "covered_group_ids": ["cooperation", "active_deals", "potential", "preapproved_offers"] },
+          { "page": 3, "covered_group_ids": ["business_owners", "insights", "meeting_agreements", "dynamic_suggestions", "actions"] }
+        ]
+      },
+      {
+        "variant_id": "mag",
+        "frame_id": "lisa-presentation-mag",
+        "page_count": 3,
+        "aggregate_covered_group_ids": [
+          "general_information",
+          "business_owners",
+          "financial_indicators",
+          "cooperation",
+          "sber_share",
+          "active_deals",
+          "potential",
+          "preapproved_offers",
+          "insights",
+          "meeting_agreements",
+          "dynamic_suggestions",
+          "actions"
+        ],
+        "pages": [
+          { "page": 1, "covered_group_ids": ["general_information", "business_owners", "insights"] },
+          { "page": 2, "covered_group_ids": ["financial_indicators", "cooperation", "sber_share"] },
+          { "page": 3, "covered_group_ids": ["active_deals", "potential", "preapproved_offers", "meeting_agreements", "dynamic_suggestions", "actions"] }
+        ]
+      }
+    ]
+  }
+}

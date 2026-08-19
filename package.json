@@ -86,6 +86,7 @@
     "validate:presentation-link-lisa-user-journey:evidence": "npm run check:presentation-link-lisa-user-journey:evidence",
     "validate:presentation-link-lisa-user-journey:profile": "npm run check:presentation-link-lisa-user-journey && npm run validate:presentation-link-lisa-user-journey && npm run validate:presentation-link-lisa-user-journey:evidence",
     "validate:presentation-link-lisa-user-journey:ci": "npm run check:presentation-link-lisa-user-journey:pdf-slides && node --test tests/presentation-link-lisa-pdf-slides.test.mjs tests/presentation-link-lisa-seven-screen-prototype.test.mjs && node scripts/validate-presentation-link-lisa-user-journey.mjs --saved-only && npm run test:presentation-link-lisa-user-journey:browser",
+    "validate:co-2026-003-prototype-revision": "node --test tests/co-2026-003-prototype-revision.test.mjs && node scripts/validate-co-2026-003-prototype-revision.mjs",
     "test:presentation-link-lisa-user-journey:browser": "playwright test --config tests/presentation-link-lisa-user-journey.playwright.config.mjs",
     "prepare:bmc-interview": "node scripts/prepare-bmc-interview-artifacts.mjs",
     "validate:bmc-interview": "node scripts/validate-bmc-interview.mjs",

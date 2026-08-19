@@ -1,0 +1,39 @@
+{
+  "scenarios": [
+    {
+      "id": "old-client",
+      "mutation": "old_client",
+      "expected_error": "client short_name must be ООО «Водолей Трейд»"
+    },
+    {
+      "id": "not-11-frames",
+      "mutation": "not_11_frames",
+      "expected_error": "candidate active future frame list must contain exactly 11 frames"
+    },
+    {
+      "id": "multiple-active-buttons",
+      "mutation": "multiple_active_buttons",
+      "expected_error": "candidate must keep exactly one active order button"
+    },
+    {
+      "id": "invalid-brainstorming-phases",
+      "mutation": "invalid_brainstorming_phases",
+      "expected_error": "brainstorming topic button_label phase_1 must consolidate exactly 30 candidates"
+    },
+    {
+      "id": "raw-source-path",
+      "mutation": "raw_source_path",
+      "expected_error": "must not contain local absolute paths or raw source paths"
+    },
+    {
+      "id": "release-without-selection",
+      "mutation": "release_without_selection",
+      "expected_error": "visual render must remain blocked until owner selections are complete"
+    },
+    {
+      "id": "visual-render-without-editable-sources",
+      "mutation": "visual_render_without_editable_sources",
+      "expected_error": "visual render requires four external editable sources"
+    }
+  ]
+}

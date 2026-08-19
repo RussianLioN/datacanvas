@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brainstorming-contract.schema.json",
+  "title": "Договор двухфазного брейншторма формулировок CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "change_order_id", "status", "common_rules", "phase_1_roles", "phase_2_roles", "topics"],
+  "properties": {
+    "$schema": { "const": "schemas/brainstorming-contract.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "pending_owner_inputs" },
+    "common_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_owner_intro_required_before_each_topic",
+        "topics_are_independent",
+        "phase_1_mode",
+        "phase_2_mode",
+        "no_text_generation_before_topic_start",
+        "owner_final_selection_required"
+      ],
+      "properties": {
+        "product_owner_intro_required_before_each_topic": { "const": true },
+        "topics_are_independent": { "const": true },
+        "phase_1_mode": { "const": "shared_context_visible_ledger" },
+        "phase_2_mode": { "const": "independent_anonymized_evaluation" },
+        "no_text_generation_before_topic_start": { "const": true },
+        "owner_final_selection_required": { "const": true }
+      }
+    },
+    "phase_1_roles": { "$ref": "#/$defs/roles" },
+    "phase_2_roles": { "$ref": "#/$defs/roles" },
+    "topics": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/topic" }
+    }
+  },
+  "$defs": {
+    "roles": {
+      "type": "array",
+      "minItems": 19,
+      "maxItems": 19,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topic_id", "title", "status", "owner_intro", "phase_1", "phase_2", "generated_candidate_texts"],
+      "properties": {
+        "topic_id": {
+          "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "status": { "const": "pending_owner_selection" },
+        "owner_intro": { "type": "string", "minLength": 1 },
+        "phase_1": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["participant_count", "minimum_raw_variants_per_participant", "context_visibility", "duplicate_avoidance", "consolidated_candidate_count"],
+          "properties": {
+            "participant_count": { "type": "integer", "minimum": 1 },
+            "minimum_raw_variants_per_participant": { "minimum": 20, "type": "integer" },
+            "context_visibility": { "const": "shared" },
+            "duplicate_avoidance": { "const": "visible_shared_ledger" },
+            "consolidated_candidate_count": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "phase_2": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["participant_count", "reviewer_group", "input_candidate_count", "evaluation_mode", "final_candidate_count"],
+          "properties": {
+            "participant_count": { "type": "integer", "minimum": 1 },
+            "reviewer_group": { "const": "independent_from_phase_1" },
+            "input_candidate_count": { "type": "integer", "minimum": 1 },
+            "evaluation_mode": { "const": "anonymous" },
+            "final_candidate_count": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "generated_candidate_texts": {
+          "type": "array",
+          "maxItems": 0
+        }
+      }
+    }
+  }
+}

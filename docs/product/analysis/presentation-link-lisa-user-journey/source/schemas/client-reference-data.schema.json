@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "client-reference-data.schema.json",
+  "title": "Очищенная модель справки по клиенту для кандидата прототипа CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "change_order_id", "status", "client", "source_control", "data_groups", "coverage"],
+  "properties": {
+    "$schema": { "const": "schemas/client-reference-data.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "approved_for_demo_model" },
+    "client": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["short_name", "inn", "holding"],
+      "properties": {
+        "short_name": { "type": "string", "minLength": 1 },
+        "inn": { "const": "2461004230" },
+        "holding": { "const": "ГК «Водолей»" }
+      }
+    },
+    "source_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provided_by",
+        "source_classification",
+        "git_display_permission",
+        "raw_source_storage",
+        "raw_source_path_stored",
+        "raw_source_metadata_stored",
+        "excluded_metadata",
+        "notes"
+      ],
+      "properties": {
+        "provided_by": { "const": "product_owner" },
+        "source_classification": { "const": "synthetic_demo_data" },
+        "git_display_permission": { "const": "allowed" },
+        "raw_source_storage": { "const": "not_stored" },
+        "raw_source_path_stored": { "const": false },
+        "raw_source_metadata_stored": { "const": false },
+        "excluded_metadata": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "notes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "data_groups": {
+      "type": "array",
+      "minItems": 12,
+      "items": { "$ref": "#/$defs/data_group" },
+      "uniqueItems": true
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["full_reference_frame_id", "required_group_ids", "full_reference_covered_group_ids", "presentation_variants"],
+      "properties": {
+        "full_reference_frame_id": { "const": "lisa-materials-full-reference" },
+        "required_group_ids": { "$ref": "#/$defs/group_ids" },
+        "full_reference_covered_group_ids": { "$ref": "#/$defs/group_ids" },
+        "presentation_variants": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/presentation_variant" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "data_group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["group_id", "title", "facts"],
+      "properties": {
+        "group_id": { "type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "facts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "value": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "group_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[a-z0-9]+(?:_[a-z0-9]+)*$" },
+      "uniqueItems": true
+    },
+    "presentation_variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["variant_id", "frame_id", "page_count", "aggregate_covered_group_ids", "pages"],
+      "properties": {
+        "variant_id": { "enum": ["slidedoc", "sber2025", "mag"] },
+        "frame_id": {
+          "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"]
+        },
+        "page_count": { "const": 3 },
+        "aggregate_covered_group_ids": { "$ref": "#/$defs/group_ids" },
+        "pages": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["page", "covered_group_ids"],
+            "properties": {
+              "page": { "type": "integer", "minimum": 1, "maximum": 3 },
+              "covered_group_ids": { "$ref": "#/$defs/group_ids" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

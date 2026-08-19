@@ -1,0 +1,163 @@
+{
+  "$schema": "schemas/brainstorming-contract.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "pending_owner_inputs",
+  "common_rules": {
+    "product_owner_intro_required_before_each_topic": true,
+    "topics_are_independent": true,
+    "phase_1_mode": "shared_context_visible_ledger",
+    "phase_2_mode": "independent_anonymized_evaluation",
+    "no_text_generation_before_topic_start": true,
+    "owner_final_selection_required": true
+  },
+  "phase_1_roles": [
+    "product_owner",
+    "business_analyst",
+    "system_analyst",
+    "ux_writer",
+    "client_manager",
+    "corporate_style_editor",
+    "lisa_agent_owner",
+    "datacanvas_agent_owner",
+    "email_channel_owner",
+    "presentation_designer",
+    "qa_lead",
+    "security_reviewer",
+    "integration_architect",
+    "support_owner",
+    "sales_process_owner",
+    "risk_reviewer",
+    "data_steward",
+    "accessibility_reviewer",
+    "facilitator"
+  ],
+  "phase_2_roles": [
+    "product_strategy_reviewer",
+    "senior_business_analyst",
+    "senior_system_analyst",
+    "senior_ux_writer",
+    "stakeholder_reviewer",
+    "legal_style_reviewer",
+    "lisa_channel_reviewer",
+    "datacanvas_reviewer",
+    "mail_delivery_reviewer",
+    "design_quality_reviewer",
+    "uat_reviewer",
+    "security_acceptance_reviewer",
+    "architecture_reviewer",
+    "support_acceptance_reviewer",
+    "sales_enablement_reviewer",
+    "risk_acceptance_reviewer",
+    "data_quality_reviewer",
+    "accessibility_acceptance_reviewer",
+    "independent_facilitator"
+  ],
+  "topics": [
+    {
+      "topic_id": "button_label",
+      "title": "Текст кнопки заказа презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "Ожидается вводная владельца продукта по связи справки по клиенту и презентации. Желательный предел — до трёх слов.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "generation_started_message",
+      "title": "Сообщение о начале формирования презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "Ожидается вводная владельца продукта по сообщению после принятия данных и блокировки повторного заказа в той же паре сеанс/пользователь.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "delivery_success_message",
+      "title": "Сообщение об успешной отправке презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "Ожидается вводная владельца продукта. Побудительная формулировка «проверьте почтовый ящик» отклонена на демонстрации как слишком резкая.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "email_subject",
+      "title": "Тема письма с презентацией",
+      "status": "pending_owner_selection",
+      "owner_intro": "Ожидается вводная владельца продукта. Тема должна помогать находить письмо в списке и содержать название клиента: ООО «Водолей Трейд».",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "email_body",
+      "title": "Тело письма с презентацией",
+      "status": "pending_owner_selection",
+      "owner_intro": "Ожидается вводная владельца продукта. Текст должен быть кратким, деловым, корпоративным, без обращения по имени и без копирования приложенного образца.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    }
+  ]
+}
