@@ -3,7 +3,7 @@
   "status": "portable-thirteen-screen-prototype",
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
+    "sha256": "4586172d7484f51ea51ac0c71927c00169e19db9aa8435724b4f2d26ff1a215f"
   },
   "state_ids": [
     "lisa-materials-summary",
@@ -93,8 +93,8 @@
     },
     {
       "path": "assets/lisa-presentation-generating-content-3x.png",
-      "bytes": 609686,
-      "sha256": "200933cae6e6b5f53f63f91d88e2649c1f309f880129c9ef8bad6657a09ffb84"
+      "bytes": 694334,
+      "sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
     },
     {
       "path": "assets/lisa-presentation-generating-home-3x.png",
@@ -158,8 +158,8 @@
     },
     {
       "path": "assets/lisa-order-not-accepted-content-3x.png",
-      "bytes": 422473,
-      "sha256": "428ecb76fbe1554f0ffc7763eabd8253d0a0acdf758793c90487196211451acd"
+      "bytes": 676704,
+      "sha256": "88d2ac3906670ddec9d78f2994630d4dcb07e7f6f313eea86eaef9d1d231c3c2"
     },
     {
       "path": "assets/lisa-order-not-accepted-home-3x.png",
@@ -173,8 +173,8 @@
     },
     {
       "path": "assets/lisa-delivery-delayed-content-3x.png",
-      "bytes": 416454,
-      "sha256": "cb9a05236501b0e30dc51c79caf56ca192d6892bfcd1a196e3763ae3c21b7663"
+      "bytes": 663525,
+      "sha256": "e4766a61b180ede67d86331d96dbb5f8686778080e9702e842974746dd089887"
     },
     {
       "path": "assets/lisa-delivery-delayed-home-3x.png",
@@ -188,8 +188,8 @@
     },
     {
       "path": "assets/lisa-delivery-partial-content-3x.png",
-      "bytes": 431194,
-      "sha256": "924fba00e833654c6bfaf9b6674e5bd4ca0fc54fbd39f1d7ad6332701b4ac026"
+      "bytes": 693431,
+      "sha256": "51d66c9d531721cb8124c267f4960b9e58f08df456e72ea181a4020de4c3c6a3"
     },
     {
       "path": "assets/lisa-delivery-partial-home-3x.png",
@@ -199,8 +199,8 @@
   ],
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 16099958,
-    "sha256": "29a1aac6666dae3303b234c1bea39e9f3490428030c7c0991baaa81282dee2a5",
+    "bytes": 16948145,
+    "sha256": "4c0345889d8da9c5e9d5e961eef008d16f727deb041def81b91af7f7627b3e04",
     "members": [
       "README.md",
       "manifest.json",

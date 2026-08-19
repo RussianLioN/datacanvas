@@ -290,7 +290,7 @@
     {
       "state_id": "lisa-presentation-generating",
       "source_path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
-      "source_sha256": "e94a02181d0fb35dc107d89aef5fbbf37b5c24f6ee050d5e85a59d8556904342",
+      "source_sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
       "raster_layers": [
         {
           "role": "system_top",
@@ -323,7 +323,7 @@
           "role": "scroll_content",
           "raster_path": "demo/assets/lisa-presentation-generating-content-3x.png",
           "source_path": "source/bases/lisa-presentation-generating-content-3x.png",
-          "raster_sha256": "200933cae6e6b5f53f63f91d88e2649c1f309f880129c9ef8bad6657a09ffb84",
+          "raster_sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -618,7 +618,7 @@
     {
       "state_id": "lisa-order-not-accepted",
       "source_path": "editable-sources/status-variants/lisa-order-not-accepted.svg",
-      "source_sha256": "041241f643687b5b0c2fd8ba718041d388bc9e365009d4d5a0a50cbd80e966d4",
+      "source_sha256": "f4f0ec6f472654b2e5844f50f4ce022ba3deb9bc714dbf11c29ac9d064bcd1d5",
       "raster_layers": [
         {
           "role": "system_top",
@@ -651,7 +651,7 @@
           "role": "scroll_content",
           "raster_path": "demo/assets/lisa-order-not-accepted-content-3x.png",
           "source_path": "source/bases/lisa-order-not-accepted-content-3x.png",
-          "raster_sha256": "428ecb76fbe1554f0ffc7763eabd8253d0a0acdf758793c90487196211451acd",
+          "raster_sha256": "88d2ac3906670ddec9d78f2994630d4dcb07e7f6f313eea86eaef9d1d231c3c2",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -706,7 +706,7 @@
     {
       "state_id": "lisa-delivery-delayed",
       "source_path": "editable-sources/status-variants/lisa-delivery-delayed.svg",
-      "source_sha256": "5e21f8f55004c195f73a47e12a519347ba67694d816d4bd6ddaa11484ffaf0c3",
+      "source_sha256": "57db88dc89417bb4d67dedb0417482bcc7e6488a8e9128d22a604aef6f18ee94",
       "raster_layers": [
         {
           "role": "system_top",
@@ -739,7 +739,7 @@
           "role": "scroll_content",
           "raster_path": "demo/assets/lisa-delivery-delayed-content-3x.png",
           "source_path": "source/bases/lisa-delivery-delayed-content-3x.png",
-          "raster_sha256": "cb9a05236501b0e30dc51c79caf56ca192d6892bfcd1a196e3763ae3c21b7663",
+          "raster_sha256": "e4766a61b180ede67d86331d96dbb5f8686778080e9702e842974746dd089887",
           "source_rect": {
             "x": 64,
             "y": 101,
@@ -794,7 +794,7 @@
     {
       "state_id": "lisa-delivery-partial",
       "source_path": "editable-sources/status-variants/lisa-delivery-partial.svg",
-      "source_sha256": "73b3d6fd8535eb87d619d2ce4e7666cf9c0cf978c53493aad800f31ae9f6ed2f",
+      "source_sha256": "b12e801fe46aab3f70080859f7e03168d29757a0dc776e0c32f0aa6403d4a55c",
       "raster_layers": [
         {
           "role": "system_top",
@@ -827,7 +827,7 @@
           "role": "scroll_content",
           "raster_path": "demo/assets/lisa-delivery-partial-content-3x.png",
           "source_path": "source/bases/lisa-delivery-partial-content-3x.png",
-          "raster_sha256": "924fba00e833654c6bfaf9b6674e5bd4ca0fc54fbd39f1d7ad6332701b4ac026",
+          "raster_sha256": "51d66c9d531721cb8124c267f4960b9e58f08df456e72ea181a4020de4c3c6a3",
           "source_rect": {
             "x": 64,
             "y": 101,

@@ -19,12 +19,12 @@
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
+    "sha256": "4586172d7484f51ea51ac0c71927c00169e19db9aa8435724b4f2d26ff1a215f"
   },
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 16099958,
-    "sha256": "29a1aac6666dae3303b234c1bea39e9f3490428030c7c0991baaa81282dee2a5",
+    "bytes": 16948145,
+    "sha256": "4c0345889d8da9c5e9d5e961eef008d16f727deb041def81b91af7f7627b3e04",
     "members": [
       "README.md",
       "manifest.json",

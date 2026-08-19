@@ -5,7 +5,7 @@
   "route_id": "lisa-presentation-thirteen-screen-route",
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "e84b9d5af54f3c1ebabb0dd46603d9f073b0b4897eab43a8988e09d71d2ce279"
+    "sha256": "4586172d7484f51ea51ac0c71927c00169e19db9aa8435724b4f2d26ff1a215f"
   },
   "active_state_ids": [
     "lisa-materials-summary",
@@ -62,7 +62,7 @@
       "state_id": "lisa-presentation-generating",
       "viewport_id": "desktop-1280x720",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-presentation-generating.png",
-      "sha256": "cb1443eb61ad0d787b141fffccc53d497c0354c6514dc3293474908d584dff05"
+      "sha256": "b7172059d87432520b56f007aecc889c90d628a70c1efceb153f8178c1b7ed4b"
     },
     {
       "state_id": "lisa-presentation-chat-list",
@@ -104,19 +104,19 @@
       "state_id": "lisa-order-not-accepted",
       "viewport_id": "desktop-1280x720",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-order-not-accepted.png",
-      "sha256": "f8a0a88068a07cbb19e5ece21af26e1247c0575bcb9475c448428f323aa4ec7d"
+      "sha256": "d9571d0162a1100d95c2d0a4610404e2c6b9f57875b17ca84eba8a2c253e0d0d"
     },
     {
       "state_id": "lisa-delivery-delayed",
       "viewport_id": "desktop-1280x720",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-delivery-delayed.png",
-      "sha256": "b4610bc86a68de3ac207e0bd8a250cbf38863bbdfa973933749cc3594f00a149"
+      "sha256": "16abc03aadf10babfed0296810b99e0731d657e5178e4086144c6179ecba06d2"
     },
     {
       "state_id": "lisa-delivery-partial",
       "viewport_id": "desktop-1280x720",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/desktop-1280x720/lisa-delivery-partial.png",
-      "sha256": "e2c425e1c0cc4d1d63d08ec1ceca06a1d7ed41e1734971bc80cb0aa9c33a494d"
+      "sha256": "0d82eed2082c6a2873be54709632b6c39db720f12bed637035ca68dcc6c174f8"
     },
     {
       "state_id": "lisa-materials-summary",
@@ -140,7 +140,7 @@
       "state_id": "lisa-presentation-generating",
       "viewport_id": "mobile-390x844",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-presentation-generating.png",
-      "sha256": "263eaa360e8cc84040b5ca3b08db541743d55bef9338618c778b08e1569816d4"
+      "sha256": "47546261b95041219d10135264ae46c528f70848f6edf02be6a752de30714ccd"
     },
     {
       "state_id": "lisa-presentation-chat-list",
@@ -182,19 +182,19 @@
       "state_id": "lisa-order-not-accepted",
       "viewport_id": "mobile-390x844",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-order-not-accepted.png",
-      "sha256": "bc8b349b6958e2a00f73035c44e2dfe6bb47a833187f3e91751883fed1df4634"
+      "sha256": "943fa9b94e221779117d8334c8ad42f473d49ccfb577b44ba4b35bcf8fc87d8d"
     },
     {
       "state_id": "lisa-delivery-delayed",
       "viewport_id": "mobile-390x844",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-delivery-delayed.png",
-      "sha256": "39485edad7acfa7874071aa1e3acdec145f01ea761357c7d65ce6a2d2d0c41fc"
+      "sha256": "d8fdf5f9752705be49e30f2dc627b102b343d8a595f35a5716d84648f1e13f48"
     },
     {
       "state_id": "lisa-delivery-partial",
       "viewport_id": "mobile-390x844",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/mobile-390x844/lisa-delivery-partial.png",
-      "sha256": "f66faea00fada1bad517fc41ede77a174a6f4c1e7f2b9fe5c90871ccd5b15563"
+      "sha256": "6dcb0208edb35a25f72b66b14a7914f788cfaff28b22b77bea36e4e44c1cfd5b"
     },
     {
       "state_id": "lisa-materials-summary",
@@ -218,7 +218,7 @@
       "state_id": "lisa-presentation-generating",
       "viewport_id": "stress-320x568",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-presentation-generating.png",
-      "sha256": "fdec36cd91f8b8cbf93afc4572e32241d9873d00fc6231ca747e8d9f15683e72"
+      "sha256": "d2d0d4e69d65a291e91610ee09bceee3ef4c078de75612f88ddb1916a9c9883e"
     },
     {
       "state_id": "lisa-presentation-chat-list",
@@ -260,19 +260,19 @@
       "state_id": "lisa-order-not-accepted",
       "viewport_id": "stress-320x568",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-order-not-accepted.png",
-      "sha256": "617e29d9e48823db9cc719b7ba4da98710a65fc4bddc852b71834cd9e8902f33"
+      "sha256": "e50a22de5ea80bceb74058a0669bd51339a813ff154cea3912760027d4e257fe"
     },
     {
       "state_id": "lisa-delivery-delayed",
       "viewport_id": "stress-320x568",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-delivery-delayed.png",
-      "sha256": "61d3178e894585f7605c0487e80c13e2ae0f592f9850fd7e6842318bef015b6f"
+      "sha256": "7bd6982138dc830d56a9a88f87aeeffc18d23f9b3345874d41ee3f56ac37ae61"
     },
     {
       "state_id": "lisa-delivery-partial",
       "viewport_id": "stress-320x568",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/screenshots/webkit/stress-320x568/lisa-delivery-partial.png",
-      "sha256": "738938733dde255282de631506449b05ec86015715c625d6e9fce559efc6b070"
+      "sha256": "0661032f249038d06f602f2ab1f88ba695832065df18bf816699cbaf478fed9d"
     }
   ]
 }

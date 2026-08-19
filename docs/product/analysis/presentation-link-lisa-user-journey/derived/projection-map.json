@@ -243,7 +243,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "200933cae6e6b5f53f63f91d88e2649c1f309f880129c9ef8bad6657a09ffb84"
+          "raster_sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
         },
         {
           "role": "system_bottom",
@@ -262,7 +262,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "3f27a27ded3ade24b0763234efe6cdfa45e69523f195934383c2518e87df8d75"
+      "projection_sha256": "8871647029a52fc0a06de910f6655a35843471a3a6ce9364df19f374e080c1ce"
     },
     {
       "state_id": "lisa-presentation-chat-list",
@@ -469,7 +469,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "428ecb76fbe1554f0ffc7763eabd8253d0a0acdf758793c90487196211451acd"
+          "raster_sha256": "88d2ac3906670ddec9d78f2994630d4dcb07e7f6f313eea86eaef9d1d231c3c2"
         },
         {
           "role": "system_bottom",
@@ -488,7 +488,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "e2328664f186ca0ae561352b49310f8bd20a6b296cec64f0dc4d7b2054723f36"
+      "projection_sha256": "c3feab4cb2c6feaa5caa28b207da8bfef2a2b24dcd56bd2ae4e525be0c856e2b"
     },
     {
       "state_id": "lisa-delivery-delayed",
@@ -531,7 +531,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "cb9a05236501b0e30dc51c79caf56ca192d6892bfcd1a196e3763ae3c21b7663"
+          "raster_sha256": "e4766a61b180ede67d86331d96dbb5f8686778080e9702e842974746dd089887"
         },
         {
           "role": "system_bottom",
@@ -550,7 +550,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "cc459941ea5e4f36dc5ce855994b0456fa1245e7726e23b88b44ba5898cb1ab6"
+      "projection_sha256": "e2fdd85544e77cbd10b14c5f21810fae1ea85d60d415b1b2644c6fc35b0530bc"
     },
     {
       "state_id": "lisa-delivery-partial",
@@ -593,7 +593,7 @@
             "width": 393,
             "height": 765
           },
-          "raster_sha256": "924fba00e833654c6bfaf9b6674e5bd4ca0fc54fbd39f1d7ad6332701b4ac026"
+          "raster_sha256": "51d66c9d531721cb8124c267f4960b9e58f08df456e72ea181a4020de4c3c6a3"
         },
         {
           "role": "system_bottom",
@@ -612,7 +612,7 @@
           "raster_sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
         }
       ],
-      "projection_sha256": "24153721b8b912033881a2a9c32acf5a220e7ae5bb9f5fe9e793d8784e7004fc"
+      "projection_sha256": "9affbfbe39731e7ddef295f70bce69adc6b9d90cc084630dda36392309eee598"
     }
   ]
 }

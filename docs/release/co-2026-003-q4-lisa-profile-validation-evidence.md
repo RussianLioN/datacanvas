@@ -12,7 +12,7 @@
 - Пройдены `npm run validate:co-questionnaire`, `npm run validate:ba-sa`, `npm run validate:spec-task-prompt-readiness`, `npm run validate:interface-contracts`, `npm run validate:state-model` и `npm run validate:error-taxonomy`.
 - Пройдены `npm run test:co-2026-003-q4-lisa-profile-integrity`, `npm run validate:schemas`, `npm run validate:contracts`, `npm run scan:secrets`, `npm run validate:data-leakage` и `npm run validate:business-docs`.
 - Пройдены `npm run generate:presentation-link-lisa-user-journey`, `npm run update:presentation-link-lisa-user-journey:evidence` и `npm run validate:presentation-link-lisa-user-journey:profile`: переносимый прототип содержит десять исходных экранов в исходном порядке и три экрана статусов после успешного пути. Для статусов созданы собственные SVG-источники и PNG-сегменты; выпускная страница не добавляет HTML- или CSS-карточку поверх растра.
-- Пройдены `npm run generate:co-2026-003-delivery-archive`, `npm run check:co-2026-003-delivery-archive` и `npm run validate:co-2026-003-delivery-archive`: специальный архив поставки включает текущий прототип, очищенную рабочую книгу 2026-08-17 и исключает историческую рабочую книгу 2026-07-08.
+- Пройдены `npm run generate:co-2026-003-delivery-archive`, `npm run check:co-2026-003-delivery-archive` и `npm run validate:co-2026-003-delivery-archive`: специальный архив поставки включает текущий прототип, очищенную рабочую книгу 2026-08-17, договор изготовления экранов из SVG и RCA визуального выпуска; историческая рабочая книга 2026-07-08 исключена.
 - Пакет итоговой приёмки связывает первичное интервью, продуктовые и системные документы, Q4_2026-спецификации, прототип, архив и доказательства; специальный архив включает сам пакет и полный Q4_2026-набор спецификаций.
 - Пройдены итоговые проверки навигации и полный `npm test`.
 
@@ -53,7 +53,8 @@
 происхождения; историческая книга от 2026-07-08 исключена из этой поставки.
 Для итоговой приёмки архив также содержит [пакет приёмки](co-2026-003-q4-lisa-profile-acceptance-packet.md)
 и полный набор Q4_2026-спецификаций, поэтому получатель видит не только
-демонстрацию, но и проверяемую документационную основу.
+демонстрацию, но и проверяемую документационную основу, правило изготовления
+экранов из SVG и разбор причин прежнего визуального дефекта.
 
 ## Внешние решения
 
