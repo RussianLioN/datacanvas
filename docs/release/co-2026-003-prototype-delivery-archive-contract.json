@@ -47,6 +47,14 @@
       "label": "Исходный договор пути пользователя"
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
+      "label": "Договор изготовления визуальных экранов из SVG-источников"
+    },
+    {
+      "path": "docs/release/co-2026-003-visual-prototype-rca.md",
+      "label": "Разбор корневой причины и защита качества визуального прототипа"
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
       "label": "Переносимый прототип пути пользователя"
     },
