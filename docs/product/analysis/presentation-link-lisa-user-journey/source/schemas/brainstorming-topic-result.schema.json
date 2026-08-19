@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brainstorming-topic-result.schema.json",
+  "title": "Неактивный результат темы брейншторма CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "topic_id",
+    "topic_title",
+    "status",
+    "owner_intro",
+    "phase_1",
+    "phase_2",
+    "scoring",
+    "final_candidates",
+    "selected_text",
+    "boundaries"
+  ],
+  "properties": {
+    "$schema": { "const": "../../source/schemas/brainstorming-topic-result.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "topic_id": { "const": "delivery_success_message" },
+    "topic_title": { "const": "Сообщение об успешной отправке презентации" },
+    "status": { "const": "pending_owner_selection" },
+    "owner_intro": { "$ref": "#/$defs/safeText" },
+    "phase_1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "participant_count",
+        "minimum_raw_variants_per_participant",
+        "raw_variant_count",
+        "context_visibility",
+        "common_context",
+        "participants",
+        "consolidation"
+      ],
+      "properties": {
+        "participant_count": { "const": 19 },
+        "minimum_raw_variants_per_participant": { "const": 20 },
+        "raw_variant_count": { "const": 380 },
+        "context_visibility": { "const": "shared" },
+        "common_context": { "$ref": "#/$defs/safeText" },
+        "participants": {
+          "type": "array",
+          "minItems": 19,
+          "maxItems": 19,
+          "items": { "$ref": "#/$defs/phase1Participant" }
+        },
+        "consolidation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["candidate_count", "candidates"],
+          "properties": {
+            "candidate_count": { "const": 30 },
+            "candidates": {
+              "type": "array",
+              "minItems": 30,
+              "maxItems": 30,
+              "items": { "$ref": "#/$defs/consolidatedCandidate" }
+            }
+          }
+        }
+      }
+    },
+    "phase_2": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "participant_count",
+        "reviewer_group",
+        "input_candidate_count",
+        "evaluation_mode",
+        "ranking_size",
+        "rankings"
+      ],
+      "properties": {
+        "participant_count": { "const": 19 },
+        "reviewer_group": { "const": "independent_anonymous" },
+        "input_candidate_count": { "const": 30 },
+        "evaluation_mode": { "const": "anonymous" },
+        "ranking_size": { "const": 5 },
+        "rankings": {
+          "type": "array",
+          "minItems": 19,
+          "maxItems": 19,
+          "items": { "$ref": "#/$defs/ranking" }
+        }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule", "position_points", "totals"],
+      "properties": {
+        "rule": { "const": "Позиции 1–5 дают 5–1 балл." },
+        "position_points": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["1", "2", "3", "4", "5"],
+          "properties": {
+            "1": { "const": 5 },
+            "2": { "const": 4 },
+            "3": { "const": 3 },
+            "4": { "const": 2 },
+            "5": { "const": 1 }
+          }
+        },
+        "totals": {
+          "type": "array",
+          "minItems": 30,
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["candidate_id", "points"],
+            "properties": {
+              "candidate_id": { "type": "integer", "minimum": 1, "maximum": 30 },
+              "points": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "final_candidates": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/finalCandidate" }
+    },
+    "selected_text": { "type": "null" },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["render_allowed", "archive_allowed", "generator_input_allowed"],
+      "properties": {
+        "render_allowed": { "const": false },
+        "archive_allowed": { "const": false },
+        "generator_input_allowed": { "const": false }
+      }
+    }
+  },
+  "$defs": {
+    "safeText": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "/Users/" },
+          { "pattern": "/private/tmp" },
+          { "pattern": "[fF][iI][lL][eE]:" },
+          { "pattern": "\\.[dD][oO][cC][xX]\\b" },
+          { "pattern": "[A-Za-z]:\\\\" },
+          { "pattern": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}" },
+          { "pattern": "\\b[A-Fa-f0-9]{64}\\b" }
+        ]
+      }
+    },
+    "phase1Participant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["participant_id", "variants"],
+      "properties": {
+        "participant_id": { "$ref": "#/$defs/safeText" },
+        "variants": {
+          "type": "array",
+          "minItems": 20,
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/safeText" }
+        }
+      }
+    },
+    "consolidatedCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "text"],
+      "properties": {
+        "candidate_id": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "text": { "$ref": "#/$defs/safeText" }
+      }
+    },
+    "ranking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["anonymous_reviewer_id", "ranked_candidate_ids"],
+      "properties": {
+        "anonymous_reviewer_id": { "pattern": "^reviewer-[0-9]{2}$", "type": "string" },
+        "ranked_candidate_ids": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "items": { "type": "integer", "minimum": 1, "maximum": 30 }
+        }
+      }
+    },
+    "finalCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rank", "source_candidate_id", "points", "text"],
+      "properties": {
+        "rank": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "source_candidate_id": { "type": "integer", "minimum": 1, "maximum": 30 },
+        "points": { "type": "integer", "minimum": 0 },
+        "text": { "$ref": "#/$defs/safeText" }
+      }
+    }
+  }
+}

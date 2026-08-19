@@ -18,7 +18,7 @@
     {
       "id": "invalid-brainstorming-phases",
       "mutation": "invalid_brainstorming_phases",
-      "expected_error": "brainstorming topic button_label phase_1 must consolidate exactly 30 candidates"
+      "expected_error": "/topics/0/phase_1/consolidated_candidate_count: must be equal to constant"
     },
     {
       "id": "raw-source-path",

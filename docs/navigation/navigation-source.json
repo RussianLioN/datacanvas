@@ -267,6 +267,25 @@
       }
     },
     {
+      "id": "presentation-link-lisa-user-journey-candidate-evidence",
+      "path_prefix": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence",
+      "defaults": {
+        "section": "release-evidence",
+        "owner_role": "Product Owner / Documentation Owner",
+        "lifecycle": "draft",
+        "data_class": "internal",
+        "visibility": "internal",
+        "searchable": true,
+        "navigable": false,
+        "canonical_source": null,
+        "generated_from": [],
+        "redaction_status": "not_required",
+        "update_trigger": "Неактивные результаты брейншторма CO-2026-003 меняются.",
+        "navigation_domain": "documentation_operations",
+        "navigation_group": "evidence"
+      }
+    },
+    {
       "id": "ux-uat",
       "path_prefix": "docs/product/ux",
       "defaults": {

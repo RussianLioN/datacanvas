@@ -525,6 +525,10 @@ const cases = [
     data: "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.json",
+  },
+  {
     schema: "schemas/workflow-state.schema.json",
     data: "docs/process/universal-documentation-workflow/workflow-state.json",
   },
