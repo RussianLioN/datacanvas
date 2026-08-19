@@ -3090,6 +3090,26 @@
       "artifact_registry_required": false
     },
     {
+      "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
+      "route_id": "co-2026-003-svg-prototype-revision-implementation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations",
+      "owner_role": "Product Owner / Process Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется план будущей SVG-first пересборки прототипа CO-2026-003 для заказа презентации из Лисы.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
       "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
       "route_id": "datacanvas-xlsx-opml-jira-recovery-plan",
       "section": "plans",

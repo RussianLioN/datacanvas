@@ -67,7 +67,7 @@
 | `governance` | `1` | 9 |
 | `governance` | `2` | 61 |
 | `governance` | `3` | 14 |
-| `governance` | `hidden` | 46 |
+| `governance` | `hidden` | 47 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
 | `technical` | `3` | 12 |
