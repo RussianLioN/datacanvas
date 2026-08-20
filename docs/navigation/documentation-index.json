@@ -3350,6 +3350,7 @@
       "outgoing_links": [
         "docs/architecture/README.md",
         "docs/architecture/system-analysis/README.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/README.md",
         "README.md"
@@ -4200,6 +4201,7 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/plans/README.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/README.md",
         "README.md"
       ],
@@ -4213,6 +4215,7 @@
         "карта-будущих-правок",
         "задача-1-подтвердить-фундамент-кандидата-v1",
         "задача-2-закрепить-пять-текстовых-циклов",
+        "задача-21-каскадно-обновить-текстовые-продуктовые-документы",
         "задача-3-создать-будущий-svg-первичный-договор",
         "задача-4-зафиксировать-реальный-маршрут-и-демонстрационную-галерею",
         "задача-5-согласовать-svg-источники-и-каталог-рендера",
@@ -8810,6 +8813,7 @@
       "parent_readme": "docs/product/analysis/README.md",
       "artifact_registry_id": "ART-483",
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/README.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/README.md",
@@ -11141,6 +11145,8 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": "ART-837",
       "outgoing_links": [
+        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
@@ -11154,7 +11160,7 @@
         "назначение",
         "десять-активных-состояний-экран-1-исключён",
         "действие-заказа",
-        "контрольный-просмотр-product-owner-перед-визуальным-выпуском",
+        "исторический-контрольный-просмотр-product-owner",
         "геометрия",
         "критерии-приёмки"
       ],
@@ -12621,6 +12627,8 @@
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
@@ -12631,7 +12639,7 @@
         "реестр-согласованных-формулировок-интервью-co-2026-003",
         "правило-источника-истины",
         "дословные-формулировки",
-        "согласованные-тексты-сообщений"
+        "исторические-согласованные-тексты-сообщений"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -12683,6 +12691,7 @@
         "docs/architecture/system-analysis/README.md",
         "docs/product-vision.md",
         "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
@@ -12817,6 +12826,7 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
@@ -13429,6 +13439,7 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-431",
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -13515,6 +13526,7 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-428",
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -13647,6 +13659,7 @@
       "parent_readme": "docs/product/requirements/README.md",
       "artifact_registry_id": "ART-429",
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/README.md",
         "docs/product/requirements/README.md",
@@ -15480,6 +15493,7 @@
       "parent_readme": "docs/release/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/README.md",
@@ -15530,6 +15544,7 @@
         "docs/architecture/system-analysis/srs-v0.1.json",
         "docs/architecture/system-analysis/srs-v0.1.md",
         "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
+        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
         "docs/product/analysis/ba-sa/interview-derived-coverage.json",
         "docs/product/analysis/ba/ba-spec.json",
         "docs/product/analysis/ba/business-rules.json",
@@ -15540,6 +15555,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
@@ -15617,6 +15633,7 @@
       "outgoing_links": [
         "docs/process/universal-documentation-workflow/universal-workflow-runbook.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",

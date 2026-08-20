@@ -344,7 +344,8 @@
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-23",
@@ -422,10 +423,11 @@
       "requirement_id": "BT-018",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
-        "docs/product/backlog/product-backlog.md",
-        "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/requirements/acceptance-criteria.md"
+      "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/specs/feature-spec-a2a-launch.json",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-27",
@@ -527,10 +529,11 @@
       "requirement_id": "BT-019",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
-        "docs/product/backlog/product-backlog.md",
-        "docs/product/requirements/acceptance-criteria.md"
+      "docs/product/requirements/user-stories.md",
+      "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-30"

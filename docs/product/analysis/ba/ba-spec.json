@@ -127,13 +127,14 @@
     },
     {
       "claim_id": "BASA-CLM-013",
-      "safe_summary": "Пользователь получает в том же чате Лисы только дословно согласованное безопасное состояние заказа; системный PUSH, ссылка на файл, личные сведения и содержание запроса не показываются.",
+      "safe_summary": "Пользователь получает в том же чате Лисы безопасное состояние заказа; для будущего кандидата тексты начала и успеха берутся из реестра утверждённых текстов, а системный PUSH, ссылка на файл, личные сведения и содержание запроса не показываются.",
       "trust_status": "confirmed",
       "data_class": "internal",
       "evidence_refs": [
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
       "promoted_to_requirement": true
@@ -305,7 +306,7 @@
     },
     {
       "rule_id": "BRULE-006",
-      "summary": "Пользователь видит в том же чате Лисы только дословно согласованное безопасное состояние заказа; личные сведения и содержание запроса не показываются.",
+      "summary": "Пользователь видит в том же чате Лисы только безопасное состояние заказа; в будущем кандидате тексты начала и успеха дословно совпадают с реестром утверждённых текстов, личные сведения и содержание запроса не показываются.",
       "owner_role": "Security/Privacy Lead",
       "verification": "npm run validate:business-rules",
       "source_claim_ids": ["BASA-CLM-013"]

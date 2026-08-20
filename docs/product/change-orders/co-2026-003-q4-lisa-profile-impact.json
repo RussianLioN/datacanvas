@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "status": "accepted",
   "change_order_id": "CO-2026-003",
-  "summary": "CO-2026-003 вводит подтвержденный контур Q4_2026: заказ из Лисы, определение адресов только через «Профиль сотрудника», почтовая доставка ODT и PDF и безопасные сообщения о состоянии в том же чате. Ссылка на файл, отдельное хранилище, системный PUSH и расширенное редактирование структуры остаются будущим объемом.",
+  "summary": "CO-2026-003 вводит подтвержденный контур Q4_2026: заказ из Лисы, определение адресов только через «Профиль сотрудника», почтовая доставка ODT и PDF и безопасные сообщения о состоянии в том же чате. Пять текстов будущего кандидата берутся из отдельного реестра утверждённых текстов и не разрешают визуальный выпуск. Ссылка на файл, отдельное хранилище, системный PUSH и расширенное редактирование структуры остаются будущим объемом.",
   "priority_before": [
     "Истории и требования маршрута запуска другим агентом использовали прежние форматы результата и не выделяли Q4_2026-контур заказа из Лисы, адресов и состояния в том же чате.",
     "Ссылка на файл и уведомление в Лисе были описаны как расширенная доставка без отдельной границы Q4_2026."
@@ -65,6 +65,8 @@
     "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
     "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+    "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+    "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",

@@ -6,7 +6,7 @@
 Владелец: Product Owner
 Проверка: `npm run validate:business-rules`
 
-`BRULE-004`–`BRULE-008` используют `CO3-DEC-003`, `CO3-DEC-004`, `CO3-DEC-006`, `CO3-DEC-007` и `CO3-MSG-001`–`CO3-MSG-005` [реестра интервью](../../change-orders/co-2026-003-authoritative-interview-decision-register.md), равноправного очищенной рабочей книге.
+`BRULE-004`–`BRULE-008` используют `CO3-DEC-003`, `CO3-DEC-004`, `CO3-DEC-006`, `CO3-DEC-007` и исторические `CO3-MSG-001`–`CO3-MSG-005` [реестра интервью](../../change-orders/co-2026-003-authoritative-interview-decision-register.md), равноправного очищенной рабочей книге. Тексты будущего кандидата для кнопки, начала и успеха, темы и тела письма берутся из [реестра утверждённых текстов](../presentation-link-lisa-user-journey/owner-approved-texts.md); он не разрешает визуальный выпуск.
 
 | ID | Область | Правило | Owner | Проверка |
 |---|---|---|---|---|
@@ -15,6 +15,6 @@
 | `BRULE-003` — правило доверительной границы | trust_boundary | A2A/MCP payload (данные от внешнего агента или инструмента) считается недоверенными данными до validation | Security/Privacy Lead | `npm run validate:interface-contracts` |
 | `BRULE-004` — правило определения адресов | profile_addresses | Адреса получателей результата определяются только через сервис «Профиль сотрудника»; произвольный адрес из запроса не используется | Product Owner | `npm run validate:business-rules` |
 | `BRULE-005` — правило одного заказа | one_order_per_session_user | Для пары идентификаторов сеанса и пользователя допускается один заказ; повтор возможен только до принятия запроса | Product Owner | `npm run validate:business-rules` |
-| `BRULE-006` — правило безопасного состояния | safe_lisa_status | Пользователь видит в том же чате Лисы только дословно согласованное безопасное состояние заказа; личные сведения и содержание запроса не показываются | Security/Privacy Lead | `npm run validate:business-rules` |
+| `BRULE-006` — правило безопасного состояния | safe_lisa_status | Пользователь видит в том же чате Лисы только безопасное состояние заказа; в будущем кандидате тексты начала и успеха дословно совпадают с реестром утверждённых текстов, личные сведения и содержание запроса не показываются | Security/Privacy Lead | `npm run validate:business-rules` |
 | `BRULE-007` — правило границы Q4_2026 | q4_scope_boundary | В Q4_2026 входят адреса через «Профиль сотрудника», `ODT`/`PDF`, почта и состояние в том же чате; ссылка, хранилище, PUSH и расширенное редактирование структуры относятся к будущему объему | Product Owner | `npm run validate:business-rules` |
 | `BRULE-008` — правило закрытия сеанса после проблемы доставки | closed_session_after_delivery_problem | После задержанной, частичной или неподтвержденной доставки принятый заказ не дублируется: сеанс переходит на сопровождение, закрывается и не принимает новый заказ | Product Owner | `npm run validate:business-rules` |

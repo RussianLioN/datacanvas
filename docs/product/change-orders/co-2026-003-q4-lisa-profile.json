@@ -2,13 +2,13 @@
   "id": "CO-2026-003",
   "title": "Q4_2026: Лиса, Профиль сотрудника и почтовая доставка результата",
   "status": "accepted",
-  "source": "Очищенная рабочая книга Product Owner от 2026-08-17 и безопасно зафиксированные ответы интервью Product Owner.",
+  "source": "Очищенная рабочая книга Product Owner от 2026-08-17, безопасно зафиксированные ответы интервью Product Owner и отдельный реестр утверждённых текстов будущего кандидата.",
   "reason": "Нужно выделить подтвержденный Q4_2026-контур заказа презентации из Лисы, почтовой доставки ODT и PDF и сообщений о состоянии в том же чате, не выдавая неуточненные системные решения за согласованные.",
   "priority_before": [
     "Будущий контур Лисы и доставки результата не отделен от ранее принятого маршрута запуска другим агентом."
   ],
   "priority_after": [
-    "В Q4_2026 входит заказ из Лисы, получение адресов через Профиль сотрудника, отправка ODT и PDF и сообщения в том же чате.",
+    "В Q4_2026 входит заказ из Лисы, получение адресов через Профиль сотрудника, отправка ODT и PDF и сообщения в том же чате; подпись кнопки, тексты начала и успеха, тема и тело будущего письма берутся из отдельного утверждённого реестра.",
     "Системный PUSH, ссылка на файл, отдельное хранилище и расширенное редактирование структуры остаются за пределами Q4_2026 и относятся к будущему планированию."
   ],
   "affected_users": [
@@ -21,6 +21,8 @@
   "affected_artifacts": [
     "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
     "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+    "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+    "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
     "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",

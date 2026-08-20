@@ -5,7 +5,7 @@
   "feature_id": "FS-003",
   "priority": "P1",
   "owned_paths": ["docs/product/specs/task-spec-q4-lisa-order-state.json", "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json"],
-  "allowed_edit_scope": "Разрешенная область правки: документационная спецификация состояний приема одного заказа из существующих экранов Лисы и проверки жизненного цикла; без изменения пути пользователя, прямой доставки DataCanvas в Лису, сетевых вызовов, PUSH, ссылки на файл или отдельных экранов.",
+  "allowed_edit_scope": "Разрешенная область правки: документационная спецификация состояний приема одного заказа из существующих экранов Лисы, утвержденной подписи кнопки будущего кандидата и проверки жизненного цикла; без изменения пути пользователя, прямой доставки DataCanvas в Лису, сетевых вызовов, PUSH, ссылки на файл или отдельных экранов.",
   "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json", "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
   "done_when": [
     "Допустимый запрос проходит eligible и validating до единственного accepted_locked для пары сеанс/пользователь",
