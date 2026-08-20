@@ -23,8 +23,16 @@
     "$schema": { "const": "../../source/schemas/brainstorming-topic-result.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "topic_id": { "const": "delivery_success_message" },
-    "topic_title": { "const": "Сообщение об успешной отправке презентации" },
+    "topic_id": {
+      "enum": [
+        "button_label",
+        "generation_started_message",
+        "delivery_success_message",
+        "email_subject",
+        "email_body"
+      ]
+    },
+    "topic_title": { "$ref": "#/$defs/safeText" },
     "status": { "const": "pending_owner_selection" },
     "owner_intro": { "$ref": "#/$defs/safeText" },
     "phase_1": {
@@ -92,6 +100,15 @@
         }
       }
     },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_variant_uniqueness", "replacement_attribution"],
+      "properties": {
+        "raw_variant_uniqueness": { "const": "verified_exact_unique" },
+        "replacement_attribution": { "const": "verified_against_recorded_participant_id" }
+      }
+    },
     "scoring": {
       "type": "object",
       "additionalProperties": false,
@@ -144,6 +161,28 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": { "properties": { "topic_id": { "const": "button_label" } }, "required": ["topic_id"] },
+      "then": { "properties": { "topic_title": { "const": "Текст кнопки заказа презентации" } } }
+    },
+    {
+      "if": { "properties": { "topic_id": { "const": "generation_started_message" } }, "required": ["topic_id"] },
+      "then": { "properties": { "topic_title": { "const": "Сообщение о начале формирования презентации" } } }
+    },
+    {
+      "if": { "properties": { "topic_id": { "const": "delivery_success_message" } }, "required": ["topic_id"] },
+      "then": { "properties": { "topic_title": { "const": "Сообщение об успешной отправке презентации" } } }
+    },
+    {
+      "if": { "properties": { "topic_id": { "const": "email_subject" } }, "required": ["topic_id"] },
+      "then": { "properties": { "topic_title": { "const": "Тема письма с презентацией" } } }
+    },
+    {
+      "if": { "properties": { "topic_id": { "const": "email_body" } }, "required": ["topic_id"] },
+      "then": { "properties": { "topic_title": { "const": "Тело письма с презентацией" } } }
+    }
+  ],
   "$defs": {
     "safeText": {
       "type": "string",

@@ -1,0 +1,19 @@
+{
+  "$schema": "../source/schemas/candidate-evidence-registry.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "inactive_pending_owner_selection",
+  "topic_ids": [
+    "button_label",
+    "delivery_success_message"
+  ],
+  "package_paths": [
+    "candidate-evidence/button-label",
+    "candidate-evidence/delivery-success-message"
+  ],
+  "boundaries": {
+    "render_allowed": false,
+    "archive_allowed": false,
+    "generator_input_allowed": false
+  }
+}

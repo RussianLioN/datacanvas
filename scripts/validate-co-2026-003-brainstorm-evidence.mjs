@@ -3,14 +3,14 @@ import path from "node:path";
 import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 
-const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message";
-const statePath = `${packagePath}/brainstorming-topic-result.json`;
-const ledgerPath = `${packagePath}/brainstorming-topic-result.md`;
-const rawLedgerPath = `${packagePath}/raw-variants-ledger.md`;
-const schemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json";
-const activeContractsPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json";
-const prototypeCandidatePath = "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json";
-const expectedFinalCandidateIds = Object.freeze([1, 2, 9, 6, 14]);
+const journeyRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
+const candidateEvidenceRoot = `${journeyRoot}/candidate-evidence`;
+const registryPath = `${candidateEvidenceRoot}/candidate-evidence-registry.json`;
+const registrySchemaPath = `${journeyRoot}/source/schemas/candidate-evidence-registry.schema.json`;
+const topicSchemaPath = `${journeyRoot}/source/schemas/brainstorming-topic-result.schema.json`;
+const brainstormingContractPath = `${journeyRoot}/source/brainstorming-contract.json`;
+const activeContractsPath = `${journeyRoot}/source/active-contracts.json`;
+const prototypeCandidatePath = `${journeyRoot}/source/prototype-revision-candidate.json`;
 const forbiddenTextPattern = /\/Users\/|\/private\/tmp|file:|\.docx\b|[A-Za-z]:\\|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|\b[a-f0-9]{64}\b/iu;
 
 function parseArguments(args) {
@@ -39,9 +39,7 @@ function assertNoForbiddenText(value) {
 }
 
 function sameArray(actual, expected) {
-  return Array.isArray(actual) &&
-    actual.length === expected.length &&
-    actual.every((value, index) => value === expected[index]);
+  return Array.isArray(actual) && actual.length === expected.length && actual.every((value, index) => value === expected[index]);
 }
 
 function assertSequentialIds(items, key, expectedCount, message) {
@@ -50,15 +48,34 @@ function assertSequentialIds(items, key, expectedCount, message) {
   if (!sameArray(ids, expected)) throw new Error(message);
 }
 
-function validateSchema(root) {
+function validateJsonAgainstSchema(root, schemaFile, dataFile) {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
-  const schema = readJson(root, schemaPath);
-  const state = readJson(root, statePath);
-  const validate = ajv.compile(schema);
-  if (!validate(state)) {
-    throw new Error(`${statePath} does not match ${schemaPath}: ${formatAjvErrors(validate.errors)}`);
+  const validate = ajv.compile(readJson(root, schemaFile));
+  const data = readJson(root, dataFile);
+  if (!validate(data)) throw new Error(`${dataFile} does not match ${schemaFile}: ${formatAjvErrors(validate.errors)}`);
+  return data;
+}
+
+function validateRegistry(root) {
+  const registry = validateJsonAgainstSchema(root, registrySchemaPath, registryPath);
+  const brainstormingContract = readJson(root, brainstormingContractPath);
+  const topicsById = new Map(brainstormingContract.topics.map((topic) => [topic.topic_id, topic]));
+  if (registry.topic_ids.length !== registry.package_paths.length) {
+    throw new Error("candidate evidence registry must pair every topic with exactly one package path");
   }
-  return state;
+  return registry.topic_ids.map((topicId, index) => {
+    const topic = topicsById.get(topicId);
+    if (!topic) throw new Error(`candidate evidence registry contains an unknown topic: ${topicId}`);
+    const relativePackagePath = registry.package_paths[index];
+    if (!relativePackagePath.startsWith("candidate-evidence/") || relativePackagePath.includes("..")) {
+      throw new Error("candidate evidence registry contains an unsafe package path");
+    }
+    return {
+      topic,
+      relativePackagePath,
+      packagePath: `${journeyRoot}/${relativePackagePath}`,
+    };
+  });
 }
 
 function validatePhase1(phase1) {
@@ -73,9 +90,7 @@ function validatePhase1(phase1) {
     throw new Error("phase_1 participants must contain at least 20 variants each");
   }
   const participantIds = new Set(phase1.participants.map((participant) => participant.participant_id));
-  if (participantIds.size !== 19) {
-    throw new Error("phase_1 participant ids must be unique");
-  }
+  if (participantIds.size !== 19) throw new Error("phase_1 participant ids must be unique");
   if (phase1.consolidation.candidate_count !== 30 || phase1.consolidation.candidates.length !== 30) {
     throw new Error("phase_1 consolidation must contain exactly 30 candidates");
   }
@@ -90,16 +105,10 @@ function validatePhase2(phase2) {
     throw new Error("phase_2 must remain an independent anonymous evaluation");
   }
   const reviewerIds = new Set(phase2.rankings.map((ranking) => ranking.anonymous_reviewer_id));
-  if (reviewerIds.size !== 19) {
-    throw new Error("phase_2 anonymous reviewer ids must be unique");
-  }
+  if (reviewerIds.size !== 19) throw new Error("phase_2 anonymous reviewer ids must be unique");
   for (const ranking of phase2.rankings) {
-    if (ranking.ranked_candidate_ids.length !== 5) {
-      throw new Error("phase_2 rankings must contain exactly five candidates each");
-    }
-    if (new Set(ranking.ranked_candidate_ids).size !== 5) {
-      throw new Error("phase_2 rankings must not repeat candidates inside one ranking");
-    }
+    if (ranking.ranked_candidate_ids.length !== 5) throw new Error("phase_2 rankings must contain exactly five candidates each");
+    if (new Set(ranking.ranked_candidate_ids).size !== 5) throw new Error("phase_2 rankings must not repeat candidates inside one ranking");
   }
 }
 
@@ -117,15 +126,14 @@ function validateScoring(state) {
   if (JSON.stringify(state.scoring.totals) !== JSON.stringify(expectedTotals)) {
     throw new Error("scoring totals must match the reproducible 5..1 rule");
   }
+  const expectedFinalCandidateIds = expectedTotals.slice(0, 5).map((total) => total.candidate_id);
   if (!sameArray(state.final_candidates.map((candidate) => candidate.source_candidate_id), expectedFinalCandidateIds)) {
-    throw new Error("final candidates must be variants 1, 2, 9, 6, 14 in descending score order");
+    throw new Error("final candidates must be the five highest reproducible scores in descending order");
   }
   const consolidatedById = new Map(state.phase_1.consolidation.candidates.map((candidate) => [candidate.candidate_id, candidate.text]));
   for (let index = 0; index < state.final_candidates.length; index += 1) {
     const candidate = state.final_candidates[index];
-    if (candidate.rank !== index + 1) {
-      throw new Error("final candidate ranks must be 1..5");
-    }
+    if (candidate.rank !== index + 1) throw new Error("final candidate ranks must be 1..5");
     const expectedScore = expectedTotals.find((total) => total.candidate_id === candidate.source_candidate_id)?.points;
     if (candidate.points !== expectedScore || candidate.text !== consolidatedById.get(candidate.source_candidate_id)) {
       throw new Error("final candidate text and points must match consolidation and scoring totals");
@@ -133,45 +141,57 @@ function validateScoring(state) {
   }
 }
 
-function validateInactiveBoundary(root, state) {
-  if (state.selected_text !== null) {
-    throw new Error("selected_text must remain null");
+function validateOptionalIntegrity(state) {
+  if (!state.integrity) return;
+  const variants = state.phase_1.participants.flatMap((participant) => participant.variants);
+  if (new Set(variants).size !== variants.length) {
+    throw new Error("integrity declares exact raw variant uniqueness but duplicates remain");
   }
-  if (
-    state.boundaries.render_allowed !== false ||
-    state.boundaries.archive_allowed !== false ||
-    state.boundaries.generator_input_allowed !== false
-  ) {
+}
+
+function validateInactiveBoundary(root, state, registryEntries) {
+  if (state.selected_text !== null) throw new Error("selected_text must remain null");
+  if (state.boundaries.render_allowed !== false || state.boundaries.archive_allowed !== false || state.boundaries.generator_input_allowed !== false) {
     throw new Error("render, archive and generator input must stay blocked");
   }
   for (const relativePath of [activeContractsPath, prototypeCandidatePath]) {
     const absolutePath = path.join(root, relativePath);
     if (!fs.existsSync(absolutePath)) continue;
     const text = fs.readFileSync(absolutePath, "utf8");
-    if (text.includes("candidate-evidence/delivery-success-message")) {
+    if (registryEntries.some((entry) => text.includes(entry.relativePackagePath))) {
       throw new Error("candidate evidence must not be wired into active contracts or generator inputs");
     }
   }
 }
 
-try {
-  const { root } = parseArguments(process.argv.slice(2));
-  const state = validateSchema(root);
+function validatePackage(root, entry, registryEntries) {
+  const statePath = `${entry.packagePath}/brainstorming-topic-result.json`;
+  const ledgerPath = `${entry.packagePath}/brainstorming-topic-result.md`;
+  const rawLedgerPath = `${entry.packagePath}/raw-variants-ledger.md`;
+  const state = validateJsonAgainstSchema(root, topicSchemaPath, statePath);
   const ledger = readText(root, ledgerPath);
   const rawLedger = readText(root, rawLedgerPath);
-
+  if (state.topic_id !== entry.topic.topic_id || state.topic_title !== entry.topic.title) {
+    throw new Error("candidate evidence topic must match the registered canonical topic");
+  }
   assertNoForbiddenText(state);
   assertNoForbiddenText(ledger);
   assertNoForbiddenText(rawLedger);
   validatePhase1(state.phase_1);
   validatePhase2(state.phase_2);
   validateScoring(state);
-  validateInactiveBoundary(root, state);
+  validateOptionalIntegrity(state);
+  validateInactiveBoundary(root, state, registryEntries);
   if (!ledger.includes("Статус: `pending_owner_selection`") || !rawLedger.includes("Всего сырых вариантов: 380")) {
     throw new Error("Markdown ledgers must expose pending status and raw variant count");
   }
+}
 
-  process.stdout.write("Проверка неактивного результата брейншторма CO-2026-003 пройдена.\n");
+try {
+  const { root } = parseArguments(process.argv.slice(2));
+  const registryEntries = validateRegistry(root);
+  for (const entry of registryEntries) validatePackage(root, entry, registryEntries);
+  process.stdout.write("Проверка неактивных результатов брейншторма CO-2026-003 пройдена.\n");
 } catch (error) {
   process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "проверка не выполнена"}\n`);
   process.exitCode = 1;

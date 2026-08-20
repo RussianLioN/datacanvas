@@ -14,6 +14,13 @@ const rawLedgerPath = path.join(packagePath, "raw-variants-ledger.md");
 const schemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json";
 const validatorPath = "scripts/validate-co-2026-003-brainstorm-evidence.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-brainstorm-evidence-negative.json";
+const registryPath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/candidate-evidence-registry.json";
+const buttonPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label";
+const buttonStatePath = path.join(buttonPackagePath, "brainstorming-topic-result.json");
+const buttonLedgerPath = path.join(buttonPackagePath, "brainstorming-topic-result.md");
+const buttonRawLedgerPath = path.join(buttonPackagePath, "raw-variants-ledger.md");
+const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
+const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
@@ -177,7 +184,13 @@ test("узкий валидатор отклоняет нарушения пак
     [statePath]: readJson(statePath),
     [ledgerPath]: readText(ledgerPath),
     [rawLedgerPath]: readText(rawLedgerPath),
+    [buttonStatePath]: readJson(buttonStatePath),
+    [buttonLedgerPath]: readText(buttonLedgerPath),
+    [buttonRawLedgerPath]: readText(buttonRawLedgerPath),
     [schemaPath]: readJson(schemaPath),
+    [registryPath]: readJson(registryPath),
+    [registrySchemaPath]: readJson(registrySchemaPath),
+    [brainstormingContractPath]: readJson(brainstormingContractPath),
   };
 
   for (const scenario of fixture.scenarios) {
@@ -195,5 +208,68 @@ test("узкий валидатор отклоняет нарушения пак
     } finally {
       fs.rmSync(temporaryDirectory, { recursive: true, force: true });
     }
+  }
+});
+
+test("реестр неактивных пакетов отдельно сохраняет button_label и не включает его в выпуск", () => {
+  for (const relativePath of [registryPath, buttonStatePath]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+
+  const registry = readJson(registryPath);
+  assert.deepEqual(registry.topic_ids, ["button_label", "delivery_success_message"]);
+  assert.deepEqual(registry.package_paths, [
+    "candidate-evidence/button-label",
+    "candidate-evidence/delivery-success-message",
+  ]);
+
+  const state = readJson(buttonStatePath);
+  assert.equal(state.topic_id, "button_label");
+  assert.equal(state.phase_1.participant_count, 19);
+  assert.equal(state.phase_1.raw_variant_count, 380);
+  assert.equal(state.phase_1.consolidation.candidates.length, 30);
+  assert.equal(state.phase_2.rankings.length, 19);
+  assert.deepEqual(state.final_candidates.map((candidate) => candidate.source_candidate_id), [15, 30, 29, 17, 21]);
+  assert.equal(state.selected_text, null);
+  assert.deepEqual(state.boundaries, {
+    render_allowed: false,
+    archive_allowed: false,
+    generator_input_allowed: false,
+  });
+
+  const result = runValidator();
+  assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+});
+
+test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
+  const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-brainstorm-registry-"));
+  try {
+    const files = [
+      statePath,
+      ledgerPath,
+      rawLedgerPath,
+      buttonStatePath,
+      buttonLedgerPath,
+      buttonRawLedgerPath,
+      schemaPath,
+      registryPath,
+      registrySchemaPath,
+      brainstormingContractPath,
+    ];
+    for (const relativePath of files) {
+      const source = path.join(root, relativePath);
+      const destination = path.join(temporaryDirectory, relativePath);
+      fs.mkdirSync(path.dirname(destination), { recursive: true });
+      fs.copyFileSync(source, destination);
+    }
+    const state = JSON.parse(fs.readFileSync(path.join(temporaryDirectory, buttonStatePath), "utf8"));
+    state.boundaries.render_allowed = true;
+    writeJson(temporaryDirectory, buttonStatePath, state);
+
+    const result = runValidator(["--root", temporaryDirectory], temporaryDirectory);
+    assert.notEqual(result.status, 0, "валидатор не должен пропускать разрешённый рендер зарегистрированного пакета");
+    assert.match(result.stderr, /boundaries\/render_allowed: must be equal to constant/);
+  } finally {
+    fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }
 });
