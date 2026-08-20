@@ -13,12 +13,17 @@ const ledgerPath = path.join(packagePath, "brainstorming-topic-result.md");
 const rawLedgerPath = path.join(packagePath, "raw-variants-ledger.md");
 const schemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json";
 const validatorPath = "scripts/validate-co-2026-003-brainstorm-evidence.mjs";
+const generationStartedGeneratorPath = "scripts/generate-co-2026-003-generation-started-brainstorm-evidence.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-brainstorm-evidence-negative.json";
 const registryPath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/candidate-evidence-registry.json";
 const buttonPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label";
 const buttonStatePath = path.join(buttonPackagePath, "brainstorming-topic-result.json");
 const buttonLedgerPath = path.join(buttonPackagePath, "brainstorming-topic-result.md");
 const buttonRawLedgerPath = path.join(buttonPackagePath, "raw-variants-ledger.md");
+const generationStartedPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message";
+const generationStartedStatePath = path.join(generationStartedPackagePath, "brainstorming-topic-result.json");
+const generationStartedLedgerPath = path.join(generationStartedPackagePath, "brainstorming-topic-result.md");
+const generationStartedRawLedgerPath = path.join(generationStartedPackagePath, "raw-variants-ledger.md");
 const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
 const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
 
@@ -187,6 +192,9 @@ test("узкий валидатор отклоняет нарушения пак
     [buttonStatePath]: readJson(buttonStatePath),
     [buttonLedgerPath]: readText(buttonLedgerPath),
     [buttonRawLedgerPath]: readText(buttonRawLedgerPath),
+    [generationStartedStatePath]: readJson(generationStartedStatePath),
+    [generationStartedLedgerPath]: readText(generationStartedLedgerPath),
+    [generationStartedRawLedgerPath]: readText(generationStartedRawLedgerPath),
     [schemaPath]: readJson(schemaPath),
     [registryPath]: readJson(registryPath),
     [registrySchemaPath]: readJson(registrySchemaPath),
@@ -211,15 +219,16 @@ test("узкий валидатор отклоняет нарушения пак
   }
 });
 
-test("реестр неактивных пакетов отдельно сохраняет button_label и не включает его в выпуск", () => {
+test("реестр неактивных пакетов сохраняет button_label и не включает варианты в выпуск", () => {
   for (const relativePath of [registryPath, buttonStatePath]) {
     assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
   }
 
   const registry = readJson(registryPath);
-  assert.deepEqual(registry.topic_ids, ["button_label", "delivery_success_message"]);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message"]);
   assert.deepEqual(registry.package_paths, [
     "candidate-evidence/button-label",
+    "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
   ]);
 
@@ -241,6 +250,45 @@ test("реестр неактивных пакетов отдельно сохр
   assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
 });
 
+test("реестр включает завершённый двухфазный брейншторм сообщения о начале формирования", () => {
+  for (const relativePath of [generationStartedStatePath, generationStartedLedgerPath, generationStartedRawLedgerPath, generationStartedGeneratorPath]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+
+  const registry = readJson(registryPath);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message"]);
+  assert.deepEqual(registry.package_paths, [
+    "candidate-evidence/button-label",
+    "candidate-evidence/generation-started-message",
+    "candidate-evidence/delivery-success-message",
+  ]);
+
+  const state = readJson(generationStartedStatePath);
+  assert.equal(state.topic_id, "generation_started_message");
+  assert.equal(state.owner_intro.includes("не более 20 минут"), true);
+  assert.equal(state.owner_intro.includes("SIGMA и OMEGA"), true);
+  assert.equal(state.phase_1.participant_count, 19);
+  assert.equal(state.phase_1.raw_variant_count, 380);
+  assert.equal(state.phase_1.consolidation.candidates.length, 30);
+  assert.equal(state.phase_2.rankings.length, 19);
+  assert.equal(state.final_candidates.length, 5);
+  assert.equal(state.selected_text, null);
+  assert.deepEqual(state.boundaries, {
+    render_allowed: false,
+    archive_allowed: false,
+    generator_input_allowed: false,
+  });
+
+  const result = runValidator();
+  assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+
+  const generatorResult = spawnSync(process.execPath, [path.join(root, generationStartedGeneratorPath), "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
+});
+
 test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-brainstorm-registry-"));
   try {
@@ -251,6 +299,9 @@ test("узкий валидатор проверяет границу неакт
       buttonStatePath,
       buttonLedgerPath,
       buttonRawLedgerPath,
+      generationStartedStatePath,
+      generationStartedLedgerPath,
+      generationStartedRawLedgerPath,
       schemaPath,
       registryPath,
       registrySchemaPath,

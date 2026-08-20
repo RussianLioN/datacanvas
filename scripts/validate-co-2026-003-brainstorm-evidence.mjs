@@ -11,6 +11,13 @@ const topicSchemaPath = `${journeyRoot}/source/schemas/brainstorming-topic-resul
 const brainstormingContractPath = `${journeyRoot}/source/brainstorming-contract.json`;
 const activeContractsPath = `${journeyRoot}/source/active-contracts.json`;
 const prototypeCandidatePath = `${journeyRoot}/source/prototype-revision-candidate.json`;
+const packagePathByTopicId = new Map([
+  ["button_label", "candidate-evidence/button-label"],
+  ["generation_started_message", "candidate-evidence/generation-started-message"],
+  ["delivery_success_message", "candidate-evidence/delivery-success-message"],
+  ["email_subject", "candidate-evidence/email-subject"],
+  ["email_body", "candidate-evidence/email-body"],
+]);
 const forbiddenTextPattern = /\/Users\/|\/private\/tmp|file:|\.docx\b|[A-Za-z]:\\|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|\b[a-f0-9]{64}\b/iu;
 
 function parseArguments(args) {
@@ -69,6 +76,9 @@ function validateRegistry(root) {
     const relativePackagePath = registry.package_paths[index];
     if (!relativePackagePath.startsWith("candidate-evidence/") || relativePackagePath.includes("..")) {
       throw new Error("candidate evidence registry contains an unsafe package path");
+    }
+    if (relativePackagePath !== packagePathByTopicId.get(topicId)) {
+      throw new Error("candidate evidence registry must map each topic to its canonical package path");
     }
     return {
       topic,
@@ -173,6 +183,12 @@ function validatePackage(root, entry, registryEntries) {
   const rawLedger = readText(root, rawLedgerPath);
   if (state.topic_id !== entry.topic.topic_id || state.topic_title !== entry.topic.title) {
     throw new Error("candidate evidence topic must match the registered canonical topic");
+  }
+  if (state.phase_1.context_visibility !== entry.topic.phase_1.context_visibility || state.phase_1.consolidation.candidate_count !== entry.topic.phase_1.consolidated_candidate_count) {
+    throw new Error("candidate evidence phase 1 must match the registered topic contract");
+  }
+  if (state.phase_2.participant_count !== entry.topic.phase_2.participant_count || state.phase_2.input_candidate_count !== entry.topic.phase_2.input_candidate_count) {
+    throw new Error("candidate evidence phase 2 must match the registered topic contract");
   }
   assertNoForbiddenText(state);
   assertNoForbiddenText(ledger);

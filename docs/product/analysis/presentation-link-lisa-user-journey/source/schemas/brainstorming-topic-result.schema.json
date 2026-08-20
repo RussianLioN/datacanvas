@@ -51,7 +51,7 @@
         "participant_count": { "const": 19 },
         "minimum_raw_variants_per_participant": { "const": 20 },
         "raw_variant_count": { "const": 380 },
-        "context_visibility": { "const": "shared" },
+        "context_visibility": { "enum": ["shared", "parallel_common_context"] },
         "common_context": { "$ref": "#/$defs/safeText" },
         "participants": {
           "type": "array",

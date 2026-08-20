@@ -24,7 +24,7 @@
       "properties": {
         "product_owner_intro_required_before_each_topic": { "const": true },
         "topics_are_independent": { "const": true },
-        "phase_1_mode": { "const": "shared_context_visible_ledger" },
+        "phase_1_mode": { "enum": ["shared_context_visible_ledger", "parallel_common_context_central_deduplication", "topic_specific_execution_mode"] },
         "phase_2_mode": { "const": "independent_anonymized_evaluation" },
         "no_text_generation_before_topic_start": { "const": true },
         "owner_final_selection_required": { "const": true }
@@ -65,8 +65,8 @@
           "properties": {
             "participant_count": { "const": 19 },
             "minimum_raw_variants_per_participant": { "const": 20 },
-            "context_visibility": { "const": "shared" },
-            "duplicate_avoidance": { "const": "visible_shared_ledger" },
+            "context_visibility": { "enum": ["shared", "parallel_common_context"] },
+            "duplicate_avoidance": { "enum": ["visible_shared_ledger", "central_consolidation_after_parallel_submission"] },
             "consolidated_candidate_count": { "const": 30 }
           }
         },

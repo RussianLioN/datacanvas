@@ -5,10 +5,12 @@
   "status": "inactive_pending_owner_selection",
   "topic_ids": [
     "button_label",
+    "generation_started_message",
     "delivery_success_message"
   ],
   "package_paths": [
     "candidate-evidence/button-label",
+    "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message"
   ],
   "boundaries": {

@@ -13,22 +13,26 @@
     "topic_ids": {
       "type": "array",
       "minItems": 2,
-      "maxItems": 2,
-      "prefixItems": [
-        { "const": "button_label" },
-        { "const": "delivery_success_message" }
-      ],
-      "items": false
+      "maxItems": 5,
+      "items": {
+        "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
+      },
+      "uniqueItems": true
     },
     "package_paths": {
       "type": "array",
       "minItems": 2,
-      "maxItems": 2,
-      "prefixItems": [
-        { "const": "candidate-evidence/button-label" },
-        { "const": "candidate-evidence/delivery-success-message" }
-      ],
-      "items": false
+      "maxItems": 5,
+      "items": {
+        "enum": [
+          "candidate-evidence/button-label",
+          "candidate-evidence/generation-started-message",
+          "candidate-evidence/delivery-success-message",
+          "candidate-evidence/email-subject",
+          "candidate-evidence/email-body"
+        ]
+      },
+      "uniqueItems": true
     },
     "boundaries": {
       "type": "object",
