@@ -41,23 +41,20 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.doesNotMatch(journey, /Статус содержания: ожидается повторное согласование\./);
 });
 
-test("входные документы CO-2026-003 отражают одобренные содержание и визуальный выпуск", () => {
-  const entrypoints = [
+test("активные документы CO-2026-003 сохраняют исторический выпуск, а отдельный вход показывает будущий кандидат", () => {
+  const activeEntrypoints = [
     "docs/product/README.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
-    "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
   ].map(readText);
+  const journeyReadme = readText("docs/product/analysis/presentation-link-lisa-user-journey/README.md");
 
-  for (const entrypoint of entrypoints) {
+  for (const entrypoint of activeEntrypoints) {
     assert.match(entrypoint, /содержание Q4_2026 (?:согласовано|и визуальный выпуск согласованы)/iu);
     assert.match(entrypoint, /(?:визуальная генерация\s+разрешена|визуальный выпуск (?:согласованы|также согласован)|Штатная генерация опубликовала)/iu);
-    assert.doesNotMatch(entrypoint, /ожидает повторного согласования содержания/u);
-    assert.doesNotMatch(entrypoint, /ещё не\s+согласовано повторно/u);
-    assert.doesNotMatch(entrypoint, /Штатная генерация заменит/u);
   }
 
-  const journey = readText("docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md");
-  assert.match(journey, /ровно десять исходных состояний в указанном порядке/iu);
-  assert.match(journey, /три виртуальных статусных состояния в конце выпуска/iu);
+  assert.match(journeyReadme, /исторический базовый выпуск/u);
+  assert.match(journeyReadme, /ООО «Водолей Трейд»/u);
+  assert.match(journeyReadme, /неактивным кандидатом/u);
 });

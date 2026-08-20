@@ -195,7 +195,7 @@
     {
       "topic_id": "delivery_success_message",
       "status": "pending_owner_selection",
-      "preserved_historical_sources": ["CO3-MSG-005"]
+      "preserved_historical_sources": ["CO3-MSG-003"]
     },
     {
       "topic_id": "email_subject",

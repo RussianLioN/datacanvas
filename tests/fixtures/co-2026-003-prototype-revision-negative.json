@@ -104,6 +104,16 @@
       "id": "active-journey-contract-drift",
       "mutation": "active_journey_contract_drift",
       "expected_error": "active journey contract must keep the temporary 13-frame and 3-action-source invariant"
+    },
+    {
+      "id": "wrong-delivery-success-historical-source",
+      "mutation": "wrong_delivery_success_historical_source",
+      "expected_error": "candidate historical message sources must preserve the matching lifecycle message"
+    },
+    {
+      "id": "candidate-evidence-wired-into-demo",
+      "mutation": "candidate_evidence_wired_into_demo",
+      "expected_error": "candidate evidence must not be wired into active release outputs"
     }
   ]
 }

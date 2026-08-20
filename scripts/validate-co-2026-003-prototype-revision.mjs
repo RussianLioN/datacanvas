@@ -11,6 +11,16 @@ const brainstormingPath = `${sourcePath}/brainstorming-contract.json`;
 const candidateMarkdownPath = `${packagePath}/prototype-revision-candidate.md`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const journeyContractPath = `${sourcePath}/journey-contract.json`;
+const activeReleaseOutputPaths = Object.freeze([
+  `${packagePath}/demo`,
+  `${packagePath}/derived`,
+  `${packagePath}/evidence`,
+  "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+  "docs/release/co-2026-003-prototype-delivery-archive.md",
+  "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+  "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+]);
+const textFileExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".txt"]);
 
 const expectedGroupIds = Object.freeze([
   "general_information",
@@ -53,6 +63,13 @@ const expectedTopics = Object.freeze([
   "email_subject",
   "email_body",
 ]);
+const expectedHistoricalSourcesByTopic = Object.freeze({
+  button_label: Object.freeze([]),
+  generation_started_message: Object.freeze(["CO3-MSG-001"]),
+  delivery_success_message: Object.freeze(["CO3-MSG-003"]),
+  email_subject: Object.freeze([]),
+  email_body: Object.freeze([]),
+});
 
 const expectedExternalSourceIds = Object.freeze([
   "presentation_variant_slidedoc_editable_source",
@@ -143,6 +160,19 @@ function readJson(root, relativePath) {
 
 function readText(root, relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
+}
+
+function listTextFiles(absolutePath) {
+  if (!fs.existsSync(absolutePath)) return [];
+  const entry = fs.statSync(absolutePath);
+  if (entry.isFile()) return textFileExtensions.has(path.extname(absolutePath).toLowerCase()) ? [absolutePath] : [];
+  if (!entry.isDirectory()) return [];
+  const files = [];
+  for (const child of fs.readdirSync(absolutePath, { withFileTypes: true })) {
+    if (child.isSymbolicLink()) continue;
+    files.push(...listTextFiles(path.join(absolutePath, child.name)));
+  }
+  return files;
 }
 
 function formatAjvErrors(errors) {
@@ -316,6 +346,11 @@ function validateCandidate(candidate) {
   if (candidate.message_topics.some((topic) => topic.status !== "pending_owner_selection")) {
     throw new Error("candidate message topics must remain pending_owner_selection");
   }
+  for (const topic of candidate.message_topics) {
+    if (!sameArray(topic.preserved_historical_sources, expectedHistoricalSourcesByTopic[topic.topic_id])) {
+      throw new Error("candidate historical message sources must preserve the matching lifecycle message");
+    }
+  }
 
   const visual = candidate.visual_acceptance_contract;
   if (!sameArray(visual.frame_flow, expectedFrameFlow)) {
@@ -403,6 +438,14 @@ function validateInactiveCandidateBoundary(root) {
     !sameArray(journey.actions[0].source_state_ids, expectedActionSources)
   ) {
     throw new Error("active journey contract must keep the temporary 13-frame and 3-action-source invariant");
+  }
+
+  for (const releasePath of activeReleaseOutputPaths) {
+    for (const filePath of listTextFiles(path.join(root, releasePath))) {
+      if (fs.readFileSync(filePath, "utf8").includes("candidate-evidence/")) {
+        throw new Error("candidate evidence must not be wired into active release outputs");
+      }
+    }
   }
 }
 

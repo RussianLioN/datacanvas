@@ -14,6 +14,7 @@ const brainstormingPath = path.join(sourcePath, "brainstorming-contract.json");
 const candidateMarkdownPath = path.join(packagePath, "prototype-revision-candidate.md");
 const activeContractsPath = path.join(sourcePath, "active-contracts.json");
 const journeyContractPath = path.join(sourcePath, "journey-contract.json");
+const unsafeDemoPath = path.join(packagePath, "demo", "unsafe-candidate-reference.js");
 const schemaPaths = [
   path.join(sourcePath, "schemas/client-reference-data.schema.json"),
   path.join(sourcePath, "schemas/prototype-revision-candidate.schema.json"),
@@ -117,6 +118,10 @@ function applyMutation(base, scenario) {
     });
   } else if (scenario.mutation === "active_journey_contract_drift") {
     data[journeyContractPath].actions[0].source_state_ids = ["lisa-materials-full-reference"];
+  } else if (scenario.mutation === "wrong_delivery_success_historical_source") {
+    data[candidatePath].message_topics.find((topic) => topic.topic_id === "delivery_success_message").preserved_historical_sources = ["CO3-MSG-005"];
+  } else if (scenario.mutation === "candidate_evidence_wired_into_demo") {
+    data[unsafeDemoPath] = "const source = 'candidate-evidence/button-label';\n";
   } else {
     throw new Error(`неизвестная мутация ${scenario.mutation}`);
   }
@@ -158,6 +163,17 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(candidate.active_button.source_state_id, "lisa-materials-full-reference");
   assert.equal(candidate.visual_release_gate.required_external_editable_sources.length, 4);
   assert.equal(candidate.visual_release_gate.release_status, "blocked_until_owner_selection_and_editable_sources");
+  assert.deepEqual(
+    Object.fromEntries(candidate.message_topics.map((topic) => [topic.topic_id, topic.preserved_historical_sources])),
+    {
+      button_label: [],
+      generation_started_message: ["CO3-MSG-001"],
+      delivery_success_message: ["CO3-MSG-003"],
+      email_subject: [],
+      email_body: [],
+    },
+    "исторический текст успеха должен ссылаться только на CO3-MSG-003, а не на сообщение частичной доставки",
+  );
 
   assert.deepEqual(
     brainstorming.topics.map((topic) => topic.topic_id),
@@ -186,6 +202,7 @@ test("узкий валидатор отклоняет известные нар
     [activeContractsPath]: readJson(activeContractsPath),
     [journeyContractPath]: readJson(journeyContractPath),
     [candidateMarkdownPath]: fs.readFileSync(path.join(root, candidateMarkdownPath), "utf8"),
+    [unsafeDemoPath]: "",
   };
   for (const schemaPath of schemaPaths) {
     base[schemaPath] = readJson(schemaPath);
