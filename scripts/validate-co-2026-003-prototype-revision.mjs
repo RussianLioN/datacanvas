@@ -562,6 +562,17 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     historical_client_marker: "ГК Достовалова",
     replacement_client_name: "ООО «Водолей Трейд»",
     full_reference_frame_id: "lisa-materials-full-reference",
+    source_group_ids_preserved: expectedGroupIds,
+    visible_group_ids: expectedGroupIds.slice(0, -2),
+    excluded_group_ids: ["dynamic_suggestions", "actions"],
+    exclusion_scope: "visual_frame_only",
+    source_data_mutation_allowed: false,
+    cta_geometry: {
+      button_rect: { x: 80, y: 4968, width: 361, height: 40 },
+      font_size: 16,
+      center_tolerance_px: 0.5,
+      measurement_method: "pinned_font_path_bounding_box",
+    },
     continuation_frame_ids: [
       "lisa-presentation-generating",
       "lisa-presentation-chat-list",

@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../source/schemas/lisa-frame-owner-approval.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "frame_id": "lisa-materials-full-reference",
+  "decision": "approved",
+  "decision_text": "кадр принят",
+  "decision_source": "Product Owner в рабочем чате",
+  "approved_at": "2026-08-20T17:02:02Z",
+  "approved_source_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "approved_draft_png_sha256": "e3b8a32443d752ab3db46501ea3139649f7dd256929cc2b2fe338c68964cac6c"
+}

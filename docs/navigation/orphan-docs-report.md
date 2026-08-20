@@ -70,8 +70,8 @@
 | `governance` | `5` | 1 |
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
-| `technical` | `2` | 20 |
+| `technical` | `2` | 21 |
 | `technical` | `3` | 14 |
 | `technical` | `4` | 2 |
 | `technical` | `5` | 1 |
-| `technical` | `hidden` | 112 |
+| `technical` | `hidden` | 113 |

@@ -11,6 +11,7 @@ const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-m
 const SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
 const DRAFT_PATH = `${REVIEW_DIRECTORY}/draft-current-resolution.png`;
+const OWNER_APPROVAL_PATH = `${REVIEW_DIRECTORY}/owner-approval.json`;
 const PNG_SIGNATURE = Buffer.from("89504e470d0a1a0a", "hex");
 
 function fail(message) {
@@ -27,6 +28,41 @@ function readJson(filePath) {
 
 function writeJson(filePath, value) {
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+}
+
+function readOwnerApproval(root) {
+  const approvalPath = path.join(root, OWNER_APPROVAL_PATH);
+  if (!fs.existsSync(approvalPath)) return null;
+  return readJson(approvalPath);
+}
+
+function ownerApprovalSummary(approval) {
+  return {
+    record_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    decision: approval.decision,
+    decision_text: approval.decision_text,
+    decision_source: approval.decision_source,
+    approved_at: approval.approved_at,
+  };
+}
+
+function validateOwnerApproval(approval, sourceSvgSha256, draftPngSha256) {
+  if (!approval) return;
+  if (
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-materials-full-reference" ||
+    approval.decision !== "approved" ||
+    approval.decision_text !== "кадр принят" ||
+    approval.decision_source !== "Product Owner в рабочем чате"
+  ) {
+    fail("запись приёмки владельца не соответствует первому кадру");
+  }
+  if (approval.approved_source_svg_sha256 !== sourceSvgSha256) {
+    fail("SVG изменён после приёмки владельцем; требуется новая приёмка до PNG");
+  }
+  if (approval.approved_draft_png_sha256 !== draftPngSha256) {
+    fail("PNG не совпадает с принятым владельцем черновиком");
+  }
 }
 
 function regularFile(filePath, label) {
@@ -144,19 +180,30 @@ function renderDraft({ root = process.cwd(), check = false } = {}) {
   verifySource(source);
   const dimensions = svgDimensions(source);
   const manifest = readJson(manifestPath);
-  if (manifest.source_svg_sha256 !== sha256(sourcePath)) fail("Манифест не соответствует текущему SVG-источнику");
+  const sourceSvgSha256 = sha256(sourcePath);
+  const ownerApproval = readOwnerApproval(root);
+  if (manifest.source_svg_sha256 !== sourceSvgSha256) fail("Манифест не соответствует текущему SVG-источнику");
 
   if (check) {
-    if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) {
+    if (manifest.draft_png_rendered !== true) {
       fail("черновой PNG ещё не подготовлен для приёмки владельцем");
     }
     const inspected = inspectPng(draftPath, dimensions);
+    const draftPngSha256 = sha256(draftPath);
     if (
-      manifest.draft_png_sha256 !== sha256(draftPath) ||
+      manifest.draft_png_sha256 !== draftPngSha256 ||
       JSON.stringify(manifest.draft_png_dimensions) !== JSON.stringify({ width: inspected.width, height: inspected.height }) ||
       manifest.draft_png_non_white_pixel_count !== inspected.non_white_pixel_count
     ) {
       fail("манифест не соответствует сохранённому черновому PNG");
+    }
+    if (ownerApproval) {
+      validateOwnerApproval(ownerApproval, sourceSvgSha256, draftPngSha256);
+      if (manifest.status !== "owner_frame_approved" || JSON.stringify(manifest.owner_approval) !== JSON.stringify(ownerApprovalSummary(ownerApproval))) {
+        fail("принятый кадр должен содержать запись приёмки владельца");
+      }
+    } else if (manifest.status !== "draft_png_rendered_pending_owner_approval") {
+      fail("непринятый черновой PNG должен ожидать приёмку владельца");
     }
     return manifest;
   }
@@ -170,15 +217,18 @@ function renderDraft({ root = process.cwd(), check = false } = {}) {
     const result = spawnSync(rendererCommand(), [sourcePath, "--output", temporaryPng], { encoding: "utf8" });
     if (result.status !== 0) fail(`rsvg-convert не создал черновой PNG: ${(result.stderr || result.stdout || "неизвестная ошибка").trim()}`);
     const inspected = inspectPng(temporaryPng, dimensions);
+    const draftPngSha256 = sha256(temporaryPng);
+    validateOwnerApproval(ownerApproval, sourceSvgSha256, draftPngSha256);
     fs.renameSync(temporaryPng, draftPath);
     const updated = {
       ...manifest,
-      status: "draft_png_rendered_pending_owner_approval",
+      status: ownerApproval ? "owner_frame_approved" : "draft_png_rendered_pending_owner_approval",
       draft_png_rendered: true,
       draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
-      draft_png_sha256: sha256(draftPath),
+      draft_png_sha256: draftPngSha256,
       draft_png_dimensions: { width: inspected.width, height: inspected.height },
       draft_png_non_white_pixel_count: inspected.non_white_pixel_count,
+      ...(ownerApproval ? { owner_approval: ownerApprovalSummary(ownerApproval) } : {}),
     };
     writeJson(manifestPath, updated);
     return updated;

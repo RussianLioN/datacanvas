@@ -93,11 +93,12 @@ const expectedCurrentFrame = Object.freeze({
   approved_text_status: "owner_approved",
   svg_visual_check_status: "passed",
   draft_png_status: "rendered_current_resolution",
-  owner_frame_approval_status: "pending",
+  owner_frame_approval_status: "approved",
 });
 const expectedFrameReviewSession = Object.freeze({
-  status: "draft_png_rendered_pending_owner_approval",
+  status: "owner_frame_approved_next_frame_ready",
   current_frame_id: "lisa-materials-full-reference",
+  next_frame_id: "lisa-presentation-generating",
   source_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
   draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
   review_manifest_path: "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
@@ -105,7 +106,8 @@ const expectedFrameReviewSession = Object.freeze({
   edit_mode: "replace_existing_frame_group_content",
   prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title"],
   active_release_mutation_prohibited: true,
-  next_frame_blocked_until_owner_approval: true,
+  owner_approval_record_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  next_frame_blocked_until_owner_approval: false,
 });
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
@@ -268,7 +270,34 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("frame review session must contain only the isolated first-frame draft awaiting owner approval");
+    throw new Error("frame review session must preserve the accepted first frame and open only the next isolated frame");
+  }
+}
+
+function validateOwnerApprovalEvidence(contractPath) {
+  const reviewDirectory = path.join(
+    path.dirname(contractPath),
+    "..",
+    "candidate-evidence/frame-review/lisa-materials-full-reference",
+  );
+  const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const expectedApprovalSummary = {
+    record_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: "2026-08-20T17:02:02Z",
+  };
+  if (
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-materials-full-reference" ||
+    JSON.stringify(manifest.owner_approval) !== JSON.stringify(expectedApprovalSummary) ||
+    manifest.status !== "owner_frame_approved" ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+  ) {
+    throw new Error("owner approval must bind the accepted first-frame SVG and PNG to the recorded decision");
   }
 }
 
@@ -362,6 +391,41 @@ function validateClientReferenceSvgUpdate(contract) {
     historical_client_marker: "ГК Достовалова",
     replacement_client_name: "ООО «Водолей Трейд»",
     full_reference_frame_id: "lisa-materials-full-reference",
+    source_group_ids_preserved: [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+      "dynamic_suggestions",
+      "actions",
+    ],
+    visible_group_ids: [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+    ],
+    excluded_group_ids: ["dynamic_suggestions", "actions"],
+    exclusion_scope: "visual_frame_only",
+    source_data_mutation_allowed: false,
+    cta_geometry: {
+      button_rect: { x: 80, y: 4968, width: 361, height: 40 },
+      font_size: 16,
+      center_tolerance_px: 0.5,
+      measurement_method: "pinned_font_path_bounding_box",
+    },
     continuation_frame_ids: [
       "lisa-presentation-generating",
       "lisa-presentation-chat-list",
@@ -439,6 +503,7 @@ try {
   validateTopLevel(contract);
   validateFrames(contract, candidate);
   validateFrameReviewSession(contract);
+  validateOwnerApprovalEvidence(contractPath);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);
   validatePresentationPdfDonorRegister(contract, donorRegister);

@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "9d6d1632f344776e74050db88ce102293130e573339f122f5392b64e6c1a4e8f"
+      "sha256": "5e9a65977d650b1cbedd8aaf4210f7edb1b986c1523b50549eaf19384b1d03b6"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "fedf92cb29a74f543fdb0db7c0d0d98d6d4c21d763c53cef9b59a64a8b409f1d"
+      "sha256": "9dbdcec25aa176ebef6170f2eefc7e4918aa503ec76a508de177ca7f6504f890"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "0c7f558ebb3e0446a9ede93e8f7800cb723a8039b3fd03291dab43050b685b46"
+      "sha256": "5adde2712980670c49b9fb5dfaf055130f3e2deb0f4a242925e3bc8bd76bf26f"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "b81339c134ba0873cd1d27fc20edcfbdddcadb5f1366c1f750c9d38e5b4c8299"
+      "sha256": "241c829ad5e912065580cd96279323b875bc47a96737d6b61fda33c0ec69dee3"
     },
     {
       "artifact_id": "ART-569",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "b09edc93104e6a6de91abf45f93a39915f1e99c801a369b71654b4d0e461df89"
+      "sha256": "9403831bf2c820ddfbe6f9f861dfd2d8447d3d0399e7b2d7e90d123674c758f4"
     },
     {
       "artifact_id": "ART-742",

@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "3.2.0",
+  "version": "3.4.0",
   "change_order_id": "CO-2026-003",
   "status": "inactive_pending_canonical_svg_sources_and_frame_approval",
   "active": false,
@@ -191,6 +191,49 @@
     "historical_client_marker": "ГК Достовалова",
     "replacement_client_name": "ООО «Водолей Трейд»",
     "full_reference_frame_id": "lisa-materials-full-reference",
+    "source_group_ids_preserved": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "visible_group_ids": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements"
+    ],
+    "excluded_group_ids": [
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "exclusion_scope": "visual_frame_only",
+    "source_data_mutation_allowed": false,
+    "cta_geometry": {
+      "button_rect": {
+        "x": 80,
+        "y": 4968,
+        "width": 361,
+        "height": 40
+      },
+      "font_size": 16,
+      "center_tolerance_px": 0.5,
+      "measurement_method": "pinned_font_path_bounding_box"
+    },
     "continuation_frame_ids": [
       "lisa-presentation-generating",
       "lisa-presentation-chat-list",
@@ -240,7 +283,7 @@
       "approved_text_status": "owner_approved",
       "svg_visual_check_status": "passed",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-presentation-generating",
@@ -334,8 +377,9 @@
     }
   ],
   "frame_review_session": {
-    "status": "draft_png_rendered_pending_owner_approval",
+    "status": "owner_frame_approved_next_frame_ready",
     "current_frame_id": "lisa-materials-full-reference",
+    "next_frame_id": "lisa-presentation-generating",
     "source_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
     "draft_png_path": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
     "review_manifest_path": "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
@@ -345,7 +389,8 @@
       "lisa-edit-5-4-title"
     ],
     "active_release_mutation_prohibited": true,
-    "next_frame_blocked_until_owner_approval": true
+    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    "next_frame_blocked_until_owner_approval": false
   },
   "acceptance": {
     "frame_flow": [

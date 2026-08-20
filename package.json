@@ -90,7 +90,7 @@
     "validate:co-2026-003-brainstorm-evidence": "node --test tests/co-2026-003-brainstorm-evidence.test.mjs && node scripts/validate-co-2026-003-brainstorm-evidence.mjs",
     "generate:co-2026-003-generation-started-brainstorm-evidence": "node scripts/generate-co-2026-003-generation-started-brainstorm-evidence.mjs",
     "generate:co-2026-003-email-subject-brainstorm-evidence": "node scripts/generate-co-2026-003-email-subject-brainstorm-evidence.mjs",
-    "validate:canonical-svg-frame-pipeline": "node --test tests/canonical-svg-frame-pipeline.test.mjs && node scripts/validate-canonical-svg-frame-pipeline.mjs",
+    "validate:canonical-svg-frame-pipeline": "node --test tests/canonical-svg-frame-pipeline.test.mjs && node scripts/validate-canonical-svg-frame-pipeline.mjs && npm run check:lisa-full-reference-review-draft",
     "prepare:lisa-full-reference-review-source": "node scripts/prepare-lisa-full-reference-review-source.mjs",
     "render:lisa-full-reference-review-draft": "node scripts/render-lisa-full-reference-review-draft.mjs",
     "check:lisa-full-reference-review-draft": "node scripts/render-lisa-full-reference-review-draft.mjs --check",
