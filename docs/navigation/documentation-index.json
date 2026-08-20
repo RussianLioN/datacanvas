@@ -9779,8 +9779,8 @@
         "два-разных-порядка",
         "блокировка-визуального-выпуска"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -9802,11 +9802,13 @@
       "parent_readme": "docs/product/analysis/README.md",
       "artifact_registry_id": "ART-835",
       "outgoing_links": [
+        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
@@ -9823,6 +9825,7 @@
       "anchors": [
         "пользовательский-путь-заказа-презентации-в-лисе",
         "открыть-демонстрацию",
+        "будущая-пересборка",
         "состав-опубликованного-маршрута",
         "визуальная-основа",
         "маршрут-по-пакету"
@@ -9875,8 +9878,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
@@ -9959,8 +9962,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/frame-contract.json",
@@ -10079,8 +10082,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-scope-contract.json",
@@ -37663,7 +37666,7 @@
     "searchable_entries": 1222,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 230,
+    "reachable_from_root": 234,
     "orphan_entries": 0
   },
   "ignored_paths": [
