@@ -553,6 +553,10 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/candidate-evidence-registry.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/owner-approved-texts.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+  },
+  {
     schema: "schemas/workflow-state.schema.json",
     data: "docs/process/universal-documentation-workflow/workflow-state.json",
   },

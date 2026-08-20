@@ -5,6 +5,7 @@ import process from "node:process";
 const journeyRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
 const candidateEvidenceRoot = `${journeyRoot}/candidate-evidence`;
 const outputPath = `${candidateEvidenceRoot}/owner-selection-packet.md`;
+const approvedTextsPath = `${journeyRoot}/source/owner-approved-texts.json`;
 const topics = [
   { directory: "button-label", title: "Текст кнопки заказа презентации" },
   { directory: "generation-started-message", title: "Сообщение о начале формирования презентации" },
@@ -40,7 +41,16 @@ function readTopic(root, topic) {
   };
 }
 
+function readApprovedTexts(root) {
+  const approvedTexts = JSON.parse(fs.readFileSync(path.join(root, approvedTextsPath), "utf8"));
+  if (approvedTexts.status !== "owner_approved" || approvedTexts.selections?.length !== topics.length) {
+    fail("реестр утверждённых текстов должен содержать пять подтверждённых владельцем формулировок");
+  }
+  return approvedTexts;
+}
+
 function render(root) {
+  const approvedTexts = readApprovedTexts(root);
   const sections = topics.map((topic) => {
     const selection = readTopic(root, topic);
     const resultLink = `${topic.directory}/brainstorming-topic-result.md`;
@@ -52,7 +62,16 @@ function render(root) {
       : `Источник: [полный результат двухфазного обсуждения](${resultLink}).`;
     return `## ${topic.title}\n\n${source}\n\n${variants}`;
   });
-  return `# Пакет выбора текстов для будущего прототипа\n\nСтатус: ожидается явный выбор владельца продукта. Этот документ объединяет по пять кандидатов из пяти независимых двухфазных обсуждений. Он не меняет действующие SVG, PNG, HTML, ZIP, доказательства или архив.\n\n## Как зафиксировать выбор\n\nВладелец продукта выбирает по одному номеру в каждом из пяти разделов либо присылает точную отредактированную формулировку. До фиксации всех пяти выборов запрещено менять визуальные кадры и выпускать прототип.\n\n${sections.join("\n\n")}\n`;
+  const approvedLink = "../owner-approved-texts.md";
+  const selectionExplanation = {
+    team_vote_maximum_plus_exact_candidate: "выбран лидер опроса команды",
+    owner_approved_editorial_text_after_team_vote: "утверждена редакционная правка владельца после опроса команды",
+    owner_tie_break_after_team_vote: "владелец разрешил ничью между лидерами опроса",
+  };
+  const approvedSummary = approvedTexts.selections
+    .map((selection) => `- **${selection.topic_title}:** «${selection.text}» — ${selectionExplanation[selection.selection_method]}.`)
+    .join("\n");
+  return `# Исторический пакет кандидатов будущего прототипа\n\nСтатус: обсуждение завершено. Этот документ сохраняет по пять кандидатов из двухфазного обсуждения. Он не является первичным протоколом отметок команды и не заменяет редакционные правки владельца. Единственный источник истины для дальнейших правок — [утверждённые тексты](${approvedLink}).\n\n## Итог выбора владельца продукта\n\n${approvedSummary}\n\nВо внешнем пакете владельца были отмечены результаты опроса команды и, где требовалось, внесены редакционные правки. В репозитории сохраняются только проверяемые итоги выбора: число отметок, способ выбора и финальный текст; имя файла, путь и метаданные внешнего пакета не сохраняются.\n\nДо покадровой SVG-приёмки, получения редактируемых исходников и отдельного согласования каждого чернового PNG запрещено менять визуальные кадры и выпускать прототип.\n\n## Исторические кандидаты\n\n${sections.join("\n\n")}\n`;
 }
 
 try {

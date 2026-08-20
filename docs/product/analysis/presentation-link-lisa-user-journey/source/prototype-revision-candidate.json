@@ -2,9 +2,10 @@
   "$schema": "schemas/prototype-revision-candidate.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "candidate_pending_owner_selection_and_editable_sources",
+  "status": "candidate_pending_editable_sources_and_frame_approval",
   "client_reference_source": "source/client-reference-data.json",
   "brainstorming_contract_source": "source/brainstorming-contract.json",
+  "approved_texts_source": "source/owner-approved-texts.json",
   "current_journey_contract_policy": {
     "target_file": "source/journey-contract.json",
     "unchanged_by_this_candidate": true,
@@ -135,7 +136,7 @@
     "source_state_id": "lisa-materials-full-reference",
     "count": 1,
     "text_topic_id": "button_label",
-    "text_status": "pending_owner_selection"
+    "text_status": "owner_approved"
   },
   "semantic_graphs": [
     {
@@ -184,27 +185,27 @@
   "message_topics": [
     {
       "topic_id": "button_label",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "preserved_historical_sources": []
     },
     {
       "topic_id": "generation_started_message",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "preserved_historical_sources": ["CO3-MSG-001"]
     },
     {
       "topic_id": "delivery_success_message",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "preserved_historical_sources": ["CO3-MSG-003"]
     },
     {
       "topic_id": "email_subject",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "preserved_historical_sources": []
     },
     {
       "topic_id": "email_body",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "preserved_historical_sources": []
     }
   ],
@@ -233,9 +234,9 @@
     ]
   },
   "visual_release_gate": {
-    "release_status": "blocked_until_owner_selection_and_editable_sources",
+    "release_status": "blocked_until_editable_sources_and_frame_approval",
     "render_allowed": false,
-    "owner_selection_complete": false,
+    "owner_selection_complete": true,
     "all_external_editable_sources_received": false,
     "required_external_editable_sources": [
       {
@@ -269,7 +270,6 @@
       }
     ],
     "blocked_reasons": [
-      "Не выбраны финальные формулировки по пяти темам брейншторма.",
       "Не приложены три актуальных редактируемых исходника вариантов презентации.",
       "Не приложен редактируемый канонический SVG-исходник кадра письма.",
       "Нельзя рендерить новые PNG, HTML или архив до прохождения покадровой приёмки."

@@ -2,7 +2,7 @@
   "$schema": "../source/schemas/candidate-evidence-registry.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "inactive_pending_owner_selection",
+  "status": "inactive_historical_candidates_after_owner_selection",
   "topic_ids": [
     "button_label",
     "generation_started_message",

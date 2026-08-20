@@ -8,6 +8,7 @@ const sourcePath = `${packagePath}/source`;
 const clientDataPath = `${sourcePath}/client-reference-data.json`;
 const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
 const brainstormingPath = `${sourcePath}/brainstorming-contract.json`;
+const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
 const candidateMarkdownPath = `${packagePath}/prototype-revision-candidate.md`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const journeyContractPath = `${sourcePath}/journey-contract.json`;
@@ -70,6 +71,45 @@ const expectedHistoricalSourcesByTopic = Object.freeze({
   email_subject: Object.freeze([]),
   email_body: Object.freeze([]),
 });
+const expectedApprovedSelections = Object.freeze([
+  Object.freeze({
+    topic_id: "button_label",
+    text: "Создать презентацию по справке",
+    team_vote_count: 3,
+    selection_method: "team_vote_maximum_plus_exact_candidate",
+    historical_candidate_rank: 5,
+    candidate_evidence_path: "candidate-evidence/button-label/brainstorming-topic-result.md",
+  }),
+  Object.freeze({
+    topic_id: "generation_started_message",
+    text: "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    team_vote_count: 6,
+    selection_method: "team_vote_maximum_plus_exact_candidate",
+    historical_candidate_rank: 2,
+    candidate_evidence_path: "candidate-evidence/generation-started-message/brainstorming-topic-result.md",
+  }),
+  Object.freeze({
+    topic_id: "delivery_success_message",
+    text: "Презентация готова и направлена по электронной почте в ЧЧ:ММ.",
+    team_vote_count: 6,
+    selection_method: "owner_approved_editorial_text_after_team_vote",
+    candidate_evidence_path: "candidate-evidence/delivery-success-message/brainstorming-topic-result.md",
+  }),
+  Object.freeze({
+    topic_id: "email_subject",
+    text: "Презентация по справке ООО «Водолей Трейд»",
+    team_vote_count: 4,
+    selection_method: "owner_tie_break_after_team_vote",
+    candidate_evidence_path: "candidate-evidence/email-subject/brainstorming-topic-result.md",
+  }),
+  Object.freeze({
+    topic_id: "email_body",
+    text: "Во вложении презентация по Справке по клиенту ООО «Водолей Трейд».",
+    team_vote_count: 4,
+    selection_method: "owner_approved_editorial_text_after_team_vote",
+    candidate_evidence_path: "candidate-evidence/email-body/brainstorming-topic-result.md",
+  }),
+]);
 
 const expectedExternalSourceIds = Object.freeze([
   "presentation_variant_slidedoc_editable_source",
@@ -307,7 +347,37 @@ function validateBrainstorming(brainstorming) {
   }
 }
 
-function validateCandidate(candidate) {
+function validateApprovedTexts(approvedTexts) {
+  assertNoLocalOrRawSourcePaths(approvedTexts);
+  assertNoRawSourceTracesInJson(approvedTexts);
+  if (approvedTexts.status !== "owner_approved") {
+    throw new Error("approved texts must have owner_approved status");
+  }
+  if (approvedTexts.change_order_id !== "CO-2026-003") {
+    throw new Error("approved texts must belong to CO-2026-003");
+  }
+  if (!sameArray(approvedTexts.selections.map((selection) => selection.topic_id), expectedTopics)) {
+    throw new Error("approved texts must contain the five topics in canonical order");
+  }
+  for (let index = 0; index < expectedApprovedSelections.length; index += 1) {
+    const actual = approvedTexts.selections[index];
+    const expected = expectedApprovedSelections[index];
+    for (const field of ["topic_id", "text", "team_vote_count", "selection_method", "candidate_evidence_path"]) {
+      if (actual[field] !== expected[field]) {
+        throw new Error(`approved text ${expected.topic_id} must preserve the confirmed ${field}`);
+      }
+    }
+    if ((expected.historical_candidate_rank ?? null) !== (actual.historical_candidate_rank ?? null)) {
+      throw new Error(`approved text ${expected.topic_id} must preserve the confirmed historical_candidate_rank`);
+    }
+  }
+  const boundary = approvedTexts.visual_release_boundary;
+  if (boundary.candidate_is_generator_input !== false || boundary.render_allowed !== false || boundary.archive_allowed !== false) {
+    throw new Error("approved texts must not activate generator input, render, or archive");
+  }
+}
+
+function validateCandidate(candidate, approvedTexts) {
   assertNoLocalOrRawSourcePaths(candidate);
   assertNoRawSourceTracesInJson(candidate);
   if (!sameArray(candidate.active_future_frame_ids, expectedActiveFutureFrameIds)) {
@@ -343,8 +413,8 @@ function validateCandidate(candidate) {
   if (!sameArray(candidate.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("candidate message topics must match brainstorming topics");
   }
-  if (candidate.message_topics.some((topic) => topic.status !== "pending_owner_selection")) {
-    throw new Error("candidate message topics must remain pending_owner_selection");
+  if (candidate.message_topics.some((topic) => topic.status !== "owner_approved")) {
+    throw new Error("candidate message topics must be owner_approved after the recorded selection");
   }
   for (const topic of candidate.message_topics) {
     if (!sameArray(topic.preserved_historical_sources, expectedHistoricalSourcesByTopic[topic.topic_id])) {
@@ -365,12 +435,12 @@ function validateCandidate(candidate) {
 
   const gate = candidate.visual_release_gate;
   if (
-    gate.release_status !== "blocked_until_owner_selection_and_editable_sources" ||
+    gate.release_status !== "blocked_until_editable_sources_and_frame_approval" ||
     gate.render_allowed !== false ||
-    gate.owner_selection_complete !== false ||
+    gate.owner_selection_complete !== true ||
     gate.all_external_editable_sources_received !== false
   ) {
-    throw new Error("prototype revision candidate cannot enter ready_for_visual_render in this foundation contract");
+    throw new Error("prototype revision candidate must remain blocked until editable sources and frame approval");
   }
   const sourceIds = gate.required_external_editable_sources.map((source) => source.source_id);
   if (!sameArray(sourceIds, expectedExternalSourceIds)) {
@@ -392,14 +462,14 @@ function validateCandidate(candidate) {
       throw new Error(`external source ${expected.source_id} must remain pending_owner_attachment`);
     }
   }
-  if (gate.render_allowed && !gate.owner_selection_complete) {
-    throw new Error("visual render must remain blocked until owner selections are complete");
-  }
   if (gate.render_allowed && !gate.all_external_editable_sources_received) {
     throw new Error("visual render must remain blocked until all editable sources are received");
   }
-  if (!gate.render_allowed && gate.release_status !== "blocked_until_owner_selection_and_editable_sources") {
-    throw new Error("blocked visual gate must keep blocked_until_owner_selection_and_editable_sources status");
+  if (!gate.render_allowed && gate.release_status !== "blocked_until_editable_sources_and_frame_approval") {
+    throw new Error("blocked visual gate must keep blocked_until_editable_sources_and_frame_approval status");
+  }
+  if (candidate.approved_texts_source !== "source/owner-approved-texts.json" || approvedTexts.selections.length !== expectedTopics.length) {
+    throw new Error("candidate must reference the approved texts register");
   }
 }
 
@@ -454,11 +524,13 @@ try {
   const clientData = validateAgainstSchema(root, clientDataPath, `${sourcePath}/schemas/client-reference-data.schema.json`);
   const candidate = validateAgainstSchema(root, candidatePath, `${sourcePath}/schemas/prototype-revision-candidate.schema.json`);
   const brainstorming = validateAgainstSchema(root, brainstormingPath, `${sourcePath}/schemas/brainstorming-contract.schema.json`);
+  const approvedTexts = validateAgainstSchema(root, approvedTextsPath, `${sourcePath}/schemas/owner-approved-texts.schema.json`);
   const candidateMarkdown = readText(root, candidateMarkdownPath);
 
   validateClientData(clientData);
   validateBrainstorming(brainstorming);
-  validateCandidate(candidate);
+  validateApprovedTexts(approvedTexts);
+  validateCandidate(candidate, approvedTexts);
   assertNoRawSourceTracesInText(candidateMarkdown);
   validateInactiveCandidateBoundary(root);
 

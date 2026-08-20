@@ -28,7 +28,7 @@
     {
       "id": "release-without-selection",
       "mutation": "release_without_selection",
-      "expected_error": "release_status: must be equal to constant"
+      "expected_error": "owner_selection_complete: must be equal to constant"
     },
     {
       "id": "ready-for-render-with-pending-sources",
@@ -114,6 +114,11 @@
       "id": "candidate-evidence-wired-into-demo",
       "mutation": "candidate_evidence_wired_into_demo",
       "expected_error": "candidate evidence must not be wired into active release outputs"
+    },
+    {
+      "id": "approved-text-drift",
+      "mutation": "approved_text_drift",
+      "expected_error": "approved text delivery_success_message must preserve the confirmed text"
     }
   ]
 }

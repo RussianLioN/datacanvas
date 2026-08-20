@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "owner-approved-texts.schema.json",
+  "title": "Реестр утверждённых владельцем текстов CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "status",
+    "selection_date",
+    "provenance",
+    "selections",
+    "visual_release_boundary"
+  ],
+  "properties": {
+    "$schema": { "const": "schemas/owner-approved-texts.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "owner_approved" },
+    "selection_date": { "const": "2026-08-20" },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_evidence_policy",
+        "team_vote_method",
+        "tie_policy",
+        "owner_confirmation"
+      ],
+      "properties": {
+        "candidate_evidence_policy": { "const": "two_phase_candidates_preserved_as_historical_context" },
+        "team_vote_method": { "const": "manual_plus_marks_in_owner_provided_selection_package" },
+        "tie_policy": { "const": "equal_maximum_plus_count_requires_owner_choice" },
+        "owner_confirmation": { "const": "all_five_texts_confirmed_in_chat" }
+      }
+    },
+    "selections": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/selection" }
+    },
+    "visual_release_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_is_generator_input",
+        "render_allowed",
+        "archive_allowed",
+        "blocking_reason"
+      ],
+      "properties": {
+        "candidate_is_generator_input": { "const": false },
+        "render_allowed": { "const": false },
+        "archive_allowed": { "const": false },
+        "blocking_reason": { "const": "Остаются обязательные SVG-первичная покадровая приёмка и получение редактируемых исходников." }
+      }
+    }
+  },
+  "$defs": {
+    "safeText": {
+      "type": "string",
+      "minLength": 1,
+      "not": {
+        "anyOf": [
+          { "pattern": "/Users/" },
+          { "pattern": "/private/tmp" },
+          { "pattern": "[fF][iI][lL][eE]:" },
+          { "pattern": "\\.[dD][oO][cC][xX]\\b" },
+          { "pattern": "[A-Za-z]:\\\\" },
+          { "pattern": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}" },
+          { "pattern": "\\b[A-Fa-f0-9]{64}\\b" }
+        ]
+      }
+    },
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic_id",
+        "topic_title",
+        "text",
+        "team_vote_count",
+        "selection_method",
+        "candidate_evidence_path"
+      ],
+      "properties": {
+        "topic_id": {
+          "enum": [
+            "button_label",
+            "generation_started_message",
+            "delivery_success_message",
+            "email_subject",
+            "email_body"
+          ]
+        },
+        "topic_title": { "$ref": "#/$defs/safeText" },
+        "text": { "$ref": "#/$defs/safeText" },
+        "team_vote_count": { "type": "integer", "minimum": 1 },
+        "selection_method": {
+          "enum": [
+            "team_vote_maximum_plus_exact_candidate",
+            "owner_approved_editorial_text_after_team_vote",
+            "owner_tie_break_after_team_vote"
+          ]
+        },
+        "historical_candidate_rank": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "candidate_evidence_path": {
+          "enum": [
+            "candidate-evidence/button-label/brainstorming-topic-result.md",
+            "candidate-evidence/generation-started-message/brainstorming-topic-result.md",
+            "candidate-evidence/delivery-success-message/brainstorming-topic-result.md",
+            "candidate-evidence/email-subject/brainstorming-topic-result.md",
+            "candidate-evidence/email-body/brainstorming-topic-result.md"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "selection_method": { "const": "team_vote_maximum_plus_exact_candidate" }
+            },
+            "required": ["selection_method"]
+          },
+          "then": {
+            "properties": {
+              "historical_candidate_rank": { "type": "integer" }
+            },
+            "required": ["historical_candidate_rank"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "selection_method": {
+                "enum": [
+                  "owner_approved_editorial_text_after_team_vote",
+                  "owner_tie_break_after_team_vote"
+                ]
+              }
+            },
+            "required": ["selection_method"]
+          },
+          "then": {
+            "properties": {
+              "historical_candidate_rank": { "type": "integer" }
+            },
+            "not": { "required": ["historical_candidate_rank"] }
+          }
+        }
+      ]
+    }
+  }
+}

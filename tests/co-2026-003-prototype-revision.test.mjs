@@ -11,6 +11,8 @@ const sourcePath = path.join(packagePath, "source");
 const candidatePath = path.join(sourcePath, "prototype-revision-candidate.json");
 const clientDataPath = path.join(sourcePath, "client-reference-data.json");
 const brainstormingPath = path.join(sourcePath, "brainstorming-contract.json");
+const approvedTextsPath = path.join(sourcePath, "owner-approved-texts.json");
+const approvedTextsMarkdownPath = path.join(packagePath, "owner-approved-texts.md");
 const candidateMarkdownPath = path.join(packagePath, "prototype-revision-candidate.md");
 const activeContractsPath = path.join(sourcePath, "active-contracts.json");
 const journeyContractPath = path.join(sourcePath, "journey-contract.json");
@@ -19,6 +21,7 @@ const schemaPaths = [
   path.join(sourcePath, "schemas/client-reference-data.schema.json"),
   path.join(sourcePath, "schemas/prototype-revision-candidate.schema.json"),
   path.join(sourcePath, "schemas/brainstorming-contract.schema.json"),
+  path.join(sourcePath, "schemas/owner-approved-texts.schema.json"),
 ];
 const validatorPath = "scripts/validate-co-2026-003-prototype-revision.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-prototype-revision-negative.json";
@@ -62,8 +65,7 @@ function applyMutation(base, scenario) {
     data[clientDataPath].source_control.notes.push("сырой источник: file://redacted-source");
   } else if (scenario.mutation === "release_without_selection") {
     data[candidatePath].visual_release_gate.owner_selection_complete = false;
-    data[candidatePath].visual_release_gate.release_status = "ready_for_visual_render";
-    data[candidatePath].visual_release_gate.render_allowed = true;
+    data[candidatePath].visual_release_gate.release_status = "blocked_until_editable_sources_and_frame_approval";
   } else if (scenario.mutation === "ready_for_render_with_pending_sources") {
     data[candidatePath].visual_release_gate.owner_selection_complete = true;
     data[candidatePath].visual_release_gate.all_external_editable_sources_received = true;
@@ -122,6 +124,8 @@ function applyMutation(base, scenario) {
     data[candidatePath].message_topics.find((topic) => topic.topic_id === "delivery_success_message").preserved_historical_sources = ["CO3-MSG-005"];
   } else if (scenario.mutation === "candidate_evidence_wired_into_demo") {
     data[unsafeDemoPath] = "const source = 'candidate-evidence/button-label';\n";
+  } else if (scenario.mutation === "approved_text_drift") {
+    data[approvedTextsPath].selections.find((selection) => selection.topic_id === "delivery_success_message").text = "Другой текст";
   } else {
     throw new Error(`неизвестная мутация ${scenario.mutation}`);
   }
@@ -162,7 +166,8 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(candidate.active_button.count, 1);
   assert.equal(candidate.active_button.source_state_id, "lisa-materials-full-reference");
   assert.equal(candidate.visual_release_gate.required_external_editable_sources.length, 4);
-  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_owner_selection_and_editable_sources");
+  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_editable_sources_and_frame_approval");
+  assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
   assert.deepEqual(
     Object.fromEntries(candidate.message_topics.map((topic) => [topic.topic_id, topic.preserved_historical_sources])),
     {
@@ -193,12 +198,42 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
 });
 
+test("согласованные владельцем тексты хранятся отдельно от исторического пакета голосования", () => {
+  for (const relativePath of [approvedTextsPath, approvedTextsMarkdownPath, path.join(sourcePath, "schemas/owner-approved-texts.schema.json")]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+
+  const approvedTexts = readJson(approvedTextsPath);
+  assert.equal(approvedTexts.status, "owner_approved");
+  assert.equal(approvedTexts.change_order_id, "CO-2026-003");
+  assert.deepEqual(approvedTexts.selections.map((selection) => [selection.topic_id, selection.text]), [
+    ["button_label", "Создать презентацию по справке"],
+    ["generation_started_message", "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA."],
+    ["delivery_success_message", "Презентация готова и направлена по электронной почте в ЧЧ:ММ."],
+    ["email_subject", "Презентация по справке ООО «Водолей Трейд»"],
+    ["email_body", "Во вложении презентация по Справке по клиенту ООО «Водолей Трейд»."],
+  ]);
+  assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "email_subject")?.selection_method, "owner_tie_break_after_team_vote");
+  assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "button_label")?.historical_candidate_rank, 5);
+  assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "delivery_success_message")?.historical_candidate_rank, undefined);
+  assert.equal(approvedTexts.visual_release_boundary.render_allowed, false);
+  assert.equal(approvedTexts.visual_release_boundary.archive_allowed, false);
+  assert.equal(JSON.stringify(approvedTexts).includes(".docx"), false);
+  assert.equal(JSON.stringify(approvedTexts).includes(localUsersPrefix), false);
+
+  const candidate = readJson(candidatePath);
+  assert.equal(candidate.approved_texts_source, "source/owner-approved-texts.json");
+  assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
+  assert.equal(candidate.visual_release_gate.render_allowed, false);
+});
+
 test("узкий валидатор отклоняет известные нарушения кандидата пересборки прототипа", () => {
   const fixture = readJson(negativeFixturePath);
   const base = {
     [clientDataPath]: readJson(clientDataPath),
     [candidatePath]: readJson(candidatePath),
     [brainstormingPath]: readJson(brainstormingPath),
+    [approvedTextsPath]: readJson(approvedTextsPath),
     [activeContractsPath]: readJson(activeContractsPath),
     [journeyContractPath]: readJson(journeyContractPath),
     [candidateMarkdownPath]: fs.readFileSync(path.join(root, candidateMarkdownPath), "utf8"),

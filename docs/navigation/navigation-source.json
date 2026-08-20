@@ -3849,6 +3849,26 @@
       "artifact_registry_required": false
     },
     {
+      "route_id": "presentation-link-lisa-user-journey-owner-approved-texts",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Владелец продукта утверждает или меняет текст кнопки, сообщений в чате либо письма будущего прототипа.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
       "route_id": "presentation-link-lisa-user-journey-canonical-svg-frame-pipeline",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
       "section": "product",

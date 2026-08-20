@@ -9,7 +9,7 @@
     "$schema": { "const": "../source/schemas/candidate-evidence-registry.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "inactive_pending_owner_selection" },
+    "status": { "const": "inactive_historical_candidates_after_owner_selection" },
     "topic_ids": {
       "type": "array",
       "minItems": 2,

@@ -11,6 +11,7 @@
     "status",
     "client_reference_source",
     "brainstorming_contract_source",
+    "approved_texts_source",
     "current_journey_contract_policy",
     "active_future_frame_ids",
     "historical_inactive_frame_ids",
@@ -25,9 +26,10 @@
     "$schema": { "const": "schemas/prototype-revision-candidate.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "candidate_pending_owner_selection_and_editable_sources" },
+    "status": { "const": "candidate_pending_editable_sources_and_frame_approval" },
     "client_reference_source": { "const": "source/client-reference-data.json" },
     "brainstorming_contract_source": { "const": "source/brainstorming-contract.json" },
+    "approved_texts_source": { "const": "source/owner-approved-texts.json" },
     "current_journey_contract_policy": {
       "type": "object",
       "additionalProperties": false,
@@ -55,7 +57,7 @@
         "source_state_id": { "const": "lisa-materials-full-reference" },
         "count": { "type": "integer", "minimum": 1 },
         "text_topic_id": { "const": "button_label" },
-        "text_status": { "const": "pending_owner_selection" }
+        "text_status": { "const": "owner_approved" }
       }
     },
     "semantic_graphs": {
@@ -94,10 +96,10 @@
       ],
       "properties": {
         "release_status": {
-          "const": "blocked_until_owner_selection_and_editable_sources"
+          "const": "blocked_until_editable_sources_and_frame_approval"
         },
         "render_allowed": { "const": false },
-        "owner_selection_complete": { "const": false },
+        "owner_selection_complete": { "const": true },
         "all_external_editable_sources_received": { "const": false },
         "required_external_editable_sources": {
           "type": "array",
@@ -150,7 +152,7 @@
         "topic_id": {
           "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
         },
-        "status": { "const": "pending_owner_selection" },
+        "status": { "const": "owner_approved" },
         "preserved_historical_sources": {
           "type": "array",
           "items": { "type": "string", "pattern": "^CO3-MSG-[0-9]{3}$" },

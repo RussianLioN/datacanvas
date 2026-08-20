@@ -1,0 +1,63 @@
+{
+  "$schema": "schemas/owner-approved-texts.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "owner_approved",
+  "selection_date": "2026-08-20",
+  "provenance": {
+    "candidate_evidence_policy": "two_phase_candidates_preserved_as_historical_context",
+    "team_vote_method": "manual_plus_marks_in_owner_provided_selection_package",
+    "tie_policy": "equal_maximum_plus_count_requires_owner_choice",
+    "owner_confirmation": "all_five_texts_confirmed_in_chat"
+  },
+  "selections": [
+    {
+      "topic_id": "button_label",
+      "topic_title": "Текст кнопки заказа презентации",
+      "text": "Создать презентацию по справке",
+      "team_vote_count": 3,
+      "selection_method": "team_vote_maximum_plus_exact_candidate",
+      "historical_candidate_rank": 5,
+      "candidate_evidence_path": "candidate-evidence/button-label/brainstorming-topic-result.md"
+    },
+    {
+      "topic_id": "generation_started_message",
+      "topic_title": "Сообщение о начале формирования презентации",
+      "text": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+      "team_vote_count": 6,
+      "selection_method": "team_vote_maximum_plus_exact_candidate",
+      "historical_candidate_rank": 2,
+      "candidate_evidence_path": "candidate-evidence/generation-started-message/brainstorming-topic-result.md"
+    },
+    {
+      "topic_id": "delivery_success_message",
+      "topic_title": "Сообщение об успешной отправке презентации",
+      "text": "Презентация готова и направлена по электронной почте в ЧЧ:ММ.",
+      "team_vote_count": 6,
+      "selection_method": "owner_approved_editorial_text_after_team_vote",
+      "candidate_evidence_path": "candidate-evidence/delivery-success-message/brainstorming-topic-result.md"
+    },
+    {
+      "topic_id": "email_subject",
+      "topic_title": "Тема письма с презентацией",
+      "text": "Презентация по справке ООО «Водолей Трейд»",
+      "team_vote_count": 4,
+      "selection_method": "owner_tie_break_after_team_vote",
+      "candidate_evidence_path": "candidate-evidence/email-subject/brainstorming-topic-result.md"
+    },
+    {
+      "topic_id": "email_body",
+      "topic_title": "Тело письма с презентацией",
+      "text": "Во вложении презентация по Справке по клиенту ООО «Водолей Трейд».",
+      "team_vote_count": 4,
+      "selection_method": "owner_approved_editorial_text_after_team_vote",
+      "candidate_evidence_path": "candidate-evidence/email-body/brainstorming-topic-result.md"
+    }
+  ],
+  "visual_release_boundary": {
+    "candidate_is_generator_input": false,
+    "render_allowed": false,
+    "archive_allowed": false,
+    "blocking_reason": "Остаются обязательные SVG-первичная покадровая приёмка и получение редактируемых исходников."
+  }
+}
