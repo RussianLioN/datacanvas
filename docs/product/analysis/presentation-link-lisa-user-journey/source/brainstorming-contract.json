@@ -142,12 +142,12 @@
       "topic_id": "email_body",
       "title": "Тело письма с презентацией",
       "status": "pending_owner_selection",
-      "owner_intro": "Ожидается вводная владельца продукта. Текст должен быть кратким, деловым, корпоративным, без обращения по имени и без копирования приложенного образца.",
+      "owner_intro": "Тело письма должно кратко и делово сообщать, что DataCanvas изготовил презентацию по Справке по клиенту для ООО «Водолей Трейд» и направляет её вложением. Нужен корпоративный стиль без обращения по имени, без форматов вложений, адресов получателей и без копирования приложенного образца письма.",
       "phase_1": {
         "participant_count": 19,
         "minimum_raw_variants_per_participant": 20,
-        "context_visibility": "shared",
-        "duplicate_avoidance": "visible_shared_ledger",
+        "context_visibility": "parallel_common_context",
+        "duplicate_avoidance": "central_consolidation_after_parallel_submission",
         "consolidated_candidate_count": 30
       },
       "phase_2": {

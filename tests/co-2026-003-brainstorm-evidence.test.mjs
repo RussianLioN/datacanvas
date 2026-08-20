@@ -29,6 +29,11 @@ const emailSubjectStatePath = path.join(emailSubjectPackagePath, "brainstorming-
 const emailSubjectLedgerPath = path.join(emailSubjectPackagePath, "brainstorming-topic-result.md");
 const emailSubjectRawLedgerPath = path.join(emailSubjectPackagePath, "raw-variants-ledger.md");
 const emailSubjectGeneratorPath = "scripts/generate-co-2026-003-email-subject-brainstorm-evidence.mjs";
+const emailBodyPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body";
+const emailBodyStatePath = path.join(emailBodyPackagePath, "brainstorming-topic-result.json");
+const emailBodyLedgerPath = path.join(emailBodyPackagePath, "brainstorming-topic-result.md");
+const emailBodyRawLedgerPath = path.join(emailBodyPackagePath, "raw-variants-ledger.md");
+const emailBodyGeneratorPath = "scripts/generate-co-2026-003-email-body-brainstorm-evidence.mjs";
 const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
 const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
 const schemaValidatorSourcePath = "scripts/validate-json-schema.mjs";
@@ -204,6 +209,9 @@ test("узкий валидатор отклоняет нарушения пак
     [emailSubjectStatePath]: readJson(emailSubjectStatePath),
     [emailSubjectLedgerPath]: readText(emailSubjectLedgerPath),
     [emailSubjectRawLedgerPath]: readText(emailSubjectRawLedgerPath),
+    [emailBodyStatePath]: readJson(emailBodyStatePath),
+    [emailBodyLedgerPath]: readText(emailBodyLedgerPath),
+    [emailBodyRawLedgerPath]: readText(emailBodyRawLedgerPath),
     [schemaPath]: readJson(schemaPath),
     [registryPath]: readJson(registryPath),
     [registrySchemaPath]: readJson(registrySchemaPath),
@@ -228,18 +236,19 @@ test("узкий валидатор отклоняет нарушения пак
   }
 });
 
-test("реестр неактивных пакетов сохраняет button_label и не включает варианты в выпуск", () => {
-  for (const relativePath of [registryPath, buttonStatePath]) {
+test("реестр неактивных пакетов сохраняет все пять тем и не включает варианты в выпуск", () => {
+  for (const relativePath of [registryPath, buttonStatePath, emailBodyStatePath, emailBodyGeneratorPath]) {
     assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
   }
 
   const registry = readJson(registryPath);
-  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject"]);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]);
   assert.deepEqual(registry.package_paths, [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
     "candidate-evidence/email-subject",
+    "candidate-evidence/email-body",
   ]);
 
   const state = readJson(buttonStatePath);
@@ -266,12 +275,13 @@ test("реестр включает завершённый двухфазный 
   }
 
   const registry = readJson(registryPath);
-  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject"]);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]);
   assert.deepEqual(registry.package_paths, [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
     "candidate-evidence/email-subject",
+    "candidate-evidence/email-body",
   ]);
 
   const state = readJson(generationStartedStatePath);
@@ -328,8 +338,37 @@ test("реестр включает завершённый двухфазный 
   assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
 });
 
-test("общая проверка схем включает результат темы письма", () => {
+test("реестр включает завершённый двухфазный брейншторм тела письма", () => {
+  for (const relativePath of [emailBodyStatePath, emailBodyLedgerPath, emailBodyRawLedgerPath, emailBodyGeneratorPath]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+
+  const state = readJson(emailBodyStatePath);
+  assert.equal(state.topic_id, "email_body");
+  assert.match(state.owner_intro, /ООО «Водолей Трейд»/u);
+  assert.equal(state.phase_1.context_visibility, "parallel_common_context");
+  assert.equal(state.phase_1.participant_count, 19);
+  assert.equal(state.phase_1.raw_variant_count, 380);
+  assert.equal(state.phase_1.consolidation.candidates.length, 30);
+  assert.equal(state.phase_2.rankings.length, 19);
+  assert.deepEqual(state.final_candidates.map((candidate) => candidate.source_candidate_id), [26, 10, 16, 12, 28]);
+  assert.equal(state.selected_text, null);
+  assert.deepEqual(state.boundaries, {
+    render_allowed: false,
+    archive_allowed: false,
+    generator_input_allowed: false,
+  });
+
+  const generatorResult = spawnSync(process.execPath, [path.join(root, emailBodyGeneratorPath), "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
+});
+
+test("общая проверка схем включает результаты темы и тела письма", () => {
   assert.match(readText(schemaValidatorSourcePath), new RegExp(emailSubjectStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+  assert.match(readText(schemaValidatorSourcePath), new RegExp(emailBodyStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
 });
 
 test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
@@ -348,6 +387,9 @@ test("узкий валидатор проверяет границу неакт
       emailSubjectStatePath,
       emailSubjectLedgerPath,
       emailSubjectRawLedgerPath,
+      emailBodyStatePath,
+      emailBodyLedgerPath,
+      emailBodyRawLedgerPath,
       schemaPath,
       registryPath,
       registrySchemaPath,

@@ -7,13 +7,15 @@
     "button_label",
     "generation_started_message",
     "delivery_success_message",
-    "email_subject"
+    "email_subject",
+    "email_body"
   ],
   "package_paths": [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
-    "candidate-evidence/email-subject"
+    "candidate-evidence/email-subject",
+    "candidate-evidence/email-body"
   ],
   "boundaries": {
     "render_allowed": false,
