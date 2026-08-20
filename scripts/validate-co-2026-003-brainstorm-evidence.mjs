@@ -151,6 +151,49 @@ function validateScoring(state) {
   }
 }
 
+function validateSelectionRevision(state) {
+  const revisedTopics = new Set(["generation_started_message", "delivery_success_message", "email_body"]);
+  if (!state.selection_revision) {
+    if (revisedTopics.has(state.topic_id)) {
+      throw new Error("revised topics must preserve an explicit owner editorial revision without a new brainstorm");
+    }
+    return;
+  }
+  const revision = state.selection_revision;
+  if (revision.revision_kind !== "owner_editorial_revision_without_rebrainstorm") {
+    throw new Error("selection revision must declare the owner editorial revision kind");
+  }
+  if (revision.candidates.length !== 5) throw new Error("selection revision must contain exactly five candidates");
+  const sourceIds = state.final_candidates.map((candidate) => candidate.source_candidate_id);
+  if (!sameArray(revision.candidates.map((candidate) => candidate.source_candidate_id), sourceIds)) {
+    throw new Error("selection revision must preserve the source order of the two-phase result");
+  }
+  revision.candidates.forEach((candidate, index) => {
+    if (candidate.rank !== index + 1) throw new Error("selection revision candidate ranks must be 1..5");
+  });
+  const texts = revision.candidates.map((candidate) => candidate.text);
+  if (new Set(texts).size !== texts.length) {
+    throw new Error("selection revision candidates must have distinct texts");
+  }
+  if (state.topic_id === "generation_started_message") {
+    for (const text of texts) {
+      if (/только/iu.test(text) || !text.includes("ЧЧ:ММ") || !text.includes("не более 20 минут") || !text.includes("SIGMA и OMEGA")) {
+        throw new Error("generation-started selection revision must omit only and retain time, twenty-minute promise, SIGMA and OMEGA");
+      }
+    }
+  }
+  if (state.topic_id === "delivery_success_message" && texts.some((text) => !text.includes("ЧЧ:ММ"))) {
+    throw new Error("delivery-success selection revision must retain the mandatory delivery time in every candidate");
+  }
+  if (state.topic_id === "email_body") {
+    for (const text of texts) {
+      if (/DataCanvas/iu.test(text) || !text.includes("ООО «Водолей Трейд»")) {
+        throw new Error("email-body selection revision must stay anonymous and name the client");
+      }
+    }
+  }
+}
+
 function validateOptionalIntegrity(state) {
   if (!state.integrity) return;
   const variants = state.phase_1.participants.flatMap((participant) => participant.variants);
@@ -196,6 +239,7 @@ function validatePackage(root, entry, registryEntries) {
   validatePhase1(state.phase_1);
   validatePhase2(state.phase_2);
   validateScoring(state);
+  validateSelectionRevision(state);
   validateOptionalIntegrity(state);
   validateInactiveBoundary(root, state, registryEntries);
   if (!ledger.includes("Статус: `pending_owner_selection`") || !rawLedger.includes("Всего сырых вариантов: 380")) {

@@ -33,17 +33,24 @@ function readTopic(root, topic) {
   if (result.boundaries?.render_allowed || result.boundaries?.archive_allowed || result.boundaries?.generator_input_allowed) {
     fail(`${topic.directory}: кандидатный пакет не должен разрешать выпуск`);
   }
-  return result;
+  return {
+    result,
+    candidates: result.selection_revision?.candidates || result.final_candidates,
+    hasOwnerRevision: Boolean(result.selection_revision),
+  };
 }
 
 function render(root) {
   const sections = topics.map((topic) => {
-    const result = readTopic(root, topic);
+    const selection = readTopic(root, topic);
     const resultLink = `${topic.directory}/brainstorming-topic-result.md`;
-    const variants = result.final_candidates
+    const variants = selection.candidates
       .map((candidate) => `${candidate.rank}. ${candidate.text}`)
       .join("\n");
-    return `## ${topic.title}\n\nИсточник: [полный результат двухфазного обсуждения](${resultLink}).\n\n${variants}`;
+    const source = selection.hasOwnerRevision
+      ? `Источник: [полный результат двухфазного обсуждения](${resultLink}); применено редакционное уточнение владельца без нового брейншторма.`
+      : `Источник: [полный результат двухфазного обсуждения](${resultLink}).`;
+    return `## ${topic.title}\n\n${source}\n\n${variants}`;
   });
   return `# Пакет выбора текстов для будущего прототипа\n\nСтатус: ожидается явный выбор владельца продукта. Этот документ объединяет по пять кандидатов из пяти независимых двухфазных обсуждений. Он не меняет действующие SVG, PNG, HTML, ZIP, доказательства или архив.\n\n## Как зафиксировать выбор\n\nВладелец продукта выбирает по одному номеру в каждом из пяти разделов либо присылает точную отредактированную формулировку. До фиксации всех пяти выборов запрещено менять визуальные кадры и выпускать прототип.\n\n${sections.join("\n\n")}\n`;
 }

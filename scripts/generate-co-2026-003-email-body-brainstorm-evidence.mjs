@@ -4,7 +4,7 @@ import process from "node:process";
 
 const journeyRoot = "docs/product/analysis/presentation-link-lisa-user-journey";
 const packageRoot = `${journeyRoot}/candidate-evidence/email-body`;
-const ownerIntro = "Тело письма должно кратко и делово сообщать, что DataCanvas изготовил презентацию по Справке по клиенту для ООО «Водолей Трейд» и направляет её вложением. Нужен корпоративный стиль без обращения по имени, без форматов вложений, адресов получателей и без копирования приложенного образца письма.";
+const ownerIntro = "Тело письма должно кратко и делово сообщать, что к письму приложена презентация по Справке по клиенту ООО «Водолей Трейд». Нужен корпоративный стиль без обращения по имени, без указания изготовителя или отправителя, форматов вложений, адресов получателей и без копирования приложенного образца письма.";
 
 const candidateTexts = [
   "DataCanvas изготовил презентацию по Справке по клиенту для ООО «Водолей Трейд»; она приложена к письму.",
@@ -46,6 +46,22 @@ const rankings = [
   [2, 14, 3, 1, 10], [16, 27, 23, 10, 26], [26, 23, 5, 2, 14], [16, 10, 26, 23, 2],
   [26, 12, 10, 1, 4], [10, 3, 1, 26, 12], [16, 10, 26, 30, 28],
 ];
+
+const selectionRevision = Object.freeze({
+  revision_kind: "owner_editorial_revision_without_rebrainstorm",
+  reason: "После завершения двух фаз владелец продукта потребовал обезличить текст письма: не называть DataCanvas изготовителем или отправителем. Исторический журнал и результаты голосования сохранены без изменения.",
+  constraints: [
+    "Не указывать DataCanvas, изготовителя или отправителя.",
+    "Сохранить краткий деловой стиль и название ООО «Водолей Трейд».",
+  ],
+  candidates: [
+    { rank: 1, source_candidate_id: 26, text: "К письму приложена презентация по Справке по клиенту ООО «Водолей Трейд»." },
+    { rank: 2, source_candidate_id: 10, text: "К письму приложена презентация по Справке по клиенту для ООО «Водолей Трейд»." },
+    { rank: 3, source_candidate_id: 16, text: "К письму прилагается презентация по Справке по клиенту ООО «Водолей Трейд»." },
+    { rank: 4, source_candidate_id: 12, text: "Во вложении направляется презентация по Справке по клиенту ООО «Водолей Трейд»." },
+    { rank: 5, source_candidate_id: 28, text: "К письму приложена подготовленная презентация по Справке по клиенту ООО «Водолей Трейд»." },
+  ],
+});
 
 function fail(message) {
   throw new Error(message);
@@ -148,6 +164,7 @@ function buildState(participants) {
       points: total.points,
       text: candidateById.get(total.candidate_id),
     })),
+    selection_revision: selectionRevision,
     selected_text: null,
     boundaries: { render_allowed: false, archive_allowed: false, generator_input_allowed: false },
   };
@@ -157,7 +174,8 @@ function renderResult(state) {
   const candidateLines = state.phase_1.consolidation.candidates.map((candidate) => `${candidate.candidate_id}. ${candidate.text}`).join("\n");
   const rankingLines = state.phase_2.rankings.map((ranking) => `${ranking.anonymous_reviewer_id}: ${ranking.ranked_candidate_ids.join(", ")}`).join("\n");
   const finalLines = state.final_candidates.map((candidate) => `${candidate.rank}. Вариант ${candidate.source_candidate_id}, ${candidate.points} баллов: ${candidate.text}`).join("\n");
-  return `# Результат брейншторма по телу письма с презентацией\n\nСтатус: \`pending_owner_selection\`.\n\nЭтот пакет содержит только кандидаты. Он не меняет действующие договоры, не разрешает рендер, не входит в архив и не является входом генератора.\n\n## Вводная владельца\n\n${ownerIntro}\n\n## Первая фаза\n\nУчастников: 19. Минимум вариантов на участника: 20. Всего сырых вариантов: 380. Все участники получили общую вводную и работали параллельно; перед второй фазой центральная проверка исключила явные дубли и близкие повторы.\n\nПолный журнал сохранён в [raw-variants-ledger.md](raw-variants-ledger.md).\n\n## Консолидация до 30 вариантов\n\n${candidateLines}\n\n## Вторая фаза\n\nУчастников: 19. Участники независимые и анонимные. На входе было 30 вариантов. Каждое ранжирование содержит пять номеров из списка 30.\n\n${rankingLines}\n\n## Правило подсчёта\n\nПозиции 1–5 дают 5–1 балл. При равном числе баллов выше расположен вариант с меньшим номером.\n\n## Итоговые кандидаты\n\n${finalLines}\n\nВыбранный текст: \`null\`. Итоговый выбор владельца ещё не сделан.\n\n## Блокировки\n\n- \`render_allowed\`: \`false\` — рендер не разрешён.\n- \`archive_allowed\`: \`false\` — архив не разрешён.\n- \`generator_input_allowed\`: \`false\` — вход генератора не разрешён.\n`;
+  const revisionLines = state.selection_revision.candidates.map((candidate) => `${candidate.rank}. Вариант ${candidate.source_candidate_id}: ${candidate.text}`).join("\n");
+  return `# Результат брейншторма по телу письма с презентацией\n\nСтатус: \`pending_owner_selection\`.\n\nЭтот пакет содержит только кандидаты. Он не меняет действующие договоры, не разрешает рендер, не входит в архив и не является входом генератора.\n\n## Вводная владельца\n\n${ownerIntro}\n\n## Первая фаза\n\nУчастников: 19. Минимум вариантов на участника: 20. Всего сырых вариантов: 380. Все участники получили общую вводную и работали параллельно; перед второй фазой центральная проверка исключила явные дубли и близкие повторы.\n\nПолный журнал сохранён в [raw-variants-ledger.md](raw-variants-ledger.md).\n\n## Консолидация до 30 вариантов\n\n${candidateLines}\n\n## Вторая фаза\n\nУчастников: 19. Участники независимые и анонимные. На входе было 30 вариантов. Каждое ранжирование содержит пять номеров из списка 30.\n\n${rankingLines}\n\n## Правило подсчёта\n\nПозиции 1–5 дают 5–1 балл. При равном числе баллов выше расположен вариант с меньшим номером.\n\n## Итоговые кандидаты\n\n${finalLines}\n\n## Редакционное уточнение владельца\n\n${state.selection_revision.reason}\n\nУточнённые кандидаты для выбора:\n\n${revisionLines}\n\nВыбранный текст: \`null\`. Итоговый выбор владельца ещё не сделан.\n\n## Блокировки\n\n- \`render_allowed\`: \`false\` — рендер не разрешён.\n- \`archive_allowed\`: \`false\` — архив не разрешён.\n- \`generator_input_allowed\`: \`false\` — вход генератора не разрешён.\n`;
 }
 
 function expectedFiles(root) {

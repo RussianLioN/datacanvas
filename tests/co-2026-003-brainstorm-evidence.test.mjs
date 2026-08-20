@@ -411,6 +411,53 @@ test("пакет выбора владельца собирается из пя�
   assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
 });
 
+test("редакционные уточнения владельца формируют кандидаты без повторного брейншторма", () => {
+  const topics = [
+    [generationStartedStatePath, "generation_started_message"],
+    [statePath, "delivery_success_message"],
+    [emailBodyStatePath, "email_body"],
+  ];
+  const states = new Map(topics.map(([relativePath, topicId]) => [topicId, readJson(relativePath)]));
+
+  for (const [topicId, state] of states) {
+    assert.equal(state.selection_revision?.revision_kind, "owner_editorial_revision_without_rebrainstorm", `${topicId}: требуется явное редакционное уточнение владельца`);
+    assert.equal(state.selection_revision?.candidates.length, 5, `${topicId}: требуется ровно пять уточнённых кандидатов`);
+    assert.deepEqual(
+      state.selection_revision?.candidates.map((candidate) => candidate.source_candidate_id),
+      state.final_candidates.map((candidate) => candidate.source_candidate_id),
+      `${topicId}: уточнение должно сохранять связь с результатом двух фаз`,
+    );
+    assert.equal(new Set(state.selection_revision?.candidates.map((candidate) => candidate.text)).size, 5, `${topicId}: пять кандидатов должны иметь разные формулировки`);
+  }
+
+  const started = states.get("generation_started_message").selection_revision.candidates;
+  for (const candidate of started) {
+    assert.doesNotMatch(candidate.text, /\bтолько\b/iu);
+    assert.match(candidate.text, /ЧЧ:ММ/u);
+    assert.match(candidate.text, /не более 20 минут/u);
+    assert.match(candidate.text, /SIGMA и OMEGA/u);
+  }
+
+  const delivered = states.get("delivery_success_message").selection_revision.candidates;
+  for (const candidate of delivered) assert.match(candidate.text, /ЧЧ:ММ/u);
+
+  const emailBody = states.get("email_body").selection_revision.candidates;
+  for (const candidate of emailBody) {
+    assert.doesNotMatch(candidate.text, /DataCanvas/iu);
+    assert.match(candidate.text, /ООО «Водолей Трейд»/u);
+  }
+
+  const packet = readText(ownerSelectionPacketPath);
+  assert.doesNotMatch(packet, /по электронной почте только в SIGMA и OMEGA/u);
+  assert.doesNotMatch(packet, /DataCanvas/iu);
+
+  const contract = readJson(brainstormingContractPath);
+  const topicsById = new Map(contract.topics.map((topic) => [topic.topic_id, topic]));
+  assert.doesNotMatch(topicsById.get("generation_started_message").owner_intro, /только в SIGMA и OMEGA/iu);
+  assert.match(topicsById.get("delivery_success_message").owner_intro, /ЧЧ:ММ/u);
+  assert.doesNotMatch(topicsById.get("email_body").owner_intro, /DataCanvas/iu);
+});
+
 test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-brainstorm-registry-"));
   try {
