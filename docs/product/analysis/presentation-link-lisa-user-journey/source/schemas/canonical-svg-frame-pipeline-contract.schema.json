@@ -32,7 +32,7 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "3.4.0" },
+    "version": { "const": "3.5.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "inactive_pending_canonical_svg_sources_and_frame_approval" },
     "active": { "const": false },
@@ -266,12 +266,32 @@
             }
           },
           "else": {
-            "properties": {
-              "canonical_svg_status": { "const": "pending_source" },
-              "approved_text_status": { "const": "pending" },
-              "svg_visual_check_status": { "const": "pending" },
-              "draft_png_status": { "const": "blocked" }
-            }
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "frame_id": { "const": "lisa-presentation-generating" }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
+                    "approved_text_status": { "const": "owner_approved" },
+                    "svg_visual_check_status": { "const": "passed" },
+                    "draft_png_status": { "const": "rendered_current_resolution" },
+                    "owner_frame_approval_status": { "const": "pending" }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "canonical_svg_status": { "const": "pending_source" },
+                    "approved_text_status": { "const": "pending" },
+                    "svg_visual_check_status": { "const": "pending" },
+                    "draft_png_status": { "const": "blocked" }
+                  }
+                }
+              }
+            ]
           }
         }
       ]
@@ -294,18 +314,18 @@
         "next_frame_blocked_until_owner_approval"
       ],
       "properties": {
-        "status": { "const": "owner_frame_approved_next_frame_ready" },
-        "current_frame_id": { "const": "lisa-materials-full-reference" },
-        "next_frame_id": { "const": "lisa-presentation-generating" },
-        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
-        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png" },
-        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json" },
-        "base_svg_path": { "const": "editable-sources/5.4.svg" },
+        "status": { "const": "draft_png_rendered_pending_owner_approval" },
+        "current_frame_id": { "const": "lisa-presentation-generating" },
+        "next_frame_id": { "const": "lisa-presentation-chat-list" },
+        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg" },
+        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" },
+        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json" },
+        "base_svg_path": { "const": "editable-sources/7.2 — Длинное название клиента + холдинг.svg" },
         "edit_mode": { "const": "replace_existing_frame_group_content" },
-        "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title"] },
+        "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title", "lisa-status-"] },
         "active_release_mutation_prohibited": { "const": true },
-        "owner_approval_record_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" },
-        "next_frame_blocked_until_owner_approval": { "const": false }
+        "owner_approval_record_path": { "type": "null" },
+        "next_frame_blocked_until_owner_approval": { "const": true }
       }
     },
     "acceptance_steps": {

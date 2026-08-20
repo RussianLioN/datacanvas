@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-presentation-generating-review-source-manifest.schema.json",
+  "title": "Манифест чернового кадра начала формирования презентации",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "frame_id",
+    "status",
+    "base_svg_path",
+    "base_svg_sha256",
+    "source_svg_path",
+    "source_svg_sha256",
+    "client_reference_data_path",
+    "client_reference_data_sha256",
+    "approved_texts_path",
+    "approved_texts_sha256",
+    "client_card",
+    "button_label_text",
+    "generation_started_message",
+    "preserved_existing_group_ids",
+    "replaced_text_group_ids",
+    "prohibited_legacy_overlay_ids",
+    "text_outline_font",
+    "active_release_mutation_prohibited",
+    "draft_png_rendered",
+    "draft_png_path",
+    "draft_png_sha256",
+    "draft_png_dimensions",
+    "draft_png_non_white_pixel_count",
+    "owner_frame_approval"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json"
+    },
+    "version": { "const": "1.0.0" },
+    "frame_id": { "const": "lisa-presentation-generating" },
+    "status": { "const": "draft_png_rendered_pending_owner_approval" },
+    "base_svg_path": {
+      "const": "editable-sources/7.2 — Длинное название клиента + холдинг.svg"
+    },
+    "base_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "source_svg_path": {
+      "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg"
+    },
+    "source_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "client_reference_data_path": { "const": "source/client-reference-data.json" },
+    "client_reference_data_sha256": { "$ref": "#/$defs/sha256" },
+    "approved_texts_path": { "const": "source/owner-approved-texts.json" },
+    "approved_texts_sha256": { "$ref": "#/$defs/sha256" },
+    "client_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "client_name", "inn", "bank", "segment", "holding", "headcount"],
+      "properties": {
+        "title": { "const": "Справка по клиенту" },
+        "client_name": { "const": "ООО «Водолей Трейд»" },
+        "inn": { "const": "ИНН 2461004230" },
+        "bank": { "const": "Сибирский банк" },
+        "segment": { "const": "Сегмент: Средний" },
+        "holding": { "const": "ГК «Водолей»" },
+        "headcount": { "const": "90 человек" }
+      }
+    },
+    "button_label_text": { "const": "Создать презентацию по справке" },
+    "generation_started_message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "display_lines", "time_value"],
+      "properties": {
+        "text": {
+          "const": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA."
+        },
+        "display_lines": {
+          "const": [
+            "Формирование презентации началось в 13:24",
+            "и займет не более 20 минут. После",
+            "завершения презентация будет направлена",
+            "по электронной почте в SIGMA и OMEGA."
+          ]
+        },
+        "time_value": { "const": "13:24" }
+      }
+    },
+    "preserved_existing_group_ids": {
+      "const": [
+        "Frame 2131329748",
+        "Frame 2131330375",
+        "Frame 2131330372",
+        "Frame 2131330377",
+        "Frame 2131330376",
+        "Frame 2131330391",
+        "ai-button",
+        "Group 2131329372",
+        "Group 2131329029",
+        "presentation-start-line-1",
+        "presentation-start-line-2",
+        "presentation-status-details",
+        "presentation-status-line-1",
+        "presentation-status-line-2",
+        "presentation-status-line-3",
+        "presentation-status-line-4"
+      ]
+    },
+    "replaced_text_group_ids": {
+      "const": [
+        "Group 2131329368",
+        "Frame 2131330375",
+        "Frame 2131330377",
+        "Frame 2131330391",
+        "ai-button",
+        "messages_2.0@186,566",
+        "presentation-start-line-1",
+        "presentation-start-line-2",
+        "presentation-status-line-1",
+        "presentation-status-line-2",
+        "presentation-status-line-3",
+        "presentation-status-line-4"
+      ]
+    },
+    "prohibited_legacy_overlay_ids": {
+      "const": ["lisa-edit-5-4-title", "lisa-status-"]
+    },
+    "text_outline_font": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "sha256", "copied_to_git"],
+      "properties": {
+        "family": { "const": "SB Sans Display" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "copied_to_git": { "const": false }
+      }
+    },
+    "active_release_mutation_prohibited": { "const": true },
+    "draft_png_rendered": { "const": true },
+    "draft_png_path": {
+      "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png"
+    },
+    "draft_png_sha256": { "$ref": "#/$defs/sha256" },
+    "draft_png_dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "const": 521 },
+        "height": { "const": 980 }
+      }
+    },
+    "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 },
+    "owner_frame_approval": { "type": "null" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

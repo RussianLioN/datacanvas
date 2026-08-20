@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
@@ -95,19 +96,28 @@ const expectedCurrentFrame = Object.freeze({
   draft_png_status: "rendered_current_resolution",
   owner_frame_approval_status: "approved",
 });
+const expectedGeneratingFrame = Object.freeze({
+  frame_id: "lisa-presentation-generating",
+  svg_editing_mode: "canonical_svg_existing_groups_only",
+  canonical_svg_status: "prepared_existing_group_content_replaced",
+  approved_text_status: "owner_approved",
+  svg_visual_check_status: "passed",
+  draft_png_status: "rendered_current_resolution",
+  owner_frame_approval_status: "pending",
+});
 const expectedFrameReviewSession = Object.freeze({
-  status: "owner_frame_approved_next_frame_ready",
-  current_frame_id: "lisa-materials-full-reference",
-  next_frame_id: "lisa-presentation-generating",
-  source_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
-  draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
-  review_manifest_path: "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
-  base_svg_path: "editable-sources/5.4.svg",
+  status: "draft_png_rendered_pending_owner_approval",
+  current_frame_id: "lisa-presentation-generating",
+  next_frame_id: "lisa-presentation-chat-list",
+  source_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+  base_svg_path: "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
   edit_mode: "replace_existing_frame_group_content",
-  prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title"],
+  prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
   active_release_mutation_prohibited: true,
-  owner_approval_record_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
-  next_frame_blocked_until_owner_approval: false,
+  owner_approval_record_path: null,
+  next_frame_blocked_until_owner_approval: true,
 });
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
@@ -162,6 +172,10 @@ function parseArguments(args) {
 
 function readJson(absolutePath) {
   return JSON.parse(fs.readFileSync(absolutePath, "utf8"));
+}
+
+function sha256File(absolutePath) {
+  return createHash("sha256").update(fs.readFileSync(absolutePath)).digest("hex");
 }
 
 function sameArray(actual, expected) {
@@ -227,6 +241,7 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
+  if (contract.version !== "3.5.0") throw new Error("версия договора должна фиксировать второй черновой кадр");
 }
 
 function validateFrames(contract, candidate) {
@@ -252,6 +267,12 @@ function validateFrames(contract, candidate) {
       }
       continue;
     }
+    if (frame.frame_id === expectedGeneratingFrame.frame_id) {
+      if (JSON.stringify(frame) !== JSON.stringify(expectedGeneratingFrame)) {
+        throw new Error("кадр начала формирования должен быть подготовлен только до отдельной приёмки владельцем");
+      }
+      continue;
+    }
     if (
       frame.svg_editing_mode !== "canonical_svg_existing_groups_only" ||
       frame.canonical_svg_status !== "pending_source" ||
@@ -270,7 +291,43 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("frame review session must preserve the accepted first frame and open only the next isolated frame");
+    throw new Error("сеанс покадровой приёмки должен ожидать решения владельца по изолированному кадру начала формирования");
+  }
+}
+
+function validateGeneratingReviewEvidence(contractPath) {
+  const reviewDirectory = path.join(
+    path.dirname(contractPath),
+    "..",
+    "candidate-evidence/frame-review/lisa-presentation-generating",
+  );
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const sourcePath = path.join(reviewDirectory, "source.svg");
+  const source = fs.readFileSync(sourcePath, "utf8");
+  const expectedMessage = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
+  if (
+    manifest.frame_id !== "lisa-presentation-generating" ||
+    manifest.status !== "draft_png_rendered_pending_owner_approval" ||
+    manifest.owner_frame_approval !== null ||
+    manifest.source_svg_sha256 !== sha256File(sourcePath) ||
+    manifest.draft_png_rendered !== true ||
+    manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" ||
+    manifest.draft_png_dimensions?.width !== 521 ||
+    manifest.draft_png_dimensions?.height !== 980
+  ) {
+    throw new Error("манифест второго чернового кадра должен привязывать проверенный SVG и PNG до решения владельца");
+  }
+  if (
+    /<text\b/u.test(source) ||
+    source.includes("lisa-edit-") ||
+    source.includes("lisa-status-") ||
+    !source.includes('id="Frame 2131330375"') ||
+    !source.includes('id="Group 2131329372"') ||
+    !source.includes('id="Rectangle 240652035"') ||
+    !source.includes(`aria-label="${expectedMessage}"`) ||
+    (source.match(/id="button"/gu) || []).length !== 1
+  ) {
+    throw new Error("второй черновой SVG должен заменять текст только в существующих группах без накладок и повторяющихся идентификаторов");
   }
 }
 
@@ -504,6 +561,7 @@ try {
   validateFrames(contract, candidate);
   validateFrameReviewSession(contract);
   validateOwnerApprovalEvidence(contractPath);
+  validateGeneratingReviewEvidence(contractPath);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);
   validatePresentationPdfDonorRegister(contract, donorRegister);

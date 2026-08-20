@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "change_order_id": "CO-2026-003",
   "status": "inactive_pending_canonical_svg_sources_and_frame_approval",
   "active": false,
@@ -288,10 +288,10 @@
     {
       "frame_id": "lisa-presentation-generating",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "owner_approved",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution",
       "owner_frame_approval_status": "pending"
     },
     {
@@ -377,20 +377,21 @@
     }
   ],
   "frame_review_session": {
-    "status": "owner_frame_approved_next_frame_ready",
-    "current_frame_id": "lisa-materials-full-reference",
-    "next_frame_id": "lisa-presentation-generating",
-    "source_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
-    "draft_png_path": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
-    "review_manifest_path": "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
-    "base_svg_path": "editable-sources/5.4.svg",
+    "status": "draft_png_rendered_pending_owner_approval",
+    "current_frame_id": "lisa-presentation-generating",
+    "next_frame_id": "lisa-presentation-chat-list",
+    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+    "base_svg_path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
     "edit_mode": "replace_existing_frame_group_content",
     "prohibited_legacy_overlay_ids": [
-      "lisa-edit-5-4-title"
+      "lisa-edit-5-4-title",
+      "lisa-status-"
     ],
     "active_release_mutation_prohibited": true,
-    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
-    "next_frame_blocked_until_owner_approval": false
+    "owner_approval_record_path": null,
+    "next_frame_blocked_until_owner_approval": true
   },
   "acceptance": {
     "frame_flow": [

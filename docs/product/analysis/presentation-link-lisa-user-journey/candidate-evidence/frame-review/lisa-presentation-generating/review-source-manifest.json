@@ -1,0 +1,85 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-generating",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "base_svg_path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
+  "base_svg_sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+  "source_svg_sha256": "8502c74ea760ee68e481f4565c14963da35e64891916d21a0b2a70d1e33332e1",
+  "client_reference_data_path": "source/client-reference-data.json",
+  "client_reference_data_sha256": "d6d2911fe26bdf81c6d5c97f955036a7e2174450b425a2629b1d6ea22fe53f37",
+  "approved_texts_path": "source/owner-approved-texts.json",
+  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "client_card": {
+    "title": "Справка по клиенту",
+    "client_name": "ООО «Водолей Трейд»",
+    "inn": "ИНН 2461004230",
+    "bank": "Сибирский банк",
+    "segment": "Сегмент: Средний",
+    "holding": "ГК «Водолей»",
+    "headcount": "90 человек"
+  },
+  "button_label_text": "Создать презентацию по справке",
+  "generation_started_message": {
+    "text": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    "display_lines": [
+      "Формирование презентации началось в 13:24",
+      "и займет не более 20 минут. После",
+      "завершения презентация будет направлена",
+      "по электронной почте в SIGMA и OMEGA."
+    ],
+    "time_value": "13:24"
+  },
+  "preserved_existing_group_ids": [
+    "Frame 2131329748",
+    "Frame 2131330375",
+    "Frame 2131330372",
+    "Frame 2131330377",
+    "Frame 2131330376",
+    "Frame 2131330391",
+    "ai-button",
+    "Group 2131329372",
+    "Group 2131329029",
+    "presentation-start-line-1",
+    "presentation-start-line-2",
+    "presentation-status-details",
+    "presentation-status-line-1",
+    "presentation-status-line-2",
+    "presentation-status-line-3",
+    "presentation-status-line-4"
+  ],
+  "replaced_text_group_ids": [
+    "Group 2131329368",
+    "Frame 2131330375",
+    "Frame 2131330377",
+    "Frame 2131330391",
+    "ai-button",
+    "messages_2.0@186,566",
+    "presentation-start-line-1",
+    "presentation-start-line-2",
+    "presentation-status-line-1",
+    "presentation-status-line-2",
+    "presentation-status-line-3",
+    "presentation-status-line-4"
+  ],
+  "prohibited_legacy_overlay_ids": [
+    "lisa-edit-5-4-title",
+    "lisa-status-"
+  ],
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+  "draft_png_sha256": "a7bb3eeca1831a18eff06b57eb9142768a0f0672063cde716d6d945e6a24756f",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 980
+  },
+  "draft_png_non_white_pixel_count": 265705,
+  "owner_frame_approval": null
+}

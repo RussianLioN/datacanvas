@@ -565,6 +565,10 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
   },

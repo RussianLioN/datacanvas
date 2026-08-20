@@ -23,6 +23,13 @@ const fullReferenceReviewSourcePath = `${packagePath}/candidate-evidence/frame-r
 const fullReferenceReviewManifestPath = `${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json`;
 const fullReferenceOwnerApprovalPath = `${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json`;
 const fullReferenceOwnerApprovalSchemaPath = `${sourcePath}/schemas/lisa-frame-owner-approval.schema.json`;
+const generatingReviewDirectory = `${packagePath}/candidate-evidence/frame-review/lisa-presentation-generating`;
+const generatingReviewSourcePath = `${generatingReviewDirectory}/source.svg`;
+const generatingReviewManifestPath = `${generatingReviewDirectory}/review-source-manifest.json`;
+const generatingReviewPath = `${generatingReviewDirectory}/review.md`;
+const generatingDraftPngPath = `${generatingReviewDirectory}/draft-current-resolution.png`;
+const generatingReviewManifestSchemaPath = `${sourcePath}/schemas/lisa-presentation-generating-review-source-manifest.schema.json`;
+const generationStartedText = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
 
 const expectedTopics = Object.freeze([
   "button_label",
@@ -136,6 +143,12 @@ function writeJson(baseDir, relativePath, value) {
   fs.writeFileSync(target, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function copyFile(baseDir, relativePath) {
+  const target = path.join(baseDir, relativePath);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.copyFileSync(absolute(relativePath), target);
+}
+
 function copyRequiredInputs(tempRoot, contract, activeContracts) {
   writeJson(tempRoot, contractPath, contract);
   writeJson(tempRoot, schemaPath, readJson(schemaPath));
@@ -145,6 +158,8 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   writeJson(tempRoot, presentationPdfDonorRegisterSchemaPath, readJson(presentationPdfDonorRegisterSchemaPath));
   writeJson(tempRoot, fullReferenceReviewManifestPath, readJson(fullReferenceReviewManifestPath));
   writeJson(tempRoot, fullReferenceOwnerApprovalPath, readJson(fullReferenceOwnerApprovalPath));
+  writeJson(tempRoot, generatingReviewManifestPath, readJson(generatingReviewManifestPath));
+  copyFile(tempRoot, generatingReviewSourcePath);
   writeJson(tempRoot, activeContractsPath, activeContracts);
 }
 
@@ -228,6 +243,11 @@ test("неактивный договор SVG-first кадров существ�
   assert.ok(fs.existsSync(absolute(presentationPdfDonorRegisterSchemaPath)), `Отсутствует обязательный файл: ${presentationPdfDonorRegisterSchemaPath}`);
   assert.ok(fs.existsSync(absolute(fullReferenceOwnerApprovalPath)), `Отсутствует обязательный файл: ${fullReferenceOwnerApprovalPath}`);
   assert.ok(fs.existsSync(absolute(fullReferenceOwnerApprovalSchemaPath)), `Отсутствует обязательный файл: ${fullReferenceOwnerApprovalSchemaPath}`);
+  assert.ok(fs.existsSync(absolute(generatingReviewSourcePath)), `Отсутствует изолированный SVG второго кадра: ${generatingReviewSourcePath}`);
+  assert.ok(fs.existsSync(absolute(generatingReviewManifestPath)), `Отсутствует манифест второго кадра: ${generatingReviewManifestPath}`);
+  assert.ok(fs.existsSync(absolute(generatingReviewPath)), `Отсутствует журнал второго кадра: ${generatingReviewPath}`);
+  assert.ok(fs.existsSync(absolute(generatingDraftPngPath)), `Отсутствует черновой PNG второго кадра: ${generatingDraftPngPath}`);
+  assert.ok(fs.existsSync(absolute(generatingReviewManifestSchemaPath)), `Отсутствует схема манифеста второго кадра: ${generatingReviewManifestSchemaPath}`);
 });
 
 test("общий контроль качества включает схему и семантическую проверку будущего SVG-договора", () => {
@@ -235,9 +255,11 @@ test("общий контроль качества включает схему �
   const schemaValidator = fs.readFileSync(absolute("scripts/validate-json-schema.mjs"), "utf8");
 
   assert.match(packageManifest.scripts.test, /validate:canonical-svg-frame-pipeline/u);
+  assert.match(packageManifest.scripts["check:lisa-presentation-generating-review-draft"], /prepare-lisa-presentation-generating-review-source\.mjs --check/u, "проверка второго кадра должна сначала сверять сохранённый SVG с повторной подготовкой из канонического источника");
   assert.match(schemaValidator, /canonical-svg-frame-pipeline-contract\.schema\.json/u);
   assert.match(schemaValidator, /presentation-pdf-donor-register\.schema\.json/u);
   assert.match(schemaValidator, /lisa-full-reference-review-source-manifest\.schema\.json/u);
+  assert.match(schemaValidator, /lisa-presentation-generating-review-source-manifest\.schema\.json/u);
   assert.match(schemaValidator, /lisa-frame-owner-approval\.schema\.json/u);
 });
 
@@ -246,7 +268,7 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "3.4.0");
+  assert.equal(contract.version, "3.5.0");
   assert.equal(contract.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
@@ -351,6 +373,16 @@ test("выбранные тексты и покадровые источники
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "approved",
       });
+    } else if (frame.frame_id === "lisa-presentation-generating") {
+      assert.deepEqual(frame, {
+        frame_id: "lisa-presentation-generating",
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "prepared_existing_group_content_replaced",
+        approved_text_status: "owner_approved",
+        svg_visual_check_status: "passed",
+        draft_png_status: "rendered_current_resolution",
+        owner_frame_approval_status: "pending",
+      });
     } else {
       assert.equal(frame.canonical_svg_status, "pending_source");
       assert.equal(frame.approved_text_status, "pending");
@@ -366,18 +398,18 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "owner_frame_approved_next_frame_ready",
-    current_frame_id: "lisa-materials-full-reference",
-    next_frame_id: "lisa-presentation-generating",
-    source_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
-    draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
-    review_manifest_path: "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
-    base_svg_path: "editable-sources/5.4.svg",
+    status: "draft_png_rendered_pending_owner_approval",
+    current_frame_id: "lisa-presentation-generating",
+    next_frame_id: "lisa-presentation-chat-list",
+    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+    base_svg_path: "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
     edit_mode: "replace_existing_frame_group_content",
-    prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title"],
+    prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
     active_release_mutation_prohibited: true,
-    owner_approval_record_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
-    next_frame_blocked_until_owner_approval: false,
+    owner_approval_record_path: null,
+    next_frame_blocked_until_owner_approval: true,
   });
   assert.ok(fs.existsSync(absolute(fullReferenceReviewSourcePath)), "должен существовать изолированный SVG первого кадра");
   assert.ok(fs.existsSync(absolute(fullReferenceReviewManifestPath)), "должен существовать манифест источника первого кадра");
@@ -389,6 +421,20 @@ test("принятый первый проверочный кадр изолир
   assert.doesNotMatch(reviewSource, /id="lisa-edit-/u, "в проверочном SVG не допускаются исторические накладки");
   assert.doesNotMatch(reviewSource, /<text\b/u, "новый текст кадра должен остаться векторными контурами SVG");
   assert.match(reviewSource, /id="Frame 2131329748"/u, "проверочный SVG обязан сохранять существующую группу кадра");
+
+  const generatingSource = fs.readFileSync(absolute(generatingReviewSourcePath), "utf8");
+  const generatingManifest = readJson(generatingReviewManifestPath);
+  assert.doesNotMatch(generatingSource, /id="lisa-edit-/u, "во втором SVG не допускаются исторические накладки");
+  assert.doesNotMatch(generatingSource, /<text\b/u, "текст второго кадра должен остаться векторными контурами SVG");
+  assert.match(generatingSource, /id="Frame 2131330375"/u, "второй кадр обязан сохранять существующий блок справки");
+  assert.match(generatingSource, /id="Group 2131329372"/u, "второй кадр обязан сохранять существующий блок статуса");
+  assert.match(generatingSource, /id="Rectangle 240652035"/u, "замена текста сообщения пользователя должна сохранять штатный фон его существующей группы");
+  assert.equal((generatingSource.match(/id="button"/gu) || []).length, 1, "второй кадр не должен создавать повторяющийся идентификатор подписи действия");
+  assert.match(generatingSource, new RegExp(`aria-label="${generationStartedText}"`, "u"), "второй кадр должен содержать утверждённое сообщение в доступной подписи");
+  assert.equal(generatingManifest.status, "draft_png_rendered_pending_owner_approval");
+  assert.equal(generatingManifest.frame_id, "lisa-presentation-generating");
+  assert.equal(generatingManifest.base_svg_path, "editable-sources/7.2 — Длинное название клиента + холдинг.svg");
+  assert.equal(generatingManifest.owner_frame_approval, null, "до отдельной приёмки второй кадр не имеет решения владельца");
   assert.match(reviewSource, /id="Group 2131328969"/u, "проверочный SVG обязан заменить содержимое существующей группы справки");
   assert.match(reviewSource, /id="button_footer_2\.0"/u, "проверочный SVG обязан сохранить нижнюю кнопку");
   assert.match(reviewSource, /aria-label="Создать презентацию по справке"/u, "проверочный SVG обязан использовать согласованный текст кнопки");
