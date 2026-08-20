@@ -3229,6 +3229,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/2026-08-20-process-metrics-freshness-preflight.md",
+      "route_id": "rca-2026-08-20-process-metrics-freshness-preflight",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "Process Owner / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/process/universal-documentation-workflow/generator-contracts.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Порядок генерации снимка метрик, ранняя проверка свежести или строгая проверка чистоты рабочей копии меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
       "route_id": "rca-2026-08-20-co-2026-003-brainstorm-evidence-collection",
       "section": "knowledge",

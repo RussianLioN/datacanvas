@@ -151,6 +151,39 @@
       ]
     },
     {
+      "generator_id": "process-metrics-snapshot",
+      "owner_role": "Process Owner / Documentation Owner",
+      "inputs": [
+        "docs/process/current/process-metrics-manifest.json",
+        "docs/process/current/process-event-log.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/current/process-change-ledger.json",
+        "docs/sprints",
+        "scripts/collect-process-metrics.mjs"
+      ],
+      "outputs": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ],
+      "allowed_writes": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ],
+      "generate_command": "node scripts/collect-process-metrics.mjs",
+      "check_command": "npm run validate:process-metrics-snapshot",
+      "deterministic_environment": "Node.js, зафиксированное содержимое репозитория, без сети",
+      "dependencies": [],
+      "post_validators": [
+        "npm run validate:process-metrics-snapshot",
+        "npm run validate:artifact-hashes"
+      ],
+      "failure_modes": [
+        "stale_process_metrics_snapshot",
+        "artifact_registry_count_mismatch",
+        "manual_generated_snapshot_edit"
+      ]
+    },
+    {
       "generator_id": "artifact-hash-manifest",
       "owner_role": "Documentation Owner",
       "inputs": [
@@ -592,6 +625,7 @@
     "documentation-cascade-completion",
     "docs-navigation",
     "datacanvas-bmc",
+    "process-metrics-snapshot",
     "artifact-hash-manifest",
     "documentation-archive",
     "co-2026-003-prototype-delivery-archive"

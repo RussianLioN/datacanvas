@@ -9746,6 +9746,22 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Порядок запуска параллельной фазы, способ сохранения полного журнала или защита целевой рабочей копии меняются."
+    },
+    {
+      "id": "ART-884",
+      "path": "docs/knowledge/rca/2026-08-20-process-metrics-freshness-preflight.md",
+      "type": "root-cause-analysis",
+      "owner_role": "Process Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/process/universal-documentation-workflow/generator-contracts.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Порядок генерации снимка метрик, ранняя проверка свежести или строгая проверка чистоты рабочей копии меняются."
     }
   ]
 }

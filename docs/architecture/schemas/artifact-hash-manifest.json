@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "697872232305aaa1f00c8a9034182d1abeab4d80b1c5b6db55ce106c05dd48c8"
+      "sha256": "ebef1e6c9a16f19b5a2f2d49ccc3c9f2f6816b7d80e7e08b77b85515d777e796"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "42826a2450cbf32e1785df16e5cd3d32d1a0d9b995acda74449bb0053d5607d2"
+      "sha256": "e7ebaad41b78a8e0263cb65072c4cc338f103e3245c25844b32c4c20a006956b"
     },
     {
       "artifact_id": "ART-201",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "7216ee0ee01174746015e46f06a043a42fa91becacd6c7c7f68a1fa8e587fef0"
+      "sha256": "4a4450973715983d5c3fbed1d8e7767808359e3c062d818fbef980dc9ef4f358"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "0a0ff6ddfa7c0c84913b5dfd08302366018ab15892fc255f90a5d46fa71d8456"
+      "sha256": "8d28b436b082763463deb77c06f2ea6fa7f863c2d688adee0bab36d5982f1276"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "9f4284bc41b35e779475ffc8b476082447e088e35648f9c387d0701ec944e4fe"
+      "sha256": "e79e4b8652df0bdc47d2fd2353a090f1e99bcc66cd34b713602986303b3803e4"
     },
     {
       "artifact_id": "ART-413",
@@ -3242,7 +3242,7 @@
     {
       "artifact_id": "ART-649",
       "path": "docs/process/universal-documentation-workflow/generator-contracts.json",
-      "sha256": "bfa74229822260594fd2c49507596a85f0cce075f7da9bb9ea09fe2f31fa482e"
+      "sha256": "1d4e50472be2fb91320fe98576415a25b7809a2853633b522685e663c5188f67"
     },
     {
       "artifact_id": "ART-650",
@@ -3282,7 +3282,7 @@
     {
       "artifact_id": "ART-657",
       "path": "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
-      "sha256": "a4802487e05085a5fd43d7659779bc0d20d8d01a59e86b0c2aa22bfce9aaf887"
+      "sha256": "5e925d1660023d6cb088e027ad91f2c9b2cc746069d01e86ac75e144f3f5dbb7"
     },
     {
       "artifact_id": "ART-658",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "40d3ce6585208abdc88fdd4415ea4b708ceb51491bd42e5dc68d1499cd2d55e9"
+      "sha256": "ed1f3ee4c557e901559520824216ebdbf30b643ffdc8db80d31ad7a01e859831"
     },
     {
       "artifact_id": "ART-742",
@@ -4408,6 +4408,11 @@
       "artifact_id": "ART-883",
       "path": "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
       "sha256": "fc216b24c4dd9c867a186ceabce60a3b34d8f55c477adbdf9bc0a291c53c6612"
+    },
+    {
+      "artifact_id": "ART-884",
+      "path": "docs/knowledge/rca/2026-08-20-process-metrics-freshness-preflight.md",
+      "sha256": "625b359bd69258f3fe0ff42a0399ac928b9d49cf6e1c2095f6b744164c51739f"
     }
   ],
   "exclusions": [

@@ -39,6 +39,13 @@
       ]
     },
     {
+      "generator_id": "process-metrics-snapshot",
+      "allowed_writes": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ]
+    },
+    {
       "generator_id": "artifact-hash-manifest",
       "allowed_writes": [
         "docs/architecture/schemas/artifact-hash-manifest.json"

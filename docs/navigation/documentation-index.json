@@ -3895,6 +3895,48 @@
       "click_depth": 4
     },
     {
+      "path": "docs/knowledge/rca/2026-08-20-process-metrics-freshness-preflight.md",
+      "title": "RCA: свежесть снимка процессных метрик до полной проверки",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Process Owner / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/process/universal-documentation-workflow/generator-contracts.json",
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": "ART-884",
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/README.md",
+        "package.json",
+        "README.md",
+        "scripts/collect-process-metrics.mjs",
+        "scripts/generate-artifact-hash-manifest.mjs"
+      ],
+      "anchors": [
+        "rca-свежесть-снимка-процессных-метрик-до-полной-проверки",
+        "проблема",
+        "факты-и-воспроизведение",
+        "пять-почему",
+        "корневая-причина",
+        "исправление-и-предотвращение-повторения",
+        "исполняемые-проверки",
+        "остаточный-риск-и-правило-остановки"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -3921,7 +3963,8 @@
         "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
         "docs/knowledge/rca/2026-08-12-lisa-raster-base-source-parity.md",
         "docs/knowledge/rca/2026-08-12-lisa-runtime-webkit-timeout.md",
-        "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md"
+        "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
+        "docs/knowledge/rca/2026-08-20-process-metrics-freshness-preflight.md"
       ],
       "anchors": [
         "rca",
@@ -6343,8 +6386,8 @@
       "artifact_registry_id": "ART-199",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 5
     },
     {
       "path": "docs/process/current/process-metrics-snapshot.md",
@@ -38054,14 +38097,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1310,
-    "manual_entries": 1300,
+    "total_entries": 1311,
+    "manual_entries": 1301,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1233,
+    "searchable_entries": 1234,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 247,
+    "reachable_from_root": 249,
     "orphan_entries": 0
   },
   "ignored_paths": [
