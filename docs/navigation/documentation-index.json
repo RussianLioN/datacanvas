@@ -10298,6 +10298,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
@@ -10390,8 +10391,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
@@ -10417,6 +10418,8 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
         "docs/product/analysis/README.md",
@@ -10427,8 +10430,8 @@
       "anchors": [
         "неактивный-договор-svg-first-кадров"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
@@ -10518,6 +10521,30 @@
       "navigable": false,
       "generated": false,
       "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
       "generated_from": [],
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": null,
@@ -10739,8 +10766,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/client-reference-data.schema.json",
@@ -10830,6 +10857,30 @@
       "navigable": false,
       "generated": false,
       "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-donor-register.schema.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-donor-register.schema.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "QA Lead",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
       "generated_from": [],
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": null,
@@ -15495,6 +15546,9 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/README.md",
@@ -15693,6 +15747,7 @@
         "предотвращение-повторения",
         "предотвращение-повторения-при-будущей-пересборке-кандидата",
         "дополнительные-причины-обнаруженные-при-исправлении",
+        "ошибка-классификации-будущих-источников",
         "связанные-материалы"
       ],
       "reachable_from_root": true,
@@ -38212,14 +38267,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1314,
-    "manual_entries": 1304,
+    "total_entries": 1316,
+    "manual_entries": 1306,
     "generated_entries": 10,
     "public_navigable_entries": 34,
     "searchable_entries": 1235,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 251,
+    "reachable_from_root": 255,
     "orphan_entries": 0
   },
   "ignored_paths": [

@@ -55,7 +55,7 @@
         "candidate_is_generator_input": { "const": false },
         "render_allowed": { "const": false },
         "archive_allowed": { "const": false },
-        "blocking_reason": { "const": "Остаются обязательные SVG-первичная покадровая приёмка и получение редактируемых исходников." }
+        "blocking_reason": { "const": "Остаются обязательные подготовка канонических SVG, поэкранная приёмка и SVG-источник кадра письма." }
       }
     }
   },

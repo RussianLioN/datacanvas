@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "cc1d6c1943865a52234882c1bbed6c33588e294f76a1a4d5bb0a8691aa8583b1"
+      "sha256": "cc9a8db1e6a14747d15c810c1d628ff9e346a3c4aab525d75b54d04fc7e09b7c"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "5a49074946d97ab449f49b396bce43a6128d3b35d39cdfb380baf728ed3748dc"
+      "sha256": "a03558a4a376303a3924b26b378cab4797c741f977784eb2cb5cf75d8dacac0a"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "f1607c4b64c02023b9c740337c4809251858cfe93a986d77d1aa8d4e5e82842d"
+      "sha256": "e450389ab3b241580a22bf76ae4e0ff33e5803d82a8179293b3a876600edc487"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "6c83353af3c21499bf3fd8773f2987943e5870d969e8d9f35a9388caeefa07a5"
+      "sha256": "ae74101428a07b6977e0552a9649a9f85fc7e40b43c152a073a452c942eee886"
     },
     {
       "artifact_id": "ART-569",
@@ -4167,7 +4167,7 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "e3cbcccbaa716998f5b76406fa651eb94b22dffc51bdd2330792e2681ebd8abb"
+      "sha256": "87c1ac3227106fa949828f03029f55d3d98af09407873beee8dd18d19ac5f972"
     },
     {
       "artifact_id": "ART-836",
@@ -4177,7 +4177,7 @@
     {
       "artifact_id": "ART-837",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-      "sha256": "ba3b26d453c3903f487241681cc36692d59ddf95a3e72c54391545b8bac9522d"
+      "sha256": "ffbccbe137112744ddd633e2741ebbeb2cfe7e2b1932090294cf53b33b06e523"
     },
     {
       "artifact_id": "ART-838",

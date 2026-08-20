@@ -63,12 +63,12 @@
     {
       "id": "wrong-external-source-format",
       "mutation": "wrong_external_source_format",
-      "expected_error": "external source presentation_variant_slidedoc_editable_source must use required format editable_presentation_source"
+      "expected_error": "external source presentation_variant_slidedoc_pdf_donor must use required format owner_supplied_pdf_visual_donor"
     },
     {
       "id": "wrong-external-source-frame",
       "mutation": "wrong_external_source_frame",
-      "expected_error": "external source presentation_variant_sber2025_editable_source must target lisa-presentation-sber2025"
+      "expected_error": "external source presentation_variant_sber2025_pdf_donor must target lisa-presentation-sber2025"
     },
     {
       "id": "missing-presentation-canonical-svg-gate",

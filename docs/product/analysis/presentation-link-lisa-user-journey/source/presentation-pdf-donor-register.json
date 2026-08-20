@@ -1,0 +1,39 @@
+{
+  "$schema": "schemas/presentation-pdf-donor-register.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "owner_attachments_received_pending_canonical_svg_intake",
+  "inputs_committed_to_git": false,
+  "raw_pdf_direct_render_prohibited": true,
+  "existing_historical_pdf_importer_not_invoked": true,
+  "canonical_svg_required_before_draft_render": true,
+  "donors": [
+    {
+      "donor_id": "presentation_variant_slidedoc_pdf_donor",
+      "frame_id": "lisa-presentation-slidedoc",
+      "source_file_name": "vodoley_dense_slidedoc.pdf",
+      "sha256": "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
+      "page_count": 3,
+      "use": "visual_reference_only",
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    },
+    {
+      "donor_id": "presentation_variant_sber2025_pdf_donor",
+      "frame_id": "lisa-presentation-sber2025",
+      "source_file_name": "vodoley_dense_sber2025.pdf",
+      "sha256": "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
+      "page_count": 3,
+      "use": "visual_reference_only",
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    },
+    {
+      "donor_id": "presentation_variant_mag_pdf_donor",
+      "frame_id": "lisa-presentation-mag",
+      "source_file_name": "vodoley_dense_mag.pdf",
+      "sha256": "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
+      "page_count": 3,
+      "use": "visual_reference_only",
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    }
+  ]
+}

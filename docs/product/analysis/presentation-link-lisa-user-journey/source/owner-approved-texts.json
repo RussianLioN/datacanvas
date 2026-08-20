@@ -58,6 +58,6 @@
     "candidate_is_generator_input": false,
     "render_allowed": false,
     "archive_allowed": false,
-    "blocking_reason": "Остаются обязательные SVG-первичная покадровая приёмка и получение редактируемых исходников."
+    "blocking_reason": "Остаются обязательные подготовка канонических SVG, поэкранная приёмка и SVG-источник кадра письма."
   }
 }

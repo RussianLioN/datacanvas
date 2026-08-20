@@ -11,6 +11,7 @@ const sourcePath = path.join(packagePath, "source");
 const candidatePath = path.join(sourcePath, "prototype-revision-candidate.json");
 const svgPipelineContractPath = path.join(sourcePath, "canonical-svg-frame-pipeline-contract.json");
 const clientDataPath = path.join(sourcePath, "client-reference-data.json");
+const presentationPdfDonorRegisterPath = path.join(sourcePath, "presentation-pdf-donor-register.json");
 const brainstormingPath = path.join(sourcePath, "brainstorming-contract.json");
 const approvedTextsPath = path.join(sourcePath, "owner-approved-texts.json");
 const approvedTextsMarkdownPath = path.join(packagePath, "owner-approved-texts.md");
@@ -24,6 +25,7 @@ const schemaPaths = [
   path.join(sourcePath, "schemas/brainstorming-contract.schema.json"),
   path.join(sourcePath, "schemas/owner-approved-texts.schema.json"),
   path.join(sourcePath, "schemas/canonical-svg-frame-pipeline-contract.schema.json"),
+  path.join(sourcePath, "schemas/presentation-pdf-donor-register.schema.json"),
 ];
 const validatorPath = "scripts/validate-co-2026-003-prototype-revision.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-prototype-revision-negative.json";
@@ -67,16 +69,16 @@ function applyMutation(base, scenario) {
     data[clientDataPath].source_control.notes.push("сырой источник: file://redacted-source");
   } else if (scenario.mutation === "release_without_selection") {
     data[candidatePath].visual_release_gate.owner_selection_complete = false;
-    data[candidatePath].visual_release_gate.release_status = "blocked_until_editable_sources_and_frame_approval";
+    data[candidatePath].visual_release_gate.release_status = "blocked_until_canonical_svg_sources_and_frame_approval";
   } else if (scenario.mutation === "ready_for_render_with_pending_sources") {
     data[candidatePath].visual_release_gate.owner_selection_complete = true;
-    data[candidatePath].visual_release_gate.all_external_editable_sources_received = true;
+    data[candidatePath].visual_release_gate.all_external_visual_donors_received = true;
     data[candidatePath].visual_release_gate.release_status = "ready_for_visual_render";
     data[candidatePath].visual_release_gate.render_allowed = true;
   } else if (scenario.mutation === "visual_render_without_editable_sources") {
     data[candidatePath].visual_release_gate.owner_selection_complete = true;
-    data[candidatePath].visual_release_gate.all_external_editable_sources_received = true;
-    data[candidatePath].visual_release_gate.required_external_editable_sources = data[candidatePath].visual_release_gate.required_external_editable_sources.slice(0, 3);
+    data[candidatePath].visual_release_gate.all_external_visual_donors_received = true;
+    data[candidatePath].visual_release_gate.required_external_visual_donors = data[candidatePath].visual_release_gate.required_external_visual_donors.slice(0, 3);
     data[candidatePath].visual_release_gate.release_status = "ready_for_visual_render";
     data[candidatePath].visual_release_gate.render_allowed = true;
   } else if (scenario.mutation === "missing_svg_first_step") {
@@ -101,11 +103,11 @@ function applyMutation(base, scenario) {
       to: "lisa-presentation-email",
     });
   } else if (scenario.mutation === "wrong_external_source_format") {
-    data[candidatePath].visual_release_gate.required_external_editable_sources[0].required_format = "canonical_svg_source";
+    data[candidatePath].visual_release_gate.required_external_visual_donors[0].required_format = "canonical_svg_source";
   } else if (scenario.mutation === "wrong_external_source_frame") {
-    data[candidatePath].visual_release_gate.required_external_editable_sources[1].required_for_frame_id = "lisa-presentation-mag";
+    data[candidatePath].visual_release_gate.required_external_visual_donors[1].required_for_frame_id = "lisa-presentation-mag";
   } else if (scenario.mutation === "missing_presentation_canonical_svg_gate") {
-    delete data[candidatePath].visual_release_gate.required_external_editable_sources[2].canonical_svg_required_before_render;
+    delete data[candidatePath].visual_release_gate.required_external_visual_donors[2].canonical_svg_required_before_render;
   } else if (scenario.mutation === "docx_in_client_note") {
     data[clientDataPath].source_control.notes.push("сырой документ source.docx не должен храниться");
   } else if (scenario.mutation === "sha_in_candidate") {
@@ -137,13 +139,14 @@ function applyMutation(base, scenario) {
 }
 
 test("кандидат пересборки CO-2026-003 фиксирует клиентские данные, маршрут, брейншторм и запрет визуального выпуска", () => {
-  for (const relativePath of [clientDataPath, candidatePath, svgPipelineContractPath, brainstormingPath]) {
+  for (const relativePath of [clientDataPath, candidatePath, svgPipelineContractPath, presentationPdfDonorRegisterPath, brainstormingPath]) {
     assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
   }
 
   const clientData = readJson(clientDataPath);
   const candidate = readJson(candidatePath);
   const svgPipeline = readJson(svgPipelineContractPath);
+  const presentationPdfDonorRegister = readJson(presentationPdfDonorRegisterPath);
   const brainstorming = readJson(brainstormingPath);
 
   assert.equal(clientData.client.short_name, "ООО «Водолей Трейд»");
@@ -170,12 +173,36 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.deepEqual(candidate.historical_inactive_frame_ids, ["lisa-materials-summary", "lisa-presentation-order"]);
   assert.equal(candidate.active_button.count, 1);
   assert.equal(candidate.active_button.source_state_id, "lisa-materials-full-reference");
-  assert.equal(candidate.visual_release_gate.required_external_editable_sources.length, 4);
-  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_editable_sources_and_frame_approval");
+  assert.equal(candidate.visual_release_gate.required_external_visual_donors.length, 4);
+  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_canonical_svg_sources_and_frame_approval");
   assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
-  assert.equal(svgPipeline.status, "inactive_pending_editable_sources_and_frame_approval");
+  assert.equal(svgPipeline.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
   assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
+  assert.deepEqual(svgPipeline.client_reference_svg_update, {
+    source_data_path: "source/client-reference-data.json",
+    historical_client_marker: "ГК Достовалова",
+    replacement_client_name: "ООО «Водолей Трейд»",
+    full_reference_frame_id: "lisa-materials-full-reference",
+    continuation_frame_ids: [
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial",
+    ],
+    svg_editing_mode: "canonical_svg_existing_groups_only",
+    status: "pending_frame_cycle",
+  });
+  assert.equal(presentationPdfDonorRegister.status, "owner_attachments_received_pending_canonical_svg_intake");
+  assert.equal(presentationPdfDonorRegister.raw_pdf_direct_render_prohibited, true);
+  assert.deepEqual(presentationPdfDonorRegister.donors.map((donor) => donor.frame_id), [
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+  ]);
+  assert.ok(presentationPdfDonorRegister.donors.every((donor) => donor.page_count === 3));
   assert.deepEqual(svgPipeline.acceptance.frame_flow, [
     "owner_text_selected",
     "canonical_svg_existing_group_updated",
@@ -183,6 +210,14 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
     "draft_png_current_resolution_rendered",
     "owner_frame_approval",
   ]);
+  assert.deepEqual(svgPipeline.acceptance.per_frame_review, {
+    required: true,
+    review_surface: "isolated_current_prototype_copy",
+    allowed_changed_frame_count: 1,
+    candidate_must_replace_same_frame_id: true,
+    next_frame_blocked_until_owner_approval: true,
+    active_release_mutation_prohibited: true,
+  });
   assert.deepEqual(
     Object.fromEntries(candidate.message_topics.map((topic) => [topic.topic_id, topic.preserved_historical_sources])),
     {
@@ -246,6 +281,7 @@ test("узкий валидатор отклоняет известные нар
   const fixture = readJson(negativeFixturePath);
   const base = {
     [clientDataPath]: readJson(clientDataPath),
+    [presentationPdfDonorRegisterPath]: readJson(presentationPdfDonorRegisterPath),
     [candidatePath]: readJson(candidatePath),
     [svgPipelineContractPath]: readJson(svgPipelineContractPath),
     [brainstormingPath]: readJson(brainstormingPath),

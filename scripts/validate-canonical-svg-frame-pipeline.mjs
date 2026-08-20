@@ -30,6 +30,14 @@ const expectedPrototypeAcceptanceFlow = Object.freeze([
   "high_resolution_render_from_approved_svg_sources",
   "final_owner_approval",
 ]);
+const expectedPerFrameReview = Object.freeze({
+  required: true,
+  review_surface: "isolated_current_prototype_copy",
+  allowed_changed_frame_count: 1,
+  candidate_must_replace_same_frame_id: true,
+  next_frame_blocked_until_owner_approval: true,
+  active_release_mutation_prohibited: true,
+});
 const expectedForbiddenMethods = Object.freeze([
   "html_overlay",
   "css_overlay",
@@ -39,25 +47,25 @@ const expectedForbiddenMethods = Object.freeze([
 ]);
 const expectedExternalSources = Object.freeze([
   Object.freeze({
-    source_id: "presentation_variant_slidedoc_editable_source",
+    source_id: "presentation_variant_slidedoc_pdf_donor",
     required_for_frame_id: "lisa-presentation-slidedoc",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "presentation_variant_sber2025_editable_source",
+    source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "presentation_variant_mag_editable_source",
+    source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
     source_id: "email_frame_canonical_svg_source",
@@ -77,6 +85,35 @@ const expectedFutureTransactionTargets = Object.freeze([
   "evidence/**",
   "portable-zip",
   "delivery-archive",
+]);
+const expectedPresentationPdfDonors = Object.freeze([
+  Object.freeze({
+    donor_id: "presentation_variant_slidedoc_pdf_donor",
+    frame_id: "lisa-presentation-slidedoc",
+    source_file_name: "vodoley_dense_slidedoc.pdf",
+    sha256: "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
+    page_count: 3,
+    use: "visual_reference_only",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
+  }),
+  Object.freeze({
+    donor_id: "presentation_variant_sber2025_pdf_donor",
+    frame_id: "lisa-presentation-sber2025",
+    source_file_name: "vodoley_dense_sber2025.pdf",
+    sha256: "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
+    page_count: 3,
+    use: "visual_reference_only",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
+  }),
+  Object.freeze({
+    donor_id: "presentation_variant_mag_pdf_donor",
+    frame_id: "lisa-presentation-mag",
+    source_file_name: "vodoley_dense_mag.pdf",
+    sha256: "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
+    page_count: 3,
+    use: "visual_reference_only",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
+  }),
 ]);
 const forbiddenTracePattern = /(?:\/Users\/|file:\/\/|[A-Za-z]:\\|\.docx\b|\b[a-f0-9]{64}\b|raw_source_content)/iu;
 
@@ -257,7 +294,54 @@ function validateTexts(contract, approvedTexts) {
 
 function validateExternalSources(contract) {
   if (JSON.stringify(contract.external_sources) !== JSON.stringify(expectedExternalSources)) {
-    throw new Error("external sources must match the four required pending owner attachments");
+    throw new Error("external sources must match the three received PDF donors and pending email SVG source");
+  }
+}
+
+function validatePresentationPdfDonorRegister(contract, donorRegister) {
+  if (
+    JSON.stringify(contract.presentation_pdf_donor_register) !== JSON.stringify({
+      path: "source/presentation-pdf-donor-register.json",
+      raw_pdf_direct_render_prohibited: true,
+      all_received_pdf_donors_require_canonical_svg: true,
+    })
+  ) {
+    throw new Error("canonical SVG pipeline must reference the PDF donor register without embedding raw PDF metadata");
+  }
+  if (
+    donorRegister.status !== "owner_attachments_received_pending_canonical_svg_intake" ||
+    donorRegister.inputs_committed_to_git !== false ||
+    donorRegister.raw_pdf_direct_render_prohibited !== true ||
+    donorRegister.existing_historical_pdf_importer_not_invoked !== true ||
+    donorRegister.canonical_svg_required_before_draft_render !== true ||
+    JSON.stringify(donorRegister.donors) !== JSON.stringify(expectedPresentationPdfDonors)
+  ) {
+    throw new Error("PDF donor register must preserve received PDF provenance and prohibit direct rendering");
+  }
+  if (/[A-Za-z]:\\|\/Users\/|file:\/\//u.test(JSON.stringify(donorRegister))) {
+    throw new Error("PDF donor register must not contain local absolute paths or raw source paths");
+  }
+}
+
+function validateClientReferenceSvgUpdate(contract) {
+  const expected = {
+    source_data_path: "source/client-reference-data.json",
+    historical_client_marker: "ГК Достовалова",
+    replacement_client_name: "ООО «Водолей Трейд»",
+    full_reference_frame_id: "lisa-materials-full-reference",
+    continuation_frame_ids: [
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial",
+    ],
+    svg_editing_mode: "canonical_svg_existing_groups_only",
+    status: "pending_frame_cycle",
+  };
+  if (JSON.stringify(contract.client_reference_svg_update) !== JSON.stringify(expected)) {
+    throw new Error("client reference SVG update must replace ГК Достовалова from the approved client data only");
   }
 }
 
@@ -266,6 +350,11 @@ function validateAcceptance(contract) {
     contract.acceptance.frame_flow,
     expectedFrameAcceptanceFlow,
     "frame acceptance flow must match the required SVG-first order",
+  );
+  assert.deepEqual(
+    contract.acceptance.per_frame_review,
+    expectedPerFrameReview,
+    "per-frame review must replace only one matching frame in an isolated current-prototype copy",
   );
   assertSameArray(
     contract.acceptance.prototype_flow,
@@ -310,6 +399,7 @@ try {
   const contract = readJson(contractPath);
   const candidate = readJson(siblingPath(contractPath, "prototype-revision-candidate.json"));
   const approvedTexts = readJson(siblingPath(contractPath, "owner-approved-texts.json"));
+  const donorRegister = readJson(siblingPath(contractPath, "presentation-pdf-donor-register.json"));
   const activeContracts = readJson(activeContractsPath);
 
   assertNoRawSourceTraces(contract);
@@ -317,6 +407,8 @@ try {
   validateFrames(contract, candidate);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);
+  validatePresentationPdfDonorRegister(contract, donorRegister);
+  validateClientReferenceSvgUpdate(contract);
   validateExternalSources(contract);
   validateAcceptance(contract);
   validateReleaseBoundary(contract);

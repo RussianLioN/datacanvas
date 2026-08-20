@@ -15,6 +15,8 @@ const markdownPath = `${sourcePath}/canonical-svg-frame-pipeline-contract.md`;
 const validatorPath = "scripts/validate-canonical-svg-frame-pipeline.mjs";
 const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
 const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
+const presentationPdfDonorRegisterPath = `${sourcePath}/presentation-pdf-donor-register.json`;
+const presentationPdfDonorRegisterSchemaPath = `${sourcePath}/schemas/presentation-pdf-donor-register.schema.json`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const negativeFixturePath = "tests/fixtures/canonical-svg-frame-pipeline-negative.json";
 
@@ -39,6 +41,14 @@ const expectedPrototypeAcceptanceFlow = Object.freeze([
   "high_resolution_render_from_approved_svg_sources",
   "final_owner_approval",
 ]);
+const expectedPerFrameReview = Object.freeze({
+  required: true,
+  review_surface: "isolated_current_prototype_copy",
+  allowed_changed_frame_count: 1,
+  candidate_must_replace_same_frame_id: true,
+  next_frame_blocked_until_owner_approval: true,
+  active_release_mutation_prohibited: true,
+});
 const expectedForbiddenMethods = Object.freeze([
   "html_overlay",
   "css_overlay",
@@ -48,25 +58,25 @@ const expectedForbiddenMethods = Object.freeze([
 ]);
 const expectedExternalSources = Object.freeze([
   Object.freeze({
-    source_id: "presentation_variant_slidedoc_editable_source",
+    source_id: "presentation_variant_slidedoc_pdf_donor",
     required_for_frame_id: "lisa-presentation-slidedoc",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "presentation_variant_sber2025_editable_source",
+    source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "presentation_variant_mag_editable_source",
+    source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
-    required_format: "editable_presentation_source",
+    required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
     source_id: "email_frame_canonical_svg_source",
@@ -111,6 +121,8 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   writeJson(tempRoot, schemaPath, readJson(schemaPath));
   writeJson(tempRoot, candidatePath, readJson(candidatePath));
   writeJson(tempRoot, approvedTextsPath, readJson(approvedTextsPath));
+  writeJson(tempRoot, presentationPdfDonorRegisterPath, readJson(presentationPdfDonorRegisterPath));
+  writeJson(tempRoot, presentationPdfDonorRegisterSchemaPath, readJson(presentationPdfDonorRegisterSchemaPath));
   writeJson(tempRoot, activeContractsPath, activeContracts);
 }
 
@@ -190,6 +202,8 @@ test("неактивный договор SVG-first кадров существ�
   assert.ok(fs.existsSync(absolute(schemaPath)), `Отсутствует обязательный файл: ${schemaPath}`);
   assert.ok(fs.existsSync(absolute(markdownPath)), `Отсутствует обязательный файл: ${markdownPath}`);
   assert.ok(fs.existsSync(absolute(validatorPath)), `Отсутствует обязательный файл: ${validatorPath}`);
+  assert.ok(fs.existsSync(absolute(presentationPdfDonorRegisterPath)), `Отсутствует обязательный файл: ${presentationPdfDonorRegisterPath}`);
+  assert.ok(fs.existsSync(absolute(presentationPdfDonorRegisterSchemaPath)), `Отсутствует обязательный файл: ${presentationPdfDonorRegisterSchemaPath}`);
 });
 
 test("общий контроль качества включает схему и семантическую проверку будущего SVG-договора", () => {
@@ -198,6 +212,7 @@ test("общий контроль качества включает схему �
 
   assert.match(packageManifest.scripts.test, /validate:canonical-svg-frame-pipeline/u);
   assert.match(schemaValidator, /canonical-svg-frame-pipeline-contract\.schema\.json/u);
+  assert.match(schemaValidator, /presentation-pdf-donor-register\.schema\.json/u);
 });
 
 test("неактивный договор наследует кадры и смысловые ребра из подготовительного кандидата v1", () => {
@@ -205,8 +220,8 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "3.0.0");
-  assert.equal(contract.status, "inactive_pending_editable_sources_and_frame_approval");
+  assert.equal(contract.version, "3.1.0");
+  assert.equal(contract.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
   assert.equal(contract.render_allowed, false);
@@ -243,6 +258,37 @@ test("выбранные тексты и покадровые источники
   assert.equal(readJson(approvedTextsPath).status, "owner_approved");
 
   assert.deepEqual(contract.external_sources, expectedExternalSources);
+  assert.deepEqual(contract.presentation_pdf_donor_register, {
+    path: "source/presentation-pdf-donor-register.json",
+    raw_pdf_direct_render_prohibited: true,
+    all_received_pdf_donors_require_canonical_svg: true,
+  });
+  assert.deepEqual(contract.client_reference_svg_update, {
+    source_data_path: "source/client-reference-data.json",
+    historical_client_marker: "ГК Достовалова",
+    replacement_client_name: "ООО «Водолей Трейд»",
+    full_reference_frame_id: "lisa-materials-full-reference",
+    continuation_frame_ids: [
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial",
+    ],
+    svg_editing_mode: "canonical_svg_existing_groups_only",
+    status: "pending_frame_cycle",
+  });
+  const donorRegister = readJson(presentationPdfDonorRegisterPath);
+  assert.equal(donorRegister.status, "owner_attachments_received_pending_canonical_svg_intake");
+  assert.equal(donorRegister.raw_pdf_direct_render_prohibited, true);
+  assert.equal(donorRegister.donors.length, 3);
+  assert.deepEqual(donorRegister.donors.map((donor) => donor.frame_id), [
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+  ]);
+  assert.ok(donorRegister.donors.every((donor) => donor.page_count === 3 && donor.sha256.length === 64));
   assert.deepEqual(
     contract.frame_svg_sources.map((frame) => frame.frame_id),
     candidate.active_future_frame_ids,
@@ -272,6 +318,7 @@ test("порядок приемки, запреты и граница выпус
 
   assert.deepEqual(contract.acceptance.frame_flow, expectedFrameAcceptanceFlow);
   assert.deepEqual(contract.acceptance.prototype_flow, expectedPrototypeAcceptanceFlow);
+  assert.deepEqual(contract.acceptance.per_frame_review, expectedPerFrameReview);
   assert.deepEqual(contract.forbidden_methods, expectedForbiddenMethods);
   assert.equal(contract.release_boundary.candidate_evidence_status, "pending");
   assert.equal(contract.release_boundary.active_release_switch_status, "blocked");

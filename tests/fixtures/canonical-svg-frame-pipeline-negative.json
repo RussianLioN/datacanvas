@@ -28,7 +28,7 @@
     {
       "name": "wrong external source is rejected",
       "mutation": "wrong-external-source",
-      "expected_error": "external sources must match the four required pending owner attachments"
+      "expected_error": "external sources must match the three received PDF donors and pending email SVG source"
     },
     {
       "name": "selected text before owner choice is rejected",

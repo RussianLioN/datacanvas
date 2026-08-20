@@ -2,7 +2,7 @@
   "$schema": "schemas/prototype-revision-candidate.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "candidate_pending_editable_sources_and_frame_approval",
+  "status": "candidate_pending_canonical_svg_sources_and_frame_approval",
   "client_reference_source": "source/client-reference-data.json",
   "brainstorming_contract_source": "source/brainstorming-contract.json",
   "approved_texts_source": "source/owner-approved-texts.json",
@@ -224,6 +224,14 @@
       "high_resolution_render_from_approved_svg_sources",
       "final_owner_approval"
     ],
+    "per_frame_review": {
+      "required": true,
+      "review_surface": "isolated_current_prototype_copy",
+      "allowed_changed_frame_count": 1,
+      "candidate_must_replace_same_frame_id": true,
+      "next_frame_blocked_until_owner_approval": true,
+      "active_release_mutation_prohibited": true
+    },
     "allowed_source_editing": "canonical_svg_existing_groups_only",
     "forbidden_methods": [
       "html_overlay",
@@ -234,31 +242,34 @@
     ]
   },
   "visual_release_gate": {
-    "release_status": "blocked_until_editable_sources_and_frame_approval",
+    "release_status": "blocked_until_canonical_svg_sources_and_frame_approval",
     "render_allowed": false,
     "owner_selection_complete": true,
-    "all_external_editable_sources_received": false,
-    "required_external_editable_sources": [
+    "all_external_visual_donors_received": false,
+    "required_external_visual_donors": [
       {
-        "source_id": "presentation_variant_slidedoc_editable_source",
+        "source_id": "presentation_variant_slidedoc_pdf_donor",
         "required_for_frame_id": "lisa-presentation-slidedoc",
-        "required_format": "editable_presentation_source",
+        "required_format": "owner_supplied_pdf_visual_donor",
         "canonical_svg_required_before_render": true,
-        "status": "pending_owner_attachment"
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
       },
       {
-        "source_id": "presentation_variant_sber2025_editable_source",
+        "source_id": "presentation_variant_sber2025_pdf_donor",
         "required_for_frame_id": "lisa-presentation-sber2025",
-        "required_format": "editable_presentation_source",
+        "required_format": "owner_supplied_pdf_visual_donor",
         "canonical_svg_required_before_render": true,
-        "status": "pending_owner_attachment"
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
       },
       {
-        "source_id": "presentation_variant_mag_editable_source",
+        "source_id": "presentation_variant_mag_pdf_donor",
         "required_for_frame_id": "lisa-presentation-mag",
-        "required_format": "editable_presentation_source",
+        "required_format": "owner_supplied_pdf_visual_donor",
         "canonical_svg_required_before_render": true,
-        "status": "pending_owner_attachment"
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
       },
       {
         "source_id": "email_frame_canonical_svg_source",
@@ -270,9 +281,9 @@
       }
     ],
     "blocked_reasons": [
-      "Не приложены три актуальных редактируемых исходника вариантов презентации.",
+      "Три PDF-донора получены, но для каждого варианта презентации ещё не подготовлен и не согласован канонический SVG-источник кадра.",
       "Не приложен редактируемый канонический SVG-исходник кадра письма.",
-      "Нельзя рендерить новые PNG, HTML или архив до прохождения покадровой приёмки."
+      "Нельзя рендерить новые PNG, HTML или архив до покадровой приёмки: в изолированной копии прототипа разрешена замена только одного одноимённого кадра, а следующий кадр блокируется до согласования предыдущего."
     ]
   }
 }

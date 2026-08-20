@@ -59,6 +59,30 @@
       "label": "Договор изготовления визуальных экранов из SVG-источников"
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
+      "label": "Договор поэкранной подготовки и приёмки канонических SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+      "label": "Машиночитаемый договор поэкранной подготовки и приёмки канонических SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+      "label": "Реестр PDF-доноров вариантов презентации ООО «Водолей Трейд»"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
+      "label": "Очищенные данные справки ООО «Водолей Трейд» для замены в SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
+      "label": "Кандидат обновления прототипа и состояние поэкранной приёмки"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+      "label": "Машиночитаемое состояние кандидата обновления прототипа"
+    },
+    {
       "path": "docs/release/co-2026-003-visual-prototype-rca.md",
       "label": "Разбор корневой причины и защита качества визуального прототипа"
     },

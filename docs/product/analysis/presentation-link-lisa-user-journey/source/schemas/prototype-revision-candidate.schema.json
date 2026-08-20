@@ -26,7 +26,7 @@
     "$schema": { "const": "schemas/prototype-revision-candidate.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "candidate_pending_editable_sources_and_frame_approval" },
+    "status": { "const": "candidate_pending_canonical_svg_sources_and_frame_approval" },
     "client_reference_source": { "const": "source/client-reference-data.json" },
     "brainstorming_contract_source": { "const": "source/brainstorming-contract.json" },
     "approved_texts_source": { "const": "source/owner-approved-texts.json" },
@@ -75,10 +75,30 @@
     "visual_acceptance_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_flow", "prototype_flow", "allowed_source_editing", "forbidden_methods"],
+      "required": ["frame_flow", "prototype_flow", "per_frame_review", "allowed_source_editing", "forbidden_methods"],
       "properties": {
         "frame_flow": { "type": "array", "minItems": 5, "items": { "type": "string", "minLength": 1 } },
         "prototype_flow": { "type": "array", "minItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "per_frame_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "review_surface",
+            "allowed_changed_frame_count",
+            "candidate_must_replace_same_frame_id",
+            "next_frame_blocked_until_owner_approval",
+            "active_release_mutation_prohibited"
+          ],
+          "properties": {
+            "required": { "const": true },
+            "review_surface": { "const": "isolated_current_prototype_copy" },
+            "allowed_changed_frame_count": { "const": 1 },
+            "candidate_must_replace_same_frame_id": { "const": true },
+            "next_frame_blocked_until_owner_approval": { "const": true },
+            "active_release_mutation_prohibited": { "const": true }
+          }
+        },
         "allowed_source_editing": { "const": "canonical_svg_existing_groups_only" },
         "forbidden_methods": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
       }
@@ -90,18 +110,18 @@
         "release_status",
         "render_allowed",
         "owner_selection_complete",
-        "all_external_editable_sources_received",
-        "required_external_editable_sources",
+        "all_external_visual_donors_received",
+        "required_external_visual_donors",
         "blocked_reasons"
       ],
       "properties": {
         "release_status": {
-          "const": "blocked_until_editable_sources_and_frame_approval"
+          "const": "blocked_until_canonical_svg_sources_and_frame_approval"
         },
         "render_allowed": { "const": false },
         "owner_selection_complete": { "const": true },
-        "all_external_editable_sources_received": { "const": false },
-        "required_external_editable_sources": {
+        "all_external_visual_donors_received": { "const": false },
+        "required_external_visual_donors": {
           "type": "array",
           "minItems": 1,
           "items": { "$ref": "#/$defs/external_source" }
@@ -168,10 +188,10 @@
         "source_id": { "type": "string", "minLength": 1 },
         "required_for_frame_id": { "$ref": "#/$defs/state_id" },
         "required_format": {
-          "enum": ["editable_presentation_source", "canonical_svg_source"]
+          "enum": ["owner_supplied_pdf_visual_donor", "canonical_svg_source"]
         },
         "canonical_svg_required_before_render": { "type": "boolean" },
-        "status": { "const": "pending_owner_attachment" },
+        "status": { "enum": ["owner_attachment_received_pending_canonical_svg_intake", "pending_owner_attachment"] },
         "reason": { "type": "string" }
       }
     }
