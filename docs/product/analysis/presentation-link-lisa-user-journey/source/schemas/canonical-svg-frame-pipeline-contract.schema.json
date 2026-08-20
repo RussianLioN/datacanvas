@@ -25,13 +25,14 @@
     "client_reference_svg_update",
     "external_sources",
     "frame_svg_sources",
+    "frame_review_session",
     "acceptance",
     "forbidden_methods",
     "release_boundary"
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "3.1.0" },
+    "version": { "const": "3.2.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "inactive_pending_canonical_svg_sources_and_frame_approval" },
     "active": { "const": false },
@@ -112,6 +113,7 @@
       "maxItems": 11,
       "items": { "$ref": "#/$defs/frame_svg_source" }
     },
+    "frame_review_session": { "$ref": "#/$defs/frame_review_session" },
     "acceptance": {
       "type": "object",
       "additionalProperties": false,
@@ -241,11 +243,64 @@
       "properties": {
         "frame_id": { "$ref": "#/$defs/state_id" },
         "svg_editing_mode": { "const": "canonical_svg_existing_groups_only" },
-        "canonical_svg_status": { "const": "pending_source" },
-        "approved_text_status": { "const": "pending" },
-        "svg_visual_check_status": { "const": "pending" },
-        "draft_png_status": { "const": "blocked" },
+        "canonical_svg_status": { "type": "string" },
+        "approved_text_status": { "type": "string" },
+        "svg_visual_check_status": { "type": "string" },
+        "draft_png_status": { "type": "string" },
         "owner_frame_approval_status": { "const": "pending" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "frame_id": { "const": "lisa-materials-full-reference" }
+            }
+          },
+          "then": {
+            "properties": {
+              "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
+              "approved_text_status": { "const": "owner_approved" },
+              "svg_visual_check_status": { "const": "passed" },
+              "draft_png_status": { "const": "rendered_current_resolution" }
+            }
+          },
+          "else": {
+            "properties": {
+              "canonical_svg_status": { "const": "pending_source" },
+              "approved_text_status": { "const": "pending" },
+              "svg_visual_check_status": { "const": "pending" },
+              "draft_png_status": { "const": "blocked" }
+            }
+          }
+        }
+      ]
+    },
+    "frame_review_session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "current_frame_id",
+        "source_svg_path",
+        "draft_png_path",
+        "review_manifest_path",
+        "base_svg_path",
+        "edit_mode",
+        "prohibited_legacy_overlay_ids",
+        "active_release_mutation_prohibited",
+        "next_frame_blocked_until_owner_approval"
+      ],
+      "properties": {
+        "status": { "const": "draft_png_rendered_pending_owner_approval" },
+        "current_frame_id": { "const": "lisa-materials-full-reference" },
+        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
+        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png" },
+        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json" },
+        "base_svg_path": { "const": "editable-sources/5.4.svg" },
+        "edit_mode": { "const": "replace_existing_frame_group_content" },
+        "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title"] },
+        "active_release_mutation_prohibited": { "const": true },
+        "next_frame_blocked_until_owner_approval": { "const": true }
       }
     },
     "acceptance_steps": {

@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/source-fixture-manifest.schema.json",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "status": "active",
   "product_backlog": {
     "file_name": "datacanvas-backlog-draft-pshe-2026-08-11.xlsx",
@@ -37,7 +37,7 @@
     "provenance": "owner-supplied-transient-raster-text-input",
     "source_path_stored": false,
     "copied_to_package": false,
-    "usage": "transient-raster-text-inserts-only"
+    "usage": "temporary-vector-outlines-for-review-only"
   },
   "approved_presentation_pdfs": [
     {

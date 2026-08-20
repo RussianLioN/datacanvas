@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "b4a75d68c295d8e6d47ad94261e71656dd8d3d75342bac67504e9a13ef6517d6"
+      "sha256": "b2f274f6ae0fd6642ca1aa6f31b4061001e7d2d9770882e3c0d6cc1e49f06464"
     },
     {
       "artifact_id": "ART-396",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "cc9a8db1e6a14747d15c810c1d628ff9e346a3c4aab525d75b54d04fc7e09b7c"
+      "sha256": "9d6d1632f344776e74050db88ce102293130e573339f122f5392b64e6c1a4e8f"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "a03558a4a376303a3924b26b378cab4797c741f977784eb2cb5cf75d8dacac0a"
+      "sha256": "fedf92cb29a74f543fdb0db7c0d0d98d6d4c21d763c53cef9b59a64a8b409f1d"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "e450389ab3b241580a22bf76ae4e0ff33e5803d82a8179293b3a876600edc487"
+      "sha256": "0c7f558ebb3e0446a9ede93e8f7800cb723a8039b3fd03291dab43050b685b46"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "ae74101428a07b6977e0552a9649a9f85fc7e40b43c152a073a452c942eee886"
+      "sha256": "b81339c134ba0873cd1d27fc20edcfbdddcadb5f1366c1f750c9d38e5b4c8299"
     },
     {
       "artifact_id": "ART-569",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "a4578588090842250b462e9baf9a44cf9bcc592f32de9a933f4cbfbc4e1514c4"
+      "sha256": "b09edc93104e6a6de91abf45f93a39915f1e99c801a369b71654b4d0e461df89"
     },
     {
       "artifact_id": "ART-742",
@@ -4167,7 +4167,7 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "87c1ac3227106fa949828f03029f55d3d98af09407873beee8dd18d19ac5f972"
+      "sha256": "7d51faf6b4a7df3b7a0f42f015acb211222aa0dc6c6fde131d09e70176699693"
     },
     {
       "artifact_id": "ART-836",
@@ -4222,12 +4222,12 @@
     {
       "artifact_id": "ART-846",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
-      "sha256": "58b75a4ba085fc2dc10216d3d30270e746137a331182b20ef30ff8c24f534632"
+      "sha256": "d4ac1e9372a0c31f3b0788da0d0d7d104a256ef7826dc8fa4084997d02cbe275"
     },
     {
       "artifact_id": "ART-847",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/source-fixture-manifest.schema.json",
-      "sha256": "6ca9029a6043a8710bfa0c2b3a9c816ee726e278aa157ee699abf498b865e3f2"
+      "sha256": "af470f10436061c7dc888b27ab6106775f18c7cc40f2d7630a186e8687975c45"
     },
     {
       "artifact_id": "ART-848",

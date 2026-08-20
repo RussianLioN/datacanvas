@@ -19,6 +19,8 @@ const presentationPdfDonorRegisterPath = `${sourcePath}/presentation-pdf-donor-r
 const presentationPdfDonorRegisterSchemaPath = `${sourcePath}/schemas/presentation-pdf-donor-register.schema.json`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const negativeFixturePath = "tests/fixtures/canonical-svg-frame-pipeline-negative.json";
+const fullReferenceReviewSourcePath = `${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/source.svg`;
+const fullReferenceReviewManifestPath = `${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json`;
 
 const expectedTopics = Object.freeze([
   "button_label",
@@ -213,6 +215,7 @@ test("общий контроль качества включает схему �
   assert.match(packageManifest.scripts.test, /validate:canonical-svg-frame-pipeline/u);
   assert.match(schemaValidator, /canonical-svg-frame-pipeline-contract\.schema\.json/u);
   assert.match(schemaValidator, /presentation-pdf-donor-register\.schema\.json/u);
+  assert.match(schemaValidator, /lisa-full-reference-review-source-manifest\.schema\.json/u);
 });
 
 test("неактивный договор наследует кадры и смысловые ребра из подготовительного кандидата v1", () => {
@@ -220,7 +223,7 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "3.1.0");
+  assert.equal(contract.version, "3.2.0");
   assert.equal(contract.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
@@ -304,12 +307,62 @@ test("выбранные тексты и покадровые источники
       "svg_visual_check_status",
     ]);
     assert.equal(frame.svg_editing_mode, "canonical_svg_existing_groups_only");
-    assert.equal(frame.canonical_svg_status, "pending_source");
-    assert.equal(frame.approved_text_status, "pending");
-    assert.equal(frame.svg_visual_check_status, "pending");
-    assert.equal(frame.draft_png_status, "blocked");
-    assert.equal(frame.owner_frame_approval_status, "pending");
+    if (frame.frame_id === "lisa-materials-full-reference") {
+      assert.deepEqual(frame, {
+        frame_id: "lisa-materials-full-reference",
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "prepared_existing_group_content_replaced",
+        approved_text_status: "owner_approved",
+        svg_visual_check_status: "passed",
+        draft_png_status: "rendered_current_resolution",
+        owner_frame_approval_status: "pending",
+      });
+    } else {
+      assert.equal(frame.canonical_svg_status, "pending_source");
+      assert.equal(frame.approved_text_status, "pending");
+      assert.equal(frame.svg_visual_check_status, "pending");
+      assert.equal(frame.draft_png_status, "blocked");
+      assert.equal(frame.owner_frame_approval_status, "pending");
+    }
   }
+});
+
+test("первый проверочный кадр изолирован, основан на SVG полной справки и не затрагивает действующий выпуск", () => {
+  if (!fs.existsSync(absolute(contractPath))) return;
+  const contract = readJson(contractPath);
+
+  assert.deepEqual(contract.frame_review_session, {
+    status: "draft_png_rendered_pending_owner_approval",
+    current_frame_id: "lisa-materials-full-reference",
+    source_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+    draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
+    base_svg_path: "editable-sources/5.4.svg",
+    edit_mode: "replace_existing_frame_group_content",
+    prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title"],
+    active_release_mutation_prohibited: true,
+    next_frame_blocked_until_owner_approval: true,
+  });
+  assert.ok(fs.existsSync(absolute(fullReferenceReviewSourcePath)), "должен существовать изолированный SVG первого кадра");
+  assert.ok(fs.existsSync(absolute(fullReferenceReviewManifestPath)), "должен существовать манифест источника первого кадра");
+  assert.ok(fs.existsSync(absolute(`${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png`)), "должен существовать черновой PNG первого кадра");
+
+  const reviewSource = fs.readFileSync(absolute(fullReferenceReviewSourcePath), "utf8");
+  const manifest = readJson(fullReferenceReviewManifestPath);
+  assert.doesNotMatch(reviewSource, /id="lisa-edit-/u, "в проверочном SVG не допускаются исторические накладки");
+  assert.doesNotMatch(reviewSource, /<text\b/u, "новый текст кадра должен остаться векторными контурами SVG");
+  assert.match(reviewSource, /id="Frame 2131329748"/u, "проверочный SVG обязан сохранять существующую группу кадра");
+  assert.match(reviewSource, /id="Group 2131328969"/u, "проверочный SVG обязан заменить содержимое существующей группы справки");
+  assert.match(reviewSource, /id="button_footer_2\.0"/u, "проверочный SVG обязан сохранить нижнюю кнопку");
+  assert.match(reviewSource, /aria-label="Создать презентацию по справке"/u, "проверочный SVG обязан использовать согласованный текст кнопки");
+  assert.match(reviewSource, /data-pixso-skip-parse="true"/u, "проверочный SVG обязан сохранить существующую подложку нижней панели");
+  assert.deepEqual(manifest.covered_group_ids, readJson(`${sourcePath}/client-reference-data.json`).coverage.required_group_ids);
+  assert.equal(manifest.active_release_mutation_prohibited, true);
+  assert.equal(manifest.draft_png_rendered, true, "после визуальной проверки SVG должен быть создан черновой PNG");
+  assert.equal(manifest.status, "draft_png_rendered_pending_owner_approval");
+  assert.equal(manifest.button_label_text, "Создать презентацию по справке");
+  assert.deepEqual(manifest.draft_png_dimensions, { width: 521, height: manifest.frame_geometry.canvas_height });
+  assert.ok(manifest.draft_png_non_white_pixel_count >= 1_000, "черновой PNG не должен быть пустым");
 });
 
 test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {

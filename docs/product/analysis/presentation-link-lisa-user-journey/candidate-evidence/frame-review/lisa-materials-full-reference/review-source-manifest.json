@@ -1,0 +1,52 @@
+{
+  "$schema": "../../../source/schemas/lisa-full-reference-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-materials-full-reference",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "base_svg_path": "editable-sources/5.4.svg",
+  "base_svg_sha256": "32e9986b59425d6f3882b8eb689355da4d1459c1adf9cfc23b38c9f4ad43edff",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  "source_svg_sha256": "4d04f320da3d4149962e9f3df2d50eaf199fa1d69acd3c01a5a3cebf4c540730",
+  "client_reference_data_path": "source/client-reference-data.json",
+  "client_reference_data_sha256": "d6d2911fe26bdf81c6d5c97f955036a7e2174450b425a2629b1d6ea22fe53f37",
+  "covered_group_ids": [
+    "general_information",
+    "business_owners",
+    "financial_indicators",
+    "cooperation",
+    "sber_share",
+    "active_deals",
+    "potential",
+    "preapproved_offers",
+    "insights",
+    "meeting_agreements",
+    "dynamic_suggestions",
+    "actions"
+  ],
+  "content_bottom_y": 3156,
+  "frame_geometry": {
+    "resized": true,
+    "frame_height": 3289,
+    "footer_top_y": 3228,
+    "canvas_height": 3470
+  },
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "edit_mode": "replace_existing_frame_group_content",
+  "button_label_text": "Создать презентацию по справке",
+  "prohibited_legacy_overlay_ids": [
+    "lisa-edit-5-4-title"
+  ],
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
+  "draft_png_sha256": "2415525a265be21191ed49187c7d5b6db7619be36025e16b7ca8ea66881180e4",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3470
+  },
+  "draft_png_non_white_pixel_count": 640102
+}

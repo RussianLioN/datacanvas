@@ -2,6 +2,7 @@
 
 ## Актуальные материалы для согласования
 
+- [Черновой кадр полной справки ООО «Водолей Трейд»](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md) — первый SVG-первичный кадр в прежнем разрешении; ожидает отдельной приёмки и не меняет действующую демонстрацию.
 - [Утверждённые тексты будущего прототипа Лисы](docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md) — единственный источник истины для подписи кнопки, сообщений и письма; до покадровой SVG-приёмки и получения редактируемых исходников визуальные кадры не меняются.
 - [Исторический пакет кандидатов](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md) — кандидаты двухфазного обсуждения; итоговый результат хранится отдельно.
 

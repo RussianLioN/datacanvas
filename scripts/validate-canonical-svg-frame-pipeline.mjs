@@ -86,6 +86,27 @@ const expectedFutureTransactionTargets = Object.freeze([
   "portable-zip",
   "delivery-archive",
 ]);
+const expectedCurrentFrame = Object.freeze({
+  frame_id: "lisa-materials-full-reference",
+  svg_editing_mode: "canonical_svg_existing_groups_only",
+  canonical_svg_status: "prepared_existing_group_content_replaced",
+  approved_text_status: "owner_approved",
+  svg_visual_check_status: "passed",
+  draft_png_status: "rendered_current_resolution",
+  owner_frame_approval_status: "pending",
+});
+const expectedFrameReviewSession = Object.freeze({
+  status: "draft_png_rendered_pending_owner_approval",
+  current_frame_id: "lisa-materials-full-reference",
+  source_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  draft_png_path: "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
+  review_manifest_path: "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
+  base_svg_path: "editable-sources/5.4.svg",
+  edit_mode: "replace_existing_frame_group_content",
+  prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title"],
+  active_release_mutation_prohibited: true,
+  next_frame_blocked_until_owner_approval: true,
+});
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
     donor_id: "presentation_variant_slidedoc_pdf_donor",
@@ -223,6 +244,12 @@ function validateFrames(contract, candidate) {
     "future frame ids must match prototype revision candidate active_future_frame_ids",
   );
   for (const frame of contract.frame_svg_sources) {
+    if (frame.frame_id === expectedCurrentFrame.frame_id) {
+      if (JSON.stringify(frame) !== JSON.stringify(expectedCurrentFrame)) {
+        throw new Error("full reference frame must stop after draft PNG and wait for owner approval");
+      }
+      continue;
+    }
     if (
       frame.svg_editing_mode !== "canonical_svg_existing_groups_only" ||
       frame.canonical_svg_status !== "pending_source" ||
@@ -236,6 +263,12 @@ function validateFrames(contract, candidate) {
     if ("path" in frame || "svg_path" in frame || "sha256" in frame || "svg_sha256" in frame) {
       throw new Error("local paths, DOCX names, SHA-256 values, and raw source content are forbidden");
     }
+  }
+}
+
+function validateFrameReviewSession(contract) {
+  if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
+    throw new Error("frame review session must contain only the isolated first-frame draft awaiting owner approval");
   }
 }
 
@@ -405,6 +438,7 @@ try {
   assertNoRawSourceTraces(contract);
   validateTopLevel(contract);
   validateFrames(contract, candidate);
+  validateFrameReviewSession(contract);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);
   validatePresentationPdfDonorRegister(contract, donorRegister);
