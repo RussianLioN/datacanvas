@@ -24,8 +24,14 @@ const generationStartedPackagePath = "docs/product/analysis/presentation-link-li
 const generationStartedStatePath = path.join(generationStartedPackagePath, "brainstorming-topic-result.json");
 const generationStartedLedgerPath = path.join(generationStartedPackagePath, "brainstorming-topic-result.md");
 const generationStartedRawLedgerPath = path.join(generationStartedPackagePath, "raw-variants-ledger.md");
+const emailSubjectPackagePath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject";
+const emailSubjectStatePath = path.join(emailSubjectPackagePath, "brainstorming-topic-result.json");
+const emailSubjectLedgerPath = path.join(emailSubjectPackagePath, "brainstorming-topic-result.md");
+const emailSubjectRawLedgerPath = path.join(emailSubjectPackagePath, "raw-variants-ledger.md");
+const emailSubjectGeneratorPath = "scripts/generate-co-2026-003-email-subject-brainstorm-evidence.mjs";
 const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
 const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
+const schemaValidatorSourcePath = "scripts/validate-json-schema.mjs";
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
@@ -195,6 +201,9 @@ test("узкий валидатор отклоняет нарушения пак
     [generationStartedStatePath]: readJson(generationStartedStatePath),
     [generationStartedLedgerPath]: readText(generationStartedLedgerPath),
     [generationStartedRawLedgerPath]: readText(generationStartedRawLedgerPath),
+    [emailSubjectStatePath]: readJson(emailSubjectStatePath),
+    [emailSubjectLedgerPath]: readText(emailSubjectLedgerPath),
+    [emailSubjectRawLedgerPath]: readText(emailSubjectRawLedgerPath),
     [schemaPath]: readJson(schemaPath),
     [registryPath]: readJson(registryPath),
     [registrySchemaPath]: readJson(registrySchemaPath),
@@ -225,11 +234,12 @@ test("реестр неактивных пакетов сохраняет button
   }
 
   const registry = readJson(registryPath);
-  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message"]);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject"]);
   assert.deepEqual(registry.package_paths, [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
+    "candidate-evidence/email-subject",
   ]);
 
   const state = readJson(buttonStatePath);
@@ -256,11 +266,12 @@ test("реестр включает завершённый двухфазный 
   }
 
   const registry = readJson(registryPath);
-  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message"]);
+  assert.deepEqual(registry.topic_ids, ["button_label", "generation_started_message", "delivery_success_message", "email_subject"]);
   assert.deepEqual(registry.package_paths, [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
     "candidate-evidence/delivery-success-message",
+    "candidate-evidence/email-subject",
   ]);
 
   const state = readJson(generationStartedStatePath);
@@ -289,6 +300,38 @@ test("реестр включает завершённый двухфазный 
   assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
 });
 
+test("реестр включает завершённый двухфазный брейншторм темы письма", () => {
+  for (const relativePath of [emailSubjectStatePath, emailSubjectLedgerPath, emailSubjectRawLedgerPath, emailSubjectGeneratorPath]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+
+  const state = readJson(emailSubjectStatePath);
+  assert.equal(state.topic_id, "email_subject");
+  assert.match(state.owner_intro, /ООО «Водолей Трейд»/u);
+  assert.equal(state.phase_1.context_visibility, "parallel_common_context");
+  assert.equal(state.phase_1.participant_count, 19);
+  assert.equal(state.phase_1.raw_variant_count, 380);
+  assert.equal(state.phase_1.consolidation.candidates.length, 30);
+  assert.equal(state.phase_2.rankings.length, 19);
+  assert.deepEqual(state.final_candidates.map((candidate) => candidate.source_candidate_id), [2, 3, 30, 4, 17]);
+  assert.equal(state.selected_text, null);
+  assert.deepEqual(state.boundaries, {
+    render_allowed: false,
+    archive_allowed: false,
+    generator_input_allowed: false,
+  });
+
+  const generatorResult = spawnSync(process.execPath, [path.join(root, emailSubjectGeneratorPath), "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
+});
+
+test("общая проверка схем включает результат темы письма", () => {
+  assert.match(readText(schemaValidatorSourcePath), new RegExp(emailSubjectStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+});
+
 test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-brainstorm-registry-"));
   try {
@@ -302,6 +345,9 @@ test("узкий валидатор проверяет границу неакт
       generationStartedStatePath,
       generationStartedLedgerPath,
       generationStartedRawLedgerPath,
+      emailSubjectStatePath,
+      emailSubjectLedgerPath,
+      emailSubjectRawLedgerPath,
       schemaPath,
       registryPath,
       registrySchemaPath,

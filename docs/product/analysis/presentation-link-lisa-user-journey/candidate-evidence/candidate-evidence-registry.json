@@ -6,12 +6,14 @@
   "topic_ids": [
     "button_label",
     "generation_started_message",
-    "delivery_success_message"
+    "delivery_success_message",
+    "email_subject"
   ],
   "package_paths": [
     "candidate-evidence/button-label",
     "candidate-evidence/generation-started-message",
-    "candidate-evidence/delivery-success-message"
+    "candidate-evidence/delivery-success-message",
+    "candidate-evidence/email-subject"
   ],
   "boundaries": {
     "render_allowed": false,

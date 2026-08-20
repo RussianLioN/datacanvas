@@ -89,6 +89,7 @@
     "validate:co-2026-003-prototype-revision": "node --test tests/co-2026-003-prototype-revision.test.mjs && node scripts/validate-co-2026-003-prototype-revision.mjs",
     "validate:co-2026-003-brainstorm-evidence": "node --test tests/co-2026-003-brainstorm-evidence.test.mjs && node scripts/validate-co-2026-003-brainstorm-evidence.mjs",
     "generate:co-2026-003-generation-started-brainstorm-evidence": "node scripts/generate-co-2026-003-generation-started-brainstorm-evidence.mjs",
+    "generate:co-2026-003-email-subject-brainstorm-evidence": "node scripts/generate-co-2026-003-email-subject-brainstorm-evidence.mjs",
     "validate:canonical-svg-frame-pipeline": "node --test tests/canonical-svg-frame-pipeline.test.mjs && node scripts/validate-canonical-svg-frame-pipeline.mjs",
     "test:presentation-link-lisa-user-journey:browser": "playwright test --config tests/presentation-link-lisa-user-journey.playwright.config.mjs",
     "prepare:bmc-interview": "node scripts/prepare-bmc-interview-artifacts.mjs",
