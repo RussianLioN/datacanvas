@@ -3854,6 +3854,47 @@
       "click_depth": 4
     },
     {
+      "path": "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
+      "title": "RCA: сбор свидетельств параллельного обсуждения CO-2026-003",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": "ART-883",
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-contract.schema.json",
+        "docs/README.md",
+        "README.md",
+        "scripts/generate-co-2026-003-email-body-brainstorm-evidence.mjs",
+        "tests/co-2026-003-brainstorm-evidence.test.mjs"
+      ],
+      "anchors": [
+        "rca-сбор-свидетельств-параллельного-обсуждения-co-2026-003",
+        "проблема",
+        "пять-почему",
+        "корневая-причина",
+        "исправление-и-предотвращение-повторения",
+        "исполняемые-проверки",
+        "остаточный-риск-и-правило-остановки"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 4
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -3879,7 +3920,8 @@
         "docs/knowledge/rca/2026-08-11-lisa-browser-evidence-contour.md",
         "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
         "docs/knowledge/rca/2026-08-12-lisa-raster-base-source-parity.md",
-        "docs/knowledge/rca/2026-08-12-lisa-runtime-webkit-timeout.md"
+        "docs/knowledge/rca/2026-08-12-lisa-runtime-webkit-timeout.md",
+        "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md"
       ],
       "anchors": [
         "rca",
@@ -10505,8 +10547,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
@@ -38010,14 +38052,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1309,
-    "manual_entries": 1299,
+    "total_entries": 1310,
+    "manual_entries": 1300,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1232,
+    "searchable_entries": 1233,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 234,
+    "reachable_from_root": 236,
     "orphan_entries": 0
   },
   "ignored_paths": [

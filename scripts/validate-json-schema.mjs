@@ -529,6 +529,10 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label/brainstorming-topic-result.json",
   },

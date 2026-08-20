@@ -2,14 +2,16 @@
   "$schema": "schemas/brainstorming-contract.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "pending_owner_inputs",
+  "status": "pending_owner_selection",
   "common_rules": {
     "product_owner_intro_required_before_each_topic": true,
     "topics_are_independent": true,
     "phase_1_mode": "topic_specific_execution_mode",
     "phase_2_mode": "independent_anonymized_evaluation",
     "no_text_generation_before_topic_start": true,
-    "owner_final_selection_required": true
+    "owner_final_selection_required": true,
+    "evidence_target_resolution": "absolute_target_worktree_path_required_at_execution",
+    "transient_evidence_policy": "authoritative_ledger_before_cleanup"
   },
   "phase_1_roles": [
     "product_owner",

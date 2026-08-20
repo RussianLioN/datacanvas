@@ -9,7 +9,7 @@
     "$schema": { "const": "schemas/brainstorming-contract.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "pending_owner_inputs" },
+    "status": { "const": "pending_owner_selection" },
     "common_rules": {
       "type": "object",
       "additionalProperties": false,
@@ -19,7 +19,9 @@
         "phase_1_mode",
         "phase_2_mode",
         "no_text_generation_before_topic_start",
-        "owner_final_selection_required"
+        "owner_final_selection_required",
+        "evidence_target_resolution",
+        "transient_evidence_policy"
       ],
       "properties": {
         "product_owner_intro_required_before_each_topic": { "const": true },
@@ -27,7 +29,9 @@
         "phase_1_mode": { "enum": ["shared_context_visible_ledger", "parallel_common_context_central_deduplication", "topic_specific_execution_mode"] },
         "phase_2_mode": { "const": "independent_anonymized_evaluation" },
         "no_text_generation_before_topic_start": { "const": true },
-        "owner_final_selection_required": { "const": true }
+        "owner_final_selection_required": { "const": true },
+        "evidence_target_resolution": { "const": "absolute_target_worktree_path_required_at_execution" },
+        "transient_evidence_policy": { "const": "authoritative_ledger_before_cleanup" }
       }
     },
     "phase_1_roles": { "$ref": "#/$defs/roles" },

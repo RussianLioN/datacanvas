@@ -3229,6 +3229,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
+      "route_id": "rca-2026-08-20-co-2026-003-brainstorm-evidence-collection",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Порядок запуска параллельной фазы, способ сохранения полного журнала или защита целевой рабочей копии меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
       "route_id": "rca-2026-08-12-lisa-file-standalone-demo-assets",
       "section": "knowledge",

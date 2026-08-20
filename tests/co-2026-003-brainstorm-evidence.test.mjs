@@ -38,6 +38,7 @@ const ownerSelectionPacketPath = "docs/product/analysis/presentation-link-lisa-u
 const ownerSelectionGeneratorPath = "scripts/generate-co-2026-003-owner-selection-packet.mjs";
 const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
 const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
+const brainstormingContractSchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-contract.schema.json";
 const schemaValidatorSourcePath = "scripts/validate-json-schema.mjs";
 
 function readJson(relativePath) {
@@ -371,6 +372,22 @@ test("реестр включает завершённый двухфазный 
 test("общая проверка схем включает результаты темы и тела письма", () => {
   assert.match(readText(schemaValidatorSourcePath), new RegExp(emailSubjectStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
   assert.match(readText(schemaValidatorSourcePath), new RegExp(emailBodyStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+});
+
+test("договор обсуждения запрещает неявную целевую рабочую копию и очистку до полного журнала", () => {
+  const contract = readJson(brainstormingContractPath);
+  assert.equal(contract.common_rules.evidence_target_resolution, "absolute_target_worktree_path_required_at_execution");
+  assert.equal(contract.common_rules.transient_evidence_policy, "authoritative_ledger_before_cleanup");
+  assert.match(readText(schemaValidatorSourcePath), new RegExp(brainstormingContractPath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  const validate = ajv.compile(readJson(brainstormingContractSchemaPath));
+  const unsafePathResolution = structuredClone(contract);
+  unsafePathResolution.common_rules.evidence_target_resolution = "relative_default_path";
+  assert.equal(validate(unsafePathResolution), false, "схема должна отклонять неявный целевой путь");
+  const unsafeCleanup = structuredClone(contract);
+  unsafeCleanup.common_rules.transient_evidence_policy = "cleanup_before_authoritative_ledger";
+  assert.equal(validate(unsafeCleanup), false, "схема должна отклонять очистку до полного журнала");
 });
 
 test("пакет выбора владельца собирается из пяти неактивных результатов", () => {

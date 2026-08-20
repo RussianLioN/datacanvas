@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "df0d9d09c9c2a4ac0f0aced4cd68f4105007a8a5180812efc218fe0ff45467e4"
+      "sha256": "7216ee0ee01174746015e46f06a043a42fa91becacd6c7c7f68a1fa8e587fef0"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "fc91ef9602c84cdecc3399e38ee4c238f1ac7807ca527821d284f552bcc46429"
+      "sha256": "da4314e42c4a8e55f85cd4456bd58c9ac47a169c5c16cabe635d8e4e39cff110"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "988e97baca6e2560e2575349e86060b7d778e19c82b971b5b85d7c6fc9457a3e"
+      "sha256": "f1f210ede5e24447665c2fe758c2ab145ed37c86eae75f7ab0b9a47f19eab314"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "d866ceeb62a185e1d6d80ffa158b434c5f1947821c22879095093a963bf3e7c5"
+      "sha256": "44de757ea14b668ba0b443a6c77bd92904d966d1d2935dc4995290fc1f021e25"
     },
     {
       "artifact_id": "ART-569",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "7c03a079b1983b7c85999bf974ccab6894923046c2c11c9871e5890d362e2216"
+      "sha256": "40d3ce6585208abdc88fdd4415ea4b708ceb51491bd42e5dc68d1499cd2d55e9"
     },
     {
       "artifact_id": "ART-742",
@@ -4403,6 +4403,11 @@
       "artifact_id": "ART-882",
       "path": "docs/knowledge/rca/2026-08-12-lisa-file-standalone-demo-assets.md",
       "sha256": "735af1318ec329ced6f1aadf70e92fff4eb35f34aceecfb7efd12d8fc4291920"
+    },
+    {
+      "artifact_id": "ART-883",
+      "path": "docs/knowledge/rca/2026-08-20-co-2026-003-brainstorm-evidence-collection.md",
+      "sha256": "fc216b24c4dd9c867a186ceabce60a3b34d8f55c477adbdf9bc0a291c53c6612"
     }
   ],
   "exclusions": [
