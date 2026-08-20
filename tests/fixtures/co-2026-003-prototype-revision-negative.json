@@ -119,6 +119,11 @@
       "id": "approved-text-drift",
       "mutation": "approved_text_drift",
       "expected_error": "approved text delivery_success_message must preserve the confirmed text"
+    },
+    {
+      "id": "stale-svg-pipeline-text-selection",
+      "mutation": "stale_svg_pipeline_text_selection",
+      "expected_error": "/message_topics/0/status: must be equal to constant"
     }
   ]
 }

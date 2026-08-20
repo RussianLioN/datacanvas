@@ -10413,6 +10413,7 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",

@@ -2,7 +2,7 @@
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
   "version": "3.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "inactive_pending_owner_selections_and_sources",
+  "status": "inactive_pending_editable_sources_and_frame_approval",
   "active": false,
   "generator_input": false,
   "render_allowed": false,
@@ -152,32 +152,32 @@
   "message_topics": [
     {
       "topic_id": "button_label",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "render_blocker": true
     },
     {
       "topic_id": "generation_started_message",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "render_blocker": true
     },
     {
       "topic_id": "delivery_success_message",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "render_blocker": true
     },
     {
       "topic_id": "email_subject",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "render_blocker": true
     },
     {
       "topic_id": "email_body",
-      "status": "pending_owner_selection",
+      "status": "owner_approved",
       "render_blocker": true
     }
   ],
   "text_selection_source": {
-    "path": "source/brainstorming-contract.json",
+    "path": "source/owner-approved-texts.json",
     "required_topic_count": 5,
     "render_blocked_until_all_selected": true
   },

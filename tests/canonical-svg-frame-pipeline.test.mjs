@@ -14,6 +14,7 @@ const schemaPath = `${sourcePath}/schemas/canonical-svg-frame-pipeline-contract.
 const markdownPath = `${sourcePath}/canonical-svg-frame-pipeline-contract.md`;
 const validatorPath = "scripts/validate-canonical-svg-frame-pipeline.mjs";
 const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
+const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const negativeFixturePath = "tests/fixtures/canonical-svg-frame-pipeline-negative.json";
 
@@ -109,6 +110,7 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   writeJson(tempRoot, contractPath, contract);
   writeJson(tempRoot, schemaPath, readJson(schemaPath));
   writeJson(tempRoot, candidatePath, readJson(candidatePath));
+  writeJson(tempRoot, approvedTextsPath, readJson(approvedTextsPath));
   writeJson(tempRoot, activeContractsPath, activeContracts);
 }
 
@@ -150,6 +152,9 @@ function mutate(contract, activeContracts, mutation) {
     case "add-selected-text":
       contract.message_topics[0].selected_text = "Создать презентацию";
       break;
+    case "set-message-topic-pending":
+      contract.message_topics[0].status = "pending_owner_selection";
+      break;
     case "swap-frame-acceptance-order":
       [contract.acceptance.frame_flow[0], contract.acceptance.frame_flow[1]] = [
         contract.acceptance.frame_flow[1],
@@ -187,13 +192,21 @@ test("неактивный договор SVG-first кадров существ�
   assert.ok(fs.existsSync(absolute(validatorPath)), `Отсутствует обязательный файл: ${validatorPath}`);
 });
 
+test("общий контроль качества включает схему и семантическую проверку будущего SVG-договора", () => {
+  const packageManifest = readJson("package.json");
+  const schemaValidator = fs.readFileSync(absolute("scripts/validate-json-schema.mjs"), "utf8");
+
+  assert.match(packageManifest.scripts.test, /validate:canonical-svg-frame-pipeline/u);
+  assert.match(schemaValidator, /canonical-svg-frame-pipeline-contract\.schema\.json/u);
+});
+
 test("неактивный договор наследует кадры и смысловые ребра из подготовительного кандидата v1", () => {
   if (!fs.existsSync(absolute(contractPath))) return;
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
   assert.equal(contract.version, "3.0.0");
-  assert.equal(contract.status, "inactive_pending_owner_selections_and_sources");
+  assert.equal(contract.status, "inactive_pending_editable_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
   assert.equal(contract.render_allowed, false);
@@ -214,7 +227,7 @@ test("неактивный договор наследует кадры и см�
   });
 });
 
-test("тексты, источники и покадровые записи остаются блокирующими до выбора владельца", () => {
+test("выбранные тексты и покадровые источники сохраняют блокировку до приёмки кадров", () => {
   if (!fs.existsSync(absolute(contractPath))) return;
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
@@ -222,9 +235,12 @@ test("тексты, источники и покадровые записи ос
   assert.deepEqual(contract.message_topics.map((topic) => topic.topic_id), expectedTopics);
   for (const topic of contract.message_topics) {
     assert.deepEqual(Object.keys(topic).sort(), ["render_blocker", "status", "topic_id"]);
-    assert.equal(topic.status, "pending_owner_selection");
+    assert.equal(topic.status, "owner_approved");
     assert.equal(topic.render_blocker, true);
   }
+
+  assert.equal(contract.text_selection_source.path, "source/owner-approved-texts.json");
+  assert.equal(readJson(approvedTextsPath).status, "owner_approved");
 
   assert.deepEqual(contract.external_sources, expectedExternalSources);
   assert.deepEqual(
@@ -305,7 +321,7 @@ test("валидатор принимает канонический догов�
   const baseContract = readJson(contractPath);
   const baseActiveContracts = readJson(activeContractsPath);
   const fixture = readJson(negativeFixturePath);
-  assert.equal(fixture.cases.length, 13);
+  assert.equal(fixture.cases.length, 14);
 
   for (const negativeCase of fixture.cases) {
     const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "canonical-svg-frame-pipeline-"));

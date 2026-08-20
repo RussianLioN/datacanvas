@@ -7,6 +7,7 @@ const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const sourcePath = `${packagePath}/source`;
 const clientDataPath = `${sourcePath}/client-reference-data.json`;
 const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
+const svgPipelineContractPath = `${sourcePath}/canonical-svg-frame-pipeline-contract.json`;
 const brainstormingPath = `${sourcePath}/brainstorming-contract.json`;
 const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
 const candidateMarkdownPath = `${packagePath}/prototype-revision-candidate.md`;
@@ -473,6 +474,56 @@ function validateCandidate(candidate, approvedTexts) {
   }
 }
 
+function validateSvgPipelineContract(svgPipeline, approvedTexts) {
+  assertNoLocalOrRawSourcePaths(svgPipeline);
+  assertNoRawSourceTracesInJson(svgPipeline);
+  if (svgPipeline.status !== "inactive_pending_editable_sources_and_frame_approval") {
+    throw new Error("SVG pipeline must wait only for editable sources and frame approval after text selection");
+  }
+  if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
+    throw new Error("SVG pipeline message topics must match the five selected text topics");
+  }
+  if (svgPipeline.message_topics.some((topic) => topic.status !== "owner_approved" || topic.render_blocker !== true)) {
+    throw new Error("SVG pipeline message topics must retain owner approval and the visual release blocker");
+  }
+  if (
+    svgPipeline.text_selection_source.path !== "source/owner-approved-texts.json" ||
+    svgPipeline.text_selection_source.required_topic_count !== expectedTopics.length ||
+    svgPipeline.text_selection_source.render_blocked_until_all_selected !== true ||
+    approvedTexts.selections.length !== expectedTopics.length
+  ) {
+    throw new Error("SVG pipeline must reference the approved text register before frame rendering");
+  }
+  if (!sameArray(svgPipeline.future_frame_ids, expectedActiveFutureFrameIds)) {
+    throw new Error("SVG pipeline future frame list must contain exactly 11 frames");
+  }
+  if (!sameArray(svgPipeline.frame_svg_sources.map((frame) => frame.frame_id), expectedActiveFutureFrameIds)) {
+    throw new Error("SVG pipeline must declare one SVG source workflow for each future frame");
+  }
+  if (!sameArray(svgPipeline.acceptance.frame_flow, expectedFrameFlow)) {
+    throw new Error("SVG pipeline frame_flow must exactly match SVG-first acceptance steps");
+  }
+  if (!sameArray(svgPipeline.acceptance.prototype_flow, expectedPrototypeFlow)) {
+    throw new Error("SVG pipeline prototype_flow must exactly match SVG-first prototype steps");
+  }
+  const sourceIds = svgPipeline.external_sources.map((source) => source.source_id);
+  if (!sameArray(sourceIds, expectedExternalSourceIds)) {
+    throw new Error("SVG pipeline must wait for the four required external editable sources");
+  }
+  for (let index = 0; index < expectedExternalSources.length; index += 1) {
+    const actual = svgPipeline.external_sources[index];
+    const expected = expectedExternalSources[index];
+    if (
+      actual.required_for_frame_id !== expected.required_for_frame_id ||
+      actual.required_format !== expected.required_format ||
+      actual.canonical_svg_required_before_render !== true ||
+      actual.status !== "pending_owner_attachment"
+    ) {
+      throw new Error(`SVG pipeline external source ${expected.source_id} must preserve its pending SVG-first boundary`);
+    }
+  }
+}
+
 function validateInactiveCandidateBoundary(root) {
   const activeContracts = readJson(root, activeContractsPath);
   const activeContractText = JSON.stringify(activeContracts);
@@ -523,6 +574,7 @@ try {
   const { root } = parseArguments(process.argv.slice(2));
   const clientData = validateAgainstSchema(root, clientDataPath, `${sourcePath}/schemas/client-reference-data.schema.json`);
   const candidate = validateAgainstSchema(root, candidatePath, `${sourcePath}/schemas/prototype-revision-candidate.schema.json`);
+  const svgPipeline = validateAgainstSchema(root, svgPipelineContractPath, `${sourcePath}/schemas/canonical-svg-frame-pipeline-contract.schema.json`);
   const brainstorming = validateAgainstSchema(root, brainstormingPath, `${sourcePath}/schemas/brainstorming-contract.schema.json`);
   const approvedTexts = validateAgainstSchema(root, approvedTextsPath, `${sourcePath}/schemas/owner-approved-texts.schema.json`);
   const candidateMarkdown = readText(root, candidateMarkdownPath);
@@ -531,6 +583,7 @@ try {
   validateBrainstorming(brainstorming);
   validateApprovedTexts(approvedTexts);
   validateCandidate(candidate, approvedTexts);
+  validateSvgPipelineContract(svgPipeline, approvedTexts);
   assertNoRawSourceTracesInText(candidateMarkdown);
   validateInactiveCandidateBoundary(root);
 

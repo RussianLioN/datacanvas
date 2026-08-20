@@ -31,7 +31,7 @@
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
     "version": { "const": "3.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "inactive_pending_owner_selections_and_sources" },
+    "status": { "const": "inactive_pending_editable_sources_and_frame_approval" },
     "active": { "const": false },
     "generator_input": { "const": false },
     "render_allowed": { "const": false },
@@ -91,7 +91,7 @@
       "additionalProperties": false,
       "required": ["path", "required_topic_count", "render_blocked_until_all_selected"],
       "properties": {
-        "path": { "const": "source/brainstorming-contract.json" },
+        "path": { "const": "source/owner-approved-texts.json" },
         "required_topic_count": { "const": 5 },
         "render_blocked_until_all_selected": { "const": true }
       }
@@ -199,7 +199,7 @@
         "topic_id": {
           "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
         },
-        "status": { "const": "pending_owner_selection" },
+        "status": { "const": "owner_approved" },
         "render_blocker": { "const": true }
       }
     },

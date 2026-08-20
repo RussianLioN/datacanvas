@@ -9,6 +9,7 @@ const root = path.resolve(new URL("../", import.meta.url).pathname);
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const sourcePath = path.join(packagePath, "source");
 const candidatePath = path.join(sourcePath, "prototype-revision-candidate.json");
+const svgPipelineContractPath = path.join(sourcePath, "canonical-svg-frame-pipeline-contract.json");
 const clientDataPath = path.join(sourcePath, "client-reference-data.json");
 const brainstormingPath = path.join(sourcePath, "brainstorming-contract.json");
 const approvedTextsPath = path.join(sourcePath, "owner-approved-texts.json");
@@ -22,6 +23,7 @@ const schemaPaths = [
   path.join(sourcePath, "schemas/prototype-revision-candidate.schema.json"),
   path.join(sourcePath, "schemas/brainstorming-contract.schema.json"),
   path.join(sourcePath, "schemas/owner-approved-texts.schema.json"),
+  path.join(sourcePath, "schemas/canonical-svg-frame-pipeline-contract.schema.json"),
 ];
 const validatorPath = "scripts/validate-co-2026-003-prototype-revision.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-prototype-revision-negative.json";
@@ -126,6 +128,8 @@ function applyMutation(base, scenario) {
     data[unsafeDemoPath] = "const source = 'candidate-evidence/button-label';\n";
   } else if (scenario.mutation === "approved_text_drift") {
     data[approvedTextsPath].selections.find((selection) => selection.topic_id === "delivery_success_message").text = "Другой текст";
+  } else if (scenario.mutation === "stale_svg_pipeline_text_selection") {
+    data[svgPipelineContractPath].message_topics[0].status = "pending_owner_selection";
   } else {
     throw new Error(`неизвестная мутация ${scenario.mutation}`);
   }
@@ -133,12 +137,13 @@ function applyMutation(base, scenario) {
 }
 
 test("кандидат пересборки CO-2026-003 фиксирует клиентские данные, маршрут, брейншторм и запрет визуального выпуска", () => {
-  for (const relativePath of [clientDataPath, candidatePath, brainstormingPath]) {
+  for (const relativePath of [clientDataPath, candidatePath, svgPipelineContractPath, brainstormingPath]) {
     assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
   }
 
   const clientData = readJson(clientDataPath);
   const candidate = readJson(candidatePath);
+  const svgPipeline = readJson(svgPipelineContractPath);
   const brainstorming = readJson(brainstormingPath);
 
   assert.equal(clientData.client.short_name, "ООО «Водолей Трейд»");
@@ -168,6 +173,16 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(candidate.visual_release_gate.required_external_editable_sources.length, 4);
   assert.equal(candidate.visual_release_gate.release_status, "blocked_until_editable_sources_and_frame_approval");
   assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
+  assert.equal(svgPipeline.status, "inactive_pending_editable_sources_and_frame_approval");
+  assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
+  assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
+  assert.deepEqual(svgPipeline.acceptance.frame_flow, [
+    "owner_text_selected",
+    "canonical_svg_existing_group_updated",
+    "svg_visual_check",
+    "draft_png_current_resolution_rendered",
+    "owner_frame_approval",
+  ]);
   assert.deepEqual(
     Object.fromEntries(candidate.message_topics.map((topic) => [topic.topic_id, topic.preserved_historical_sources])),
     {
@@ -232,6 +247,7 @@ test("узкий валидатор отклоняет известные нар
   const base = {
     [clientDataPath]: readJson(clientDataPath),
     [candidatePath]: readJson(candidatePath),
+    [svgPipelineContractPath]: readJson(svgPipelineContractPath),
     [brainstormingPath]: readJson(brainstormingPath),
     [approvedTextsPath]: readJson(approvedTextsPath),
     [activeContractsPath]: readJson(activeContractsPath),

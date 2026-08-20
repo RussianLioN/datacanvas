@@ -36,6 +36,11 @@
       "expected_error": "message topics must not contain selected text, candidates, hashes, or approvals"
     },
     {
+      "name": "pending topic after owner choice is rejected",
+      "mutation": "set-message-topic-pending",
+      "expected_error": "message topics must remain owner-approved and render blockers until frame approval"
+    },
+    {
       "name": "acceptance order drift is rejected",
       "mutation": "swap-frame-acceptance-order",
       "expected_error": "frame acceptance flow must match the required SVG-first order"

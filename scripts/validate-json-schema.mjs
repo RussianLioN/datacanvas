@@ -557,6 +557,10 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+  },
+  {
     schema: "schemas/workflow-state.schema.json",
     data: "docs/process/universal-documentation-workflow/workflow-state.json",
   },

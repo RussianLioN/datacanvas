@@ -229,20 +229,29 @@ function validateScenario(contract, candidate) {
   }
 }
 
-function validateTexts(contract) {
+function validateTexts(contract, approvedTexts) {
   assertSameArray(
     contract.message_topics.map((topic) => topic.topic_id),
     expectedTopics,
-    "message topics must contain exactly five pending owner selection topics",
+    "message topics must contain exactly five owner-approved topics",
   );
   for (const topic of contract.message_topics) {
-    if (topic.status !== "pending_owner_selection" || topic.render_blocker !== true) {
-      throw new Error("message topics must remain pending owner selections and render blockers");
+    if (topic.status !== "owner_approved" || topic.render_blocker !== true) {
+      throw new Error("message topics must remain owner-approved and render blockers until frame approval");
     }
     const forbiddenKeys = ["text", "selected_text", "candidate", "candidates", "hash", "sha256", "approved", "approval"];
     if (forbiddenKeys.some((key) => key in topic)) {
       throw new Error("message topics must not contain selected text, candidates, hashes, or approvals");
     }
+  }
+  if (
+    contract.text_selection_source.path !== "source/owner-approved-texts.json" ||
+    contract.text_selection_source.required_topic_count !== expectedTopics.length ||
+    contract.text_selection_source.render_blocked_until_all_selected !== true ||
+    approvedTexts.status !== "owner_approved" ||
+    !sameArray(approvedTexts.selections.map((selection) => selection.topic_id), expectedTopics)
+  ) {
+    throw new Error("text selection source must be the owner-approved text register");
   }
 }
 
@@ -300,13 +309,14 @@ try {
   const { contractPath, activeContractsPath } = parseArguments(process.argv.slice(2));
   const contract = readJson(contractPath);
   const candidate = readJson(siblingPath(contractPath, "prototype-revision-candidate.json"));
+  const approvedTexts = readJson(siblingPath(contractPath, "owner-approved-texts.json"));
   const activeContracts = readJson(activeContractsPath);
 
   assertNoRawSourceTraces(contract);
   validateTopLevel(contract);
   validateFrames(contract, candidate);
   validateScenario(contract, candidate);
-  validateTexts(contract);
+  validateTexts(contract, approvedTexts);
   validateExternalSources(contract);
   validateAcceptance(contract);
   validateReleaseBoundary(contract);
