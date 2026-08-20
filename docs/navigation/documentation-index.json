@@ -9833,6 +9833,44 @@
       "click_depth": null
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md",
+      "title": "Пакет выбора текстов для будущего прототипа",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label/brainstorming-topic-result.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body/brainstorming-topic-result.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject/brainstorming-topic-result.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.md"
+      ],
+      "anchors": [
+        "пакет-выбора-текстов-для-будущего-прототипа",
+        "как-зафиксировать-выбор",
+        "текст-кнопки-заказа-презентации",
+        "сообщение-о-начале-формирования-презентации",
+        "сообщение-об-успешной-отправке-презентации",
+        "тема-письма-с-презентацией",
+        "тело-письма-с-презентацией"
+      ],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
       "section": "generated-artifacts",
@@ -37972,11 +38010,11 @@
     }
   },
   "coverage": {
-    "total_entries": 1308,
-    "manual_entries": 1298,
+    "total_entries": 1309,
+    "manual_entries": 1299,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1231,
+    "searchable_entries": 1232,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
     "reachable_from_root": 234,

@@ -34,6 +34,8 @@ const emailBodyStatePath = path.join(emailBodyPackagePath, "brainstorming-topic-
 const emailBodyLedgerPath = path.join(emailBodyPackagePath, "brainstorming-topic-result.md");
 const emailBodyRawLedgerPath = path.join(emailBodyPackagePath, "raw-variants-ledger.md");
 const emailBodyGeneratorPath = "scripts/generate-co-2026-003-email-body-brainstorm-evidence.mjs";
+const ownerSelectionPacketPath = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md";
+const ownerSelectionGeneratorPath = "scripts/generate-co-2026-003-owner-selection-packet.mjs";
 const registrySchemaPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json";
 const brainstormingContractPath = "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json";
 const schemaValidatorSourcePath = "scripts/validate-json-schema.mjs";
@@ -369,6 +371,27 @@ test("реестр включает завершённый двухфазный 
 test("общая проверка схем включает результаты темы и тела письма", () => {
   assert.match(readText(schemaValidatorSourcePath), new RegExp(emailSubjectStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
   assert.match(readText(schemaValidatorSourcePath), new RegExp(emailBodyStatePath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+});
+
+test("пакет выбора владельца собирается из пяти неактивных результатов", () => {
+  for (const relativePath of [ownerSelectionPacketPath, ownerSelectionGeneratorPath]) {
+    assert.equal(fs.existsSync(path.join(root, relativePath)), true, `отсутствует ${relativePath}`);
+  }
+  const packet = readText(ownerSelectionPacketPath);
+  for (const title of [
+    "Текст кнопки заказа презентации",
+    "Сообщение о начале формирования презентации",
+    "Сообщение об успешной отправке презентации",
+    "Тема письма с презентацией",
+    "Тело письма с презентацией",
+  ]) {
+    assert.match(packet, new RegExp(title, "u"));
+  }
+  const generatorResult = spawnSync(process.execPath, [path.join(root, ownerSelectionGeneratorPath), "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(generatorResult.status, 0, `${generatorResult.stderr}\n${generatorResult.stdout}`);
 });
 
 test("узкий валидатор проверяет границу неактивности у каждого пакета, записанного в реестре", () => {
