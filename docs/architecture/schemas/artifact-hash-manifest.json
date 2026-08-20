@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "c13deab87c554954540c5c69456fb42f792bf96063475cd40440e5fca2b452fb"
+      "sha256": "0fb5675a4f2b41c8058c01b270abf298c377fee7b1e153a8c86b29740d631651"
     },
     {
       "artifact_id": "ART-396",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "da4314e42c4a8e55f85cd4456bd58c9ac47a169c5c16cabe635d8e4e39cff110"
+      "sha256": "0a0ff6ddfa7c0c84913b5dfd08302366018ab15892fc255f90a5d46fa71d8456"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "f1f210ede5e24447665c2fe758c2ab145ed37c86eae75f7ab0b9a47f19eab314"
+      "sha256": "9f4284bc41b35e779475ffc8b476082447e088e35648f9c387d0701ec944e4fe"
     },
     {
       "artifact_id": "ART-413",

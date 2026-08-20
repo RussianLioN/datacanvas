@@ -9370,8 +9370,8 @@
         "итоговые-кандидаты",
         "блокировки"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label/raw-variants-ledger.md",
@@ -9421,8 +9421,8 @@
         "участник-18",
         "участник-19"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/candidate-evidence-registry.json",
@@ -9509,8 +9509,8 @@
         "итоговые-кандидаты",
         "блокировки"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/raw-variants-ledger.md",
@@ -9560,8 +9560,8 @@
         "участник-18",
         "участник-19"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body/brainstorming-topic-result.json",
@@ -9619,8 +9619,8 @@
         "итоговые-кандидаты",
         "блокировки"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body/raw-variants-ledger.md",
@@ -9664,8 +9664,8 @@
         "участник-18",
         "участник-19"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject/brainstorming-topic-result.json",
@@ -9723,8 +9723,8 @@
         "итоговые-кандидаты",
         "блокировки"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject/raw-variants-ledger.md",
@@ -9767,8 +9767,8 @@
         "участник-18",
         "участник-19"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.json",
@@ -9826,8 +9826,8 @@
         "итоговые-кандидаты",
         "блокировки"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/raw-variants-ledger.md",
@@ -9871,8 +9871,8 @@
         "участник-18",
         "участник-19"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md",
@@ -9909,8 +9909,8 @@
         "тема-письма-с-презентацией",
         "тело-письма-с-презентацией"
       ],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 1
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
@@ -37433,6 +37433,7 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -37458,6 +37459,7 @@
       ],
       "anchors": [
         "datacanvas",
+        "актуальные-материалы-для-согласования",
         "быстрые-маршруты",
         "продукт-datacanvas",
         "техническое-воплощение-ведения-проектной-документации",
@@ -38059,7 +38061,7 @@
     "searchable_entries": 1233,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 236,
+    "reachable_from_root": 247,
     "orphan_entries": 0
   },
   "ignored_paths": [
