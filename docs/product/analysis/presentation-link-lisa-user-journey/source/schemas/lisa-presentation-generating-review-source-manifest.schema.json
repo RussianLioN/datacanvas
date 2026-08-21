@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "lisa-presentation-generating-review-source-manifest.schema.json",
-  "title": "Манифест чернового кадра начала формирования презентации",
+  "title": "Манифест чернового динамического кадра начала формирования презентации",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -9,19 +9,21 @@
     "version",
     "frame_id",
     "status",
+    "base_frame_id",
     "base_svg_path",
     "base_svg_sha256",
+    "base_owner_approval_path",
+    "base_owner_approved_svg_sha256",
+    "transition_rendering_mode",
     "source_svg_path",
     "source_svg_sha256",
-    "client_reference_data_path",
-    "client_reference_data_sha256",
     "approved_texts_path",
     "approved_texts_sha256",
-    "client_card",
     "button_label_text",
+    "disabled_button",
     "generation_started_message",
-    "preserved_existing_group_ids",
-    "replaced_text_group_ids",
+    "preserved_visible_group_ids",
+    "modified_existing_group_ids",
     "prohibited_legacy_overlay_ids",
     "text_outline_font",
     "active_release_mutation_prohibited",
@@ -33,97 +35,86 @@
     "owner_frame_approval"
   ],
   "properties": {
-    "$schema": {
-      "const": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json"
-    },
-    "version": { "const": "1.0.0" },
+    "$schema": { "const": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json" },
+    "version": { "const": "2.0.0" },
     "frame_id": { "const": "lisa-presentation-generating" },
-    "status": { "const": "draft_png_rendered_pending_owner_approval" },
-    "base_svg_path": {
-      "const": "editable-sources/7.2 — Длинное название клиента + холдинг.svg"
-    },
+    "status": { "enum": ["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval"] },
+    "base_frame_id": { "const": "lisa-materials-full-reference" },
+    "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
     "base_svg_sha256": { "$ref": "#/$defs/sha256" },
-    "source_svg_path": {
-      "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg"
-    },
+    "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" },
+    "base_owner_approved_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "transition_rendering_mode": { "const": "same_screen_dynamic_state" },
+    "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg" },
     "source_svg_sha256": { "$ref": "#/$defs/sha256" },
-    "client_reference_data_path": { "const": "source/client-reference-data.json" },
-    "client_reference_data_sha256": { "$ref": "#/$defs/sha256" },
     "approved_texts_path": { "const": "source/owner-approved-texts.json" },
     "approved_texts_sha256": { "$ref": "#/$defs/sha256" },
-    "client_card": {
+    "button_label_text": { "const": "Создать презентацию по справке" },
+    "disabled_button": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["title", "client_name", "inn", "bank", "segment", "holding", "headcount"],
+      "required": ["existing_group_id", "aria_disabled", "opacity", "label_unchanged"],
       "properties": {
-        "title": { "const": "Справка по клиенту" },
-        "client_name": { "const": "ООО «Водолей Трейд»" },
-        "inn": { "const": "ИНН 2461004230" },
-        "bank": { "const": "Сибирский банк" },
-        "segment": { "const": "Сегмент: Средний" },
-        "holding": { "const": "ГК «Водолей»" },
-        "headcount": { "const": "90 человек" }
+        "existing_group_id": { "const": "buttons_2.0" },
+        "aria_disabled": { "const": true },
+        "opacity": { "const": 0.45 },
+        "label_unchanged": { "const": true }
       }
     },
-    "button_label_text": { "const": "Создать презентацию по справке" },
     "generation_started_message": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["text", "display_lines", "time_value"],
+      "required": ["text", "display_lines", "time_value", "inserted_into_existing_frame_group_id", "font_size", "fill", "baselines", "safe_area", "line_widths"],
       "properties": {
-        "text": {
-          "const": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA."
-        },
+        "text": { "const": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA." },
         "display_lines": {
           "const": [
             "Формирование презентации началось в 13:24",
-            "и займет не более 20 минут. После",
-            "завершения презентация будет направлена",
+            "и займет не более 20 минут.",
+            "После завершения презентация будет направлена",
             "по электронной почте в SIGMA и OMEGA."
           ]
         },
-        "time_value": { "const": "13:24" }
+        "time_value": { "const": "13:24" },
+        "inserted_into_existing_frame_group_id": { "const": "Group 2131328969" },
+        "font_size": { "const": 10 },
+        "fill": { "const": "rgb(87,92,112)" },
+        "baselines": { "const": [2834, 2850, 2866, 2882] },
+        "safe_area": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "width", "height"],
+          "properties": {
+            "x": { "const": 80 },
+            "y": { "const": 2815 },
+            "width": { "const": 361 },
+            "height": { "const": 79 }
+          }
+        },
+        "line_widths": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": { "type": "number", "minimum": 0, "maximum": 361 }
+        }
       }
     },
-    "preserved_existing_group_ids": {
+    "preserved_visible_group_ids": {
       "const": [
-        "Frame 2131329748",
-        "Frame 2131330375",
-        "Frame 2131330372",
-        "Frame 2131330377",
-        "Frame 2131330376",
-        "Frame 2131330391",
-        "ai-button",
-        "Group 2131329372",
-        "Group 2131329029",
-        "presentation-start-line-1",
-        "presentation-start-line-2",
-        "presentation-status-details",
-        "presentation-status-line-1",
-        "presentation-status-line-2",
-        "presentation-status-line-3",
-        "presentation-status-line-4"
+        "general_information",
+        "business_owners",
+        "financial_indicators",
+        "cooperation",
+        "sber_share",
+        "active_deals",
+        "potential",
+        "preapproved_offers",
+        "insights",
+        "meeting_agreements"
       ]
     },
-    "replaced_text_group_ids": {
-      "const": [
-        "Group 2131329368",
-        "Frame 2131330375",
-        "Frame 2131330377",
-        "Frame 2131330391",
-        "ai-button",
-        "messages_2.0@186,566",
-        "presentation-start-line-1",
-        "presentation-start-line-2",
-        "presentation-status-line-1",
-        "presentation-status-line-2",
-        "presentation-status-line-3",
-        "presentation-status-line-4"
-      ]
-    },
-    "prohibited_legacy_overlay_ids": {
-      "const": ["lisa-edit-5-4-title", "lisa-status-"]
-    },
+    "modified_existing_group_ids": { "const": ["Group 2131328969", "buttons_2.0"] },
+    "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title", "lisa-status-"] },
     "text_outline_font": {
       "type": "object",
       "additionalProperties": false,
@@ -135,27 +126,52 @@
       }
     },
     "active_release_mutation_prohibited": { "const": true },
-    "draft_png_rendered": { "const": true },
-    "draft_png_path": {
-      "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png"
-    },
-    "draft_png_sha256": { "$ref": "#/$defs/sha256" },
+    "draft_png_rendered": { "type": "boolean" },
+    "draft_png_path": { "anyOf": [{ "type": "null" }, { "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" }] },
+    "draft_png_sha256": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256" }] },
     "draft_png_dimensions": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["width", "height"],
-      "properties": {
-        "width": { "const": 521 },
-        "height": { "const": 980 }
-      }
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": { "width": { "const": 521 }, "height": { "const": 3144 } }
+        }
+      ]
     },
-    "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 },
+    "draft_png_non_white_pixel_count": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 1000 }] },
     "owner_frame_approval": { "type": "null" }
   },
-  "$defs": {
-    "sha256": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "svg_source_prepared_pending_visual_check" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "draft_png_rendered": { "const": false },
+          "draft_png_path": { "type": "null" },
+          "draft_png_sha256": { "type": "null" },
+          "draft_png_dimensions": { "type": "null" },
+          "draft_png_non_white_pixel_count": { "type": "null" }
+        }
+      },
+      "else": {
+        "properties": {
+          "draft_png_rendered": { "const": true },
+          "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" },
+          "draft_png_sha256": { "$ref": "#/$defs/sha256" },
+          "draft_png_dimensions": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["width", "height"],
+            "properties": { "width": { "const": 521 }, "height": { "const": 3144 } }
+          },
+          "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 }
+        }
+      }
     }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
   }
 }

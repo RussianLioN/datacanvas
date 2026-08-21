@@ -12,7 +12,7 @@ const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-p
 const SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
 const DRAFT_PATH = `${REVIEW_DIRECTORY}/draft-current-resolution.png`;
-const EXPECTED_DIMENSIONS = Object.freeze({ width: 521, height: 980 });
+const EXPECTED_DIMENSIONS = Object.freeze({ width: 521, height: 3144 });
 
 function fail(message) {
   throw new Error(message);
@@ -42,7 +42,9 @@ function rendererCommand() {
 function validateManifestShape(manifest) {
   if (
     manifest.frame_id !== "lisa-presentation-generating" ||
-    manifest.base_svg_path !== "editable-sources/7.2 — Длинное название клиента + холдинг.svg" ||
+    manifest.base_frame_id !== "lisa-materials-full-reference" ||
+    manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" ||
+    manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
     manifest.owner_frame_approval !== null ||
     manifest.active_release_mutation_prohibited !== true
   ) {

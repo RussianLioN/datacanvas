@@ -112,7 +112,10 @@ const expectedFrameReviewSession = Object.freeze({
   source_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
   draft_png_path: "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
   review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
-  base_svg_path: "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
+  base_frame_id: "lisa-materials-full-reference",
+  base_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  base_owner_approval_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  transition_rendering_mode: "same_screen_dynamic_state",
   edit_mode: "replace_existing_frame_group_content",
   prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
   active_release_mutation_prohibited: true,
@@ -241,7 +244,7 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
-  if (contract.version !== "3.5.0") throw new Error("версия договора должна фиксировать второй черновой кадр");
+  if (contract.version !== "3.6.0") throw new Error("версия договора должна фиксировать динамическое продолжение полной справки");
 }
 
 function validateFrames(contract, candidate) {
@@ -296,38 +299,55 @@ function validateFrameReviewSession(contract) {
 }
 
 function validateGeneratingReviewEvidence(contractPath) {
-  const reviewDirectory = path.join(
-    path.dirname(contractPath),
-    "..",
-    "candidate-evidence/frame-review/lisa-presentation-generating",
-  );
+  const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-generating");
   const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
   const sourcePath = path.join(reviewDirectory, "source.svg");
   const source = fs.readFileSync(sourcePath, "utf8");
+  const baseSourcePath = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg");
+  const baseManifest = readJson(path.join(packageDirectory, "candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json"));
+  const baseApproval = readJson(path.join(packageDirectory, "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json"));
   const expectedMessage = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
   if (
     manifest.frame_id !== "lisa-presentation-generating" ||
     manifest.status !== "draft_png_rendered_pending_owner_approval" ||
     manifest.owner_frame_approval !== null ||
+    manifest.base_frame_id !== "lisa-materials-full-reference" ||
+    manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" ||
+    manifest.base_svg_sha256 !== sha256File(baseSourcePath) ||
+    manifest.base_owner_approval_path !== "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" ||
+    manifest.base_owner_approved_svg_sha256 !== baseApproval.approved_source_svg_sha256 ||
+    manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
+    baseManifest.status !== "owner_frame_approved" ||
     manifest.source_svg_sha256 !== sha256File(sourcePath) ||
     manifest.draft_png_rendered !== true ||
     manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" ||
     manifest.draft_png_dimensions?.width !== 521 ||
-    manifest.draft_png_dimensions?.height !== 980
+    manifest.draft_png_dimensions?.height !== 3144 ||
+    JSON.stringify(manifest.generation_started_message?.safe_area) !== JSON.stringify({ x: 80, y: 2815, width: 361, height: 79 }) ||
+    !Array.isArray(manifest.generation_started_message?.line_widths) ||
+    manifest.generation_started_message.line_widths.length !== manifest.generation_started_message.display_lines?.length ||
+    manifest.generation_started_message.line_widths.some((width) => !Number.isFinite(width) || width < 0 || width > 361)
   ) {
-    throw new Error("манифест второго чернового кадра должен привязывать проверенный SVG и PNG до решения владельца");
+    throw new Error("манифест второго чернового кадра должен привязывать SVG и PNG к принятой полной справке до решения владельца");
   }
   if (
     /<text\b/u.test(source) ||
     source.includes("lisa-edit-") ||
     source.includes("lisa-status-") ||
-    !source.includes('id="Frame 2131330375"') ||
-    !source.includes('id="Group 2131329372"') ||
-    !source.includes('id="Rectangle 240652035"') ||
+    !source.includes('data-review-frame-id="lisa-presentation-generating" data-review-transition="same_screen_dynamic_state"') ||
+    !source.includes('id="lisa-review-generation-status"') ||
+    !source.includes('aria-disabled="true"') ||
+    !source.includes('data-review-button-state="disabled"') ||
     !source.includes(`aria-label="${expectedMessage}"`) ||
-    (source.match(/id="button"/gu) || []).length !== 1
+    source.includes("7.2 — Длинное название клиента + холдинг.svg")
   ) {
-    throw new Error("второй черновой SVG должен заменять текст только в существующих группах без накладок и повторяющихся идентификаторов");
+    throw new Error("второй черновой SVG должен быть динамическим продолжением полной справки без накладок");
+  }
+  for (const groupId of ["general_information", "business_owners", "financial_indicators", "cooperation", "sber_share", "active_deals", "potential", "preapproved_offers", "insights", "meeting_agreements"]) {
+    if (!source.includes(`data-review-rendered-group-id="${groupId}"`)) {
+      throw new Error("второй черновой SVG должен сохранять все видимые группы принятой полной справки");
+    }
   }
 }
 

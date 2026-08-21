@@ -69,6 +69,11 @@
       "name": "active registry inclusion is rejected",
       "mutation": "add-contract-to-active-registry",
       "expected_error": "canonical SVG frame pipeline contract must not be listed in active-contracts.json"
+    },
+    {
+      "name": "short historical source cannot replace approved full-reference base",
+      "mutation": "replace-approved-continuation-base",
+      "expected_error": "сеанс покадровой приёмки должен ожидать решения владельца по изолированному кадру начала формирования"
     }
   ]
 }

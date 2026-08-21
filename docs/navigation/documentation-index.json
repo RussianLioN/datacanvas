@@ -9948,6 +9948,8 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
@@ -9955,7 +9957,7 @@
       ],
       "anchors": [
         "черновой-кадр-начало-формирования-презентации",
-        "что-продолжено",
+        "что-показано",
         "материалы-для-проверки",
         "обязательные-проверки"
       ],
@@ -15966,6 +15968,7 @@
         "предотвращение-повторения",
         "предотвращение-повторения-при-будущей-пересборке-кандидата",
         "дополнительные-причины-обнаруженные-при-исправлении",
+        "разрыв-между-принятой-полной-справкой-и-кадром-начала-формирования",
         "неполная-замена-векторного-содержимого-полной-справки",
         "смешение-сохранности-данных-и-состава-проверочного-кадра-полной-справки",
         "фиксированные-координаты-и-малый-размер-подписи-нижней-кнопки",
