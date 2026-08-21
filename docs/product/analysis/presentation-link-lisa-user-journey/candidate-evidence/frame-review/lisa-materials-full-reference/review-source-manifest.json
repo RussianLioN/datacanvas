@@ -1,0 +1,103 @@
+{
+  "$schema": "../../../source/schemas/lisa-full-reference-review-source-manifest.schema.json",
+  "version": "1.2.0",
+  "frame_id": "lisa-materials-full-reference",
+  "status": "owner_frame_approved",
+  "base_svg_path": "editable-sources/5.4.svg",
+  "base_svg_sha256": "32e9986b59425d6f3882b8eb689355da4d1459c1adf9cfc23b38c9f4ad43edff",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  "source_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "client_reference_data_path": "source/client-reference-data.json",
+  "client_reference_data_sha256": "d6d2911fe26bdf81c6d5c97f955036a7e2174450b425a2629b1d6ea22fe53f37",
+  "covered_group_ids": [
+    "general_information",
+    "business_owners",
+    "financial_indicators",
+    "cooperation",
+    "sber_share",
+    "active_deals",
+    "potential",
+    "preapproved_offers",
+    "insights",
+    "meeting_agreements",
+    "dynamic_suggestions",
+    "actions"
+  ],
+  "visible_projection": {
+    "mode": "exclude_source_groups_from_visual_frame_only",
+    "visible_group_ids": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements"
+    ],
+    "excluded_group_ids": [
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "source_data_preserved": true,
+    "last_visible_group_id": "meeting_agreements"
+  },
+  "content_bottom_y": 2830,
+  "frame_geometry": {
+    "resized": true,
+    "frame_height": 2963,
+    "footer_top_y": 2902,
+    "canvas_height": 3144
+  },
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "edit_mode": "replace_existing_frame_group_content",
+  "button_label_text": "Создать презентацию по справке",
+  "button_geometry": {
+    "button_rect": {
+      "x": 80,
+      "y": 4968,
+      "width": 361,
+      "height": 40
+    },
+    "font_size": 16,
+    "text_x": 132.492,
+    "baseline_y": 4992.24,
+    "text_bbox": {
+      "x1": 133.292,
+      "y1": 4980.88,
+      "x2": 387.708,
+      "y2": 4995.12
+    },
+    "center_delta": {
+      "x": 0,
+      "y": 0
+    },
+    "center_tolerance_px": 0.5,
+    "measurement_method": "pinned_font_path_bounding_box"
+  },
+  "prohibited_legacy_overlay_ids": [
+    "lisa-edit-5-4-title"
+  ],
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
+  "draft_png_sha256": "e3b8a32443d752ab3db46501ea3139649f7dd256929cc2b2fe338c68964cac6c",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3144
+  },
+  "draft_png_non_white_pixel_count": 582198,
+  "owner_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "кадр принят",
+    "decision_source": "Product Owner в рабочем чате",
+    "approved_at": "2026-08-20T17:02:02Z"
+  }
+}

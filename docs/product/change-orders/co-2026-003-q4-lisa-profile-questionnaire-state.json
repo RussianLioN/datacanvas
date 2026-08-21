@@ -1,0 +1,377 @@
+{
+  "$schema": "../../../schemas/product-change-questionnaire-state.schema.json",
+  "version": "0.2.0",
+  "questionnaire_id": "CO-2026-003-PO-INTERVIEW",
+  "change_order_id": "CO-2026-003",
+  "status": "completed",
+  "mode": "product_owner_interview",
+  "owner_role": "Product Owner",
+  "started_at": "2026-08-17T00:00:00Z",
+  "updated_at": "2026-08-18T00:00:00Z",
+  "paused_at": null,
+  "completed_at": "2026-08-18T00:00:00Z",
+  "current_question": {
+    "question_id": "Q4-11",
+    "title": "Интервью завершено; выпуск прототипа разрешён",
+    "state": "not_applicable",
+    "next_action": "Интервью завершено: одобрение содержания и визуального выпуска сохранено. Штатно сформировать, проверить и включить прототип в архив поставки без раскрытия личных сведений и расширения границы Q4_2026."
+  },
+  "save_policy": {
+    "save_after_each_answer": true,
+    "pause_every_answers": 5,
+    "resume_from_state_required": true,
+    "show_existing_section_before_question": true
+  },
+  "validation_policy": {
+    "light_validation_command": "npm run validate:co-questionnaire -- docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+    "final_validation_rule": "До регистрации CO-2026-003 и её карты влияния проверяются сама заявка по схеме, состояние интервью и безопасность данных. После добавления заявки в product-change-order-ledger.json вместе с co-2026-003-q4-lisa-profile-impact.json применяется также проверка реестра заявок.",
+    "final_validation_commands": [
+      "npm run validate:co-questionnaire -- docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+      "npm run validate:schemas",
+      "npm run validate:data-leakage",
+      "npm run generate:docs-navigation -- --check",
+      "npm run validate:doc-links",
+      "npm run validate:docs-navigation",
+      "npm run validate:doc-stale-status"
+    ]
+  },
+  "artifact_paths": {
+    "state_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+    "log_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
+    "questionnaire_protocol_path": "docs/product/change-orders/product-change-questionnaire-protocol.md",
+    "change_order_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+    "vision_path": "docs/product-vision.md",
+    "stories_path": "docs/product/requirements/user-stories.md",
+    "candidate_stories_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
+    "candidate_stories_csv_path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
+    "authoritative_interview_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
+  },
+  "answered_questions": [
+    {
+      "question_id": "Q4-01",
+      "answer_id": "ANSWER-001",
+      "title": "Граница Q4_2026 и источник планирования",
+      "status": "confirmed",
+      "safe_summary": "Источником сроков и ресурсов служит очищенная книга от 2026-08-17. В Q4_2026 входят Профиль сотрудника, отправка ODT и PDF почтой и статусы в том же чате Лисы; PUSH, ссылка, хранилище и расширенное редактирование структуры перенесены в будущее планирование.",
+      "decision_source": "Очищенная рабочая книга 2026-08-17 и декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-02",
+      "answer_id": "ANSWER-002",
+      "title": "Получатель внутреннего статуса",
+      "status": "confirmed",
+      "safe_summary": "Внутренний получатель статуса объявляется в начальном запросе и может быть Client Info, Orchestrator или Лиса. Прямой маршрут DataCanvas в Лису не утвержден до системного анализа.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-03",
+      "answer_id": "ANSWER-003",
+      "title": "Профиль сотрудника и почтовая доставка",
+      "status": "confirmed",
+      "safe_summary": "Сервис Профиль сотрудника существует в функциональной цепочке от идентификатора пользователя к адресам SIGMA и OMEGA и далее к почтовому сервису. Точные API, аутентификация и протокол не определены и передаются системному анализу.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-04",
+      "answer_id": "ANSWER-004",
+      "title": "Один заказ в сеансе",
+      "status": "confirmed",
+      "safe_summary": "Для пары идентификаторов сеанса и пользователя допускается один заказ: повтор разрешен только до принятия, после принятия новый запрос отклоняется, а после успеха кнопка недоступна до завершения сеанса. Частичная или неуспешная доставка закрывает сеанс и передается поддержке.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-05",
+      "answer_id": "ANSWER-005",
+      "title": "Внутренняя личность и делегирование",
+      "status": "confirmed",
+      "safe_summary": "Внутреннюю личность проверяет платформа, а делегат объявляется в начальном запросе. Неавторизованный запрос безопасно отклоняется и фиксируется без личных сведений.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-06",
+      "answer_id": "ANSWER-006",
+      "title": "Результаты определения адресов",
+      "status": "confirmed",
+      "safe_summary": "Отсутствие или недоступность адреса не считается принятым запросом; один найденный адрес дает один контур, два — оба контура. При частичной доставке применяется автоматический повтор по внешней политике и затем поддержка; числовое правило и канал сопровождения не определены.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-07",
+      "answer_id": "ANSWER-007",
+      "title": "Статусы в чате Лисы",
+      "status": "confirmed",
+      "safe_summary": "В том же чате Лисы без PUSH и с сохранением после возврата показываются согласованные смыслы начала, успеха, задержки, частичной доставки и непринятого запроса. Название одного или двух контуров меняется по фактическому числу контуров.",
+      "decision_source": "Очищенная рабочая книга 2026-08-17 и декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-08",
+      "answer_id": "ANSWER-008",
+      "title": "Отправка с существующих экранов Лисы",
+      "status": "confirmed",
+      "safe_summary": "Кнопка на трех существующих экранах отправляет допустимый запрос сразу, без предпросмотра и подтверждения; после исправления непринятых данных повтор разрешен.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "answered_at": "2026-08-17T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-09",
+      "answer_id": "ANSWER-009",
+      "title": "Демонстрация полной недоставки в прототипе",
+      "status": "confirmed",
+      "safe_summary": "Полная недоставка показывается тем же экраном и дословным сообщением, что и частичная доставка; нового текста и отдельного экрана не будет.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "question_id": "Q4-10",
+      "answer_id": "ANSWER-010",
+      "title": "Повторное согласование содержания и визуального выпуска",
+      "status": "confirmed",
+      "safe_summary": "Одобрены содержание пользовательского пути, окончательная визуальная генерация прототипа и архив поставки.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    }
+  ],
+  "agreed_decisions": [
+    {
+      "decision_id": "CO3-DEC-001",
+      "question_id": "Q4-01",
+      "decision_status": "confirmed",
+      "safe_summary": "Q4_2026 ограничен Профилем сотрудника, ODT/PDF почтой и сообщениями в текущем чате; будущий объём отделен.",
+      "decision_source": "Очищенная рабочая книга 2026-08-17 и декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-002",
+      "question_id": "Q4-02",
+      "decision_status": "confirmed",
+      "safe_summary": "Получатель статуса не закреплен за одной системой до системного анализа.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-003",
+      "question_id": "Q4-03",
+      "decision_status": "deferred",
+      "safe_summary": "Точный контракт Профиля сотрудника и почтового сервиса открыт для системного анализа.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-004",
+      "question_id": "Q4-04",
+      "decision_status": "confirmed",
+      "safe_summary": "Один заказ, блокировка после принятия и закрытие после неуспешной доставки приняты как продуктовая граница.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-005",
+      "question_id": "Q4-05",
+      "decision_status": "confirmed",
+      "safe_summary": "Платформенная проверка внутренней личности и безопасное отклонение неавторизованного запроса приняты.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-006",
+      "question_id": "Q4-06",
+      "decision_status": "deferred",
+      "safe_summary": "Число повторов и канал сопровождения оставлены внешней политике.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-007",
+      "question_id": "Q4-07",
+      "decision_status": "confirmed",
+      "safe_summary": "Сообщения сохраняются в текущем чате Лисы без PUSH и меняют подписи контуров по результату определения адресов.",
+      "decision_source": "Очищенная рабочая книга 2026-08-17 и декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-008",
+      "question_id": "Q4-08",
+      "decision_status": "confirmed",
+      "safe_summary": "Существующие экраны отправляют допустимый запрос без второго шага; повтор допустим после исправления непринятых данных.",
+      "decision_source": "Декларация Product Owner.",
+      "declaration_date": "2026-08-17",
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-009",
+      "question_id": "Q4-09",
+      "decision_status": "confirmed",
+      "safe_summary": "Полная недоставка использует существующий экран и дословное сообщение частичной доставки; новый экран и текст не создаются.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+      ]
+    },
+    {
+      "decision_id": "CO3-DEC-010",
+      "question_id": "Q4-10",
+      "decision_status": "confirmed",
+      "safe_summary": "Одобрены содержание, окончательная визуальная генерация прототипа и архив поставки.",
+      "decision_source": "Выбор Product Owner варианта 1.",
+      "declaration_date": "2026-08-18",
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+      ]
+    }
+  ],
+  "agreed_message_wordings": [
+    {
+      "message_id": "CO3-MSG-001",
+      "lifecycle_message_id": "order_started",
+      "text": "Начал формировать презентацию в ЧЧ:ММ. Это займет не более 20 минут. Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация",
+      "decision_source": "Дословная декларация Product Owner.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "message_id": "CO3-MSG-002",
+      "lifecycle_message_id": "order_not_accepted",
+      "text": "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
+      "decision_source": "Дословная декларация Product Owner.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "message_id": "CO3-MSG-003",
+      "lifecycle_message_id": "delivery_confirmed",
+      "text": "Презентация сформирована и отправлена на почту в ЧЧ:ММ, проверьте почтовый ящик!",
+      "decision_source": "Дословная декларация Product Owner.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "message_id": "CO3-MSG-004",
+      "lifecycle_message_id": "delivery_delayed",
+      "text": "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.",
+      "decision_source": "Дословная декларация Product Owner.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    },
+    {
+      "message_id": "CO3-MSG-005",
+      "lifecycle_message_id": "delivery_partial",
+      "text": "Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
+      "contour_display_rule": "by_actual_address_lookup",
+      "decision_source": "Дословная декларация Product Owner; подписи контуров определяются по фактическому результату поиска адресов.",
+      "declaration_date": "2026-08-18",
+      "answered_at": "2026-08-18T00:00:00Z"
+    }
+  ],
+  "remaining_checklist": [
+    {
+      "item_id": "Q4-01",
+      "title": "Граница Q4_2026 и источник планирования",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-02",
+      "title": "Получатель внутреннего статуса",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-03",
+      "title": "Профиль сотрудника и почтовая доставка",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-04",
+      "title": "Один заказ в сеансе",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-05",
+      "title": "Внутренняя личность и делегирование",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-06",
+      "title": "Результаты определения адресов",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-07",
+      "title": "Статусы в чате Лисы",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-08",
+      "title": "Отправка с существующих экранов Лисы",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-09",
+      "title": "Демонстрация полной недоставки в прототипе",
+      "status": "completed"
+    },
+    {
+      "item_id": "Q4-10",
+      "title": "Повторное согласование содержания и визуального выпуска",
+      "status": "completed"
+    }
+  ],
+  "periodic_stop": {
+    "last_stop_after_answer_count": 10,
+    "reason": "Интервью завершено; одобрены содержание, визуальная генерация и архив поставки.",
+    "next_stop_after_answer_count": 15
+  },
+  "resume_instructions": [
+    "Интервью CO-2026-003 завершено; одобрение выпуска сохранено.",
+    "Перед продолжением проверить это состояние и журнал, затем применять решения только в пределах Q4_2026.",
+    "Точный контракт Профиля сотрудника, почтового сервиса, получателя статуса, числовых повторов и канала сопровождения должен определить системный анализ.",
+    "Не переносить в производные артефакты личные сведения, почтовые адреса, исходное содержимое запроса или полные идентификаторы.",
+    "Использовать курируемый реестр согласованных формулировок наравне с очищенной рабочей книгой; не заменять согласованный текст парафразом."
+  ],
+  "review_checkpoint": {
+    "status": "approved",
+    "reason": "Product Owner дословно согласовал пять пользовательских сообщений, уточнил представление полной недоставки и выбрал вариант 1: одобрил содержание, окончательную визуальную генерацию прототипа и архив поставки.",
+    "authoritative_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json"
+  }
+}

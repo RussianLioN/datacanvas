@@ -1,0 +1,165 @@
+{
+  "$schema": "schemas/brainstorming-contract.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "pending_owner_selection",
+  "common_rules": {
+    "product_owner_intro_required_before_each_topic": true,
+    "topics_are_independent": true,
+    "phase_1_mode": "topic_specific_execution_mode",
+    "phase_2_mode": "independent_anonymized_evaluation",
+    "no_text_generation_before_topic_start": true,
+    "owner_final_selection_required": true,
+    "evidence_target_resolution": "absolute_target_worktree_path_required_at_execution",
+    "transient_evidence_policy": "authoritative_ledger_before_cleanup"
+  },
+  "phase_1_roles": [
+    "product_owner",
+    "business_analyst",
+    "system_analyst",
+    "ux_writer",
+    "client_manager",
+    "corporate_style_editor",
+    "lisa_agent_owner",
+    "datacanvas_agent_owner",
+    "email_channel_owner",
+    "presentation_designer",
+    "qa_lead",
+    "security_reviewer",
+    "integration_architect",
+    "support_owner",
+    "sales_process_owner",
+    "risk_reviewer",
+    "data_steward",
+    "accessibility_reviewer",
+    "facilitator"
+  ],
+  "phase_2_roles": [
+    "product_strategy_reviewer",
+    "senior_business_analyst",
+    "senior_system_analyst",
+    "senior_ux_writer",
+    "stakeholder_reviewer",
+    "legal_style_reviewer",
+    "lisa_channel_reviewer",
+    "datacanvas_reviewer",
+    "mail_delivery_reviewer",
+    "design_quality_reviewer",
+    "uat_reviewer",
+    "security_acceptance_reviewer",
+    "architecture_reviewer",
+    "support_acceptance_reviewer",
+    "sales_enablement_reviewer",
+    "risk_acceptance_reviewer",
+    "data_quality_reviewer",
+    "accessibility_acceptance_reviewer",
+    "independent_facilitator"
+  ],
+  "topics": [
+    {
+      "topic_id": "button_label",
+      "title": "Текст кнопки заказа презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "Кнопка должна ясно связывать «Справку по клиенту» и презентацию. Текст должен быть максимально коротким; предпочтительно не более трёх слов. Пример «сформировать презентацию по справке» не является вариантом для использования.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "generation_started_message",
+      "title": "Сообщение о начале формирования презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "После принятия данных сообщение должно сохранить время ЧЧ:ММ, обещание «не более 20 минут» и указание, что презентация будет направлена по электронной почте в SIGMA и OMEGA. Нужен краткий деловой понятный текст о времени и результате без грубых побудительных предложений: нельзя предлагать переключиться, заняться чем-либо или проверить почту. Повторный заказ в той же паре сеанс/пользователь после принятия данных заблокирован.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "parallel_common_context",
+        "duplicate_avoidance": "central_consolidation_after_parallel_submission",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "delivery_success_message",
+      "title": "Сообщение об успешной отправке презентации",
+      "status": "pending_owner_selection",
+      "owner_intro": "Сообщение подтверждает успешную отправку презентации по электронной почте в том же чате Лисы. В каждом кандидате обязательно указывается время отправки ЧЧ:ММ. Побудительная формулировка «проверьте почтовый ящик» отклонена на демонстрации как слишком резкая.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "shared",
+        "duplicate_avoidance": "visible_shared_ledger",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "email_subject",
+      "title": "Тема письма с презентацией",
+      "status": "pending_owner_selection",
+      "owner_intro": "Тема письма должна помогать найти среди многих писем презентацию, изготовленную по справке о конкретном клиенте. Она обязательно содержит точное название ООО «Водолей Трейд», кратко и делово сообщает о готовой презентации и не повторяет стиль приложенного образца. Форматы вложений и адреса получателей в теме не указываются.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "parallel_common_context",
+        "duplicate_avoidance": "central_consolidation_after_parallel_submission",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    },
+    {
+      "topic_id": "email_body",
+      "title": "Тело письма с презентацией",
+      "status": "pending_owner_selection",
+      "owner_intro": "Тело письма должно кратко и делово сообщать, что к письму приложена презентация по Справке по клиенту ООО «Водолей Трейд». Нужен корпоративный стиль без обращения по имени, без указания изготовителя или отправителя, форматов вложений, адресов получателей и без копирования приложенного образца письма.",
+      "phase_1": {
+        "participant_count": 19,
+        "minimum_raw_variants_per_participant": 20,
+        "context_visibility": "parallel_common_context",
+        "duplicate_avoidance": "central_consolidation_after_parallel_submission",
+        "consolidated_candidate_count": 30
+      },
+      "phase_2": {
+        "participant_count": 19,
+        "reviewer_group": "independent_from_phase_1",
+        "input_candidate_count": 30,
+        "evaluation_mode": "anonymous",
+        "final_candidate_count": 5
+      },
+      "generated_candidate_texts": []
+    }
+  ]
+}

@@ -1,0 +1,466 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "canonical-svg-frame-pipeline-contract.schema.json",
+  "title": "Неактивный договор SVG-first кадров CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "status",
+    "active",
+    "generator_input",
+    "render_allowed",
+    "archive_allowed",
+    "prototype_revision_candidate",
+    "active_contract_registry_policy",
+    "future_frame_ids",
+    "historical_reference_frame_ids",
+    "scenario_edges",
+    "stakeholder_gallery_order",
+    "message_topics",
+    "text_selection_source",
+    "presentation_pdf_donor_register",
+    "client_reference_svg_update",
+    "external_sources",
+    "frame_svg_sources",
+    "frame_review_session",
+    "acceptance",
+    "forbidden_methods",
+    "release_boundary"
+  ],
+  "properties": {
+    "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
+    "version": { "const": "3.6.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "inactive_pending_canonical_svg_sources_and_frame_approval" },
+    "active": { "const": false },
+    "generator_input": { "const": false },
+    "render_allowed": { "const": false },
+    "archive_allowed": { "const": false },
+    "prototype_revision_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "expected_version", "candidate_is_not_generator_input"],
+      "properties": {
+        "path": { "const": "source/prototype-revision-candidate.json" },
+        "expected_version": { "const": "1.0.0" },
+        "candidate_is_not_generator_input": { "const": true }
+      }
+    },
+    "active_contract_registry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry_path", "listed_in_active_contracts", "inactive_contracts_are_not_generator_inputs"],
+      "properties": {
+        "registry_path": { "const": "source/active-contracts.json" },
+        "listed_in_active_contracts": { "const": false },
+        "inactive_contracts_are_not_generator_inputs": { "const": true }
+      }
+    },
+    "future_frame_ids": { "$ref": "#/$defs/future_frame_ids" },
+    "historical_reference_frame_ids": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/state_id" },
+      "uniqueItems": true
+    },
+    "scenario_edges": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": { "$ref": "#/$defs/scenario_edge" }
+    },
+    "stakeholder_gallery_order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["graph_id", "is_user_scenario_transition", "ordered_state_ids"],
+      "properties": {
+        "graph_id": { "const": "stakeholder_gallery_order" },
+        "is_user_scenario_transition": { "const": false },
+        "ordered_state_ids": { "$ref": "#/$defs/future_frame_ids" }
+      }
+    },
+    "message_topics": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/message_topic" }
+    },
+    "text_selection_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "required_topic_count", "render_blocked_until_all_selected"],
+      "properties": {
+        "path": { "const": "source/owner-approved-texts.json" },
+        "required_topic_count": { "const": 5 },
+        "render_blocked_until_all_selected": { "const": true }
+      }
+    },
+    "presentation_pdf_donor_register": { "$ref": "#/$defs/presentation_pdf_donor_register" },
+    "client_reference_svg_update": { "$ref": "#/$defs/client_reference_svg_update" },
+    "external_sources": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/external_source" }
+    },
+    "frame_svg_sources": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": { "$ref": "#/$defs/frame_svg_source" }
+    },
+    "frame_review_session": { "$ref": "#/$defs/frame_review_session" },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_flow", "prototype_flow", "per_frame_review"],
+      "properties": {
+        "frame_flow": { "$ref": "#/$defs/acceptance_steps" },
+        "prototype_flow": { "$ref": "#/$defs/acceptance_steps" },
+        "per_frame_review": { "$ref": "#/$defs/per_frame_review" }
+      }
+    },
+    "forbidden_methods": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "release_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_evidence_status",
+        "active_release_switch_status",
+        "rollback_mode",
+        "future_transaction_targets"
+      ],
+      "properties": {
+        "candidate_evidence_status": { "const": "pending" },
+        "active_release_switch_status": { "const": "blocked" },
+        "rollback_mode": { "const": "full_bundle_only" },
+        "future_transaction_targets": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    }
+  },
+  "$defs": {
+    "state_id": { "type": "string", "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "state_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/state_id" },
+      "uniqueItems": true
+    },
+    "future_frame_ids": {
+      "const": [
+        "lisa-materials-full-reference",
+        "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
+        "lisa-presentation-sent",
+        "lisa-presentation-email",
+        "lisa-presentation-slidedoc",
+        "lisa-presentation-sber2025",
+        "lisa-presentation-mag",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ]
+    },
+    "scenario_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "from", "event", "to"],
+      "properties": {
+        "type": { "enum": ["lifecycle", "inspection"] },
+        "from": {
+          "anyOf": [
+            { "$ref": "#/$defs/state_id" },
+            { "const": "validating" }
+          ]
+        },
+        "event": { "type": "string", "minLength": 1 },
+        "to": {
+          "anyOf": [
+            { "$ref": "#/$defs/state_id" },
+            { "const": "validating" }
+          ]
+        }
+      }
+    },
+    "message_topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topic_id", "status", "render_blocker"],
+      "properties": {
+        "topic_id": {
+          "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
+        },
+        "status": { "const": "owner_approved" },
+        "render_blocker": { "const": true }
+      }
+    },
+    "external_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "required_for_frame_id",
+        "required_format",
+        "canonical_svg_required_before_render",
+        "status"
+      ],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "required_for_frame_id": { "$ref": "#/$defs/state_id" },
+        "required_format": { "enum": ["owner_supplied_pdf_visual_donor", "canonical_svg_source"] },
+        "canonical_svg_required_before_render": { "const": true },
+        "status": { "enum": ["owner_attachment_received_pending_canonical_svg_intake", "pending_owner_attachment"] }
+      }
+    },
+    "frame_svg_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_id",
+        "svg_editing_mode",
+        "canonical_svg_status",
+        "approved_text_status",
+        "svg_visual_check_status",
+        "draft_png_status",
+        "owner_frame_approval_status"
+      ],
+      "properties": {
+        "frame_id": { "$ref": "#/$defs/state_id" },
+        "svg_editing_mode": { "const": "canonical_svg_existing_groups_only" },
+        "canonical_svg_status": { "type": "string" },
+        "approved_text_status": { "type": "string" },
+        "svg_visual_check_status": { "type": "string" },
+        "draft_png_status": { "type": "string" },
+        "owner_frame_approval_status": { "enum": ["pending", "approved"] }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "frame_id": { "const": "lisa-materials-full-reference" }
+            }
+          },
+          "then": {
+            "properties": {
+              "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
+              "approved_text_status": { "const": "owner_approved" },
+              "svg_visual_check_status": { "const": "passed" },
+              "draft_png_status": { "const": "rendered_current_resolution" },
+              "owner_frame_approval_status": { "const": "approved" }
+            }
+          },
+          "else": {
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "frame_id": { "const": "lisa-presentation-generating" }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
+                    "approved_text_status": { "const": "owner_approved" },
+                    "svg_visual_check_status": { "const": "passed" },
+                    "draft_png_status": { "const": "rendered_current_resolution" },
+                    "owner_frame_approval_status": { "const": "pending" }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "canonical_svg_status": { "const": "pending_source" },
+                    "approved_text_status": { "const": "pending" },
+                    "svg_visual_check_status": { "const": "pending" },
+                    "draft_png_status": { "const": "blocked" }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "frame_review_session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "current_frame_id",
+        "next_frame_id",
+        "source_svg_path",
+        "draft_png_path",
+        "review_manifest_path",
+        "base_frame_id",
+        "base_svg_path",
+        "base_owner_approval_path",
+        "transition_rendering_mode",
+        "edit_mode",
+        "prohibited_legacy_overlay_ids",
+        "active_release_mutation_prohibited",
+        "owner_approval_record_path",
+        "next_frame_blocked_until_owner_approval"
+      ],
+      "properties": {
+        "status": { "const": "draft_png_rendered_pending_owner_approval" },
+        "current_frame_id": { "const": "lisa-presentation-generating" },
+        "next_frame_id": { "const": "lisa-presentation-chat-list" },
+        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg" },
+        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" },
+        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json" },
+        "base_frame_id": { "const": "lisa-materials-full-reference" },
+        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
+        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" },
+        "transition_rendering_mode": { "const": "same_screen_dynamic_state" },
+        "edit_mode": { "const": "replace_existing_frame_group_content" },
+        "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title", "lisa-status-"] },
+        "active_release_mutation_prohibited": { "const": true },
+        "owner_approval_record_path": { "type": "null" },
+        "next_frame_blocked_until_owner_approval": { "const": true }
+      }
+    },
+    "acceptance_steps": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "presentation_pdf_donor_register": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "raw_pdf_direct_render_prohibited", "all_received_pdf_donors_require_canonical_svg"],
+      "properties": {
+        "path": { "const": "source/presentation-pdf-donor-register.json" },
+        "raw_pdf_direct_render_prohibited": { "const": true },
+        "all_received_pdf_donors_require_canonical_svg": { "const": true }
+      }
+    },
+    "client_reference_svg_update": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_data_path",
+        "historical_client_marker",
+        "replacement_client_name",
+        "full_reference_frame_id",
+        "source_group_ids_preserved",
+        "visible_group_ids",
+        "excluded_group_ids",
+        "exclusion_scope",
+        "source_data_mutation_allowed",
+        "cta_geometry",
+        "continuation_frame_ids",
+        "svg_editing_mode",
+        "status"
+      ],
+      "properties": {
+        "source_data_path": { "const": "source/client-reference-data.json" },
+        "historical_client_marker": { "const": "ГК Достовалова" },
+        "replacement_client_name": { "const": "ООО «Водолей Трейд»" },
+        "full_reference_frame_id": { "const": "lisa-materials-full-reference" },
+        "source_group_ids_preserved": {
+          "const": [
+            "general_information",
+            "business_owners",
+            "financial_indicators",
+            "cooperation",
+            "sber_share",
+            "active_deals",
+            "potential",
+            "preapproved_offers",
+            "insights",
+            "meeting_agreements",
+            "dynamic_suggestions",
+            "actions"
+          ]
+        },
+        "visible_group_ids": {
+          "const": [
+            "general_information",
+            "business_owners",
+            "financial_indicators",
+            "cooperation",
+            "sber_share",
+            "active_deals",
+            "potential",
+            "preapproved_offers",
+            "insights",
+            "meeting_agreements"
+          ]
+        },
+        "excluded_group_ids": { "const": ["dynamic_suggestions", "actions"] },
+        "exclusion_scope": { "const": "visual_frame_only" },
+        "source_data_mutation_allowed": { "const": false },
+        "cta_geometry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["button_rect", "font_size", "center_tolerance_px", "measurement_method"],
+          "properties": {
+            "button_rect": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y", "width", "height"],
+              "properties": {
+                "x": { "const": 80 },
+                "y": { "const": 4968 },
+                "width": { "const": 361 },
+                "height": { "const": 40 }
+              }
+            },
+            "font_size": { "const": 16 },
+            "center_tolerance_px": { "const": 0.5 },
+            "measurement_method": { "const": "pinned_font_path_bounding_box" }
+          }
+        },
+        "continuation_frame_ids": {
+          "const": [
+            "lisa-presentation-generating",
+            "lisa-presentation-chat-list",
+            "lisa-presentation-sent",
+            "lisa-order-not-accepted",
+            "lisa-delivery-delayed",
+            "lisa-delivery-partial"
+          ]
+        },
+        "svg_editing_mode": { "const": "canonical_svg_existing_groups_only" },
+        "status": { "const": "pending_frame_cycle" }
+      }
+    },
+    "per_frame_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "review_surface",
+        "allowed_changed_frame_count",
+        "candidate_must_replace_same_frame_id",
+        "next_frame_blocked_until_owner_approval",
+        "active_release_mutation_prohibited"
+      ],
+      "properties": {
+        "required": { "const": true },
+        "review_surface": { "const": "isolated_current_prototype_copy" },
+        "allowed_changed_frame_count": { "const": 1 },
+        "candidate_must_replace_same_frame_id": { "const": true },
+        "next_frame_blocked_until_owner_approval": { "const": true },
+        "active_release_mutation_prohibited": { "const": true }
+      }
+    }
+  }
+}

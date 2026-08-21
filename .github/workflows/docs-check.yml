@@ -29,6 +29,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y librsvg2-bin poppler-utils
       - name: Install dependencies
         run: npm ci
+      - name: Проверить свежесть снимка процессных метрик
+        run: npm run validate:process-metrics-snapshot
       - name: Run repository quality gate
         run: npm test
       - name: Установить браузеры Playwright

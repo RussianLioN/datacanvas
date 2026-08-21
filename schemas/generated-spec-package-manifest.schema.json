@@ -64,6 +64,19 @@
         }
       }
     },
+    "spec_sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["feature_spec_path", "task_spec_path", "prompt_spec_path"],
+        "additionalProperties": false,
+        "properties": {
+          "feature_spec_path": { "type": "string", "minLength": 1 },
+          "task_spec_path": { "type": "string", "minLength": 1 },
+          "prompt_spec_path": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "rollback_signals": { "type": "array", "items": { "type": "string", "minLength": 1 } }
   }
 }

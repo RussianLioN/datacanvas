@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "prototype-package-contract.schema.json",
-  "title": "Договор минимального автономного пакета десятиэкранного маршрута Лисы",
+  "title": "Договор минимального автономного пакета тринадцатиэкранного маршрута Лисы",
   "type": "object",
   "additionalProperties": false,
   "required": [

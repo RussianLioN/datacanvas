@@ -120,9 +120,51 @@ const expectedStates = Object.freeze([
     stageTestId: "document-stage",
     assetPath: "assets/szh-dense-mag-4x.png",
   }),
+  Object.freeze({
+    id: "lisa-order-not-accepted",
+    caption: "Данные для формирования презентации не приняты",
+    logicalDimensions: Object.freeze({ width: 521, height: 980 }),
+    pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
+    hasImmediateCta: false,
+    scrollable: false,
+    presentation: "phone",
+    status: true,
+    statusMessageId: "order_not_accepted",
+    statusText: "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
+  }),
+  Object.freeze({
+    id: "lisa-delivery-delayed",
+    caption: "Отправка презентации задерживается",
+    logicalDimensions: Object.freeze({ width: 521, height: 980 }),
+    pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
+    hasImmediateCta: false,
+    scrollable: false,
+    presentation: "phone",
+    status: true,
+    statusMessageId: "delivery_delayed",
+    statusText: "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.",
+  }),
+  Object.freeze({
+    id: "lisa-delivery-partial",
+    caption: "Частичная или неподтверждённая доставка презентации",
+    logicalDimensions: Object.freeze({ width: 521, height: 980 }),
+    pixelDimensions: Object.freeze({ width: 1563, height: 2940 }),
+    hasImmediateCta: false,
+    scrollable: false,
+    presentation: "phone",
+    status: true,
+    statusMessageId: "delivery_partial",
+    statusText: "Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
+  }),
 ]);
 
-const expectedStateIds = expectedStates.map((state) => state.id);
+const expectedStatusStateIds = Object.freeze([
+  "lisa-order-not-accepted",
+  "lisa-delivery-delayed",
+  "lisa-delivery-partial",
+]);
+const expectedRuntimeStateIds = expectedStates.map((state) => state.id);
+const expectedSuccessfulStateIds = expectedStates.filter((state) => !state.status).map((state) => state.id);
 const expectedEmailState = expectedStates.find((state) => state.id === "lisa-presentation-email");
 const documentStates = expectedStates.filter((state) => state.document);
 const documentStateIds = documentStates.map((state) => state.id);
@@ -278,11 +320,17 @@ function phoneLayerSrc(stateId, role) {
   return `assets/${stateId}-${expectedPhoneLayerSuffixes[role]}-3x.png`;
 }
 
-function expectedPhoneRasterLayers(stateId) {
+function expectedPhoneRasterLayers(expectedOrStateId) {
+  const expected = typeof expectedOrStateId === "string"
+    ? expectedStates.find((state) => state.id === expectedOrStateId)
+    : expectedOrStateId;
+  const requestedStateId = typeof expectedOrStateId === "string" ? expectedOrStateId : expectedOrStateId.id;
+  const stateId = requestedStateId;
+  const assetStateId = expected?.assetStateId ?? stateId;
   const sources = expectedPhoneLayerSources[stateId] ?? expectedDefaultPhoneLayerSources;
   return expectedPhoneLayerRoles.map((role) => ({
     role,
-    src: phoneLayerSrc(stateId, role),
+    src: phoneLayerSrc(assetStateId, role),
     pixelDimensions: {
       width: 1179,
       height: sources[role].height * 3,
@@ -358,7 +406,7 @@ async function assertEmailImageLoaded(page, expected) {
 
 async function assertPhoneLayerImagesLoaded(page, expected) {
   await expect(baseImage(page), `${expected.id}: телефон не должен использовать одиночный state-image`).toHaveCount(0);
-  for (const layer of expectedPhoneRasterLayers(expected.id)) {
+  for (const layer of expectedPhoneRasterLayers(expected)) {
     const container = phoneLayerContainer(page, layer.role);
     await expect(container, `${expected.id}: контейнер слоя ${layer.role} должен быть в DOM`).toHaveCount(1);
     const image = container.locator("img");
@@ -381,8 +429,12 @@ async function assertPhoneLayerImagesLoaded(page, expected) {
         ? "phone-system-top"
         : layer.role === "scroll_content"
           ? "phone-scroll-content"
-          : "phone-system-bottom",
+      : "phone-system-bottom",
     );
+  }
+  if (expected.status) {
+    await expect(page.getByTestId("lifecycle-status-message"), `${expected.id}: запрещено HTML-наложение сообщения статуса`).toHaveCount(0);
+    await expect(phoneScrollContent(page).getByTestId("order-presentation"), `${expected.id}: кнопка заказа должна быть погашена`).toHaveCount(0);
   }
 }
 
@@ -442,7 +494,7 @@ async function expectSlidePosition(page, slideIndex, label) {
   expectCloseCssPx(metrics.scrollTop, metrics.clientHeight * slideIndex, label);
 }
 
-test("Chromium и WebKit открывают все десять состояний напрямую через file:// без сети", async ({ page }) => {
+test("Chromium и WebKit открывают все тринадцать состояний напрямую через file:// без сети", async ({ page }) => {
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
 
@@ -457,7 +509,7 @@ test("Chromium и WebKit открывают все десять состояни
   assertOnlyRuntimeFileRequests(requests, path.join(packageRoot, "demo"));
 });
 
-test("распакованный переносимый ZIP открывает те же десять PNG через file:// без сети", async ({ page }) => {
+test("распакованный переносимый ZIP открывает тот же тринадцатиэкранный маршрут через file:// без сети", async ({ page }) => {
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
 
@@ -472,38 +524,38 @@ test("распакованный переносимый ZIP открывает �
   assertOnlyRuntimeFileRequests(requests, extractedArchiveRoot);
 });
 
-test("стрелки, выбор состояния и клавиатура идут по десятиэкранному маршруту с неактивными границами", async ({ page }) => {
-  await openState(page, expectedStateIds[0]);
+test("стрелки, выбор состояния и клавиатура идут по демонстрационному маршруту с неактивными границами", async ({ page }) => {
+  await openState(page, expectedRuntimeStateIds[0]);
 
   await expect(previousButton(page)).toBeDisabled();
   await expect(nextButton(page)).toBeEnabled();
 
-  for (let index = 1; index < expectedStateIds.length; index += 1) {
+  for (let index = 1; index < expectedRuntimeStateIds.length; index += 1) {
     await nextButton(page).click();
-    await expect(scene(page), `после стрелки вперёд ожидается ${expectedStateIds[index]}`).toHaveAttribute(
+    await expect(scene(page), `после стрелки вперёд ожидается ${expectedRuntimeStateIds[index]}`).toHaveAttribute(
       "data-state-id",
-      expectedStateIds[index],
+      expectedRuntimeStateIds[index],
     );
   }
 
   await expect(nextButton(page)).toBeDisabled();
   await page.keyboard.press("ArrowRight");
-  await expect(scene(page)).toHaveAttribute("data-state-id", expectedStateIds.at(-1));
+  await expect(scene(page)).toHaveAttribute("data-state-id", expectedRuntimeStateIds.at(-1));
 
-  for (let index = expectedStateIds.length - 2; index >= 0; index -= 1) {
+  for (let index = expectedRuntimeStateIds.length - 2; index >= 0; index -= 1) {
     await page.keyboard.press("ArrowLeft");
-    await expect(scene(page), `после ArrowLeft ожидается ${expectedStateIds[index]}`).toHaveAttribute(
+    await expect(scene(page), `после ArrowLeft ожидается ${expectedRuntimeStateIds[index]}`).toHaveAttribute(
       "data-state-id",
-      expectedStateIds[index],
+      expectedRuntimeStateIds[index],
     );
   }
 
   await expect(previousButton(page)).toBeDisabled();
   await page.keyboard.press("ArrowLeft");
-  await expect(scene(page)).toHaveAttribute("data-state-id", expectedStateIds[0]);
+  await expect(scene(page)).toHaveAttribute("data-state-id", expectedRuntimeStateIds[0]);
 });
 
-test("маршрут после письма открывает три документа и возвращается назад к ранним состояниям", async ({ page }) => {
+test("маршрут после письма открывает три документа, затем три ошибочных статуса и возвращается назад", async ({ page }) => {
   await openState(page, "lisa-presentation-email");
   await expect(previousButton(page)).toBeEnabled();
   await expect(nextButton(page), "после письма должна быть доступна стрелка к документам").toBeEnabled();
@@ -517,11 +569,28 @@ test("маршрут после письма открывает три доку�
     await expect(scene(page)).toHaveAttribute("data-presentation", "desktop");
   }
 
-  await expect(nextButton(page), "последний документ должен отключать стрелку вправо").toBeDisabled();
-  await page.keyboard.press("ArrowRight");
-  await expect(scene(page)).toHaveAttribute("data-state-id", documentStateIds.at(-1));
+  await expect(nextButton(page), "последний документ должен вести к ошибочным экранам в конце").toBeEnabled();
+  for (const stateId of expectedStatusStateIds) {
+    await nextButton(page).click();
+    await expect(scene(page), `после презентаций должен открыться статус ${stateId}`).toHaveAttribute(
+      "data-state-id",
+      stateId,
+    );
+    await expect(scene(page)).toHaveAttribute("data-presentation", "phone");
+  }
 
-  for (const stateId of ["lisa-presentation-sber2025", "lisa-presentation-slidedoc", "lisa-presentation-email"]) {
+  await expect(nextButton(page), "последний ошибочный статус должен отключать стрелку вправо").toBeDisabled();
+  await page.keyboard.press("ArrowRight");
+  await expect(scene(page)).toHaveAttribute("data-state-id", expectedStatusStateIds.at(-1));
+
+  for (const stateId of [
+    "lisa-delivery-delayed",
+    "lisa-order-not-accepted",
+    "lisa-presentation-mag",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-email",
+  ]) {
     await previousButton(page).click();
     await expect(scene(page), `стрелка влево должна вернуть к ${stateId}`).toHaveAttribute("data-state-id", stateId);
   }
@@ -1260,13 +1329,13 @@ test("почта является отдельной десктопной сце
 });
 
 test("навигационный DOM не содержит старых идентификаторов состояний", async ({ page }) => {
-  await openState(page, expectedStateIds[0]);
+  await openState(page, expectedRuntimeStateIds[0]);
 
   const navigationStateIds = await page.evaluate(() => [
     ...document.querySelectorAll("[data-state-id], [data-target-state-id]"),
   ].map((node) => node.getAttribute("data-state-id") || node.getAttribute("data-target-state-id")));
 
-  expect(navigationStateIds.filter(Boolean).every((stateId) => expectedStateIds.includes(stateId))).toBe(true);
+  expect(navigationStateIds.filter(Boolean).every((stateId) => expectedRuntimeStateIds.includes(stateId))).toBe(true);
 
   const bodyText = await page.locator("body").evaluate((node) => node.innerHTML);
   for (const fragment of forbiddenLegacyStateFragments) {

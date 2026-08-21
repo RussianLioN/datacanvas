@@ -98,6 +98,59 @@
       "evidence_refs": [],
       "allowed_downstream_use": ["hypothesis_backlog"],
       "promoted_to_requirement": false
+    },
+    {
+      "claim_id": "BASA-CLM-011",
+      "safe_summary": "В Q4_2026 адреса получателей ODT и PDF определяются только через сервис «Профиль сотрудника»; адрес из исходного запроса не используется.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-012",
+      "safe_summary": "Для пары идентификаторов сеанса и пользователя в Q4_2026 принимается один заказ: исправление возможно только до принятия, а после принятия повтор блокируется.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md"
+      ],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-013",
+      "safe_summary": "Пользователь получает в том же чате Лисы безопасное состояние заказа; для будущего кандидата тексты начала и успеха берутся из реестра утверждённых текстов, а системный PUSH, ссылка на файл, личные сведения и содержание запроса не показываются.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
+      ],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "safe_summary": "Контур Q4_2026 ограничен адресами через «Профиль сотрудника», ODT/PDF, почтой и состоянием в том же чате; расширенное редактирование, хранилище, ссылка и системный PUSH требуют нового решения Product Owner.",
+      "trust_status": "confirmed",
+      "data_class": "internal",
+      "evidence_refs": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+        "docs/product/requirements/business-requirements.md"
+      ],
+      "allowed_downstream_use": ["artifact_generation", "acceptance_gate"],
+      "promoted_to_requirement": true
     }
   ],
   "stakeholders": [
@@ -114,6 +167,13 @@
       "interest": "Сохранить no-network-by-default и недоверенную классификацию внешних payloads.",
       "decision_right": "Security boundary review.",
       "source_claim_ids": ["BASA-CLM-004"]
+    },
+    {
+      "stakeholder_id": "STK-003",
+      "role": "Пользователь Лисы",
+      "interest": "Получить один понятный результат в прежнем чате без раскрытия личных данных и без дублирующей доставки.",
+      "decision_right": "Не определяет внешний контракт; использует согласованный Q4_2026-сценарий.",
+      "source_claim_ids": ["BASA-CLM-012", "BASA-CLM-013", "BASA-CLM-014"]
     }
   ],
   "needs": [
@@ -128,6 +188,12 @@
       "summary": "Безопасно передавать agent-ready specs без сырых ответов.",
       "stakeholder_id": "STK-002",
       "source_claim_ids": ["BASA-CLM-004", "BASA-CLM-006"]
+    },
+    {
+      "need_id": "NEED-003",
+      "summary": "Оформить один заказ из Лисы, определить допустимые адреса через «Профиль сотрудника» и увидеть безопасное состояние результата в том же чате.",
+      "stakeholder_id": "STK-003",
+      "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-012", "BASA-CLM-013", "BASA-CLM-014"]
     }
   ],
   "requirements": [
@@ -172,6 +238,34 @@
       "source_claim_ids": ["BASA-CLM-009"],
       "acceptance_refs": ["AC-BASA-004"],
       "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-019",
+      "summary": "DataCanvas отправляет ODT и PDF на адреса, определенные через «Профиль сотрудника», без принятия произвольного адреса из запроса.",
+      "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-014"],
+      "acceptance_refs": ["q4_profile_delivery"],
+      "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-022",
+      "summary": "Для пары сеанс/пользователь принимается один заказ; после принятия повторный запрос отклоняется.",
+      "source_claim_ids": ["BASA-CLM-012"],
+      "acceptance_refs": ["q4_lisa_order"],
+      "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-023",
+      "summary": "Дословно согласованное безопасное состояние заказа возвращается в тот же чат Лисы без системного PUSH и без ссылки на файл.",
+      "source_claim_ids": ["BASA-CLM-013", "BASA-CLM-014"],
+      "acceptance_refs": ["q4_status_in_same_chat"],
+      "coverage_status": "covered"
+    },
+    {
+      "requirement_id": "BT-024",
+      "summary": "После задержанной, частичной или неподтвержденной доставки сеанс переходит на сопровождение и закрывается; новый заказ в нем не создается.",
+      "source_claim_ids": ["BASA-CLM-013", "BASA-CLM-014"],
+      "acceptance_refs": ["q4_delayed_or_partial_delivery"],
+      "coverage_status": "covered"
     }
   ],
   "business_rules": [
@@ -195,8 +289,49 @@
       "owner_role": "Security/Privacy Lead",
       "verification": "npm run validate:interface-contracts",
       "source_claim_ids": ["BASA-CLM-004"]
+    },
+    {
+      "rule_id": "BRULE-004",
+      "summary": "Адреса получателей результата определяются только через сервис «Профиль сотрудника»; произвольный адрес из запроса не используется.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-011"]
+    },
+    {
+      "rule_id": "BRULE-005",
+      "summary": "Для пары идентификаторов сеанса и пользователя допускается один заказ; повтор возможен только до принятия запроса.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-012"]
+    },
+    {
+      "rule_id": "BRULE-006",
+      "summary": "Пользователь видит в том же чате Лисы только безопасное состояние заказа; в будущем кандидате тексты начала и успеха дословно совпадают с реестром утверждённых текстов, личные сведения и содержание запроса не показываются.",
+      "owner_role": "Security/Privacy Lead",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-013"]
+    },
+    {
+      "rule_id": "BRULE-007",
+      "summary": "В Q4_2026 входят адреса через «Профиль сотрудника», ODT/PDF, почта и состояние в том же чате; ссылка, хранилище, PUSH и расширенное редактирование структуры относятся к будущему объему.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-014"]
+    },
+    {
+      "rule_id": "BRULE-008",
+      "summary": "После задержанной, частичной или неподтвержденной доставки принятый заказ не дублируется: сеанс переходит на сопровождение, закрывается и не принимает новый заказ.",
+      "owner_role": "Product Owner",
+      "verification": "npm run validate:business-rules",
+      "source_claim_ids": ["BASA-CLM-013", "BASA-CLM-014"]
     }
   ],
   "acceptance_deltas": ["AC-BASA-001", "AC-BASA-002", "AC-BASA-003", "AC-BASA-004"],
-  "open_decisions": ["BASA-OQ-002"]
+  "open_decisions": [
+    "BASA-OQ-002",
+    "Точный API, аутентификация, протокол и состав ответа сервиса «Профиль сотрудника».",
+    "Точный API, аутентификация, протокол и подтверждение почтового сервиса.",
+    "Объявление и контракт внутреннего получателя статуса: другой агент, Оркестратор или Лиса.",
+    "Внешняя политика повторов и канал сопровождения при задержанной, частичной или неподтвержденной доставке."
+  ]
 }

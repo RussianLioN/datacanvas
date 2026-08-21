@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "feature_id": "FS-002",
+  "status": "draft",
+  "priority": "P1",
+  "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-014"],
+  "requirement_ids": ["BT-019"],
+  "human_intent": "Определять допустимые адреса только через «Профиль сотрудника» и подготовить функциональную границу почтовой доставки ODT и PDF по одному или двум контурам с утверждёнными темой и телом письма без включения рабочего внешнего договора.",
+  "non_goals": [
+    "Не фиксировать API, аутентификацию, протокол или состав ответа «Профиля сотрудника» и почтового сервиса",
+    "Не принимать произвольный адрес из запроса",
+    "Не включать ссылку на файл, отдельное хранилище, системный PUSH или расширенное редактирование структуры"
+  ],
+  "acceptance": ["q4_profile_addresses", "q4_profile_email_delivery"],
+  "eval_cases": ["BASA-EVAL-005"],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_behaviors": [
+    "Раскрывать адреса, полные идентификаторы или содержание запроса в спецификации, статусе либо подсказке агенту",
+    "Изобретать рабочие почтовые, сетевые или иные внешние интеграции",
+    "Выдавать будущий объем за утвержденный Q4_2026"
+  ],
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-25", "DC-ST-29", "DC-ST-30"],
+    "acceptance_scenario_ids": ["q4_profile_addresses", "q4_profile_email_delivery"],
+    "interface_ids": ["IF-006", "IF-007"],
+    "business_rule_ids": ["BRULE-004", "BRULE-007"]
+  }
+}

@@ -36,6 +36,45 @@
       ]
     },
     {
+      "generator_id": "datacanvas-xlsx-backlog-2026-08-17-working",
+      "owner_role": "Product Owner / Security Lead",
+      "inputs": [
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "outputs": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ],
+      "allowed_writes": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ],
+      "generate_command": "npm run generate:xlsx-backlog-2026-08-17 -- --source <external-owner-xlsx> --expected-original-sha256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1",
+      "check_command": "npm run validate:xlsx-backlog-2026-08-17",
+      "deterministic_environment": "Python 3, неизменяемый внешний Excel Product Owner с независимо закрепленным SHA-256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1, без сети; допускается удаление absPath, очистка персонального автора в core/comments и принятое Product Owner переименование строки старого PUSH на листе СОЗАВИСИМОСТЬ Q3_2026 без изменения формул и структуры",
+      "dependencies": [
+        "datacanvas-xlsx-sanitized-reference"
+      ],
+      "post_validators": [
+        "npm run validate:xlsx-backlog-2026-08-17",
+        "npm run validate:xlsx-source-security",
+        "npm run validate:xlsx-backlog",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "original_source_hash_mismatch",
+        "missing_abs_path",
+        "unexpected_ooxml_part_change",
+        "local_pointer_remains",
+        "personal_comment_metadata_remains",
+        "formula_removed",
+        "wrong_total_source",
+        "stale_push_label_remains",
+        "invalid_xlsx_package"
+      ]
+    },
+    {
       "generator_id": "datacanvas-jira-stories",
       "owner_role": "Product Owner / Process Owner",
       "inputs": [
@@ -109,6 +148,39 @@
         "stale_generated_output",
         "missing_navigation_source",
         "unknown_public_entry"
+      ]
+    },
+    {
+      "generator_id": "process-metrics-snapshot",
+      "owner_role": "Process Owner / Documentation Owner",
+      "inputs": [
+        "docs/process/current/process-metrics-manifest.json",
+        "docs/process/current/process-event-log.json",
+        "docs/architecture/schemas/artifact-registry.json",
+        "docs/process/current/process-change-ledger.json",
+        "docs/sprints",
+        "scripts/collect-process-metrics.mjs"
+      ],
+      "outputs": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ],
+      "allowed_writes": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
+      ],
+      "generate_command": "node scripts/collect-process-metrics.mjs",
+      "check_command": "npm run validate:process-metrics-snapshot",
+      "deterministic_environment": "Node.js, зафиксированное содержимое репозитория, без сети",
+      "dependencies": [],
+      "post_validators": [
+        "npm run validate:process-metrics-snapshot",
+        "npm run validate:artifact-hashes"
+      ],
+      "failure_modes": [
+        "stale_process_metrics_snapshot",
+        "artifact_registry_count_mismatch",
+        "manual_generated_snapshot_edit"
       ]
     },
     {
@@ -490,10 +562,62 @@
         "hash_mismatch",
         "broken_local_navigation"
       ]
+    },
+    {
+      "generator_id": "co-2026-003-prototype-delivery-archive",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "inputs": [
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+        "scripts/generate-presentation-link-lisa-user-journey.mjs",
+        "scripts/generate-documentation-archive.mjs",
+        "scripts/lib/documentation-archive.mjs"
+      ],
+      "outputs": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip"
+      ],
+      "allowed_writes": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip"
+      ],
+      "release_gate_contract_path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "generate_command": "npm run generate:co-2026-003-delivery-archive",
+      "check_command": "npm run check:co-2026-003-delivery-archive",
+      "deterministic_environment": "Node.js 22.20.0, ZIP store с фиксированными метаданными, относительные пути, без сети и локальных абсолютных путей",
+      "dependencies": [
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json"
+      ],
+      "post_validators": [
+        "npm run check:co-2026-003-delivery-archive",
+        "npm run validate:co-2026-003-delivery-archive",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "content_review_not_approved",
+        "visual_release_not_approved",
+        "stale_or_missing_prototype",
+        "stale_archive",
+        "missing_primary_artifact",
+        "unexpected_archive_member",
+        "duplicate_archive_member",
+        "path_traversal",
+        "symlink_input",
+        "hash_mismatch",
+        "broken_local_navigation"
+      ]
     }
   ],
   "topological_order": [
     "datacanvas-xlsx-sanitized-reference",
+    "datacanvas-xlsx-backlog-2026-08-17-working",
     "datacanvas-jira-stories",
     "documentation-cascade-run",
     "documentation-cascade-finalization",
@@ -501,7 +625,9 @@
     "documentation-cascade-completion",
     "docs-navigation",
     "datacanvas-bmc",
+    "process-metrics-snapshot",
     "artifact-hash-manifest",
-    "documentation-archive"
+    "documentation-archive",
+    "co-2026-003-prototype-delivery-archive"
   ]
 }

@@ -34,6 +34,14 @@
     "data_class": { "type": "string", "enum": ["internal"] },
     "visibility": { "type": "string", "enum": ["restricted"] },
     "primary_selection": { "type": "string", "const": "all_stage_primary_artifacts" },
+    "exclude_primary_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+      }
+    },
     "additional_artifacts": {
       "type": "array",
       "minItems": 1,
@@ -61,9 +69,28 @@
       "additionalProperties": false,
       "properties": {
         "trigger": { "type": "string", "const": "any_byte_change_in_resolved_member_or_contract" },
-        "generate_command": { "type": "string", "const": "npm run generate:documentation-archive" },
-        "check_command": { "type": "string", "const": "npm run check:documentation-archive" },
-        "validation_command": { "type": "string", "const": "npm run validate:documentation-archive" }
+        "generate_command": { "type": "string", "enum": ["npm run generate:documentation-archive", "npm run generate:co-2026-003-delivery-archive"] },
+        "check_command": { "type": "string", "enum": ["npm run check:documentation-archive", "npm run check:co-2026-003-delivery-archive"] },
+        "validation_command": { "type": "string", "enum": ["npm run validate:documentation-archive", "npm run validate:co-2026-003-delivery-archive"] }
+      }
+    },
+    "release_gate": {
+      "type": "object",
+      "required": [
+        "journey_contract_path",
+        "required_content_review_status",
+        "required_visual_release_status",
+        "prototype_check"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "journey_contract_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"
+        },
+        "required_content_review_status": { "type": "string", "const": "approved_product_owner" },
+        "required_visual_release_status": { "type": "string", "const": "approved_product_owner" },
+        "prototype_check": { "type": "string", "const": "presentation_link_lisa_user_journey" }
       }
     }
   }

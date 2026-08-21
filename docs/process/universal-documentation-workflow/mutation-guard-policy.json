@@ -17,6 +17,13 @@
       ]
     },
     {
+      "generator_id": "datacanvas-xlsx-backlog-2026-08-17-working",
+      "allowed_writes": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+      ]
+    },
+    {
       "generator_id": "datacanvas-jira-stories",
       "allowed_writes": [
         "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
@@ -29,6 +36,13 @@
         "docs/navigation/navigation-map.md",
         "docs/navigation/orphan-docs-report.md",
         "docs/navigation/stale-status-report.md"
+      ]
+    },
+    {
+      "generator_id": "process-metrics-snapshot",
+      "allowed_writes": [
+        "docs/process/current/process-metrics-snapshot.json",
+        "docs/process/current/process-metrics-snapshot.md"
       ]
     },
     {
@@ -89,6 +103,12 @@
       "generator_id": "documentation-archive",
       "allowed_writes": [
         "artifacts/documentation-archive/datacanvas-main-documentation.zip"
+      ]
+    },
+    {
+      "generator_id": "co-2026-003-prototype-delivery-archive",
+      "allowed_writes": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip"
       ]
     }
   ],

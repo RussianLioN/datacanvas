@@ -20,12 +20,32 @@ const FRAME_CONTRACT_PATH = `${PACKAGE_PATH}/source/frame-contract.json`;
 const SOURCE_RENDER_CATALOG_PATH = `${PACKAGE_PATH}/source/source-render-catalog.json`;
 const VISUAL_BASIS_CONTRACT_PATH = `${PACKAGE_PATH}/source/visual-basis-contract.json`;
 const PROTOTYPE_PACKAGE_CONTRACT_PATH = `${PACKAGE_PATH}/source/prototype-package-contract.json`;
+const AUTHORITATIVE_INTERVIEW_REGISTER_PATH = "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json";
 const EMAIL_SOURCE_FALLBACK = "editable-sources/7.4 — Письмо с презентацией.png";
 const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 const SOURCE_BODY_CORNER_RADIUS = 32;
 const PHONE_LAYER_ROLES = Object.freeze(["system_top", "scroll_content", "system_bottom"]);
 const STATIC_RUNTIME_FILES = ["index.html", "styles.css", "app.js", "data.js"];
 const ARCHIVE_STATIC_MEMBERS = ["README.md", "manifest.json", "index.html", "app.js", "data.js", "styles.css"];
+const LIFECYCLE_STATE_IDS = Object.freeze([
+  "eligible",
+  "validating",
+  "rejected_retryable",
+  "accepted_locked",
+  "generating",
+  "delivery_confirmed",
+  "delayed",
+  "delivery_partial",
+  "support_pending",
+  "session_closed",
+]);
+const LIFECYCLE_MESSAGE_IDS = Object.freeze([
+  "order_started",
+  "order_not_accepted",
+  "delivery_confirmed",
+  "delivery_delayed",
+  "delivery_partial",
+]);
 let runtimePublishRenameHook = null;
 
 function fail(message) {
@@ -209,9 +229,130 @@ function normalizeDesktopRaster(visualState, stateId) {
   };
 }
 
+function validateLifecycle(lifecycle, ctaStates, orderedStateIds, authoritativeRegister) {
+  if (!lifecycle || lifecycle.model !== "variant") fail("договор пути должен содержать вариантный жизненный цикл");
+  if (!["pending_product_owner", "approved_product_owner"].includes(lifecycle.content_review_status)) {
+    fail("договор пути должен явно задавать статус согласования содержания");
+  }
+  if (!["pending_product_owner", "approved_product_owner"].includes(lifecycle.visual_release_status)) {
+    fail("договор пути должен явно задавать статус визуального выпуска");
+  }
+  const visualReleaseGate = authoritativeRegister?.visual_release_gate;
+  if (
+    !visualReleaseGate ||
+    visualReleaseGate.content_review_status !== lifecycle.content_review_status ||
+    visualReleaseGate.visual_release_status !== lifecycle.visual_release_status ||
+    visualReleaseGate.release_condition !== "explicit_product_owner_visual_approval"
+  ) {
+    fail("договор пути и реестр интервью должны согласованно разделять одобрение содержания и визуального выпуска");
+  }
+  if (!Array.isArray(lifecycle.states)) fail("вариантный жизненный цикл должен содержать состояния");
+  const stateIds = lifecycle.states.map((state) => state?.id);
+  assertSameStringArray(stateIds, LIFECYCLE_STATE_IDS, "вариантный жизненный цикл/states");
+  for (const state of lifecycle.states) {
+    if (!Array.isArray(state.next_state_ids)) fail(`${state.id}: не заданы допустимые переходы`);
+    for (const targetStateId of state.next_state_ids) {
+      if (!stateIds.includes(targetStateId)) fail(`${state.id}: переход ведёт в неизвестное состояние ${targetStateId}`);
+    }
+  }
+  const button = lifecycle.button;
+  if (!button || button.submission !== "immediate_without_confirmation") {
+    fail("кнопка заказа должна отправлять запрос сразу, без второго подтверждения");
+  }
+  assertSameStringArray(button.source_state_ids, ctaStates, "источники CTA вариантного жизненного цикла");
+  if (button.retry_after !== "rejected_retryable" || !button.enabled_in?.includes("rejected_retryable")) {
+    fail("повтор заказа допускается только после исправления непринятого запроса");
+  }
+  if (!button.enabled_in?.includes("eligible") || !button.disabled_in?.includes("accepted_locked")) {
+    fail("CTA должна быть доступна до принятия и заблокирована после принятия заказа");
+  }
+  const buttonStateIds = [...(button.enabled_in || []), ...(button.disabled_in || [])];
+  assertSameStringArray([...buttonStateIds].sort(), [...LIFECYCLE_STATE_IDS].sort(), "доступность CTA по состояниям");
+  if (new Set(buttonStateIds).size !== buttonStateIds.length) fail("состояние CTA не может быть одновременно доступно и заблокировано");
+  const lock = lifecycle.single_order_lock;
+  if (lock?.scope !== "session_user_pair" || lock.locks_on !== "accepted_locked" || lock.duplicate_behavior !== "reject_after_acceptance") {
+    fail("договор должен блокировать повторный заказ для пары сеанс/пользователь после принятия");
+  }
+  const chat = lifecycle.chat;
+  if (chat?.delivery !== "same_chat_on_return" || chat.persistence !== true || chat.system_push !== false || chat.safe_message_only !== true) {
+    fail("безопасное состояние должно сохраняться и возвращаться в тот же чат без системного PUSH");
+  }
+  const scope = lifecycle.scope;
+  if (scope?.result_link !== false || scope.separate_storage !== false || scope.rich_structure_editing !== false) {
+    fail("договор пути не должен включать ссылку, отдельное хранилище или расширенное редактирование структуры");
+  }
+  const variants = lifecycle.delivery_variants || [];
+  assertSameStringArray(variants.map((variant) => variant?.id), ["one_contour", "two_contours"], "варианты доставки");
+  if (variants[0]?.contour_count !== 1 || variants[1]?.contour_count !== 2) fail("варианты доставки должны различать один и два контура");
+  const messages = lifecycle.messages || [];
+  assertSameStringArray(messages.map((message) => message?.id), LIFECYCLE_MESSAGE_IDS, "каталог сообщений");
+  if (!Array.isArray(authoritativeRegister?.authoritative_messages) || authoritativeRegister.authoritative_messages.length !== LIFECYCLE_MESSAGE_IDS.length) {
+    fail("реестр интервью должен содержать пять согласованных сообщений");
+  }
+  if ((authoritativeRegister.unresolved_authoritative_text_ids || []).length !== 0) {
+    fail("реестр интервью не должен оставлять согласованные сообщения неразрешенными");
+  }
+  const authoritativeMessagesById = new Map(authoritativeRegister.authoritative_messages.map((message) => [message.message_id, message]));
+  for (const message of messages) {
+    const authoritativeMessage = authoritativeMessagesById.get(message.message_id);
+    if (
+      message.decision_id !== "CO3-DEC-007" ||
+      message.authoritative_text_status !== "agreed" ||
+      !authoritativeMessage ||
+      authoritativeMessage.lifecycle_message_id !== message.id ||
+      authoritativeMessage.text !== message.authoritative_text
+    ) {
+      fail(`${message.id}: текст статуса должен дословно совпадать с реестром согласованных сообщений`);
+    }
+  }
+  const partialMessage = messages.find((message) => message.id === "delivery_partial");
+  if (partialMessage?.contour_display_rule !== "by_actual_address_lookup") {
+    fail("частичная доставка должна подставлять один или два контура по фактическому результату поиска адресов");
+  }
+  const screenSequence = lifecycle.screen_sequence;
+  if (screenSequence?.decision_id !== "CO3-DEC-009" || screenSequence.preserve_existing_source_order !== true) {
+    fail("договор должен сохранять согласованный исходный порядок экранов");
+  }
+  assertSameStringArray(screenSequence.existing_state_ids, orderedStateIds, "сохраненный исходный порядок экранов");
+  if (
+    screenSequence.additional_status_placement !== "after_existing_presentation_states" ||
+    !["source_ready_visual_generation_not_run", "visual_generation_completed"].includes(screenSequence.generation_status)
+  ) {
+    fail("дополнительные статусы допускаются только в конце; статус визуальной генерации должен быть задан явно");
+  }
+  if (
+    screenSequence.generation_status === "visual_generation_completed" &&
+    (lifecycle.content_review_status !== "approved_product_owner" || lifecycle.visual_release_status !== "approved_product_owner")
+  ) {
+    fail("завершённая визуальная генерация требует двух одобрений владельца продукта");
+  }
+  if (
+    screenSequence.delivery_failure_presentation?.decision_id !== "CO3-DEC-009" ||
+    screenSequence.delivery_failure_presentation?.presentation_state_id !== "lisa-delivery-partial" ||
+    screenSequence.delivery_failure_presentation?.lifecycle_message_id !== "delivery_partial" ||
+    screenSequence.delivery_failure_presentation?.separate_screen !== false
+  ) {
+    fail("полная недоставка должна использовать экран и согласованный текст частичной доставки без отдельного экрана");
+  }
+  const statusPresentations = screenSequence.status_presentations;
+  if (!Array.isArray(statusPresentations) || statusPresentations.length !== screenSequence.additional_status_state_ids.length) {
+    fail("для каждого дополнительного статуса должно быть задано отображение");
+  }
+  assertSameStringArray(statusPresentations.map((item) => item.state_id), screenSequence.additional_status_state_ids, "порядок экранов статусов");
+  const messageIds = new Set(messages.map((message) => message.id));
+  const orderedStateIdSet = new Set(orderedStateIds);
+  for (const presentation of statusPresentations) {
+    if (!orderedStateIdSet.has(presentation.base_state_id) || !messageIds.has(presentation.lifecycle_message_id)) {
+      fail(`${presentation.state_id}: экран статуса должен использовать согласованный экран с погашенной кнопкой и сообщение`);
+    }
+  }
+  return lifecycle;
+}
+
 export function loadSevenScreenContracts(root = process.cwd()) {
   const registry = readJson(root, ACTIVE_CONTRACTS_PATH);
   const journey = readJson(root, JOURNEY_CONTRACT_PATH);
+  const authoritativeInterviewRegister = readJson(root, AUTHORITATIVE_INTERVIEW_REGISTER_PATH);
   const frameContract = readJson(root, FRAME_CONTRACT_PATH);
   const sourceRenderCatalog = readJson(root, SOURCE_RENDER_CATALOG_PATH);
   const visualBasis = readJson(root, VISUAL_BASIS_CONTRACT_PATH);
@@ -255,7 +396,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
   const frameById = new Map(frameContract.frames.map((frame) => [frame.state_id, frame]));
   const visualById = new Map(visualStates.map((state) => [state.state_id || state.id, state]));
 
-  const states = activeStateIds.map((stateId, index) => {
+  const baseStates = activeStateIds.map((stateId, index) => {
     const journeyState = journeyById.get(stateId);
     const frame = frameById.get(stateId);
     const visualState = visualById.get(stateId);
@@ -305,27 +446,49 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     return state;
   });
 
+  const originalStateIds = journey.lifecycle?.screen_sequence?.existing_state_ids;
+  const lifecycle = validateLifecycle(
+    journey.lifecycle,
+    baseStates.filter((state) => state.cta_rect).map((state) => state.id),
+    originalStateIds,
+    authoritativeInterviewRegister,
+  );
+  const statusPresentationById = new Map(lifecycle.screen_sequence.status_presentations.map((item) => [item.state_id, item]));
+  for (const state of baseStates) {
+    const statusPresentation = statusPresentationById.get(state.id);
+    if (!statusPresentation) continue;
+    if (state.source_id !== statusPresentation.source_id) {
+      fail(`${state.id}: канонический SVG статуса должен совпадать с source_id в последовательности экранов`);
+    }
+    if (state.cta_rect !== null || state.action_ids.length !== 0) {
+      fail(`${state.id}: экран статуса не должен содержать активную кнопку заказа`);
+    }
+  }
+  const states = baseStates;
   if (journey.initial_state_id !== states[0].id) fail("начальным должен быть первый экран маршрута");
-  if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total < states.at(-1).display_order) {
+  if (!Number.isInteger(journey.navigation?.display_total) || journey.navigation.display_total !== states.at(-1).display_order) {
     fail("не задан корректный общий отображаемый номер маршрута");
   }
   const orderAction = (journey.actions || []).find((action) => action.id === "order-presentation");
   if (!orderAction || !states.some((state) => state.id === orderAction.target_state_id)) {
     fail("не задан переход заказа презентации в активное состояние");
   }
-  const ctaStates = states.filter((state) => state.cta_rect).map((state) => state.id);
+  const ctaStates = baseStates.filter((state) => state.cta_rect).map((state) => state.id);
   if (JSON.stringify(orderAction.source_state_ids) !== JSON.stringify(ctaStates)) {
     fail("источники действия заказа не совпадают с CTA визуального договора");
   }
   const expectedArchiveMembers = [
     ...ARCHIVE_STATIC_MEMBERS,
-    ...states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)),
+    ...[...new Set(states.flatMap((state) => stateAssetNames(state).map((name) => `assets/${name}`)))].sort(),
   ];
-  assertSameStringArray(packageContract.archive_members, expectedArchiveMembers, "договор пакета/archive_members");
+  if (JSON.stringify([...packageContract.archive_members].sort()) !== JSON.stringify([...expectedArchiveMembers].sort())) {
+    fail(`договор пакета/archive_members: состав не совпадает; ожидается ${expectedArchiveMembers.join(", ")}`);
+  }
 
   return {
     registry,
     journey,
+    authoritativeInterviewRegister,
     frameContract,
     sourceRenderCatalog,
     visualBasis,
@@ -335,6 +498,7 @@ export function loadSevenScreenContracts(root = process.cwd()) {
     },
     states,
     orderAction,
+    lifecycle,
   };
 }
 
@@ -356,6 +520,7 @@ function renderRuntimeData(contracts) {
     version: contracts.journey.version,
     initial_state_id: contracts.journey.initial_state_id,
     order_target_state_id: contracts.orderAction.target_state_id,
+    lifecycle: contracts.lifecycle,
     navigation: {
       display_total: contracts.journey.navigation.display_total,
     },
@@ -377,6 +542,7 @@ function renderRuntimeData(contracts) {
         content: state.content,
         logical_dimensions: state.source.logical_dimensions,
         cta_rect: state.cta_rect,
+        status_message: state.status_message,
       };
       if (state.presentation === "phone") {
         const layers = state.raster_layers.map(renderLayerData);
@@ -462,7 +628,7 @@ function bytesFromImportedRaster(resultBySourcePath, raster, label) {
 function buildInternalManifest(contracts, runtimeEntries, candidateFingerprint) {
   return {
     version: "3.0.0",
-    status: "portable-ten-screen-prototype",
+    status: "portable-thirteen-screen-prototype",
     candidate_fingerprint: { algorithm: "sha256", sha256: candidateFingerprint },
     state_ids: contracts.states.map((state) => state.id),
     active_state_ids: contracts.states.map((state) => state.id),
@@ -473,7 +639,7 @@ function buildInternalManifest(contracts, runtimeEntries, candidateFingerprint) 
 function buildArchiveReadme(contracts) {
   return Buffer.from(`# Автономный прототип заказа презентации
 
-В архиве находится один десятиэкранный пользовательский путь. Все изображения и данные синтетические. Сетевые подключения не используются.
+В архиве находятся десять исходных экранов пользовательского пути и три экрана согласованных ошибочных статусов в конце маршрута. Все изображения и данные синтетические. Сетевые подключения не используются.
 
 Откройте \`index.html\` двойным щелчком или перетащите файл в Chromium, Safari либо другой современный браузер. Стрелки в левой панели и клавиши ←/→ переключают экраны. На длинных телефонных экранах прокрутка выполняется внутри средней области смартфона. Три варианта презентации после письма автоматически масштабируются под окно; их страницы прокручиваются внутри десктопной сцены.
 
@@ -523,12 +689,13 @@ export async function buildSevenScreenPrototype(root = process.cwd(), { writeRas
     }
   }
 
+  const uniqueAssetEntries = [...new Map(assetEntries.map((entry) => [entry.name, entry])).values()];
   const runtimeEntries = [
     { name: "index.html", content: readTemplate(root, "index.html") },
     { name: "app.js", content: readTemplate(root, "app.js") },
     { name: "data.js", content: renderRuntimeData(contracts) },
     { name: "styles.css", content: readTemplate(root, "styles.css") },
-    ...assetEntries,
+    ...uniqueAssetEntries,
   ];
   const fingerprintPayload = runtimeEntries.map((entry) => ({ path: entry.name, bytes: entry.content.length, sha256: sha256(entry.content) }));
   const candidateFingerprint = sha256(jsonBytes(fingerprintPayload));
@@ -542,7 +709,7 @@ export async function buildSevenScreenPrototype(root = process.cwd(), { writeRas
   const archive = createStoredZip(archiveEntries);
   const externalManifest = {
     version: "3.0.0",
-    status: "portable-ten-screen-prototype",
+    status: "portable-thirteen-screen-prototype",
     candidate_fingerprint: { algorithm: "sha256", sha256: candidateFingerprint },
     state_ids: contracts.states.map((state) => state.id),
     runtime_files: fingerprintPayload,
@@ -659,6 +826,12 @@ function withRuntimePublishRenameHook(hook, callback) {
 }
 
 export function publishSevenScreenRuntime(root, built) {
+  if (
+    built?.contracts?.lifecycle?.content_review_status !== "approved_product_owner" ||
+    built?.contracts?.lifecycle?.visual_release_status !== "approved_product_owner"
+  ) {
+    fail("визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner");
+  }
   const packageRoot = path.join(root, PACKAGE_PATH);
   const demoRoot = path.join(packageRoot, "demo");
   fs.mkdirSync(packageRoot, { recursive: true });
@@ -727,7 +900,7 @@ export function compareSevenScreenRuntime(root, built) {
   const expectedAssets = built.runtimeEntries.filter((entry) => entry.name.startsWith("assets/")).map((entry) => path.posix.basename(entry.name)).sort();
   const assetRoot = path.join(root, PACKAGE_PATH, "demo/assets");
   const actualAssets = fs.existsSync(assetRoot) ? fs.readdirSync(assetRoot).sort() : [];
-  if (JSON.stringify(actualAssets) !== JSON.stringify(expectedAssets)) issues.push("demo/assets: состав ресурсов отличается от десятиэкранного договора");
+  if (JSON.stringify(actualAssets) !== JSON.stringify(expectedAssets)) issues.push("demo/assets: состав ресурсов отличается от тринадцатиэкранного маршрута");
   return issues;
 }
 
@@ -774,13 +947,13 @@ export function validateSavedSevenScreenPrototype(root = process.cwd()) {
   } catch {
     return [`${PACKAGE_MANIFEST_RELATIVE_PATH}: манифест не прочитан`];
   }
-  if (JSON.stringify(manifest.state_ids) !== JSON.stringify(contracts.registry.active_state_ids)) {
+  if (JSON.stringify(manifest.state_ids) !== JSON.stringify(contracts.states.map((state) => state.id))) {
     issues.push("манифест содержит неверный порядок состояний");
   }
   for (const relativePath of [PROJECTION_MAP_RELATIVE_PATH, RASTER_MANIFEST_RELATIVE_PATH]) {
     try {
       const value = readJson(root, `${PACKAGE_PATH}/${relativePath}`);
-      if (JSON.stringify(value.state_ids) !== JSON.stringify(contracts.registry.active_state_ids)) {
+      if (JSON.stringify(value.state_ids) !== JSON.stringify(contracts.states.map((state) => state.id))) {
         issues.push(`${relativePath}: неверный порядок состояний`);
       }
     } catch (error) {
@@ -789,7 +962,7 @@ export function validateSavedSevenScreenPrototype(root = process.cwd()) {
   }
   if (!SHA256_PATTERN.test(manifest.candidate_fingerprint?.sha256 || "")) issues.push("манифест не содержит отпечаток кандидата");
 
-  const expectedAssetNames = contracts.states.flatMap(stateAssetNames).sort();
+  const expectedAssetNames = [...new Set(contracts.states.flatMap(stateAssetNames))].sort();
   const assetRoot = path.join(root, PACKAGE_PATH, "demo/assets");
   const actualAssetNames = fs.existsSync(assetRoot) ? fs.readdirSync(assetRoot).sort() : [];
   if (JSON.stringify(actualAssetNames) !== JSON.stringify(expectedAssetNames)) issues.push("demo/assets не содержит договорный набор PNG");

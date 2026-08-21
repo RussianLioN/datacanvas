@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "task_id": "TSK-004",
+  "status": "draft",
+  "feature_id": "FS-003",
+  "priority": "P1",
+  "owned_paths": ["docs/product/specs/task-spec-q4-lisa-order-state.json", "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json"],
+  "allowed_edit_scope": "Разрешенная область правки: документационная спецификация состояний приема одного заказа из существующих экранов Лисы, утвержденной подписи кнопки будущего кандидата и проверки жизненного цикла; без изменения пути пользователя, прямой доставки DataCanvas в Лису, сетевых вызовов, PUSH, ссылки на файл или отдельных экранов.",
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json", "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json"],
+  "done_when": [
+    "Допустимый запрос проходит eligible и validating до единственного accepted_locked для пары сеанс/пользователь",
+    "Непринятый запрос может вернуться к проверке после исправления без создания заказа или отправки",
+    "Повтор после принятия отклоняется, а внутренний получатель статуса и адаптер Лисы остаются внешними функциональными границами"
+  ],
+  "rollback_or_forward_fix": "Откатить только Q4-спецификацию состояния заказа; при изменении пути пользователя согласовать отдельный пользовательский контракт и повторить проверку жизненного цикла.",
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "eval_cases": ["BASA-EVAL-006"],
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-002", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-008", "CO3-DEC-009"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-34"],
+    "acceptance_scenario_ids": ["q4_lisa_order"],
+    "interface_ids": ["IF-008", "IF-009"],
+    "business_rule_ids": ["BRULE-005", "BRULE-006", "BRULE-007"]
+  }
+}

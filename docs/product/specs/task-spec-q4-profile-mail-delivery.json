@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "task_id": "TSK-003",
+  "status": "draft",
+  "feature_id": "FS-002",
+  "priority": "P1",
+  "owned_paths": ["docs/product/specs/task-spec-q4-profile-mail-delivery.json", "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json"],
+  "allowed_edit_scope": "Разрешенная область правки: функциональная граница подготовки ODT/PDF и почтовой доставки по допустимым контурам, а также документационные проверки; без рабочего почтового вызова, внешнего договора IF-007, содержимого файлов или данных получателей.",
+  "dependencies": ["docs/product/analysis/ba/ba-spec.json", "docs/architecture/system-analysis/sa-spec.json", "docs/architecture/system-analysis/datacanvas-interface-control.md"],
+  "done_when": [
+    "ODT и PDF привязаны только к адресам, определенным через «Профиль сотрудника»",
+    "IF-007 остается функциональным интерфейсом с открытыми вопросами о подтверждении доставки и политике повторов",
+    "Ссылка на файл, отдельное хранилище, системный PUSH и числовое число повторов не добавлены в Q4_2026"
+  ],
+  "rollback_or_forward_fix": "Откатить только Q4-спецификацию почтовой доставки; при появлении утвержденного внешнего договора оформить его отдельным системным анализом без переноса будущего объема в Q4_2026.",
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "eval_cases": ["BASA-EVAL-005"],
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-29", "DC-ST-30"],
+    "acceptance_scenario_ids": ["q4_profile_email_delivery"],
+    "interface_ids": ["IF-006", "IF-007"],
+    "business_rule_ids": ["BRULE-004", "BRULE-007"]
+  }
+}

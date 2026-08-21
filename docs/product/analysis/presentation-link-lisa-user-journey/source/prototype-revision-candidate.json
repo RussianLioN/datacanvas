@@ -1,0 +1,289 @@
+{
+  "$schema": "schemas/prototype-revision-candidate.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "candidate_pending_canonical_svg_sources_and_frame_approval",
+  "client_reference_source": "source/client-reference-data.json",
+  "brainstorming_contract_source": "source/brainstorming-contract.json",
+  "approved_texts_source": "source/owner-approved-texts.json",
+  "current_journey_contract_policy": {
+    "target_file": "source/journey-contract.json",
+    "unchanged_by_this_candidate": true,
+    "candidate_is_not_generator_input": true
+  },
+  "active_future_frame_ids": [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "historical_inactive_frame_ids": [
+    "lisa-materials-summary",
+    "lisa-presentation-order"
+  ],
+  "frames": [
+    {
+      "id": "lisa-materials-summary",
+      "status": "historical_inactive",
+      "reason": "Краткая справка остаётся историческим кадром и не входит в будущий активный маршрут пересборки.",
+      "action_ids": []
+    },
+    {
+      "id": "lisa-materials-full-reference",
+      "status": "active_future",
+      "caption": "Полная справка по клиенту ООО «Водолей Трейд» с единственной активной кнопкой заказа презентации.",
+      "action_ids": ["order-presentation"],
+      "depends_on_client_reference_groups": [
+        "general_information",
+        "business_owners",
+        "financial_indicators",
+        "cooperation",
+        "sber_share",
+        "active_deals",
+        "potential",
+        "preapproved_offers",
+        "insights",
+        "meeting_agreements",
+        "dynamic_suggestions",
+        "actions"
+      ]
+    },
+    {
+      "id": "lisa-presentation-order",
+      "status": "historical_inactive",
+      "reason": "Отдельный экран заказа больше не является активной точкой сценария; заказ инициируется из полной справки.",
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-generating",
+      "status": "active_future",
+      "caption": "Динамическое продолжение полной справки после принятия данных: кнопка погашена, показано сообщение о начале формирования.",
+      "action_ids": [],
+      "continues_from": "lisa-materials-full-reference"
+    },
+    {
+      "id": "lisa-presentation-chat-list",
+      "status": "active_future",
+      "caption": "Список чатов должен отражать клиента ООО «Водолей Трейд».",
+      "action_ids": []
+    },
+    {
+      "id": "lisa-presentation-sent",
+      "status": "active_future",
+      "caption": "Успешное завершение и сообщение в чате Лисы.",
+      "action_ids": [],
+      "continues_from": "lisa-presentation-generating"
+    },
+    {
+      "id": "lisa-presentation-email",
+      "status": "active_future",
+      "caption": "Письмо с изготовленными презентациями; тема должна содержать ООО «Водолей Трейд».",
+      "action_ids": [],
+      "requires_new_editable_source": true
+    },
+    {
+      "id": "lisa-presentation-slidedoc",
+      "status": "active_future",
+      "caption": "Трёхстраничный вариант презентации SlideDoc по данным ООО «Водолей Трейд».",
+      "action_ids": [],
+      "requires_new_editable_source": true
+    },
+    {
+      "id": "lisa-presentation-sber2025",
+      "status": "active_future",
+      "caption": "Трёхстраничный вариант презентации Sber 2025 по данным ООО «Водолей Трейд».",
+      "action_ids": [],
+      "requires_new_editable_source": true
+    },
+    {
+      "id": "lisa-presentation-mag",
+      "status": "active_future",
+      "caption": "Трёхстраничный вариант презентации MAG по данным ООО «Водолей Трейд».",
+      "action_ids": [],
+      "requires_new_editable_source": true
+    },
+    {
+      "id": "lisa-order-not-accepted",
+      "status": "active_future",
+      "caption": "Данные не приняты; пользователь возвращается к полной справке и уточняет данные.",
+      "action_ids": [],
+      "continues_from": "lisa-materials-full-reference"
+    },
+    {
+      "id": "lisa-delivery-delayed",
+      "status": "active_future",
+      "caption": "Формирование принято, но доставка задерживается.",
+      "action_ids": [],
+      "continues_from": "lisa-presentation-generating"
+    },
+    {
+      "id": "lisa-delivery-partial",
+      "status": "active_future",
+      "caption": "Формирование принято, но доставка частичная или не подтверждена.",
+      "action_ids": [],
+      "continues_from": "lisa-presentation-generating"
+    }
+  ],
+  "active_button": {
+    "action_id": "order-presentation",
+    "source_state_id": "lisa-materials-full-reference",
+    "count": 1,
+    "text_topic_id": "button_label",
+    "text_status": "owner_approved"
+  },
+  "semantic_graphs": [
+    {
+      "graph_id": "order_processing_semantic_transitions",
+      "graph_type": "semantic_transition",
+      "description": "Смысловой сценарий обработки заказа после нажатия единственной кнопки в полной справке.",
+      "edges": [
+        { "type": "lifecycle", "from": "lisa-materials-full-reference", "event": "order_button_clicked", "to": "validating" },
+        { "type": "lifecycle", "from": "validating", "event": "data_not_accepted", "to": "lisa-order-not-accepted" },
+        { "type": "lifecycle", "from": "lisa-order-not-accepted", "event": "retry_after_data_correction", "to": "lisa-materials-full-reference" },
+        { "type": "lifecycle", "from": "validating", "event": "data_accepted", "to": "lisa-presentation-generating" },
+        { "type": "lifecycle", "from": "lisa-presentation-generating", "event": "delivery_confirmed", "to": "lisa-presentation-sent" },
+        { "type": "lifecycle", "from": "lisa-presentation-generating", "event": "delivery_delayed", "to": "lisa-delivery-delayed" },
+        { "type": "lifecycle", "from": "lisa-presentation-generating", "event": "delivery_partial_or_unconfirmed", "to": "lisa-delivery-partial" },
+        { "type": "inspection", "from": "lisa-presentation-sent", "event": "open_chat_list", "to": "lisa-presentation-chat-list" },
+        { "type": "inspection", "from": "lisa-presentation-chat-list", "event": "return_to_same_chat", "to": "lisa-presentation-sent" },
+        { "type": "inspection", "from": "lisa-presentation-sent", "event": "open_delivery_email", "to": "lisa-presentation-email" },
+        { "type": "inspection", "from": "lisa-presentation-email", "event": "open_attachment_slidedoc", "to": "lisa-presentation-slidedoc" },
+        { "type": "inspection", "from": "lisa-presentation-slidedoc", "event": "back_to_email", "to": "lisa-presentation-email" },
+        { "type": "inspection", "from": "lisa-presentation-email", "event": "open_attachment_sber2025", "to": "lisa-presentation-sber2025" },
+        { "type": "inspection", "from": "lisa-presentation-sber2025", "event": "back_to_email", "to": "lisa-presentation-email" },
+        { "type": "inspection", "from": "lisa-presentation-email", "event": "open_attachment_mag", "to": "lisa-presentation-mag" },
+        { "type": "inspection", "from": "lisa-presentation-mag", "event": "back_to_email", "to": "lisa-presentation-email" }
+      ]
+    },
+    {
+      "graph_id": "stakeholder_gallery_order",
+      "graph_type": "gallery_order",
+      "is_user_scenario_transition": false,
+      "description": "Порядок галереи нужен для демонстрации: сначала успешный путь, затем три ошибки. Он не является переходом по сценарию.",
+      "ordered_state_ids": [
+        "lisa-materials-full-reference",
+        "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
+        "lisa-presentation-sent",
+        "lisa-presentation-email",
+        "lisa-presentation-slidedoc",
+        "lisa-presentation-sber2025",
+        "lisa-presentation-mag",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ]
+    }
+  ],
+  "message_topics": [
+    {
+      "topic_id": "button_label",
+      "status": "owner_approved",
+      "preserved_historical_sources": []
+    },
+    {
+      "topic_id": "generation_started_message",
+      "status": "owner_approved",
+      "preserved_historical_sources": ["CO3-MSG-001"]
+    },
+    {
+      "topic_id": "delivery_success_message",
+      "status": "owner_approved",
+      "preserved_historical_sources": ["CO3-MSG-003"]
+    },
+    {
+      "topic_id": "email_subject",
+      "status": "owner_approved",
+      "preserved_historical_sources": []
+    },
+    {
+      "topic_id": "email_body",
+      "status": "owner_approved",
+      "preserved_historical_sources": []
+    }
+  ],
+  "visual_acceptance_contract": {
+    "frame_flow": [
+      "owner_text_selected",
+      "canonical_svg_existing_group_updated",
+      "svg_visual_check",
+      "draft_png_current_resolution_rendered",
+      "owner_frame_approval"
+    ],
+    "prototype_flow": [
+      "all_frames_approved",
+      "draft_full_prototype_current_resolution_rendered",
+      "owner_full_prototype_approval",
+      "high_resolution_render_from_approved_svg_sources",
+      "final_owner_approval"
+    ],
+    "per_frame_review": {
+      "required": true,
+      "review_surface": "isolated_current_prototype_copy",
+      "allowed_changed_frame_count": 1,
+      "candidate_must_replace_same_frame_id": true,
+      "next_frame_blocked_until_owner_approval": true,
+      "active_release_mutation_prohibited": true
+    },
+    "allowed_source_editing": "canonical_svg_existing_groups_only",
+    "forbidden_methods": [
+      "html_overlay",
+      "css_overlay",
+      "png_text_overlay",
+      "additional_svg_message_overlay",
+      "draft_png_upscale_for_final"
+    ]
+  },
+  "visual_release_gate": {
+    "release_status": "blocked_until_canonical_svg_sources_and_frame_approval",
+    "render_allowed": false,
+    "owner_selection_complete": true,
+    "all_external_visual_donors_received": false,
+    "required_external_visual_donors": [
+      {
+        "source_id": "presentation_variant_slidedoc_pdf_donor",
+        "required_for_frame_id": "lisa-presentation-slidedoc",
+        "required_format": "owner_supplied_pdf_visual_donor",
+        "canonical_svg_required_before_render": true,
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+      },
+      {
+        "source_id": "presentation_variant_sber2025_pdf_donor",
+        "required_for_frame_id": "lisa-presentation-sber2025",
+        "required_format": "owner_supplied_pdf_visual_donor",
+        "canonical_svg_required_before_render": true,
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+      },
+      {
+        "source_id": "presentation_variant_mag_pdf_donor",
+        "required_for_frame_id": "lisa-presentation-mag",
+        "required_format": "owner_supplied_pdf_visual_donor",
+        "canonical_svg_required_before_render": true,
+        "status": "owner_attachment_received_pending_canonical_svg_intake",
+        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+      },
+      {
+        "source_id": "email_frame_canonical_svg_source",
+        "required_for_frame_id": "lisa-presentation-email",
+        "required_format": "canonical_svg_source",
+        "canonical_svg_required_before_render": true,
+        "status": "pending_owner_attachment",
+        "reason": "Текущий кадр письма 7.4 хранится как PNG, а будущие тема и тело письма должны правиться в SVG."
+      }
+    ],
+    "blocked_reasons": [
+      "Три PDF-донора получены, но для каждого варианта презентации ещё не подготовлен и не согласован канонический SVG-источник кадра.",
+      "Не приложен редактируемый канонический SVG-исходник кадра письма.",
+      "Нельзя рендерить новые PNG, HTML или архив до покадровой приёмки: в изолированной копии прототипа разрешена замена только одного одноимённого кадра, а следующий кадр блокируется до согласования предыдущего."
+    ]
+  }
+}

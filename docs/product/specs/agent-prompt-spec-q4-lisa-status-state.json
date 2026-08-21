@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "prompt_id": "APS-005",
+  "status": "draft",
+  "task_id": "TSK-005",
+  "safe_context": "Используй подтвержденные BA/SA-утверждения: BASA-CLM-013 — в том же чате Лисы доступно только безопасное состояние без PUSH, ссылки, личных сведений и содержания запроса, и BASA-CLM-014 — граница Q4_2026. Тексты начала и успеха будущего кандидата берутся из docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json. Для задержанной, частичной или неподтвержденной доставки состояния идут через support_pending в session_closed. IF-008 и IF-009 не утверждают прямую доставку DataCanvas в Лису.",
+  "goal": "Подготовить проверяемую документационную задачу безопасных сообщений состояния и закрытия сеанса после проблемной доставки; тексты начала и успеха будущего кандидата должны совпадать с реестром утверждённых текстов без изобретения внешнего договора сопровождения.",
+  "constraints": [
+    "Не использовать чувствительные сырые данные; использовать реестр решений CO-2026-003 для продуктовой семантики, а docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json для текстов начала и успеха будущего кандидата",
+    "Не записывать адреса, личные сведения, полные идентификаторы, содержание запроса или технические ответы внешних сервисов",
+    "Не включать системный PUSH, ссылку на файл, отдельное хранилище, прямой маршрут DataCanvas в Лису, число повторов или канал сопровождения",
+    "Не создавать новый заказ после закрытия сеанса"
+  ],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:error-taxonomy", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_inputs": ["sensitive raw interview data", "recipient email address", "full session or user identifier", "unreviewed support contract"],
+  "forbidden_behaviors": ["Раскрывать личные сведения или содержание запроса", "Изобретать прямую доставку DataCanvas в Лису", "Задавать число повторов или канал сопровождения"],
+  "raw_transcript_included": false,
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-004", "CO3-DEC-006", "CO3-DEC-007", "CO3-DEC-009"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-27", "DC-ST-35", "DC-ST-36"],
+    "acceptance_scenario_ids": ["q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
+    "interface_ids": ["IF-008", "IF-009"],
+    "business_rule_ids": ["BRULE-006", "BRULE-007", "BRULE-008"]
+  }
+}

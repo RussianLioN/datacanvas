@@ -4,7 +4,7 @@
   "title": "Договор растровой визуальной основы MVP Лисы",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "status", "design_language", "tokens", "layout", "motion", "accessibility", "capture_stability", "phone_mock_image_policy", "raster_base_local_overlay", "components", "svg_security_limits"],
+  "required": ["version", "status", "design_language", "tokens", "layout", "motion", "accessibility", "capture_stability", "phone_mock_image_policy", "raster_base_local_overlay", "status_svg_text_replacement", "components", "svg_security_limits"],
   "properties": {
     "$schema": { "const": "schemas/visual-components-contract.schema.json" },
     "version": { "const": "2.2.0" },
@@ -17,6 +17,7 @@
     "capture_stability": { "$ref": "#/$defs/capture_stability" },
     "phone_mock_image_policy": { "$ref": "#/$defs/image_policy" },
     "raster_base_local_overlay": { "$ref": "#/$defs/raster_overlay" },
+    "status_svg_text_replacement": { "$ref": "#/$defs/status_svg_text_replacement" },
     "components": { "const": [] },
     "svg_security_limits": { "$ref": "#/$defs/svg_security_limits" }
   },
@@ -89,6 +90,19 @@
       "required": ["source_fixture_manifest", "source_catalog", "visual_basis", "rendering_pipeline", "base_path_prefix", "patch_path_prefix", "source_path_role", "runtime_assets", "source_svg_persisted", "raw_archive_persisted", "manual_css_phone_shell_rendering", "source_parity"],
       "properties": {
         "source_fixture_manifest": { "const": "source/source-fixture-manifest.json" }, "source_catalog": { "const": "source/source-render-catalog.json" }, "visual_basis": { "const": "source/visual-basis-contract.json" }, "rendering_pipeline": { "const": "raster-base-local-overlay" }, "base_path_prefix": { "const": "source/bases/" }, "patch_path_prefix": { "const": "source/patches/" }, "source_path_role": { "const": "provenance-and-fingerprint-only" }, "runtime_assets": { "$ref": "#/$defs/runtime_assets" }, "source_svg_persisted": { "const": false }, "raw_archive_persisted": { "const": false }, "manual_css_phone_shell_rendering": { "const": "forbidden" }, "source_parity": { "$ref": "#/$defs/source_parity" }
+      }
+    },
+    "status_svg_text_replacement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scope", "editable_source_paths", "existing_group_ids", "render_order", "added_visual_layers_forbidden", "html_css_status_overlays_forbidden", "message_style_policy"],
+      "properties": {
+        "scope": { "const": "q4-final-status-screens" },
+        "editable_source_paths": { "const": ["editable-sources/status-variants/lisa-order-not-accepted.svg", "editable-sources/status-variants/lisa-delivery-delayed.svg", "editable-sources/status-variants/lisa-delivery-partial.svg"] },
+        "existing_group_ids": { "const": ["presentation-start-line-1", "presentation-start-line-2", "presentation-status-line-1", "presentation-status-line-2", "presentation-status-line-3", "presentation-status-line-4"] },
+        "render_order": { "const": ["edit-existing-svg-groups", "visual-verify-svg", "render-to-three-png-segments", "generate-prototype"] },
+        "added_visual_layers_forbidden": { "const": true },
+        "html_css_status_overlays_forbidden": { "const": true },
+        "message_style_policy": { "const": "preserve-existing-message-style" }
       }
     },
     "runtime_assets": {

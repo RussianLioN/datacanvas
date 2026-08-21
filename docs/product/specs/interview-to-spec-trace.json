@@ -36,6 +36,78 @@
       "task_id": "TSK-001",
       "prompt_id": "APS-001",
       "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-011",
+      "feature_id": "FS-002",
+      "task_id": "TSK-002",
+      "prompt_id": "APS-002",
+      "decision_id": "CO3-DEC-003",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-002",
+      "task_id": "TSK-002",
+      "prompt_id": "APS-002",
+      "decision_id": "CO3-DEC-001",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-011",
+      "feature_id": "FS-002",
+      "task_id": "TSK-003",
+      "prompt_id": "APS-003",
+      "decision_id": "CO3-DEC-003",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-002",
+      "task_id": "TSK-003",
+      "prompt_id": "APS-003",
+      "decision_id": "CO3-DEC-006",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-012",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "decision_id": "CO3-DEC-004",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-013",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "decision_id": "CO3-DEC-007",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004",
+      "decision_id": "CO3-DEC-009",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-013",
+      "feature_id": "FS-003",
+      "task_id": "TSK-005",
+      "prompt_id": "APS-005",
+      "decision_id": "CO3-DEC-007",
+      "trust_status": "confirmed"
+    },
+    {
+      "claim_id": "BASA-CLM-014",
+      "feature_id": "FS-003",
+      "task_id": "TSK-005",
+      "prompt_id": "APS-005",
+      "decision_id": "CO3-DEC-009",
+      "trust_status": "confirmed"
     }
   ]
 }

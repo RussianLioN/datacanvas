@@ -37,7 +37,7 @@ const EXPECTED_TIME_LAYOUT = Object.freeze({
   }),
   "7.2 — Длинное название клиента + холдинг.svg": Object.freeze({
     d_sha256: "9fa1a746cb4eb3710c1bb64205c08087904d9c782d813b007ce0743b02e6deee",
-    remainder_sha256: "cdd8fbbdb0c7a0d43de98c5e411b5b24d2f1cf763740e882e207c311048b94df",
+    remainder_sha256: "8844d4c1afc92ced27608ac4a22954046509c1fef3147035b9bdb73498b671d2",
   }),
   "7.3 — Презентация.svg": Object.freeze({
     d_sha256: "a54014443503072a026301601bf17905fa21a98669578eedf7e1c9135797bb0c",
@@ -63,14 +63,6 @@ const EXPECTED_MEETING_ROW_REMOVAL = Object.freeze({
     new_height: "108.000000",
     x: "80.000000",
     y: "522.001221",
-    rx: "24.000000",
-  }),
-  "7.2 — Длинное название клиента + холдинг.svg": Object.freeze({
-    card_clip_path: "235",
-    old_height: "212.000000",
-    new_height: "180.000000",
-    x: "80.000000",
-    y: "226.000000",
     rx: "24.000000",
   }),
   "7.3 — Презентация.svg": Object.freeze({
@@ -126,7 +118,9 @@ function makeTempRoot() {
   const sourceDirectory = path.join(root, SOURCE_ROOT);
   fs.mkdirSync(sourceDirectory, { recursive: true });
   for (const spec of APPROVED_EDITABLE_SOURCE_RASTERS) {
-    fs.copyFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, spec.source), path.join(sourceDirectory, spec.source));
+    const target = path.join(sourceDirectory, spec.source);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.copyFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, spec.source), target);
   }
   return root;
 }
@@ -240,32 +234,68 @@ test("заменяет текст плашки четвёртого кадра �
   assert.doesNotMatch(chip, /NaN/u, "контуры новой фразы не должны содержать недопустимых координат");
 });
 
-test("убирает белую подложку статуса формирования и скрывает только прежние перекрываемые строки", () => {
+test("сохраняет исходный экран формирования побайтно", () => {
   const source = "7.2 — Длинное название клиента + холдинг.svg";
   const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, source), "utf8");
 
-  assert.match(
-    svg,
-    /<g id="presentation-status-line-1" fill="rgb\(144,150,169\)" fill-rule="nonzero">/u,
-    "первая исходная строка со сроком должна оставаться видимой",
+  assert.equal(
+    sha256(svg),
+    "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
+    "7.2: исходный кадр формирования должен сохраняться побайтно",
   );
-  for (const line of [2, 3, 4]) {
-    assert.match(
-      svg,
-      new RegExp(`<g id="presentation-status-line-${line}" opacity="0" fill="rgb\\(144,150,169\\)" fill-rule="nonzero">`, "u"),
-      `исходная строка ${line} должна быть скрыта, чтобы не дублировать новый текст`,
-    );
+  assert.doesNotMatch(svg, /id="lisa-edit-7-2-title"/u, "7.2: заголовок поверх исходного экрана запрещён");
+  assert.doesNotMatch(svg, /id="lisa-edit-7-2-email-text"/u, "7.2: добавочный текст поверх исходного экрана запрещён");
+});
+
+test("все ошибочные варианты заменяют существующие группы SVG без добавочного слоя", () => {
+  const variants = [
+    ["lisa-order-not-accepted.svg", "order_not_accepted", "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.", 5],
+    ["lisa-delivery-delayed.svg", "delivery_delayed", "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.", 4],
+    ["lisa-delivery-partial.svg", "delivery_partial", "Презентация сформирована и направлена в OMEGA. Отправка в SIGMA пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.", 5],
+  ];
+  const messageGroupIds = [
+    "presentation-start-line-1",
+    "presentation-start-line-2",
+    "presentation-status-line-1",
+    "presentation-status-line-2",
+    "presentation-status-line-3",
+    "presentation-status-line-4",
+  ];
+
+  for (const [fileName, messageId, message, lineCount] of variants) {
+    const svg = fs.readFileSync(path.join(PROJECT_ROOT, SOURCE_ROOT, "status-variants", fileName), "utf8");
+    assert.doesNotMatch(svg, /id="lisa-status-/u, `${fileName}: добавочный статусный слой запрещён`);
+    assert.doesNotMatch(svg, /id="lisa-edit-7-2-email-text"/u, `${fileName}: текст штатного ожидания запрещён`);
+    assert.match(svg, /<g id="marker_md-24"[^>]*opacity="0"/u, `${fileName}: исходный маркер должен быть скрыт`);
+    assert.doesNotMatch(svg, /<text\b/u, `${fileName}: новый текст должен быть контурами в существующих группах SVG`);
+
+    for (const [index, id] of messageGroupIds.entries()) {
+      const group = svg.match(new RegExp(`<g id="${id}"([^>]*)>([\\s\\S]*?)<\\/g>`, "u"));
+      assert.ok(group, `${fileName}: отсутствует существующая группа ${id}`);
+      if (index < lineCount) {
+        assert.match(group[1], new RegExp(`data-lisa-message-id="${messageId}"`, "u"), `${fileName}: ${id} должен хранить идентификатор согласованного сообщения`);
+        if (index === 0) {
+          assert.match(group[1], new RegExp(`role="img" aria-label="${message.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")}"`, "u"), `${fileName}: первая строка должна сохранять точный текст сообщения для вспомогательных технологий`);
+        } else {
+          assert.match(group[1], /aria-hidden="true"/u, `${fileName}: продолжение сообщения не должно повторяться во вспомогательных технологиях`);
+        }
+        assert.match(group[1], /fill="rgb\(162,165,184\)" fill-rule="nonzero"/u, `${fileName}: ${id} должен сохранять согласованные цвет и начертание`);
+        assert.match(group[1], new RegExp(`transform="translate\\(80\\.000 ${700 + index * 25}\\)"`, "u"), `${fileName}: ${id} должен сохранять сетку исходного чата`);
+        assert.match(group[2], /<path d="[^"\n]+"(?: transform="[^"]+")? \/>/u, `${fileName}: ${id} должен содержать векторные контуры`);
+        assert.doesNotMatch(group[1], /opacity="0"/u, `${fileName}: ${id} не должен быть скрыт`);
+      } else {
+        assert.match(group[1], /opacity="0"/u, `${fileName}: неиспользуемая ${id} должна быть скрыта`);
+      }
+    }
+    for (const id of ["presentation-start-line-1", "presentation-start-line-2", "presentation-status-line-1", "presentation-status-line-2", "presentation-status-line-3", "presentation-status-line-4"]) {
+      assert.match(
+        svg,
+        new RegExp(`<g id="${id}"`, "u"),
+        `${fileName}: ${id} должен быть отредактирован, а не заменён добавочным слоем`,
+      );
+    }
+    assert.doesNotMatch(svg, /NaN/u, `${fileName}: недопустимые координаты запрещены`);
   }
-  assert.match(
-    svg,
-    /<g id="lisa-edit-7-2-email-text"><text x="80" y="739"/u,
-    "новый текст должен начинаться без фонового прямоугольника",
-  );
-  assert.doesNotMatch(
-    svg,
-    /<g id="lisa-edit-7-2-email-text"><rect\b/u,
-    "у нового текста не должно быть белой подложки",
-  );
 });
 
 test("переносит название справки в выбранный чат и возвращает нижнюю строку шестого кадра", () => {
@@ -311,7 +341,7 @@ test("пишет и проверяет утверждённые SVG как тр�
   seedLegacyFullRasters(root);
   const written = await buildApprovedEditableSourceRasters({ root, write: true });
 
-  assert.equal(written.length, 18);
+  assert.equal(written.length, expectedLayerOutputs().length);
   assert.deepEqual(written.map((item) => item.output), expectedLayerOutputs());
 
   for (const result of written) {

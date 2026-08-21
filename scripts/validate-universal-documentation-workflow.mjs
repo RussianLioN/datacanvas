@@ -8,6 +8,7 @@ import {
   nonNpmWorkflowPlanCommands,
   uncatalogedWorkflowPlanCommands,
 } from "./lib/workflow-validation-command-policy.mjs";
+import { readReleaseGateState } from "./lib/workflow-release-gate.mjs";
 
 const root = process.cwd();
 const mode = process.argv[2] ?? "all";
@@ -877,8 +878,17 @@ function validateGeneratorContracts() {
     for (const input of contract.inputs) {
       requireFile(input);
     }
+    const releaseGateState = contract.release_gate_contract_path
+      ? readReleaseGateState(root, contract.release_gate_contract_path)
+      : null;
     for (const output of contract.outputs) {
-      requireFile(output);
+      if (releaseGateState?.approved) {
+        requireFile(output);
+      } else if (releaseGateState && exists(output)) {
+        fail(`выпускной барьер не пройден, но производный архив уже существует: ${output}; ${releaseGateState.summary}`);
+      } else if (!releaseGateState) {
+        requireFile(output);
+      }
       assertRelativeRepoPath(output, "generator output");
     }
     for (const outputRoot of contract.output_roots ?? []) {

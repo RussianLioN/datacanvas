@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-full-reference-review-source-manifest.schema.json",
+  "title": "Манифест чернового кадра полной справки по клиенту",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "frame_id",
+    "status",
+    "base_svg_path",
+    "base_svg_sha256",
+    "source_svg_path",
+    "source_svg_sha256",
+    "client_reference_data_path",
+    "client_reference_data_sha256",
+    "covered_group_ids",
+    "content_bottom_y",
+    "frame_geometry",
+    "text_outline_font",
+    "edit_mode",
+    "button_label_text",
+    "visible_projection",
+    "button_geometry",
+    "prohibited_legacy_overlay_ids",
+    "active_release_mutation_prohibited",
+    "draft_png_rendered",
+    "draft_png_path",
+    "draft_png_sha256",
+    "draft_png_dimensions",
+    "draft_png_non_white_pixel_count",
+    "owner_approval"
+  ],
+  "properties": {
+    "$schema": { "const": "../../../source/schemas/lisa-full-reference-review-source-manifest.schema.json" },
+    "version": { "const": "1.2.0" },
+    "frame_id": { "const": "lisa-materials-full-reference" },
+    "status": { "const": "owner_frame_approved" },
+    "base_svg_path": { "const": "editable-sources/5.4.svg" },
+    "base_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
+    "source_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "client_reference_data_path": { "const": "source/client-reference-data.json" },
+    "client_reference_data_sha256": { "$ref": "#/$defs/sha256" },
+    "covered_group_ids": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": { "type": "string", "pattern": "^[a-z_]+$" },
+      "uniqueItems": true
+    },
+    "content_bottom_y": { "type": "number", "minimum": 1 },
+    "frame_geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resized", "frame_height", "footer_top_y", "canvas_height"],
+      "properties": {
+        "resized": { "const": true },
+        "frame_height": { "type": "integer", "minimum": 1 },
+        "footer_top_y": { "type": "integer", "minimum": 1 },
+        "canvas_height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "text_outline_font": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["family", "sha256", "copied_to_git"],
+      "properties": {
+        "family": { "const": "SB Sans Display" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "copied_to_git": { "const": false }
+      }
+    },
+    "edit_mode": { "const": "replace_existing_frame_group_content" },
+    "button_label_text": { "const": "Создать презентацию по справке" },
+    "visible_projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "visible_group_ids", "excluded_group_ids", "source_data_preserved", "last_visible_group_id"],
+      "properties": {
+        "mode": { "const": "exclude_source_groups_from_visual_frame_only" },
+        "visible_group_ids": {
+          "const": [
+            "general_information",
+            "business_owners",
+            "financial_indicators",
+            "cooperation",
+            "sber_share",
+            "active_deals",
+            "potential",
+            "preapproved_offers",
+            "insights",
+            "meeting_agreements"
+          ]
+        },
+        "excluded_group_ids": { "const": ["dynamic_suggestions", "actions"] },
+        "source_data_preserved": { "const": true },
+        "last_visible_group_id": { "const": "meeting_agreements" }
+      }
+    },
+    "button_geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["button_rect", "font_size", "text_x", "baseline_y", "text_bbox", "center_delta", "center_tolerance_px", "measurement_method"],
+      "properties": {
+        "button_rect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "width", "height"],
+          "properties": {
+            "x": { "const": 80 },
+            "y": { "const": 4968 },
+            "width": { "const": 361 },
+            "height": { "const": 40 }
+          }
+        },
+        "font_size": { "const": 16 },
+        "text_x": { "type": "number" },
+        "baseline_y": { "type": "number" },
+        "text_bbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x1", "y1", "x2", "y2"],
+          "properties": {
+            "x1": { "type": "number", "minimum": 80 },
+            "y1": { "type": "number", "minimum": 4968 },
+            "x2": { "type": "number", "maximum": 441 },
+            "y2": { "type": "number", "maximum": 5008 }
+          }
+        },
+        "center_delta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y"],
+          "properties": {
+            "x": { "type": "number", "minimum": -0.5, "maximum": 0.5 },
+            "y": { "type": "number", "minimum": -0.5, "maximum": 0.5 }
+          }
+        },
+        "center_tolerance_px": { "const": 0.5 },
+        "measurement_method": { "const": "pinned_font_path_bounding_box" }
+      }
+    },
+    "prohibited_legacy_overlay_ids": {
+      "const": ["lisa-edit-5-4-title"]
+    },
+    "active_release_mutation_prohibited": { "const": true },
+    "draft_png_rendered": { "const": true },
+    "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/draft-current-resolution.png" },
+    "draft_png_sha256": { "$ref": "#/$defs/sha256" },
+    "draft_png_dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {
+        "width": { "const": 521 },
+        "height": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 },
+    "owner_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_path", "decision", "decision_text", "decision_source", "approved_at"],
+      "properties": {
+        "record_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" },
+        "decision": { "const": "approved" },
+        "decision_text": { "const": "кадр принят" },
+        "decision_source": { "const": "Product Owner в рабочем чате" },
+        "approved_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

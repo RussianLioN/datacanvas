@@ -25,16 +25,16 @@ try {
       : [...compareSevenScreenPrototype(root, built), ...validateSavedSevenScreenPrototype(root)];
     if (issues.length > 0) throw new Error(`пакет устарел или повреждён:\n- ${issues.join("\n- ")}`);
     process.stdout.write(mode.htmlOnly
-      ? "HTML-часть автономного прототипа из десяти состояний актуальна.\n"
-      : "Автономный прототип из десяти состояний и переносимый архив актуальны.\n");
+      ? "HTML-часть автономного прототипа: десять исходных экранов и три экрана статусов актуальна.\n"
+      : "Автономный прототип: десять исходных экранов, три экрана статусов и переносимый архив актуальны.\n");
   } else {
     if (mode.htmlOnly) publishSevenScreenRuntime(root, built);
     else publishSevenScreenPrototype(root, built);
     const issues = mode.htmlOnly ? compareSevenScreenRuntime(root, built) : validateSavedSevenScreenPrototype(root);
     if (issues.length > 0) throw new Error(`опубликованный пакет не прошёл самопроверку:\n- ${issues.join("\n- ")}`);
     process.stdout.write(mode.htmlOnly
-      ? "HTML-часть автономного прототипа из десяти состояний опубликована.\n"
-      : `Автономный прототип из десяти состояний опубликован; файлов в архиве: ${built.archiveEntries.length}.\n`);
+      ? "HTML-часть автономного прототипа: десять исходных экранов и три экрана статусов опубликована.\n"
+      : `Автономный прототип: десять исходных экранов и три экрана статусов опубликован; файлов в архиве: ${built.archiveEntries.length}.\n`);
   }
 } catch (error) {
   process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "сборка не выполнена"}\n`);

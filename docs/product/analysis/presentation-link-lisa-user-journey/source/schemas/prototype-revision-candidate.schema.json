@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "prototype-revision-candidate.schema.json",
+  "title": "Кандидат пересборки прототипа CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "status",
+    "client_reference_source",
+    "brainstorming_contract_source",
+    "approved_texts_source",
+    "current_journey_contract_policy",
+    "active_future_frame_ids",
+    "historical_inactive_frame_ids",
+    "frames",
+    "active_button",
+    "semantic_graphs",
+    "message_topics",
+    "visual_acceptance_contract",
+    "visual_release_gate"
+  ],
+  "properties": {
+    "$schema": { "const": "schemas/prototype-revision-candidate.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "candidate_pending_canonical_svg_sources_and_frame_approval" },
+    "client_reference_source": { "const": "source/client-reference-data.json" },
+    "brainstorming_contract_source": { "const": "source/brainstorming-contract.json" },
+    "approved_texts_source": { "const": "source/owner-approved-texts.json" },
+    "current_journey_contract_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_file", "unchanged_by_this_candidate", "candidate_is_not_generator_input"],
+      "properties": {
+        "target_file": { "const": "source/journey-contract.json" },
+        "unchanged_by_this_candidate": { "const": true },
+        "candidate_is_not_generator_input": { "const": true }
+      }
+    },
+    "active_future_frame_ids": { "$ref": "#/$defs/state_ids" },
+    "historical_inactive_frame_ids": { "$ref": "#/$defs/state_ids" },
+    "frames": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": { "$ref": "#/$defs/frame" }
+    },
+    "active_button": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action_id", "source_state_id", "count", "text_topic_id", "text_status"],
+      "properties": {
+        "action_id": { "const": "order-presentation" },
+        "source_state_id": { "const": "lisa-materials-full-reference" },
+        "count": { "type": "integer", "minimum": 1 },
+        "text_topic_id": { "const": "button_label" },
+        "text_status": { "const": "owner_approved" }
+      }
+    },
+    "semantic_graphs": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "$ref": "#/$defs/semantic_graph" }
+    },
+    "message_topics": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/message_topic" }
+    },
+    "visual_acceptance_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_flow", "prototype_flow", "per_frame_review", "allowed_source_editing", "forbidden_methods"],
+      "properties": {
+        "frame_flow": { "type": "array", "minItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "prototype_flow": { "type": "array", "minItems": 5, "items": { "type": "string", "minLength": 1 } },
+        "per_frame_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "required",
+            "review_surface",
+            "allowed_changed_frame_count",
+            "candidate_must_replace_same_frame_id",
+            "next_frame_blocked_until_owner_approval",
+            "active_release_mutation_prohibited"
+          ],
+          "properties": {
+            "required": { "const": true },
+            "review_surface": { "const": "isolated_current_prototype_copy" },
+            "allowed_changed_frame_count": { "const": 1 },
+            "candidate_must_replace_same_frame_id": { "const": true },
+            "next_frame_blocked_until_owner_approval": { "const": true },
+            "active_release_mutation_prohibited": { "const": true }
+          }
+        },
+        "allowed_source_editing": { "const": "canonical_svg_existing_groups_only" },
+        "forbidden_methods": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      }
+    },
+    "visual_release_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "release_status",
+        "render_allowed",
+        "owner_selection_complete",
+        "all_external_visual_donors_received",
+        "required_external_visual_donors",
+        "blocked_reasons"
+      ],
+      "properties": {
+        "release_status": {
+          "const": "blocked_until_canonical_svg_sources_and_frame_approval"
+        },
+        "render_allowed": { "const": false },
+        "owner_selection_complete": { "const": true },
+        "all_external_visual_donors_received": { "const": false },
+        "required_external_visual_donors": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/external_source" }
+        },
+        "blocked_reasons": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    }
+  },
+  "$defs": {
+    "state_id": { "type": "string", "pattern": "^lisa-[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "state_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/state_id" },
+      "uniqueItems": true
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "status", "action_ids"],
+      "properties": {
+        "id": { "$ref": "#/$defs/state_id" },
+        "status": { "enum": ["active_future", "historical_inactive"] },
+        "caption": { "type": "string" },
+        "reason": { "type": "string" },
+        "action_ids": {
+          "type": "array",
+          "items": { "const": "order-presentation" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "semantic_graph": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["graph_id", "graph_type", "description"],
+      "properties": {
+        "graph_id": { "type": "string", "minLength": 1 },
+        "graph_type": { "enum": ["semantic_transition", "gallery_order"] },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "message_topic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topic_id", "status", "preserved_historical_sources"],
+      "properties": {
+        "topic_id": {
+          "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
+        },
+        "status": { "const": "owner_approved" },
+        "preserved_historical_sources": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CO3-MSG-[0-9]{3}$" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "external_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "required_for_frame_id", "required_format", "canonical_svg_required_before_render", "status"],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "required_for_frame_id": { "$ref": "#/$defs/state_id" },
+        "required_format": {
+          "enum": ["owner_supplied_pdf_visual_donor", "canonical_svg_source"]
+        },
+        "canonical_svg_required_before_render": { "type": "boolean" },
+        "status": { "enum": ["owner_attachment_received_pending_canonical_svg_intake", "pending_owner_attachment"] },
+        "reason": { "type": "string" }
+      }
+    }
+  }
+}

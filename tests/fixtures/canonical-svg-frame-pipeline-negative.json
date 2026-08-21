@@ -1,0 +1,79 @@
+{
+  "cases": [
+    {
+      "name": "active true is rejected",
+      "mutation": "set-active-true",
+      "expected_error": "active must remain false"
+    },
+    {
+      "name": "render allowed true is rejected",
+      "mutation": "set-render-allowed-true",
+      "expected_error": "render_allowed must remain false"
+    },
+    {
+      "name": "prototype candidate version drift is rejected",
+      "mutation": "set-prototype-candidate-version-2",
+      "expected_error": "prototype revision candidate expected_version must remain 1.0.0"
+    },
+    {
+      "name": "missing future frame is rejected",
+      "mutation": "remove-future-frame",
+      "expected_error": "future frame ids must match prototype revision candidate active_future_frame_ids"
+    },
+    {
+      "name": "extra future frame is rejected",
+      "mutation": "add-future-frame",
+      "expected_error": "future frame ids must match prototype revision candidate active_future_frame_ids"
+    },
+    {
+      "name": "wrong external source is rejected",
+      "mutation": "wrong-external-source",
+      "expected_error": "external sources must match the three received PDF donors and pending email SVG source"
+    },
+    {
+      "name": "selected text before owner choice is rejected",
+      "mutation": "add-selected-text",
+      "expected_error": "message topics must not contain selected text, candidates, hashes, or approvals"
+    },
+    {
+      "name": "pending topic after owner choice is rejected",
+      "mutation": "set-message-topic-pending",
+      "expected_error": "message topics must remain owner-approved and render blockers until frame approval"
+    },
+    {
+      "name": "acceptance order drift is rejected",
+      "mutation": "swap-frame-acceptance-order",
+      "expected_error": "frame acceptance flow must match the required SVG-first order"
+    },
+    {
+      "name": "removed forbidden method is rejected",
+      "mutation": "remove-forbidden-method",
+      "expected_error": "forbidden methods must match the five banned methods"
+    },
+    {
+      "name": "local path is rejected",
+      "mutation": "add-local-path",
+      "expected_error": "local paths, DOCX names, SHA-256 values, and raw source content are forbidden"
+    },
+    {
+      "name": "docx source name is rejected",
+      "mutation": "add-docx-name",
+      "expected_error": "local paths, DOCX names, SHA-256 values, and raw source content are forbidden"
+    },
+    {
+      "name": "sha256 trace is rejected",
+      "mutation": "add-sha256",
+      "expected_error": "local paths, DOCX names, SHA-256 values, and raw source content are forbidden"
+    },
+    {
+      "name": "active registry inclusion is rejected",
+      "mutation": "add-contract-to-active-registry",
+      "expected_error": "canonical SVG frame pipeline contract must not be listed in active-contracts.json"
+    },
+    {
+      "name": "short historical source cannot replace approved full-reference base",
+      "mutation": "replace-approved-continuation-base",
+      "expected_error": "сеанс покадровой приёмки должен ожидать решения владельца по изолированному кадру начала формирования"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "prompt_id": "APS-003",
+  "status": "draft",
+  "task_id": "TSK-003",
+  "safe_context": "Используй подтвержденные BA/SA-утверждения: BASA-CLM-011 — адреса определяются только через «Профиль сотрудника», и BASA-CLM-014 — граница Q4_2026. Тема и тело письма будущего кандидата берутся из docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json. IF-007 — функциональный интерфейс почтового сервиса с открытыми вопросами о внешнем договоре, подтверждении доставки и политике повторов.",
+  "goal": "Подготовить проверяемую документационную задачу доставки ODT и PDF по допустимому одному или двум контурам с утверждёнными темой и телом письма без включения реальной почтовой интеграции.",
+  "constraints": [
+    "Не использовать чувствительные сырые данные; использовать только курируемый реестр согласованных решений CO-2026-003",
+    "Не записывать адреса получателей, содержимое результата, полные идентификаторы или технические ответы почтового сервиса",
+    "Не фиксировать API, аутентификацию, протокол, число повторов или канал сопровождения IF-007",
+    "Не включать ссылку на файл, отдельное хранилище или системный PUSH"
+  ],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_inputs": ["sensitive raw interview data", "recipient email address", "mail service credential", "unreviewed mail service response"],
+  "forbidden_behaviors": ["Включать рабочий сетевой или почтовый вызов", "Изобретать внешний договор", "Переносить будущий объем в Q4_2026"],
+  "raw_transcript_included": false,
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-29", "DC-ST-30"],
+    "acceptance_scenario_ids": ["q4_profile_email_delivery"],
+    "interface_ids": ["IF-006", "IF-007"],
+    "business_rule_ids": ["BRULE-004", "BRULE-007"]
+  }
+}

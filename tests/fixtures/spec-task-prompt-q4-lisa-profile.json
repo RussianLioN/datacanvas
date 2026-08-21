@@ -1,0 +1,65 @@
+{
+  "change_order_id": "CO-2026-003",
+  "required_traceability_keys": ["story_ids", "acceptance_scenario_ids", "interface_ids", "business_rule_ids"],
+  "required_validation_commands": [
+    "npm run validate:spec-task-prompt-readiness",
+    "npm run validate:interface-contracts",
+    "npm run validate:state-model",
+    "npm run validate:error-taxonomy",
+    "npm run validate:data-leakage"
+  ],
+  "required_q4_story_ids": ["DC-ST-23", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-29", "DC-ST-30", "DC-ST-34", "DC-ST-35", "DC-ST-36"],
+  "required_q4_acceptance_scenario_ids": ["q4_lisa_order", "q4_profile_addresses", "q4_profile_email_delivery", "q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
+  "spec_sets": [
+    {
+      "feature_path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "task_path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "prompt_path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+      "feature_id": "FS-002",
+      "task_id": "TSK-002",
+      "prompt_id": "APS-002"
+    },
+    {
+      "feature_path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "task_path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "prompt_path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      "feature_id": "FS-002",
+      "task_id": "TSK-003",
+      "prompt_id": "APS-003"
+    },
+    {
+      "feature_path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "task_path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "prompt_path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+      "feature_id": "FS-003",
+      "task_id": "TSK-004",
+      "prompt_id": "APS-004"
+    },
+    {
+      "feature_path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "task_path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "prompt_path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+      "feature_id": "FS-003",
+      "task_id": "TSK-005",
+      "prompt_id": "APS-005"
+    }
+  ],
+  "required_trace_links": [
+    {"claim_id": "BASA-CLM-011", "feature_id": "FS-002", "task_id": "TSK-002", "prompt_id": "APS-002"},
+    {"claim_id": "BASA-CLM-014", "feature_id": "FS-002", "task_id": "TSK-003", "prompt_id": "APS-003"},
+    {"claim_id": "BASA-CLM-012", "feature_id": "FS-003", "task_id": "TSK-004", "prompt_id": "APS-004"},
+    {"claim_id": "BASA-CLM-013", "feature_id": "FS-003", "task_id": "TSK-005", "prompt_id": "APS-005"}
+  ],
+  "expected_traceability_by_path": [
+    {"path": "docs/product/specs/feature-spec-q4-profile-mail.json", "story_ids": ["DC-ST-25", "DC-ST-29", "DC-ST-30"], "acceptance_scenario_ids": ["q4_profile_addresses", "q4_profile_email_delivery"]},
+    {"path": "docs/product/specs/task-spec-q4-profile-addresses.json", "story_ids": ["DC-ST-25"], "acceptance_scenario_ids": ["q4_profile_addresses"]},
+    {"path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json", "story_ids": ["DC-ST-25"], "acceptance_scenario_ids": ["q4_profile_addresses"]},
+    {"path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json", "story_ids": ["DC-ST-29", "DC-ST-30"], "acceptance_scenario_ids": ["q4_profile_email_delivery"]},
+    {"path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json", "story_ids": ["DC-ST-29", "DC-ST-30"], "acceptance_scenario_ids": ["q4_profile_email_delivery"]},
+    {"path": "docs/product/specs/feature-spec-q4-lisa-states.json", "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-27", "DC-ST-34", "DC-ST-35", "DC-ST-36"], "acceptance_scenario_ids": ["q4_lisa_order", "q4_status_in_same_chat", "q4_delayed_or_partial_delivery"]},
+    {"path": "docs/product/specs/task-spec-q4-lisa-order-state.json", "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-34"], "acceptance_scenario_ids": ["q4_lisa_order"]},
+    {"path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json", "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-34"], "acceptance_scenario_ids": ["q4_lisa_order"]},
+    {"path": "docs/product/specs/task-spec-q4-lisa-status-state.json", "story_ids": ["DC-ST-27", "DC-ST-35", "DC-ST-36"], "acceptance_scenario_ids": ["q4_status_in_same_chat", "q4_delayed_or_partial_delivery"]},
+    {"path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json", "story_ids": ["DC-ST-27", "DC-ST-35", "DC-ST-36"], "acceptance_scenario_ids": ["q4_status_in_same_chat", "q4_delayed_or_partial_delivery"]}
+  ]
+}

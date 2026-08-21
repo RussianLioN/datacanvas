@@ -959,6 +959,19 @@
       "purpose": "Проверяет точный состав, целостность, локальную навигацию и актуальность полного архива главной цепочки документации."
     },
     {
+      "id": "co-2026-003-prototype-delivery-archive",
+      "command": "npm run validate:co-2026-003-delivery-archive",
+      "gate": "generated",
+      "execution_type": "read_only_check",
+      "mutates_files": false,
+      "writes_expected": [],
+      "freshness_required": true,
+      "completion_blocking": true,
+      "applies_to": ["documentation", "generated", "release", "visual"],
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "purpose": "Проверяет архив поставки CO-2026-003 и запрещает его выпуск до одобрения, свежей генерации и проверки переносимого прототипа."
+    },
+    {
       "id": "traceability-graph",
       "command": "npm run validate:traceability-graph",
       "gate": "profile",

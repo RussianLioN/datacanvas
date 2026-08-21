@@ -1928,6 +1928,89 @@
         "npm run validate:doc-links",
         "npm run validate:docs-navigation"
       ]
+    },
+    {
+      "artifact_id": "UDW-A088",
+      "path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "artifact_type": "documentation_archive_contract",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "restricted",
+      "inputs": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json"
+      ],
+      "outputs": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip"
+      ],
+      "validation_commands": [
+        "npm run validate:schemas",
+        "npm run validate:co-2026-003-delivery-archive"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A089",
+      "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
+      "artifact_type": "release_guide",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "process_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+      ],
+      "outputs": [
+        "docs/navigation/navigation-source.json"
+      ],
+      "validation_commands": [
+        "npm run validate:doc-links",
+        "npm run validate:docs-navigation"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A090",
+      "path": "scripts/lib/workflow-release-gate.mjs",
+      "artifact_type": "validator_library",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "validation_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "npm run validate:universal-documentation-workflow"
+      ]
+    },
+    {
+      "artifact_id": "UDW-A091",
+      "path": "tests/universal-workflow-release-gate.test.mjs",
+      "artifact_type": "validator_test",
+      "owner_role": "Documentation Owner / QA Lead",
+      "domain": "documentation_operations",
+      "profile_scope": "project_specific",
+      "source_of_truth_class": "test_source",
+      "generated": false,
+      "data_class": "internal",
+      "visibility": "internal",
+      "inputs": [
+        "scripts/lib/workflow-release-gate.mjs"
+      ],
+      "outputs": [],
+      "validation_commands": [
+        "node --test tests/universal-workflow-release-gate.test.mjs"
+      ]
     }
   ]
 }

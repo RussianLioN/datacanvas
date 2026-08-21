@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-frame-owner-approval.schema.json",
+  "title": "Запись приёмки владельцем чернового кадра Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "frame_id",
+    "decision",
+    "decision_text",
+    "decision_source",
+    "approved_at",
+    "approved_source_svg_sha256",
+    "approved_draft_png_sha256"
+  ],
+  "properties": {
+    "$schema": { "const": "../../../source/schemas/lisa-frame-owner-approval.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "frame_id": { "const": "lisa-materials-full-reference" },
+    "decision": { "const": "approved" },
+    "decision_text": { "const": "кадр принят" },
+    "decision_source": { "const": "Product Owner в рабочем чате" },
+    "approved_at": { "type": "string", "format": "date-time" },
+    "approved_source_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "approved_draft_png_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

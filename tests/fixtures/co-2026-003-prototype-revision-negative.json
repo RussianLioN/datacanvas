@@ -1,0 +1,129 @@
+{
+  "scenarios": [
+    {
+      "id": "old-client",
+      "mutation": "old_client",
+      "expected_error": "client short_name must be ООО «Водолей Трейд»"
+    },
+    {
+      "id": "not-11-frames",
+      "mutation": "not_11_frames",
+      "expected_error": "candidate active future frame list must contain exactly 11 frames"
+    },
+    {
+      "id": "multiple-active-buttons",
+      "mutation": "multiple_active_buttons",
+      "expected_error": "candidate must keep exactly one active order button"
+    },
+    {
+      "id": "invalid-brainstorming-phases",
+      "mutation": "invalid_brainstorming_phases",
+      "expected_error": "/topics/0/phase_1/consolidated_candidate_count: must be equal to constant"
+    },
+    {
+      "id": "raw-source-path",
+      "mutation": "raw_source_path",
+      "expected_error": "must not contain local absolute paths or raw source paths"
+    },
+    {
+      "id": "release-without-selection",
+      "mutation": "release_without_selection",
+      "expected_error": "owner_selection_complete: must be equal to constant"
+    },
+    {
+      "id": "ready-for-render-with-pending-sources",
+      "mutation": "ready_for_render_with_pending_sources",
+      "expected_error": "release_status: must be equal to constant"
+    },
+    {
+      "id": "visual-render-without-editable-sources",
+      "mutation": "visual_render_without_editable_sources",
+      "expected_error": "release_status: must be equal to constant"
+    },
+    {
+      "id": "missing-svg-first-step",
+      "mutation": "missing_svg_first_step",
+      "expected_error": "frame_flow must exactly match SVG-first acceptance steps"
+    },
+    {
+      "id": "reordered-svg-first-step",
+      "mutation": "reordered_svg_first_step",
+      "expected_error": "frame_flow must exactly match SVG-first acceptance steps"
+    },
+    {
+      "id": "removed-forbidden-method",
+      "mutation": "removed_forbidden_method",
+      "expected_error": "forbidden_methods must exactly match the five banned overlay and upscale methods"
+    },
+    {
+      "id": "extra-semantic-edge",
+      "mutation": "extra_semantic_edge",
+      "expected_error": "semantic graph must contain exactly the required lifecycle and inspection edges"
+    },
+    {
+      "id": "wrong-external-source-format",
+      "mutation": "wrong_external_source_format",
+      "expected_error": "external source presentation_variant_slidedoc_pdf_donor must use required format owner_supplied_pdf_visual_donor"
+    },
+    {
+      "id": "wrong-external-source-frame",
+      "mutation": "wrong_external_source_frame",
+      "expected_error": "external source presentation_variant_sber2025_pdf_donor must target lisa-presentation-sber2025"
+    },
+    {
+      "id": "missing-presentation-canonical-svg-gate",
+      "mutation": "missing_presentation_canonical_svg_gate",
+      "expected_error": "must have required property 'canonical_svg_required_before_render'"
+    },
+    {
+      "id": "docx-in-client-note",
+      "mutation": "docx_in_client_note",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "sha-in-candidate",
+      "mutation": "sha_in_candidate",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "forbidden-key-in-candidate",
+      "mutation": "forbidden_key_in_candidate",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "docx-in-markdown",
+      "mutation": "docx_in_markdown",
+      "expected_error": "raw source traces are forbidden outside source_control.excluded_metadata"
+    },
+    {
+      "id": "candidate-added-to-active-contracts",
+      "mutation": "candidate_added_to_active_contracts",
+      "expected_error": "prototype revision candidate must not be listed in active-contracts.json"
+    },
+    {
+      "id": "active-journey-contract-drift",
+      "mutation": "active_journey_contract_drift",
+      "expected_error": "active journey contract must keep the temporary 13-frame and 3-action-source invariant"
+    },
+    {
+      "id": "wrong-delivery-success-historical-source",
+      "mutation": "wrong_delivery_success_historical_source",
+      "expected_error": "candidate historical message sources must preserve the matching lifecycle message"
+    },
+    {
+      "id": "candidate-evidence-wired-into-demo",
+      "mutation": "candidate_evidence_wired_into_demo",
+      "expected_error": "candidate evidence must not be wired into active release outputs"
+    },
+    {
+      "id": "approved-text-drift",
+      "mutation": "approved_text_drift",
+      "expected_error": "approved text delivery_success_message must preserve the confirmed text"
+    },
+    {
+      "id": "stale-svg-pipeline-text-selection",
+      "mutation": "stale_svg_pipeline_text_selection",
+      "expected_error": "/message_topics/0/status: must be equal to constant"
+    }
+  ]
+}

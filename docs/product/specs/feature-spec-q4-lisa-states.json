@@ -1,0 +1,30 @@
+{
+  "version": "0.1.0",
+  "feature_id": "FS-003",
+  "status": "draft",
+  "priority": "P1",
+  "source_claim_ids": ["BASA-CLM-012", "BASA-CLM-013", "BASA-CLM-014"],
+  "requirement_ids": ["BT-022", "BT-023", "BT-024"],
+  "human_intent": "Сохранять безопасные сообщения одного заказа для пары сеанс/пользователь в том же чате Лисы, использовать утверждённые тексты начала и успеха в будущем кандидате, блокировать повтор после принятия и закрывать сеанс после проблемной доставки без прямой доставки DataCanvas в Лису.",
+  "non_goals": [
+    "Не утверждать прямой маршрут DataCanvas в Лису",
+    "Не включать системный PUSH, ссылку на файл, отдельное хранилище или новый экран редактирования",
+    "Не задавать число автоматических повторов или канал сопровождения"
+  ],
+  "acceptance": ["q4_lisa_order", "q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
+  "eval_cases": ["BASA-EVAL-006", "BASA-EVAL-007", "BASA-EVAL-008"],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_behaviors": [
+    "Показывать личные сведения, содержание запроса, адреса или полные идентификаторы в состоянии Лисы",
+    "Создавать второй заказ после accepted_locked или в закрытом сеансе",
+    "Изобретать внешний контракт внутреннего получателя статуса либо адаптера Лисы"
+  ],
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-002", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-007", "CO3-DEC-008", "CO3-DEC-009"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-23", "DC-ST-26", "DC-ST-27", "DC-ST-34", "DC-ST-35", "DC-ST-36"],
+    "acceptance_scenario_ids": ["q4_lisa_order", "q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
+    "interface_ids": ["IF-008", "IF-009"],
+    "business_rule_ids": ["BRULE-005", "BRULE-006", "BRULE-007", "BRULE-008"]
+  }
+}

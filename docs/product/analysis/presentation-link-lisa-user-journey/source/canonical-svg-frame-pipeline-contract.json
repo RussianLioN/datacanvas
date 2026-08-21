@@ -1,0 +1,446 @@
+{
+  "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
+  "version": "3.6.0",
+  "change_order_id": "CO-2026-003",
+  "status": "inactive_pending_canonical_svg_sources_and_frame_approval",
+  "active": false,
+  "generator_input": false,
+  "render_allowed": false,
+  "archive_allowed": false,
+  "prototype_revision_candidate": {
+    "path": "source/prototype-revision-candidate.json",
+    "expected_version": "1.0.0",
+    "candidate_is_not_generator_input": true
+  },
+  "active_contract_registry_policy": {
+    "registry_path": "source/active-contracts.json",
+    "listed_in_active_contracts": false,
+    "inactive_contracts_are_not_generator_inputs": true
+  },
+  "future_frame_ids": [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "historical_reference_frame_ids": [
+    "lisa-materials-summary",
+    "lisa-presentation-order"
+  ],
+  "scenario_edges": [
+    {
+      "type": "lifecycle",
+      "from": "lisa-materials-full-reference",
+      "event": "order_button_clicked",
+      "to": "validating"
+    },
+    {
+      "type": "lifecycle",
+      "from": "validating",
+      "event": "data_not_accepted",
+      "to": "lisa-order-not-accepted"
+    },
+    {
+      "type": "lifecycle",
+      "from": "lisa-order-not-accepted",
+      "event": "retry_after_data_correction",
+      "to": "lisa-materials-full-reference"
+    },
+    {
+      "type": "lifecycle",
+      "from": "validating",
+      "event": "data_accepted",
+      "to": "lisa-presentation-generating"
+    },
+    {
+      "type": "lifecycle",
+      "from": "lisa-presentation-generating",
+      "event": "delivery_confirmed",
+      "to": "lisa-presentation-sent"
+    },
+    {
+      "type": "lifecycle",
+      "from": "lisa-presentation-generating",
+      "event": "delivery_delayed",
+      "to": "lisa-delivery-delayed"
+    },
+    {
+      "type": "lifecycle",
+      "from": "lisa-presentation-generating",
+      "event": "delivery_partial_or_unconfirmed",
+      "to": "lisa-delivery-partial"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-sent",
+      "event": "open_chat_list",
+      "to": "lisa-presentation-chat-list"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-chat-list",
+      "event": "return_to_same_chat",
+      "to": "lisa-presentation-sent"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-sent",
+      "event": "open_delivery_email",
+      "to": "lisa-presentation-email"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-email",
+      "event": "open_attachment_slidedoc",
+      "to": "lisa-presentation-slidedoc"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-slidedoc",
+      "event": "back_to_email",
+      "to": "lisa-presentation-email"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-email",
+      "event": "open_attachment_sber2025",
+      "to": "lisa-presentation-sber2025"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-sber2025",
+      "event": "back_to_email",
+      "to": "lisa-presentation-email"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-email",
+      "event": "open_attachment_mag",
+      "to": "lisa-presentation-mag"
+    },
+    {
+      "type": "inspection",
+      "from": "lisa-presentation-mag",
+      "event": "back_to_email",
+      "to": "lisa-presentation-email"
+    }
+  ],
+  "stakeholder_gallery_order": {
+    "graph_id": "stakeholder_gallery_order",
+    "is_user_scenario_transition": false,
+    "ordered_state_ids": [
+      "lisa-materials-full-reference",
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-presentation-email",
+      "lisa-presentation-slidedoc",
+      "lisa-presentation-sber2025",
+      "lisa-presentation-mag",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial"
+    ]
+  },
+  "message_topics": [
+    {
+      "topic_id": "button_label",
+      "status": "owner_approved",
+      "render_blocker": true
+    },
+    {
+      "topic_id": "generation_started_message",
+      "status": "owner_approved",
+      "render_blocker": true
+    },
+    {
+      "topic_id": "delivery_success_message",
+      "status": "owner_approved",
+      "render_blocker": true
+    },
+    {
+      "topic_id": "email_subject",
+      "status": "owner_approved",
+      "render_blocker": true
+    },
+    {
+      "topic_id": "email_body",
+      "status": "owner_approved",
+      "render_blocker": true
+    }
+  ],
+  "text_selection_source": {
+    "path": "source/owner-approved-texts.json",
+    "required_topic_count": 5,
+    "render_blocked_until_all_selected": true
+  },
+  "presentation_pdf_donor_register": {
+    "path": "source/presentation-pdf-donor-register.json",
+    "raw_pdf_direct_render_prohibited": true,
+    "all_received_pdf_donors_require_canonical_svg": true
+  },
+  "client_reference_svg_update": {
+    "source_data_path": "source/client-reference-data.json",
+    "historical_client_marker": "ГК Достовалова",
+    "replacement_client_name": "ООО «Водолей Трейд»",
+    "full_reference_frame_id": "lisa-materials-full-reference",
+    "source_group_ids_preserved": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements",
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "visible_group_ids": [
+      "general_information",
+      "business_owners",
+      "financial_indicators",
+      "cooperation",
+      "sber_share",
+      "active_deals",
+      "potential",
+      "preapproved_offers",
+      "insights",
+      "meeting_agreements"
+    ],
+    "excluded_group_ids": [
+      "dynamic_suggestions",
+      "actions"
+    ],
+    "exclusion_scope": "visual_frame_only",
+    "source_data_mutation_allowed": false,
+    "cta_geometry": {
+      "button_rect": {
+        "x": 80,
+        "y": 4968,
+        "width": 361,
+        "height": 40
+      },
+      "font_size": 16,
+      "center_tolerance_px": 0.5,
+      "measurement_method": "pinned_font_path_bounding_box"
+    },
+    "continuation_frame_ids": [
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial"
+    ],
+    "svg_editing_mode": "canonical_svg_existing_groups_only",
+    "status": "pending_frame_cycle"
+  },
+  "external_sources": [
+    {
+      "source_id": "presentation_variant_slidedoc_pdf_donor",
+      "required_for_frame_id": "lisa-presentation-slidedoc",
+      "required_format": "owner_supplied_pdf_visual_donor",
+      "canonical_svg_required_before_render": true,
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    },
+    {
+      "source_id": "presentation_variant_sber2025_pdf_donor",
+      "required_for_frame_id": "lisa-presentation-sber2025",
+      "required_format": "owner_supplied_pdf_visual_donor",
+      "canonical_svg_required_before_render": true,
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    },
+    {
+      "source_id": "presentation_variant_mag_pdf_donor",
+      "required_for_frame_id": "lisa-presentation-mag",
+      "required_format": "owner_supplied_pdf_visual_donor",
+      "canonical_svg_required_before_render": true,
+      "status": "owner_attachment_received_pending_canonical_svg_intake"
+    },
+    {
+      "source_id": "email_frame_canonical_svg_source",
+      "required_for_frame_id": "lisa-presentation-email",
+      "required_format": "canonical_svg_source",
+      "canonical_svg_required_before_render": true,
+      "status": "pending_owner_attachment"
+    }
+  ],
+  "frame_svg_sources": [
+    {
+      "frame_id": "lisa-materials-full-reference",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "owner_approved",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution",
+      "owner_frame_approval_status": "approved"
+    },
+    {
+      "frame_id": "lisa-presentation-generating",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "owner_approved",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-chat-list",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-sent",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-email",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-slidedoc",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-sber2025",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-presentation-mag",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-order-not-accepted",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-delivery-delayed",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    },
+    {
+      "frame_id": "lisa-delivery-partial",
+      "svg_editing_mode": "canonical_svg_existing_groups_only",
+      "canonical_svg_status": "pending_source",
+      "approved_text_status": "pending",
+      "svg_visual_check_status": "pending",
+      "draft_png_status": "blocked",
+      "owner_frame_approval_status": "pending"
+    }
+  ],
+  "frame_review_session": {
+    "status": "draft_png_rendered_pending_owner_approval",
+    "current_frame_id": "lisa-presentation-generating",
+    "next_frame_id": "lisa-presentation-chat-list",
+    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+    "base_frame_id": "lisa-materials-full-reference",
+    "base_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+    "base_owner_approval_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    "transition_rendering_mode": "same_screen_dynamic_state",
+    "edit_mode": "replace_existing_frame_group_content",
+    "prohibited_legacy_overlay_ids": [
+      "lisa-edit-5-4-title",
+      "lisa-status-"
+    ],
+    "active_release_mutation_prohibited": true,
+    "owner_approval_record_path": null,
+    "next_frame_blocked_until_owner_approval": true
+  },
+  "acceptance": {
+    "frame_flow": [
+      "owner_text_selected",
+      "canonical_svg_existing_group_updated",
+      "svg_visual_check",
+      "draft_png_current_resolution_rendered",
+      "owner_frame_approval"
+    ],
+    "prototype_flow": [
+      "all_frames_approved",
+      "draft_full_prototype_current_resolution_rendered",
+      "owner_full_prototype_approval",
+      "high_resolution_render_from_approved_svg_sources",
+      "final_owner_approval"
+    ],
+    "per_frame_review": {
+      "required": true,
+      "review_surface": "isolated_current_prototype_copy",
+      "allowed_changed_frame_count": 1,
+      "candidate_must_replace_same_frame_id": true,
+      "next_frame_blocked_until_owner_approval": true,
+      "active_release_mutation_prohibited": true
+    }
+  },
+  "forbidden_methods": [
+    "html_overlay",
+    "css_overlay",
+    "png_text_overlay",
+    "additional_svg_message_overlay",
+    "draft_png_upscale_for_final"
+  ],
+  "release_boundary": {
+    "candidate_evidence_status": "pending",
+    "active_release_switch_status": "blocked",
+    "rollback_mode": "full_bundle_only",
+    "future_transaction_targets": [
+      "active-contracts.json",
+      "journey-contract.json",
+      "frame-or-visual-contract",
+      "source-render-catalog.json",
+      "demo/**",
+      "derived/**",
+      "evidence/**",
+      "portable-zip",
+      "delivery-archive"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "change_order_id": "CO-2026-003",
+  "controlled_xlsx": {
+    "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+    "golden_path": "tests/golden/xlsx-backlog-draft-pshe-2026-08-17.json",
+    "validation_command": "npm run validate:xlsx-backlog-2026-08-17"
+  },
+  "interview_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+  "required_requirement_links": [
+    {"requirement_id": "BT-022", "story_ids": ["DC-ST-34"], "acceptance_scenarios": ["q4_lisa_order"]},
+    {"requirement_id": "BT-023", "story_ids": ["DC-ST-27", "DC-ST-35"], "acceptance_scenarios": ["q4_status_in_same_chat"]},
+    {"requirement_id": "BT-024", "story_ids": ["DC-ST-36"], "acceptance_scenarios": ["q4_delayed_or_partial_delivery"]}
+  ],
+  "required_story_priorities": [
+    {"story_id": "DC-ST-30", "priority": "P2"}
+  ],
+  "required_interface_ids": ["IF-006", "IF-007", "IF-008", "IF-009"],
+  "required_lifecycle_state_ids": ["eligible", "validating", "rejected_retryable", "accepted_locked", "generating", "delivery_confirmed", "delayed", "delivery_partial", "support_pending", "session_closed"],
+  "required_error_ids": ["ERR-004", "ERR-005", "ERR-006", "ERR-007", "ERR-008", "ERR-009", "ERR-010"],
+  "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+  "visual_release_gate": {
+    "content_review_status": "approved_product_owner",
+    "visual_release_status": "approved_product_owner",
+    "release_condition": "explicit_product_owner_visual_approval"
+  }
+}

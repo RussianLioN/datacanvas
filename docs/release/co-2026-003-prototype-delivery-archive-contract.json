@@ -1,0 +1,171 @@
+{
+  "$schema": "../../schemas/documentation-archive-contract.schema.json",
+  "version": "0.1.0",
+  "status": "active",
+  "archive_id": "co-2026-003-q4-lisa-profile-delivery",
+  "title": "Пакет поставки CO-2026-003: Лиса, Профиль сотрудника и почтовая доставка",
+  "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  "output_path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
+  "data_class": "internal",
+  "visibility": "restricted",
+  "primary_selection": "all_stage_primary_artifacts",
+  "exclude_primary_artifacts": [
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+    "docs/product/requirements/traceability-matrix.json"
+  ],
+  "additional_artifacts": [
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+      "label": "Очищенная рабочая книга с актуальными сроками и ресурсами 2026-08-17"
+    },
+    {
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
+      "label": "Происхождение очищенной рабочей книги 2026-08-17"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "label": "Заявка на изменение Q4_2026"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "label": "Реестр согласованных решений интервью"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+      "label": "Реестр выбранных текстов будущего прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+      "label": "Машиночитаемый реестр выбранных текстов будущего прототипа"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+      "label": "Карта влияния изменения"
+    },
+    {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+      "label": "Пакет итоговой приёмки документации Q4_2026"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "label": "Путь пользователя в Лисе"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "label": "Исходный договор пути пользователя"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
+      "label": "Договор изготовления визуальных экранов из SVG-источников"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
+      "label": "Договор поэкранной подготовки и приёмки канонических SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+      "label": "Машиночитаемый договор поэкранной подготовки и приёмки канонических SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+      "label": "Реестр PDF-доноров вариантов презентации ООО «Водолей Трейд»"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
+      "label": "Очищенные данные справки ООО «Водолей Трейд» для замены в SVG"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
+      "label": "Кандидат обновления прототипа и состояние поэкранной приёмки"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+      "label": "Машиночитаемое состояние кандидата обновления прототипа"
+    },
+    {
+      "path": "docs/release/co-2026-003-visual-prototype-rca.md",
+      "label": "Разбор корневой причины и защита качества визуального прототипа"
+    },
+    {
+      "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
+      "label": "План поэтапной отрисовки и приёмки SVG-прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "label": "Переносимый прототип пути пользователя"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+      "label": "Манифест состава и целостности прототипа"
+    },
+    {
+      "path": "docs/product/specs/generated-spec-package-manifest.json",
+      "label": "Манифест набора спецификаций Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "label": "Спецификация адресов и почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "label": "Спецификация состояния заказа в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "label": "Задача получения адресов Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "label": "Задача почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "label": "Задача принятия заказа в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "label": "Задача статусов в Лисе Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+      "label": "Инструкция агенту для получения адресов Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      "label": "Инструкция агенту для почтовой доставки Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+      "label": "Инструкция агенту для принятия заказа Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+      "label": "Инструкция агенту для статусов Q4_2026"
+    },
+    {
+      "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "label": "Доказательства проверок контура Q4_2026"
+    }
+  ],
+  "embedded_navigation": [
+    "index.html",
+    "README.md",
+    "manifest.json"
+  ],
+  "archive_root": "repository",
+  "integrity_algorithm": "sha256",
+  "zip_method": "store",
+  "fixed_zip_timestamp": "1980-01-01T00:00:00Z",
+  "refresh_policy": {
+    "trigger": "any_byte_change_in_resolved_member_or_contract",
+    "generate_command": "npm run generate:co-2026-003-delivery-archive",
+    "check_command": "npm run check:co-2026-003-delivery-archive",
+    "validation_command": "npm run validate:co-2026-003-delivery-archive"
+  },
+  "release_gate": {
+    "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+    "required_content_review_status": "approved_product_owner",
+    "required_visual_release_status": "approved_product_owner",
+    "prototype_check": "presentation_link_lisa_user_journey"
+  }
+}

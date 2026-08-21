@@ -7,7 +7,7 @@
     "workbook_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "expectations_path": "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
     "provenance_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-    "story_catalog_path": "docs/product/requirements/user-stories.md",
+    "story_catalog_path": "tests/fixtures/xlsx-backlog-draft-pshe-2026-07-08-story-catalog.md",
     "worksheet_part": "xl/worksheets/sheet1.xml",
     "multiplier_cell": "C1"
   },

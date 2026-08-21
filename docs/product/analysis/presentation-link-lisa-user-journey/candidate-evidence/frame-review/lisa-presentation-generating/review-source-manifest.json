@@ -1,0 +1,89 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
+  "version": "2.0.0",
+  "frame_id": "lisa-presentation-generating",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "base_frame_id": "lisa-materials-full-reference",
+  "base_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  "base_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "base_owner_approval_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  "base_owner_approved_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+  "source_svg_sha256": "c6bd7b818f015f2a0900983a4d6acb39895aad7f9d954c29c3274e974887f3cb",
+  "approved_texts_path": "source/owner-approved-texts.json",
+  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "button_label_text": "Создать презентацию по справке",
+  "disabled_button": {
+    "existing_group_id": "buttons_2.0",
+    "aria_disabled": true,
+    "opacity": 0.45,
+    "label_unchanged": true
+  },
+  "generation_started_message": {
+    "text": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    "display_lines": [
+      "Формирование презентации началось в 13:24",
+      "и займет не более 20 минут.",
+      "После завершения презентация будет направлена",
+      "по электронной почте в SIGMA и OMEGA."
+    ],
+    "time_value": "13:24",
+    "inserted_into_existing_frame_group_id": "Group 2131328969",
+    "font_size": 10,
+    "fill": "rgb(87,92,112)",
+    "baselines": [
+      2834,
+      2850,
+      2866,
+      2882
+    ],
+    "safe_area": {
+      "x": 80,
+      "y": 2815,
+      "width": 361,
+      "height": 79
+    },
+    "line_widths": [
+      220.06,
+      135.66,
+      242.81,
+      202.86
+    ]
+  },
+  "preserved_visible_group_ids": [
+    "general_information",
+    "business_owners",
+    "financial_indicators",
+    "cooperation",
+    "sber_share",
+    "active_deals",
+    "potential",
+    "preapproved_offers",
+    "insights",
+    "meeting_agreements"
+  ],
+  "modified_existing_group_ids": [
+    "Group 2131328969",
+    "buttons_2.0"
+  ],
+  "prohibited_legacy_overlay_ids": [
+    "lisa-edit-5-4-title",
+    "lisa-status-"
+  ],
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+  "draft_png_sha256": "709c754194a058c6fcb1917a96b50cfcb9e1b4aa8c562b3fc1a4887343d46054",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3144
+  },
+  "draft_png_non_white_pixel_count": 584970,
+  "owner_frame_approval": null
+}

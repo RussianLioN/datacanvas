@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidate-evidence-registry.schema.json",
+  "title": "Реестр неактивных пакетов вариантов CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "change_order_id", "status", "topic_ids", "package_paths", "boundaries"],
+  "properties": {
+    "$schema": { "const": "../source/schemas/candidate-evidence-registry.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "inactive_historical_candidates_after_owner_selection" },
+    "topic_ids": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "enum": ["button_label", "generation_started_message", "delivery_success_message", "email_subject", "email_body"]
+      },
+      "uniqueItems": true
+    },
+    "package_paths": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "enum": [
+          "candidate-evidence/button-label",
+          "candidate-evidence/generation-started-message",
+          "candidate-evidence/delivery-success-message",
+          "candidate-evidence/email-subject",
+          "candidate-evidence/email-body"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["render_allowed", "archive_allowed", "generator_input_allowed"],
+      "properties": {
+        "render_allowed": { "const": false },
+        "archive_allowed": { "const": false },
+        "generator_input_allowed": { "const": false }
+      }
+    }
+  }
+}

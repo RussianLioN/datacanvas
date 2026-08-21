@@ -1,0 +1,25 @@
+{
+  "$schema": "../source/schemas/candidate-evidence-registry.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "inactive_historical_candidates_after_owner_selection",
+  "topic_ids": [
+    "button_label",
+    "generation_started_message",
+    "delivery_success_message",
+    "email_subject",
+    "email_body"
+  ],
+  "package_paths": [
+    "candidate-evidence/button-label",
+    "candidate-evidence/generation-started-message",
+    "candidate-evidence/delivery-success-message",
+    "candidate-evidence/email-subject",
+    "candidate-evidence/email-body"
+  ],
+  "boundaries": {
+    "render_allowed": false,
+    "archive_allowed": false,
+    "generator_input_allowed": false
+  }
+}

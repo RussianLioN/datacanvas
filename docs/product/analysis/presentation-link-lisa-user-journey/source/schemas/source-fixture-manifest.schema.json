@@ -7,7 +7,7 @@
   "required": ["version", "status", "product_backlog", "visual_reference_archive", "transient_raster_text_font", "approved_presentation_pdfs", "trust", "copied_executable_code", "active_external_links", "absolute_local_paths_stored"],
   "properties": {
     "$schema": { "const": "schemas/source-fixture-manifest.schema.json" },
-    "version": { "const": "2.3.0" },
+    "version": { "const": "2.4.0" },
     "status": { "const": "active" },
     "product_backlog": { "$ref": "#/$defs/product_backlog" },
     "visual_reference_archive": { "$ref": "#/$defs/visual_reference_archive" },
@@ -155,7 +155,7 @@
         "provenance": { "const": "owner-supplied-transient-raster-text-input" },
         "source_path_stored": { "const": false },
         "copied_to_package": { "const": false },
-        "usage": { "const": "transient-raster-text-inserts-only" }
+        "usage": { "const": "temporary-vector-outlines-for-review-only" }
       }
     }
   }

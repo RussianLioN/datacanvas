@@ -329,6 +329,18 @@
       "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
       "sink": "export",
       "data_class": "internal"
+    },
+    {
+      "id": "DLT-053",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+      "sink": "evidence",
+      "data_class": "internal"
+    },
+    {
+      "id": "DLT-054",
+      "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
+      "sink": "evidence",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],
@@ -355,7 +367,8 @@
     "PII detection является conservative regex gate и не заменяет ручную privacy review для реальных пользовательских данных.",
     "Real UAT artifacts включены как confidential scan targets после фактической сессии.",
     "XLSX scan target проверяется по распакованным XML и relationship-частям workbook; бинарные изображения внутри workbook не входят в текстовую проверку.",
-    "Динамические каталоги каскадных запусков проверяются обязательным secret scan на этапе verifier; representative resolution и verification fixtures дополнительно входят в leakage scan targets."
+    "Динамические каталоги каскадных запусков проверяются обязательным secret scan на этапе verifier; representative resolution и verification fixtures дополнительно входят в leakage scan targets.",
+    "Автономный ZIP прототипа и ZIP поставки CO-2026-003 входят в leakage scan targets; проверка анализирует текстовые части ZIP и не заменяет ручную проверку смысла растровых PNG."
   ],
   "next_safe_step": "После pilot run проверить pilot report и portability notes тем же leakage gate."
 }

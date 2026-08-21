@@ -1,0 +1,79 @@
+{
+  "id": "CO-2026-003",
+  "title": "Q4_2026: Лиса, Профиль сотрудника и почтовая доставка результата",
+  "status": "accepted",
+  "source": "Очищенная рабочая книга Product Owner от 2026-08-17, безопасно зафиксированные ответы интервью Product Owner и отдельный реестр утверждённых текстов будущего кандидата.",
+  "reason": "Нужно выделить подтвержденный Q4_2026-контур заказа презентации из Лисы, почтовой доставки ODT и PDF и сообщений о состоянии в том же чате, не выдавая неуточненные системные решения за согласованные.",
+  "priority_before": [
+    "Будущий контур Лисы и доставки результата не отделен от ранее принятого маршрута запуска другим агентом."
+  ],
+  "priority_after": [
+    "В Q4_2026 входит заказ из Лисы, получение адресов через Профиль сотрудника, отправка ODT и PDF и сообщения в том же чате; подпись кнопки, тексты начала и успеха, тема и тело будущего письма берутся из отдельного утверждённого реестра.",
+    "Системный PUSH, ссылка на файл, отдельное хранилище и расширенное редактирование структуры остаются за пределами Q4_2026 и относятся к будущему планированию."
+  ],
+  "affected_users": [
+    "Пользователь Лисы",
+    "внутренний получатель статуса",
+    "Product Owner",
+    "команда реализации",
+    "служба сопровождения"
+  ],
+  "affected_artifacts": [
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+    "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+    "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+    "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+    "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
+    "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/analysis/ba/business-rules.json",
+    "docs/product/requirements/acceptance-criteria.md",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/roadmap/roadmap-v0.1.md",
+    "docs/product/requirements/traceability-matrix.json"
+  ],
+  "affected_requirements": [
+    "BT-015",
+    "BT-016",
+    "BT-017",
+    "BT-018",
+    "BT-019",
+    "BT-022",
+    "BT-023",
+    "BT-024",
+    "NFR-003"
+  ],
+  "affected_ports_adapters": [
+    "Профиль сотрудника",
+    "почтовый сервис",
+    "внутренний получатель статуса",
+    "адаптер экрана Лисы"
+  ],
+  "adr_impact": "До реализации системный анализ определяет точные API, аутентификацию и протоколы. Нельзя утверждать прямую доставку DataCanvas в Лису: получателем статуса может быть Client Info, Orchestrator или Лиса.",
+  "sprint_impact": "Очищенная книга от 2026-08-17 является источником сроков и ресурсов Q4_2026. Она не подменяет детальное планирование и не разрешает включать будущий объём в Q4_2026.",
+  "sprint_goal_test": "До начала реализации системный анализ подтверждает контракт Профиля сотрудника, почтового сервиса и получателя статуса без раскрытия личных сведений и без расширения границы Q4_2026.",
+  "authoritative_decision_ids": ["CO3-DEC-001", "CO3-DEC-002", "CO3-DEC-003", "CO3-DEC-004", "CO3-DEC-005", "CO3-DEC-006", "CO3-DEC-007", "CO3-DEC-008", "CO3-DEC-009"],
+  "product_owner_decision": {
+    "decision": "accepted",
+    "decided_by_role": "Product Owner",
+    "decided_at": "2026-08-17T00:00:00Z",
+    "rationale": "Product Owner подтвердил Q4_2026-контур, правила одного заказа, безопасного определения адресов и отображения состояния в том же чате; точные системные контракты остаются задачей системного анализа."
+  },
+  "rollback": "Исключить Q4_2026-контур из будущих производных требований и планирования, сохранив исторические решения CO-2026-001 и CO-2026-002 без правок; затем повторить профильные проверки.",
+  "validation_plan": [
+    "npm run validate:co-questionnaire",
+    "npm run validate:schemas",
+    "npm run validate:product-change-orders",
+    "npm run validate:change-impact",
+    "npm run validate:business-docs",
+    "npm run validate:traceability-graph",
+    "npm run validate:data-leakage"
+  ],
+  "impact_assessment_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json"
+}

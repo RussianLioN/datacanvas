@@ -1,9 +1,9 @@
 {
   "version": "3.0.0",
-  "status": "portable-ten-screen-prototype",
+  "status": "portable-thirteen-screen-prototype",
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
+    "sha256": "4586172d7484f51ea51ac0c71927c00169e19db9aa8435724b4f2d26ff1a215f"
   },
   "state_ids": [
     "lisa-materials-summary",
@@ -15,7 +15,10 @@
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
     "lisa-presentation-sber2025",
-    "lisa-presentation-mag"
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
   ],
   "runtime_files": [
     {
@@ -25,13 +28,13 @@
     },
     {
       "path": "app.js",
-      "bytes": 21642,
-      "sha256": "5ede4d98f79d840ae88a65e76b48474d0867ccfc2d5bb71dfe54255e0726f3a1"
+      "bytes": 22243,
+      "sha256": "747a5a69c3ab4e4443d75ecc312ccf73cf332eeb4fc21c5044e815b2f15f7f5c"
     },
     {
       "path": "data.js",
-      "bytes": 36867,
-      "sha256": "030b6c980088c02b3b2580ac6ec98435db4a9b106b12d156b64d87c38cdd69fd"
+      "bytes": 60988,
+      "sha256": "775fb2b79b2ecdf0a01dd201e53807617cb36363314de98300514ab591c609eb"
     },
     {
       "path": "styles.css",
@@ -90,8 +93,8 @@
     },
     {
       "path": "assets/lisa-presentation-generating-content-3x.png",
-      "bytes": 626414,
-      "sha256": "811ae53103ba0a72118b5b8e2c01f4398942d723b76eaf5e424fc1ce62e51f6e"
+      "bytes": 694334,
+      "sha256": "50ce52d1933c9eb7f0029cdae54542d02c022e187a366ea0411d0ce8eaa58dbc"
     },
     {
       "path": "assets/lisa-presentation-generating-home-3x.png",
@@ -147,12 +150,57 @@
       "path": "assets/szh-dense-mag-4x.png",
       "bytes": 2045113,
       "sha256": "3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303"
+    },
+    {
+      "path": "assets/lisa-order-not-accepted-status-3x.png",
+      "bytes": 25053,
+      "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59"
+    },
+    {
+      "path": "assets/lisa-order-not-accepted-content-3x.png",
+      "bytes": 676704,
+      "sha256": "88d2ac3906670ddec9d78f2994630d4dcb07e7f6f313eea86eaef9d1d231c3c2"
+    },
+    {
+      "path": "assets/lisa-order-not-accepted-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-delivery-delayed-status-3x.png",
+      "bytes": 25053,
+      "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59"
+    },
+    {
+      "path": "assets/lisa-delivery-delayed-content-3x.png",
+      "bytes": 663525,
+      "sha256": "e4766a61b180ede67d86331d96dbb5f8686778080e9702e842974746dd089887"
+    },
+    {
+      "path": "assets/lisa-delivery-delayed-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
+    },
+    {
+      "path": "assets/lisa-delivery-partial-status-3x.png",
+      "bytes": 25053,
+      "sha256": "a57175556ef449824a7b7c8bb727cd7e4de077638683bbbc0c5cf5818787ff59"
+    },
+    {
+      "path": "assets/lisa-delivery-partial-content-3x.png",
+      "bytes": 693431,
+      "sha256": "51d66c9d531721cb8124c267f4960b9e58f08df456e72ea181a4020de4c3c6a3"
+    },
+    {
+      "path": "assets/lisa-delivery-partial-home-3x.png",
+      "bytes": 42279,
+      "sha256": "a075bbf2333e19dc5ab8b0e7087e309144fe039f673d94d5356e251f830d07f1"
     }
   ],
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 14616484,
-    "sha256": "2d2301a92372c9ce7365b76b0bf013adf4a366c8ca8b9558a5570467dc8f0b81",
+    "bytes": 16948145,
+    "sha256": "4c0345889d8da9c5e9d5e961eef008d16f727deb041def81b91af7f7627b3e04",
     "members": [
       "README.md",
       "manifest.json",
@@ -160,28 +208,37 @@
       "app.js",
       "data.js",
       "styles.css",
-      "assets/lisa-materials-summary-status-3x.png",
-      "assets/lisa-materials-summary-content-3x.png",
-      "assets/lisa-materials-summary-home-3x.png",
-      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-delivery-delayed-content-3x.png",
+      "assets/lisa-delivery-delayed-home-3x.png",
+      "assets/lisa-delivery-delayed-status-3x.png",
+      "assets/lisa-delivery-partial-content-3x.png",
+      "assets/lisa-delivery-partial-home-3x.png",
+      "assets/lisa-delivery-partial-status-3x.png",
       "assets/lisa-materials-full-reference-content-3x.png",
       "assets/lisa-materials-full-reference-home-3x.png",
-      "assets/lisa-presentation-order-status-3x.png",
-      "assets/lisa-presentation-order-content-3x.png",
-      "assets/lisa-presentation-order-home-3x.png",
-      "assets/lisa-presentation-generating-status-3x.png",
-      "assets/lisa-presentation-generating-content-3x.png",
-      "assets/lisa-presentation-generating-home-3x.png",
-      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-materials-summary-content-3x.png",
+      "assets/lisa-materials-summary-home-3x.png",
+      "assets/lisa-materials-summary-status-3x.png",
       "assets/lisa-presentation-chat-list-content-3x.png",
       "assets/lisa-presentation-chat-list-home-3x.png",
-      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-presentation-email.png",
+      "assets/lisa-presentation-generating-content-3x.png",
+      "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-generating-status-3x.png",
+      "assets/lisa-presentation-order-content-3x.png",
+      "assets/lisa-presentation-order-home-3x.png",
+      "assets/lisa-presentation-order-status-3x.png",
       "assets/lisa-presentation-sent-content-3x.png",
       "assets/lisa-presentation-sent-home-3x.png",
-      "assets/lisa-presentation-email.png",
-      "assets/szh-dense-slidedoc-4x.png",
+      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-order-not-accepted-content-3x.png",
+      "assets/lisa-order-not-accepted-home-3x.png",
+      "assets/lisa-order-not-accepted-status-3x.png",
+      "assets/szh-dense-mag-4x.png",
       "assets/szh-dense-sber2025-4x.png",
-      "assets/szh-dense-mag-4x.png"
+      "assets/szh-dense-slidedoc-4x.png"
     ]
   }
 }

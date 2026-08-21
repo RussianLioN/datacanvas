@@ -13,7 +13,10 @@
     "7.4",
     "szh-dense-slidedoc",
     "szh-dense-sber2025",
-    "szh-dense-mag"
+    "szh-dense-mag",
+    "status-order-not-accepted",
+    "status-delivery-delayed",
+    "status-delivery-partial"
   ],
   "sources": [
     {
@@ -63,7 +66,7 @@
       "state_id": "lisa-presentation-generating",
       "path": "editable-sources/7.2 — Длинное название клиента + холдинг.svg",
       "media_type": "image/svg+xml",
-      "sha256": "c90a57eed1faa601834d97f160d7a4b190f7d310136607080cb3339dc3bdc942",
+      "sha256": "76ec08049865b6a2d5aafcb3fc7907889719bd8a0e37fb813eae642034bee894",
       "logical_dimensions": {
         "width": 521,
         "height": 980
@@ -155,6 +158,48 @@
       "presentation": "desktop",
       "scrollable": true,
       "classification": "active-basis"
+    },
+    {
+      "id": "status-order-not-accepted",
+      "state_id": "lisa-order-not-accepted",
+      "path": "editable-sources/status-variants/lisa-order-not-accepted.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "f4f0ec6f472654b2e5844f50f4ce022ba3deb9bc714dbf11c29ac9d064bcd1d5",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-status-variant"
+    },
+    {
+      "id": "status-delivery-delayed",
+      "state_id": "lisa-delivery-delayed",
+      "path": "editable-sources/status-variants/lisa-delivery-delayed.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "57db88dc89417bb4d67dedb0417482bcc7e6488a8e9128d22a604aef6f18ee94",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-status-variant"
+    },
+    {
+      "id": "status-delivery-partial",
+      "state_id": "lisa-delivery-partial",
+      "path": "editable-sources/status-variants/lisa-delivery-partial.svg",
+      "media_type": "image/svg+xml",
+      "sha256": "b12e801fe46aab3f70080859f7e03168d29757a0dc776e0c32f0aa6403d4a55c",
+      "logical_dimensions": {
+        "width": 521,
+        "height": 980
+      },
+      "presentation": "phone",
+      "scrollable": false,
+      "classification": "active-status-variant"
     }
   ]
 }

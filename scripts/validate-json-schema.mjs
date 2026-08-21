@@ -237,6 +237,14 @@ const cases = [
     data: "docs/product/change-orders/co-2026-001-acceptance-questionnaire-state.json",
   },
   {
+    schema: "schemas/product-change-order.schema.json",
+    data: "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
+  },
+  {
+    schema: "schemas/product-change-questionnaire-state.schema.json",
+    data: "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
+  },
+  {
     schema: "schemas/change-impact-assessment.schema.json",
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
@@ -511,6 +519,62 @@ const cases = [
   {
     schema: "schemas/documentation-archive-contract.schema.json",
     data: "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+  },
+  {
+    schema: "schemas/documentation-archive-contract.schema.json",
+    data: "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/button-label/brainstorming-topic-result.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject/brainstorming-topic-result.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/brainstorming-topic-result.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body/brainstorming-topic-result.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/candidate-evidence-registry.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/candidate-evidence-registry.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/owner-approved-texts.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-full-reference-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-donor-register.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
   },
   {
     schema: "schemas/workflow-state.schema.json",

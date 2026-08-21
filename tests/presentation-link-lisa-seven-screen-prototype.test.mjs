@@ -129,6 +129,9 @@ const expectedStates = Object.freeze([
 
 const expectedStateIds = expectedStates.map((state) => state.id);
 const expectedDisplayOrders = Object.freeze([2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+const expectedStatusStateIds = Object.freeze(["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]);
+const expectedRuntimeStateIds = Object.freeze([...expectedStateIds, ...expectedStatusStateIds]);
+const expectedRuntimeDisplayOrders = Object.freeze([...expectedDisplayOrders, 12, 13, 14]);
 const expectedEmailState = expectedStates.find((state) => state.id === "lisa-presentation-email");
 const expectedDocumentStates = expectedStates.filter((state) => state.document);
 const expectedDocumentStateIds = expectedDocumentStates.map((state) => state.id);
@@ -138,8 +141,21 @@ const immediateCtaStateIds = expectedStates
   .map((state) => state.id);
 const expectedPhoneStates = expectedStates.filter((state) => state.presentation === "phone");
 const expectedPhoneStateIds = expectedPhoneStates.map((state) => state.id);
+const expectedRuntimePhoneStateIds = Object.freeze([...expectedPhoneStateIds, ...expectedStatusStateIds]);
 
 const expectedOrderLabel = "Сформировать презентацию";
+const expectedLifecycleStateIds = Object.freeze([
+  "eligible",
+  "validating",
+  "rejected_retryable",
+  "accepted_locked",
+  "generating",
+  "delivery_confirmed",
+  "delayed",
+  "delivery_partial",
+  "support_pending",
+  "session_closed",
+]);
 const expectedPhoneLayerRoles = Object.freeze(["system_top", "scroll_content", "system_bottom"]);
 const expectedPhoneLayerViewportRects = Object.freeze({
   system_top: Object.freeze({ x: 0, y: 0, width: 393, height: 53 }),
@@ -271,12 +287,13 @@ function phoneLayerSrc(stateId, role) {
 }
 
 function expectedPhoneRasterLayers(stateId) {
-  const sources = expectedPhoneLayerSources[stateId] ?? expectedDefaultPhoneLayerSources;
+  const sourceStateId = stateId;
+  const sources = expectedPhoneLayerSources[sourceStateId] ?? expectedDefaultPhoneLayerSources;
   return expectedPhoneLayerRoles.map((role) => {
     const sourceRect = sources[role];
     return {
       role,
-      src: phoneLayerSrc(stateId, role),
+      src: phoneLayerSrc(sourceStateId, role),
       source_rect: sourceRect,
       viewport_rect: expectedPhoneLayerViewportRects[role],
       pixel_dimensions: {
@@ -311,6 +328,23 @@ function stateIds(states) {
   return Array.from(states, (state) => state.id);
 }
 
+function runtimePublishGateCandidate() {
+  return {
+    contracts: {
+      lifecycle: {
+        content_review_status: "approved_product_owner",
+        visual_release_status: "approved_product_owner",
+      },
+    },
+    runtimeEntries: [
+      {
+        name: "index.html",
+        content: Buffer.from("<!doctype html><html lang=\"ru\"></html>\n", "utf8"),
+      },
+    ],
+  };
+}
+
 function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /(?:^|[^\w])\.\.(?:\/|\\)/u, `${label}: runtime не должен ссылаться через ..`);
   assert.doesNotMatch(value, /\b(?:source|editable-sources)\//u, `${label}: runtime не должен зависеть от source/** или editable-sources/**`);
@@ -320,7 +354,95 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
 
-test("активный договор и demo/data.js фиксируют ровно десять состояний в утверждённом порядке", () => {
+test("исходный договор хранит согласованные сообщения и одобрен для визуального выпуска", () => {
+  const contracts = loadSevenScreenContracts(root);
+  const lifecycle = contracts.journey.lifecycle;
+  const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
+  const templateRoot = path.join(root, "scripts/templates/presentation-link-lisa-seven-screen");
+  const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
+
+  assert.equal(lifecycle?.model, "variant");
+  assert.equal(lifecycle?.content_review_status, "approved_product_owner");
+  assert.equal(lifecycle?.visual_release_status, "approved_product_owner");
+  assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
+  assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
+  assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);
+  assert.ok(lifecycle?.button?.disabled_in?.includes("accepted_locked"));
+  assert.equal(lifecycle?.button?.submission, "immediate_without_confirmation");
+  assert.equal(lifecycle?.chat?.delivery, "same_chat_on_return");
+  assert.equal(lifecycle?.chat?.system_push, false);
+  assert.equal(lifecycle?.scope?.result_link, false);
+  assert.equal(lifecycle?.scope?.separate_storage, false);
+  assert.equal(lifecycle?.scope?.rich_structure_editing, false);
+  assert.deepEqual(
+    lifecycle?.messages?.map((message) => message.id),
+    ["order_started", "order_not_accepted", "delivery_confirmed", "delivery_delayed", "delivery_partial"],
+  );
+  assert.match(runtimeSource, /"lifecycle"/u, "генератор обязан передавать модель в будущий runtime");
+  assert.match(appSource, /lifecycle\?\.button/u, "шаблон обязан брать доступность CTA из жизненного цикла");
+  assert.match(appSource, /disabled/u, "шаблон обязан блокировать CTA после принятия заказа");
+  assert.equal(lifecycle?.screen_sequence?.decision_id, "CO3-DEC-009");
+  assert.equal(lifecycle?.screen_sequence?.preserve_existing_source_order, true);
+  assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
+  assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
+  assert.equal(lifecycle?.screen_sequence?.generation_status, "visual_generation_completed");
+  assert.deepEqual(lifecycle?.screen_sequence?.delivery_failure_presentation, {
+    decision_id: "CO3-DEC-009",
+    presentation_state_id: "lisa-delivery-partial",
+    lifecycle_message_id: "delivery_partial",
+    separate_screen: false,
+  });
+  assert.deepEqual(
+    lifecycle?.messages,
+    [
+      {"id":"order_started","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-001","authoritative_text_status":"agreed","authoritative_text":"Начал формировать презентацию в ЧЧ:ММ. Это займет не более 20 минут. Можете переключиться на другие задачи и через 20 минут проверить почту OMEGA и SIGMA: туда будет направлена презентация"},
+      {"id":"order_not_accepted","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-002","authoritative_text_status":"agreed","authoritative_text":"Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение."},
+      {"id":"delivery_confirmed","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-003","authoritative_text_status":"agreed","authoritative_text":"Презентация сформирована и отправлена на почту в ЧЧ:ММ, проверьте почтовый ящик!"},
+      {"id":"delivery_delayed","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-004","authoritative_text_status":"agreed","authoritative_text":"Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."},
+      {"id":"delivery_partial","decision_id":"CO3-DEC-007","message_id":"CO3-MSG-005","authoritative_text_status":"agreed","authoritative_text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
+    ],
+  );
+});
+
+test("только одобрение обоих выпускных решений разрешает публикацию кандидата", async () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-visual-release-"));
+  const built = runtimePublishGateCandidate();
+
+  try {
+    assert.equal(built.contracts.lifecycle.content_review_status, "approved_product_owner");
+    assert.equal(built.contracts.lifecycle.visual_release_status, "approved_product_owner");
+
+    built.contracts.lifecycle.content_review_status = "pending_product_owner";
+
+    assert.throws(
+      () => publishSevenScreenRuntime(temporaryRoot, built),
+      /визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner/u,
+    );
+    assert.equal(
+      fs.existsSync(path.join(temporaryRoot, packagePath, "demo")),
+      false,
+      "блокировка не должна создавать визуальные выходные файлы",
+    );
+
+    built.contracts.lifecycle.content_review_status = "approved_product_owner";
+    built.contracts.lifecycle.visual_release_status = "pending_product_owner";
+    assert.throws(
+      () => publishSevenScreenRuntime(temporaryRoot, built),
+      /визуальный выпуск требует одобрения содержания и отдельного одобрения Product Owner/u,
+    );
+
+    built.contracts.lifecycle.visual_release_status = "approved_product_owner";
+    publishSevenScreenRuntime(temporaryRoot, built);
+    assert.ok(
+      fs.existsSync(path.join(temporaryRoot, packagePath, "demo", "index.html")),
+      "явное одобрение визуального выпуска должно разрешать публикацию тестового кандидата",
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("активный договор сохраняет десять исходных экранов и три канонических экрана статусов в конце", () => {
   const registry = readJson("source/active-contracts.json");
   const journey = readJson("source/journey-contract.json");
   const visualBasis = readJson("source/visual-basis-contract.json");
@@ -341,44 +463,44 @@ test("активный договор и demo/data.js фиксируют ров�
     "договор должен сохранять заданную рабочую область экрана",
   );
 
-  assert.deepEqual(registry.active_state_ids, expectedStateIds, "active_state_ids должен быть единственным источником порядка десяти экранов");
-  assert.deepEqual(journey.state_ids, expectedStateIds, "journey-contract/state_ids должен повторять активный порядок");
+  assert.deepEqual(registry.active_state_ids, expectedRuntimeStateIds, "active_state_ids должен быть единым источником порядка всех тринадцати экранов");
+  assert.deepEqual(journey.state_ids, expectedRuntimeStateIds, "journey-contract/state_ids должен повторять активный порядок");
   assert.deepEqual(
     journey.states.map((state) => state.id),
-    expectedStateIds,
-    "journey-contract должен повторять порядок десяти экранов без старых состояний",
+    expectedRuntimeStateIds,
+    "journey-contract должен повторять порядок тринадцати экранов без старых состояний",
   );
-  assert.equal(journey.navigation?.display_total, 11, "договор должен фиксировать отображаемый общий номер 11");
+  assert.equal(journey.navigation?.display_total, 14, "договор должен фиксировать общий номер с тремя экранами статусов");
   assert.deepEqual(
     journey.states.map((state) => state.display_order),
-    expectedDisplayOrders,
-    "договор должен показывать экраны как №2–11 без исключённого №1",
+    expectedRuntimeDisplayOrders,
+    "договор должен показывать экраны как №2–14 без исключённого №1",
   );
   assert.deepEqual(
     stateIds(data.states),
-    expectedStateIds,
-    "demo/data.js должен отдавать ровно десять публичных data-state-id",
+    expectedRuntimeStateIds,
+    "demo/data.js должен добавлять три ошибочных экрана после десяти исходных",
   );
   assert.deepEqual(
     visualBasis.states.map((state) => state.state_id),
-    expectedStateIds,
-    "visual-basis-contract должен описывать основы для тех же десяти состояний",
+    expectedRuntimeStateIds,
+    "visual-basis-contract должен описывать канонические основы всех тринадцати состояний",
   );
-  assert.deepEqual(projectionMap.state_ids, expectedStateIds, "карта проекций должна содержать только десять активных состояний");
-  assert.deepEqual(rasterManifest.state_ids, expectedStateIds, "манифест растров должен содержать только десять активных состояний");
-  assert.deepEqual(browserReport.active_state_ids, expectedStateIds, "браузерный отчёт должен описывать только активный маршрут");
-  assert.deepEqual(acceptanceReport.active_state_ids, expectedStateIds, "отчёт приёмки должен описывать только активный маршрут");
+  assert.deepEqual(projectionMap.state_ids, expectedRuntimeStateIds, "карта проекций должна содержать все состояния выпуска");
+  assert.deepEqual(rasterManifest.state_ids, expectedRuntimeStateIds, "манифест растров должен содержать все состояния выпуска");
+  assert.deepEqual(browserReport.active_state_ids, expectedRuntimeStateIds, "браузерный отчёт должен описывать весь маршрут");
+  assert.deepEqual(acceptanceReport.active_state_ids, expectedRuntimeStateIds, "отчёт приёмки должен описывать весь маршрут");
   assert.deepEqual(
     data.state_ids ? Array.from(data.state_ids) : stateIds(data.states),
-    expectedStateIds,
-    "demo/data.js должен отдавать ровно десять публичных data-state-id",
+    expectedRuntimeStateIds,
+    "demo/data.js должен отдавать все публичные data-state-id",
   );
   assert.equal(data.initial_state_id ?? expectedStateIds[0], expectedStateIds[0], "начальное состояние должно быть первым в десятиэкранном порядке");
-  assert.equal(data.navigation?.display_total, 11, "runtime должен передавать отображаемый общий номер 11");
+  assert.equal(data.navigation?.display_total, 14, "runtime должен передавать общий номер с экранами статусов");
   assert.deepEqual(
     Array.from(data.states, (state) => state.display_order),
-    expectedDisplayOrders,
-    "runtime должен передавать отображаемые номера экранов №2–11",
+    expectedRuntimeDisplayOrders,
+    "runtime должен передавать отображаемые номера экранов №2–14",
   );
   assert.deepEqual(
     expectedStateIds.slice(expectedStateIds.indexOf("lisa-presentation-email") + 1),
@@ -435,6 +557,29 @@ test("активный договор и demo/data.js фиксируют ров�
     }
     assert.equal(Boolean(state.scrollable), expected.scrollable, `${expected.id}: неверный признак внутренней прокрутки`);
     assert.equal(state.presentation, expected.presentation, `${expected.id}: неверный тип представления`);
+  }
+
+  const statusBasisById = new Map(
+    journey.lifecycle.screen_sequence.status_presentations.map((presentation) => [
+      presentation.state_id,
+      presentation.base_state_id,
+    ]),
+  );
+  for (const stateId of expectedStatusStateIds) {
+    const state = data.states.find((candidate) => candidate.id === stateId);
+    const baseStatusState = data.states.find((candidate) => candidate.id === statusBasisById.get(stateId));
+    assert.ok(state, `${stateId}: ошибочный экран отсутствует в runtime`);
+    assert.ok(baseStatusState, `${stateId}: не найдена базовая визуальная основа`);
+    for (const [index, layer] of state.asset.layers.entries()) {
+      const baseLayer = baseStatusState.asset.layers[index];
+    assert.equal(layer.src, expectedPhoneRasterLayers(stateId)[index].src, `${stateId}: должен использовать собственный канонический слой SVG-рендера`);
+    assert.notEqual(layer.src, baseLayer.src, `${stateId}: не должен повторно использовать растр базового экрана`);
+      assert.deepEqual(layer.source_rect, baseLayer.source_rect, `${stateId}: source_rect должен повторять близкую согласованную основу`);
+      assert.deepEqual(layer.viewport_rect, baseLayer.viewport_rect, `${stateId}: viewport_rect должен повторять близкую согласованную основу`);
+      assert.deepEqual(layer.pixel_dimensions, baseLayer.pixel_dimensions, `${stateId}: размеры слоя должны повторять близкую согласованную основу`);
+    }
+    assert.equal(state.status_message, undefined, `${stateId}: согласованное сообщение должно быть частью канонического SVG, а не HTML-наложением`);
+    assert.equal(state.action_ids.length, 0, `${stateId}: не должен принимать новый заказ`);
   }
 });
 
@@ -567,6 +712,7 @@ test("runtime-файлы используют только локальные de
     .join("\n");
 
   assert.match(joinedRuntime, /assets\//u, "runtime должен подключать опубликованные demo/assets/**");
+  assert.doesNotMatch(joinedRuntime, /lifecycle-status-message/u, "runtime не должен рисовать HTML-карточку поверх канонического SVG");
   for (const fragment of forbiddenLegacyStateFragments) {
     assert.doesNotMatch(
       joinedRuntime,
@@ -582,19 +728,41 @@ test("runtime-файлы используют только локальные de
   }
 });
 
-test("demo/assets содержит 18 телефонных сегментов, почтовую PNG-сцену и три документных PNG", () => {
+test("визуальные доказательства содержат свежий WebKit-снимок каждого активного экрана в трёх размерах", () => {
+  const manifest = readJson("evidence/visual-screenshot-manifest.json");
+  const packageManifest = readJson("derived/prototype-package-manifest.json");
+  const expectedViewports = ["desktop-1280x720", "mobile-390x844", "stress-320x568"];
+  assert.equal(manifest.status, "passed");
+  assert.equal(manifest.renderer, "playwright-webkit");
+  assert.deepEqual(manifest.candidate_fingerprint, packageManifest.candidate_fingerprint, "визуальные снимки должны относиться к текущему кандидату прототипа");
+  assert.deepEqual(manifest.active_state_ids, expectedRuntimeStateIds);
+  assert.deepEqual(manifest.viewports.map((viewport) => viewport.id), expectedViewports);
+  assert.equal(manifest.records.length, expectedRuntimeStateIds.length * expectedViewports.length);
+  const paths = new Set();
+  for (const record of manifest.records) {
+    assert.ok(expectedRuntimeStateIds.includes(record.state_id), `неизвестный экран в снимках: ${record.state_id}`);
+    assert.ok(expectedViewports.includes(record.viewport_id), `неизвестный размер снимка: ${record.viewport_id}`);
+    assert.match(record.path, /^docs\/product\/analysis\/presentation-link-lisa-user-journey\/evidence\/screenshots\/webkit\/.+\.png$/u);
+    assert.match(record.sha256, /^[a-f0-9]{64}$/u);
+    assert.ok(fs.existsSync(path.join(root, record.path)), `${record.path}: свежий PNG-снимок отсутствует`);
+    paths.add(record.path);
+  }
+  assert.equal(paths.size, manifest.records.length, "снимки не должны повторять один и тот же PNG для разных экранов");
+});
+
+test("demo/assets содержит канонические сегменты девяти телефонных экранов, почтовую сцену и три документа", () => {
   const assetRoot = path.join(demoRoot, "assets");
   const assetPaths = listFiles(assetRoot).map(toDemoRelative).sort((left, right) => left.localeCompare(right, "en"));
-  const expectedPhoneAssetPaths = expectedPhoneStateIds
+  const expectedPhoneAssetPaths = [...new Set(expectedRuntimePhoneStateIds
     .flatMap((stateId) => expectedPhoneRasterLayers(stateId).map((layer) => layer.src))
-    .sort((left, right) => left.localeCompare(right, "en"));
+  )].sort((left, right) => left.localeCompare(right, "en"));
   const expectedDocumentAssetPaths = expectedDocumentStates
     .map((state) => state.assetPath)
     .sort((left, right) => left.localeCompare(right, "en"));
-  const forbiddenFullPhoneAssetPaths = expectedPhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
+  const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
   const expectedEmailAssetPath = "assets/lisa-presentation-email.png";
 
-  assert.equal(assetPaths.length, 22, "в runtime должно быть ровно 18 телефонных сегментов, один почтовый PNG и три документных PNG");
+  assert.equal(assetPaths.length, 31, "в runtime должно быть ровно 27 телефонных сегментов, один почтовый PNG и три документных PNG");
   assert.ok(assetPaths.every((assetPath) => /^assets\/[a-z0-9/-]+\.png$/u.test(assetPath)), "assets должны быть PNG внутри demo/assets/**");
   assert.deepEqual(
     assetPaths.filter((assetPath) => assetPath !== expectedEmailAssetPath && !expectedDocumentAssetPaths.includes(assetPath)),
@@ -621,7 +789,7 @@ test("demo/assets содержит 18 телефонных сегментов, �
     "каждый опубликованный PNG должен принадлежать телефонному слою или почтовой сцене",
   );
 
-  for (const stateId of expectedPhoneStateIds) {
+  for (const stateId of expectedRuntimePhoneStateIds) {
     for (const expectedLayer of expectedPhoneRasterLayers(stateId)) {
       assert.deepEqual(
         pngDimensions(path.join(demoRoot, expectedLayer.src)),
@@ -648,10 +816,10 @@ test("demo/assets содержит 18 телефонных сегментов, �
   }
 });
 
-test("ZIP минимален, содержит manifest, 18 телефонных сегментов, почту и три документа без PDF и source/**", () => {
+test("ZIP минимален, содержит канонические сегменты девяти телефонных экранов, почту и три документа без PDF и source/**", () => {
   const members = unzipList(zipPath);
   const assetMembers = members.filter((member) => member.startsWith("assets/")).sort((left, right) => left.localeCompare(right, "en"));
-  const forbiddenFullPhoneAssetPaths = expectedPhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
+  const forbiddenFullPhoneAssetPaths = expectedRuntimePhoneStateIds.map((stateId) => `assets/${stateId}-3x.png`);
   const expectedDocumentAssetPaths = expectedDocumentStates
     .map((state) => state.assetPath)
     .sort((left, right) => left.localeCompare(right, "en"));
@@ -670,8 +838,8 @@ test("ZIP минимален, содержит manifest, 18 телефонных
     [...expectedMembers].sort((left, right) => left.localeCompare(right, "en")),
     "ZIP должен содержать только минимальный автономный runtime, телефонные сегменты, почтовый PNG и три документа",
   );
-  assert.equal(members.length, 28, "ZIP должен содержать ровно 28 файлов");
-  assert.equal(assetMembers.length, 22, "ZIP должен содержать ровно 18 телефонных сегментов, один почтовый PNG и три документа");
+  assert.equal(members.length, 37, "ZIP должен содержать ровно 37 файлов");
+  assert.equal(assetMembers.length, 31, "ZIP должен содержать ровно 27 телефонных сегментов, один почтовый PNG и три документа");
   assert.ok(assetMembers.every((member) => /^assets\/[a-z0-9/-]+\.png$/u.test(member)));
   assert.deepEqual(
     assetMembers.filter((member) => expectedDocumentAssetPaths.includes(member)),
@@ -699,8 +867,8 @@ test("ZIP минимален, содержит manifest, 18 телефонных
   assert.deepEqual(manifestAssets, assetMembers, "manifest должен перечислять тот же набор телефонных сегментов и почтовый PNG");
   assert.deepEqual(
     manifest.active_state_ids ?? manifest.states?.map((state) => state.id),
-    expectedStateIds,
-    "manifest должен фиксировать порядок десяти состояний",
+    expectedRuntimeStateIds,
+    "manifest должен фиксировать порядок десяти исходных и трёх ошибочных состояний",
   );
 });
 
@@ -714,6 +882,12 @@ test("публикация demo откатывает весь комплект �
   fs.writeFileSync(path.join(temporaryDemo, "assets", "previous.png"), Buffer.from("previous-png"));
   const before = snapshotDirectory(temporaryDemo);
   const built = {
+    contracts: {
+      lifecycle: {
+        content_review_status: "approved_product_owner",
+        visual_release_status: "approved_product_owner",
+      },
+    },
     runtimeEntries: [
       { name: "index.html", content: Buffer.from("candidate:index") },
       { name: "app.js", content: Buffer.from("candidate:app") },

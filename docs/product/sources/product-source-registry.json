@@ -295,6 +295,36 @@
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
     },
     {
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-17",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "q4_resource_planning_input",
+        "controlled_excel_source_audit",
+        "cascade_synchronization"
+      ],
+      "affected_artifacts": [
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-08-17.json",
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "notes": "Контролируемая рабочая Excel-версия Product Owner от 2026-08-17: книга имеет три листа, формулы и структура сохранены, служебный absPath, персональные сведения авторов в core/comments и содержимое комментариев удалены, строка старого PUSH на листе СОЗАВИСИМОСТЬ Q3_2026 переименована в «Сообщения о статусе заказа в том же чате Лисы» с сохранением ресурса 35. Плановые значения J1:V1 учитывают коэффициент C1, J2:V2 остаются чистыми подытогами; полный ресурсный итог берется из числового значения Excel на листе Итоговые ресурсы, B4=304.4, а B8 не является полным итогом.",
+      "sha256": "6215a793cae25a0a11ccb9d205aaef10a832b4179319409c00ef6b5a08b451f4",
+      "derived_from": null,
+      "verifier_command": "npm run validate:xlsx-backlog-2026-08-17",
+      "allowed_delta": "От внешнего источника Product Owner с SHA-256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1 разрешены только независимое от пространства имен удаление absPath, обезличивание метаданных автора в core/comments, очистка содержимого комментариев с сохранением OOXML-структуры и принятое переименование статуса на листе СОЗАВИСИМОСТЬ Q3_2026.",
+      "approval_status": "owner_approved",
+      "team_validation_status": "pending_team_review",
+      "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+    },
+    {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",
       "path": "docs/product/backlog/product-backlog.md",
       "source_role": "product_planning",
