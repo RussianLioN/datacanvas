@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "3.8.0",
+  "version": "3.9.0",
   "change_order_id": "CO-2026-003",
   "status": "inactive_pending_canonical_svg_sources_and_frame_approval",
   "active": false,
@@ -351,38 +351,38 @@
     {
       "frame_id": "lisa-order-not-accepted",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "authoritative_interview_agreed",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution_pending_owner_approval",
       "owner_frame_approval_status": "pending"
     },
     {
       "frame_id": "lisa-delivery-delayed",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "authoritative_interview_agreed",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution_pending_owner_approval",
       "owner_frame_approval_status": "pending"
     },
     {
       "frame_id": "lisa-delivery-partial",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "authoritative_interview_agreed",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution_pending_owner_approval",
       "owner_frame_approval_status": "pending"
     }
   ],
   "frame_review_session": {
-    "status": "owner_frame_approved",
-    "current_frame_id": "lisa-presentation-sent",
-    "next_frame_id": "lisa-presentation-email",
-    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
-    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
-    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+    "status": "error_batch_drafts_rendered_pending_owner_approval",
+    "current_frame_id": "lisa-order-not-accepted",
+    "next_frame_id": "lisa-delivery-delayed",
+    "source_svg_path": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg",
+    "draft_png_path": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png",
+    "review_manifest_path": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
     "base_frame_id": "lisa-presentation-generating",
     "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
     "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
@@ -390,7 +390,7 @@
     "dynamic_footer": {
       "button_group_id": "buttons_2.0",
       "button_state": "disabled_pale_gray",
-      "message_placement": "below_generation_message",
+      "message_placement": "replaces_generation_or_follows_generation_message",
       "canvas_height": 3290
     },
     "edit_mode": "replace_existing_frame_group_content",
@@ -399,10 +399,21 @@
       "lisa-status-"
     ],
     "active_release_mutation_prohibited": true,
-    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
-    "next_frame_blocked_until_owner_approval": false,
+    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json",
+    "next_frame_blocked_until_owner_approval": true,
     "skipped_frame_id": "lisa-presentation-chat-list",
-    "skipped_frame_reason": "owner_direction_no_rework"
+    "skipped_frame_reason": "owner_direction_no_rework",
+    "error_review_batch": {
+      "contract_path": "source/error-frame-review-contract.json",
+      "candidate_frame_ids": [
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ],
+      "acceptance_mode": "independent_owner_approval_per_frame",
+      "full_delivery_representation_frame_id": "lisa-delivery-partial",
+      "draft_preparation_authorized_by_owner": true
+    }
   },
   "acceptance": {
     "frame_flow": [

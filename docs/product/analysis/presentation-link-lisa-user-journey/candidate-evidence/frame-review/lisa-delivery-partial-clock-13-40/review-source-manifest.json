@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../source/schemas/error-frame-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-delivery-partial",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "semantic_base_frame_id": "lisa-presentation-generating",
+  "visual_template_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+  "visual_template_svg_sha256": "f1e5c91172996d013cbc65d79039f6e0187d4f5b04029a0b8055cd969a6427de",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "mock_phone_status_time_value": "13:40",
+  "keeps_generation_message": true,
+  "error_message": {
+    "message_id": "delivery_partial",
+    "text": "Презентация сформирована и направлена в OMEGA. Отправка в SIGMA пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
+    "display_lines": [
+      "Презентация сформирована и направлена в",
+      "OMEGA. Отправка в SIGMA пока не",
+      "подтверждена. Задача передана в",
+      "сопровождение; сообщу здесь, если отправка",
+      "будет подтверждена."
+    ],
+    "font_size": 11.5,
+    "fill": "rgb(73,80,94)",
+    "baselines": [
+      3048,
+      3064,
+      3080,
+      3096,
+      3112
+    ],
+    "safe_area": {
+      "x": 80,
+      "y": 3036,
+      "width": 345,
+      "height": 88
+    },
+    "line_widths": [
+      243.881,
+      200.02,
+      189.589,
+      254.311,
+      117.3
+    ],
+    "replaced_existing_group_id": "lisa-review-delivery-success-status"
+  },
+  "source_svg_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/source.svg",
+  "source_svg_sha256": "361efd6cd1779cd734319f1ec671ecdb3fa049794f6f4f521125528e84c6c2e3",
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/draft-current-resolution.png",
+  "draft_png_sha256": "fecf79855d087919bf7e706c3a4fc5392ca94c7ace19fa5f9796987e8fc4532b",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3290
+  },
+  "draft_png_non_white_pixel_count": 605603,
+  "owner_frame_approval": null
+}

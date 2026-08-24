@@ -561,6 +561,22 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/error-frame-review-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/error-frame-review-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/error-frame-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/error-frame-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/error-frame-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review-source-manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-full-reference-review-source-manifest.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
   },

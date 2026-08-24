@@ -18,6 +18,13 @@ const candidatePath = `${sourcePath}/prototype-revision-candidate.json`;
 const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
 const presentationPdfDonorRegisterPath = `${sourcePath}/presentation-pdf-donor-register.json`;
 const presentationPdfDonorRegisterSchemaPath = `${sourcePath}/schemas/presentation-pdf-donor-register.schema.json`;
+const errorFrameReviewContractPath = `${sourcePath}/error-frame-review-contract.json`;
+const errorFrameReviewManifestSchemaPath = `${sourcePath}/schemas/error-frame-review-source-manifest.schema.json`;
+const errorFrameReviewDirectories = Object.freeze([
+  "lisa-order-not-accepted-clock-13-40",
+  "lisa-delivery-delayed-clock-13-40",
+  "lisa-delivery-partial-clock-13-40",
+]);
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const negativeFixturePath = "tests/fixtures/canonical-svg-frame-pipeline-negative.json";
 const fullReferenceReviewSourcePath = `${packagePath}/candidate-evidence/frame-review/lisa-materials-full-reference/source.svg`;
@@ -177,6 +184,14 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   writeJson(tempRoot, approvedTextsPath, readJson(approvedTextsPath));
   writeJson(tempRoot, presentationPdfDonorRegisterPath, readJson(presentationPdfDonorRegisterPath));
   writeJson(tempRoot, presentationPdfDonorRegisterSchemaPath, readJson(presentationPdfDonorRegisterSchemaPath));
+  writeJson(tempRoot, errorFrameReviewContractPath, readJson(errorFrameReviewContractPath));
+  writeJson(tempRoot, errorFrameReviewManifestSchemaPath, readJson(errorFrameReviewManifestSchemaPath));
+  for (const directory of errorFrameReviewDirectories) {
+    const reviewDirectory = `${packagePath}/candidate-evidence/frame-review/${directory}`;
+    writeJson(tempRoot, `${reviewDirectory}/review-source-manifest.json`, readJson(`${reviewDirectory}/review-source-manifest.json`));
+    copyFile(tempRoot, `${reviewDirectory}/source.svg`);
+    copyFile(tempRoot, `${reviewDirectory}/draft-current-resolution.png`);
+  }
   writeJson(tempRoot, fullReferenceReviewManifestPath, readJson(fullReferenceReviewManifestPath));
   writeJson(tempRoot, fullReferenceOwnerApprovalPath, readJson(fullReferenceOwnerApprovalPath));
   copyFile(tempRoot, fullReferenceReviewSourcePath);
@@ -326,7 +341,7 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "3.8.0");
+  assert.equal(contract.version, "3.9.0");
   assert.equal(contract.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
@@ -461,6 +476,16 @@ test("выбранные тексты и покадровые источники
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "approved",
       });
+    } else if (["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"].includes(frame.frame_id)) {
+      assert.deepEqual(frame, {
+        frame_id: frame.frame_id,
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "prepared_existing_group_content_replaced",
+        approved_text_status: "authoritative_interview_agreed",
+        svg_visual_check_status: "passed",
+        draft_png_status: "rendered_current_resolution_pending_owner_approval",
+        owner_frame_approval_status: "pending",
+      });
     } else {
       assert.equal(frame.canonical_svg_status, "pending_source");
       assert.equal(frame.approved_text_status, "pending");
@@ -476,12 +501,12 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "owner_frame_approved",
-    current_frame_id: "lisa-presentation-sent",
-    next_frame_id: "lisa-presentation-email",
-    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
-    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
-    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+    status: "error_batch_drafts_rendered_pending_owner_approval",
+    current_frame_id: "lisa-order-not-accepted",
+    next_frame_id: "lisa-delivery-delayed",
+    source_svg_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg",
+    draft_png_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
     base_frame_id: "lisa-presentation-generating",
     base_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
     base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
@@ -489,16 +514,23 @@ test("принятый первый проверочный кадр изолир
     dynamic_footer: {
       button_group_id: "buttons_2.0",
       button_state: "disabled_pale_gray",
-      message_placement: "below_generation_message",
+      message_placement: "replaces_generation_or_follows_generation_message",
       canvas_height: 3290,
     },
     edit_mode: "replace_existing_frame_group_content",
     prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
     active_release_mutation_prohibited: true,
-    owner_approval_record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
-    next_frame_blocked_until_owner_approval: false,
+    owner_approval_record_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json",
+    next_frame_blocked_until_owner_approval: true,
     skipped_frame_id: "lisa-presentation-chat-list",
     skipped_frame_reason: "owner_direction_no_rework",
+    error_review_batch: {
+      contract_path: "source/error-frame-review-contract.json",
+      candidate_frame_ids: ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
+      acceptance_mode: "independent_owner_approval_per_frame",
+      full_delivery_representation_frame_id: "lisa-delivery-partial",
+      draft_preparation_authorized_by_owner: true,
+    },
   });
   assert.ok(fs.existsSync(absolute(fullReferenceReviewSourcePath)), "должен существовать изолированный SVG первого кадра");
   assert.ok(fs.existsSync(absolute(fullReferenceReviewManifestPath)), "должен существовать манифест источника первого кадра");
@@ -692,10 +724,17 @@ test("принятый кадр начала ведёт к отдельному 
     owner_frame_approval_status: "not_required",
   }, "список чатов должен быть явно исключён владельцем из текущей переработки, а не неявно пропущен");
 
-  assert.equal(contract.frame_review_session.current_frame_id, "lisa-presentation-sent");
+  assert.equal(contract.frame_review_session.current_frame_id, "lisa-order-not-accepted");
   assert.equal(contract.frame_review_session.skipped_frame_id, "lisa-presentation-chat-list");
   assert.equal(contract.frame_review_session.skipped_frame_reason, "owner_direction_no_rework");
-  assert.equal(contract.frame_review_session.next_frame_id, "lisa-presentation-email");
+  assert.equal(contract.frame_review_session.next_frame_id, "lisa-delivery-delayed");
+  assert.deepEqual(contract.frame_review_session.error_review_batch, {
+    contract_path: "source/error-frame-review-contract.json",
+    candidate_frame_ids: ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
+    acceptance_mode: "independent_owner_approval_per_frame",
+    full_delivery_representation_frame_id: "lisa-delivery-partial",
+    draft_preparation_authorized_by_owner: true,
+  });
   assert.equal(sentManifest.base_frame_id, "lisa-presentation-generating");
   assert.equal(sentManifest.base_svg_path, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg");
   assert.equal(sentManifest.base_svg_sha256, correctionManifest.source_svg_sha256);
