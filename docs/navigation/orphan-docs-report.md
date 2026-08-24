@@ -17,7 +17,7 @@
 |---|---|---|---|---|---|
 | `docs/architecture/README.md` | `docs/README.md` | `technical` | `public` | `true` | `1` |
 | `docs/architecture/system-analysis/README.md` | `docs/architecture/README.md` | `technical` | `internal` | `false` | `1` |
-| `docs/knowledge/rca/README.md` | `docs/knowledge/README.md` | `evidence` | `internal` | `false` | `3` |
+| `docs/knowledge/rca/README.md` | `docs/knowledge/README.md` | `evidence` | `internal` | `false` | `2` |
 | `docs/knowledge/README.md` | `docs/README.md` | `evidence` | `public` | `true` | `2` |
 | `docs/plans/README.md` | `docs/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/cascading-governance/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `2` |
@@ -50,28 +50,27 @@
 
 | Группа | Глубина | Количество |
 |---|---|---|
-| `business` | `1` | 16 |
-| `business` | `2` | 44 |
-| `business` | `3` | 29 |
+| `business` | `1` | 14 |
+| `business` | `2` | 67 |
+| `business` | `3` | 9 |
 | `business` | `4` | 3 |
-| `business` | `hidden` | 64 |
-| `delivery` | `1` | 2 |
-| `delivery` | `2` | 16 |
+| `business` | `hidden` | 63 |
+| `delivery` | `1` | 3 |
+| `delivery` | `2` | 15 |
 | `delivery` | `hidden` | 828 |
 | `evidence` | `1` | 2 |
-| `evidence` | `2` | 8 |
-| `evidence` | `3` | 12 |
-| `evidence` | `4` | 10 |
-| `evidence` | `hidden` | 11 |
+| `evidence` | `2` | 4 |
+| `evidence` | `3` | 21 |
+| `evidence` | `4` | 5 |
+| `evidence` | `hidden` | 12 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 9 |
 | `governance` | `2` | 62 |
 | `governance` | `3` | 14 |
-| `governance` | `5` | 1 |
+| `governance` | `4` | 1 |
 | `governance` | `hidden` | 45 |
-| `technical` | `1` | 2 |
-| `technical` | `2` | 21 |
-| `technical` | `3` | 26 |
-| `technical` | `4` | 2 |
-| `technical` | `5` | 1 |
-| `technical` | `hidden` | 128 |
+| `technical` | `1` | 3 |
+| `technical` | `2` | 25 |
+| `technical` | `3` | 22 |
+| `technical` | `4` | 3 |
+| `technical` | `hidden` | 127 |
