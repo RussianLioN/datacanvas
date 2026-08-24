@@ -34,7 +34,7 @@
         "readability_check": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["minimum_body_font_size_px", "minimum_table_font_size_px", "minimum_card_heading_font_size_px", "minimum_line_height_px", "below_minimum_font_size_count", "out_of_card_text_count", "page_capacity_violations"],
+          "required": ["minimum_body_font_size_px", "minimum_table_font_size_px", "minimum_card_heading_font_size_px", "minimum_line_height_px", "below_minimum_font_size_count", "out_of_card_text_count", "internal_text_overlap_count", "page_capacity_violations"],
           "properties": {
             "minimum_body_font_size_px": { "const": 10 },
             "minimum_table_font_size_px": { "const": 10 },
@@ -42,6 +42,7 @@
             "minimum_line_height_px": { "const": 12 },
             "below_minimum_font_size_count": { "const": 0 },
             "out_of_card_text_count": { "const": 0 },
+            "internal_text_overlap_count": { "const": 0 },
             "page_capacity_violations": { "const": 0 }
           }
         }

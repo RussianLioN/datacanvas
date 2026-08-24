@@ -11,6 +11,7 @@ const MAP_PATH = `${PACKAGE_PATH}/source/lisa-presentation-slidedoc-content-map.
 const CLIENT_PATH = `${PACKAGE_PATH}/source/client-reference-data.json`;
 const DONOR_ID = "presentation_variant_slidedoc_pdf_donor";
 const DIMENSIONS = Object.freeze({ width: 960, height: 1620, pageHeight: 540 });
+const CARD_BODY_TOP_OFFSET = 48;
 
 function fail(message) { throw new Error(message); }
 function readJson(root, relativePath) { return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8")); }
@@ -107,7 +108,7 @@ function buildPageOne(layout, groups) {
   const generalBody = factList(layout, { cardId: generalId, group: general, x: 52, y: 118, width: 305, indexes: general.facts.map((_, index) => index) }).markup;
   const ownersBody = factList(layout, { cardId: ownersId, group: owners, x: 412, y: 118, width: 496, indexes: owners.facts.map((_, index) => index) }).markup;
   const financeBody = groupedMetricRows(layout, {
-    cardId: financeId, group: finance, x: 412, y: 278, width: 496,
+    cardId: financeId, group: finance, x: 412, y: 230 + CARD_BODY_TOP_OFFSET, width: 496,
     metricRows: [
       { label: "Выручка, млн руб.", indexes: [0, 1, 2] },
       { label: "EBITDA, млн руб.", indexes: [3, 4, 5] },
@@ -171,6 +172,7 @@ function validateGeometry(layout, map) {
   let textOverflow = 0;
   let belowMinimum = 0;
   let outOfCard = 0;
+  let internalTextOverlap = 0;
   for (const block of layout.textBlocks) {
     const card = layout.cards.find((item) => item.id === block.cardId);
     if (!card) fail(`не найдена карточка текста ${block.id}`);
@@ -182,6 +184,18 @@ function validateGeometry(layout, map) {
     if (block.y < pageStart || finalBaseline > pageStart + DIMENSIONS.pageHeight) crossPageOverlap += 1;
     if (block.x < card.x + 14 || block.x + block.width > card.x + card.width - 10 || block.y < card.y + 22 || finalBaseline > card.y + card.height - 10) outOfCard += 1;
     if (block.lines.some((line) => line.length * block.size * 0.57 > block.width)) textOverflow += 1;
+  }
+  for (let leftIndex = 0; leftIndex < layout.textBlocks.length; leftIndex += 1) {
+    const left = layout.textBlocks[leftIndex];
+    for (let rightIndex = leftIndex + 1; rightIndex < layout.textBlocks.length; rightIndex += 1) {
+      const right = layout.textBlocks[rightIndex];
+      if (left.cardId !== right.cardId) continue;
+      const leftBottom = left.y + (left.lines.length - 1) * left.lineHeight + Math.max(2, left.size * 0.2);
+      const rightBottom = right.y + (right.lines.length - 1) * right.lineHeight + Math.max(2, right.size * 0.2);
+      const overlapsHorizontally = left.x < right.x + right.width && right.x < left.x + left.width;
+      const overlapsVertically = left.y - left.size < rightBottom && right.y - right.size < leftBottom;
+      if (overlapsHorizontally && overlapsVertically) internalTextOverlap += 1;
+    }
   }
   return {
     elements_outside_canvas_count: elementsOutsideCanvas,
@@ -196,6 +210,7 @@ function validateGeometry(layout, map) {
       minimum_line_height_px: policy.minimum_line_height_px,
       below_minimum_font_size_count: belowMinimum,
       out_of_card_text_count: outOfCard,
+      internal_text_overlap_count: internalTextOverlap,
       page_capacity_violations: 0,
     },
   };
@@ -221,7 +236,7 @@ function validateSource(source) {
   if (/<(?:image|foreignObject|script)\b/iu.test(source) || /(?:\.pdf\b|szh-dense-slidedoc-4x\.png|ГК Достовалова|\/Users\/|file:\/\/)/iu.test(source)) fail("SVG SlideDoc содержит запрещённый прямой источник или исторический материал");
 }
 function assertGeometry(geometry) {
-  const failures = [geometry.elements_outside_canvas_count, geometry.cross_page_overlap_count, geometry.text_overflow_count, geometry.readability_check.below_minimum_font_size_count, geometry.readability_check.out_of_card_text_count, geometry.readability_check.page_capacity_violations];
+  const failures = [geometry.elements_outside_canvas_count, geometry.cross_page_overlap_count, geometry.text_overflow_count, geometry.readability_check.below_minimum_font_size_count, geometry.readability_check.out_of_card_text_count, geometry.readability_check.internal_text_overlap_count, geometry.readability_check.page_capacity_violations];
   if (failures.some((value) => value !== 0)) fail("SVG SlideDoc не прошёл фактическую проверку читаемости и границ карточек");
 }
 

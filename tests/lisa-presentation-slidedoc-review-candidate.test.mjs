@@ -56,6 +56,7 @@ test("черновой SlideDoc — новый SVG из карты данных,
     minimum_line_height_px: 12,
     below_minimum_font_size_count: 0,
     out_of_card_text_count: 0,
+    internal_text_overlap_count: 0,
     page_capacity_violations: 0,
   });
   assert.equal(manifest.draft_page_pngs.length, 3, "для покадровой приёмки нужны три отдельные страницы");
@@ -67,6 +68,10 @@ test("черновой SlideDoc — новый SVG из карты данных,
   const ordinaryText = [...source.matchAll(/<text\b(?=[^>]*data-text-role="(?:body|table)")[^>]*font-size="([0-9.]+)"/gu)];
   assert.ok(ordinaryText.length > 0, "в SVG должны быть маркированные основной и табличный текст");
   assert.ok(ordinaryText.every((item) => Number(item[1]) >= 10), "основной и табличный текст не может быть мельче 10 px");
+  const financeHeading = source.match(/id="slidedoc-page-1-financial-indicators-title"[^>]* y="([0-9.]+)"/u);
+  const firstFinanceRow = source.match(/id="slidedoc-page-1-financial-indicators-row-0-1-2"[^>]* y="([0-9.]+)"/u);
+  assert.ok(financeHeading && firstFinanceRow, "в SVG должны быть заголовок и первая строка финансовой карточки");
+  assert.ok(Number(firstFinanceRow[1]) - Number(financeHeading[1]) >= 20, "первая строка финансовой карточки не должна накладываться на заголовок");
   const client = JSON.parse(read(`${packagePath}/source/client-reference-data.json`));
   for (const group of client.data_groups) {
     for (const fact of group.facts) assert.match(source, new RegExp(fact.value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"), `в SVG отсутствует значение ${fact.label}`);

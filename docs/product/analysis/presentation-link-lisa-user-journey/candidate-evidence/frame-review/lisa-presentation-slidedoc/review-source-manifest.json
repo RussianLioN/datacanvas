@@ -30,6 +30,7 @@
       "minimum_line_height_px": 12,
       "below_minimum_font_size_count": 0,
       "out_of_card_text_count": 0,
+      "internal_text_overlap_count": 0,
       "page_capacity_violations": 0
     }
   },
