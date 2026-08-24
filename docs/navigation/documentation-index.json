@@ -17070,7 +17070,6 @@
       "parent_readme": "docs/release/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/architecture/schemas/artifact-hash-manifest.json",
         "docs/architecture/security/data-leakage-manifest.json",
         "docs/architecture/system-analysis/datacanvas-interface-control.md",

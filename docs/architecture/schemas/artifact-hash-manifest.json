@@ -1062,17 +1062,17 @@
     {
       "artifact_id": "ART-213",
       "path": "schemas/data-leakage-manifest.schema.json",
-      "sha256": "7b46354a651d432f78872683f6dfaea613e3c7eb2bd2a7a1276f44475934696c"
+      "sha256": "67d46c9d8666448e1f4b89d4e1757c1859de0e3632a8990d3c5f223983022291"
     },
     {
       "artifact_id": "ART-214",
       "path": "docs/architecture/security/data-leakage-manifest.json",
-      "sha256": "452f29da959c9c02c3501c58810207726b7c6d0c7b60146ec88c7375bca61be3"
+      "sha256": "a1b77ed325354ff01931213ed96fe8642eb2298456e3d867e09c314dbd7d0984"
     },
     {
       "artifact_id": "ART-215",
       "path": "scripts/validate-data-leakage.mjs",
-      "sha256": "07eaaa390fe8ccc7081673105ccf962f88b394750303d6ada092ea79b0888cb9"
+      "sha256": "35977d3098383a78b4bf4b8ae2137193bb55d4d7082bf2432a9486e05b448947"
     },
     {
       "artifact_id": "ART-216",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "d0d36aa615e61a3b8b0187a5253f04d5ee27977842a80e7b9a70658da92404bf"
+      "sha256": "93eb54c3bad3f7f5b967451882b127850ffd6fdb5ea340266ae7522ac647f80a"
     },
     {
       "artifact_id": "ART-411",
@@ -4072,7 +4072,7 @@
     {
       "artifact_id": "ART-815",
       "path": "tests/data-leakage-xlsx-vml.test.mjs",
-      "sha256": "f4aabc61fa9edac7c80efc0d8283b77215e10542e44e8bc2fbb39da8d22879cb"
+      "sha256": "4da2d3e1a025c8a95ef7dc44befa7d392b7f684cf3db8ca2759849e4f757f8a2"
     },
     {
       "artifact_id": "ART-816",
