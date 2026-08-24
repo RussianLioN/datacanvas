@@ -340,7 +340,8 @@
       "id": "DLT-054",
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
       "sink": "evidence",
-      "data_class": "internal"
+      "data_class": "internal",
+      "release_gate_contract_path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
     }
   ],
   "explicit_exclusions": [],

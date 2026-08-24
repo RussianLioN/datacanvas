@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
@@ -39,6 +40,11 @@ test('CO-2026-003 keeps interview history and records operational amendments', a
   assert.equal(
     draftAmendment.next_gate,
     'documentation_cascade_then_explicit_final_owner_approval',
+  );
+  assert.equal(
+    existsSync(path.join(projectRoot, 'artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip')),
+    false,
+    'ожидающий выпуск не должен хранить активный архив поставки',
   );
 
   assert.match(

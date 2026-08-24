@@ -107,6 +107,67 @@ for (const memberPath of ["demo/app.js", "demo/styles.css", "source/fonts/OFL.tx
   });
 }
 
+test("выпускной ZIP проверяется только после разрешения выпуска, но не теряет защиту от утечек", () => {
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-leakage-release-gate-"));
+  try {
+    prepareLeakageFixture(tempRoot, "artifacts/clean-target.txt");
+    fs.writeFileSync(path.join(tempRoot, "artifacts/clean-target.txt"), "safe\n");
+    const archivePath = "artifacts/release.zip";
+    const contractPath = "docs/release/archive-contract.json";
+    const journeyPath = "docs/product/journey.json";
+    const manifestPath = path.join(tempRoot, "docs/architecture/security/data-leakage-manifest.json");
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    manifest.scan_targets.push({
+      id: "DLT-RELEASE",
+      path: archivePath,
+      sink: "evidence",
+      data_class: "internal",
+      release_gate_contract_path: contractPath,
+    });
+    writeJson(manifestPath, manifest);
+    writeJson(path.join(tempRoot, journeyPath), {
+      lifecycle: {
+        content_review_status: "pending_product_owner",
+        visual_release_status: "pending_product_owner",
+      },
+    });
+    writeJson(path.join(tempRoot, contractPath), {
+      release_gate: {
+        journey_contract_path: journeyPath,
+        required_content_review_status: "approved_product_owner",
+        required_visual_release_status: "approved_product_owner",
+      },
+    });
+
+    let result = runLeakageValidator(tempRoot);
+    assert.equal(result.status, 0, result.stderr);
+
+    const archiveAbsolutePath = path.join(tempRoot, archivePath);
+    fs.mkdirSync(path.dirname(archiveAbsolutePath), { recursive: true });
+    fs.writeFileSync(archiveAbsolutePath, createStoredZip([{ name: "safe.txt", content: Buffer.from("safe\n", "utf8") }]));
+    result = runLeakageValidator(tempRoot);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /выпускной барьер/u);
+
+    fs.rmSync(archiveAbsolutePath);
+    writeJson(path.join(tempRoot, journeyPath), {
+      lifecycle: {
+        content_review_status: "approved_product_owner",
+        visual_release_status: "approved_product_owner",
+      },
+    });
+    result = runLeakageValidator(tempRoot);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /разрешен.*отсутствует/u);
+
+    fs.writeFileSync(archiveAbsolutePath, createStoredZip([{ name: "safe.txt", content: Buffer.from("safe\n", "utf8") }]));
+    result = runLeakageValidator(tempRoot);
+    assert.equal(result.status, 0, result.stderr);
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true });
+  }
+});
+
 test("data leakage validator scans XLSX VML parts", () => {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-leakage-vml-"));
   try {
