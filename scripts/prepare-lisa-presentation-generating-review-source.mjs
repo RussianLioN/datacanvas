@@ -431,6 +431,79 @@ function generatedManifest({ svg, base, approvedTexts, buttonLabel, fixture, sta
   };
 }
 
+function sameJson(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function validateStoredStatusGeometry(message) {
+  if (
+    message.text !== GENERATION_MESSAGE ||
+    !sameJson(message.display_lines, DISPLAY_LINES) ||
+    message.time_value !== "13:24" ||
+    message.inserted_into_existing_frame_group_id !== "button_footer_2.0" ||
+    message.font_size !== STATUS_FONT_SIZE ||
+    message.fill !== STATUS_FILL ||
+    !sameJson(message.baselines, STATUS_BASELINES) ||
+    !sameJson(message.safe_area, STATUS_SAFE_AREA) ||
+    !Array.isArray(message.line_widths) ||
+    message.line_widths.length !== DISPLAY_LINES.length ||
+    message.line_widths.some((width) => !Number.isFinite(width) || width <= 0 || width > STATUS_SAFE_AREA.width)
+  ) {
+    fail("сохранённый манифест второго кадра не подтверждает геометрию согласованного сообщения");
+  }
+}
+
+function validateStoredManifest({ manifest, root, source, base, approvedTexts, buttonLabel }) {
+  const fixture = readJson(root, FIXTURE_MANIFEST_PATH).transient_raster_text_font;
+  if (fixture.ci_check_requires_local_font !== false) fail("манифест происхождения не разрешает проверку SVG без локального шрифта");
+  if (
+    manifest.$schema !== "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json" ||
+    manifest.version !== "2.2.0" ||
+    manifest.frame_id !== "lisa-presentation-generating" ||
+    manifest.base_frame_id !== BASE_FRAME_ID ||
+    manifest.base_svg_path !== BASE_SVG_PATH ||
+    manifest.base_svg_sha256 !== base.baseSha256 ||
+    manifest.base_owner_approval_path !== BASE_OWNER_APPROVAL_PATH ||
+    manifest.base_owner_approved_svg_sha256 !== base.approval.approved_source_svg_sha256 ||
+    manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
+    manifest.source_svg_path !== "candidate-evidence/frame-review/lisa-presentation-generating/source.svg" ||
+    manifest.source_svg_sha256 !== sha256Text(source) ||
+    manifest.approved_texts_path !== "source/owner-approved-texts.json" ||
+    manifest.approved_texts_sha256 !== sha256File(path.join(root, APPROVED_TEXTS_PATH)) ||
+    manifest.button_label_text !== buttonLabel ||
+    !sameJson(manifest.disabled_button, {
+      existing_group_id: "buttons_2.0",
+      aria_disabled: true,
+      opacity: DISABLED_BUTTON_OPACITY,
+      label_unchanged: true,
+    }) ||
+    !sameJson(manifest.dynamic_footer, {
+      button_translate_y: DISABLED_BUTTON_TRANSLATE_Y,
+      background_fill: DISABLED_BUTTON_BACKGROUND_FILL,
+      label_fill: DISABLED_BUTTON_LABEL_FILL,
+      status_placement: "below_disabled_button",
+      extension_height: DYNAMIC_FOOTER_EXTENSION,
+    }) ||
+    !sameJson(manifest.preserved_visible_group_ids, VISIBLE_GROUP_IDS) ||
+    !sameJson(manifest.modified_existing_group_ids, ["Group 2131328969", "button_footer_2.0", "buttons_2.0", "logo", "Home indicator"]) ||
+    !sameJson(manifest.prohibited_legacy_overlay_ids, ["lisa-edit-5-4-title", "lisa-status-"]) ||
+    !sameJson(manifest.text_outline_font, {
+      family: fixture.family,
+      sha256: fixture.sha256,
+      copied_to_git: false,
+    }) ||
+    manifest.active_release_mutation_prohibited !== true ||
+    manifest.draft_png_rendered !== true
+  ) {
+    fail("сохранённый манифест второго кадра не совпадает с каноническим SVG и его принятыми источниками");
+  }
+  if (approvedTexts.status !== "owner_approved") fail("реестр текстов не подтвержден владельцем");
+  if (approvedText(approvedTexts, "generation_started_message") !== GENERATION_MESSAGE) {
+    fail("согласованное сообщение о начале формирования не совпадает с договором кадра");
+  }
+  validateStoredStatusGeometry(manifest.generation_started_message);
+}
+
 function prepareReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
@@ -448,20 +521,23 @@ function prepareReviewSource({ root = process.cwd() } = {}) {
 function checkReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
-  const built = buildSource(root);
+  const base = verifyApprovedBase(root);
+  const approvedTexts = readJson(root, APPROVED_TEXTS_PATH);
+  const buttonLabel = approvedText(approvedTexts, "button_label");
+  const source = fs.readFileSync(reviewSourcePath, "utf8");
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  if (fs.readFileSync(reviewSourcePath, "utf8") !== built.svg) fail("сохранённый SVG второго кадра не совпадает с повторной подготовкой из принятой полной справки");
-  const expected = generatedManifest(built, root);
-  for (const [key, value] of Object.entries(expected)) {
-    if (key === "status" || key.startsWith("draft_png_") || key === "owner_frame_approval") continue;
-    if (JSON.stringify(manifest[key]) !== JSON.stringify(value)) fail(`манифест второго кадра не совпадает с каноническим SVG по полю ${key}`);
-  }
-  if (manifest.draft_png_rendered !== true) {
-    fail("черновой PNG второго кадра не подготовлен для приёмки владельца");
-  }
+  const baseSource = fs.readFileSync(base.basePath, "utf8");
+  validateSource(source, baseSource, buttonLabel);
+  validateStoredManifest({ manifest, root, source, base, approvedTexts, buttonLabel });
   const approval = readOwnerApproval(root);
   const draftPath = path.join(root, REVIEW_DIRECTORY, "draft-current-resolution.png");
-  validateOwnerApproval(approval, sha256Text(built.svg), sha256File(draftPath));
+  if (manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" ||
+    manifest.draft_png_sha256 !== sha256File(draftPath) ||
+    !sameJson(manifest.draft_png_dimensions, { width: 521, height: DYNAMIC_CANVAS_HEIGHT }) ||
+    !Number.isInteger(manifest.draft_png_non_white_pixel_count) || manifest.draft_png_non_white_pixel_count < 1_000) {
+    fail("черновой PNG второго кадра не совпадает с сохранённым манифестом");
+  }
+  validateOwnerApproval(approval, sha256Text(source), sha256File(draftPath));
   if (approval) {
     if (
       manifest.status !== "owner_frame_approved" ||

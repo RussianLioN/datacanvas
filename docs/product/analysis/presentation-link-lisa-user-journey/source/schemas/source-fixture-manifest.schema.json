@@ -7,7 +7,7 @@
   "required": ["version", "status", "product_backlog", "visual_reference_archive", "transient_raster_text_font", "approved_presentation_pdfs", "trust", "copied_executable_code", "active_external_links", "absolute_local_paths_stored"],
   "properties": {
     "$schema": { "const": "schemas/source-fixture-manifest.schema.json" },
-    "version": { "const": "2.4.0" },
+    "version": { "const": "2.5.0" },
     "status": { "const": "active" },
     "product_backlog": { "$ref": "#/$defs/product_backlog" },
     "visual_reference_archive": { "$ref": "#/$defs/visual_reference_archive" },
@@ -147,7 +147,7 @@
     },
     "transient_font": {
       "type": "object", "additionalProperties": false,
-      "required": ["family", "file_name", "sha256", "provenance", "source_path_stored", "copied_to_package", "usage"],
+      "required": ["family", "file_name", "sha256", "provenance", "source_path_stored", "copied_to_package", "usage", "ci_check_requires_local_font"],
       "properties": {
         "family": { "const": "SB Sans Display" },
         "file_name": { "const": "SBSansDisplay-Regular.otf" },
@@ -155,7 +155,8 @@
         "provenance": { "const": "owner-supplied-transient-raster-text-input" },
         "source_path_stored": { "const": false },
         "copied_to_package": { "const": false },
-        "usage": { "const": "temporary-vector-outlines-for-review-only" }
+        "usage": { "const": "temporary-vector-outlines-for-review-only" },
+        "ci_check_requires_local_font": { "const": false }
       }
     }
   }

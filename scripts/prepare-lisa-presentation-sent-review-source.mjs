@@ -323,6 +323,70 @@ function generatedManifest({ svg, base, buttonLabel, approvedTextsSha256, fixtur
   };
 }
 
+function sameJson(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function validateStoredStatusGeometry(message) {
+  if (
+    message.text !== SUCCESS_MESSAGE ||
+    !sameJson(message.display_lines, DISPLAY_LINES) ||
+    message.time_value !== "13:38" ||
+    message.inserted_into_existing_frame_group_id !== "button_footer_2.0" ||
+    message.font_size !== STATUS_FONT_SIZE ||
+    message.fill !== STATUS_FILL ||
+    !sameJson(message.baselines, STATUS_BASELINES) ||
+    !sameJson(message.safe_area, STATUS_SAFE_AREA) ||
+    !Array.isArray(message.line_widths) ||
+    message.line_widths.length !== DISPLAY_LINES.length ||
+    message.line_widths.some((width) => !Number.isFinite(width) || width <= 0 || width > STATUS_SAFE_AREA.width)
+  ) {
+    fail("сохранённый манифест кадра успеха не подтверждает геометрию согласованного сообщения");
+  }
+}
+
+function validateStoredManifest({ manifest, root, source, base, buttonLabel, approvedTextsSha256 }) {
+  const fixture = readJson(root, FIXTURE_MANIFEST_PATH).transient_raster_text_font;
+  if (fixture.ci_check_requires_local_font !== false) fail("манифест происхождения не разрешает проверку SVG без локального шрифта");
+  if (
+    manifest.$schema !== "../../../source/schemas/lisa-presentation-sent-review-source-manifest.schema.json" ||
+    manifest.version !== "1.0.0" ||
+    manifest.frame_id !== "lisa-presentation-sent" ||
+    manifest.base_frame_id !== "lisa-presentation-generating" ||
+    manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" ||
+    manifest.base_svg_sha256 !== base.sourceSha256 ||
+    manifest.base_owner_approval_path !== "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json" ||
+    manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
+    manifest.skipped_intermediate_frame_id !== "lisa-presentation-chat-list" ||
+    manifest.skipped_intermediate_frame_reason !== "owner_direction_no_rework" ||
+    manifest.source_svg_path !== "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" ||
+    manifest.source_svg_sha256 !== sha256Text(source) ||
+    manifest.approved_texts_path !== "source/owner-approved-texts.json" ||
+    manifest.approved_texts_sha256 !== approvedTextsSha256 ||
+    manifest.button_label_text !== buttonLabel ||
+    manifest.mock_phone_status_time_value !== PHONE_STATUS_TIME_VALUE ||
+    !sameJson(manifest.dynamic_footer, {
+      button_translate_y: -18,
+      background_fill: "rgb(224,227,234)",
+      label_fill: "rgb(143,148,160)",
+      generation_message_placement: "below_disabled_button",
+      delivery_success_message_placement: "below_generation_message",
+      extension_height: FOOTER_EXTENSION,
+      canvas_height: CANVAS_HEIGHT,
+    }) ||
+    !sameJson(manifest.text_outline_font, {
+      family: fixture.family,
+      sha256: fixture.sha256,
+      copied_to_git: false,
+    }) ||
+    manifest.active_release_mutation_prohibited !== true ||
+    manifest.draft_png_rendered !== true
+  ) {
+    fail("сохранённый манифест кадра успеха не совпадает с каноническим SVG и его принятыми источниками");
+  }
+  validateStoredStatusGeometry(manifest.delivery_success_message);
+}
+
 function prepareReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
@@ -335,16 +399,35 @@ function prepareReviewSource({ root = process.cwd() } = {}) {
 function checkReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
-  const built = buildSource(root);
+  const base = verifyApprovedBase(root);
+  const successText = approvedText(root, "delivery_success_message");
+  const button = approvedText(root, "button_label");
+  const source = fs.readFileSync(reviewSourcePath, "utf8");
   const manifest = readJson(root, REVIEW_MANIFEST_PATH);
-  if (fs.readFileSync(reviewSourcePath, "utf8") !== built.svg) fail("сохранённый SVG кадра успеха не совпадает с повторной подготовкой из принятого SVG начала");
-  const expected = generatedManifest(built);
-  for (const [key, value] of Object.entries(expected)) {
-    if (key === "status" || key.startsWith("draft_png_")) continue;
-    if (JSON.stringify(manifest[key]) !== JSON.stringify(value)) fail(`манифест кадра успеха не совпадает с каноническим SVG по полю ${key}`);
-  }
+  if (successText.text !== SUCCESS_MESSAGE) fail("согласованное сообщение об успехе не совпадает с договором кадра");
+  const baseSource = fs.readFileSync(base.sourcePath, "utf8");
+  const phoneStatusTimeDonor = fs.readFileSync(path.join(root, PHONE_STATUS_TIME_DONOR_PATH), "utf8");
+  validateSource(source, baseSource, button.text, phoneStatusTimeDonor);
+  validateStoredManifest({
+    manifest,
+    root,
+    source,
+    base,
+    buttonLabel: button.text,
+    approvedTextsSha256: successText.sha256,
+  });
   if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) {
     fail("черновой PNG кадра успеха не подготовлен для приёмки владельца");
+  }
+  const draftPath = path.join(root, REVIEW_DIRECTORY, "draft-current-resolution.png");
+  if (
+    manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" ||
+    manifest.draft_png_sha256 !== sha256File(draftPath) ||
+    !sameJson(manifest.draft_png_dimensions, { width: 521, height: CANVAS_HEIGHT }) ||
+    !Number.isInteger(manifest.draft_png_non_white_pixel_count) || manifest.draft_png_non_white_pixel_count < 1_000 ||
+    manifest.owner_frame_approval !== null
+  ) {
+    fail("черновой PNG кадра успеха не совпадает с сохранённым манифестом");
   }
   return manifest;
 }

@@ -10741,6 +10741,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -16199,6 +16200,7 @@
         "ошибка-классификации-будущих-источников",
         "несогласованность-системного-времени-и-времени-сообщений",
         "рассогласование-принятой-основы-с-цепочкой-подготовки-кадра-успеха",
+        "локальный-шрифт-ошибочно-стал-зависимостью-проверки-github",
         "связанные-материалы"
       ],
       "reachable_from_root": true,

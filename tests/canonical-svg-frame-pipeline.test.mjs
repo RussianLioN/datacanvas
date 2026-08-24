@@ -758,6 +758,29 @@ test("принятая исправляющая версия кадра нача
   assert.doesNotMatch(correctionSource, /<text\b|lisa-edit-|lisa-status-|<foreignObject\b[^>]*lisa-review/u);
 });
 
+test("проверки сохранённых SVG кадров не требуют локального шрифта в среде CI", () => {
+  const emptyHome = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-svg-check-"));
+  try {
+    for (const scriptPath of [
+      "scripts/prepare-lisa-presentation-generating-review-source.mjs",
+      "scripts/prepare-lisa-presentation-sent-review-source.mjs",
+    ]) {
+      const result = spawnSync(process.execPath, [scriptPath, "--check"], {
+        cwd: root,
+        encoding: "utf8",
+        env: { ...process.env, HOME: emptyHome },
+      });
+      assert.equal(
+        result.status,
+        0,
+        `${scriptPath} должен проверять сохранённый SVG без локального шрифта:\n${result.stderr}`,
+      );
+    }
+  } finally {
+    fs.rmSync(emptyHome, { recursive: true, force: true });
+  }
+});
+
 test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {
   if (!fs.existsSync(absolute(contractPath))) return;
   const contract = readJson(contractPath);

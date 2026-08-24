@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "a7dbecd8fa0396f0dab4866ae1bb73172a02ce88d68b32b009e5d0d21ba81150"
+      "sha256": "f6d6621a856e72c7a2776d466e710c888b4f3398e37382032c3a5156b0516497"
     },
     {
       "artifact_id": "ART-411",
@@ -4222,12 +4222,12 @@
     {
       "artifact_id": "ART-846",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
-      "sha256": "d4ac1e9372a0c31f3b0788da0d0d7d104a256ef7826dc8fa4084997d02cbe275"
+      "sha256": "a8c7d289b3406380dcbb66f1776766a63ffcbf090a932ce3a63db880845f19f6"
     },
     {
       "artifact_id": "ART-847",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/source-fixture-manifest.schema.json",
-      "sha256": "af470f10436061c7dc888b27ab6106775f18c7cc40f2d7630a186e8687975c45"
+      "sha256": "fcadf73e389a0bcac01611b56ab8dd5d5591c9a0a9f4a383af8c79a7e0699b3f"
     },
     {
       "artifact_id": "ART-848",
