@@ -33,9 +33,9 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "4.1.0" },
+    "version": { "const": "4.2.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "inactive_pending_presentation_variant_frame_approval" },
+    "status": { "const": "inactive_presentation_batch_drafts_pending_owner_approval" },
     "active": { "const": false },
     "generator_input": { "const": false },
     "render_allowed": { "const": false },
@@ -321,7 +321,7 @@
                                 {
                                   "if": {
                                     "properties": {
-                                      "frame_id": { "const": "lisa-presentation-slidedoc" }
+                                      "frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"] }
                                     }
                                   },
                                   "then": {
@@ -396,13 +396,15 @@
         "prohibited_legacy_overlay_ids",
         "active_release_mutation_prohibited",
         "owner_approval_record_path",
+        "batch_draft_preparation_authorized_by_owner",
         "next_frame_blocked_until_owner_approval",
+        "draft_prototype_path",
         "skipped_frame_id",
         "skipped_frame_reason",
         "error_review_batch"
       ],
       "properties": {
-        "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval"] },
+        "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval", "presentation_variant_batch_drafts_pending_owner_approval"] },
         "current_frame_id": { "enum": ["lisa-presentation-email", "lisa-presentation-slidedoc"] },
         "next_frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025"] },
         "source_pdf_file_name": { "const": "vodoley_dense_slidedoc.pdf" },
@@ -417,7 +419,9 @@
         "prohibited_legacy_overlay_ids": { "const": ["html_overlay", "css_overlay", "png_text_overlay"] },
         "active_release_mutation_prohibited": { "const": true },
         "owner_approval_record_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json", null] },
-        "next_frame_blocked_until_owner_approval": { "const": true },
+        "batch_draft_preparation_authorized_by_owner": { "const": true },
+        "next_frame_blocked_until_owner_approval": { "const": false },
+        "draft_prototype_path": { "const": "candidate-evidence/prototype-draft/index.html" },
         "skipped_frame_id": { "const": "lisa-presentation-chat-list" },
         "skipped_frame_reason": { "const": "owner_direction_no_rework" },
         "error_review_batch": {
@@ -562,17 +566,29 @@
       "required": [
         "required",
         "review_surface",
+        "draft_prototype_rendering_mode",
+        "runtime_shell_parity_required",
+        "runtime_shell_source_path",
+        "allowed_runtime_differences",
         "allowed_changed_frame_count",
         "candidate_must_replace_same_frame_id",
+        "draft_prototype_all_future_frames_authorized",
         "next_frame_blocked_until_owner_approval",
         "active_release_mutation_prohibited"
       ],
       "properties": {
         "required": { "const": true },
         "review_surface": { "const": "isolated_current_prototype_copy" },
-        "allowed_changed_frame_count": { "const": 1 },
+        "draft_prototype_rendering_mode": { "const": "isolated_current_prototype_copy_with_frame_asset_substitution" },
+        "runtime_shell_parity_required": { "const": true },
+        "runtime_shell_source_path": { "const": "demo" },
+        "allowed_runtime_differences": {
+          "const": ["data.js", "assets/**"]
+        },
+        "allowed_changed_frame_count": { "const": 11 },
         "candidate_must_replace_same_frame_id": { "const": true },
-        "next_frame_blocked_until_owner_approval": { "const": true },
+        "draft_prototype_all_future_frames_authorized": { "const": true },
+        "next_frame_blocked_until_owner_approval": { "const": false },
         "active_release_mutation_prohibited": { "const": true }
       }
     }

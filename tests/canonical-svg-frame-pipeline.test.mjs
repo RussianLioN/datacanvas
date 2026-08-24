@@ -89,9 +89,14 @@ const expectedPrototypeAcceptanceFlow = Object.freeze([
 const expectedPerFrameReview = Object.freeze({
   required: true,
   review_surface: "isolated_current_prototype_copy",
-  allowed_changed_frame_count: 1,
+  draft_prototype_rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
+  runtime_shell_parity_required: true,
+  runtime_shell_source_path: "demo",
+  allowed_runtime_differences: ["data.js", "assets/**"],
+  allowed_changed_frame_count: 11,
   candidate_must_replace_same_frame_id: true,
-  next_frame_blocked_until_owner_approval: true,
+  draft_prototype_all_future_frames_authorized: true,
+  next_frame_blocked_until_owner_approval: false,
   active_release_mutation_prohibited: true,
 });
 const expectedForbiddenMethods = Object.freeze([
@@ -353,8 +358,8 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "4.1.0");
-  assert.equal(contract.status, "inactive_pending_presentation_variant_frame_approval");
+  assert.equal(contract.version, "4.2.0");
+  assert.equal(contract.status, "inactive_presentation_batch_drafts_pending_owner_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
   assert.equal(contract.render_allowed, false);
@@ -513,9 +518,9 @@ test("выбранные тексты и покадровые источники
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "approved",
       });
-    } else if (frame.frame_id === "lisa-presentation-slidedoc") {
+    } else if (["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"].includes(frame.frame_id)) {
       assert.deepEqual(frame, {
-        frame_id: "lisa-presentation-slidedoc",
+        frame_id: frame.frame_id,
         svg_editing_mode: "approved_pdf_to_png",
         canonical_svg_status: "not_applicable",
         approved_text_status: "not_applicable",
@@ -533,13 +538,7 @@ test("выбранные тексты и покадровые источники
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "approved",
       });
-    } else {
-      assert.equal(frame.canonical_svg_status, "pending_source");
-      assert.equal(frame.approved_text_status, "pending");
-      assert.equal(frame.svg_visual_check_status, "pending");
-      assert.equal(frame.draft_png_status, "blocked");
-      assert.equal(frame.owner_frame_approval_status, "pending");
-    }
+    } else throw new Error(`неожиданный кадр ${frame.frame_id}`);
   }
 });
 
@@ -548,12 +547,13 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "presentation_variant_frame_pending_owner_approval",
+    status: "presentation_variant_batch_drafts_pending_owner_approval",
     current_frame_id: "lisa-presentation-slidedoc",
     next_frame_id: "lisa-presentation-sber2025",
     source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
     draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
     review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+    draft_prototype_path: "candidate-evidence/prototype-draft/index.html",
     base_frame_id: "lisa-presentation-email",
     base_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
     base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
@@ -563,7 +563,8 @@ test("принятый первый проверочный кадр изолир
     prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
     active_release_mutation_prohibited: true,
     owner_approval_record_path: null,
-    next_frame_blocked_until_owner_approval: true,
+    batch_draft_preparation_authorized_by_owner: true,
+    next_frame_blocked_until_owner_approval: false,
     skipped_frame_id: "lisa-presentation-chat-list",
     skipped_frame_reason: "owner_direction_no_rework",
     error_review_batch: {

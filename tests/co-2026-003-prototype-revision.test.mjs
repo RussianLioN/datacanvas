@@ -188,7 +188,7 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   const emailFrame = candidate.frames.find((frame) => frame.id === "lisa-presentation-email");
   assert.equal(emailFrame.requires_new_editable_source, false);
   assert.equal(emailFrame.review_status, "owner_frame_approved");
-  assert.equal(svgPipeline.status, "inactive_pending_presentation_variant_frame_approval");
+  assert.equal(svgPipeline.status, "inactive_presentation_batch_drafts_pending_owner_approval");
   assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
   assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
   assert.deepEqual(svgPipeline.client_reference_svg_update, {
@@ -261,9 +261,14 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.deepEqual(svgPipeline.acceptance.per_frame_review, {
     required: true,
     review_surface: "isolated_current_prototype_copy",
-    allowed_changed_frame_count: 1,
+    draft_prototype_rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
+    runtime_shell_parity_required: true,
+    runtime_shell_source_path: "demo",
+    allowed_runtime_differences: ["data.js", "assets/**"],
+    allowed_changed_frame_count: 11,
     candidate_must_replace_same_frame_id: true,
-    next_frame_blocked_until_owner_approval: true,
+    draft_prototype_all_future_frames_authorized: true,
+    next_frame_blocked_until_owner_approval: false,
     active_release_mutation_prohibited: true,
   });
   assert.deepEqual(

@@ -11,6 +11,7 @@ import { inspectPng } from "./render-lisa-full-reference-review-draft.mjs";
 
 const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey";
 const REVIEW_ROOT = `${PACKAGE_PATH}/candidate-evidence/frame-review`;
+const PDF_IMPORT_CONTRACT_PATH = `${PACKAGE_PATH}/source/presentation-pdf-raster-import-contract.json`;
 const PAGE_COUNT = 3;
 const PAGE_DIMENSIONS = Object.freeze({ width: 960, height: 540 });
 const DRAFT_DIMENSIONS = Object.freeze({ width: 960, height: 1620 });
@@ -112,6 +113,20 @@ function manifestRelativePath(spec) {
   return `${reviewDirectoryFor(spec)}/review-source-manifest.json`;
 }
 
+function assertDraftPreparationAuthorized(root, spec) {
+  const contract = readJson(path.join(root, PDF_IMPORT_CONTRACT_PATH));
+  const variant = contract?.variants?.find((candidate) => candidate.frame_id === spec.frame_id);
+  if (
+    contract?.status !== "all_presentation_drafts_authorized" ||
+    contract?.per_frame_review?.batch_draft_preparation_authorized_by_owner !== true ||
+    contract?.per_frame_review?.next_variant_blocked_until_owner_approval !== false ||
+    !variant ||
+    !["draft_preparation_authorized_by_owner", "draft_png_rendered_pending_owner_approval"].includes(variant.review_status)
+  ) {
+    fail("договор не разрешает подготовку этого PNG-черновика PDF до явного предварительного согласования владельца");
+  }
+}
+
 function buildManifest(spec, draftPath, inspected) {
   return {
     "$schema": "../../../source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
@@ -173,6 +188,7 @@ export function renderPresentationPdfReviewDraft({ root = process.cwd(), sourceD
   const spec = resolvePresentationPdfReviewSpec(frameId);
   if (check) return validateSavedManifest(resolvedRoot, spec);
 
+  assertDraftPreparationAuthorized(resolvedRoot, spec);
   const sourcePath = readApprovedPdf(sourceDir, spec);
   const reviewDirectory = safeDirectory(resolvedRoot, `${PACKAGE_PATH}/${reviewDirectoryFor(spec)}`, "каталог чернового PDF-кадра", { create: true });
   const draftPath = path.join(resolvedRoot, PACKAGE_PATH, spec.draft_png_path);

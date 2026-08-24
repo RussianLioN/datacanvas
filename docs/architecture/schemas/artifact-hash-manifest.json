@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "7ae6ce73c77d2bccd0a9a176a98d5b12af68f0e4c2f3de148341b2f582b0bb22"
+      "sha256": "bd4f358ab695ac5513842e2828ed9541d7ded76e6fd75ce5e01f1215a7f1f44b"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "976327e01ebdf16eda3d4f48a6f0a16f934fa23716134d78d392adab6815392f"
+      "sha256": "fd52d6f26b2715cc3691d4287b4e2681df5980623bb369679a5b28f72cd293ed"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "651e6cbc82d4f8d091f2e3b505eb95dd349c5e97aee0d97fbc565ec042069cf4"
+      "sha256": "4bf84b4ee0b221e3468b0ae89dfa75557648ecce71cd62d158f7a27ac73bdf8a"
     },
     {
       "artifact_id": "ART-413",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "f0fa8c7311586da2520b1a60ec80b14e694b1917e3ca8b5c61f2a9a193cbbcd3"
+      "sha256": "13e12b4362578ed8c1272ea5f303b5437db4f99ec5d2d2b129fe71235047d07b"
     },
     {
       "artifact_id": "ART-569",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "7382efed428f0a2b2a44742aabd7e8d5aabc7465ddb0ff1786f787ad3b981792"
+      "sha256": "613da3102d76721411ebc5b34d542ddf9fedac0ed396ead88db7a0007bf7532a"
     },
     {
       "artifact_id": "ART-742",
@@ -4167,12 +4167,12 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "cbae54b93186f990672926afb6c772135123c394fbe6ba5f7e064f2864d0d8d2"
+      "sha256": "f7ba16d0de25655e75e83084df04ce73e4376c0b83f9c60602a09b2035f86277"
     },
     {
       "artifact_id": "ART-836",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "sha256": "1f6e4506d6c4b7d141f0de70f694e805edabe6772c5708bb2be28902caa7d6d7"
+      "sha256": "f2656996fc6e97fecf44a240fc24d26e025394c49f6cde4c938c6ea93b98971a"
     },
     {
       "artifact_id": "ART-837",

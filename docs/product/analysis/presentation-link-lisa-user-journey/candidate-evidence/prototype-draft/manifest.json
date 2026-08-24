@@ -1,0 +1,136 @@
+{
+  "$schema": "../../source/schemas/lisa-prototype-draft-manifest.schema.json",
+  "version": "1.1.0",
+  "status": "draft_prototype_rendered_pending_owner_approval",
+  "rendering_mode": "isolated_current_prototype_copy_with_frame_asset_substitution",
+  "shell_parity": {
+    "index_html_source": "demo/index.html",
+    "app_js_source": "demo/app.js",
+    "styles_css_source": "demo/styles.css",
+    "navigation_model": "previous_prototype_state_and_document_navigation"
+  },
+  "source_runtime_sha256": {
+    "index.html": "3b4cf0f4b89469358d2f09f51269eab7ea425782995deca2a40c91b6f4d361dc",
+    "app.js": "747a5a69c3ab4e4443d75ecc312ccf73cf332eeb4fc21c5044e815b2f15f7f5c",
+    "styles.css": "10b3d2ffb4a8763ccddf47e85391d08833e23f497ede3d7a1c9dd3cd268f2aa7"
+  },
+  "active_release_mutation_prohibited": true,
+  "raw_pdf_included": false,
+  "frame_ids": [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "frames": [
+    {
+      "frame_id": "lisa-materials-full-reference",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-materials-full-reference-system-top.png",
+        "assets/lisa-materials-full-reference-scroll-content.png",
+        "assets/lisa-materials-full-reference-system-bottom.png"
+      ],
+      "asset_sha256": "ad3227045c28a3c19f6b8e3be88c8c42d67c8fb513aacdef5d2d290cbfa71ff1"
+    },
+    {
+      "frame_id": "lisa-presentation-generating",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-presentation-generating-system-top.png",
+        "assets/lisa-presentation-generating-scroll-content.png",
+        "assets/lisa-presentation-generating-system-bottom.png"
+      ],
+      "asset_sha256": "254f0d0d8fd839c797b31539800d52071f27a0bcf318b7ef3045cd3a2ce2223d"
+    },
+    {
+      "frame_id": "lisa-presentation-chat-list",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-presentation-chat-list-status-3x.png",
+        "assets/lisa-presentation-chat-list-content-3x.png",
+        "assets/lisa-presentation-chat-list-home-3x.png"
+      ],
+      "asset_sha256": "0da3e6bc1b5cbafca63ea00545f5fdc880accb76f063e122b5e6c9152e8779e6"
+    },
+    {
+      "frame_id": "lisa-presentation-sent",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-presentation-sent-system-top.png",
+        "assets/lisa-presentation-sent-scroll-content.png",
+        "assets/lisa-presentation-sent-system-bottom.png"
+      ],
+      "asset_sha256": "1a7e08107a3fc1e0579c10a057b6ff5fecd57c31d8a834a453dbec4a21869bdf"
+    },
+    {
+      "frame_id": "lisa-presentation-email",
+      "kind": "desktop",
+      "asset_paths": [
+        "assets/lisa-presentation-email.png"
+      ],
+      "asset_sha256": "ae51495ba461c1bd74892294908e6aa6bf506afe48b0a81e23526f2ef057e6d9"
+    },
+    {
+      "frame_id": "lisa-presentation-slidedoc",
+      "kind": "presentation",
+      "asset_paths": [
+        "assets/lisa-presentation-slidedoc.png"
+      ],
+      "asset_sha256": "0dfc80145601ab763ba5145933a34650dfb5e611960a531cbd9a74ba09366696"
+    },
+    {
+      "frame_id": "lisa-presentation-sber2025",
+      "kind": "presentation",
+      "asset_paths": [
+        "assets/lisa-presentation-sber2025.png"
+      ],
+      "asset_sha256": "a11a5cac48672fed81e46b61a4efbaeeab2756681993a24b6a003d9d170111d0"
+    },
+    {
+      "frame_id": "lisa-presentation-mag",
+      "kind": "presentation",
+      "asset_paths": [
+        "assets/lisa-presentation-mag.png"
+      ],
+      "asset_sha256": "44c52918c06e6265feeb8a5727041ae52931b6a07d5ab5725966f9491e43fa39"
+    },
+    {
+      "frame_id": "lisa-order-not-accepted",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-order-not-accepted-system-top.png",
+        "assets/lisa-order-not-accepted-scroll-content.png",
+        "assets/lisa-order-not-accepted-system-bottom.png"
+      ],
+      "asset_sha256": "0c3423195d400f0b8d945610c2cc130f963a8790f1c7548b7dff4e0cc81ed151"
+    },
+    {
+      "frame_id": "lisa-delivery-delayed",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-delivery-delayed-system-top.png",
+        "assets/lisa-delivery-delayed-scroll-content.png",
+        "assets/lisa-delivery-delayed-system-bottom.png"
+      ],
+      "asset_sha256": "abac893dc1eeaf41af8c27464aa6149d68b2ac4694a42052a3624079bc9821ed"
+    },
+    {
+      "frame_id": "lisa-delivery-partial",
+      "kind": "phone",
+      "asset_paths": [
+        "assets/lisa-delivery-partial-system-top.png",
+        "assets/lisa-delivery-partial-scroll-content.png",
+        "assets/lisa-delivery-partial-system-bottom.png"
+      ],
+      "asset_sha256": "ad9b8d60c9f441e071fb83615d51cd876a634618e0ec49533056514e1a923259"
+    }
+  ]
+}

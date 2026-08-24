@@ -641,6 +641,18 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-prototype-draft-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-variant-content-map.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/lisa-presentation-slidedoc-content-map.json",
   },

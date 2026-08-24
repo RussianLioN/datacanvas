@@ -34,9 +34,14 @@ const expectedPrototypeAcceptanceFlow = Object.freeze([
 const expectedPerFrameReview = Object.freeze({
   required: true,
   review_surface: "isolated_current_prototype_copy",
-  allowed_changed_frame_count: 1,
+  draft_prototype_rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
+  runtime_shell_parity_required: true,
+  runtime_shell_source_path: "demo",
+  allowed_runtime_differences: ["data.js", "assets/**"],
+  allowed_changed_frame_count: 11,
   candidate_must_replace_same_frame_id: true,
-  next_frame_blocked_until_owner_approval: true,
+  draft_prototype_all_future_frames_authorized: true,
+  next_frame_blocked_until_owner_approval: false,
   active_release_mutation_prohibited: true,
 });
 const expectedForbiddenMethods = Object.freeze([
@@ -132,15 +137,11 @@ const expectedEmailFrame = Object.freeze({
   draft_png_status: "rendered_current_resolution",
   owner_frame_approval_status: "approved",
 });
-const expectedSlideDocFrame = Object.freeze({
-  frame_id: "lisa-presentation-slidedoc",
-  svg_editing_mode: "approved_pdf_to_png",
-  canonical_svg_status: "not_applicable",
-  approved_text_status: "not_applicable",
-  svg_visual_check_status: "not_applicable",
-  draft_png_status: "rendered_current_resolution",
-  owner_frame_approval_status: "pending",
-});
+const expectedPresentationPdfFrames = Object.freeze(new Set([
+  "lisa-presentation-slidedoc",
+  "lisa-presentation-sber2025",
+  "lisa-presentation-mag",
+]));
 const expectedErrorFrames = Object.freeze(new Map([
   ["lisa-order-not-accepted", Object.freeze({
     frame_id: "lisa-order-not-accepted",
@@ -171,12 +172,13 @@ const expectedErrorFrames = Object.freeze(new Map([
   })],
 ]));
 const expectedFrameReviewSession = Object.freeze({
-  status: "presentation_variant_frame_pending_owner_approval",
+  status: "presentation_variant_batch_drafts_pending_owner_approval",
   current_frame_id: "lisa-presentation-slidedoc",
   next_frame_id: "lisa-presentation-sber2025",
   source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
   draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
   review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+  draft_prototype_path: "candidate-evidence/prototype-draft/index.html",
   base_frame_id: "lisa-presentation-email",
   base_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
   base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
@@ -186,7 +188,8 @@ const expectedFrameReviewSession = Object.freeze({
   prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
   active_release_mutation_prohibited: true,
   owner_approval_record_path: null,
-  next_frame_blocked_until_owner_approval: true,
+  batch_draft_preparation_authorized_by_owner: true,
+  next_frame_blocked_until_owner_approval: false,
   skipped_frame_id: "lisa-presentation-chat-list",
   skipped_frame_reason: "owner_direction_no_rework",
   error_review_batch: {
@@ -319,8 +322,8 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
-  if (contract.version !== "4.1.0" || contract.status !== "inactive_pending_presentation_variant_frame_approval") {
-    throw new Error("версия договора должна фиксировать готовый SVG-кандидат SlideDoc и ожидание покадровой приёмки");
+  if (contract.version !== "4.2.0" || contract.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
+    throw new Error("версия договора должна фиксировать пакет черновиков презентаций, ожидающий индивидуальной приёмки");
   }
 }
 
@@ -371,9 +374,16 @@ function validateFrames(contract, candidate) {
       }
       continue;
     }
-    if (frame.frame_id === expectedSlideDocFrame.frame_id) {
-      if (JSON.stringify(frame) !== JSON.stringify(expectedSlideDocFrame)) {
-        throw new Error("кадр SlideDoc должен оставаться изолированным PNG-черновиком из утверждённого PDF до явной покадровой приёмки владельцем");
+    if (expectedPresentationPdfFrames.has(frame.frame_id)) {
+      if (
+        frame.svg_editing_mode !== "approved_pdf_to_png" ||
+        frame.canonical_svg_status !== "not_applicable" ||
+        frame.approved_text_status !== "not_applicable" ||
+        frame.svg_visual_check_status !== "not_applicable" ||
+        frame.draft_png_status !== "rendered_current_resolution" ||
+        frame.owner_frame_approval_status !== "pending"
+      ) {
+        throw new Error("каждый вариант презентации должен оставаться изолированным PNG-черновиком из утверждённого PDF до индивидуальной приёмки владельцем");
       }
       continue;
     }
@@ -384,25 +394,13 @@ function validateFrames(contract, candidate) {
       }
       continue;
     }
-    if (
-      frame.svg_editing_mode !== "approved_pdf_to_png" ||
-      frame.canonical_svg_status !== "pending_source" ||
-      frame.approved_text_status !== "pending" ||
-      frame.svg_visual_check_status !== "pending" ||
-      frame.draft_png_status !== "blocked" ||
-      frame.owner_frame_approval_status !== "pending"
-    ) {
-    throw new Error("неподготовленные кадры вариантов презентаций должны оставаться заблокированными до покадровой приёмки PDF-черновиков");
-    }
-    if ("path" in frame || "svg_path" in frame || "sha256" in frame || "svg_sha256" in frame) {
-      throw new Error("local paths, DOCX names, SHA-256 values, and raw source content are forbidden");
-    }
+    throw new Error(`неизвестный будущий кадр: ${frame.frame_id}`);
   }
 }
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("договор покадровой приёмки должен указывать на подготовленный PNG-черновик SlideDoc из PDF и блокировать следующий вариант презентации");
+    throw new Error("договор покадровой приёмки должен указывать на общий черновой прототип и сохранять индивидуальную приёмку вариантов презентаций");
   }
 }
 

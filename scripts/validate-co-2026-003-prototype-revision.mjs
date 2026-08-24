@@ -520,26 +520,28 @@ function validateCandidate(candidate, approvedTexts) {
 function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister) {
   assertNoLocalOrRawSourcePaths(svgPipeline);
   assertNoRawSourceTracesInJson(svgPipeline);
-  if (svgPipeline.status !== "inactive_pending_presentation_variant_frame_approval") {
-    throw new Error("SVG pipeline must wait for owner approval of the prepared SlideDoc frame before the next presentation variant");
+  if (svgPipeline.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
+    throw new Error("SVG pipeline must record the authorized batch draft while retaining individual owner approvals");
   }
-  const slideDocFrame = svgPipeline.frame_svg_sources.find((frame) => frame.frame_id === "lisa-presentation-slidedoc");
+  const presentationFrames = svgPipeline.frame_svg_sources.filter((frame) => ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"].includes(frame.frame_id));
   if (
-    JSON.stringify(slideDocFrame) !== JSON.stringify({
-      frame_id: "lisa-presentation-slidedoc",
-      svg_editing_mode: "approved_pdf_to_png",
-      canonical_svg_status: "not_applicable",
-      approved_text_status: "not_applicable",
-      svg_visual_check_status: "not_applicable",
-      draft_png_status: "rendered_current_resolution",
-      owner_frame_approval_status: "pending",
-    }) ||
+    presentationFrames.length !== 3 ||
+    presentationFrames.some((frame) => (
+      frame.svg_editing_mode !== "approved_pdf_to_png" ||
+      frame.canonical_svg_status !== "not_applicable" ||
+      frame.approved_text_status !== "not_applicable" ||
+      frame.svg_visual_check_status !== "not_applicable" ||
+      frame.draft_png_status !== "rendered_current_resolution" ||
+      frame.owner_frame_approval_status !== "pending"
+    )) ||
     svgPipeline.frame_review_session?.current_frame_id !== "lisa-presentation-slidedoc" ||
     svgPipeline.frame_review_session?.next_frame_id !== "lisa-presentation-sber2025" ||
+    svgPipeline.frame_review_session?.draft_prototype_path !== "candidate-evidence/prototype-draft/index.html" ||
     svgPipeline.frame_review_session?.owner_approval_record_path !== null ||
-    svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== true
+    svgPipeline.frame_review_session?.batch_draft_preparation_authorized_by_owner !== true ||
+    svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== false
   ) {
-    throw new Error("договор кадров должен сохранять изолированный PNG-черновик SlideDoc из PDF и блокировать следующий вариант до приёмки владельцем");
+    throw new Error("договор кадров должен сохранять три изолированных PNG-черновика из PDF и общий черновой прототип до индивидуальной приёмки владельцем");
   }
   if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("SVG pipeline message topics must match the five selected text topics");
@@ -570,12 +572,17 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
   if (JSON.stringify(svgPipeline.acceptance.per_frame_review) !== JSON.stringify({
     required: true,
     review_surface: "isolated_current_prototype_copy",
-    allowed_changed_frame_count: 1,
+    draft_prototype_rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
+    runtime_shell_parity_required: true,
+    runtime_shell_source_path: "demo",
+    allowed_runtime_differences: ["data.js", "assets/**"],
+    allowed_changed_frame_count: 11,
     candidate_must_replace_same_frame_id: true,
-    next_frame_blocked_until_owner_approval: true,
+    draft_prototype_all_future_frames_authorized: true,
+    next_frame_blocked_until_owner_approval: false,
     active_release_mutation_prohibited: true,
   })) {
-    throw new Error("SVG pipeline must require isolated one-frame owner approval before the next frame");
+    throw new Error("SVG pipeline must keep the isolated all-frame draft and individual owner approvals");
   }
   if (JSON.stringify(svgPipeline.presentation_pdf_donor_register) !== JSON.stringify({
     path: "source/presentation-pdf-raster-import-contract.json",

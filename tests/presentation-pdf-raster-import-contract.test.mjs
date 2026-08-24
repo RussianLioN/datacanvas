@@ -18,10 +18,31 @@ test("договор импорта презентаций отделяет ут
   assert.equal(contract.raw_pdf_committed_to_git, false);
   assert.equal(contract.raw_pdf_served_by_demo, false);
   assert.deepEqual(contract.render_scales, { draft: 1, final: 4 });
+  assert.deepEqual(contract.draft_prototype_integration, {
+    rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
+    runtime_shell_source_path: "demo",
+    allowed_runtime_differences: ["data.js", "assets/**"],
+    active_release_mutation_prohibited: true,
+  });
   assert.equal(contract.variants.length, 3);
   assert.deepEqual(
     contract.variants.map((variant) => variant.source_file_name),
     ["vodoley_dense_slidedoc.pdf", "vodoley_dense_sber2025.pdf", "vodoley_dense_mag.pdf"],
   );
   assert.ok(contract.variants.every((variant) => variant.page_count === 3 && variant.output_file.startsWith("vodoley-dense-")));
+});
+
+test("предварительное согласование владельца разрешает сразу подготовить все три PNG-черновика", () => {
+  const contract = JSON.parse(fs.readFileSync(path.join(root, contractPath), "utf8"));
+  assert.equal(contract.status, "all_presentation_drafts_authorized");
+  assert.equal(contract.per_frame_review.batch_draft_preparation_authorized_by_owner, true);
+  assert.equal(contract.per_frame_review.next_variant_blocked_until_owner_approval, false);
+  assert.deepEqual(
+    contract.variants.map((variant) => variant.review_status),
+    [
+      "draft_png_rendered_pending_owner_approval",
+      "draft_png_rendered_pending_owner_approval",
+      "draft_png_rendered_pending_owner_approval",
+    ],
+  );
 });

@@ -4209,6 +4209,66 @@
       "artifact_registry_required": false
     },
     {
+      "route_id": "presentation-link-lisa-user-journey-prototype-draft-manifest",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+      "section": "schemas-scripts-tests",
+      "owner_role": "QA Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-prototype-draft-manifest.schema.json",
+      "generated_from": ["scripts/generate-lisa-prototype-draft.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав, порядок, отпечатки кадров или контрольные суммы неизменяемой оболочки изолированной копии прототипа CO-2026-003.",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
+    },
+    {
+      "route_id": "presentation-link-lisa-user-journey-sber2025-pdf-review-manifest",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/review-source-manifest.json",
+      "section": "schemas-scripts-tests",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "generated_from": ["scripts/render-lisa-presentation-pdf-review-draft.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется черновой PNG или приёмка варианта Sber 2025 CO-2026-003.",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
+    },
+    {
+      "route_id": "presentation-link-lisa-user-journey-mag-pdf-review-manifest",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
+      "section": "schemas-scripts-tests",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "generated_from": ["scripts/render-lisa-presentation-pdf-review-draft.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется черновой PNG или приёмка варианта MAG CO-2026-003.",
+      "navigation_group": "technical",
+      "navigation_domain": "documentation_operations",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false
+    },
+    {
       "route_id": "presentation-link-lisa-user-journey-generating-clock-13-24-frame-review",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
       "section": "product",
@@ -5263,6 +5323,10 @@
     }
   ],
   "ignored_paths": [
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
+      "reason": "Самодостаточный HTML-черновик открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
+    },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
       "reason": "Сохранённый исходный SVG P3/P4 для четвёртого квартала; не входит в активный MVP, кадры, ZIP или доказательства."
