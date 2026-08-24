@@ -33,9 +33,9 @@ function renderErrorReviewDrafts({ root = process.cwd(), check = false } = {}) {
     for (const candidate of contract.candidates) {
       const manifest = readJson(manifestPath(root, candidate));
       const draft = draftPath(root, candidate);
-      if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true || manifest.draft_png_path !== `${FRAME_REVIEW_PATH}/${candidate.directory}/draft-current-resolution.png`) fail(`черновой PNG не подготовлен: ${candidate.frame_id}`);
+      if (!["draft_png_rendered_pending_owner_approval", "owner_frame_approved"].includes(manifest.status) || manifest.draft_png_rendered !== true || manifest.draft_png_path !== `${FRAME_REVIEW_PATH}/${candidate.directory}/draft-current-resolution.png`) fail(`черновой PNG не подготовлен: ${candidate.frame_id}`);
       const inspected = inspectPng(draft, EXPECTED_DIMENSIONS);
-      if (manifest.draft_png_sha256 !== sha256(draft) || JSON.stringify(manifest.draft_png_dimensions) !== JSON.stringify(EXPECTED_DIMENSIONS) || manifest.draft_png_non_white_pixel_count !== inspected.non_white_pixel_count || manifest.owner_frame_approval !== null) fail(`манифест PNG не соответствует файлу: ${candidate.frame_id}`);
+      if (manifest.draft_png_sha256 !== sha256(draft) || JSON.stringify(manifest.draft_png_dimensions) !== JSON.stringify(EXPECTED_DIMENSIONS) || manifest.draft_png_non_white_pixel_count !== inspected.non_white_pixel_count || (manifest.status === "draft_png_rendered_pending_owner_approval" && manifest.owner_frame_approval !== null) || (manifest.status === "owner_frame_approved" && manifest.owner_frame_approval === null)) fail(`манифест PNG не соответствует файлу: ${candidate.frame_id}`);
     }
     return contract;
   }

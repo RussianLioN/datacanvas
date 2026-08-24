@@ -321,8 +321,8 @@
                                       "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
                                       "approved_text_status": { "const": "authoritative_interview_agreed" },
                                       "svg_visual_check_status": { "const": "passed" },
-                                      "draft_png_status": { "const": "rendered_current_resolution_pending_owner_approval" },
-                                      "owner_frame_approval_status": { "const": "pending" }
+                                      "draft_png_status": { "const": "rendered_current_resolution" },
+                                      "owner_frame_approval_status": { "const": "approved" }
                                     }
                                   },
                                   "else": {
@@ -374,31 +374,21 @@
         "error_review_batch"
       ],
       "properties": {
-        "status": { "const": "error_batch_drafts_rendered_pending_owner_approval" },
-        "current_frame_id": { "const": "lisa-order-not-accepted" },
-        "next_frame_id": { "const": "lisa-delivery-delayed" },
-        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg" },
-        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png" },
-        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json" },
-        "base_frame_id": { "const": "lisa-presentation-generating" },
-        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" },
-        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json" },
-        "transition_rendering_mode": { "const": "same_screen_dynamic_state" },
-        "dynamic_footer": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": ["button_group_id", "button_state", "message_placement", "canvas_height"],
-          "properties": {
-            "button_group_id": { "const": "buttons_2.0" },
-            "button_state": { "const": "disabled_pale_gray" },
-            "message_placement": { "const": "replaces_generation_or_follows_generation_message" },
-            "canvas_height": { "const": 3290 }
-          }
-        },
-        "edit_mode": { "const": "replace_existing_frame_group_content" },
-        "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title", "lisa-status-"] },
+        "status": { "const": "email_frame_blocked_pending_canonical_svg_source" },
+        "current_frame_id": { "const": "lisa-presentation-email" },
+        "next_frame_id": { "const": "lisa-presentation-email" },
+        "source_svg_path": { "type": "null" },
+        "draft_png_path": { "type": "null" },
+        "review_manifest_path": { "type": "null" },
+        "base_frame_id": { "const": "lisa-presentation-sent" },
+        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" },
+        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json" },
+        "transition_rendering_mode": { "const": "separate_desktop_frame" },
+        "dynamic_footer": { "type": "null" },
+        "edit_mode": { "const": "pending_canonical_svg_source" },
+        "prohibited_legacy_overlay_ids": { "const": ["html_overlay", "css_overlay", "png_text_overlay"] },
         "active_release_mutation_prohibited": { "const": true },
-        "owner_approval_record_path": { "const": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json" },
+        "owner_approval_record_path": { "type": "null" },
         "next_frame_blocked_until_owner_approval": { "const": true },
         "skipped_frame_id": { "const": "lisa-presentation-chat-list" },
         "skipped_frame_reason": { "const": "owner_direction_no_rework" },
@@ -409,7 +399,7 @@
           "properties": {
             "contract_path": { "const": "source/error-frame-review-contract.json" },
             "candidate_frame_ids": { "const": ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] },
-            "acceptance_mode": { "const": "independent_owner_approval_per_frame" },
+            "acceptance_mode": { "const": "all_frames_approved" },
             "full_delivery_representation_frame_id": { "const": "lisa-delivery-partial" },
             "draft_preparation_authorized_by_owner": { "const": true }
           }

@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../source/schemas/lisa-frame-owner-approval.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "frame_id": "lisa-delivery-delayed",
+  "decision": "approved",
+  "decision_text": "Экраны приняты!",
+  "decision_source": "Product Owner в рабочем чате",
+  "approval_time_precision": "date_only",
+  "approved_on": "2026-08-24",
+  "decision_evidence_note": "Владелец подтвердил все три кадра ошибок в рабочем чате фразой «Экраны приняты!»; точное время исходного сообщения не переносится в файловый артефакт.",
+  "approved_source_svg_sha256": "a8248368ef324a7457697bbee093ba310c8fad5f004de6a924b5f49ce9353548",
+  "approved_draft_png_sha256": "bf845e7f749a9ca81e07a95d1e4c11981004ec7d72fc6a94654d9425c645c584"
+}

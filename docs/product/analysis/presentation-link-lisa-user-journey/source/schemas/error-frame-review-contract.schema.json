@@ -9,7 +9,7 @@
     "$schema": {"const": "schemas/error-frame-review-contract.schema.json"},
     "version": {"const": "1.0.0"},
     "change_order_id": {"const": "CO-2026-003"},
-    "status": {"const": "draft_png_rendered_pending_owner_approval"},
+    "status": {"enum": ["draft_png_rendered_pending_owner_approval", "owner_frame_approved"]},
     "base_frame_id": {"const": "lisa-presentation-generating"},
     "visual_template_frame_id": {"const": "lisa-presentation-sent"},
     "mock_phone_status_time_value": {"const": "13:40"},

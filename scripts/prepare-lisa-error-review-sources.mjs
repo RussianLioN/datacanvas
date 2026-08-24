@@ -101,6 +101,17 @@ function errorGroup(font, candidate) {
   return `<g id="lisa-review-error-status" data-review-role="${candidate.message_id}" aria-label="${escapeXml(candidate.text)}">${markup}</g>`;
 }
 
+function expectedOwnerApproval(candidate) {
+  return {
+    record_path: `candidate-evidence/frame-review/${candidate.directory}/owner-approval.json`,
+    decision: "approved",
+    decision_text: "Экраны приняты!",
+    decision_source: "Product Owner в рабочем чате",
+    approval_time_precision: "date_only",
+    approved_on: "2026-08-24",
+  };
+}
+
 function verifyTemplate(root) {
   const sourcePath = path.join(root, TEMPLATE_SOURCE_PATH);
   const manifest = readJson(root, TEMPLATE_MANIFEST_PATH);
@@ -202,12 +213,15 @@ function makeManifest({ source, template, candidate, fixture, widths }) {
 
 function prepareErrorReviewSources({ root = process.cwd() } = {}) {
   const contract = readJson(root, CONTRACT_PATH);
+  for (const candidate of contract.candidates) {
+    const approvalPath = path.join(root, FRAME_REVIEW_PATH, candidate.directory, "owner-approval.json");
+    if (fs.existsSync(approvalPath)) fail(`принятый кадр нельзя пересобирать: ${candidate.frame_id}`);
+  }
   const template = verifyTemplate(root);
   const { font, fixture } = resolveOutlineFont(root);
   const templateSource = fs.readFileSync(template.sourcePath, "utf8");
   for (const candidate of contract.candidates) {
     const directory = `${FRAME_REVIEW_PATH}/${candidate.directory}`;
-    if (fs.existsSync(path.join(root, directory, "owner-approval.json"))) fail(`принятый кадр нельзя пересобирать: ${candidate.frame_id}`);
     const widths = validateGeometry(font, candidate);
     const source = buildCandidate(root, templateSource, candidate, font);
     validateSource(source, candidate);
@@ -228,7 +242,7 @@ function checkErrorReviewSources({ root = process.cwd() } = {}) {
     validateSource(source, candidate);
     if (
       manifest.frame_id !== candidate.frame_id ||
-      !["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval"].includes(manifest.status) ||
+      !["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval", "owner_frame_approved"].includes(manifest.status) ||
       manifest.semantic_base_frame_id !== "lisa-presentation-generating" ||
       manifest.visual_template_svg_sha256 !== template.sourceSha256 ||
       manifest.mock_phone_status_time_value !== "13:40" ||
@@ -245,6 +259,16 @@ function checkErrorReviewSources({ root = process.cwd() } = {}) {
       manifest.active_release_mutation_prohibited !== true
     ) fail(`сохранённый SVG-кандидат не соответствует договору: ${candidate.frame_id}`);
     if (manifest.status === "draft_png_rendered_pending_owner_approval" && (!manifest.draft_png_rendered || !fs.existsSync(path.join(root, directory, "draft-current-resolution.png")))) fail(`черновой PNG отсутствует: ${candidate.frame_id}`);
+    if (manifest.status === "owner_frame_approved") {
+      const approval = readJson(root, `${directory}/owner-approval.json`);
+      if (
+        JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(expectedOwnerApproval(candidate)) ||
+        approval.frame_id !== candidate.frame_id ||
+        approval.decision_text !== "Экраны приняты!" ||
+        approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+        approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+      ) fail(`приёмка кадра ошибки не связывает принятые SVG и PNG: ${candidate.frame_id}`);
+    } else if (manifest.owner_frame_approval !== null) fail(`у не принятого кадра ошибки не должно быть записи приёмки: ${candidate.frame_id}`);
   }
   return contract;
 }

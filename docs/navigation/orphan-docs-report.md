@@ -61,7 +61,7 @@
 | `evidence` | `1` | 2 |
 | `evidence` | `2` | 8 |
 | `evidence` | `3` | 12 |
-| `evidence` | `4` | 9 |
+| `evidence` | `4` | 10 |
 | `evidence` | `hidden` | 9 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 9 |
@@ -71,7 +71,7 @@
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 21 |
-| `technical` | `3` | 19 |
+| `technical` | `3` | 22 |
 | `technical` | `4` | 2 |
 | `technical` | `5` | 1 |
 | `technical` | `hidden` | 119 |

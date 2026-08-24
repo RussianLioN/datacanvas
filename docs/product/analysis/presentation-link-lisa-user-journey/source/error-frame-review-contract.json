@@ -2,7 +2,7 @@
   "$schema": "schemas/error-frame-review-contract.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "draft_png_rendered_pending_owner_approval",
+  "status": "owner_frame_approved",
   "base_frame_id": "lisa-presentation-generating",
   "visual_template_frame_id": "lisa-presentation-sent",
   "mock_phone_status_time_value": "13:40",

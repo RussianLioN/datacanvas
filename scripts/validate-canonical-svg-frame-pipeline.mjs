@@ -130,8 +130,8 @@ const expectedErrorFrames = Object.freeze(new Map([
     canonical_svg_status: "prepared_existing_group_content_replaced",
     approved_text_status: "authoritative_interview_agreed",
     svg_visual_check_status: "passed",
-    draft_png_status: "rendered_current_resolution_pending_owner_approval",
-    owner_frame_approval_status: "pending",
+    draft_png_status: "rendered_current_resolution",
+    owner_frame_approval_status: "approved",
   })],
   ["lisa-delivery-delayed", Object.freeze({
     frame_id: "lisa-delivery-delayed",
@@ -139,8 +139,8 @@ const expectedErrorFrames = Object.freeze(new Map([
     canonical_svg_status: "prepared_existing_group_content_replaced",
     approved_text_status: "authoritative_interview_agreed",
     svg_visual_check_status: "passed",
-    draft_png_status: "rendered_current_resolution_pending_owner_approval",
-    owner_frame_approval_status: "pending",
+    draft_png_status: "rendered_current_resolution",
+    owner_frame_approval_status: "approved",
   })],
   ["lisa-delivery-partial", Object.freeze({
     frame_id: "lisa-delivery-partial",
@@ -148,38 +148,33 @@ const expectedErrorFrames = Object.freeze(new Map([
     canonical_svg_status: "prepared_existing_group_content_replaced",
     approved_text_status: "authoritative_interview_agreed",
     svg_visual_check_status: "passed",
-    draft_png_status: "rendered_current_resolution_pending_owner_approval",
-    owner_frame_approval_status: "pending",
+    draft_png_status: "rendered_current_resolution",
+    owner_frame_approval_status: "approved",
   })],
 ]));
 const expectedFrameReviewSession = Object.freeze({
-  status: "error_batch_drafts_rendered_pending_owner_approval",
-  current_frame_id: "lisa-order-not-accepted",
-  next_frame_id: "lisa-delivery-delayed",
-  source_svg_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg",
-  draft_png_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png",
-  review_manifest_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
-  base_frame_id: "lisa-presentation-generating",
-  base_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
-  base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
-  transition_rendering_mode: "same_screen_dynamic_state",
-  dynamic_footer: {
-    button_group_id: "buttons_2.0",
-    button_state: "disabled_pale_gray",
-    message_placement: "replaces_generation_or_follows_generation_message",
-    canvas_height: 3290,
-  },
-  edit_mode: "replace_existing_frame_group_content",
-  prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
+  status: "email_frame_blocked_pending_canonical_svg_source",
+  current_frame_id: "lisa-presentation-email",
+  next_frame_id: "lisa-presentation-email",
+  source_svg_path: null,
+  draft_png_path: null,
+  review_manifest_path: null,
+  base_frame_id: "lisa-presentation-sent",
+  base_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+  base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+  transition_rendering_mode: "separate_desktop_frame",
+  dynamic_footer: null,
+  edit_mode: "pending_canonical_svg_source",
+  prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
   active_release_mutation_prohibited: true,
-  owner_approval_record_path: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json",
+  owner_approval_record_path: null,
   next_frame_blocked_until_owner_approval: true,
   skipped_frame_id: "lisa-presentation-chat-list",
   skipped_frame_reason: "owner_direction_no_rework",
   error_review_batch: {
     contract_path: "source/error-frame-review-contract.json",
     candidate_frame_ids: ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],
-    acceptance_mode: "independent_owner_approval_per_frame",
+    acceptance_mode: "all_frames_approved",
     full_delivery_representation_frame_id: "lisa-delivery-partial",
     draft_preparation_authorized_by_owner: true,
   },
@@ -353,7 +348,7 @@ function validateFrames(contract, candidate) {
     const expectedErrorFrame = expectedErrorFrames.get(frame.frame_id);
     if (expectedErrorFrame) {
       if (JSON.stringify(frame) !== JSON.stringify(expectedErrorFrame)) {
-        throw new Error("кадры ошибок должны быть подготовлены только из существующих SVG-групп и ожидать отдельной приёмки владельца");
+    throw new Error("кадры ошибок должны быть приняты только после покадровой проверки SVG и PNG");
       }
       continue;
     }
@@ -375,7 +370,7 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("сеанс покадровой приёмки должен ожидать решения владельца по трём изолированным кадрам ошибок");
+    throw new Error("после приёмки кадров ошибок следующий кадр должен быть заблокирован до получения канонического SVG письма");
   }
 }
 
@@ -559,7 +554,7 @@ function validateErrorReviewEvidence(contractPath) {
   ]);
 
   if (
-    reviewContract.status !== "draft_png_rendered_pending_owner_approval" ||
+    reviewContract.status !== "owner_frame_approved" ||
     reviewContract.base_frame_id !== "lisa-presentation-generating" ||
     reviewContract.visual_template_frame_id !== "lisa-presentation-sent" ||
     reviewContract.mock_phone_status_time_value !== "13:40" ||
@@ -588,7 +583,7 @@ function validateErrorReviewEvidence(contractPath) {
 
     if (
       manifest.frame_id !== candidate.frame_id ||
-      manifest.status !== "draft_png_rendered_pending_owner_approval" ||
+      manifest.status !== "owner_frame_approved" ||
       manifest.semantic_base_frame_id !== "lisa-presentation-generating" ||
       manifest.visual_template_svg_path !== "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" ||
       manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
@@ -599,10 +594,23 @@ function validateErrorReviewEvidence(contractPath) {
       manifest.draft_png_sha256 !== sha256File(draftPath) ||
       manifest.draft_png_dimensions?.width !== 521 ||
       manifest.draft_png_dimensions?.height !== 3290 ||
-      manifest.owner_frame_approval !== null
+      manifest.owner_frame_approval?.record_path !== `candidate-evidence/frame-review/${directoryName}/owner-approval.json` ||
+      manifest.owner_frame_approval?.decision !== "approved" ||
+      manifest.owner_frame_approval?.decision_text !== "Экраны приняты!" ||
+      manifest.owner_frame_approval?.decision_source !== "Product Owner в рабочем чате" ||
+      manifest.owner_frame_approval?.approval_time_precision !== "date_only" ||
+      manifest.owner_frame_approval?.approved_on !== "2026-08-24"
     ) {
-      throw new Error("манифест кадра ошибки должен связывать точный текст, SVG и изолированный PNG до приёмки владельца");
+      throw new Error("манифест принятого кадра ошибки должен связывать точный текст, SVG, PNG и решение владельца");
     }
+    const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
+    if (
+      approval.frame_id !== candidate.frame_id ||
+      approval.decision !== "approved" ||
+      approval.decision_text !== "Экраны приняты!" ||
+      approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+      approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+    ) throw new Error("запись приёмки кадра ошибки должна фиксировать фактически принятые SVG и PNG");
     if (
       /<text\b/u.test(source) ||
       source.includes("lisa-status-") ||
