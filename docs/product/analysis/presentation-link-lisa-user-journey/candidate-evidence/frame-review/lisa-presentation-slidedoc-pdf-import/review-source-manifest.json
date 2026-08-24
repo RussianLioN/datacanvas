@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-slidedoc",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "import_mode": "approved_pdf_to_png",
+  "source_file_name": "vodoley_dense_slidedoc.pdf",
+  "source_pdf_sha256": "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
+  "source_pdf_page_count": 3,
+  "source_pdf_committed_to_git": false,
+  "source_path_stored": false,
+  "source_svg_required": false,
+  "renderer": "swift_coregraphics",
+  "draft_scale": 1,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
+  "draft_png_sha256": "74e6e0b2a82f40e2176dfb129185e78a2eafc861af2820088881a19afb688095",
+  "draft_png_dimensions": {
+    "width": 960,
+    "height": 1620
+  },
+  "draft_png_non_white_pixel_count": 1555200,
+  "active_release_mutation_prohibited": true,
+  "owner_frame_approval": null
+}

@@ -633,6 +633,14 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-raster-import-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-variant-content-map.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/lisa-presentation-slidedoc-content-map.json",
   },

@@ -24,18 +24,19 @@ function validateMap({ root = process.cwd() } = {}) {
   if (FORBIDDEN_TRACE.test(JSON.stringify(map))) throw new Error("карта SlideDoc содержит запрещённый исходный след или растровую основу");
   if (
     map.frame_id !== "lisa-presentation-slidedoc" ||
-    map.status !== "prepared_for_initial_canonical_svg_composition" ||
+    map.status !== "rejected_superseded_by_pdf_to_png_import" ||
     map.visual_donor_id !== donor.donor_id ||
-    donor.use !== "visual_reference_only" ||
+    donor.use !== "approved_pdf_to_png" ||
     map.visual_reference_only !== true ||
     map.raw_pdf_direct_render_prohibited !== true ||
     map.content_source.path !== "source/client-reference-data.json" ||
     map.content_source.status !== client.status ||
     map.content_source.data_mutation_allowed !== false ||
     map.active_release_mutation_prohibited !== true ||
-    map.initial_svg_creation_rule !== "new_vector_composition_from_visual_tokens_then_existing_groups_only"
+    map.initial_svg_creation_rule !== "rejected_owner_feedback_use_approved_pdf_to_png" ||
+    map.superseded_by_contract_path !== "source/presentation-pdf-raster-import-contract.json"
   ) {
-    throw new Error("карта SlideDoc должна отделять PDF-оформление от утверждённых данных клиента");
+    throw new Error("отклонённая карта SlideDoc должна быть явно заменена договором контролируемого импорта PDF");
   }
   const policy = map.readability_policy;
   if (

@@ -17,6 +17,7 @@
 - [Доказательства проверок профиля Q4_2026 для Лисы](co-2026-003-q4-lisa-profile-validation-evidence.md)
 - [Архив поставки прототипа CO-2026-003](co-2026-003-prototype-delivery-archive.md) — отдельный состав поставки; прототип собирается и проверяется до ZIP-архива.
 - [RCA визуального выпуска CO-2026-003](co-2026-003-visual-prototype-rca.md) — причина дефекта наложения и обязательный порядок SVG → PNG → HTML → архив.
+- [RCA импорта презентаций CO-2026-003](co-2026-003-presentation-pdf-import-rca.md) — причина неверной SVG-реконструкции и правило контролируемого PDF → PNG для трёх вариантов презентации.
 - [Commit/PR evidence template](templates/commit-pr-evidence-template.md)
 
 ## Перед Review

@@ -4,13 +4,13 @@
   "title": "Карта разрешённого содержания варианта презентации Лисы",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "version", "change_order_id", "frame_id", "status", "visual_donor_id", "visual_reference_only", "raw_pdf_direct_render_prohibited", "content_source", "forbidden_donor_content", "allowed_model_fact_exception", "readability_policy", "pages", "initial_svg_creation_rule", "active_release_mutation_prohibited"],
+  "required": ["$schema", "version", "change_order_id", "frame_id", "status", "visual_donor_id", "visual_reference_only", "raw_pdf_direct_render_prohibited", "content_source", "forbidden_donor_content", "allowed_model_fact_exception", "readability_policy", "pages", "initial_svg_creation_rule", "superseded_by_contract_path", "active_release_mutation_prohibited"],
   "properties": {
     "$schema": { "const": "schemas/lisa-presentation-variant-content-map.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "frame_id": { "const": "lisa-presentation-slidedoc" },
-    "status": { "const": "prepared_for_initial_canonical_svg_composition" },
+    "status": { "const": "rejected_superseded_by_pdf_to_png_import" },
     "visual_donor_id": { "const": "presentation_variant_slidedoc_pdf_donor" },
     "visual_reference_only": { "const": true },
     "raw_pdf_direct_render_prohibited": { "const": true },
@@ -41,7 +41,8 @@
       }
     },
     "pages": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/page" } },
-    "initial_svg_creation_rule": { "const": "new_vector_composition_from_visual_tokens_then_existing_groups_only" },
+    "initial_svg_creation_rule": { "const": "rejected_owner_feedback_use_approved_pdf_to_png" },
+    "superseded_by_contract_path": { "const": "source/presentation-pdf-raster-import-contract.json" },
     "active_release_mutation_prohibited": { "const": true }
   },
   "$defs": {

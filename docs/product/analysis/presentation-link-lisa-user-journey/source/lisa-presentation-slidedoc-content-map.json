@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
   "frame_id": "lisa-presentation-slidedoc",
-  "status": "prepared_for_initial_canonical_svg_composition",
+  "status": "rejected_superseded_by_pdf_to_png_import",
   "visual_donor_id": "presentation_variant_slidedoc_pdf_donor",
   "visual_reference_only": true,
   "raw_pdf_direct_render_prohibited": true,
@@ -59,6 +59,7 @@
       ]
     }
   ],
-  "initial_svg_creation_rule": "new_vector_composition_from_visual_tokens_then_existing_groups_only",
+  "initial_svg_creation_rule": "rejected_owner_feedback_use_approved_pdf_to_png",
+  "superseded_by_contract_path": "source/presentation-pdf-raster-import-contract.json",
   "active_release_mutation_prohibited": true
 }

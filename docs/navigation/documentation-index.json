@@ -4272,7 +4272,9 @@
       "outgoing_links": [
         "docs/plans/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/README.md",
+        "docs/release/co-2026-003-presentation-pdf-import-rca.md",
         "README.md"
       ],
       "anchors": [
@@ -10602,6 +10604,30 @@
       "click_depth": 2
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "json",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
       "section": "release-evidence",
@@ -10622,8 +10648,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md",
@@ -10633,12 +10659,12 @@
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner / Documentation Owner",
-      "lifecycle": "in_progress",
-      "status": "in_progress",
+      "lifecycle": "historical",
+      "status": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": true,
+      "navigable": false,
       "generated": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
       "generated_from": [],
@@ -10660,8 +10686,8 @@
         "исправленная-причина-предыдущего-черновика",
         "разбор-исправления-наложения-в-финансовой-карточке"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.json",
@@ -10934,6 +10960,8 @@
       "outgoing_links": [
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
@@ -11144,7 +11172,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
@@ -11154,6 +11182,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
@@ -11162,6 +11191,7 @@
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/README.md",
         "docs/README.md",
+        "docs/release/co-2026-003-presentation-pdf-import-rca.md",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/co-2026-003-visual-prototype-rca.md",
         "README.md"
@@ -11251,7 +11281,7 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
-      "title": "Неактивный договор SVG-first кадров",
+      "title": "Неактивный договор покадровой подготовки",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -11277,14 +11307,12 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/lisa-presentation-slidedoc-content-map.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
@@ -11294,7 +11322,7 @@
         "README.md"
       ],
       "anchors": [
-        "неактивный-договор-svg-first-кадров"
+        "неактивный-договор-покадровой-подготовки"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -11416,8 +11444,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 4
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
@@ -11464,6 +11492,64 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
+      "title": "Договор контролируемого импорта PDF-презентаций",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner / Documentation Owner / QA Lead",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-raster-import-contract.schema.json",
+        "docs/product/analysis/README.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "договор-контролируемого-импорта-pdf-презентаций"
+      ],
       "reachable_from_root": true,
       "click_depth": 2
     },
@@ -11924,6 +12010,30 @@
       "click_depth": null
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-sent-review-source-manifest.schema.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-sent-review-source-manifest.schema.json",
       "section": "schemas-scripts-tests",
@@ -12042,6 +12152,30 @@
       "anchors": [],
       "reachable_from_root": false,
       "click_depth": null
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-raster-import-contract.schema.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-pdf-raster-import-contract.schema.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "QA Lead",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-preview-contract.schema.json",
@@ -12356,6 +12490,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -16656,6 +16791,42 @@
       "click_depth": 1
     },
     {
+      "path": "docs/release/co-2026-003-presentation-pdf-import-rca.md",
+      "title": "RCA: неверная SVG-реконструкция презентационных кадров",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Documentation Owner / QA Lead / UX Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
+        "docs/README.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "rca-неверная-svg-реконструкция-презентационных-кадров",
+        "наблюдаемая-проблема",
+        "корневая-причина",
+        "исправление",
+        "профилактика",
+        "граница-выпуска"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
       "path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "title": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "section": "release-evidence",
@@ -16889,6 +17060,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/README.md",
+        "docs/release/co-2026-003-presentation-pdf-import-rca.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/README.md",
         "README.md"
@@ -17181,6 +17353,7 @@
       "artifact_registry_id": "ART-404",
       "outgoing_links": [
         "docs/README.md",
+        "docs/release/co-2026-003-presentation-pdf-import-rca.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
@@ -39438,14 +39611,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1357,
-    "manual_entries": 1347,
+    "total_entries": 1363,
+    "manual_entries": 1353,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1252,
+    "searchable_entries": 1255,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 285,
+    "reachable_from_root": 286,
     "orphan_entries": 0
   },
   "ignored_paths": [

@@ -10,20 +10,20 @@
     "change_order_id",
     "status",
     "inputs_committed_to_git",
-    "raw_pdf_direct_render_prohibited",
-    "existing_historical_pdf_importer_not_invoked",
+    "raw_pdf_served_by_demo",
+    "controlled_pdf_to_png_render_allowed",
     "canonical_svg_required_before_draft_render",
     "donors"
   ],
   "properties": {
     "$schema": { "const": "schemas/presentation-pdf-donor-register.schema.json" },
-    "version": { "const": "1.0.0" },
+    "version": { "const": "2.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "owner_attachments_received_pending_canonical_svg_intake" },
+    "status": { "const": "owner_attachments_received_pending_per_frame_pdf_draft_review" },
     "inputs_committed_to_git": { "const": false },
-    "raw_pdf_direct_render_prohibited": { "const": true },
-    "existing_historical_pdf_importer_not_invoked": { "const": true },
-    "canonical_svg_required_before_draft_render": { "const": true },
+    "raw_pdf_served_by_demo": { "const": false },
+    "controlled_pdf_to_png_render_allowed": { "const": true },
+    "canonical_svg_required_before_draft_render": { "const": false },
     "donors": {
       "type": "array",
       "minItems": 3,
@@ -54,8 +54,8 @@
         "source_file_name": { "type": "string", "pattern": "^vodoley_dense_[a-z0-9]+\\.pdf$" },
         "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "page_count": { "const": 3 },
-        "use": { "const": "visual_reference_only" },
-        "status": { "const": "owner_attachment_received_pending_canonical_svg_intake" }
+        "use": { "const": "approved_pdf_to_png" },
+        "status": { "const": "owner_attachment_received_pending_pdf_draft_review" }
       }
     }
   }

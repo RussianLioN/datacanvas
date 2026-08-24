@@ -51,22 +51,22 @@ const expectedExternalSources = Object.freeze([
     source_id: "presentation_variant_slidedoc_pdf_donor",
     required_for_frame_id: "lisa-presentation-slidedoc",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "email_frame_owner_visual_reference",
@@ -134,10 +134,10 @@ const expectedEmailFrame = Object.freeze({
 });
 const expectedSlideDocFrame = Object.freeze({
   frame_id: "lisa-presentation-slidedoc",
-  svg_editing_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
-  canonical_svg_status: "prepared_new_canonical_svg_composition",
-  approved_text_status: "approved_for_demo_model",
-  svg_visual_check_status: "passed",
+  svg_editing_mode: "approved_pdf_to_png",
+  canonical_svg_status: "not_applicable",
+  approved_text_status: "not_applicable",
+  svg_visual_check_status: "not_applicable",
   draft_png_status: "rendered_current_resolution",
   owner_frame_approval_status: "pending",
 });
@@ -174,15 +174,15 @@ const expectedFrameReviewSession = Object.freeze({
   status: "presentation_variant_frame_pending_owner_approval",
   current_frame_id: "lisa-presentation-slidedoc",
   next_frame_id: "lisa-presentation-sber2025",
-  source_svg_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
-  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
-  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
+  source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
+  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
+  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
   base_frame_id: "lisa-presentation-email",
   base_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
   base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
   transition_rendering_mode: "separate_desktop_frame",
   dynamic_footer: null,
-  edit_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
+  edit_mode: "approved_pdf_to_png",
   prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
   active_release_mutation_prohibited: true,
   owner_approval_record_path: null,
@@ -204,8 +204,8 @@ const expectedPresentationPdfDonors = Object.freeze([
     source_file_name: "vodoley_dense_slidedoc.pdf",
     sha256: "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
     page_count: 3,
-    use: "visual_reference_only",
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    use: "approved_pdf_to_png",
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     donor_id: "presentation_variant_sber2025_pdf_donor",
@@ -213,8 +213,8 @@ const expectedPresentationPdfDonors = Object.freeze([
     source_file_name: "vodoley_dense_sber2025.pdf",
     sha256: "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
     page_count: 3,
-    use: "visual_reference_only",
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    use: "approved_pdf_to_png",
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     donor_id: "presentation_variant_mag_pdf_donor",
@@ -222,8 +222,8 @@ const expectedPresentationPdfDonors = Object.freeze([
     source_file_name: "vodoley_dense_mag.pdf",
     sha256: "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
     page_count: 3,
-    use: "visual_reference_only",
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    use: "approved_pdf_to_png",
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
 ]);
 const forbiddenTracePattern = /(?:\/Users\/|file:\/\/|[A-Za-z]:\\|\.docx\b|\b[a-f0-9]{64}\b|raw_source_content)/iu;
@@ -373,7 +373,7 @@ function validateFrames(contract, candidate) {
     }
     if (frame.frame_id === expectedSlideDocFrame.frame_id) {
       if (JSON.stringify(frame) !== JSON.stringify(expectedSlideDocFrame)) {
-        throw new Error("кадр SlideDoc должен оставаться изолированным SVG-кандидатом до явной покадровой приёмки владельцем");
+        throw new Error("кадр SlideDoc должен оставаться изолированным PNG-черновиком из утверждённого PDF до явной покадровой приёмки владельцем");
       }
       continue;
     }
@@ -385,14 +385,14 @@ function validateFrames(contract, candidate) {
       continue;
     }
     if (
-      frame.svg_editing_mode !== "canonical_svg_existing_groups_only" ||
+      frame.svg_editing_mode !== "approved_pdf_to_png" ||
       frame.canonical_svg_status !== "pending_source" ||
       frame.approved_text_status !== "pending" ||
       frame.svg_visual_check_status !== "pending" ||
       frame.draft_png_status !== "blocked" ||
       frame.owner_frame_approval_status !== "pending"
     ) {
-    throw new Error("неподготовленные кадры вариантов презентаций должны оставаться заблокированными до покадровой приёмки");
+    throw new Error("неподготовленные кадры вариантов презентаций должны оставаться заблокированными до покадровой приёмки PDF-черновиков");
     }
     if ("path" in frame || "svg_path" in frame || "sha256" in frame || "svg_sha256" in frame) {
       throw new Error("local paths, DOCX names, SHA-256 values, and raw source content are forbidden");
@@ -402,7 +402,7 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("договор покадровой приёмки должен указывать на подготовленный SVG-кандидат SlideDoc и блокировать следующий вариант презентации");
+    throw new Error("договор покадровой приёмки должен указывать на подготовленный PNG-черновик SlideDoc из PDF и блокировать следующий вариант презентации");
   }
 }
 
@@ -829,22 +829,23 @@ function validateExternalSources(contract) {
 function validatePresentationPdfDonorRegister(contract, donorRegister) {
   if (
     JSON.stringify(contract.presentation_pdf_donor_register) !== JSON.stringify({
-      path: "source/presentation-pdf-donor-register.json",
-      raw_pdf_direct_render_prohibited: true,
-      all_received_pdf_donors_require_canonical_svg: true,
+      path: "source/presentation-pdf-raster-import-contract.json",
+      import_mode: "approved_pdf_to_png",
+      source_svg_required: false,
+      raw_pdf_served_by_demo: false,
     })
   ) {
-    throw new Error("canonical SVG pipeline must reference the PDF donor register without embedding raw PDF metadata");
+    throw new Error("договор кадров должен явно отделять контролируемый импорт PDF-презентаций от SVG-first ветви");
   }
   if (
-    donorRegister.status !== "owner_attachments_received_pending_canonical_svg_intake" ||
+    donorRegister.status !== "owner_attachments_received_pending_per_frame_pdf_draft_review" ||
     donorRegister.inputs_committed_to_git !== false ||
-    donorRegister.raw_pdf_direct_render_prohibited !== true ||
-    donorRegister.existing_historical_pdf_importer_not_invoked !== true ||
-    donorRegister.canonical_svg_required_before_draft_render !== true ||
+    donorRegister.raw_pdf_served_by_demo !== false ||
+    donorRegister.controlled_pdf_to_png_render_allowed !== true ||
+    donorRegister.canonical_svg_required_before_draft_render !== false ||
     JSON.stringify(donorRegister.donors) !== JSON.stringify(expectedPresentationPdfDonors)
   ) {
-    throw new Error("PDF donor register must preserve received PDF provenance and prohibit direct rendering");
+    throw new Error("реестр PDF должен разрешать только контролируемое преобразование во временный PNG-черновик без публикации сырого PDF");
   }
   if (/[A-Za-z]:\\|\/Users\/|file:\/\//u.test(JSON.stringify(donorRegister))) {
     throw new Error("PDF donor register must not contain local absolute paths or raw source paths");

@@ -2,7 +2,7 @@
   "$schema": "schemas/prototype-revision-candidate.schema.json",
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "candidate_pending_canonical_svg_sources_and_frame_approval",
+  "status": "candidate_pending_source_and_frame_approval",
   "client_reference_source": "source/client-reference-data.json",
   "brainstorming_contract_source": "source/brainstorming-contract.json",
   "approved_texts_source": "source/owner-approved-texts.json",
@@ -94,21 +94,24 @@
       "status": "active_future",
       "caption": "Трёхстраничный вариант презентации SlideDoc по данным ООО «Водолей Трейд».",
       "action_ids": [],
-      "requires_new_editable_source": true
+      "requires_new_editable_source": false,
+      "render_source_mode": "approved_pdf_to_png"
     },
     {
       "id": "lisa-presentation-sber2025",
       "status": "active_future",
       "caption": "Трёхстраничный вариант презентации Sber 2025 по данным ООО «Водолей Трейд».",
       "action_ids": [],
-      "requires_new_editable_source": true
+      "requires_new_editable_source": false,
+      "render_source_mode": "approved_pdf_to_png"
     },
     {
       "id": "lisa-presentation-mag",
       "status": "active_future",
       "caption": "Трёхстраничный вариант презентации MAG по данным ООО «Водолей Трейд».",
       "action_ids": [],
-      "requires_new_editable_source": true
+      "requires_new_editable_source": false,
+      "render_source_mode": "approved_pdf_to_png"
     },
     {
       "id": "lisa-order-not-accepted",
@@ -233,7 +236,7 @@
       "next_frame_blocked_until_owner_approval": true,
       "active_release_mutation_prohibited": true
     },
-    "allowed_source_editing": "canonical_svg_existing_groups_only",
+    "allowed_source_editing": "by_frame_contract",
     "forbidden_methods": [
       "html_overlay",
       "css_overlay",
@@ -243,7 +246,7 @@
     ]
   },
   "visual_release_gate": {
-    "release_status": "blocked_until_canonical_svg_sources_and_frame_approval",
+    "release_status": "blocked_until_source_and_frame_approval",
     "render_allowed": false,
     "owner_selection_complete": true,
     "all_external_visual_donors_received": true,
@@ -252,25 +255,25 @@
         "source_id": "presentation_variant_slidedoc_pdf_donor",
         "required_for_frame_id": "lisa-presentation-slidedoc",
         "required_format": "owner_supplied_pdf_visual_donor",
-        "canonical_svg_required_before_render": true,
-        "status": "owner_attachment_received_pending_canonical_svg_intake",
-        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+        "canonical_svg_required_before_render": false,
+        "status": "owner_attachment_received_pending_pdf_draft_review",
+        "reason": "Готовый PDF преобразуется штатным контролируемым импортёром в изолированный PNG-черновик; новый SVG для варианта презентации не создаётся."
       },
       {
         "source_id": "presentation_variant_sber2025_pdf_donor",
         "required_for_frame_id": "lisa-presentation-sber2025",
         "required_format": "owner_supplied_pdf_visual_donor",
-        "canonical_svg_required_before_render": true,
-        "status": "owner_attachment_received_pending_canonical_svg_intake",
-        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+        "canonical_svg_required_before_render": false,
+        "status": "owner_attachment_received_pending_pdf_draft_review",
+        "reason": "Готовый PDF преобразуется штатным контролируемым импортёром в изолированный PNG-черновик; новый SVG для варианта презентации не создаётся."
       },
       {
         "source_id": "presentation_variant_mag_pdf_donor",
         "required_for_frame_id": "lisa-presentation-mag",
         "required_format": "owner_supplied_pdf_visual_donor",
-        "canonical_svg_required_before_render": true,
-        "status": "owner_attachment_received_pending_canonical_svg_intake",
-        "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
+        "canonical_svg_required_before_render": false,
+        "status": "owner_attachment_received_pending_pdf_draft_review",
+        "reason": "Готовый PDF преобразуется штатным контролируемым импортёром в изолированный PNG-черновик; новый SVG для варианта презентации не создаётся."
       },
       {
         "source_id": "email_frame_owner_visual_reference",
@@ -282,7 +285,7 @@
       }
     ],
     "blocked_reasons": [
-      "Три PDF-донора получены, но для каждого варианта презентации ещё не подготовлен и не согласован канонический SVG-источник кадра.",
+      "Три PDF получены; до выпуска каждый вариант должен быть отдельно принят как PNG-черновик, полученный штатным контролируемым преобразованием PDF.",
       "Нельзя рендерить новые PNG, HTML или архив до покадровой приёмки: в изолированной копии прототипа разрешена замена только одного одноимённого кадра, а следующий кадр блокируется до согласования предыдущего."
     ]
   }

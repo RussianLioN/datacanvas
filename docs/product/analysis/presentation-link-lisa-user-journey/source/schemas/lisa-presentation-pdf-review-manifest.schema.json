@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-presentation-pdf-review-manifest.schema.json",
+  "title": "Манифест чернового кадра презентации из утверждённого PDF",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "frame_id", "status", "import_mode", "source_file_name", "source_pdf_sha256", "source_pdf_page_count", "source_pdf_committed_to_git", "source_path_stored", "source_svg_required", "renderer", "draft_scale", "draft_png_path", "draft_png_sha256", "draft_png_dimensions", "draft_png_non_white_pixel_count", "active_release_mutation_prohibited", "owner_frame_approval"],
+  "properties": {
+    "$schema": { "const": "../../../source/schemas/lisa-presentation-pdf-review-manifest.schema.json" },
+    "version": { "const": "1.0.0" },
+    "frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"] },
+    "status": { "const": "draft_png_rendered_pending_owner_approval" },
+    "import_mode": { "const": "approved_pdf_to_png" },
+    "source_file_name": { "type": "string", "pattern": "^vodoley_dense_[a-z0-9]+\\.pdf$" },
+    "source_pdf_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source_pdf_page_count": { "const": 3 },
+    "source_pdf_committed_to_git": { "const": false },
+    "source_path_stored": { "const": false },
+    "source_svg_required": { "const": false },
+    "renderer": { "const": "swift_coregraphics" },
+    "draft_scale": { "const": 1 },
+    "draft_png_path": { "type": "string", "pattern": "^candidate-evidence/frame-review/lisa-presentation-(slidedoc|sber2025|mag)-pdf-import/draft-current-resolution\\.png$" },
+    "draft_png_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "draft_png_dimensions": { "const": { "width": 960, "height": 1620 } },
+    "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1 },
+    "active_release_mutation_prohibited": { "const": true },
+    "owner_frame_approval": { "type": "null" }
+  }
+}

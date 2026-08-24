@@ -73,7 +73,7 @@
     {
       "name": "short historical source cannot replace approved generating base",
       "mutation": "replace-approved-continuation-base",
-      "expected_error": "договор покадровой приёмки должен указывать на подготовленный SVG-кандидат SlideDoc и блокировать следующий вариант презентации"
+      "expected_error": "договор покадровой приёмки должен указывать на подготовленный PNG-черновик SlideDoc из PDF и блокировать следующий вариант презентации"
     }
   ]
 }

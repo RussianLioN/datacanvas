@@ -65,6 +65,48 @@ export const APPROVED_PDF_SLIDE_SOURCES = Object.freeze([
   }),
 ]);
 
+export const APPROVED_VODOLEY_PDF_SLIDE_SOURCES = Object.freeze([
+  Object.freeze({
+    file_name: "vodoley_dense_slidedoc.pdf",
+    output: "vodoley-dense-slidedoc-4x.png",
+    sha256: "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
+    pages: PAGE_COUNT,
+    page_dimensions: PAGE_DIMENSIONS,
+    source_dimensions: SOURCE_DIMENSIONS,
+    rendered_dimensions: RENDERED_DIMENSIONS,
+    scale: SCALE,
+    raw_file_tracked: false,
+    source_path_stored: false,
+    copied_to_package: false,
+  }),
+  Object.freeze({
+    file_name: "vodoley_dense_sber2025.pdf",
+    output: "vodoley-dense-sber2025-4x.png",
+    sha256: "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
+    pages: PAGE_COUNT,
+    page_dimensions: PAGE_DIMENSIONS,
+    source_dimensions: SOURCE_DIMENSIONS,
+    rendered_dimensions: RENDERED_DIMENSIONS,
+    scale: SCALE,
+    raw_file_tracked: false,
+    source_path_stored: false,
+    copied_to_package: false,
+  }),
+  Object.freeze({
+    file_name: "vodoley_dense_mag.pdf",
+    output: "vodoley-dense-mag-4x.png",
+    sha256: "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
+    pages: PAGE_COUNT,
+    page_dimensions: PAGE_DIMENSIONS,
+    source_dimensions: SOURCE_DIMENSIONS,
+    rendered_dimensions: RENDERED_DIMENSIONS,
+    scale: SCALE,
+    raw_file_tracked: false,
+    source_path_stored: false,
+    copied_to_package: false,
+  }),
+]);
+
 function fail(message) {
   throw new Error(message);
 }
@@ -287,6 +329,8 @@ function isEntrypoint() {
 
 export const __test = Object.freeze({
   inspectSafePng: editableSourceTest.inspectSafePng,
+  vodoleyPdfReviewSources: APPROVED_VODOLEY_PDF_SLIDE_SOURCES,
+  vodoleyPdfReviewImportMode: "approved_pdf_to_png",
 });
 
 if (isEntrypoint()) {

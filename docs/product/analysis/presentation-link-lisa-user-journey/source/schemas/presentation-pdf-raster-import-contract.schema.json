@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "presentation-pdf-raster-import-contract.schema.json",
+  "title": "Договор контролируемого импорта PDF-презентаций CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "change_order_id", "status", "import_mode", "source_svg_required", "raw_pdf_committed_to_git", "raw_pdf_served_by_demo", "controlled_importer", "high_resolution_render_status", "render_scales", "per_frame_review", "variants"],
+  "properties": {
+    "$schema": { "const": "schemas/presentation-pdf-raster-import-contract.schema.json" },
+    "version": { "const": "1.0.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "const": "slidedoc_draft_pending_owner_approval" },
+    "import_mode": { "const": "approved_pdf_to_png" },
+    "source_svg_required": { "const": false },
+    "raw_pdf_committed_to_git": { "const": false },
+    "raw_pdf_served_by_demo": { "const": false },
+    "controlled_importer": { "const": "scripts/render-lisa-presentation-pdf-review-draft.mjs" },
+    "high_resolution_render_status": { "const": "blocked_until_all_owner_frame_approvals" },
+    "render_scales": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["draft", "final"],
+      "properties": {
+        "draft": { "const": 1 },
+        "final": { "const": 4 }
+      }
+    },
+    "per_frame_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unit", "next_variant_blocked_until_owner_approval", "active_release_mutation_prohibited"],
+      "properties": {
+        "unit": { "const": "one_three_page_presentation_variant" },
+        "next_variant_blocked_until_owner_approval": { "const": true },
+        "active_release_mutation_prohibited": { "const": true }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/variant" }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "source_file_name", "source_pdf_sha256", "page_count", "output_file", "draft_review_manifest_path", "review_status"],
+      "properties": {
+        "frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"] },
+        "source_file_name": { "type": "string", "pattern": "^vodoley_dense_[a-z0-9]+\\.pdf$" },
+        "source_pdf_sha256": { "$ref": "#/$defs/sha256" },
+        "page_count": { "const": 3 },
+        "output_file": { "type": "string", "pattern": "^vodoley-dense-[a-z0-9]+-4x\\.png$" },
+        "draft_review_manifest_path": { "type": "string", "pattern": "^candidate-evidence/frame-review/lisa-presentation-(slidedoc|sber2025|mag)-pdf-import/review-source-manifest\\.json$" },
+        "review_status": { "enum": ["draft_png_rendered_pending_owner_approval", "blocked_by_slidedoc_owner_approval", "blocked_by_sber2025_owner_approval"] }
+      }
+    }
+  }
+}

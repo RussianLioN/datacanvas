@@ -122,22 +122,22 @@ const expectedExternalSources = Object.freeze([
     source_id: "presentation_variant_slidedoc_pdf_donor",
     required_for_frame_id: "lisa-presentation-slidedoc",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
     required_format: "owner_supplied_pdf_visual_donor",
-    canonical_svg_required_before_render: true,
-    status: "owner_attachment_received_pending_canonical_svg_intake",
+    canonical_svg_required_before_render: false,
+    status: "owner_attachment_received_pending_pdf_draft_review",
   }),
   Object.freeze({
     source_id: "email_frame_owner_visual_reference",
@@ -392,9 +392,18 @@ test("выбранные тексты и покадровые источники
 
   assert.deepEqual(contract.external_sources, expectedExternalSources);
   assert.deepEqual(contract.presentation_pdf_donor_register, {
-    path: "source/presentation-pdf-donor-register.json",
-    raw_pdf_direct_render_prohibited: true,
-    all_received_pdf_donors_require_canonical_svg: true,
+    path: "source/presentation-pdf-raster-import-contract.json",
+    import_mode: "approved_pdf_to_png",
+    source_svg_required: false,
+    raw_pdf_served_by_demo: false,
+  });
+  assert.deepEqual(contract.presentation_variant_pdf_import, {
+    contract_path: "source/presentation-pdf-raster-import-contract.json",
+    import_mode: "approved_pdf_to_png",
+    source_svg_required: false,
+    draft_scale: 1,
+    final_scale: 4,
+    active_release_mutation_prohibited: true,
   });
   assert.deepEqual(contract.client_reference_svg_update, {
     source_data_path: "source/client-reference-data.json",
@@ -424,8 +433,9 @@ test("выбранные тексты и покадровые источники
     status: "pending_frame_cycle",
   });
   const donorRegister = readJson(presentationPdfDonorRegisterPath);
-  assert.equal(donorRegister.status, "owner_attachments_received_pending_canonical_svg_intake");
-  assert.equal(donorRegister.raw_pdf_direct_render_prohibited, true);
+  assert.equal(donorRegister.status, "owner_attachments_received_pending_per_frame_pdf_draft_review");
+  assert.equal(donorRegister.raw_pdf_served_by_demo, false);
+  assert.equal(donorRegister.controlled_pdf_to_png_render_allowed, true);
   assert.equal(donorRegister.donors.length, 3);
   assert.deepEqual(donorRegister.donors.map((donor) => donor.frame_id), [
     "lisa-presentation-slidedoc",
@@ -449,8 +459,8 @@ test("выбранные тексты и покадровые источники
     ]);
     assert.equal(
       frame.svg_editing_mode,
-      frame.frame_id === "lisa-presentation-slidedoc"
-        ? "new_canonical_svg_composition_from_pdf_visual_reference"
+      ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"].includes(frame.frame_id)
+        ? "approved_pdf_to_png"
         : "canonical_svg_existing_groups_only",
     );
     if (frame.frame_id === "lisa-materials-full-reference") {
@@ -506,10 +516,10 @@ test("выбранные тексты и покадровые источники
     } else if (frame.frame_id === "lisa-presentation-slidedoc") {
       assert.deepEqual(frame, {
         frame_id: "lisa-presentation-slidedoc",
-        svg_editing_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
-        canonical_svg_status: "prepared_new_canonical_svg_composition",
-        approved_text_status: "approved_for_demo_model",
-        svg_visual_check_status: "passed",
+        svg_editing_mode: "approved_pdf_to_png",
+        canonical_svg_status: "not_applicable",
+        approved_text_status: "not_applicable",
+        svg_visual_check_status: "not_applicable",
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "pending",
       });
@@ -541,15 +551,15 @@ test("принятый первый проверочный кадр изолир
     status: "presentation_variant_frame_pending_owner_approval",
     current_frame_id: "lisa-presentation-slidedoc",
     next_frame_id: "lisa-presentation-sber2025",
-    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
-    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
-    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
+    source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
+    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
     base_frame_id: "lisa-presentation-email",
     base_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
     base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
     transition_rendering_mode: "separate_desktop_frame",
     dynamic_footer: null,
-    edit_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
+    edit_mode: "approved_pdf_to_png",
     prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
     active_release_mutation_prohibited: true,
     owner_approval_record_path: null,
