@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-presentation-sent-review-source-manifest.schema.json",
+  "title": "Манифест чернового динамического кадра успешной отправки презентации",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "frame_id", "status", "base_frame_id", "base_svg_path", "base_svg_sha256", "base_owner_approval_path", "transition_rendering_mode", "skipped_intermediate_frame_id", "skipped_intermediate_frame_reason", "source_svg_path", "source_svg_sha256", "approved_texts_path", "approved_texts_sha256", "button_label_text", "mock_phone_status_time_value", "dynamic_footer", "delivery_success_message", "text_outline_font", "active_release_mutation_prohibited", "draft_png_rendered", "draft_png_path", "draft_png_sha256", "draft_png_dimensions", "draft_png_non_white_pixel_count", "owner_frame_approval"],
+  "properties": {
+    "$schema": { "const": "../../../source/schemas/lisa-presentation-sent-review-source-manifest.schema.json" },
+    "version": { "const": "1.0.0" },
+    "frame_id": { "const": "lisa-presentation-sent" },
+    "status": { "enum": ["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval"] },
+    "base_frame_id": { "const": "lisa-presentation-generating" },
+    "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" },
+    "base_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json" },
+    "transition_rendering_mode": { "const": "same_screen_dynamic_state" },
+    "skipped_intermediate_frame_id": { "const": "lisa-presentation-chat-list" },
+    "skipped_intermediate_frame_reason": { "const": "owner_direction_no_rework" },
+    "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" },
+    "source_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "approved_texts_path": { "const": "source/owner-approved-texts.json" },
+    "approved_texts_sha256": { "$ref": "#/$defs/sha256" },
+    "button_label_text": { "const": "Создать презентацию по справке" },
+    "mock_phone_status_time_value": { "const": "13:40" },
+    "dynamic_footer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["button_translate_y", "background_fill", "label_fill", "generation_message_placement", "delivery_success_message_placement", "extension_height", "canvas_height"],
+      "properties": {
+        "button_translate_y": { "const": -18 }, "background_fill": { "const": "rgb(224,227,234)" }, "label_fill": { "const": "rgb(143,148,160)" },
+        "generation_message_placement": { "const": "below_disabled_button" }, "delivery_success_message_placement": { "const": "below_generation_message" },
+        "extension_height": { "const": 146 }, "canvas_height": { "const": 3290 }
+      }
+    },
+    "delivery_success_message": {
+      "type": "object", "additionalProperties": false,
+      "required": ["text", "display_lines", "time_value", "inserted_into_existing_frame_group_id", "font_size", "fill", "baselines", "safe_area", "line_widths"],
+      "properties": {
+        "text": { "const": "Презентация готова и направлена по электронной почте в ЧЧ:ММ." },
+        "display_lines": { "const": ["Презентация готова и направлена", "по электронной почте в 13:38."] },
+        "time_value": { "const": "13:38" }, "inserted_into_existing_frame_group_id": { "const": "button_footer_2.0" },
+        "font_size": { "const": 11.5 }, "fill": { "const": "rgb(73,80,94)" }, "baselines": { "const": [3048, 3064] },
+        "safe_area": { "type": "object", "additionalProperties": false, "required": ["x", "y", "width", "height"], "properties": { "x": { "const": 80 }, "y": { "const": 3036 }, "width": { "const": 345 }, "height": { "const": 40 } } },
+        "line_widths": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number", "minimum": 0, "maximum": 345 } }
+      }
+    },
+    "text_outline_font": { "type": "object", "additionalProperties": false, "required": ["family", "sha256", "copied_to_git"], "properties": { "family": { "const": "SB Sans Display" }, "sha256": { "$ref": "#/$defs/sha256" }, "copied_to_git": { "const": false } } },
+    "active_release_mutation_prohibited": { "const": true },
+    "draft_png_rendered": { "type": "boolean" }, "draft_png_path": { "anyOf": [{ "type": "null" }, { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" }] }, "draft_png_sha256": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256" }] },
+    "draft_png_dimensions": { "anyOf": [{ "type": "null" }, { "type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": { "width": { "const": 521 }, "height": { "const": 3290 } } }] },
+    "draft_png_non_white_pixel_count": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 1000 }] },
+    "owner_frame_approval": { "type": "null" }
+  },
+  "allOf": [{ "if": { "properties": { "status": { "const": "svg_source_prepared_pending_visual_check" } }, "required": ["status"] }, "then": { "properties": { "draft_png_rendered": { "const": false }, "draft_png_path": { "type": "null" }, "draft_png_sha256": { "type": "null" }, "draft_png_dimensions": { "type": "null" }, "draft_png_non_white_pixel_count": { "type": "null" } } }, "else": { "properties": { "draft_png_rendered": { "const": true }, "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" }, "draft_png_sha256": { "$ref": "#/$defs/sha256" }, "draft_png_dimensions": { "type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": { "width": { "const": 521 }, "height": { "const": 3290 } } }, "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 } } } }],
+  "$defs": { "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
+}

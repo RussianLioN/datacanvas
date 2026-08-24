@@ -12,7 +12,7 @@ const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-p
 const SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
 const DRAFT_PATH = `${REVIEW_DIRECTORY}/draft-current-resolution.png`;
-const EXPECTED_DIMENSIONS = Object.freeze({ width: 521, height: 3144 });
+const EXPECTED_DIMENSIONS = Object.freeze({ width: 521, height: 3226 });
 
 function fail(message) {
   throw new Error(message);
@@ -45,7 +45,6 @@ function validateManifestShape(manifest) {
     manifest.base_frame_id !== "lisa-materials-full-reference" ||
     manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" ||
     manifest.transition_rendering_mode !== "same_screen_dynamic_state" ||
-    manifest.owner_frame_approval !== null ||
     manifest.active_release_mutation_prohibited !== true
   ) {
     fail("манифест второго кадра не соответствует изолированному циклу приёмки");
@@ -62,7 +61,10 @@ function renderDraft({ root = process.cwd(), check = false } = {}) {
   if (manifest.source_svg_sha256 !== sourceSvgSha256) fail("манифест второго кадра не совпадает с SVG-источником");
 
   if (check) {
-    if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) {
+    if (
+      !["draft_png_rendered_pending_owner_approval", "owner_frame_approved"].includes(manifest.status) ||
+      manifest.draft_png_rendered !== true
+    ) {
       fail("черновой PNG второго кадра не подготовлен для приёмки владельца");
     }
     const inspected = inspectPng(draftPath, EXPECTED_DIMENSIONS);
@@ -77,7 +79,7 @@ function renderDraft({ root = process.cwd(), check = false } = {}) {
     return manifest;
   }
 
-  if (manifest.status !== "svg_source_prepared_pending_visual_check" || manifest.draft_png_rendered !== false) {
+  if (manifest.status !== "svg_source_prepared_pending_visual_check" || manifest.draft_png_rendered !== false || manifest.owner_frame_approval !== null) {
     fail("второй PNG можно создавать только из нового SVG-источника до приёмки владельца");
   }
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "lisa-presentation-generating-draft-"));

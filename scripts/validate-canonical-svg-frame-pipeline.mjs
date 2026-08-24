@@ -103,24 +103,50 @@ const expectedGeneratingFrame = Object.freeze({
   approved_text_status: "owner_approved",
   svg_visual_check_status: "passed",
   draft_png_status: "rendered_current_resolution",
+  owner_frame_approval_status: "approved",
+});
+const expectedChatListFrame = Object.freeze({
+  frame_id: "lisa-presentation-chat-list",
+  svg_editing_mode: "canonical_svg_existing_groups_only",
+  canonical_svg_status: "preserved_without_rework",
+  approved_text_status: "not_applicable",
+  svg_visual_check_status: "not_required",
+  draft_png_status: "existing_frame_preserved",
+  owner_frame_approval_status: "not_required",
+});
+const expectedSentFrame = Object.freeze({
+  frame_id: "lisa-presentation-sent",
+  svg_editing_mode: "canonical_svg_existing_groups_only",
+  canonical_svg_status: "prepared_existing_group_content_replaced",
+  approved_text_status: "owner_approved",
+  svg_visual_check_status: "passed",
+  draft_png_status: "rendered_current_resolution",
   owner_frame_approval_status: "pending",
 });
 const expectedFrameReviewSession = Object.freeze({
   status: "draft_png_rendered_pending_owner_approval",
-  current_frame_id: "lisa-presentation-generating",
-  next_frame_id: "lisa-presentation-chat-list",
-  source_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
-  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
-  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
-  base_frame_id: "lisa-materials-full-reference",
-  base_svg_path: "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
-  base_owner_approval_path: "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  current_frame_id: "lisa-presentation-sent",
+  next_frame_id: "lisa-presentation-email",
+  source_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+  base_frame_id: "lisa-presentation-generating",
+  base_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
+  base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
   transition_rendering_mode: "same_screen_dynamic_state",
+  dynamic_footer: {
+    button_group_id: "buttons_2.0",
+    button_state: "disabled_pale_gray",
+    message_placement: "below_generation_message",
+    canvas_height: 3290,
+  },
   edit_mode: "replace_existing_frame_group_content",
   prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
   active_release_mutation_prohibited: true,
   owner_approval_record_path: null,
   next_frame_blocked_until_owner_approval: true,
+  skipped_frame_id: "lisa-presentation-chat-list",
+  skipped_frame_reason: "owner_direction_no_rework",
 });
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
@@ -244,7 +270,7 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
-  if (contract.version !== "3.6.0") throw new Error("версия договора должна фиксировать динамическое продолжение полной справки");
+  if (contract.version !== "3.8.0") throw new Error("версия договора должна фиксировать приёмку начала и черновик успеха после сохранённого списка чатов");
 }
 
 function validateFrames(contract, candidate) {
@@ -272,7 +298,19 @@ function validateFrames(contract, candidate) {
     }
     if (frame.frame_id === expectedGeneratingFrame.frame_id) {
       if (JSON.stringify(frame) !== JSON.stringify(expectedGeneratingFrame)) {
-        throw new Error("кадр начала формирования должен быть подготовлен только до отдельной приёмки владельцем");
+        throw new Error("кадр начала формирования должен быть зафиксирован как принятый владельцем");
+      }
+      continue;
+    }
+    if (frame.frame_id === expectedChatListFrame.frame_id) {
+      if (JSON.stringify(frame) !== JSON.stringify(expectedChatListFrame)) {
+        throw new Error("список чатов должен быть явно сохранён без переработки по указанию владельца");
+      }
+      continue;
+    }
+    if (frame.frame_id === expectedSentFrame.frame_id) {
+      if (JSON.stringify(frame) !== JSON.stringify(expectedSentFrame)) {
+        throw new Error("кадр успеха должен быть подготовлен из принятого кадра начала и ожидать отдельной приёмки");
       }
       continue;
     }
@@ -294,7 +332,7 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("сеанс покадровой приёмки должен ожидать решения владельца по изолированному кадру начала формирования");
+    throw new Error("сеанс покадровой приёмки должен ожидать решения владельца по изолированному кадру успеха");
   }
 }
 
@@ -310,8 +348,7 @@ function validateGeneratingReviewEvidence(contractPath) {
   const expectedMessage = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
   if (
     manifest.frame_id !== "lisa-presentation-generating" ||
-    manifest.status !== "draft_png_rendered_pending_owner_approval" ||
-    manifest.owner_frame_approval !== null ||
+    manifest.status !== "owner_frame_approved" ||
     manifest.base_frame_id !== "lisa-materials-full-reference" ||
     manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" ||
     manifest.base_svg_sha256 !== sha256File(baseSourcePath) ||
@@ -323,13 +360,22 @@ function validateGeneratingReviewEvidence(contractPath) {
     manifest.draft_png_rendered !== true ||
     manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" ||
     manifest.draft_png_dimensions?.width !== 521 ||
-    manifest.draft_png_dimensions?.height !== 3144 ||
-    JSON.stringify(manifest.generation_started_message?.safe_area) !== JSON.stringify({ x: 80, y: 2815, width: 361, height: 79 }) ||
+    manifest.draft_png_dimensions?.height !== 3226 ||
+    manifest.dynamic_footer?.button_translate_y !== -18 ||
+    manifest.dynamic_footer?.background_fill !== "rgb(224,227,234)" ||
+    manifest.dynamic_footer?.label_fill !== "rgb(143,148,160)" ||
+    manifest.dynamic_footer?.status_placement !== "below_disabled_button" ||
+    manifest.dynamic_footer?.extension_height !== 82 ||
+    manifest.disabled_button?.opacity !== 1 ||
+    JSON.stringify(manifest.generation_started_message?.safe_area) !== JSON.stringify({ x: 80, y: 2958, width: 345, height: 64 }) ||
+    manifest.generation_started_message?.font_size !== 11.5 ||
+    manifest.generation_started_message?.fill !== "rgb(73,80,94)" ||
+    manifest.generation_started_message?.inserted_into_existing_frame_group_id !== "button_footer_2.0" ||
     !Array.isArray(manifest.generation_started_message?.line_widths) ||
     manifest.generation_started_message.line_widths.length !== manifest.generation_started_message.display_lines?.length ||
-    manifest.generation_started_message.line_widths.some((width) => !Number.isFinite(width) || width < 0 || width > 361)
+    manifest.generation_started_message.line_widths.some((width) => !Number.isFinite(width) || width < 0 || width > 345)
   ) {
-    throw new Error("манифест второго чернового кадра должен привязывать SVG и PNG к принятой полной справке до решения владельца");
+    throw new Error("манифест принятого кадра начала должен привязывать SVG и PNG к принятой полной справке");
   }
   if (
     /<text\b/u.test(source) ||
@@ -339,7 +385,11 @@ function validateGeneratingReviewEvidence(contractPath) {
     !source.includes('id="lisa-review-generation-status"') ||
     !source.includes('aria-disabled="true"') ||
     !source.includes('data-review-button-state="disabled"') ||
+    !source.includes('transform="translate(0 -18)"') ||
+    !source.includes('fill="rgb(224,227,234)"') ||
+    !source.includes('fill="rgb(143,148,160)"') ||
     !source.includes(`aria-label="${expectedMessage}"`) ||
+    source.indexOf('id="lisa-review-generation-status"') < source.indexOf('id="Home indicator"') ||
     source.includes("7.2 — Длинное название клиента + холдинг.svg")
   ) {
     throw new Error("второй черновой SVG должен быть динамическим продолжением полной справки без накладок");
@@ -348,6 +398,117 @@ function validateGeneratingReviewEvidence(contractPath) {
     if (!source.includes(`data-review-rendered-group-id="${groupId}"`)) {
       throw new Error("второй черновой SVG должен сохранять все видимые группы принятой полной справки");
     }
+  }
+}
+
+function validateGeneratingOwnerApprovalEvidence(contractPath) {
+  const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-generating");
+  const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const expectedSummary = {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: approval.approved_at,
+  };
+  if (
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-presentation-generating" ||
+    approval.decision !== "approved" ||
+    manifest.status !== "owner_frame_approved" ||
+    JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(expectedSummary) ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+  ) {
+    throw new Error("приёмка кадра начала должна связывать его SVG и PNG с записью владельца");
+  }
+}
+
+function validateSentReviewEvidence(contractPath) {
+  const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-sent");
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const sourcePath = path.join(reviewDirectory, "source.svg");
+  const source = fs.readFileSync(sourcePath, "utf8");
+  const baseSourcePath = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg");
+  const phoneStatusTimeDonorPath = path.join(packageDirectory, "editable-sources/7.3 — Презентация.svg");
+  const phoneStatusTimeDonor = fs.readFileSync(phoneStatusTimeDonorPath, "utf8");
+  const expectedMessage = "Презентация готова и направлена по электронной почте в ЧЧ:ММ.";
+  const readPhoneStatusTimePath = (value, label) => {
+    const matches = [...value.matchAll(/<path id="Time" d="[^"]+" fill="rgb\(0,0,0\)" fill-rule="nonzero" \/>/gu)];
+    if (matches.length !== 1) throw new Error(`SVG ${label} должен содержать один штатный контур системного времени`);
+    return matches[0][0];
+  };
+  if (
+    manifest.frame_id !== "lisa-presentation-sent" ||
+    manifest.status !== "draft_png_rendered_pending_owner_approval" ||
+    manifest.owner_frame_approval !== null ||
+    manifest.base_frame_id !== "lisa-presentation-generating" ||
+    manifest.base_svg_sha256 !== sha256File(baseSourcePath) ||
+    manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" ||
+    manifest.base_owner_approval_path !== "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json" ||
+    manifest.skipped_intermediate_frame_id !== "lisa-presentation-chat-list" ||
+    manifest.skipped_intermediate_frame_reason !== "owner_direction_no_rework" ||
+    manifest.source_svg_sha256 !== sha256File(sourcePath) ||
+    manifest.draft_png_rendered !== true ||
+    manifest.draft_png_dimensions?.width !== 521 ||
+    manifest.draft_png_dimensions?.height !== 3290 ||
+    manifest.dynamic_footer?.generation_message_placement !== "below_disabled_button" ||
+    manifest.dynamic_footer?.delivery_success_message_placement !== "below_generation_message" ||
+    manifest.mock_phone_status_time_value !== "13:40" ||
+    manifest.delivery_success_message?.text !== expectedMessage ||
+    JSON.stringify(manifest.delivery_success_message?.display_lines) !== JSON.stringify(["Презентация готова и направлена", "по электронной почте в 13:38."])
+  ) {
+    throw new Error("манифест кадра успеха должен продолжать принятый кадр начала и ожидать приёмки владельца");
+  }
+  if (readPhoneStatusTimePath(source, "кадра успеха") !== readPhoneStatusTimePath(phoneStatusTimeDonor, "канонического донора 13:40")) {
+    throw new Error("системное время кадра успеха должно быть заменено штатным контуром 13:40");
+  }
+  if (
+    /<text\b/u.test(source) ||
+    source.includes("lisa-edit-") ||
+    source.includes("lisa-status-") ||
+    !source.includes('id="lisa-review-generation-status"') ||
+    !source.includes('id="lisa-review-delivery-success-status"') ||
+    !source.includes(`aria-label="${expectedMessage}"`) ||
+    source.indexOf('id="lisa-review-delivery-success-status"') < source.indexOf('id="lisa-review-generation-status"') ||
+    !source.includes('aria-disabled="true"') ||
+    !source.includes('fill="rgb(224,227,234)"')
+  ) {
+    throw new Error("SVG кадра успеха должен быть продолжением того же экрана без текстовых и визуальных накладок");
+  }
+}
+
+function validateGeneratingClockCorrectionApprovalEvidence(contractPath) {
+  const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24");
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
+  const sourcePath = path.join(reviewDirectory, "source.svg");
+  const draftPath = path.join(reviewDirectory, "draft-current-resolution.png");
+  const expectedSummary = {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: approval.approved_at,
+  };
+  if (
+    manifest.frame_id !== "lisa-presentation-generating" ||
+    manifest.status !== "owner_frame_approved" ||
+    manifest.mock_phone_status_time_value !== "13:24" ||
+    manifest.source_svg_sha256 !== sha256File(sourcePath) ||
+    manifest.draft_png_sha256 !== sha256File(draftPath) ||
+    JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(expectedSummary) ||
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-presentation-generating" ||
+    approval.decision !== "approved" ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+  ) {
+    throw new Error("принятая правка системного времени должна стать проверяемой основой продолжения");
   }
 }
 
@@ -582,6 +743,9 @@ try {
   validateFrameReviewSession(contract);
   validateOwnerApprovalEvidence(contractPath);
   validateGeneratingReviewEvidence(contractPath);
+  validateGeneratingOwnerApprovalEvidence(contractPath);
+  validateGeneratingClockCorrectionApprovalEvidence(contractPath);
+  validateSentReviewEvidence(contractPath);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);
   validatePresentationPdfDonorRegister(contract, donorRegister);

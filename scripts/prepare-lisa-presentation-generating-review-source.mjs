@@ -13,6 +13,7 @@ const BASE_OWNER_APPROVAL_PATH = "candidate-evidence/frame-review/lisa-materials
 const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-presentation-generating`;
 const REVIEW_SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const REVIEW_MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
+const OWNER_APPROVAL_PATH = `${REVIEW_DIRECTORY}/owner-approval.json`;
 const APPROVED_TEXTS_PATH = `${SOURCE_PATH}/owner-approved-texts.json`;
 const FIXTURE_MANIFEST_PATH = `${SOURCE_PATH}/source-fixture-manifest.json`;
 const GENERATION_MESSAGE = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
@@ -34,12 +35,26 @@ const VISIBLE_GROUP_IDS = Object.freeze([
   "insights",
   "meeting_agreements",
 ]);
-const STATUS_FILL = "rgb(87,92,112)";
+const STATUS_FILL = "rgb(73,80,94)";
 const STATUS_X = 80;
-const STATUS_BASELINES = Object.freeze([2834, 2850, 2866, 2882]);
-const STATUS_FONT_SIZE = 10;
-const STATUS_SAFE_AREA = Object.freeze({ x: 80, y: 2815, width: 361, height: 79 });
-const DISABLED_BUTTON_OPACITY = 0.45;
+const STATUS_BASELINES = Object.freeze([2970, 2986, 3002, 3018]);
+// Нижняя панель уже имеет штатное смещение на -2050 по оси Y. Контуры
+// размещаем внутри неё после её фона, поэтому сохраняем в манифесте видимые
+// координаты, а в SVG передаём координаты локальной системы этой группы.
+const FOOTER_PARENT_TRANSLATE_Y = -2050;
+const STATUS_SOURCE_BASELINES = Object.freeze(
+  STATUS_BASELINES.map((baseline) => baseline - FOOTER_PARENT_TRANSLATE_Y),
+);
+const STATUS_FONT_SIZE = 11.5;
+const STATUS_SAFE_AREA = Object.freeze({ x: 80, y: 2958, width: 345, height: 64 });
+const DISABLED_BUTTON_OPACITY = 1;
+const DISABLED_BUTTON_TRANSLATE_Y = -18;
+const DISABLED_BUTTON_BACKGROUND_FILL = "rgb(224,227,234)";
+const DISABLED_BUTTON_LABEL_FILL = "rgb(143,148,160)";
+const DYNAMIC_FOOTER_EXTENSION = 82;
+const DYNAMIC_CANVAS_HEIGHT = 3226;
+const DYNAMIC_FRAME_HEIGHT = 3045;
+const DYNAMIC_FOOTER_HEIGHT = 244;
 
 function fail(message) {
   throw new Error(message);
@@ -63,6 +78,36 @@ function sha256Text(value) {
 
 function readJson(root, relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+}
+
+function readOwnerApproval(root) {
+  const approvalPath = path.join(root, OWNER_APPROVAL_PATH);
+  return fs.existsSync(approvalPath) ? readJson(root, OWNER_APPROVAL_PATH) : null;
+}
+
+function ownerApprovalSummary(approval) {
+  return {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+    decision: approval.decision,
+    decision_text: approval.decision_text,
+    decision_source: approval.decision_source,
+    approved_at: approval.approved_at,
+  };
+}
+
+function validateOwnerApproval(approval, sourceSvgSha256, draftPngSha256) {
+  if (!approval) return;
+  if (
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-presentation-generating" ||
+    approval.decision !== "approved" ||
+    approval.decision_text !== "кадр принят" ||
+    approval.decision_source !== "Product Owner в рабочем чате" ||
+    approval.approved_source_svg_sha256 !== sourceSvgSha256 ||
+    approval.approved_draft_png_sha256 !== draftPngSha256
+  ) {
+    fail("запись приёмки владельца не соответствует SVG и PNG кадра начала формирования");
+  }
 }
 
 function findGroupRangeAt(source, start, label) {
@@ -135,7 +180,7 @@ function measuredLineWidth(font, text, size) {
 function validateStatusGeometry(font) {
   const lineWidths = DISPLAY_LINES.map((line) => measuredLineWidth(font, line, STATUS_FONT_SIZE));
   if (STATUS_X < STATUS_SAFE_AREA.x || STATUS_X + Math.max(...lineWidths) > STATUS_SAFE_AREA.x + STATUS_SAFE_AREA.width) {
-    fail("текст сообщения о начале не помещается по ширине в свободную зону над кнопкой");
+    fail("текст сообщения о начале не помещается по ширине в зону под погашенной кнопкой");
   }
   const firstBaseline = STATUS_BASELINES[0];
   const lastBaseline = STATUS_BASELINES.at(-1);
@@ -143,7 +188,7 @@ function validateStatusGeometry(font) {
     firstBaseline - STATUS_FONT_SIZE < STATUS_SAFE_AREA.y ||
     lastBaseline + STATUS_FONT_SIZE * 0.25 > STATUS_SAFE_AREA.y + STATUS_SAFE_AREA.height
   ) {
-    fail("текст сообщения о начале пересекает границы свободной зоны над кнопкой");
+    fail("текст сообщения о начале пересекает границы зоны под погашенной кнопкой");
   }
   return { safeArea: STATUS_SAFE_AREA, lineWidths };
 }
@@ -184,27 +229,79 @@ function replaceFrameIdentity(source) {
   return replaceRange(source, range, updated);
 }
 
+function replaceExactOccurrences(source, before, after, expectedCount, label) {
+  const count = source.split(before).length - 1;
+  if (count !== expectedCount) fail(`SVG продолжения содержит непредвиденное число фрагментов: ${label}`);
+  return source.replaceAll(before, after);
+}
+
+function translateExistingGroup(source, id, deltaY) {
+  const range = findGroupRange(source, id);
+  const opening = source.slice(range.start, range.openEnd);
+  if (opening.includes(" transform=")) fail(`существующая группа SVG уже имеет преобразование: ${id}`);
+  const translated = `${opening.slice(0, -1)} transform="translate(0 ${deltaY})">`;
+  return replaceRange(source, range, `${translated}${source.slice(range.openEnd, range.end)}`);
+}
+
+function extendDynamicFooter(source) {
+  let result = replaceExactOccurrences(source, 'viewBox="0 0 521 3144"', `viewBox="0 0 521 ${DYNAMIC_CANVAS_HEIGHT}"`, 1, "размер холста");
+  result = replaceExactOccurrences(result, 'height="3144.000000" fill="none"', `height="${DYNAMIC_CANVAS_HEIGHT}.000000" fill="none"`, 1, "высота холста");
+  result = replaceExactOccurrences(result, 'height="2963.000000"', `height="${DYNAMIC_FRAME_HEIGHT}.000000"`, 2, "высота основного экрана и его обрезки");
+  result = replaceExactOccurrences(
+    result,
+    '<rect id="button_footer_2.0" width="393.000000" height="162.000000"',
+    `<rect id="button_footer_2.0" width="393.000000" height="${DYNAMIC_FOOTER_HEIGHT}.000000"`,
+    1,
+    "высота нижней панели",
+  );
+  result = replaceExactOccurrences(
+    result,
+    '<foreignObject width="393.000000" height="162.000000" x="64.000000" y="4952.000000"',
+    `<foreignObject width="393.000000" height="${DYNAMIC_FOOTER_HEIGHT}.000000" x="64.000000" y="4952.000000"`,
+    1,
+    "высота подложки нижней панели",
+  );
+  result = translateExistingGroup(result, "logo", DYNAMIC_FOOTER_EXTENSION);
+  result = translateExistingGroup(result, "Home indicator", DYNAMIC_FOOTER_EXTENSION);
+  return result;
+}
+
 function disableExistingButton(source) {
   const range = findGroupRange(source, "buttons_2.0");
   const original = source.slice(range.start, range.end);
-  const openingEnd = original.indexOf(">") + 1;
-  const opening = original.slice(0, openingEnd);
+  const recoloredBackground = original.replace(
+    /(<rect\s+id="buttons_2\.0"[^>]*\sfill=")rgb\(67,103,206\)("[^>]*\/>)/u,
+    `$1${DISABLED_BUTTON_BACKGROUND_FILL}$2`,
+  );
+  if (recoloredBackground === original) fail("в существующей кнопке не найден активный синий фон");
+  const labelRange = findGroupRange(recoloredBackground, "button");
+  const label = recoloredBackground.slice(labelRange.start, labelRange.end);
+  const recoloredLabel = label.replaceAll('fill="rgb(255,255,255)"', `fill="${DISABLED_BUTTON_LABEL_FILL}"`);
+  if (recoloredLabel === label) fail("в существующей кнопке не найдена белая подпись");
+  let updated = replaceRange(recoloredBackground, labelRange, recoloredLabel);
+  const openingEnd = updated.indexOf(">") + 1;
+  const opening = updated.slice(0, openingEnd);
   if (opening.includes("aria-disabled=")) fail("в принятом SVG нижняя кнопка уже имеет состояние блокировки");
-  const disabledOpening = `${opening.slice(0, -1)} opacity="${DISABLED_BUTTON_OPACITY}" aria-disabled="true" data-review-button-state="disabled">`;
-  return replaceRange(source, range, `${disabledOpening}${original.slice(openingEnd)}`);
+  const disabledOpening = `${opening.slice(0, -1)} transform="translate(0 ${DISABLED_BUTTON_TRANSLATE_Y})" opacity="${DISABLED_BUTTON_OPACITY}" aria-disabled="true" data-review-button-state="disabled">`;
+  updated = `${disabledOpening}${updated.slice(openingEnd)}`;
+  return replaceRange(source, range, updated);
 }
 
 function appendGenerationStatus(source, font) {
-  const range = findGroupRange(source, "Group 2131328969");
+  // Нельзя добавлять статус в основную группу справки: штатная подложка
+  // нижней панели рисуется позже и закрывает такой текст. Вставка в её
+  // существующую группу после штатных дочерних элементов сохраняет фон
+  // прозрачным и выводит текст поверх подложки, без отдельного слоя.
+  const range = findGroupRange(source, "button_footer_2.0");
   const original = source.slice(range.start, range.end);
   const lineMarkup = DISPLAY_LINES.map((line, index) => outlineLine(font, line, {
     x: STATUS_X,
-    baseline: STATUS_BASELINES[index],
+    baseline: STATUS_SOURCE_BASELINES[index],
     size: STATUS_FONT_SIZE,
     fill: STATUS_FILL,
   })).join("");
   const statusMarkup = `<g id="lisa-review-generation-status" data-review-role="generation-started-message" aria-label="${escapeXml(GENERATION_MESSAGE)}">${lineMarkup}</g>`;
-  if (!original.endsWith("</g>")) fail("существующая группа полной справки имеет непредвиденное окончание");
+  if (!original.endsWith("</g>")) fail("существующая группа нижней панели имеет непредвиденное окончание");
   return replaceRange(source, range, `${original.slice(0, -4)}${statusMarkup}</g>`);
 }
 
@@ -226,10 +323,29 @@ function validateSource(source, baseSource, buttonLabel) {
   const status = groupMarkup(source, "lisa-review-generation-status");
   if (/<(?:rect|circle|foreignObject|text)\b/u.test(status)) fail("сообщение о начале не должно содержать самостоятельную карточку или растровую накладку");
   if (!status.includes(`aria-label="${escapeXml(GENERATION_MESSAGE)}"`)) fail("в SVG отсутствует согласованное сообщение о начале формирования");
+  if (source.indexOf('id="lisa-review-generation-status"') < source.indexOf('id="Home indicator"')) {
+    fail("сообщение о начале должно быть записано после подложки нижней панели и не может быть ею перекрыто");
+  }
   if (!source.includes(`aria-label="${escapeXml(buttonLabel)}"`)) fail("в SVG отсутствует согласованная подпись кнопки");
   const disabledButton = groupMarkup(source, "buttons_2.0");
-  if (!disabledButton.includes('aria-disabled="true"') || !disabledButton.includes('data-review-button-state="disabled"')) {
+  if (
+    !disabledButton.includes('aria-disabled="true"') ||
+    !disabledButton.includes('data-review-button-state="disabled"') ||
+    !disabledButton.includes(`transform="translate(0 ${DISABLED_BUTTON_TRANSLATE_Y})"`) ||
+    !disabledButton.includes(`fill="${DISABLED_BUTTON_BACKGROUND_FILL}"`) ||
+    !disabledButton.includes(`fill="${DISABLED_BUTTON_LABEL_FILL}"`)
+  ) {
     fail("кнопка заказа должна сохранять исходную группу и быть погашена после нажатия");
+  }
+  if (
+    !source.includes(`viewBox="0 0 521 ${DYNAMIC_CANVAS_HEIGHT}"`) ||
+    !source.includes(`height="${DYNAMIC_CANVAS_HEIGHT}.000000" fill="none"`) ||
+    !source.includes(`height="${DYNAMIC_FRAME_HEIGHT}.000000"`) ||
+    !source.includes(`height="${DYNAMIC_FOOTER_HEIGHT}.000000"`) ||
+    !source.includes(`id="logo" customFrame="url(#clipPath_2089)" transform="translate(0 ${DYNAMIC_FOOTER_EXTENSION})"`) ||
+    !source.includes(`id="Home indicator" clip-path="url(#clipPath_2091)" customFrame="url(#clipPath_2091)" transform="translate(0 ${DYNAMIC_FOOTER_EXTENSION})"`)
+  ) {
+    fail("нижняя фиксированная панель SVG не расширена для сообщения под погашенной кнопкой");
   }
   if (!source.includes('data-review-frame-id="lisa-presentation-generating" data-review-transition="same_screen_dynamic_state"')) {
     fail("SVG должен фиксировать динамическое продолжение того же полного экрана");
@@ -249,6 +365,7 @@ function buildSource(root) {
   const statusGeometry = validateStatusGeometry(font);
   const baseSource = fs.readFileSync(base.basePath, "utf8");
   let svg = replaceFrameIdentity(baseSource);
+  svg = extendDynamicFooter(svg);
   svg = disableExistingButton(svg);
   svg = appendGenerationStatus(svg, font);
   validateSource(svg, baseSource, buttonLabel);
@@ -258,7 +375,7 @@ function buildSource(root) {
 function generatedManifest({ svg, base, approvedTexts, buttonLabel, fixture, statusGeometry }, root) {
   return {
     $schema: "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
-    version: "2.0.0",
+    version: "2.2.0",
     frame_id: "lisa-presentation-generating",
     status: "svg_source_prepared_pending_visual_check",
     base_frame_id: BASE_FRAME_ID,
@@ -278,11 +395,18 @@ function generatedManifest({ svg, base, approvedTexts, buttonLabel, fixture, sta
       opacity: DISABLED_BUTTON_OPACITY,
       label_unchanged: true,
     },
+    dynamic_footer: {
+      button_translate_y: DISABLED_BUTTON_TRANSLATE_Y,
+      background_fill: DISABLED_BUTTON_BACKGROUND_FILL,
+      label_fill: DISABLED_BUTTON_LABEL_FILL,
+      status_placement: "below_disabled_button",
+      extension_height: DYNAMIC_FOOTER_EXTENSION,
+    },
     generation_started_message: {
       text: GENERATION_MESSAGE,
       display_lines: DISPLAY_LINES,
       time_value: "13:24",
-      inserted_into_existing_frame_group_id: "Group 2131328969",
+      inserted_into_existing_frame_group_id: "button_footer_2.0",
       font_size: STATUS_FONT_SIZE,
       fill: STATUS_FILL,
       baselines: STATUS_BASELINES,
@@ -290,7 +414,7 @@ function generatedManifest({ svg, base, approvedTexts, buttonLabel, fixture, sta
       line_widths: statusGeometry.lineWidths,
     },
     preserved_visible_group_ids: VISIBLE_GROUP_IDS,
-    modified_existing_group_ids: ["Group 2131328969", "buttons_2.0"],
+    modified_existing_group_ids: ["Group 2131328969", "button_footer_2.0", "buttons_2.0", "logo", "Home indicator"],
     prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
     text_outline_font: {
       family: fixture.family,
@@ -310,6 +434,9 @@ function generatedManifest({ svg, base, approvedTexts, buttonLabel, fixture, sta
 function prepareReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
+  if (readOwnerApproval(root)) {
+    fail("принятый кадр начала формирования нельзя перезаписывать: для изменения требуется новая приёмка");
+  }
   const built = buildSource(root);
   fs.mkdirSync(path.dirname(reviewSourcePath), { recursive: true });
   fs.writeFileSync(reviewSourcePath, built.svg, "utf8");
@@ -326,10 +453,23 @@ function checkReviewSource({ root = process.cwd() } = {}) {
   if (fs.readFileSync(reviewSourcePath, "utf8") !== built.svg) fail("сохранённый SVG второго кадра не совпадает с повторной подготовкой из принятой полной справки");
   const expected = generatedManifest(built, root);
   for (const [key, value] of Object.entries(expected)) {
-    if (key === "status" || key.startsWith("draft_png_")) continue;
+    if (key === "status" || key.startsWith("draft_png_") || key === "owner_frame_approval") continue;
     if (JSON.stringify(manifest[key]) !== JSON.stringify(value)) fail(`манифест второго кадра не совпадает с каноническим SVG по полю ${key}`);
   }
-  if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) {
+  if (manifest.draft_png_rendered !== true) {
+    fail("черновой PNG второго кадра не подготовлен для приёмки владельца");
+  }
+  const approval = readOwnerApproval(root);
+  const draftPath = path.join(root, REVIEW_DIRECTORY, "draft-current-resolution.png");
+  validateOwnerApproval(approval, sha256Text(built.svg), sha256File(draftPath));
+  if (approval) {
+    if (
+      manifest.status !== "owner_frame_approved" ||
+      JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(ownerApprovalSummary(approval))
+    ) {
+      fail("манифест второго кадра не фиксирует принятую владельцем версию");
+    }
+  } else if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.owner_frame_approval !== null) {
     fail("черновой PNG второго кадра не подготовлен для приёмки владельца");
   }
   return manifest;

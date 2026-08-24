@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -31,7 +32,24 @@ const generatingReviewManifestPath = `${generatingReviewDirectory}/review-source
 const generatingReviewPath = `${generatingReviewDirectory}/review.md`;
 const generatingDraftPngPath = `${generatingReviewDirectory}/draft-current-resolution.png`;
 const generatingReviewManifestSchemaPath = `${sourcePath}/schemas/lisa-presentation-generating-review-source-manifest.schema.json`;
+const generatingOwnerApprovalPath = `${generatingReviewDirectory}/owner-approval.json`;
+const sentReviewDirectory = `${packagePath}/candidate-evidence/frame-review/lisa-presentation-sent`;
+const sentReviewSourcePath = `${sentReviewDirectory}/source.svg`;
+const sentReviewManifestPath = `${sentReviewDirectory}/review-source-manifest.json`;
+const sentReviewPath = `${sentReviewDirectory}/review.md`;
+const sentDraftPngPath = `${sentReviewDirectory}/draft-current-resolution.png`;
+const sentReviewManifestSchemaPath = `${sourcePath}/schemas/lisa-presentation-sent-review-source-manifest.schema.json`;
+const sentPhoneStatusTimeDonorPath = `${packagePath}/editable-sources/7.3 — Презентация.svg`;
+const generatingClockCorrectionDirectory = `${packagePath}/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24`;
+const generatingClockCorrectionSourcePath = `${generatingClockCorrectionDirectory}/source.svg`;
+const generatingClockCorrectionManifestPath = `${generatingClockCorrectionDirectory}/review-source-manifest.json`;
+const generatingClockCorrectionReviewPath = `${generatingClockCorrectionDirectory}/review.md`;
+const generatingClockCorrectionDraftPngPath = `${generatingClockCorrectionDirectory}/draft-current-resolution.png`;
+const generatingClockCorrectionOwnerApprovalPath = `${generatingClockCorrectionDirectory}/owner-approval.json`;
+const generatingClockCorrectionManifestSchemaPath = `${sourcePath}/schemas/lisa-presentation-generating-clock-13-24-review-source-manifest.schema.json`;
+const generatingClockCorrectionTimeDonorPath = `${packagePath}/editable-sources/08.svg`;
 const generationStartedText = "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.";
+const deliverySuccessText = "Презентация готова и направлена по электронной почте в ЧЧ:ММ.";
 
 const expectedTopics = Object.freeze([
   "button_label",
@@ -163,12 +181,30 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   copyFile(tempRoot, fullReferenceReviewSourcePath);
   writeJson(tempRoot, generatingReviewManifestPath, readJson(generatingReviewManifestPath));
   copyFile(tempRoot, generatingReviewSourcePath);
+  writeJson(tempRoot, generatingOwnerApprovalPath, readJson(generatingOwnerApprovalPath));
+  writeJson(tempRoot, generatingClockCorrectionManifestPath, readJson(generatingClockCorrectionManifestPath));
+  copyFile(tempRoot, generatingClockCorrectionSourcePath);
+  copyFile(tempRoot, generatingClockCorrectionDraftPngPath);
+  writeJson(tempRoot, generatingClockCorrectionOwnerApprovalPath, readJson(generatingClockCorrectionOwnerApprovalPath));
+  writeJson(tempRoot, sentReviewManifestPath, readJson(sentReviewManifestPath));
+  copyFile(tempRoot, sentReviewSourcePath);
+  copyFile(tempRoot, sentPhoneStatusTimeDonorPath);
   writeJson(tempRoot, activeContractsPath, activeContracts);
 }
 
 function schemaValidator() {
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   return ajv.compile(readJson(schemaPath));
+}
+
+function phoneStatusTimePath(svg) {
+  const match = svg.match(/<path id="Time" d="([^"]+)"/u);
+  assert.ok(match, "в SVG должен быть штатный контур системного времени телефона");
+  return match[1];
+}
+
+function sha256Text(value) {
+  return createHash("sha256").update(value).digest("hex");
 }
 
 function mutate(contract, activeContracts, mutation) {
@@ -254,6 +290,18 @@ test("неактивный договор SVG-first кадров существ�
   assert.ok(fs.existsSync(absolute(generatingReviewPath)), `Отсутствует журнал второго кадра: ${generatingReviewPath}`);
   assert.ok(fs.existsSync(absolute(generatingDraftPngPath)), `Отсутствует черновой PNG второго кадра: ${generatingDraftPngPath}`);
   assert.ok(fs.existsSync(absolute(generatingReviewManifestSchemaPath)), `Отсутствует схема манифеста второго кадра: ${generatingReviewManifestSchemaPath}`);
+  assert.ok(fs.existsSync(absolute(generatingOwnerApprovalPath)), `Отсутствует запись приёмки второго кадра: ${generatingOwnerApprovalPath}`);
+  assert.ok(fs.existsSync(absolute(sentReviewSourcePath)), `Отсутствует изолированный SVG кадра успеха: ${sentReviewSourcePath}`);
+  assert.ok(fs.existsSync(absolute(sentReviewManifestPath)), `Отсутствует манифест кадра успеха: ${sentReviewManifestPath}`);
+  assert.ok(fs.existsSync(absolute(sentReviewPath)), `Отсутствует журнал кадра успеха: ${sentReviewPath}`);
+  assert.ok(fs.existsSync(absolute(sentDraftPngPath)), `Отсутствует черновой PNG кадра успеха: ${sentDraftPngPath}`);
+  assert.ok(fs.existsSync(absolute(sentReviewManifestSchemaPath)), `Отсутствует схема манифеста кадра успеха: ${sentReviewManifestSchemaPath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionSourcePath)), `Отсутствует SVG исправления времени: ${generatingClockCorrectionSourcePath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionManifestPath)), `Отсутствует манифест исправления времени: ${generatingClockCorrectionManifestPath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionReviewPath)), `Отсутствует журнал исправления времени: ${generatingClockCorrectionReviewPath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionDraftPngPath)), `Отсутствует черновой PNG исправления времени: ${generatingClockCorrectionDraftPngPath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionOwnerApprovalPath)), `Отсутствует запись приёмки исправления времени: ${generatingClockCorrectionOwnerApprovalPath}`);
+  assert.ok(fs.existsSync(absolute(generatingClockCorrectionManifestSchemaPath)), `Отсутствует схема манифеста исправления времени: ${generatingClockCorrectionManifestSchemaPath}`);
 });
 
 test("общий контроль качества включает схему и семантическую проверку будущего SVG-договора", () => {
@@ -266,6 +314,8 @@ test("общий контроль качества включает схему �
   assert.match(schemaValidator, /presentation-pdf-donor-register\.schema\.json/u);
   assert.match(schemaValidator, /lisa-full-reference-review-source-manifest\.schema\.json/u);
   assert.match(schemaValidator, /lisa-presentation-generating-review-source-manifest\.schema\.json/u);
+  assert.match(schemaValidator, /lisa-presentation-sent-review-source-manifest\.schema\.json/u);
+  assert.match(schemaValidator, /lisa-presentation-generating-clock-13-24-review-source-manifest\.schema\.json/u);
   assert.match(schemaValidator, /lisa-frame-owner-approval\.schema\.json/u);
 });
 
@@ -274,7 +324,7 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "3.6.0");
+  assert.equal(contract.version, "3.8.0");
   assert.equal(contract.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
@@ -387,6 +437,26 @@ test("выбранные тексты и покадровые источники
         approved_text_status: "owner_approved",
         svg_visual_check_status: "passed",
         draft_png_status: "rendered_current_resolution",
+        owner_frame_approval_status: "approved",
+      });
+    } else if (frame.frame_id === "lisa-presentation-chat-list") {
+      assert.deepEqual(frame, {
+        frame_id: "lisa-presentation-chat-list",
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "preserved_without_rework",
+        approved_text_status: "not_applicable",
+        svg_visual_check_status: "not_required",
+        draft_png_status: "existing_frame_preserved",
+        owner_frame_approval_status: "not_required",
+      });
+    } else if (frame.frame_id === "lisa-presentation-sent") {
+      assert.deepEqual(frame, {
+        frame_id: "lisa-presentation-sent",
+        svg_editing_mode: "canonical_svg_existing_groups_only",
+        canonical_svg_status: "prepared_existing_group_content_replaced",
+        approved_text_status: "owner_approved",
+        svg_visual_check_status: "passed",
+        draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "pending",
       });
     } else {
@@ -405,20 +475,28 @@ test("принятый первый проверочный кадр изолир
 
   assert.deepEqual(contract.frame_review_session, {
     status: "draft_png_rendered_pending_owner_approval",
-    current_frame_id: "lisa-presentation-generating",
-    next_frame_id: "lisa-presentation-chat-list",
-    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
-    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
-    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
-    base_frame_id: "lisa-materials-full-reference",
-    base_svg_path: fullReferenceBaseSvgPath,
-    base_owner_approval_path: fullReferenceBaseOwnerApprovalPath,
+    current_frame_id: "lisa-presentation-sent",
+    next_frame_id: "lisa-presentation-email",
+    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+    base_frame_id: "lisa-presentation-generating",
+    base_svg_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
+    base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
     transition_rendering_mode: "same_screen_dynamic_state",
+    dynamic_footer: {
+      button_group_id: "buttons_2.0",
+      button_state: "disabled_pale_gray",
+      message_placement: "below_generation_message",
+      canvas_height: 3290,
+    },
     edit_mode: "replace_existing_frame_group_content",
     prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
     active_release_mutation_prohibited: true,
     owner_approval_record_path: null,
     next_frame_blocked_until_owner_approval: true,
+    skipped_frame_id: "lisa-presentation-chat-list",
+    skipped_frame_reason: "owner_direction_no_rework",
   });
   assert.ok(fs.existsSync(absolute(fullReferenceReviewSourcePath)), "должен существовать изолированный SVG первого кадра");
   assert.ok(fs.existsSync(absolute(fullReferenceReviewManifestPath)), "должен существовать манифест источника первого кадра");
@@ -440,12 +518,18 @@ test("принятый первый проверочный кадр изолир
   assert.match(generatingSource, /id="lisa-review-generation-status"/u, "второй кадр обязан показывать сообщение о начале");
   assert.equal((generatingSource.match(/id="button"/gu) || []).length, 1, "второй кадр не должен создавать повторяющийся идентификатор подписи действия");
   assert.match(generatingSource, new RegExp(`aria-label="${generationStartedText}"`, "u"), "второй кадр должен содержать утверждённое сообщение в доступной подписи");
-  assert.equal(generatingManifest.status, "draft_png_rendered_pending_owner_approval");
+  assert.equal(generatingManifest.status, "owner_frame_approved");
   assert.equal(generatingManifest.frame_id, "lisa-presentation-generating");
   assert.equal(generatingManifest.base_svg_path, fullReferenceBaseSvgPath);
   assert.equal(generatingManifest.base_frame_id, "lisa-materials-full-reference");
   assert.equal(generatingManifest.transition_rendering_mode, "same_screen_dynamic_state");
-  assert.equal(generatingManifest.owner_frame_approval, null, "до отдельной приёмки второй кадр не имеет решения владельца");
+  assert.deepEqual(generatingManifest.owner_frame_approval, {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: "2026-08-24T07:10:11Z",
+  }, "второй кадр должен иметь отдельную запись принятия владельцем");
   assert.match(reviewSource, /id="Group 2131328969"/u, "проверочный SVG обязан заменить содержимое существующей группы справки");
   assert.match(reviewSource, /id="button_footer_2\.0"/u, "проверочный SVG обязан сохранить нижнюю кнопку");
   assert.match(reviewSource, /aria-label="Создать презентацию по справке"/u, "проверочный SVG обязан использовать согласованный текст кнопки");
@@ -510,23 +594,39 @@ test("кадр начала формирования является динам
   const generatingSource = fs.readFileSync(absolute(generatingReviewSourcePath), "utf8");
   const generatingManifest = readJson(generatingReviewManifestPath);
 
-  assert.equal(contract.frame_review_session.base_frame_id, "lisa-materials-full-reference");
-  assert.equal(contract.frame_review_session.base_svg_path, fullReferenceBaseSvgPath);
-  assert.equal(contract.frame_review_session.base_owner_approval_path, fullReferenceBaseOwnerApprovalPath);
-  assert.equal(contract.frame_review_session.transition_rendering_mode, "same_screen_dynamic_state");
+  assert.equal(
+    contract.frame_svg_sources.find((frame) => frame.frame_id === "lisa-presentation-generating").owner_frame_approval_status,
+    "approved",
+  );
 
   assert.equal(generatingManifest.base_frame_id, "lisa-materials-full-reference");
   assert.equal(generatingManifest.base_svg_path, fullReferenceBaseSvgPath);
   assert.equal(generatingManifest.base_svg_sha256, approvedBaseManifest.source_svg_sha256);
   assert.equal(generatingManifest.base_owner_approval_path, fullReferenceBaseOwnerApprovalPath);
   assert.equal(generatingManifest.transition_rendering_mode, "same_screen_dynamic_state");
-  assert.deepEqual(generatingManifest.draft_png_dimensions, { width: 521, height: 3144 });
+  assert.deepEqual(generatingManifest.draft_png_dimensions, { width: 521, height: 3226 });
+  assert.deepEqual(generatingManifest.dynamic_footer, {
+    button_translate_y: -18,
+    background_fill: "rgb(224,227,234)",
+    label_fill: "rgb(143,148,160)",
+    status_placement: "below_disabled_button",
+    extension_height: 82,
+  }, "погашенная кнопка и сообщение должны составлять одну нижнюю фиксированную панель");
+  assert.deepEqual(generatingManifest.disabled_button, {
+    existing_group_id: "buttons_2.0",
+    aria_disabled: true,
+    opacity: 1,
+    label_unchanged: true,
+  }, "состояние блокировки не должно достигаться полупрозрачностью синей активной кнопки");
   assert.deepEqual(generatingManifest.generation_started_message.safe_area, {
     x: 80,
-    y: 2815,
-    width: 361,
-    height: 79,
-  }, "сообщение должно находиться в свободной зоне над существующей нижней кнопкой");
+    y: 2958,
+    width: 345,
+    height: 64,
+  }, "сообщение должно находиться под погашенной кнопкой в расширенной нижней панели");
+  assert.equal(generatingManifest.generation_started_message.font_size, 11.5, "сообщение должно использовать тот же кегль, что и текст полной справки");
+  assert.equal(generatingManifest.generation_started_message.fill, "rgb(73,80,94)", "сообщение должно использовать тот же цвет, что и текст полной справки");
+  assert.equal(generatingManifest.generation_started_message.inserted_into_existing_frame_group_id, "button_footer_2.0", "сообщение под кнопкой должно находиться над штатной подложкой в существующей группе нижней панели");
   assert.equal(
     generatingManifest.generation_started_message.line_widths.length,
     generatingManifest.generation_started_message.display_lines.length,
@@ -538,7 +638,13 @@ test("кадр начала формирования является динам
 
   assert.match(generatingSource, /data-review-frame-id="lisa-presentation-generating"/u);
   assert.match(generatingSource, /id="buttons_2\.0"[^>]*aria-disabled="true"[^>]*data-review-button-state="disabled"/u);
+  assert.match(generatingSource, /id="buttons_2\.0"[^>]*transform="translate\(0 -18\)"/u, "погашенная кнопка должна быть поднята внутри фиксированной нижней панели");
+  assert.match(generatingSource, /id="buttons_2\.0"[\s\S]*?<rect id="buttons_2\.0"[^>]*fill="rgb\(224,227,234\)"/u, "фон погашенной кнопки должен быть бледно-серым");
   assert.match(generatingSource, /id="lisa-review-generation-status"/u);
+  assert.ok(
+    generatingSource.indexOf('id="lisa-review-generation-status"') > generatingSource.indexOf('id="Home indicator"'),
+    "сообщение должно размещаться после подложки нижней панели и не может быть ею перекрыто",
+  );
   assert.match(generatingSource, new RegExp(`aria-label="${generationStartedText}"`, "u"));
   assert.doesNotMatch(generatingSource, /<text\b|<foreignObject\b[^>]*lisa-review-generation-status|lisa-status-|lisa-edit-/u);
   assert.doesNotMatch(generatingSource, /7\.2 — Длинное название клиента/u);
@@ -548,6 +654,108 @@ test("кадр начала формирования является динам
     assert.ok(baseMatch, `в принятом первом кадре отсутствует группа ${groupId}`);
     assert.ok(generatingSource.includes(baseMatch[0]), `второй кадр утратил содержимое принятой группы ${groupId}`);
   }
+});
+
+test("принятый кадр начала ведёт к отдельному черновому кадру успеха после неизменяемого списка чатов", () => {
+  const contract = readJson(contractPath);
+  const generatingManifest = readJson(generatingReviewManifestPath);
+  const generatingApproval = readJson(generatingOwnerApprovalPath);
+  const correctionManifest = readJson(generatingClockCorrectionManifestPath);
+  const correctionApproval = readJson(generatingClockCorrectionOwnerApprovalPath);
+  const sentSource = fs.readFileSync(absolute(sentReviewSourcePath), "utf8");
+  const sentPhoneStatusTimeDonor = fs.readFileSync(absolute(sentPhoneStatusTimeDonorPath), "utf8");
+  const sentManifest = readJson(sentReviewManifestPath);
+
+  assert.equal(generatingManifest.status, "owner_frame_approved");
+  assert.deepEqual(generatingManifest.owner_frame_approval, {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: generatingApproval.approved_at,
+  });
+  assert.equal(generatingApproval.frame_id, "lisa-presentation-generating");
+  assert.equal(generatingApproval.approved_source_svg_sha256, generatingManifest.source_svg_sha256);
+  assert.equal(generatingApproval.approved_draft_png_sha256, generatingManifest.draft_png_sha256);
+
+  const chatListFrame = contract.frame_svg_sources.find((frame) => frame.frame_id === "lisa-presentation-chat-list");
+  assert.deepEqual(chatListFrame, {
+    frame_id: "lisa-presentation-chat-list",
+    svg_editing_mode: "canonical_svg_existing_groups_only",
+    canonical_svg_status: "preserved_without_rework",
+    approved_text_status: "not_applicable",
+    svg_visual_check_status: "not_required",
+    draft_png_status: "existing_frame_preserved",
+    owner_frame_approval_status: "not_required",
+  }, "список чатов должен быть явно исключён владельцем из текущей переработки, а не неявно пропущен");
+
+  assert.equal(contract.frame_review_session.current_frame_id, "lisa-presentation-sent");
+  assert.equal(contract.frame_review_session.skipped_frame_id, "lisa-presentation-chat-list");
+  assert.equal(contract.frame_review_session.skipped_frame_reason, "owner_direction_no_rework");
+  assert.equal(contract.frame_review_session.next_frame_id, "lisa-presentation-email");
+  assert.equal(sentManifest.base_frame_id, "lisa-presentation-generating");
+  assert.equal(sentManifest.base_svg_path, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg");
+  assert.equal(sentManifest.base_svg_sha256, correctionManifest.source_svg_sha256);
+  assert.equal(sentManifest.base_owner_approval_path, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json");
+  assert.equal(correctionApproval.approved_source_svg_sha256, correctionManifest.source_svg_sha256);
+  assert.equal(sentManifest.status, "draft_png_rendered_pending_owner_approval");
+  assert.equal(sentManifest.owner_frame_approval, null);
+  assert.deepEqual(sentManifest.draft_png_dimensions, { width: 521, height: 3290 });
+  assert.equal(sentManifest.delivery_success_message.text, deliverySuccessText);
+  assert.deepEqual(sentManifest.delivery_success_message.display_lines, [
+    "Презентация готова и направлена",
+    "по электронной почте в 13:38.",
+  ]);
+  assert.equal(sentManifest.mock_phone_status_time_value, "13:40");
+  assert.equal(
+    phoneStatusTimePath(sentSource),
+    phoneStatusTimePath(sentPhoneStatusTimeDonor),
+    "системное время кадра успеха должно быть заменено штатным контуром 13:40 без наложения",
+  );
+  assert.match(sentSource, /id="lisa-review-generation-status"/u);
+  assert.match(sentSource, /id="lisa-review-delivery-success-status"/u);
+  assert.match(sentSource, new RegExp(`aria-label="${deliverySuccessText}"`, "u"));
+  assert.ok(
+    sentSource.indexOf('id="lisa-review-delivery-success-status"') > sentSource.indexOf('id="lisa-review-generation-status"'),
+    "сообщение успеха должно продолжать сообщение начала в том же SVG нижней панели",
+  );
+  assert.match(sentSource, /id="buttons_2\.0"[^>]*aria-disabled="true"[^>]*data-review-button-state="disabled"/u);
+  assert.match(sentSource, /id="buttons_2\.0"[\s\S]*?<rect id="buttons_2\.0"[^>]*fill="rgb\(224,227,234\)"/u);
+  assert.doesNotMatch(sentSource, /<text\b|lisa-edit-|lisa-status-|<foreignObject\b[^>]*lisa-review-delivery-success-status/u);
+});
+
+test("принятая исправляющая версия кадра начала меняет только штатное системное время на 13:24", () => {
+  const approvedSource = fs.readFileSync(absolute(generatingReviewSourcePath), "utf8");
+  const correctionSource = fs.readFileSync(absolute(generatingClockCorrectionSourcePath), "utf8");
+  const correctionManifest = readJson(generatingClockCorrectionManifestPath);
+  const timeDonor = fs.readFileSync(absolute(generatingClockCorrectionTimeDonorPath), "utf8");
+
+  assert.equal(correctionManifest.frame_id, "lisa-presentation-generating");
+  assert.equal(correctionManifest.status, "owner_frame_approved");
+  assert.equal(correctionManifest.base_source_svg_sha256, sha256Text(approvedSource));
+  assert.equal(correctionManifest.mock_phone_status_time_value, "13:24");
+  assert.deepEqual(correctionManifest.draft_png_dimensions, { width: 521, height: 3226 });
+  const correctionApproval = readJson(generatingClockCorrectionOwnerApprovalPath);
+  assert.deepEqual(correctionManifest.owner_frame_approval, {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approved_at: correctionApproval.approved_at,
+  });
+  assert.equal(correctionApproval.approved_source_svg_sha256, correctionManifest.source_svg_sha256);
+  assert.equal(correctionApproval.approved_draft_png_sha256, correctionManifest.draft_png_sha256);
+  assert.equal(
+    phoneStatusTimePath(correctionSource),
+    phoneStatusTimePath(timeDonor),
+    "системное время должно быть заменено штатным контуром 13:24 из канонического SVG",
+  );
+  assert.equal(
+    correctionSource.replace(phoneStatusTimePath(correctionSource), phoneStatusTimePath(approvedSource)),
+    approvedSource,
+    "исправляющая версия не должна менять ничего кроме существующего контура системного времени",
+  );
+  assert.doesNotMatch(correctionSource, /<text\b|lisa-edit-|lisa-status-|<foreignObject\b[^>]*lisa-review/u);
 });
 
 test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {

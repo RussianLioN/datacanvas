@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "3.6.0",
+  "version": "3.8.0",
   "change_order_id": "CO-2026-003",
   "status": "inactive_pending_canonical_svg_sources_and_frame_approval",
   "active": false,
@@ -292,24 +292,24 @@
       "approved_text_status": "owner_approved",
       "svg_visual_check_status": "passed",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-presentation-chat-list",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
-      "owner_frame_approval_status": "pending"
+      "canonical_svg_status": "preserved_without_rework",
+      "approved_text_status": "not_applicable",
+      "svg_visual_check_status": "not_required",
+      "draft_png_status": "existing_frame_preserved",
+      "owner_frame_approval_status": "not_required"
     },
     {
       "frame_id": "lisa-presentation-sent",
       "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "canonical_svg_status": "prepared_existing_group_content_replaced",
+      "approved_text_status": "owner_approved",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution",
       "owner_frame_approval_status": "pending"
     },
     {
@@ -378,15 +378,21 @@
   ],
   "frame_review_session": {
     "status": "draft_png_rendered_pending_owner_approval",
-    "current_frame_id": "lisa-presentation-generating",
-    "next_frame_id": "lisa-presentation-chat-list",
-    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
-    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
-    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
-    "base_frame_id": "lisa-materials-full-reference",
-    "base_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
-    "base_owner_approval_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+    "current_frame_id": "lisa-presentation-sent",
+    "next_frame_id": "lisa-presentation-email",
+    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+    "base_frame_id": "lisa-presentation-generating",
+    "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
+    "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
     "transition_rendering_mode": "same_screen_dynamic_state",
+    "dynamic_footer": {
+      "button_group_id": "buttons_2.0",
+      "button_state": "disabled_pale_gray",
+      "message_placement": "below_generation_message",
+      "canvas_height": 3290
+    },
     "edit_mode": "replace_existing_frame_group_content",
     "prohibited_legacy_overlay_ids": [
       "lisa-edit-5-4-title",
@@ -394,7 +400,9 @@
     ],
     "active_release_mutation_prohibited": true,
     "owner_approval_record_path": null,
-    "next_frame_blocked_until_owner_approval": true
+    "next_frame_blocked_until_owner_approval": true,
+    "skipped_frame_id": "lisa-presentation-chat-list",
+    "skipped_frame_reason": "owner_direction_no_rework"
   },
   "acceptance": {
     "frame_flow": [

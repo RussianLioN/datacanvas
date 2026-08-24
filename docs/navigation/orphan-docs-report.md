@@ -51,16 +51,16 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 15 |
-| `business` | `2` | 37 |
+| `business` | `2` | 38 |
 | `business` | `3` | 29 |
-| `business` | `4` | 3 |
+| `business` | `4` | 4 |
 | `business` | `hidden` | 63 |
 | `delivery` | `1` | 2 |
 | `delivery` | `2` | 15 |
 | `delivery` | `hidden` | 828 |
 | `evidence` | `1` | 2 |
 | `evidence` | `2` | 7 |
-| `evidence` | `3` | 8 |
+| `evidence` | `3` | 9 |
 | `evidence` | `4` | 9 |
 | `evidence` | `hidden` | 9 |
 | `governance` | `0` | 1 |
@@ -71,7 +71,7 @@
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 21 |
-| `technical` | `3` | 15 |
+| `technical` | `3` | 16 |
 | `technical` | `4` | 2 |
-| `technical` | `5` | 1 |
-| `technical` | `hidden` | 114 |
+| `technical` | `5` | 3 |
+| `technical` | `hidden` | 116 |

@@ -20,7 +20,7 @@
     "$schema": { "const": "../../../source/schemas/lisa-frame-owner-approval.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "frame_id": { "const": "lisa-materials-full-reference" },
+    "frame_id": { "enum": ["lisa-materials-full-reference", "lisa-presentation-generating"] },
     "decision": { "const": "approved" },
     "decision_text": { "const": "кадр принят" },
     "decision_source": { "const": "Product Owner в рабочем чате" },

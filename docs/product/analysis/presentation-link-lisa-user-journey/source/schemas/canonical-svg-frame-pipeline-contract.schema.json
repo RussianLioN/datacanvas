@@ -32,7 +32,7 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "3.6.0" },
+    "version": { "const": "3.8.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "inactive_pending_canonical_svg_sources_and_frame_approval" },
     "active": { "const": false },
@@ -247,7 +247,7 @@
         "approved_text_status": { "type": "string" },
         "svg_visual_check_status": { "type": "string" },
         "draft_png_status": { "type": "string" },
-        "owner_frame_approval_status": { "enum": ["pending", "approved"] }
+        "owner_frame_approval_status": { "enum": ["pending", "approved", "not_required"] }
       },
       "allOf": [
         {
@@ -279,16 +279,49 @@
                     "approved_text_status": { "const": "owner_approved" },
                     "svg_visual_check_status": { "const": "passed" },
                     "draft_png_status": { "const": "rendered_current_resolution" },
-                    "owner_frame_approval_status": { "const": "pending" }
+                    "owner_frame_approval_status": { "const": "approved" }
                   }
                 },
                 "else": {
-                  "properties": {
-                    "canonical_svg_status": { "const": "pending_source" },
-                    "approved_text_status": { "const": "pending" },
-                    "svg_visual_check_status": { "const": "pending" },
-                    "draft_png_status": { "const": "blocked" }
-                  }
+                  "allOf": [
+                    {
+                      "if": { "properties": { "frame_id": { "const": "lisa-presentation-chat-list" } } },
+                      "then": {
+                        "properties": {
+                          "canonical_svg_status": { "const": "preserved_without_rework" },
+                          "approved_text_status": { "const": "not_applicable" },
+                          "svg_visual_check_status": { "const": "not_required" },
+                          "draft_png_status": { "const": "existing_frame_preserved" },
+                          "owner_frame_approval_status": { "const": "not_required" }
+                        }
+                      },
+                      "else": {
+                        "allOf": [
+                          {
+                            "if": { "properties": { "frame_id": { "const": "lisa-presentation-sent" } } },
+                            "then": {
+                              "properties": {
+                                "canonical_svg_status": { "const": "prepared_existing_group_content_replaced" },
+                                "approved_text_status": { "const": "owner_approved" },
+                                "svg_visual_check_status": { "const": "passed" },
+                                "draft_png_status": { "const": "rendered_current_resolution" },
+                                "owner_frame_approval_status": { "const": "pending" }
+                              }
+                            },
+                            "else": {
+                              "properties": {
+                                "canonical_svg_status": { "const": "pending_source" },
+                                "approved_text_status": { "const": "pending" },
+                                "svg_visual_check_status": { "const": "pending" },
+                                "draft_png_status": { "const": "blocked" },
+                                "owner_frame_approval_status": { "const": "pending" }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -310,28 +343,44 @@
         "base_svg_path",
         "base_owner_approval_path",
         "transition_rendering_mode",
+        "dynamic_footer",
         "edit_mode",
         "prohibited_legacy_overlay_ids",
         "active_release_mutation_prohibited",
         "owner_approval_record_path",
-        "next_frame_blocked_until_owner_approval"
+        "next_frame_blocked_until_owner_approval",
+        "skipped_frame_id",
+        "skipped_frame_reason"
       ],
       "properties": {
         "status": { "const": "draft_png_rendered_pending_owner_approval" },
-        "current_frame_id": { "const": "lisa-presentation-generating" },
-        "next_frame_id": { "const": "lisa-presentation-chat-list" },
-        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg" },
-        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png" },
-        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json" },
-        "base_frame_id": { "const": "lisa-materials-full-reference" },
-        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg" },
-        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json" },
+        "current_frame_id": { "const": "lisa-presentation-sent" },
+        "next_frame_id": { "const": "lisa-presentation-email" },
+        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" },
+        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" },
+        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json" },
+        "base_frame_id": { "const": "lisa-presentation-generating" },
+        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" },
+        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json" },
         "transition_rendering_mode": { "const": "same_screen_dynamic_state" },
+        "dynamic_footer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["button_group_id", "button_state", "message_placement", "canvas_height"],
+          "properties": {
+            "button_group_id": { "const": "buttons_2.0" },
+            "button_state": { "const": "disabled_pale_gray" },
+            "message_placement": { "const": "below_generation_message" },
+            "canvas_height": { "const": 3290 }
+          }
+        },
         "edit_mode": { "const": "replace_existing_frame_group_content" },
         "prohibited_legacy_overlay_ids": { "const": ["lisa-edit-5-4-title", "lisa-status-"] },
         "active_release_mutation_prohibited": { "const": true },
         "owner_approval_record_path": { "type": "null" },
-        "next_frame_blocked_until_owner_approval": { "const": true }
+        "next_frame_blocked_until_owner_approval": { "const": true },
+        "skipped_frame_id": { "const": "lisa-presentation-chat-list" },
+        "skipped_frame_reason": { "const": "owner_direction_no_rework" }
       }
     },
     "acceptance_steps": {

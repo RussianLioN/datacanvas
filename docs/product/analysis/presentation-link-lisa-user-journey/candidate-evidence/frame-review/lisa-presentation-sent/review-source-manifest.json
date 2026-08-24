@@ -1,0 +1,68 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-sent-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-sent",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "base_frame_id": "lisa-presentation-generating",
+  "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
+  "base_svg_sha256": "69cd03881ca920bc8db5f05fcf9c27613d0d2a09131b5e6194912c91f1d7fb55",
+  "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "skipped_intermediate_frame_id": "lisa-presentation-chat-list",
+  "skipped_intermediate_frame_reason": "owner_direction_no_rework",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+  "source_svg_sha256": "f1e5c91172996d013cbc65d79039f6e0187d4f5b04029a0b8055cd969a6427de",
+  "approved_texts_path": "source/owner-approved-texts.json",
+  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "button_label_text": "Создать презентацию по справке",
+  "mock_phone_status_time_value": "13:40",
+  "dynamic_footer": {
+    "button_translate_y": -18,
+    "background_fill": "rgb(224,227,234)",
+    "label_fill": "rgb(143,148,160)",
+    "generation_message_placement": "below_disabled_button",
+    "delivery_success_message_placement": "below_generation_message",
+    "extension_height": 146,
+    "canvas_height": 3290
+  },
+  "delivery_success_message": {
+    "text": "Презентация готова и направлена по электронной почте в ЧЧ:ММ.",
+    "display_lines": [
+      "Презентация готова и направлена",
+      "по электронной почте в 13:38."
+    ],
+    "time_value": "13:38",
+    "inserted_into_existing_frame_group_id": "button_footer_2.0",
+    "font_size": 11.5,
+    "fill": "rgb(73,80,94)",
+    "baselines": [
+      3048,
+      3064
+    ],
+    "safe_area": {
+      "x": 80,
+      "y": 3036,
+      "width": 345,
+      "height": 40
+    },
+    "line_widths": [
+      189.969,
+      166.152
+    ]
+  },
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+  "draft_png_sha256": "40834158bfab943369bf45442acda32a5e06283758b813692e097afd0ee328a1",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3290
+  },
+  "draft_png_non_white_pixel_count": 602747,
+  "owner_frame_approval": null
+}
