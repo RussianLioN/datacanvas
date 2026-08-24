@@ -4172,12 +4172,12 @@
     {
       "artifact_id": "ART-836",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "sha256": "ea10b9bfd2f629eb8df6d2688c6ba5dd345e766bc40e4741bc9661fee1d9b0e2"
+      "sha256": "8198f53cfb85b7014e57ab89a0965b391f377b38bc9a1a846f4ede3c0d6694ed"
     },
     {
       "artifact_id": "ART-837",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-      "sha256": "ffbccbe137112744ddd633e2741ebbeb2cfe7e2b1932090294cf53b33b06e523"
+      "sha256": "d1e5e349c4422ec154d9fa1b94e40912b965b963e40829496e858dd0f444f578"
     },
     {
       "artifact_id": "ART-838",

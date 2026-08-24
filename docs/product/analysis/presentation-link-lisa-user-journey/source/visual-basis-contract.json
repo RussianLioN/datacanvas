@@ -326,7 +326,7 @@
     {
       "state_id": "lisa-presentation-email",
       "source": {
-        "path": "editable-sources/7.4 — Письмо с презентацией.png",
+        "path": "editable-sources/lisa-presentation-email-source.png",
         "sha256": "60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755",
         "logical_dimensions": {
           "width": 1553,
@@ -334,7 +334,7 @@
         }
       },
       "raster": {
-        "source_path": "editable-sources/7.4 — Письмо с презентацией.png",
+        "source_path": "editable-sources/lisa-presentation-email-source.png",
         "runtime_path": "demo/assets/lisa-presentation-email.png",
         "sha256": "fd2caa529f7eb96543949e2a5b5bb34755540b96703ed99a721579862308c0c3",
         "pixel_dimensions": {

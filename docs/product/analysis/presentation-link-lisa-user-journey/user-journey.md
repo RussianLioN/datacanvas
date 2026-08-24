@@ -24,7 +24,7 @@
 5. `lisa-presentation-generating` — презентация формируется. Источник: `editable-sources/7.2 — Длинное название клиента + холдинг.svg`. Новых действий нет.
 6. `lisa-presentation-chat-list` — чаты: ГК Достовалова. Источник: `editable-sources/08.svg`. Новых действий нет.
 7. `lisa-presentation-sent` — презентация сформирована и отправлена. Источник: `editable-sources/7.3 — Презентация.svg`. Новых действий нет.
-8. `lisa-presentation-email` — письмо с версиями презентации в `ODT` и `PDF`. Источник: `editable-sources/7.4 — Письмо с презентацией.png`. Это отдельный десктопный кадр 1553×1013.
+8. `lisa-presentation-email` — письмо с версиями презентации в `ODT` и `PDF`. Источник: `editable-sources/lisa-presentation-email-source.png`. Это отдельный десктопный кадр 1553×1013.
 9. `lisa-presentation-slidedoc` — презентация: вариант SlideDoc. Источник: три страницы `szh_dense_slidedoc.pdf`, преобразованные в `editable-sources/szh-dense-slidedoc-4x.png`.
 10. `lisa-presentation-sber2025` — презентация: вариант Sber 2025. Источник: три страницы `szh_dense_sber2025.pdf`, преобразованные в `editable-sources/szh-dense-sber2025-4x.png`.
 11. `lisa-presentation-mag` — презентация: вариант MAG. Источник: три страницы `szh_dense_mag.pdf`, преобразованные в `editable-sources/szh-dense-mag-4x.png`.

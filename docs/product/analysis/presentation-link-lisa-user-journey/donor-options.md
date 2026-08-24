@@ -26,7 +26,7 @@
 - `status-variants/lisa-delivery-partial.svg` — `320ed2cce82ccbb466e12977717fce909031963766daf549c678fbdf684bb820`.
 - `08.svg` — `9b623121af1f30dc62ef848265197d941528c5ff6cce7fd96d6bf37ecf6c22ce`.
 - `7.3 — Презентация.svg` — `9cf7614c450e991b59e41403b592620fe19437c631328756773b5c3f1da3d398`.
-- `7.4 — Письмо с презентацией.png` — `60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755`.
+- `lisa-presentation-email-source.png` — `60d4b6dbaf061289b2323f67907ef4ddedbcbd1b3a62cc9c5ee15a28c5171755`.
 - `szh-dense-slidedoc-4x.png` — `d056230b819da65682014741076b0faad9b5a9a513a378d6d61d11baf466fe32`.
 - `szh-dense-sber2025-4x.png` — `3b71d7d915870783fb4a4b89506906b067f7e2b881e7d13f543617861b26fce7`.
 - `szh-dense-mag-4x.png` — `3c108ca188b08869346a2bd16dc4590dd035cab4e1a94a625d36df3e96542303`.
