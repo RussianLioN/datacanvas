@@ -77,7 +77,7 @@ const expectedStates = Object.freeze([
   }),
   Object.freeze({
     id: "lisa-presentation-email",
-    caption: "Письмо с версиями презентации в PPTX и PDF",
+    caption: "Письмо с версиями презентации в ODT и PDF",
     logicalDimensions: Object.freeze({ width: 1553, height: 1013 }),
     pixelDimensions: Object.freeze({ width: 1553, height: 1013 }),
     hasImmediateCta: false,

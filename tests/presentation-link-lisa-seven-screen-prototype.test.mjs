@@ -82,7 +82,7 @@ const expectedStates = Object.freeze([
   Object.freeze({
     id: "lisa-presentation-email",
     sourceId: "7.4",
-    caption: "Письмо с версиями презентации в PPTX и PDF",
+    caption: "Письмо с версиями презентации в ODT и PDF",
     logicalDimensions: Object.freeze({ width: 1553, height: 1013 }),
     pixelDimensions: Object.freeze({ width: 1553, height: 1013 }),
     hasImmediateCta: false,
@@ -354,7 +354,7 @@ function assertNoForbiddenRuntimeReferences(label, value) {
   assert.doesNotMatch(value, /mailto:/iu, `${label}: runtime не должен открывать почтовые ссылки`);
 }
 
-test("исходный договор хранит согласованные сообщения и одобрен для визуального выпуска", () => {
+test("исходный договор сохраняет исторический маршрут и ожидает повторных согласований", () => {
   const contracts = loadSevenScreenContracts(root);
   const lifecycle = contracts.journey.lifecycle;
   const runtimeSource = prototypeInternals.renderRuntimeData(contracts).toString("utf8");
@@ -362,8 +362,8 @@ test("исходный договор хранит согласованные с
   const appSource = fs.readFileSync(path.join(templateRoot, "app.js"), "utf8");
 
   assert.equal(lifecycle?.model, "variant");
-  assert.equal(lifecycle?.content_review_status, "approved_product_owner");
-  assert.equal(lifecycle?.visual_release_status, "approved_product_owner");
+  assert.equal(lifecycle?.content_review_status, "pending_product_owner");
+  assert.equal(lifecycle?.visual_release_status, "pending_product_owner");
   assert.equal(lifecycle?.single_order_lock?.scope, "session_user_pair");
   assert.deepEqual(lifecycle?.states?.map((state) => state.id), expectedLifecycleStateIds);
   assert.deepEqual(lifecycle?.button?.enabled_in, ["eligible", "rejected_retryable"]);

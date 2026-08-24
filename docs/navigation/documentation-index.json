@@ -4033,7 +4033,8 @@
         "docs/product/sources/story-catalog-content-lock.json",
         "docs/README.md",
         "README.md",
-        "tests/co-2026-003-cascade-freshness.test.mjs"
+        "tests/co-2026-003-cascade-freshness.test.mjs",
+        "tests/presentation-link-lisa-seven-screen-prototype.test.mjs"
       ],
       "anchors": [
         "rca-каскадное-расхождение-дополнений-co-2026-003",
