@@ -3889,6 +3889,26 @@
       "artifact_registry_required": false
     },
     {
+      "route_id": "presentation-link-lisa-user-journey-error-frames-13-40-review",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/error-frame-review-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав, текст, SVG-источник либо PNG черновых кадров ошибок в 13:40.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
       "route_id": "presentation-link-lisa-user-journey-order-not-accepted-frame-review",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review.md",
       "section": "product",

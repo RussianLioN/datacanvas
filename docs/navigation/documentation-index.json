@@ -9855,6 +9855,45 @@
       "click_depth": 3
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
+      "title": "Черновые PNG: сообщения об ошибках в 13:40",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "draft",
+      "status": "draft",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/error-frame-review-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/source.svg",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/source.svg",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg",
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "черновые-png-сообщения-об-ошибках-в-1340",
+        "данные-не-приняты",
+        "задержка-доставки",
+        "частичная-доставка"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 1
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
       "section": "release-evidence",
@@ -10841,6 +10880,7 @@
       "outgoing_links": [
         "docs/knowledge/rca/2026-08-24-lisa-error-footer-clipping.md",
         "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md",
@@ -38417,6 +38457,7 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/owner-selection-packet.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
@@ -39040,14 +39081,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1343,
-    "manual_entries": 1333,
+    "total_entries": 1344,
+    "manual_entries": 1334,
     "generated_entries": 10,
     "public_navigable_entries": 34,
-    "searchable_entries": 1247,
+    "searchable_entries": 1248,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 274,
+    "reachable_from_root": 275,
     "orphan_entries": 0
   },
   "ignored_paths": [

@@ -7,6 +7,7 @@ import test from "node:test";
 const root = path.resolve(import.meta.dirname, "..");
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const contractPath = `${packagePath}/source/error-frame-review-contract.json`;
+const galleryPath = `${packagePath}/candidate-evidence/frame-review/error-frames-13-40-review.md`;
 
 const expectedCandidates = Object.freeze([
   {
@@ -82,6 +83,18 @@ test("изолированные SVG-кандидаты ошибок продо�
     }
     assert.equal(fs.existsSync(path.join(root, directory, "draft-current-resolution.png")), true);
   }
+});
+
+test("галерея приёмки показывает все три черновых PNG ошибок прямо в документе", () => {
+  assert.equal(fs.existsSync(path.join(root, galleryPath)), true, "должна быть единая галерея PNG для покадровой приёмки");
+  const gallery = read(galleryPath);
+  const galleryText = gallery.replace(/^>\s?/gmu, "").replace(/\s+/gu, " ");
+  for (const expected of expectedCandidates) {
+    const pngPath = `${expected.directory}/draft-current-resolution.png`;
+    assert.match(gallery, new RegExp(`!\\[[^\\]]*\\]\\(${pngPath.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")}\\)`, "u"));
+    assert.match(galleryText, new RegExp(expected.text.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+  }
+  assert.doesNotMatch(gallery, /https?:\/\//u, "галерея должна открывать только зафиксированные локальные PNG");
 });
 
 test("проверка кандидатов ошибок не создаёт PNG повторно", () => {
