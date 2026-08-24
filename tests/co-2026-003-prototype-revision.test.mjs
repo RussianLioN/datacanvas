@@ -264,7 +264,21 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
     draft_prototype_rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     runtime_shell_parity_required: true,
     runtime_shell_source_path: "demo",
-    allowed_runtime_differences: ["data.js", "assets/**"],
+    allowed_runtime_differences: ["data.js", "app.js", "assets/**"],
+    candidate_runtime_extension: {
+      id: "data_driven_initial_phone_scroll",
+      target_file: "app.js",
+      state_property: "initial_scroll_position",
+      allowed_values: ["top", "bottom"],
+      bottom_frame_ids: [
+        "lisa-presentation-generating",
+        "lisa-presentation-sent",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial",
+      ],
+      effect: "standard_phone_scroller_initial_position_only",
+    },
     scale_parity: {
       phone_layer_raster_scale: 3,
       phone_logical_viewport: { width: 393, height: 852 },

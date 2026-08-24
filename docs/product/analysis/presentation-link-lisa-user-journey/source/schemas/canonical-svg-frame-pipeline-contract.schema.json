@@ -33,7 +33,7 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "4.3.0" },
+    "version": { "const": "4.4.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "inactive_presentation_batch_drafts_pending_owner_approval" },
     "active": { "const": false },
@@ -570,6 +570,7 @@
         "runtime_shell_parity_required",
         "runtime_shell_source_path",
         "allowed_runtime_differences",
+        "candidate_runtime_extension",
         "scale_parity",
         "allowed_changed_frame_count",
         "candidate_must_replace_same_frame_id",
@@ -584,7 +585,20 @@
         "runtime_shell_parity_required": { "const": true },
         "runtime_shell_source_path": { "const": "demo" },
         "allowed_runtime_differences": {
-          "const": ["data.js", "assets/**"]
+          "const": ["data.js", "app.js", "assets/**"]
+        },
+        "candidate_runtime_extension": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "target_file", "state_property", "allowed_values", "bottom_frame_ids", "effect"],
+          "properties": {
+            "id": { "const": "data_driven_initial_phone_scroll" },
+            "target_file": { "const": "app.js" },
+            "state_property": { "const": "initial_scroll_position" },
+            "allowed_values": { "const": ["top", "bottom"] },
+            "bottom_frame_ids": { "const": ["lisa-presentation-generating", "lisa-presentation-sent", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] },
+            "effect": { "const": "standard_phone_scroller_initial_position_only" }
+          }
         },
         "scale_parity": {
           "type": "object",

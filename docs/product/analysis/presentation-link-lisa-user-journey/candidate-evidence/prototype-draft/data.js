@@ -45,6 +45,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Полная справка: прокрутите материалы или оформите заказ",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "top",
       "action_ids": [
         "order-presentation"
       ],
@@ -267,6 +268,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Презентация формируется",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "bottom",
       "action_ids": [],
       "viewport": {
         "width": 393,
@@ -482,6 +484,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Чаты: ООО «Водолей Трейд»",
       "presentation": "phone",
       "scrollable": false,
+      "initial_scroll_position": "top",
       "action_ids": [],
       "viewport": {
         "width": 393,
@@ -697,6 +700,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Презентация сформирована и отправлена",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "bottom",
       "action_ids": [],
       "viewport": {
         "width": 393,
@@ -1072,6 +1076,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Данные для формирования презентации не приняты",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "bottom",
       "action_ids": [],
       "viewport": {
         "width": 393,
@@ -1287,6 +1292,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Отправка презентации задерживается",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "bottom",
       "action_ids": [],
       "viewport": {
         "width": 393,
@@ -1502,6 +1508,7 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "caption": "Частичная или неподтверждённая доставка презентации",
       "presentation": "phone",
       "scrollable": true,
+      "initial_scroll_position": "bottom",
       "action_ids": [],
       "viewport": {
         "width": 393,

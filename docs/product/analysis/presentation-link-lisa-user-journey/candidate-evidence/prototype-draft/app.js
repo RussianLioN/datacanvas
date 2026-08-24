@@ -301,6 +301,16 @@
     content.append(control);
   }
 
+  function applyInitialPhoneScroll(state, scroller) {
+    const initialPosition = state.initial_scroll_position;
+    if (initialPosition === "top" || initialPosition === undefined) return;
+    if (initialPosition !== "bottom" || !state.scrollable) throw new Error("Некорректное начальное положение прокрутки телефона.");
+    window.requestAnimationFrame(() => {
+      const maximumScrollTop = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      scroller.scrollTop = maximumScrollTop;
+    });
+  }
+
   function createPhoneScene(state) {
     const topLayer = layerByRole(state, "system_top");
     const contentLayer = layerByRole(state, "scroll_content");
@@ -356,6 +366,7 @@
     );
     scene.append(screen);
     if (state.scrollable) installDragScrolling(scroller);
+    applyInitialPhoneScroll(state, scroller);
     return scene;
   }
 

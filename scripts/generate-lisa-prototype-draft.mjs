@@ -37,6 +37,21 @@ const FRAME_IDS = Object.freeze([
   "lisa-delivery-delayed",
   "lisa-delivery-partial",
 ]);
+const INITIAL_BOTTOM_PHONE_FRAME_IDS = Object.freeze([
+  "lisa-presentation-generating",
+  "lisa-presentation-sent",
+  "lisa-order-not-accepted",
+  "lisa-delivery-delayed",
+  "lisa-delivery-partial",
+]);
+const CANDIDATE_RUNTIME_EXTENSION = Object.freeze({
+  id: "data_driven_initial_phone_scroll",
+  target_file: "app.js",
+  state_property: "initial_scroll_position",
+  allowed_values: ["top", "bottom"],
+  bottom_frame_ids: INITIAL_BOTTOM_PHONE_FRAME_IDS,
+  effect: "standard_phone_scroller_initial_position_only",
+});
 const PHONE_FRAME_SPECS = Object.freeze([
   Object.freeze({
     id: "lisa-materials-full-reference",
@@ -48,26 +63,31 @@ const PHONE_FRAME_SPECS = Object.freeze([
     id: "lisa-presentation-generating",
     caption: "Презентация формируется",
     source: "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/draft-current-resolution.png",
+    initialScrollPosition: "bottom",
   }),
   Object.freeze({
     id: "lisa-presentation-sent",
     caption: "Презентация сформирована и отправлена",
     source: "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+    initialScrollPosition: "bottom",
   }),
   Object.freeze({
     id: "lisa-order-not-accepted",
     caption: "Данные для формирования презентации не приняты",
     source: "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png",
+    initialScrollPosition: "bottom",
   }),
   Object.freeze({
     id: "lisa-delivery-delayed",
     caption: "Отправка презентации задерживается",
     source: "candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/draft-current-resolution.png",
+    initialScrollPosition: "bottom",
   }),
   Object.freeze({
     id: "lisa-delivery-partial",
     caption: "Частичная или неподтверждённая доставка презентации",
     source: "candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/draft-current-resolution.png",
+    initialScrollPosition: "bottom",
   }),
 ]);
 const DESKTOP_FRAME_SPECS = Object.freeze([
@@ -223,6 +243,7 @@ function phoneState(spec, index, dimensions) {
     caption: spec.caption,
     presentation: "phone",
     scrollable: sourceRects.scroll_content.height > PHONE_SEGMENT_VIEWPORT_RECTS.scroll_content.height,
+    initial_scroll_position: spec.initialScrollPosition ?? "top",
     action_ids: spec.interactive ? ["order-presentation"] : [],
     viewport: { width: 393, height: 852 },
     content: { width: 393, height: sourceRects.scroll_content.height },
@@ -257,6 +278,7 @@ function chatListState(index) {
     caption: "Чаты: ООО «Водолей Трейд»",
     presentation: "phone",
     scrollable: false,
+    initial_scroll_position: "top",
     action_ids: [],
     viewport: { width: 393, height: 852 },
     content: { width: 393, height: 765 },
@@ -354,6 +376,27 @@ function sourceRuntimeHashes(root) {
   return Object.fromEntries(["index.html", "app.js", "styles.css"].map((fileName) => [fileName, sha256File(rootPath(root, `${DEMO_ROOT}/${fileName}`, `действующий прототип/${fileName}`))]));
 }
 
+function candidateAppSource(source) {
+  const functionMarker = "\n  function createPhoneScene(state) {";
+  const sceneReturnMarker = "    if (state.scrollable) installDragScrolling(scroller);\n    return scene;";
+  const extension = `
+  function applyInitialPhoneScroll(state, scroller) {
+    const initialPosition = state.initial_scroll_position;
+    if (initialPosition === "top" || initialPosition === undefined) return;
+    if (initialPosition !== "bottom" || !state.scrollable) throw new Error("Некорректное начальное положение прокрутки телефона.");
+    window.requestAnimationFrame(() => {
+      const maximumScrollTop = Math.max(0, scroller.scrollHeight - scroller.clientHeight);
+      scroller.scrollTop = maximumScrollTop;
+    });
+  }
+`;
+  if (source.includes("function applyInitialPhoneScroll(state, scroller)")) fail("действующий сценарий уже содержит расширение черновой прокрутки");
+  if (source.split(functionMarker).length !== 2 || source.split(sceneReturnMarker).length !== 2) fail("действующий сценарий прототипа изменил точку контролируемого расширения прокрутки");
+  return source
+    .replace(functionMarker, `${extension}${functionMarker}`)
+    .replace(sceneReturnMarker, "    if (state.scrollable) installDragScrolling(scroller);\n    applyInitialPhoneScroll(state, scroller);\n    return scene;");
+}
+
 function buildManifest(root, outputRoot, data) {
   const frames = data.states.map((state) => {
     const assetPaths = state.presentation === "phone" ? state.raster_layers.map((layer) => layer.src) : [state.asset.src];
@@ -366,12 +409,13 @@ function buildManifest(root, outputRoot, data) {
   });
   return {
     $schema: "../../source/schemas/lisa-prototype-draft-manifest.schema.json",
-    version: "1.2.0",
+    version: "1.3.0",
     status: "draft_prototype_rendered_pending_owner_approval",
     rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     shell_parity: {
       index_html_source: "demo/index.html",
       app_js_source: "demo/app.js",
+      app_js_derivation: "demo_app_js_plus_data_driven_initial_phone_scroll",
       styles_css_source: "demo/styles.css",
       navigation_model: "previous_prototype_state_and_document_navigation",
     },
@@ -381,6 +425,7 @@ function buildManifest(root, outputRoot, data) {
       desktop_viewports_from_historical_demo: true,
     },
     source_runtime_sha256: sourceRuntimeHashes(root),
+    candidate_runtime_extension: CANDIDATE_RUNTIME_EXTENSION,
     active_release_mutation_prohibited: true,
     raw_pdf_included: false,
     frame_ids: FRAME_IDS,
@@ -397,7 +442,7 @@ function validateDraft(root) {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   if (
     manifest.$schema !== "../../source/schemas/lisa-prototype-draft-manifest.schema.json" ||
-    manifest.version !== "1.2.0" ||
+    manifest.version !== "1.3.0" ||
     manifest.status !== "draft_prototype_rendered_pending_owner_approval" ||
     manifest.rendering_mode !== "isolated_current_prototype_copy_with_frame_asset_substitution" ||
     manifest.active_release_mutation_prohibited !== true ||
@@ -408,10 +453,15 @@ function validateDraft(root) {
   const expectedShellParity = {
     index_html_source: "demo/index.html",
     app_js_source: "demo/app.js",
+    app_js_derivation: "demo_app_js_plus_data_driven_initial_phone_scroll",
     styles_css_source: "demo/styles.css",
     navigation_model: "previous_prototype_state_and_document_navigation",
   };
-  if (JSON.stringify(manifest.shell_parity) !== JSON.stringify(expectedShellParity) || JSON.stringify(manifest.source_runtime_sha256) !== JSON.stringify(sourceRuntimeHashes(root))) fail("манифест не подтверждает соответствие оболочки действующему прототипу");
+  if (
+    JSON.stringify(manifest.shell_parity) !== JSON.stringify(expectedShellParity) ||
+    JSON.stringify(manifest.source_runtime_sha256) !== JSON.stringify(sourceRuntimeHashes(root)) ||
+    JSON.stringify(manifest.candidate_runtime_extension) !== JSON.stringify(CANDIDATE_RUNTIME_EXTENSION)
+  ) fail("манифест не подтверждает соответствие оболочки действующему прототипу");
   const expectedScaleParity = {
     phone_layer_raster_scale: PHONE_RUNTIME_RASTER_SCALE,
     phone_logical_viewport: { width: 393, height: 852 },
@@ -427,7 +477,7 @@ function validateDraft(root) {
   const demoIndex = fs.readFileSync(rootPath(root, `${DEMO_ROOT}/index.html`, "действующий прототип/index.html"), "utf8");
   if (
     html !== demoIndex ||
-    fs.readFileSync(appPath, "utf8") !== fs.readFileSync(rootPath(root, `${DEMO_ROOT}/app.js`, "действующий прототип/app.js"), "utf8") ||
+    fs.readFileSync(appPath, "utf8") !== candidateAppSource(fs.readFileSync(rootPath(root, `${DEMO_ROOT}/app.js`, "действующий прототип/app.js"), "utf8")) ||
     fs.readFileSync(stylesPath, "utf8") !== fs.readFileSync(rootPath(root, `${DEMO_ROOT}/styles.css`, "действующий прототип/styles.css"), "utf8")
   ) fail("оболочка черновика отличается от действующего прототипа");
   if (/(?:\/Users\/|file:\/\/|\.pdf\b|draft-shell|draft-viewer)/iu.test(html)) fail("страница чернового прототипа содержит недопустимый источник или стороннюю оболочку");
@@ -439,6 +489,9 @@ function validateDraft(root) {
   if (!data || !Array.isArray(data.states)) fail("данные чернового прототипа не загружены");
   const phoneFrames = data.states.filter((state) => state.presentation === "phone");
   for (const state of phoneFrames) {
+    const expectedInitialScrollPosition = INITIAL_BOTTOM_PHONE_FRAME_IDS.includes(state.id) ? "bottom" : "top";
+    if (state.initial_scroll_position !== expectedInitialScrollPosition) fail(`${state.id}: начальное положение прокрутки не соответствует принятому маршруту`);
+    if (state.initial_scroll_position === "bottom" && state.scrollable !== true) fail(`${state.id}: нижнее положение прокрутки недоступно`);
     if (state.id === "lisa-presentation-chat-list") continue;
     if (state.viewport?.width !== 393 || state.viewport?.height !== 852) fail(`${state.id}: область телефона отличается от исторического прототипа`);
     for (const layer of state.asset?.layers || []) {
@@ -472,7 +525,7 @@ export async function generateLisaPrototypeDraft({ root = process.cwd(), check =
   const data = buildData(phoneDimensions, desktopDimensions);
   const sourceIndex = fs.readFileSync(rootPath(resolvedRoot, `${DEMO_ROOT}/index.html`, "действующий прототип/index.html"), "utf8");
   writeFile(rootPath(outputRoot, "index.html", "страница чернового прототипа"), sourceIndex);
-  writeFile(rootPath(outputRoot, "app.js", "сценарий чернового прототипа"), fs.readFileSync(rootPath(resolvedRoot, `${DEMO_ROOT}/app.js`, "действующий прототип/app.js"), "utf8"));
+  writeFile(rootPath(outputRoot, "app.js", "сценарий чернового прототипа"), candidateAppSource(fs.readFileSync(rootPath(resolvedRoot, `${DEMO_ROOT}/app.js`, "действующий прототип/app.js"), "utf8")));
   writeFile(rootPath(outputRoot, "styles.css", "стили чернового прототипа"), fs.readFileSync(rootPath(resolvedRoot, `${DEMO_ROOT}/styles.css`, "действующий прототип/styles.css"), "utf8"));
   writeFile(rootPath(outputRoot, "data.js", "данные чернового прототипа"), dataJs(data));
   writeFile(rootPath(outputRoot, "manifest.json", "манифест чернового прототипа"), `${JSON.stringify(buildManifest(resolvedRoot, outputRoot, data), null, 2)}\n`);

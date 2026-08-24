@@ -4,19 +4,20 @@
   "title": "Манифест изолированного чернового прототипа CO-2026-003",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "version", "status", "rendering_mode", "shell_parity", "scale_parity", "source_runtime_sha256", "active_release_mutation_prohibited", "raw_pdf_included", "frame_ids", "frames"],
+  "required": ["$schema", "version", "status", "rendering_mode", "shell_parity", "scale_parity", "source_runtime_sha256", "candidate_runtime_extension", "active_release_mutation_prohibited", "raw_pdf_included", "frame_ids", "frames"],
   "properties": {
     "$schema": { "const": "../../source/schemas/lisa-prototype-draft-manifest.schema.json" },
-    "version": { "const": "1.2.0" },
+    "version": { "const": "1.3.0" },
     "status": { "const": "draft_prototype_rendered_pending_owner_approval" },
     "rendering_mode": { "const": "isolated_current_prototype_copy_with_frame_asset_substitution" },
     "shell_parity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["index_html_source", "app_js_source", "styles_css_source", "navigation_model"],
+      "required": ["index_html_source", "app_js_source", "app_js_derivation", "styles_css_source", "navigation_model"],
       "properties": {
         "index_html_source": { "const": "demo/index.html" },
         "app_js_source": { "const": "demo/app.js" },
+        "app_js_derivation": { "const": "demo_app_js_plus_data_driven_initial_phone_scroll" },
         "styles_css_source": { "const": "demo/styles.css" },
         "navigation_model": { "const": "previous_prototype_state_and_document_navigation" }
       }
@@ -41,6 +42,19 @@
         "index.html": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "app.js": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "styles.css": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "candidate_runtime_extension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "target_file", "state_property", "allowed_values", "bottom_frame_ids", "effect"],
+      "properties": {
+        "id": { "const": "data_driven_initial_phone_scroll" },
+        "target_file": { "const": "app.js" },
+        "state_property": { "const": "initial_scroll_position" },
+        "allowed_values": { "const": ["top", "bottom"] },
+        "bottom_frame_ids": { "const": ["lisa-presentation-generating", "lisa-presentation-sent", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] },
+        "effect": { "const": "standard_phone_scroller_initial_position_only" }
       }
     },
     "active_release_mutation_prohibited": { "const": true },
