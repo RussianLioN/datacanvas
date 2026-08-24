@@ -310,7 +310,7 @@
       "approved_text_status": "owner_approved",
       "svg_visual_check_status": "passed",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-presentation-email",
@@ -377,7 +377,7 @@
     }
   ],
   "frame_review_session": {
-    "status": "draft_png_rendered_pending_owner_approval",
+    "status": "owner_frame_approved",
     "current_frame_id": "lisa-presentation-sent",
     "next_frame_id": "lisa-presentation-email",
     "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
@@ -399,8 +399,8 @@
       "lisa-status-"
     ],
     "active_release_mutation_prohibited": true,
-    "owner_approval_record_path": null,
-    "next_frame_blocked_until_owner_approval": true,
+    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    "next_frame_blocked_until_owner_approval": false,
     "skipped_frame_id": "lisa-presentation-chat-list",
     "skipped_frame_reason": "owner_direction_no_rework"
   },

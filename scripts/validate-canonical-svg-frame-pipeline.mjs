@@ -121,10 +121,10 @@ const expectedSentFrame = Object.freeze({
   approved_text_status: "owner_approved",
   svg_visual_check_status: "passed",
   draft_png_status: "rendered_current_resolution",
-  owner_frame_approval_status: "pending",
+  owner_frame_approval_status: "approved",
 });
 const expectedFrameReviewSession = Object.freeze({
-  status: "draft_png_rendered_pending_owner_approval",
+  status: "owner_frame_approved",
   current_frame_id: "lisa-presentation-sent",
   next_frame_id: "lisa-presentation-email",
   source_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
@@ -143,8 +143,8 @@ const expectedFrameReviewSession = Object.freeze({
   edit_mode: "replace_existing_frame_group_content",
   prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
   active_release_mutation_prohibited: true,
-  owner_approval_record_path: null,
-  next_frame_blocked_until_owner_approval: true,
+  owner_approval_record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+  next_frame_blocked_until_owner_approval: false,
   skipped_frame_id: "lisa-presentation-chat-list",
   skipped_frame_reason: "owner_direction_no_rework",
 });
@@ -430,6 +430,7 @@ function validateSentReviewEvidence(contractPath) {
   const packageDirectory = path.join(path.dirname(contractPath), "..");
   const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-sent");
   const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
   const sourcePath = path.join(reviewDirectory, "source.svg");
   const source = fs.readFileSync(sourcePath, "utf8");
   const baseSourcePath = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg");
@@ -443,8 +444,15 @@ function validateSentReviewEvidence(contractPath) {
   };
   if (
     manifest.frame_id !== "lisa-presentation-sent" ||
-    manifest.status !== "draft_png_rendered_pending_owner_approval" ||
-    manifest.owner_frame_approval !== null ||
+    manifest.status !== "owner_frame_approved" ||
+    JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify({
+      record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+      decision: "approved",
+      decision_text: "кадр принят",
+      decision_source: "Product Owner в рабочем чате",
+      approval_time_precision: "date_only",
+      approved_on: "2026-08-24",
+    }) ||
     manifest.base_frame_id !== "lisa-presentation-generating" ||
     manifest.base_svg_sha256 !== sha256File(baseSourcePath) ||
     manifest.base_svg_path !== "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" ||
@@ -461,7 +469,19 @@ function validateSentReviewEvidence(contractPath) {
     manifest.delivery_success_message?.text !== expectedMessage ||
     JSON.stringify(manifest.delivery_success_message?.display_lines) !== JSON.stringify(["Презентация готова и направлена", "по электронной почте в 13:38."])
   ) {
-    throw new Error("манифест кадра успеха должен продолжать принятый кадр начала и ожидать приёмки владельца");
+    throw new Error("манифест кадра успеха должен продолжать принятый кадр начала и хранить состоявшуюся приёмку владельца");
+  }
+  if (
+    approval.change_order_id !== "CO-2026-003" ||
+    approval.frame_id !== "lisa-presentation-sent" ||
+    approval.decision !== "approved" ||
+    approval.approval_time_precision !== "date_only" ||
+    approval.approved_on !== "2026-08-24" ||
+    !approval.decision_evidence_note ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+  ) {
+    throw new Error("приёмка кадра успеха должна связывать его SVG и PNG с историческим решением владельца без выдуманного времени");
   }
   if (readPhoneStatusTimePath(source, "кадра успеха") !== readPhoneStatusTimePath(phoneStatusTimeDonor, "канонического донора 13:40")) {
     throw new Error("системное время кадра успеха должно быть заменено штатным контуром 13:40");

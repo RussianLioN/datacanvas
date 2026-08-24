@@ -14,6 +14,7 @@ const BASE_APPROVAL_PATH = `${BASE_DIRECTORY}/owner-approval.json`;
 const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-presentation-sent`;
 const REVIEW_SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const REVIEW_MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
+const REVIEW_APPROVAL_PATH = `${REVIEW_DIRECTORY}/owner-approval.json`;
 const APPROVED_TEXTS_PATH = `${SOURCE_PATH}/owner-approved-texts.json`;
 const FIXTURE_MANIFEST_PATH = `${SOURCE_PATH}/source-fixture-manifest.json`;
 const PHONE_STATUS_TIME_DONOR_PATH = `${PACKAGE_PATH}/editable-sources/7.3 — Презентация.svg`;
@@ -390,6 +391,9 @@ function validateStoredManifest({ manifest, root, source, base, buttonLabel, app
 function prepareReviewSource({ root = process.cwd() } = {}) {
   const reviewSourcePath = path.join(root, REVIEW_SOURCE_PATH);
   const manifestPath = path.join(root, REVIEW_MANIFEST_PATH);
+  if (fs.existsSync(path.join(root, REVIEW_APPROVAL_PATH))) {
+    fail("принятый кадр успеха нельзя пересобирать: сначала создайте следующий изолированный SVG-кандидат");
+  }
   const built = buildSource(root);
   fs.mkdirSync(path.dirname(reviewSourcePath), { recursive: true });
   fs.writeFileSync(reviewSourcePath, built.svg, "utf8");
@@ -404,6 +408,7 @@ function checkReviewSource({ root = process.cwd() } = {}) {
   const button = approvedText(root, "button_label");
   const source = fs.readFileSync(reviewSourcePath, "utf8");
   const manifest = readJson(root, REVIEW_MANIFEST_PATH);
+  const approval = readJson(root, REVIEW_APPROVAL_PATH);
   if (successText.text !== SUCCESS_MESSAGE) fail("согласованное сообщение об успехе не совпадает с договором кадра");
   const baseSource = fs.readFileSync(base.sourcePath, "utf8");
   const phoneStatusTimeDonor = fs.readFileSync(path.join(root, PHONE_STATUS_TIME_DONOR_PATH), "utf8");
@@ -416,8 +421,16 @@ function checkReviewSource({ root = process.cwd() } = {}) {
     buttonLabel: button.text,
     approvedTextsSha256: successText.sha256,
   });
-  if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) {
-    fail("черновой PNG кадра успеха не подготовлен для приёмки владельца");
+  const expectedApprovalSummary = {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approval_time_precision: "date_only",
+    approved_on: "2026-08-24",
+  };
+  if (manifest.status !== "owner_frame_approved" || manifest.draft_png_rendered !== true) {
+    fail("черновой PNG кадра успеха не зафиксирован как принятый владельцем");
   }
   const draftPath = path.join(root, REVIEW_DIRECTORY, "draft-current-resolution.png");
   if (
@@ -425,9 +438,16 @@ function checkReviewSource({ root = process.cwd() } = {}) {
     manifest.draft_png_sha256 !== sha256File(draftPath) ||
     !sameJson(manifest.draft_png_dimensions, { width: 521, height: CANVAS_HEIGHT }) ||
     !Number.isInteger(manifest.draft_png_non_white_pixel_count) || manifest.draft_png_non_white_pixel_count < 1_000 ||
-    manifest.owner_frame_approval !== null
+    !sameJson(manifest.owner_frame_approval, expectedApprovalSummary) ||
+    approval.frame_id !== "lisa-presentation-sent" ||
+    approval.decision !== "approved" ||
+    approval.approval_time_precision !== "date_only" ||
+    approval.approved_on !== "2026-08-24" ||
+    !approval.decision_evidence_note ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
   ) {
-    fail("черновой PNG кадра успеха не совпадает с сохранённым манифестом");
+    fail("приёмка кадра успеха не совпадает с сохранёнными SVG и PNG");
   }
   return manifest;
 }

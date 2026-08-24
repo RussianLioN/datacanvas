@@ -9926,7 +9926,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 5
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review-source-manifest.json",
@@ -10072,15 +10072,15 @@
       "click_depth": 2
     },
     {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
-      "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
       "section": "schemas-scripts-tests",
       "navigation_domain": "documentation_operations",
       "navigation_group": "technical",
       "format": "json",
       "owner_role": "Product Owner / QA Lead",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": false,
@@ -10093,7 +10093,31 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 5
+      "click_depth": 3
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+      "section": "schemas-scripts-tests",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "technical",
+      "format": "json",
+      "owner_role": "Product Owner / QA Lead",
+      "lifecycle": "accepted",
+      "status": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
@@ -10103,8 +10127,8 @@
       "navigation_group": "business",
       "format": "md",
       "owner_role": "Product Owner / Documentation Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "accepted",
+      "status": "accepted",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -10119,6 +10143,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md"
@@ -10130,7 +10155,7 @@
         "обязательные-проверки"
       ],
       "reachable_from_root": true,
-      "click_depth": 4
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.json",
@@ -10606,6 +10631,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
@@ -16187,6 +16213,7 @@
         "предотвращение-повторения",
         "предотвращение-повторения-при-будущей-пересборке-кандидата",
         "дополнительные-причины-обнаруженные-при-исправлении",
+        "расхождение-журнала-с-уже-состоявшейся-приёмкой-кадра-успеха",
         "разрыв-между-принятой-полной-справкой-и-кадром-начала-формирования",
         "несоответствие-текста-и-порядка-элементов-в-нижней-панели",
         "неполная-замена-векторного-содержимого-полной-справки",
@@ -38722,14 +38749,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1332,
-    "manual_entries": 1322,
+    "total_entries": 1333,
+    "manual_entries": 1323,
     "generated_entries": 10,
     "public_navigable_entries": 34,
     "searchable_entries": 1240,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 266,
+    "reachable_from_root": 267,
     "orphan_entries": 0
   },
   "ignored_paths": [

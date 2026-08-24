@@ -12,7 +12,6 @@
     "decision",
     "decision_text",
     "decision_source",
-    "approved_at",
     "approved_source_svg_sha256",
     "approved_draft_png_sha256"
   ],
@@ -20,14 +19,53 @@
     "$schema": { "const": "../../../source/schemas/lisa-frame-owner-approval.schema.json" },
     "version": { "const": "1.0.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "frame_id": { "enum": ["lisa-materials-full-reference", "lisa-presentation-generating"] },
+    "frame_id": { "enum": ["lisa-materials-full-reference", "lisa-presentation-generating", "lisa-presentation-sent"] },
     "decision": { "const": "approved" },
     "decision_text": { "const": "кадр принят" },
     "decision_source": { "const": "Product Owner в рабочем чате" },
+    "approval_time_precision": { "enum": ["exact", "date_only"] },
     "approved_at": { "type": "string", "format": "date-time" },
+    "approved_on": { "type": "string", "format": "date" },
+    "decision_evidence_note": { "type": "string", "minLength": 1 },
     "approved_source_svg_sha256": { "$ref": "#/$defs/sha256" },
     "approved_draft_png_sha256": { "$ref": "#/$defs/sha256" }
   },
+  "oneOf": [
+    {
+      "required": ["approved_at"],
+      "properties": {
+        "approved_at": { "type": "string", "format": "date-time" },
+        "approved_on": { "type": "string", "format": "date" },
+        "approval_time_precision": { "enum": ["exact", "date_only"] }
+      },
+      "not": {
+        "required": ["approved_on"],
+        "properties": { "approved_on": { "type": "string", "format": "date" } }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["approval_time_precision"],
+            "properties": { "approval_time_precision": { "enum": ["exact", "date_only"] } }
+          },
+          "then": { "properties": { "approval_time_precision": { "const": "exact" } } }
+        }
+      ]
+    },
+    {
+      "required": ["approval_time_precision", "approved_on", "decision_evidence_note"],
+      "not": {
+        "required": ["approved_at"],
+        "properties": { "approved_at": { "type": "string", "format": "date-time" } }
+      },
+      "properties": {
+        "approval_time_precision": { "const": "date_only" },
+        "approved_on": { "type": "string", "format": "date" },
+        "decision_evidence_note": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  ],
   "$defs": {
     "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
   }

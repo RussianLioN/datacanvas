@@ -39,6 +39,7 @@ const sentReviewManifestPath = `${sentReviewDirectory}/review-source-manifest.js
 const sentReviewPath = `${sentReviewDirectory}/review.md`;
 const sentDraftPngPath = `${sentReviewDirectory}/draft-current-resolution.png`;
 const sentReviewManifestSchemaPath = `${sourcePath}/schemas/lisa-presentation-sent-review-source-manifest.schema.json`;
+const sentOwnerApprovalPath = `${sentReviewDirectory}/owner-approval.json`;
 const sentPhoneStatusTimeDonorPath = `${packagePath}/editable-sources/7.3 — Презентация.svg`;
 const generatingClockCorrectionDirectory = `${packagePath}/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24`;
 const generatingClockCorrectionSourcePath = `${generatingClockCorrectionDirectory}/source.svg`;
@@ -187,6 +188,7 @@ function copyRequiredInputs(tempRoot, contract, activeContracts) {
   copyFile(tempRoot, generatingClockCorrectionDraftPngPath);
   writeJson(tempRoot, generatingClockCorrectionOwnerApprovalPath, readJson(generatingClockCorrectionOwnerApprovalPath));
   writeJson(tempRoot, sentReviewManifestPath, readJson(sentReviewManifestPath));
+  writeJson(tempRoot, sentOwnerApprovalPath, readJson(sentOwnerApprovalPath));
   copyFile(tempRoot, sentReviewSourcePath);
   copyFile(tempRoot, sentPhoneStatusTimeDonorPath);
   writeJson(tempRoot, activeContractsPath, activeContracts);
@@ -457,7 +459,7 @@ test("выбранные тексты и покадровые источники
         approved_text_status: "owner_approved",
         svg_visual_check_status: "passed",
         draft_png_status: "rendered_current_resolution",
-        owner_frame_approval_status: "pending",
+        owner_frame_approval_status: "approved",
       });
     } else {
       assert.equal(frame.canonical_svg_status, "pending_source");
@@ -474,7 +476,7 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "draft_png_rendered_pending_owner_approval",
+    status: "owner_frame_approved",
     current_frame_id: "lisa-presentation-sent",
     next_frame_id: "lisa-presentation-email",
     source_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
@@ -493,8 +495,8 @@ test("принятый первый проверочный кадр изолир
     edit_mode: "replace_existing_frame_group_content",
     prohibited_legacy_overlay_ids: ["lisa-edit-5-4-title", "lisa-status-"],
     active_release_mutation_prohibited: true,
-    owner_approval_record_path: null,
-    next_frame_blocked_until_owner_approval: true,
+    owner_approval_record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    next_frame_blocked_until_owner_approval: false,
     skipped_frame_id: "lisa-presentation-chat-list",
     skipped_frame_reason: "owner_direction_no_rework",
   });
@@ -665,6 +667,7 @@ test("принятый кадр начала ведёт к отдельному 
   const sentSource = fs.readFileSync(absolute(sentReviewSourcePath), "utf8");
   const sentPhoneStatusTimeDonor = fs.readFileSync(absolute(sentPhoneStatusTimeDonorPath), "utf8");
   const sentManifest = readJson(sentReviewManifestPath);
+  const sentApproval = readJson(sentOwnerApprovalPath);
 
   assert.equal(generatingManifest.status, "owner_frame_approved");
   assert.deepEqual(generatingManifest.owner_frame_approval, {
@@ -698,8 +701,20 @@ test("принятый кадр начала ведёт к отдельному 
   assert.equal(sentManifest.base_svg_sha256, correctionManifest.source_svg_sha256);
   assert.equal(sentManifest.base_owner_approval_path, "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json");
   assert.equal(correctionApproval.approved_source_svg_sha256, correctionManifest.source_svg_sha256);
-  assert.equal(sentManifest.status, "draft_png_rendered_pending_owner_approval");
-  assert.equal(sentManifest.owner_frame_approval, null);
+  assert.equal(sentManifest.status, "owner_frame_approved");
+  assert.deepEqual(sentManifest.owner_frame_approval, {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approval_time_precision: "date_only",
+    approved_on: "2026-08-24",
+  });
+  assert.equal(sentApproval.frame_id, "lisa-presentation-sent");
+  assert.equal(sentApproval.approval_time_precision, "date_only");
+  assert.equal(sentApproval.approved_on, "2026-08-24");
+  assert.equal(sentApproval.approved_source_svg_sha256, sentManifest.source_svg_sha256);
+  assert.equal(sentApproval.approved_draft_png_sha256, sentManifest.draft_png_sha256);
   assert.deepEqual(sentManifest.draft_png_dimensions, { width: 521, height: 3290 });
   assert.equal(sentManifest.delivery_success_message.text, deliverySuccessText);
   assert.deepEqual(sentManifest.delivery_success_message.display_lines, [
@@ -779,6 +794,15 @@ test("проверки сохранённых SVG кадров не требую
   } finally {
     fs.rmSync(emptyHome, { recursive: true, force: true });
   }
+});
+
+test("принятый кадр успеха нельзя неявно вернуть в ожидание повторной подготовкой", () => {
+  const result = spawnSync(process.execPath, ["scripts/prepare-lisa-presentation-sent-review-source.mjs"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.notEqual(result.status, 0, "повторная подготовка принятого кадра должна быть заблокирована");
+  assert.match(result.stderr, /принятый кадр успеха нельзя пересобирать/u);
 });
 
 test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {

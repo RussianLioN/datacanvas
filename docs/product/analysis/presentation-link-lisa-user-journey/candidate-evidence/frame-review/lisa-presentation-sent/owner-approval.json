@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../source/schemas/lisa-frame-owner-approval.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "frame_id": "lisa-presentation-sent",
+  "decision": "approved",
+  "decision_text": "кадр принят",
+  "decision_source": "Product Owner в рабочем чате",
+  "approval_time_precision": "date_only",
+  "approved_on": "2026-08-24",
+  "decision_evidence_note": "Владелец подтвердил кадр в рабочем чате фразой «кадр принят»; точное время исходного сообщения не переносится в файловый артефакт.",
+  "approved_source_svg_sha256": "f1e5c91172996d013cbc65d79039f6e0187d4f5b04029a0b8055cd969a6427de",
+  "approved_draft_png_sha256": "40834158bfab943369bf45442acda32a5e06283758b813692e097afd0ee328a1"
+}

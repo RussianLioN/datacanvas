@@ -2,7 +2,7 @@
   "$schema": "../../../source/schemas/lisa-presentation-sent-review-source-manifest.schema.json",
   "version": "1.0.0",
   "frame_id": "lisa-presentation-sent",
-  "status": "draft_png_rendered_pending_owner_approval",
+  "status": "owner_frame_approved",
   "base_frame_id": "lisa-presentation-generating",
   "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
   "base_svg_sha256": "69cd03881ca920bc8db5f05fcf9c27613d0d2a09131b5e6194912c91f1d7fb55",
@@ -64,5 +64,12 @@
     "height": 3290
   },
   "draft_png_non_white_pixel_count": 602747,
-  "owner_frame_approval": null
+  "owner_frame_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "кадр принят",
+    "decision_source": "Product Owner в рабочем чате",
+    "approval_time_precision": "date_only",
+    "approved_on": "2026-08-24"
+  }
 }

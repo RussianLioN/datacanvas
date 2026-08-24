@@ -9,7 +9,7 @@
     "$schema": { "const": "../../../source/schemas/lisa-presentation-sent-review-source-manifest.schema.json" },
     "version": { "const": "1.0.0" },
     "frame_id": { "const": "lisa-presentation-sent" },
-    "status": { "enum": ["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval"] },
+    "status": { "enum": ["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval", "owner_frame_approved"] },
     "base_frame_id": { "const": "lisa-presentation-generating" },
     "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg" },
     "base_svg_sha256": { "$ref": "#/$defs/sha256" },
@@ -49,8 +49,28 @@
     "draft_png_rendered": { "type": "boolean" }, "draft_png_path": { "anyOf": [{ "type": "null" }, { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" }] }, "draft_png_sha256": { "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256" }] },
     "draft_png_dimensions": { "anyOf": [{ "type": "null" }, { "type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": { "width": { "const": 521 }, "height": { "const": 3290 } } }] },
     "draft_png_non_white_pixel_count": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 1000 }] },
-    "owner_frame_approval": { "type": "null" }
+    "owner_frame_approval": {
+      "anyOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["record_path", "decision", "decision_text", "decision_source", "approval_time_precision", "approved_on"],
+          "properties": {
+            "record_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json" },
+            "decision": { "const": "approved" },
+            "decision_text": { "const": "кадр принят" },
+            "decision_source": { "const": "Product Owner в рабочем чате" },
+            "approval_time_precision": { "const": "date_only" },
+            "approved_on": { "const": "2026-08-24" }
+          }
+        }
+      ]
+    }
   },
-  "allOf": [{ "if": { "properties": { "status": { "const": "svg_source_prepared_pending_visual_check" } }, "required": ["status"] }, "then": { "properties": { "draft_png_rendered": { "const": false }, "draft_png_path": { "type": "null" }, "draft_png_sha256": { "type": "null" }, "draft_png_dimensions": { "type": "null" }, "draft_png_non_white_pixel_count": { "type": "null" } } }, "else": { "properties": { "draft_png_rendered": { "const": true }, "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" }, "draft_png_sha256": { "$ref": "#/$defs/sha256" }, "draft_png_dimensions": { "type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": { "width": { "const": 521 }, "height": { "const": 3290 } } }, "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 } } } }],
+  "allOf": [
+    { "if": { "properties": { "status": { "const": "svg_source_prepared_pending_visual_check" } }, "required": ["status"] }, "then": { "properties": { "draft_png_rendered": { "const": false }, "draft_png_path": { "type": "null" }, "draft_png_sha256": { "type": "null" }, "draft_png_dimensions": { "type": "null" }, "draft_png_non_white_pixel_count": { "type": "null" }, "owner_frame_approval": { "type": "null" } } }, "else": { "properties": { "draft_png_rendered": { "const": true }, "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" }, "draft_png_sha256": { "$ref": "#/$defs/sha256" }, "draft_png_dimensions": { "type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": { "width": { "const": 521 }, "height": { "const": 3290 } } }, "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1000 } } } },
+    { "if": { "properties": { "status": { "const": "owner_frame_approved" } }, "required": ["status"] }, "then": { "properties": { "owner_frame_approval": { "type": "object" } } }, "else": { "properties": { "owner_frame_approval": { "type": "null" } } } }
+  ],
   "$defs": { "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" } }
 }
