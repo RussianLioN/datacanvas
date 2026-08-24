@@ -19,9 +19,13 @@ test("CO-2026-003 хранит безопасный реестр согласо�
     "Полная недоставка показывается тем же экраном и дословным сообщением, что и частичная доставка; нового текста и отдельного экрана не будет.",
   );
   assert.deepEqual(register.unresolved_authoritative_text_ids, []);
+  assert.deepEqual(
+    register.post_interview_amendments.map((amendment) => amendment.amendment_id),
+    ["CO3-AMND-001", "CO3-AMND-002"],
+  );
   assert.deepEqual(register.visual_release_gate, {
-    content_review_status: "approved_product_owner",
-    visual_release_status: "approved_product_owner",
+    content_review_status: "pending_product_owner",
+    visual_release_status: "pending_product_owner",
     release_condition: "explicit_product_owner_visual_approval",
   });
   assert.deepEqual(
@@ -41,7 +45,7 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.doesNotMatch(journey, /Статус содержания: ожидается повторное согласование\./);
 });
 
-test("активные документы CO-2026-003 сохраняют исторический выпуск, а отдельный вход показывает будущий кандидат", () => {
+test("активные документы CO-2026-003 отделяют принятый черновик от чистового выпуска", () => {
   const activeEntrypoints = [
     "docs/product/README.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
@@ -50,11 +54,13 @@ test("активные документы CO-2026-003 сохраняют ист�
   const journeyReadme = readText("docs/product/analysis/presentation-link-lisa-user-journey/README.md");
 
   for (const entrypoint of activeEntrypoints) {
-    assert.match(entrypoint, /содержание Q4_2026 (?:согласовано|и визуальный выпуск согласованы)/iu);
-    assert.match(entrypoint, /(?:визуальная генерация\s+разрешена|визуальный выпуск (?:согласованы|также согласован)|Штатная генерация опубликовала)/iu);
+    assert.match(entrypoint, /PPTX/u);
+    assert.match(entrypoint, /PDF/u);
+    assert.match(entrypoint, /(?:изолированн(?:ый|ого) черновик|каскадн(?:ое|ого) обновлен)/iu);
   }
 
   assert.match(journeyReadme, /исторический базовый выпуск/u);
   assert.match(journeyReadme, /ООО «Водолей Трейд»/u);
-  assert.match(journeyReadme, /неактивным кандидатом/u);
+  assert.match(journeyReadme, /изолированн(?:ый|ая) черновик/iu);
+  assert.match(journeyReadme, /(?:отдельной|покадровой) приёмки/u);
 });

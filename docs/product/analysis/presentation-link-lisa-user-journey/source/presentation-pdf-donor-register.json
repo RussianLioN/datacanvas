@@ -1,8 +1,8 @@
 {
   "$schema": "schemas/presentation-pdf-donor-register.schema.json",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "change_order_id": "CO-2026-003",
-  "status": "owner_attachments_received_pending_per_frame_pdf_draft_review",
+  "status": "owner_attachments_accepted_for_isolated_draft",
   "inputs_committed_to_git": false,
   "raw_pdf_served_by_demo": false,
   "controlled_pdf_to_png_render_allowed": true,
@@ -15,7 +15,7 @@
       "sha256": "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
       "page_count": 3,
       "use": "approved_pdf_to_png",
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     },
     {
       "donor_id": "presentation_variant_sber2025_pdf_donor",
@@ -24,7 +24,7 @@
       "sha256": "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
       "page_count": 3,
       "use": "approved_pdf_to_png",
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     },
     {
       "donor_id": "presentation_variant_mag_pdf_donor",
@@ -33,7 +33,7 @@
       "sha256": "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
       "page_count": 3,
       "use": "approved_pdf_to_png",
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     }
   ]
 }

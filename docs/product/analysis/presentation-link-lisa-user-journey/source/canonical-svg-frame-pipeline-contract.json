@@ -1,15 +1,15 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "change_order_id": "CO-2026-003",
-  "status": "inactive_presentation_batch_drafts_pending_owner_approval",
+  "status": "inactive_draft_accepted_for_documentation_cascade",
   "active": false,
   "generator_input": false,
   "render_allowed": false,
   "archive_allowed": false,
   "prototype_revision_candidate": {
     "path": "source/prototype-revision-candidate.json",
-    "expected_version": "1.0.0",
+    "expected_version": "1.1.0",
     "candidate_is_not_generator_input": true
   },
   "active_contract_registry_policy": {
@@ -260,21 +260,21 @@
       "required_for_frame_id": "lisa-presentation-slidedoc",
       "required_format": "owner_supplied_pdf_visual_donor",
       "canonical_svg_required_before_render": false,
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     },
     {
       "source_id": "presentation_variant_sber2025_pdf_donor",
       "required_for_frame_id": "lisa-presentation-sber2025",
       "required_format": "owner_supplied_pdf_visual_donor",
       "canonical_svg_required_before_render": false,
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     },
     {
       "source_id": "presentation_variant_mag_pdf_donor",
       "required_for_frame_id": "lisa-presentation-mag",
       "required_format": "owner_supplied_pdf_visual_donor",
       "canonical_svg_required_before_render": false,
-      "status": "owner_attachment_received_pending_pdf_draft_review"
+      "status": "owner_attachment_accepted_for_isolated_draft"
     },
     {
       "source_id": "email_frame_owner_visual_reference",
@@ -337,7 +337,7 @@
       "approved_text_status": "not_applicable",
       "svg_visual_check_status": "not_applicable",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-presentation-sber2025",
@@ -346,7 +346,7 @@
       "approved_text_status": "not_applicable",
       "svg_visual_check_status": "not_applicable",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-presentation-mag",
@@ -355,7 +355,7 @@
       "approved_text_status": "not_applicable",
       "svg_visual_check_status": "not_applicable",
       "draft_png_status": "rendered_current_resolution",
-      "owner_frame_approval_status": "pending"
+      "owner_frame_approval_status": "approved"
     },
     {
       "frame_id": "lisa-order-not-accepted",
@@ -386,7 +386,7 @@
     }
   ],
   "frame_review_session": {
-    "status": "presentation_variant_batch_drafts_pending_owner_approval",
+    "status": "presentation_variant_batch_drafts_accepted_for_documentation_cascade",
     "current_frame_id": "lisa-presentation-slidedoc",
     "next_frame_id": "lisa-presentation-sber2025",
     "source_pdf_file_name": "vodoley_dense_slidedoc.pdf",
@@ -488,7 +488,7 @@
     "draft_png_upscale_for_final"
   ],
   "release_boundary": {
-    "candidate_evidence_status": "pending",
+    "candidate_evidence_status": "accepted_for_documentation_cascade",
     "active_release_switch_status": "blocked",
     "rollback_mode": "full_bundle_only",
     "future_transaction_targets": [

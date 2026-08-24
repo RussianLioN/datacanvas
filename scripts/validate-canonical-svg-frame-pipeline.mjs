@@ -76,21 +76,21 @@ const expectedExternalSources = Object.freeze([
     required_for_frame_id: "lisa-presentation-slidedoc",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "email_frame_owner_visual_reference",
@@ -191,7 +191,7 @@ const expectedErrorFrames = Object.freeze(new Map([
   })],
 ]));
 const expectedFrameReviewSession = Object.freeze({
-  status: "presentation_variant_batch_drafts_pending_owner_approval",
+  status: "presentation_variant_batch_drafts_accepted_for_documentation_cascade",
   current_frame_id: "lisa-presentation-slidedoc",
   next_frame_id: "lisa-presentation-sber2025",
   source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
@@ -227,7 +227,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     donor_id: "presentation_variant_sber2025_pdf_donor",
@@ -236,7 +236,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     donor_id: "presentation_variant_mag_pdf_donor",
@@ -245,7 +245,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
 ]);
 const forbiddenTracePattern = /(?:\/Users\/|file:\/\/|[A-Za-z]:\\|\.docx\b|\b[a-f0-9]{64}\b|raw_source_content)/iu;
@@ -338,11 +338,11 @@ function validateTopLevel(contract) {
   if (contract.generator_input !== false || contract.archive_allowed !== false) {
     throw new Error("inactive contract must not be a generator input or archive input");
   }
-  if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
-    throw new Error("prototype revision candidate expected_version must remain 1.0.0");
+  if (contract.prototype_revision_candidate.expected_version !== "1.1.0") {
+    throw new Error("prototype revision candidate expected_version must remain 1.1.0");
   }
-  if (contract.version !== "4.4.0" || contract.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
-    throw new Error("версия договора должна фиксировать пакет черновиков презентаций, ожидающий индивидуальной приёмки");
+  if (contract.version !== "4.5.0" || contract.status !== "inactive_draft_accepted_for_documentation_cascade") {
+    throw new Error("версия договора должна фиксировать принятый изолированный черновик, ожидающий каскадного обновления документации");
   }
 }
 
@@ -400,9 +400,9 @@ function validateFrames(contract, candidate) {
         frame.approved_text_status !== "not_applicable" ||
         frame.svg_visual_check_status !== "not_applicable" ||
         frame.draft_png_status !== "rendered_current_resolution" ||
-        frame.owner_frame_approval_status !== "pending"
+        frame.owner_frame_approval_status !== "approved"
       ) {
-        throw new Error("каждый вариант презентации должен оставаться изолированным PNG-черновиком из утверждённого PDF до индивидуальной приёмки владельцем");
+        throw new Error("каждый вариант презентации должен быть принят как изолированный PNG-черновик из утверждённого PDF");
       }
       continue;
     }
@@ -855,7 +855,7 @@ function validatePresentationPdfDonorRegister(contract, donorRegister) {
     throw new Error("договор кадров должен явно отделять контролируемый импорт PDF-презентаций от SVG-first ветви");
   }
   if (
-    donorRegister.status !== "owner_attachments_received_pending_per_frame_pdf_draft_review" ||
+    donorRegister.status !== "owner_attachments_accepted_for_isolated_draft" ||
     donorRegister.inputs_committed_to_git !== false ||
     donorRegister.raw_pdf_served_by_demo !== false ||
     donorRegister.controlled_pdf_to_png_render_allowed !== true ||
@@ -952,11 +952,11 @@ function validateAcceptance(contract) {
 function validateReleaseBoundary(contract) {
   const boundary = contract.release_boundary;
   if (
-    boundary.candidate_evidence_status !== "pending" ||
+    boundary.candidate_evidence_status !== "accepted_for_documentation_cascade" ||
     boundary.active_release_switch_status !== "blocked" ||
     boundary.rollback_mode !== "full_bundle_only"
   ) {
-    throw new Error("release boundary must remain pending, blocked, and full-bundle rollback only");
+    throw new Error("release boundary must keep the accepted draft isolated, block active release, and require full-bundle rollback");
   }
   assertSameArray(
     boundary.future_transaction_targets,

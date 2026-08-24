@@ -13,7 +13,7 @@
     {
       "name": "prototype candidate version drift is rejected",
       "mutation": "set-prototype-candidate-version-2",
-      "expected_error": "prototype revision candidate expected_version must remain 1.0.0"
+      "expected_error": "prototype revision candidate expected_version must remain 1.1.0"
     },
     {
       "name": "missing future frame is rejected",

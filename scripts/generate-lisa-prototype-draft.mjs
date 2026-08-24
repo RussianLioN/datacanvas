@@ -409,8 +409,14 @@ function buildManifest(root, outputRoot, data) {
   });
   return {
     $schema: "../../source/schemas/lisa-prototype-draft-manifest.schema.json",
-    version: "1.3.0",
-    status: "draft_prototype_rendered_pending_owner_approval",
+    version: "1.4.0",
+    status: "draft_prototype_accepted_for_documentation_cascade",
+    owner_acceptance: {
+      accepted_at: "2026-08-24T00:00:00Z",
+      scope: "isolated_draft_only",
+      active_release_switch_allowed: false,
+      next_gate: "documentation_cascade_then_explicit_final_owner_approval",
+    },
     rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     shell_parity: {
       index_html_source: "demo/index.html",
@@ -442,14 +448,23 @@ function validateDraft(root) {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   if (
     manifest.$schema !== "../../source/schemas/lisa-prototype-draft-manifest.schema.json" ||
-    manifest.version !== "1.3.0" ||
-    manifest.status !== "draft_prototype_rendered_pending_owner_approval" ||
+    manifest.version !== "1.4.0" ||
+    manifest.status !== "draft_prototype_accepted_for_documentation_cascade" ||
     manifest.rendering_mode !== "isolated_current_prototype_copy_with_frame_asset_substitution" ||
     manifest.active_release_mutation_prohibited !== true ||
     manifest.raw_pdf_included !== false ||
     JSON.stringify(manifest.frame_ids) !== JSON.stringify(FRAME_IDS) ||
     !Array.isArray(manifest.frames) || manifest.frames.length !== FRAME_IDS.length
   ) fail("манифест чернового прототипа не соответствует договору");
+  const expectedOwnerAcceptance = {
+    accepted_at: "2026-08-24T00:00:00Z",
+    scope: "isolated_draft_only",
+    active_release_switch_allowed: false,
+    next_gate: "documentation_cascade_then_explicit_final_owner_approval",
+  };
+  if (JSON.stringify(manifest.owner_acceptance) !== JSON.stringify(expectedOwnerAcceptance)) {
+    fail("манифест чернового прототипа не фиксирует принятую границу черновика");
+  }
   const expectedShellParity = {
     index_html_source: "demo/index.html",
     app_js_source: "demo/app.js",

@@ -3309,6 +3309,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
+      "route_id": "rca-2026-08-25-co-2026-003-amendment-cascade-drift",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "Documentation Owner / Product Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются дополнения владельца CO-2026-003, граница принятого черновика, текущие форматы результата или проверка целостности каталога историй.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/knowledge/rca/2026-08-24-lisa-error-footer-clipping.md",
       "route_id": "rca-2026-08-24-lisa-error-footer-clipping",
       "section": "knowledge",

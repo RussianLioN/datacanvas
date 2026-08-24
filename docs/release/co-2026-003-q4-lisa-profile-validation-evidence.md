@@ -1,11 +1,56 @@
 # Доказательства проверок профиля Q4_2026 для Лисы
 
-> **Исторические доказательства:** этот отчёт фиксирует выпуск от 18 августа 2026 года. Он не подтверждает будущий кандидат для ООО «Водолей Трейд». Пять текстов будущего кандидата находятся в [реестре утверждённых текстов](../product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md); после покадровой приёмки для него потребуются новые генерация, снимки, доказательства и архив.
+> **Исторические доказательства:** этот отчёт фиксирует выпуск от 18 августа 2026 года. Он не подтверждает изолированный черновик ООО «Водолей Трейд». Текущие тексты находятся в [реестре утверждённых текстов](../product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md), а принятие черновика — в его [манифесте](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json).
 
 Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / [Release](README.md) / Доказательства профиля Q4_2026
 
 Дата фиксации: 2026-08-18
 Область: [CO-2026-003](../product/change-orders/co-2026-003-q4-lisa-profile.md) — изменение профиля Q4_2026 для Лисы: требования, контракты, жизненный цикл, ошибки, SSD и путь пользователя.
+
+## Текущее Состояние От 2026-08-24
+
+Интегрированный изолированный черновик из 11 кадров принят только для
+каскадного обновления документации. Это не обновляет исторический выпуск выше
+и не подтверждает чистовую генерацию, действующую демонстрацию, свежие снимки
+браузера или архив поставки. Эти операции разрешаются только после успешного
+каскада и отдельного итогового подтверждения Владельца.
+
+## Документальный Каскад От 2026-08-25
+
+Этот раздел относится только к документальному каскаду принятого изолированного
+черновика. Его первичный источник — [реестр решений интервью](../product/change-orders/co-2026-003-authoritative-interview-decision-register.md):
+`CO3-AMND-001` — дополнение о текущих форматах `PPTX` и `PDF`; `CO3-AMND-002` —
+дополнение, сохраняющее блокировку чистового выпуска до отдельного итогового
+подтверждения владельца. Результаты проверок этого каскада добавляются только
+после их фактического выполнения; исторические результаты ниже не являются
+таким доказательством.
+
+### Фактически выполненные проверки каскада
+
+- Пройдены проверки изменений и их влияния: `npm run validate:product-change-orders`,
+  `npm run validate:change-impact`, `npm run validate:business-docs`,
+  `npm run validate:business-rules` и `npm run validate:traceability-graph`.
+- Пройдены проверки аналитики и спецификаций: `npm run validate:ba-sa`,
+  `npm run validate:spec-task-prompt-readiness`, `npm run validate:interface-contracts`,
+  `npm run validate:state-model`, `npm run validate:error-taxonomy`,
+  `npm run validate:contracts` и `npm run validate:schemas`.
+- Пройдены проверки решений, изолированного черновика и защиты данных:
+  `npm run validate:co-questionnaire -- docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json`,
+  `npm run validate:co-2026-003-prototype-revision`,
+  `node scripts/validate-canonical-svg-frame-pipeline.mjs`, `npm run scan:secrets`
+  и `npm run validate:data-leakage`.
+- Пройдены проверки источников, навигации и производных документов:
+  `npm run validate:product-sources`, `npm run generate:docs-navigation -- --check`,
+  `npm run validate:doc-links`, `npm run validate:docs-navigation`,
+  `npm run validate:doc-stale-status`, `npm run validate:process-metrics-snapshot`,
+  `npm run validate:artifact-hashes` и `npm run validate:documentation-archive`.
+- Пройдены шесть целевых регрессионных наборов: проверка решения интервью,
+  свежести каскада, целостности профиля, договора SVG-кадров, изолированного
+  черновика и соответствия кандидата исправлению CO-2026-003.
+
+Генерация чистовых изображений, замена действующей демонстрации, обновление
+браузерных снимков и сборка архива поставки здесь намеренно не выполнялись:
+для них всё ещё требуется отдельное итоговое подтверждение владельца.
 
 ## Результаты
 

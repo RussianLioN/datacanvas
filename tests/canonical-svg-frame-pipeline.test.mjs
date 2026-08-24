@@ -147,21 +147,21 @@ const expectedExternalSources = Object.freeze([
     required_for_frame_id: "lisa-presentation-slidedoc",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "email_frame_owner_visual_reference",
@@ -284,7 +284,7 @@ function mutate(contract, activeContracts, mutation) {
         approved_text_status: "pending",
         svg_visual_check_status: "pending",
         draft_png_status: "blocked",
-        owner_frame_approval_status: "pending",
+        owner_frame_approval_status: "approved",
       });
       break;
     case "wrong-external-source":
@@ -372,20 +372,20 @@ test("общий контроль качества включает схему �
   assert.match(schemaValidator, /lisa-frame-owner-approval\.schema\.json/u);
 });
 
-test("неактивный договор наследует кадры и смысловые ребра из подготовительного кандидата v1", () => {
+test("неактивный договор наследует кадры и смысловые ребра из принятого чернового кандидата", () => {
   if (!fs.existsSync(absolute(contractPath))) return;
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "4.4.0");
-  assert.equal(contract.status, "inactive_presentation_batch_drafts_pending_owner_approval");
+  assert.equal(contract.version, "4.5.0");
+  assert.equal(contract.status, "inactive_draft_accepted_for_documentation_cascade");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
   assert.equal(contract.render_allowed, false);
   assert.equal(contract.archive_allowed, false);
   assert.equal(contract.prototype_revision_candidate.path, "source/prototype-revision-candidate.json");
-  assert.equal(contract.prototype_revision_candidate.expected_version, "1.0.0");
-  assert.equal(candidate.version, "1.0.0");
+  assert.equal(contract.prototype_revision_candidate.expected_version, "1.1.0");
+  assert.equal(candidate.version, "1.1.0");
   assert.deepEqual(contract.future_frame_ids, candidate.active_future_frame_ids);
   assert.deepEqual(contract.historical_reference_frame_ids, candidate.historical_inactive_frame_ids);
 
@@ -457,7 +457,7 @@ test("выбранные тексты и покадровые источники
     status: "pending_frame_cycle",
   });
   const donorRegister = readJson(presentationPdfDonorRegisterPath);
-  assert.equal(donorRegister.status, "owner_attachments_received_pending_per_frame_pdf_draft_review");
+  assert.equal(donorRegister.status, "owner_attachments_accepted_for_isolated_draft");
   assert.equal(donorRegister.raw_pdf_served_by_demo, false);
   assert.equal(donorRegister.controlled_pdf_to_png_render_allowed, true);
   assert.equal(donorRegister.donors.length, 3);
@@ -545,7 +545,7 @@ test("выбранные тексты и покадровые источники
         approved_text_status: "not_applicable",
         svg_visual_check_status: "not_applicable",
         draft_png_status: "rendered_current_resolution",
-        owner_frame_approval_status: "pending",
+        owner_frame_approval_status: "approved",
       });
     } else if (["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"].includes(frame.frame_id)) {
       assert.deepEqual(frame, {
@@ -566,7 +566,7 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "presentation_variant_batch_drafts_pending_owner_approval",
+  status: "presentation_variant_batch_drafts_accepted_for_documentation_cascade",
     current_frame_id: "lisa-presentation-slidedoc",
     next_frame_id: "lisa-presentation-sber2025",
     source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
@@ -922,7 +922,7 @@ test("порядок приемки, запреты и граница выпус
   assert.deepEqual(contract.acceptance.prototype_flow, expectedPrototypeAcceptanceFlow);
   assert.deepEqual(contract.acceptance.per_frame_review, expectedPerFrameReview);
   assert.deepEqual(contract.forbidden_methods, expectedForbiddenMethods);
-  assert.equal(contract.release_boundary.candidate_evidence_status, "pending");
+  assert.equal(contract.release_boundary.candidate_evidence_status, "accepted_for_documentation_cascade");
   assert.equal(contract.release_boundary.active_release_switch_status, "blocked");
   assert.equal(contract.release_boundary.rollback_mode, "full_bundle_only");
   assert.deepEqual(contract.release_boundary.future_transaction_targets, [

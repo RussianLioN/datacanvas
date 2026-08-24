@@ -1,10 +1,10 @@
 {
   "$schema": "../../../schemas/product-source-registry.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-10T00:00:00+03:00",
+  "updated_at": "2026-08-25T00:00:00+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -98,6 +98,37 @@
       "notes": "Канонический источник уточнения CO-2026-002: P1 включает основной маршрут запуска DataCanvas другим агентом до доставки редактируемого PPTX-файла и нередактируемой PDF-копии по электронной почте; P2 включает расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе. Рабочая Excel-версия принята как ресурсный вход для DC-ST-23..DC-ST-33."
     },
     {
+      "source_id": "SRC-DC-CO-2026-003-AUTHORITATIVE-REGISTER",
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-24",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "q4_product_scope",
+        "current_delivery_format",
+        "approved_text_trace",
+        "documentation_cascade"
+      ],
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/specs/interview-to-spec-trace.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"
+      ],
+      "notes": "Реестр сохраняет решения интервью и очищенной рабочей книги как исторические источники. Дополнение CO3-AMND-001 меняет для текущего Q4_2026 только форматы результата на PPTX и PDF; дополнение CO3-AMND-002 принимает изолированный черновик только для каскадного обновления документации и требует отдельного итогового подтверждения перед чистовым визуальным выпуском."
+    },
+    {
       "source_id": "SRC-DC-PRODUCT-VISION-CURRENT",
       "path": "docs/product-vision.md",
       "source_role": "current_vision",
@@ -147,8 +178,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "active",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-24",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "requirements_delta",
         "backlog",
@@ -158,9 +189,13 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json",
-        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/specs/interview-to-spec-trace.json"
       ],
-      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-33 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основного маршрута запуска другим агентом, а DC-ST-30..DC-ST-33 имеют P2 для расширенной доставки, хранения, ссылки и уведомления. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-36 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основного маршрута запуска другим агентом, а DC-ST-30..DC-ST-33 имеют P2 для расширенной доставки, хранения, ссылки и уведомления. CO-2026-003 добавляет DC-ST-34..DC-ST-36 для одного заказа, возврата в чат и безопасных состояний задержанной или частичной доставки. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
     },
     {
       "source_id": "SRC-DC-STORY-CATALOG-LOCK",

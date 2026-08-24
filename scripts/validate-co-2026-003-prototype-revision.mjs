@@ -19,9 +19,6 @@ const activeReleaseOutputPaths = Object.freeze([
   `${packagePath}/derived`,
   `${packagePath}/evidence`,
   "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
-  "docs/release/co-2026-003-prototype-delivery-archive.md",
-  "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
-  "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
 ]);
 const textFileExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".txt"]);
 
@@ -170,21 +167,21 @@ const expectedCandidateExternalSources = Object.freeze([
     required_for_frame_id: "lisa-presentation-slidedoc",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_sber2025_pdf_donor",
     required_for_frame_id: "lisa-presentation-sber2025",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "presentation_variant_mag_pdf_donor",
     required_for_frame_id: "lisa-presentation-mag",
     required_format: "owner_supplied_pdf_visual_donor",
     canonical_svg_required_before_render: false,
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     source_id: "email_frame_owner_visual_reference",
@@ -205,7 +202,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     donor_id: "presentation_variant_sber2025_pdf_donor",
@@ -214,7 +211,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
   Object.freeze({
     donor_id: "presentation_variant_mag_pdf_donor",
@@ -223,7 +220,7 @@ const expectedPresentationPdfDonors = Object.freeze([
     sha256: "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
     page_count: 3,
     use: "approved_pdf_to_png",
-    status: "owner_attachment_received_pending_pdf_draft_review",
+    status: "owner_attachment_accepted_for_isolated_draft",
   }),
 ]);
 const localUsersPrefix = `/${"Users"}/`;
@@ -479,12 +476,12 @@ function validateCandidate(candidate, approvedTexts) {
 
   const gate = candidate.visual_release_gate;
   if (
-    gate.release_status !== "blocked_until_source_and_frame_approval" ||
+    gate.release_status !== "blocked_until_documentation_cascade_and_final_owner_approval" ||
     gate.render_allowed !== false ||
     gate.owner_selection_complete !== true ||
     gate.all_external_visual_donors_received !== true
   ) {
-    throw new Error("prototype revision candidate must remain blocked until canonical SVG sources and frame approval");
+    throw new Error("prototype revision candidate must keep the accepted draft isolated until documentation cascade and final owner approval");
   }
   const sourceIds = gate.required_external_visual_donors.map((source) => source.source_id);
   if (!sameArray(sourceIds, expectedCandidateExternalSourceIds)) {
@@ -503,14 +500,14 @@ function validateCandidate(candidate, approvedTexts) {
       throw new Error("внешние источники презентаций должны совпадать с утверждённым способом подготовки кадра");
     }
     if (actual.status !== expected.status) {
-      throw new Error(`external source ${expected.source_id} must preserve its received-or-pending status`);
+      throw new Error(`external source ${expected.source_id} must preserve its accepted isolated-draft status`);
     }
   }
   if (gate.render_allowed && !gate.all_external_visual_donors_received) {
     throw new Error("visual render must remain blocked until all external visual donors are received");
   }
-  if (!gate.render_allowed && gate.release_status !== "blocked_until_source_and_frame_approval") {
-    throw new Error("заблокированный визуальный выпуск должен сохранять статус ожидания источников и покадровой приёмки");
+  if (!gate.render_allowed && gate.release_status !== "blocked_until_documentation_cascade_and_final_owner_approval") {
+    throw new Error("заблокированный визуальный выпуск должен ожидать каскадного обновления документации и итоговой приёмки");
   }
   if (candidate.approved_texts_source !== "source/owner-approved-texts.json" || approvedTexts.selections.length !== expectedTopics.length) {
     throw new Error("candidate must reference the approved texts register");
@@ -520,8 +517,8 @@ function validateCandidate(candidate, approvedTexts) {
 function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister) {
   assertNoLocalOrRawSourcePaths(svgPipeline);
   assertNoRawSourceTracesInJson(svgPipeline);
-  if (svgPipeline.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
-    throw new Error("SVG pipeline must record the authorized batch draft while retaining individual owner approvals");
+  if (svgPipeline.status !== "inactive_draft_accepted_for_documentation_cascade") {
+    throw new Error("SVG pipeline must record the accepted isolated draft while the active release remains blocked");
   }
   const presentationFrames = svgPipeline.frame_svg_sources.filter((frame) => ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"].includes(frame.frame_id));
   if (
@@ -532,7 +529,7 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
       frame.approved_text_status !== "not_applicable" ||
       frame.svg_visual_check_status !== "not_applicable" ||
       frame.draft_png_status !== "rendered_current_resolution" ||
-      frame.owner_frame_approval_status !== "pending"
+      frame.owner_frame_approval_status !== "approved"
     )) ||
     svgPipeline.frame_review_session?.current_frame_id !== "lisa-presentation-slidedoc" ||
     svgPipeline.frame_review_session?.next_frame_id !== "lisa-presentation-sber2025" ||
@@ -541,7 +538,7 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     svgPipeline.frame_review_session?.batch_draft_preparation_authorized_by_owner !== true ||
     svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== false
   ) {
-    throw new Error("договор кадров должен сохранять три изолированных PNG-черновика из PDF и общий черновой прототип до индивидуальной приёмки владельцем");
+    throw new Error("договор кадров должен сохранять три принятых изолированных PNG-черновика из PDF и общий черновой прототип");
   }
   if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("SVG pipeline message topics must match the five selected text topics");
@@ -657,7 +654,7 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     }
   }
   if (
-    presentationPdfDonorRegister.status !== "owner_attachments_received_pending_per_frame_pdf_draft_review" ||
+    presentationPdfDonorRegister.status !== "owner_attachments_accepted_for_isolated_draft" ||
     presentationPdfDonorRegister.inputs_committed_to_git !== false ||
     presentationPdfDonorRegister.raw_pdf_served_by_demo !== false ||
     presentationPdfDonorRegister.controlled_pdf_to_png_render_allowed !== true ||

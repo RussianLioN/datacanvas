@@ -33,9 +33,9 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "4.4.0" },
+    "version": { "const": "4.5.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "inactive_presentation_batch_drafts_pending_owner_approval" },
+    "status": { "const": "inactive_draft_accepted_for_documentation_cascade" },
     "active": { "const": false },
     "generator_input": { "const": false },
     "render_allowed": { "const": false },
@@ -46,7 +46,7 @@
       "required": ["path", "expected_version", "candidate_is_not_generator_input"],
       "properties": {
         "path": { "const": "source/prototype-revision-candidate.json" },
-        "expected_version": { "const": "1.0.0" },
+        "expected_version": { "const": "1.1.0" },
         "candidate_is_not_generator_input": { "const": true }
       }
     },
@@ -143,7 +143,7 @@
         "future_transaction_targets"
       ],
       "properties": {
-        "candidate_evidence_status": { "const": "pending" },
+        "candidate_evidence_status": { "const": "accepted_for_documentation_cascade" },
         "active_release_switch_status": { "const": "blocked" },
         "rollback_mode": { "const": "full_bundle_only" },
         "future_transaction_targets": {
@@ -227,7 +227,7 @@
         "required_for_frame_id": { "$ref": "#/$defs/state_id" },
         "required_format": { "enum": ["owner_supplied_pdf_visual_donor", "canonical_svg_source", "owner_supplied_email_visual_reference"] },
         "canonical_svg_required_before_render": { "type": "boolean" },
-        "status": { "enum": ["owner_attachment_received_pending_pdf_draft_review", "pending_owner_attachment", "repository_svg_candidate_approved_from_owner_visual_reference"] }
+        "status": { "enum": ["owner_attachment_accepted_for_isolated_draft", "pending_owner_attachment", "repository_svg_candidate_approved_from_owner_visual_reference"] }
       }
     },
     "frame_svg_source": {
@@ -330,7 +330,7 @@
                                       "approved_text_status": { "const": "not_applicable" },
                                       "svg_visual_check_status": { "const": "not_applicable" },
                                       "draft_png_status": { "const": "rendered_current_resolution" },
-                                      "owner_frame_approval_status": { "const": "pending" }
+                                      "owner_frame_approval_status": { "const": "approved" }
                                     }
                                   },
                                   "else": {
@@ -404,7 +404,7 @@
         "error_review_batch"
       ],
       "properties": {
-        "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval", "presentation_variant_batch_drafts_pending_owner_approval"] },
+        "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval", "presentation_variant_batch_drafts_pending_owner_approval", "presentation_variant_batch_drafts_accepted_for_documentation_cascade"] },
         "current_frame_id": { "enum": ["lisa-presentation-email", "lisa-presentation-slidedoc"] },
         "next_frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025"] },
         "source_pdf_file_name": { "const": "vodoley_dense_slidedoc.pdf" },

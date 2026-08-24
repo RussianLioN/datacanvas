@@ -30,7 +30,14 @@ test("черновой прототип сохраняет оболочку и �
 
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   assert.equal(manifest.$schema, "../../source/schemas/lisa-prototype-draft-manifest.schema.json");
-  assert.equal(manifest.version, "1.3.0");
+  assert.equal(manifest.version, "1.4.0");
+  assert.equal(manifest.status, "draft_prototype_accepted_for_documentation_cascade");
+  assert.deepEqual(manifest.owner_acceptance, {
+    accepted_at: "2026-08-24T00:00:00Z",
+    scope: "isolated_draft_only",
+    active_release_switch_allowed: false,
+    next_gate: "documentation_cascade_then_explicit_final_owner_approval",
+  });
   assert.equal(manifest.rendering_mode, "isolated_current_prototype_copy_with_frame_asset_substitution");
   assert.deepEqual(manifest.shell_parity, {
     index_html_source: "demo/index.html",

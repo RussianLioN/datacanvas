@@ -1,7 +1,13 @@
 {
   "$schema": "../../source/schemas/lisa-prototype-draft-manifest.schema.json",
-  "version": "1.3.0",
-  "status": "draft_prototype_rendered_pending_owner_approval",
+  "version": "1.4.0",
+  "status": "draft_prototype_accepted_for_documentation_cascade",
+  "owner_acceptance": {
+    "accepted_at": "2026-08-24T00:00:00Z",
+    "scope": "isolated_draft_only",
+    "active_release_switch_allowed": false,
+    "next_gate": "documentation_cascade_then_explicit_final_owner_approval"
+  },
   "rendering_mode": "isolated_current_prototype_copy_with_frame_asset_substitution",
   "shell_parity": {
     "index_html_source": "demo/index.html",

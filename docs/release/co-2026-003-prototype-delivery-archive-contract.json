@@ -87,6 +87,10 @@
       "label": "Разбор корневой причины и защита качества визуального прототипа"
     },
     {
+      "path": "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
+      "label": "Разбор причины неполного каскадного обновления дополнений CO-2026-003"
+    },
+    {
       "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
       "label": "План поэтапной отрисовки и приёмки SVG-прототипа"
     },

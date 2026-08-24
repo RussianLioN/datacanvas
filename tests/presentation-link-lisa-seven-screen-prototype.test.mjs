@@ -82,7 +82,7 @@ const expectedStates = Object.freeze([
   Object.freeze({
     id: "lisa-presentation-email",
     sourceId: "7.4",
-    caption: "Письмо с версиями презентации в ODT и PDF",
+    caption: "Письмо с версиями презентации в PPTX и PDF",
     logicalDimensions: Object.freeze({ width: 1553, height: 1013 }),
     pixelDimensions: Object.freeze({ width: 1553, height: 1013 }),
     hasImmediateCta: false,
@@ -385,7 +385,7 @@ test("исходный договор хранит согласованные с
   assert.equal(lifecycle?.screen_sequence?.preserve_existing_source_order, true);
   assert.deepEqual(lifecycle?.screen_sequence?.existing_state_ids, expectedStateIds);
   assert.equal(lifecycle?.screen_sequence?.additional_status_placement, "after_existing_presentation_states");
-  assert.equal(lifecycle?.screen_sequence?.generation_status, "visual_generation_completed");
+  assert.equal(lifecycle?.screen_sequence?.generation_status, "source_ready_visual_generation_not_run");
   assert.deepEqual(lifecycle?.screen_sequence?.delivery_failure_presentation, {
     decision_id: "CO3-DEC-009",
     presentation_state_id: "lisa-delivery-partial",

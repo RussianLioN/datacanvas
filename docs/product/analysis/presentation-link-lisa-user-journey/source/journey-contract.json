@@ -168,8 +168,8 @@
   ],
   "lifecycle": {
     "model": "variant",
-    "content_review_status": "approved_product_owner",
-    "visual_release_status": "approved_product_owner",
+    "content_review_status": "pending_product_owner",
+    "visual_release_status": "pending_product_owner",
     "states": [
       {
         "id": "eligible",
@@ -335,7 +335,7 @@
         "lifecycle_message_id": "delivery_partial",
         "separate_screen": false
       },
-      "generation_status": "visual_generation_completed"
+      "generation_status": "source_ready_visual_generation_not_run"
     },
     "messages": [
       {

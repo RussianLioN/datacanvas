@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "change_order_id": "CO-2026-003",
   "source_of_truth_policy": {
     "interview_precedence": "equal_to_controlled_xlsx",
@@ -58,9 +58,36 @@
     {"message_id":"CO3-MSG-004","lifecycle_message_id":"delivery_delayed","text":"Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена."},
     {"message_id":"CO3-MSG-005","lifecycle_message_id":"delivery_partial","text":"Презентация сформирована и направлена в {КОНТУР_УСПЕШНОЙ_ОТПРАВКИ}. Отправка в {КОНТУР_НЕПОДТВЕРЖДЁННОЙ_ОТПРАВКИ} пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.","contour_display_rule":"by_actual_address_lookup"}
   ],
+  "post_interview_amendments": [
+    {
+      "amendment_id": "CO3-AMND-001",
+      "recorded_at": "2026-08-24",
+      "source": "owner_follow_up_confirmation",
+      "supersedes": {"decision_id": "CO3-DEC-001", "scope": "delivery_formats_only"},
+      "delivery_formats": ["PPTX", "PDF"],
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ]
+    },
+    {
+      "amendment_id": "CO3-AMND-002",
+      "recorded_at": "2026-08-24",
+      "source": "owner_follow_up_confirmation",
+      "supersedes": {"decision_id": "CO3-DEC-010", "scope": "active_visual_release_only"},
+      "accepted_scope": "isolated_draft_only",
+      "active_release_switch_allowed": false,
+      "next_gate": "documentation_cascade_then_explicit_final_owner_approval",
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+      ]
+    }
+  ],
   "visual_release_gate": {
-    "content_review_status": "approved_product_owner",
-    "visual_release_status": "approved_product_owner",
+    "content_review_status": "pending_product_owner",
+    "visual_release_status": "pending_product_owner",
     "release_condition": "explicit_product_owner_visual_approval"
   },
   "unresolved_authoritative_text_ids": []

@@ -174,7 +174,14 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(candidate.active_button.count, 1);
   assert.equal(candidate.active_button.source_state_id, "lisa-materials-full-reference");
   assert.equal(candidate.visual_release_gate.required_external_visual_donors.length, 4);
-  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_source_and_frame_approval");
+  assert.equal(candidate.status, "draft_prototype_accepted_for_documentation_cascade");
+  assert.deepEqual(candidate.draft_acceptance, {
+    accepted_at: "2026-08-24T00:00:00Z",
+    scope: "isolated_draft_only",
+    active_release_switch_allowed: false,
+    next_gate: "documentation_cascade_then_explicit_final_owner_approval",
+  });
+  assert.equal(candidate.visual_release_gate.release_status, "blocked_until_documentation_cascade_and_final_owner_approval");
   assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
   assert.equal(candidate.visual_release_gate.all_external_visual_donors_received, true);
   assert.deepEqual(candidate.visual_release_gate.required_external_visual_donors[3], {
@@ -188,7 +195,7 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   const emailFrame = candidate.frames.find((frame) => frame.id === "lisa-presentation-email");
   assert.equal(emailFrame.requires_new_editable_source, false);
   assert.equal(emailFrame.review_status, "owner_frame_approved");
-  assert.equal(svgPipeline.status, "inactive_presentation_batch_drafts_pending_owner_approval");
+  assert.equal(svgPipeline.status, "inactive_draft_accepted_for_documentation_cascade");
   assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
   assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
   assert.deepEqual(svgPipeline.client_reference_svg_update, {
@@ -242,7 +249,7 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
     svg_editing_mode: "canonical_svg_existing_groups_only",
     status: "pending_frame_cycle",
   });
-  assert.equal(presentationPdfDonorRegister.status, "owner_attachments_received_pending_per_frame_pdf_draft_review");
+  assert.equal(presentationPdfDonorRegister.status, "owner_attachments_accepted_for_isolated_draft");
   assert.equal(presentationPdfDonorRegister.raw_pdf_served_by_demo, false);
   assert.equal(presentationPdfDonorRegister.controlled_pdf_to_png_render_allowed, true);
   assert.deepEqual(presentationPdfDonorRegister.donors.map((donor) => donor.frame_id), [

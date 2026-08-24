@@ -17,9 +17,9 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/presentation-pdf-donor-register.schema.json" },
-    "version": { "const": "2.0.0" },
+    "version": { "const": "2.1.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "owner_attachments_received_pending_per_frame_pdf_draft_review" },
+    "status": { "const": "owner_attachments_accepted_for_isolated_draft" },
     "inputs_committed_to_git": { "const": false },
     "raw_pdf_served_by_demo": { "const": false },
     "controlled_pdf_to_png_render_allowed": { "const": true },
@@ -55,7 +55,7 @@
         "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "page_count": { "const": 3 },
         "use": { "const": "approved_pdf_to_png" },
-        "status": { "const": "owner_attachment_received_pending_pdf_draft_review" }
+        "status": { "const": "owner_attachment_accepted_for_isolated_draft" }
       }
     }
   }
