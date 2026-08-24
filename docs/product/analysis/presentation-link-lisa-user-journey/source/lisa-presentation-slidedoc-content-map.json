@@ -1,0 +1,64 @@
+{
+  "$schema": "schemas/lisa-presentation-variant-content-map.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "frame_id": "lisa-presentation-slidedoc",
+  "status": "prepared_for_initial_canonical_svg_composition",
+  "visual_donor_id": "presentation_variant_slidedoc_pdf_donor",
+  "visual_reference_only": true,
+  "raw_pdf_direct_render_prohibited": true,
+  "content_source": {
+    "path": "source/client-reference-data.json",
+    "status": "approved_for_demo_model",
+    "data_mutation_allowed": false
+  },
+  "forbidden_donor_content": [
+    "ГК Достовалова",
+    "szh-dense-slidedoc-4x.png",
+    "raw PDF text or numeric layers"
+  ],
+  "allowed_model_fact_exception": "Доставалова Ирина Антоновна",
+  "readability_policy": {
+    "draft_page_dimensions": { "width": 960, "height": 540 },
+    "minimum_body_font_size_px": 10,
+    "minimum_table_font_size_px": 10,
+    "minimum_card_heading_font_size_px": 14,
+    "minimum_line_height_px": 12,
+    "all_model_facts_must_remain_visible": true,
+    "individual_page_pngs_required_for_owner_review": true
+  },
+  "pages": [
+    {
+      "page": 1,
+      "covered_group_ids": ["general_information", "business_owners", "financial_indicators"],
+      "content_bindings": [
+        { "svg_group_id": "slidedoc-page-1-general-information", "group_id": "general_information", "data_path": "/data_groups/0", "fact_indexes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
+        { "svg_group_id": "slidedoc-page-1-business-owners", "group_id": "business_owners", "data_path": "/data_groups/1", "fact_indexes": [0, 1, 2, 3, 4, 5] },
+        { "svg_group_id": "slidedoc-page-1-financial-indicators", "group_id": "financial_indicators", "data_path": "/data_groups/2", "fact_indexes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] }
+      ]
+    },
+    {
+      "page": 2,
+      "covered_group_ids": ["cooperation", "sber_share", "active_deals", "potential", "preapproved_offers"],
+      "content_bindings": [
+        { "svg_group_id": "slidedoc-page-2-cooperation", "group_id": "cooperation", "data_path": "/data_groups/3", "fact_indexes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24] },
+        { "svg_group_id": "slidedoc-page-2-sber-share", "group_id": "sber_share", "data_path": "/data_groups/4", "fact_indexes": [0, 1, 2, 3, 4, 5] },
+        { "svg_group_id": "slidedoc-page-2-active-deals", "group_id": "active_deals", "data_path": "/data_groups/5", "fact_indexes": [0, 1, 2] },
+        { "svg_group_id": "slidedoc-page-2-potential", "group_id": "potential", "data_path": "/data_groups/6", "fact_indexes": [0, 1] },
+        { "svg_group_id": "slidedoc-page-2-preapproved-offers", "group_id": "preapproved_offers", "data_path": "/data_groups/7", "fact_indexes": [0, 1] }
+      ]
+    },
+    {
+      "page": 3,
+      "covered_group_ids": ["insights", "meeting_agreements", "dynamic_suggestions", "actions"],
+      "content_bindings": [
+        { "svg_group_id": "slidedoc-page-3-insights", "group_id": "insights", "data_path": "/data_groups/8", "fact_indexes": [0, 1, 2, 3] },
+        { "svg_group_id": "slidedoc-page-3-meeting-agreements", "group_id": "meeting_agreements", "data_path": "/data_groups/9", "fact_indexes": [0, 1, 2, 3] },
+        { "svg_group_id": "slidedoc-page-3-dynamic-suggestions", "group_id": "dynamic_suggestions", "data_path": "/data_groups/10", "fact_indexes": [0, 1, 2, 3] },
+        { "svg_group_id": "slidedoc-page-3-actions", "group_id": "actions", "data_path": "/data_groups/11", "fact_indexes": [0, 1, 2, 3, 4, 5] }
+      ]
+    }
+  ],
+  "initial_svg_creation_rule": "new_vector_composition_from_visual_tokens_then_existing_groups_only",
+  "active_release_mutation_prohibited": true
+}

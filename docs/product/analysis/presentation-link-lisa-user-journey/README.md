@@ -33,6 +33,7 @@
 - [Принятая исправляющая версия кадра начала формирования](candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md) — изолированный SVG, в котором системное время приведено к `13:24`; это принятая основа следующего кадра, а действующий выпуск не меняется.
 - [Принятый кадр успешной отправки](candidate-evidence/frame-review/lisa-presentation-sent/review.md) — изолированный SVG и PNG с согласованным сообщением об отправке; следующий черновик может создаваться отдельно, а действующий выпуск не меняется.
 - [Принятый кадр письма с презентациями](candidate-evidence/frame-review/lisa-presentation-email/review.md) — самостоятельная SVG-композиция по предоставленному образцу Outlook; в письме сохранены согласованные тема, текст и два вложения PPTX и PDF.
+- [Черновой кадр презентации SlideDoc](candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md) — три PNG, полученные только из нового SVG по данным ООО «Водолей Трейд»; ожидается отдельная приёмка владельца.
 - [Галерея трёх черновых PNG ошибок в 13:40](candidate-evidence/frame-review/error-frames-13-40-review.md) — изображения трёх принятых кадров на одной странице.
 - [Принятый кадр непринятия данных](candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review.md) — заменяет сообщение о начале после погасшей кнопки.
 - [Принятый кадр задержки доставки](candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md) — продолжает сообщение о начале на том же экране.

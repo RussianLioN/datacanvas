@@ -353,8 +353,8 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "4.0.0");
-  assert.equal(contract.status, "inactive_pending_presentation_variant_svg_sources_and_frame_approval");
+  assert.equal(contract.version, "4.1.0");
+  assert.equal(contract.status, "inactive_pending_presentation_variant_frame_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);
   assert.equal(contract.render_allowed, false);
@@ -447,7 +447,12 @@ test("выбранные тексты и покадровые источники
       "svg_editing_mode",
       "svg_visual_check_status",
     ]);
-    assert.equal(frame.svg_editing_mode, "canonical_svg_existing_groups_only");
+    assert.equal(
+      frame.svg_editing_mode,
+      frame.frame_id === "lisa-presentation-slidedoc"
+        ? "new_canonical_svg_composition_from_pdf_visual_reference"
+        : "canonical_svg_existing_groups_only",
+    );
     if (frame.frame_id === "lisa-materials-full-reference") {
       assert.deepEqual(frame, {
         frame_id: "lisa-materials-full-reference",
@@ -498,6 +503,16 @@ test("выбранные тексты и покадровые источники
         draft_png_status: "rendered_current_resolution",
         owner_frame_approval_status: "approved",
       });
+    } else if (frame.frame_id === "lisa-presentation-slidedoc") {
+      assert.deepEqual(frame, {
+        frame_id: "lisa-presentation-slidedoc",
+        svg_editing_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
+        canonical_svg_status: "prepared_new_canonical_svg_composition",
+        approved_text_status: "approved_for_demo_model",
+        svg_visual_check_status: "passed",
+        draft_png_status: "rendered_current_resolution",
+        owner_frame_approval_status: "pending",
+      });
     } else if (["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"].includes(frame.frame_id)) {
       assert.deepEqual(frame, {
         frame_id: frame.frame_id,
@@ -523,21 +538,21 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-    status: "presentation_variant_frames_blocked_pending_canonical_svg_sources",
-    current_frame_id: "lisa-presentation-email",
-    next_frame_id: "lisa-presentation-slidedoc",
-    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
-    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png",
-    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
-    base_frame_id: "lisa-presentation-sent",
-    base_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
-    base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    status: "presentation_variant_frame_pending_owner_approval",
+    current_frame_id: "lisa-presentation-slidedoc",
+    next_frame_id: "lisa-presentation-sber2025",
+    source_svg_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
+    draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
+    review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
+    base_frame_id: "lisa-presentation-email",
+    base_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
+    base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
     transition_rendering_mode: "separate_desktop_frame",
     dynamic_footer: null,
-    edit_mode: "approved_svg_composition_from_owner_visual_reference",
+    edit_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
     prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
     active_release_mutation_prohibited: true,
-    owner_approval_record_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
+    owner_approval_record_path: null,
     next_frame_blocked_until_owner_approval: true,
     skipped_frame_id: "lisa-presentation-chat-list",
     skipped_frame_reason: "owner_direction_no_rework",
@@ -741,10 +756,10 @@ test("принятый кадр начала ведёт к отдельному 
     owner_frame_approval_status: "not_required",
   }, "список чатов должен быть явно исключён владельцем из текущей переработки, а не неявно пропущен");
 
-  assert.equal(contract.frame_review_session.current_frame_id, "lisa-presentation-email");
+  assert.equal(contract.frame_review_session.current_frame_id, "lisa-presentation-slidedoc");
   assert.equal(contract.frame_review_session.skipped_frame_id, "lisa-presentation-chat-list");
   assert.equal(contract.frame_review_session.skipped_frame_reason, "owner_direction_no_rework");
-  assert.equal(contract.frame_review_session.next_frame_id, "lisa-presentation-slidedoc");
+  assert.equal(contract.frame_review_session.next_frame_id, "lisa-presentation-sber2025");
   assert.deepEqual(contract.frame_review_session.error_review_batch, {
     contract_path: "source/error-frame-review-contract.json",
     candidate_frame_ids: ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],

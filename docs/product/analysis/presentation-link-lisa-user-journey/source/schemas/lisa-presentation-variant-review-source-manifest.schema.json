@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-presentation-variant-review-source-manifest.schema.json",
+  "title": "Манифест SVG-первичного чернового варианта презентации Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "frame_id", "status", "visual_donor_id", "visual_reference_only", "raw_pdf_direct_render_used", "content_map_path", "content_map_sha256", "client_reference_data_path", "client_reference_data_sha256", "source_svg_path", "source_svg_sha256", "source_svg_dimensions", "page_count", "geometry_check", "active_release_mutation_prohibited", "draft_png_rendered", "draft_png_path", "draft_png_sha256", "draft_png_dimensions", "draft_png_non_white_pixel_count", "draft_page_pngs", "owner_frame_approval"],
+  "properties": {
+    "$schema": { "const": "../../../source/schemas/lisa-presentation-variant-review-source-manifest.schema.json" },
+    "version": { "const": "1.1.0" },
+    "frame_id": { "const": "lisa-presentation-slidedoc" },
+    "status": { "enum": ["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval", "owner_frame_approved"] },
+    "visual_donor_id": { "const": "presentation_variant_slidedoc_pdf_donor" },
+    "visual_reference_only": { "const": true },
+    "raw_pdf_direct_render_used": { "const": false },
+    "content_map_path": { "const": "source/lisa-presentation-slidedoc-content-map.json" },
+    "content_map_sha256": { "$ref": "#/$defs/sha256" },
+    "client_reference_data_path": { "const": "source/client-reference-data.json" },
+    "client_reference_data_sha256": { "$ref": "#/$defs/sha256" },
+    "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg" },
+    "source_svg_sha256": { "$ref": "#/$defs/sha256" },
+    "source_svg_dimensions": { "const": { "width": 960, "height": 1620 } },
+    "page_count": { "const": 3 },
+    "geometry_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["elements_outside_canvas_count", "cross_page_overlap_count", "text_overflow_count", "embedded_raster_count", "external_resource_count", "readability_check"],
+      "properties": {
+        "elements_outside_canvas_count": { "const": 0 },
+        "cross_page_overlap_count": { "const": 0 },
+        "text_overflow_count": { "const": 0 },
+        "embedded_raster_count": { "const": 0 },
+        "external_resource_count": { "const": 0 },
+        "readability_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["minimum_body_font_size_px", "minimum_table_font_size_px", "minimum_card_heading_font_size_px", "minimum_line_height_px", "below_minimum_font_size_count", "out_of_card_text_count", "page_capacity_violations"],
+          "properties": {
+            "minimum_body_font_size_px": { "const": 10 },
+            "minimum_table_font_size_px": { "const": 10 },
+            "minimum_card_heading_font_size_px": { "const": 14 },
+            "minimum_line_height_px": { "const": 12 },
+            "below_minimum_font_size_count": { "const": 0 },
+            "out_of_card_text_count": { "const": 0 },
+            "page_capacity_violations": { "const": 0 }
+          }
+        }
+      }
+    },
+    "active_release_mutation_prohibited": { "const": true },
+    "draft_png_rendered": { "type": "boolean" },
+    "draft_png_path": { "type": ["string", "null"] },
+    "draft_png_sha256": { "anyOf": [{ "$ref": "#/$defs/sha256" }, { "type": "null" }] },
+    "draft_png_dimensions": { "anyOf": [{ "const": { "width": 960, "height": 1620 } }, { "type": "null" }] },
+    "draft_png_non_white_pixel_count": { "type": ["integer", "null"], "minimum": 1 },
+    "draft_page_pngs": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "array", "minItems": 3, "maxItems": 3, "items": { "$ref": "#/$defs/draftPage" } }
+      ]
+    },
+    "owner_frame_approval": { "type": "null" }
+  },
+  "allOf": [
+    { "if": { "properties": { "status": { "const": "svg_source_prepared_pending_visual_check" } }, "required": ["status"] }, "then": { "properties": { "draft_png_rendered": { "const": false }, "draft_png_path": { "type": "null" }, "draft_png_sha256": { "type": "null" }, "draft_png_dimensions": { "type": "null" }, "draft_png_non_white_pixel_count": { "type": "null" }, "draft_page_pngs": { "type": "null" } } } },
+    { "if": { "properties": { "status": { "const": "draft_png_rendered_pending_owner_approval" } }, "required": ["status"] }, "then": { "properties": { "draft_png_rendered": { "const": true }, "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png" }, "draft_png_sha256": { "$ref": "#/$defs/sha256" }, "draft_png_dimensions": { "const": { "width": 960, "height": 1620 } }, "draft_png_non_white_pixel_count": { "type": "integer", "minimum": 1 }, "draft_page_pngs": { "type": "array", "minItems": 3, "maxItems": 3 } } } }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "draftPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["page", "path", "sha256", "dimensions", "non_white_pixel_count"],
+      "properties": {
+        "page": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "path": { "type": "string", "pattern": "^candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-[1-3]\\.png$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "dimensions": { "const": { "width": 960, "height": 540 } },
+        "non_white_pixel_count": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

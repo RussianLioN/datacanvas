@@ -252,8 +252,8 @@
           "actions"
         ],
         "pages": [
-          { "page": 1, "covered_group_ids": ["general_information", "business_owners", "financial_indicators", "cooperation"] },
-          { "page": 2, "covered_group_ids": ["sber_share", "active_deals", "potential", "preapproved_offers"] },
+          { "page": 1, "covered_group_ids": ["general_information", "business_owners", "financial_indicators"] },
+          { "page": 2, "covered_group_ids": ["cooperation", "sber_share", "active_deals", "potential", "preapproved_offers"] },
           { "page": 3, "covered_group_ids": ["insights", "meeting_agreements", "dynamic_suggestions", "actions"] }
         ]
       },

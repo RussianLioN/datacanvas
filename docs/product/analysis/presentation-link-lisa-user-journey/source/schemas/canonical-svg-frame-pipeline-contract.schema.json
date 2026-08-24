@@ -22,6 +22,7 @@
     "message_topics",
     "text_selection_source",
     "presentation_pdf_donor_register",
+    "presentation_variant_initial_svg_creation",
     "client_reference_svg_update",
     "external_sources",
     "frame_svg_sources",
@@ -32,9 +33,9 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "4.0.0" },
+    "version": { "const": "4.1.0" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "const": "inactive_pending_presentation_variant_svg_sources_and_frame_approval" },
+    "status": { "const": "inactive_pending_presentation_variant_frame_approval" },
     "active": { "const": false },
     "generator_input": { "const": false },
     "render_allowed": { "const": false },
@@ -100,6 +101,7 @@
       }
     },
     "presentation_pdf_donor_register": { "$ref": "#/$defs/presentation_pdf_donor_register" },
+    "presentation_variant_initial_svg_creation": { "$ref": "#/$defs/presentation_variant_initial_svg_creation" },
     "client_reference_svg_update": { "$ref": "#/$defs/client_reference_svg_update" },
     "external_sources": {
       "type": "array",
@@ -242,7 +244,12 @@
       ],
       "properties": {
         "frame_id": { "$ref": "#/$defs/state_id" },
-        "svg_editing_mode": { "const": "canonical_svg_existing_groups_only" },
+        "svg_editing_mode": {
+          "enum": [
+            "canonical_svg_existing_groups_only",
+            "new_canonical_svg_composition_from_pdf_visual_reference"
+          ]
+        },
         "canonical_svg_status": { "type": "string" },
         "approved_text_status": { "type": "string" },
         "svg_visual_check_status": { "type": "string" },
@@ -313,26 +320,46 @@
                                 {
                                   "if": {
                                     "properties": {
-                                      "frame_id": { "enum": ["lisa-presentation-email", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] }
+                                      "frame_id": { "const": "lisa-presentation-slidedoc" }
                                     }
                                   },
                                   "then": {
                                     "properties": {
-                                      "canonical_svg_status": { "enum": ["prepared_existing_group_content_replaced", "prepared_visual_reference_composition"] },
-                                      "approved_text_status": { "enum": ["authoritative_interview_agreed", "owner_approved"] },
+                                      "canonical_svg_status": { "const": "prepared_new_canonical_svg_composition" },
+                                      "approved_text_status": { "const": "approved_for_demo_model" },
                                       "svg_visual_check_status": { "const": "passed" },
                                       "draft_png_status": { "const": "rendered_current_resolution" },
-                                      "owner_frame_approval_status": { "const": "approved" }
+                                      "owner_frame_approval_status": { "const": "pending" }
                                     }
                                   },
                                   "else": {
-                                    "properties": {
-                                      "canonical_svg_status": { "const": "pending_source" },
-                                      "approved_text_status": { "const": "pending" },
-                                      "svg_visual_check_status": { "const": "pending" },
-                                      "draft_png_status": { "const": "blocked" },
-                                      "owner_frame_approval_status": { "const": "pending" }
-                                    }
+                                    "allOf": [
+                                      {
+                                        "if": {
+                                          "properties": {
+                                            "frame_id": { "enum": ["lisa-presentation-email", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] }
+                                          }
+                                        },
+                                        "then": {
+                                          "properties": {
+                                            "canonical_svg_status": { "enum": ["prepared_existing_group_content_replaced", "prepared_visual_reference_composition"] },
+                                            "approved_text_status": { "enum": ["authoritative_interview_agreed", "owner_approved"] },
+                                            "svg_visual_check_status": { "const": "passed" },
+                                            "draft_png_status": { "const": "rendered_current_resolution" },
+                                            "owner_frame_approval_status": { "const": "approved" }
+                                          }
+                                        },
+                                        "else": {
+                                          "properties": {
+                                            "canonical_svg_status": { "const": "pending_source" },
+                                            "approved_text_status": { "const": "pending" },
+                                            "svg_visual_check_status": { "const": "pending" },
+                                            "draft_png_status": { "const": "blocked" },
+                                            "owner_frame_approval_status": { "const": "pending" }
+                                          }
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               ]
@@ -374,21 +401,21 @@
         "error_review_batch"
       ],
       "properties": {
-        "status": { "const": "presentation_variant_frames_blocked_pending_canonical_svg_sources" },
-        "current_frame_id": { "const": "lisa-presentation-email" },
-        "next_frame_id": { "const": "lisa-presentation-slidedoc" },
-        "source_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-email/source.svg" },
-        "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png" },
-        "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json" },
-        "base_frame_id": { "const": "lisa-presentation-sent" },
-        "base_svg_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg" },
-        "base_owner_approval_path": { "const": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json" },
+        "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval"] },
+        "current_frame_id": { "enum": ["lisa-presentation-email", "lisa-presentation-slidedoc"] },
+        "next_frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025"] },
+        "source_svg_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/source.svg", "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg"] },
+        "draft_png_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png", "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png"] },
+        "review_manifest_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json", "candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json"] },
+        "base_frame_id": { "enum": ["lisa-presentation-sent", "lisa-presentation-email"] },
+        "base_svg_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-sent/source.svg", "candidate-evidence/frame-review/lisa-presentation-email/source.svg"] },
+        "base_owner_approval_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json", "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json"] },
         "transition_rendering_mode": { "const": "separate_desktop_frame" },
         "dynamic_footer": { "type": "null" },
-        "edit_mode": { "const": "approved_svg_composition_from_owner_visual_reference" },
+        "edit_mode": { "enum": ["approved_svg_composition_from_owner_visual_reference", "new_canonical_svg_composition_from_pdf_visual_reference"] },
         "prohibited_legacy_overlay_ids": { "const": ["html_overlay", "css_overlay", "png_text_overlay"] },
         "active_release_mutation_prohibited": { "const": true },
-        "owner_approval_record_path": { "const": "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json" },
+        "owner_approval_record_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json", null] },
         "next_frame_blocked_until_owner_approval": { "const": true },
         "skipped_frame_id": { "const": "lisa-presentation-chat-list" },
         "skipped_frame_reason": { "const": "owner_direction_no_rework" },
@@ -421,6 +448,19 @@
         "path": { "const": "source/presentation-pdf-donor-register.json" },
         "raw_pdf_direct_render_prohibited": { "const": true },
         "all_received_pdf_donors_require_canonical_svg": { "const": true }
+      }
+    },
+    "presentation_variant_initial_svg_creation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "content_map_path", "initial_svg_editing_mode", "subsequent_svg_editing_mode", "raw_pdf_direct_render_prohibited", "active_release_mutation_prohibited"],
+      "properties": {
+        "frame_id": { "const": "lisa-presentation-slidedoc" },
+        "content_map_path": { "const": "source/lisa-presentation-slidedoc-content-map.json" },
+        "initial_svg_editing_mode": { "const": "new_canonical_svg_composition_from_pdf_visual_reference" },
+        "subsequent_svg_editing_mode": { "const": "canonical_svg_existing_groups_only" },
+        "raw_pdf_direct_render_prohibited": { "const": true },
+        "active_release_mutation_prohibited": { "const": true }
       }
     },
     "client_reference_svg_update": {

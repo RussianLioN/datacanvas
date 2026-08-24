@@ -520,8 +520,26 @@ function validateCandidate(candidate, approvedTexts) {
 function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister) {
   assertNoLocalOrRawSourcePaths(svgPipeline);
   assertNoRawSourceTracesInJson(svgPipeline);
-  if (svgPipeline.status !== "inactive_pending_presentation_variant_svg_sources_and_frame_approval") {
-    throw new Error("SVG pipeline must wait for presentation variant SVG sources and frame approval after accepted email frame");
+  if (svgPipeline.status !== "inactive_pending_presentation_variant_frame_approval") {
+    throw new Error("SVG pipeline must wait for owner approval of the prepared SlideDoc frame before the next presentation variant");
+  }
+  const slideDocFrame = svgPipeline.frame_svg_sources.find((frame) => frame.frame_id === "lisa-presentation-slidedoc");
+  if (
+    JSON.stringify(slideDocFrame) !== JSON.stringify({
+      frame_id: "lisa-presentation-slidedoc",
+      svg_editing_mode: "new_canonical_svg_composition_from_pdf_visual_reference",
+      canonical_svg_status: "prepared_new_canonical_svg_composition",
+      approved_text_status: "approved_for_demo_model",
+      svg_visual_check_status: "passed",
+      draft_png_status: "rendered_current_resolution",
+      owner_frame_approval_status: "pending",
+    }) ||
+    svgPipeline.frame_review_session?.current_frame_id !== "lisa-presentation-slidedoc" ||
+    svgPipeline.frame_review_session?.next_frame_id !== "lisa-presentation-sber2025" ||
+    svgPipeline.frame_review_session?.owner_approval_record_path !== null ||
+    svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== true
+  ) {
+    throw new Error("SVG pipeline must keep the prepared SlideDoc candidate isolated and block the next presentation variant until owner approval");
   }
   if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("SVG pipeline message topics must match the five selected text topics");

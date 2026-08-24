@@ -1,8 +1,8 @@
 {
   "$schema": "schemas/canonical-svg-frame-pipeline-contract.schema.json",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "change_order_id": "CO-2026-003",
-  "status": "inactive_pending_presentation_variant_svg_sources_and_frame_approval",
+  "status": "inactive_pending_presentation_variant_frame_approval",
   "active": false,
   "generator_input": false,
   "render_allowed": false,
@@ -186,6 +186,14 @@
     "raw_pdf_direct_render_prohibited": true,
     "all_received_pdf_donors_require_canonical_svg": true
   },
+  "presentation_variant_initial_svg_creation": {
+    "frame_id": "lisa-presentation-slidedoc",
+    "content_map_path": "source/lisa-presentation-slidedoc-content-map.json",
+    "initial_svg_editing_mode": "new_canonical_svg_composition_from_pdf_visual_reference",
+    "subsequent_svg_editing_mode": "canonical_svg_existing_groups_only",
+    "raw_pdf_direct_render_prohibited": true,
+    "active_release_mutation_prohibited": true
+  },
   "client_reference_svg_update": {
     "source_data_path": "source/client-reference-data.json",
     "historical_client_marker": "ГК Достовалова",
@@ -323,11 +331,11 @@
     },
     {
       "frame_id": "lisa-presentation-slidedoc",
-      "svg_editing_mode": "canonical_svg_existing_groups_only",
-      "canonical_svg_status": "pending_source",
-      "approved_text_status": "pending",
-      "svg_visual_check_status": "pending",
-      "draft_png_status": "blocked",
+      "svg_editing_mode": "new_canonical_svg_composition_from_pdf_visual_reference",
+      "canonical_svg_status": "prepared_new_canonical_svg_composition",
+      "approved_text_status": "approved_for_demo_model",
+      "svg_visual_check_status": "passed",
+      "draft_png_status": "rendered_current_resolution",
       "owner_frame_approval_status": "pending"
     },
     {
@@ -377,25 +385,25 @@
     }
   ],
   "frame_review_session": {
-    "status": "presentation_variant_frames_blocked_pending_canonical_svg_sources",
-    "current_frame_id": "lisa-presentation-email",
-    "next_frame_id": "lisa-presentation-slidedoc",
-    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
-    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png",
-    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
-    "base_frame_id": "lisa-presentation-sent",
-    "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
-    "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    "status": "presentation_variant_frame_pending_owner_approval",
+    "current_frame_id": "lisa-presentation-slidedoc",
+    "next_frame_id": "lisa-presentation-sber2025",
+    "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
+    "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
+    "review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
+    "base_frame_id": "lisa-presentation-email",
+    "base_svg_path": "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
+    "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
     "transition_rendering_mode": "separate_desktop_frame",
     "dynamic_footer": null,
-    "edit_mode": "approved_svg_composition_from_owner_visual_reference",
+    "edit_mode": "new_canonical_svg_composition_from_pdf_visual_reference",
     "prohibited_legacy_overlay_ids": [
       "html_overlay",
       "css_overlay",
       "png_text_overlay"
     ],
     "active_release_mutation_prohibited": true,
-    "owner_approval_record_path": "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
+    "owner_approval_record_path": null,
     "next_frame_blocked_until_owner_approval": true,
     "skipped_frame_id": "lisa-presentation-chat-list",
     "skipped_frame_reason": "owner_direction_no_rework",

@@ -4149,6 +4149,26 @@
       "artifact_registry_required": false
     },
     {
+      "route_id": "presentation-link-lisa-user-journey-slidedoc-frame-review",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "in_progress",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Владелец принимает или возвращает на доработку SVG-первичный кадр презентации SlideDoc.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
       "route_id": "presentation-link-lisa-user-journey-generating-clock-13-24-frame-review",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
       "section": "product",

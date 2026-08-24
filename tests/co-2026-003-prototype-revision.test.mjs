@@ -188,7 +188,7 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   const emailFrame = candidate.frames.find((frame) => frame.id === "lisa-presentation-email");
   assert.equal(emailFrame.requires_new_editable_source, false);
   assert.equal(emailFrame.review_status, "owner_frame_approved");
-  assert.equal(svgPipeline.status, "inactive_pending_presentation_variant_svg_sources_and_frame_approval");
+  assert.equal(svgPipeline.status, "inactive_pending_presentation_variant_frame_approval");
   assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
   assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
   assert.deepEqual(svgPipeline.client_reference_svg_update, {
