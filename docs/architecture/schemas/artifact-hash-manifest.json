@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "fd52d6f26b2715cc3691d4287b4e2681df5980623bb369679a5b28f72cd293ed"
+      "sha256": "a1e0a9717676a04c169a7e1100676d4be4f74333576365ad7a11080c7c5439a7"
     },
     {
       "artifact_id": "ART-411",
@@ -4167,12 +4167,12 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "f7ba16d0de25655e75e83084df04ce73e4376c0b83f9c60602a09b2035f86277"
+      "sha256": "fc44fad0e7c6ca592a5d10570f83cc21f34a561e69cbf57b69082822158a0ad6"
     },
     {
       "artifact_id": "ART-836",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "sha256": "f2656996fc6e97fecf44a240fc24d26e025394c49f6cde4c938c6ea93b98971a"
+      "sha256": "44b506f28da51e6f99e5d5e792cf4acffc326f09d2f7550d8ec0aaf165938373"
     },
     {
       "artifact_id": "ART-837",

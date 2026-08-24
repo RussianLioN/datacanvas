@@ -93,6 +93,11 @@ const expectedPerFrameReview = Object.freeze({
   runtime_shell_parity_required: true,
   runtime_shell_source_path: "demo",
   allowed_runtime_differences: ["data.js", "assets/**"],
+  scale_parity: {
+    phone_layer_raster_scale: 3,
+    phone_logical_viewport: { width: 393, height: 852 },
+    desktop_viewports_from_historical_demo: true,
+  },
   allowed_changed_frame_count: 11,
   candidate_must_replace_same_frame_id: true,
   draft_prototype_all_future_frames_authorized: true,
@@ -358,7 +363,7 @@ test("неактивный договор наследует кадры и см�
   const contract = readJson(contractPath);
   const candidate = readJson(candidatePath);
 
-  assert.equal(contract.version, "4.2.0");
+  assert.equal(contract.version, "4.3.0");
   assert.equal(contract.status, "inactive_presentation_batch_drafts_pending_owner_approval");
   assert.equal(contract.active, false);
   assert.equal(contract.generator_input, false);

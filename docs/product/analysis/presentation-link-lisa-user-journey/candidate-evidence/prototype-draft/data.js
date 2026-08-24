@@ -89,14 +89,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -120,14 +120,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 2929
+            "width": 1179,
+            "height": 8787
           },
           "logical_dimensions": {
             "width": 393,
             "height": 2929
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -151,14 +151,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -185,14 +185,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -216,14 +216,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 2929
+              "width": 1179,
+              "height": 8787
             },
             "logical_dimensions": {
               "width": 393,
               "height": 2929
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -247,14 +247,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }
@@ -304,14 +304,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -335,14 +335,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 3011
+            "width": 1179,
+            "height": 9033
           },
           "logical_dimensions": {
             "width": 393,
             "height": 3011
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -366,14 +366,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -400,14 +400,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -431,14 +431,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 3011
+              "width": 1179,
+              "height": 9033
             },
             "logical_dimensions": {
               "width": 393,
               "height": 3011
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -462,14 +462,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }
@@ -734,14 +734,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -765,14 +765,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 3075
+            "width": 1179,
+            "height": 9225
           },
           "logical_dimensions": {
             "width": 393,
             "height": 3075
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -796,14 +796,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -830,14 +830,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -861,14 +861,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 3075
+              "width": 1179,
+              "height": 9225
             },
             "logical_dimensions": {
               "width": 393,
               "height": 3075
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -892,14 +892,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }
@@ -914,8 +914,8 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
       "scrollable": false,
       "action_ids": [],
       "viewport": {
-        "width": 1280,
-        "height": 960
+        "width": 1553,
+        "height": 1013
       },
       "content": {
         "width": 1280,
@@ -936,7 +936,12 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           "width": 1280,
           "height": 960
         },
-        "raster_scale": 1
+        "raster_scale": 1,
+        "source_pixel_dimensions": {
+          "width": 1280,
+          "height": 960
+        },
+        "source_raster_scale": 1
       }
     },
     {
@@ -971,7 +976,12 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           "width": 3840,
           "height": 6480
         },
-        "raster_scale": 1
+        "raster_scale": 4,
+        "source_pixel_dimensions": {
+          "width": 960,
+          "height": 1620
+        },
+        "source_raster_scale": 1
       }
     },
     {
@@ -1006,7 +1016,12 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           "width": 3840,
           "height": 6480
         },
-        "raster_scale": 1
+        "raster_scale": 4,
+        "source_pixel_dimensions": {
+          "width": 960,
+          "height": 1620
+        },
+        "source_raster_scale": 1
       }
     },
     {
@@ -1041,7 +1056,12 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
           "width": 3840,
           "height": 6480
         },
-        "raster_scale": 1
+        "raster_scale": 4,
+        "source_pixel_dimensions": {
+          "width": 960,
+          "height": 1620
+        },
+        "source_raster_scale": 1
       }
     },
     {
@@ -1089,14 +1109,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -1120,14 +1140,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 3075
+            "width": 1179,
+            "height": 9225
           },
           "logical_dimensions": {
             "width": 393,
             "height": 3075
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -1151,14 +1171,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -1185,14 +1205,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -1216,14 +1236,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 3075
+              "width": 1179,
+              "height": 9225
             },
             "logical_dimensions": {
               "width": 393,
               "height": 3075
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -1247,14 +1267,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }
@@ -1304,14 +1324,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -1335,14 +1355,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 3075
+            "width": 1179,
+            "height": 9225
           },
           "logical_dimensions": {
             "width": 393,
             "height": 3075
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -1366,14 +1386,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -1400,14 +1420,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -1431,14 +1451,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 3075
+              "width": 1179,
+              "height": 9225
             },
             "logical_dimensions": {
               "width": 393,
               "height": 3075
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -1462,14 +1482,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }
@@ -1519,14 +1539,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 53
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 53
+            "width": 1179,
+            "height": 159
           },
           "logical_dimensions": {
             "width": 393,
             "height": 53
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "scroll_content",
@@ -1550,14 +1570,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 765
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 3075
+            "width": 1179,
+            "height": 9225
           },
           "logical_dimensions": {
             "width": 393,
             "height": 3075
           },
-          "raster_scale": 1
+          "raster_scale": 3
         },
         {
           "role": "system_bottom",
@@ -1581,14 +1601,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
             "height": 34
           },
           "pixel_dimensions": {
-            "width": 393,
-            "height": 34
+            "width": 1179,
+            "height": 102
           },
           "logical_dimensions": {
             "width": 393,
             "height": 34
           },
-          "raster_scale": 1
+          "raster_scale": 3
         }
       ],
       "asset": {
@@ -1615,14 +1635,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 53
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 53
+              "width": 1179,
+              "height": 159
             },
             "logical_dimensions": {
               "width": 393,
               "height": 53
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "scroll_content",
@@ -1646,14 +1666,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 765
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 3075
+              "width": 1179,
+              "height": 9225
             },
             "logical_dimensions": {
               "width": 393,
               "height": 3075
             },
-            "raster_scale": 1
+            "raster_scale": 3
           },
           {
             "role": "system_bottom",
@@ -1677,14 +1697,14 @@ window.LISA_PROTOTYPE_DATA = Object.freeze({
               "height": 34
             },
             "pixel_dimensions": {
-              "width": 393,
-              "height": 34
+              "width": 1179,
+              "height": 102
             },
             "logical_dimensions": {
               "width": 393,
               "height": 34
             },
-            "raster_scale": 1
+            "raster_scale": 3
           }
         ]
       }

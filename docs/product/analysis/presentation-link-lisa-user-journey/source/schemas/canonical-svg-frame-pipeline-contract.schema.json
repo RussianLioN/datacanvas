@@ -33,7 +33,7 @@
   ],
   "properties": {
     "$schema": { "const": "schemas/canonical-svg-frame-pipeline-contract.schema.json" },
-    "version": { "const": "4.2.0" },
+    "version": { "const": "4.3.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "inactive_presentation_batch_drafts_pending_owner_approval" },
     "active": { "const": false },
@@ -570,6 +570,7 @@
         "runtime_shell_parity_required",
         "runtime_shell_source_path",
         "allowed_runtime_differences",
+        "scale_parity",
         "allowed_changed_frame_count",
         "candidate_must_replace_same_frame_id",
         "draft_prototype_all_future_frames_authorized",
@@ -584,6 +585,16 @@
         "runtime_shell_source_path": { "const": "demo" },
         "allowed_runtime_differences": {
           "const": ["data.js", "assets/**"]
+        },
+        "scale_parity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["phone_layer_raster_scale", "phone_logical_viewport", "desktop_viewports_from_historical_demo"],
+          "properties": {
+            "phone_layer_raster_scale": { "const": 3 },
+            "phone_logical_viewport": { "const": { "width": 393, "height": 852 } },
+            "desktop_viewports_from_historical_demo": { "const": true }
+          }
         },
         "allowed_changed_frame_count": { "const": 11 },
         "candidate_must_replace_same_frame_id": { "const": true },

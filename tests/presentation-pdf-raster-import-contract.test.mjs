@@ -22,6 +22,9 @@ test("договор импорта презентаций отделяет ут
     rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     runtime_shell_source_path: "demo",
     allowed_runtime_differences: ["data.js", "assets/**"],
+    presentation_viewport: { width: 960, height: 540 },
+    draft_source_raster_scale: 1,
+    historical_display_raster_scale: 4,
     active_release_mutation_prohibited: true,
   });
   assert.equal(contract.variants.length, 3);

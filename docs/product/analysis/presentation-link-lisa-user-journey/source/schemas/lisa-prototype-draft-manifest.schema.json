@@ -4,10 +4,10 @@
   "title": "Манифест изолированного чернового прототипа CO-2026-003",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "version", "status", "rendering_mode", "shell_parity", "source_runtime_sha256", "active_release_mutation_prohibited", "raw_pdf_included", "frame_ids", "frames"],
+  "required": ["$schema", "version", "status", "rendering_mode", "shell_parity", "scale_parity", "source_runtime_sha256", "active_release_mutation_prohibited", "raw_pdf_included", "frame_ids", "frames"],
   "properties": {
     "$schema": { "const": "../../source/schemas/lisa-prototype-draft-manifest.schema.json" },
-    "version": { "const": "1.1.0" },
+    "version": { "const": "1.2.0" },
     "status": { "const": "draft_prototype_rendered_pending_owner_approval" },
     "rendering_mode": { "const": "isolated_current_prototype_copy_with_frame_asset_substitution" },
     "shell_parity": {
@@ -19,6 +19,18 @@
         "app_js_source": { "const": "demo/app.js" },
         "styles_css_source": { "const": "demo/styles.css" },
         "navigation_model": { "const": "previous_prototype_state_and_document_navigation" }
+      }
+    },
+    "scale_parity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phone_layer_raster_scale", "phone_logical_viewport", "desktop_viewports_from_historical_demo"],
+      "properties": {
+        "phone_layer_raster_scale": { "const": 3 },
+        "phone_logical_viewport": {
+          "const": { "width": 393, "height": 852 }
+        },
+        "desktop_viewports_from_historical_demo": { "const": true }
       }
     },
     "source_runtime_sha256": {

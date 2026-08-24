@@ -38,6 +38,11 @@ const expectedPerFrameReview = Object.freeze({
   runtime_shell_parity_required: true,
   runtime_shell_source_path: "demo",
   allowed_runtime_differences: ["data.js", "assets/**"],
+  scale_parity: {
+    phone_layer_raster_scale: 3,
+    phone_logical_viewport: { width: 393, height: 852 },
+    desktop_viewports_from_historical_demo: true,
+  },
   allowed_changed_frame_count: 11,
   candidate_must_replace_same_frame_id: true,
   draft_prototype_all_future_frames_authorized: true,
@@ -322,7 +327,7 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
-  if (contract.version !== "4.2.0" || contract.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
+  if (contract.version !== "4.3.0" || contract.status !== "inactive_presentation_batch_drafts_pending_owner_approval") {
     throw new Error("версия договора должна фиксировать пакет черновиков презентаций, ожидающий индивидуальной приёмки");
   }
 }

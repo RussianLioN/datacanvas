@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/presentation-pdf-raster-import-contract.schema.json",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "change_order_id": "CO-2026-003",
   "status": "all_presentation_drafts_authorized",
   "import_mode": "approved_pdf_to_png",
@@ -20,6 +20,12 @@
       "data.js",
       "assets/**"
     ],
+    "presentation_viewport": {
+      "width": 960,
+      "height": 540
+    },
+    "draft_source_raster_scale": 1,
+    "historical_display_raster_scale": 4,
     "active_release_mutation_prohibited": true
   },
   "per_frame_review": {

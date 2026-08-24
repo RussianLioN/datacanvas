@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import vm from "node:vm";
 
 import { webkit } from "playwright";
 
@@ -16,6 +17,8 @@ const PHONE_SOURCE_WIDTH = 393;
 const PHONE_TOP_HEIGHT = 53;
 const PHONE_BOTTOM_HEIGHT = 34;
 const PHONE_BOTTOM_MARGIN = 80;
+const PHONE_RUNTIME_RASTER_SCALE = 3;
+const HISTORICAL_EMAIL_VIEWPORT = Object.freeze({ width: 1553, height: 1013 });
 const PHONE_SEGMENT_VIEWPORT_RECTS = Object.freeze({
   system_top: Object.freeze({ x: 0, y: 0, width: 393, height: 53 }),
   scroll_content: Object.freeze({ x: 0, y: 53, width: 393, height: 765 }),
@@ -157,7 +160,7 @@ async function cropPhoneLayers(sourceFile, dimensions, rects, label) {
   try {
     const context = await browser.newContext({
       viewport: dimensions,
-      deviceScaleFactor: 1,
+      deviceScaleFactor: PHONE_RUNTIME_RASTER_SCALE,
       javaScriptEnabled: false,
       colorScheme: "light",
       locale: "ru-RU",
@@ -177,7 +180,7 @@ async function cropPhoneLayers(sourceFile, dimensions, rects, label) {
     for (const [role, rect] of Object.entries(rects)) {
       output[role] = canonicalizeApprovedPng(
         await page.screenshot({ type: "png", clip: rect, timeout: 30_000 }),
-        { width: rect.width, height: rect.height },
+        { width: rect.width * PHONE_RUNTIME_RASTER_SCALE, height: rect.height * PHONE_RUNTIME_RASTER_SCALE },
         `${label}: ${role}`,
       );
     }
@@ -200,9 +203,12 @@ function phoneLayer(frameId, role, sourceRect) {
     source_rect: sourceRect,
     viewport_rect: PHONE_SEGMENT_VIEWPORT_RECTS[role],
     destination_rect: PHONE_SEGMENT_VIEWPORT_RECTS[role],
-    pixel_dimensions: { width: sourceRect.width, height: sourceRect.height },
+    pixel_dimensions: {
+      width: sourceRect.width * PHONE_RUNTIME_RASTER_SCALE,
+      height: sourceRect.height * PHONE_RUNTIME_RASTER_SCALE,
+    },
     logical_dimensions: { width: sourceRect.width, height: sourceRect.height },
-    raster_scale: 1,
+    raster_scale: PHONE_RUNTIME_RASTER_SCALE,
   };
 }
 
@@ -263,7 +269,7 @@ function chatListState(index) {
 
 function desktopState(spec, index, dimensions) {
   const documentFrame = spec.kind === "presentation";
-  const viewport = documentFrame ? { width: 960, height: 540 } : spec.viewport;
+  const viewport = documentFrame ? { width: 960, height: 540 } : HISTORICAL_EMAIL_VIEWPORT;
   return {
     id: spec.id,
     order: index + 1,
@@ -281,7 +287,9 @@ function desktopState(spec, index, dimensions) {
       src: `assets/${spec.id}.png`,
       logical_dimensions: documentFrame ? { width: 960, height: 1620 } : dimensions,
       pixel_dimensions: documentFrame ? { width: 3840, height: 6480 } : dimensions,
-      raster_scale: 1,
+      raster_scale: documentFrame ? 4 : 1,
+      source_pixel_dimensions: dimensions,
+      source_raster_scale: 1,
     },
   };
 }
@@ -358,7 +366,7 @@ function buildManifest(root, outputRoot, data) {
   });
   return {
     $schema: "../../source/schemas/lisa-prototype-draft-manifest.schema.json",
-    version: "1.1.0",
+    version: "1.2.0",
     status: "draft_prototype_rendered_pending_owner_approval",
     rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     shell_parity: {
@@ -366,6 +374,11 @@ function buildManifest(root, outputRoot, data) {
       app_js_source: "demo/app.js",
       styles_css_source: "demo/styles.css",
       navigation_model: "previous_prototype_state_and_document_navigation",
+    },
+    scale_parity: {
+      phone_layer_raster_scale: PHONE_RUNTIME_RASTER_SCALE,
+      phone_logical_viewport: { width: 393, height: 852 },
+      desktop_viewports_from_historical_demo: true,
     },
     source_runtime_sha256: sourceRuntimeHashes(root),
     active_release_mutation_prohibited: true,
@@ -384,7 +397,7 @@ function validateDraft(root) {
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   if (
     manifest.$schema !== "../../source/schemas/lisa-prototype-draft-manifest.schema.json" ||
-    manifest.version !== "1.1.0" ||
+    manifest.version !== "1.2.0" ||
     manifest.status !== "draft_prototype_rendered_pending_owner_approval" ||
     manifest.rendering_mode !== "isolated_current_prototype_copy_with_frame_asset_substitution" ||
     manifest.active_release_mutation_prohibited !== true ||
@@ -399,6 +412,12 @@ function validateDraft(root) {
     navigation_model: "previous_prototype_state_and_document_navigation",
   };
   if (JSON.stringify(manifest.shell_parity) !== JSON.stringify(expectedShellParity) || JSON.stringify(manifest.source_runtime_sha256) !== JSON.stringify(sourceRuntimeHashes(root))) fail("манифест не подтверждает соответствие оболочки действующему прототипу");
+  const expectedScaleParity = {
+    phone_layer_raster_scale: PHONE_RUNTIME_RASTER_SCALE,
+    phone_logical_viewport: { width: 393, height: 852 },
+    desktop_viewports_from_historical_demo: true,
+  };
+  if (JSON.stringify(manifest.scale_parity) !== JSON.stringify(expectedScaleParity)) fail("манифест не подтверждает соответствие масштаба историческому прототипу");
   for (const frame of manifest.frames) {
     if (!FRAME_IDS.includes(frame.frame_id) || !Array.isArray(frame.asset_paths) || frame.asset_paths.length === 0 || !/^[a-f0-9]{64}$/u.test(frame.asset_sha256)) fail("манифест чернового прототипа содержит неверное описание кадра");
     const assets = frame.asset_paths.map((assetPath) => rootPath(outputRoot, assetPath, `${frame.frame_id}/asset`));
@@ -412,6 +431,29 @@ function validateDraft(root) {
     fs.readFileSync(stylesPath, "utf8") !== fs.readFileSync(rootPath(root, `${DEMO_ROOT}/styles.css`, "действующий прототип/styles.css"), "utf8")
   ) fail("оболочка черновика отличается от действующего прототипа");
   if (/(?:\/Users\/|file:\/\/|\.pdf\b|draft-shell|draft-viewer)/iu.test(html)) fail("страница чернового прототипа содержит недопустимый источник или стороннюю оболочку");
+  const dataContext = { window: {} };
+  vm.createContext(dataContext);
+  const dataPath = rootPath(outputRoot, "data.js", "данные чернового прототипа");
+  vm.runInContext(fs.readFileSync(dataPath, "utf8"), dataContext, { filename: dataPath });
+  const data = dataContext.window.LISA_PROTOTYPE_DATA;
+  if (!data || !Array.isArray(data.states)) fail("данные чернового прототипа не загружены");
+  const phoneFrames = data.states.filter((state) => state.presentation === "phone");
+  for (const state of phoneFrames) {
+    if (state.id === "lisa-presentation-chat-list") continue;
+    if (state.viewport?.width !== 393 || state.viewport?.height !== 852) fail(`${state.id}: область телефона отличается от исторического прототипа`);
+    for (const layer of state.asset?.layers || []) {
+      const expectedPixels = {
+        width: layer.logical_dimensions?.width * PHONE_RUNTIME_RASTER_SCALE,
+        height: layer.logical_dimensions?.height * PHONE_RUNTIME_RASTER_SCALE,
+      };
+      const actualDimensions = readPngDimensions(rootPath(outputRoot, layer.src, `${state.id}/${layer.role}`), `${state.id}/${layer.role}`);
+      if (layer.raster_scale !== PHONE_RUNTIME_RASTER_SCALE || JSON.stringify(layer.pixel_dimensions) !== JSON.stringify(expectedPixels) || JSON.stringify(actualDimensions) !== JSON.stringify(expectedPixels)) {
+        fail(`${state.id}/${layer.role}: слой не сохраняет исторический масштаб телефона`);
+      }
+    }
+  }
+  const emailState = data.states.find((state) => state.id === "lisa-presentation-email");
+  if (!emailState || JSON.stringify(emailState.viewport) !== JSON.stringify(HISTORICAL_EMAIL_VIEWPORT)) fail("кадр письма не сохраняет исторические пропорции окна");
   return manifest;
 }
 

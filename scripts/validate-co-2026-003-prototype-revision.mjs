@@ -576,6 +576,11 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     runtime_shell_parity_required: true,
     runtime_shell_source_path: "demo",
     allowed_runtime_differences: ["data.js", "assets/**"],
+    scale_parity: {
+      phone_layer_raster_scale: 3,
+      phone_logical_viewport: { width: 393, height: 852 },
+      desktop_viewports_from_historical_demo: true,
+    },
     allowed_changed_frame_count: 11,
     candidate_must_replace_same_frame_id: true,
     draft_prototype_all_future_frames_authorized: true,

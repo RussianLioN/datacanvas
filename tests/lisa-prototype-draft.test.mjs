@@ -2,10 +2,18 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import test from "node:test";
+import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const draftRoot = `${packagePath}/candidate-evidence/prototype-draft`;
+
+function readPrototypeData(filePath) {
+  const context = { window: {} };
+  vm.createContext(context);
+  vm.runInContext(fs.readFileSync(filePath, "utf8"), context, { filename: filePath });
+  return context.window.LISA_PROTOTYPE_DATA;
+}
 
 test("черновой прототип сохраняет оболочку и навигацию действующего прототипа при замене только кадров", () => {
   const manifestPath = path.join(root, draftRoot, "manifest.json");
@@ -22,6 +30,7 @@ test("черновой прототип сохраняет оболочку и �
 
   const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
   assert.equal(manifest.$schema, "../../source/schemas/lisa-prototype-draft-manifest.schema.json");
+  assert.equal(manifest.version, "1.2.0");
   assert.equal(manifest.rendering_mode, "isolated_current_prototype_copy_with_frame_asset_substitution");
   assert.deepEqual(manifest.shell_parity, {
     index_html_source: "demo/index.html",
@@ -31,6 +40,11 @@ test("черновой прототип сохраняет оболочку и �
   });
   assert.equal(manifest.active_release_mutation_prohibited, true);
   assert.equal(manifest.raw_pdf_included, false);
+  assert.deepEqual(manifest.scale_parity, {
+    phone_layer_raster_scale: 3,
+    phone_logical_viewport: { width: 393, height: 852 },
+    desktop_viewports_from_historical_demo: true,
+  });
   assert.deepEqual(manifest.frame_ids, [
     "lisa-materials-full-reference",
     "lisa-presentation-generating",
@@ -63,4 +77,36 @@ test("черновой прототип сохраняет оболочку и �
   assert.doesNotMatch(html, /(?:\/Users\/|file:\/\/|\.pdf\b|demo\/)/iu);
   const data = fs.readFileSync(dataPath, "utf8");
   for (const frameId of manifest.frame_ids) assert.match(data, new RegExp(frameId, "u"));
+});
+
+test("новые кадры сохраняют масштаб и пропорции исторического прототипа", () => {
+  const activeData = readPrototypeData(path.join(root, packagePath, "demo/data.js"));
+  const draftData = readPrototypeData(path.join(root, draftRoot, "data.js"));
+  const activePhone = activeData.states.find((state) => state.id === "lisa-materials-full-reference");
+  const activeEmail = activeData.states.find((state) => state.id === "lisa-presentation-email");
+  assert.ok(activePhone && activeEmail, "нужны исторические эталонные кадры");
+
+  const phoneFrameIds = [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-sent",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial",
+  ];
+  for (const frameId of phoneFrameIds) {
+    const state = draftData.states.find((candidate) => candidate.id === frameId);
+    assert.ok(state, `${frameId}: нужен новый телефонный кадр`);
+    assert.deepEqual(JSON.parse(JSON.stringify(state.viewport)), JSON.parse(JSON.stringify(activePhone.viewport)), `${frameId}: область телефона должна совпадать с исторической`);
+    for (const layer of state.asset.layers) {
+      const expectedWidth = layer.logical_dimensions.width * 3;
+      const expectedHeight = layer.logical_dimensions.height * 3;
+      assert.equal(layer.raster_scale, 3, `${frameId}/${layer.role}: требуется историческая трёхкратная плотность`);
+      assert.deepEqual(JSON.parse(JSON.stringify(layer.pixel_dimensions)), { width: expectedWidth, height: expectedHeight }, `${frameId}/${layer.role}: размер слоя должен соответствовать историческому масштабу`);
+    }
+  }
+
+  const draftEmail = draftData.states.find((state) => state.id === "lisa-presentation-email");
+  assert.ok(draftEmail, "нужен новый кадр письма");
+  assert.deepEqual(JSON.parse(JSON.stringify(draftEmail.viewport)), JSON.parse(JSON.stringify(activeEmail.viewport)), "кадр письма должен сохранять пропорции исторического окна");
 });
