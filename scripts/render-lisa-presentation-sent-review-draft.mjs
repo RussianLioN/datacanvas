@@ -11,6 +11,7 @@ const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey"
 const REVIEW_DIRECTORY = `${PACKAGE_PATH}/candidate-evidence/frame-review/lisa-presentation-sent`;
 const SOURCE_PATH = `${REVIEW_DIRECTORY}/source.svg`;
 const MANIFEST_PATH = `${REVIEW_DIRECTORY}/review-source-manifest.json`;
+const APPROVAL_PATH = `${REVIEW_DIRECTORY}/owner-approval.json`;
 const DRAFT_PATH = `${REVIEW_DIRECTORY}/draft-current-resolution.png`;
 const EXPECTED_DIMENSIONS = Object.freeze({ width: 521, height: 3290 });
 
@@ -28,6 +29,14 @@ function rendererCommand() {
 }
 
 function validateManifestShape(manifest) {
+  const expectedApproval = {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+    decision: "approved",
+    decision_text: "кадр принят",
+    decision_source: "Product Owner в рабочем чате",
+    approval_time_precision: "date_only",
+    approved_on: "2026-08-24",
+  };
   if (
     manifest.frame_id !== "lisa-presentation-sent" ||
     manifest.base_frame_id !== "lisa-presentation-generating" ||
@@ -36,9 +45,25 @@ function validateManifestShape(manifest) {
     manifest.skipped_intermediate_frame_id !== "lisa-presentation-chat-list" ||
     manifest.skipped_intermediate_frame_reason !== "owner_direction_no_rework" ||
     manifest.mock_phone_status_time_value !== "13:40" ||
-    manifest.owner_frame_approval !== null ||
+    !["svg_source_prepared_pending_visual_check", "draft_png_rendered_pending_owner_approval", "owner_frame_approved"].includes(manifest.status) ||
+    (manifest.status === "owner_frame_approved" && JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(expectedApproval)) ||
+    (manifest.status !== "owner_frame_approved" && manifest.owner_frame_approval !== null) ||
     manifest.active_release_mutation_prohibited !== true
   ) fail("манифест кадра успеха не соответствует изолированному циклу приёмки");
+}
+
+function validateAcceptedApproval(root, manifest) {
+  if (manifest.status !== "owner_frame_approved") return;
+  const approval = readJson(path.join(root, APPROVAL_PATH));
+  if (
+    approval.frame_id !== "lisa-presentation-sent" ||
+    approval.decision !== "approved" ||
+    approval.approval_time_precision !== "date_only" ||
+    approval.approved_on !== "2026-08-24" ||
+    !approval.decision_evidence_note ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256
+  ) fail("запись приёмки кадра успеха не совпадает с сохранёнными SVG и PNG");
 }
 
 function renderDraft({ root = process.cwd(), check = false } = {}) {
@@ -47,9 +72,10 @@ function renderDraft({ root = process.cwd(), check = false } = {}) {
   const draftPath = path.join(root, DRAFT_PATH);
   const manifest = readJson(manifestPath);
   validateManifestShape(manifest);
+  validateAcceptedApproval(root, manifest);
   if (manifest.source_svg_sha256 !== sha256(sourcePath)) fail("манифест кадра успеха не совпадает с SVG-источником");
   if (check) {
-    if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.draft_png_rendered !== true) fail("черновой PNG кадра успеха не подготовлен для приёмки владельца");
+    if (!["draft_png_rendered_pending_owner_approval", "owner_frame_approved"].includes(manifest.status) || manifest.draft_png_rendered !== true) fail("черновой PNG кадра успеха не подготовлен для проверки приёмки владельца");
     const inspected = inspectPng(draftPath, EXPECTED_DIMENSIONS);
     if (
       manifest.draft_png_path !== "candidate-evidence/frame-review/lisa-presentation-sent/draft-current-resolution.png" ||

@@ -805,6 +805,14 @@ test("принятый кадр успеха нельзя неявно верн�
   assert.match(result.stderr, /принятый кадр успеха нельзя пересобирать/u);
 });
 
+test("проверка сохранённого PNG принятого кадра успеха не требует повторного рендера", () => {
+  const result = spawnSync(process.execPath, ["scripts/render-lisa-presentation-sent-review-draft.mjs", "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+});
+
 test("порядок приемки, запреты и граница выпуска закрепляют неактивный будущий контур", () => {
   if (!fs.existsSync(absolute(contractPath))) return;
   const contract = readJson(contractPath);
