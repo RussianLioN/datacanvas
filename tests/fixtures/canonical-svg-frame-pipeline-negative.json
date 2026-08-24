@@ -28,7 +28,7 @@
     {
       "name": "wrong external source is rejected",
       "mutation": "wrong-external-source",
-      "expected_error": "external sources must match the three received PDF donors and pending email SVG source"
+      "expected_error": "external sources must match the three received PDF donors and accepted email visual reference"
     },
     {
       "name": "selected text before owner choice is rejected",
@@ -73,7 +73,7 @@
     {
       "name": "short historical source cannot replace approved generating base",
       "mutation": "replace-approved-continuation-base",
-      "expected_error": "после приёмки кадров ошибок следующий кадр должен быть заблокирован до получения канонического SVG письма"
+      "expected_error": "после приёмки письма следующий кадр должен быть заблокирован до подготовки канонического SVG варианта презентации"
     }
   ]
 }

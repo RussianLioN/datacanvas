@@ -103,7 +103,7 @@ function applyMutation(base, scenario) {
       to: "lisa-presentation-email",
     });
   } else if (scenario.mutation === "wrong_external_source_format") {
-    data[candidatePath].visual_release_gate.required_external_visual_donors[0].required_format = "canonical_svg_source";
+    data[candidatePath].visual_release_gate.required_external_visual_donors[0].required_format = "owner_supplied_email_visual_reference";
   } else if (scenario.mutation === "wrong_external_source_frame") {
     data[candidatePath].visual_release_gate.required_external_visual_donors[1].required_for_frame_id = "lisa-presentation-mag";
   } else if (scenario.mutation === "missing_presentation_canonical_svg_gate") {
@@ -176,7 +176,19 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.equal(candidate.visual_release_gate.required_external_visual_donors.length, 4);
   assert.equal(candidate.visual_release_gate.release_status, "blocked_until_canonical_svg_sources_and_frame_approval");
   assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
-  assert.equal(svgPipeline.status, "inactive_pending_canonical_svg_sources_and_frame_approval");
+  assert.equal(candidate.visual_release_gate.all_external_visual_donors_received, true);
+  assert.deepEqual(candidate.visual_release_gate.required_external_visual_donors[3], {
+    source_id: "email_frame_owner_visual_reference",
+    required_for_frame_id: "lisa-presentation-email",
+    required_format: "owner_supplied_email_visual_reference",
+    canonical_svg_required_before_render: true,
+    status: "repository_svg_candidate_approved_from_owner_visual_reference",
+    reason: "Кадр подготовлен как самостоятельная SVG-композиция по предоставленному владельцем визуальному образцу Outlook и принят владельцем; исходный снимок не хранится в репозитории.",
+  });
+  const emailFrame = candidate.frames.find((frame) => frame.id === "lisa-presentation-email");
+  assert.equal(emailFrame.requires_new_editable_source, false);
+  assert.equal(emailFrame.review_status, "owner_frame_approved");
+  assert.equal(svgPipeline.status, "inactive_pending_presentation_variant_svg_sources_and_frame_approval");
   assert.equal(svgPipeline.text_selection_source.path, "source/owner-approved-texts.json");
   assert.ok(svgPipeline.message_topics.every((topic) => topic.status === "owner_approved"));
   assert.deepEqual(svgPipeline.client_reference_svg_update, {

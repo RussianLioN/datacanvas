@@ -69,11 +69,11 @@ const expectedExternalSources = Object.freeze([
     status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "email_frame_canonical_svg_source",
+    source_id: "email_frame_owner_visual_reference",
     required_for_frame_id: "lisa-presentation-email",
-    required_format: "canonical_svg_source",
+    required_format: "owner_supplied_email_visual_reference",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "repository_svg_candidate_approved_from_owner_visual_reference",
   }),
 ]);
 const expectedFutureTransactionTargets = Object.freeze([
@@ -123,6 +123,15 @@ const expectedSentFrame = Object.freeze({
   draft_png_status: "rendered_current_resolution",
   owner_frame_approval_status: "approved",
 });
+const expectedEmailFrame = Object.freeze({
+  frame_id: "lisa-presentation-email",
+  svg_editing_mode: "canonical_svg_existing_groups_only",
+  canonical_svg_status: "prepared_visual_reference_composition",
+  approved_text_status: "owner_approved",
+  svg_visual_check_status: "passed",
+  draft_png_status: "rendered_current_resolution",
+  owner_frame_approval_status: "approved",
+});
 const expectedErrorFrames = Object.freeze(new Map([
   ["lisa-order-not-accepted", Object.freeze({
     frame_id: "lisa-order-not-accepted",
@@ -153,21 +162,21 @@ const expectedErrorFrames = Object.freeze(new Map([
   })],
 ]));
 const expectedFrameReviewSession = Object.freeze({
-  status: "email_frame_blocked_pending_canonical_svg_source",
+  status: "presentation_variant_frames_blocked_pending_canonical_svg_sources",
   current_frame_id: "lisa-presentation-email",
-  next_frame_id: "lisa-presentation-email",
-  source_svg_path: null,
-  draft_png_path: null,
-  review_manifest_path: null,
+  next_frame_id: "lisa-presentation-slidedoc",
+  source_svg_path: "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
+  draft_png_path: "candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png",
+  review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
   base_frame_id: "lisa-presentation-sent",
   base_svg_path: "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
   base_owner_approval_path: "candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
   transition_rendering_mode: "separate_desktop_frame",
   dynamic_footer: null,
-  edit_mode: "pending_canonical_svg_source",
+  edit_mode: "approved_svg_composition_from_owner_visual_reference",
   prohibited_legacy_overlay_ids: ["html_overlay", "css_overlay", "png_text_overlay"],
   active_release_mutation_prohibited: true,
-  owner_approval_record_path: null,
+  owner_approval_record_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
   next_frame_blocked_until_owner_approval: true,
   skipped_frame_id: "lisa-presentation-chat-list",
   skipped_frame_reason: "owner_direction_no_rework",
@@ -301,7 +310,9 @@ function validateTopLevel(contract) {
   if (contract.prototype_revision_candidate.expected_version !== "1.0.0") {
     throw new Error("prototype revision candidate expected_version must remain 1.0.0");
   }
-  if (contract.version !== "3.9.0") throw new Error("версия договора должна фиксировать изолированные черновики трёх согласованных ошибок");
+  if (contract.version !== "4.0.0" || contract.status !== "inactive_pending_presentation_variant_svg_sources_and_frame_approval") {
+    throw new Error("версия договора должна фиксировать принятие письма и блокировку следующих SVG-кадров презентаций");
+  }
 }
 
 function validateFrames(contract, candidate) {
@@ -345,6 +356,12 @@ function validateFrames(contract, candidate) {
       }
       continue;
     }
+    if (frame.frame_id === expectedEmailFrame.frame_id) {
+      if (JSON.stringify(frame) !== JSON.stringify(expectedEmailFrame)) {
+        throw new Error("кадр письма должен быть сохранён как принятый SVG-кандидат по предоставленному визуальному образцу");
+      }
+      continue;
+    }
     const expectedErrorFrame = expectedErrorFrames.get(frame.frame_id);
     if (expectedErrorFrame) {
       if (JSON.stringify(frame) !== JSON.stringify(expectedErrorFrame)) {
@@ -370,7 +387,47 @@ function validateFrames(contract, candidate) {
 
 function validateFrameReviewSession(contract) {
   if (JSON.stringify(contract.frame_review_session) !== JSON.stringify(expectedFrameReviewSession)) {
-    throw new Error("после приёмки кадров ошибок следующий кадр должен быть заблокирован до получения канонического SVG письма");
+    throw new Error("после приёмки письма следующий кадр должен быть заблокирован до подготовки канонического SVG варианта презентации");
+  }
+}
+
+function validateEmailReviewEvidence(contractPath) {
+  const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-email");
+  const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
+  const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
+  const sourcePath = path.join(reviewDirectory, "source.svg");
+  const draftPath = path.join(reviewDirectory, "draft-current-resolution.png");
+  const source = fs.readFileSync(sourcePath, "utf8");
+  const expectedSummary = {
+    record_path: "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
+    decision: "approved",
+    decision_text: "ok",
+    decision_source: "Product Owner в рабочем чате",
+    approval_time_precision: "date_only",
+    approved_on: "2026-08-24",
+  };
+  if (
+    manifest.frame_id !== "lisa-presentation-email" ||
+    manifest.status !== "owner_frame_approved" ||
+    manifest.visual_reference_id !== "owner_supplied_outlook_corporate_email_screenshot_2026_08_19" ||
+    manifest.visual_reference_persisted_in_repository !== false ||
+    manifest.source_svg_sha256 !== sha256File(sourcePath) ||
+    manifest.draft_png_sha256 !== sha256File(draftPath) ||
+    manifest.draft_png_dimensions?.width !== 1280 ||
+    manifest.draft_png_dimensions?.height !== 960 ||
+    JSON.stringify(manifest.owner_frame_approval) !== JSON.stringify(expectedSummary) ||
+    approval.frame_id !== "lisa-presentation-email" ||
+    approval.decision !== "approved" ||
+    approval.decision_text !== "ok" ||
+    approval.approved_source_svg_sha256 !== manifest.source_svg_sha256 ||
+    approval.approved_draft_png_sha256 !== manifest.draft_png_sha256 ||
+    /<image\b/u.test(source) ||
+    !source.includes("Презентация по справке ООО «Водолей Трейд»") ||
+    !source.includes("Презентация по справке.pptx") ||
+    !source.includes("Презентация по справке.pdf")
+  ) {
+    throw new Error("принятый кадр письма должен связывать SVG, PNG, образец владельца, согласованные тексты и запись приёмки");
   }
 }
 
@@ -750,7 +807,7 @@ function validateTexts(contract, approvedTexts) {
 
 function validateExternalSources(contract) {
   if (JSON.stringify(contract.external_sources) !== JSON.stringify(expectedExternalSources)) {
-    throw new Error("external sources must match the three received PDF donors and pending email SVG source");
+    throw new Error("external sources must match the three received PDF donors and accepted email visual reference");
   }
 }
 
@@ -902,6 +959,7 @@ try {
   validateGeneratingOwnerApprovalEvidence(contractPath);
   validateGeneratingClockCorrectionApprovalEvidence(contractPath);
   validateSentReviewEvidence(contractPath);
+  validateEmailReviewEvidence(contractPath);
   validateErrorReviewEvidence(contractPath);
   validateScenario(contract, candidate);
   validateTexts(contract, approvedTexts);

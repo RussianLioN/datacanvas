@@ -593,6 +593,10 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-presentation-email-review-source-manifest.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
   },
@@ -607,6 +611,10 @@ const cases = [
   {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
   },
   {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/lisa-frame-owner-approval.schema.json",

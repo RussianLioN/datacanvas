@@ -120,7 +120,7 @@
         },
         "render_allowed": { "const": false },
         "owner_selection_complete": { "const": true },
-        "all_external_visual_donors_received": { "const": false },
+        "all_external_visual_donors_received": { "const": true },
         "required_external_visual_donors": {
           "type": "array",
           "minItems": 1,
@@ -188,10 +188,10 @@
         "source_id": { "type": "string", "minLength": 1 },
         "required_for_frame_id": { "$ref": "#/$defs/state_id" },
         "required_format": {
-          "enum": ["owner_supplied_pdf_visual_donor", "canonical_svg_source"]
+          "enum": ["owner_supplied_pdf_visual_donor", "owner_supplied_email_visual_reference"]
         },
         "canonical_svg_required_before_render": { "type": "boolean" },
-        "status": { "enum": ["owner_attachment_received_pending_canonical_svg_intake", "pending_owner_attachment"] },
+        "status": { "enum": ["owner_attachment_received_pending_canonical_svg_intake", "repository_svg_candidate_approved_from_owner_visual_reference"] },
         "reason": { "type": "string" }
       }
     }

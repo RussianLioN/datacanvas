@@ -113,11 +113,17 @@ const expectedApprovedSelections = Object.freeze([
   }),
 ]);
 
-const expectedExternalSourceIds = Object.freeze([
+const expectedCandidateExternalSourceIds = Object.freeze([
   "presentation_variant_slidedoc_pdf_donor",
   "presentation_variant_sber2025_pdf_donor",
   "presentation_variant_mag_pdf_donor",
-  "email_frame_canonical_svg_source",
+  "email_frame_owner_visual_reference",
+]);
+const expectedPipelineExternalSourceIds = Object.freeze([
+  "presentation_variant_slidedoc_pdf_donor",
+  "presentation_variant_sber2025_pdf_donor",
+  "presentation_variant_mag_pdf_donor",
+  "email_frame_owner_visual_reference",
 ]);
 const expectedFrameFlow = Object.freeze([
   "owner_text_selected",
@@ -158,7 +164,7 @@ const expectedSemanticEdges = Object.freeze([
   "inspection:lisa-presentation-email:open_attachment_mag:lisa-presentation-mag",
   "inspection:lisa-presentation-mag:back_to_email:lisa-presentation-email",
 ]);
-const expectedExternalSources = Object.freeze([
+const expectedCandidateExternalSources = Object.freeze([
   Object.freeze({
     source_id: "presentation_variant_slidedoc_pdf_donor",
     required_for_frame_id: "lisa-presentation-slidedoc",
@@ -181,12 +187,15 @@ const expectedExternalSources = Object.freeze([
     status: "owner_attachment_received_pending_canonical_svg_intake",
   }),
   Object.freeze({
-    source_id: "email_frame_canonical_svg_source",
+    source_id: "email_frame_owner_visual_reference",
     required_for_frame_id: "lisa-presentation-email",
-    required_format: "canonical_svg_source",
+    required_format: "owner_supplied_email_visual_reference",
     canonical_svg_required_before_render: true,
-    status: "pending_owner_attachment",
+    status: "repository_svg_candidate_approved_from_owner_visual_reference",
   }),
+]);
+const expectedPipelineExternalSources = Object.freeze([
+  ...expectedCandidateExternalSources,
 ]);
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
@@ -473,17 +482,17 @@ function validateCandidate(candidate, approvedTexts) {
     gate.release_status !== "blocked_until_canonical_svg_sources_and_frame_approval" ||
     gate.render_allowed !== false ||
     gate.owner_selection_complete !== true ||
-    gate.all_external_visual_donors_received !== false
+    gate.all_external_visual_donors_received !== true
   ) {
     throw new Error("prototype revision candidate must remain blocked until canonical SVG sources and frame approval");
   }
   const sourceIds = gate.required_external_visual_donors.map((source) => source.source_id);
-  if (!sameArray(sourceIds, expectedExternalSourceIds)) {
-    throw new Error("visual render requires three received PDF donors and the pending email SVG source");
+  if (!sameArray(sourceIds, expectedCandidateExternalSourceIds)) {
+    throw new Error("visual render requires three received PDF donors and the accepted email visual reference");
   }
-  for (let index = 0; index < expectedExternalSources.length; index += 1) {
+  for (let index = 0; index < expectedCandidateExternalSources.length; index += 1) {
     const actual = gate.required_external_visual_donors[index];
-    const expected = expectedExternalSources[index];
+    const expected = expectedCandidateExternalSources[index];
     if (actual.required_for_frame_id !== expected.required_for_frame_id) {
       throw new Error(`external source ${expected.source_id} must target ${expected.required_for_frame_id}`);
     }
@@ -511,8 +520,8 @@ function validateCandidate(candidate, approvedTexts) {
 function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister) {
   assertNoLocalOrRawSourcePaths(svgPipeline);
   assertNoRawSourceTracesInJson(svgPipeline);
-  if (svgPipeline.status !== "inactive_pending_canonical_svg_sources_and_frame_approval") {
-    throw new Error("SVG pipeline must wait for canonical SVG sources and frame approval after text selection");
+  if (svgPipeline.status !== "inactive_pending_presentation_variant_svg_sources_and_frame_approval") {
+    throw new Error("SVG pipeline must wait for presentation variant SVG sources and frame approval after accepted email frame");
   }
   if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("SVG pipeline message topics must match the five selected text topics");
@@ -587,12 +596,12 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     throw new Error("SVG pipeline must use approved client data to replace ГК Достовалова in canonical SVG groups");
   }
   const sourceIds = svgPipeline.external_sources.map((source) => source.source_id);
-  if (!sameArray(sourceIds, expectedExternalSourceIds)) {
-    throw new Error("SVG pipeline must keep the three received PDF donors and pending email SVG source");
+  if (!sameArray(sourceIds, expectedPipelineExternalSourceIds)) {
+    throw new Error("SVG pipeline must keep the three received PDF donors and accepted email visual reference");
   }
-  for (let index = 0; index < expectedExternalSources.length; index += 1) {
+  for (let index = 0; index < expectedPipelineExternalSources.length; index += 1) {
     const actual = svgPipeline.external_sources[index];
-    const expected = expectedExternalSources[index];
+    const expected = expectedPipelineExternalSources[index];
     if (
       actual.required_for_frame_id !== expected.required_for_frame_id ||
       actual.required_format !== expected.required_format ||

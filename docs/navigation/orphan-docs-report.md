@@ -51,7 +51,7 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 16 |
-| `business` | `2` | 42 |
+| `business` | `2` | 43 |
 | `business` | `3` | 29 |
 | `business` | `4` | 3 |
 | `business` | `hidden` | 63 |
@@ -71,7 +71,7 @@
 | `governance` | `hidden` | 45 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 21 |
-| `technical` | `3` | 22 |
+| `technical` | `3` | 24 |
 | `technical` | `4` | 2 |
 | `technical` | `5` | 1 |
-| `technical` | `hidden` | 119 |
+| `technical` | `hidden` | 120 |

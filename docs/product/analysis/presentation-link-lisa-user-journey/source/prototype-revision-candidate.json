@@ -84,9 +84,10 @@
     {
       "id": "lisa-presentation-email",
       "status": "active_future",
-      "caption": "Письмо с изготовленными презентациями; тема должна содержать ООО «Водолей Трейд».",
+      "caption": "Письмо с изготовленными презентациями для ООО «Водолей Трейд», подготовленное по предоставленному визуальному образцу и принятое владельцем.",
       "action_ids": [],
-      "requires_new_editable_source": true
+      "requires_new_editable_source": false,
+      "review_status": "owner_frame_approved"
     },
     {
       "id": "lisa-presentation-slidedoc",
@@ -245,7 +246,7 @@
     "release_status": "blocked_until_canonical_svg_sources_and_frame_approval",
     "render_allowed": false,
     "owner_selection_complete": true,
-    "all_external_visual_donors_received": false,
+    "all_external_visual_donors_received": true,
     "required_external_visual_donors": [
       {
         "source_id": "presentation_variant_slidedoc_pdf_donor",
@@ -272,17 +273,16 @@
         "reason": "Получен PDF-донор для визуальной сверки; он не является источником прямого рендера и требует подготовки канонического SVG."
       },
       {
-        "source_id": "email_frame_canonical_svg_source",
+        "source_id": "email_frame_owner_visual_reference",
         "required_for_frame_id": "lisa-presentation-email",
-        "required_format": "canonical_svg_source",
+        "required_format": "owner_supplied_email_visual_reference",
         "canonical_svg_required_before_render": true,
-        "status": "pending_owner_attachment",
-        "reason": "Текущий кадр письма 7.4 хранится как PNG, а будущие тема и тело письма должны правиться в SVG."
+        "status": "repository_svg_candidate_approved_from_owner_visual_reference",
+        "reason": "Кадр подготовлен как самостоятельная SVG-композиция по предоставленному владельцем визуальному образцу Outlook и принят владельцем; исходный снимок не хранится в репозитории."
       }
     ],
     "blocked_reasons": [
       "Три PDF-донора получены, но для каждого варианта презентации ещё не подготовлен и не согласован канонический SVG-источник кадра.",
-      "Не приложен редактируемый канонический SVG-исходник кадра письма.",
       "Нельзя рендерить новые PNG, HTML или архив до покадровой приёмки: в изолированной копии прототипа разрешена замена только одного одноимённого кадра, а следующий кадр блокируется до согласования предыдущего."
     ]
   }
