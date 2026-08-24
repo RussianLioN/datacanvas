@@ -377,7 +377,7 @@ function expectCloseCssPx(actual, expected, label) {
 
 async function openState(page, stateId) {
   const expected = expectedStates.find((state) => state.id === stateId);
-  await page.goto(demoUrl(stateId), { waitUntil: "load" });
+  await page.goto(demoUrl(stateId), { waitUntil: "domcontentloaded" });
   await page.evaluate(() => document.fonts?.ready ?? Promise.resolve());
   await expect(scene(page), "на странице должен быть один публичный root prototype-root").toHaveCount(1);
   await expect(scene(page)).toHaveAttribute("data-state-id", stateId);
@@ -385,6 +385,16 @@ async function openState(page, stateId) {
     await expect(scene(page)).toHaveAttribute("data-presentation", expected.presentation);
     await expect(page.getByTestId(stageTestId(expected))).toHaveCount(1);
   }
+}
+
+async function waitForStateImagesReady(page, expected) {
+  const root = scene(page);
+  await expect(root, `${expected.id}: PNG текущего кадра должны завершить загрузку`).toHaveAttribute(
+    "data-image-ready",
+    "true",
+    { timeout: 10_000 },
+  );
+  await expect(root, `${expected.id}: счётчик ожидающих PNG должен обнулиться`).toHaveAttribute("data-pending-images", "0");
 }
 
 async function assertEmailImageLoaded(page, expected) {
@@ -459,6 +469,7 @@ async function assertDocumentImageLoaded(page, expected) {
 }
 
 async function assertStateImagesLoaded(page, expected) {
+  await waitForStateImagesReady(page, expected);
   if (expected.presentation === "phone") {
     await assertPhoneLayerImagesLoaded(page, expected);
   } else if (expected.document) {
@@ -495,30 +506,39 @@ async function expectSlidePosition(page, slideIndex, label) {
 }
 
 test("Chromium и WebKit открывают все тринадцать состояний напрямую через file:// без сети", async ({ page }) => {
+  // Один сценарий последовательно проверяет 13 крупных локальных растров.
+  // Его срок отдельный, чтобы WebKit на холодном CI не закрыл страницу до
+  // диагностируемого барьера готовности конкретного кадра.
+  test.slow();
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
 
   for (const expected of expectedStates) {
-    await openState(page, expected.id);
-    expect(page.url()).toMatch(/^file:\/\//u);
-    await expect(stateCaption(page)).toHaveText(expected.caption);
-    await assertStateImagesLoaded(page, expected);
-    await assertOnlyRelativeRuntimeAddresses(page);
+    await test.step(expected.id, async () => {
+      await openState(page, expected.id);
+      expect(page.url()).toMatch(/^file:\/\//u);
+      await expect(stateCaption(page)).toHaveText(expected.caption);
+      await assertStateImagesLoaded(page, expected);
+      await assertOnlyRelativeRuntimeAddresses(page);
+    });
   }
 
   assertOnlyRuntimeFileRequests(requests, path.join(packageRoot, "demo"));
 });
 
 test("распакованный переносимый ZIP открывает тот же тринадцатиэкранный маршрут через file:// без сети", async ({ page }) => {
+  test.slow();
   const requests = [];
   page.on("request", (request) => requests.push(request.url()));
 
   for (const expected of expectedStates) {
-    await page.goto(archiveUrl(expected.id), { waitUntil: "load" });
-    await expect(scene(page)).toHaveAttribute("data-state-id", expected.id);
-    await expect(stateCaption(page)).toHaveText(expected.caption);
-    await assertStateImagesLoaded(page, expected);
-    await assertOnlyRelativeRuntimeAddresses(page);
+    await test.step(expected.id, async () => {
+      await page.goto(archiveUrl(expected.id), { waitUntil: "domcontentloaded" });
+      await expect(scene(page)).toHaveAttribute("data-state-id", expected.id);
+      await expect(stateCaption(page)).toHaveText(expected.caption);
+      await assertStateImagesLoaded(page, expected);
+      await assertOnlyRelativeRuntimeAddresses(page);
+    });
   }
 
   assertOnlyRuntimeFileRequests(requests, extractedArchiveRoot);
