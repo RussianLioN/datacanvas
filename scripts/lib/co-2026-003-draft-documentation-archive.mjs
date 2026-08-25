@@ -82,12 +82,14 @@ function snapshotFingerprint(entries) {
 
 function renderIndex(contract, fingerprint, entries) {
   const documentLinks = entries.filter((item) => item.role !== "prototype").map((item) => `<li><a href="${item.archive_path}">${item.label}</a></li>`).join("");
-  return Buffer.from(`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Черновой пакет CO-2026-003</title></head><body><main><h1>Черновой пакет документации CO-2026-003</h1><p>Это архивный снимок для работы над документальным каскадом. Он не является чистовой поставкой и не изменяет действующий выпуск.</p><p><a href="prototype/index.html">Открыть принятый черновой прототип из ${contract.required_prototype_frame_count} кадров</a></p><h2>Документы</h2><ul>${documentLinks}</ul><p>Отпечаток состава: <code>${fingerprint}</code></p></main></body></html>`, "utf8");
+  const prototypeEntrypoint = `${contract.archive_root}/${contract.prototype_root}/index.html`;
+  return Buffer.from(`<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Черновой пакет CO-2026-003</title></head><body><main><h1>Черновой пакет документации CO-2026-003</h1><p>Это архивный снимок для работы над документальным каскадом. Он не является чистовой поставкой и не изменяет действующий выпуск.</p><p><a href="${prototypeEntrypoint}">Открыть принятый черновой прототип из ${contract.required_prototype_frame_count} кадров</a></p><h2>Документы</h2><ul>${documentLinks}</ul><p>Отпечаток состава: <code>${fingerprint}</code></p></main></body></html>`, "utf8");
 }
 
 function renderReadme(contract, fingerprint, entries) {
   const documentLinks = entries.filter((item) => item.role !== "prototype").map((item) => `- [${item.label}](${item.archive_path})`).join("\n");
-  return Buffer.from(`# Черновой пакет документации CO-2026-003\n\nЭто самостоятельный архивный снимок актуальной документации и прототипа ООО «Водолей Трейд». Он не является чистовой поставкой и не разрешает переключение действующего выпуска.\n\n- [Открыть принятый черновой прототип из ${contract.required_prototype_frame_count} кадров](prototype/index.html)\n\n## Документы\n\n${documentLinks}\n\nОтпечаток состава: \`${fingerprint}\`.\n`, "utf8");
+  const prototypeEntrypoint = `${contract.archive_root}/${contract.prototype_root}/index.html`;
+  return Buffer.from(`# Черновой пакет документации CO-2026-003\n\nЭто самостоятельный архивный снимок актуальной документации и прототипа ООО «Водолей Трейд». Он не является чистовой поставкой и не разрешает переключение действующего выпуска.\n\n- [Открыть принятый черновой прототип из ${contract.required_prototype_frame_count} кадров](${prototypeEntrypoint})\n\n## Документы\n\n${documentLinks}\n\nОтпечаток состава: \`${fingerprint}\`.\n`, "utf8");
 }
 
 export function readCo2026003DraftDocumentationArchiveContract(root = process.cwd()) {
@@ -112,8 +114,7 @@ export function buildCo2026003DraftDocumentationArchive(root = process.cwd(), co
   for (const sourcePath of collectFiles(root, contract.prototype_root)) {
     const content = fs.readFileSync(resolveRegularFile(root, sourcePath, `ресурс прототипа ${sourcePath}`));
     assertSafeContent(content, sourcePath, contract);
-    const localPath = sourcePath.slice(`${contract.prototype_root}/`.length);
-    entries.push(entry(sourcePath, `prototype/${localPath}`, "prototype", "Черновой прототип", content));
+    entries.push(entry(sourcePath, `${contract.archive_root}/${sourcePath}`, "prototype", "Черновой прототип", content));
   }
   const archivePaths = new Set();
   for (const item of entries) {

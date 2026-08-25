@@ -14,8 +14,8 @@
 
 - [Путь заказа и получения презентации в Лисе](presentation-link-lisa-user-journey/user-journey.md) — человекочитаемый маршрут, правила одного заказа и граница Q4_2026.
 - [Контекст и вход в путь](presentation-link-lisa-user-journey/README.md) — состав существующего прототипа и условие отдельного визуального выпуска.
-- [Открыть опубликованную демонстрацию](presentation-link-lisa-user-journey/demo/index.html) — прежний визуальный пакет для справки; он не является выпуском новых текстов Q4_2026 до отдельного одобрения владельца продукта.
-- [Скачать опубликованный справочный архив](presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) или [скачать его из GitHub](presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip?raw=true) — существующий переносимый пакет, не являющийся визуальным выпуском Q4_2026.
+- [Открыть принятый черновой прототип](presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров для ООО «Водолей Трейд».
+- [Скачать полный черновой пакет](presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP с актуальной документацией и черновиком; это не чистовая поставка.
 
 ## Документы
 

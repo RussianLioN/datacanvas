@@ -1566,8 +1566,8 @@
       "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "canonical_source": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
       "generated_from": [],
       "redaction_status": "not_required",
@@ -1579,15 +1579,55 @@
       "navigation_domain": "documentation_operations"
     },
     {
-      "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
-      "route_id": "co-2026-003-prototype-delivery-archive",
+      "path": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "route_id": "co-2026-003-draft-documentation-archive",
+      "section": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав чернового пакета, принятый состав кадров или запрет чистового выпуска CO-2026-003.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "route_id": "co-2026-003-draft-documentation-archive-contract",
       "section": "release-evidence",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
       "lifecycle": "active",
       "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав или проверочный барьер чернового архивного снимка CO-2026-003.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": true,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
+      "route_id": "co-2026-003-prototype-delivery-archive",
+      "section": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "draft",
+      "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
@@ -3175,10 +3215,10 @@
       "navigation_group": "governance",
       "navigation_domain": "documentation_operations",
       "owner_role": "Product Owner / Process Owner / Documentation Owner",
-      "lifecycle": "draft",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
+      "searchable": false,
       "navigable": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
       "generated_from": [],
@@ -5372,8 +5412,8 @@
     },
     {
       "id": "task-review-presentation-link-lisa-user-journey",
-      "label": "Открыть или скачать прототип пути презентации в Лисе",
-      "task": "Открыть интерактивный прототип пути презентации в Лисе или скачать переносимый архив для показа",
+      "label": "Открыть или скачать принятый черновик пути презентации в Лисе",
+      "task": "Открыть принятый 11-кадровый черновик пути презентации в Лисе или скачать полный черновой пакет документации для работы",
       "navigation_domain": "product",
       "navigation_group": "business",
       "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -5381,7 +5421,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
       ],
       "owner_role": "Product Owner / Documentation Owner",
-      "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"
+      "validation_command": "npm run validate:co-2026-003-draft-documentation-archive"
     },
     {
       "id": "task-review-co-2026-003-q4-lisa-profile",
@@ -5406,7 +5446,7 @@
   "ignored_paths": [
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-      "reason": "Самодостаточный HTML-черновик открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
+      "reason": "Самодостаточный принятый HTML-черновик из 11 кадров открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
@@ -5521,6 +5561,11 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
       "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "description": "Автономный архив принятого 11-кадрового черновика Лисы и актуальной документации CO-2026-003."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",

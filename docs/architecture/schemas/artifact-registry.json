@@ -9778,6 +9778,54 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Меняется приёмка кадра, открытый текстовый выбор, разрешение чистового выпуска или состав публично разрешённых материалов CO-2026-003."
+    },
+    {
+      "id": "ART-886",
+      "path": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "type": "draft-documentation-archive-guide",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав чернового пакета, принятый состав кадров или запрет чистового выпуска CO-2026-003."
+    },
+    {
+      "id": "ART-887",
+      "path": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "type": "draft-documentation-archive-contract",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав или проверочный барьер чернового архивного снимка CO-2026-003."
+    },
+    {
+      "id": "ART-888",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+      "type": "draft-documentation-archive",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "generated_from": ["scripts/generate-co-2026-003-draft-documentation-archive.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется любой член чернового пакета, принятый состав кадров или его внутренний отпечаток."
     }
   ]
 }

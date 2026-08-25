@@ -103,6 +103,10 @@
     {
       "path": "docs/release/co-2026-003-draft-documentation-archive.md",
       "label": "Порядок сборки архивного снимка черновика"
+    },
+    {
+      "path": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "label": "Машиночитаемый договор архивного снимка черновика"
     }
   ],
   "forbidden_path_fragments": [

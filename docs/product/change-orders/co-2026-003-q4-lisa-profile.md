@@ -92,8 +92,8 @@
 - [Реестр согласованных формулировок](co-2026-003-authoritative-interview-decision-register.md)
 - [Реестр утверждённых текстов будущего прототипа](../analysis/presentation-link-lisa-user-journey/owner-approved-texts.md)
 - [Карта влияния](co-2026-003-q4-lisa-profile-impact.md)
-- [План реализации](../../plans/co-2026-003-q4-lisa-profile-implementation-plan.md)
-- [Пакет итоговой приёмки документации](../../release/co-2026-003-q4-lisa-profile-acceptance-packet.md) — маршрут просмотра всех требований, системных документов, спецификаций, прототипа и доказательств.
+- [План каскадного обновления документации](../../plans/co-2026-003-documentation-cascade-remediation-plan.md)
+- [Черновой пакет документации](../../release/co-2026-003-draft-documentation-archive.md) — текущий состав требований, системных документов, спецификаций и принятого 11-кадрового черновика.
 - `docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx` —
   очищенная рабочая книга, источник сроков и ресурсов.
 

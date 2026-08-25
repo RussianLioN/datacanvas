@@ -23,7 +23,13 @@ function validate() {
   if (!actual.equals(expected)) fail("архивный снимок черновика не совпадает с текущими источниками");
 
   const archive = readStoredZip(actual);
-  for (const required of ["index.html", "README.md", "manifest.json", "prototype/index.html", "prototype/manifest.json"]) {
+  for (const required of [
+    "index.html",
+    "README.md",
+    "manifest.json",
+    "repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
+    "repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+  ]) {
     if (!archive.has(required)) fail(`архивный снимок черновика не содержит ${required}`);
   }
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));

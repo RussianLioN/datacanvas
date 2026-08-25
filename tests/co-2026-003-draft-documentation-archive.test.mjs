@@ -20,8 +20,8 @@ test("архив черновика CO-2026-003 содержит автоном�
   assert.ok(archive.has("index.html"));
   assert.ok(archive.has("README.md"));
   assert.ok(archive.has("manifest.json"));
-  assert.ok(archive.has("prototype/index.html"));
-  assert.ok(archive.has("prototype/manifest.json"));
+  assert.ok(archive.has("repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html"));
+  assert.ok(archive.has("repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json"));
 
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
   assert.equal(manifest.release_kind, "draft_documentation_evidence_only");

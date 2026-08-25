@@ -51,8 +51,8 @@
 ## Пользовательские пути и интерактивные прототипы
 
 - [Путь заказа и получения презентации в Лисе](analysis/presentation-link-lisa-user-journey/README.md) — описание сценария, состояний и границ прототипа.
-- [Открыть автономную демонстрацию](analysis/presentation-link-lisa-user-journey/demo/index.html) — запустить прототип непосредственно из рабочей копии без локального сервера.
-- [Скачать переносимый ZIP локально](analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) или [скачать ZIP из GitHub](analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip?raw=true) — получить готовый пакет для показа на другом компьютере.
+- [Открыть принятый черновой прототип](analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров для ООО «Водолей Трейд» в прежней оболочке и навигации.
+- [Скачать полный черновой пакет](analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP с актуальной документацией и черновиком; это не чистовая поставка.
 
 ## Таблицы Excel
 

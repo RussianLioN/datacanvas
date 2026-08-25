@@ -2573,8 +2573,8 @@
       "artifact_registry_id": "ART-109",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/schemas/artifact-registry.json",
@@ -2798,8 +2798,8 @@
       "artifact_registry_id": "ART-214",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/security/export-sanitization-checklist.md",
@@ -3153,8 +3153,8 @@
       "artifact_registry_id": "ART-506",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
@@ -3210,8 +3210,8 @@
       "artifact_registry_id": "ART-508",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/system-analysis/error-taxonomy.md",
@@ -3302,7 +3302,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/architecture/system-analysis/srs-v0.1.json",
@@ -3325,8 +3325,8 @@
       "artifact_registry_id": "ART-502",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/architecture/system-analysis/srs-v0.1.md",
@@ -4003,7 +4003,7 @@
         "граница-выпуска"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
@@ -4333,8 +4333,8 @@
         "task-9-проверки-и-доказательства",
         "task-10-передача-проверка-и-интеграция"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
@@ -4344,11 +4344,11 @@
       "navigation_group": "governance",
       "format": "md",
       "owner_role": "Product Owner / Process Owner / Documentation Owner",
-      "lifecycle": "draft",
-      "status": "draft",
+      "lifecycle": "historical",
+      "status": "historical",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
+      "searchable": false,
       "navigable": false,
       "generated": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
@@ -5153,8 +5153,6 @@
       "artifact_registry_id": "ART-406",
       "outgoing_links": [
         "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
-        "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
-        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
         "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
         "docs/plans/datacanvas-adaptive-scrum-implementation-plan.md",
         "docs/plans/datacanvas-agent-launch-requirements-analysis-implementation-plan.md",
@@ -8785,8 +8783,8 @@
       "artifact_registry_id": "ART-487",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/ba/acceptance-delta.md",
@@ -8841,7 +8839,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/ba/business-needs.json",
@@ -8950,8 +8948,8 @@
       "artifact_registry_id": "ART-482",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/ba/business-rules.md",
@@ -9656,6 +9654,32 @@
       "click_depth": null
     },
     {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+      "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "zip",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "generated",
+      "status": "generated",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": true,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "generated_from": [
+        "docs/release/co-2026-003-draft-documentation-archive-contract.json"
+      ],
+      "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "artifact_registry_id": "ART-888",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 1
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.json",
       "title": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/delivery-success-message/brainstorming-topic-result.json",
       "section": "release-evidence",
@@ -10015,8 +10039,8 @@
         "задержка-доставки",
         "частичная-доставка"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/owner-approval.json",
@@ -10040,7 +10064,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
@@ -10064,7 +10088,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md",
@@ -10100,7 +10124,7 @@
         "материалы-приёмки"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/owner-approval.json",
@@ -10124,7 +10148,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review-source-manifest.json",
@@ -10148,7 +10172,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review.md",
@@ -10184,7 +10208,7 @@
         "материалы-приёмки"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
@@ -10208,7 +10232,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
@@ -10231,8 +10255,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md",
@@ -10268,8 +10292,8 @@
         "материалы-приёмки",
         "выполненные-проверки"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json",
@@ -10293,7 +10317,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
@@ -10317,7 +10341,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review.md",
@@ -10353,7 +10377,7 @@
         "материалы-приёмки"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
@@ -10377,7 +10401,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
@@ -10401,7 +10425,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review.md",
@@ -10436,7 +10460,7 @@
         "разбор-причины-и-защита-от-повтора"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
@@ -10460,7 +10484,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review-source-manifest.json",
@@ -10484,7 +10508,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
@@ -10518,7 +10542,7 @@
         "ограничение"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
@@ -10541,8 +10565,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review-source-manifest.json",
@@ -10565,8 +10589,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 3
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md",
@@ -10602,8 +10626,8 @@
         "материалы-для-проверки",
         "обязательные-проверки"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
@@ -10679,7 +10703,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
@@ -10703,7 +10727,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 5
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
@@ -10741,7 +10765,7 @@
         "обязательные-проверки"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
@@ -11002,7 +11026,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 1
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
@@ -11053,8 +11077,8 @@
       "artifact_registry_id": "ART-866",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 1
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
@@ -11105,8 +11129,8 @@
       "artifact_registry_id": "ART-852",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
@@ -11176,8 +11200,8 @@
       "artifact_registry_id": "ART-854",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
@@ -11202,8 +11226,8 @@
       "artifact_registry_id": "ART-853",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
@@ -11229,7 +11253,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
@@ -11333,32 +11357,11 @@
       "parent_readme": "docs/product/analysis/README.md",
       "artifact_registry_id": "ART-835",
       "outgoing_links": [
-        "docs/knowledge/rca/2026-08-24-lisa-error-footer-clipping.md",
         "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
-        "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/draft-current-resolution.png",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/draft-current-resolution.png",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-render-catalog.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
@@ -11368,16 +11371,13 @@
         "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/README.md",
         "docs/README.md",
-        "docs/release/co-2026-003-presentation-pdf-import-rca.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
-        "docs/release/co-2026-003-visual-prototype-rca.md",
+        "docs/release/co-2026-003-draft-documentation-archive.md",
         "README.md"
       ],
       "anchors": [
         "пользовательский-путь-заказа-презентации-в-лисе",
-        "открыть-демонстрацию",
-        "будущая-пересборка",
-        "состав-опубликованного-маршрута",
+        "открыть-текущий-черновик",
+        "состав-принятого-черновика",
         "визуальная-основа",
         "маршрут-по-пакету"
       ],
@@ -11406,7 +11406,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/brainstorming-contract.json",
@@ -11599,7 +11599,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/lisa-presentation-slidedoc-content-map.json",
@@ -11671,7 +11671,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.json",
@@ -11695,7 +11695,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
@@ -11729,7 +11729,7 @@
         "договор-контролируемого-импорта-pdf-презентаций"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-preview-contract.json",
@@ -11777,7 +11777,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
@@ -12377,7 +12377,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 4
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/presentation-preview-contract.schema.json",
@@ -12740,8 +12740,8 @@
         "docs/product/analysis/ba/open-decisions-ledger.md",
         "docs/product/analysis/ba/stakeholder-register.md",
         "docs/product/analysis/documentation-consistency-audit/README.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
@@ -14212,7 +14212,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
@@ -14305,7 +14305,7 @@
         "дополнение-владельца-от-2026-08-24"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
@@ -14329,7 +14329,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
@@ -14352,8 +14352,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
@@ -14375,7 +14375,7 @@
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
-        "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
@@ -14384,7 +14384,7 @@
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
         "docs/README.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+        "docs/release/co-2026-003-draft-documentation-archive.md",
         "README.md"
       ],
       "anchors": [
@@ -14585,7 +14585,7 @@
         "docs/product/README.md",
         "docs/product/requirements/business-claim-map.json",
         "docs/README.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+        "docs/release/co-2026-003-draft-documentation-archive.md",
         "README.md"
       ],
       "anchors": [
@@ -14987,8 +14987,8 @@
         "docs/architecture/system-analysis/README.md",
         "docs/process/current/process-backlog.md",
         "docs/product-vision.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/analysis/README.md",
@@ -15672,8 +15672,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
@@ -15696,8 +15696,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
@@ -15720,8 +15720,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
@@ -15744,8 +15744,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/feature-spec-a2a-launch.json",
@@ -15792,8 +15792,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
@@ -15816,8 +15816,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/generated-spec-package-manifest.json",
@@ -15840,8 +15840,8 @@
       "artifact_registry_id": "ART-499",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/interview-to-spec-trace.json",
@@ -15864,8 +15864,8 @@
       "artifact_registry_id": "ART-498",
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/README.md",
@@ -15944,8 +15944,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
@@ -15968,8 +15968,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
@@ -15992,8 +15992,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
@@ -16016,8 +16016,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/product/ux/export-png-pixel-smoke.json",
@@ -17025,9 +17025,8 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
@@ -17055,6 +17054,60 @@
         "продукт-datacanvas",
         "техническое-воплощение-ведения-проектной-документации",
         "откуда-обновляется-навигация"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 1
+    },
+    {
+      "path": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "title": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "json",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": "ART-887",
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": false,
+      "click_depth": null
+    },
+    {
+      "path": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "title": "Архивный снимок черновика CO-2026-003",
+      "section": "release-evidence",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "delivery",
+      "format": "md",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
+      "generated_from": [],
+      "parent_readme": "docs/release/README.md",
+      "artifact_registry_id": "ART-886",
+      "outgoing_links": [
+        "docs/README.md",
+        "docs/release/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "архивный-снимок-черновика-co-2026-003"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -17129,12 +17182,12 @@
       "navigation_group": "delivery",
       "format": "md",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "active",
-      "status": "active",
+      "lifecycle": "draft",
+      "status": "draft",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "generated": false,
       "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "generated_from": [],
@@ -17178,8 +17231,8 @@
       "status": "historical",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "generated": false,
       "canonical_source": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
       "generated_from": [],
@@ -17265,8 +17318,8 @@
         "6-доказательства-архив-и-контроль-целостности",
         "итог-приёмки"
       ],
-      "reachable_from_root": true,
-      "click_depth": 1
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
@@ -17313,7 +17366,7 @@
         "разбор-причин-исправленных-недочётов"
       ],
       "reachable_from_root": true,
-      "click_depth": 2
+      "click_depth": 3
     },
     {
       "path": "docs/release/co-2026-003-visual-prototype-rca.md",
@@ -17632,11 +17685,10 @@
       "artifact_registry_id": "ART-404",
       "outgoing_links": [
         "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
         "docs/README.md",
+        "docs/release/co-2026-003-draft-documentation-archive.md",
         "docs/release/co-2026-003-presentation-pdf-import-rca.md",
-        "docs/release/co-2026-003-prototype-delivery-archive.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
-        "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
         "docs/release/co-2026-003-visual-prototype-rca.md",
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.json",
@@ -39269,10 +39321,8 @@
         "docs/process/README.md",
         "docs/process/universal-documentation-workflow/README.md",
         "docs/product-vision.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
-        "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/README.md",
         "docs/product/backlog/README.md",
@@ -39291,7 +39341,7 @@
         "docs/product/specs/README.md",
         "docs/project-map.md",
         "docs/README.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
+        "docs/release/co-2026-003-draft-documentation-archive.md",
         "docs/release/README.md",
         "docs/sprints/README.md",
         "package.json",
@@ -39853,8 +39903,8 @@
       },
       {
         "id": "task-review-presentation-link-lisa-user-journey",
-        "label": "Открыть или скачать прототип пути презентации в Лисе",
-        "task": "Открыть интерактивный прототип пути презентации в Лисе или скачать переносимый архив для показа",
+        "label": "Открыть или скачать принятый черновик пути презентации в Лисе",
+        "task": "Открыть принятый 11-кадровый черновик пути презентации в Лисе или скачать полный черновой пакет документации для работы",
         "navigation_domain": "product",
         "navigation_group": "business",
         "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -39862,7 +39912,7 @@
           "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
         ],
         "owner_role": "Product Owner / Documentation Owner",
-        "validation_command": "npm run validate:presentation-link-lisa-user-journey:profile"
+        "validation_command": "npm run validate:co-2026-003-draft-documentation-archive"
       },
       {
         "id": "task-review-co-2026-003-q4-lisa-profile",
@@ -39895,20 +39945,20 @@
     }
   },
   "coverage": {
-    "total_entries": 1371,
-    "manual_entries": 1361,
-    "generated_entries": 10,
-    "public_navigable_entries": 35,
-    "searchable_entries": 1258,
+    "total_entries": 1374,
+    "manual_entries": 1363,
+    "generated_entries": 11,
+    "public_navigable_entries": 36,
+    "searchable_entries": 1257,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 291,
-    "orphan_entries": 0
+    "reachable_from_root": 261,
+    "orphan_entries": 3
   },
   "ignored_paths": [
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-      "reason": "Самодостаточный HTML-черновик открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
+      "reason": "Самодостаточный принятый HTML-черновик из 11 кадров открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",

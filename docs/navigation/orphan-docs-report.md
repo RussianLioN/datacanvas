@@ -9,7 +9,9 @@
 
 | Путь | Секция | Владелец | Lifecycle |
 |---|---|---|---|
-| - | - | - | - |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md` | product | Product Owner / Documentation Owner | `draft` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md` | product | Product Owner / Documentation Owner | `accepted` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md` | product | Product Owner / Documentation Owner | `accepted` |
 
 ## README По Уровням Вложенности
 
@@ -51,26 +53,29 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 15 |
-| `business` | `2` | 68 |
-| `business` | `3` | 9 |
-| `business` | `4` | 3 |
-| `business` | `hidden` | 63 |
+| `business` | `2` | 39 |
+| `business` | `3` | 14 |
+| `business` | `4` | 9 |
+| `business` | `hidden` | 81 |
 | `delivery` | `1` | 3 |
-| `delivery` | `2` | 15 |
-| `delivery` | `hidden` | 828 |
+| `delivery` | `2` | 14 |
+| `delivery` | `3` | 1 |
+| `delivery` | `hidden` | 830 |
 | `evidence` | `1` | 2 |
-| `evidence` | `2` | 4 |
-| `evidence` | `3` | 21 |
-| `evidence` | `4` | 5 |
+| `evidence` | `2` | 2 |
+| `evidence` | `3` | 18 |
+| `evidence` | `4` | 6 |
+| `evidence` | `5` | 4 |
 | `evidence` | `hidden` | 12 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 10 |
-| `governance` | `2` | 62 |
+| `governance` | `2` | 61 |
 | `governance` | `3` | 14 |
 | `governance` | `4` | 1 |
-| `governance` | `hidden` | 45 |
-| `technical` | `1` | 3 |
-| `technical` | `2` | 26 |
-| `technical` | `3` | 21 |
-| `technical` | `4` | 3 |
-| `technical` | `hidden` | 127 |
+| `governance` | `hidden` | 46 |
+| `technical` | `1` | 2 |
+| `technical` | `2` | 16 |
+| `technical` | `3` | 13 |
+| `technical` | `4` | 7 |
+| `technical` | `5` | 7 |
+| `technical` | `hidden` | 135 |
