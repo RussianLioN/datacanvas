@@ -35,7 +35,8 @@
         "business_generation_contract",
         "business_claim_map",
         "validation_command_catalog",
-        "navigation_source"
+        "navigation_source",
+        "co_2026_003_bt_interview_state"
       ],
       "properties": {
         "product_source_registry": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
@@ -45,7 +46,8 @@
         "business_generation_contract": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "business_claim_map": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
         "validation_command_catalog": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "navigation_source": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
+        "navigation_source": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
+        "co_2026_003_bt_interview_state": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" }
       }
     },
     "global_policies": {

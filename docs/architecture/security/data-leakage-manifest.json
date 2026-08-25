@@ -342,6 +342,12 @@
       "sink": "evidence",
       "data_class": "internal",
       "release_gate_contract_path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+    },
+    {
+      "id": "DLT-055",
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "sink": "trace",
+      "data_class": "internal"
     }
   ],
   "explicit_exclusions": [],

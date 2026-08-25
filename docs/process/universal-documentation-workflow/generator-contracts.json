@@ -75,6 +75,39 @@
       ]
     },
     {
+      "generator_id": "datacanvas-xlsx-backlog-2026-08-19-working",
+      "owner_role": "Product Owner / Security Lead",
+      "inputs": [
+        "scripts/datacanvas_source_security.py"
+      ],
+      "outputs": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json"
+      ],
+      "allowed_writes": [
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.xlsx",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json"
+      ],
+      "generate_command": "npm run generate:xlsx-backlog-2026-08-19 -- --source <external-owner-xlsx> --expected-original-sha256 9b7d6e2bfb19eb943ad5a989c76a83ac58b63cfefecaaa33c6644dd1352fbfc5",
+      "check_command": "npm run validate:xlsx-backlog-2026-08-19-source-security",
+      "deterministic_environment": "Python 3, неизменяемая внешняя книга Product Owner с независимо закрепленным SHA-256 9b7d6e2bfb19eb943ad5a989c76a83ac58b63cfefecaaa33c6644dd1352fbfc5, без сети; допускается только удаление absPath и очистка персональных метаданных автора и комментариев без изменения ячеек, формул, приоритетов, статусов или ресурсов",
+      "dependencies": [],
+      "post_validators": [
+        "npm run validate:xlsx-backlog-2026-08-19-source-security",
+        "npm run validate:data-leakage"
+      ],
+      "failure_modes": [
+        "original_source_hash_mismatch",
+        "missing_abs_path",
+        "unexpected_ooxml_part_change",
+        "local_pointer_remains",
+        "personal_comment_metadata_remains",
+        "business_cell_changed",
+        "formula_removed",
+        "invalid_xlsx_package"
+      ]
+    },
+    {
       "generator_id": "datacanvas-jira-stories",
       "owner_role": "Product Owner / Process Owner",
       "inputs": [
@@ -618,6 +651,7 @@
   "topological_order": [
     "datacanvas-xlsx-sanitized-reference",
     "datacanvas-xlsx-backlog-2026-08-17-working",
+    "datacanvas-xlsx-backlog-2026-08-19-working",
     "datacanvas-jira-stories",
     "documentation-cascade-run",
     "documentation-cascade-finalization",

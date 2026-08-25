@@ -245,6 +245,10 @@ const cases = [
     data: "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
   },
   {
+    schema: "schemas/co-2026-003-bt-interview-state.schema.json",
+    data: "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+  },
+  {
     schema: "schemas/change-impact-assessment.schema.json",
     data: "docs/product/change-orders/change-impact-assessment.json",
   },
@@ -255,6 +259,10 @@ const cases = [
   {
     schema: "schemas/product-source-registry.schema.json",
     data: "docs/product/sources/product-source-registry.json",
+  },
+  {
+    schema: "schemas/co-2026-003-current-2026-scope.schema.json",
+    data: "docs/product/sources/co-2026-003-current-2026-scope.json",
   },
   {
     schema: "schemas/xlsx-backlog-provenance.schema.json",

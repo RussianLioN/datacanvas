@@ -382,8 +382,8 @@
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
       "source_role": "analysis_source",
       "owner_role": "Product Owner",
-      "lifecycle": "active",
-      "trust_level": "accepted_current",
+      "lifecycle": "superseded",
+      "trust_level": "superseded_by_co_acceptance",
       "effective_date": "2026-08-17",
       "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
@@ -398,7 +398,7 @@
         "scripts/datacanvas_source_security.py",
         "scripts/validate-datacanvas-xlsx-backlog.py"
       ],
-      "notes": "Контролируемая рабочая Excel-версия Product Owner от 2026-08-17: книга имеет три листа, формулы и структура сохранены, служебный absPath, персональные сведения авторов в core/comments и содержимое комментариев удалены, строка старого PUSH на листе СОЗАВИСИМОСТЬ Q3_2026 переименована в «Сообщения о статусе заказа в том же чате Лисы» с сохранением ресурса 35. Плановые значения J1:V1 учитывают коэффициент C1, J2:V2 остаются чистыми подытогами; полный ресурсный итог берется из числового значения Excel на листе Итоговые ресурсы, B4=304.4, а B8 не является полным итогом.",
+      "notes": "Контролируемая рабочая Excel-версия Product Owner от 2026-08-17 сохранена как исторический источник. Для определения текущей границы и приоритетов 2026 года она заменена книгой от 2026-08-19; ее ресурсные значения не используются в текущем кандидате бизнес-требований.",
       "sha256": "6215a793cae25a0a11ccb9d205aaef10a832b4179319409c00ef6b5a08b451f4",
       "derived_from": null,
       "verifier_command": "npm run validate:xlsx-backlog-2026-08-17",
@@ -406,6 +406,46 @@
       "approval_status": "owner_approved",
       "team_validation_status": "pending_team_review",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+    },
+    {
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-19",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "current_2026_scope",
+        "business_requirements_accepted",
+        "user_stories_candidate",
+        "system_requirements_candidate",
+        "cascade_synchronization"
+      ],
+      "affected_artifacts": [
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+        "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/ba/business-rules.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Актуальная контролируемая книга Product Owner от 2026-08-19 для границы и приоритетов 2026 года. Для требований используется только явно установленная владельцем продукта выборка девяти видимых историй первого листа; ресурсные значения, остальные листы и будущие истории не используются.",
+      "sha256": "af3982cd89ae9d076b0064e41c5525c2e5f2a5fb79ff9c175c7cb626eddb32f4",
+      "derived_from": null,
+      "verifier_command": "npm run validate:xlsx-backlog-2026-08-19-source-security",
+      "allowed_delta": "От внешнего источника Product Owner разрешены только удаление absPath и очистка метаданных автора и содержимого комментариев с сохранением OOXML-структуры. Ячейки, формулы, приоритеты, статусы и ресурсные данные не изменяются.",
+      "approval_status": "owner_approved",
+      "team_validation_status": "pending_team_review",
+      "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json"
     },
     {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",

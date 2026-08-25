@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/co-2026-003-current-2026-scope.schema.json",
+  "title": "CO2026003Current2026Scope",
+  "type": "object",
+  "required": ["$schema", "version", "change_order_id", "scope_period", "source", "resource_data_used", "active_story_ids", "stories", "excluded_story_ids", "approval_status"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "scope_period": { "const": "2026-Q4" },
+    "source": {
+      "type": "object",
+      "required": ["source_id", "controlled_path", "provenance_path", "original_sha256", "worksheet", "selection_rule"],
+      "additionalProperties": false,
+      "properties": {
+        "source_id": { "const": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19" },
+        "controlled_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.xlsx$" },
+        "provenance_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.json$" },
+        "original_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "worksheet": { "const": "БЭКЛОГ + СВОИ РЕСУРСЫ 2026" },
+        "selection_rule": { "const": "owner_declared_visible_2026_stories_only" }
+      }
+    },
+    "resource_data_used": { "const": false },
+    "active_story_ids": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^DC-ST-\\d{2}$" }
+    },
+    "stories": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["story_id", "priority", "target_period", "source_row", "summary"],
+        "additionalProperties": false,
+        "properties": {
+          "story_id": { "type": "string", "pattern": "^DC-ST-\\d{2}$" },
+          "priority": { "enum": ["P1", "P2"] },
+          "target_period": { "const": "2026-Q4" },
+          "source_row": { "type": "integer", "minimum": 1 },
+          "summary": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "excluded_story_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^DC-ST-\\d{2}$" }
+    },
+    "approval_status": { "enum": ["candidate_pending_owner_review", "owner_approved"] }
+  }
+}

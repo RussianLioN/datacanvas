@@ -3703,7 +3703,7 @@
       "path": "docs/product/requirements/business-requirements.md",
       "type": "product",
       "owner_role": "Product Owner",
-      "status": "draft",
+      "status": "accepted",
       "sprint_id": "SPRINT-2026-W26",
       "data_class": "internal",
       "visibility": "public",

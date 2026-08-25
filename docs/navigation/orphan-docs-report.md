@@ -28,8 +28,8 @@
 | `docs/process/README.md` | `docs/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/universal-documentation-workflow/README.md` | `docs/process/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/versions/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `-` |
-| `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
-| `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
+| `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `-` |
+| `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `4` |
 | `docs/product/analysis/presentation-link-lisa-user-journey/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `true` | `1` |
 | `docs/product/analysis/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
 | `docs/product/backlog/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
@@ -39,7 +39,7 @@
 | `docs/product/hypotheses/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/interviews/ba-sa/README.md` | `docs/product/README.md` | `business` | `restricted` | `false` | `-` |
 | `docs/product/README.md` | `docs/README.md` | `business` | `public` | `true` | `1` |
-| `docs/product/requirements/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
+| `docs/product/requirements/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `2` |
 | `docs/product/roadmap/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/sources/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/specs/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
@@ -53,10 +53,12 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 15 |
-| `business` | `2` | 39 |
-| `business` | `3` | 14 |
-| `business` | `4` | 9 |
-| `business` | `hidden` | 81 |
+| `business` | `2` | 27 |
+| `business` | `3` | 9 |
+| `business` | `4` | 8 |
+| `business` | `5` | 6 |
+| `business` | `6` | 5 |
+| `business` | `hidden` | 88 |
 | `delivery` | `1` | 3 |
 | `delivery` | `2` | 14 |
 | `delivery` | `3` | 1 |
@@ -75,7 +77,7 @@
 | `governance` | `hidden` | 46 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
-| `technical` | `3` | 13 |
+| `technical` | `3` | 12 |
 | `technical` | `4` | 7 |
 | `technical` | `5` | 7 |
-| `technical` | `hidden` | 135 |
+| `technical` | `hidden` | 136 |

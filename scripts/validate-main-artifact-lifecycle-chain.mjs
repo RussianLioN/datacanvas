@@ -135,13 +135,31 @@ function assertBusinessContractCoverage(chain, contentContract, generationContra
   }
 }
 
-function assertProductIndexOrder(chain) {
-  const expectedTopPaths = [
-    "docs/product-vision.md",
-    "docs/product/change-orders/README.md",
-    "docs/product/bmc/README.md",
-    "docs/product/requirements/user-stories.md",
-  ];
+function isBusinessRequirementsOnlyStage(chain) {
+  const state = readJson(chain.supporting_contracts.co_2026_003_bt_interview_state);
+  return (
+    state.status === "business_requirements_owner_approved" &&
+    state.documentation_cascade?.business_requirements === "owner_approved" &&
+    state.documentation_cascade?.user_stories === "pending" &&
+    state.documentation_cascade?.system_requirements === "pending"
+  );
+}
+
+function assertProductIndexOrder(chain, businessRequirementsOnlyStage) {
+  const expectedTopPaths = businessRequirementsOnlyStage
+    ? [
+      "docs/product-vision.md",
+      "docs/product/change-orders/README.md",
+      "docs/product/bmc/README.md",
+      "docs/product/sources/co-2026-003-current-2026-scope.md",
+      "docs/product/requirements/business-requirements.md",
+    ]
+    : [
+      "docs/product-vision.md",
+      "docs/product/change-orders/README.md",
+      "docs/product/bmc/README.md",
+      "docs/product/requirements/user-stories.md",
+    ];
   const indexPaths = orderedProductIndexLinks(readText(chain.canonical_product_index_path)).map(normalizeProductIndexLink);
   for (let index = 0; index < expectedTopPaths.length; index += 1) {
     const expectedPath = expectedTopPaths[index];
@@ -152,7 +170,35 @@ function assertProductIndexOrder(chain) {
   }
 }
 
-function assertRequirementsIndexOrder() {
+function assertRequirementsIndexOrder(businessRequirementsOnlyStage) {
+  const text = readText("docs/product/requirements/README.md");
+  if (businessRequirementsOnlyStage) {
+    const requiredOrder = [
+      "Граница реализации 2026 года",
+      "Бизнес-требования 2026 года",
+    ];
+    const positions = requiredOrder.map((label) => text.indexOf(label));
+    positions.forEach((position, index) => {
+      if (position === -1) {
+        fail(`requirements README is missing ${requiredOrder[index]}`);
+      }
+      if (index > 0 && position <= positions[index - 1]) {
+        fail("requirements README must lead from the current 2026 scope to accepted business requirements");
+      }
+    });
+    for (const downstreamPath of [
+      "user-stories.md",
+      "non-functional-requirements.md",
+      "acceptance-criteria.md",
+      "traceability-matrix.json",
+    ]) {
+      if (text.includes(downstreamPath)) {
+        fail(`requirements README exposes a downstream document before its update: ${downstreamPath}`);
+      }
+    }
+    return;
+  }
+
   const requiredOrder = [
     "Бизнес-требования",
     "Пользовательские истории",
@@ -160,7 +206,6 @@ function assertRequirementsIndexOrder() {
     "Критерии приемки",
     "Traceability matrix",
   ];
-  const text = readText("docs/product/requirements/README.md");
   const positions = requiredOrder.map((label) => text.indexOf(label));
   positions.forEach((position, index) => {
     if (position === -1) {
@@ -309,8 +354,9 @@ try {
   requirePath(schemaPath);
   const chain = readJson(chainPath);
   assertChainSchema(chain);
-  assertProductIndexOrder(chain);
-  assertRequirementsIndexOrder();
+  const businessRequirementsOnlyStage = isBusinessRequirementsOnlyStage(chain);
+  assertProductIndexOrder(chain, businessRequirementsOnlyStage);
+  assertRequirementsIndexOrder(businessRequirementsOnlyStage);
   assertBusinessContractCoverage(
     chain,
     readJson(chain.supporting_contracts.business_content_contract),

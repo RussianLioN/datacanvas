@@ -12,21 +12,13 @@
 
 ## Пользовательские пути и интерактивные прототипы
 
-- [Путь заказа и получения презентации в Лисе](presentation-link-lisa-user-journey/user-journey.md) — человекочитаемый маршрут, правила одного заказа и граница Q4_2026.
 - [Контекст и вход в путь](presentation-link-lisa-user-journey/README.md) — состав существующего прототипа и условие отдельного визуального выпуска.
 - [Открыть принятый черновой прототип](presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров для ООО «Водолей Трейд».
 - [Скачать полный черновой пакет](presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP с актуальной документацией и черновиком; это не чистовая поставка.
 
 ## Документы
 
-- [Stakeholder register](ba/stakeholder-register.md)
-- [Business needs](ba/business-needs.md)
-- [Business rules](ba/business-rules.md)
-- [Business requirements delta](ba/business-requirements-delta.md)
-- [Acceptance delta](ba/acceptance-delta.md)
-- [Open decisions ledger](ba/open-decisions-ledger.md)
-- [Анализ `DC-ST-23..DC-ST-33` — пользовательских историй запуска другим агентом — на влияние на `BT-*` — бизнес-требования](agent-launch-requirements-analysis/README.md)
-- [Аудит согласованности проектной документации DataCanvas после `CO-2026-001` — заявки на приоритет запуска другим агентом](documentation-consistency-audit/README.md)
+- [Граница реализации 2026 года](../sources/co-2026-003-current-2026-scope.md)
+- [Стенограмма интервью для бизнес-требований](../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md)
+- [Принятые бизнес-требования 2026 года](../requirements/business-requirements.md)
 - [Карта влияния CO-2026-003 — подтверждённой заявки на Q4_2026](../change-orders/co-2026-003-q4-lisa-profile-impact.md)
-- `ba/ba-spec.json`
-- `ba-sa/interview-derived-coverage.json`

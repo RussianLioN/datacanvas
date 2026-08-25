@@ -14,7 +14,8 @@
     "business_generation_contract": "docs/process/universal-documentation-workflow/business-artifact-generation-contract.json",
     "validation_command_catalog": "docs/process/universal-documentation-workflow/validation-command-catalog.json",
     "navigation_source": "docs/navigation/navigation-source.json",
-    "business_claim_map": "docs/product/requirements/business-claim-map.json"
+    "business_claim_map": "docs/product/requirements/business-claim-map.json",
+    "co_2026_003_bt_interview_state": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json"
   },
   "global_policies": {
     "business_markdown_policy": "Главные бизнесовые Markdown-артефакты содержат только продуктовый смысл, классические разделы своего типа, решения владельцев и понятный для Product Owner текст.",

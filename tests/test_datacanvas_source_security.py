@@ -62,6 +62,31 @@ def write_august_profile_fixture(path: Path) -> None:
         archive.writestr("[Content_Types].xml", b"<Types/>")
 
 
+def write_august_19_profile_fixture(path: Path) -> None:
+    with ZipFile(path, "w", ZIP_DEFLATED) as archive:
+        comment_xml = (
+            '<comments xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+            '<authors><author>Личный автор</author></authors>'
+            '<commentList><comment ref="A1" authorId="0"><text><r><t>Личная запись</t></r></text></comment></commentList>'
+            "</comments>"
+        ).encode("utf-8")
+        archive.writestr("xl/comments1.xml", comment_xml)
+        archive.writestr("xl/comments2.xml", comment_xml)
+        archive.writestr("xl/workbook.xml", b'<workbook><x:absPath url="/Users/private/source" xmlns:x="urn:abs"/></workbook>')
+        archive.writestr(
+            "docProps/core.xml",
+            (
+                '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
+                'xmlns:dc="http://purl.org/dc/elements/1.1/">'
+                "<dc:creator>Личный автор</dc:creator>"
+                "<cp:lastModifiedBy>Личный автор</cp:lastModifiedBy>"
+                "</cp:coreProperties>"
+            ).encode("utf-8"),
+        )
+        archive.writestr("xl/worksheets/sheet1.xml", b"<worksheet><f>SUM(A1:A2)</f></worksheet>")
+        archive.writestr("[Content_Types].xml", b"<Types/>")
+
+
 def git(repo: Path, *args: str) -> str:
     result = subprocess.run(
         ["git", *args],
@@ -211,6 +236,45 @@ class SourceSanitizerTest(unittest.TestCase):
                 self.assertIn(MODULE.BACKLOG_2026_08_17_STATUS_TEXT, package_text)
                 self.assertEqual(workbook.read("xl/worksheets/sheet3.xml"), b"<worksheet><f>SUM(G4:G6)</f></worksheet>")
                 self.assertIn(b"<text/>", workbook.read("xl/comments1.xml"))
+
+    def test_august_19_profile_redacts_all_comment_parts_without_rewriting_business_cells(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "source.xlsx"
+            target = root / "sanitized.xlsx"
+            write_august_19_profile_fixture(source)
+
+            raw_findings = MODULE._xlsx_personal_metadata_findings(
+                source.read_bytes(),
+                "RAW",
+                "source.xlsx",
+            )
+            self.assertTrue(
+                any(finding["part"] == "xl/comments2.xml" for finding in raw_findings),
+                "второй комментарий с персональными данными должен быть обнаружен",
+            )
+
+            manifest = MODULE.sanitize_xlsx(
+                source,
+                target,
+                MODULE.sha256_file(source),
+                profile=MODULE.BACKLOG_2026_08_19_WORKING_PROFILE,
+            )
+
+            self.assertEqual(set(manifest["changed_parts"]), {
+                "xl/workbook.xml",
+                "xl/comments1.xml",
+                "xl/comments2.xml",
+                "docProps/core.xml",
+            })
+            self.assertEqual(manifest["renamed_status_labels"], 0)
+            with ZipFile(target) as workbook:
+                self.assertEqual(workbook.read("xl/worksheets/sheet1.xml"), b"<worksheet><f>SUM(A1:A2)</f></worksheet>")
+                for comment_part in ("xl/comments1.xml", "xl/comments2.xml"):
+                    text = workbook.read(comment_part).decode("utf-8")
+                    self.assertIn("Product Owner", text)
+                    self.assertNotIn("Личный автор", text)
+                    self.assertNotIn("Личная запись", text)
 
     def test_generated_august_working_copy_has_no_local_or_personal_owner_metadata_and_keeps_formulas(self) -> None:
         workbook_path = ROOT / "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"

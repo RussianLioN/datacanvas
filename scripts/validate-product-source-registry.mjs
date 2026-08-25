@@ -37,6 +37,7 @@ const roadmapPath = "docs/product/roadmap/roadmap-v0.1.md";
 const storySlicePath = "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md";
 const storySliceCsvPath = "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv";
 const workingXlsxProvenancePath = "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json";
+const current2026ScopePath = "docs/product/sources/co-2026-003-current-2026-scope.json";
 const bmcManifestPath = "docs/product/bmc/manifest.json";
 const consistencyMode = process.argv.includes("--consistency");
 
@@ -255,6 +256,33 @@ function assertXlsxApprovalConsistency(registry) {
   });
   if (downstreamProblems.length > 0) {
     throw new Error("working XLSX source downstream-use violation: " + downstreamProblems[0]);
+  }
+}
+
+function assertCurrent2026ScopeConsistency(registry) {
+  const source = registry.sources.find((candidate) => candidate.source_id === "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19");
+  const supersededSource = registry.sources.find((candidate) => candidate.source_id === "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17");
+  if (!source?.provenance_manifest) {
+    throw new Error("current 2026 XLSX source must reference its provenance manifest");
+  }
+  if (source.lifecycle !== "active" || source.trust_level !== "accepted_current") {
+    throw new Error("current 2026 XLSX source must be the active accepted source");
+  }
+  if (supersededSource?.lifecycle !== "superseded" || supersededSource.trust_level !== "superseded_by_co_acceptance") {
+    throw new Error("the 2026-08-17 XLSX source must be superseded for current 2026 scope");
+  }
+
+  requireFile(current2026ScopePath);
+  const scope = readJson(current2026ScopePath);
+  const provenance = readJson(source.provenance_manifest);
+  const expectedStoryIds = ["DC-ST-09", "DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26", "DC-ST-27", "DC-ST-28", "DC-ST-29", "DC-ST-30"];
+  if (
+    scope.source?.source_id !== source.source_id ||
+    scope.source?.original_sha256 !== provenance.original_sha256 ||
+    scope.resource_data_used !== false ||
+    JSON.stringify(scope.active_story_ids) !== JSON.stringify(expectedStoryIds)
+  ) {
+    throw new Error("current 2026 scope must use only the nine owner-declared stories from the 2026-08-19 source");
   }
 }
 
@@ -482,6 +510,7 @@ try {
     "SRC-DC-STORIES-XLSX-ORIGIN-METADATA",
     "SRC-DC-STORIES-XLSX-SANITIZED",
     "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
+    "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
   ];
   for (const sourceId of requiredSources) {
     if (!ids.has(sourceId)) {
@@ -492,6 +521,7 @@ try {
   assertXlsxRecoveryIndexConsistency(registry);
   assertRoadmapSourceConsistency(registry);
   assertXlsxApprovalConsistency(registry);
+  assertCurrent2026ScopeConsistency(registry);
   assertXlsxDownstreamUseNegativeMutations(registry);
   assertTraceabilityVisionAuthority(registry);
   assertBmcAcceptanceStatus(registry);

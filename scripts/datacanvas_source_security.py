@@ -26,6 +26,7 @@ CORE_PROPS_PART = "docProps/core.xml"
 FORBIDDEN_RAW_PATH = "docs/product/sources/raw/bl-value-rm-data-canvas.xlsx"
 SOURCE_REFERENCE_PROFILE = "source-reference"
 BACKLOG_2026_08_17_WORKING_PROFILE = "backlog-2026-08-17-working"
+BACKLOG_2026_08_19_WORKING_PROFILE = "backlog-2026-08-19-working"
 BACKLOG_2026_08_17_OLD_PUSH_TEXT = "3. Добавляем PUSH уведомление - отображение готовности во всплывающем сообщении"
 BACKLOG_2026_08_17_STATUS_TEXT = "Сообщения о статусе заказа в том же чате Лисы"
 REDACTED_OWNER = "Product Owner"
@@ -52,6 +53,17 @@ EXTERNAL_RELATIONSHIP = re.compile(
 )
 NORMALIZATION_LIMIT = 5
 SHA256_HEX = re.compile(r"^[0-9a-f]{64}$")
+
+
+def is_working_backlog_profile(profile: str) -> bool:
+    return profile in {
+        BACKLOG_2026_08_17_WORKING_PROFILE,
+        BACKLOG_2026_08_19_WORKING_PROFILE,
+    }
+
+
+def is_comment_part(part: str) -> bool:
+    return bool(re.fullmatch(r"xl/comments[0-9]+\.xml", part))
 
 
 class SourceSecurityError(Exception):
@@ -172,10 +184,12 @@ def sanitize_xlsx(
                 sanitized_data = original_data
                 if info.filename == WORKBOOK_PART:
                     sanitized_data, removed_elements = sanitize_workbook_xml(original_data)
-                if profile == BACKLOG_2026_08_17_WORKING_PROFILE and info.filename == CORE_PROPS_PART:
+                if is_working_backlog_profile(profile) and info.filename == CORE_PROPS_PART:
                     sanitized_data, redacted_core_properties = sanitize_core_properties(sanitized_data)
-                if profile == BACKLOG_2026_08_17_WORKING_PROFILE and info.filename == COMMENTS_PART:
-                    sanitized_data, redacted_comment_markers, cleared_comment_texts = sanitize_comments(sanitized_data)
+                if is_working_backlog_profile(profile) and is_comment_part(info.filename):
+                    sanitized_data, redacted_authors, cleared_texts = sanitize_comments(sanitized_data)
+                    redacted_comment_markers += redacted_authors
+                    cleared_comment_texts += cleared_texts
                 if profile == BACKLOG_2026_08_17_WORKING_PROFILE and info.filename == SHARED_STRINGS_PART:
                     sanitized_data, renamed_status_labels = rewrite_backlog_status_label(sanitized_data)
                 original_parts[info.filename] = sha256_bytes(original_data)
@@ -185,15 +199,21 @@ def sanitize_xlsx(
                 sanitized.writestr(info, sanitized_data)
 
         expected_changed_parts = [WORKBOOK_PART]
+        if is_working_backlog_profile(profile):
+            expected_changed_parts += [
+                part
+                for part in original_parts
+                if part == CORE_PROPS_PART or is_comment_part(part)
+            ]
         if profile == BACKLOG_2026_08_17_WORKING_PROFILE:
-            expected_changed_parts = [WORKBOOK_PART, SHARED_STRINGS_PART, COMMENTS_PART, CORE_PROPS_PART]
+            expected_changed_parts.append(SHARED_STRINGS_PART)
         if set(changed_parts) != set(expected_changed_parts):
             raise SourceSecurityError(f"unexpected sanitized XLSX parts changed: {changed_parts}")
 
         findings = _xlsx_findings(temporary_path.read_bytes(), "SANITIZED", target.as_posix())
         if findings:
             raise SourceSecurityError(f"sanitized XLSX contains forbidden content: {findings}")
-        if profile == BACKLOG_2026_08_17_WORKING_PROFILE:
+        if is_working_backlog_profile(profile):
             personal_findings = _xlsx_personal_metadata_findings(
                 temporary_path.read_bytes(),
                 "SANITIZED",
@@ -213,6 +233,8 @@ def sanitize_xlsx(
             "transformation": (
                 "remove_absPath_redact_owner_comment_metadata_and_apply_accepted_status_label"
                 if profile == BACKLOG_2026_08_17_WORKING_PROFILE
+                else "remove_absPath_redact_owner_comment_metadata"
+                if profile == BACKLOG_2026_08_19_WORKING_PROFILE
                 else "remove_namespace_independent_absPath_from_xl_workbook_xml"
             ),
             "original_sha256": original_sha256,
@@ -301,10 +323,12 @@ def _xlsx_personal_metadata_findings(data: bytes, commit: str, workbook_path: st
     findings: list[dict[str, str]] = []
     try:
         with ZipFile(io.BytesIO(data)) as workbook:
-            for part, local_names in (
-                (COMMENTS_PART, {"author"}),
-                (CORE_PROPS_PART, {"creator", "lastModifiedBy"}),
-            ):
+            parts_and_names = [
+                (part, {"author"})
+                for part in workbook.namelist()
+                if is_comment_part(part)
+            ] + [(CORE_PROPS_PART, {"creator", "lastModifiedBy"})]
+            for part, local_names in parts_and_names:
                 if part not in workbook.namelist():
                     continue
                 root = ET.fromstring(workbook.read(part))
@@ -322,20 +346,20 @@ def _xlsx_personal_metadata_findings(data: bytes, commit: str, workbook_path: st
                             "finding": "xlsx_personal_owner_metadata",
                         }
                     )
-            if part == COMMENTS_PART:
-                comment_texts = [
-                    "".join(comment_text.itertext()).strip()
-                    for comment_text in root.findall(".//{*}comment/{*}text")
-                ]
-                if any(comment_texts):
-                    findings.append(
-                        {
-                            "commit": commit,
-                            "path": workbook_path,
-                            "part": part,
-                            "finding": "xlsx_comment_text_not_cleared",
-                        }
-                    )
+                if is_comment_part(part):
+                    comment_texts = [
+                        "".join(comment_text.itertext()).strip()
+                        for comment_text in root.findall(".//{*}comment/{*}text")
+                    ]
+                    if any(comment_texts):
+                        findings.append(
+                            {
+                                "commit": commit,
+                                "path": workbook_path,
+                                "part": part,
+                                "finding": "xlsx_comment_text_not_cleared",
+                            }
+                        )
     except (BadZipFile, ET.ParseError):
         findings.append(
             {
@@ -420,18 +444,29 @@ def validate_reference(
         if actual_parts.get(name) != original_hash
     ]
     expected_changed_parts = [WORKBOOK_PART]
+    if is_working_backlog_profile(profile):
+        expected_changed_parts += [
+            part
+            for part in actual_part_set
+            if part == CORE_PROPS_PART or is_comment_part(part)
+        ]
     if profile == BACKLOG_2026_08_17_WORKING_PROFILE:
-        expected_changed_parts = [WORKBOOK_PART, SHARED_STRINGS_PART, COMMENTS_PART, CORE_PROPS_PART]
+        expected_changed_parts.append(SHARED_STRINGS_PART)
     if set(changed) != set(manifest["changed_parts"]) or set(changed) != set(expected_changed_parts):
         raise SourceSecurityError(f"sanitized XLSX has unexpected changed parts: {changed}")
     findings = _xlsx_findings(reference.read_bytes(), "HEAD", reference.as_posix())
     if findings:
         raise SourceSecurityError(f"sanitized XLSX contains forbidden content: {findings}")
+    if is_working_backlog_profile(profile):
+        if manifest.get("profile") != profile:
+            raise SourceSecurityError("sanitized working backlog manifest has an unexpected profile")
     if profile == BACKLOG_2026_08_17_WORKING_PROFILE:
-        if manifest.get("profile") != BACKLOG_2026_08_17_WORKING_PROFILE:
-            raise SourceSecurityError("2026-08-17 sanitized manifest has an unexpected profile")
         if manifest.get("renamed_status_labels") != 1:
             raise SourceSecurityError("2026-08-17 sanitized manifest must record exactly one status-label rename")
+    if profile == BACKLOG_2026_08_19_WORKING_PROFILE:
+        if manifest.get("renamed_status_labels") != 0:
+            raise SourceSecurityError("2026-08-19 sanitized manifest must not rewrite status labels")
+    if is_working_backlog_profile(profile):
         personal_findings = _xlsx_personal_metadata_findings(reference.read_bytes(), "HEAD", reference.as_posix())
         if personal_findings:
             raise SourceSecurityError(f"sanitized XLSX contains personal owner metadata: {personal_findings}")
@@ -451,13 +486,13 @@ def main() -> int:
     sanitize.add_argument("--target", required=True, type=Path)
     sanitize.add_argument("--manifest", required=True, type=Path)
     sanitize.add_argument("--expected-original-sha256", required=True)
-    sanitize.add_argument("--profile", default=SOURCE_REFERENCE_PROFILE, choices=[SOURCE_REFERENCE_PROFILE, BACKLOG_2026_08_17_WORKING_PROFILE])
+    sanitize.add_argument("--profile", default=SOURCE_REFERENCE_PROFILE, choices=[SOURCE_REFERENCE_PROFILE, BACKLOG_2026_08_17_WORKING_PROFILE, BACKLOG_2026_08_19_WORKING_PROFILE])
 
     validate = subparsers.add_parser("validate-reference")
     validate.add_argument("--reference", required=True, type=Path)
     validate.add_argument("--manifest", required=True, type=Path)
     validate.add_argument("--expected-original-sha256", required=True)
-    validate.add_argument("--profile", default=SOURCE_REFERENCE_PROFILE, choices=[SOURCE_REFERENCE_PROFILE, BACKLOG_2026_08_17_WORKING_PROFILE])
+    validate.add_argument("--profile", default=SOURCE_REFERENCE_PROFILE, choices=[SOURCE_REFERENCE_PROFILE, BACKLOG_2026_08_17_WORKING_PROFILE, BACKLOG_2026_08_19_WORKING_PROFILE])
 
     history = subparsers.add_parser("scan-history")
     history.add_argument("--base", default="origin/main")

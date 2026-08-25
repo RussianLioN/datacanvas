@@ -269,9 +269,9 @@ for (const sectionReadme of [
   requireFile(sectionReadme);
 }
 
-const xlsxNavigationTargets = [
-  "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
-  "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+const currentBusinessNavigationTargets = [
+  "docs/product/sources/co-2026-003-current-2026-scope.md",
+  "docs/product/requirements/business-requirements.md",
 ];
 
 const jiraImportNavigationTargets = [
@@ -313,9 +313,9 @@ for (const navigationEntry of [
   "docs/product/sources/README.md",
 ]) {
   const linkedPaths = new Set(parseMarkdownLinks(readText(navigationEntry), navigationEntry));
-  for (const xlsxPath of xlsxNavigationTargets) {
-    if (!linkedPaths.has(xlsxPath)) {
-      fail(`XLSX source is missing from human-readable navigation: ${navigationEntry} -> ${xlsxPath}`);
+  for (const targetPath of currentBusinessNavigationTargets) {
+    if (!linkedPaths.has(targetPath)) {
+      fail(`current business source is missing from human-readable navigation: ${navigationEntry} -> ${targetPath}`);
     }
   }
 }
@@ -442,6 +442,13 @@ for (const entry of index.entries) {
 }
 
 for (const sourceEntry of source.managed_entries) {
+  const ignored = navigationIgnoredReason(source, sourceEntry.path);
+  if (ignored) {
+    if (indexByPath.has(sourceEntry.path)) {
+      fail(`historical managed entry must not be indexed: ${sourceEntry.path}`);
+    }
+    continue;
+  }
   const generatedEntry = indexByPath.get(sourceEntry.path);
   if (!generatedEntry) {
     fail(`managed entry is missing from generated index: ${sourceEntry.path}`);
@@ -471,6 +478,37 @@ for (const sourceEntry of source.managed_entries) {
     }
     if (generatedEntry.artifact_registry_id !== artifact.id) {
       fail(`navigation index has wrong artifact registry id for ${sourceEntry.path}`);
+    }
+  }
+}
+
+const historicalNavigationTargets = [
+  "docs/product/change-orders/co-2026-001",
+  "docs/product/change-orders/co-2026-002",
+  "docs/product/revisions/co-2026-001-source-revision",
+  "docs/product/analysis/ba/business-requirements-delta.md",
+  "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
+  "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
+];
+
+for (const entry of index.entries) {
+  if (historicalNavigationTargets.some((target) => matchesPrefix(entry.path, target))) {
+    fail(`historical business artifact is present in generated navigation: ${entry.path}`);
+  }
+}
+
+for (const entrypoint of [
+  "README.md",
+  "docs/README.md",
+  "docs/product/README.md",
+  "docs/product/requirements/README.md",
+  "docs/product/sources/README.md",
+  "docs/product/analysis/README.md",
+  "docs/product/change-orders/README.md",
+]) {
+  for (const linkedPath of parseMarkdownLinks(readText(entrypoint), entrypoint)) {
+    if (historicalNavigationTargets.some((target) => matchesPrefix(linkedPath, target))) {
+      fail(`current entrypoint links historical business artifact: ${entrypoint} -> ${linkedPath}`);
     }
   }
 }
@@ -530,14 +568,15 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       "docs/product-vision.md",
       "docs/product/change-orders/README.md",
       "docs/product/bmc/README.md",
-      "docs/product/requirements/user-stories.md",
-      "docs/product/requirements/README.md",
+      "docs/product/sources/co-2026-003-current-2026-scope.md",
+      "docs/product/requirements/business-requirements.md",
       "docs/product/backlog/README.md",
       "docs/product/sources/README.md",
       "docs/product/roadmap/README.md",
       "docs/product/hypotheses/README.md",
       "docs/product/analysis/README.md",
       "docs/product/specs/README.md",
+      "docs/product/requirements/README.md",
     ];
     for (const requiredPath of requiredPaths) {
       if (!productReadmeLinkSet.has(requiredPath)) {

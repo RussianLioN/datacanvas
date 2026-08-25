@@ -2134,7 +2134,7 @@
       "section": "product",
       "navigation_group": "business",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
+      "lifecycle": "accepted",
       "data_class": "internal",
       "visibility": "public",
       "searchable": true,
@@ -2154,11 +2154,11 @@
       "section": "product",
       "navigation_group": "business",
       "owner_role": "Product Owner",
-      "lifecycle": "active",
+      "lifecycle": "draft",
       "data_class": "internal",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
@@ -2176,9 +2176,9 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "data_class": "internal",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
@@ -2196,9 +2196,9 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "data_class": "internal",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
@@ -2216,9 +2216,9 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "data_class": "internal",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
@@ -2237,7 +2237,7 @@
       "lifecycle": "draft",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
+      "searchable": false,
       "navigable": false,
       "canonical_source": null,
       "generated_from": [],
@@ -2306,6 +2306,46 @@
       "critical": false,
       "breadcrumb_required": true,
       "artifact_registry_required": true,
+      "navigation_domain": "product"
+    },
+    {
+      "path": "docs/product/sources/co-2026-003-current-2026-scope.md",
+      "route_id": "co-2026-003-current-2026-scope",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/sources/product-source-registry.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Владелец продукта меняет состав историй 2026 года.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_domain": "product"
+    },
+    {
+      "path": "docs/product/sources/co-2026-003-current-2026-scope.json",
+      "route_id": "co-2026-003-current-2026-scope-json",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/sources/co-2026-003-current-2026-scope.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется машиночитаемая граница историй 2026 года.",
+      "critical": true,
+      "breadcrumb_required": false,
+      "artifact_registry_required": false,
       "navigation_domain": "product"
     },
     {
@@ -2446,6 +2486,66 @@
       "update_trigger": "Меняется подтверждённая граница Q4_2026, правила одного заказа, почтовой доставки или статусов в том же чате Лисы.",
       "critical": true,
       "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "route_id": "co-2026-003-bt-interview-transcript",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Владелец продукта уточняет смысл текущего интервью для бизнес-требований 2026 года.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+      "route_id": "co-2026-003-bt-interview-amendment",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Владелец продукта принимает или меняет дополнение к решениям для бизнес-требований 2026 года.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+      "route_id": "co-2026-003-bt-interview-state",
+      "section": "product",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состояние поэтапного согласования бизнес-требований, историй или системных требований.",
+      "critical": true,
+      "breadcrumb_required": false,
       "artifact_registry_required": false
     },
     {
@@ -4879,11 +4979,9 @@
         "docs/product-vision.md",
         "docs/product/change-orders/README.md",
         "docs/product/bmc/README.md",
-        "docs/product/requirements/user-stories.md",
         "docs/product/requirements/README.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/non-functional-requirements.md",
-        "docs/product/requirements/acceptance-criteria.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/sources/README.md",
@@ -4899,15 +4997,15 @@
     },
     {
       "id": "role-business-analyst",
-      "label": "Business Analyst",
-      "role": "Business Analyst",
+      "label": "Бизнес-аналитик",
+      "role": "Бизнес-аналитик",
       "start_path": "docs/product/analysis/README.md",
       "next_paths": [
         "docs/product/sources/README.md",
         "docs/product/change-orders/README.md",
-        "docs/product/analysis/ba/business-needs.md",
-        "docs/product/analysis/ba/business-rules.md",
-        "docs/product/analysis/ba/business-requirements-delta.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+        "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
         "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner",
@@ -5010,11 +5108,9 @@
         "docs/product-vision.md",
         "docs/product/change-orders/README.md",
         "docs/product/bmc/README.md",
-        "docs/product/requirements/user-stories.md",
         "docs/product/requirements/README.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/non-functional-requirements.md",
-        "docs/product/requirements/acceptance-criteria.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/sources/README.md",
@@ -5035,74 +5131,13 @@
       "navigation_group": "business",
       "start_path": "docs/product/sources/README.md",
       "next_paths": [
-        "docs/product/sources/source-audit.md",
-        "docs/product-vision.md",
         "docs/product/change-orders/README.md",
-        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-        "docs/product/requirements/user-stories.md"
-      ],
-      "owner_role": "Product Owner",
-      "validation_command": "npm run validate:product-sources",
-      "navigation_domain": "product"
-    },
-    {
-      "id": "task-review-source-revision",
-      "label": "Проверить ревизию исходных документов",
-      "task": "Проверить ревизию исходных документов",
-      "navigation_group": "business",
-      "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-      "next_paths": [
-        "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-        "docs/product/sources/source-audit.md"
-      ],
-      "owner_role": "Product Owner",
-      "validation_command": "npm run validate:change-set-approval",
-      "navigation_domain": "product"
-    },
-    {
-      "id": "task-approve-proposed-edit",
-      "label": "Согласовать предложенную правку",
-      "task": "Согласовать предложенную правку",
-      "navigation_group": "business",
-      "start_path": "docs/product/revisions/co-2026-001-source-revision/revision-approval-log.md",
-      "next_paths": [
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
-        "docs/product/sources/source-audit.md"
-      ],
-      "owner_role": "Product Owner",
-      "validation_command": "npm run validate:revision-approval-state",
-      "navigation_domain": "product"
-    },
-    {
-      "id": "task-check-accepted-change-order-impact",
-      "label": "Проверить влияние принятого изменения",
-      "task": "Проверить влияние принятого изменения",
-      "navigation_group": "business",
-      "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-      "next_paths": [
-        "docs/product/change-orders/README.md",
-        "docs/product/sources/source-audit.md",
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md"
-      ],
-      "owner_role": "Product Owner",
-      "validation_command": "npm run validate:accepted-change-order-impact",
-      "navigation_domain": "product"
-    },
-    {
-      "id": "task-find-co-2026-001-priority-context",
-      "label": "Найти контекст приоритета CO-2026-001",
-      "task": "Найти контекст приоритета CO-2026-001",
-      "navigation_group": "business",
-      "start_path": "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-      "next_paths": [
-        "docs/product-vision.md",
-        "docs/product/requirements/user-stories.md",
-        "docs/product/revisions/co-2026-001-source-revision/revision-ledger.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
         "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner",
-      "validation_command": "npm run validate:accepted-change-order-impact",
+      "validation_command": "npm run validate:product-sources",
       "navigation_domain": "product"
     },
     {
@@ -5113,9 +5148,9 @@
       "start_path": "docs/product/sources/README.md",
       "next_paths": [
         "docs/product/change-orders/README.md",
-        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-        "docs/product-vision.md",
-        "docs/product/requirements/user-stories.md"
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+        "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:product-source-consistency",
@@ -5188,8 +5223,8 @@
         "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
         "docs/product/analysis/agent-launch-requirements-analysis/story-requirement-decision-ledger.md",
         "docs/product/analysis/agent-launch-requirements-analysis/artifact-review-ledger.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner / Process Owner",
       "validation_command": "npm run validate:agent-launch-requirements-analysis"
@@ -5209,23 +5244,21 @@
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
         "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner / Process Owner",
       "validation_command": "npm run validate:docs-navigation"
     },
     {
       "id": "task-find-business-requirements",
-      "label": "Найти бизнес-требования",
-      "task": "Найти бизнес-требования",
+      "label": "Найти принятые бизнес-требования 2026 года",
+      "task": "Найти принятые бизнес-требования DataCanvas в границе 2026 года",
       "navigation_group": "business",
       "start_path": "docs/product/requirements/README.md",
       "next_paths": [
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/user-stories.md",
-        "docs/product/requirements/non-functional-requirements.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/traceability-matrix.json"
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
@@ -5431,13 +5464,13 @@
       "navigation_group": "business",
       "start_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
       "next_paths": [
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+        "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
         "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/user-stories.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/business-requirements.md"
       ],
       "owner_role": "Product Owner / Documentation Owner",
       "validation_command": "npm run validate:business-docs && npm run validate:docs-navigation"
@@ -5467,6 +5500,22 @@
     {
       "path": "docs/product/sources/working",
       "reason": "Working product source workbooks and machine-readable provenance manifests are tracked through product-source-registry.json and are not rendered as navigation documents."
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-001",
+      "reason": "Исторические заявки CO-2026-001 и их журналы сохранены в Git, но не являются маршрутами текущих бизнес-требований 2026 года."
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-002",
+      "reason": "Историческая заявка CO-2026-002 сохранена в Git, но не является маршрутом текущих бизнес-требований 2026 года."
+    },
+    {
+      "path": "docs/product/revisions/co-2026-001-source-revision",
+      "reason": "Исторический пакет ревизии сохранен в Git как свидетельство, но исключен из текущей навигации."
+    },
+    {
+      "path": "docs/product/analysis/ba/business-requirements-delta.md",
+      "reason": "Историческая разница бизнес-требований сохранена в Git как свидетельство, но исключена из текущей навигации."
     },
     {
       "path": "docs/product/bmc/source/derived",
