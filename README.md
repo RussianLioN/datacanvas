@@ -2,9 +2,10 @@
 
 ## Актуальные Материалы По CO-2026-003
 
+- [Скачать полный черновой пакет документации и прототипа](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP-архив актуальных документов и принятого 11-кадрового черновика ООО «Водолей Трейд»; это не чистовая поставка.
+- [Открыть принятый черновой прототип](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров в прежней оболочке и навигации прототипа.
 - [Реестр решений интервью и дополнений](docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md) — исторические решения сохранены дословно; `CO3-AMND-001` — дополнение о форматах `PPTX` и `PDF`, `CO3-AMND-002` — дополнение о принятии только изолированного черновика для документального каскада.
 - [Реестр разрешений и приёмок выпуска](docs/product/change-orders/co-2026-003-release-approval-ledger.md) — текущий статус документального каскада, кадров и запрета чистового выпуска.
-- [Интегрированный черновик для ООО «Водолей Трейд»](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json) — маршрут из 13 экранов с 11 изменяемыми кадрами; не изменяет действующую демонстрацию, чистовой рендер или архив.
 - [Текущий план каскадного обновления](docs/plans/co-2026-003-documentation-cascade-remediation-plan.md) — согласованный порядок завершения документации и выпускных барьеров.
 - [Пакет приёмки документационного каскада](docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md) — маршрут проверки решений, требований, BA/SA, спецификаций, договоров и навигации до отдельного итогового подтверждения чистового выпуска.
 - [RCA каскадного расхождения](docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md) — причина неполного обновления после дополнений владельца и постоянные защиты от повтора.

@@ -1,0 +1,122 @@
+{
+  "version": "0.1.0",
+  "archive_id": "co-2026-003-current-documentation-draft",
+  "release_kind": "draft_documentation_evidence_only",
+  "title": "Черновой пакет документации CO-2026-003 и прототип ООО «Водолей Трейд»",
+  "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
+  "output_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
+  "archive_root": "repository",
+  "prototype_root": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft",
+  "required_prototype_frame_count": 11,
+  "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+  "data_class": "public_authorized",
+  "visibility": "public",
+  "additional_artifacts": [
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "label": "Заявка на изменение CO-2026-003"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "label": "Реестр согласованных решений интервью"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+      "label": "Машиночитаемый реестр согласованных решений интервью"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+      "label": "Карта влияния изменения"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+      "label": "Машиночитаемая карта влияния изменения"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "label": "Реестр согласований черновика и выпуска"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "label": "Машиночитаемый реестр согласований черновика и выпуска"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+      "label": "Описание пути пользователя и черновика"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+      "label": "Утверждённые тексты экранов и письма"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+      "label": "Машиночитаемый реестр утверждённых текстов"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
+      "label": "Пользовательский сценарий Лисы"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
+      "label": "Состояние кандидата обновления прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+      "label": "Машиночитаемое состояние кандидата обновления прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "label": "Договор маршрута пользователя"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
+      "label": "Договор поэкранной подготовки"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+      "label": "Машиночитаемый договор поэкранной подготовки"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
+      "label": "Реестр визуальных доноров презентаций"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
+      "label": "Разрешённые данные демонстрации ООО «Водолей Трейд»"
+    },
+    {
+      "path": "docs/product/specs/generated-spec-package-manifest.json",
+      "label": "Манифест спецификаций Q4_2026"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
+      "label": "Спецификация адресов и почтовой доставки"
+    },
+    {
+      "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
+      "label": "Спецификация состояний заказа в Лисе"
+    },
+    {
+      "path": "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
+      "label": "Оперативный план каскадного обновления"
+    },
+    {
+      "path": "docs/release/co-2026-003-draft-documentation-archive.md",
+      "label": "Порядок сборки архивного снимка черновика"
+    }
+  ],
+  "forbidden_path_fragments": [
+    "/demo/",
+    "/derived/",
+    "/evidence/",
+    "co-2026-003-prototype-delivery-archive-contract.json",
+    "co-2026-003-q4-lisa-profile-acceptance-packet.md",
+    "co-2026-003-q4-lisa-profile-validation-evidence.md"
+  ],
+  "forbidden_extensions": [".pdf"],
+  "refresh_policy": {
+    "generate_command": "npm run generate:co-2026-003-draft-documentation-archive",
+    "check_command": "npm run check:co-2026-003-draft-documentation-archive",
+    "validation_command": "npm run validate:co-2026-003-draft-documentation-archive"
+  }
+}
