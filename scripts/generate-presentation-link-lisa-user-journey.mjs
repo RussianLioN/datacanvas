@@ -1,40 +1,73 @@
+import { spawnSync } from "node:child_process";
+import path from "node:path";
 import process from "node:process";
-import {
-  buildSevenScreenPrototype,
-  compareSevenScreenRuntime,
-  compareSevenScreenPrototype,
-  publishSevenScreenRuntime,
-  publishSevenScreenPrototype,
-  validateSavedSevenScreenPrototype,
-} from "./lib/presentation-link-lisa-seven-screen-prototype.mjs";
 
-function parseArguments(args) {
-  const allowed = new Set(["--check", "--html-only"]);
-  const unknown = args.filter((argument) => !allowed.has(argument));
+import {
+  PACKAGE_PATH,
+  compareGeneratedPackage,
+  validateGeneratedPackage,
+} from "./lib/presentation-link-lisa-user-journey.mjs";
+import {
+  recoverFullPackageReleaseTransaction,
+  runFullPackageReleaseTransaction,
+} from "./lib/presentation-link-lisa-full-package-transaction.mjs";
+import { validateEvidencePackage } from "./validate-presentation-link-lisa-user-journey-evidence.mjs";
+
+function parseArguments(arguments_) {
+  const allowed = new Set(["--check", "--recover"]);
+  const unknown = arguments_.filter((argument) => !allowed.has(argument));
   if (unknown.length > 0) throw new Error(`неизвестные аргументы: ${unknown.join(", ")}`);
-  return { check: args.includes("--check"), htmlOnly: args.includes("--html-only") };
+  const checkMode = arguments_.includes("--check");
+  const recoverMode = arguments_.includes("--recover");
+  if (recoverMode && checkMode) {
+    throw new Error("восстановление нельзя сочетать с проверкой");
+  }
+  return { checkMode, recoverMode };
+}
+
+function assertReleaseState(root) {
+  const result = spawnSync("node", ["scripts/validate-co-2026-003-release-state.mjs", "--require-final-release"], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  if (result.error) throw new Error(`не удалось проверить состояние выпуска: ${result.error.message}`);
+  if (result.status !== 0) {
+    const details = `${result.stdout}${result.stderr}`.trim();
+    throw new Error(`чистовой выпуск запрещён текущим реестром приёмок${details ? `:\n${details}` : ""}`);
+  }
+}
+
+function formatIssues(issues) {
+  return issues.length === 0 ? "" : `:\n- ${issues.join("\n- ")}`;
 }
 
 try {
-  const mode = parseArguments(process.argv.slice(2));
+  const { checkMode, recoverMode } = parseArguments(process.argv.slice(2));
   const root = process.cwd();
-  const built = await buildSevenScreenPrototype(root, { writeRasters: !mode.check && !mode.htmlOnly });
-  if (mode.check) {
-    const issues = mode.htmlOnly
-      ? compareSevenScreenRuntime(root, built)
-      : [...compareSevenScreenPrototype(root, built), ...validateSavedSevenScreenPrototype(root)];
-    if (issues.length > 0) throw new Error(`пакет устарел или повреждён:\n- ${issues.join("\n- ")}`);
-    process.stdout.write(mode.htmlOnly
-      ? "HTML-часть автономного прототипа: десять исходных экранов и три экрана статусов актуальна.\n"
-      : "Автономный прототип: десять исходных экранов, три экрана статусов и переносимый архив актуальны.\n");
+  const packageRoot = path.join(root, PACKAGE_PATH);
+
+  if (recoverMode) {
+    const result = recoverFullPackageReleaseTransaction({ packageRoot });
+    process.stdout.write(`восстановление полного выпуска: ${result.status}.\n`);
+  } else if (checkMode) {
+    const issues = [
+      ...compareGeneratedPackage(root),
+      ...validateGeneratedPackage(root, root),
+      ...validateEvidencePackage({
+        toolchainRoot: root,
+        contractRoot: root,
+        packageRoot,
+        evidenceRoot: path.join(packageRoot, "evidence"),
+        allowActivePackage: true,
+        requireCandidate: false,
+      }),
+    ];
+    if (issues.length > 0) throw new Error(`сохранённый полный пакет устарел или повреждён${formatIssues(issues)}`);
+    process.stdout.write("Сохранённый полный пакет и его доказательства актуальны.\n");
   } else {
-    if (mode.htmlOnly) publishSevenScreenRuntime(root, built);
-    else publishSevenScreenPrototype(root, built);
-    const issues = mode.htmlOnly ? compareSevenScreenRuntime(root, built) : validateSavedSevenScreenPrototype(root);
-    if (issues.length > 0) throw new Error(`опубликованный пакет не прошёл самопроверку:\n- ${issues.join("\n- ")}`);
-    process.stdout.write(mode.htmlOnly
-      ? "HTML-часть автономного прототипа: десять исходных экранов и три экрана статусов опубликована.\n"
-      : `Автономный прототип: десять исходных экранов и три экрана статусов опубликован; файлов в архиве: ${built.archiveEntries.length}.\n`);
+    assertReleaseState(root);
+    const result = await runFullPackageReleaseTransaction({ root, packageRoot });
+    process.stdout.write(`полный пакет опубликован восстановимой транзакцией: ${result.status}.\n`);
   }
 } catch (error) {
   process.stderr.write(`ERROR: ${error instanceof Error ? error.message : "сборка не выполнена"}\n`);

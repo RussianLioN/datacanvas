@@ -31,8 +31,8 @@
     "title": { "type": "string", "minLength": 1 },
     "source_chain_path": { "type": "string", "minLength": 1 },
     "output_path": { "type": "string", "pattern": "^artifacts/.+\\.zip$" },
-    "data_class": { "type": "string", "enum": ["internal"] },
-    "visibility": { "type": "string", "enum": ["restricted"] },
+    "data_class": { "type": "string", "enum": ["internal", "public_authorized"] },
+    "visibility": { "type": "string", "enum": ["restricted", "public"] },
     "primary_selection": { "type": "string", "const": "all_stage_primary_artifacts" },
     "exclude_primary_artifacts": {
       "type": "array",
@@ -90,7 +90,27 @@
         },
         "required_content_review_status": { "type": "string", "const": "approved_product_owner" },
         "required_visual_release_status": { "type": "string", "const": "approved_product_owner" },
-        "prototype_check": { "type": "string", "const": "presentation_link_lisa_user_journey" }
+        "prototype_check": { "type": "string", "const": "presentation_link_lisa_user_journey" },
+        "release_approval_ledger_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"
+        },
+        "required_final_release_status": { "type": "string", "const": "owner_final_approved" },
+        "prototype_package_manifest_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"
+        },
+        "fresh_evidence_path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"
+        }
+      },
+      "dependentRequired": {
+        "release_approval_ledger_path": [
+          "required_final_release_status",
+          "prototype_package_manifest_path",
+          "fresh_evidence_path"
+        ]
       }
     }
   }

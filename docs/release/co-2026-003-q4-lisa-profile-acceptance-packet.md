@@ -31,9 +31,9 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 До такой приёмки должны быть синхронизированы требования, истории, BA/SA,
 спецификации, трассировка, выпускные документы и навигация. [Разбор причины
 каскадного расхождения](../knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md)
-объясняет исходный дефект и защиту: новая строка каталога историй без записи в
-блокировке и подмена принятого черновика активным выпуском теперь отклоняются
-проверками.
+объясняет исходный дефект и защиту: неполная приёмка кадров, подмена принятого
+черновика активным выпуском и несвязанный архив теперь отклоняются проверками.
+Текущий порядок и фактические разрешения фиксирует [реестр приёмок](../product/change-orders/co-2026-003-release-approval-ledger.md).
 
 Чистовые SVG и PNG, действующая демонстрация, браузерные снимки и архив поставки
 в этот этап не входят. Они остаются следующей отдельной вехой после документального
@@ -47,7 +47,7 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 - [Журнал интервью](../product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md) — сохранённые вопросы и ответы, включая порядок экранов и условия визуального выпуска.
 - [Карта влияния](../product/change-orders/co-2026-003-q4-lisa-profile-impact.md) — связь решения с требованиями, анализом, спецификациями, прототипом, проверками и навигацией.
 - [Очищенная рабочая книга 2026-08-17](../product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx) и [сведения о её происхождении](../product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json) — источник сроков и ресурсов; формулы сохранены, для планирования используются значения с коэффициентом.
-- [План реализации](../plans/co-2026-003-q4-lisa-profile-implementation-plan.md) — выполненная последовательность каскадного обновления, проверок и передачи.
+- [План каскадного обновления](../plans/co-2026-003-documentation-cascade-remediation-plan.md) — текущая последовательность документального каскада, проверок и передачи. [Предыдущий план реализации](../plans/co-2026-003-q4-lisa-profile-implementation-plan.md) остаётся историческим свидетельством.
 
 Машиночитаемые подтверждения этой группы: [запись заявки](../product/change-orders/co-2026-003-q4-lisa-profile.json), [состояние интервью](../product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json), [реестр решений](../product/change-orders/co-2026-003-authoritative-interview-decision-register.json) и [карта влияния](../product/change-orders/co-2026-003-q4-lisa-profile-impact.json).
 
@@ -86,8 +86,8 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 ## 5. Пользовательский Путь И Прототип
 
 - [Пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — десять исходных экранов в исходном порядке и три экрана статусов после демонстрации успешного пути.
-- [Технический паспорт визуальной основы](../product/analysis/presentation-link-lisa-user-journey/donor-options.md) — три канонических SVG-варианта экрана `7.2` с погашенной кнопкой; текст заменяется в SVG до растрирования.
-- [Интерактивная демонстрация](../product/analysis/presentation-link-lisa-user-journey/demo/index.html) и [переносимый архив прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) — результат для просмотра стейкхолдерами и работы дизайнеров.
+- [Кандидат обновления прототипа](../product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md) и [пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — текущий маршрут из 13 экранов, покадровые приёмки и границы будущего выпуска.
+- [Интерактивная демонстрация](../product/analysis/presentation-link-lisa-user-journey/demo/index.html) и [переносимый архив прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) — исторический результат; они не подтверждают будущий выпуск ООО «Водолей Трейд».
 
 Машиночитаемые подтверждения: [договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json), [договор состава прототипа](../product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json), [активные договоры](../product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json), [манифест прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json), [отчёт браузерной проверки](../product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json) и [отчёт приёмки прототипа](../product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json).
 

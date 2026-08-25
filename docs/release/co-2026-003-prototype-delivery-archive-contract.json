@@ -1,13 +1,13 @@
 {
   "$schema": "../../schemas/documentation-archive-contract.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "active",
   "archive_id": "co-2026-003-q4-lisa-profile-delivery",
   "title": "Пакет поставки CO-2026-003: Лиса, Профиль сотрудника и почтовая доставка",
   "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
   "output_path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
-  "data_class": "internal",
-  "visibility": "restricted",
+  "data_class": "public_authorized",
+  "visibility": "public",
   "primary_selection": "all_stage_primary_artifacts",
   "exclude_primary_artifacts": [
     "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
@@ -43,8 +43,12 @@
       "label": "Карта влияния изменения"
     },
     {
-      "path": "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
-      "label": "Пакет итоговой приёмки документации Q4_2026"
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "label": "Текущий реестр разрешений и приёмок выпуска CO-2026-003"
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "label": "Машиночитаемый реестр разрешений и приёмок выпуска CO-2026-003"
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
@@ -147,8 +151,12 @@
       "label": "Инструкция агенту для статусов Q4_2026"
     },
     {
-      "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
-      "label": "Доказательства проверок контура Q4_2026"
+      "path": "docs/release/co-2026-003-current-release-evidence.md",
+      "label": "Актуальный отчёт доказательств чистового выпуска CO-2026-003"
+    },
+    {
+      "path": "docs/release/co-2026-003-current-release-evidence.json",
+      "label": "Машиночитаемое доказательство чистового выпуска CO-2026-003"
     }
   ],
   "embedded_navigation": [
@@ -170,6 +178,10 @@
     "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
     "required_content_review_status": "approved_product_owner",
     "required_visual_release_status": "approved_product_owner",
-    "prototype_check": "presentation_link_lisa_user_journey"
+    "prototype_check": "presentation_link_lisa_user_journey",
+    "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+    "required_final_release_status": "owner_final_approved",
+    "prototype_package_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+    "fresh_evidence_path": "docs/release/co-2026-003-current-release-evidence.json"
   }
 }

@@ -1,13 +1,11 @@
-import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
 import { buildDocumentationArchive } from "./lib/documentation-archive.mjs";
+import { assertDocumentationArchiveReleaseGate } from "./lib/documentation-archive-release-gate.mjs";
 
 const DEFAULT_CONTRACT_PATH = "docs/process/universal-documentation-workflow/documentation-archive-contract.json";
-const LISA_PROTOTYPE_CHECK = "presentation_link_lisa_user_journey";
-const LISA_PROTOTYPE_CHECK_COMMAND = ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"];
 
 function fail(message) {
   throw new Error(message);
@@ -58,37 +56,12 @@ function readJson(root, relativePath, description) {
   return JSON.parse(fs.readFileSync(readRegularFile(root, relativePath, description), "utf8"));
 }
 
-function assertReleaseGate(root, contract) {
-  if (!contract.release_gate) return;
-  const gate = contract.release_gate;
-  const journeyContract = readJson(root, gate.journey_contract_path, "договор пути пользователя");
-  const lifecycle = journeyContract.lifecycle ?? {};
-  const mismatches = [
-    ["content_review_status", gate.required_content_review_status],
-    ["visual_release_status", gate.required_visual_release_status],
-  ].filter(([field, expected]) => lifecycle[field] !== expected)
-    .map(([field, expected]) => `${field}: ${String(lifecycle[field])} (требуется ${expected})`);
-  if (mismatches.length > 0) {
-    fail(`статусы договора пути пользователя не прошли выпускной барьер: ${mismatches.join("; ")}`);
-  }
-  if (gate.prototype_check !== LISA_PROTOTYPE_CHECK) {
-    fail(`неподдерживаемая встроенная проверка прототипа: ${String(gate.prototype_check)}`);
-  }
-  readRegularFile(root, LISA_PROTOTYPE_CHECK_COMMAND[0], "встроенная проверка прототипа");
-  const check = spawnSync("node", LISA_PROTOTYPE_CHECK_COMMAND, { cwd: root, encoding: "utf8" });
-  if (check.error) fail(`не удалось запустить встроенную проверку прототипа: ${check.error.message}`);
-  if (check.status !== 0) {
-    const details = `${check.stdout}${check.stderr}`.trim();
-    fail(`встроенная проверка прототипа не пройдена${details ? `:\n${details}` : ""}`);
-  }
-}
-
 function main() {
   const root = process.cwd();
   const { check, contractPath } = parseArguments(process.argv.slice(2));
   const contract = readJson(root, contractPath, "контракта архива");
   const chain = readJson(root, contract.source_chain_path, "цепочки исходных материалов");
-  assertReleaseGate(root, contract);
+  assertDocumentationArchiveReleaseGate({ root, contract, readJson, readRegularFile });
   const expected = buildDocumentationArchive(root, contract, chain);
   const outputPath = assertSafeRelativePath(root, contract.output_path, "выходного архива");
 

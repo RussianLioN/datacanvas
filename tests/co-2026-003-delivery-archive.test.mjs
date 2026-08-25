@@ -29,7 +29,7 @@ function writeJson(root, relativePath, value) {
   fs.writeFileSync(target, `${JSON.stringify(value, null, 2)}\n`);
 }
 
-function writeFixture(root, { contentReviewStatus, visualReleaseStatus, prototypeCheckSource }) {
+function writeFixture(root, { contentReviewStatus, visualReleaseStatus, prototypeCheckSource, releaseApproval = null }) {
   fs.mkdirSync(path.join(root, "docs/product"), { recursive: true });
   fs.writeFileSync(path.join(root, "docs/product/source.md"), "# Исходный материал\n");
   fs.mkdirSync(path.join(root, "docs/release"), { recursive: true });
@@ -43,6 +43,39 @@ function writeFixture(root, { contentReviewStatus, visualReleaseStatus, prototyp
       visual_release_status: visualReleaseStatus,
     },
   });
+  const releaseGate = {
+    journey_contract_path: "docs/release/journey-contract.json",
+    required_content_review_status: "approved_product_owner",
+    required_visual_release_status: "approved_product_owner",
+    prototype_check: "presentation_link_lisa_user_journey",
+  };
+  if (releaseApproval) {
+    writeJson(root, "docs/release/release-approval-ledger.json", {
+      documentation_cascade: {
+        execution_status: "completed",
+        candidate_fingerprint: releaseApproval.ledgerFingerprint,
+      },
+      final_release: {
+        status: "owner_final_approved",
+        active_release_switch_allowed: true,
+        high_resolution_render_allowed: true,
+        delivery_archive_allowed: true,
+        candidate_fingerprint: releaseApproval.ledgerFingerprint,
+      },
+    });
+    writeJson(root, "docs/release/prototype-package-manifest.json", {
+      candidate_fingerprint: { algorithm: "sha256", sha256: releaseApproval.packageFingerprint },
+    });
+    writeJson(root, "docs/release/fresh-evidence.json", {
+      candidate_fingerprint: { algorithm: "sha256", sha256: releaseApproval.evidenceFingerprint },
+    });
+    Object.assign(releaseGate, {
+      release_approval_ledger_path: "docs/release/release-approval-ledger.json",
+      required_final_release_status: "owner_final_approved",
+      prototype_package_manifest_path: "docs/release/prototype-package-manifest.json",
+      fresh_evidence_path: "docs/release/fresh-evidence.json",
+    });
+  }
   writeJson(root, "docs/release/delivery-archive-contract.json", {
     "$schema": "../../schemas/documentation-archive-contract.schema.json",
     version: "0.1.0",
@@ -66,12 +99,7 @@ function writeFixture(root, { contentReviewStatus, visualReleaseStatus, prototyp
       check_command: "npm run check:co-2026-003-delivery-archive",
       validation_command: "npm run validate:co-2026-003-delivery-archive",
     },
-    release_gate: {
-      journey_contract_path: "docs/release/journey-contract.json",
-      required_content_review_status: "approved_product_owner",
-      required_visual_release_status: "approved_product_owner",
-      prototype_check: "presentation_link_lisa_user_journey",
-    },
+    release_gate: releaseGate,
   });
   const checkPath = path.join(root, "scripts/generate-presentation-link-lisa-user-journey.mjs");
   fs.mkdirSync(path.dirname(checkPath), { recursive: true });
@@ -99,7 +127,13 @@ test("специальный архив CO-2026-003 содержит актуа�
   ]);
   assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"), true);
   assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), true);
-  assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"), true);
+  assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"), false);
+  assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md"), false);
+  assert.equal(additionalPaths.has("docs/product/change-orders/co-2026-003-release-approval-ledger.md"), true);
+  assert.equal(additionalPaths.has("docs/release/co-2026-003-current-release-evidence.json"), true);
+  assert.equal(contract.data_class, "public_authorized");
+  assert.equal(contract.visibility, "public");
+  assert.equal(contract.release_gate.required_final_release_status, "owner_final_approved");
   for (const artifactPath of [
     "docs/product/specs/generated-spec-package-manifest.json",
     "docs/product/specs/feature-spec-q4-profile-mail.json",
@@ -173,6 +207,53 @@ test("валидатор принимает договор поставки че
 
     const validated = runValidator(fixtureRoot, "--contract", "docs/release/delivery-archive-contract.json");
     assert.equal(validated.status, 0, `${validated.stdout}\n${validated.stderr}`);
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test("архив CO-2026-003 связывает итоговую приёмку, прототип и свежие доказательства одним отпечатком кандидата", () => {
+  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-fingerprint-"));
+  try {
+    const fingerprint = "a".repeat(64);
+    writeFixture(fixtureRoot, {
+      contentReviewStatus: "approved_product_owner",
+      visualReleaseStatus: "approved_product_owner",
+      prototypeCheckSource: "process.exit(0);\n",
+      releaseApproval: {
+        ledgerFingerprint: fingerprint,
+        packageFingerprint: fingerprint,
+        evidenceFingerprint: fingerprint,
+      },
+    });
+
+    const generated = runGenerator(fixtureRoot, "--contract", "docs/release/delivery-archive-contract.json");
+    assert.equal(generated.status, 0, `${generated.stdout}\n${generated.stderr}`);
+    const validated = runValidator(fixtureRoot, "--contract", "docs/release/delivery-archive-contract.json");
+    assert.equal(validated.status, 0, `${validated.stdout}\n${validated.stderr}`);
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+test("архив CO-2026-003 отклоняет подменённый отпечаток кандидата до записи ZIP", () => {
+  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-fingerprint-mismatch-"));
+  try {
+    writeFixture(fixtureRoot, {
+      contentReviewStatus: "approved_product_owner",
+      visualReleaseStatus: "approved_product_owner",
+      prototypeCheckSource: "process.exit(0);\n",
+      releaseApproval: {
+        ledgerFingerprint: "a".repeat(64),
+        packageFingerprint: "b".repeat(64),
+        evidenceFingerprint: "a".repeat(64),
+      },
+    });
+
+    const result = runGenerator(fixtureRoot, "--contract", "docs/release/delivery-archive-contract.json");
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /отпечаток переносимого прототипа не совпадает/u);
+    assert.equal(fs.existsSync(path.join(fixtureRoot, "artifacts/delivery/co-2026-003-delivery.zip")), false);
   } finally {
     fs.rmSync(fixtureRoot, { recursive: true, force: true });
   }

@@ -1,4 +1,3 @@
-import { spawnSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -6,11 +5,15 @@ import process from "node:process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { buildDocumentationArchive, readStoredZip, resolveArchiveMembers } from "./lib/documentation-archive.mjs";
+import {
+  buildDocumentationArchive,
+  readStoredZip,
+  resolveArchiveMembers,
+  resolveDocumentationArchiveCandidateFingerprint,
+} from "./lib/documentation-archive.mjs";
+import { assertDocumentationArchiveReleaseGate } from "./lib/documentation-archive-release-gate.mjs";
 
 const DEFAULT_CONTRACT_PATH = "docs/process/universal-documentation-workflow/documentation-archive-contract.json";
-const LISA_PROTOTYPE_CHECK = "presentation_link_lisa_user_journey";
-const LISA_PROTOTYPE_CHECK_COMMAND = ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"];
 
 function fail(message) {
   throw new Error(message);
@@ -54,31 +57,6 @@ function readJson(root, relativePath, description) {
   return JSON.parse(fs.readFileSync(readRegularFile(root, relativePath, description), "utf8"));
 }
 
-function assertReleaseGate(root, contract) {
-  if (!contract.release_gate) return;
-  const gate = contract.release_gate;
-  const journeyContract = readJson(root, gate.journey_contract_path, "договор пути пользователя");
-  const lifecycle = journeyContract.lifecycle ?? {};
-  const mismatches = [
-    ["content_review_status", gate.required_content_review_status],
-    ["visual_release_status", gate.required_visual_release_status],
-  ].filter(([field, expected]) => lifecycle[field] !== expected)
-    .map(([field, expected]) => `${field}: ${String(lifecycle[field])} (требуется ${expected})`);
-  if (mismatches.length > 0) {
-    fail(`статусы договора пути пользователя не прошли выпускной барьер: ${mismatches.join("; ")}`);
-  }
-  if (gate.prototype_check !== LISA_PROTOTYPE_CHECK) {
-    fail(`неподдерживаемая встроенная проверка прототипа: ${String(gate.prototype_check)}`);
-  }
-  readRegularFile(root, LISA_PROTOTYPE_CHECK_COMMAND[0], "встроенная проверка прототипа");
-  const check = spawnSync("node", LISA_PROTOTYPE_CHECK_COMMAND, { cwd: root, encoding: "utf8" });
-  if (check.error) fail(`не удалось запустить встроенную проверку прототипа: ${check.error.message}`);
-  if (check.status !== 0) {
-    const details = `${check.stdout}${check.stderr}`.trim();
-    fail(`встроенная проверка прототипа не пройдена${details ? `:\n${details}` : ""}`);
-  }
-}
-
 function sha256(buffer) {
   return crypto.createHash("sha256").update(buffer).digest("hex");
 }
@@ -93,7 +71,7 @@ function main() {
   addFormats(ajv);
   const validate = ajv.compile(schema);
   if (!validate(contract)) fail(`контракт архива не соответствует схеме:\n${JSON.stringify(validate.errors, null, 2)}`);
-  assertReleaseGate(root, contract);
+  assertDocumentationArchiveReleaseGate({ root, contract, readJson, readRegularFile });
 
   const outputPath = assertSafeRelativePath(root, contract.output_path, "выходного архива");
   if (!fs.existsSync(outputPath)) fail(`архив отсутствует: ${contract.output_path}`);
@@ -111,6 +89,14 @@ function main() {
   for (const name of expectedNames) if (!archive.has(name)) fail(`в архиве отсутствует файл: ${name}`);
 
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
+  const expectedCandidateFingerprint = resolveDocumentationArchiveCandidateFingerprint(root, contract);
+  if (expectedCandidateFingerprint === null) {
+    if (Object.hasOwn(manifest, "candidate_fingerprint")) {
+      fail("обычный архив не должен содержать отпечаток кандидата CO-2026-003");
+    }
+  } else if (manifest.candidate_fingerprint?.sha256 !== expectedCandidateFingerprint) {
+    fail("манифест архива не связан с тем же отпечатком кандидата, что итоговая приёмка");
+  }
   if (manifest.entries.length !== members.length) fail("манифест архива содержит неверное число входов");
   for (const entry of manifest.entries) {
     const content = archive.get(`${contract.archive_root}/${entry.path}`);
