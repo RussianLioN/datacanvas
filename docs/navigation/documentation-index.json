@@ -4028,12 +4028,17 @@
         "docs/knowledge/rca/README.md",
         "docs/knowledge/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/sources/product-source-registry.json",
         "docs/product/sources/story-catalog-content-lock.json",
         "docs/README.md",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
         "README.md",
         "tests/co-2026-003-cascade-freshness.test.mjs",
+        "tests/co-2026-003-delivery-archive.test.mjs",
+        "tests/co-2026-003-release-state.test.mjs",
         "tests/presentation-link-lisa-seven-screen-prototype.test.mjs"
       ],
       "anchors": [
@@ -4251,6 +4256,42 @@
       "click_depth": null
     },
     {
+      "path": "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
+      "title": "План каскадного обновления документации CO-2026-003",
+      "section": "plans",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "governance",
+      "format": "md",
+      "owner_role": "Product Owner / Process Owner / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "generated_from": [],
+      "parent_readme": "docs/plans/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/plans/README.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "план-каскадного-обновления-документации-co-2026-003",
+        "назначение",
+        "границы",
+        "порядок-выполнения",
+        "условия-следующего-визуального-этапа",
+        "проверяемые-результаты"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 1
+    },
+    {
       "path": "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
       "title": "План реализации CO-2026-003: Q4_2026, Лиса, почта и Профиль сотрудника",
       "section": "plans",
@@ -4258,8 +4299,8 @@
       "navigation_group": "governance",
       "format": "md",
       "owner_role": "Product Owner / Process Owner",
-      "lifecycle": "active",
-      "status": "active",
+      "lifecycle": "historical",
+      "status": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -4270,7 +4311,9 @@
       "parent_readme": "docs/plans/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/README.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/README.md",
         "README.md"
       ],
@@ -4295,7 +4338,7 @@
     },
     {
       "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
-      "title": "План реализации пересборки SVG-прототипа CO-2026-003",
+      "title": "Исторический план реализации пересборки SVG-прототипа CO-2026-003",
       "section": "plans",
       "navigation_domain": "documentation_operations",
       "navigation_group": "governance",
@@ -4313,6 +4356,7 @@
       "parent_readme": "docs/plans/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
@@ -4321,7 +4365,7 @@
         "README.md"
       ],
       "anchors": [
-        "план-реализации-пересборки-svg-прототипа-co-2026-003",
+        "исторический-план-реализации-пересборки-svg-прототипа-co-2026-003",
         "глобальные-границы",
         "управляемый-список-работ-и-вехи",
         "правило-сверки-на-каждой-вехе",
@@ -5108,6 +5152,7 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-406",
       "outgoing_links": [
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
         "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
         "docs/plans/datacanvas-2026-q3-priority-impact-implementation-plan.md",
@@ -10748,7 +10793,7 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review.md",
-      "title": "Черновой кадр: презентация SlideDoc",
+      "title": "Исторический отклонённый SVG-кандидат: презентация SlideDoc",
       "section": "product",
       "navigation_domain": "product",
       "navigation_group": "business",
@@ -10766,20 +10811,22 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-1.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-2.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-3.png",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/review-source-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
-        "docs/product/analysis/presentation-link-lisa-user-journey/README.md"
+        "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md"
       ],
       "anchors": [
-        "черновой-кадр-презентация-slidedoc",
-        "что-показано",
-        "материалы-приёмки",
-        "исправленная-причина-предыдущего-черновика",
-        "разбор-исправления-наложения-в-финансовой-карточке"
+        "исторический-отклонённый-svg-кандидат-презентация-slidedoc",
+        "что-было-проверено-в-отклонённом-варианте",
+        "исторические-материалы",
+        "почему-этот-вариант-не-используется",
+        "исторический-разбор-наложения-в-финансовой-карточке"
       ],
       "reachable_from_root": false,
       "click_depth": null
@@ -10914,7 +10961,9 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-body/brainstorming-topic-result.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/email-subject/brainstorming-topic-result.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/generation-started-message/brainstorming-topic-result.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md"
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+        "docs/release/co-2026-003-presentation-pdf-import-rca.md"
       ],
       "anchors": [
         "исторический-пакет-кандидатов-будущего-прототипа",
@@ -11217,6 +11266,7 @@
       "anchors": [
         "утверждённые-тексты-будущего-прототипа",
         "утверждённые-формулировки",
+        "контуры-доставки",
         "как-получен-результат",
         "граница-следующего-этапа"
       ],
@@ -11284,6 +11334,7 @@
       "artifact_registry_id": "ART-835",
       "outgoing_links": [
         "docs/knowledge/rca/2026-08-24-lisa-error-footer-clipping.md",
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review.md",
@@ -11314,6 +11365,7 @@
         "docs/product/analysis/README.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/README.md",
         "docs/README.md",
         "docs/release/co-2026-003-presentation-pdf-import-rca.md",
@@ -11439,7 +11491,6 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
-        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/source-fixture-manifest.json",
         "docs/product/analysis/README.md",
@@ -12614,7 +12665,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
@@ -12640,8 +12691,10 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-raster-import-contract.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-basis-contract.json",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -12653,8 +12706,8 @@
         "исторические-состояния-опубликованного-выпуска-экран-1-исключён",
         "действие-заказа",
         "исторический-контрольный-просмотр-product-owner",
-        "геометрия",
-        "критерии-приёмки"
+        "сохранение-вида-и-навигации",
+        "исторические-критерии-выпуска"
       ],
       "reachable_from_root": true,
       "click_depth": 2
@@ -14191,6 +14244,7 @@
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
         "docs/product/requirements/acceptance-criteria.md",
@@ -14345,6 +14399,65 @@
       ],
       "reachable_from_root": true,
       "click_depth": 2
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "title": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "json",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/change-orders/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [],
+      "anchors": [],
+      "reachable_from_root": true,
+      "click_depth": 2
+    },
+    {
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "title": "Реестр приёмок и разрешений выпуска CO-2026-003",
+      "section": "product",
+      "navigation_domain": "product",
+      "navigation_group": "business",
+      "format": "md",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "generated": false,
+      "canonical_source": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "generated_from": [],
+      "parent_readme": "docs/product/change-orders/README.md",
+      "artifact_registry_id": "ART-885",
+      "outgoing_links": [
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+        "docs/product/change-orders/README.md",
+        "docs/product/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "реестр-приёмок-и-разрешений-выпуска-co-2026-003",
+        "что-уже-разрешено",
+        "что-остаётся-открытым",
+        "правило-использования"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 1
     },
     {
       "path": "docs/product/change-orders/product-change-order-ledger.json",
@@ -17029,12 +17142,14 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
         "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
@@ -17059,8 +17174,8 @@
       "navigation_group": "delivery",
       "format": "md",
       "owner_role": "Product Owner / Documentation Owner / QA Lead",
-      "lifecycle": "active",
-      "status": "active",
+      "lifecycle": "historical",
+      "status": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -17082,6 +17197,7 @@
         "docs/architecture/system-analysis/srs-v0.1.json",
         "docs/architecture/system-analysis/srs-v0.1.md",
         "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md",
         "docs/product/analysis/ba-sa/interview-derived-coverage.json",
         "docs/product/analysis/ba/ba-spec.json",
@@ -17091,10 +17207,10 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/demo/index.html",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
-        "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
@@ -17108,6 +17224,7 @@
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.json",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/requirements/business-claim-map.json",
         "docs/product/requirements/business-requirements.md",
@@ -17175,25 +17292,22 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/evidence/visual-screenshot-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
-        "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/README.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
-        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md",
         "docs/release/co-2026-003-visual-prototype-rca.md",
         "docs/release/README.md",
         "README.md"
       ],
       "anchors": [
         "доказательства-проверок-профиля-q42026-для-лисы",
-        "текущее-состояние-от-2026-08-24",
-        "документальный-каскад-от-2026-08-25",
-        "фактически-выполненные-проверки-каскада",
-        "результаты",
+        "текущее-состояние",
+        "исторические-результаты",
         "отрицательные-проверки",
-        "визуальный-выпуск",
-        "поставка-прототипа",
+        "исторический-визуальный-выпуск",
+        "историческая-поставка-прототипа",
         "внешние-решения",
         "безопасность-доказательств",
         "разбор-причин-исправленных-недочётов"
@@ -39147,6 +39261,7 @@
         "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
         "docs/navigation/navigation-map.md",
         "docs/navigation/navigation-source.json",
+        "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
         "docs/plans/README.md",
         "docs/process/current/process-registry.md",
         "docs/process/guides/datacanvas-jira-story-bulk-import.md",
@@ -39163,6 +39278,7 @@
         "docs/product/backlog/README.md",
         "docs/product/bmc/README.md",
         "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/change-orders/README.md",
         "docs/product/hypotheses/README.md",
         "docs/product/README.md",
@@ -39758,6 +39874,7 @@
         "next_paths": [
           "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
           "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+          "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
           "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
           "docs/product/requirements/business-requirements.md",
           "docs/product/requirements/user-stories.md",
@@ -39778,14 +39895,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1368,
-    "manual_entries": 1358,
+    "total_entries": 1371,
+    "manual_entries": 1361,
     "generated_entries": 10,
-    "public_navigable_entries": 34,
-    "searchable_entries": 1256,
+    "public_navigable_entries": 35,
+    "searchable_entries": 1258,
     "confidential_or_sensitive_entries": 29,
     "unclassified_entries": 0,
-    "reachable_from_root": 288,
+    "reachable_from_root": 291,
     "orphan_entries": 0
   },
   "ignored_paths": [
