@@ -21,6 +21,8 @@
   "affected_artifacts": [
     "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
     "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+    "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+    "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-state.json",
     "docs/product/change-orders/co-2026-003-q4-lisa-profile-questionnaire-log.md",
     "docs/product/sources/product-source-registry.json",
@@ -69,6 +71,7 @@
     "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+    "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
     "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
@@ -82,6 +85,7 @@
     "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
     "docs/release/co-2026-003-prototype-delivery-archive.md",
     "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+    "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
     "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
     "docs/navigation/navigation-source.json"
   ],

@@ -124,9 +124,57 @@
         "docs/product/specs/interview-to-spec-trace.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
         "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"
       ],
       "notes": "Реестр сохраняет решения интервью и очищенной рабочей книги как исторические источники. Дополнение CO3-AMND-001 меняет для текущего Q4_2026 только форматы результата на PPTX и PDF; дополнение CO3-AMND-002 принимает изолированный черновик только для каскадного обновления документации и требует отдельного итогового подтверждения перед чистовым визуальным выпуском."
+    },
+    {
+      "source_id": "SRC-DC-CO-2026-003-RELEASE-APPROVAL-LEDGER",
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-25",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "documentation_cascade",
+        "frame_approval",
+        "release_authority",
+        "delivery_archive_gate"
+      ],
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "scripts/validate-co-2026-003-release-state.mjs"
+      ],
+      "notes": "Единый реестр отделяет принятие черновика для документационного каскада от права на чистовой выпуск. Он фиксирует явное разрешение владельца на публичное размещение согласованных демонстрационных данных и визуальных производных, сохраняет запрет на исходные внешние PDF и блокирует выпуск, пока не приняты варианты презентаций и не выбран текст полной непоставки."
+    },
+    {
+      "source_id": "SRC-DC-CO-2026-003-OWNER-APPROVED-TEXTS",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-24",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "approved_text_trace",
+        "prototype_candidate_copy",
+        "frame_review"
+      ],
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+      ],
+      "notes": "Единственный машиночитаемый источник выбранных владельцем формулировок кнопки, начала формирования, успеха и письма. Он не заменяет исторические дословные сообщения интервью и не содержит невыбранный текст полной недоставки."
     },
     {
       "source_id": "SRC-DC-PRODUCT-VISION-CURRENT",

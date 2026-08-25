@@ -16,7 +16,7 @@
   "forbidden_behaviors": ["Включать рабочий сетевой или почтовый вызов", "Изобретать внешний договор", "Переносить будущий объем в Q4_2026"],
   "raw_transcript_included": false,
   "traceability_refs": {
-    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006"],
+    "decision_ids": ["CO3-DEC-001", "CO3-DEC-003", "CO3-DEC-006", "CO3-AMND-001"],
     "change_order_ids": ["CO-2026-003"],
     "story_ids": ["DC-ST-29", "DC-ST-30"],
     "acceptance_scenario_ids": ["q4_profile_email_delivery"],

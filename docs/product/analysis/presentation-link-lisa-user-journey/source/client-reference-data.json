@@ -10,8 +10,8 @@
   },
   "source_control": {
     "provided_by": "product_owner",
-    "source_classification": "synthetic_demo_data",
-    "git_display_permission": "allowed",
+    "source_classification": "owner_authorized_public_demo_data",
+    "git_display_permission": "owner_authorized_public",
     "raw_source_storage": "not_stored",
     "raw_source_path_stored": false,
     "raw_source_metadata_stored": false,
@@ -26,7 +26,7 @@
       "temporary_render_paths"
     ],
     "notes": [
-      "Владелец продукта предоставил данные как синтетические и разрешённые для демонстрационного Git-версируемого прототипа.",
+      "Владелец продукта отдельно подтвердил публичное размещение данных и визуальных производных в репозитории и будущих архивах поставки.",
       "Исходный документ, локальный путь, хэш, свойства автора и временные производные файлы в репозитории не сохраняются.",
       "Глобальные правила защиты данных и проверки утечек не ослабляются."
     ]

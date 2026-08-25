@@ -35,8 +35,8 @@
       ],
       "properties": {
         "provided_by": { "const": "product_owner" },
-        "source_classification": { "const": "synthetic_demo_data" },
-        "git_display_permission": { "const": "allowed" },
+        "source_classification": { "const": "owner_authorized_public_demo_data" },
+        "git_display_permission": { "const": "owner_authorized_public" },
         "raw_source_storage": { "const": "not_stored" },
         "raw_source_path_stored": { "const": false },
         "raw_source_metadata_stored": { "const": false },

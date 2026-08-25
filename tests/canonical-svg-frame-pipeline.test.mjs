@@ -384,8 +384,8 @@ test("неактивный договор наследует кадры и см�
   assert.equal(contract.render_allowed, false);
   assert.equal(contract.archive_allowed, false);
   assert.equal(contract.prototype_revision_candidate.path, "source/prototype-revision-candidate.json");
-  assert.equal(contract.prototype_revision_candidate.expected_version, "1.1.0");
-  assert.equal(candidate.version, "1.1.0");
+  assert.equal(contract.prototype_revision_candidate.expected_version, "1.2.0");
+  assert.equal(candidate.version, "1.2.0");
   assert.deepEqual(contract.future_frame_ids, candidate.active_future_frame_ids);
   assert.deepEqual(contract.historical_reference_frame_ids, candidate.historical_inactive_frame_ids);
 
@@ -469,7 +469,10 @@ test("выбранные тексты и покадровые источники
   assert.ok(donorRegister.donors.every((donor) => donor.page_count === 3 && donor.sha256.length === 64));
   assert.deepEqual(
     contract.frame_svg_sources.map((frame) => frame.frame_id),
-    candidate.active_future_frame_ids,
+    candidate.active_future_frame_ids.filter((frameId) => ![
+      "lisa-materials-summary",
+      "lisa-presentation-order",
+    ].includes(frameId)),
   );
   for (const frame of contract.frame_svg_sources) {
     assert.deepEqual(Object.keys(frame).sort(), [
@@ -545,7 +548,7 @@ test("выбранные тексты и покадровые источники
         approved_text_status: "not_applicable",
         svg_visual_check_status: "not_applicable",
         draft_png_status: "rendered_current_resolution",
-        owner_frame_approval_status: "approved",
+        owner_frame_approval_status: "pending",
       });
     } else if (["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"].includes(frame.frame_id)) {
       assert.deepEqual(frame, {
@@ -566,9 +569,9 @@ test("принятый первый проверочный кадр изолир
   const contract = readJson(contractPath);
 
   assert.deepEqual(contract.frame_review_session, {
-  status: "presentation_variant_batch_drafts_accepted_for_documentation_cascade",
+  status: "presentation_variant_batch_drafts_pending_owner_approval",
     current_frame_id: "lisa-presentation-slidedoc",
-    next_frame_id: "lisa-presentation-sber2025",
+    next_frame_id: null,
     source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
     draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
     review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
@@ -583,7 +586,7 @@ test("принятый первый проверочный кадр изолир
     active_release_mutation_prohibited: true,
     owner_approval_record_path: null,
     batch_draft_preparation_authorized_by_owner: true,
-    next_frame_blocked_until_owner_approval: false,
+    next_frame_blocked_until_owner_approval: true,
     skipped_frame_id: "lisa-presentation-chat-list",
     skipped_frame_reason: "owner_direction_no_rework",
     error_review_batch: {
@@ -789,7 +792,8 @@ test("принятый кадр начала ведёт к отдельному 
   assert.equal(contract.frame_review_session.current_frame_id, "lisa-presentation-slidedoc");
   assert.equal(contract.frame_review_session.skipped_frame_id, "lisa-presentation-chat-list");
   assert.equal(contract.frame_review_session.skipped_frame_reason, "owner_direction_no_rework");
-  assert.equal(contract.frame_review_session.next_frame_id, "lisa-presentation-sber2025");
+  assert.equal(contract.frame_review_session.next_frame_id, null);
+  assert.equal(contract.frame_review_session.next_frame_blocked_until_owner_approval, true);
   assert.deepEqual(contract.frame_review_session.error_review_batch, {
     contract_path: "source/error-frame-review-contract.json",
     candidate_frame_ids: ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"],

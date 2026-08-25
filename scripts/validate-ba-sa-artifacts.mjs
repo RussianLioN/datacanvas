@@ -608,7 +608,10 @@ function validateSpecReadiness() {
   const businessRules = readJson(paths.businessRules);
   const q4SpecFixture = readJson(paths.q4SpecFixture);
   const q4DecisionRegister = validateSchema("schemas/authoritative-interview-decision-register.schema.json", paths.q4DecisionRegister);
-  const q4DecisionIds = new Set(q4DecisionRegister.decisions.map((decision) => decision.decision_id));
+  const q4DecisionIds = new Set([
+    ...q4DecisionRegister.decisions.map((decision) => decision.decision_id),
+    ...(q4DecisionRegister.post_interview_amendments ?? []).map((amendment) => amendment.amendment_id),
+  ]);
   const claimById = new Map(baSpec.claims.map((claim) => [claim.claim_id, claim]));
   const evalIds = ids(evals.cases, "id");
   const ruleIds = ids(businessRules.rules, "rule_id");

@@ -1,14 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "visual-components-contract.schema.json",
-  "title": "Договор растровой визуальной основы MVP Лисы",
+  "title": "Исторический договор растровой визуальной основы MVP Лисы",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version", "status", "design_language", "tokens", "layout", "motion", "accessibility", "capture_stability", "phone_mock_image_policy", "raster_base_local_overlay", "status_svg_text_replacement", "components", "svg_security_limits"],
+  "required": ["version", "status", "release_scope", "design_language", "tokens", "layout", "motion", "accessibility", "capture_stability", "phone_mock_image_policy", "raster_base_local_overlay", "status_svg_text_replacement", "components", "svg_security_limits"],
   "properties": {
     "$schema": { "const": "schemas/visual-components-contract.schema.json" },
-    "version": { "const": "2.2.0" },
+    "version": { "const": "2.3.0" },
     "status": { "const": "active" },
+    "release_scope": { "$ref": "#/$defs/release_scope" },
     "design_language": { "$ref": "#/$defs/design_language" },
     "tokens": { "$ref": "#/$defs/tokens" },
     "layout": { "$ref": "#/$defs/layout" },
@@ -22,6 +23,15 @@
     "svg_security_limits": { "$ref": "#/$defs/svg_security_limits" }
   },
   "$defs": {
+    "release_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["applies_to", "successor_contract_path", "future_candidate_use"],
+      "properties": {
+        "applies_to": { "const": "historical_active_release_only" },
+        "successor_contract_path": { "const": "source/canonical-svg-frame-pipeline-contract.json" },
+        "future_candidate_use": { "const": "forbidden" }
+      }
+    },
     "source_parity": {
       "type": "object", "additionalProperties": false,
       "required": ["comparison", "outside_slots", "mask_coordinate_space", "failure_action"],

@@ -31,6 +31,13 @@ test("Q4_2026 SSD-пакет хранит полный ожидаемый сос
       assert.ok(refs, `${path} не содержит traceability_refs`);
       assert.deepEqual(refs.change_order_ids, [fixture.change_order_id]);
       assert.ok(refs.decision_ids?.length, `${path} не содержит decision_ids`);
+      if ([
+        "docs/product/specs/feature-spec-q4-profile-mail.json",
+        "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+        "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      ].includes(path)) {
+        assert.ok(refs.decision_ids.includes("CO3-AMND-001"), `${path} не связывает текущие форматы PPTX/PDF с дополнением владельца`);
+      }
       for (const key of fixture.required_traceability_keys) {
         assert.ok(refs[key]?.length, `${path} не содержит ${key}`);
       }

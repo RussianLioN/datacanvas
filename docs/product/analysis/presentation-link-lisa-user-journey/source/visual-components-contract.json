@@ -1,13 +1,18 @@
 {
   "$schema": "schemas/visual-components-contract.schema.json",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "status": "active",
+  "release_scope": {
+    "applies_to": "historical_active_release_only",
+    "successor_contract_path": "source/canonical-svg-frame-pipeline-contract.json",
+    "future_candidate_use": "forbidden"
+  },
   "design_language": {
     "source": "provided-lisa-reference-frames",
     "principles": [
-      "Растровая основа исходного кадра остаётся неизменной вне локальных слотов.",
+      "Растровая основа исходного исторического кадра остаётся неизменной вне локальных слотов.",
       "Ручная CSS-отрисовка phone shell запрещена.",
-      "Для финальных статусных экранов Q4 текст и его положение меняются только внутри существующих групп канонического SVG; добавочные визуальные слои запрещены."
+      "Для будущего кандидата CO-2026-003 применяется отдельный договор поэкранной подготовки: текст мобильных кадров и письма изменяется только внутри существующих групп канонического SVG, а добавочные визуальные слои запрещены."
     ]
   },
   "tokens": {

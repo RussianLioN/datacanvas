@@ -46,7 +46,7 @@
       "required": ["path", "expected_version", "candidate_is_not_generator_input"],
       "properties": {
         "path": { "const": "source/prototype-revision-candidate.json" },
-        "expected_version": { "const": "1.1.0" },
+        "expected_version": { "const": "1.2.0" },
         "candidate_is_not_generator_input": { "const": true }
       }
     },
@@ -63,8 +63,8 @@
     "future_frame_ids": { "$ref": "#/$defs/future_frame_ids" },
     "historical_reference_frame_ids": {
       "type": "array",
-      "minItems": 2,
-      "maxItems": 2,
+      "minItems": 0,
+      "maxItems": 0,
       "items": { "$ref": "#/$defs/state_id" },
       "uniqueItems": true
     },
@@ -166,7 +166,9 @@
     },
     "future_frame_ids": {
       "const": [
+        "lisa-materials-summary",
         "lisa-materials-full-reference",
+        "lisa-presentation-order",
         "lisa-presentation-generating",
         "lisa-presentation-chat-list",
         "lisa-presentation-sent",
@@ -330,7 +332,7 @@
                                       "approved_text_status": { "const": "not_applicable" },
                                       "svg_visual_check_status": { "const": "not_applicable" },
                                       "draft_png_status": { "const": "rendered_current_resolution" },
-                                      "owner_frame_approval_status": { "const": "approved" }
+                                      "owner_frame_approval_status": { "const": "pending" }
                                     }
                                   },
                                   "else": {
@@ -406,7 +408,7 @@
       "properties": {
         "status": { "enum": ["presentation_variant_frames_blocked_pending_canonical_svg_sources", "presentation_variant_frame_pending_owner_approval", "presentation_variant_batch_drafts_pending_owner_approval", "presentation_variant_batch_drafts_accepted_for_documentation_cascade"] },
         "current_frame_id": { "enum": ["lisa-presentation-email", "lisa-presentation-slidedoc"] },
-        "next_frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025"] },
+        "next_frame_id": { "enum": ["lisa-presentation-slidedoc", "lisa-presentation-sber2025", null] },
         "source_pdf_file_name": { "const": "vodoley_dense_slidedoc.pdf" },
         "draft_png_path": { "const": "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png" },
         "review_manifest_path": { "const": "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json" },
@@ -420,7 +422,7 @@
         "active_release_mutation_prohibited": { "const": true },
         "owner_approval_record_path": { "enum": ["candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json", null] },
         "batch_draft_preparation_authorized_by_owner": { "const": true },
-        "next_frame_blocked_until_owner_approval": { "const": false },
+        "next_frame_blocked_until_owner_approval": { "const": true },
         "draft_prototype_path": { "const": "candidate-evidence/prototype-draft/index.html" },
         "skipped_frame_id": { "const": "lisa-presentation-chat-list" },
         "skipped_frame_reason": { "const": "owner_direction_no_rework" },

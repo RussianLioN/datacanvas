@@ -61,7 +61,7 @@ function applyMutation(base, scenario) {
   } else if (scenario.mutation === "not_11_frames") {
     data[candidatePath].active_future_frame_ids = data[candidatePath].active_future_frame_ids.slice(0, 10);
   } else if (scenario.mutation === "multiple_active_buttons") {
-    data[candidatePath].active_button.count = 2;
+    data[candidatePath].active_button.button_instances_count = 4;
     data[candidatePath].frames.find((frame) => frame.id === "lisa-presentation-generating").action_ids = ["order-presentation"];
   } else if (scenario.mutation === "invalid_brainstorming_phases") {
     data[brainstormingPath].topics[0].phase_1.consolidated_candidate_count = 29;
@@ -157,7 +157,9 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
   assert.deepEqual(
     candidate.active_future_frame_ids,
     [
+      "lisa-materials-summary",
       "lisa-materials-full-reference",
+      "lisa-presentation-order",
       "lisa-presentation-generating",
       "lisa-presentation-chat-list",
       "lisa-presentation-sent",
@@ -170,9 +172,14 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
       "lisa-delivery-partial",
     ],
   );
-  assert.deepEqual(candidate.historical_inactive_frame_ids, ["lisa-materials-summary", "lisa-presentation-order"]);
-  assert.equal(candidate.active_button.count, 1);
-  assert.equal(candidate.active_button.source_state_id, "lisa-materials-full-reference");
+  assert.deepEqual(candidate.historical_inactive_frame_ids, []);
+  assert.equal(candidate.active_button.action_definition_count, 1);
+  assert.equal(candidate.active_button.button_instances_count, 3);
+  assert.deepEqual(candidate.active_button.source_state_ids, [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+  ]);
   assert.equal(candidate.visual_release_gate.required_external_visual_donors.length, 4);
   assert.equal(candidate.status, "draft_prototype_accepted_for_documentation_cascade");
   assert.deepEqual(candidate.draft_acceptance, {
@@ -354,6 +361,22 @@ test("согласованные владельцем тексты хранят�
   assert.equal(candidate.approved_texts_source, "source/owner-approved-texts.json");
   assert.equal(candidate.visual_release_gate.owner_selection_complete, true);
   assert.equal(candidate.visual_release_gate.render_allowed, false);
+  assert.deepEqual(candidate.dynamic_contour_rendering, {
+    allowed_contour_values: ["SIGMA", "OMEGA", "SIGMA и OMEGA"],
+    generation_started_message: {
+      topic_id: "generation_started_message",
+      template: "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в {КОНТУРЫ}.",
+      approved_two_contour_text: "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    },
+    delivery_partial_message: {
+      authoritative_message_id: "CO3-MSG-005",
+      successful_and_unconfirmed_contours_must_differ: true,
+      allowed_rendered_pairs: [
+        { successful: "SIGMA", unconfirmed: "OMEGA" },
+        { successful: "OMEGA", unconfirmed: "SIGMA" },
+      ],
+    },
+  });
 });
 
 test("узкий валидатор отклоняет известные нарушения кандидата пересборки прототипа", () => {

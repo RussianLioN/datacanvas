@@ -1,0 +1,104 @@
+{
+  "$schema": "../../../schemas/co-2026-003-release-approval-ledger.schema.json",
+  "version": "1.1.0",
+  "change_order_id": "CO-2026-003",
+  "public_data_authorization": {
+    "decision_date": "2026-08-25",
+    "decision_source": "Product Owner в рабочем чате",
+    "allow_public_repository_and_archives": true,
+    "allow_public_visual_derivatives": true,
+    "raw_external_pdf_tracking_allowed": false,
+    "covered_paths": [
+      "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
+      "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence",
+      "docs/product/analysis/presentation-link-lisa-user-journey/derived"
+    ]
+  },
+  "documentation_cascade": {
+    "scope_acceptance_status": "owner_approved",
+    "execution_status": "in_progress",
+    "accepted_at": "2026-08-24T00:00:00Z",
+    "scope": "documentation_cascade_only",
+    "candidate_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+    "candidate_fingerprint": null
+  },
+  "frame_approvals": [
+    {
+      "frame_id": "lisa-materials-full-reference",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-presentation-generating",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-presentation-sent",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-presentation-email",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-order-not-accepted",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-delivery-delayed",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-delivery-partial",
+      "status": "owner_frame_approved",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review-source-manifest.json",
+      "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/owner-approval.json"
+    },
+    {
+      "frame_id": "lisa-presentation-slidedoc",
+      "status": "pending_owner_approval",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+      "owner_approval_record_path": null
+    },
+    {
+      "frame_id": "lisa-presentation-sber2025",
+      "status": "pending_owner_approval",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/review-source-manifest.json",
+      "owner_approval_record_path": null
+    },
+    {
+      "frame_id": "lisa-presentation-mag",
+      "status": "pending_owner_approval",
+      "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
+      "owner_approval_record_path": null
+    }
+  ],
+  "pending_text_selections": [
+    {
+      "topic_id": "delivery_full_failure_message",
+      "status": "pending_owner_selection",
+      "required_selection_process": "two_phase_19_participant_brainstorm_then_owner_choice"
+    }
+  ],
+  "final_release": {
+    "status": "pending_owner_approval",
+    "active_release_switch_allowed": false,
+    "high_resolution_render_allowed": false,
+    "fresh_evidence_required": true,
+    "delivery_archive_allowed": false,
+    "candidate_fingerprint": null,
+    "prototype_package_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
+    "fresh_evidence_path": null
+  }
+}

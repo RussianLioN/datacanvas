@@ -1,0 +1,91 @@
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import test from "node:test";
+
+const root = path.resolve(new URL("../", import.meta.url).pathname);
+const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
+const ledgerPath = "docs/product/change-orders/co-2026-003-release-approval-ledger.json";
+const candidatePath = `${packagePath}/source/prototype-revision-candidate.json`;
+const validatorPath = "scripts/validate-co-2026-003-release-state.mjs";
+const generatorPath = "scripts/generate-presentation-link-lisa-user-journey.mjs";
+
+function readJson(relativePath) {
+  return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+}
+
+test("CO-2026-003 separates the accepted documentation cascade from frame and final-release approval", () => {
+  assert.equal(
+    fs.existsSync(path.join(root, ledgerPath)),
+    true,
+    "нужен единый реестр разрешений и приёмок CO-2026-003",
+  );
+
+  const ledger = readJson(ledgerPath);
+  const candidate = readJson(candidatePath);
+
+  assert.equal(ledger.documentation_cascade.scope_acceptance_status, "owner_approved");
+  assert.equal(ledger.documentation_cascade.execution_status, "in_progress");
+  assert.equal(ledger.final_release.status, "pending_owner_approval");
+  assert.equal(ledger.final_release.active_release_switch_allowed, false);
+  assert.equal(ledger.final_release.delivery_archive_allowed, false);
+  assert.equal(ledger.public_data_authorization.allow_public_repository_and_archives, true);
+  assert.equal(ledger.public_data_authorization.raw_external_pdf_tracking_allowed, false);
+  const visualContract = readJson(`${packagePath}/source/visual-components-contract.json`);
+  assert.deepEqual(visualContract.release_scope, {
+    applies_to: "historical_active_release_only",
+    successor_contract_path: "source/canonical-svg-frame-pipeline-contract.json",
+    future_candidate_use: "forbidden",
+  });
+
+  assert.deepEqual(
+    ledger.frame_approvals.map((frame) => [frame.frame_id, frame.status]),
+    [
+      ["lisa-materials-full-reference", "owner_frame_approved"],
+      ["lisa-presentation-generating", "owner_frame_approved"],
+      ["lisa-presentation-sent", "owner_frame_approved"],
+      ["lisa-presentation-email", "owner_frame_approved"],
+      ["lisa-order-not-accepted", "owner_frame_approved"],
+      ["lisa-delivery-delayed", "owner_frame_approved"],
+      ["lisa-delivery-partial", "owner_frame_approved"],
+      ["lisa-presentation-slidedoc", "pending_owner_approval"],
+      ["lisa-presentation-sber2025", "pending_owner_approval"],
+      ["lisa-presentation-mag", "pending_owner_approval"],
+    ],
+  );
+
+  assert.deepEqual(candidate.historical_inactive_frame_ids, []);
+  assert.deepEqual(candidate.active_future_frame_ids, [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial",
+  ]);
+
+  const result = spawnSync(process.execPath, [path.join(root, validatorPath)], {
+    cwd: root,
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+});
+
+test("CO-2026-003 blocks the full publication command before any historical package check until final approval", () => {
+  const result = spawnSync(process.execPath, [path.join(root, generatorPath)], {
+    cwd: root,
+    encoding: "utf8",
+  });
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /итоговая приёмка владельца/u);
+  assert.doesNotMatch(result.stderr, /договоров не пройдена/u);
+});

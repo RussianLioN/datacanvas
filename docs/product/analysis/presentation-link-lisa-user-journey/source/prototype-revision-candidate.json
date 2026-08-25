@@ -1,11 +1,12 @@
 {
   "$schema": "schemas/prototype-revision-candidate.schema.json",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "change_order_id": "CO-2026-003",
   "status": "draft_prototype_accepted_for_documentation_cascade",
   "client_reference_source": "source/client-reference-data.json",
   "brainstorming_contract_source": "source/brainstorming-contract.json",
   "approved_texts_source": "source/owner-approved-texts.json",
+  "release_approval_ledger_path": "../../change-orders/co-2026-003-release-approval-ledger.json",
   "draft_manifest_source": "candidate-evidence/prototype-draft/manifest.json",
   "draft_acceptance": {
     "accepted_at": "2026-08-24T00:00:00Z",
@@ -19,7 +20,9 @@
     "candidate_is_not_generator_input": true
   },
   "active_future_frame_ids": [
+    "lisa-materials-summary",
     "lisa-materials-full-reference",
+    "lisa-presentation-order",
     "lisa-presentation-generating",
     "lisa-presentation-chat-list",
     "lisa-presentation-sent",
@@ -31,16 +34,13 @@
     "lisa-delivery-delayed",
     "lisa-delivery-partial"
   ],
-  "historical_inactive_frame_ids": [
-    "lisa-materials-summary",
-    "lisa-presentation-order"
-  ],
+  "historical_inactive_frame_ids": [],
   "frames": [
     {
       "id": "lisa-materials-summary",
-      "status": "historical_inactive",
-      "reason": "Краткая справка остаётся историческим кадром и не входит в будущий активный маршрут пересборки.",
-      "action_ids": []
+      "status": "active_future",
+      "caption": "Краткая справка остаётся первой существующей точкой заказа презентации.",
+      "action_ids": ["order-presentation"]
     },
     {
       "id": "lisa-materials-full-reference",
@@ -64,9 +64,9 @@
     },
     {
       "id": "lisa-presentation-order",
-      "status": "historical_inactive",
-      "reason": "Отдельный экран заказа больше не является активной точкой сценария; заказ инициируется из полной справки.",
-      "action_ids": []
+      "status": "active_future",
+      "caption": "Экран заказа сохраняется как третья существующая точка заказа презентации.",
+      "action_ids": ["order-presentation"]
     },
     {
       "id": "lisa-presentation-generating",
@@ -144,8 +144,13 @@
   ],
   "active_button": {
     "action_id": "order-presentation",
-    "source_state_id": "lisa-materials-full-reference",
-    "count": 1,
+    "source_state_ids": [
+      "lisa-materials-summary",
+      "lisa-materials-full-reference",
+      "lisa-presentation-order"
+    ],
+    "action_definition_count": 1,
+    "button_instances_count": 3,
     "text_topic_id": "button_label",
     "text_status": "owner_approved"
   },
@@ -179,7 +184,9 @@
       "is_user_scenario_transition": false,
       "description": "Порядок галереи нужен для демонстрации: сначала успешный путь, затем три ошибки. Он не является переходом по сценарию.",
       "ordered_state_ids": [
+        "lisa-materials-summary",
         "lisa-materials-full-reference",
+        "lisa-presentation-order",
         "lisa-presentation-generating",
         "lisa-presentation-chat-list",
         "lisa-presentation-sent",
@@ -220,6 +227,32 @@
       "preserved_historical_sources": []
     }
   ],
+  "dynamic_contour_rendering": {
+    "allowed_contour_values": [
+      "SIGMA",
+      "OMEGA",
+      "SIGMA и OMEGA"
+    ],
+    "generation_started_message": {
+      "topic_id": "generation_started_message",
+      "template": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в {КОНТУРЫ}.",
+      "approved_two_contour_text": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA."
+    },
+    "delivery_partial_message": {
+      "authoritative_message_id": "CO3-MSG-005",
+      "successful_and_unconfirmed_contours_must_differ": true,
+      "allowed_rendered_pairs": [
+        {
+          "successful": "SIGMA",
+          "unconfirmed": "OMEGA"
+        },
+        {
+          "successful": "OMEGA",
+          "unconfirmed": "SIGMA"
+        }
+      ]
+    }
+  },
   "visual_acceptance_contract": {
     "frame_flow": [
       "owner_text_selected",

@@ -6,14 +6,14 @@
       "expected_error": "client short_name must be ООО «Водолей Трейд»"
     },
     {
-      "id": "not-11-frames",
+      "id": "not-all-route-frames",
       "mutation": "not_11_frames",
-      "expected_error": "candidate active future frame list must contain exactly 11 frames"
+      "expected_error": "candidate active future frame list must contain all ten original frames and three error frames"
     },
     {
       "id": "multiple-active-buttons",
       "mutation": "multiple_active_buttons",
-      "expected_error": "candidate must keep exactly one active order button"
+      "expected_error": "button_instances_count: must be equal to constant"
     },
     {
       "id": "invalid-brainstorming-phases",

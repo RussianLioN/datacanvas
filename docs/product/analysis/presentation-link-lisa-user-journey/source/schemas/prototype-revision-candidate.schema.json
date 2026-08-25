@@ -12,6 +12,7 @@
     "client_reference_source",
     "brainstorming_contract_source",
     "approved_texts_source",
+    "release_approval_ledger_path",
     "draft_manifest_source",
     "draft_acceptance",
     "current_journey_contract_policy",
@@ -21,17 +22,19 @@
     "active_button",
     "semantic_graphs",
     "message_topics",
+    "dynamic_contour_rendering",
     "visual_acceptance_contract",
     "visual_release_gate"
   ],
   "properties": {
     "$schema": { "const": "schemas/prototype-revision-candidate.schema.json" },
-    "version": { "const": "1.1.0" },
+    "version": { "const": "1.2.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "draft_prototype_accepted_for_documentation_cascade" },
     "client_reference_source": { "const": "source/client-reference-data.json" },
     "brainstorming_contract_source": { "const": "source/brainstorming-contract.json" },
     "approved_texts_source": { "const": "source/owner-approved-texts.json" },
+    "release_approval_ledger_path": { "const": "../../change-orders/co-2026-003-release-approval-ledger.json" },
     "draft_manifest_source": { "const": "candidate-evidence/prototype-draft/manifest.json" },
     "draft_acceptance": {
       "type": "object",
@@ -55,7 +58,11 @@
       }
     },
     "active_future_frame_ids": { "$ref": "#/$defs/state_ids" },
-    "historical_inactive_frame_ids": { "$ref": "#/$defs/state_ids" },
+    "historical_inactive_frame_ids": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/state_id" },
+      "uniqueItems": true
+    },
     "frames": {
       "type": "array",
       "minItems": 13,
@@ -65,11 +72,12 @@
     "active_button": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["action_id", "source_state_id", "count", "text_topic_id", "text_status"],
+      "required": ["action_id", "source_state_ids", "action_definition_count", "button_instances_count", "text_topic_id", "text_status"],
       "properties": {
         "action_id": { "const": "order-presentation" },
-        "source_state_id": { "const": "lisa-materials-full-reference" },
-        "count": { "type": "integer", "minimum": 1 },
+        "source_state_ids": { "$ref": "#/$defs/state_ids" },
+        "action_definition_count": { "const": 1 },
+        "button_instances_count": { "const": 3 },
         "text_topic_id": { "const": "button_label" },
         "text_status": { "const": "owner_approved" }
       }
@@ -85,6 +93,39 @@
       "minItems": 5,
       "maxItems": 5,
       "items": { "$ref": "#/$defs/message_topic" }
+    },
+    "dynamic_contour_rendering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_contour_values", "generation_started_message", "delivery_partial_message"],
+      "properties": {
+        "allowed_contour_values": { "const": ["SIGMA", "OMEGA", "SIGMA и OMEGA"] },
+        "generation_started_message": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["topic_id", "template", "approved_two_contour_text"],
+          "properties": {
+            "topic_id": { "const": "generation_started_message" },
+            "template": { "const": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в {КОНТУРЫ}." },
+            "approved_two_contour_text": { "const": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA." }
+          }
+        },
+        "delivery_partial_message": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["authoritative_message_id", "successful_and_unconfirmed_contours_must_differ", "allowed_rendered_pairs"],
+          "properties": {
+            "authoritative_message_id": { "const": "CO3-MSG-005" },
+            "successful_and_unconfirmed_contours_must_differ": { "const": true },
+            "allowed_rendered_pairs": {
+              "const": [
+                { "successful": "SIGMA", "unconfirmed": "OMEGA" },
+                { "successful": "OMEGA", "unconfirmed": "SIGMA" }
+              ]
+            }
+          }
+        }
+      }
     },
     "visual_acceptance_contract": {
       "type": "object",

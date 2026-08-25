@@ -191,9 +191,9 @@ const expectedErrorFrames = Object.freeze(new Map([
   })],
 ]));
 const expectedFrameReviewSession = Object.freeze({
-  status: "presentation_variant_batch_drafts_accepted_for_documentation_cascade",
+  status: "presentation_variant_batch_drafts_pending_owner_approval",
   current_frame_id: "lisa-presentation-slidedoc",
-  next_frame_id: "lisa-presentation-sber2025",
+  next_frame_id: null,
   source_pdf_file_name: "vodoley_dense_slidedoc.pdf",
   draft_png_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/draft-current-resolution.png",
   review_manifest_path: "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
@@ -208,7 +208,7 @@ const expectedFrameReviewSession = Object.freeze({
   active_release_mutation_prohibited: true,
   owner_approval_record_path: null,
   batch_draft_preparation_authorized_by_owner: true,
-  next_frame_blocked_until_owner_approval: false,
+  next_frame_blocked_until_owner_approval: true,
   skipped_frame_id: "lisa-presentation-chat-list",
   skipped_frame_reason: "owner_direction_no_rework",
   error_review_batch: {
@@ -219,6 +219,19 @@ const expectedFrameReviewSession = Object.freeze({
     draft_preparation_authorized_by_owner: true,
   },
 });
+const expectedPreparedFrameSourceIds = Object.freeze([
+  "lisa-materials-full-reference",
+  "lisa-presentation-generating",
+  "lisa-presentation-chat-list",
+  "lisa-presentation-sent",
+  "lisa-presentation-email",
+  "lisa-presentation-slidedoc",
+  "lisa-presentation-sber2025",
+  "lisa-presentation-mag",
+  "lisa-order-not-accepted",
+  "lisa-delivery-delayed",
+  "lisa-delivery-partial",
+]);
 const expectedPresentationPdfDonors = Object.freeze([
   Object.freeze({
     donor_id: "presentation_variant_slidedoc_pdf_donor",
@@ -338,8 +351,8 @@ function validateTopLevel(contract) {
   if (contract.generator_input !== false || contract.archive_allowed !== false) {
     throw new Error("inactive contract must not be a generator input or archive input");
   }
-  if (contract.prototype_revision_candidate.expected_version !== "1.1.0") {
-    throw new Error("prototype revision candidate expected_version must remain 1.1.0");
+  if (contract.prototype_revision_candidate.expected_version !== "1.2.0") {
+    throw new Error("prototype revision candidate expected_version must remain 1.2.0");
   }
   if (contract.version !== "4.5.0" || contract.status !== "inactive_draft_accepted_for_documentation_cascade") {
     throw new Error("версия договора должна фиксировать принятый изолированный черновик, ожидающий каскадного обновления документации");
@@ -359,8 +372,8 @@ function validateFrames(contract, candidate) {
   );
   assertSameArray(
     contract.frame_svg_sources.map((frame) => frame.frame_id),
-    candidate.active_future_frame_ids,
-    "future frame ids must match prototype revision candidate active_future_frame_ids",
+    expectedPreparedFrameSourceIds,
+    "frame source list must contain every updated frame and leave unchanged historic-source frames intact",
   );
   for (const frame of contract.frame_svg_sources) {
     if (frame.frame_id === expectedCurrentFrame.frame_id) {
@@ -400,9 +413,9 @@ function validateFrames(contract, candidate) {
         frame.approved_text_status !== "not_applicable" ||
         frame.svg_visual_check_status !== "not_applicable" ||
         frame.draft_png_status !== "rendered_current_resolution" ||
-        frame.owner_frame_approval_status !== "approved"
+        frame.owner_frame_approval_status !== "pending"
       ) {
-        throw new Error("каждый вариант презентации должен быть принят как изолированный PNG-черновик из утверждённого PDF");
+        throw new Error("каждый вариант презентации должен оставаться изолированным PNG-черновиком до отдельной приёмки владельца");
       }
       continue;
     }

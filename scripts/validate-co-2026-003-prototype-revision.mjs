@@ -38,7 +38,9 @@ const expectedGroupIds = Object.freeze([
 ]);
 
 const expectedActiveFutureFrameIds = Object.freeze([
+  "lisa-materials-summary",
   "lisa-materials-full-reference",
+  "lisa-presentation-order",
   "lisa-presentation-generating",
   "lisa-presentation-chat-list",
   "lisa-presentation-sent",
@@ -51,9 +53,19 @@ const expectedActiveFutureFrameIds = Object.freeze([
   "lisa-delivery-partial",
 ]);
 
-const expectedHistoricalInactiveFrameIds = Object.freeze([
-  "lisa-materials-summary",
-  "lisa-presentation-order",
+const expectedHistoricalInactiveFrameIds = Object.freeze([]);
+const expectedPreparedFrameSourceIds = Object.freeze([
+  "lisa-materials-full-reference",
+  "lisa-presentation-generating",
+  "lisa-presentation-chat-list",
+  "lisa-presentation-sent",
+  "lisa-presentation-email",
+  "lisa-presentation-slidedoc",
+  "lisa-presentation-sber2025",
+  "lisa-presentation-mag",
+  "lisa-order-not-accepted",
+  "lisa-delivery-delayed",
+  "lisa-delivery-partial",
 ]);
 
 const expectedTopics = Object.freeze([
@@ -422,20 +434,29 @@ function validateCandidate(candidate, approvedTexts) {
   assertNoLocalOrRawSourcePaths(candidate);
   assertNoRawSourceTracesInJson(candidate);
   if (!sameArray(candidate.active_future_frame_ids, expectedActiveFutureFrameIds)) {
-    throw new Error("candidate active future frame list must contain exactly 11 frames");
+    throw new Error("candidate active future frame list must contain all ten original frames and three error frames");
   }
   if (!sameArray(candidate.historical_inactive_frame_ids, expectedHistoricalInactiveFrameIds)) {
-    throw new Error("candidate must mark two legacy frames as historical inactive");
+    throw new Error("candidate must not remove original route frames by marking them historical inactive");
   }
   const activeFrames = candidate.frames.filter((frame) => frame.status === "active_future");
   const activeButtons = activeFrames.flatMap((frame) => frame.action_ids.map((actionId) => ({ actionId, frameId: frame.id })));
   if (
-    candidate.active_button.count !== 1 ||
-    candidate.active_button.source_state_id !== "lisa-materials-full-reference" ||
-    activeButtons.length !== 1 ||
-    activeButtons[0].frameId !== "lisa-materials-full-reference"
+    candidate.active_button.action_definition_count !== 1 ||
+    candidate.active_button.button_instances_count !== 3 ||
+    !sameArray(candidate.active_button.source_state_ids, [
+      "lisa-materials-summary",
+      "lisa-materials-full-reference",
+      "lisa-presentation-order",
+    ]) ||
+    activeButtons.length !== 3 ||
+    !sameArray(activeButtons.map((button) => button.frameId), [
+      "lisa-materials-summary",
+      "lisa-materials-full-reference",
+      "lisa-presentation-order",
+    ])
   ) {
-    throw new Error("candidate must keep exactly one active order button");
+    throw new Error("candidate must keep one order action on all three original order screens");
   }
 
   const semanticGraph = candidate.semantic_graphs.find((graph) => graph.graph_type === "semantic_transition");
@@ -512,6 +533,24 @@ function validateCandidate(candidate, approvedTexts) {
   if (candidate.approved_texts_source !== "source/owner-approved-texts.json" || approvedTexts.selections.length !== expectedTopics.length) {
     throw new Error("candidate must reference the approved texts register");
   }
+  if (JSON.stringify(candidate.dynamic_contour_rendering) !== JSON.stringify({
+    allowed_contour_values: ["SIGMA", "OMEGA", "SIGMA и OMEGA"],
+    generation_started_message: {
+      topic_id: "generation_started_message",
+      template: "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в {КОНТУРЫ}.",
+      approved_two_contour_text: "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    },
+    delivery_partial_message: {
+      authoritative_message_id: "CO3-MSG-005",
+      successful_and_unconfirmed_contours_must_differ: true,
+      allowed_rendered_pairs: [
+        { successful: "SIGMA", unconfirmed: "OMEGA" },
+        { successful: "OMEGA", unconfirmed: "SIGMA" },
+      ],
+    },
+  })) {
+    throw new Error("кандидат должен допускать подстановку только SIGMA, OMEGA или SIGMA и OMEGA");
+  }
 }
 
 function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister) {
@@ -529,16 +568,16 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
       frame.approved_text_status !== "not_applicable" ||
       frame.svg_visual_check_status !== "not_applicable" ||
       frame.draft_png_status !== "rendered_current_resolution" ||
-      frame.owner_frame_approval_status !== "approved"
+      frame.owner_frame_approval_status !== "pending"
     )) ||
     svgPipeline.frame_review_session?.current_frame_id !== "lisa-presentation-slidedoc" ||
-    svgPipeline.frame_review_session?.next_frame_id !== "lisa-presentation-sber2025" ||
+    svgPipeline.frame_review_session?.next_frame_id !== null ||
     svgPipeline.frame_review_session?.draft_prototype_path !== "candidate-evidence/prototype-draft/index.html" ||
     svgPipeline.frame_review_session?.owner_approval_record_path !== null ||
     svgPipeline.frame_review_session?.batch_draft_preparation_authorized_by_owner !== true ||
-    svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== false
+    svgPipeline.frame_review_session?.next_frame_blocked_until_owner_approval !== true
   ) {
-    throw new Error("договор кадров должен сохранять три принятых изолированных PNG-черновика из PDF и общий черновой прототип");
+    throw new Error("договор кадров должен отмечать три PDF-черновика как ожидающие отдельной приёмки владельца");
   }
   if (!sameArray(svgPipeline.message_topics.map((topic) => topic.topic_id), expectedTopics)) {
     throw new Error("SVG pipeline message topics must match the five selected text topics");
@@ -555,10 +594,10 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
     throw new Error("SVG pipeline must reference the approved text register before frame rendering");
   }
   if (!sameArray(svgPipeline.future_frame_ids, expectedActiveFutureFrameIds)) {
-    throw new Error("SVG pipeline future frame list must contain exactly 11 frames");
+    throw new Error("SVG pipeline future frame list must preserve полный маршрут из десяти исходных и трёх ошибочных кадров");
   }
-  if (!sameArray(svgPipeline.frame_svg_sources.map((frame) => frame.frame_id), expectedActiveFutureFrameIds)) {
-    throw new Error("договор кадров должен описывать по одному способу подготовки для каждого будущего кадра");
+  if (!sameArray(svgPipeline.frame_svg_sources.map((frame) => frame.frame_id), expectedPreparedFrameSourceIds)) {
+    throw new Error("договор кадров должен описывать все обновляемые кадры, не подменяя неизменённые исходные экраны");
   }
   if (!sameArray(svgPipeline.acceptance.frame_flow, expectedFrameFlow)) {
     throw new Error("SVG pipeline frame_flow must exactly match SVG-first acceptance steps");
