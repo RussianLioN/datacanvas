@@ -9,7 +9,7 @@
     "$schema": { "type": "string" },
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "change_order_id": { "const": "CO-2026-003" },
-    "status": { "enum": ["candidate_ready_for_owner_review", "business_requirements_owner_approved"] },
+    "status": { "enum": ["candidate_ready_for_owner_review", "business_requirements_owner_approved", "user_stories_owner_approved"] },
     "transcript_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.md$" },
     "scope_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.json$" },
     "amendment_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.md$" },

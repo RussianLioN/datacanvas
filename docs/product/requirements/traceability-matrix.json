@@ -81,10 +81,6 @@
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-05",
-        "DC-ST-07"
-      ],
       "acceptance_scenarios": [
         "happy_path",
         "lisa_launch_after_agent_dialogue",
@@ -107,10 +103,6 @@
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-05",
-        "DC-ST-06"
       ],
       "acceptance_scenarios": [
         "insufficient_input",
@@ -136,10 +128,6 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-06",
-        "DC-ST-07"
-      ],
       "acceptance_scenarios": [
         "insufficient_input"
       ],
@@ -158,9 +146,6 @@
         "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-01"
       ],
       "acceptance_scenarios": [
         "happy_path"
@@ -181,9 +166,6 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-01"
-      ],
       "acceptance_scenarios": [
         "lisa_structure_choice"
       ],
@@ -201,11 +183,6 @@
       "sources": [
         "docs/product/requirements/user-stories.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-02",
-        "DC-ST-03",
-        "DC-ST-04"
       ],
       "acceptance_scenarios": [
         "edit_before_generation"
@@ -225,9 +202,6 @@
         "docs/product/requirements/user-stories.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-08"
       ],
       "acceptance_scenarios": [
         "format_template_selection"
@@ -316,7 +290,8 @@
         "DC-ST-26",
         "DC-ST-27",
         "DC-ST-28",
-        "DC-ST-29"
+        "DC-ST-29",
+        "DC-ST-30"
       ],
       "acceptance_scenarios": [
         "agent_launch_request_intake",
@@ -349,8 +324,7 @@
       ],
       "story_ids": [
         "DC-ST-23",
-        "DC-ST-24",
-        "DC-ST-34"
+        "DC-ST-24"
       ],
       "acceptance_scenarios": [
         "agent_launch_request_intake",
@@ -431,8 +405,7 @@
       ],
       "story_ids": [
         "DC-ST-27",
-        "DC-ST-28",
-        "DC-ST-35"
+        "DC-ST-28"
       ],
       "acceptance_scenarios": [
         "agent_processing_statuses",
@@ -552,54 +525,6 @@
       "status": "draft"
     },
     {
-      "requirement_id": "BT-020",
-      "source": "docs/product/requirements/business-requirements.md",
-      "sources": [
-        "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-31",
-        "DC-ST-32"
-      ],
-      "acceptance_scenarios": [
-        "pdf_copy_storage",
-        "pdf_link_handoff"
-      ],
-      "evidence_expectations": [
-        "PDF-копия сохранена в защищенном хранилище и ссылка на нее передана вызывающему агенту как часть группы возможностей с приоритетом P2."
-      ],
-      "tests": [
-        "npm run validate:business-docs",
-        "npm run validate:data-leakage"
-      ],
-      "status": "draft"
-    },
-    {
-      "requirement_id": "BT-021",
-      "source": "docs/product/requirements/business-requirements.md",
-      "sources": [
-        "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-33"
-      ],
-      "acceptance_scenarios": [
-        "lisa_link_notification"
-      ],
-      "evidence_expectations": [
-        "Пользователь получает в Лисе ссылку на готовую презентацию и уведомление о готовности через сценарий, который ведут вызывающий агент и Лиса."
-      ],
-      "tests": [
-        "npm run validate:business-docs",
-        "npm run validate:data-leakage"
-      ],
-      "status": "draft"
-    },
-    {
       "requirement_id": "BT-022",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
@@ -608,7 +533,7 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/backlog/product-backlog.md"
       ],
-      "story_ids": ["DC-ST-34"],
+      "story_ids": ["DC-ST-23"],
       "acceptance_scenarios": ["q4_lisa_order"],
       "evidence_expectations": [
         "Для пары сеанс/пользователь принимается один заказ; повтор разрешен только до принятия запроса."
@@ -628,7 +553,7 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/backlog/product-backlog.md"
       ],
-      "story_ids": ["DC-ST-27", "DC-ST-35"],
+      "story_ids": ["DC-ST-27"],
       "acceptance_scenarios": ["q4_status_in_same_chat"],
       "evidence_expectations": [
         "В том же чате Лисы сохраняется безопасное состояние заказа без ссылки на файл, системного PUSH и личных сведений."
@@ -648,7 +573,7 @@
         "docs/product/requirements/acceptance-criteria.md",
         "docs/product/backlog/product-backlog.md"
       ],
-      "story_ids": ["DC-ST-36"],
+      "story_ids": ["DC-ST-30"],
       "acceptance_scenarios": ["q4_delayed_or_partial_delivery"],
       "evidence_expectations": [
         "После задержанной, частичной или неуспешной доставки сеанс закрывается, а дальнейшее сопровождение передается внешнему контуру без предопределения числа повторов или канала."

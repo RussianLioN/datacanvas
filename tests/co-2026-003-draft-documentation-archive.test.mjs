@@ -10,6 +10,7 @@ import {
 import { readStoredZip } from "../scripts/lib/documentation-archive.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
+const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
 
 test("архив черновика CO-2026-003 содержит автономный прототип и полный объявленный состав", () => {
   const contract = readCo2026003DraftDocumentationArchiveContract(root);
@@ -22,6 +23,23 @@ test("архив черновика CO-2026-003 содержит автоном�
   assert.ok(archive.has("manifest.json"));
   assert.ok(archive.has("repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html"));
   assert.ok(archive.has("repository/docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json"));
+  for (const currentArtifact of [
+    "docs/product/requirements/README.md",
+    "docs/product/sources/co-2026-003-current-2026-scope.md",
+    "docs/product/sources/co-2026-003-current-2026-scope.json",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/sources/story-catalog-content-lock.json",
+    "docs/product/backlog/product-backlog.md",
+    "docs/product/requirements/traceability-matrix.json",
+  ]) {
+    assert.ok(archive.has(`repository/${currentArtifact}`), `архив включает актуальный артефакт: ${currentArtifact}`);
+  }
+
+  const specificationManifest = readJson("docs/product/specs/generated-spec-package-manifest.json");
+  for (const specification of specificationManifest.outputs) {
+    assert.ok(archive.has(`repository/${specification.path}`), `архив включает спецификацию текущего пакета: ${specification.path}`);
+  }
 
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
   assert.equal(manifest.release_kind, "draft_documentation_evidence_only");

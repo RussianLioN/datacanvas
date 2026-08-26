@@ -570,6 +570,7 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       "docs/product/bmc/README.md",
       "docs/product/sources/co-2026-003-current-2026-scope.md",
       "docs/product/requirements/business-requirements.md",
+      "docs/product/requirements/user-stories.md",
       "docs/product/backlog/README.md",
       "docs/product/sources/README.md",
       "docs/product/roadmap/README.md",

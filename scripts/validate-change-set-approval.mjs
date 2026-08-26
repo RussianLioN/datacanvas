@@ -44,9 +44,9 @@ function isAcceptedBusinessRequirementsStage() {
   if (!fs.existsSync(absolute(currentBtInterviewStatePath))) return false;
   const state = readJson(currentBtInterviewStatePath);
   return (
-    state.status === "business_requirements_owner_approved" &&
     state.documentation_cascade?.business_requirements === "owner_approved" &&
-    state.documentation_cascade?.user_stories === "pending" &&
+    ["business_requirements_owner_approved", "user_stories_owner_approved"].includes(state.status) &&
+    ["pending", "owner_approved"].includes(state.documentation_cascade?.user_stories) &&
     state.documentation_cascade?.system_requirements === "pending"
   );
 }

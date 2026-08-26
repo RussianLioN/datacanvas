@@ -95,15 +95,22 @@ export function validateBtInterviewArtifacts(artifacts) {
   if (state.change_order_id !== "CO-2026-003" || state.scope_path !== "docs/product/sources/co-2026-003-current-2026-scope.json") {
     fail("interview state must point to the current 2026 scope");
   }
-  const businessRequirementsApproved = state.status === "business_requirements_owner_approved";
+  const userStoriesApproved = state.status === "user_stories_owner_approved";
+  const businessRequirementsApproved = userStoriesApproved || state.status === "business_requirements_owner_approved";
   const expectedBusinessRequirementsStatus = businessRequirementsApproved
     ? "owner_approved"
     : "candidate_pending_owner_review";
   if (state.documentation_cascade.business_requirements !== expectedBusinessRequirementsStatus) {
     fail("business requirements state must match the owner approval status");
   }
-  if (state.documentation_cascade.user_stories !== "pending" || state.documentation_cascade.system_requirements !== "pending") {
-    fail("user stories and system requirements must remain pending during the business requirements stage");
+  if (state.documentation_cascade.system_requirements !== "pending") {
+    fail("system requirements must remain pending until the next cascade stage");
+  }
+  if (userStoriesApproved && state.documentation_cascade.user_stories !== "owner_approved") {
+    fail("accepted user stories must match the owner-approved cascade state");
+  }
+  if (!userStoriesApproved && state.documentation_cascade.user_stories !== "pending") {
+    fail("user stories must remain pending before their owner approval");
   }
   if (state.documentation_cascade.prototype !== "accepted_11_frame_draft_unchanged" || state.documentation_cascade.final_release !== "pending") {
     fail("accepted draft prototype must remain unchanged and final release pending");

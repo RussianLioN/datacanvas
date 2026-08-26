@@ -67,7 +67,7 @@ test("Q4_2026 связывает безопасный Excel, требовани�
 });
 
 test("Q4_2026 отклоняет неизвестные ссылки SSD на требования, решения, интерфейсы и правила", () => {
-  const knownStories = new Set(["DC-ST-34"]);
+  const knownStories = new Set(["DC-ST-23"]);
   const knownScenarios = new Set(["q4_lisa_order"]);
   const knownReferences = {
     knownDecisionIds: new Set(["CO3-DEC-001"]),

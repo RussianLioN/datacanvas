@@ -2154,11 +2154,11 @@
       "section": "product",
       "navigation_group": "business",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
+      "lifecycle": "accepted",
       "data_class": "internal",
-      "visibility": "internal",
-      "searchable": false,
-      "navigable": false,
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
       "canonical_source": null,
       "generated_from": [],
       "redaction_status": "not_required",
@@ -4982,6 +4982,7 @@
         "docs/product/requirements/README.md",
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/sources/README.md",
@@ -5006,7 +5007,8 @@
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
         "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
-        "docs/product/requirements/business-requirements.md"
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
@@ -5252,13 +5254,14 @@
     },
     {
       "id": "task-find-business-requirements",
-      "label": "Найти принятые бизнес-требования 2026 года",
-      "task": "Найти принятые бизнес-требования DataCanvas в границе 2026 года",
+      "label": "Найти принятые требования 2026 года",
+      "task": "Найти принятые бизнес-требования и пользовательские истории DataCanvas в границе 2026 года",
       "navigation_group": "business",
       "start_path": "docs/product/requirements/README.md",
       "next_paths": [
         "docs/product/sources/co-2026-003-current-2026-scope.md",
-        "docs/product/requirements/business-requirements.md"
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",

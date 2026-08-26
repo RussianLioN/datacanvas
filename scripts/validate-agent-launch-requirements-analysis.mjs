@@ -86,9 +86,9 @@ const currentBtInterviewState = readJson(
   "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
 );
 const isHistoricalDuringCurrentBtCascade =
-  currentBtInterviewState.status === "business_requirements_owner_approved" &&
+  ["business_requirements_owner_approved", "user_stories_owner_approved"].includes(currentBtInterviewState.status) &&
   currentBtInterviewState.documentation_cascade.business_requirements === "owner_approved" &&
-  currentBtInterviewState.documentation_cascade.user_stories === "pending" &&
+  ["pending", "owner_approved"].includes(currentBtInterviewState.documentation_cascade.user_stories) &&
   currentBtInterviewState.documentation_cascade.system_requirements === "pending";
 
 if (state.analysis_id !== impactMap.analysis_id) {

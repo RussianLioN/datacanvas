@@ -7,9 +7,9 @@
   },
   "interview_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
   "required_requirement_links": [
-    {"requirement_id": "BT-022", "story_ids": ["DC-ST-34"], "acceptance_scenarios": ["q4_lisa_order"]},
-    {"requirement_id": "BT-023", "story_ids": ["DC-ST-27", "DC-ST-35"], "acceptance_scenarios": ["q4_status_in_same_chat"]},
-    {"requirement_id": "BT-024", "story_ids": ["DC-ST-36"], "acceptance_scenarios": ["q4_delayed_or_partial_delivery"]}
+    {"requirement_id": "BT-022", "story_ids": ["DC-ST-23"], "acceptance_scenarios": ["q4_lisa_order"]},
+    {"requirement_id": "BT-023", "story_ids": ["DC-ST-27"], "acceptance_scenarios": ["q4_status_in_same_chat"]},
+    {"requirement_id": "BT-024", "story_ids": ["DC-ST-30"], "acceptance_scenarios": ["q4_delayed_or_partial_delivery"]}
   ],
   "required_story_priorities": [
     {"story_id": "DC-ST-30", "priority": "P2"}

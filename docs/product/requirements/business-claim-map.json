@@ -33,7 +33,7 @@
           "artifact_path": "docs/product/requirements/user-stories.md",
           "fragments": [
             "DC-ST-23",
-            "Запуск другим агентом"
+            "Как вызывающий агент"
           ]
         }
       ]
@@ -147,7 +147,8 @@
       "supporting_source_ids": [
         "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
         "SRC-DC-CO-2026-003-AUTHORITATIVE-REGISTER",
-        "SRC-DC-REQUIREMENTS-BUSINESS"
+        "SRC-DC-REQUIREMENTS-BUSINESS",
+        "SRC-DC-STORIES-CATALOG"
       ],
       "supersedes_claim_ids": [
         "BCLM-CO-2026-002-P2-LINK-DELIVERY"
@@ -155,6 +156,9 @@
       "affected_artifacts": [
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/backlog/product-backlog.md",
+        "docs/product/requirements/traceability-matrix.json",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json"
       ],
       "expected_downstream_fragments": [
@@ -175,10 +179,33 @@
           ]
         },
         {
+          "artifact_path": "docs/product/requirements/user-stories.md",
+          "fragments": [
+            "DC-ST-09",
+            "DC-ST-23",
+            "DC-ST-30",
+            "один заказ"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/backlog/product-backlog.md",
+          "fragments": [
+            "DC-ST-23..DC-ST-29",
+            "DC-ST-09, DC-ST-30"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/requirements/traceability-matrix.json",
+          "fragments": [
+            "DC-ST-30",
+            "q4_delayed_or_partial_delivery"
+          ]
+        },
+        {
           "artifact_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
           "fragments": [
-            "business_requirements_owner_approved",
-            "\"user_stories\": \"pending\""
+            "user_stories_owner_approved",
+            "\"user_stories\": \"owner_approved\""
           ]
         }
       ]

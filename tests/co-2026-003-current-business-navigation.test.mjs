@@ -17,23 +17,30 @@ function routeTargets(route) {
   return [route.start_path, ...route.next_paths];
 }
 
-test("текущая навигация ведет к принятым бизнес-требованиям 2026 года", () => {
+test("текущая навигация ведет к принятым бизнес-требованиям и историям 2026 года", () => {
   const source = readJson("docs/navigation/navigation-source.json");
   const state = readJson("docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json");
   const requirements = source.managed_entries.find(
     (entry) => entry.path === "docs/product/requirements/business-requirements.md",
   );
+  const stories = source.managed_entries.find(
+    (entry) => entry.path === "docs/product/requirements/user-stories.md",
+  );
   const route = source.task_routes.find((entry) => entry.id === "task-find-business-requirements");
 
-  assert.equal(state.status, "business_requirements_owner_approved");
+  assert.equal(state.status, "user_stories_owner_approved");
   assert.equal(state.documentation_cascade.business_requirements, "owner_approved");
+  assert.equal(state.documentation_cascade.user_stories, "owner_approved");
   assert.equal(requirements?.lifecycle, "accepted");
   assert.equal(requirements?.navigable, true);
+  assert.equal(stories?.lifecycle, "accepted");
+  assert.equal(stories?.navigable, true);
   assert.ok(routeTargets(route).includes("docs/product/sources/co-2026-003-current-2026-scope.md"));
   assert.deepEqual(routeTargets(route), [
     "docs/product/requirements/README.md",
     "docs/product/sources/co-2026-003-current-2026-scope.md",
     "docs/product/requirements/business-requirements.md",
+    "docs/product/requirements/user-stories.md",
   ]);
 });
 
@@ -81,7 +88,6 @@ test("активные маршруты и входные документы н�
 test("необновленные последующие требования не выдаются за действующие требования 2026 года", () => {
   const source = readJson("docs/navigation/navigation-source.json");
   const pendingPaths = [
-    "docs/product/requirements/user-stories.md",
     "docs/product/requirements/non-functional-requirements.md",
     "docs/product/requirements/acceptance-criteria.md",
     "docs/product/requirements/backlog-slicing-rules.md",

@@ -18,7 +18,7 @@
   "traceability_refs": {
     "decision_ids": ["CO3-DEC-004", "CO3-DEC-006", "CO3-DEC-007", "CO3-DEC-009"],
     "change_order_ids": ["CO-2026-003"],
-    "story_ids": ["DC-ST-27", "DC-ST-35", "DC-ST-36"],
+    "story_ids": ["DC-ST-27", "DC-ST-30"],
     "acceptance_scenario_ids": ["q4_status_in_same_chat", "q4_delayed_or_partial_delivery"],
     "interface_ids": ["IF-008", "IF-009"],
     "business_rule_ids": ["BRULE-006", "BRULE-007", "BRULE-008"]

@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "archive_id": "co-2026-003-current-documentation-draft",
   "release_kind": "draft_documentation_evidence_only",
   "title": "Черновой пакет документации CO-2026-003 и прототип ООО «Водолей Трейд»",
@@ -12,6 +12,22 @@
   "data_class": "public_authorized",
   "visibility": "public",
   "additional_artifacts": [
+    {
+      "path": "docs/product/requirements/README.md",
+      "label": "Маршрут к текущим требованиям 2026 года"
+    },
+    {
+      "path": "docs/product/sources/co-2026-003-current-2026-scope.md",
+      "label": "Принятая граница реализации 2026 года"
+    },
+    {
+      "path": "docs/product/sources/co-2026-003-current-2026-scope.json",
+      "label": "Машиночитаемая граница реализации 2026 года"
+    },
+    {
+      "path": "docs/product/sources/story-catalog-content-lock.json",
+      "label": "Контрольный слепок каталога пользовательских историй"
+    },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
       "label": "Заявка на изменение CO-2026-003"
@@ -89,12 +105,56 @@
       "label": "Манифест спецификаций Q4_2026"
     },
     {
+      "path": "docs/product/specs/feature-spec-a2a-launch.json",
+      "label": "Спецификация запуска из общего сценария"
+    },
+    {
+      "path": "docs/product/specs/task-spec-a2a-launch.json",
+      "label": "Задача на запуск из общего сценария"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-a2a-launch.json",
+      "label": "Правила агента для запуска из общего сценария"
+    },
+    {
       "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
       "label": "Спецификация адресов и почтовой доставки"
     },
     {
       "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
       "label": "Спецификация состояний заказа в Лисе"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
+      "label": "Задача на определение адресов получателей"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
+      "label": "Задача на почтовую доставку результата"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
+      "label": "Задача на заказ из Лисы"
+    },
+    {
+      "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
+      "label": "Задача на сообщения о состоянии заказа"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
+      "label": "Правила агента для определения адресов"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
+      "label": "Правила агента для почтовой доставки"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
+      "label": "Правила агента для заказа из Лисы"
+    },
+    {
+      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
+      "label": "Правила агента для сообщений о состоянии заказа"
     },
     {
       "path": "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",

@@ -73,7 +73,7 @@ test('accepted draft, active Q4 documents and story lock use the current approve
     'docs/product/sources/story-catalog-content-lock.json',
   );
   const lockedStoryIds = storyLock.rows.map((story) => story.story_id);
-  for (const storyId of ['DC-ST-34', 'DC-ST-35', 'DC-ST-36']) {
+  for (const storyId of ['DC-ST-23', 'DC-ST-27', 'DC-ST-30']) {
     assert.ok(lockedStoryIds.includes(storyId), `missing lock for ${storyId}`);
   }
 

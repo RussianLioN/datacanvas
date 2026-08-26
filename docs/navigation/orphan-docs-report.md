@@ -53,11 +53,11 @@
 | Группа | Глубина | Количество |
 |---|---|---|
 | `business` | `1` | 15 |
-| `business` | `2` | 27 |
+| `business` | `2` | 26 |
 | `business` | `3` | 9 |
 | `business` | `4` | 8 |
 | `business` | `5` | 6 |
-| `business` | `6` | 5 |
+| `business` | `6` | 6 |
 | `business` | `hidden` | 88 |
 | `delivery` | `1` | 3 |
 | `delivery` | `2` | 14 |
