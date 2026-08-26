@@ -265,6 +265,10 @@ const cases = [
     data: "docs/product/sources/co-2026-003-current-2026-scope.json",
   },
   {
+    schema: "schemas/story-decomposition-map.schema.json",
+    data: "docs/product/requirements/user-story-decomposition-map.json",
+  },
+  {
     schema: "schemas/xlsx-backlog-provenance.schema.json",
     data: "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
   },

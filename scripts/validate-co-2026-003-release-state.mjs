@@ -10,6 +10,10 @@ const candidatePath = `${packagePath}/source/prototype-revision-candidate.json`;
 const clientDataPath = `${packagePath}/source/client-reference-data.json`;
 const historicalVisualContractPath = `${packagePath}/source/visual-components-contract.json`;
 const deliveryArchivePath = "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip";
+const fullDeliveryFailureMessage =
+  "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.";
+const fullDeliveryFailureDecisionSource =
+  "Стенограмма интервью имеет приоритет над устаревшей записью журнала по решению владельца продукта в рабочем чате.";
 
 const expectedRoute = Object.freeze([
   "lisa-materials-summary",
@@ -115,8 +119,25 @@ function validateHistoricalVisualContract(root) {
   }
 }
 
+function validateAcceptedFullDeliveryText(ledger) {
+  if (ledger.pending_text_selections.some((topic) => topic.topic_id === "delivery_full_failure_message")) {
+    throw new Error("текст полной недоставки не должен оставаться в ожидающих выборах после решения владельца");
+  }
+  const accepted = ledger.accepted_text_decisions.find(
+    (topic) => topic.topic_id === "delivery_full_failure_message",
+  );
+  if (
+    accepted?.status !== "owner_selected" ||
+    accepted.selected_text !== fullDeliveryFailureMessage ||
+    accepted.decision_source !== fullDeliveryFailureDecisionSource
+  ) {
+    throw new Error("реестр должен хранить точный согласованный текст полной неподтверждённой доставки и его приоритетный источник");
+  }
+}
+
 function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
   const finalRelease = ledger.final_release;
+  validateAcceptedFullDeliveryText(ledger);
   if (finalRelease.status === "pending_owner_approval") {
     if (
       finalRelease.active_release_switch_allowed ||
@@ -129,9 +150,6 @@ function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
     }
     if (fs.existsSync(path.join(root, deliveryArchivePath))) {
       throw new Error("архив поставки не должен существовать при ожидающем итоговом выпуске");
-    }
-    if (!ledger.pending_text_selections.some((topic) => topic.topic_id === "delivery_full_failure_message")) {
-      throw new Error("новый текст полной недоставки должен оставаться открытым до отдельного выбора владельца");
     }
     if (requireFinalRelease) {
       throw new Error("итоговая приёмка владельца ещё не получена: чистовой рендер, смена активного выпуска и архив поставки запрещены");
@@ -159,7 +177,7 @@ function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
     throw new Error("документационный каскад должен быть завершён и связан с тем же отпечатком кандидата");
   }
   if (ledger.pending_text_selections.length !== 0 || ledger.frame_approvals.some((frame) => frame.status !== "owner_frame_approved")) {
-    throw new Error("до итогового выпуска должны быть закрыты выбор текста полной недоставки и приёмка всех кадров");
+    throw new Error("до итогового выпуска должны быть закрыты все ожидающие текстовые решения и приёмка всех кадров");
   }
   const packageManifest = readJson(root, finalRelease.prototype_package_manifest_path);
   const evidence = readJson(root, finalRelease.fresh_evidence_path);

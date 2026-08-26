@@ -15,6 +15,22 @@ function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
 }
 
+test("стенограмма закрепляет текст полной неподтверждённой доставки и снимает ложную блокировку выбора", () => {
+  const ledger = readJson(ledgerPath);
+
+  assert.deepEqual(ledger.pending_text_selections, []);
+  assert.deepEqual(ledger.accepted_text_decisions, [
+    {
+      topic_id: "delivery_full_failure_message",
+      status: "owner_selected",
+      selected_text:
+        "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.",
+      decision_source:
+        "Стенограмма интервью имеет приоритет над устаревшей записью журнала по решению владельца продукта в рабочем чате.",
+    },
+  ]);
+});
+
 test("CO-2026-003 separates the accepted documentation cascade from frame and final-release approval", () => {
   assert.equal(
     fs.existsSync(path.join(root, ledgerPath)),

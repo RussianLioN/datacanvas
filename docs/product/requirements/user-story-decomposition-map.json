@@ -1,0 +1,441 @@
+{
+  "version": "1.2.0",
+  "change_order_id": "CO-2026-003",
+  "scope_path": "docs/product/sources/co-2026-003-current-2026-scope.json",
+  "status": "owner_approved",
+  "markdown_document_path": "docs/product/requirements/user-stories.md",
+  "parent_stories": [
+    {
+      "story_id": "DC-ST-09",
+      "priority": "P2",
+      "section_heading": "### DC-ST-09 — Получение Результата По Электронной Почте",
+      "child_story_ids": [
+        "US-009-01"
+      ]
+    },
+    {
+      "story_id": "DC-ST-23",
+      "priority": "P1",
+      "section_heading": "### DC-ST-23 — Заказ Презентации Из Полной Справки",
+      "child_story_ids": [
+        "US-023-01",
+        "US-023-02",
+        "US-023-03"
+      ]
+    },
+    {
+      "story_id": "DC-ST-24",
+      "priority": "P1",
+      "section_heading": "### DC-ST-24 — Запуск В Общем Агентском Сценарии",
+      "child_story_ids": [
+        "US-024-01",
+        "US-024-02"
+      ]
+    },
+    {
+      "story_id": "DC-ST-25",
+      "priority": "P1",
+      "section_heading": "### DC-ST-25 — Определение Рабочих Адресов",
+      "child_story_ids": [
+        "US-025-01",
+        "US-025-02"
+      ]
+    },
+    {
+      "story_id": "DC-ST-26",
+      "priority": "P1",
+      "section_heading": "### DC-ST-26 — Проверка Допустимости Заказа",
+      "child_story_ids": [
+        "US-026-01",
+        "US-026-02",
+        "US-026-03"
+      ]
+    },
+    {
+      "story_id": "DC-ST-27",
+      "priority": "P1",
+      "section_heading": "### DC-ST-27 — Статусы Заказа В Чате",
+      "child_story_ids": [
+        "US-027-01",
+        "US-027-02",
+        "US-027-03"
+      ]
+    },
+    {
+      "story_id": "DC-ST-28",
+      "priority": "P1",
+      "section_heading": "### DC-ST-28 — Проверяемость Маршрута Заказа",
+      "child_story_ids": [
+        "US-028-01",
+        "US-028-02"
+      ]
+    },
+    {
+      "story_id": "DC-ST-29",
+      "priority": "P1",
+      "section_heading": "### DC-ST-29 — Подготовка Презентации",
+      "child_story_ids": [
+        "US-029-01",
+        "US-029-02",
+        "US-029-03"
+      ]
+    },
+    {
+      "story_id": "DC-ST-30",
+      "priority": "P2",
+      "section_heading": "### DC-ST-30 — Почтовая Доставка Презентации",
+      "child_story_ids": [
+        "US-030-01",
+        "US-030-02",
+        "US-030-03",
+        "US-030-04",
+        "US-030-05"
+      ]
+    }
+  ],
+  "child_stories": [
+    {
+      "child_story_id": "US-009-01",
+      "parent_story_id": "DC-ST-09",
+      "title": "Получение подтверждённого письма с результатом",
+      "section_heading": "#### US-009-01 — Получение Подтверждённого Письма С Результатом",
+      "primary_responsibility": "Получение пользователем подтверждённого почтового результата",
+      "business_requirement_ids": [
+        "BT-012",
+        "BT-019"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-023-01",
+      "parent_story_id": "DC-ST-23",
+      "title": "Действие создания презентации в полной справке",
+      "section_heading": "#### US-023-01 — Действие Создания Презентации В Полной Справке",
+      "primary_responsibility": "Доступность действия в конце полной справки",
+      "business_requirement_ids": [
+        "BT-023"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-023-02",
+      "parent_story_id": "DC-ST-23",
+      "title": "Принятие одного заказа на пользовательский сеанс",
+      "section_heading": "#### US-023-02 — Принятие Одного Заказа На Пользовательский Сеанс",
+      "primary_responsibility": "Предотвращение дубликата принятого заказа",
+      "business_requirement_ids": [
+        "BT-022"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-023-03",
+      "parent_story_id": "DC-ST-23",
+      "title": "Исправление данных до принятия заказа",
+      "section_heading": "#### US-023-03 — Исправление Данных До Принятия Заказа",
+      "primary_responsibility": "Повтор после непринятого заказа",
+      "business_requirement_ids": [
+        "BT-017",
+        "BT-022"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-024-01",
+      "parent_story_id": "DC-ST-24",
+      "title": "Передача собранного контекста вызывающим агентом",
+      "section_heading": "#### US-024-01 — Передача Собранного Контекста Вызывающим Агентом",
+      "primary_responsibility": "Приём заказа без повторного ввода",
+      "business_requirement_ids": [
+        "BT-015"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-024-02",
+      "parent_story_id": "DC-ST-24",
+      "title": "Возврат безопасного связанного результата",
+      "section_heading": "#### US-024-02 — Возврат Безопасного Связанного Результата",
+      "primary_responsibility": "Безопасная корреляция ответа вызывающему агенту",
+      "business_requirement_ids": [
+        "BT-015",
+        "BT-018"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-025-01",
+      "parent_story_id": "DC-ST-25",
+      "title": "Получение разрешённых адресов из профиля",
+      "section_heading": "#### US-025-01 — Получение Разрешённых Адресов Из Профиля",
+      "primary_responsibility": "Использование адресов только из профиля сотрудника",
+      "business_requirement_ids": [
+        "BT-016"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-025-02",
+      "parent_story_id": "DC-ST-25",
+      "title": "Непринятие заказа без обязательных контуров",
+      "section_heading": "#### US-025-02 — Непринятие Заказа Без Обязательных Контуров",
+      "primary_responsibility": "Проверка обязательности SIGMA и OMEGA",
+      "business_requirement_ids": [
+        "BT-016",
+        "BT-017"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-026-01",
+      "parent_story_id": "DC-ST-26",
+      "title": "Проверка полноты и формы заказа",
+      "section_heading": "#### US-026-01 — Проверка Полноты И Формы Заказа",
+      "primary_responsibility": "Непринятие неполного заказа",
+      "business_requirement_ids": [
+        "BT-017"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-026-02",
+      "parent_story_id": "DC-ST-26",
+      "title": "Проверка права и связи заказа",
+      "section_heading": "#### US-026-02 — Проверка Права И Связи Заказа",
+      "primary_responsibility": "Проверка связи пользователя, сеанса и вызывающего агента",
+      "business_requirement_ids": [
+        "BT-015",
+        "BT-017"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-026-03",
+      "parent_story_id": "DC-ST-26",
+      "title": "Разделение фактов и инструкций",
+      "section_heading": "#### US-026-03 — Разделение Фактов И Инструкций",
+      "primary_responsibility": "Безопасное непринятие небезопасных инструкций",
+      "business_requirement_ids": [
+        "BT-013",
+        "BT-017"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-027-01",
+      "parent_story_id": "DC-ST-27",
+      "title": "Сообщение о начале подготовки",
+      "section_heading": "#### US-027-01 — Сообщение О Начале Подготовки",
+      "primary_responsibility": "Информирование в том же чате о старте подготовки",
+      "business_requirement_ids": [
+        "BT-018",
+        "BT-023"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-027-02",
+      "parent_story_id": "DC-ST-27",
+      "title": "Сообщение о задержке и успехе после повтора",
+      "section_heading": "#### US-027-02 — Сообщение О Задержке И Успехе После Повтора",
+      "primary_responsibility": "Информирование о повторной отправке SIGMA",
+      "business_requirement_ids": [
+        "BT-018",
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-027-03",
+      "parent_story_id": "DC-ST-27",
+      "title": "Финальное сообщение о неподтверждённой доставке",
+      "section_heading": "#### US-027-03 — Финальное сообщение о неподтверждённой доставке",
+      "primary_responsibility": "Информирование о частичной или полной неподтверждённой доставке",
+      "business_requirement_ids": [
+        "BT-018",
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-028-01",
+      "parent_story_id": "DC-ST-28",
+      "title": "Связь заказа, проверки, статусов и файлов",
+      "section_heading": "#### US-028-01 — Связь Заказа, Проверки, Статусов И Файлов",
+      "primary_responsibility": "Восстановление жизненного цикла заказа",
+      "business_requirement_ids": [
+        "BT-014"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-028-02",
+      "parent_story_id": "DC-ST-28",
+      "title": "Передача обращения в сопровождение",
+      "section_heading": "#### US-028-02 — Передача Обращения В Сопровождение",
+      "primary_responsibility": "Безопасная передача контекста проблемы в сопровождение",
+      "business_requirement_ids": [
+        "BT-014",
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-029-01",
+      "parent_story_id": "DC-ST-29",
+      "title": "Подготовка только из проверенных фактов",
+      "section_heading": "#### US-029-01 — Подготовка Только Из Проверенных Фактов",
+      "primary_responsibility": "Исключение неподтверждённого содержания",
+      "business_requirement_ids": [
+        "BT-013"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-029-02",
+      "parent_story_id": "DC-ST-29",
+      "title": "Подготовка презентации в PPTX и PDF",
+      "section_heading": "#### US-029-02 — Подготовка Презентации В PPTX И PDF",
+      "primary_responsibility": "Формирование двух согласованных форматов",
+      "business_requirement_ids": [
+        "BT-012"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-029-03",
+      "parent_story_id": "DC-ST-29",
+      "title": "Контроль срока подготовки презентации",
+      "section_heading": "#### US-029-03 — Контроль Срока Подготовки Презентации",
+      "primary_responsibility": "Безопасное состояние задержки подготовки",
+      "business_requirement_ids": [
+        "BT-012",
+        "BT-018"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-030-01",
+      "parent_story_id": "DC-ST-30",
+      "title": "Обычная отправка презентации в OMEGA",
+      "section_heading": "#### US-030-01 — Обычная Отправка Презентации В OMEGA",
+      "primary_responsibility": "Почтовая доставка в OMEGA",
+      "business_requirement_ids": [
+        "BT-019"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-030-02",
+      "parent_story_id": "DC-ST-30",
+      "title": "Защищённая отправка презентации в SIGMA",
+      "section_heading": "#### US-030-02 — Защищённая Отправка Презентации В SIGMA",
+      "primary_responsibility": "Доставка SIGMA только с IRM",
+      "business_requirement_ids": [
+        "BT-019"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-030-03",
+      "parent_story_id": "DC-ST-30",
+      "title": "Повторные попытки IRM для SIGMA",
+      "section_heading": "#### US-030-03 — Повторные попытки IRM для SIGMA",
+      "primary_responsibility": "Пять повторов IRM в пределах часа",
+      "business_requirement_ids": [
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-030-04",
+      "parent_story_id": "DC-ST-30",
+      "title": "Подтверждение успеха после повтора",
+      "section_heading": "#### US-030-04 — Подтверждение успеха после повтора",
+      "primary_responsibility": "Подтверждённый результат повторной отправки",
+      "business_requirement_ids": [
+        "BT-019",
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    },
+    {
+      "child_story_id": "US-030-05",
+      "parent_story_id": "DC-ST-30",
+      "title": "Неподтверждённая доставка и сопровождение",
+      "section_heading": "#### US-030-05 — Неподтверждённая доставка и сопровождение",
+      "primary_responsibility": "Передача частичной или полной неподтверждённой доставки в сопровождение",
+      "business_requirement_ids": [
+        "BT-019",
+        "BT-024"
+      ],
+      "readiness_status": "ready_for_system_analysis",
+      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+    }
+  ],
+  "source_conflicts": [
+    {
+      "conflict_id": "CO3-US-CONFLICT-001",
+      "title": "Текст полной неподтверждённой доставки принят владельцем продукта",
+      "affected_child_story_ids": [
+        "US-027-03",
+        "US-030-05"
+      ],
+      "resolution_status": "resolved_by_owner",
+      "resolution_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "accepted_message": "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение."
+    },
+    {
+      "conflict_id": "CO3-US-CONFLICT-002",
+      "title": "Системные материалы требуют каскадного обновления правила повторов SIGMA",
+      "affected_child_story_ids": [
+        "US-030-03"
+      ],
+      "resolution_status": "candidate_for_cascade_fix"
+    },
+    {
+      "conflict_id": "CO3-US-CONFLICT-003",
+      "title": "Устаревший формат ODT требует замены на PPTX и PDF в системных материалах",
+      "affected_child_story_ids": [
+        "US-009-01",
+        "US-029-02",
+        "US-030-01",
+        "US-030-02"
+      ],
+      "resolution_status": "candidate_for_cascade_fix"
+    },
+    {
+      "conflict_id": "CO3-US-CONFLICT-004",
+      "title": "Будущие функции ссылки и хранения не входят в истории 2026 года",
+      "affected_child_story_ids": [
+        "US-009-01",
+        "US-029-02",
+        "US-030-01"
+      ],
+      "resolution_status": "candidate_for_cascade_fix"
+    }
+  ]
+}

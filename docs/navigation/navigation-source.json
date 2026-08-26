@@ -5481,6 +5481,10 @@
   ],
   "ignored_paths": [
     {
+      "path": "docs/product/requirements/user-story-decomposition-map.json",
+      "reason": "Машиночитаемая карта действующего единого документа проверяет полноту связей и не является документом для чтения командой."
+    },
+    {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
       "reason": "Самодостаточный принятый HTML-черновик из 11 кадров открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
     },

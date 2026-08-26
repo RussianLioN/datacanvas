@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.example/schemas/story-decomposition-map.schema.json",
+  "title": "Карта детализации пользовательских историй",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "change_order_id",
+    "scope_path",
+    "status",
+    "markdown_document_path",
+    "parent_stories",
+    "child_stories",
+    "source_conflicts"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.2.0"
+    },
+    "change_order_id": {
+      "const": "CO-2026-003"
+    },
+    "scope_path": {
+      "const": "docs/product/sources/co-2026-003-current-2026-scope.json"
+    },
+    "status": {
+      "const": "owner_approved"
+    },
+    "markdown_document_path": {
+      "const": "docs/product/requirements/user-stories.md"
+    },
+    "parent_stories": {
+      "type": "array",
+      "minItems": 9,
+      "items": {
+        "$ref": "#/$defs/parentStory"
+      }
+    },
+    "child_stories": {
+      "type": "array",
+      "minItems": 24,
+      "items": {
+        "$ref": "#/$defs/childStory"
+      }
+    },
+    "source_conflicts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/sourceConflict"
+      }
+    }
+  },
+  "$defs": {
+    "parentStory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "story_id",
+        "priority",
+        "section_heading",
+        "child_story_ids"
+      ],
+      "properties": {
+        "story_id": {
+          "type": "string",
+          "pattern": "^DC-ST-(09|2[3-9]|30)$"
+        },
+        "priority": {
+          "enum": [
+            "P1",
+            "P2"
+          ]
+        },
+        "section_heading": {
+          "type": "string",
+          "pattern": "^### DC-ST-(09|2[3-9]|30) — "
+        },
+        "child_story_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^US-[0-9]{3}-[0-9]{2}$"
+          }
+        }
+      }
+    },
+    "childStory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "child_story_id",
+        "parent_story_id",
+        "title",
+        "section_heading",
+        "primary_responsibility",
+        "business_requirement_ids",
+        "readiness_status",
+        "sequence_diagram_status"
+      ],
+      "properties": {
+        "child_story_id": {
+          "type": "string",
+          "pattern": "^US-[0-9]{3}-[0-9]{2}$"
+        },
+        "parent_story_id": {
+          "type": "string",
+          "pattern": "^DC-ST-(09|2[3-9]|30)$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 10
+        },
+        "section_heading": {
+          "type": "string",
+          "pattern": "^#### US-[0-9]{3}-[0-9]{2} — "
+        },
+        "primary_responsibility": {
+          "type": "string",
+          "minLength": 10
+        },
+        "business_requirement_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^BT-[0-9]{3}$"
+          }
+        },
+        "readiness_status": {
+          "enum": [
+            "ready_for_system_analysis",
+            "needs_bt_cascade_fix"
+          ]
+        },
+        "sequence_diagram_status": {
+          "enum": [
+            "not_started_pending_diagram_preparation",
+            "owner_approved"
+          ]
+        }
+      }
+    },
+    "sourceConflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "title",
+        "affected_child_story_ids",
+        "resolution_status"
+      ],
+      "properties": {
+        "conflict_id": {
+          "type": "string",
+          "pattern": "^CO3-US-CONFLICT-[0-9]{3}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 10
+        },
+        "affected_child_story_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^US-[0-9]{3}-[0-9]{2}$"
+          }
+        },
+        "resolution_status": {
+          "enum": [
+            "resolved_by_owner",
+            "candidate_for_cascade_fix"
+          ]
+        },
+        "resolution_source_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accepted_message": {
+          "type": "string",
+          "minLength": 10
+        }
+      }
+    }
+  }
+}
