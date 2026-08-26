@@ -1,0 +1,33 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-027-03 — Финальное сообщение о неподтверждённой доставке
+
+actor "Пользователь" as user
+participant "Лиса" as lisa
+participant "Агент\n«Справка по клиенту»" as client
+participant "DataCanvas" as datacanvas
+
+autonumber
+datacanvas --> client: Передаёт безопасный итог доставки
+alt Частичная доставка
+  client -> lisa: Передаёт итог с названиями контуров
+  lisa -> user: Публикует различимый частичный результат
+else Полная неподтверждённая доставка
+  client -> lisa: Передаёт согласованный итог
+  lisa -> user: Публикует итог и передачу в сопровождение
+end
+@enduml

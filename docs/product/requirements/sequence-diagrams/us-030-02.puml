@@ -1,0 +1,32 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-030-02 — Защищённая отправка презентации в SIGMA
+
+participant "DataCanvas" as datacanvas
+participant "SIGMA" as sigma
+participant "Жизненный цикл заказа" as lifecycle
+
+autonumber
+datacanvas -> sigma: Передаёт PPTX и PDF с IRM
+sigma --> datacanvas: Возвращает подтверждение или исход сбоя IRM
+datacanvas -> lifecycle: Связывает результат с заказом
+alt Временный сбой IRM
+  datacanvas -> datacanvas: Переходит к разрешённым повторным попыткам
+else Ошибка без IRM
+  datacanvas -> datacanvas: Не делает незащищённую отправку
+end
+@enduml

@@ -25,7 +25,12 @@ test("принятая детализация хранит сценарии в �
   );
   assert.ok(
     decomposition.child_stories.every(
-      (story) => story.sequence_diagram_status === "not_started_pending_diagram_preparation",
+      (story) => story.sequence_diagram_status === "owner_approved",
+    ),
+  );
+  assert.ok(
+    decomposition.child_stories.every(
+      (story) => story.sequence_diagram?.puml_path.endsWith(".puml"),
     ),
   );
   assert.doesNotMatch(JSON.stringify(decomposition), /markdown_path/u);

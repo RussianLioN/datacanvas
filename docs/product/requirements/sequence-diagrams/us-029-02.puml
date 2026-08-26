@@ -1,0 +1,32 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-029-02 — Подготовка презентации в PPTX и PDF
+
+participant "DataCanvas" as datacanvas
+participant "Подготовка презентации" as preparation
+participant "Почтовая доставка" as delivery
+
+autonumber
+datacanvas -> preparation: Запускает подготовку презентации
+preparation --> datacanvas: Формирует PPTX
+preparation --> datacanvas: Формирует PDF
+alt Оба формата готовы
+  datacanvas -> delivery: Передаёт PPTX и PDF на доставку
+else Хотя бы один формат не готов
+  datacanvas -> datacanvas: Не объявляет результат готовым
+end
+@enduml

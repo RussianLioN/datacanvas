@@ -1,0 +1,31 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-023-03 — Исправление данных до принятия заказа
+
+actor "Пользователь" as user
+participant "Лиса" as lisa
+participant "Агент\n«Справка по клиенту»" as client
+participant "Вызывающий агент" as caller
+participant "DataCanvas" as datacanvas
+
+autonumber
+client -> lisa: Сообщает о непринятии в продолжении справки
+lisa -> user: Показывает безопасный результат
+user -> lisa: Исправляет доступные сведения
+lisa -> caller: Передаёт обновлённый контекст
+caller -> datacanvas: Направляет обновлённый заказ на проверку
+@enduml

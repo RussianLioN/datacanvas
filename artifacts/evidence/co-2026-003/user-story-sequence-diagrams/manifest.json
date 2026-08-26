@@ -1,0 +1,252 @@
+{
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "owner_approved",
+  "source_document_path": "docs/product/requirements/user-stories.md",
+  "renderer": {
+    "name": "PlantUML",
+    "jar_sha256": "33aa7ed0ca843e300690230d09268e1f526fdde7e86fecdfa39fb80412cafcde"
+  },
+  "artifacts": [
+    {
+      "story_id": "US-009-01",
+      "title": "Получение подтверждённого письма с результатом",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-009-01.puml",
+      "puml_sha256": "15ec4994da7c27220b488becf643388113721dad0bc1accdac1bfbc8a2adbe21",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-009-01.svg",
+      "svg_sha256": "eeb69c0070c995962bab88da423d31847adf53f81fb76aa197d1fc5fa6282ab9",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-009-01.png",
+      "png_sha256": "0ce08c5d866202d0bf366768bc945b6e2c3ae856e2b9f55af70cc01d5bd84fcc"
+    },
+    {
+      "story_id": "US-023-01",
+      "title": "Действие создания презентации в полной справке",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-023-01.puml",
+      "puml_sha256": "81674384e202cf4e9228b167e05d5739d44afe4f4215671b7f4e31cd8a2b3e50",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-01.svg",
+      "svg_sha256": "cf50eb185d3f7a92f18ad8803ba1047b3b1912c2e0bca2dc4407e733af8e9a45",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-01.png",
+      "png_sha256": "e9783e041cb49dcfc8e1cf81adf2a93587be403aa31d653647accc35ba27491e"
+    },
+    {
+      "story_id": "US-023-02",
+      "title": "Принятие одного заказа на пользовательский сеанс",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-023-02.puml",
+      "puml_sha256": "3e1f3cdcc76e309771fe9462b62689d4f96b2b688398daa2cc33198d8ccb319c",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-02.svg",
+      "svg_sha256": "13e7ff936df855e354d892ca91b09c6eb86048b3eb6edee70193301e39c575ae",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-02.png",
+      "png_sha256": "8da03e24db5317ad347656594d2f79a629b8c92c0b1c68ab9c2f2db6969057df"
+    },
+    {
+      "story_id": "US-023-03",
+      "title": "Исправление данных до принятия заказа",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-023-03.puml",
+      "puml_sha256": "1c4d7f15fa191e4a5c9d4077efa9a804535c7117684a90d5ebd314151461dec6",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-03.svg",
+      "svg_sha256": "b3193205dee1ab68c8fa965b83b943e10aa389fb18bb14bb9990c5e02054cfd0",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-03.png",
+      "png_sha256": "1b25bb71681de936c3b2b8757b6e7caebc7214cffc71baf8932b0aa4a918bd98"
+    },
+    {
+      "story_id": "US-024-01",
+      "title": "Передача собранного контекста вызывающим агентом",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-024-01.puml",
+      "puml_sha256": "db6b4dc380cbfb6ba71837958437533dad011a40b05c1292937344f45c870e5e",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-01.svg",
+      "svg_sha256": "b216aad8ef6228646c803929ba00a9e7148c3e2ca35d84ad60e801bdb2c988cd",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-01.png",
+      "png_sha256": "b07aa7404bf2169c4b5a7b831da385ad32ef6bbf22bc9d3a928266ca0c3fff48"
+    },
+    {
+      "story_id": "US-024-02",
+      "title": "Возврат безопасного связанного результата",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-024-02.puml",
+      "puml_sha256": "4143ade8bdfe3c1bce23d1efb97a1f2dc0aadd4aa2fddae002a656e0603d2fe5",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-02.svg",
+      "svg_sha256": "f14df498655c1da5a3606d71dcffc47f0af2a3f227cde3e19cb966349c7d989a",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-02.png",
+      "png_sha256": "e4ec6f728d75fd1434fbaac042dab83464ddae2ba212a17deddca6178ccb4865"
+    },
+    {
+      "story_id": "US-025-01",
+      "title": "Получение разрешённых адресов из профиля",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-025-01.puml",
+      "puml_sha256": "0a4675b8998afafffb96e5879e6e03870e3ec8a7b2b975f258c70034d45c4981",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-025-01.svg",
+      "svg_sha256": "168d89227d93699bce82e5e1d198079508f06370e6fdf2b44522c3fc1ea8f850",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-025-01.png",
+      "png_sha256": "124c29d1a7fbe2b41ac91a51e9e36e1c578f8c1239e81f4cce42199ee3cad2c2"
+    },
+    {
+      "story_id": "US-025-02",
+      "title": "Непринятие заказа без обязательных контуров",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-025-02.puml",
+      "puml_sha256": "b486fbf67ef5ff681397a2d786992f130b0ce2bf96e0f6367e4dc4f3adee9fcb",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-025-02.svg",
+      "svg_sha256": "b43a0614a7c8bccbe822c73804e8214d2ecde6dfeb0293f4564aed43686b2bce",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-025-02.png",
+      "png_sha256": "bd07ff2be2a427177553ce605a66d0084c0d469e3aa8714d1f2dc3435fde467f"
+    },
+    {
+      "story_id": "US-026-01",
+      "title": "Проверка полноты и формы заказа",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-026-01.puml",
+      "puml_sha256": "64389eccad7d0a022a28be3c891af1b32efea0062b9bbccf662b8039e225e111",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-01.svg",
+      "svg_sha256": "760b5f578d10e049dbfb7424ba816a46a1dbe0d1abcc648462291bb789306447",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-01.png",
+      "png_sha256": "9e24b152eb44a6fd6019362fb939c272a13105509f8ab4f56037114d5fd680d4"
+    },
+    {
+      "story_id": "US-026-02",
+      "title": "Проверка права и связи заказа",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-026-02.puml",
+      "puml_sha256": "3e17de8bbe18bcd3816b7d16d50eb9f32cf81270f4eefb307ef6215105774026",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-02.svg",
+      "svg_sha256": "139dd1fe4792b563a07477b0ab29b284ddbb325e40fc867c4fdbb8a1f6947267",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-02.png",
+      "png_sha256": "80925461b3c0f5a1ee3862e1170a119123b5ffa047073b7ef11962aa581b069e"
+    },
+    {
+      "story_id": "US-026-03",
+      "title": "Разделение фактов и инструкций",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-026-03.puml",
+      "puml_sha256": "e71b162093bbb3c4d0af7d66ab728580699cebdffe119698b90b91d99b76c3c5",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-03.svg",
+      "svg_sha256": "2c45ea4132f52b2e54cd69193753f18987f71bfa1375c29d1466248026459894",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-03.png",
+      "png_sha256": "3198e7024d61920e31169318d0379978252b28f527a503db4d8ceb50133f3d70"
+    },
+    {
+      "story_id": "US-027-01",
+      "title": "Сообщение о начале подготовки",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-027-01.puml",
+      "puml_sha256": "919094efe933e7ca6d848ac7c9a4e99617dd35bf9a065ddc1520a5b2b56146b3",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-01.svg",
+      "svg_sha256": "d53bc1e2dcd6ab71baa64ec9aac1095822d8fb701f67c7c91da60622670d0124",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-01.png",
+      "png_sha256": "ca70c7c90b3492cef97c5f270851469ad854550d8e641cfee3f98ff0912c7320"
+    },
+    {
+      "story_id": "US-027-02",
+      "title": "Сообщение о задержке и успехе после повтора",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-027-02.puml",
+      "puml_sha256": "b74fcdf4900efd6eb7d67860d8af9eae22cc805bdebc487a7c3e3143af58bdb3",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-02.svg",
+      "svg_sha256": "716094875392c979f96e22b4ddc89f64cf608fbfa454d18caeb19d9c82a5acd7",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-02.png",
+      "png_sha256": "d54a7ed801d03adbbc741c081db3bddc4c6b09e7fcdf4f6108df734d918141a9"
+    },
+    {
+      "story_id": "US-027-03",
+      "title": "Финальное сообщение о неподтверждённой доставке",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-027-03.puml",
+      "puml_sha256": "94962444a659206ff31d6729d5d6ac4acf1ad7980c1df780d99e3400d61c9e8f",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-03.svg",
+      "svg_sha256": "bb03fd8f8ef594c3a71a39917cb71b464ade262ce0c0737a7fb668ac75adaf93",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-03.png",
+      "png_sha256": "d01312151c6368c1756ab387cf981c23c019cb7c9dc5b3c055198dfd1caa17cb"
+    },
+    {
+      "story_id": "US-028-01",
+      "title": "Связь заказа, проверки, статусов и файлов",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-028-01.puml",
+      "puml_sha256": "d94e172a251cb05c45538b53d6a2493e44559944afead809009d0dc82daa09c0",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-028-01.svg",
+      "svg_sha256": "3c1fae4766e9bbcc2072b86a031ca655a81d9a3234f87de658c3757aceac5b41",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-028-01.png",
+      "png_sha256": "663582bcc456f79dba8d228571afaccd9b679956d0bc0f77257f4274266a3f49"
+    },
+    {
+      "story_id": "US-028-02",
+      "title": "Передача обращения в сопровождение",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-028-02.puml",
+      "puml_sha256": "a278143c93a0c098041c6de34ae66d283d5e0387b4905659596057515a863ab7",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-028-02.svg",
+      "svg_sha256": "ec63944351393c6baaf019f91c51b5f91c98b24a4ea09b5182bb2fd77ba8ef88",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-028-02.png",
+      "png_sha256": "0e9d17619dd5f7f78a626911c65b5d353b69587232ff3cd0f4743f59cd6848b7"
+    },
+    {
+      "story_id": "US-029-01",
+      "title": "Подготовка только из проверенных фактов",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-029-01.puml",
+      "puml_sha256": "dbf4ea92910d3e732a05618eab4819a2aa8b3f65564e8ee1bd4af775c78e6d10",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-01.svg",
+      "svg_sha256": "36994ca50629c02c9fdff0500740a685cd018b3ac5a68bb9f50a276a5dce2610",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-01.png",
+      "png_sha256": "a1eca0c46fc04dcb6ed6c7d714f4226a573517dc4101693806eadfee5381ff52"
+    },
+    {
+      "story_id": "US-029-02",
+      "title": "Подготовка презентации в PPTX и PDF",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-029-02.puml",
+      "puml_sha256": "5250e7f79cc2aabb524c5d8d32a1662ae0880ce8a5af713b74c744361be10ac6",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-02.svg",
+      "svg_sha256": "70dd237cdbeceefeb0764d29db6280d85e972c4e6bd9d34ce2618624833d7a4c",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-02.png",
+      "png_sha256": "b3232015c1c2edc783b40bd15edd1499a79861d0dfdc7cc06d62040b521e97aa"
+    },
+    {
+      "story_id": "US-029-03",
+      "title": "Контроль срока подготовки презентации",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-029-03.puml",
+      "puml_sha256": "4056685dd6dc4e1c9818c52439421eaf6818fec16722cfaf30e595ae028a4d52",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-03.svg",
+      "svg_sha256": "0d017079216346789b2a5d73a5134ee92784ee4455061fee838a2f1d2171e491",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-03.png",
+      "png_sha256": "b37d8306e03f58d937686ef774b82d8869ea7afd710126939d1d81f48da505a6"
+    },
+    {
+      "story_id": "US-030-01",
+      "title": "Обычная отправка презентации в OMEGA",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-030-01.puml",
+      "puml_sha256": "0994cc6e40bf4183308baf9d57efa831251ef64d7ef1f551c44707821a4dc522",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-01.svg",
+      "svg_sha256": "9e4ea1d02c163fd9ec994b1b9c2dbbbb569b13968f3539cd302ace3aef8f9588",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-01.png",
+      "png_sha256": "e06df475ec825ff35834936f574f2fe2de40fef0adb8553cada5d912acea72f4"
+    },
+    {
+      "story_id": "US-030-02",
+      "title": "Защищённая отправка презентации в SIGMA",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-030-02.puml",
+      "puml_sha256": "443cb0e9c1b23d12ade40027d5fff477589bd029c4ab180e3eb859eb06b3c916",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-02.svg",
+      "svg_sha256": "500f9f03c4e6a58ea575c134b66d2b6ddc1ffefbcd48e78b6742a446712fd1b8",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-02.png",
+      "png_sha256": "6f7e5ea72d40a74eca215bcd596053a7ad10f50ed5d37667a1ba776b7ff07e6a"
+    },
+    {
+      "story_id": "US-030-03",
+      "title": "Повторные попытки IRM для SIGMA",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-030-03.puml",
+      "puml_sha256": "04a2f366c49e70d43292e4ab09260e38b8462ea5c4e58588d1cc340e619137b8",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-03.svg",
+      "svg_sha256": "6556205d57011a560eabb37ef243d6238eb12a0ecfa3dceba95486b77cee7615",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-03.png",
+      "png_sha256": "ef22904a8839477ae05505f7049a2a5e50339f1b4f7abd3ebdde064440e4584d"
+    },
+    {
+      "story_id": "US-030-04",
+      "title": "Подтверждение успеха после повтора",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-030-04.puml",
+      "puml_sha256": "c31e89a4182ec827dab518d3edc63c53fbab960938bebb6814b9dc20a454da39",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-04.svg",
+      "svg_sha256": "83ac5972479448c024924b7e848bdfa70543ac0bb304fccd2598c3036fd14672",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-04.png",
+      "png_sha256": "2a8153f9b8cc199561c909f1373371ff9fc11b05866c92b618a3abdc9d638871"
+    },
+    {
+      "story_id": "US-030-05",
+      "title": "Неподтверждённая доставка и сопровождение",
+      "puml_path": "docs/product/requirements/sequence-diagrams/us-030-05.puml",
+      "puml_sha256": "599933ee867a82645acf714d06e676846b7bd52dcb0398c5fe007c7e0929f9b1",
+      "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-05.svg",
+      "svg_sha256": "054e583b12354940f3ef48f238d1652d4430dfcb847849a9777e45e1336fca16",
+      "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-05.png",
+      "png_sha256": "5bd1d1105e0da1b47face31de3c7f6c3e62ee578fc0c2eba9d9884364a9a1009"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-026-01 — Проверка полноты и формы заказа
+
+participant "Вызывающий агент" as caller
+participant "DataCanvas" as datacanvas
+participant "Проверка заказа" as validation
+
+autonumber
+caller -> datacanvas: Передаёт заказ
+datacanvas -> validation: Проверяет полноту и форму
+alt Заказ полный
+  validation --> datacanvas: Допускает к следующим проверкам
+else Заказ неполный
+  validation --> datacanvas: Не принимает заказ
+  datacanvas --> caller: Возвращает безопасный итог для дополнения
+end
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-030-04 — Подтверждение успеха после повтора
+
+participant "DataCanvas" as datacanvas
+participant "SIGMA" as sigma
+participant "Агент\n«Справка по клиенту»" as client
+participant "Лиса" as lisa
+actor "Пользователь" as user
+participant "Жизненный цикл заказа" as lifecycle
+
+autonumber
+sigma --> datacanvas: Подтверждает защищённую отправку с временем
+datacanvas -> lifecycle: Связывает подтверждение с заказом и повторами
+datacanvas --> client: Передаёт согласованный текст и фактическое время
+client -> lisa: Передаёт сообщение
+lisa -> user: Публикует успех в том же чате
+note over lisa,user: «Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ.»
+@enduml

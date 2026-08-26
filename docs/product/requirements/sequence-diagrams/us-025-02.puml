@@ -1,0 +1,30 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-025-02 — Непринятие заказа без обязательных контуров
+
+participant "DataCanvas" as datacanvas
+participant "Профиль сотрудника" as profile
+
+autonumber
+datacanvas -> profile: Получает доступные контуры
+datacanvas -> datacanvas: Сверяет наличие SIGMA и OMEGA
+alt Оба обязательных контура доступны
+  datacanvas -> datacanvas: Продолжает проверку заказа
+else Не хватает хотя бы одного обязательного контура
+  datacanvas --> datacanvas: Не принимает заказ без раскрытия адресов
+end
+@enduml

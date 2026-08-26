@@ -105,7 +105,12 @@
         "BT-019"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-009-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-009-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-009-01.png"
+      }
     },
     {
       "child_story_id": "US-023-01",
@@ -117,7 +122,12 @@
         "BT-023"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-023-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-01.png"
+      }
     },
     {
       "child_story_id": "US-023-02",
@@ -129,7 +139,12 @@
         "BT-022"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-023-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-02.png"
+      }
     },
     {
       "child_story_id": "US-023-03",
@@ -142,7 +157,12 @@
         "BT-022"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-023-03.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-03.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-03.png"
+      }
     },
     {
       "child_story_id": "US-024-01",
@@ -154,7 +174,12 @@
         "BT-015"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-024-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-01.png"
+      }
     },
     {
       "child_story_id": "US-024-02",
@@ -167,7 +192,12 @@
         "BT-018"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-024-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-02.png"
+      }
     },
     {
       "child_story_id": "US-025-01",
@@ -179,7 +209,12 @@
         "BT-016"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-025-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-025-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-025-01.png"
+      }
     },
     {
       "child_story_id": "US-025-02",
@@ -192,7 +227,12 @@
         "BT-017"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-025-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-025-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-025-02.png"
+      }
     },
     {
       "child_story_id": "US-026-01",
@@ -204,7 +244,12 @@
         "BT-017"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-026-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-01.png"
+      }
     },
     {
       "child_story_id": "US-026-02",
@@ -217,7 +262,12 @@
         "BT-017"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-026-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-02.png"
+      }
     },
     {
       "child_story_id": "US-026-03",
@@ -230,7 +280,12 @@
         "BT-017"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-026-03.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-03.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-03.png"
+      }
     },
     {
       "child_story_id": "US-027-01",
@@ -243,7 +298,12 @@
         "BT-023"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-027-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-01.png"
+      }
     },
     {
       "child_story_id": "US-027-02",
@@ -256,7 +316,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-027-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-02.png"
+      }
     },
     {
       "child_story_id": "US-027-03",
@@ -269,7 +334,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-027-03.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-03.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-03.png"
+      }
     },
     {
       "child_story_id": "US-028-01",
@@ -281,7 +351,12 @@
         "BT-014"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-028-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-028-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-028-01.png"
+      }
     },
     {
       "child_story_id": "US-028-02",
@@ -294,7 +369,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-028-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-028-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-028-02.png"
+      }
     },
     {
       "child_story_id": "US-029-01",
@@ -306,7 +386,12 @@
         "BT-013"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-029-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-01.png"
+      }
     },
     {
       "child_story_id": "US-029-02",
@@ -318,7 +403,12 @@
         "BT-012"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-029-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-02.png"
+      }
     },
     {
       "child_story_id": "US-029-03",
@@ -331,7 +421,12 @@
         "BT-018"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-029-03.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-03.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-03.png"
+      }
     },
     {
       "child_story_id": "US-030-01",
@@ -343,7 +438,12 @@
         "BT-019"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-030-01.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-01.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-01.png"
+      }
     },
     {
       "child_story_id": "US-030-02",
@@ -355,7 +455,12 @@
         "BT-019"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-030-02.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-02.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-02.png"
+      }
     },
     {
       "child_story_id": "US-030-03",
@@ -367,7 +472,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-030-03.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-03.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-03.png"
+      }
     },
     {
       "child_story_id": "US-030-04",
@@ -380,7 +490,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-030-04.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-04.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-04.png"
+      }
     },
     {
       "child_story_id": "US-030-05",
@@ -393,7 +508,12 @@
         "BT-024"
       ],
       "readiness_status": "ready_for_system_analysis",
-      "sequence_diagram_status": "not_started_pending_diagram_preparation"
+      "sequence_diagram_status": "owner_approved",
+      "sequence_diagram": {
+        "puml_path": "docs/product/requirements/sequence-diagrams/us-030-05.puml",
+        "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-05.svg",
+        "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-05.png"
+      }
     }
   ],
   "source_conflicts": [

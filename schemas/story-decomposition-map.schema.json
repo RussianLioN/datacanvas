@@ -98,7 +98,8 @@
         "primary_responsibility",
         "business_requirement_ids",
         "readiness_status",
-        "sequence_diagram_status"
+        "sequence_diagram_status",
+        "sequence_diagram"
       ],
       "properties": {
         "child_story_id": {
@@ -138,8 +139,32 @@
         "sequence_diagram_status": {
           "enum": [
             "not_started_pending_diagram_preparation",
+            "candidate_pending_owner_review",
             "owner_approved"
           ]
+        },
+        "sequence_diagram": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "puml_path",
+            "svg_path",
+            "png_path"
+          ],
+          "properties": {
+            "puml_path": {
+              "type": "string",
+              "pattern": "^docs/product/requirements/sequence-diagrams/us-[0-9]{3}-[0-9]{2}\\.puml$"
+            },
+            "svg_path": {
+              "type": "string",
+              "pattern": "^artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-[0-9]{3}-[0-9]{2}\\.svg$"
+            },
+            "png_path": {
+              "type": "string",
+              "pattern": "^artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-[0-9]{3}-[0-9]{2}\\.png$"
+            }
+          }
         }
       }
     },

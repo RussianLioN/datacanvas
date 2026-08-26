@@ -200,8 +200,8 @@ export function validateStoryDecomposition(decomposition, root = process.cwd()) 
     if (child.readiness_status === "candidate_pending_owner_review") {
       fail(`${child.child_story_id} must be ready for system analysis or marked for a business-requirement cascade fix after text acceptance`);
     }
-    if (child.sequence_diagram_status !== "not_started_pending_diagram_preparation") {
-      fail(`${child.child_story_id} must be ready for sequence-diagram preparation after text acceptance`);
+    if (!["not_started_pending_diagram_preparation", "candidate_pending_owner_review", "owner_approved"].includes(child.sequence_diagram_status)) {
+      fail(`${child.child_story_id} must declare a valid sequence-diagram state after text acceptance`);
     }
   }
   if (blockedIds.length !== 0) {

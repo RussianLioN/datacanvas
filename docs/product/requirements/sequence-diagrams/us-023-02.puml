@@ -1,0 +1,36 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-023-02 — Принятие одного заказа на пользовательский сеанс
+
+actor "Пользователь" as user
+participant "Лиса" as lisa
+participant "Агент\n«Справка по клиенту»" as client
+participant "DataCanvas" as datacanvas
+
+autonumber
+user -> lisa: Повторно выбирает действие создания
+lisa -> client: Передаёт выбор
+client -> datacanvas: Проверяет заказ и связь с сеансом
+alt Заказ ещё не принят
+  datacanvas --> client: Заказ принят и связан с сеансом
+  client --> lisa: Подтверждение принятия
+  lisa -> user: Действие становится недоступным
+else Заказ уже принят
+  datacanvas --> client: Второй принятый заказ не создаётся
+  client --> lisa: Сохраняет состояние принятого заказа
+end
+@enduml

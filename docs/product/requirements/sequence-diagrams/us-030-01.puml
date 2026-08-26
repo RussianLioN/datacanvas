@@ -1,0 +1,28 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-030-01 — Обычная отправка презентации в OMEGA
+
+participant "DataCanvas" as datacanvas
+participant "OMEGA" as omega
+participant "Жизненный цикл заказа" as lifecycle
+
+autonumber
+datacanvas -> omega: Передаёт PPTX и PDF через корпоративную почту
+omega --> datacanvas: Возвращает подтверждение или ошибочный исход
+datacanvas -> lifecycle: Связывает результат с заказом
+note over datacanvas,omega: Ошибка вне IRM не запускает повторные попытки
+@enduml
