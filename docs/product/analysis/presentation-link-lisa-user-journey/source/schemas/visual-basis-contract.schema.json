@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "visual-basis-contract.schema.json",
-  "title": "Договор визуальных основ десятиэкранного маршрута Лисы",
+  "title": "Договор визуальных основ тринадцатиэкранного маршрута Лисы",
   "type": "object",
   "additionalProperties": false,
   "required": [

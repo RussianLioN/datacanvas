@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960" role="img" aria-label="Письмо с презентацией по справке ООО Водолей Трейд в корпоративном стиле Outlook">
+  <title>Письмо с презентацией по справке ООО «Водолей Трейд»</title>
+  <desc>Самостоятельный редактируемый SVG кадра, повторяющий светлую корпоративную компоновку согласованного образца Outlook.</desc>
+  <defs><filter id="card-shadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#96a0b5" flood-opacity="0.18"/></filter></defs>
+  <rect width="1280" height="960" fill="#e8ebf3"/>
+  <rect width="1280" height="38" fill="#0078d4"/>
+  <text x="20" y="25" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">Home</text>
+  <text x="84" y="25" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600">Organise</text>
+  <text x="168" y="25" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="600">Tools</text>
+  <text x="636" y="25" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" text-anchor="middle">Inbox</text>
+  <rect y="38" width="1280" height="62" fill="#ffffff" stroke="#d4d9e3"/>
+  <g transform="translate(7 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">✉</text></g>
+<g transform="translate(55 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">▣</text></g>
+<g transform="translate(103 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">▥</text></g>
+<g transform="translate(151 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">▱</text></g>
+<g transform="translate(199 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">↶</text></g>
+<g transform="translate(247 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">↷</text></g>
+<g transform="translate(295 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">⇢</text></g>
+<g transform="translate(343 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">▰</text></g>
+<g transform="translate(391 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">●</text></g>
+<g transform="translate(439 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">⚑</text></g>
+<g transform="translate(487 52)"><rect width="46" height="45" rx="2" fill="#ffffff"/><text x="23" y="20" text-anchor="middle" fill="#36404d" font-family="Arial, Helvetica, sans-serif" font-size="20">⌕</text></g>
+  <rect y="100" width="244" height="860" fill="#f1f2f7"/>
+  <rect x="244" y="100" width="350" height="860" fill="#ffffff" stroke="#d7dbe4"/>
+  <rect x="594" y="100" width="686" height="860" fill="#f7f8fc"/>
+  <text x="16" y="126" fill="#5a6472" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600">All Accounts</text>
+  <text x="42" y="153" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Inbox</text>
+  <text x="32" y="187" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Drafts</text>
+  <text x="32" y="210" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Sent</text>
+  <text x="16" y="248" fill="#344054" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700">Солодовников Роман Юрьевич</text>
+  <text x="32" y="275" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Inbox</text>
+  <text x="32" y="299" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Archive</text>
+  <text x="32" y="323" fill="#4b5563" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400">Deleted Items</text>
+  <rect x="244" y="100" width="350" height="36" fill="#fafbfd" stroke="#d7dbe4"/>
+  <text x="272" y="123" fill="#596579" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400">By: Conversations</text>
+  <rect x="260" y="151" width="319" height="61" rx="3" fill="#edf2fb"/>
+  <circle cx="275" cy="173" r="10" fill="#ee7c2d"/>
+  <text x="292" y="169" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" data-email-field="sender">ЕФС • Наш бизнес</text>
+  <text x="292" y="188" fill="#4c5563" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400">Презентация по справке ООО «Водолей Трейд»</text>
+  <text x="553" y="169" fill="#586273" font-family="Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" text-anchor="end">13:40</text>
+  <text x="617" y="128" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" data-email-field="subject">Презентация по справке ООО «Водолей Трейд»</text>
+  <circle cx="641" cy="169" r="19" fill="#ed7c2d"/>
+  <text x="641" y="176" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" text-anchor="middle">Е</text>
+  <text x="674" y="159" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" data-email-field="sender">ЕФС • Наш бизнес</text>
+  <text x="674" y="179" fill="#7b8493" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400">то</text>
+  <text x="692" y="179" fill="#4c5563" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" data-email-field="recipient">Солодовников Роман Юрьевич</text>
+  <text x="1180" y="160" fill="#7b8493" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400" text-anchor="end">Сегодня в 13:40</text>
+  <rect x="674" y="208" width="490" height="652" rx="12" fill="#ffffff" filter="url(#card-shadow)"/>
+  <line x1="704" y1="287" x2="1134" y2="287" stroke="#e3e7ee"/>
+  <text x="704" y="331" fill="#313b4a" font-family="Arial, Helvetica, sans-serif" font-size="16" data-email-field="body" aria-label="Во вложении презентация по Справке по клиенту ООО «Водолей Трейд»."><tspan x="704" dy="0">Во вложении презентация по Справке по</tspan><tspan x="704" dy="23">клиенту ООО «Водолей Трейд».</tspan></text>
+  <g data-email-field="attachment">
+    <rect x="732" y="382" width="366" height="70" rx="4" fill="#f6f8fc" stroke="#d9dee8"/>
+    <rect x="746" y="394" width="43" height="47" rx="3" fill="#ffffff" stroke="#cbd1dc"/>
+    <path d="M777 394v12h12" fill="#e7ebf3"/>
+    <rect x="751" y="425" width="34" height="13" rx="2" fill="#d95d39"/>
+    <text x="768" y="435" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle" data-email-field="attachment-format">PPTX</text>
+    <text x="806" y="423" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" data-email-field="attachment-name">Презентация по справке.pptx</text>
+    <path d="M1066 408v17m-6-6 6 6 6-6" stroke="#64748b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g data-email-field="attachment">
+    <rect x="732" y="462" width="366" height="70" rx="4" fill="#f6f8fc" stroke="#d9dee8"/>
+    <rect x="746" y="474" width="43" height="47" rx="3" fill="#ffffff" stroke="#cbd1dc"/>
+    <path d="M777 474v12h12" fill="#e7ebf3"/>
+    <rect x="751" y="505" width="34" height="13" rx="2" fill="#e03f3f"/>
+    <text x="768" y="515" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="7.5" font-weight="700" text-anchor="middle" data-email-field="attachment-format">PDF</text>
+    <text x="806" y="503" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" data-email-field="attachment-name">Презентация по справке.pdf</text>
+    <path d="M1066 488v17m-6-6 6 6 6-6" stroke="#64748b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <text x="704" y="599" fill="#8a94a5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400">Данное письмо сформировано автоматически, отвечать</text>
+  <text x="704" y="617" fill="#8a94a5" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="400">на него не требуется.</text>
+  <text x="704" y="671" fill="#303b4c" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">👋 Спасибо!</text>
+  <text x="704" y="701" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" data-email-field="signature">С уважением,</text>
+  <text x="704" y="723" fill="#252a34" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="400" data-email-field="signature">команда «ЕФС • Наш бизнес»</text>
+</svg>

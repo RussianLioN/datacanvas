@@ -651,7 +651,9 @@ function validateStoryCatalog(text, document, artifactClass, violations) {
 
   const lock = readJson(document.lockPath);
   const tableById = new Map(table.rows.map((row) => [row.object.ID, row]));
+  const lockedStoryIds = new Set();
   for (const lockedRow of lock.rows ?? []) {
+    lockedStoryIds.add(lockedRow.story_id);
     const currentRow = tableById.get(lockedRow.story_id);
     if (!currentRow) {
       addViolation(
@@ -681,6 +683,19 @@ function validateStoryCatalog(text, document, artifactClass, violations) {
         lockedRow.story_id,
       );
     }
+  }
+
+  for (const [storyId, currentRow] of tableById) {
+    if (lockedStoryIds.has(storyId)) {
+      continue;
+    }
+    addViolation(
+      violations,
+      "story-catalog-lock-untracked-row",
+      "каждая строка каталога пользовательских историй должна быть зафиксирована в lock-файле неизменяемого бизнесового текста",
+      currentRow.line,
+      storyId,
+    );
   }
 }
 

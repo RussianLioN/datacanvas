@@ -1,0 +1,70 @@
+{
+  "$schema": "../../../source/schemas/error-frame-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-order-not-accepted",
+  "status": "owner_frame_approved",
+  "semantic_base_frame_id": "lisa-presentation-generating",
+  "visual_template_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
+  "visual_template_svg_sha256": "f1e5c91172996d013cbc65d79039f6e0187d4f5b04029a0b8055cd969a6427de",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "mock_phone_status_time_value": "13:40",
+  "keeps_generation_message": false,
+  "error_message": {
+    "message_id": "order_not_accepted",
+    "text": "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
+    "display_lines": [
+      "Не удалось принять данные для",
+      "формирования презентации. Вернитесь к",
+      "диалогу «Справка по клиенту» и",
+      "уточните данные, либо оформите тикет",
+      "в сопровождение."
+    ],
+    "font_size": 11.5,
+    "fill": "rgb(73,80,94)",
+    "baselines": [
+      2958,
+      2974,
+      2990,
+      3006,
+      3022
+    ],
+    "safe_area": {
+      "x": 80,
+      "y": 2946,
+      "width": 345,
+      "height": 88
+    },
+    "line_widths": [
+      176.789,
+      230.736,
+      177.917,
+      218.167,
+      100.2
+    ],
+    "replaced_existing_group_id": "lisa-review-generation-status"
+  },
+  "source_svg_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/source.svg",
+  "source_svg_sha256": "5bbf08b2be31ca83fb365a44873e891e83cc94f4872bd8e0ce8b0b6dfc38532a",
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/draft-current-resolution.png",
+  "draft_png_sha256": "daa0be117ef1bb871cb0aad4820e3841200a61f37cb596ac17ab811e1c3f103a",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3290
+  },
+  "draft_png_non_white_pixel_count": 601222,
+  "owner_frame_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "Экраны приняты!",
+    "decision_source": "Product Owner в рабочем чате",
+    "approval_time_precision": "date_only",
+    "approved_on": "2026-08-24"
+  }
+}

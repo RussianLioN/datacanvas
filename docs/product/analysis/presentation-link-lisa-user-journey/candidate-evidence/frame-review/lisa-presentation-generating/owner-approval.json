@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../source/schemas/lisa-frame-owner-approval.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "frame_id": "lisa-presentation-generating",
+  "decision": "approved",
+  "decision_text": "кадр принят",
+  "decision_source": "Product Owner в рабочем чате",
+  "approved_at": "2026-08-24T07:10:11Z",
+  "approved_source_svg_sha256": "dddfc92b0ac010b1a4f3b50515cca794db3fc7af2bd296d180ade7bce45e5736",
+  "approved_draft_png_sha256": "8b40636b928358fafac6e6bb6694466a9bd97d8ce5f0e46c731bf706720f1cfa"
+}

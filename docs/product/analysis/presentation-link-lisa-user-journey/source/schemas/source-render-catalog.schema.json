@@ -51,7 +51,7 @@
     },
     "source_id": {
       "type": "string",
-      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*)$"
+      "pattern": "^(?:[0-9]+(?:\\.[0-9]+)?|szh-dense-[a-z0-9]+(?:-[a-z0-9]+)*|status-[a-z0-9]+(?:-[a-z0-9]+)*)$"
     },
     "dimensions": {
       "type": "object",
@@ -118,7 +118,10 @@
           "type": "boolean"
         },
         "classification": {
-          "const": "active-basis"
+          "enum": [
+            "active-basis",
+            "active-status-variant"
+          ]
         }
       }
     }

@@ -1,0 +1,26 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-009-01 — Получение подтверждённого письма с результатом
+
+actor "Пользователь" as user
+participant "Разрешённый почтовый контур" as mail
+
+autonumber
+mail -> user: Письмо с PPTX и PDF
+user -> user: Использует вложения в работе
+note over mail,user: Получение показано только после подтверждённой доставки
+@enduml

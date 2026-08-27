@@ -64,7 +64,7 @@ function readPngDimensions(relativePath) {
   return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
 }
 
-test("активный реестр является единым источником десяти состояний и договоров", () => {
+test("активный реестр является единым источником тринадцати состояний и договоров", () => {
   const registry = readJson(`${sourceRoot}/active-contracts.json`);
   const journey = readJson(`${sourceRoot}/journey-contract.json`);
   const frame = readJson(`${sourceRoot}/frame-contract.json`);
@@ -77,7 +77,7 @@ test("активный реестр является единым источни
   assert.deepEqual(frame.frames.map((item) => item.state_id), stateIds);
   assert.deepEqual(visual.states.map((item) => item.state_id), stateIds);
   assert.deepEqual(catalog.sources.map((item) => item.state_id), stateIds);
-  assert.equal(new Set(stateIds).size, 10);
+  assert.equal(new Set(stateIds).size, 13);
 
   const descriptors = new Map(registry.active_contracts.map((item) => [item.id, item]));
   assert.deepEqual(descriptors.get("source-render-catalog"), {
@@ -92,13 +92,13 @@ test("активный реестр является единым источни
   });
 });
 
-test("каталог происхождения содержит ровно десять утверждённых синтетических источников", () => {
+test("каталог происхождения содержит десять исходных и три самостоятельных SVG-варианта статусов", () => {
   const catalog = readJson(`${sourceRoot}/source-render-catalog.json`);
   assert.deepEqual(catalog.active_source_ids, catalog.sources.map((item) => item.id));
-  assert.equal(catalog.sources.length, 10);
+  assert.equal(catalog.sources.length, 13);
 
   for (const source of catalog.sources) {
-    assert.equal(source.classification, "active-basis", `${source.id}: неверная классификация`);
+    assert.ok(["active-basis", "active-status-variant"].includes(source.classification), `${source.id}: неверная классификация`);
     assertPackagePath(source.path, "editable-sources/", `${source.id}: источник`);
     assertSha256(source.sha256, `${source.id}: источник`);
     assertDimensions(source.logical_dimensions, `${source.id}: источник`);
@@ -106,12 +106,18 @@ test("каталог происхождения содержит ровно де
     assert.ok(fs.existsSync(absolute(relativePath)), `${source.id}: исходный файл отсутствует`);
     assert.equal(sha256File(relativePath), source.sha256, `${source.id}: SHA-256 источника изменился`);
   }
+  const statusVariants = catalog.sources.filter((source) => source.classification === "active-status-variant");
+  assert.deepEqual(statusVariants.map((source) => source.id), [
+    "status-order-not-accepted",
+    "status-delivery-delayed",
+    "status-delivery-partial",
+  ]);
 });
 
-test("шесть телефонных состояний используют ровно три проверенных PNG-слоя", () => {
+test("девять телефонных состояний используют ровно три проверенных PNG-слоя", () => {
   const visual = readJson(`${sourceRoot}/visual-basis-contract.json`);
   const phoneStates = visual.states.filter((state) => Array.isArray(state.raster_layers));
-  assert.equal(phoneStates.length, 6);
+  assert.equal(phoneStates.length, 9);
 
   for (const state of phoneStates) {
     assert.equal("raster" in state, false, `${state.state_id}: одиночный raster запрещён`);
@@ -202,7 +208,7 @@ test("человекочитаемые договоры фиксируют сл�
   assert.match(documents, /системн(?:ая|ые)[^\n]*(?:неподвиж|53)/iu);
   assert.match(documents, /домашн(?:ий|его)\s+индикатор/iu);
   assert.match(documents, /без\s+CSS-рамки|без\s+нарисованной\s+рамки/iu);
-  assert.match(documents, /18\s+телефонных\s+PNG-сегмент/iu);
+  assert.match(documents, /27\s+телефонных\s+PNG-сегмент/iu);
 });
 
 test("экран 5.2 становится источником первого активного состояния", () => {

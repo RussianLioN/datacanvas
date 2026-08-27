@@ -64,7 +64,7 @@ try {
     "BCLM-CO-2026-001-PRIORITY",
     "BCLM-CO-2026-002-P1-MAIN-ROUTE",
     "BCLM-CO-2026-002-EMAIL-RESULT",
-    "BCLM-CO-2026-002-P2-LINK-DELIVERY",
+    "BCLM-CO-2026-003-CURRENT-2026-SCOPE",
   ]) {
     if (!claimMap.claims.some((claim) => claim.claim_id === requiredClaimId)) {
       throw new Error(`business claim map is missing required claim: ${requiredClaimId}`);
@@ -98,9 +98,14 @@ try {
     }
   }
 
-  const co002Claims = claimMap.claims.filter((claim) => claim.precedence_source_id === "SRC-DC-CO-2026-002");
-  if (co002Claims.length < 3) {
-    throw new Error("CO-2026-002 must have separate claims for main route, email result and link delivery");
+  const currentScopeClaim = claimMap.claims.find(
+    (claim) => claim.claim_id === "BCLM-CO-2026-003-CURRENT-2026-SCOPE",
+  );
+  if (
+    currentScopeClaim.precedence_source_id !== "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19" ||
+    !currentScopeClaim.supersedes_claim_ids.includes("BCLM-CO-2026-002-P2-LINK-DELIVERY")
+  ) {
+    throw new Error("current 2026 scope claim must replace the historical P2 link-delivery claim");
   }
 
   console.log("business claim map validation passed");

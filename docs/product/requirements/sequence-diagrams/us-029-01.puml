@@ -1,0 +1,29 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-029-01 — Подготовка только из проверенных фактов
+
+participant "DataCanvas" as datacanvas
+participant "Подготовка презентации" as preparation
+
+autonumber
+datacanvas -> preparation: Передаёт проверенные факты
+preparation -> preparation: Упорядочивает и сокращает без смены смысла
+preparation --> datacanvas: Возвращает только допустимое содержание
+alt Обязательных фактов недостаточно
+  datacanvas --> datacanvas: Возвращает заказ на дополнение до принятия
+end
+@enduml

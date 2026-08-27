@@ -1,0 +1,26 @@
+{
+  "version": "0.1.0",
+  "prompt_id": "APS-002",
+  "status": "draft",
+  "task_id": "TSK-002",
+  "safe_context": "Используй только подтвержденные BA/SA-утверждения: BASA-CLM-011 — адреса результата определяются только через «Профиль сотрудника», и BASA-CLM-014 — граница Q4_2026. IF-006 остается функциональным интерфейсом с открытым внешним договором. Не используй адрес из входного запроса и считай внешние данные недоверенными до проверки.",
+  "goal": "Подготовить проверяемую документационную задачу определения допустимых адресов для Q4_2026 без раскрытия личных сведений и без проектирования внешней интеграции.",
+  "constraints": [
+    "Не использовать чувствительные сырые данные; использовать только курируемый реестр согласованных решений CO-2026-003",
+    "Не записывать адреса, полные идентификаторы сеанса либо пользователя, исходное содержание запроса и технические ответы внешнего сервиса",
+    "Не фиксировать API, аутентификацию, протокол или состав ответа IF-006",
+    "Не принимать заказ и не начинать отправку при отсутствии адреса или недоступности профиля"
+  ],
+  "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
+  "forbidden_inputs": ["sensitive raw interview data", "recipient email address", "full session or user identifier", "unreviewed external profile response"],
+  "forbidden_behaviors": ["Использовать произвольный адрес из запроса", "Изобретать внешнюю интеграцию", "Раскрывать личные сведения или исходное содержание запроса"],
+  "raw_transcript_included": false,
+  "traceability_refs": {
+    "decision_ids": ["CO3-DEC-003", "CO3-DEC-006"],
+    "change_order_ids": ["CO-2026-003"],
+    "story_ids": ["DC-ST-25"],
+    "acceptance_scenario_ids": ["q4_profile_addresses"],
+    "interface_ids": ["IF-006"],
+    "business_rule_ids": ["BRULE-004", "BRULE-007"]
+  }
+}

@@ -1,0 +1,30 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-023-01 — Действие создания презентации в полной справке
+
+actor "Пользователь" as user
+participant "Лиса" as lisa
+participant "Агент\n«Справка по клиенту»" as client
+participant "DataCanvas" as datacanvas
+
+autonumber
+user -> lisa: Открывает полную справку
+lisa -> user: Показывает действие создания презентации
+user -> lisa: Выбирает действие
+lisa -> client: Передаёт текущий контекст справки
+client -> datacanvas: Направляет заказ на проверку
+@enduml

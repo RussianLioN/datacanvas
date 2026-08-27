@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-variant-review-source-manifest.schema.json",
+  "version": "1.1.0",
+  "frame_id": "lisa-presentation-slidedoc",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "visual_donor_id": "presentation_variant_slidedoc_pdf_donor",
+  "visual_reference_only": true,
+  "raw_pdf_direct_render_used": false,
+  "content_map_path": "source/lisa-presentation-slidedoc-content-map.json",
+  "content_map_sha256": "ea2cde8960e6df53cba8e17459bb80d3dd016032217914373fdbb2a84a907644",
+  "client_reference_data_path": "source/client-reference-data.json",
+  "client_reference_data_sha256": "27bb1c7afd2c62a722a8ce6e7912aa4cf7526890018076640b5db937ff5749ee",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/source.svg",
+  "source_svg_sha256": "3c3e2644509afe50e42a6ba0890fa50a75f2525160f864735dc3fbca616973e3",
+  "source_svg_dimensions": {
+    "width": 960,
+    "height": 1620
+  },
+  "page_count": 3,
+  "geometry_check": {
+    "elements_outside_canvas_count": 0,
+    "cross_page_overlap_count": 0,
+    "text_overflow_count": 0,
+    "embedded_raster_count": 0,
+    "external_resource_count": 0,
+    "readability_check": {
+      "minimum_body_font_size_px": 10,
+      "minimum_table_font_size_px": 10,
+      "minimum_card_heading_font_size_px": 14,
+      "minimum_line_height_px": 12,
+      "below_minimum_font_size_count": 0,
+      "out_of_card_text_count": 0,
+      "internal_text_overlap_count": 0,
+      "page_capacity_violations": 0
+    }
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-current-resolution.png",
+  "draft_png_sha256": "a61f48c86d4a698069074d99fd1049ee7dabe7f6edee0f04a3ea53518ea9c828",
+  "draft_png_dimensions": {
+    "width": 960,
+    "height": 1620
+  },
+  "draft_png_non_white_pixel_count": 1555200,
+  "draft_page_pngs": [
+    {
+      "page": 1,
+      "path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-1.png",
+      "sha256": "9f08bed436ce174f1ca28626bccbcfd9ead772f8091206a468308fd9a9e2370a",
+      "dimensions": {
+        "width": 960,
+        "height": 540
+      },
+      "non_white_pixel_count": 518400
+    },
+    {
+      "page": 2,
+      "path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-2.png",
+      "sha256": "6cd5578566b9f84551d3acff7f81d1e5354daa7e7d9fda78efa918faefb07cc7",
+      "dimensions": {
+        "width": 960,
+        "height": 540
+      },
+      "non_white_pixel_count": 518400
+    },
+    {
+      "page": 3,
+      "path": "candidate-evidence/frame-review/lisa-presentation-slidedoc/draft-page-3.png",
+      "sha256": "1ad6c29e2a5d1549c6f4c3b3b5a2fbea350ff9ab639f0757f03ccbcba420c3a7",
+      "dimensions": {
+        "width": 960,
+        "height": 540
+      },
+      "non_white_pixel_count": 518400
+    }
+  ],
+  "owner_frame_approval": null
+}

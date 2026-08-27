@@ -11,11 +11,11 @@
 | Что ищете | Куда идти сначала | Что там находится |
 |---|---|---|
 | Понять продукт | [Продуктовая документация](product/README.md) | Vision, BMC, истории, требования, бэклог, дорожная карта и гипотезы. |
-| Найти требования и критерии приемки | [Требования](product/requirements/README.md) | Бизнес-требования, НФТ, критерии приемки и матрица трассировки. |
+| Найти принятые требования 2026 года | [Бизнес-требования](product/requirements/business-requirements.md) | Согласованные возможности, ветвления и исключения текущего периода. |
 | Проверить исходные документы и принятые изменения | [Исходные документы](product/sources/README.md) и [change orders](product/change-orders/README.md) | Реестр источников, аудит источников и принятые изменения продукта. |
 | Найти методику и исследования | [Методика проектной документации](process/methodology/README.md) | Правила ведения документации, BABOK-источник и исследование процесса разработки с поддержкой ИИ. |
 | Запустить или проверить рабочий процесс документации | [Универсальный рабочий процесс](process/universal-documentation-workflow/README.md) | Runbook, состояние запуска, журналы, правила переноса и проверки. |
-| Открыть или скачать интерактивный прототип пути презентации в Лисе | [Открыть раздел](product/analysis/presentation-link-lisa-user-journey/README.md), [запустить демонстрацию](product/analysis/presentation-link-lisa-user-journey/demo/index.html), [скачать ZIP локально](product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) или [скачать ZIP из GitHub](product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip?raw=true) | Подтверждённый путь от заказа презентации до просмотра и отправки по электронной почте; автономный архив для показа без сети. |
+| Открыть принятый черновик пути презентации в Лисе | [Открыть раздел](product/analysis/presentation-link-lisa-user-journey/README.md), [черновой прототип](product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) или [скачать полный черновой пакет](product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) | Принятый 11-кадровый черновик ООО «Водолей Трейд» и полный комплект его текущей документации; чистовой выпуск требует отдельного подтверждения. |
 | Импортировать пользовательские истории в Jira | [Руководство по массовому импорту](process/guides/datacanvas-jira-story-bulk-import.md) и [готовый CSV](../artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv) | Подготовка, проверка и загрузка пользовательских историй DataCanvas в Jira. |
 | Подготовить сдачу или найти evidence | [Release](release/README.md) и [evidence index](knowledge/evidence-index.md) | Релизные доказательства, PR evidence, pilot и handoff-материалы. |
 | Найти архитектуру, схемы и проверки | [Архитектура](architecture/README.md), [схемы](../schemas/README.md), [команды](../package.json) | ADR, схемы, границы доверия, проверки и полный список команд. |
@@ -27,10 +27,12 @@
 | Vision - видение продукта | [docs/product-vision.md](product-vision.md) |
 | CO - заявки на продуктовые изменения | [docs/product/change-orders/README.md](product/change-orders/README.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [docs/product/bmc/README.md](product/bmc/README.md) |
-| Пользовательские истории | [docs/product/requirements/user-stories.md](product/requirements/user-stories.md) |
-| Требования и критерии приемки | [docs/product/requirements/README.md](product/requirements/README.md) |
+| Принятые бизнес-требования 2026 года | [docs/product/requirements/business-requirements.md](product/requirements/business-requirements.md) |
+| Принятые пользовательские истории 2026 года | [docs/product/requirements/user-stories.md](product/requirements/user-stories.md) |
+| Диаграммы последовательности пользовательских историй | [docs/product/requirements/sequence-diagrams/README.md](product/requirements/sequence-diagrams/README.md) |
+| Граница реализации 2026 года | [docs/product/sources/co-2026-003-current-2026-scope.md](product/sources/co-2026-003-current-2026-scope.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](product/backlog/README.md) и [docs/product/sources/README.md](product/sources/README.md) |
-| Таблицы Excel с исходным бэклогом и рабочей оценкой | [Контролируемый XLSX-источник](product/sources/reference/datacanvas-backlog-source-sanitized.xlsx) и [рабочая XLSX-версия с оценкой ПШЕ](product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx) |
+| Граница и исходные данные 2026 года | [Граница реализации 2026 года](product/sources/co-2026-003-current-2026-scope.md) и [исходные документы](product/sources/README.md) |
 | Полный локальный архив главной цепочки | [Внутренний ZIP-архив с ограниченным доступом](../artifacts/documentation-archive/datacanvas-main-documentation.zip) — основные файлы действующей цепочки, включая рабочий XLSX, и восемь дополнительных материалов: представления BMC, выгрузка кандидатных историй, очищенный XLSX-источник, руководство и подготовленный CSV для импорта пользовательских историй в Jira; после распаковки доступна автономная навигация. |
 | Roadmap - дорожная карта | [docs/product/roadmap/README.md](product/roadmap/README.md) |
 | Hypotheses - гипотезы | [docs/product/hypotheses/README.md](product/hypotheses/README.md) |

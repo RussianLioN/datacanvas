@@ -1,0 +1,61 @@
+{
+  "$schema": "schemas/error-frame-review-contract.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "status": "owner_frame_approved",
+  "base_frame_id": "lisa-presentation-generating",
+  "visual_template_frame_id": "lisa-presentation-sent",
+  "mock_phone_status_time_value": "13:40",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "active_release_mutation_prohibited": true,
+  "full_delivery_is_represented_by": "lisa-delivery-partial",
+  "candidates": [
+    {
+      "frame_id": "lisa-order-not-accepted",
+      "directory": "lisa-order-not-accepted-clock-13-40",
+      "message_id": "order_not_accepted",
+      "keeps_generation_message": false,
+      "text": "Не удалось принять данные для формирования презентации. Вернитесь к диалогу «Справка по клиенту» и уточните данные, либо оформите тикет в сопровождение.",
+      "display_lines": [
+        "Не удалось принять данные для",
+        "формирования презентации. Вернитесь к",
+        "диалогу «Справка по клиенту» и",
+        "уточните данные, либо оформите тикет",
+        "в сопровождение."
+      ],
+      "baselines": [2958, 2974, 2990, 3006, 3022],
+      "safe_area": {"x": 80, "y": 2946, "width": 345, "height": 88}
+    },
+    {
+      "frame_id": "lisa-delivery-delayed",
+      "directory": "lisa-delivery-delayed-clock-13-40",
+      "message_id": "delivery_delayed",
+      "keeps_generation_message": true,
+      "text": "Презентация формируется дольше 20 минут. Задача передана в сопровождение; сообщу здесь, если отправка на почту будет подтверждена.",
+      "display_lines": [
+        "Презентация формируется дольше 20 минут.",
+        "Задача передана в сопровождение;",
+        "сообщу здесь, если отправка на почту",
+        "будет подтверждена."
+      ],
+      "baselines": [3048, 3064, 3080, 3096],
+      "safe_area": {"x": 80, "y": 3036, "width": 345, "height": 72}
+    },
+    {
+      "frame_id": "lisa-delivery-partial",
+      "directory": "lisa-delivery-partial-clock-13-40",
+      "message_id": "delivery_partial",
+      "keeps_generation_message": true,
+      "text": "Презентация сформирована и направлена в OMEGA. Отправка в SIGMA пока не подтверждена. Задача передана в сопровождение; сообщу здесь, если отправка будет подтверждена.",
+      "display_lines": [
+        "Презентация сформирована и направлена в",
+        "OMEGA. Отправка в SIGMA пока не",
+        "подтверждена. Задача передана в",
+        "сопровождение; сообщу здесь, если отправка",
+        "будет подтверждена."
+      ],
+      "baselines": [3048, 3064, 3080, 3096, 3112],
+      "safe_area": {"x": 80, "y": 3036, "width": 345, "height": 88}
+    }
+  ]
+}

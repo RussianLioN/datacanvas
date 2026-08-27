@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "error-frame-review-source-manifest.schema.json",
+  "title": "Манифест SVG-первичного чернового кадра ошибки CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "frame_id", "status", "semantic_base_frame_id", "visual_template_svg_path", "visual_template_svg_sha256", "transition_rendering_mode", "mock_phone_status_time_value", "keeps_generation_message", "error_message", "source_svg_path", "source_svg_sha256", "text_outline_font", "active_release_mutation_prohibited", "draft_png_rendered", "draft_png_path", "draft_png_sha256", "draft_png_dimensions", "draft_png_non_white_pixel_count", "owner_frame_approval"],
+  "properties": {
+    "$schema": {"const": "../../../source/schemas/error-frame-review-source-manifest.schema.json"},
+    "version": {"const": "1.0.0"},
+    "frame_id": {"enum": ["lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]},
+    "status": {"enum": ["draft_png_rendered_pending_owner_approval", "owner_frame_approved"]},
+    "semantic_base_frame_id": {"const": "lisa-presentation-generating"},
+    "visual_template_svg_path": {"const": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg"},
+    "visual_template_svg_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "transition_rendering_mode": {"const": "same_screen_dynamic_state"},
+    "mock_phone_status_time_value": {"const": "13:40"},
+    "keeps_generation_message": {"type": "boolean"},
+    "error_message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["message_id", "text", "display_lines", "font_size", "fill", "baselines", "safe_area", "line_widths", "replaced_existing_group_id"],
+      "properties": {
+        "message_id": {"enum": ["order_not_accepted", "delivery_delayed", "delivery_partial"]},
+        "text": {"type": "string", "minLength": 1},
+        "display_lines": {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "string", "minLength": 1}},
+        "font_size": {"const": 11.5},
+        "fill": {"const": "rgb(73,80,94)"},
+        "baselines": {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "number"}},
+        "safe_area": {"type": "object", "additionalProperties": false, "required": ["x", "y", "width", "height"], "properties": {"x": {"type": "number"}, "y": {"type": "number"}, "width": {"type": "number"}, "height": {"type": "number"}}},
+        "line_widths": {"type": "array", "minItems": 1, "maxItems": 5, "items": {"type": "number", "exclusiveMinimum": 0}},
+        "replaced_existing_group_id": {"enum": ["lisa-review-generation-status", "lisa-review-delivery-success-status"]}
+      }
+    },
+    "source_svg_path": {"type": "string", "pattern": "^docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-(order-not-accepted|delivery-delayed|delivery-partial)-clock-13-40/source\\.svg$"},
+    "source_svg_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "text_outline_font": {"type": "object", "additionalProperties": false, "required": ["family", "sha256", "copied_to_git"], "properties": {"family": {"const": "SB Sans Display"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "copied_to_git": {"const": false}}},
+    "active_release_mutation_prohibited": {"const": true},
+    "draft_png_rendered": {"const": true},
+    "draft_png_path": {"type": "string", "pattern": "^docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-(order-not-accepted|delivery-delayed|delivery-partial)-clock-13-40/draft-current-resolution\\.png$"},
+    "draft_png_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "draft_png_dimensions": {"type": "object", "additionalProperties": false, "required": ["width", "height"], "properties": {"width": {"const": 521}, "height": {"const": 3290}}},
+    "draft_png_non_white_pixel_count": {"type": "integer", "minimum": 1},
+    "owner_frame_approval": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["record_path", "decision", "decision_text", "decision_source", "approval_time_precision", "approved_on"],
+          "properties": {
+            "record_path": {"type": "string", "pattern": "^candidate-evidence/frame-review/lisa-(order-not-accepted|delivery-delayed|delivery-partial)-clock-13-40/owner-approval\\.json$"},
+            "decision": {"const": "approved"},
+            "decision_text": {"const": "Экраны приняты!"},
+            "decision_source": {"const": "Product Owner в рабочем чате"},
+            "approval_time_precision": {"const": "date_only"},
+            "approved_on": {"const": "2026-08-24"}
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "owner_frame_approved"}}, "required": ["status"]},
+      "then": {"properties": {"owner_frame_approval": {"type": "object"}}},
+      "else": {"properties": {"owner_frame_approval": {"type": "null"}}}
+    }
+  ]
+}

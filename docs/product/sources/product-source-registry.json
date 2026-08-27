@@ -1,10 +1,10 @@
 {
   "$schema": "../../../schemas/product-source-registry.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-07-10T00:00:00+03:00",
+  "updated_at": "2026-08-25T00:00:00+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -98,6 +98,85 @@
       "notes": "Канонический источник уточнения CO-2026-002: P1 включает основной маршрут запуска DataCanvas другим агентом до доставки редактируемого PPTX-файла и нередактируемой PDF-копии по электронной почте; P2 включает расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе. Рабочая Excel-версия принята как ресурсный вход для DC-ST-23..DC-ST-33."
     },
     {
+      "source_id": "SRC-DC-CO-2026-003-AUTHORITATIVE-REGISTER",
+      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "q4_product_scope",
+        "current_delivery_format",
+        "approved_text_trace",
+        "documentation_cascade"
+      ],
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/specs/interview-to-spec-trace.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+        "docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"
+      ],
+      "notes": "Реестр сохраняет решения интервью и очищенной рабочей книги как исторические источники. Дополнение CO3-AMND-001 меняет для текущего Q4_2026 только форматы результата на PPTX и PDF; дополнение CO3-AMND-002 принимает изолированный черновик только для каскадного обновления документации и требует отдельного итогового подтверждения перед чистовым визуальным выпуском."
+    },
+    {
+      "source_id": "SRC-DC-CO-2026-003-RELEASE-APPROVAL-LEDGER",
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-25",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "documentation_cascade",
+        "frame_approval",
+        "release_authority",
+        "delivery_archive_gate"
+      ],
+      "affected_artifacts": [
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+        "docs/release/co-2026-003-prototype-delivery-archive.md",
+        "scripts/validate-co-2026-003-release-state.mjs"
+      ],
+      "notes": "Единый реестр отделяет принятие черновика для документационного каскада от права на чистовой выпуск. Он фиксирует явное разрешение владельца на публичное размещение согласованных демонстрационных данных и визуальных производных, сохраняет запрет на исходные внешние PDF и блокирует выпуск, пока не приняты варианты презентаций и не выбран текст полной непоставки."
+    },
+    {
+      "source_id": "SRC-DC-CO-2026-003-OWNER-APPROVED-TEXTS",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-24",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "approved_text_trace",
+        "prototype_candidate_copy",
+        "frame_review"
+      ],
+      "affected_artifacts": [
+        "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
+        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+      ],
+      "notes": "Единственный машиночитаемый источник выбранных владельцем формулировок кнопки, начала формирования, успеха и письма. Он не заменяет исторические дословные сообщения интервью и не содержит невыбранный текст полной недоставки."
+    },
+    {
       "source_id": "SRC-DC-PRODUCT-VISION-CURRENT",
       "path": "docs/product-vision.md",
       "source_role": "current_vision",
@@ -147,8 +226,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "active",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-24",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "requirements_delta",
         "backlog",
@@ -158,9 +237,20 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/requirements/traceability-matrix.json",
-        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
+        "docs/product/requirements/README.md",
+        "docs/product/README.md",
+        "docs/product/backlog/README.md",
+        "docs/product/sources/README.md",
+        "docs/product/sources/source-audit.md",
+        "docs/product/analysis/documentation-consistency-audit/source-of-truth-map.md",
+        "docs/navigation/navigation-source.json",
+        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/architecture/system-analysis/sa-spec.json",
+        "docs/product/specs/interview-to-spec-trace.json"
       ],
-      "notes": "Канонический бизнесовый каталог пользовательских историй DC-ST-01..DC-ST-33 находится в слое требований продукта. После принятой Excel-редакции DC-ST-01..DC-ST-08 имеют P3, DC-ST-09 остается P2, DC-ST-23..DC-ST-29 формируют P1 основного маршрута запуска другим агентом, а DC-ST-30..DC-ST-33 имеют P2 для расширенной доставки, хранения, ссылки и уведомления. Каталог не хранит ПШЕ, Excel-механику, правила слияния, статусы обработки и служебную трассировку; эти сведения вынесены в backlog, source/provenance и validation/evidence контуры."
+      "notes": "Канонический бизнесовый каталог содержит только девять пользовательских историй границы 2026 года: DC-ST-09 и DC-ST-30 с приоритетом P2, DC-ST-23..DC-ST-29 с приоритетом P1. Правила одного заказа, возврата к состоянию в том же чате и задержанной или частичной доставки включены в DC-ST-23, DC-ST-27 и DC-ST-30. Хранение, ссылка и уведомление по ссылке не входят в текущий период. Каталог хранит только формулировки и ценность историй; служебная трассировка хранится отдельно."
     },
     {
       "source_id": "SRC-DC-STORY-CATALOG-LOCK",
@@ -169,7 +259,7 @@
       "owner_role": "Product Owner / Process Owner",
       "lifecycle": "active",
       "trust_level": "internal_evidence",
-      "effective_date": "2026-07-10",
+      "effective_date": "2026-08-26",
       "upstream_decision": null,
       "allowed_downstream_use": [
         "story_catalog_validation",
@@ -179,7 +269,7 @@
         "docs/product/requirements/user-stories.md",
         "scripts/validate-business-docs.mjs"
       ],
-      "notes": "Машинный lock-файл для проверки, что структурная очистка каталога не меняет согласованный текст пользовательских историй и бизнес-ценностей.",
+      "notes": "Машинный lock-файл для проверки согласованных текста и бизнес-ценности девяти пользовательских историй границы 2026 года.",
       "sha256": null,
       "derived_from": [
         "SRC-DC-STORIES-CATALOG"
@@ -293,6 +383,76 @@
       "approval_status": "owner_approved",
       "team_validation_status": "approved",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
+    },
+    {
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "superseded",
+      "trust_level": "superseded_by_co_acceptance",
+      "effective_date": "2026-08-17",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "q4_resource_planning_input",
+        "controlled_excel_source_audit",
+        "cascade_synchronization"
+      ],
+      "affected_artifacts": [
+        "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
+        "tests/golden/xlsx-backlog-draft-pshe-2026-08-17.json",
+        "scripts/datacanvas_source_security.py",
+        "scripts/validate-datacanvas-xlsx-backlog.py"
+      ],
+      "notes": "Контролируемая рабочая Excel-версия Product Owner от 2026-08-17 сохранена как исторический источник. Для определения текущей границы и приоритетов 2026 года она заменена книгой от 2026-08-19; ее ресурсные значения не используются в текущем кандидате бизнес-требований.",
+      "sha256": "6215a793cae25a0a11ccb9d205aaef10a832b4179319409c00ef6b5a08b451f4",
+      "derived_from": null,
+      "verifier_command": "npm run validate:xlsx-backlog-2026-08-17",
+      "allowed_delta": "От внешнего источника Product Owner с SHA-256 722a604831b2b589ac9aea99dd8cccd80090d9e166a2adc40b284d0bdb147bf1 разрешены только независимое от пространства имен удаление absPath, обезличивание метаданных автора в core/comments, очистка содержимого комментариев с сохранением OOXML-структуры и принятое переименование статуса на листе СОЗАВИСИМОСТЬ Q3_2026.",
+      "approval_status": "owner_approved",
+      "team_validation_status": "pending_team_review",
+      "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"
+    },
+    {
+      "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
+      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.xlsx",
+      "source_role": "analysis_source",
+      "owner_role": "Product Owner",
+      "lifecycle": "active",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-08-19",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "current_2026_scope",
+        "business_requirements_accepted",
+        "user_stories_candidate",
+        "system_requirements_candidate",
+        "cascade_synchronization"
+      ],
+      "affected_artifacts": [
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+        "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/analysis/ba/business-rules.md",
+        "docs/product/analysis/ba/business-rules.json",
+        "docs/product/analysis/ba/ba-spec.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Актуальная контролируемая книга Product Owner от 2026-08-19 для границы и приоритетов 2026 года. Для требований используется только явно установленная владельцем продукта выборка девяти видимых историй первого листа; ресурсные значения, остальные листы и будущие истории не используются.",
+      "sha256": "af3982cd89ae9d076b0064e41c5525c2e5f2a5fb79ff9c175c7cb626eddb32f4",
+      "derived_from": null,
+      "verifier_command": "npm run validate:xlsx-backlog-2026-08-19-source-security",
+      "allowed_delta": "От внешнего источника Product Owner разрешены только удаление absPath и очистка метаданных автора и содержимого комментариев с сохранением OOXML-структуры. Ячейки, формулы, приоритеты, статусы и ресурсные данные не изменяются.",
+      "approval_status": "owner_approved",
+      "team_validation_status": "pending_team_review",
+      "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json"
     },
     {
       "source_id": "SRC-DC-PRODUCT-BACKLOG",

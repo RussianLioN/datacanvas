@@ -1,0 +1,32 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-026-03 — Разделение фактов и инструкций
+
+participant "Вызывающий агент" as caller
+participant "DataCanvas" as datacanvas
+participant "Проверка заказа" as validation
+
+autonumber
+caller -> datacanvas: Передаёт факты и инструкции
+datacanvas -> validation: Разделяет факты и инструкции
+alt Сведения безопасны и достаточны
+  validation --> datacanvas: Допускает к согласованной цели
+else Инструкции небезопасны или противоречивы
+  validation --> datacanvas: Останавливает принятие заказа
+  datacanvas --> caller: Возвращает заказ на дополнение
+end
+@enduml

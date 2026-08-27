@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { readStoredZip } from "./lib/documentation-archive.mjs";
+import { readReleaseGateState } from "./lib/workflow-release-gate.mjs";
 
 const root = process.cwd();
 const manifestPath = "docs/architecture/security/data-leakage-manifest.json";
@@ -162,7 +163,22 @@ for (const target of manifest.scan_targets) {
     fail(`duplicate data leakage scan target path: ${target.path}`);
   }
   scanTargetsByPath.set(target.path, target);
-  requireFile(target.path);
+  const releaseGateState = target.release_gate_contract_path
+    ? readReleaseGateState(root, target.release_gate_contract_path)
+    : null;
+  const targetExists = fs.existsSync(path.join(root, target.path));
+  if (!targetExists) {
+    if (releaseGateState?.approved) {
+      fail(`выпускной архив разрешен, но отсутствует для проверки утечек: ${target.path}`);
+    }
+    if (releaseGateState) {
+      continue;
+    }
+    requireFile(target.path);
+  }
+  if (releaseGateState && !releaseGateState.approved) {
+    fail(`выпускной барьер не пройден, но архив существует для проверки утечек: ${target.path}; ${releaseGateState.summary}`);
+  }
   for (const unit of readScanUnits(target.path)) {
     for (const forbidden of forbiddenPatterns) {
       if (!enabledClasses.has(forbidden.class)) {

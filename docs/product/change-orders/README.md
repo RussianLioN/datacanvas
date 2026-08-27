@@ -22,18 +22,22 @@ Product Change Order должен содержать источник измен
 
 - [Шаблон Product Change Order](product-change-order-template.md)
 - [Протокол PO-опросника Product Change Order](product-change-questionnaire-protocol.md)
-- [CO-2026-001: приоритет запуска DataCanvas другим агентом](co-2026-001-a2a-first-priority.md)
-- [CO-2026-002: граница P1 и P2 для запуска DataCanvas другим агентом](co-2026-002-agent-launch-delivery-scope.md)
-- [Журнал PO-опросника CO-2026-001](co-2026-001-acceptance-questionnaire-log.md)
+- [CO-2026-003: Q4_2026 — Лиса, Профиль сотрудника и почтовая доставка](co-2026-003-q4-lisa-profile.md) — подтверждённый объём одного заказа, адресов через Профиль сотрудника, `PPTX`/`PDF` и статусов в том же чате.
+- [Граница реализации 2026 года](../sources/co-2026-003-current-2026-scope.md) — действующие истории и исключения текущего периода.
+- [Стенограмма интервью для бизнес-требований](co-2026-003-q4-lisa-profile-bt-interview-transcript.md) и [дополнение к решениям](co-2026-003-bt-interview-amendment.md) — принятые источники бизнесового смысла.
+- [Принятые бизнес-требования 2026 года](../requirements/business-requirements.md) — текущий результат первого этапа каскада.
+- [Пользовательские истории и диаграммы последовательности](../requirements/sequence-diagrams/README.md) — 24 принятых детализированных сценария, сгруппированных по девяти историям 2026 года.
+- [Реестр согласованных формулировок CO-2026-003](co-2026-003-authoritative-interview-decision-register.md) — дословные безопасные решения владельца продукта.
+- [Карта влияния CO-2026-003](co-2026-003-q4-lisa-profile-impact.md) — куда эти решения внесены в продуктовой документации и пользовательском пути.
+- [Черновой пакет документации CO-2026-003](../../release/co-2026-003-draft-documentation-archive.md) — текущий состав документов и принятого 11-кадрового прототипа до чистового выпуска.
 
 ## Машинные Артефакты
 
 Эти файлы используются валидаторами, каскадным workflow и агентами. Они не являются первичным маршрутом чтения для стейкхолдеров.
 
 - `product-change-order-ledger.json`
-- `co-2026-001-a2a-first-priority.json`
-- `co-2026-001-acceptance-questionnaire-state.json`
-- `co-2026-002-agent-launch-delivery-scope.json`
-- `co-2026-002-agent-launch-delivery-scope-impact.json`
+- `co-2026-003-q4-lisa-profile.json`
+- `co-2026-003-q4-lisa-profile-impact.json`
+- `co-2026-003-authoritative-interview-decision-register.json`
 - `change-impact-assessment.json`
 - `../requirements/business-claim-map.json`

@@ -107,6 +107,36 @@ test("описывает только три утверждённых PDF и б�
   }
 });
 
+test("выделяет PDF ООО «Водолей Трейд» в контролируемый контур черновой приёмки", () => {
+  assert.ok(
+    Array.isArray(__test.vodoleyPdfReviewSources),
+    "нужен отдельный список PDF ООО «Водолей Трейд» для контролируемого импорта без SVG-перекомпоновки",
+  );
+  assert.deepEqual(
+    __test.vodoleyPdfReviewSources.map((source) => source.file_name),
+    ["vodoley_dense_slidedoc.pdf", "vodoley_dense_sber2025.pdf", "vodoley_dense_mag.pdf"],
+  );
+  assert.deepEqual(
+    __test.vodoleyPdfReviewSources.map((source) => source.output),
+    ["vodoley-dense-slidedoc-4x.png", "vodoley-dense-sber2025-4x.png", "vodoley-dense-mag-4x.png"],
+  );
+  for (const source of __test.vodoleyPdfReviewSources) {
+    assert.equal(source.pages, 3);
+    assert.deepEqual(source.page_dimensions, { width: 960, height: 540 });
+    assert.equal(source.scale, 4);
+    assert.equal(source.raw_file_tracked, false);
+    assert.equal(source.source_path_stored, false);
+  }
+});
+
+test("контур ООО «Водолей Трейд» не требует SVG и создаёт только канонический PNG", () => {
+  assert.equal(
+    __test.vodoleyPdfReviewImportMode,
+    "approved_pdf_to_png",
+    "презентационные PDF должны идти через штатное контролируемое преобразование, а не через свободную SVG-перекомпоновку",
+  );
+});
+
 test("публикует три канонических вертикальных PNG и повторяет импорт побайтно", { skip: SOURCE_DIR ? false : "нужен LISA_PDF_SOURCE_DIR" }, async () => {
   const root = makeTempRoot();
   const first = await buildApprovedPdfSlideRasters({ root, sourceDir: SOURCE_DIR, write: true });

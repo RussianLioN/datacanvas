@@ -1,0 +1,84 @@
+{
+  "$schema": "schemas/presentation-pdf-raster-import-contract.schema.json",
+  "version": "1.3.0",
+  "change_order_id": "CO-2026-003",
+  "status": "all_presentation_drafts_authorized",
+  "import_mode": "approved_pdf_to_png",
+  "source_svg_required": false,
+  "raw_pdf_committed_to_git": false,
+  "raw_pdf_served_by_demo": false,
+  "controlled_importer": "scripts/render-lisa-presentation-pdf-review-draft.mjs",
+  "high_resolution_render_status": "blocked_until_all_owner_frame_approvals",
+  "render_scales": {
+    "draft": 1,
+    "final": 4
+  },
+  "draft_prototype_integration": {
+    "rendering_mode": "isolated_current_prototype_copy_with_frame_asset_substitution",
+    "runtime_shell_source_path": "demo",
+    "allowed_runtime_differences": [
+      "data.js",
+      "app.js",
+      "assets/**"
+    ],
+    "candidate_runtime_extension": {
+      "id": "data_driven_initial_phone_scroll",
+      "target_file": "app.js",
+      "state_property": "initial_scroll_position",
+      "allowed_values": [
+        "top",
+        "bottom"
+      ],
+      "bottom_frame_ids": [
+        "lisa-presentation-generating",
+        "lisa-presentation-sent",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ],
+      "effect": "standard_phone_scroller_initial_position_only"
+    },
+    "presentation_viewport": {
+      "width": 960,
+      "height": 540
+    },
+    "draft_source_raster_scale": 1,
+    "historical_display_raster_scale": 4,
+    "active_release_mutation_prohibited": true
+  },
+  "per_frame_review": {
+    "unit": "one_three_page_presentation_variant",
+    "batch_draft_preparation_authorized_by_owner": true,
+    "next_variant_blocked_until_owner_approval": false,
+    "active_release_mutation_prohibited": true
+  },
+  "variants": [
+    {
+      "frame_id": "lisa-presentation-slidedoc",
+      "source_file_name": "vodoley_dense_slidedoc.pdf",
+      "source_pdf_sha256": "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425",
+      "page_count": 3,
+      "output_file": "vodoley-dense-slidedoc-4x.png",
+      "draft_review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
+      "review_status": "draft_png_rendered_pending_owner_approval"
+    },
+    {
+      "frame_id": "lisa-presentation-sber2025",
+      "source_file_name": "vodoley_dense_sber2025.pdf",
+      "source_pdf_sha256": "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc",
+      "page_count": 3,
+      "output_file": "vodoley-dense-sber2025-4x.png",
+      "draft_review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/review-source-manifest.json",
+      "review_status": "draft_png_rendered_pending_owner_approval"
+    },
+    {
+      "frame_id": "lisa-presentation-mag",
+      "source_file_name": "vodoley_dense_mag.pdf",
+      "source_pdf_sha256": "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
+      "page_count": 3,
+      "output_file": "vodoley-dense-mag-4x.png",
+      "draft_review_manifest_path": "candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
+      "review_status": "draft_png_rendered_pending_owner_approval"
+    }
+  ]
+}

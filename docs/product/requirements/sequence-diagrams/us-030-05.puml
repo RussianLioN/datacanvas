@@ -1,0 +1,41 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-030-05 — Неподтверждённая доставка и сопровождение
+
+participant "DataCanvas" as datacanvas
+participant "OMEGA" as omega
+participant "SIGMA" as sigma
+participant "Сопровождение" as support
+participant "Агент\n«Справка по клиенту»" as client
+participant "Лиса" as lisa
+actor "Пользователь" as user
+participant "Жизненный цикл заказа" as lifecycle
+
+autonumber
+datacanvas -> lifecycle: Фиксирует неподтверждённый исход доставки
+datacanvas -> support: Передаёт безопасный контекст обращения
+alt Подтверждён только один контур
+  datacanvas --> client: Передаёт частичный результат с контурами
+  client -> lisa: Передаёт итог
+  lisa -> user: Публикует различимый частичный результат
+else SIGMA и OMEGA не подтверждены
+  datacanvas --> client: Передаёт согласованный полный итог
+  client -> lisa: Передаёт сообщение
+  lisa -> user: Публикует передачу в сопровождение
+  note over lisa,user: «Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.»
+end
+@enduml

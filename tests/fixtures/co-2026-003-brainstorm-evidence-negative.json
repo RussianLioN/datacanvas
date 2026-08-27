@@ -1,0 +1,79 @@
+{
+  "scenarios": [
+    {
+      "id": "phase-1-18-participants",
+      "mutation": "phase_1_18_participants",
+      "expected_error": "participant_count: must be equal to constant"
+    },
+    {
+      "id": "phase-1-379-variants",
+      "mutation": "phase_1_379_variants",
+      "expected_error": "raw_variant_count: must be equal to constant"
+    },
+    {
+      "id": "phase-1-29-consolidated",
+      "mutation": "phase_1_29_consolidated",
+      "expected_error": "candidate_count: must be equal to constant"
+    },
+    {
+      "id": "phase-2-not-anonymous",
+      "mutation": "phase_2_not_anonymous",
+      "expected_error": "evaluation_mode: must be equal to constant"
+    },
+    {
+      "id": "phase-2-18-votes",
+      "mutation": "phase_2_18_votes",
+      "expected_error": "participant_count: must be equal to constant"
+    },
+    {
+      "id": "four-final-candidates",
+      "mutation": "four_final_candidates",
+      "expected_error": "must NOT have fewer than 5 items"
+    },
+    {
+      "id": "six-final-candidates",
+      "mutation": "six_final_candidates",
+      "expected_error": "must NOT have more than 5 items"
+    },
+    {
+      "id": "selected-text-filled",
+      "mutation": "selected_text_filled",
+      "expected_error": "selected_text: must be null"
+    },
+    {
+      "id": "render-enabled",
+      "mutation": "render_enabled",
+      "expected_error": "render_allowed: must be equal to constant"
+    },
+    {
+      "id": "archive-enabled",
+      "mutation": "archive_enabled",
+      "expected_error": "archive_allowed: must be equal to constant"
+    },
+    {
+      "id": "generator-input-enabled",
+      "mutation": "generator_input_enabled",
+      "expected_error": "generator_input_allowed: must be equal to constant"
+    },
+    {
+      "id": "local-path",
+      "mutation": "local_path",
+      "expected_error": "must NOT be valid"
+    },
+    {
+      "id": "docx-reference",
+      "mutation": "docx_reference",
+      "expected_error": "must NOT be valid"
+    },
+    {
+      "id": "email-reference",
+      "mutation": "email_reference",
+      "expected_error": "must NOT be valid"
+    },
+    {
+      "id": "sha256-reference",
+      "mutation": "sha256_reference",
+      "expected_error": "must NOT be valid"
+    }
+  ]
+}

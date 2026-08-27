@@ -9,7 +9,9 @@
 
 | Путь | Секция | Владелец | Lifecycle |
 |---|---|---|---|
-| - | - | - | - |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/error-frames-13-40-review.md` | product | Product Owner / Documentation Owner | `draft` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review.md` | product | Product Owner / Documentation Owner | `accepted` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating/review.md` | product | Product Owner / Documentation Owner | `accepted` |
 
 ## README По Уровням Вложенности
 
@@ -17,7 +19,7 @@
 |---|---|---|---|---|---|
 | `docs/architecture/README.md` | `docs/README.md` | `technical` | `public` | `true` | `1` |
 | `docs/architecture/system-analysis/README.md` | `docs/architecture/README.md` | `technical` | `internal` | `false` | `1` |
-| `docs/knowledge/rca/README.md` | `docs/knowledge/README.md` | `evidence` | `internal` | `false` | `3` |
+| `docs/knowledge/rca/README.md` | `docs/knowledge/README.md` | `evidence` | `internal` | `false` | `2` |
 | `docs/knowledge/README.md` | `docs/README.md` | `evidence` | `public` | `true` | `2` |
 | `docs/plans/README.md` | `docs/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/cascading-governance/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `2` |
@@ -26,8 +28,8 @@
 | `docs/process/README.md` | `docs/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/universal-documentation-workflow/README.md` | `docs/process/README.md` | `governance` | `public` | `true` | `1` |
 | `docs/process/versions/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `-` |
-| `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
-| `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `2` |
+| `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `-` |
+| `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `4` |
 | `docs/product/analysis/presentation-link-lisa-user-journey/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `true` | `1` |
 | `docs/product/analysis/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
 | `docs/product/backlog/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
@@ -37,7 +39,8 @@
 | `docs/product/hypotheses/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/interviews/ba-sa/README.md` | `docs/product/README.md` | `business` | `restricted` | `false` | `-` |
 | `docs/product/README.md` | `docs/README.md` | `business` | `public` | `true` | `1` |
-| `docs/product/requirements/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
+| `docs/product/requirements/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `2` |
+| `docs/product/requirements/sequence-diagrams/README.md` | `docs/product/requirements/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/roadmap/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/sources/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/specs/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
@@ -50,25 +53,32 @@
 
 | Группа | Глубина | Количество |
 |---|---|---|
-| `business` | `1` | 13 |
-| `business` | `2` | 32 |
+| `business` | `1` | 17 |
+| `business` | `2` | 25 |
 | `business` | `3` | 9 |
-| `business` | `4` | 3 |
-| `business` | `hidden` | 67 |
-| `delivery` | `1` | 2 |
-| `delivery` | `2` | 10 |
-| `delivery` | `hidden` | 828 |
-| `evidence` | `1` | 1 |
-| `evidence` | `2` | 1 |
-| `evidence` | `3` | 3 |
-| `evidence` | `4` | 7 |
-| `evidence` | `hidden` | 3 |
+| `business` | `4` | 8 |
+| `business` | `5` | 6 |
+| `business` | `6` | 6 |
+| `business` | `hidden` | 88 |
+| `delivery` | `1` | 3 |
+| `delivery` | `2` | 14 |
+| `delivery` | `3` | 1 |
+| `delivery` | `hidden` | 830 |
+| `evidence` | `1` | 2 |
+| `evidence` | `2` | 2 |
+| `evidence` | `3` | 18 |
+| `evidence` | `4` | 6 |
+| `evidence` | `5` | 4 |
+| `evidence` | `hidden` | 12 |
 | `governance` | `0` | 1 |
-| `governance` | `1` | 9 |
-| `governance` | `2` | 60 |
+| `governance` | `1` | 10 |
+| `governance` | `2` | 62 |
 | `governance` | `3` | 14 |
+| `governance` | `4` | 1 |
 | `governance` | `hidden` | 46 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
-| `technical` | `3` | 7 |
-| `technical` | `hidden` | 110 |
+| `technical` | `3` | 12 |
+| `technical` | `4` | 7 |
+| `technical` | `5` | 7 |
+| `technical` | `hidden` | 136 |

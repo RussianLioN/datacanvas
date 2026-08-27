@@ -1,0 +1,39 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-030-03 — Повторные попытки IRM для SIGMA
+
+participant "DataCanvas" as datacanvas
+participant "SIGMA" as sigma
+participant "Агент\n«Справка по клиенту»" as client
+participant "Лиса" as lisa
+actor "Пользователь" as user
+
+autonumber
+sigma --> datacanvas: Сообщает о временном сбое IRM
+datacanvas --> client: Передаёт состояние задержки
+client -> lisa: Передаёт согласованное сообщение
+lisa -> user: Публикует сообщение о повторных попытках
+loop До пяти попыток через каждые 10 минут, не более часа
+  datacanvas -> sigma: Повторяет защищённую отправку
+  sigma --> datacanvas: Возвращает исход попытки
+end
+alt Отправка подтверждена
+  datacanvas -> datacanvas: Переходит к подтверждению успеха
+else Подтверждения нет после последней попытки
+  datacanvas -> datacanvas: Переходит к неподтверждённой доставке
+end
+@enduml

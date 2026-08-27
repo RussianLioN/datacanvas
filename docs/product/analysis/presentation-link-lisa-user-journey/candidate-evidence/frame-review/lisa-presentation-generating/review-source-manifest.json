@@ -1,0 +1,105 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-generating-review-source-manifest.schema.json",
+  "version": "2.2.0",
+  "frame_id": "lisa-presentation-generating",
+  "status": "owner_frame_approved",
+  "base_frame_id": "lisa-materials-full-reference",
+  "base_svg_path": "candidate-evidence/frame-review/lisa-materials-full-reference/source.svg",
+  "base_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "base_owner_approval_path": "candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json",
+  "base_owner_approved_svg_sha256": "447dcf1337c20a1ce93cd3c51a50f9981b517bbeb992d7adea4667b0a064d9c1",
+  "transition_rendering_mode": "same_screen_dynamic_state",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+  "source_svg_sha256": "dddfc92b0ac010b1a4f3b50515cca794db3fc7af2bd296d180ade7bce45e5736",
+  "approved_texts_path": "source/owner-approved-texts.json",
+  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "button_label_text": "Создать презентацию по справке",
+  "disabled_button": {
+    "existing_group_id": "buttons_2.0",
+    "aria_disabled": true,
+    "opacity": 1,
+    "label_unchanged": true
+  },
+  "dynamic_footer": {
+    "button_translate_y": -18,
+    "background_fill": "rgb(224,227,234)",
+    "label_fill": "rgb(143,148,160)",
+    "status_placement": "below_disabled_button",
+    "extension_height": 82
+  },
+  "generation_started_message": {
+    "text": "Формирование презентации началось в ЧЧ:ММ и займет не более 20 минут. После завершения презентация будет направлена по электронной почте в SIGMA и OMEGA.",
+    "display_lines": [
+      "Формирование презентации началось в 13:24",
+      "и займет не более 20 минут.",
+      "После завершения презентация будет направлена",
+      "по электронной почте в SIGMA и OMEGA."
+    ],
+    "time_value": "13:24",
+    "inserted_into_existing_frame_group_id": "button_footer_2.0",
+    "font_size": 11.5,
+    "fill": "rgb(73,80,94)",
+    "baselines": [
+      2970,
+      2986,
+      3002,
+      3018
+    ],
+    "safe_area": {
+      "x": 80,
+      "y": 2958,
+      "width": 345,
+      "height": 64
+    },
+    "line_widths": [
+      253.069,
+      156.009,
+      279.232,
+      233.289
+    ]
+  },
+  "preserved_visible_group_ids": [
+    "general_information",
+    "business_owners",
+    "financial_indicators",
+    "cooperation",
+    "sber_share",
+    "active_deals",
+    "potential",
+    "preapproved_offers",
+    "insights",
+    "meeting_agreements"
+  ],
+  "modified_existing_group_ids": [
+    "Group 2131328969",
+    "button_footer_2.0",
+    "buttons_2.0",
+    "logo",
+    "Home indicator"
+  ],
+  "prohibited_legacy_overlay_ids": [
+    "lisa-edit-5-4-title",
+    "lisa-status-"
+  ],
+  "text_outline_font": {
+    "family": "SB Sans Display",
+    "sha256": "5dddcdc3eb075d065cfbc317b60db2b6e08e12d970c073b4b48a9a123f9e5136",
+    "copied_to_git": false
+  },
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+  "draft_png_sha256": "8b40636b928358fafac6e6bb6694466a9bd97d8ce5f0e46c731bf706720f1cfa",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3226
+  },
+  "draft_png_non_white_pixel_count": 593100,
+  "owner_frame_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "кадр принят",
+    "decision_source": "Product Owner в рабочем чате",
+    "approved_at": "2026-08-24T07:10:11Z"
+  }
+}

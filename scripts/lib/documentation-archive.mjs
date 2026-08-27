@@ -88,8 +88,11 @@ function mediaType(relativePath) {
 export function resolveArchiveMembers(root, contract, chain) {
   const members = [];
   const seen = new Set();
+  const excludedPrimaryArtifacts = new Set(contract.exclude_primary_artifacts ?? []);
+  for (const relativePath of excludedPrimaryArtifacts) assertSafeRelativePath(relativePath);
   for (const stage of chain.stages) {
     for (const relativePath of stage.primary_artifacts) {
+      if (excludedPrimaryArtifacts.has(relativePath)) continue;
       members.push({
         path: relativePath,
         label: stage.name,
@@ -114,8 +117,8 @@ export function resolveArchiveMembers(root, contract, chain) {
   return members;
 }
 
-function renderManifest(contract, chain, memberData) {
-  return Buffer.from(`${JSON.stringify({
+function renderManifest(contract, chain, memberData, candidateFingerprint) {
+  const manifest = {
     version: contract.version,
     archive_id: contract.archive_id,
     title: contract.title,
@@ -127,7 +130,11 @@ function renderManifest(contract, chain, memberData) {
     integrity_algorithm: contract.integrity_algorithm,
     stages: chain.stages.map((stage) => ({ order: stage.order, stage_id: stage.stage_id, name: stage.name })),
     entries: memberData.map(({ content, ...entry }) => ({ ...entry, size: content.length, sha256: sha256(content), media_type: mediaType(entry.path) })),
-  }, null, 2)}\n`, "utf8");
+  };
+  if (candidateFingerprint !== null) {
+    manifest.candidate_fingerprint = { algorithm: "sha256", sha256: candidateFingerprint };
+  }
+  return Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
 
 function renderMarkdown(contract, chain, memberData) {
@@ -221,13 +228,22 @@ export function createStoredZip(entries) {
   return Buffer.concat([...localParts, centralDirectory, end]);
 }
 
+export function resolveDocumentationArchiveCandidateFingerprint(root, contract) {
+  const ledgerPath = contract.release_gate?.release_approval_ledger_path;
+  if (!ledgerPath) return null;
+  const ledger = JSON.parse(fs.readFileSync(path.join(root, ledgerPath), "utf8"));
+  const fingerprint = ledger.final_release?.candidate_fingerprint;
+  return typeof fingerprint === "string" ? fingerprint : null;
+}
+
 export function buildDocumentationArchive(root, contract, chain) {
   const members = resolveArchiveMembers(root, contract, chain);
   const memberData = members.map((member) => ({ ...member, content: fs.readFileSync(path.join(root, member.path)) }));
+  const candidateFingerprint = resolveDocumentationArchiveCandidateFingerprint(root, contract);
   const entries = [
     { name: "index.html", content: renderHtml(contract, chain, memberData) },
     { name: "README.md", content: renderMarkdown(contract, chain, memberData) },
-    { name: "manifest.json", content: renderManifest(contract, chain, memberData) },
+    { name: "manifest.json", content: renderManifest(contract, chain, memberData, candidateFingerprint) },
     ...memberData.map((entry) => ({ name: `${contract.archive_root}/${entry.path}`, content: entry.content })),
   ];
   return createStoredZip(entries);

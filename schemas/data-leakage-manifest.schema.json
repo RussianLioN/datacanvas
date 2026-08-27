@@ -25,6 +25,7 @@
           "path": { "type": "string", "minLength": 1 },
           "sink": { "type": "string", "enum": ["prompt", "trace", "export", "evidence", "runtime_state"] },
           "data_class": { "type": "string", "enum": ["public", "internal", "confidential"] },
+          "release_gate_contract_path": { "type": "string", "pattern": "^docs/release/.+\\.json$" },
           "allowed_findings": {
             "type": "array",
             "items": {

@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "co-2026-003-release-approval-ledger.schema.json",
+  "title": "Единый реестр разрешений и приёмок CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "change_order_id",
+    "public_data_authorization",
+    "documentation_cascade",
+    "frame_approvals",
+    "pending_text_selections",
+    "accepted_text_decisions",
+    "final_release"
+  ],
+  "properties": {
+    "$schema": { "const": "../../../schemas/co-2026-003-release-approval-ledger.schema.json" },
+    "version": { "const": "1.1.0" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "public_data_authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_date",
+        "decision_source",
+        "allow_public_repository_and_archives",
+        "allow_public_visual_derivatives",
+        "raw_external_pdf_tracking_allowed",
+        "covered_paths"
+      ],
+      "properties": {
+        "decision_date": { "const": "2026-08-25" },
+        "decision_source": { "const": "Product Owner в рабочем чате" },
+        "allow_public_repository_and_archives": { "const": true },
+        "allow_public_visual_derivatives": { "const": true },
+        "raw_external_pdf_tracking_allowed": { "const": false },
+        "covered_paths": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "documentation_cascade": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_acceptance_status",
+        "execution_status",
+        "accepted_at",
+        "scope",
+        "candidate_manifest_path",
+        "candidate_fingerprint"
+      ],
+      "properties": {
+        "scope_acceptance_status": { "const": "owner_approved" },
+        "execution_status": { "enum": ["in_progress", "completed"] },
+        "accepted_at": { "const": "2026-08-24T00:00:00Z" },
+        "scope": { "const": "documentation_cascade_only" },
+        "candidate_manifest_path": { "const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json" },
+        "candidate_fingerprint": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "frame_approvals": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/frame_approval" }
+    },
+    "pending_text_selections": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["topic_id", "status", "required_selection_process"],
+        "properties": {
+          "topic_id": { "const": "delivery_full_failure_message" },
+          "status": { "const": "pending_owner_selection" },
+          "required_selection_process": { "const": "two_phase_19_participant_brainstorm_then_owner_choice" }
+        }
+      }
+    },
+    "accepted_text_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": { "$ref": "#/$defs/accepted_text_decision" }
+    },
+    "final_release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "active_release_switch_allowed",
+        "high_resolution_render_allowed",
+        "fresh_evidence_required",
+        "delivery_archive_allowed",
+        "candidate_fingerprint",
+        "prototype_package_manifest_path",
+        "fresh_evidence_path"
+      ],
+      "properties": {
+        "status": { "enum": ["pending_owner_approval", "owner_final_approved"] },
+        "active_release_switch_allowed": { "type": "boolean" },
+        "high_resolution_render_allowed": { "type": "boolean" },
+        "fresh_evidence_required": { "const": true },
+        "delivery_archive_allowed": { "type": "boolean" },
+        "candidate_fingerprint": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "prototype_package_manifest_path": {
+          "const": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json"
+        },
+        "fresh_evidence_path": { "type": ["string", "null"], "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "pending_owner_approval" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "active_release_switch_allowed": { "const": false },
+              "high_resolution_render_allowed": { "const": false },
+              "delivery_archive_allowed": { "const": false },
+              "candidate_fingerprint": { "type": "null" },
+              "fresh_evidence_path": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "owner_final_approved" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "active_release_switch_allowed": { "const": true },
+              "high_resolution_render_allowed": { "const": true },
+              "delivery_archive_allowed": { "const": true },
+              "candidate_fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "fresh_evidence_path": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "accepted_text_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topic_id", "status", "selected_text", "decision_source"],
+      "properties": {
+        "topic_id": { "const": "delivery_full_failure_message" },
+        "status": { "const": "owner_selected" },
+        "selected_text": {
+          "const": "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение."
+        },
+        "decision_source": {
+          "const": "Стенограмма интервью имеет приоритет над устаревшей записью журнала по решению владельца продукта в рабочем чате."
+        }
+      }
+    },
+    "frame_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_id", "status", "review_manifest_path", "owner_approval_record_path"],
+      "properties": {
+        "frame_id": {
+          "enum": [
+            "lisa-materials-full-reference",
+            "lisa-presentation-generating",
+            "lisa-presentation-sent",
+            "lisa-presentation-email",
+            "lisa-order-not-accepted",
+            "lisa-delivery-delayed",
+            "lisa-delivery-partial",
+            "lisa-presentation-slidedoc",
+            "lisa-presentation-sber2025",
+            "lisa-presentation-mag"
+          ]
+        },
+        "status": { "enum": ["owner_frame_approved", "pending_owner_approval"] },
+        "review_manifest_path": { "type": "string", "minLength": 1 },
+        "owner_approval_record_path": { "type": ["string", "null"] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "owner_frame_approved" } }, "required": ["status"] },
+          "then": { "properties": { "owner_approval_record_path": { "type": "string", "minLength": 1 } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "pending_owner_approval" } }, "required": ["status"] },
+          "then": { "properties": { "owner_approval_record_path": { "type": "null" } } }
+        }
+      ]
+    }
+  }
+}

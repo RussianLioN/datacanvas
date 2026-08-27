@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
   "status": "passed",
-  "route_id": "lisa-presentation-ten-screen-route",
+  "route_id": "lisa-presentation-thirteen-screen-route",
   "active_state_ids": [
     "lisa-materials-summary",
     "lisa-materials-full-reference",
@@ -12,16 +12,19 @@
     "lisa-presentation-email",
     "lisa-presentation-slidedoc",
     "lisa-presentation-sber2025",
-    "lisa-presentation-mag"
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
   ],
   "candidate_fingerprint": {
     "algorithm": "sha256",
-    "sha256": "7098b2c9bcddb0a0703be28bf39236d20efdfd3deaf6077a2ba73ebe96e20307"
+    "sha256": "4586172d7484f51ea51ac0c71927c00169e19db9aa8435724b4f2d26ff1a215f"
   },
   "archive": {
     "path": "derived/lisa-presentation-user-journey-demo.zip",
-    "bytes": 14616484,
-    "sha256": "2d2301a92372c9ce7365b76b0bf013adf4a366c8ca8b9558a5570467dc8f0b81",
+    "bytes": 16948145,
+    "sha256": "4c0345889d8da9c5e9d5e961eef008d16f727deb041def81b91af7f7627b3e04",
     "members": [
       "README.md",
       "manifest.json",
@@ -29,30 +32,40 @@
       "app.js",
       "data.js",
       "styles.css",
-      "assets/lisa-materials-summary-status-3x.png",
-      "assets/lisa-materials-summary-content-3x.png",
-      "assets/lisa-materials-summary-home-3x.png",
-      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-delivery-delayed-content-3x.png",
+      "assets/lisa-delivery-delayed-home-3x.png",
+      "assets/lisa-delivery-delayed-status-3x.png",
+      "assets/lisa-delivery-partial-content-3x.png",
+      "assets/lisa-delivery-partial-home-3x.png",
+      "assets/lisa-delivery-partial-status-3x.png",
       "assets/lisa-materials-full-reference-content-3x.png",
       "assets/lisa-materials-full-reference-home-3x.png",
-      "assets/lisa-presentation-order-status-3x.png",
-      "assets/lisa-presentation-order-content-3x.png",
-      "assets/lisa-presentation-order-home-3x.png",
-      "assets/lisa-presentation-generating-status-3x.png",
-      "assets/lisa-presentation-generating-content-3x.png",
-      "assets/lisa-presentation-generating-home-3x.png",
-      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-materials-full-reference-status-3x.png",
+      "assets/lisa-materials-summary-content-3x.png",
+      "assets/lisa-materials-summary-home-3x.png",
+      "assets/lisa-materials-summary-status-3x.png",
       "assets/lisa-presentation-chat-list-content-3x.png",
       "assets/lisa-presentation-chat-list-home-3x.png",
-      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-presentation-chat-list-status-3x.png",
+      "assets/lisa-presentation-email.png",
+      "assets/lisa-presentation-generating-content-3x.png",
+      "assets/lisa-presentation-generating-home-3x.png",
+      "assets/lisa-presentation-generating-status-3x.png",
+      "assets/lisa-presentation-order-content-3x.png",
+      "assets/lisa-presentation-order-home-3x.png",
+      "assets/lisa-presentation-order-status-3x.png",
       "assets/lisa-presentation-sent-content-3x.png",
       "assets/lisa-presentation-sent-home-3x.png",
-      "assets/lisa-presentation-email.png",
-      "assets/szh-dense-slidedoc-4x.png",
+      "assets/lisa-presentation-sent-status-3x.png",
+      "assets/lisa-order-not-accepted-content-3x.png",
+      "assets/lisa-order-not-accepted-home-3x.png",
+      "assets/lisa-order-not-accepted-status-3x.png",
+      "assets/szh-dense-mag-4x.png",
       "assets/szh-dense-sber2025-4x.png",
-      "assets/szh-dense-mag-4x.png"
+      "assets/szh-dense-slidedoc-4x.png"
     ]
   },
+  "visual_screenshot_manifest": "evidence/visual-screenshot-manifest.json",
   "execution": {
     "command": "npm run test:presentation-link-lisa-user-journey:browser",
     "configuration": "tests/presentation-link-lisa-user-journey.playwright.config.mjs",
@@ -83,6 +96,7 @@
     "scroll_isolated_to_middle_phone_region": true,
     "service_controls_in_left_panel_checked": true,
     "iphone_12_pro_max_body_ratio_checked": true,
-    "protected_source_aspect_ratio_preserved": true
+    "protected_source_aspect_ratio_preserved": true,
+    "all_active_states_rendered_as_webkit_png": true
   }
 }

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lisa-prototype-draft-manifest.schema.json",
+  "title": "Манифест изолированного чернового прототипа CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "status", "owner_acceptance", "rendering_mode", "shell_parity", "scale_parity", "source_runtime_sha256", "candidate_runtime_extension", "active_release_mutation_prohibited", "raw_pdf_included", "frame_ids", "frames"],
+  "properties": {
+    "$schema": { "const": "../../source/schemas/lisa-prototype-draft-manifest.schema.json" },
+    "version": { "const": "1.4.0" },
+    "status": { "const": "draft_prototype_accepted_for_documentation_cascade" },
+    "owner_acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accepted_at", "scope", "active_release_switch_allowed", "next_gate"],
+      "properties": {
+        "accepted_at": { "const": "2026-08-24T00:00:00Z" },
+        "scope": { "const": "isolated_draft_only" },
+        "active_release_switch_allowed": { "const": false },
+        "next_gate": { "const": "documentation_cascade_then_explicit_final_owner_approval" }
+      }
+    },
+    "rendering_mode": { "const": "isolated_current_prototype_copy_with_frame_asset_substitution" },
+    "shell_parity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index_html_source", "app_js_source", "app_js_derivation", "styles_css_source", "navigation_model"],
+      "properties": {
+        "index_html_source": { "const": "demo/index.html" },
+        "app_js_source": { "const": "demo/app.js" },
+        "app_js_derivation": { "const": "demo_app_js_plus_data_driven_initial_phone_scroll" },
+        "styles_css_source": { "const": "demo/styles.css" },
+        "navigation_model": { "const": "previous_prototype_state_and_document_navigation" }
+      }
+    },
+    "scale_parity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phone_layer_raster_scale", "phone_logical_viewport", "desktop_viewports_from_historical_demo"],
+      "properties": {
+        "phone_layer_raster_scale": { "const": 3 },
+        "phone_logical_viewport": {
+          "const": { "width": 393, "height": 852 }
+        },
+        "desktop_viewports_from_historical_demo": { "const": true }
+      }
+    },
+    "source_runtime_sha256": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index.html", "app.js", "styles.css"],
+      "properties": {
+        "index.html": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "app.js": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "styles.css": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "candidate_runtime_extension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "target_file", "state_property", "allowed_values", "bottom_frame_ids", "effect"],
+      "properties": {
+        "id": { "const": "data_driven_initial_phone_scroll" },
+        "target_file": { "const": "app.js" },
+        "state_property": { "const": "initial_scroll_position" },
+        "allowed_values": { "const": ["top", "bottom"] },
+        "bottom_frame_ids": { "const": ["lisa-presentation-generating", "lisa-presentation-sent", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"] },
+        "effect": { "const": "standard_phone_scroller_initial_position_only" }
+      }
+    },
+    "active_release_mutation_prohibited": { "const": true },
+    "raw_pdf_included": { "const": false },
+    "frame_ids": {
+      "const": [
+        "lisa-materials-full-reference",
+        "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
+        "lisa-presentation-sent",
+        "lisa-presentation-email",
+        "lisa-presentation-slidedoc",
+        "lisa-presentation-sber2025",
+        "lisa-presentation-mag",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ]
+    },
+    "frames": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["frame_id", "kind", "asset_paths", "asset_sha256"],
+        "properties": {
+          "frame_id": {
+            "enum": [
+              "lisa-materials-full-reference",
+              "lisa-presentation-generating",
+              "lisa-presentation-chat-list",
+              "lisa-presentation-sent",
+              "lisa-presentation-email",
+              "lisa-presentation-slidedoc",
+              "lisa-presentation-sber2025",
+              "lisa-presentation-mag",
+              "lisa-order-not-accepted",
+              "lisa-delivery-delayed",
+              "lisa-delivery-partial"
+            ]
+          },
+          "kind": { "enum": ["phone", "desktop", "presentation"] },
+          "asset_paths": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 3,
+            "items": { "type": "string", "pattern": "^assets/[a-z0-9-]+\\.png$" }
+          },
+          "asset_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "kind": { "const": "phone" } }, "required": ["kind"] },
+            "then": { "properties": { "asset_paths": { "type": "array", "minItems": 3, "maxItems": 3 } } }
+          }
+        ]
+      }
+    }
+  }
+}

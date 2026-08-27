@@ -1,0 +1,26 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-025-01 — Получение разрешённых адресов из профиля
+
+participant "DataCanvas" as datacanvas
+participant "Профиль сотрудника" as profile
+
+autonumber
+datacanvas -> profile: Запрашивает допустимые рабочие контуры
+profile --> datacanvas: Возвращает доступные контуры
+datacanvas -> datacanvas: Использует только адреса из профиля
+@enduml

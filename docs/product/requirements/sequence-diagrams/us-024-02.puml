@@ -1,0 +1,27 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-024-02 — Возврат безопасного связанного результата
+
+participant "Вызывающий агент" as caller
+participant "DataCanvas" as datacanvas
+
+autonumber
+datacanvas -> datacanvas: Формирует безопасный результат обработки
+datacanvas --> caller: Возвращает результат, связанный с заказом
+caller -> caller: Использует результат в своём сценарии
+note over caller,datacanvas: Сообщение пользователю публикует владелец экрана Лисы
+@enduml

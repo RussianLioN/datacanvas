@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../schemas/co-2026-003-bt-interview-state.schema.json",
+  "version": "1.1.0",
+  "change_order_id": "CO-2026-003",
+  "status": "user_stories_owner_approved",
+  "transcript_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+  "scope_path": "docs/product/sources/co-2026-003-current-2026-scope.json",
+  "amendment_path": "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+  "approved_text_register_path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
+  "documentation_cascade": {
+    "business_requirements": "owner_approved",
+    "user_stories": "owner_approved",
+    "system_requirements": "pending",
+    "prototype": "accepted_11_frame_draft_unchanged",
+    "final_release": "pending"
+  }
+}

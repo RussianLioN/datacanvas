@@ -1,0 +1,31 @@
+@startuml
+!pragma teoz true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequence {
+  ArrowColor #2C3E50
+  LifeLineBorderColor #6B7280
+  ParticipantBorderColor #2C3E50
+  ParticipantBackgroundColor #F8FAFC
+  ParticipantFontColor #111827
+  ActorBorderColor #2C3E50
+  ActorBackgroundColor #EFF6FF
+  ActorFontColor #111827
+  GroupBorderColor #94A3B8
+  GroupBackgroundColor #F8FAFC
+}
+title US-029-03 — Контроль срока подготовки презентации
+
+participant "DataCanvas" as datacanvas
+participant "Подготовка презентации" as preparation
+participant "Агент\n«Справка по клиенту»" as client
+
+autonumber
+datacanvas -> preparation: Начинает подготовку после принятия заказа
+alt Файлы готовы не позднее 20 минут
+  preparation --> datacanvas: Передаёт готовые файлы на доставку
+else Срок превышен
+  preparation --> datacanvas: Передаёт безопасное состояние задержки
+  datacanvas --> client: Сообщает внутреннему получателю статуса
+end
+@enduml

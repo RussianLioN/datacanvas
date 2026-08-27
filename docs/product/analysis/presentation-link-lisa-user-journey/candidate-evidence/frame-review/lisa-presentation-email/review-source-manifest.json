@@ -1,0 +1,47 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-email-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-email",
+  "status": "owner_frame_approved",
+  "visual_reference_id": "owner_supplied_outlook_corporate_email_screenshot_2026_08_19",
+  "visual_reference_persisted_in_repository": false,
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-email/source.svg",
+  "source_svg_sha256": "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7",
+  "approved_texts_path": "source/owner-approved-texts.json",
+  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "recipient": "Солодовников Роман Юрьевич",
+  "signature_lines": [
+    "С уважением,",
+    "команда «ЕФС • Наш бизнес»"
+  ],
+  "subject": "Презентация по справке ООО «Водолей Трейд»",
+  "body": "Во вложении презентация по Справке по клиенту ООО «Водолей Трейд».",
+  "attachments": [
+    {
+      "display_name": "Презентация по справке.pptx",
+      "format": "PPTX"
+    },
+    {
+      "display_name": "Презентация по справке.pdf",
+      "format": "PDF"
+    }
+  ],
+  "mock_email_time_value": "13:40",
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-email/draft-current-resolution.png",
+  "draft_png_sha256": "c46485bfabe7ac5b9c1508cb714c625ec208c844bcbaedd078acbaf11b926295",
+  "draft_png_dimensions": {
+    "width": 1280,
+    "height": 960
+  },
+  "owner_frame_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "ok",
+    "decision_source": "Product Owner в рабочем чате",
+    "approval_time_precision": "date_only",
+    "approved_on": "2026-08-24"
+  },
+  "draft_png_non_white_pixel_count": 614044
+}

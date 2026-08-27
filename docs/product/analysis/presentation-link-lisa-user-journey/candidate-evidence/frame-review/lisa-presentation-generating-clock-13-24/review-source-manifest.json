@@ -1,0 +1,31 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-generating-clock-13-24-review-source-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-generating",
+  "status": "owner_frame_approved",
+  "correction_scope": "mock_phone_status_time_only",
+  "correction_reason": "системное время не может предшествовать сообщению о начале формирования",
+  "base_source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating/source.svg",
+  "base_source_svg_sha256": "dddfc92b0ac010b1a4f3b50515cca794db3fc7af2bd296d180ade7bce45e5736",
+  "base_owner_approval_path": "candidate-evidence/frame-review/lisa-presentation-generating/owner-approval.json",
+  "mock_phone_status_time_value": "13:24",
+  "mock_phone_status_time_donor_svg_path": "editable-sources/08.svg",
+  "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/source.svg",
+  "source_svg_sha256": "69cd03881ca920bc8db5f05fcf9c27613d0d2a09131b5e6194912c91f1d7fb55",
+  "active_release_mutation_prohibited": true,
+  "draft_png_rendered": true,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/draft-current-resolution.png",
+  "draft_png_sha256": "59c18fbda377e0025010a33b2d1b3370328b681da2e8f3b6503fc9315e1f6ad8",
+  "draft_png_dimensions": {
+    "width": 521,
+    "height": 3226
+  },
+  "draft_png_non_white_pixel_count": 593100,
+  "owner_frame_approval": {
+    "record_path": "candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json",
+    "decision": "approved",
+    "decision_text": "кадр принят",
+    "decision_source": "Product Owner в рабочем чате",
+    "approved_at": "2026-08-24T08:36:56Z"
+  }
+}

@@ -2033,37 +2033,6 @@ export function generatePrototypeCandidate({
   };
 }
 
-export function generateHtmlPrototype({
-  sourceRoot = process.cwd(),
-  outputRoot,
-} = {}) {
-  if (!outputRoot) {
-    throw new Error("HTML-кандидат требует явный изолированный outputRoot; частичная публикация запрещена");
-  }
-  if (path.resolve(sourceRoot) === path.resolve(outputRoot)) {
-    throw new Error("HTML-кандидат нельзя создавать в активном пакете; используйте изолированный outputRoot");
-  }
-  const contracts = loadContracts(sourceRoot);
-  const issues = validateContracts(sourceRoot, contracts);
-  if (issues.length > 0) throw new Error(`проверка договоров не пройдена:\n- ${issues.join("\n- ")}`);
-  const model = buildNormalizedModel(contracts, sourceRoot);
-  const targetDemoDirectory = packagePath(outputRoot, "demo");
-  if (fs.existsSync(targetDemoDirectory)) {
-    throw new Error("изолированный outputRoot уже содержит demo; HTML-кандидат не перезаписывает существующие файлы");
-  }
-  const html = buildHtmlOutputMap(model);
-  validateHtmlOutputMap(html);
-  writeHtmlDirectory(targetDemoDirectory, html);
-  copyDemoAssets(sourceRoot, outputRoot, contracts);
-  const assetIssues = validateDemoAssets(outputRoot, sourceRoot, contracts);
-  if (assetIssues.length > 0) throw new Error(`HTML-кандидат не прошёл проверку ресурсов:\n- ${assetIssues.join("\n- ")}`);
-  return {
-    model,
-    generatedPaths: [...HTML_OUTPUT_PATHS, ...demoAssetPaths(contracts)]
-      .map((item) => `${PACKAGE_PATH}/${item}`),
-  };
-}
-
 export function generatePrototypePackage({
   sourceRoot,
   outputRoot,
@@ -2098,24 +2067,6 @@ function generatedInventory(root) {
     ...listFiles(path.join(packageRoot, "evidence", "screenshots"))
       .map((item) => `evidence/screenshots/${item}`),
   ].sort((left, right) => left.localeCompare(right, "en"));
-}
-
-export function compareGeneratedHtml(root = process.cwd()) {
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-lisa-mvp-html-check-"));
-  try {
-    const generated = generateHtmlPrototype({ sourceRoot: root, outputRoot: tempRoot });
-    const differences = [];
-    for (const prefixed of generated.generatedPaths) {
-      const relative = prefixed.slice(`${PACKAGE_PATH}/`.length);
-      const expected = packagePath(root, relative);
-      const actual = packagePath(tempRoot, relative);
-      if (!fs.existsSync(expected)) differences.push(`отсутствует generated HTML: ${relative}`);
-      else if (!fs.readFileSync(expected).equals(fs.readFileSync(actual))) differences.push(`устарел generated HTML: ${relative}`);
-    }
-    return differences;
-  } finally {
-    fs.rmSync(tempRoot, { recursive: true, force: true, maxRetries: 3 });
-  }
 }
 
 export function compareGeneratedPackage(sourceRoot = process.cwd(), expectedRoot = sourceRoot) {

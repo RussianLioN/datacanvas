@@ -1,0 +1,24 @@
+{
+  "$schema": "../../../source/schemas/lisa-presentation-pdf-review-manifest.schema.json",
+  "version": "1.0.0",
+  "frame_id": "lisa-presentation-mag",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "import_mode": "approved_pdf_to_png",
+  "source_file_name": "vodoley_dense_mag.pdf",
+  "source_pdf_sha256": "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d",
+  "source_pdf_page_count": 3,
+  "source_pdf_committed_to_git": false,
+  "source_path_stored": false,
+  "source_svg_required": false,
+  "renderer": "swift_coregraphics",
+  "draft_scale": 1,
+  "draft_png_path": "candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/draft-current-resolution.png",
+  "draft_png_sha256": "694125906ddecb0b8677d8b911035f777e02732f91e5d31cd367d29cdc4d2077",
+  "draft_png_dimensions": {
+    "width": 960,
+    "height": 1620
+  },
+  "draft_png_non_white_pixel_count": 501842,
+  "active_release_mutation_prohibited": true,
+  "owner_frame_approval": null
+}

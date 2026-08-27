@@ -1,0 +1,39 @@
+{
+  "$schema": "../../../schemas/co-2026-003-current-2026-scope.schema.json",
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "scope_period": "2026-Q4",
+  "source": {
+    "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
+    "controlled_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.xlsx",
+    "provenance_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json",
+    "original_sha256": "9b7d6e2bfb19eb943ad5a989c76a83ac58b63cfefecaaa33c6644dd1352fbfc5",
+    "worksheet": "БЭКЛОГ + СВОИ РЕСУРСЫ 2026",
+    "selection_rule": "owner_declared_visible_2026_stories_only"
+  },
+  "resource_data_used": false,
+  "active_story_ids": [
+    "DC-ST-09",
+    "DC-ST-23",
+    "DC-ST-24",
+    "DC-ST-25",
+    "DC-ST-26",
+    "DC-ST-27",
+    "DC-ST-28",
+    "DC-ST-29",
+    "DC-ST-30"
+  ],
+  "stories": [
+    { "story_id": "DC-ST-09", "priority": "P2", "target_period": "2026-Q4", "source_row": 11, "summary": "Получение готовой презентации по электронной почте" },
+    { "story_id": "DC-ST-23", "priority": "P1", "target_period": "2026-Q4", "source_row": 22, "summary": "Передача заказа в DataCanvas из текущего контекста" },
+    { "story_id": "DC-ST-24", "priority": "P1", "target_period": "2026-Q4", "source_row": 23, "summary": "Запуск DataCanvas в общем сценарии с другими агентами" },
+    { "story_id": "DC-ST-25", "priority": "P1", "target_period": "2026-Q4", "source_row": 24, "summary": "Определение адресов получателей через Профиль сотрудника" },
+    { "story_id": "DC-ST-26", "priority": "P1", "target_period": "2026-Q4", "source_row": 25, "summary": "Проверка допустимости заказа до начала подготовки" },
+    { "story_id": "DC-ST-27", "priority": "P1", "target_period": "2026-Q4", "source_row": 26, "summary": "Сообщения о состоянии заказа в том же чате Лисы" },
+    { "story_id": "DC-ST-28", "priority": "P1", "target_period": "2026-Q4", "source_row": 27, "summary": "Проверяемая связь заказа, статусов и итоговых файлов" },
+    { "story_id": "DC-ST-29", "priority": "P1", "target_period": "2026-Q4", "source_row": 28, "summary": "Подготовка презентации в PPTX и PDF" },
+    { "story_id": "DC-ST-30", "priority": "P2", "target_period": "2026-Q4", "source_row": 29, "summary": "Почтовая доставка PPTX и PDF в разрешенные контуры" }
+  ],
+  "excluded_story_ids": ["DC-ST-31", "DC-ST-32", "DC-ST-33"],
+  "approval_status": "owner_approved"
+}

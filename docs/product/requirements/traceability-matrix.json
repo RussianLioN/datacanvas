@@ -81,10 +81,6 @@
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-05",
-        "DC-ST-07"
-      ],
       "acceptance_scenarios": [
         "happy_path",
         "lisa_launch_after_agent_dialogue",
@@ -107,10 +103,6 @@
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-05",
-        "DC-ST-06"
       ],
       "acceptance_scenarios": [
         "insufficient_input",
@@ -136,10 +128,6 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-06",
-        "DC-ST-07"
-      ],
       "acceptance_scenarios": [
         "insufficient_input"
       ],
@@ -158,9 +146,6 @@
         "docs/product/requirements/user-stories.md",
         "docs/product-vision.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-01"
       ],
       "acceptance_scenarios": [
         "happy_path"
@@ -181,9 +166,6 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
       ],
-      "story_ids": [
-        "DC-ST-01"
-      ],
       "acceptance_scenarios": [
         "lisa_structure_choice"
       ],
@@ -201,11 +183,6 @@
       "sources": [
         "docs/product/requirements/user-stories.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-02",
-        "DC-ST-03",
-        "DC-ST-04"
       ],
       "acceptance_scenarios": [
         "edit_before_generation"
@@ -225,9 +202,6 @@
         "docs/product/requirements/user-stories.md",
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/requirements/acceptance-criteria.md"
-      ],
-      "story_ids": [
-        "DC-ST-08"
       ],
       "acceptance_scenarios": [
         "format_template_selection"
@@ -316,7 +290,8 @@
         "DC-ST-26",
         "DC-ST-27",
         "DC-ST-28",
-        "DC-ST-29"
+        "DC-ST-29",
+        "DC-ST-30"
       ],
       "acceptance_scenarios": [
         "agent_launch_request_intake",
@@ -341,11 +316,11 @@
       "requirement_id": "BT-015",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/backlog/product-backlog.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-23",
@@ -353,10 +328,10 @@
       ],
       "acceptance_scenarios": [
         "agent_launch_request_intake",
-        "agent_launch_without_user_confirmation"
+        "q4_lisa_order"
       ],
       "evidence_expectations": [
-        "Запрос от другого агента создает проверяемую заявку с request ID, источником запроса, вызывающим агентом, launch mode = other_agent и связью с будущим входным пакетом без raw confidential data."
+        "Допустимый запрос связан с пользователем и сеансом, чтобы предотвратить второй заказ для той же пары без раскрытия личных сведений."
       ],
       "tests": [
         "npm run validate:doc-links",
@@ -369,9 +344,8 @@
       "requirement_id": "BT-016",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/architecture/security/trust-boundaries.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/backlog/product-backlog.md",
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/product/requirements/acceptance-criteria.md"
       ],
@@ -379,11 +353,10 @@
         "DC-ST-25"
       ],
       "acceptance_scenarios": [
-        "agent_launch_without_user_confirmation",
-        "agent_input_package"
+        "q4_profile_addresses"
       ],
       "evidence_expectations": [
-        "Входной пакет от другого агента содержит задачу, источник запроса, параметры презентации и данные для определения получателя результата; проверочные материалы не содержат лишний сырой пользовательский контекст."
+        "Адреса определяются только через «Профиль сотрудника»; отсутствие или недоступность адреса не приводит к принятию заказа."
       ],
       "tests": [
         "npm run validate:doc-links",
@@ -396,8 +369,8 @@
       "requirement_id": "BT-017",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/backlog/product-backlog.md",
         "docs/architecture/security/trust-boundaries.md",
         "docs/architecture/security/data-classification-policy.md",
         "docs/product/requirements/acceptance-criteria.md"
@@ -406,12 +379,12 @@
         "DC-ST-26"
       ],
       "acceptance_scenarios": [
-        "agent_input_package",
+        "q4_lisa_order",
         "prompt_injection",
         "secret_pii_leakage"
       ],
       "evidence_expectations": [
-        "Недостаточный, небезопасный или инструктивный вход от другого агента останавливается до генерации; evidence фиксирует validation result, data class, stop reason и отсутствие raw confidential data."
+        "Неполный, небезопасный или неавторизованный запрос не принимается, безопасно отклоняется и может быть исправлен до принятия."
       ],
       "tests": [
         "npm run scan:secrets",
@@ -424,11 +397,11 @@
       "requirement_id": "BT-018",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/change-orders/co-2026-001-a2a-first-priority.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/specs/feature-spec-a2a-launch.json",
-        "docs/product/requirements/acceptance-criteria.md"
+      "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/specs/feature-spec-a2a-launch.json",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-27",
@@ -436,11 +409,10 @@
       ],
       "acceptance_scenarios": [
         "agent_processing_statuses",
-        "agent_launch_without_user_confirmation",
-        "email_delivery"
+        "q4_status_in_same_chat"
       ],
       "evidence_expectations": [
-        "DataCanvas сообщает вызывающему агенту о приеме данных после успешной проверки и формирует проверяемые статусы обработки и сведения о результате."
+        "Безопасные сведения о состоянии передаются объявленному внутреннему получателю и остаются в том же чате Лисы без прямого неутвержденного маршрута."
       ],
       "tests": [
         "npm run validate:traceability-graph",
@@ -530,18 +502,21 @@
       "requirement_id": "BT-019",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
-        "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/requirements/acceptance-criteria.md"
+      "docs/product/requirements/user-stories.md",
+      "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "docs/product/backlog/product-backlog.md",
+      "docs/product/requirements/acceptance-criteria.md",
+      "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json"
       ],
       "story_ids": [
         "DC-ST-30"
       ],
       "acceptance_scenarios": [
-        "extended_email_delivery"
+        "q4_profile_email_delivery",
+        "q4_delayed_or_partial_delivery"
       ],
       "evidence_expectations": [
-        "Созданные PPTX- и PDF-файлы доставлены через разрешенный электронный канал в согласованные рабочие контуры."
+        "PPTX и PDF отправлены на адреса, определенные только через «Профиль сотрудника»; задержанная или частичная доставка передается в сопровождение."
       ],
       "tests": [
         "npm run validate:business-docs",
@@ -550,23 +525,18 @@
       "status": "draft"
     },
     {
-      "requirement_id": "BT-020",
+      "requirement_id": "BT-022",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md"
       ],
-      "story_ids": [
-        "DC-ST-31",
-        "DC-ST-32"
-      ],
-      "acceptance_scenarios": [
-        "pdf_copy_storage",
-        "pdf_link_handoff"
-      ],
+      "story_ids": ["DC-ST-23"],
+      "acceptance_scenarios": ["q4_lisa_order"],
       "evidence_expectations": [
-        "PDF-копия сохранена в защищенном хранилище и ссылка на нее передана вызывающему агенту как часть группы возможностей с приоритетом P2."
+        "Для пары сеанс/пользователь принимается один заказ; повтор разрешен только до принятия запроса."
       ],
       "tests": [
         "npm run validate:business-docs",
@@ -575,21 +545,38 @@
       "status": "draft"
     },
     {
-      "requirement_id": "BT-021",
+      "requirement_id": "BT-023",
       "source": "docs/product/requirements/business-requirements.md",
       "sources": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
         "docs/product/requirements/user-stories.md",
-        "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-        "docs/product/requirements/acceptance-criteria.md"
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md"
       ],
-      "story_ids": [
-        "DC-ST-33"
-      ],
-      "acceptance_scenarios": [
-        "lisa_link_notification"
-      ],
+      "story_ids": ["DC-ST-27"],
+      "acceptance_scenarios": ["q4_status_in_same_chat"],
       "evidence_expectations": [
-        "Пользователь получает в Лисе ссылку на готовую презентацию и уведомление о готовности через сценарий, который ведут вызывающий агент и Лиса."
+        "В том же чате Лисы сохраняется безопасное состояние заказа без ссылки на файл, системного PUSH и личных сведений."
+      ],
+      "tests": [
+        "npm run validate:business-docs",
+        "npm run validate:data-leakage"
+      ],
+      "status": "draft"
+    },
+    {
+      "requirement_id": "BT-024",
+      "source": "docs/product/requirements/business-requirements.md",
+      "sources": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/backlog/product-backlog.md"
+      ],
+      "story_ids": ["DC-ST-30"],
+      "acceptance_scenarios": ["q4_delayed_or_partial_delivery"],
+      "evidence_expectations": [
+        "После задержанной, частичной или неуспешной доставки сеанс закрывается, а дальнейшее сопровождение передается внешнему контуру без предопределения числа повторов или канала."
       ],
       "tests": [
         "npm run validate:business-docs",

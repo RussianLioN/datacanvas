@@ -57,6 +57,50 @@
       "fixture_id": "BASA-FIX-004",
       "gate": "npm run validate:spec-task-prompt-readiness",
       "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-011",
+      "requirement_id": "BT-019",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-009",
+      "eval_id": "BASA-EVAL-005",
+      "fixture_id": "BASA-FIX-005",
+      "gate": "npm run validate:interface-contracts",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-012",
+      "requirement_id": "BT-022",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-010",
+      "eval_id": "BASA-EVAL-006",
+      "fixture_id": "BASA-FIX-006",
+      "gate": "npm run validate:state-model",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-013",
+      "requirement_id": "BT-023",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-011",
+      "eval_id": "BASA-EVAL-007",
+      "fixture_id": "BASA-FIX-007",
+      "gate": "npm run validate:interface-contracts",
+      "status": "covered"
+    },
+    {
+      "answer_id": "BASA-ANS-008",
+      "claim_id": "BASA-CLM-014",
+      "requirement_id": "BT-024",
+      "acceptance_id": "AC-BASA-004",
+      "uat_id": "UAT-012",
+      "eval_id": "BASA-EVAL-008",
+      "fixture_id": "BASA-FIX-008",
+      "gate": "npm run validate:error-taxonomy",
+      "status": "covered"
     }
   ],
   "known_gaps": [

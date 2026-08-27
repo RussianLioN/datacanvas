@@ -9,7 +9,7 @@ jobs:
   basic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
@@ -19,7 +19,7 @@ jobs:
         run: node scripts/validate-ci-exact-sha.mjs
       - name: Fetch canonical history base
         run: git fetch --no-tags origin main:refs/remotes/origin/main
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: "22.20.0"
           cache: npm
@@ -29,6 +29,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y librsvg2-bin poppler-utils
       - name: Install dependencies
         run: npm ci
+      - name: Проверить свежесть снимка процессных метрик
+        run: npm run validate:process-metrics-snapshot
       - name: Run repository quality gate
         run: npm test
       - name: Установить браузеры Playwright

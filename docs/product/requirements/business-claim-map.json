@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schemas/business-claim-map.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "active",
   "map_id": "BCLM-DC-2026-07-10-001",
   "source_registry_path": "docs/product/sources/product-source-registry.json",
@@ -33,7 +33,7 @@
           "artifact_path": "docs/product/requirements/user-stories.md",
           "fragments": [
             "DC-ST-23",
-            "Запуск другим агентом"
+            "Как вызывающий агент"
           ]
         }
       ]
@@ -64,7 +64,7 @@
           "fragments": [
             "DC-ST-29",
             "P1",
-            "Генерация презентации"
+            "Подготовка результата"
           ]
         },
         {
@@ -140,74 +140,72 @@
       ]
     },
     {
-      "claim_id": "BCLM-CO-2026-002-P2-LINK-DELIVERY",
-      "title": "Ссылка, защищенное хранилище и уведомление в Лисе относятся к P2",
-      "statement": "CO-2026-002 отделяет расширенную доставку, защищенное хранение PDF-копии, передачу ссылки вызывающему агенту и уведомление в Лисе как группу возможностей с приоритетом P2.",
-      "precedence_source_id": "SRC-DC-CO-2026-002",
+      "claim_id": "BCLM-CO-2026-003-CURRENT-2026-SCOPE",
+      "title": "Граница 2026 года включает почтовую доставку и исключает хранение, ссылку и уведомление",
+      "statement": "Принятая граница 2026 года включает почтовую доставку PPTX и PDF с приоритетом P2. Хранение результата, передачу ссылки и уведомление по ссылке остаются за пределами периода и не входят в текущие бизнес-требования.",
+      "precedence_source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
       "supporting_source_ids": [
-        "SRC-DC-CO-2026-002",
-        "SRC-DC-STORIES-CATALOG",
+        "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19",
+        "SRC-DC-CO-2026-003-AUTHORITATIVE-REGISTER",
         "SRC-DC-REQUIREMENTS-BUSINESS",
-        "SRC-DC-REQUIREMENTS-ACCEPTANCE"
+        "SRC-DC-STORIES-CATALOG"
       ],
-      "supersedes_claim_ids": [],
+      "supersedes_claim_ids": [
+        "BCLM-CO-2026-002-P2-LINK-DELIVERY"
+      ],
       "affected_artifacts": [
-        "docs/product-vision.md",
-        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/user-stories.md",
         "docs/product/backlog/product-backlog.md",
-        "docs/product/roadmap/roadmap-v0.1.md",
-        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
+        "docs/product/requirements/traceability-matrix.json",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json"
       ],
       "expected_downstream_fragments": [
         {
-          "artifact_path": "docs/product-vision.md",
-          "fragments": [
-            "Целевым направлением развития остается доставка по ссылке",
-            "текущая гарантированная доставка остается электронной почтой"
-          ]
-        },
-        {
-          "artifact_path": "docs/product/requirements/user-stories.md",
+          "artifact_path": "docs/product/sources/co-2026-003-current-2026-scope.md",
           "fragments": [
             "DC-ST-30",
-            "DC-ST-31",
-            "DC-ST-32",
-            "DC-ST-33",
-            "P2"
+            "За Пределами Границы",
+            "не должны попадать в бизнес-требования"
           ]
         },
         {
           "artifact_path": "docs/product/requirements/business-requirements.md",
           "fragments": [
             "BT-019",
-            "BT-020",
-            "BT-021"
+            "BT-024",
+            "электронной почте"
           ]
         },
         {
-          "artifact_path": "docs/product/requirements/acceptance-criteria.md",
+          "artifact_path": "docs/product/requirements/user-stories.md",
           "fragments": [
-            "Расширенная электронная доставка",
-            "Передача ссылки вызывающему агенту",
-            "Уведомление в Лисе"
+            "DC-ST-09",
+            "DC-ST-23",
+            "DC-ST-30",
+            "один заказ"
           ]
         },
         {
           "artifact_path": "docs/product/backlog/product-backlog.md",
           "fragments": [
-            "DC-ST-30",
-            "DC-ST-33",
-            "P2"
+            "DC-ST-23..DC-ST-29",
+            "DC-ST-09, DC-ST-30"
           ]
         },
         {
-          "artifact_path": "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
+          "artifact_path": "docs/product/requirements/traceability-matrix.json",
           "fragments": [
-            "Roadmap",
-            "Hypotheses",
-            "Product backlog"
+            "DC-ST-30",
+            "q4_delayed_or_partial_delivery"
+          ]
+        },
+        {
+          "artifact_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+          "fragments": [
+            "user_stories_owner_approved",
+            "\"user_stories\": \"owner_approved\""
           ]
         }
       ]

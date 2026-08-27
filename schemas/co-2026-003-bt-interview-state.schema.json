@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/co-2026-003-bt-interview-state.schema.json",
+  "title": "CO2026003BtInterviewState",
+  "type": "object",
+  "required": ["$schema", "version", "change_order_id", "status", "transcript_path", "scope_path", "amendment_path", "approved_text_register_path", "documentation_cascade"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "change_order_id": { "const": "CO-2026-003" },
+    "status": { "enum": ["candidate_ready_for_owner_review", "business_requirements_owner_approved", "user_stories_owner_approved"] },
+    "transcript_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.md$" },
+    "scope_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.json$" },
+    "amendment_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.md$" },
+    "approved_text_register_path": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\./).+\\.md$" },
+    "documentation_cascade": {
+      "type": "object",
+      "required": ["business_requirements", "user_stories", "system_requirements", "prototype", "final_release"],
+      "additionalProperties": false,
+      "properties": {
+        "business_requirements": { "enum": ["candidate_pending_owner_review", "owner_approved"] },
+        "user_stories": { "enum": ["pending", "candidate_pending_owner_review", "owner_approved"] },
+        "system_requirements": { "enum": ["pending", "candidate_pending_owner_review", "owner_approved"] },
+        "prototype": { "enum": ["accepted_11_frame_draft_unchanged"] },
+        "final_release": { "const": "pending" }
+      }
+    }
+  }
+}

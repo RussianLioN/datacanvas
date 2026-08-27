@@ -21,8 +21,9 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ## Current Main Pointer
 
-- Текущий `origin/main` для stale-status validation: `00523fbb40bd50c71b0322dda2c5877323bccde4`
-- Дата проверки текущего `main`: `2026-08-13T13:09:28Z`
+- Текущий `origin/main` для stale-status validation: `6cfa3e0b21eabdcc069b7599cc288705c2194183`
+- Дата проверки текущего `main`: `2026-08-18`
+- Текущий merge-коммит: `6cfa3e0b21eabdcc069b7599cc288705c2194183` — слияние PR #22, автономный путь заказа презентации в Лисе. Эта запись обновляет служебный указатель; она не подтверждает визуальный выпуск Q4_2026.
 
 ## Evidence по Jira import package
 
@@ -83,7 +84,7 @@ origin/main at 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
 
 ```text
 git rev-parse origin/main at release cut: 2c6858e4dc541c899b500edb5ebfb1ca9073c29d
-git rev-parse origin/main for stale-status validation: 00523fbb40bd50c71b0322dda2c5877323bccde4
+git rev-parse origin/main for stale-status validation: 6cfa3e0b21eabdcc069b7599cc288705c2194183
 GitHub Actions docs-check main run: https://github.com/RussianLioN/datacanvas/actions/runs/28165040653
 GitHub Actions docs-check PR #6 run: https://github.com/RussianLioN/datacanvas/actions/runs/28402608407
 GitHub Actions docs-check main run after PR #6 merge: https://github.com/RussianLioN/datacanvas/actions/runs/28402695336

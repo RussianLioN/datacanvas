@@ -48,6 +48,54 @@
       "fixture_id": "BASA-FIX-004",
       "executable_evidence": ["npm run validate:spec-task-prompt-readiness", "npm run validate:change-impact"],
       "expected": "Confirmed delivery decision is reflected in the spec package without enabling runtime mail, network or callback integrations."
+    },
+    {
+      "id": "BASA-EVAL-005",
+      "title": "Адреса Q4_2026 определяются только через Профиль сотрудника",
+      "type": "traceability",
+      "category": "regression",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-019",
+      "fixture_id": "BASA-FIX-005",
+      "executable_evidence": ["npm run validate:business-rules", "npm run validate:interface-contracts"],
+      "expected": "Правило и интерфейс подтверждают запрет произвольного адреса без фиксации внешнего API."
+    },
+    {
+      "id": "BASA-EVAL-006",
+      "title": "Один заказ блокирует повтор после принятия",
+      "type": "negative",
+      "category": "negative",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-022",
+      "fixture_id": "BASA-FIX-006",
+      "executable_evidence": ["npm run validate:business-rules", "npm run validate:state-model"],
+      "expected": "accepted_locked запрещает второй заказ для той же пары сеанс/пользователь."
+    },
+    {
+      "id": "BASA-EVAL-007",
+      "title": "Безопасное состояние возвращается в тот же чат",
+      "type": "security",
+      "category": "security",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-023",
+      "fixture_id": "BASA-FIX-007",
+      "executable_evidence": ["npm run validate:interface-contracts", "npm run validate:state-model"],
+      "expected": "Внутренний получатель и адаптер Лисы не фиксируют прямую доставку DataCanvas в Лису или системный PUSH."
+    },
+    {
+      "id": "BASA-EVAL-008",
+      "title": "Частичная или неподтвержденная доставка закрывает сеанс",
+      "type": "negative",
+      "category": "negative",
+      "status": "draft",
+      "required": true,
+      "requirement_id": "BT-024",
+      "fixture_id": "BASA-FIX-008",
+      "executable_evidence": ["npm run validate:state-model", "npm run validate:error-taxonomy"],
+      "expected": "Задержанная, частичная и неподтвержденная доставка ведут через support_pending в session_closed без числового лимита повторов; новый заказ в закрытом сеансе не создается."
     }
   ]
 }

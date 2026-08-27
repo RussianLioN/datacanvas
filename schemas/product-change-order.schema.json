@@ -34,6 +34,7 @@
     "priority_after": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
     "affected_users": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
     "affected_artifacts": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "authoritative_decision_ids": { "type": "array", "items": { "type": "string", "pattern": "^CO3-DEC-[0-9]{3}$" } },
     "affected_requirements": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^(BT|NFR)-[0-9]{3}$" } },
     "affected_ports_adapters": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
     "adr_impact": { "type": "string", "minLength": 1 },
