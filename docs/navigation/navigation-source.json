@@ -2169,6 +2169,26 @@
       "navigation_domain": "product"
     },
     {
+      "path": "docs/product/requirements/sequence-diagrams/README.md",
+      "route_id": "user-story-sequence-diagrams",
+      "section": "product",
+      "navigation_group": "business",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/requirements/user-stories.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Принятый текст пользовательских историй, состав детализированных сценариев или рендеры диаграмм последовательности меняются.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_domain": "product"
+    },
+    {
       "path": "docs/product/requirements/non-functional-requirements.md",
       "route_id": "non-functional-requirements",
       "section": "product",
@@ -4983,6 +5003,7 @@
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/sequence-diagrams/README.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/sources/README.md",
@@ -5008,7 +5029,8 @@
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
         "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/user-stories.md"
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/sequence-diagrams/README.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
@@ -5022,6 +5044,8 @@
       "start_path": "docs/architecture/system-analysis/README.md",
       "next_paths": [
         "docs/product/sources/README.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/sequence-diagrams/README.md",
         "docs/product/specs/README.md",
         "docs/architecture/system-analysis/srs-v0.1.md",
         "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
@@ -5113,6 +5137,8 @@
         "docs/product/requirements/README.md",
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/sequence-diagrams/README.md",
         "docs/product/backlog/README.md",
         "docs/product/backlog/product-backlog.md",
         "docs/product/sources/README.md",
@@ -5261,10 +5287,26 @@
       "next_paths": [
         "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/user-stories.md"
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/sequence-diagrams/README.md"
       ],
       "owner_role": "Product Owner",
       "validation_command": "npm run validate:docs-navigation",
+      "navigation_domain": "product"
+    },
+    {
+      "id": "task-view-user-story-sequence-diagrams",
+      "label": "Посмотреть диаграммы последовательности",
+      "task": "Открыть принятые диаграммы последовательности детализированных пользовательских сценариев 2026 года",
+      "navigation_group": "business",
+      "start_path": "docs/product/requirements/sequence-diagrams/README.md",
+      "next_paths": [
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md"
+      ],
+      "owner_role": "Product Owner",
+      "validation_command": "npm run validate:user-story-sequence-diagrams",
       "navigation_domain": "product"
     },
     {

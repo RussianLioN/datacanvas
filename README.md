@@ -3,6 +3,8 @@
 ## Актуальные Материалы По CO-2026-003
 
 - [Принятые бизнес-требования 2026 года](docs/product/requirements/business-requirements.md) — понятное описание возможностей DataCanvas в согласованной границе девяти пользовательских историй 2026 года.
+- [Принятые пользовательские истории 2026 года](docs/product/requirements/user-stories.md) — единый каталог девяти историй и 24 детализированных сценариев.
+- [Диаграммы последовательности пользовательских историй](docs/product/requirements/sequence-diagrams/README.md) — GitHub-совместимый обзор 24 принятых сценариев с исходниками и рендерами.
 - [Граница реализации 2026 года](docs/product/sources/co-2026-003-current-2026-scope.md) — действующий перечень историй и исключений, подготовленный по книге владельца продукта и интервью.
 - [Скачать полный черновой пакет документации и прототипа](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP-архив актуальных документов и принятого 11-кадрового черновика ООО «Водолей Трейд»; это не чистовая поставка.
 - [Открыть принятый черновой прототип](docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров в прежней оболочке и навигации прототипа.
@@ -37,6 +39,8 @@ DataCanvas - проект AI-агента, который формирует к�
 | CO - заявки на продуктовые изменения | [docs/product/change-orders/README.md](docs/product/change-orders/README.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [docs/product/bmc/README.md](docs/product/bmc/README.md) |
 | Принятые бизнес-требования 2026 года | [docs/product/requirements/business-requirements.md](docs/product/requirements/business-requirements.md) |
+| Принятые пользовательские истории 2026 года | [docs/product/requirements/user-stories.md](docs/product/requirements/user-stories.md) |
+| Диаграммы последовательности пользовательских историй | [docs/product/requirements/sequence-diagrams/README.md](docs/product/requirements/sequence-diagrams/README.md) |
 | Граница реализации 2026 года | [docs/product/sources/co-2026-003-current-2026-scope.md](docs/product/sources/co-2026-003-current-2026-scope.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](docs/product/backlog/README.md) и [docs/product/sources/README.md](docs/product/sources/README.md) |
 | Граница и исходные данные 2026 года | [Граница реализации 2026 года](docs/product/sources/co-2026-003-current-2026-scope.md) и [исходные документы](docs/product/sources/README.md) |

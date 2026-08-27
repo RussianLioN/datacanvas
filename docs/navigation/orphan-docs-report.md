@@ -40,6 +40,7 @@
 | `docs/product/interviews/ba-sa/README.md` | `docs/product/README.md` | `business` | `restricted` | `false` | `-` |
 | `docs/product/README.md` | `docs/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/requirements/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `2` |
+| `docs/product/requirements/sequence-diagrams/README.md` | `docs/product/requirements/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/roadmap/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/sources/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
 | `docs/product/specs/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
@@ -52,8 +53,8 @@
 
 | Группа | Глубина | Количество |
 |---|---|---|
-| `business` | `1` | 15 |
-| `business` | `2` | 26 |
+| `business` | `1` | 17 |
+| `business` | `2` | 25 |
 | `business` | `3` | 9 |
 | `business` | `4` | 8 |
 | `business` | `5` | 6 |

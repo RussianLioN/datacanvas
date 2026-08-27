@@ -16,19 +16,20 @@
 4. [Граница реализации 2026 года](sources/co-2026-003-current-2026-scope.md)
 5. [Принятые бизнес-требования 2026 года](requirements/business-requirements.md)
 6. [Принятые пользовательские истории 2026 года](requirements/user-stories.md)
-7. [Product backlog - продуктовый бэклог](backlog/README.md)
-8. [Оценка работ и исходные таблицы](sources/README.md)
-9. [Roadmap - дорожная карта](roadmap/README.md)
-10. [Гипотезы](hypotheses/README.md)
-11. [Аналитика и трассировка](analysis/README.md)
-12. [Specs - спецификации](specs/README.md)
+7. [Диаграммы последовательности пользовательских историй](requirements/sequence-diagrams/README.md)
+8. [Product backlog - продуктовый бэклог](backlog/README.md)
+9. [Оценка работ и исходные таблицы](sources/README.md)
+10. [Roadmap - дорожная карта](roadmap/README.md)
+11. [Гипотезы](hypotheses/README.md)
+12. [Аналитика и трассировка](analysis/README.md)
+13. [Specs - спецификации](specs/README.md)
 
 ## Подтверждённый Контур Q4_2026
 
 [CO-2026-003 — заявка на Q4_2026 для Лисы, Профиля сотрудника и почтовой доставки](change-orders/co-2026-003-q4-lisa-profile.md)
 задаёт отдельный подтверждённый контур: один заказ для пары сеанс/пользователь,
 адреса только через «Профиль сотрудника», доставка `PPTX` и `PDF` по электронной
-почте и безопасные статусы в том же чате Лисы. Сначала прочтите [границу реализации 2026 года](sources/co-2026-003-current-2026-scope.md), затем [стенограмму интервью](change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md), [дополнение к решениям](change-orders/co-2026-003-bt-interview-amendment.md), [принятые бизнес-требования](requirements/business-requirements.md) и [принятые пользовательские истории](requirements/user-stories.md).
+почте и безопасные статусы в том же чате Лисы. Сначала прочтите [границу реализации 2026 года](sources/co-2026-003-current-2026-scope.md), затем [стенограмму интервью](change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md), [дополнение к решениям](change-orders/co-2026-003-bt-interview-amendment.md), [принятые бизнес-требования](requirements/business-requirements.md), [принятые пользовательские истории](requirements/user-stories.md) и [диаграммы последовательности](requirements/sequence-diagrams/README.md).
 
 Системный PUSH, ссылка на файл, отдельное хранилище и расширенное редактирование
 структуры не входят в Q4_2026. Дословные исторические сообщения сохраняются, а
@@ -43,6 +44,7 @@
 - [BMC - Business Model Canvas, бизнес-модель продукта](bmc/README.md)
 - [Исходные документы и оценки](sources/README.md)
 - [Требования](requirements/README.md)
+- [Диаграммы последовательности пользовательских историй](requirements/sequence-diagrams/README.md)
 - [Backlog](backlog/README.md)
 - [Roadmap](roadmap/README.md)
 - [Гипотезы](hypotheses/README.md)

@@ -9826,6 +9826,41 @@
       "generated_from": ["scripts/generate-co-2026-003-draft-documentation-archive.mjs"],
       "redaction_status": "not_required",
       "update_trigger": "Меняется любой член чернового пакета, принятый состав кадров или его внутренний отпечаток."
+    },
+    {
+      "id": "ART-889",
+      "path": "docs/product/requirements/sequence-diagrams/README.md",
+      "type": "documentation",
+      "owner_role": "Product Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W26",
+      "data_class": "internal",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/requirements/user-stories.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Принятый текст пользовательских историй, состав детализированных сценариев или рендеры диаграмм последовательности меняются."
+    },
+    {
+      "id": "ART-890",
+      "path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/manifest.json",
+      "type": "evidence",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "generated",
+      "sprint_id": "SPRINT-2026-W26",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/requirements/user-stories.md",
+      "generated_from": [
+        "docs/product/requirements/user-story-decomposition-map.json",
+        "docs/product/requirements/sequence-diagrams"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Исходник PlantUML, SVG или PNG любого принятого детализированного сценария меняется."
     }
   ]
 }

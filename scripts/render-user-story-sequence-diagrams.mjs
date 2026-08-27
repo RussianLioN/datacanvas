@@ -8,6 +8,7 @@ const mapPath = "docs/product/requirements/user-story-decomposition-map.json";
 const artifactRoot = "artifacts/evidence/co-2026-003/user-story-sequence-diagrams";
 const manifestPath = `${artifactRoot}/manifest.json`;
 const indexPath = `${artifactRoot}/index.html`;
+const overviewPath = "docs/product/requirements/sequence-diagrams/README.md";
 const candidateDiagramState = "candidate_pending_owner_review";
 const ownerApprovedDiagramState = "owner_approved";
 const supportedDiagramStates = new Set([candidateDiagramState, ownerApprovedDiagramState]);
@@ -100,6 +101,34 @@ function assertPng(absolutePath, storyId) {
   const content = fs.readFileSync(absolutePath);
   if (content.length < pngSignature.length || !content.subarray(0, pngSignature.length).equals(pngSignature)) {
     fail(`${storyId}: PNG-рендер имеет неверную сигнатуру`);
+  }
+}
+
+function assertOverview(root, stories) {
+  const absolutePath = path.join(root, overviewPath);
+  if (!fs.existsSync(absolutePath)) {
+    fail("отсутствует обзор диаграмм для навигации в GitHub");
+  }
+  const overview = fs.readFileSync(absolutePath, "utf8");
+  if (!overview.includes("Диаграммы последовательности пользовательских историй 2026")) {
+    fail("обзор диаграмм должен иметь корректный заголовок");
+  }
+  if (!overview.includes("manifest.json")) {
+    fail("обзор диаграмм должен ссылаться на манифест доказательств");
+  }
+  for (const story of stories) {
+    const diagram = story.sequence_diagram;
+    const requiredNames = [
+      story.child_story_id,
+      path.basename(diagram.puml_path),
+      path.basename(diagram.svg_path),
+      path.basename(diagram.png_path),
+    ];
+    for (const requiredName of requiredNames) {
+      if (!overview.includes(requiredName)) {
+        fail(`${story.child_story_id}: обзор диаграмм не содержит ссылку на ${requiredName}`);
+      }
+    }
   }
 }
 
@@ -223,6 +252,7 @@ export function validateUserStorySequenceDiagrams(root = process.cwd()) {
       fail(`${story.child_story_id}: манифест не соответствует текущим исходнику и рендерам`);
     }
   }
+  assertOverview(root, stories);
   const indexAbsolutePath = path.join(root, indexPath);
   if (!fs.existsSync(indexAbsolutePath)) {
     fail("для просмотра диаграмм должен существовать индекс");

@@ -17,6 +17,12 @@ function routeTargets(route) {
   return [route.start_path, ...route.next_paths];
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+const sequenceDiagramOverviewPath = "docs/product/requirements/sequence-diagrams/README.md";
+
 test("текущая навигация ведет к принятым бизнес-требованиям и историям 2026 года", () => {
   const source = readJson("docs/navigation/navigation-source.json");
   const state = readJson("docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json");
@@ -26,7 +32,12 @@ test("текущая навигация ведет к принятым бизн�
   const stories = source.managed_entries.find(
     (entry) => entry.path === "docs/product/requirements/user-stories.md",
   );
+  const sequenceDiagrams = source.managed_entries.find(
+    (entry) => entry.path === sequenceDiagramOverviewPath,
+  );
   const route = source.task_routes.find((entry) => entry.id === "task-find-business-requirements");
+  const productRoute = source.task_routes.find((entry) => entry.id === "task-understand-product");
+  const diagramRoute = source.task_routes.find((entry) => entry.id === "task-view-user-story-sequence-diagrams");
 
   assert.equal(state.status, "user_stories_owner_approved");
   assert.equal(state.documentation_cascade.business_requirements, "owner_approved");
@@ -35,13 +46,53 @@ test("текущая навигация ведет к принятым бизн�
   assert.equal(requirements?.navigable, true);
   assert.equal(stories?.lifecycle, "accepted");
   assert.equal(stories?.navigable, true);
+  assert.equal(sequenceDiagrams?.lifecycle, "accepted");
+  assert.equal(sequenceDiagrams?.navigable, true);
   assert.ok(routeTargets(route).includes("docs/product/sources/co-2026-003-current-2026-scope.md"));
   assert.deepEqual(routeTargets(route), [
     "docs/product/requirements/README.md",
     "docs/product/sources/co-2026-003-current-2026-scope.md",
     "docs/product/requirements/business-requirements.md",
     "docs/product/requirements/user-stories.md",
+    sequenceDiagramOverviewPath,
   ]);
+  assert.ok(routeTargets(productRoute).includes("docs/product/requirements/user-stories.md"));
+  assert.ok(routeTargets(productRoute).includes(sequenceDiagramOverviewPath));
+  assert.deepEqual(routeTargets(diagramRoute), [
+    sequenceDiagramOverviewPath,
+    "docs/product/requirements/user-stories.md",
+    "docs/product/requirements/business-requirements.md",
+    "docs/product/sources/co-2026-003-current-2026-scope.md",
+  ]);
+});
+
+test("входные документы ведут к принятому обзору диаграмм без изменения маршрута архива", () => {
+  const entrypointLinks = [
+    ["README.md", "docs/product/requirements/sequence-diagrams/README.md"],
+    ["docs/README.md", "product/requirements/sequence-diagrams/README.md"],
+    ["docs/product/README.md", "requirements/sequence-diagrams/README.md"],
+    ["docs/product/requirements/README.md", "sequence-diagrams/README.md"],
+    ["docs/product/requirements/user-stories.md", "sequence-diagrams/README.md"],
+    ["docs/product/change-orders/README.md", "../requirements/sequence-diagrams/README.md"],
+    ["docs/product/analysis/README.md", "../requirements/sequence-diagrams/README.md"],
+    ["docs/architecture/system-analysis/README.md", "../../product/requirements/sequence-diagrams/README.md"],
+  ];
+
+  for (const [entrypoint, expectedLink] of entrypointLinks) {
+    assert.match(
+      readText(entrypoint),
+      new RegExp(`\\]\\(${escapeRegExp(expectedLink)}\\)`),
+      `${entrypoint} должен вести к принятому обзору диаграмм`,
+    );
+  }
+
+  const archiveLinks = [
+    ["README.md", "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true"],
+    ["docs/README.md", "product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true"],
+  ];
+  for (const [entrypoint, archivePath] of archiveLinks) {
+    assert.match(readText(entrypoint), new RegExp(escapeRegExp(archivePath)));
+  }
 });
 
 test("активные маршруты и входные документы не ссылаются на старые бизнес-требования", () => {

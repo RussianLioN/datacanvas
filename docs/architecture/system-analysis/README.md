@@ -8,6 +8,7 @@
 
 ## Документы
 
+- [Диаграммы последовательности пользовательских историй](../../product/requirements/sequence-diagrams/README.md) — принятые сценарии 2026 года, с которых начинается уточнение системных взаимодействий.
 - [SRS v0.1](srs-v0.1.md)
 - `srs-v0.1.json`
 - [Interface control](datacanvas-interface-control.md)

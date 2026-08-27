@@ -28,6 +28,8 @@
 | CO - заявки на продуктовые изменения | [docs/product/change-orders/README.md](product/change-orders/README.md) |
 | BMC - Business Model Canvas, бизнес-модель продукта | [docs/product/bmc/README.md](product/bmc/README.md) |
 | Принятые бизнес-требования 2026 года | [docs/product/requirements/business-requirements.md](product/requirements/business-requirements.md) |
+| Принятые пользовательские истории 2026 года | [docs/product/requirements/user-stories.md](product/requirements/user-stories.md) |
+| Диаграммы последовательности пользовательских историй | [docs/product/requirements/sequence-diagrams/README.md](product/requirements/sequence-diagrams/README.md) |
 | Граница реализации 2026 года | [docs/product/sources/co-2026-003-current-2026-scope.md](product/sources/co-2026-003-current-2026-scope.md) |
 | Product backlog - продуктовый бэклог и оценка работ | [docs/product/backlog/README.md](product/backlog/README.md) и [docs/product/sources/README.md](product/sources/README.md) |
 | Граница и исходные данные 2026 года | [Граница реализации 2026 года](product/sources/co-2026-003-current-2026-scope.md) и [исходные документы](product/sources/README.md) |

@@ -21,4 +21,5 @@
 - [Граница реализации 2026 года](../sources/co-2026-003-current-2026-scope.md)
 - [Стенограмма интервью для бизнес-требований](../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md)
 - [Принятые бизнес-требования 2026 года](../requirements/business-requirements.md)
+- [Диаграммы последовательности пользовательских историй](../requirements/sequence-diagrams/README.md) — принятые сценарии для продуктового и системного анализа.
 - [Карта влияния CO-2026-003 — подтверждённой заявки на Q4_2026](../change-orders/co-2026-003-q4-lisa-profile-impact.md)
