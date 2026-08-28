@@ -3,11 +3,12 @@ export function uncatalogedWorkflowPlanCommands(validationPlan, catalogCommands)
   return validationPlan.filter((command) => !catalog.has(command));
 }
 
+const safeNpmRunCommandPattern = /^npm run [a-z0-9:_-]+(?: -- (?:--check|--changed-from (?:HEAD|[0-9a-f]{40}|[0-9a-f]{64})))?$/u;
+
 export function nonNpmWorkflowPlanCommands(validationPlan) {
   return validationPlan.filter((command) =>
-    command
-      .split("&&")
-      .map((part) => part.trim())
-      .some((part) => !/^npm run\s+[^\s]+/u.test(part))
+    String(command)
+      .split(/\s+&&\s+/u)
+      .some((part) => !safeNpmRunCommandPattern.test(part))
   );
 }

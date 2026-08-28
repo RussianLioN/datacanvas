@@ -4,6 +4,7 @@ import process from "node:process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { validateOwnerAcceptanceSet } from "./cascade-owner-acceptance.mjs";
+import { assertCascadePreflight } from "./cascade-preflight.mjs";
 import { assertStateTransition, expandAllowedWritesForRenames, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
 import {
   assertAncestor,
@@ -120,8 +121,6 @@ async function main() {
   if (fs.existsSync(absoluteRepoPath(root, outputDir))) throw new Error(`output dir already exists: ${outputDir}`);
   const currentHeadSha = assertGitCommit(root, git(root, ["rev-parse", "HEAD"]).trim(), "current HEAD");
   if (currentHeadSha !== candidateHeadSha) throw new Error("candidate_head_sha must equal current HEAD during finalization");
-  const worktreeStatus = git(root, ["status", "--porcelain=v1", "--untracked-files=all"]).trim();
-  if (worktreeStatus) throw new Error("cascade finalization requires a clean worktree");
 
   const sourceRun = readJson(root, sourceRunPath);
   validateDocument(root, sourceRun, "schemas/cascade-vnext-run.schema.json");
@@ -172,6 +171,7 @@ async function main() {
   validateResolutionSet(requiredArtifacts, resolutionInput.artifact_resolutions, "artifact resolution", sourceRun.base_sha, candidateHeadSha, diffByPath);
   const acceptancePaths = validateOwnerAcceptance(sourceRun, resolutionInput, candidateHeadSha);
   assertStateTransition(sourceRun.state, "finalized");
+  assertCascadePreflight({ root });
 
   const appliedArtifactPaths = resolutionInput.artifact_resolutions
     .filter((entry) => entry.update_status === "applied")

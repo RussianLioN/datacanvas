@@ -495,6 +495,44 @@
       "owner_role": "Documentation Owner / Security Lead",
       "validation_command": "npm run validate:documentation-archive",
       "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-057",
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "layer": "release evidence",
+      "owner_role": "Product Owner / Delivery Owner",
+      "validation_command": "npm run validate:co-2026-003-release-state",
+      "authority_scope": [
+        "acceptance_meaning",
+        "change_order"
+      ]
+    },
+    {
+      "artifact_id": "DGA-058",
+      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "layer": "release evidence",
+      "owner_role": "Product Owner / Delivery Owner",
+      "validation_command": "npm run validate:co-2026-003-release-state",
+      "authority_scope": [
+        "acceptance_meaning",
+        "change_order"
+      ]
+    },
+    {
+      "artifact_id": "DGA-059",
+      "path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "layer": "release evidence",
+      "owner_role": "Delivery Owner / Security Lead",
+      "validation_command": "npm run validate:co-2026-003-delivery-archive",
+      "authority_scope": []
+    },
+    {
+      "artifact_id": "DGA-060",
+      "path": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "layer": "release evidence",
+      "owner_role": "Delivery Owner / QA Lead",
+      "validation_command": "npm run validate:co-2026-003-prototype-revision",
+      "authority_scope": []
     }
   ],
   "declared_cycle_groups": [
@@ -3320,6 +3358,160 @@
       "applicable_change_classes": [
         "*"
       ]
+    },
+    {
+      "edge_id": "EDGE-0130",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+      "downstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "relation_type": "traceability",
+      "update_rule": "Человекочитаемый реестр разрешений CO-2026-003 должен оставаться синхронным с машинным реестром разрешений выпуска.",
+      "validation_command": "npm run validate:co-2026-003-release-state",
+      "owner_role": "Product Owner / Delivery Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0131",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/product/requirements/user-stories.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review пользовательских историй, чтобы чистовой выпуск не расходился с принятым объёмом.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0132",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/product/requirements/business-requirements.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review бизнес-требований и фиксации обновления или обоснования отсутствия изменений.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0133",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/product/requirements/acceptance-criteria.md",
+      "relation_type": "semantic",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review критериев приёмки чистового выпуска и доставки материалов.",
+      "validation_command": "npm run validate:business-docs",
+      "owner_role": "Product Owner / QA Lead",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0134",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/architecture/system-analysis/sa-spec.json",
+      "relation_type": "semantic",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review системного анализа без вывода нового бизнесового смысла из технического договора.",
+      "validation_command": "npm run validate:ba-sa",
+      "owner_role": "Architect / Technical Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0135",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/navigation/navigation-source.json",
+      "relation_type": "navigation",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review маршрутов навигации, чтобы пользователи попадали к актуальному статусу выпуска.",
+      "validation_command": "npm run validate:docs-navigation",
+      "owner_role": "Process Owner / Documentation Owner",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0136",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "relation_type": "approval",
+      "update_rule": "Реестр разрешений CO-2026-003 управляет правом собрать чистовой архив поставки прототипа.",
+      "validation_command": "npm run validate:co-2026-003-delivery-archive",
+      "owner_role": "Product Owner / Delivery Owner",
+      "user_confirmation_required": "semantic_change",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0137",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "relation_type": "evidence",
+      "update_rule": "Изменение разрешений выпуска CO-2026-003 требует review доказательств чистового выпуска.",
+      "validation_command": "npm run validate:co-2026-003-prototype-revision",
+      "owner_role": "Delivery Owner / QA Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0138",
+      "upstream_artifact": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Любое изменение реестра разрешений CO-2026-003 требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0139",
+      "upstream_artifact": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Изменение договора архива поставки CO-2026-003 требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
+    },
+    {
+      "edge_id": "EDGE-0140",
+      "upstream_artifact": "docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md",
+      "downstream_artifact": "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+      "relation_type": "generated",
+      "update_rule": "Изменение доказательств чистового выпуска CO-2026-003 требует пересобрать полный локальный архив документации.",
+      "validation_command": "npm run validate:documentation-archive",
+      "owner_role": "Documentation Owner / Security Lead",
+      "user_confirmation_required": "never",
+      "resolution_required": "changed_or_no_change_rationale",
+      "applicable_change_classes": [
+        "*"
+      ]
     }
   ],
   "high_impact_sources": [
@@ -3334,6 +3526,8 @@
     "docs/product/requirements/user-stories.md",
     "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.json",
     "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
-    "docs/product/requirements/business-claim-map.json"
+    "docs/product/requirements/business-claim-map.json",
+    "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+    "docs/product/change-orders/co-2026-003-release-approval-ledger.json"
   ]
 }

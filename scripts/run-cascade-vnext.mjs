@@ -18,6 +18,7 @@ import {
   resolveActualTriggerPaths,
   resolveSourceIdentities,
 } from "./cascade-vnext-core.mjs";
+import { assertCascadePreflight } from "./cascade-preflight.mjs";
 import { requiredOwnerRoles } from "./cascade-owner-acceptance.mjs";
 import { buildRuntimeManifest, parseGitNameStatus } from "./cascade-vnext-runtime.mjs";
 import {
@@ -240,14 +241,14 @@ function assertDirectRunDir(relativePath) {
 
 async function main() {
   if (process.argv.includes("--apply")) fail("vNext planner never applies documentation changes");
+  const preflight = assertCascadePreflight({
+    root,
+    baseSha: argValue("--base-sha"),
+  });
   const changeRequestPath = normalizeRepoPath(argValue("--change-request") ?? "");
   const outputDir = normalizeRepoPath(argValue("--output-dir") ?? "");
-  const baseSha = gitSha(argValue("--base-sha"), "base_sha");
-  const planningHeadSha = gitSha(run("git", ["rev-parse", "HEAD"]), "planning_head_sha");
-  const dirtyStatus = run("git", ["status", "--porcelain=v1", "--untracked-files=all"]);
-  if (dirtyStatus) {
-    fail("persisted cascade planning requires a clean worktree; --allow-dirty is not supported");
-  }
+  const baseSha = gitSha(preflight.base_sha, "base_sha");
+  const planningHeadSha = gitSha(preflight.head_sha, "planning_head_sha");
   if (process.argv.includes("--allow-dirty")) {
     fail("--allow-dirty is not supported for persisted cascade planning");
   }
@@ -258,9 +259,6 @@ async function main() {
     fail("manual XLSX change signals are not accepted; the classifier reads the declared Git range");
   }
   if (!changeRequestPath || !outputDir) fail("usage: npm run cascade:run -- --change-request <path> --output-dir <fresh-run-dir> --base-sha <sha> [--trigger-path <path>] [--source-id <id>]");
-  if (run("git", ["merge-base", "--is-ancestor", baseSha, planningHeadSha]) !== "") {
-    // git merge-base --is-ancestor succeeds without output.
-  }
   assertDirectRunDir(outputDir);
 
   const changeRequest = readJson(changeRequestPath);

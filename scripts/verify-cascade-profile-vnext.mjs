@@ -5,6 +5,7 @@ import process from "node:process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { assertValidationEvidenceComplete } from "./cascade-validation-manifest.mjs";
+import { assertCascadePreflight } from "./cascade-preflight.mjs";
 import {
   assertCatalogBinding,
   executeProfileCommands,
@@ -116,6 +117,7 @@ async function main() {
   validateDocument(root, manifest, "schemas/cascade-validation-manifest.schema.json");
   const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
   validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
+  assertCascadePreflight({ root });
 
   const executedCommands = candidateWorktree(candidateSha, (worktree, environment) => {
     assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree, environment));

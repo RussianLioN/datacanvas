@@ -6,6 +6,7 @@ import process from "node:process";
 import { spawnSync } from "node:child_process";
 
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
+import { assertCascadePreflight } from "./cascade-preflight.mjs";
 import {
   assertCompletionEvidenceIntegrity,
   commandResultPassed,
@@ -261,6 +262,7 @@ async function main() {
   for (const acceptancePath of sourceRun.acceptance_paths) {
     assertRepoPathMatchesGit(root, candidateSha, acceptancePath, "acceptance record");
   }
+  assertCascadePreflight({ root });
 
   const commands = completionCommandSet();
   let runtimeMatch = true;
