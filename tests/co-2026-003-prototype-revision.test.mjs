@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import Ajv2020 from "ajv/dist/2020.js";
 
 const root = path.resolve(new URL("../", import.meta.url).pathname);
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
@@ -52,6 +53,15 @@ function writeText(directory, relativePath, value) {
   const target = path.join(directory, relativePath);
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, value);
+}
+
+function validateWithSchema(schema, data) {
+  const ajv = new Ajv2020({ allErrors: true, strict: true });
+  const validate = ajv.compile(schema);
+  return {
+    valid: validate(data),
+    errors: validate.errors,
+  };
 }
 
 function applyMutation(base, scenario) {
@@ -130,6 +140,13 @@ function applyMutation(base, scenario) {
     data[unsafeDemoPath] = "const source = 'candidate-evidence/button-label';\n";
   } else if (scenario.mutation === "approved_text_drift") {
     data[approvedTextsPath].selections.find((selection) => selection.topic_id === "delivery_success_message").text = "Другой текст";
+  } else if (scenario.mutation === "duplicate_delivery_status_topic") {
+    data[approvedTextsPath].delivery_status_texts[1] = {
+      ...data[approvedTextsPath].delivery_status_texts[1],
+      topic_id: "sigma_delivery_delayed_message",
+    };
+  } else if (scenario.mutation === "substituted_delivery_status_text") {
+    data[approvedTextsPath].delivery_status_texts.find((selection) => selection.topic_id === "sigma_retry_success_message").text = "Презентация готова и отправлена.";
   } else if (scenario.mutation === "stale_svg_pipeline_text_selection") {
     data[svgPipelineContractPath].message_topics[0].status = "pending_owner_selection";
   } else {
@@ -354,6 +371,14 @@ test("согласованные владельцем тексты хранят�
     ["sigma_retry_success_message", "Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ."],
     ["delivery_full_failure_message", "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение."],
   ]);
+
+  const approvedTextsSchema = readJson(path.join(sourcePath, "schemas/owner-approved-texts.schema.json"));
+  for (const mutation of ["duplicate_delivery_status_topic", "substituted_delivery_status_text"]) {
+    const mutated = applyMutation({ [approvedTextsPath]: approvedTexts }, { mutation });
+    const result = validateWithSchema(approvedTextsSchema, mutated[approvedTextsPath]);
+    assert.equal(result.valid, false, `${mutation}: схема должна отклонять дубль topic_id или подмену утверждённого текста`);
+  }
+
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "email_subject")?.selection_method, "owner_tie_break_after_team_vote");
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "button_label")?.historical_candidate_rank, 5);
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "delivery_success_message")?.historical_candidate_rank, undefined);

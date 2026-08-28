@@ -17,20 +17,25 @@
   "release_decisions": {
     "draft_archive": {
       "status": "not_release_allowed",
+      "release_allowed": false,
       "owner_decision": "11 кадров черновика приняты только для каскадного обновления документации.",
       "release_effect": "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки."
     },
     "delivery_archive": {
       "status": "owner_allowed_public_but_creation_blocked",
+      "public_allowed": true,
+      "creation_allowed": false,
       "owner_decision": "Архив поставки разрешён и публичен по решению владельца.",
       "creation_blocker": "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск."
     },
     "publicity": {
       "status": "owner_allowed_public",
+      "public_allowed": true,
       "owner_decision": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца."
     },
     "high_resolution_render": {
       "status": "waiting_owner_input",
+      "render_allowed": false,
       "owner_decision": "Высокоразрешённый рендер ожидает отдельные вводные владельца.",
       "current_render_allowed": false
     }
@@ -47,60 +52,77 @@
     {
       "frame_id": "lisa-materials-full-reference",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-materials-full-reference/owner-approval.json"
     },
     {
       "frame_id": "lisa-presentation-generating",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-generating-clock-13-24/owner-approval.json"
     },
     {
+      "frame_id": "lisa-presentation-chat-list",
+      "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
+      "review_manifest_path": null,
+      "owner_approval_record_path": null
+    },
+    {
       "frame_id": "lisa-presentation-sent",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sent/owner-approval.json"
     },
     {
       "frame_id": "lisa-presentation-email",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-email/owner-approval.json"
     },
     {
       "frame_id": "lisa-order-not-accepted",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-order-not-accepted-clock-13-40/owner-approval.json"
     },
     {
       "frame_id": "lisa-delivery-delayed",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-delayed-clock-13-40/owner-approval.json"
     },
     {
       "frame_id": "lisa-delivery-partial",
       "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/review-source-manifest.json",
       "owner_approval_record_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-delivery-partial-clock-13-40/owner-approval.json"
     },
     {
       "frame_id": "lisa-presentation-slidedoc",
-      "status": "pending_owner_approval",
+      "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-slidedoc-pdf-import/review-source-manifest.json",
       "owner_approval_record_path": null
     },
     {
       "frame_id": "lisa-presentation-sber2025",
-      "status": "pending_owner_approval",
+      "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-sber2025-pdf-import/review-source-manifest.json",
       "owner_approval_record_path": null
     },
     {
       "frame_id": "lisa-presentation-mag",
-      "status": "pending_owner_approval",
+      "status": "owner_frame_approved",
+      "approval_source_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
       "review_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/frame-review/lisa-presentation-mag-pdf-import/review-source-manifest.json",
       "owner_approval_record_path": null
     }

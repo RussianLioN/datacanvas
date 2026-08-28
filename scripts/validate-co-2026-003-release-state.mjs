@@ -14,6 +14,7 @@ const fullDeliveryFailureMessage =
   "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.";
 const fullDeliveryFailureDecisionSource =
   "Стенограмма интервью имеет приоритет над устаревшей записью журнала по решению владельца продукта в рабочем чате.";
+const frameApprovalSourcePath = "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md";
 
 const expectedRoute = Object.freeze([
   "lisa-materials-summary",
@@ -29,6 +30,19 @@ const expectedRoute = Object.freeze([
   "lisa-order-not-accepted",
   "lisa-delivery-delayed",
   "lisa-delivery-partial",
+]);
+const expectedFrameApprovalIds = Object.freeze([
+  "lisa-materials-full-reference",
+  "lisa-presentation-generating",
+  "lisa-presentation-chat-list",
+  "lisa-presentation-sent",
+  "lisa-presentation-email",
+  "lisa-order-not-accepted",
+  "lisa-delivery-delayed",
+  "lisa-delivery-partial",
+  "lisa-presentation-slidedoc",
+  "lisa-presentation-sber2025",
+  "lisa-presentation-mag",
 ]);
 
 function readJson(root, relativePath) {
@@ -49,12 +63,21 @@ function validateSchema(root, data) {
 }
 
 function validateFrameApprovals(root, ledger) {
+  if (!sameArray(ledger.frame_approvals.map((frame) => frame.frame_id), expectedFrameApprovalIds)) {
+    throw new Error("реестр должен содержать ровно 11 принятых кадров черновика из стенограммы");
+  }
   for (const frame of ledger.frame_approvals) {
+    if (frame.status !== "owner_frame_approved" || frame.approval_source_path !== frameApprovalSourcePath) {
+      throw new Error(`${frame.frame_id}: каждый кадр черновика должен быть принят владельцем по стенограмме`);
+    }
+    if (frame.review_manifest_path === null) {
+      continue;
+    }
     const manifest = readJson(root, frame.review_manifest_path);
     if (manifest.frame_id !== frame.frame_id) {
       throw new Error(`${frame.frame_id}: реестр ссылается на манифест другого кадра`);
     }
-    if (frame.status === "owner_frame_approved") {
+    if (frame.owner_approval_record_path !== null) {
       const manifestApproval = manifest.owner_frame_approval ?? manifest.owner_approval;
       if (
         manifest.status !== "owner_frame_approved" ||
@@ -62,8 +85,6 @@ function validateFrameApprovals(root, ledger) {
       ) {
         throw new Error(`${frame.frame_id}: одобрение кадра должно подтверждаться первичным манифестом и записью владельца`);
       }
-    } else if (manifest.status !== "draft_png_rendered_pending_owner_approval" || manifest.owner_frame_approval !== null) {
-      throw new Error(`${frame.frame_id}: черновой кадр нельзя выдавать за одобренный`);
     }
   }
 }
@@ -135,9 +156,23 @@ function validateAcceptedFullDeliveryText(ledger) {
   }
 }
 
+function validateIndependentReleaseDecisions(ledger) {
+  if (
+    ledger.release_decisions.draft_archive.release_allowed !== false ||
+    ledger.release_decisions.delivery_archive.public_allowed !== true ||
+    ledger.release_decisions.delivery_archive.creation_allowed !== false ||
+    ledger.release_decisions.publicity.public_allowed !== true ||
+    ledger.release_decisions.high_resolution_render.render_allowed !== false ||
+    ledger.release_decisions.high_resolution_render.current_render_allowed !== false
+  ) {
+    throw new Error("статусы выпуска должны иметь независимые флаги без смешения черновика, архива, публичности и high-res");
+  }
+}
+
 function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
   const finalRelease = ledger.final_release;
   validateAcceptedFullDeliveryText(ledger);
+  validateIndependentReleaseDecisions(ledger);
   if (finalRelease.status === "pending_owner_approval") {
     if (
       finalRelease.active_release_switch_allowed ||
@@ -161,14 +196,23 @@ function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
     throw new Error("итоговый статус выпуска не распознан");
   }
   if (
-    !finalRelease.active_release_switch_allowed ||
-    !finalRelease.high_resolution_render_allowed ||
-    !finalRelease.delivery_archive_allowed ||
     typeof finalRelease.candidate_fingerprint !== "string" ||
     !/^[a-f0-9]{64}$/u.test(finalRelease.candidate_fingerprint) ||
     typeof finalRelease.fresh_evidence_path !== "string"
   ) {
-    throw new Error("итоговая приёмка должна разрешать чистовой рендер, архив и задавать отпечаток кандидата со свежими доказательствами");
+    throw new Error("итоговая приёмка должна задавать отпечаток кандидата и свежие доказательства");
+  }
+  if (
+    finalRelease.high_resolution_render_allowed &&
+    ledger.release_decisions.high_resolution_render.render_allowed !== true
+  ) {
+    throw new Error("high-res нельзя разрешать без отдельного решения по высокоразрешённому рендеру");
+  }
+  if (
+    finalRelease.delivery_archive_allowed &&
+    ledger.release_decisions.delivery_archive.creation_allowed !== true
+  ) {
+    throw new Error("архив поставки нельзя создавать без отдельного разрешения на создание архива");
   }
   if (
     ledger.documentation_cascade.execution_status !== "completed" ||

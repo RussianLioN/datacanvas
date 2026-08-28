@@ -121,6 +121,16 @@
       "expected_error": "approved text delivery_success_message must preserve the confirmed text"
     },
     {
+      "id": "duplicate-delivery-status-topic",
+      "mutation": "duplicate_delivery_status_topic",
+      "expected_error": "/delivery_status_texts/1/topic_id: must be equal to constant"
+    },
+    {
+      "id": "substituted-delivery-status-text",
+      "mutation": "substituted_delivery_status_text",
+      "expected_error": "/delivery_status_texts/1/text: must be equal to constant"
+    },
+    {
       "id": "stale-svg-pipeline-text-selection",
       "mutation": "stale_svg_pipeline_text_selection",
       "expected_error": "/message_topics/0/status: must be equal to constant"

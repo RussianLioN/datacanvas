@@ -58,9 +58,10 @@
         "draft_archive": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "owner_decision", "release_effect"],
+          "required": ["status", "release_allowed", "owner_decision", "release_effect"],
           "properties": {
             "status": { "const": "not_release_allowed" },
+            "release_allowed": { "const": false },
             "owner_decision": { "const": "11 кадров черновика приняты только для каскадного обновления документации." },
             "release_effect": { "const": "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки." }
           }
@@ -68,9 +69,11 @@
         "delivery_archive": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "owner_decision", "creation_blocker"],
+          "required": ["status", "public_allowed", "creation_allowed", "owner_decision", "creation_blocker"],
           "properties": {
             "status": { "const": "owner_allowed_public_but_creation_blocked" },
+            "public_allowed": { "const": true },
+            "creation_allowed": { "const": false },
             "owner_decision": { "const": "Архив поставки разрешён и публичен по решению владельца." },
             "creation_blocker": { "const": "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск." }
           }
@@ -78,18 +81,20 @@
         "publicity": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "owner_decision"],
+          "required": ["status", "public_allowed", "owner_decision"],
           "properties": {
             "status": { "const": "owner_allowed_public" },
+            "public_allowed": { "const": true },
             "owner_decision": { "const": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца." }
           }
         },
         "high_resolution_render": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "owner_decision", "current_render_allowed"],
+          "required": ["status", "render_allowed", "owner_decision", "current_render_allowed"],
           "properties": {
             "status": { "const": "waiting_owner_input" },
+            "render_allowed": { "const": false },
             "owner_decision": { "const": "Высокоразрешённый рендер ожидает отдельные вводные владельца." },
             "current_render_allowed": { "const": false }
           }
@@ -118,8 +123,8 @@
     },
     "frame_approvals": {
       "type": "array",
-      "minItems": 10,
-      "maxItems": 10,
+      "minItems": 11,
+      "maxItems": 11,
       "items": { "$ref": "#/$defs/frame_approval" }
     },
     "pending_text_selections": {
@@ -184,9 +189,6 @@
           "if": { "properties": { "status": { "const": "owner_final_approved" } }, "required": ["status"] },
           "then": {
             "properties": {
-              "active_release_switch_allowed": { "const": true },
-              "high_resolution_render_allowed": { "const": true },
-              "delivery_archive_allowed": { "const": true },
               "candidate_fingerprint": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
               "fresh_evidence_path": { "type": "string", "minLength": 1 }
             }
@@ -214,12 +216,13 @@
     "frame_approval": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["frame_id", "status", "review_manifest_path", "owner_approval_record_path"],
+      "required": ["frame_id", "status", "approval_source_path", "review_manifest_path", "owner_approval_record_path"],
       "properties": {
         "frame_id": {
           "enum": [
             "lisa-materials-full-reference",
             "lisa-presentation-generating",
+            "lisa-presentation-chat-list",
             "lisa-presentation-sent",
             "lisa-presentation-email",
             "lisa-order-not-accepted",
@@ -230,20 +233,13 @@
             "lisa-presentation-mag"
           ]
         },
-        "status": { "enum": ["owner_frame_approved", "pending_owner_approval"] },
-        "review_manifest_path": { "type": "string", "minLength": 1 },
-        "owner_approval_record_path": { "type": ["string", "null"] }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "status": { "const": "owner_frame_approved" } }, "required": ["status"] },
-          "then": { "properties": { "owner_approval_record_path": { "type": "string", "minLength": 1 } } }
+        "status": { "const": "owner_frame_approved" },
+        "approval_source_path": {
+          "const": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"
         },
-        {
-          "if": { "properties": { "status": { "const": "pending_owner_approval" } }, "required": ["status"] },
-          "then": { "properties": { "owner_approval_record_path": { "type": "null" } } }
-        }
-      ]
+        "review_manifest_path": { "type": ["string", "null"], "minLength": 1 },
+        "owner_approval_record_path": { "type": ["string", "null"] }
+      }
     }
   }
 }

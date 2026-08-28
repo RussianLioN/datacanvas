@@ -3,6 +3,7 @@ import fs from "node:fs";
 import test from "node:test";
 
 const requirementsPath = new URL("../docs/product/requirements/business-requirements.md", import.meta.url);
+const acceptanceCriteriaPath = new URL("../docs/product/requirements/acceptance-criteria.md", import.meta.url);
 const scopePath = new URL("../docs/product/sources/co-2026-003-current-2026-scope.md", import.meta.url);
 
 const activeRequirementIds = [
@@ -12,6 +13,10 @@ const activeRequirementIds = [
 
 function readRequirements() {
   return fs.readFileSync(requirementsPath, "utf8");
+}
+
+function readAcceptanceCriteria() {
+  return fs.readFileSync(acceptanceCriteriaPath, "utf8");
 }
 
 function countOccurrences(text, fragment) {
@@ -87,6 +92,28 @@ test("Q4_2026 не возвращает ODT, ссылку, PUSH или прои�
   assert.doesNotMatch(text, /отдельн(?:ая|ую)\s+ссылк[ау][^.\n]*(?:результат|презентац)/iu);
   assert.doesNotMatch(text, /системн(?:ый|ого)\s+PUSH[^.\n]*(?:входит|показывается|отправляется|доставляется)/iu);
   assert.doesNotMatch(text, /(?:трет(?:ий|ьего)|произвольн(?:ый|ого))\s+(?:почтов(?:ый|ого)\s+)?контур/iu);
+});
+
+test("критерии приёмки Q4_2026 не содержат активных строк про ссылку, хранилище или PUSH", () => {
+  const text = readAcceptanceCriteria();
+  const rows = text
+    .split("\n")
+    .filter((line) => line.startsWith("|") && !line.includes("---"))
+    .filter((line) => /BT-020|BT-021/u.test(line));
+
+  assert.ok(rows.length > 0, "будущие строки BT-020/BT-021 должны остаться явно видимыми как вне Q4_2026");
+  for (const row of rows) {
+    assert.match(
+      row,
+      /будущ(?:ий|его|ему)|вне\s+Q4_2026|за пределами\s+`?Q4_2026`?/iu,
+      `строка с BT-020/BT-021 должна быть явно помечена как будущая или вне Q4_2026: ${row}`,
+    );
+    assert.doesNotMatch(
+      row,
+      /получает[^|]*(?:ссылк|уведомлен)|сохранена[^|]*хранилищ|может показать[^|]*ссылк/iu,
+      `строка с BT-020/BT-021 не должна утверждать активную ссылку, уведомление или хранение: ${row}`,
+    );
+  }
 });
 
 test("Q4_2026 для «Справки по клиенту» требует оба контура доставки SIGMA и OMEGA", () => {

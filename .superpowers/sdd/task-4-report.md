@@ -93,6 +93,22 @@
   добавить новые тексты в визуальный кандидат показала риск смешения
   утверждённых статусных текстов с входом генератора прототипа.
 
+После ревью Task 4 добавлены и запущены дополнительные RED-проверки:
+
+- `tests/co-2026-003-release-state.test.mjs` — реестр содержал 10 записей
+  `frame_approvals` вместо 11 и оставлял три кадра в статусе
+  `pending_owner_approval`.
+- `tests/co-2026-003-business-requirements.test.mjs` — в
+  `acceptance-criteria.md` строки `BT-020` и `BT-021` всё ещё выглядели как
+  активная приёмка ссылки, хранилища и уведомления.
+- `tests/co-2026-003-release-state.test.mjs` — схема `final_release`
+  автоматически связывала `owner_final_approved` с одновременным разрешением
+  переключения активного выпуска, высокоразрешённого рендера и архива поставки.
+- `tests/co-2026-003-prototype-revision.test.mjs` и
+  `tests/fixtures/co-2026-003-prototype-revision-negative.json` — схема
+  утверждённых текстов не отклоняла дубль `topic_id` и подмену одного из трёх
+  утверждённых текстов доставки.
+
 ## GREEN
 
 Минимальные правки внесены в следующие домены:
@@ -103,6 +119,23 @@
 - утверждённые тексты и узкую схему источника утверждённых текстов;
 - реестр разрешений выпуска и его схему;
 - профильные тесты для новых смысловых запретов и статусов.
+
+Доработки после ревью:
+
+- `frame_approvals` в реестре приведён к 11 записям, все записи имеют статус
+  `owner_frame_approved` и источник приёмки из стенограммы. Это не меняет
+  отдельную блокировку чистового выпуска, архива поставки и
+  высокоразрешённого рендера.
+- В `acceptance-criteria.md` строки `BT-020` и `BT-021` явно помечены как
+  будущий объём вне `Q4_2026`; активная приёмка больше не утверждает отдельную
+  ссылку, защищённое хранилище или уведомление по ссылке.
+- `final_release` в схеме и валидаторе больше не требует автоматически, чтобы
+  `owner_final_approved` одновременно включал `active_release_switch_allowed`,
+  `high_resolution_render_allowed` и `delivery_archive_allowed`. У архива,
+  публичности и high-res сохранены отдельные статусы и флаги.
+- Схема `owner-approved-texts` закрепляет ровно три `delivery_status_texts` в
+  каноническом порядке, без дублей `topic_id` и с дословными утверждёнными
+  текстами доставки. Добавлены отрицательные проверки на дубль и подмену.
 
 Проверки после исправлений:
 
@@ -120,6 +153,25 @@
 - `npm run validate:data-leakage` — успешно;
 - `git diff --check` — успешно.
 
+Повторная проверка после доработок ревью:
+
+- `node --test tests/co-2026-003-release-state.test.mjs` — успешно;
+- `node --test tests/co-2026-003-business-requirements.test.mjs` — успешно;
+- `node --test tests/co-2026-003-prototype-revision.test.mjs` — успешно.
+- `npm run validate:co-2026-003-bt-interview` — успешно;
+- `npm run validate:business-docs` — успешно;
+- `npm run validate:business-claim-map` — успешно;
+- `npm run validate:ba-sa` — успешно;
+- `npm run validate:user-story-decomposition` — успешно;
+- `npm run validate:co-2026-003-release-state` — успешно;
+- `npm run validate:co-2026-003-prototype-revision` — успешно;
+- `npm run validate:product-sources` — успешно;
+- `npm run validate:product-source-consistency` — успешно;
+- `npm run validate:schemas` — успешно;
+- `npm run scan:secrets` — успешно;
+- `npm run validate:data-leakage` — успешно.
+- `git diff --check` — успешно.
+
 Полный `npm test` не запускался по ограничению задачи.
 
 ## Самопроверка области изменений
@@ -135,9 +187,14 @@
   и его схема не изменены: чистовой визуальный контур не затронут.
 - Дополнительно изменены узкая схема
   `docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/owner-approved-texts.schema.json`
-  и тест `tests/co-2026-003-prototype-revision.test.mjs`, потому что без них
-  нельзя зафиксировать дополнительные утверждённые тексты доставки без
+  и тесты/fixtures `tests/co-2026-003-prototype-revision.test.mjs`,
+  `tests/fixtures/co-2026-003-prototype-revision-negative.json`, потому что без
+  них нельзя зафиксировать дополнительные утверждённые тексты доставки без
   изменения визуального кандидата.
+- После ревью дополнительно изменён
+  `scripts/validate-co-2026-003-release-state.mjs`: область записи была
+  расширена владельцем, потому что схема и валидатор статуса выпуска должны
+  меняться вместе.
 - Во входной области записи указан `docs/architecture/system-analysis/state-model.json`,
   но в рабочей копии такого файла нет. Фактическая модель состояний, которую
   используют валидаторы, находится в
