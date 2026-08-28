@@ -12,6 +12,7 @@
     "selection_date",
     "provenance",
     "selections",
+    "delivery_status_texts",
     "visual_release_boundary"
   ],
   "properties": {
@@ -33,7 +34,7 @@
         "candidate_evidence_policy": { "const": "two_phase_candidates_preserved_as_historical_context" },
         "team_vote_method": { "const": "manual_plus_marks_in_owner_provided_selection_package" },
         "tie_policy": { "const": "equal_maximum_plus_count_requires_owner_choice" },
-        "owner_confirmation": { "const": "all_five_texts_confirmed_in_chat" }
+        "owner_confirmation": { "const": "five_base_texts_confirmed_in_chat_and_three_delivery_texts_confirmed_by_transcript" }
       }
     },
     "selections": {
@@ -41,6 +42,12 @@
       "minItems": 5,
       "maxItems": 5,
       "items": { "$ref": "#/$defs/selection" }
+    },
+    "delivery_status_texts": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "$ref": "#/$defs/delivery_status_text" }
     },
     "visual_release_boundary": {
       "type": "object",
@@ -83,8 +90,7 @@
         "topic_title",
         "text",
         "team_vote_count",
-        "selection_method",
-        "candidate_evidence_path"
+        "selection_method"
       ],
       "properties": {
         "topic_id": {
@@ -127,9 +133,10 @@
           },
           "then": {
             "properties": {
-              "historical_candidate_rank": { "type": "integer" }
+              "historical_candidate_rank": { "type": "integer" },
+              "candidate_evidence_path": {}
             },
-            "required": ["historical_candidate_rank"]
+            "required": ["historical_candidate_rank", "candidate_evidence_path"]
           }
         },
         {
@@ -146,12 +153,40 @@
           },
           "then": {
             "properties": {
-              "historical_candidate_rank": { "type": "integer" }
+              "historical_candidate_rank": { "type": "integer" },
+              "candidate_evidence_path": {}
             },
+            "required": ["candidate_evidence_path"],
             "not": { "required": ["historical_candidate_rank"] }
           }
         }
       ]
+    },
+    "delivery_status_text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "topic_id",
+        "topic_title",
+        "text",
+        "status",
+        "decision_source_path"
+      ],
+      "properties": {
+        "topic_id": {
+          "enum": [
+            "sigma_delivery_delayed_message",
+            "sigma_retry_success_message",
+            "delivery_full_failure_message"
+          ]
+        },
+        "topic_title": { "$ref": "#/$defs/safeText" },
+        "text": { "$ref": "#/$defs/safeText" },
+        "status": { "const": "owner_approved_by_transcript" },
+        "decision_source_path": {
+          "const": "../../../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"
+        }
+      }
     }
   }
 }

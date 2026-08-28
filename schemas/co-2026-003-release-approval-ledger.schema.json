@@ -9,6 +9,7 @@
     "version",
     "change_order_id",
     "public_data_authorization",
+    "release_decisions",
     "documentation_cascade",
     "frame_approvals",
     "pending_text_selections",
@@ -41,6 +42,57 @@
           "minItems": 3,
           "items": { "type": "string", "minLength": 1 },
           "uniqueItems": true
+        }
+      }
+    },
+    "release_decisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "draft_archive",
+        "delivery_archive",
+        "publicity",
+        "high_resolution_render"
+      ],
+      "properties": {
+        "draft_archive": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "owner_decision", "release_effect"],
+          "properties": {
+            "status": { "const": "not_release_allowed" },
+            "owner_decision": { "const": "11 кадров черновика приняты только для каскадного обновления документации." },
+            "release_effect": { "const": "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки." }
+          }
+        },
+        "delivery_archive": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "owner_decision", "creation_blocker"],
+          "properties": {
+            "status": { "const": "owner_allowed_public_but_creation_blocked" },
+            "owner_decision": { "const": "Архив поставки разрешён и публичен по решению владельца." },
+            "creation_blocker": { "const": "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск." }
+          }
+        },
+        "publicity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "owner_decision"],
+          "properties": {
+            "status": { "const": "owner_allowed_public" },
+            "owner_decision": { "const": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца." }
+          }
+        },
+        "high_resolution_render": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "owner_decision", "current_render_allowed"],
+          "properties": {
+            "status": { "const": "waiting_owner_input" },
+            "owner_decision": { "const": "Высокоразрешённый рендер ожидает отдельные вводные владельца." },
+            "current_render_allowed": { "const": false }
+          }
         }
       }
     },

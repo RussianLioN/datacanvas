@@ -46,6 +46,18 @@ test("детализация CO-2026-003 сохраняет девять ист�
   validateStoryDecomposition(decomposition);
 });
 
+test("детализация Q4_2026 закрепляет SIGMA/OMEGA и пять повторов SIGMA без ODT или третьего контура", () => {
+  const decomposition = loadStoryDecomposition();
+  const serialized = JSON.stringify(decomposition);
+  const retryStory = decomposition.child_stories.find((story) => story.child_story_id === "US-030-03");
+  const successStory = decomposition.child_stories.find((story) => story.child_story_id === "US-030-04");
+
+  assert.equal(retryStory?.primary_responsibility, "Пять повторов IRM в SIGMA через 10 минут в пределах одного часа");
+  assert.equal(successStory?.primary_responsibility, "Утверждённый текст успеха после повтора SIGMA с временем ЧЧ:ММ");
+  assert.doesNotMatch(serialized, /\bODT\b/u);
+  assert.doesNotMatch(serialized, /трет(?:ий|ьего)\s+контур/iu);
+});
+
 test("решение владельца снимает блокировку текста полной неподтверждённой доставки", () => {
   const decomposition = loadStoryDecomposition();
   const blocked = decomposition.child_stories

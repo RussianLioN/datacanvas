@@ -80,6 +80,23 @@ test("кандидат БТ CO-2026-003 фиксирует результат д
   assert.match(text, /ни в SIGMA, ни в OMEGA[\s\S]*неподтвержд[её]нн(?:ая|ую) доставк/iu);
 });
 
+test("Q4_2026 не возвращает ODT, ссылку, PUSH или произвольный третий контур в активный смысл", () => {
+  const text = readRequirements();
+
+  assert.doesNotMatch(text, /ODT/u);
+  assert.doesNotMatch(text, /отдельн(?:ая|ую)\s+ссылк[ау][^.\n]*(?:результат|презентац)/iu);
+  assert.doesNotMatch(text, /системн(?:ый|ого)\s+PUSH[^.\n]*(?:входит|показывается|отправляется|доставляется)/iu);
+  assert.doesNotMatch(text, /(?:трет(?:ий|ьего)|произвольн(?:ый|ого))\s+(?:почтов(?:ый|ого)\s+)?контур/iu);
+});
+
+test("Q4_2026 для «Справки по клиенту» требует оба контура доставки SIGMA и OMEGA", () => {
+  const text = readRequirements();
+
+  assert.match(text, /для агента «Справка по клиенту» обязательны оба[\s\S]{0,80}SIGMA[\s\S]{0,80}OMEGA/iu);
+  assert.match(text, /если для «Справки по клиенту»[\s\S]{0,160}SIGMA[\s\S]{0,40}OMEGA[\s\S]{0,80}заказ не принимается/iu);
+  assert.doesNotMatch(text, /«Справка по клиенту»[\s\S]{0,200}(?:один или два|одному или двум)[\s\S]{0,80}контур/iu);
+});
+
 test("человекочитаемая граница 2026 года повторяет порядок историй из рабочей книги", () => {
   const text = fs.readFileSync(scopePath, "utf8");
   const expectedOrder = [

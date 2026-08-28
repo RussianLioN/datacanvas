@@ -13,6 +13,9 @@ const businessRules = readJson("../docs/product/analysis/ba/business-rules.json"
 const saSpec = readJson("../docs/architecture/system-analysis/sa-spec.json");
 const stateModel = readJson("../docs/architecture/system-analysis/datacanvas-lifecycle-state-model.json");
 const errorTaxonomy = readJson("../docs/architecture/system-analysis/error-taxonomy.json");
+const taskSpec = readJson("../docs/product/specs/task-spec-q4-profile-mail-delivery.json");
+const promptSpec = readJson("../docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json");
+const ownerApprovedTexts = readJson("../docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json");
 
 test("Q4_2026 BA/SA-контур содержит согласованные правила и утверждения", () => {
   const claims = new Set(baSpec.claims.map(({ claim_id }) => claim_id));
@@ -59,4 +62,39 @@ test("задержанная доставка закрывает сеанс и �
     stateModel,
     errorTaxonomy,
   }));
+});
+
+test("Q4_2026 BA/SA фиксирует обязательные SIGMA и OMEGA без одного контура для «Справки по клиенту»", () => {
+  const text = JSON.stringify({ baSpec, saSpec, taskSpec, promptSpec });
+
+  assert.match(text, /Справка по клиенту[^"]*обязательн[^"]*SIGMA[^"]*OMEGA/iu);
+  assert.doesNotMatch(text, /Справка по клиенту[^"]*(?:один или два|одному или двум)[^"]*контур/iu);
+  assert.doesNotMatch(text, /доставки PPTX и PDF по допустимому одному или двум контурам/iu);
+});
+
+test("Q4_2026 BA/SA задаёт ровно пять повторов SIGMA через 10 минут в пределах часа", () => {
+  const text = JSON.stringify({ baSpec, businessRules, saSpec, stateModel, errorTaxonomy, taskSpec, promptSpec });
+
+  assert.match(text, /SIGMA[^"]*(?:пять|5)[^"]*повтор/iu);
+  assert.match(text, /(?:10|десять)[^"]*минут/iu);
+  assert.match(text, /(?:одного|один)[^"]*час/iu);
+  assert.doesNotMatch(text, /числ(?:о|овое)[^"]*(?:повторов|число повторов)[^"]*(?:не определ|не добавл|не фиксир)/iu);
+  assert.doesNotMatch(text, /внешн(?:ая|ей)\s+политик[аеи][^"]*повтор/iu);
+});
+
+test("реестр утверждённых текстов содержит дополнительные тексты задержки и успеха после повтора SIGMA", () => {
+  const selectionsByTopic = new Map(ownerApprovedTexts.delivery_status_texts.map((item) => [item.topic_id, item]));
+
+  assert.equal(
+    selectionsByTopic.get("sigma_delivery_delayed_message")?.text,
+    "Отправка презентации в SIGMA задерживается. В течение часа будут выполнены повторные попытки. Сообщу здесь, если отправка будет подтверждена.",
+  );
+  assert.equal(
+    selectionsByTopic.get("sigma_retry_success_message")?.text,
+    "Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ.",
+  );
+  assert.equal(
+    selectionsByTopic.get("delivery_full_failure_message")?.text,
+    "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.",
+  );
 });

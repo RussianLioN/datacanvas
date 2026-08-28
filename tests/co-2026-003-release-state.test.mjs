@@ -31,6 +31,32 @@ test("стенограмма закрепляет текст полной неп
   ]);
 });
 
+test("CO-2026-003 хранит решения выпуска раздельно и не подменяет архив поставки черновым архивом", () => {
+  const ledger = readJson(ledgerPath);
+
+  assert.deepEqual(ledger.release_decisions.draft_archive, {
+    status: "not_release_allowed",
+    owner_decision: "11 кадров черновика приняты только для каскадного обновления документации.",
+    release_effect: "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки.",
+  });
+  assert.deepEqual(ledger.release_decisions.delivery_archive, {
+    status: "owner_allowed_public_but_creation_blocked",
+    owner_decision: "Архив поставки разрешён и публичен по решению владельца.",
+    creation_blocker: "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск.",
+  });
+  assert.deepEqual(ledger.release_decisions.publicity, {
+    status: "owner_allowed_public",
+    owner_decision: "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца.",
+  });
+  assert.deepEqual(ledger.release_decisions.high_resolution_render, {
+    status: "waiting_owner_input",
+    owner_decision: "Высокоразрешённый рендер ожидает отдельные вводные владельца.",
+    current_render_allowed: false,
+  });
+  assert.equal(ledger.final_release.delivery_archive_allowed, false);
+  assert.equal(ledger.final_release.high_resolution_render_allowed, false);
+});
+
 test("CO-2026-003 separates the accepted documentation cascade from frame and final-release approval", () => {
   assert.equal(
     fs.existsSync(path.join(root, ledgerPath)),

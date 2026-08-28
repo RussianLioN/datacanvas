@@ -8,7 +8,7 @@
     "candidate_evidence_policy": "two_phase_candidates_preserved_as_historical_context",
     "team_vote_method": "manual_plus_marks_in_owner_provided_selection_package",
     "tie_policy": "equal_maximum_plus_count_requires_owner_choice",
-    "owner_confirmation": "all_five_texts_confirmed_in_chat"
+    "owner_confirmation": "five_base_texts_confirmed_in_chat_and_three_delivery_texts_confirmed_by_transcript"
   },
   "selections": [
     {
@@ -52,6 +52,29 @@
       "team_vote_count": 4,
       "selection_method": "owner_approved_editorial_text_after_team_vote",
       "candidate_evidence_path": "candidate-evidence/email-body/brainstorming-topic-result.md"
+    }
+  ],
+  "delivery_status_texts": [
+    {
+      "topic_id": "sigma_delivery_delayed_message",
+      "topic_title": "Задержка отправки в SIGMA",
+      "text": "Отправка презентации в SIGMA задерживается. В течение часа будут выполнены повторные попытки. Сообщу здесь, если отправка будет подтверждена.",
+      "status": "owner_approved_by_transcript",
+      "decision_source_path": "../../../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"
+    },
+    {
+      "topic_id": "sigma_retry_success_message",
+      "topic_title": "Успех после повтора отправки в SIGMA",
+      "text": "Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ.",
+      "status": "owner_approved_by_transcript",
+      "decision_source_path": "../../../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"
+    },
+    {
+      "topic_id": "delivery_full_failure_message",
+      "topic_title": "Полная неподтвержденная доставка",
+      "text": "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.",
+      "status": "owner_approved_by_transcript",
+      "decision_source_path": "../../../change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"
     }
   ],
   "visual_release_boundary": {

@@ -14,6 +14,27 @@
       "docs/product/analysis/presentation-link-lisa-user-journey/derived"
     ]
   },
+  "release_decisions": {
+    "draft_archive": {
+      "status": "not_release_allowed",
+      "owner_decision": "11 кадров черновика приняты только для каскадного обновления документации.",
+      "release_effect": "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки."
+    },
+    "delivery_archive": {
+      "status": "owner_allowed_public_but_creation_blocked",
+      "owner_decision": "Архив поставки разрешён и публичен по решению владельца.",
+      "creation_blocker": "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск."
+    },
+    "publicity": {
+      "status": "owner_allowed_public",
+      "owner_decision": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца."
+    },
+    "high_resolution_render": {
+      "status": "waiting_owner_input",
+      "owner_decision": "Высокоразрешённый рендер ожидает отдельные вводные владельца.",
+      "current_render_allowed": false
+    }
+  },
   "documentation_cascade": {
     "scope_acceptance_status": "owner_approved",
     "execution_status": "in_progress",

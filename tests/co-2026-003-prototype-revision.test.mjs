@@ -349,6 +349,11 @@ test("согласованные владельцем тексты хранят�
     ["email_subject", "Презентация по справке ООО «Водолей Трейд»"],
     ["email_body", "Во вложении презентация по Справке по клиенту ООО «Водолей Трейд»."],
   ]);
+  assert.deepEqual(approvedTexts.delivery_status_texts.map((selection) => [selection.topic_id, selection.text]), [
+    ["sigma_delivery_delayed_message", "Отправка презентации в SIGMA задерживается. В течение часа будут выполнены повторные попытки. Сообщу здесь, если отправка будет подтверждена."],
+    ["sigma_retry_success_message", "Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ."],
+    ["delivery_full_failure_message", "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение."],
+  ]);
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "email_subject")?.selection_method, "owner_tie_break_after_team_vote");
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "button_label")?.historical_candidate_rank, 5);
   assert.equal(approvedTexts.selections.find((selection) => selection.topic_id === "delivery_success_message")?.historical_candidate_rank, undefined);

@@ -467,7 +467,7 @@
       "parent_story_id": "DC-ST-30",
       "title": "Повторные попытки IRM для SIGMA",
       "section_heading": "#### US-030-03 — Повторные попытки IRM для SIGMA",
-      "primary_responsibility": "Пять повторов IRM в пределах часа",
+      "primary_responsibility": "Пять повторов IRM в SIGMA через 10 минут в пределах одного часа",
       "business_requirement_ids": [
         "BT-024"
       ],
@@ -484,7 +484,7 @@
       "parent_story_id": "DC-ST-30",
       "title": "Подтверждение успеха после повтора",
       "section_heading": "#### US-030-04 — Подтверждение успеха после повтора",
-      "primary_responsibility": "Подтверждённый результат повторной отправки",
+      "primary_responsibility": "Утверждённый текст успеха после повтора SIGMA с временем ЧЧ:ММ",
       "business_requirement_ids": [
         "BT-019",
         "BT-024"
@@ -530,32 +530,32 @@
     },
     {
       "conflict_id": "CO3-US-CONFLICT-002",
-      "title": "Системные материалы требуют каскадного обновления правила повторов SIGMA",
+      "title": "Системные материалы синхронизированы с правилом повторов SIGMA",
       "affected_child_story_ids": [
         "US-030-03"
       ],
-      "resolution_status": "candidate_for_cascade_fix"
+      "resolution_status": "resolved_by_owner"
     },
     {
       "conflict_id": "CO3-US-CONFLICT-003",
-      "title": "Устаревший формат ODT требует замены на PPTX и PDF в системных материалах",
+      "title": "Устаревший формат заменён на PPTX и PDF в системных материалах",
       "affected_child_story_ids": [
         "US-009-01",
         "US-029-02",
         "US-030-01",
         "US-030-02"
       ],
-      "resolution_status": "candidate_for_cascade_fix"
+      "resolution_status": "resolved_by_owner"
     },
     {
       "conflict_id": "CO3-US-CONFLICT-004",
-      "title": "Будущие функции ссылки и хранения не входят в истории 2026 года",
+      "title": "Будущие функции ссылки и хранения исключены из историй 2026 года",
       "affected_child_story_ids": [
         "US-009-01",
         "US-029-02",
         "US-030-01"
       ],
-      "resolution_status": "candidate_for_cascade_fix"
+      "resolution_status": "resolved_by_owner"
     }
   ]
 }
