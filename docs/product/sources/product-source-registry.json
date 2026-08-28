@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-08-25T00:00:00+03:00",
+  "updated_at": "2026-08-28T00:00:00+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -448,7 +448,7 @@
       "notes": "Актуальная контролируемая книга Product Owner от 2026-08-19 для границы и приоритетов 2026 года. Для требований используется только явно установленная владельцем продукта выборка девяти видимых историй первого листа; ресурсные значения, остальные листы и будущие истории не используются.",
       "sha256": "af3982cd89ae9d076b0064e41c5525c2e5f2a5fb79ff9c175c7cb626eddb32f4",
       "derived_from": null,
-      "verifier_command": "npm run validate:xlsx-backlog-2026-08-19-source-security",
+      "verifier_command": "npm run validate:xlsx-backlog-2026-08-19",
       "allowed_delta": "От внешнего источника Product Owner разрешены только удаление absPath и очистка метаданных автора и содержимого комментариев с сохранением OOXML-структуры. Ячейки, формулы, приоритеты, статусы и ресурсные данные не изменяются.",
       "approval_status": "owner_approved",
       "team_validation_status": "pending_team_review",

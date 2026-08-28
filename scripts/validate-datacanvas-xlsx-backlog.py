@@ -27,6 +27,7 @@ BACKLOG_2026_08_17_EXPECTED_SHEETS = [
     "Итоговые ресурсы",
     "СОЗАВИСИМОСТЬ Q3_2026",
 ]
+BACKLOG_2026_08_19_EXPECTED_PROFILE = "backlog-2026-08-19-working"
 BACKLOG_2026_08_17_STATUS_TEXT = "Сообщения о статусе заказа в том же чате Лисы"
 BACKLOG_2026_08_17_OLD_PUSH_TEXT = "3. Добавляем PUSH уведомление - отображение готовности во всплывающем сообщении"
 REDACTED_OWNER = "Product Owner"
@@ -213,10 +214,11 @@ def comments_by_ref(zipped: ZipFile) -> dict[str, str]:
 
 
 def comment_authors(zipped: ZipFile) -> list[str]:
-    if "xl/comments1.xml" not in zipped.namelist():
-        return []
-    root = read_xml(zipped, "xl/comments1.xml")
-    return [author.text or "" for author in root.findall(".//m:author", NS)]
+    authors: list[str] = []
+    for part in sorted(name for name in zipped.namelist() if name.startswith("xl/comments") and name.endswith(".xml")):
+        root = read_xml(zipped, part)
+        authors.extend(author.text or "" for author in root.findall(".//m:author", NS))
+    return authors
 
 
 def workbook_sheets(zipped: ZipFile) -> list[tuple[str, str]]:
@@ -249,10 +251,14 @@ def workbook_text_pointers(zipped: ZipFile) -> set[str]:
 
 def workbook_personal_metadata(zipped: ZipFile) -> dict[str, list[str]]:
     findings: dict[str, list[str]] = {}
-    for part, local_names in (
-        ("xl/comments1.xml", {"author"}),
+    personal_metadata_parts = [
         ("docProps/core.xml", {"creator", "lastModifiedBy"}),
-    ):
+        *[
+            (part, {"author"})
+            for part in sorted(name for name in zipped.namelist() if name.startswith("xl/comments") and name.endswith(".xml"))
+        ],
+    ]
+    for part, local_names in personal_metadata_parts:
         if part not in zipped.namelist():
             continue
         root = read_xml(zipped, part)
@@ -263,7 +269,7 @@ def workbook_personal_metadata(zipped: ZipFile) -> dict[str, list[str]]:
         ]
         if any(value != REDACTED_OWNER for value in values):
             findings[part] = ["unredacted_owner_metadata"]
-        if part == "xl/comments1.xml":
+        if part.startswith("xl/comments"):
             comment_texts = [
                 "".join(comment_text.itertext()).strip()
                 for comment_text in root.findall(".//m:comment/m:text", NS)
@@ -1138,6 +1144,67 @@ def run_august_2026_self_tests(working_path: Path, provenance_path: Path, expect
             fail(f"2026-08-17 self-test scenario did not fail as expected: {scenario_id}")
 
 
+def validate_current_august_2026_workbook(
+    working_path: Path,
+    provenance_path: Path,
+    expectations_path: Path,
+    *,
+    check_working_hash: bool = True,
+) -> None:
+    expectations = load_json(expectations_path)
+    provenance = load_json(provenance_path)
+
+    assert_equal("2026-08-19 working workbook path", relpath(working_path), expectations["working_path"])
+    assert_equal("2026-08-19 provenance path", relpath(provenance_path), expectations["provenance_path"])
+    assert_equal("2026-08-19 original source sha256", provenance["original_sha256"], expectations["original_source_sha256"])
+    if check_working_hash:
+        assert_equal("2026-08-19 working workbook sha256", sha256_file(working_path), expectations["working_sha256"])
+    assert_equal("2026-08-19 manifest sanitized hash", provenance["sanitized_sha256"], sha256_file(working_path))
+    assert_equal("2026-08-19 manifest profile", provenance.get("profile"), BACKLOG_2026_08_19_EXPECTED_PROFILE)
+    assert_equal("2026-08-19 status label rename count", provenance.get("renamed_status_labels"), 0)
+
+    with open_zip(working_path) as working:
+        assert_package_allowlist(working, "2026-08-19 working workbook")
+        assert_markup_compatibility_prefixes(working, "2026-08-19 working workbook")
+        pointers = workbook_text_pointers(working)
+        if pointers:
+            fail(f"2026-08-19 working workbook contains local or external pointers: {sorted(pointers)}")
+        personal_metadata = workbook_personal_metadata(working)
+        if personal_metadata:
+            fail(f"2026-08-19 working workbook contains personal owner metadata: {personal_metadata}")
+
+        sheets = workbook_sheets(working)
+        assert_equal("2026-08-19 sheet names", [name for name, _part in sheets], expectations["sheet_names"])
+
+        authors = comment_authors(working)
+        if authors and any(author != REDACTED_OWNER for author in authors):
+            fail(f"2026-08-19 comments authors are not sanitized: {authors}")
+
+
+def run_current_august_2026_self_tests(working_path: Path, provenance_path: Path, expectations_path: Path) -> None:
+    scenarios = {
+        "local-pointer-restored": {
+            "xl/workbook.xml": ("</workbook>", '<x:absPath url="/Users/private/source" xmlns:x="urn:abs"/></workbook>')
+        },
+        "personal-comment1-restored": {"xl/comments1.xml": ("Product Owner", "Личный автор")},
+        "personal-comment2-restored": {"xl/comments2.xml": ("Product Owner", "Личный автор")},
+        "personal-comment-text-restored": {
+            "xl/comments2.xml": ("<text/>", "<text><r><t>Личная запись</t></r></text>")
+        },
+        "personal-core-restored": {"docProps/core.xml": ("Product Owner", "Личный автор")},
+    }
+    with tempfile.TemporaryDirectory(prefix="datacanvas-xlsx-2026-08-19-validator-") as tmp:
+        tmp_path = Path(tmp)
+        for scenario_id, replacements in scenarios.items():
+            mutant = tmp_path / f"{scenario_id}.xlsx"
+            rewrite_zip(working_path, mutant, replacements)
+            try:
+                validate_current_august_2026_workbook(mutant, provenance_path, expectations_path, check_working_hash=False)
+            except ValidationError:
+                continue
+            fail(f"2026-08-19 self-test scenario did not fail as expected: {scenario_id}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Validate the DataCanvas draft XLSX backlog workbook.")
     parser.add_argument("--source", default="docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx")
@@ -1147,7 +1214,7 @@ def main() -> int:
     parser.add_argument("--source-manifest", default="docs/product/sources/reference/datacanvas-backlog-source-sanitization.json")
     parser.add_argument("--story-catalog", default="tests/fixtures/xlsx-backlog-draft-pshe-2026-07-08-story-catalog.md")
     parser.add_argument("--self-test", action="store_true", help="Run negative mutation checks in a temporary directory.")
-    parser.add_argument("--profile", default="2026-07-08", choices=["2026-07-08", "2026-08-17"])
+    parser.add_argument("--profile", default="2026-07-08", choices=["2026-07-08", "2026-08-17", "2026-08-19"])
     args = parser.parse_args()
 
     source_path = ROOT / args.source
@@ -1162,6 +1229,10 @@ def main() -> int:
             validate_august_2026_workbook(working_path, provenance_path, expectations_path)
             if args.self_test:
                 run_august_2026_self_tests(working_path, provenance_path, expectations_path)
+        elif args.profile == "2026-08-19":
+            validate_current_august_2026_workbook(working_path, provenance_path, expectations_path)
+            if args.self_test:
+                run_current_august_2026_self_tests(working_path, provenance_path, expectations_path)
         else:
             validate_pair(source_path, working_path, expectations_path, provenance_path, source_manifest_path, story_catalog_path)
             if args.self_test:

@@ -1,33 +1,85 @@
-# Отчёт по Task 1
+# Task 1 — предварительная проверка и единый вход XLSX
 
-## Статус
+## Сделанное
 
-Task 1 выполнен с зафиксированным ограничением: полный `npm test` остаётся
-заблокирован устаревшим `current_main_commit` в
-`docs/navigation/navigation-source.json`. Исправление относится к Task 8.
+- Добавлен валидатор `scripts/validate-active-xlsx-backlog-source.mjs`, который проверяет, что общий сценарий `validate:xlsx-backlog` использует текущий источник `SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19`, а исторический `SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17` не возвращён в общий вход.
+- Добавлен отдельный сценарий `validate:xlsx-backlog-2026-08-19` и перенастроен общий `validate:xlsx-backlog` на `2026-08-19`.
+- Добавлен golden-файл `tests/golden/xlsx-backlog-draft-pshe-2026-08-19.json`.
+- Расширен `scripts/validate-datacanvas-xlsx-backlog.py`: добавлен профиль `2026-08-19`, проверка всех `xl/comments*.xml` и отрицательные мутации для текущей санитарной книги.
+- Обновлён `docs/product/sources/product-source-registry.json`: активный источник `SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19` теперь ссылается на полный профильный валидатор, а `SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17` остаётся отдельным superseded-источником с исторической проверкой.
 
-## Проверенные условия
+## Файлы
 
-- ветка: `feat/co-2026-003-q4-lisa-profile`;
-- ветка создана от `origin/main` с базовым коммитом `6cfa3e0b21eabdcc069b7599cc288705c2194183`; после коммита Task 1 текущий `HEAD` закономерно отличается, а `git merge-base HEAD origin/main` подтверждает базу `6cfa3e0b21eabdcc069b7599cc288705c2194183`;
-- план сохранён в `docs/plans/co-2026-003-q4-lisa-profile-implementation-plan.md`;
-- в плане присутствуют последовательные разделы Task 1–10;
-- журнал выполнения ведётся в `.superpowers/sdd/progress.md`;
-- `git diff --check`: пройден.
+- `package.json`
+- `scripts/validate-active-xlsx-backlog-source.mjs`
+- `scripts/validate-datacanvas-xlsx-backlog.py`
+- `tests/golden/xlsx-backlog-draft-pshe-2026-08-19.json`
+- `docs/product/sources/product-source-registry.json`
+- `.superpowers/sdd/task-1-report.md`
 
-Уточнение результата проверки: первоначальное утверждение о совпадении
-`HEAD` с `origin/main` было неточным. Исправленная проверка разделяет исходную
-базу ветки и текущий коммит Task 1; `git merge-base` подтверждает корректную
-основу ветки.
+Не изменялись и не добавлялись в коммит: `docs/plans/co-2026-003-p1-cascade-methodology-implementation-plan.md`, `docs/architecture/schemas/artifact-hash-manifest.json`, `docs/navigation/documentation-index.json`, `docs/navigation/orphan-docs-report.md`.
 
-## Границы изменений
+## RED/GREEN TDD
 
-В этот коммит входят только план, журнал Task 1 и данный отчёт. Три изменённых
-производных файла, появившихся после исходного `npm test`, не изменялись и не
-добавлялись.
+RED:
 
-## Ограничения и следующий шаг
+```bash
+node scripts/validate-active-xlsx-backlog-source.mjs
+```
 
-Полный набор проверок следует выполнить после устранения блокера навигации в
-Task 8; до этого повторный `npm test` не даёт нового доказательства и
-перегенерирует производные файлы.
+Результат до реализации:
+
+```text
+ERROR: validate:xlsx-backlog must call validate:xlsx-backlog-2026-08-19
+```
+
+GREEN:
+
+```bash
+node scripts/validate-active-xlsx-backlog-source.mjs
+```
+
+Результат после реализации:
+
+```text
+Active XLSX backlog source validation passed
+```
+
+## Команды и результаты
+
+```bash
+npm run validate:xlsx-backlog-2026-08-19
+```
+
+Результат: прошли `validate:xlsx-backlog-2026-08-19-source-security`, основной XLSX-валидатор и отрицательные self-tests для `2026-08-19`.
+
+```bash
+npm run validate:xlsx-backlog
+```
+
+Результат: общий сценарий прошёл через `scripts/validate-active-xlsx-backlog-source.mjs` и `validate:xlsx-backlog-2026-08-19`.
+
+```bash
+npm run validate:product-sources
+npm run validate:product-source-consistency
+npm run validate:xlsx-backlog-2026-08-17
+npm run validate:xlsx-cascade
+npm run validate:schemas
+npm run scan:secrets
+npm run validate:data-leakage
+git diff --check
+```
+
+Результат: все команды завершились с кодом `0`.
+
+## Саморевью
+
+- Изменения ограничены зоной Task 1: package-сценарии, XLSX-валидаторы, реестр источников, golden-описание и локальный отчёт.
+- Историческая книга `2026-08-17` сохранена и проверяется отдельной командой `validate:xlsx-backlog-2026-08-17`.
+- Общий сценарий больше не вызывает исторический `validate:xlsx-backlog-2026-08-17`.
+- Исходный внешний XLSX и локальные пути не раскрывались; проверки `scan:secrets` и `validate:data-leakage` прошли.
+
+## Риски
+
+- Полный `npm test` не запускался, чтобы не пересобирать и не затрагивать чужие уже изменённые generated-артефакты в этой общей рабочей копии.
+- Generated navigation/hash-артефакты уже были изменены до этой задачи и намеренно не включались в коммит Task 1.
