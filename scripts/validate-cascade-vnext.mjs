@@ -49,6 +49,8 @@ import {
 } from "./cascade-owner-acceptance.mjs";
 import { hashJsonDocument } from "./cascade-evidence-utils.mjs";
 import {
+  assertActualDiffManifestMatchesGit,
+  buildActualDiffManifestFromGit,
   buildRuntimeManifest,
   createIsolatedNpmEnvironment,
   sanitizeOutput,
@@ -388,9 +390,20 @@ const safeLedgerEntry = buildRunLedgerEntry({
   candidateFingerprintSha256: candidateFingerprint,
 });
 assert.equal(safeLedgerEntry.exit_code, 1);
+assert.equal(safeLedgerEntry.evidence_path, null, "отказный журнал не должен ссылаться на еще не опубликованное evidence");
+assert.equal(fs.existsSync(safeLedgerEntry.rca_path), true, "RCA-ссылка отказного журнала должна вести к существующему файлу");
 assert.match(safeLedgerEntry.summary, /<repo>/u);
 assert.doesNotMatch(safeLedgerEntry.summary, new RegExp(process.cwd().replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
 assert.doesNotMatch(safeLedgerEntry.summary, /abc123/u);
+const missingRcaLedgerEntry = buildRunLedgerEntry({
+  command: "cascade:complete",
+  status: "failed",
+  exitCode: 1,
+  summary: "Блокировка публикации.",
+  rcaPath: "docs/knowledge/rca/2026-08-28-cascade-partial-publication-barrier.md",
+  candidateFingerprintSha256: candidateFingerprint,
+});
+assert.equal(fs.existsSync(missingRcaLedgerEntry.rca_path), true, "RCA частичной публикации должна существовать, если журнал на нее ссылается");
 assert.throws(
   () => resolveSourceIdentities({ sourceRegistry, triggerPaths: ["docs/unregistered.xlsx"] }),
   /source identity/u,
@@ -911,6 +924,49 @@ try {
   );
   assert.equal(fs.existsSync(path.join(raceParent, "RUN-RACE")), false);
   assert.deepEqual(fs.readdirSync(raceOutside), [], "подмена staging-корня не должна публиковать файлы наружу");
+
+  const manifestRepo = path.join(tempRoot, "manifest-repo");
+  fs.mkdirSync(manifestRepo);
+  const manifestGit = (args) => execFileSync("git", args, { cwd: manifestRepo, encoding: "utf8" });
+  manifestGit(["init", "-q"]);
+  manifestGit(["config", "user.name", "Cascade Test"]);
+  manifestGit(["config", "user.email", "cascade-test@datacanvas.local"]);
+  fs.writeFileSync(path.join(manifestRepo, "docs-product-vision.md"), "before\n", "utf8");
+  manifestGit(["add", "."]);
+  manifestGit(["commit", "-q", "-m", "base"]);
+  const manifestBaseSha = manifestGit(["rev-parse", "HEAD"]).trim();
+  fs.writeFileSync(path.join(manifestRepo, "docs-product-vision.md"), "after\n", "utf8");
+  manifestGit(["add", "."]);
+  manifestGit(["commit", "-q", "-m", "candidate"]);
+  const manifestCandidateSha = manifestGit(["rev-parse", "HEAD"]).trim();
+  const trustedComposition = {
+    inputPaths: [
+      "docs/process/cascading-governance/runs/source/cascade-vnext-run.json",
+      "docs/process/cascading-governance/runs/source/runtime-manifest.json",
+      "docs/process/cascading-governance/runs/source/validation-manifest.json",
+      "docs/process/cascading-governance/runs/input/resolution-input.json",
+    ],
+    outputPaths: [
+      "docs/process/cascading-governance/runs/final/actual-diff-manifest.json",
+      "docs/process/cascading-governance/runs/final/cascade-vnext-run.json",
+      "docs/process/cascading-governance/runs/final/resolution-report.json",
+    ],
+    archivePath: null,
+  };
+  const forgedSelfConsistentManifest = buildActualDiffManifestFromGit(manifestRepo, {
+    baseSha: manifestBaseSha,
+    planningHeadSha: manifestBaseSha,
+    candidateHeadSha: manifestCandidateSha,
+    allowedWrites: ["docs-product-vision.md"],
+    inputPaths: ["docs/process/cascading-governance/runs/forged/input.json"],
+    outputPaths: ["docs/process/cascading-governance/runs/forged/output.json"],
+    archivePath: "artifacts/documentation-archive/forged.zip",
+  });
+  assert.throws(
+    () => assertActualDiffManifestMatchesGit(manifestRepo, forgedSelfConsistentManifest, trustedComposition),
+    /candidate path registry mismatch|actual diff manifest/u,
+    "самосогласованная подмена полного набора путей должна блокироваться независимым составом",
+  );
 
   const approvalRepo = path.join(tempRoot, "approval-repo");
   fs.mkdirSync(approvalRepo);

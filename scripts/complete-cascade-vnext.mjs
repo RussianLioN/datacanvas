@@ -34,6 +34,7 @@ import {
   assertRepoPathMatchesGit,
   buildRuntimeManifest,
   createIsolatedNpmEnvironment,
+  expectedFinalizedCandidateComposition,
   finalizedPackagePaths,
   git,
   hashGitPath,
@@ -260,7 +261,12 @@ async function main() {
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
   if (actualDiff.candidate_head_sha !== candidateSha) throw new Error("actual diff candidate SHA mismatch");
-  assertActualDiffManifestMatchesGit(root, actualDiff);
+  assertActualDiffManifestMatchesGit(root, actualDiff, expectedFinalizedCandidateComposition({
+    finalizedRunPath: profileEvidence.source_run_path,
+    finalizedRun,
+    planningRunPath: resolutionReport.source_run_path,
+    planningRun,
+  }));
   assertCandidateFingerprintBinding({
     expected: actualDiff.candidate_fingerprint_sha256,
     actual: sourceRun.candidate_fingerprint_sha256,
@@ -318,7 +324,7 @@ async function main() {
     summary: blockingReasons.length > 0
       ? blockingReasons.join(" ")
       : "Завершение каскада подтверждено полным профилем команд.",
-    evidencePath,
+    evidencePath: passed ? evidencePath : null,
     rcaPath: blockingReasons.length > 0 ? "docs/knowledge/rca/2026-08-28-cascade-partial-publication-barrier.md" : null,
     candidateFingerprintSha256: sourceRun.candidate_fingerprint_sha256,
   });

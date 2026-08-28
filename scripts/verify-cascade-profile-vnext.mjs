@@ -25,6 +25,7 @@ import {
   assertImmutableGitPackage,
   buildRuntimeManifest,
   createIsolatedNpmEnvironment,
+  expectedFinalizedCandidateComposition,
   finalizedPackagePaths,
   git,
   planningPackagePaths,
@@ -117,7 +118,12 @@ async function main() {
   });
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
-  assertActualDiffManifestMatchesGit(root, actualDiff);
+  assertActualDiffManifestMatchesGit(root, actualDiff, expectedFinalizedCandidateComposition({
+    finalizedRunPath: sourceRunPath,
+    finalizedRun: sourceRun,
+    planningRunPath: resolutionReport.source_run_path,
+    planningRun,
+  }));
   assertCandidateFingerprintBinding({
     expected: actualDiff.candidate_fingerprint_sha256,
     actual: sourceRun.candidate_fingerprint_sha256,

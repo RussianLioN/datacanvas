@@ -19,6 +19,7 @@ import {
   assertGitCommit,
   assertRepoPathMatchesGit,
   buildActualDiffManifestFromGit,
+  buildFinalizationCandidateComposition,
   git,
   hashGitPatch,
   hashGitPath,
@@ -204,20 +205,21 @@ async function main() {
   const finalizedRunPath = `${outputDir}/cascade-vnext-run.json`;
   const diffManifestPath = `${outputDir}/actual-diff-manifest.json`;
   const resolutionReportPath = `${outputDir}/resolution-report.json`;
-  const inputPaths = [
-    sourceRunPath,
+  const candidateComposition = buildFinalizationCandidateComposition({
+    planningRunPath: sourceRunPath,
+    planningRun: sourceRun,
     resolutionInputPath,
-    ...planningPackagePaths(sourceRunPath, sourceRun),
-    ...acceptancePaths,
-  ];
-  const outputPaths = [finalizedRunPath, diffManifestPath, resolutionReportPath];
+    acceptancePaths,
+    finalizedRunPath,
+    diffManifestPath,
+    resolutionReportPath,
+  });
   const diffManifest = buildActualDiffManifestFromGit(root, {
     baseSha: sourceRun.base_sha,
     planningHeadSha: sourceRun.planning_head_sha,
     candidateHeadSha,
     allowedWrites,
-    inputPaths,
-    outputPaths,
+    ...candidateComposition,
   });
   const resolutionReport = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-resolution-report.schema.json",

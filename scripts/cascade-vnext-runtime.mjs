@@ -90,6 +90,44 @@ export function profilePackagePaths(runPath, run) {
   return sortedPaths([runPath, run.profile_evidence_path]);
 }
 
+export function buildFinalizationCandidateComposition({
+  planningRunPath,
+  planningRun,
+  resolutionInputPath,
+  acceptancePaths = [],
+  finalizedRunPath,
+  diffManifestPath,
+  resolutionReportPath,
+  archivePath = null,
+}) {
+  return {
+    inputPaths: sortedPaths([
+      resolutionInputPath,
+      ...planningPackagePaths(planningRunPath, planningRun),
+      ...acceptancePaths,
+    ]),
+    outputPaths: sortedPaths([finalizedRunPath, diffManifestPath, resolutionReportPath]),
+    archivePath: archivePath ? normalizeRepoPath(archivePath) : null,
+  };
+}
+
+export function expectedFinalizedCandidateComposition({
+  finalizedRunPath,
+  finalizedRun,
+  planningRunPath,
+  planningRun,
+}) {
+  return buildFinalizationCandidateComposition({
+    planningRunPath,
+    planningRun,
+    resolutionInputPath: finalizedRun.resolution_input_path,
+    acceptancePaths: finalizedRun.acceptance_paths,
+    finalizedRunPath,
+    diffManifestPath: finalizedRun.diff_manifest_path,
+    resolutionReportPath: finalizedRun.resolution_report_path,
+  });
+}
+
 export function assertRepoPathMatchesGit(root, commitSha, relativePath, label = "repository path") {
   const normalized = normalizeRepoPath(relativePath);
   const committedHash = hashGitPath(root, commitSha, normalized);
@@ -181,15 +219,28 @@ export function buildActualDiffManifestFromGit(root, {
   };
 }
 
-export function assertActualDiffManifestMatchesGit(root, expectedManifest) {
+export function assertActualDiffManifestMatchesGit(root, expectedManifest, expectedComposition) {
+  if (!expectedComposition) {
+    throw new Error("independent candidate composition is required for actual diff verification");
+  }
+  const expectedInputPaths = sortedPaths(expectedComposition.inputPaths ?? []);
+  const expectedOutputPaths = sortedPaths(expectedComposition.outputPaths ?? []);
+  const expectedArchivePath = expectedComposition.archivePath ? normalizeRepoPath(expectedComposition.archivePath) : null;
+  if (
+    !isDeepStrictEqual(expectedManifest.input_paths, expectedInputPaths)
+    || !isDeepStrictEqual(expectedManifest.output_paths, expectedOutputPaths)
+    || expectedManifest.archive_path !== expectedArchivePath
+  ) {
+    throw new Error("candidate path registry mismatch");
+  }
   const actualManifest = buildActualDiffManifestFromGit(root, {
     baseSha: expectedManifest.base_sha,
     planningHeadSha: expectedManifest.planning_head_sha,
     candidateHeadSha: expectedManifest.candidate_head_sha,
     allowedWrites: expectedManifest.allowed_write_paths,
-    inputPaths: expectedManifest.input_paths,
-    outputPaths: expectedManifest.output_paths,
-    archivePath: expectedManifest.archive_path,
+    inputPaths: expectedInputPaths,
+    outputPaths: expectedOutputPaths,
+    archivePath: expectedArchivePath,
   });
   if (!isDeepStrictEqual(actualManifest, expectedManifest)) {
     throw new Error("actual diff manifest does not match the immutable Git range");

@@ -119,12 +119,13 @@ export function buildRunLedgerEntry({
   if (candidateFingerprintSha256 !== null && !sha256Pattern.test(candidateFingerprintSha256)) {
     throw new Error("run ledger candidate fingerprint must be sha256");
   }
+  const publishedEvidencePath = status === "passed" ? evidencePath : null;
   return {
     command,
     status,
     exit_code: exitCode,
     summary: redactSafeText(summary, repoRoot).slice(0, 1200),
-    evidence_path: evidencePath ? normalizeRepoPath(evidencePath) : null,
+    evidence_path: publishedEvidencePath ? normalizeRepoPath(publishedEvidencePath) : null,
     rca_path: rcaPath ? normalizeRepoPath(rcaPath) : null,
     candidate_fingerprint_sha256: candidateFingerprintSha256,
   };
