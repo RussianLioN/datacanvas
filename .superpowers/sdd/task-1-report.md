@@ -83,3 +83,68 @@ git diff --check
 
 - Полный `npm test` не запускался, чтобы не пересобирать и не затрагивать чужие уже изменённые generated-артефакты в этой общей рабочей копии.
 - Generated navigation/hash-артефакты уже были изменены до этой задачи и намеренно не включались в коммит Task 1.
+
+## Доработка по независимому ревью
+
+### Сделанное
+
+- У источника `SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-17` — санитарная книга от 2026-08-17 для исторического аудита — downstream-использования сужены до `controlled_excel_source_audit` и `historical_comparison`; текущая Q4-планировка и текущая каскадная синхронизация убраны.
+- У источника `SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08` — историческая рабочая книга от 2026-07-08 — `lifecycle` изменён на `historical`, `trust_level` на `historical`, общий `validate:xlsx-backlog` заменён отдельным `validate:xlsx-backlog-2026-07-08`.
+- В provenance-файле `2026-07-08` обновлена проверочная команда на `npm run validate:xlsx-backlog-2026-07-08`.
+- Recovery-index для `2026-07-08` синхронизирован с историческим назначением: убраны текущие планировочные и каскадные использования; `jira_resource_estimate_export` сохранён как ранее разрешённый исторический Jira-след по действующей provenance-политике.
+- Валидатор `scripts/validate-active-xlsx-backlog-source.mjs` теперь отклоняет любую ссылку общего `validate:xlsx-backlog` на дату `2026-08-17`, а также запрещает историческим `2026-07-08` и `2026-08-17` иметь текущие downstream-использования или общий проверочный сценарий.
+- Добавлен тест `tests/active-xlsx-backlog-source.test.mjs`, запускающий реальный валидатор в изолированном временном каталоге.
+
+### RED/GREEN TDD
+
+RED:
+
+```bash
+node --test tests/active-xlsx-backlog-source.test.mjs
+```
+
+Результат до исправления валидатора:
+
+```text
+not ok 2 - active XLSX validator rejects a direct 2026-08-17 profile or path in the common entry
+not ok 3 - active XLSX validator rejects 2026-07-08 as an accepted current source
+```
+
+GREEN:
+
+```bash
+npm run test:active-xlsx-backlog-source
+```
+
+Результат после исправления:
+
+```text
+# tests 3
+# pass 3
+# fail 0
+```
+
+### Команды и результаты
+
+```bash
+npm run test:active-xlsx-backlog-source
+npm run validate:xlsx-backlog-2026-07-08
+npm run validate:xlsx-backlog-2026-08-17
+npm run validate:xlsx-backlog
+npm run validate:product-sources
+npm run validate:product-source-consistency
+npm run validate:xlsx-backlog-2026-08-17-source-security
+npm run validate:xlsx-backlog-2026-08-19-source-security
+npm run validate:schemas
+npm run scan:secrets
+git diff --check
+```
+
+Результат: все перечисленные финальные команды завершились с кодом `0`.
+
+Промежуточно `npm run validate:product-source-consistency` падал из-за непокрытого графом `tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json` в `affected_artifacts`; исправлено сужением `affected_artifacts` до покрытых исторических source-артефактов.
+
+### Риски
+
+- Полный `npm test` не запускался по прямому указанию; покрытие ограничено новыми/изменёнными узкими проверками и source-gate.
+- В рабочем дереве остаются чужие незакоммиченные generated-файлы и план, они не входят в доработку Task 1.

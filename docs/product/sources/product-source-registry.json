@@ -346,40 +346,28 @@
       "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
       "source_role": "analysis_source",
       "owner_role": "Product Owner / команда реализации",
-      "lifecycle": "accepted",
-      "trust_level": "accepted_current",
+      "lifecycle": "historical",
+      "trust_level": "historical",
       "effective_date": "2026-07-10",
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
-        "owner_approved_priority_source",
-        "draft_effort_estimation",
-        "team_refinement_input",
-        "jira_resource_estimate_export",
-        "cascade_synchronization"
+        "controlled_excel_source_audit",
+        "historical_comparison",
+        "jira_resource_estimate_export"
       ],
       "affected_artifacts": [
-        "docs/process/guides/datacanvas-excel-backlog-sync.md",
-        "docs/product/requirements/user-stories.md",
-        "docs/product/analysis/documentation-consistency-audit/agent-launch-p1-effort-estimation.md",
-        "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
-        "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
-        "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-        "docs/product/backlog/product-backlog.md",
-        "docs/product/requirements/acceptance-criteria.md",
-        "docs/product/requirements/business-requirements.md",
-        "docs/product/requirements/traceability-matrix.json",
         "docs/product/sources/product-source-registry.json",
+        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
         "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-        "docs/product/sources/xlsx-opml-jira-recovery-index.json",
-        "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json"
+        "docs/product/sources/xlsx-opml-jira-recovery-index.json"
       ],
-      "notes": "Рабочая Excel-версия backlog: версия исходного листа Лист1 с добавленными строками DC-ST-23..DC-ST-33. Product Owner принял формулировки, приоритеты и текущие ресурсные значения: DC-ST-23..DC-ST-29 относятся к P1, DC-ST-30..DC-ST-33 относятся к P2. UDW-DEC-019 разрешает экспорт этих значений в Jira, но не является отдельным принятием оценок командой реализации и не разрешает перенос в sprint backlog до решения о емкости, порядке работ и вытеснении.",
+      "notes": "Историческая рабочая Excel-версия backlog от 2026-07-08 сохранена для аудита происхождения прежних строк DC-ST-23..DC-ST-33, сравнения с последующими решениями и ранее разрешённого Jira-экспорта по UDW-DEC-019. Она не является текущим источником границы, планирования или каскадной синхронизации 2026 года.",
       "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "derived_from": [
         "SRC-DC-STORIES-XLSX-SANITIZED"
       ],
-      "verifier_command": "npm run validate:xlsx-backlog",
-      "allowed_delta": "Accepted added rows 26-36 for DC-ST-23..DC-ST-33 may differ from the controlled source workbook; original content rows 1-25 and required workbook XML invariants must remain controlled by npm run validate:xlsx-backlog.",
+      "verifier_command": "npm run validate:xlsx-backlog-2026-07-08",
+      "allowed_delta": "Исторически принятые добавленные строки 26-36 для DC-ST-23..DC-ST-33 могут отличаться от контролируемой исходной книги; исходные строки 1-25 и обязательные XML-инварианты книги остаются под проверкой npm run validate:xlsx-backlog-2026-07-08.",
       "approval_status": "owner_approved",
       "team_validation_status": "approved",
       "provenance_manifest": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
@@ -394,9 +382,8 @@
       "effective_date": "2026-08-17",
       "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
-        "q4_resource_planning_input",
         "controlled_excel_source_audit",
-        "cascade_synchronization"
+        "historical_comparison"
       ],
       "affected_artifacts": [
         "docs/product/sources/product-source-registry.json",

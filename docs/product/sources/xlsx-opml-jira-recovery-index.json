@@ -27,13 +27,11 @@
       "source_id": "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
       "sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
       "downstream_use": [
-        "owner_approved_priority_source",
-        "draft_effort_estimation",
-        "team_estimation_review",
-        "jira_resource_estimate_export",
-        "cascade_synchronization"
+        "controlled_excel_source_audit",
+        "historical_comparison",
+        "jira_resource_estimate_export"
       ],
-      "notes": "Рабочая Excel-версия принята Product Owner как источник формулировок, приоритетов и текущих ресурсных значений для DC-ST-23..DC-ST-33. UDW-DEC-019 разрешает экспорт этих значений в Jira, но не является отдельным принятием оценок командой реализации; sprint backlog остается заблокированным до решения о емкости, порядке работ и вытеснении."
+      "notes": "Историческая рабочая Excel-версия от 2026-07-08 сохранена для аудита происхождения прежних строк DC-ST-23..DC-ST-33, сравнения и ранее разрешённого Jira-экспорта по UDW-DEC-019. Она не является текущим источником границы, планирования или каскадной синхронизации 2026 года."
     },
     {
       "item_id": "historical-stories-opml",

@@ -10,7 +10,7 @@
     "source_sanitization_manifest": "docs/product/sources/reference/datacanvas-backlog-source-sanitization.json",
     "working_path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
     "working_sha256": "0896bc1c5de4127937ea75c1c262e56bcd0c51cee79ab4f00693e02213df1bd2",
-    "verifier_command": "npm run validate:xlsx-backlog",
+    "verifier_command": "npm run validate:xlsx-backlog-2026-07-08",
     "approval_status": "owner_approved",
     "team_validation_status": "approved"
   },
