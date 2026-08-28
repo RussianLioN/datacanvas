@@ -33,6 +33,12 @@
       "public_allowed": true,
       "owner_decision": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца."
     },
+    "active_release_switch": {
+      "status": "blocked_until_separate_owner_approval",
+      "switch_allowed": false,
+      "owner_decision": "Переключение активного выпуска требует отдельного решения владельца и не включается итоговой приёмкой само по себе.",
+      "blocking_reason": "Чистовой визуальный выпуск ожидает отдельные вводные владельца и свежие доказательства."
+    },
     "high_resolution_render": {
       "status": "waiting_owner_input",
       "render_allowed": false,

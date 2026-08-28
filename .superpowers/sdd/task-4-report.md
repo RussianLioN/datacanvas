@@ -108,6 +108,10 @@
   `tests/fixtures/co-2026-003-prototype-revision-negative.json` — схема
   утверждённых текстов не отклоняла дубль `topic_id` и подмену одного из трёх
   утверждённых текстов доставки.
+- Повторное ревью: `tests/co-2026-003-release-state.test.mjs` показал, что
+  `active_release_switch` не был выделен отдельным решением в
+  `release_decisions`, а валидатор запрещал `active_release_switch_allowed`
+  общей проверкой документационной приёмки, а не отдельным решением владельца.
 
 ## GREEN
 
@@ -133,6 +137,12 @@
   `owner_final_approved` одновременно включал `active_release_switch_allowed`,
   `high_resolution_render_allowed` и `delivery_archive_allowed`. У архива,
   публичности и high-res сохранены отдельные статусы и флаги.
+- После повторного ревью в `release_decisions` добавлен отдельный
+  `active_release_switch` со статусом
+  `blocked_until_separate_owner_approval`, флагом `switch_allowed: false`,
+  решением владельца и причиной блокировки. Валидатор запрещает
+  `final_release.active_release_switch_allowed: true`, если отдельный
+  `active_release_switch` не разрешён.
 - Схема `owner-approved-texts` закрепляет ровно три `delivery_status_texts` в
   каноническом порядке, без дублей `topic_id` и с дословными утверждёнными
   текстами доставки. Добавлены отрицательные проверки на дубль и подмену.
@@ -171,6 +181,21 @@
 - `npm run scan:secrets` — успешно;
 - `npm run validate:data-leakage` — успешно.
 - `git diff --check` — успешно.
+
+Повторная проверка после второго ревью:
+
+- RED: `node --test tests/co-2026-003-release-state.test.mjs` — падение на
+  отсутствии `release_decisions.active_release_switch` и на том, что валидатор
+  блокировал `active_release_switch_allowed` общей проверкой документационной
+  приёмки.
+- GREEN: `npm run validate:co-2026-003-release-state` — успешно; новый
+  отрицательный тест проверяет запрет
+  `final_release.active_release_switch_allowed: true` без отдельного решения
+  владельца по active release switch.
+- `npm run validate:co-2026-003-prototype-revision` — успешно;
+- `npm run validate:schemas` — успешно;
+- `npm run scan:secrets` — успешно;
+- `npm run validate:data-leakage` — успешно.
 
 Полный `npm test` не запускался по ограничению задачи.
 

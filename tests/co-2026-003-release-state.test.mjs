@@ -70,6 +70,12 @@ test("CO-2026-003 хранит решения выпуска раздельно 
     public_allowed: true,
     owner_decision: "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца.",
   });
+  assert.deepEqual(ledger.release_decisions.active_release_switch, {
+    status: "blocked_until_separate_owner_approval",
+    switch_allowed: false,
+    owner_decision: "Переключение активного выпуска требует отдельного решения владельца и не включается итоговой приёмкой само по себе.",
+    blocking_reason: "Чистовой визуальный выпуск ожидает отдельные вводные владельца и свежие доказательства.",
+  });
   assert.deepEqual(ledger.release_decisions.high_resolution_render, {
     status: "waiting_owner_input",
     render_allowed: false,
@@ -162,6 +168,56 @@ test("валидатор разделяет итоговое подтвержд�
       encoding: "utf8",
     });
     assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+  } finally {
+    fs.rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
+});
+
+test("валидатор запрещает active release switch без отдельного решения", () => {
+  const ledger = readJson(ledgerPath);
+  const activeSwitchWithoutDecision = structuredClone(ledger);
+  activeSwitchWithoutDecision.documentation_cascade.execution_status = "completed";
+  activeSwitchWithoutDecision.documentation_cascade.candidate_fingerprint = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+  activeSwitchWithoutDecision.final_release = {
+    ...activeSwitchWithoutDecision.final_release,
+    status: "owner_final_approved",
+    active_release_switch_allowed: true,
+    high_resolution_render_allowed: false,
+    delivery_archive_allowed: false,
+    candidate_fingerprint: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    fresh_evidence_path: "docs/product/analysis/presentation-link-lisa-user-journey/evidence/fresh-final-approval.json",
+  };
+
+  const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-active-switch-"));
+  try {
+    writeJson(temporaryDirectory, ledgerPath, activeSwitchWithoutDecision);
+    writeJson(temporaryDirectory, "schemas/co-2026-003-release-approval-ledger.schema.json", readJson("schemas/co-2026-003-release-approval-ledger.schema.json"));
+    writeJson(temporaryDirectory, candidatePath, readJson(candidatePath));
+    writeJson(temporaryDirectory, `${packagePath}/source/client-reference-data.json`, readJson(`${packagePath}/source/client-reference-data.json`));
+    writeJson(temporaryDirectory, `${packagePath}/source/visual-components-contract.json`, readJson(`${packagePath}/source/visual-components-contract.json`));
+    writeJson(temporaryDirectory, activeSwitchWithoutDecision.final_release.prototype_package_manifest_path, {
+      candidate_fingerprint: { sha256: activeSwitchWithoutDecision.final_release.candidate_fingerprint },
+    });
+    writeJson(temporaryDirectory, activeSwitchWithoutDecision.final_release.fresh_evidence_path, {
+      candidate_fingerprint: { sha256: activeSwitchWithoutDecision.final_release.candidate_fingerprint },
+    });
+    for (const frame of activeSwitchWithoutDecision.frame_approvals) {
+      if (frame.review_manifest_path === null) continue;
+      writeJson(temporaryDirectory, frame.review_manifest_path, {
+        frame_id: frame.frame_id,
+        status: "owner_frame_approved",
+        owner_frame_approval: {
+          record_path: frame.owner_approval_record_path?.replace(`${packagePath}/`, "") ?? null,
+        },
+      });
+    }
+
+    const result = spawnSync(process.execPath, [path.join(root, validatorPath)], {
+      cwd: temporaryDirectory,
+      encoding: "utf8",
+    });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /active release switch нельзя разрешать без отдельного решения владельца/u);
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }

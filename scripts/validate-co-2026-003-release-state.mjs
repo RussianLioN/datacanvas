@@ -109,7 +109,7 @@ function validateCandidateRoute(root, ledger) {
   ) {
     throw new Error("кандидат должен сохранить одну команду заказа на трёх исходных экранах");
   }
-  if (ledger.final_release.active_release_switch_allowed || candidate.draft_acceptance.active_release_switch_allowed) {
+  if (candidate.draft_acceptance.active_release_switch_allowed) {
     throw new Error("документационная приёмка не разрешает смену активного выпуска");
   }
 }
@@ -162,10 +162,11 @@ function validateIndependentReleaseDecisions(ledger) {
     ledger.release_decisions.delivery_archive.public_allowed !== true ||
     ledger.release_decisions.delivery_archive.creation_allowed !== false ||
     ledger.release_decisions.publicity.public_allowed !== true ||
+    ledger.release_decisions.active_release_switch.switch_allowed !== false ||
     ledger.release_decisions.high_resolution_render.render_allowed !== false ||
     ledger.release_decisions.high_resolution_render.current_render_allowed !== false
   ) {
-    throw new Error("статусы выпуска должны иметь независимые флаги без смешения черновика, архива, публичности и high-res");
+    throw new Error("статусы выпуска должны иметь независимые флаги без смешения черновика, active release switch, архива, публичности и high-res");
   }
 }
 
@@ -201,6 +202,12 @@ function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
     typeof finalRelease.fresh_evidence_path !== "string"
   ) {
     throw new Error("итоговая приёмка должна задавать отпечаток кандидата и свежие доказательства");
+  }
+  if (
+    finalRelease.active_release_switch_allowed &&
+    ledger.release_decisions.active_release_switch.switch_allowed !== true
+  ) {
+    throw new Error("active release switch нельзя разрешать без отдельного решения владельца");
   }
   if (
     finalRelease.high_resolution_render_allowed &&

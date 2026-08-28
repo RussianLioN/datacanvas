@@ -52,6 +52,7 @@
         "draft_archive",
         "delivery_archive",
         "publicity",
+        "active_release_switch",
         "high_resolution_render"
       ],
       "properties": {
@@ -86,6 +87,17 @@
             "status": { "const": "owner_allowed_public" },
             "public_allowed": { "const": true },
             "owner_decision": { "const": "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца." }
+          }
+        },
+        "active_release_switch": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "switch_allowed", "owner_decision", "blocking_reason"],
+          "properties": {
+            "status": { "const": "blocked_until_separate_owner_approval" },
+            "switch_allowed": { "const": false },
+            "owner_decision": { "const": "Переключение активного выпуска требует отдельного решения владельца и не включается итоговой приёмкой само по себе." },
+            "blocking_reason": { "const": "Чистовой визуальный выпуск ожидает отдельные вводные владельца и свежие доказательства." }
           }
         },
         "high_resolution_render": {
