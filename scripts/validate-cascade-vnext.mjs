@@ -940,6 +940,9 @@ try {
   manifestGit(["commit", "-q", "-m", "candidate"]);
   const manifestCandidateSha = manifestGit(["rev-parse", "HEAD"]).trim();
   const trustedComposition = {
+    baseSha: manifestBaseSha,
+    planningHeadSha: manifestBaseSha,
+    candidateHeadSha: manifestCandidateSha,
     inputPaths: [
       "docs/process/cascading-governance/runs/source/cascade-vnext-run.json",
       "docs/process/cascading-governance/runs/source/runtime-manifest.json",
@@ -983,19 +986,63 @@ try {
   allowedGit(["add", "."]);
   allowedGit(["commit", "-q", "-m", "candidate"]);
   const allowedCandidateSha = allowedGit(["rev-parse", "HEAD"]).trim();
+  const trustedAllowedComposition = {
+    ...trustedComposition,
+    baseSha: allowedBaseSha,
+    planningHeadSha: allowedBaseSha,
+    candidateHeadSha: allowedCandidateSha,
+  };
   const forgedAllowedWriteManifest = buildActualDiffManifestFromGit(allowedRepo, {
     baseSha: allowedBaseSha,
     planningHeadSha: allowedBaseSha,
     candidateHeadSha: allowedCandidateSha,
     allowedWrites: ["docs-product-vision.md", "docs-unapproved.md"],
+    inputPaths: trustedAllowedComposition.inputPaths,
+    outputPaths: trustedAllowedComposition.outputPaths,
+    archivePath: trustedAllowedComposition.archivePath,
+  });
+  assert.throws(
+    () => assertActualDiffManifestMatchesGit(allowedRepo, forgedAllowedWriteManifest, trustedAllowedComposition),
+    /allowed write registry mismatch|actual diff manifest/u,
+    "самосогласованное расширение allowed_write_paths с дополнительным Git-изменением должно блокироваться",
+  );
+  const anchorRepo = path.join(tempRoot, "anchor-repo");
+  fs.mkdirSync(anchorRepo);
+  const anchorGit = (args) => execFileSync("git", args, { cwd: anchorRepo, encoding: "utf8" });
+  anchorGit(["init", "-q"]);
+  anchorGit(["config", "user.name", "Cascade Test"]);
+  anchorGit(["config", "user.email", "cascade-test@datacanvas.local"]);
+  fs.writeFileSync(path.join(anchorRepo, "docs-product-vision.md"), "before\n", "utf8");
+  anchorGit(["add", "."]);
+  anchorGit(["commit", "-q", "-m", "base"]);
+  const anchorTrustedBaseSha = anchorGit(["rev-parse", "HEAD"]).trim();
+  fs.writeFileSync(path.join(anchorRepo, "docs-unapproved.md"), "hidden\n", "utf8");
+  anchorGit(["add", "."]);
+  anchorGit(["commit", "-q", "-m", "unapproved"]);
+  const anchorForgedBaseSha = anchorGit(["rev-parse", "HEAD"]).trim();
+  fs.writeFileSync(path.join(anchorRepo, "docs-product-vision.md"), "after\n", "utf8");
+  anchorGit(["add", "."]);
+  anchorGit(["commit", "-q", "-m", "candidate"]);
+  const anchorCandidateSha = anchorGit(["rev-parse", "HEAD"]).trim();
+  const trustedAnchorComposition = {
+    ...trustedComposition,
+    baseSha: anchorTrustedBaseSha,
+    planningHeadSha: anchorTrustedBaseSha,
+    candidateHeadSha: anchorCandidateSha,
+  };
+  const forgedAnchorManifest = buildActualDiffManifestFromGit(anchorRepo, {
+    baseSha: anchorForgedBaseSha,
+    planningHeadSha: anchorForgedBaseSha,
+    candidateHeadSha: anchorCandidateSha,
+    allowedWrites: trustedComposition.allowedWrites,
     inputPaths: trustedComposition.inputPaths,
     outputPaths: trustedComposition.outputPaths,
     archivePath: trustedComposition.archivePath,
   });
   assert.throws(
-    () => assertActualDiffManifestMatchesGit(allowedRepo, forgedAllowedWriteManifest, trustedComposition),
-    /allowed write registry mismatch|actual diff manifest/u,
-    "самосогласованное расширение allowed_write_paths с дополнительным Git-изменением должно блокироваться",
+    () => assertActualDiffManifestMatchesGit(anchorRepo, forgedAnchorManifest, trustedAnchorComposition),
+    /SHA anchor mismatch|actual diff manifest/u,
+    "самосогласованная подмена base_sha и planning_head_sha должна блокироваться до пересчёта diff",
   );
 
   const approvalRepo = path.join(tempRoot, "approval-repo");

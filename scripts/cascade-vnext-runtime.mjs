@@ -132,6 +132,9 @@ export function buildFinalizationCandidateComposition({
   planningRunPath,
   planningRun,
   resolutionInputPath,
+  baseSha = null,
+  planningHeadSha = null,
+  candidateHeadSha = null,
   sourceIdentity = null,
   resolutionInput = null,
   acceptancePaths = [],
@@ -142,6 +145,9 @@ export function buildFinalizationCandidateComposition({
   archivePath = null,
 }) {
   return {
+    baseSha,
+    planningHeadSha,
+    candidateHeadSha,
     inputPaths: sortedPaths([
       resolutionInputPath,
       ...planningPackagePaths(planningRunPath, planningRun),
@@ -172,10 +178,19 @@ export function expectedFinalizedCandidateComposition({
   resolutionInput,
   diffEntries,
 }) {
+  if (finalizedRun.base_sha !== planningRun.base_sha) {
+    throw new Error("finalized run planning lineage SHA mismatch: base_sha");
+  }
+  if (finalizedRun.planning_head_sha !== planningRun.planning_head_sha) {
+    throw new Error("finalized run planning lineage SHA mismatch: planning_head_sha");
+  }
   return buildFinalizationCandidateComposition({
     planningRunPath,
     planningRun,
     resolutionInputPath: finalizedRun.resolution_input_path,
+    baseSha: planningRun.base_sha,
+    planningHeadSha: planningRun.planning_head_sha,
+    candidateHeadSha: finalizedRun.candidate_head_sha,
     sourceIdentity,
     resolutionInput,
     acceptancePaths: finalizedRun.acceptance_paths,
@@ -281,6 +296,16 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest, expec
   if (!expectedComposition) {
     throw new Error("independent candidate composition is required for actual diff verification");
   }
+  const trustedBaseSha = assertGitCommit(root, expectedComposition.baseSha, "trusted base_sha");
+  const trustedPlanningHeadSha = assertGitCommit(root, expectedComposition.planningHeadSha, "trusted planning_head_sha");
+  const trustedCandidateHeadSha = assertGitCommit(root, expectedComposition.candidateHeadSha, "trusted candidate_head_sha");
+  if (
+    expectedManifest.base_sha !== trustedBaseSha
+    || expectedManifest.planning_head_sha !== trustedPlanningHeadSha
+    || expectedManifest.candidate_head_sha !== trustedCandidateHeadSha
+  ) {
+    throw new Error("SHA anchor mismatch");
+  }
   const expectedInputPaths = sortedPaths(expectedComposition.inputPaths ?? []);
   const expectedOutputPaths = sortedPaths(expectedComposition.outputPaths ?? []);
   const expectedArchivePath = expectedComposition.archivePath ? normalizeRepoPath(expectedComposition.archivePath) : null;
@@ -296,9 +321,9 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest, expec
     throw new Error("allowed write registry mismatch");
   }
   const actualManifest = buildActualDiffManifestFromGit(root, {
-    baseSha: expectedManifest.base_sha,
-    planningHeadSha: expectedManifest.planning_head_sha,
-    candidateHeadSha: expectedManifest.candidate_head_sha,
+    baseSha: trustedBaseSha,
+    planningHeadSha: trustedPlanningHeadSha,
+    candidateHeadSha: trustedCandidateHeadSha,
     allowedWrites: expectedAllowedWrites,
     inputPaths: expectedInputPaths,
     outputPaths: expectedOutputPaths,
