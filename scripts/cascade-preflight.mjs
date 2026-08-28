@@ -27,6 +27,22 @@ function assertGitSha(value, label) {
   return value;
 }
 
+function assertExistingCommit(root, sha, label) {
+  try {
+    git(root, ["cat-file", "-e", `${sha}^{commit}`]);
+  } catch {
+    throw new Error(`${label} commit does not exist: ${sha}`);
+  }
+}
+
+function assertAncestorCommit(root, ancestorSha, descendantSha, label) {
+  try {
+    git(root, ["merge-base", "--is-ancestor", ancestorSha, descendantSha]);
+  } catch {
+    throw new Error(`${label} must be an ancestor of current HEAD: ${ancestorSha}`);
+  }
+}
+
 function assertDatacanvasCascadeRoot(root) {
   const absoluteRoot = path.resolve(root);
   const gitRoot = path.resolve(git(absoluteRoot, ["rev-parse", "--show-toplevel"]));
@@ -58,13 +74,13 @@ export function assertCascadePreflight({
 
   const baseline = assertGitSha(baseSha, "base_sha");
   if (baseline) {
-    git(absoluteRoot, ["cat-file", "-e", `${baseline}^{commit}`]);
-    git(absoluteRoot, ["merge-base", "--is-ancestor", baseline, currentHeadSha]);
+    assertExistingCommit(absoluteRoot, baseline, "base_sha");
+    assertAncestorCommit(absoluteRoot, baseline, currentHeadSha, "base_sha");
   }
 
   const dirtyStatus = git(absoluteRoot, ["status", "--porcelain=v1", "--untracked-files=all"]);
   if (dirtyStatus) {
-    throw new Error("persisted cascade planning requires a clean worktree");
+    throw new Error("cascade target is not immutable: persisted cascade planning requires a clean worktree");
   }
 
   return { root: absoluteRoot, head_sha: currentHeadSha, base_sha: baseline };

@@ -16,8 +16,12 @@ const protectedDerivedPaths = [
 ];
 
 function runNode(args) {
+  return runNodeInCwd(args, root);
+}
+
+function runNodeInCwd(args, cwd) {
   return spawnSync(process.execPath, args, {
-    cwd: root,
+    cwd,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
     timeout: 120_000,
@@ -86,7 +90,30 @@ function tempGitRepo(t) {
   git(["add", "."]);
   git(["commit", "-q", "-m", "Initial cascade preflight fixture"]);
   t.after(() => fs.rmSync(repo, { recursive: true, force: true }));
-  return { repo, head: git(["rev-parse", "HEAD"]) };
+  return { repo, head: git(["rev-parse", "HEAD"]), git };
+}
+
+function lifecycleArgs(script, head) {
+  if (path.basename(script) === "finalize-cascade-vnext.mjs") {
+    return [
+      script,
+      "--run",
+      "missing-run.json",
+      "--resolution-input",
+      "missing-resolution.json",
+      "--candidate-head-sha",
+      head,
+      "--output-dir",
+      "docs/process/cascading-governance/runs/missing-finalized",
+    ];
+  }
+  return [
+    script,
+    "--run",
+    "missing-run.json",
+    "--output-dir",
+    "docs/process/cascading-governance/runs/missing-output",
+  ];
 }
 
 test("cascade preflight rejects a dirty target worktree before any action", (t) => {
@@ -119,6 +146,59 @@ test("cascade preflight rejects a wrong launch path or exact revision before any
   assert.equal(actionStarted, false);
 });
 
+test("cascade preflight rejects missing and non-ancestor base SHA values", (t) => {
+  const { repo, head, git } = tempGitRepo(t);
+
+  assert.throws(() => {
+    assertCascadePreflight({ root: repo, baseSha: "0".repeat(40) });
+  }, /base_sha.*does not exist/u);
+
+  const primaryBranch = git(["branch", "--show-current"]);
+  git(["checkout", "-q", "--orphan", "unrelated-base"]);
+  fs.writeFileSync(path.join(repo, "orphan-marker.txt"), "orphan\n", "utf8");
+  git(["add", "."]);
+  git(["commit", "-q", "-m", "Unrelated base"]);
+  const unrelatedSha = git(["rev-parse", "HEAD"]);
+  git(["checkout", "-q", primaryBranch]);
+
+  assert.throws(() => {
+    assertCascadePreflight({ root: repo, baseSha: unrelatedSha });
+  }, /base_sha.*ancestor/u);
+  assert.equal(assertCascadePreflight({ root: repo, baseSha: head }).base_sha, head);
+});
+
+test("cascade lifecycle commands run preflight before reading invalid input packages", (t) => {
+  const { repo, head } = tempGitRepo(t);
+  fs.writeFileSync(path.join(repo, "dirty-marker.txt"), "dirty\n", "utf8");
+
+  for (const script of [
+    "scripts/finalize-cascade-vnext.mjs",
+    "scripts/verify-cascade-profile-vnext.mjs",
+    "scripts/complete-cascade-vnext.mjs",
+  ]) {
+    const result = runNodeInCwd(lifecycleArgs(path.join(root, script), head), repo);
+    assert.notEqual(result.status, 0, script);
+    assert.match(output(result), /clean worktree/u, script);
+    assert.doesNotMatch(output(result), /ENOENT|no such file|schema|requires .*state/iu, script);
+  }
+});
+
+test("cascade lifecycle commands reject a wrong launch path before reading invalid input packages", (t) => {
+  const { repo, head } = tempGitRepo(t);
+  const subdir = path.join(repo, "docs");
+
+  for (const script of [
+    "scripts/finalize-cascade-vnext.mjs",
+    "scripts/verify-cascade-profile-vnext.mjs",
+    "scripts/complete-cascade-vnext.mjs",
+  ]) {
+    const result = runNodeInCwd(lifecycleArgs(path.join(root, script), head), subdir);
+    assert.notEqual(result.status, 0, script);
+    assert.match(output(result), /repository root/u, script);
+    assert.doesNotMatch(output(result), /ENOENT|no such file|schema|requires .*state/iu, script);
+  }
+});
+
 test("preview for the CO-2026-003 approval ledger reports a non-empty meaningful impact cone", () => {
   const result = runNode([
     "scripts/plan-documentation-cascade.mjs",
@@ -130,6 +210,10 @@ test("preview for the CO-2026-003 approval ledger reports a non-empty meaningful
 
   assert.equal(result.status, 0, output(result));
   const cone = JSON.parse(result.stdout);
+  assert.deepEqual(cone.changed_source_set, [{
+    path: approvalLedgerPath,
+    change_class: "semantic_change",
+  }]);
   const impactedPaths = new Set(cone.impacted_artifacts.map((artifact) => artifact.path));
   for (const expectedPath of [
     "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
@@ -144,6 +228,11 @@ test("preview for the CO-2026-003 approval ledger reports a non-empty meaningful
   ]) {
     assert.ok(impactedPaths.has(expectedPath), `missing impact path: ${expectedPath}`);
   }
+  const approvalLedgerJson = cone.impacted_artifacts.find((artifact) =>
+    artifact.path === "docs/product/change-orders/co-2026-003-release-approval-ledger.json"
+  );
+  assert.equal(approvalLedgerJson.owner_gate_required, true);
+  assert.equal(approvalLedgerJson.review_obligation, "owner_decision");
 });
 
 test("cascade preview check mode does not create, overwrite, or publish derived artifacts", () => {

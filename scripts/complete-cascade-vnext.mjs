@@ -190,6 +190,7 @@ function candidateWorktree(candidateSha, callback) {
 }
 
 async function main() {
+  assertCascadePreflight({ root });
   const sourceRunPath = normalizeRepoPath(argValue("--run") ?? "");
   const outputDir = assertFreshRunDir(argValue("--output-dir") ?? "");
   if (!sourceRunPath) {
@@ -262,7 +263,6 @@ async function main() {
   for (const acceptancePath of sourceRun.acceptance_paths) {
     assertRepoPathMatchesGit(root, candidateSha, acceptancePath, "acceptance record");
   }
-  assertCascadePreflight({ root });
 
   const commands = completionCommandSet();
   let runtimeMatch = true;

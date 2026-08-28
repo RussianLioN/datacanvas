@@ -113,6 +113,7 @@ function validateOwnerAcceptance(sourceRun, resolutionInput, candidateSha) {
 }
 
 async function main() {
+  assertCascadePreflight({ root });
   const sourceRunPath = normalizeRepoPath(argValue("--run") ?? "");
   const resolutionInputPath = normalizeRepoPath(argValue("--resolution-input") ?? "");
   const outputDir = assertFreshRunDir(argValue("--output-dir") ?? "");
@@ -171,7 +172,6 @@ async function main() {
   validateResolutionSet(requiredArtifacts, resolutionInput.artifact_resolutions, "artifact resolution", sourceRun.base_sha, candidateHeadSha, diffByPath);
   const acceptancePaths = validateOwnerAcceptance(sourceRun, resolutionInput, candidateHeadSha);
   assertStateTransition(sourceRun.state, "finalized");
-  assertCascadePreflight({ root });
 
   const appliedArtifactPaths = resolutionInput.artifact_resolutions
     .filter((entry) => entry.update_status === "applied")

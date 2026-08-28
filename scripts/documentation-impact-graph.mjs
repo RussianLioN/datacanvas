@@ -203,6 +203,7 @@ export function ownerConfirmationRequired(policy, changeClass) {
   if (policy === "semantic_change") {
     return [
       "business_meaning",
+      "semantic_change",
       "semantic_product_change",
       "process_structure_change",
       "process_rule",

@@ -74,6 +74,7 @@ function candidateWorktree(candidateSha, callback) {
 }
 
 async function main() {
+  assertCascadePreflight({ root });
   const sourceRunPath = normalizeRepoPath(argValue("--run") ?? "");
   const outputDir = assertFreshRunDir(argValue("--output-dir") ?? "");
   if (!sourceRunPath) {
@@ -117,7 +118,6 @@ async function main() {
   validateDocument(root, manifest, "schemas/cascade-validation-manifest.schema.json");
   const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
   validateDocument(root, expectedRuntime, "schemas/cascade-runtime-manifest.schema.json");
-  assertCascadePreflight({ root });
 
   const executedCommands = candidateWorktree(candidateSha, (worktree, environment) => {
     assertRuntimeManifestMatches(expectedRuntime, buildRuntimeManifest(worktree, environment));

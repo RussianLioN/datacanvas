@@ -100,6 +100,7 @@ function classifyChange(filePath) {
   if (filePath.endsWith(".provenance.json")) return "source_provenance_change";
   if (filePath.endsWith(".xlsx")) return "estimate_evidence";
   if (filePath.endsWith("docs/stories.md")) return "navigation";
+  if (filePath.startsWith("docs/product/change-orders/")) return "semantic_change";
   if (filePath.includes("/requirements/") || filePath === "docs/product-vision.md") return "business_meaning";
   if (filePath.includes("/architecture/")) return "architecture_contract";
   if (filePath.includes("/process/")) return "process_structure_change";

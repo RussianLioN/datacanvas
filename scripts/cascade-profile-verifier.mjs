@@ -3,25 +3,9 @@ import { spawnSync } from "node:child_process";
 
 import { validationManifestHash } from "./cascade-validation-manifest.mjs";
 import { sanitizeOutput } from "./cascade-vnext-runtime.mjs";
+import { parseSafeNpmCommand, parseSafeNpmInvocations } from "./lib/workflow-validation-command-policy.mjs";
 
-const npmScriptPattern = /^npm run ([a-z0-9:_-]+)(?: -- --changed-from (HEAD|[0-9a-f]{40}|[0-9a-f]{64}))?$/u;
-
-function parseSafeNpmInvocations(command) {
-  const parts = String(command).split(/\s+&&\s+/u);
-  if (parts.length === 0) throw new Error("validation command is not a safe npm run command");
-  return parts.map((part) => {
-    const match = npmScriptPattern.exec(part);
-    if (!match) throw new Error("validation command is not a safe npm run command: " + command);
-    return {
-      script_name: match[1],
-      args: match[2] ? ["--", "--changed-from", match[2]] : [],
-    };
-  });
-}
-
-export function parseSafeNpmCommand(command) {
-  return parseSafeNpmInvocations(command).map((invocation) => invocation.script_name);
-}
+export { parseSafeNpmCommand };
 
 export function assertValidationManifestIntegrity(manifest) {
   if (manifest.manifest_sha256 !== validationManifestHash(manifest)) {
