@@ -38,6 +38,7 @@ import {
   finalizedPackagePaths,
   git,
   hashGitPath,
+  parseGitNameStatus,
   planningPackagePaths,
   profilePackagePaths,
   readJson,
@@ -222,7 +223,8 @@ async function main() {
     label: "profile verification",
   });
   validateDocument(root, readJson(root, sourceRun.acceptance_authority_path), "schemas/cascade-acceptance-authority.schema.json");
-  validateDocument(root, readJson(root, sourceRun.source_identity_manifest_path), "schemas/cascade-source-identity.schema.json");
+  const sourceIdentity = readJson(root, sourceRun.source_identity_manifest_path);
+  validateDocument(root, sourceIdentity, "schemas/cascade-source-identity.schema.json");
   if (sourceRun.source_change_analysis_path) {
     validateDocument(root, readJson(root, sourceRun.source_change_analysis_path), "schemas/cascade-source-change-analysis.schema.json");
   }
@@ -261,11 +263,17 @@ async function main() {
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
   if (actualDiff.candidate_head_sha !== candidateSha) throw new Error("actual diff candidate SHA mismatch");
+  const resolutionInput = readJson(root, finalizedRun.resolution_input_path);
+  validateDocument(root, resolutionInput, "schemas/cascade-resolution-input.schema.json");
+  const diffEntries = parseGitNameStatus(git(root, ["diff", "--name-status", "-z", `${sourceRun.base_sha}..${candidateSha}`]));
   assertActualDiffManifestMatchesGit(root, actualDiff, expectedFinalizedCandidateComposition({
     finalizedRunPath: profileEvidence.source_run_path,
     finalizedRun,
     planningRunPath: resolutionReport.source_run_path,
     planningRun,
+    sourceIdentity,
+    resolutionInput,
+    diffEntries,
   }));
   assertCandidateFingerprintBinding({
     expected: actualDiff.candidate_fingerprint_sha256,

@@ -8,7 +8,6 @@ import { assertCascadePreflight } from "./cascade-preflight.mjs";
 import {
   assertStateTransition,
   buildRunLedgerEntry,
-  expandAllowedWritesForRenames,
   verifyAppliedResolution,
 } from "./cascade-vnext-core.mjs";
 import {
@@ -179,28 +178,6 @@ async function main() {
   const acceptancePaths = validateOwnerAcceptance(sourceRun, resolutionInput, candidateHeadSha);
   assertStateTransition(sourceRun.state, "finalized");
 
-  const appliedArtifactPaths = resolutionInput.artifact_resolutions
-    .filter((entry) => entry.update_status === "applied")
-    .map((entry) => normalizeRepoPath(entry.path));
-  const controlPaths = [
-    sourceRun.change_request_path,
-    ...planningPackagePaths(sourceRunPath, sourceRun),
-    resolutionInputPath,
-    ...acceptancePaths,
-  ];
-  const authorizedRenames = [
-    ...resolutionInput.source_resolutions,
-    ...resolutionInput.artifact_resolutions,
-  ].filter((entry) => (
-    entry.update_status === "applied"
-    && entry.rename_from_path
-    && entry.rename_to_path
-  ));
-  const allowedWrites = expandAllowedWritesForRenames(
-    [...new Set([...requiredSources, ...appliedArtifactPaths, ...controlPaths])],
-    diffEntries,
-    authorizedRenames,
-  );
   const attemptId = argValue("--attempt-id") ?? `${sourceRun.attempt_id}-FINAL`;
   const finalizedRunPath = `${outputDir}/cascade-vnext-run.json`;
   const diffManifestPath = `${outputDir}/actual-diff-manifest.json`;
@@ -209,7 +186,10 @@ async function main() {
     planningRunPath: sourceRunPath,
     planningRun: sourceRun,
     resolutionInputPath,
+    sourceIdentity,
+    resolutionInput,
     acceptancePaths,
+    diffEntries,
     finalizedRunPath,
     diffManifestPath,
     resolutionReportPath,
@@ -218,7 +198,6 @@ async function main() {
     baseSha: sourceRun.base_sha,
     planningHeadSha: sourceRun.planning_head_sha,
     candidateHeadSha,
-    allowedWrites,
     ...candidateComposition,
   });
   const resolutionReport = {

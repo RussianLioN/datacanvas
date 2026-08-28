@@ -9,7 +9,11 @@ import addFormats from "ajv-formats";
 
 import { absoluteRepoPath, hashJsonDocument, hashRepoPath } from "./cascade-evidence-utils.mjs";
 import { acceptanceConfirmationPayload, interactiveAcceptanceEvidenceHash } from "./cascade-owner-acceptance.mjs";
-import { assertCascadeReplayInputs, buildActualDiffManifest } from "./cascade-vnext-core.mjs";
+import {
+  assertCascadeReplayInputs,
+  buildActualDiffManifest,
+  expandAllowedWritesForRenames,
+} from "./cascade-vnext-core.mjs";
 import { normalizeRepoPath } from "./documentation-impact-graph.mjs";
 
 export function sha256(content) {
@@ -90,11 +94,48 @@ export function profilePackagePaths(runPath, run) {
   return sortedPaths([runPath, run.profile_evidence_path]);
 }
 
+export function deriveFinalizationAllowedWrites({
+  planningRunPath,
+  planningRun,
+  resolutionInputPath,
+  sourceIdentity,
+  resolutionInput,
+  acceptancePaths = [],
+  diffEntries = [],
+}) {
+  const requiredSources = (sourceIdentity?.trigger_sources ?? []).map((item) => normalizeRepoPath(item.trigger_path));
+  const appliedArtifactPaths = (resolutionInput?.artifact_resolutions ?? [])
+    .filter((entry) => entry.update_status === "applied")
+    .map((entry) => normalizeRepoPath(entry.path));
+  const controlPaths = [
+    planningRun?.change_request_path,
+    ...planningPackagePaths(planningRunPath, planningRun ?? {}),
+    resolutionInputPath,
+    ...acceptancePaths,
+  ];
+  const authorizedRenames = [
+    ...(resolutionInput?.source_resolutions ?? []),
+    ...(resolutionInput?.artifact_resolutions ?? []),
+  ].filter((entry) => (
+    entry.update_status === "applied"
+    && entry.rename_from_path
+    && entry.rename_to_path
+  ));
+  return expandAllowedWritesForRenames(
+    sortedPaths([...requiredSources, ...appliedArtifactPaths, ...controlPaths]),
+    diffEntries,
+    authorizedRenames,
+  );
+}
+
 export function buildFinalizationCandidateComposition({
   planningRunPath,
   planningRun,
   resolutionInputPath,
+  sourceIdentity = null,
+  resolutionInput = null,
   acceptancePaths = [],
+  diffEntries = [],
   finalizedRunPath,
   diffManifestPath,
   resolutionReportPath,
@@ -108,6 +149,17 @@ export function buildFinalizationCandidateComposition({
     ]),
     outputPaths: sortedPaths([finalizedRunPath, diffManifestPath, resolutionReportPath]),
     archivePath: archivePath ? normalizeRepoPath(archivePath) : null,
+    allowedWrites: deriveFinalizationAllowedWrites({
+      planningRunPath,
+      planningRun,
+      resolutionInputPath,
+      sourceIdentity,
+      resolutionInput: resolutionInput
+        ? { ...resolutionInput, source_run_path: planningRunPath }
+        : null,
+      acceptancePaths,
+      diffEntries,
+    }),
   };
 }
 
@@ -116,12 +168,18 @@ export function expectedFinalizedCandidateComposition({
   finalizedRun,
   planningRunPath,
   planningRun,
+  sourceIdentity,
+  resolutionInput,
+  diffEntries,
 }) {
   return buildFinalizationCandidateComposition({
     planningRunPath,
     planningRun,
     resolutionInputPath: finalizedRun.resolution_input_path,
+    sourceIdentity,
+    resolutionInput,
     acceptancePaths: finalizedRun.acceptance_paths,
+    diffEntries,
     finalizedRunPath,
     diffManifestPath: finalizedRun.diff_manifest_path,
     resolutionReportPath: finalizedRun.resolution_report_path,
@@ -226,6 +284,7 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest, expec
   const expectedInputPaths = sortedPaths(expectedComposition.inputPaths ?? []);
   const expectedOutputPaths = sortedPaths(expectedComposition.outputPaths ?? []);
   const expectedArchivePath = expectedComposition.archivePath ? normalizeRepoPath(expectedComposition.archivePath) : null;
+  const expectedAllowedWrites = sortedPaths(expectedComposition.allowedWrites ?? []);
   if (
     !isDeepStrictEqual(expectedManifest.input_paths, expectedInputPaths)
     || !isDeepStrictEqual(expectedManifest.output_paths, expectedOutputPaths)
@@ -233,11 +292,14 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest, expec
   ) {
     throw new Error("candidate path registry mismatch");
   }
+  if (!isDeepStrictEqual(expectedManifest.allowed_write_paths, expectedAllowedWrites)) {
+    throw new Error("allowed write registry mismatch");
+  }
   const actualManifest = buildActualDiffManifestFromGit(root, {
     baseSha: expectedManifest.base_sha,
     planningHeadSha: expectedManifest.planning_head_sha,
     candidateHeadSha: expectedManifest.candidate_head_sha,
-    allowedWrites: expectedManifest.allowed_write_paths,
+    allowedWrites: expectedAllowedWrites,
     inputPaths: expectedInputPaths,
     outputPaths: expectedOutputPaths,
     archivePath: expectedArchivePath,

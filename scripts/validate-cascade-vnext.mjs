@@ -952,6 +952,7 @@ try {
       "docs/process/cascading-governance/runs/final/resolution-report.json",
     ],
     archivePath: null,
+    allowedWrites: ["docs-product-vision.md"],
   };
   const forgedSelfConsistentManifest = buildActualDiffManifestFromGit(manifestRepo, {
     baseSha: manifestBaseSha,
@@ -966,6 +967,35 @@ try {
     () => assertActualDiffManifestMatchesGit(manifestRepo, forgedSelfConsistentManifest, trustedComposition),
     /candidate path registry mismatch|actual diff manifest/u,
     "самосогласованная подмена полного набора путей должна блокироваться независимым составом",
+  );
+  const allowedRepo = path.join(tempRoot, "allowed-write-repo");
+  fs.mkdirSync(allowedRepo);
+  const allowedGit = (args) => execFileSync("git", args, { cwd: allowedRepo, encoding: "utf8" });
+  allowedGit(["init", "-q"]);
+  allowedGit(["config", "user.name", "Cascade Test"]);
+  allowedGit(["config", "user.email", "cascade-test@datacanvas.local"]);
+  fs.writeFileSync(path.join(allowedRepo, "docs-product-vision.md"), "before\n", "utf8");
+  allowedGit(["add", "."]);
+  allowedGit(["commit", "-q", "-m", "base"]);
+  const allowedBaseSha = allowedGit(["rev-parse", "HEAD"]).trim();
+  fs.writeFileSync(path.join(allowedRepo, "docs-product-vision.md"), "after\n", "utf8");
+  fs.writeFileSync(path.join(allowedRepo, "docs-unapproved.md"), "unexpected\n", "utf8");
+  allowedGit(["add", "."]);
+  allowedGit(["commit", "-q", "-m", "candidate"]);
+  const allowedCandidateSha = allowedGit(["rev-parse", "HEAD"]).trim();
+  const forgedAllowedWriteManifest = buildActualDiffManifestFromGit(allowedRepo, {
+    baseSha: allowedBaseSha,
+    planningHeadSha: allowedBaseSha,
+    candidateHeadSha: allowedCandidateSha,
+    allowedWrites: ["docs-product-vision.md", "docs-unapproved.md"],
+    inputPaths: trustedComposition.inputPaths,
+    outputPaths: trustedComposition.outputPaths,
+    archivePath: trustedComposition.archivePath,
+  });
+  assert.throws(
+    () => assertActualDiffManifestMatchesGit(allowedRepo, forgedAllowedWriteManifest, trustedComposition),
+    /allowed write registry mismatch|actual diff manifest/u,
+    "самосогласованное расширение allowed_write_paths с дополнительным Git-изменением должно блокироваться",
   );
 
   const approvalRepo = path.join(tempRoot, "approval-repo");

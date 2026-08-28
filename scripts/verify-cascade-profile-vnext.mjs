@@ -28,6 +28,7 @@ import {
   expectedFinalizedCandidateComposition,
   finalizedPackagePaths,
   git,
+  parseGitNameStatus,
   planningPackagePaths,
   readJson,
   validateDocument,
@@ -118,11 +119,19 @@ async function main() {
   });
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
+  const sourceIdentity = readJson(root, sourceRun.source_identity_manifest_path);
+  validateDocument(root, sourceIdentity, "schemas/cascade-source-identity.schema.json");
+  const resolutionInput = readJson(root, sourceRun.resolution_input_path);
+  validateDocument(root, resolutionInput, "schemas/cascade-resolution-input.schema.json");
+  const diffEntries = parseGitNameStatus(git(root, ["diff", "--name-status", "-z", `${sourceRun.base_sha}..${candidateSha}`]));
   assertActualDiffManifestMatchesGit(root, actualDiff, expectedFinalizedCandidateComposition({
     finalizedRunPath: sourceRunPath,
     finalizedRun: sourceRun,
     planningRunPath: resolutionReport.source_run_path,
     planningRun,
+    sourceIdentity,
+    resolutionInput,
+    diffEntries,
   }));
   assertCandidateFingerprintBinding({
     expected: actualDiff.candidate_fingerprint_sha256,
