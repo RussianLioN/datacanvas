@@ -6,6 +6,7 @@
   "run_id": "CUR-2026-07-11-001",
   "source_run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
   "candidate_head_sha": "2222222222222222222222222222222222222222",
+  "candidate_fingerprint_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
   "completed_at": "2026-07-11T13:00:00+03:00",
   "run_sha256": "5555555555555555555555555555555555555555555555555555555555555555",
   "acceptance_authority_sha256": "1010101010101010101010101010101010101010101010101010101010101010",
@@ -19,6 +20,6 @@
   "validation_manifest_sha256": "7777777777777777777777777777777777777777777777777777777777777777",
   "runtime_manifest_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
   "actual_diff_sha256": "9999999999999999999999999999999999999999999999999999999999999999",
-  "completion_command_set_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "completion_command_set_sha256": "2eb300072db1a4446aed350a4c9fbaffee121e93e6129558f35ad9d711a71b16",
   "done_claimed": true
 }

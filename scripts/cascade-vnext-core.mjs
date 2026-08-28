@@ -34,8 +34,100 @@ function sha256(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
+function uniqueSortedPaths(paths = []) {
+  return [...new Set(paths.filter(Boolean).map(normalizeRepoPath))].sort();
+}
+
 function sourcePaths(source) {
   return [source.path, source.provenance_manifest].filter(Boolean).map(normalizeRepoPath);
+}
+
+export function assertNoArchiveSelfInput({ archivePath = null, inputPaths = [] }) {
+  if (!archivePath) return;
+  const archive = normalizeRepoPath(archivePath);
+  if (uniqueSortedPaths(inputPaths).includes(archive)) {
+    throw new Error("archive cannot be its own input: " + archive);
+  }
+}
+
+export function buildCandidateFingerprint({
+  candidateHeadSha,
+  inputPaths = [],
+  outputPaths = [],
+  changedEntries = [],
+  archivePath = null,
+}) {
+  if (!gitShaPattern.test(candidateHeadSha ?? "")) {
+    throw new Error("candidateHeadSha must be an immutable Git SHA");
+  }
+  assertNoArchiveSelfInput({ archivePath, inputPaths });
+  const normalizedChangedEntries = changedEntries.map((entry) => ({
+    status: entry.status,
+    path: normalizeRepoPath(entry.path),
+    old_path: entry.old_path ? normalizeRepoPath(entry.old_path) : null,
+    sha256: entry.sha256 ?? null,
+  })).sort((left, right) => (
+    left.path.localeCompare(right.path)
+    || String(left.old_path ?? "").localeCompare(String(right.old_path ?? ""))
+    || String(left.status).localeCompare(String(right.status))
+  ));
+  const payload = {
+    version: "1.0.0",
+    candidate_head_sha: candidateHeadSha,
+    input_paths: uniqueSortedPaths(inputPaths),
+    output_paths: uniqueSortedPaths(outputPaths),
+    archive_path: archivePath ? normalizeRepoPath(archivePath) : null,
+    changed_entries: normalizedChangedEntries,
+  };
+  return sha256(JSON.stringify(stableJson(payload)));
+}
+
+export function assertCandidateFingerprintBinding({ expected, actual, label }) {
+  if (!sha256Pattern.test(expected ?? "") || actual !== expected) {
+    throw new Error(`${label} candidate fingerprint mismatch`);
+  }
+}
+
+export function assertNoNestedCascadeCompletion({
+  nestedValidation = process.env.DATACANVAS_CASCADE_NESTED_VALIDATION === "1",
+} = {}) {
+  if (nestedValidation) {
+    throw new Error("nested cascade completion is forbidden");
+  }
+}
+
+function redactSafeText(value, repoRoot = process.cwd()) {
+  const rootPattern = repoRoot.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  return String(value)
+    .replace(new RegExp(rootPattern, "gu"), "<repo>")
+    .replace(/(token|secret|password|api[_-]?key)\s*[:=]\s*\S+/giu, "$1=<redacted>");
+}
+
+export function buildRunLedgerEntry({
+  command,
+  status,
+  exitCode,
+  summary,
+  evidencePath = null,
+  rcaPath = null,
+  candidateFingerprintSha256 = null,
+  repoRoot = process.cwd(),
+}) {
+  if (!["passed", "failed", "skipped", "blocked"].includes(status)) {
+    throw new Error("run ledger status is unsupported: " + status);
+  }
+  if (candidateFingerprintSha256 !== null && !sha256Pattern.test(candidateFingerprintSha256)) {
+    throw new Error("run ledger candidate fingerprint must be sha256");
+  }
+  return {
+    command,
+    status,
+    exit_code: exitCode,
+    summary: redactSafeText(summary, repoRoot).slice(0, 1200),
+    evidence_path: evidencePath ? normalizeRepoPath(evidencePath) : null,
+    rca_path: rcaPath ? normalizeRepoPath(rcaPath) : null,
+    candidate_fingerprint_sha256: candidateFingerprintSha256,
+  };
 }
 
 export function resolveActualTriggerPaths({
@@ -241,6 +333,9 @@ export function buildActualDiffManifest({
   candidateHeadSha,
   entries = [],
   allowedWrites = [],
+  inputPaths = [],
+  outputPaths = [],
+  archivePath = null,
   dirty = false,
 }) {
   for (const [label, value] of Object.entries({ baseSha, planningHeadSha, candidateHeadSha })) {
@@ -264,6 +359,16 @@ export function buildActualDiffManifest({
     base_sha: baseSha,
     planning_head_sha: planningHeadSha,
     candidate_head_sha: candidateHeadSha,
+    candidate_fingerprint_sha256: buildCandidateFingerprint({
+      candidateHeadSha,
+      inputPaths,
+      outputPaths,
+      archivePath,
+      changedEntries: normalizedEntries,
+    }),
+    input_paths: uniqueSortedPaths(inputPaths),
+    output_paths: uniqueSortedPaths(outputPaths),
+    archive_path: archivePath ? normalizeRepoPath(archivePath) : null,
     dirty_worktree: Boolean(dirty),
     allowed_write_paths: normalizedAllowed,
     changed_entries: normalizedEntries,

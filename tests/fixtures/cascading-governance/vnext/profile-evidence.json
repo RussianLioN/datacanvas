@@ -5,6 +5,7 @@
   "status": "profile_verified",
   "source_run_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
   "candidate_head_sha": "1111111111111111111111111111111111111111",
+  "candidate_fingerprint_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
   "execution_mode": "detached_candidate_worktree",
   "validation_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/validation-manifest.json",
   "validation_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -22,5 +23,14 @@
     }
   ],
   "blocking_reasons": [],
+  "run_ledger_entry": {
+    "command": "cascade:verify",
+    "status": "passed",
+    "exit_code": 0,
+    "summary": "Профильные проверки кандидата завершены успешно.",
+    "evidence_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-profile/profile-evidence.json",
+    "rca_path": null,
+    "candidate_fingerprint_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
   "generated_at": "2026-07-11T12:00:01+03:00"
 }

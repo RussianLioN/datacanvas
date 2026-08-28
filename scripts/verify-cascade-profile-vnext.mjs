@@ -12,7 +12,11 @@ import {
   installProfileDependencies,
 } from "./cascade-profile-verifier.mjs";
 import { assertRuntimeManifestMatches } from "./cascade-completion-core.mjs";
-import { assertStateTransition } from "./cascade-vnext-core.mjs";
+import {
+  assertCandidateFingerprintBinding,
+  assertStateTransition,
+  buildRunLedgerEntry,
+} from "./cascade-vnext-core.mjs";
 import {
   assertCascadeReplayEvidence,
   assertActualDiffManifestMatchesGit,
@@ -114,6 +118,11 @@ async function main() {
   const actualDiff = readJson(root, sourceRun.diff_manifest_path);
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
   assertActualDiffManifestMatchesGit(root, actualDiff);
+  assertCandidateFingerprintBinding({
+    expected: actualDiff.candidate_fingerprint_sha256,
+    actual: sourceRun.candidate_fingerprint_sha256,
+    label: "finalized run",
+  });
   const manifest = readJson(root, sourceRun.validation_manifest_path);
   validateDocument(root, manifest, "schemas/cascade-validation-manifest.schema.json");
   const expectedRuntime = readJson(root, sourceRun.runtime_manifest_path);
@@ -146,6 +155,16 @@ async function main() {
   const attemptId = argValue("--attempt-id") ?? sourceRun.attempt_id + "-PROFILE";
   const evidencePath = outputDir + "/profile-evidence.json";
   const runPath = outputDir + "/cascade-vnext-run.json";
+  const runLedgerEntry = buildRunLedgerEntry({
+    command: "cascade:verify",
+    status: status === "profile_verified" ? "passed" : "failed",
+    exitCode: status === "profile_verified" ? 0 : 1,
+    summary: blockingReasons.length > 0
+      ? blockingReasons.join(" ")
+      : "Профильные проверки кандидата завершены успешно.",
+    evidencePath,
+    candidateFingerprintSha256: sourceRun.candidate_fingerprint_sha256,
+  });
   const evidence = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-profile-evidence.schema.json",
     version: "1.0.0",
@@ -153,24 +172,32 @@ async function main() {
     status,
     source_run_path: sourceRunPath,
     candidate_head_sha: candidateSha,
+    candidate_fingerprint_sha256: sourceRun.candidate_fingerprint_sha256,
     execution_mode: "detached_candidate_worktree",
     validation_manifest_path: sourceRun.validation_manifest_path,
     validation_manifest_sha256: hashRepoPath(root, sourceRun.validation_manifest_path),
     executed_commands: executedCommands,
     blocking_reasons: blockingReasons,
+    run_ledger_entry: runLedgerEntry,
     generated_at: new Date().toISOString(),
   };
   const verifiedRun = {
     ...sourceRun,
     attempt_id: attemptId,
     state: status,
+    candidate_fingerprint_sha256: sourceRun.candidate_fingerprint_sha256,
     profile_evidence_path: evidencePath,
     completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
+    run_ledger: [...(sourceRun.run_ledger ?? []), runLedgerEntry],
   };
   validateDocument(root, evidence, "schemas/cascade-profile-evidence.schema.json");
   validateDocument(root, verifiedRun, "schemas/cascade-vnext-run.schema.json");
+  if (status === "blocked") {
+    console.error(JSON.stringify(runLedgerEntry, null, 2));
+    throw new Error("profile verification failed; no cascade evidence package was published");
+  }
   publishAtomicPackage({
     targetDir: absoluteRepoPath(root, outputDir),
     attemptId,

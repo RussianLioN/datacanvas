@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json",
   "title": "Cascade completion evidence v1",
   "type": "object",
-  "required": ["$schema", "version", "evidence_id", "status", "source_run_path", "candidate_head_sha", "execution_mode", "runtime_manifest_path", "runtime_manifest_sha256", "runtime_match", "command_set_sha256", "command_results", "blocking_reasons", "generated_at"],
+  "required": ["$schema", "version", "evidence_id", "status", "source_run_path", "candidate_head_sha", "candidate_fingerprint_sha256", "execution_mode", "runtime_manifest_path", "runtime_manifest_sha256", "runtime_match", "command_set_sha256", "command_results", "blocking_reasons", "run_ledger_entry", "generated_at"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json" },
@@ -12,6 +12,7 @@
     "status": { "enum": ["passed", "blocked"] },
     "source_run_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "candidate_head_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+    "candidate_fingerprint_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
     "execution_mode": { "const": "detached_candidate_worktree" },
     "runtime_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "runtime_manifest_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
@@ -19,8 +20,8 @@
     "command_set_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
     "command_results": {
       "type": "array",
-      "minItems": 3,
-      "maxItems": 3,
+      "minItems": 12,
+      "maxItems": 12,
       "prefixItems": [
         {
           "allOf": [
@@ -31,11 +32,65 @@
         {
           "allOf": [
             { "$ref": "#/$defs/commandResult" },
-            { "type": "object", "properties": { "id": { "const": "full-gate" }, "executable": { "const": "npm" }, "args": { "const": ["test"] } } },
+            { "type": "object", "properties": { "id": { "const": "cascade-verification" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:cascade-verification"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "cascade-vnext" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:cascade-vnext"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "cascade-vnext-e2e" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:cascade-vnext-e2e"] } } },
             {
               "if": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
               "then": { "type": "object", "properties": { "summary": { "type": "string", "pattern": "nested end-to-end validation passed through finalization" } } }
             }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "cascade-trust" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:cascade-trust"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "cascading-governance" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:cascading-governance"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "universal-documentation-workflow" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:universal-documentation-workflow"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "schemas" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:schemas"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "secrets" }, "executable": { "const": "npm" }, "args": { "const": ["run", "scan:secrets"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "data-leakage" }, "executable": { "const": "npm" }, "args": { "const": ["run", "validate:data-leakage"] } } }
+          ]
+        },
+        {
+          "allOf": [
+            { "$ref": "#/$defs/commandResult" },
+            { "type": "object", "properties": { "id": { "const": "diff-check" }, "executable": { "const": "git" }, "args": { "const": ["diff", "--check"] } } }
           ]
         },
         {
@@ -48,6 +103,7 @@
       "items": false
     },
     "blocking_reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "run_ledger_entry": { "$ref": "#/$defs/runLedgerEntry" },
     "generated_at": { "type": "string", "format": "date-time" }
   },
   "$defs": {
@@ -56,7 +112,7 @@
         "required": ["id", "executable", "args", "status", "exit_code", "started_at", "finished_at", "duration_ms", "output_sha256", "summary"],
         "additionalProperties": false,
         "properties": {
-          "id": { "enum": ["clean-install", "full-gate", "worktree-cleanliness"] },
+          "id": { "enum": ["clean-install", "cascade-verification", "cascade-vnext", "cascade-vnext-e2e", "cascade-trust", "cascading-governance", "universal-documentation-workflow", "schemas", "secrets", "data-leakage", "diff-check", "worktree-cleanliness"] },
           "executable": { "enum": ["npm", "git"] },
           "args": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
           "status": { "enum": ["passed", "failed", "skipped"] },
@@ -66,6 +122,20 @@
           "duration_ms": { "type": "integer", "minimum": 0 },
           "output_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
           "summary": { "type": "string", "minLength": 1 }
+        }
+      },
+    "runLedgerEntry": {
+        "type": "object",
+        "required": ["command", "status", "exit_code", "summary", "evidence_path", "rca_path", "candidate_fingerprint_sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "command": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["passed", "failed", "skipped", "blocked"] },
+          "exit_code": { "anyOf": [{ "type": "integer" }, { "type": "null" }] },
+          "summary": { "type": "string", "minLength": 1, "maxLength": 1200 },
+          "evidence_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "rca_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+          "candidate_fingerprint_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }
         }
       }
   },

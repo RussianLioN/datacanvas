@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json",
   "title": "Cascade actual diff manifest v1",
   "type": "object",
-  "required": ["$schema", "version", "base_sha", "planning_head_sha", "candidate_head_sha", "dirty_worktree", "allowed_write_paths", "changed_entries", "unexpected_paths", "diff_sha256"],
+  "required": ["$schema", "version", "base_sha", "planning_head_sha", "candidate_head_sha", "candidate_fingerprint_sha256", "input_paths", "output_paths", "archive_path", "dirty_worktree", "allowed_write_paths", "changed_entries", "unexpected_paths", "diff_sha256"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-actual-diff-manifest.schema.json" },
@@ -11,6 +11,10 @@
     "base_sha": { "$ref": "#/$defs/gitSha" },
     "planning_head_sha": { "$ref": "#/$defs/gitSha" },
     "candidate_head_sha": { "$ref": "#/$defs/gitSha" },
+    "candidate_fingerprint_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
+    "input_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
+    "output_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
+    "archive_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
     "dirty_worktree": { "type": "boolean" },
     "allowed_write_paths": { "type": "array", "uniqueItems": true, "items": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" } },
     "changed_entries": {

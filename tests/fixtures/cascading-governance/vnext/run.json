@@ -11,6 +11,7 @@
   "base_sha": "1111111111111111111111111111111111111111",
   "planning_head_sha": "1111111111111111111111111111111111111111",
   "candidate_head_sha": null,
+  "candidate_fingerprint_sha256": null,
   "acceptance_authority_path": "docs/process/cascading-governance/acceptance-authority.json",
   "source_identity_manifest_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/source-identity.json",
   "source_change_analysis_path": null,
@@ -39,5 +40,16 @@
     "runtime_contract_sha256": "8888888888888888888888888888888888888888888888888888888888888888",
     "owner_question_packet_sha256": null
   },
-  "replay_key": "9999999999999999999999999999999999999999999999999999999999999999"
+  "replay_key": "9999999999999999999999999999999999999999999999999999999999999999",
+  "run_ledger": [
+    {
+      "command": "cascade:run",
+      "status": "passed",
+      "exit_code": 0,
+      "summary": "Планирование каскада завершено; входы запуска и выходной пакет созданы атомарно.",
+      "evidence_path": "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
+      "rca_path": null,
+      "candidate_fingerprint_sha256": null
+    }
+  ]
 }

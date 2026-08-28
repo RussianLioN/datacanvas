@@ -13,6 +13,7 @@ import { analyzeSemanticCascade } from "./cascade-semantic-impact.mjs";
 import { buildValidationManifest } from "./cascade-validation-manifest.mjs";
 import {
   assertRegistryDeltaIntegrity,
+  buildRunLedgerEntry,
   buildCascadeReplayKey,
   classifyXlsxChangeSignals,
   resolveActualTriggerPaths,
@@ -438,6 +439,7 @@ async function main() {
     base_sha: baseSha,
     planning_head_sha: planningHeadSha,
     candidate_head_sha: null,
+    candidate_fingerprint_sha256: null,
     acceptance_authority_path: acceptanceAuthorityPath,
     source_identity_manifest_path: `${outputDir}/${fileNames.source}`,
     source_change_analysis_path: sourceChangeAnalysis ? `${outputDir}/${fileNames.sourceAnalysis}` : null,
@@ -455,6 +457,16 @@ async function main() {
     completion_claim: { done_claimed: false },
     replay_inputs: replayInputs,
     replay_key: null,
+    run_ledger: [
+      buildRunLedgerEntry({
+        command: "cascade:run",
+        status: "passed",
+        exitCode: 0,
+        summary: "Планирование каскада завершено; входы запуска и выходной пакет созданы атомарно.",
+        evidencePath: `${outputDir}/${fileNames.run}`,
+        candidateFingerprintSha256: null,
+      }),
+    ],
   };
   runRecord.replay_key = buildCascadeReplayKey(runRecord);
   validateDocument(sourceIdentityManifest, "schemas/cascade-source-identity.schema.json");

@@ -152,6 +152,9 @@ export function buildActualDiffManifestFromGit(root, {
   planningHeadSha,
   candidateHeadSha,
   allowedWrites,
+  inputPaths = [],
+  outputPaths = [],
+  archivePath = null,
 }) {
   const entries = parseGitNameStatus(git(root, [
     "diff",
@@ -170,6 +173,9 @@ export function buildActualDiffManifestFromGit(root, {
       candidateHeadSha,
       entries,
       allowedWrites,
+      inputPaths,
+      outputPaths,
+      archivePath,
       dirty: false,
     }),
   };
@@ -181,6 +187,9 @@ export function assertActualDiffManifestMatchesGit(root, expectedManifest) {
     planningHeadSha: expectedManifest.planning_head_sha,
     candidateHeadSha: expectedManifest.candidate_head_sha,
     allowedWrites: expectedManifest.allowed_write_paths,
+    inputPaths: expectedManifest.input_paths,
+    outputPaths: expectedManifest.output_paths,
+    archivePath: expectedManifest.archive_path,
   });
   if (!isDeepStrictEqual(actualManifest, expectedManifest)) {
     throw new Error("actual diff manifest does not match the immutable Git range");

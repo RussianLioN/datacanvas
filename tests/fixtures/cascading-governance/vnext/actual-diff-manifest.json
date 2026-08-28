@@ -4,6 +4,17 @@
   "base_sha": "1111111111111111111111111111111111111111",
   "planning_head_sha": "1111111111111111111111111111111111111111",
   "candidate_head_sha": "2222222222222222222222222222222222222222",
+  "candidate_fingerprint_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "input_paths": [
+    "docs/process/cascading-governance/runs/2026-07-11-cascade-vnext/cascade-vnext-run.json",
+    "docs/process/cascading-governance/runs/2026-07-11-cascade-input/resolution-input.json"
+  ],
+  "output_paths": [
+    "docs/process/cascading-governance/runs/2026-07-11-cascade-final/actual-diff-manifest.json",
+    "docs/process/cascading-governance/runs/2026-07-11-cascade-final/cascade-vnext-run.json",
+    "docs/process/cascading-governance/runs/2026-07-11-cascade-final/resolution-report.json"
+  ],
+  "archive_path": null,
   "dirty_worktree": false,
   "allowed_write_paths": ["docs/product-vision.md"],
   "changed_entries": [

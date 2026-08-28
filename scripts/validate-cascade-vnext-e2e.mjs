@@ -413,9 +413,9 @@ try {
     assert.equal(completionResult.status, 0, output(completionResult) + completionDiagnostics);
     const completedRun = JSON.parse(fs.readFileSync(path.join(worktree, lifecycleCompleteDir, "cascade-vnext-run.json"), "utf8"));
     const completionEvidence = JSON.parse(fs.readFileSync(completionEvidencePath, "utf8"));
-    const completionFullGate = completionEvidence.command_results.find((entry) => entry.id === "full-gate");
-    assert.doesNotMatch(completionFullGate.summary, /nested end-to-end validation skipped/iu);
-    assert.ok(completionFullGate.summary.includes(NESTED_CASCADE_E2E_SUCCESS_MARKER));
+    const completionCascadeE2e = completionEvidence.command_results.find((entry) => entry.id === "cascade-vnext-e2e");
+    assert.doesNotMatch(completionCascadeE2e.summary, /nested end-to-end validation skipped/iu);
+    assert.ok(completionCascadeE2e.summary.includes(NESTED_CASCADE_E2E_SUCCESS_MARKER));
     assert.equal(completedRun.state, "verified");
     assert.equal(completedRun.completion_claim.done_claimed, true);
     assert.equal(fs.existsSync(path.join(worktree, lifecycleCompleteDir, "completion-seal.json")), true);

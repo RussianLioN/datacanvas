@@ -18,7 +18,13 @@ import {
 } from "./cascade-completion-core.mjs";
 import { assertValidationEvidenceComplete } from "./cascade-validation-manifest.mjs";
 import { assertValidationManifestIntegrity } from "./cascade-profile-verifier.mjs";
-import { assertStateTransition, canClaimDone } from "./cascade-vnext-core.mjs";
+import {
+  assertCandidateFingerprintBinding,
+  assertNoNestedCascadeCompletion,
+  assertStateTransition,
+  buildRunLedgerEntry,
+  canClaimDone,
+} from "./cascade-vnext-core.mjs";
 import {
   assertCascadeReplayEvidence,
   assertActualDiffManifestMatchesGit,
@@ -63,6 +69,7 @@ function assertProfileLineage(profileRun, profileEvidence, finalizedRun) {
     "base_sha",
     "planning_head_sha",
     "candidate_head_sha",
+    "candidate_fingerprint_sha256",
     "acceptance_authority_path",
     "source_identity_manifest_path",
     "source_change_analysis_path",
@@ -132,7 +139,7 @@ function executeCompletionCommands(worktree, commands, environment) {
     const exitCode = Number.isInteger(result.status) ? result.status : 1;
     const evidenceProblems = completionCommandEvidenceProblems(command, rawOutput);
     const status = commandResultPassed(command, result) && evidenceProblems.length === 0 ? "passed" : "failed";
-    const evidencePrefix = command.id === "full-gate"
+    const evidencePrefix = command.id === "cascade-vnext-e2e"
       ? evidenceProblems.length === 0
         ? `Подтверждение: ${NESTED_CASCADE_E2E_SUCCESS_MARKER}\n`
         : `Ошибка evidence: ${evidenceProblems.join("; ")}\n`
@@ -190,6 +197,7 @@ function candidateWorktree(candidateSha, callback) {
 }
 
 async function main() {
+  assertNoNestedCascadeCompletion();
   assertCascadePreflight({ root });
   const sourceRunPath = normalizeRepoPath(argValue("--run") ?? "");
   const outputDir = assertFreshRunDir(argValue("--output-dir") ?? "");
@@ -253,12 +261,22 @@ async function main() {
   validateDocument(root, actualDiff, "schemas/cascade-actual-diff-manifest.schema.json");
   if (actualDiff.candidate_head_sha !== candidateSha) throw new Error("actual diff candidate SHA mismatch");
   assertActualDiffManifestMatchesGit(root, actualDiff);
+  assertCandidateFingerprintBinding({
+    expected: actualDiff.candidate_fingerprint_sha256,
+    actual: sourceRun.candidate_fingerprint_sha256,
+    label: "profile-verified run",
+  });
   const validationManifest = readJson(root, sourceRun.validation_manifest_path);
   validateDocument(root, validationManifest, "schemas/cascade-validation-manifest.schema.json");
   assertValidationManifestIntegrity(validationManifest);
   if (profileEvidence.validation_manifest_sha256 !== hashRepoPath(root, sourceRun.validation_manifest_path)) {
     throw new Error("profile evidence validation manifest hash mismatch");
   }
+  assertCandidateFingerprintBinding({
+    expected: sourceRun.candidate_fingerprint_sha256,
+    actual: profileEvidence.candidate_fingerprint_sha256,
+    label: "profile evidence",
+  });
   assertValidationEvidenceComplete(validationManifest, profileEvidence);
   for (const acceptancePath of sourceRun.acceptance_paths) {
     assertRepoPathMatchesGit(root, candidateSha, acceptancePath, "acceptance record");
@@ -293,6 +311,17 @@ async function main() {
   const evidencePath = outputDir + "/completion-evidence.json";
   const sealPath = passed ? outputDir + "/completion-seal.json" : null;
   const runPath = outputDir + "/cascade-vnext-run.json";
+  const runLedgerEntry = buildRunLedgerEntry({
+    command: "cascade:complete",
+    status: passed ? "passed" : "failed",
+    exitCode: passed ? 0 : 1,
+    summary: blockingReasons.length > 0
+      ? blockingReasons.join(" ")
+      : "Завершение каскада подтверждено полным профилем команд.",
+    evidencePath,
+    rcaPath: blockingReasons.length > 0 ? "docs/knowledge/rca/2026-08-28-cascade-partial-publication-barrier.md" : null,
+    candidateFingerprintSha256: sourceRun.candidate_fingerprint_sha256,
+  });
   const evidence = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-completion-evidence.schema.json",
     version: "1.0.0",
@@ -300,6 +329,7 @@ async function main() {
     status: passed ? "passed" : "blocked",
     source_run_path: sourceRunPath,
     candidate_head_sha: candidateSha,
+    candidate_fingerprint_sha256: sourceRun.candidate_fingerprint_sha256,
     execution_mode: "detached_candidate_worktree",
     runtime_manifest_path: sourceRun.runtime_manifest_path,
     runtime_manifest_sha256: hashRepoPath(root, sourceRun.runtime_manifest_path),
@@ -307,6 +337,7 @@ async function main() {
     command_set_sha256: completionCommandSetHash(commands),
     command_results: commandResults,
     blocking_reasons: blockingReasons,
+    run_ledger_entry: runLedgerEntry,
     generated_at: new Date().toISOString(),
   };
   const completionClaim = { done_claimed: canClaimDone(nextState, "cascade:complete") };
@@ -314,9 +345,11 @@ async function main() {
     ...sourceRun,
     attempt_id: attemptId,
     state: nextState,
+    candidate_fingerprint_sha256: sourceRun.candidate_fingerprint_sha256,
     completion_evidence_path: evidencePath,
     completion_seal_path: sealPath,
     completion_claim: completionClaim,
+    run_ledger: [...(sourceRun.run_ledger ?? []), runLedgerEntry],
   };
   const seal = passed ? {
     $schema: "https://datacanvas.local/schemas/v1/cascade-completion-seal.schema.json",
@@ -326,6 +359,7 @@ async function main() {
     run_id: sourceRun.run_id,
     source_run_path: sourceRunPath,
     candidate_head_sha: candidateSha,
+    candidate_fingerprint_sha256: sourceRun.candidate_fingerprint_sha256,
     completed_at: evidence.generated_at,
     run_sha256: hashRepoPath(root, sourceRunPath),
     acceptance_authority_sha256: hashRepoPath(root, sourceRun.acceptance_authority_path),
@@ -351,6 +385,10 @@ async function main() {
   validateDocument(root, evidence, "schemas/cascade-completion-evidence.schema.json");
   validateDocument(root, completedRun, "schemas/cascade-vnext-run.schema.json");
   if (seal) validateDocument(root, seal, "schemas/cascade-completion-seal.schema.json");
+  if (!passed) {
+    console.error(JSON.stringify(runLedgerEntry, null, 2));
+    throw new Error("cascade completion failed; no cascade evidence package was published");
+  }
   const files = new Map([
     [path.posix.basename(runPath), JSON.stringify(completedRun, null, 2) + "\n"],
     [path.posix.basename(evidencePath), JSON.stringify(evidence, null, 2) + "\n"],

@@ -8,10 +8,15 @@ import { execFileSync } from "node:child_process";
 import {
   assertCascadeReplayInputs,
   assertCascadeReplayKey,
+  assertCandidateFingerprintBinding,
+  assertNoArchiveSelfInput,
+  assertNoNestedCascadeCompletion,
   assertStateTransition,
   assertRegistryDeltaIntegrity,
+  buildCandidateFingerprint,
   buildCascadeReplayKey,
   buildActualDiffManifest,
+  buildRunLedgerEntry,
   canClaimDone,
   classifyXlsxChangeSignals,
   deriveRegistryDeltaSelectors,
@@ -56,6 +61,25 @@ const summarizedValidationOutput = sanitizeOutput(longValidationOutput, process.
 assert.match(summarizedValidationOutput, /head-marker/u);
 assert.match(summarizedValidationOutput, /tail-marker/u);
 assert.ok(summarizedValidationOutput.length <= 4000);
+
+for (const rcaPath of [
+  "docs/knowledge/rca/2026-08-28-stale-xlsx-source-reentry.md",
+  "docs/knowledge/rca/2026-08-28-empty-permission-cone.md",
+  "docs/knowledge/rca/2026-08-28-dangerous-shell-tail.md",
+]) {
+  const text = fs.readFileSync(rcaPath, "utf8");
+  for (const fragment of [
+    "## Симптом",
+    "## Воспроизведение",
+    "## Пять Почему",
+    "## Корневая Причина",
+    "## Исправление",
+    "## Исполняемый Барьер",
+    "## Остаточный Риск",
+  ]) {
+    assert.match(text, new RegExp(fragment, "u"), `${rcaPath} должен содержать ${fragment}`);
+  }
+}
 
 const sourceRegistry = {
   sources: [
@@ -174,12 +198,12 @@ assert.throws(
 const cleanlinessCommand = completionCommandSet().find((command) => command.id === "worktree-cleanliness");
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "" }), true);
 assert.equal(commandResultPassed(cleanlinessCommand, { status: 0, stdout: "?? generated.tmp\n" }), false);
-const fullGateCommand = completionCommandSet().find((command) => command.id === "full-gate");
-assert.deepEqual(completionCommandEvidenceProblems(fullGateCommand, "all checks passed"), [
-  "full-gate did not prove nested cascade vNext end-to-end execution",
+const cascadeE2eCompletionCommand = completionCommandSet().find((command) => command.id === "cascade-vnext-e2e");
+assert.deepEqual(completionCommandEvidenceProblems(cascadeE2eCompletionCommand, "all checks passed"), [
+  "cascade-vnext-e2e did not prove nested cascade vNext end-to-end execution",
 ]);
 assert.deepEqual(
-  completionCommandEvidenceProblems(fullGateCommand, NESTED_CASCADE_E2E_SUCCESS_MARKER),
+  completionCommandEvidenceProblems(cascadeE2eCompletionCommand, NESTED_CASCADE_E2E_SUCCESS_MARKER),
   [],
 );
 const completionEvidenceFixture = JSON.parse(fs.readFileSync(
@@ -200,7 +224,7 @@ assert.throws(
   /completion command set hash mismatch/u,
 );
 const missingNestedEvidence = structuredClone(completionEvidenceFixture);
-missingNestedEvidence.command_results.find((entry) => entry.id === "full-gate").summary = "Полная проверка пройдена.";
+missingNestedEvidence.command_results.find((entry) => entry.id === "cascade-vnext-e2e").summary = "Полная проверка пройдена.";
 assert.throws(
   () => assertCompletionEvidenceIntegrity(missingNestedEvidence),
   /nested cascade vNext end-to-end execution/u,
@@ -280,6 +304,93 @@ assert.throws(
   /owner_question_packet_sha256/u,
   "подмена пакета вопроса владельцу должна блокировать повтор запуска",
 );
+const candidateFingerprint = buildCandidateFingerprint({
+  candidateHeadSha: "2".repeat(40),
+  inputPaths: [
+    "docs/process/cascading-governance/runs/source/cascade-vnext-run.json",
+    "docs/process/cascading-governance/runs/input/resolution-input.json",
+  ],
+  outputPaths: [
+    "docs/process/cascading-governance/runs/final/cascade-vnext-run.json",
+    "docs/process/cascading-governance/runs/final/actual-diff-manifest.json",
+  ],
+  changedEntries: [
+    { status: "M", path: "docs/product-vision.md", old_path: null, sha256: "a".repeat(64) },
+  ],
+});
+assert.match(candidateFingerprint, /^[0-9a-f]{64}$/u);
+assert.equal(candidateFingerprint, buildCandidateFingerprint({
+  candidateHeadSha: "2".repeat(40),
+  outputPaths: [
+    "docs/process/cascading-governance/runs/final/actual-diff-manifest.json",
+    "docs/process/cascading-governance/runs/final/cascade-vnext-run.json",
+  ],
+  inputPaths: [
+    "docs/process/cascading-governance/runs/input/resolution-input.json",
+    "docs/process/cascading-governance/runs/source/cascade-vnext-run.json",
+  ],
+  changedEntries: [
+    { path: "docs/product-vision.md", status: "M", old_path: null, sha256: "a".repeat(64) },
+  ],
+}), "один и тот же состав входов, выходов и Git-изменений должен давать один отпечаток");
+assert.notEqual(candidateFingerprint, buildCandidateFingerprint({
+  candidateHeadSha: "2".repeat(40),
+  inputPaths: [
+    "docs/process/cascading-governance/runs/source/cascade-vnext-run.json",
+    "docs/process/cascading-governance/runs/input/resolution-input.json",
+  ],
+  outputPaths: [
+    "docs/process/cascading-governance/runs/final/cascade-vnext-run.json",
+  ],
+  changedEntries: [
+    { status: "M", path: "docs/product-vision.md", old_path: null, sha256: "a".repeat(64) },
+  ],
+}), "подмена состава выходов должна менять отпечаток кандидата");
+assert.doesNotThrow(() => assertCandidateFingerprintBinding({
+  expected: candidateFingerprint,
+  actual: candidateFingerprint,
+  label: "profile evidence",
+}));
+assert.throws(
+  () => assertCandidateFingerprintBinding({
+    expected: candidateFingerprint,
+    actual: "f".repeat(64),
+    label: "completion evidence",
+  }),
+  /candidate fingerprint mismatch/u,
+);
+assert.doesNotThrow(() => assertNoArchiveSelfInput({
+  archivePath: "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+  inputPaths: ["docs/product-vision.md"],
+}));
+assert.throws(
+  () => assertNoArchiveSelfInput({
+    archivePath: "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    inputPaths: [
+      "docs/product-vision.md",
+      "artifacts/documentation-archive/datacanvas-main-documentation.zip",
+    ],
+  }),
+  /archive cannot be its own input/u,
+);
+assert.doesNotThrow(() => assertNoNestedCascadeCompletion({ nestedValidation: false }));
+assert.throws(
+  () => assertNoNestedCascadeCompletion({ nestedValidation: true }),
+  /nested cascade completion/u,
+);
+const safeLedgerEntry = buildRunLedgerEntry({
+  command: "npm run validate:cascade-vnext",
+  status: "failed",
+  exitCode: 1,
+  summary: process.cwd() + "\nsecret=abc123\nОшибка проверки профиля.",
+  evidencePath: "docs/process/cascading-governance/runs/run/profile-evidence.json",
+  rcaPath: "docs/knowledge/rca/2026-08-28-dangerous-shell-tail.md",
+  candidateFingerprintSha256: candidateFingerprint,
+});
+assert.equal(safeLedgerEntry.exit_code, 1);
+assert.match(safeLedgerEntry.summary, /<repo>/u);
+assert.doesNotMatch(safeLedgerEntry.summary, new RegExp(process.cwd().replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u"));
+assert.doesNotMatch(safeLedgerEntry.summary, /abc123/u);
 assert.throws(
   () => resolveSourceIdentities({ sourceRegistry, triggerPaths: ["docs/unregistered.xlsx"] }),
   /source identity/u,
@@ -582,6 +693,11 @@ assert.deepEqual(
   completionCommandSet().find((command) => command.id === "worktree-cleanliness")?.args,
   ["status", "--porcelain=v1", "--untracked-files=all"],
   "завершение должно находить и незарегистрированные файлы",
+);
+assert.equal(
+  completionCommandSet().some((command) => command.args.join(" ") === "test"),
+  false,
+  "локальный completion-профиль Task 3 не должен запускать полный npm test",
 );
 
 assert.deepEqual(requiredOwnerRoles(["product_meaning"]), ["Product Owner"]);

@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/v1/cascade-profile-evidence.schema.json",
   "title": "Cascade profile verification evidence v1",
   "type": "object",
-  "required": ["$schema", "version", "evidence_id", "status", "source_run_path", "candidate_head_sha", "execution_mode", "validation_manifest_path", "validation_manifest_sha256", "executed_commands", "blocking_reasons", "generated_at"],
+  "required": ["$schema", "version", "evidence_id", "status", "source_run_path", "candidate_head_sha", "candidate_fingerprint_sha256", "execution_mode", "validation_manifest_path", "validation_manifest_sha256", "executed_commands", "blocking_reasons", "run_ledger_entry", "generated_at"],
   "additionalProperties": false,
   "properties": {
     "$schema": { "const": "https://datacanvas.local/schemas/v1/cascade-profile-evidence.schema.json" },
@@ -12,6 +12,7 @@
     "status": { "enum": ["blocked", "profile_verified"] },
     "source_run_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "candidate_head_sha": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/gitSha" },
+    "candidate_fingerprint_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
     "execution_mode": { "const": "detached_candidate_worktree" },
     "validation_manifest_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
     "validation_manifest_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" },
@@ -36,6 +37,7 @@
       }
     },
     "blocking_reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "run_ledger_entry": { "$ref": "#/$defs/runLedgerEntry" },
     "generated_at": { "type": "string", "format": "date-time" }
   },
   "allOf": [
@@ -49,5 +51,21 @@
         }
       }
     }
-  ]
+  ],
+  "$defs": {
+    "runLedgerEntry": {
+      "type": "object",
+      "required": ["command", "status", "exit_code", "summary", "evidence_path", "rca_path", "candidate_fingerprint_sha256"],
+      "additionalProperties": false,
+      "properties": {
+        "command": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["passed", "failed", "skipped", "blocked"] },
+        "exit_code": { "anyOf": [{ "type": "integer" }, { "type": "null" }] },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 1200 },
+        "evidence_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+        "rca_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/nullableRepoPath" },
+        "candidate_fingerprint_sha256": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/sha256" }
+      }
+    }
+  }
 }

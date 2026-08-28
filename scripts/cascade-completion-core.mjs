@@ -19,10 +19,64 @@ export function completionCommandSet() {
       timeout_ms: 10 * 60 * 1000,
     },
     {
-      id: "full-gate",
+      id: "cascade-verification",
       executable: "npm",
-      args: ["test"],
+      args: ["run", "validate:cascade-verification"],
+      timeout_ms: 5 * 60 * 1000,
+    },
+    {
+      id: "cascade-vnext",
+      executable: "npm",
+      args: ["run", "validate:cascade-vnext"],
+      timeout_ms: 5 * 60 * 1000,
+    },
+    {
+      id: "cascade-vnext-e2e",
+      executable: "npm",
+      args: ["run", "validate:cascade-vnext-e2e"],
       timeout_ms: 30 * 60 * 1000,
+    },
+    {
+      id: "cascade-trust",
+      executable: "npm",
+      args: ["run", "validate:cascade-trust"],
+      timeout_ms: 5 * 60 * 1000,
+    },
+    {
+      id: "cascading-governance",
+      executable: "npm",
+      args: ["run", "validate:cascading-governance"],
+      timeout_ms: 10 * 60 * 1000,
+    },
+    {
+      id: "universal-documentation-workflow",
+      executable: "npm",
+      args: ["run", "validate:universal-documentation-workflow"],
+      timeout_ms: 10 * 60 * 1000,
+    },
+    {
+      id: "schemas",
+      executable: "npm",
+      args: ["run", "validate:schemas"],
+      timeout_ms: 5 * 60 * 1000,
+    },
+    {
+      id: "secrets",
+      executable: "npm",
+      args: ["run", "scan:secrets"],
+      timeout_ms: 5 * 60 * 1000,
+    },
+    {
+      id: "data-leakage",
+      executable: "npm",
+      args: ["run", "validate:data-leakage"],
+      timeout_ms: 10 * 60 * 1000,
+    },
+    {
+      id: "diff-check",
+      executable: "git",
+      args: ["diff", "--check"],
+      timeout_ms: 2 * 60 * 1000,
     },
     {
       id: "worktree-cleanliness",
@@ -59,9 +113,9 @@ export function commandResultPassed(command, result) {
 }
 
 export function completionCommandEvidenceProblems(command, rawOutput) {
-  if (command.id !== "full-gate") return [];
+  if (command.id !== "cascade-vnext-e2e") return [];
   if (String(rawOutput).includes(NESTED_CASCADE_E2E_SUCCESS_MARKER)) return [];
-  return ["full-gate did not prove nested cascade vNext end-to-end execution"];
+  return ["cascade-vnext-e2e did not prove nested cascade vNext end-to-end execution"];
 }
 
 export function completionEvidenceProblems(evidence, commands = completionCommandSet()) {
@@ -78,9 +132,9 @@ export function completionEvidenceProblems(evidence, commands = completionComman
   if (evidence.command_set_sha256 !== completionCommandSetHash(commands)) {
     problems.push("completion command set hash mismatch");
   }
-  const fullGate = (evidence.command_results ?? []).find((result) => result.id === "full-gate");
-  if (fullGate?.status === "passed") {
-    problems.push(...completionCommandEvidenceProblems(fullGate, fullGate.summary));
+  const cascadeE2e = (evidence.command_results ?? []).find((result) => result.id === "cascade-vnext-e2e");
+  if (cascadeE2e?.status === "passed") {
+    problems.push(...completionCommandEvidenceProblems(cascadeE2e, cascadeE2e.summary));
   }
   return problems;
 }

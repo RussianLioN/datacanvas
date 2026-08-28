@@ -5,7 +5,12 @@ import process from "node:process";
 import { publishAtomicPackage } from "./cascade-atomic-publisher.mjs";
 import { validateOwnerAcceptanceSet } from "./cascade-owner-acceptance.mjs";
 import { assertCascadePreflight } from "./cascade-preflight.mjs";
-import { assertStateTransition, expandAllowedWritesForRenames, verifyAppliedResolution } from "./cascade-vnext-core.mjs";
+import {
+  assertStateTransition,
+  buildRunLedgerEntry,
+  expandAllowedWritesForRenames,
+  verifyAppliedResolution,
+} from "./cascade-vnext-core.mjs";
 import {
   assertAncestor,
   assertImmutableGitPackage,
@@ -195,11 +200,24 @@ async function main() {
     diffEntries,
     authorizedRenames,
   );
+  const attemptId = argValue("--attempt-id") ?? `${sourceRun.attempt_id}-FINAL`;
+  const finalizedRunPath = `${outputDir}/cascade-vnext-run.json`;
+  const diffManifestPath = `${outputDir}/actual-diff-manifest.json`;
+  const resolutionReportPath = `${outputDir}/resolution-report.json`;
+  const inputPaths = [
+    sourceRunPath,
+    resolutionInputPath,
+    ...planningPackagePaths(sourceRunPath, sourceRun),
+    ...acceptancePaths,
+  ];
+  const outputPaths = [finalizedRunPath, diffManifestPath, resolutionReportPath];
   const diffManifest = buildActualDiffManifestFromGit(root, {
     baseSha: sourceRun.base_sha,
     planningHeadSha: sourceRun.planning_head_sha,
     candidateHeadSha,
     allowedWrites,
+    inputPaths,
+    outputPaths,
   });
   const resolutionReport = {
     $schema: "https://datacanvas.local/schemas/v1/cascade-resolution-report.schema.json",
@@ -213,15 +231,23 @@ async function main() {
     resolved_at: resolutionInput.resolved_at,
     resolution_sha256: hashRepoPath(root, resolutionInputPath),
   };
-  const attemptId = argValue("--attempt-id") ?? `${sourceRun.attempt_id}-FINAL`;
-  const finalizedRunPath = `${outputDir}/cascade-vnext-run.json`;
-  const diffManifestPath = `${outputDir}/actual-diff-manifest.json`;
-  const resolutionReportPath = `${outputDir}/resolution-report.json`;
+  const runLedger = [
+    ...(sourceRun.run_ledger ?? []),
+    buildRunLedgerEntry({
+      command: "cascade:finalize",
+      status: "passed",
+      exitCode: 0,
+      summary: "Финализация кандидата завершена; состав Git-изменений и разрешенных выходов зафиксирован.",
+      evidencePath: finalizedRunPath,
+      candidateFingerprintSha256: diffManifest.candidate_fingerprint_sha256,
+    }),
+  ];
   const finalizedRun = {
     ...sourceRun,
     attempt_id: attemptId,
     state: "finalized",
     candidate_head_sha: candidateHeadSha,
+    candidate_fingerprint_sha256: diffManifest.candidate_fingerprint_sha256,
     diff_manifest_path: diffManifestPath,
     resolution_input_path: resolutionInputPath,
     resolution_report_path: resolutionReportPath,
@@ -230,6 +256,7 @@ async function main() {
     completion_evidence_path: null,
     completion_seal_path: null,
     completion_claim: { done_claimed: false },
+    run_ledger: runLedger,
   };
   validateDocument(root, diffManifest, "schemas/cascade-actual-diff-manifest.schema.json");
   validateDocument(root, resolutionReport, "schemas/cascade-resolution-report.schema.json");
