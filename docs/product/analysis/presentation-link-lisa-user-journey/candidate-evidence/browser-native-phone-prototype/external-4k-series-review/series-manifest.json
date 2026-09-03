@@ -1,0 +1,115 @@
+{
+  "$schema": "../../../source/schemas/browser-native-phone-external-asset-series.schema.json",
+  "version": "1.0.0",
+  "status": "owner_series_approved",
+  "series_id": "browser-native-phone-external-4k",
+  "owner_decision": "approved",
+  "source_paths_stored": false,
+  "raw_pdf_served_by_demo": false,
+  "active_release_mutation_prohibited": true,
+  "assets": [
+    {
+      "state_id": "lisa-presentation-email",
+      "content_type": "email",
+      "asset_format": "svg",
+      "runtime_asset_paths": [
+        "assets/external/lisa-presentation-email.svg"
+      ],
+      "runtime_asset_sha256": [
+        "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7"
+      ],
+      "intrinsic_page": {
+        "width": 1280,
+        "height": 960
+      },
+      "review_asset_path": "external-4k-series-review/lisa-presentation-email-3840x2880.png",
+      "review_asset_sha256": "357b99e38f9a3a7266c5e1bf76e289114effc9223735c40727b71f202b1debed",
+      "review_dimensions": {
+        "width": 3840,
+        "height": 2880
+      },
+      "source_svg_sha256": "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7"
+    },
+    {
+      "state_id": "lisa-presentation-slidedoc",
+      "content_type": "presentation",
+      "asset_format": "png",
+      "runtime_asset_paths": [
+        "assets/external/lisa-presentation-slidedoc-page-1.png",
+        "assets/external/lisa-presentation-slidedoc-page-2.png",
+        "assets/external/lisa-presentation-slidedoc-page-3.png"
+      ],
+      "runtime_asset_sha256": [
+        "a2f55de3fdc8c52359d61e490884d8ebf4986f65db63440b2f3390cd0ac4a0d8",
+        "29b121855a13b4aa7f93f707f6627c2431c914704df4065d2e7b7de332885d35",
+        "f9f7bc446dd43dc67172d8b4117932446a90a35442824d227c113f4095ef7541"
+      ],
+      "intrinsic_page": {
+        "width": 3840,
+        "height": 2160
+      },
+      "review_asset_path": "external-4k-series-review/lisa-presentation-slidedoc-pages-3840x6480.png",
+      "review_asset_sha256": "965e0ae4aa70958b2c1359bf53d57fe75c3cc933c2728009aff8aef26b7f8f06",
+      "review_dimensions": {
+        "width": 3840,
+        "height": 6480
+      },
+      "source_file_name": "vodoley_dense_slidedoc.pdf",
+      "source_pdf_sha256": "52f0194ff2f4fd10066925bf4d488e12e8f194cdae465e5075a4ec3a7dd92425"
+    },
+    {
+      "state_id": "lisa-presentation-sber2025",
+      "content_type": "presentation",
+      "asset_format": "png",
+      "runtime_asset_paths": [
+        "assets/external/lisa-presentation-sber2025-page-1.png",
+        "assets/external/lisa-presentation-sber2025-page-2.png",
+        "assets/external/lisa-presentation-sber2025-page-3.png"
+      ],
+      "runtime_asset_sha256": [
+        "6ad2ebaa87d910d2f8d0d43599f299200375d69667db452d8b2b08a3488e9485",
+        "9ea63fa84dcbb6b6078603a29c8b9d635b60e3bb7868d4ee2a21ac92ea28fda6",
+        "2bb71622b4407b165456eba296ec27df89585d6bc821d54d97fd227d9cbdd761"
+      ],
+      "intrinsic_page": {
+        "width": 3840,
+        "height": 2160
+      },
+      "review_asset_path": "external-4k-series-review/lisa-presentation-sber2025-pages-3840x6480.png",
+      "review_asset_sha256": "d9c56e9d56e08ee16d303b8db565a5681f1b734791c6a052d01b666f70e0602d",
+      "review_dimensions": {
+        "width": 3840,
+        "height": 6480
+      },
+      "source_file_name": "vodoley_dense_sber2025.pdf",
+      "source_pdf_sha256": "9dc9ab650fdf24ff87edc1973515fa4baac6fddf8c8a715433207b2ca0c80fcc"
+    },
+    {
+      "state_id": "lisa-presentation-mag",
+      "content_type": "presentation",
+      "asset_format": "png",
+      "runtime_asset_paths": [
+        "assets/external/lisa-presentation-mag-page-1.png",
+        "assets/external/lisa-presentation-mag-page-2.png",
+        "assets/external/lisa-presentation-mag-page-3.png"
+      ],
+      "runtime_asset_sha256": [
+        "54ad21f6739ea0dc156cc6fe8e1c41991fa3144396e0ef5c562258a1fda1e4e4",
+        "47dbfefde6e4a580a0b9ab57b11ea7b6ffb8b7550cb34c315230b03286a8ad7b",
+        "adfcacdc9cd5a86c81aafffc6138a1fd4dffd3540000845b602eecd0ebdcf151"
+      ],
+      "intrinsic_page": {
+        "width": 3840,
+        "height": 2160
+      },
+      "review_asset_path": "external-4k-series-review/lisa-presentation-mag-pages-3840x6480.png",
+      "review_asset_sha256": "e90d902cc3f65c04b38ccf70c0ac800e7805030a745cfc0c603bf579eac8e6e3",
+      "review_dimensions": {
+        "width": 3840,
+        "height": 6480
+      },
+      "source_file_name": "vodoley_dense_mag.pdf",
+      "source_pdf_sha256": "12b4717101eeb553164ea22e3d41a7594590872adc19217ea35f345089434f2d"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "series_id": "browser-native-phone-external-4k",
+  "decision": "approved",
+  "decision_text": "Принято",
+  "decision_source": "Product Owner в рабочем чате",
+  "approved_on": "2026-09-03",
+  "approved_scope": [
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "decision_evidence_note": "Владелец принял показанную серию внешних 4K-экранов. Точное время ответа не переносится в файловый артефакт."
+}

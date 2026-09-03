@@ -13,11 +13,13 @@
 - [Commit/PR evidence](commit-pr-evidence.md)
 - [Pilot report](pilot-report.md)
 - [Pilot execution handoff](pilot-execution-handoff.md)
-- [Черновой пакет документации CO-2026-003](co-2026-003-draft-documentation-archive.md) — текущий состав документов и принятого 11-кадрового прототипа до чистового выпуска.
-- [Скачать полный черновой пакет](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP с текущими документами и прототипом.
+- [Архив поставки чистового прототипа CO-2026-003](co-2026-003-prototype-delivery-archive.md) — текущий состав документов и автономного браузерного прототипа.
+- [Скачать полный архив поставки](../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true) — автономный ZIP с текущими документами и прототипом.
+- [Доказательства чистового браузерного прототипа](co-2026-003-browser-native-phone-prototype-release-evidence.md) — единый отпечаток кандидата, 4K-ресурсы и границы данных.
 - [RCA визуального выпуска CO-2026-003](co-2026-003-visual-prototype-rca.md) — причина дефекта наложения и обязательный порядок SVG → PNG → HTML → архив.
 - [RCA импорта презентаций CO-2026-003](co-2026-003-presentation-pdf-import-rca.md) — причина неверной SVG-реконструкции и правило контролируемого PDF → PNG для трёх вариантов презентации.
 - [RCA каскадного расхождения CO-2026-003](../knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md) — причина рассинхронизации дополнений владельца и защита от подмены черновика чистовым выпуском.
+- [RCA статуса чистового выпуска CO-2026-003](../knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md) — защита от повторного сохранения принятого результата в статусе черновика.
 - [Commit/PR evidence template](templates/commit-pr-evidence-template.md)
 
 ## Перед Review

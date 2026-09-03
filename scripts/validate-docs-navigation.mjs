@@ -619,12 +619,14 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
   },
   "positive-lisa-prototype-discoverable-and-downloadable": () => {
     const packageReadme = "docs/product/analysis/presentation-link-lisa-user-journey/README.md";
-    const draftEntrypoint = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html";
-    const draftArchive = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip";
+    const cleanEntrypoint = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html";
+    const deliveryArchive = "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip";
     const historicalPrefixes = [
       "docs/product/analysis/presentation-link-lisa-user-journey/demo/",
       "docs/product/analysis/presentation-link-lisa-user-journey/derived/",
       "docs/product/analysis/presentation-link-lisa-user-journey/evidence/",
+      "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/",
+      "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
     ];
     const navigationEntries = [
       "README.md",
@@ -636,17 +638,17 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     for (const navigationEntry of navigationEntries) {
       const markdown = readText(navigationEntry);
       const linkedPaths = new Set(parseMarkdownLinks(markdown, navigationEntry));
-      for (const requiredPath of [packageReadme, draftEntrypoint, draftArchive]) {
+      for (const requiredPath of [packageReadme, cleanEntrypoint, deliveryArchive]) {
         if (!linkedPaths.has(requiredPath)) {
           fail(`Lisa prototype route is missing from ${navigationEntry}: ${requiredPath}`);
         }
       }
       const relativeArchive = path.posix.relative(
         path.posix.dirname(navigationEntry),
-        draftArchive,
+        deliveryArchive,
       );
       if (!markdown.includes(`(${relativeArchive}?raw=true)`)) {
-        fail(`GitHub Lisa draft download link is missing from ${navigationEntry}`);
+        fail(`GitHub Lisa delivery archive download link is missing from ${navigationEntry}`);
       }
       for (const historicalPrefix of historicalPrefixes) {
         if ([...linkedPaths].some((linkedPath) => linkedPath.startsWith(historicalPrefix))) {
@@ -657,7 +659,7 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
 
     const packageMarkdown = readText(packageReadme);
     const packageLinks = new Set(parseMarkdownLinks(packageMarkdown, packageReadme));
-    for (const requiredPath of [draftEntrypoint]) {
+    for (const requiredPath of [cleanEntrypoint]) {
       if (!packageLinks.has(requiredPath)) {
         fail(`Lisa prototype package entrypoint is missing: ${requiredPath}`);
       }
@@ -669,8 +671,8 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     }
 
     const route = source.task_routes.find((item) => item.id === "task-review-presentation-link-lisa-user-journey");
-    if (!route || !/принятый черновик/i.test(`${route.label} ${route.task}`) || !/открыть|скачать/i.test(`${route.label} ${route.task}`)) {
-      fail("Lisa prototype task route must explain how to open or download the accepted draft");
+    if (!route || !/чистов/i.test(`${route.label} ${route.task}`) || !/открыть|скачать/i.test(`${route.label} ${route.task}`)) {
+      fail("Lisa prototype task route must explain how to open or download the accepted clean result");
     }
 
     const managedEntry = sourceManagedByPath.get(packageReadme);
@@ -679,9 +681,9 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
     }
 
-    const archiveIndexEntry = indexByPath.get(draftArchive);
+    const archiveIndexEntry = indexByPath.get(deliveryArchive);
     if (archiveIndexEntry?.format !== "zip") {
-      fail("Lisa draft archive must be classified as ZIP in the documentation index");
+      fail("Lisa delivery archive must be classified as ZIP in the documentation index");
     }
 
     const map = readText("docs/navigation/navigation-map.md");

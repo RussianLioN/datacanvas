@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "frame_id": "lisa-presentation-chat-list",
+  "product_text_source": "semantic_svg",
+  "phone_raster_content_forbidden": true,
+  "renderer": "playwright-chromium-page-screenshot",
+  "png_path": "candidate-evidence/browser-native-phone-prototype/frame-review/lisa-presentation-chat-list/draft-current-resolution.png",
+  "png_dimensions": {
+    "width": 1440,
+    "height": 900
+  },
+  "png_sha256": "d62dc27b009632ca2bd58a829ab7dff1bd7bc860414dd1c5865249a1467b5eeb",
+  "high_resolution_release_allowed": false,
+  "active_release_switch_allowed": false,
+  "owner_frame_approval_required": true
+}

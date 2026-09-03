@@ -1,0 +1,85 @@
+{
+  "$schema": "../../source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+  "version": "1.5.0",
+  "status": "owner_final_approved",
+  "runtime_mode": "browser_native_dom_phone",
+  "phone_state_ids": [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "external_state_ids": [
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "product_text_source": "semantic_svg",
+  "phone_raster_content_forbidden": true,
+  "viewer_shell": {
+    "document_title": "Прототип заказа презентации из агента \"Справка по клиенту\"",
+    "panel_title": "Прототип заказа презентации из агента \"Справка по клиенту\"",
+    "phone_state_captions": {
+      "lisa-materials-full-reference": "Заказ презентации по справке по клиенту",
+      "lisa-presentation-generating": "Успешное начало изготовления презентации",
+      "lisa-presentation-chat-list": "Список чатов и возврат к исходному экрану",
+      "lisa-presentation-sent": "Презентация направлена по электронной почте",
+      "lisa-order-not-accepted": "Данные не приняты для формирования презентации",
+      "lisa-delivery-delayed": "Отправка презентации в SIGMA задерживается",
+      "lisa-delivery-partial": "Частичная или неподтверждённая доставка презентации"
+    },
+    "external_panel_hidden": true
+  },
+  "geometry_source_sha256": "4b1daa82d76168a3030258194de5fbb95096973d468d813e89b9a76310bc5197",
+  "geometry_provenance_sha256": "8c9a534217cf2a0065300e8770dedd6efe301aff351dd56b7f450299f9261787",
+  "source_sha256": {
+    "lisa-materials-full-reference": "019f2f12cf4b353a5c42849ff21bcb06c8d95e8d1e15d85d1c30aec00606e24a",
+    "lisa-presentation-generating": "82d5e6d67cd62cae0f13cbd904e050aeaf70c24b84625bcef970b57c44021e39",
+    "lisa-presentation-chat-list": "4375c9a9a73cb1c59a45d3e83e21da1df0731d328676eadd7706794ce687fdf6",
+    "lisa-presentation-sent": "4bb8e5083ac37cfa0dd73f7d8da49d86eeb184beb5df90bd5008d19c7b729c48",
+    "lisa-order-not-accepted": "725fc101edbe81b66f0761064faa2639d4007a4c4cabea81cf0e8a197d9a77a6",
+    "lisa-delivery-delayed": "8aa919881a7cf3f115d94dbf0e47a017d073f0b4e573de5839b180a6927c3e09",
+    "lisa-delivery-partial": "0ae5a817fe9a7dda4cfabdeaab37e7dc6240ff05b03ed5c2da478999ec429766"
+  },
+  "external_asset_series_sha256": "7dc0e1b25786fb3a96ad820551110a263143b3fd0f51453a304cd2259632c3b2",
+  "external_asset_sha256": {
+    "lisa-presentation-email": {
+      "assets/external/lisa-presentation-email.svg": "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7"
+    },
+    "lisa-presentation-slidedoc": {
+      "assets/external/lisa-presentation-slidedoc-page-1.png": "a2f55de3fdc8c52359d61e490884d8ebf4986f65db63440b2f3390cd0ac4a0d8",
+      "assets/external/lisa-presentation-slidedoc-page-2.png": "29b121855a13b4aa7f93f707f6627c2431c914704df4065d2e7b7de332885d35",
+      "assets/external/lisa-presentation-slidedoc-page-3.png": "f9f7bc446dd43dc67172d8b4117932446a90a35442824d227c113f4095ef7541"
+    },
+    "lisa-presentation-sber2025": {
+      "assets/external/lisa-presentation-sber2025-page-1.png": "6ad2ebaa87d910d2f8d0d43599f299200375d69667db452d8b2b08a3488e9485",
+      "assets/external/lisa-presentation-sber2025-page-2.png": "9ea63fa84dcbb6b6078603a29c8b9d635b60e3bb7868d4ee2a21ac92ea28fda6",
+      "assets/external/lisa-presentation-sber2025-page-3.png": "2bb71622b4407b165456eba296ec27df89585d6bc821d54d97fd227d9cbdd761"
+    },
+    "lisa-presentation-mag": {
+      "assets/external/lisa-presentation-mag-page-1.png": "54ad21f6739ea0dc156cc6fe8e1c41991fa3144396e0ef5c562258a1fda1e4e4",
+      "assets/external/lisa-presentation-mag-page-2.png": "47dbfefde6e4a580a0b9ab57b11ea7b6ffb8b7550cb34c315230b03286a8ad7b",
+      "assets/external/lisa-presentation-mag-page-3.png": "adfcacdc9cd5a86c81aafffc6138a1fd4dffd3540000845b602eecd0ebdcf151"
+    }
+  },
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "7f77dc92b3dcd9913bf3496b741d61304457dd65c9d90135b59cecdc986dcc25"
+  },
+  "final_owner_approval": {
+    "decision": "approved",
+    "approved_on": "2026-09-03"
+  },
+  "release_boundary": {
+    "owner_frame_approval_required": true,
+    "full_prototype_approval_required": true,
+    "final_approval_path": "owner-final-approval.json",
+    "high_resolution_release_allowed": true,
+    "active_release_switch_allowed": true,
+    "archive_update_allowed": true
+  }
+}

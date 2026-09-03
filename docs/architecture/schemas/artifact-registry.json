@@ -9861,6 +9861,57 @@
       ],
       "redaction_status": "not_required",
       "update_trigger": "Исходник PlantUML, SVG или PNG любого принятого детализированного сценария меняется."
+    },
+    {
+      "id": "ART-891",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
+      "type": "product-prototype",
+      "owner_role": "Product Owner / Documentation Owner",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": [
+        "scripts/generate-browser-native-phone-prototype.mjs",
+        "scripts/generate-browser-native-phone-external-4k-assets.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется семантический SVG-источник, DOM-модель телефона, 4K-внешние экраны, итоговое решение владельца или архив поставки."
+    },
+    {
+      "id": "ART-892",
+      "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
+      "type": "delivery-archive",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав поставляемого архива, решение владельца, контроль целостности или инструкция по автономному открытию."
+    },
+    {
+      "id": "ART-893",
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
+      "type": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": ["scripts/generate-browser-native-phone-prototype-release-evidence.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется отпечаток кандидата, решение владельца, состав внешних 4K-ресурсов или границы данных чистового выпуска."
     }
   ]
 }

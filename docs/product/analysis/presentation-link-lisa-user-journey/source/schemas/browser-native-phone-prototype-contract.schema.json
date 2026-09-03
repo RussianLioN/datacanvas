@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "browser-native-phone-prototype-contract.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "version", "change_order_id", "status", "purpose", "phone_state_ids",
+    "external_state_ids", "phone_runtime", "rendered_client_reference", "draft_review_rendering",
+    "viewer_shell", "viewer_navigation", "external_state_rules", "external_asset_profile", "state_rules", "scenario_transitions", "release_boundary"
+  ],
+  "properties": {
+    "$schema": {"const": "../schemas/browser-native-phone-prototype-contract.schema.json"},
+    "version": {"type": "string"},
+    "change_order_id": {"const": "CO-2026-003"},
+    "status": {"const": "owner_final_approved"},
+    "purpose": {"type": "string"},
+    "phone_state_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "const": ["lisa-materials-full-reference", "lisa-presentation-generating", "lisa-presentation-chat-list", "lisa-presentation-sent", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]
+    },
+    "external_state_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "const": ["lisa-presentation-email", "lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"]
+    },
+    "phone_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["browser_display", "product_text_source", "raster_content_forbidden", "legacy_runtime_changed", "logical_screen", "geometry_source", "geometry_provenance_source", "geometry", "responsive_policy", "chat_list_source", "fixed_regions", "scroll_region_count", "review_panel", "security"],
+      "properties": {
+        "browser_display": {"const": "html_dom"},
+        "product_text_source": {"const": "semantic_svg"},
+        "raster_content_forbidden": {"const": true},
+        "legacy_runtime_changed": {"const": false},
+        "logical_screen": {"$ref": "#/$defs/logicalScreen"},
+        "geometry_source": {"const": "iphone-12-pro-max-geometry.svg"},
+        "geometry_provenance_source": {"const": "iphone-12-pro-max-geometry-provenance.json"},
+        "geometry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["body_dimensions_mm", "visible_bezel_logical_units_max", "side_controls_forbidden"],
+          "properties": {
+            "body_dimensions_mm": {"const": {"width": 78.1, "height": 160.8}},
+            "visible_bezel_logical_units_max": {"const": 1.157},
+            "side_controls_forbidden": {"const": true}
+          }
+        },
+        "responsive_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["container_query_only", "visible_edge_clearance_css_px", "uniform_logical_content_scale", "transform_scale_forbidden"],
+          "properties": {
+            "container_query_only": {"const": true},
+            "visible_edge_clearance_css_px": {"const": 4},
+            "uniform_logical_content_scale": {"const": true},
+            "transform_scale_forbidden": {"const": true}
+          }
+        },
+        "chat_list_source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["donor_path", "donor_viewport", "semantic_svg_path", "only_text_replacement"],
+          "properties": {
+            "donor_path": {"const": "../../editable-sources/08.svg"},
+            "donor_viewport": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["x", "y", "width", "height"],
+              "properties": {"x": {"const": 64}, "y": {"const": 48}, "width": {"const": 393}, "height": {"const": 852}}
+            },
+            "semantic_svg_path": {"const": "semantic-svgs/lisa-presentation-chat-list.svg"},
+            "only_text_replacement": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["from", "to"],
+              "properties": {"from": {"const": "Справка по клиенту ГК Достовалова"}, "to": {"const": "Справка по клиенту ООО «Водолей Трейд»"}}
+            }
+          }
+        },
+        "fixed_regions": {"type": "array", "minItems": 4},
+        "scroll_region_count": {"const": 1},
+        "review_panel": {"const": "phone_frame_controls_and_state_caption"},
+        "security": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["external_network_forbidden", "unsafe_dom_sinks_forbidden", "unsafe_svg_nodes_forbidden"],
+          "properties": {"external_network_forbidden": {"const": true}, "unsafe_dom_sinks_forbidden": {"const": true}, "unsafe_svg_nodes_forbidden": {"const": true}}
+        }
+      }
+    },
+    "rendered_client_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "excluded_group_ids"],
+      "properties": {"source": {"const": "../client-reference-data.json"}, "excluded_group_ids": {"const": ["dynamic_suggestions", "actions"]}}
+    },
+    "draft_review_rendering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["viewport", "first_frame_id", "per_frame_png_required_before_owner_approval", "full_prototype_png_requires_all_frame_approvals"],
+      "properties": {
+        "viewport": {"const": {"width": 1440, "height": 900, "device_scale_factor": 1}},
+        "first_frame_id": {"const": "lisa-materials-full-reference"},
+        "per_frame_png_required_before_owner_approval": {"const": true},
+        "full_prototype_png_requires_all_frame_approvals": {"const": true}
+      }
+    },
+    "viewer_shell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["document_title", "panel_title", "phone_state_captions", "external_panel_hidden"],
+      "properties": {
+        "document_title": {"const": "Прототип заказа презентации из агента \"Справка по клиенту\""},
+        "panel_title": {"const": "Прототип заказа презентации из агента \"Справка по клиенту\""},
+        "phone_state_captions": {
+          "const": {
+            "lisa-materials-full-reference": "Заказ презентации по справке по клиенту",
+            "lisa-presentation-generating": "Успешное начало изготовления презентации",
+            "lisa-presentation-chat-list": "Список чатов и возврат к исходному экрану",
+            "lisa-presentation-sent": "Презентация направлена по электронной почте",
+            "lisa-order-not-accepted": "Данные не приняты для формирования презентации",
+            "lisa-delivery-delayed": "Отправка презентации в SIGMA задерживается",
+            "lisa-delivery-partial": "Частичная или неподтверждённая доставка презентации"
+          }
+        },
+        "external_panel_hidden": {"const": true}
+      }
+    },
+    "viewer_navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_sequence", "phone_panel", "external_overlay", "chat_list", "presentation_pages"],
+      "properties": {
+        "frame_sequence": {"const": ["lisa-materials-full-reference", "lisa-presentation-generating", "lisa-presentation-chat-list", "lisa-presentation-sent", "lisa-presentation-email", "lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]},
+        "phone_panel": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["controls"],
+          "properties": {"controls": {"const": ["previous_frame", "next_frame"]}}
+        },
+        "external_overlay": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["email_controls", "presentation_controls", "minimum_target_css_px"],
+          "properties": {
+            "email_controls": {"const": ["previous_frame", "next_frame"]},
+            "presentation_controls": {"const": ["previous_frame", "next_frame", "previous_page", "next_page"]},
+            "minimum_target_css_px": {"const": 44}
+          }
+        },
+        "chat_list": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["open_from_state_ids", "return_to_origin", "restore_scroll_position", "direct_url_fallback_state_id"],
+          "properties": {
+            "open_from_state_ids": {"const": ["lisa-materials-full-reference", "lisa-presentation-generating", "lisa-presentation-sent", "lisa-order-not-accepted", "lisa-delivery-delayed", "lisa-delivery-partial"]},
+            "return_to_origin": {"const": true},
+            "restore_scroll_position": {"const": true},
+            "direct_url_fallback_state_id": {"const": "lisa-presentation-sent"}
+          }
+        },
+        "presentation_pages": {"const": {"page_count": 3, "logical_page": {"width": 960, "height": 540}}}
+      }
+    },
+    "external_state_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lisa-presentation-email", "lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"],
+      "properties": {
+        "lisa-presentation-email": {"$ref": "#/$defs/emailExternalState"},
+        "lisa-presentation-slidedoc": {"$ref": "#/$defs/presentationExternalState"},
+        "lisa-presentation-sber2025": {"$ref": "#/$defs/presentationExternalState"},
+        "lisa-presentation-mag": {"$ref": "#/$defs/presentationExternalState"}
+      }
+    },
+    "external_asset_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["email", "presentations", "series_review"],
+      "properties": {
+        "email": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source_svg_path", "source_svg_sha256", "runtime_asset_path", "review_raster_path", "runtime_intrinsic_dimensions", "review_raster_dimensions"],
+          "properties": {
+            "source_svg_path": {"const": "../../candidate-evidence/frame-review/lisa-presentation-email/source.svg"},
+            "source_svg_sha256": {"const": "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7"},
+            "runtime_asset_path": {"const": "assets/external/lisa-presentation-email.svg"},
+            "review_raster_path": {"const": "external-4k-series-review/lisa-presentation-email-3840x2880.png"},
+            "runtime_intrinsic_dimensions": {"const": {"width": 1280, "height": 960}},
+            "review_raster_dimensions": {"const": {"width": 3840, "height": 2880}}
+          }
+        },
+        "presentations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source_contract_path", "renderer_path", "scale", "runtime_page_dimensions", "review_stack_dimensions", "runtime_asset_directory", "review_directory", "source_files_local_only", "raw_pdf_runtime_forbidden"],
+          "properties": {
+            "source_contract_path": {"const": "../presentation-pdf-raster-import-contract.json"},
+            "renderer_path": {"const": "scripts/render-presentation-link-lisa-pdf-slides.swift"},
+            "scale": {"const": 4},
+            "runtime_page_dimensions": {"const": {"width": 3840, "height": 2160}},
+            "review_stack_dimensions": {"const": {"width": 3840, "height": 6480}},
+            "runtime_asset_directory": {"const": "assets/external"},
+            "review_directory": {"const": "external-4k-series-review"},
+            "source_files_local_only": {"const": true},
+            "raw_pdf_runtime_forbidden": {"const": true}
+          }
+        },
+        "series_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "scope", "owner_approval_required", "owner_approval_path", "active_release_switch_allowed"],
+          "properties": {
+            "status": {"const": "owner_series_approved"},
+            "scope": {"const": "external_email_and_three_presentation_variants"},
+            "owner_approval_required": {"const": true},
+            "owner_approval_path": {"const": "external-4k-series-owner-approval.json"},
+            "active_release_switch_allowed": {"const": true}
+          }
+        }
+      }
+    },
+    "state_rules": {"type": "object"},
+    "scenario_transitions": {"type": "array"},
+    "release_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner_frame_approval_required", "full_prototype_approval_required", "final_approval_path", "high_resolution_release_allowed", "active_release_switch_allowed", "archive_update_allowed"],
+      "properties": {
+        "owner_frame_approval_required": {"const": true},
+        "full_prototype_approval_required": {"const": true},
+        "final_approval_path": {"const": "owner-final-approval.json"},
+        "high_resolution_release_allowed": {"const": true},
+        "active_release_switch_allowed": {"const": true},
+        "archive_update_allowed": {"const": true}
+      }
+    }
+  },
+  "$defs": {
+    "logicalScreen": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"const": 393}, "height": {"const": 852}}
+    },
+    "emailExternalState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_type", "page_count", "asset_format", "runtime_asset_paths", "intrinsic_page"],
+      "properties": {
+        "content_type": {"const": "email"},
+        "page_count": {"const": 1},
+        "asset_format": {"const": "svg"},
+        "runtime_asset_paths": {"const": ["assets/external/lisa-presentation-email.svg"]},
+        "intrinsic_page": {"const": {"width": 1280, "height": 960}}
+      }
+    },
+    "presentationExternalState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["content_type", "page_count", "asset_format", "runtime_asset_paths", "intrinsic_page"],
+      "properties": {
+        "content_type": {"const": "presentation"},
+        "page_count": {"const": 3},
+        "asset_format": {"const": "png"},
+        "runtime_asset_paths": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "string", "pattern": "^assets/external/lisa-presentation-(slidedoc|sber2025|mag)-page-[123]\\.png$"}
+        },
+        "intrinsic_page": {"const": {"width": 3840, "height": 2160}}
+      }
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+  "$schema": "../schemas/browser-native-phone-prototype-contract.schema.json",
+  "version": "1.5.0",
+  "change_order_id": "CO-2026-003",
+  "status": "owner_final_approved",
+  "purpose": "Чистовой браузерный прототип телефона с живым DOM-текстом; заменяет исторический растровый черновик как основной маршрут просмотра.",
+  "phone_state_ids": [
+    "lisa-materials-full-reference",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "external_state_ids": [
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag"
+  ],
+  "phone_runtime": {
+    "browser_display": "html_dom",
+    "product_text_source": "semantic_svg",
+    "raster_content_forbidden": true,
+    "legacy_runtime_changed": false,
+    "logical_screen": {"width": 393, "height": 852},
+    "geometry_source": "iphone-12-pro-max-geometry.svg",
+    "geometry_provenance_source": "iphone-12-pro-max-geometry-provenance.json",
+    "geometry": {
+      "body_dimensions_mm": {"width": 78.1, "height": 160.8},
+      "visible_bezel_logical_units_max": 1.157,
+      "side_controls_forbidden": true
+    },
+    "responsive_policy": {
+      "container_query_only": true,
+      "visible_edge_clearance_css_px": 4,
+      "uniform_logical_content_scale": true,
+      "transform_scale_forbidden": true
+    },
+    "chat_list_source": {
+      "donor_path": "../../editable-sources/08.svg",
+      "donor_viewport": {"x": 64, "y": 48, "width": 393, "height": 852},
+      "semantic_svg_path": "semantic-svgs/lisa-presentation-chat-list.svg",
+      "only_text_replacement": {
+        "from": "Справка по клиенту ГК Достовалова",
+        "to": "Справка по клиенту ООО «Водолей Трейд»"
+      }
+    },
+    "fixed_regions": ["status_bar", "chat_header", "composer", "home_indicator"],
+    "scroll_region_count": 1,
+    "review_panel": "phone_frame_controls_and_state_caption",
+    "security": {
+      "external_network_forbidden": true,
+      "unsafe_dom_sinks_forbidden": true,
+      "unsafe_svg_nodes_forbidden": true
+    }
+  },
+  "rendered_client_reference": {
+    "source": "../client-reference-data.json",
+    "excluded_group_ids": ["dynamic_suggestions", "actions"]
+  },
+  "draft_review_rendering": {
+    "viewport": {"width": 1440, "height": 900, "device_scale_factor": 1},
+    "first_frame_id": "lisa-materials-full-reference",
+    "per_frame_png_required_before_owner_approval": true,
+    "full_prototype_png_requires_all_frame_approvals": true
+  },
+  "viewer_shell": {
+    "document_title": "Прототип заказа презентации из агента \"Справка по клиенту\"",
+    "panel_title": "Прототип заказа презентации из агента \"Справка по клиенту\"",
+    "phone_state_captions": {
+      "lisa-materials-full-reference": "Заказ презентации по справке по клиенту",
+      "lisa-presentation-generating": "Успешное начало изготовления презентации",
+      "lisa-presentation-chat-list": "Список чатов и возврат к исходному экрану",
+      "lisa-presentation-sent": "Презентация направлена по электронной почте",
+      "lisa-order-not-accepted": "Данные не приняты для формирования презентации",
+      "lisa-delivery-delayed": "Отправка презентации в SIGMA задерживается",
+      "lisa-delivery-partial": "Частичная или неподтверждённая доставка презентации"
+    },
+    "external_panel_hidden": true
+  },
+  "viewer_navigation": {
+    "frame_sequence": [
+      "lisa-materials-full-reference",
+      "lisa-presentation-generating",
+      "lisa-presentation-chat-list",
+      "lisa-presentation-sent",
+      "lisa-presentation-email",
+      "lisa-presentation-slidedoc",
+      "lisa-presentation-sber2025",
+      "lisa-presentation-mag",
+      "lisa-order-not-accepted",
+      "lisa-delivery-delayed",
+      "lisa-delivery-partial"
+    ],
+    "phone_panel": {"controls": ["previous_frame", "next_frame"]},
+    "external_overlay": {
+      "email_controls": ["previous_frame", "next_frame"],
+      "presentation_controls": ["previous_frame", "next_frame", "previous_page", "next_page"],
+      "minimum_target_css_px": 44
+    },
+    "chat_list": {
+      "open_from_state_ids": [
+        "lisa-materials-full-reference",
+        "lisa-presentation-generating",
+        "lisa-presentation-sent",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ],
+      "return_to_origin": true,
+      "restore_scroll_position": true,
+      "direct_url_fallback_state_id": "lisa-presentation-sent"
+    },
+    "presentation_pages": {
+      "page_count": 3,
+      "logical_page": {"width": 960, "height": 540}
+    }
+  },
+  "external_state_rules": {
+    "lisa-presentation-email": {
+      "content_type": "email",
+      "page_count": 1,
+      "asset_format": "svg",
+      "runtime_asset_paths": ["assets/external/lisa-presentation-email.svg"],
+      "intrinsic_page": {"width": 1280, "height": 960}
+    },
+    "lisa-presentation-slidedoc": {
+      "content_type": "presentation",
+      "page_count": 3,
+      "asset_format": "png",
+      "runtime_asset_paths": ["assets/external/lisa-presentation-slidedoc-page-1.png", "assets/external/lisa-presentation-slidedoc-page-2.png", "assets/external/lisa-presentation-slidedoc-page-3.png"],
+      "intrinsic_page": {"width": 3840, "height": 2160}
+    },
+    "lisa-presentation-sber2025": {
+      "content_type": "presentation",
+      "page_count": 3,
+      "asset_format": "png",
+      "runtime_asset_paths": ["assets/external/lisa-presentation-sber2025-page-1.png", "assets/external/lisa-presentation-sber2025-page-2.png", "assets/external/lisa-presentation-sber2025-page-3.png"],
+      "intrinsic_page": {"width": 3840, "height": 2160}
+    },
+    "lisa-presentation-mag": {
+      "content_type": "presentation",
+      "page_count": 3,
+      "asset_format": "png",
+      "runtime_asset_paths": ["assets/external/lisa-presentation-mag-page-1.png", "assets/external/lisa-presentation-mag-page-2.png", "assets/external/lisa-presentation-mag-page-3.png"],
+      "intrinsic_page": {"width": 3840, "height": 2160}
+    }
+  },
+  "external_asset_profile": {
+    "email": {
+      "source_svg_path": "../../candidate-evidence/frame-review/lisa-presentation-email/source.svg",
+      "source_svg_sha256": "f7335e8533e30139fa049cf6357c13646b047d61c7079f218fd91b7d956994d7",
+      "runtime_asset_path": "assets/external/lisa-presentation-email.svg",
+      "review_raster_path": "external-4k-series-review/lisa-presentation-email-3840x2880.png",
+      "runtime_intrinsic_dimensions": {"width": 1280, "height": 960},
+      "review_raster_dimensions": {"width": 3840, "height": 2880}
+    },
+    "presentations": {
+      "source_contract_path": "../presentation-pdf-raster-import-contract.json",
+      "renderer_path": "scripts/render-presentation-link-lisa-pdf-slides.swift",
+      "scale": 4,
+      "runtime_page_dimensions": {"width": 3840, "height": 2160},
+      "review_stack_dimensions": {"width": 3840, "height": 6480},
+      "runtime_asset_directory": "assets/external",
+      "review_directory": "external-4k-series-review",
+      "source_files_local_only": true,
+      "raw_pdf_runtime_forbidden": true
+    },
+    "series_review": {
+      "status": "owner_series_approved",
+      "scope": "external_email_and_three_presentation_variants",
+      "owner_approval_required": true,
+      "owner_approval_path": "external-4k-series-owner-approval.json",
+      "active_release_switch_allowed": true
+    }
+  },
+  "state_rules": {
+    "lisa-materials-full-reference": {"phone_time": "13:24", "initial_scroll_position": "top", "button_state": "enabled"},
+    "lisa-presentation-generating": {"phone_time": "13:24", "initial_scroll_position": "bottom", "button_state": "disabled"},
+    "lisa-presentation-chat-list": {"phone_time": "13:40", "initial_scroll_position": "top", "button_state": "absent"},
+    "lisa-presentation-sent": {"phone_time": "13:40", "initial_scroll_position": "bottom", "button_state": "disabled"},
+    "lisa-order-not-accepted": {"phone_time": "13:40", "initial_scroll_position": "bottom", "button_state": "disabled"},
+    "lisa-delivery-delayed": {"phone_time": "13:40", "initial_scroll_position": "bottom", "button_state": "disabled"},
+    "lisa-delivery-partial": {"phone_time": "13:40", "initial_scroll_position": "bottom", "button_state": "disabled"}
+  },
+  "scenario_transitions": [
+    {"from": "lisa-materials-full-reference", "event": "order_presentation", "to": "lisa-presentation-generating"},
+    {"from": "lisa-presentation-generating", "event": "delivery_confirmed", "to": "lisa-presentation-sent"},
+    {"from": "lisa-presentation-generating", "event": "data_not_accepted", "to": "lisa-order-not-accepted"},
+    {"from": "lisa-presentation-generating", "event": "delivery_delayed", "to": "lisa-delivery-delayed"},
+    {"from": "lisa-presentation-generating", "event": "delivery_unconfirmed", "to": "lisa-delivery-partial"},
+    {"from": "lisa-presentation-sent", "event": "open_delivery_email", "to": "lisa-presentation-email"}
+  ],
+  "release_boundary": {
+    "owner_frame_approval_required": true,
+    "full_prototype_approval_required": true,
+    "final_approval_path": "owner-final-approval.json",
+    "high_resolution_release_allowed": true,
+    "active_release_switch_allowed": true,
+    "archive_update_allowed": true
+  }
+}

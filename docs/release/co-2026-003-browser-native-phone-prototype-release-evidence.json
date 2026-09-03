@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "status": "owner_final_approved",
+  "change_order_id": "CO-2026-003",
+  "prototype_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json",
+  "external_series_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/series-manifest.json",
+  "final_approval_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json",
+  "candidate_fingerprint": {
+    "algorithm": "sha256",
+    "sha256": "7f77dc92b3dcd9913bf3496b741d61304457dd65c9d90135b59cecdc986dcc25"
+  },
+  "runtime_mode": "browser_native_dom_phone",
+  "phone_text_mode": "semantic_svg",
+  "raw_pdf_included": false,
+  "active_release_switch_allowed": true,
+  "delivery_archive_allowed": true
+}

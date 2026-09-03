@@ -1,6 +1,6 @@
 {
   "$schema": "schemas/presentation-pdf-raster-import-contract.schema.json",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "change_order_id": "CO-2026-003",
   "status": "all_presentation_drafts_authorized",
   "import_mode": "approved_pdf_to_png",
@@ -50,6 +50,13 @@
     "unit": "one_three_page_presentation_variant",
     "batch_draft_preparation_authorized_by_owner": true,
     "next_variant_blocked_until_owner_approval": false,
+    "active_release_mutation_prohibited": true
+  },
+  "browser_native_4k_candidate": {
+    "series_review_authorized_by_owner": true,
+    "series_review_status": "owner_series_approved",
+    "runtime_page_dimensions": {"width": 3840, "height": 2160},
+    "review_stack_dimensions": {"width": 3840, "height": 6480},
     "active_release_mutation_prohibited": true
   },
   "variants": [

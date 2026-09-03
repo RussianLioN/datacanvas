@@ -30,6 +30,7 @@
 | `docs/process/versions/README.md` | `docs/process/README.md` | `governance` | `internal` | `false` | `-` |
 | `docs/product/analysis/agent-launch-requirements-analysis/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `-` |
 | `docs/product/analysis/documentation-consistency-audit/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `false` | `4` |
+| `docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md` | `docs/product/analysis/presentation-link-lisa-user-journey/README.md` | `business` | `public` | `true` | `2` |
 | `docs/product/analysis/presentation-link-lisa-user-journey/README.md` | `docs/product/analysis/README.md` | `business` | `internal` | `true` | `1` |
 | `docs/product/analysis/README.md` | `docs/product/README.md` | `business` | `internal` | `false` | `1` |
 | `docs/product/backlog/README.md` | `docs/product/README.md` | `business` | `public` | `true` | `1` |
@@ -59,26 +60,25 @@
 | `business` | `4` | 8 |
 | `business` | `5` | 6 |
 | `business` | `6` | 6 |
-| `business` | `hidden` | 88 |
+| `business` | `hidden` | 89 |
 | `delivery` | `1` | 3 |
-| `delivery` | `2` | 14 |
-| `delivery` | `3` | 1 |
-| `delivery` | `hidden` | 830 |
+| `delivery` | `2` | 15 |
+| `delivery` | `hidden` | 831 |
 | `evidence` | `1` | 2 |
-| `evidence` | `2` | 2 |
-| `evidence` | `3` | 18 |
-| `evidence` | `4` | 6 |
+| `evidence` | `2` | 3 |
+| `evidence` | `3` | 25 |
+| `evidence` | `4` | 5 |
 | `evidence` | `5` | 4 |
-| `evidence` | `hidden` | 12 |
+| `evidence` | `hidden` | 22 |
 | `governance` | `0` | 1 |
 | `governance` | `1` | 10 |
-| `governance` | `2` | 62 |
+| `governance` | `2` | 63 |
 | `governance` | `3` | 14 |
 | `governance` | `4` | 1 |
 | `governance` | `hidden` | 46 |
 | `technical` | `1` | 2 |
 | `technical` | `2` | 16 |
-| `technical` | `3` | 12 |
-| `technical` | `4` | 7 |
+| `technical` | `3` | 11 |
+| `technical` | `4` | 9 |
 | `technical` | `5` | 7 |
-| `technical` | `hidden` | 136 |
+| `technical` | `hidden` | 138 |

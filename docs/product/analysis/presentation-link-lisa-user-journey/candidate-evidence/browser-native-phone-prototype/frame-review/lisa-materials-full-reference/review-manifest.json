@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "frame_id": "lisa-materials-full-reference",
+  "product_text_source": "semantic_svg",
+  "phone_raster_content_forbidden": true,
+  "renderer": "playwright-chromium-page-screenshot",
+  "png_path": "candidate-evidence/browser-native-phone-prototype/frame-review/lisa-materials-full-reference/draft-current-resolution.png",
+  "png_dimensions": {
+    "width": 1440,
+    "height": 900
+  },
+  "png_sha256": "92749d7f0f742abd3119a57c5460d6fd8341d20c1cb6d52e7d33ca8207bca9c4",
+  "high_resolution_release_allowed": false,
+  "active_release_switch_allowed": false,
+  "owner_frame_approval_required": true
+}

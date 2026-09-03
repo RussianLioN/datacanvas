@@ -49,7 +49,7 @@ test("стенограмма закрепляет текст полной неп
   ]);
 });
 
-test("CO-2026-003 хранит решения выпуска раздельно и не подменяет архив поставки черновым архивом", () => {
+test("CO-2026-003 хранит итоговое решение выпуска раздельно от исторического черновика", () => {
   const ledger = readJson(ledgerPath);
 
   assert.deepEqual(ledger.release_decisions.draft_archive, {
@@ -59,11 +59,11 @@ test("CO-2026-003 хранит решения выпуска раздельно 
     release_effect: "Не разрешает чистовой прототип, высокоразрешённый рендер или архив поставки.",
   });
   assert.deepEqual(ledger.release_decisions.delivery_archive, {
-    status: "owner_allowed_public_but_creation_blocked",
+    status: "owner_final_approved",
     public_allowed: true,
-    creation_allowed: false,
-    owner_decision: "Архив поставки разрешён и публичен по решению владельца.",
-    creation_blocker: "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск.",
+    creation_allowed: true,
+    owner_decision: "Владелец принял браузерный прототип как финальный чистовой результат и разрешил архив поставки.",
+    creation_blocker: null,
   });
   assert.deepEqual(ledger.release_decisions.publicity, {
     status: "owner_allowed_public",
@@ -71,22 +71,22 @@ test("CO-2026-003 хранит решения выпуска раздельно 
     owner_decision: "Публичность согласованных демонстрационных данных и визуальных производных является отдельным решением владельца.",
   });
   assert.deepEqual(ledger.release_decisions.active_release_switch, {
-    status: "blocked_until_separate_owner_approval",
-    switch_allowed: false,
-    owner_decision: "Переключение активного выпуска требует отдельного решения владельца и не включается итоговой приёмкой само по себе.",
-    blocking_reason: "Чистовой визуальный выпуск ожидает отдельные вводные владельца и свежие доказательства.",
+    status: "owner_final_approved",
+    switch_allowed: true,
+    owner_decision: "Владелец принял браузерный прототип как финальный чистовой результат и разрешил основной маршрут просмотра.",
+    blocking_reason: null,
   });
   assert.deepEqual(ledger.release_decisions.high_resolution_render, {
-    status: "waiting_owner_input",
-    render_allowed: false,
-    owner_decision: "Высокоразрешённый рендер ожидает отдельные вводные владельца.",
-    current_render_allowed: false,
+    status: "owner_final_approved",
+    render_allowed: true,
+    owner_decision: "Владелец принял внешние 4K-экраны как часть финального чистового результата.",
+    current_render_allowed: true,
   });
-  assert.equal(ledger.final_release.delivery_archive_allowed, false);
-  assert.equal(ledger.final_release.high_resolution_render_allowed, false);
+  assert.equal(ledger.final_release.delivery_archive_allowed, true);
+  assert.equal(ledger.final_release.high_resolution_render_allowed, true);
 });
 
-test("стенограмма утверждает ровно 11 кадров черновика, но не разрешает чистовой выпуск", () => {
+test("реестр хранит 11 принятых экранов и итоговое разрешение чистового выпуска", () => {
   const ledger = readJson(ledgerPath);
 
   assert.equal(ledger.frame_approvals.length, 11);
@@ -98,9 +98,9 @@ test("стенограмма утверждает ровно 11 кадров ч�
     ledger.frame_approvals.every((frame) => frame.approval_source_path === "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md"),
     "у каждого принятого кадра должен быть указан источник приёмки из стенограммы",
   );
-  assert.equal(ledger.release_decisions.high_resolution_render.current_render_allowed, false);
-  assert.equal(ledger.final_release.high_resolution_render_allowed, false);
-  assert.equal(ledger.final_release.active_release_switch_allowed, false);
+  assert.equal(ledger.release_decisions.high_resolution_render.current_render_allowed, true);
+  assert.equal(ledger.final_release.high_resolution_render_allowed, true);
+  assert.equal(ledger.final_release.active_release_switch_allowed, true);
 });
 
 test("схема не связывает итоговое подтверждение владельца с независимыми флагами выпуска", () => {
@@ -124,7 +124,7 @@ test("схема не связывает итоговое подтвержден
   );
 });
 
-test("валидатор разделяет итоговое подтверждение, переключение выпуска, архив и high-res", () => {
+test("валидатор отклоняет итоговое подтверждение без равных ему разрешений выпуска", () => {
   const ledger = readJson(ledgerPath);
   const finallyApprovedButBlocked = structuredClone(ledger);
   finallyApprovedButBlocked.documentation_cascade.execution_status = "completed";
@@ -167,7 +167,8 @@ test("валидатор разделяет итоговое подтвержд�
       cwd: temporaryDirectory,
       encoding: "utf8",
     });
-    assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /разрешения чистового выпуска должны совпадать/u);
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }
@@ -186,6 +187,10 @@ test("валидатор запрещает active release switch без отд�
     delivery_archive_allowed: false,
     candidate_fingerprint: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     fresh_evidence_path: "docs/product/analysis/presentation-link-lisa-user-journey/evidence/fresh-final-approval.json",
+  };
+  activeSwitchWithoutDecision.release_decisions.active_release_switch = {
+    ...activeSwitchWithoutDecision.release_decisions.active_release_switch,
+    switch_allowed: false,
   };
 
   const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-active-switch-"));
@@ -217,13 +222,13 @@ test("валидатор запрещает active release switch без отд�
       encoding: "utf8",
     });
     assert.notEqual(result.status, 0);
-    assert.match(result.stderr, /active release switch нельзя разрешать без отдельного решения владельца/u);
+    assert.match(result.stderr, /разрешения чистового выпуска должны совпадать/u);
   } finally {
     fs.rmSync(temporaryDirectory, { recursive: true, force: true });
   }
 });
 
-test("CO-2026-003 separates the accepted documentation cascade from frame and final-release approval", () => {
+test("CO-2026-003 связывает завершённый каскад, браузерный прототип и итоговое решение", () => {
   assert.equal(
     fs.existsSync(path.join(root, ledgerPath)),
     true,
@@ -234,10 +239,10 @@ test("CO-2026-003 separates the accepted documentation cascade from frame and fi
   const candidate = readJson(candidatePath);
 
   assert.equal(ledger.documentation_cascade.scope_acceptance_status, "owner_approved");
-  assert.equal(ledger.documentation_cascade.execution_status, "in_progress");
-  assert.equal(ledger.final_release.status, "pending_owner_approval");
-  assert.equal(ledger.final_release.active_release_switch_allowed, false);
-  assert.equal(ledger.final_release.delivery_archive_allowed, false);
+  assert.equal(ledger.documentation_cascade.execution_status, "completed");
+  assert.equal(ledger.final_release.status, "owner_final_approved");
+  assert.equal(ledger.final_release.active_release_switch_allowed, true);
+  assert.equal(ledger.final_release.delivery_archive_allowed, true);
   assert.equal(ledger.public_data_authorization.allow_public_repository_and_archives, true);
   assert.equal(ledger.public_data_authorization.raw_external_pdf_tracking_allowed, false);
   const visualContract = readJson(`${packagePath}/source/visual-components-contract.json`);
@@ -288,13 +293,11 @@ test("CO-2026-003 separates the accepted documentation cascade from frame and fi
   assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
 });
 
-test("CO-2026-003 blocks the full publication command before any historical package check until final approval", () => {
-  const result = spawnSync(process.execPath, [path.join(root, generatorPath)], {
+test("CO-2026-003 подтверждает чистовой браузерный прототип после итоговой приёмки", () => {
+  const result = spawnSync(process.execPath, [path.join(root, "scripts/validate-browser-native-phone-prototype.mjs")], {
     cwd: root,
     encoding: "utf8",
   });
 
-  assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /итоговая приёмка владельца/u);
-  assert.doesNotMatch(result.stderr, /договоров не пройдена/u);
+  assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
 });

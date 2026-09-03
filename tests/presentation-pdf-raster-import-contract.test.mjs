@@ -18,6 +18,13 @@ test("договор импорта презентаций отделяет ут
   assert.equal(contract.raw_pdf_committed_to_git, false);
   assert.equal(contract.raw_pdf_served_by_demo, false);
   assert.deepEqual(contract.render_scales, { draft: 1, final: 4 });
+  assert.deepEqual(contract.browser_native_4k_candidate, {
+    series_review_authorized_by_owner: true,
+    series_review_status: "owner_series_approved",
+    runtime_page_dimensions: { width: 3840, height: 2160 },
+    review_stack_dimensions: { width: 3840, height: 6480 },
+    active_release_mutation_prohibited: true,
+  });
   assert.deepEqual(contract.draft_prototype_integration, {
     rendering_mode: "isolated_current_prototype_copy_with_frame_asset_substitution",
     runtime_shell_source_path: "demo",

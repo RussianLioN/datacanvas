@@ -1583,15 +1583,15 @@
       "route_id": "co-2026-003-draft-documentation-archive",
       "section": "release-evidence",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "active",
+      "lifecycle": "historical",
       "data_class": "public",
       "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняется состав чернового пакета, принятый состав кадров или запрет чистового выпуска CO-2026-003.",
+      "update_trigger": "Исторический черновой архив сохраняется вне действующей навигации; его нельзя использовать как актуальный маршрут или пакет поставки CO-2026-003.",
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": true,
@@ -1603,7 +1603,7 @@
       "route_id": "co-2026-003-draft-documentation-archive-contract",
       "section": "release-evidence",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "active",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "restricted",
       "searchable": false,
@@ -1623,18 +1623,38 @@
       "route_id": "co-2026-003-prototype-delivery-archive",
       "section": "release-evidence",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "draft",
-      "data_class": "internal",
-      "visibility": "internal",
-      "searchable": false,
-      "navigable": false,
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
       "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Меняется договор поставки, статус одобрения прототипа или состав переносимого ZIP-архива.",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": false,
+      "artifact_registry_required": true,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
+      "route_id": "co-2026-003-browser-native-phone-prototype-release-evidence",
+      "section": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": ["scripts/generate-browser-native-phone-prototype-release-evidence.mjs"],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняются решение владельца, отпечаток чистового браузерного прототипа, состав 4K-ресурсов или проверка архива поставки.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
       "navigation_group": "delivery",
       "navigation_domain": "documentation_operations"
     },
@@ -3369,6 +3389,26 @@
       "artifact_registry_required": false
     },
     {
+      "path": "docs/plans/co-2026-003-browser-native-phone-prototype-remediation-plan.md",
+      "route_id": "co-2026-003-browser-native-phone-prototype-remediation-plan",
+      "section": "plans",
+      "navigation_group": "governance",
+      "navigation_domain": "documentation_operations",
+      "owner_role": "Product Owner / QA Lead / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется векторный мок, договорная оболочка со статусными подписями, навигация браузерного кандидата, порядок покадровой приёмки или защита от повторного визуального дефекта.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false
+    },
+    {
       "path": "docs/plans/datacanvas-xlsx-opml-jira-recovery-plan.md",
       "route_id": "datacanvas-xlsx-opml-jira-recovery-plan",
       "section": "plans",
@@ -3569,6 +3609,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/2026-09-02-browser-native-phone-prototype-navigation.md",
+      "route_id": "rca-2026-09-02-browser-native-phone-prototype-navigation",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner / UX Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Повторяется дефект геометрии мока, договорной оболочки, переходов списка чатов, оверлея внешнего кадра, клавиатурной навигации или выбора устаревшей PNG-ревизии.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/knowledge/rca/2026-08-24-lisa-error-acceptance-state-mutation.md",
       "route_id": "rca-2026-08-24-lisa-error-acceptance-state-mutation",
       "section": "knowledge",
@@ -3583,6 +3643,46 @@
       "generated_from": [],
       "redaction_status": "not_required",
       "update_trigger": "Меняется защита принятого состояния SVG- и PNG-кандидатов ошибок Лисы либо проверка повторной подготовки.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
+      "route_id": "rca-2026-09-03-browser-native-phone-external-asset-resolution",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner / UX Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Повторяется размытость внешнего письма или презентации, меняются разрешение, источник, форматы, проверка контрольных сумм или граница 4K-серии браузерного кандидата.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": false,
+      "navigation_domain": "documentation_operations"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
+      "route_id": "rca-2026-09-03-browser-final-acceptance-gate-drift",
+      "section": "knowledge",
+      "navigation_group": "evidence",
+      "owner_role": "QA Lead / Documentation Owner / UX Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Повторяется рассинхронизация решения владельца, статуса чистового выпуска, отпечатка кандидата или проверки локального архива браузерного прототипа.",
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": false,
@@ -4126,7 +4226,7 @@
       "navigation_domain": "product",
       "critical": true,
       "breadcrumb_required": true,
-      "artifact_registry_required": false
+      "artifact_registry_required": true
     },
     {
       "route_id": "presentation-link-lisa-user-journey-prototype-revision-candidate",
@@ -4147,6 +4247,30 @@
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": false
+    },
+    {
+      "route_id": "presentation-link-lisa-user-journey-browser-native-phone-prototype",
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
+      "section": "product",
+      "owner_role": "Product Owner / Documentation Owner",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "generated_from": [
+        "scripts/generate-browser-native-phone-prototype.mjs",
+        "scripts/generate-browser-native-phone-external-4k-assets.mjs",
+        "scripts/render-browser-native-phone-prototype-review.mjs"
+      ],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется семантический SVG-источник, DOM-модель телефона, договорная оболочка, 4K-внешние экраны, итоговое решение владельца или проверка архива поставки.",
+      "navigation_group": "business",
+      "navigation_domain": "product",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true
     },
     {
       "route_id": "presentation-link-lisa-user-journey-owner-approved-texts",
@@ -4453,7 +4577,7 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
       "section": "schemas-scripts-tests",
       "owner_role": "QA Lead",
-      "lifecycle": "draft",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": false,
@@ -5490,16 +5614,16 @@
     },
     {
       "id": "task-review-presentation-link-lisa-user-journey",
-      "label": "Открыть или скачать принятый черновик пути презентации в Лисе",
-      "task": "Открыть принятый 11-кадровый черновик пути презентации в Лисе или скачать полный черновой пакет документации для работы",
+      "label": "Открыть или скачать чистовой путь заказа презентации в Лисе",
+      "task": "Открыть принятый чистовой браузерный прототип пути заказа презентации в Лисе или скачать полный архив поставки для работы",
       "navigation_domain": "product",
       "navigation_group": "business",
       "start_path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "next_paths": [
-        "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md"
+        "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md"
       ],
       "owner_role": "Product Owner / Documentation Owner",
-      "validation_command": "npm run validate:co-2026-003-draft-documentation-archive"
+      "validation_command": "npm run validate:co-2026-003-delivery-archive"
     },
     {
       "id": "task-review-co-2026-003-q4-lisa-profile",
@@ -5528,7 +5652,27 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html",
-      "reason": "Самодостаточный принятый HTML-черновик из 11 кадров открывается через README и не индексируется как документационный формат; его состав и отпечатки маршрутизируются через отдельный JSON-манифест."
+      "reason": "Исторический HTML-черновик из 11 кадров не является действующим маршрутом; итоговый браузерный прототип открывается через отдельный README."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json",
+      "reason": "Машиночитаемая запись решения владельца раскрывается через человекочитаемые доказательства чистового выпуска и не является самостоятельным маршрутом."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/external-4k-series-owner-approval.json",
+      "reason": "Машиночитаемая запись принятия серии внешних кадров 4K раскрывается через README чистового браузерного прототипа и не является самостоятельным маршрутом."
+    },
+    {
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json",
+      "reason": "Машиночитаемый отчёт доказательств раскрывается через одноимённый Markdown-документ и не является самостоятельным маршрутом."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review",
+      "reason": "Сгенерированные изображения, машинный манифест и краткая памятка одной серии 4K открываются через README браузерного кандидата; самостоятельным маршрутом документации они не являются."
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/browser-native-phone-external-asset-series.schema.json",
+      "reason": "Техническая JSON Schema проверяет манифест внешней 4K-серии и не является самостоятельным документом для чтения командой."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/components/lisa-notification-bell.svg",
@@ -5661,9 +5805,9 @@
       "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
     },
     {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
-      "canonical_source": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
-      "description": "Автономный архив принятого 11-кадрового черновика Лисы и актуальной документации CO-2026-003."
+      "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
+      "canonical_source": "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+      "description": "Автономный архив поставки чистового браузерного прототипа, документации и доказательств CO-2026-003."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",

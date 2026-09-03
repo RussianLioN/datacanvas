@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "change_order_id": "CO-2026-003",
+  "decision": "approved",
+  "decision_text": "Принято как финальный чистовой результат",
+  "decision_source": "Product Owner в рабочем чате",
+  "approved_on": "2026-09-03",
+  "approved_scope": [
+    "browser-native-phone-prototype",
+    "external-4k-series",
+    "portable-delivery-archive"
+  ],
+  "authorizations": {
+    "high_resolution_release_allowed": true,
+    "active_release_switch_allowed": true,
+    "delivery_archive_allowed": true
+  },
+  "decision_evidence_note": "Владелец явно уточнил, что принимает результат как финальный чистовой, а не черновой."
+}

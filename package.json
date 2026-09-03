@@ -16,7 +16,7 @@
     "validate:documentation-archive": "node --test tests/documentation-archive.test.mjs && node scripts/validate-documentation-archive.mjs",
     "generate:co-2026-003-delivery-archive": "node scripts/generate-documentation-archive.mjs --contract docs/release/co-2026-003-prototype-delivery-archive-contract.json",
     "check:co-2026-003-delivery-archive": "node scripts/generate-documentation-archive.mjs --check --contract docs/release/co-2026-003-prototype-delivery-archive-contract.json",
-    "validate:co-2026-003-delivery-archive": "node --test tests/co-2026-003-delivery-archive.test.mjs && node scripts/validate-documentation-archive.mjs --contract docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+    "validate:co-2026-003-delivery-archive": "node --test tests/co-2026-003-delivery-archive.test.mjs && node scripts/validate-documentation-archive.mjs --contract docs/release/co-2026-003-prototype-delivery-archive-contract.json && node scripts/validate-browser-native-phone-prototype-delivery-archive.mjs",
     "generate:co-2026-003-draft-documentation-archive": "node scripts/generate-co-2026-003-draft-documentation-archive.mjs",
     "check:co-2026-003-draft-documentation-archive": "node scripts/generate-co-2026-003-draft-documentation-archive.mjs --check",
     "validate:co-2026-003-draft-documentation-archive": "node --test tests/co-2026-003-draft-documentation-archive.test.mjs && node scripts/validate-co-2026-003-draft-documentation-archive.mjs",
@@ -100,6 +100,16 @@
     "check:lisa-presentation-slidedoc-review-draft": "node scripts/render-lisa-presentation-pdf-review-draft.mjs --frame lisa-presentation-slidedoc --check",
     "generate:lisa-prototype-draft": "node scripts/generate-lisa-prototype-draft.mjs",
     "check:lisa-prototype-draft": "node scripts/generate-lisa-prototype-draft.mjs --check",
+    "generate:browser-native-phone-prototype": "node scripts/generate-browser-native-phone-prototype.mjs",
+    "check:browser-native-phone-prototype": "node scripts/generate-browser-native-phone-prototype.mjs --check",
+    "generate:browser-native-phone-external-4k-assets": "node scripts/generate-browser-native-phone-external-4k-assets.mjs",
+    "check:browser-native-phone-external-4k-assets": "node scripts/generate-browser-native-phone-external-4k-assets.mjs --check",
+    "validate:browser-native-phone-prototype": "node --test tests/browser-native-phone-prototype.test.mjs && npm run check:browser-native-phone-prototype && node scripts/validate-browser-native-phone-prototype.mjs",
+    "generate:browser-native-phone-prototype:release-evidence": "node scripts/generate-browser-native-phone-prototype-release-evidence.mjs",
+    "check:browser-native-phone-prototype:release-evidence": "node scripts/generate-browser-native-phone-prototype-release-evidence.mjs --check",
+    "test:browser-native-phone-prototype": "playwright test --config tests/browser-native-phone-prototype.playwright.config.mjs",
+    "render:browser-native-phone-prototype-review": "node scripts/render-browser-native-phone-prototype-review.mjs",
+    "validate:browser-native-phone-prototype:profile": "npm run validate:browser-native-phone-prototype && npm run test:browser-native-phone-prototype && npm run check:browser-native-phone-prototype:release-evidence && npm run validate:co-2026-003-delivery-archive",
     "validate:co-2026-003-brainstorm-evidence": "node --test tests/co-2026-003-brainstorm-evidence.test.mjs && node scripts/validate-co-2026-003-brainstorm-evidence.mjs",
     "generate:co-2026-003-generation-started-brainstorm-evidence": "node scripts/generate-co-2026-003-generation-started-brainstorm-evidence.mjs",
     "generate:co-2026-003-email-subject-brainstorm-evidence": "node scripts/generate-co-2026-003-email-subject-brainstorm-evidence.mjs",
@@ -219,6 +229,7 @@
     "@playwright/test": "1.61.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
-    "opentype.js": "2.0.0"
+    "opentype.js": "2.0.0",
+    "saxes": "^6.0.0"
   }
 }

@@ -12,9 +12,9 @@
 
 ## Пользовательские пути и интерактивные прототипы
 
-- [Контекст и вход в путь](presentation-link-lisa-user-journey/README.md) — состав существующего прототипа и условие отдельного визуального выпуска.
-- [Открыть принятый черновой прототип](presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/index.html) — 11 кадров для ООО «Водолей Трейд».
-- [Скачать полный черновой пакет](presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true) — автономный ZIP с актуальной документацией и черновиком; это не чистовая поставка.
+- [Контекст и вход в путь](presentation-link-lisa-user-journey/README.md) — состав чистового прототипа, его состояния и границы данных.
+- [Открыть чистовой браузерный прототип](presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html) — 11 экранов для ООО «Водолей Трейд».
+- [Скачать полный архив поставки](../../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true) — автономный ZIP с актуальной документацией и чистовым прототипом.
 
 ## Документы
 

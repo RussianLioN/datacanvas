@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78.1 160.8" data-device-model="iPhone 12 Pro Max" aria-label="Векторная геометрия корпуса iPhone 12 Pro Max">
+  <g id="phone-assembly">
+    <rect id="phone-body" x="0" y="0" width="78.1" height="160.8" rx="11.8" fill="#1a1a1d"/>
+    <rect id="phone-glass" x="0.35" y="0.35" width="77.4" height="160.1" rx="11.3" fill="#111217"/>
+    <rect id="phone-active-display" x="1.1567" y="1.1567" width="75.7866" height="158.4866" rx="10.2" fill="#ffffff"/>
+    <path id="phone-notch" d="M21.12 1.1567h34.83v3.16c0 1.19-.97 2.16-2.16 2.16H23.28a2.16 2.16 0 0 1-2.16-2.16V1.1567Z" fill="#111217"/>
+    <rect id="phone-speaker" x="33.4" y="2.9067" width="10.27" height="0.62" rx="0.31" fill="#24252a"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "status": "geometry_changed_first_frame_required",
+  "allowed_next_frame_id": "lisa-materials-full-reference",
+  "accepted_frame_ids": [],
+  "invalidated_legacy_review_paths": [
+    "candidate-evidence/frame-review/**"
+  ]
+}

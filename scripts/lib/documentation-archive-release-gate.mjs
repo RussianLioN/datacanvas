@@ -1,7 +1,9 @@
 import { spawnSync } from "node:child_process";
 
-const LISA_PROTOTYPE_CHECK = "presentation_link_lisa_user_journey";
-const LISA_PROTOTYPE_CHECK_COMMAND = ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"];
+const PROTOTYPE_CHECK_COMMANDS = Object.freeze({
+  presentation_link_lisa_user_journey: ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"],
+  browser_native_phone_prototype: ["scripts/validate-browser-native-phone-prototype.mjs"],
+});
 const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
 
 function fail(message) {
@@ -76,11 +78,12 @@ export function assertDocumentationArchiveReleaseGate({ root, contract, readJson
   if (mismatches.length > 0) {
     fail(`статусы договора пути пользователя не прошли выпускной барьер: ${mismatches.join("; ")}`);
   }
-  if (gate.prototype_check !== LISA_PROTOTYPE_CHECK) {
+  const prototypeCheckCommand = PROTOTYPE_CHECK_COMMANDS[gate.prototype_check];
+  if (!prototypeCheckCommand) {
     fail(`неподдерживаемая встроенная проверка прототипа: ${String(gate.prototype_check)}`);
   }
-  readRegularFile(root, LISA_PROTOTYPE_CHECK_COMMAND[0], "встроенная проверка прототипа");
-  const check = spawnSync("node", LISA_PROTOTYPE_CHECK_COMMAND, { cwd: root, encoding: "utf8" });
+  readRegularFile(root, prototypeCheckCommand[0], "встроенная проверка прототипа");
+  const check = spawnSync("node", prototypeCheckCommand, { cwd: root, encoding: "utf8" });
   if (check.error) fail(`не удалось запустить встроенную проверку прототипа: ${check.error.message}`);
   if (check.status !== 0) {
     const details = `${check.stdout}${check.stderr}`.trim();

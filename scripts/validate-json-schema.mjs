@@ -577,6 +577,14 @@ const cases = [
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
   },
   {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/browser-native-phone-prototype-contract.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+  },
+  {
+    schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/browser-native-phone-external-asset-series.schema.json",
+    data: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/series-manifest.json",
+  },
+  {
     schema: "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/error-frame-review-contract.schema.json",
     data: "docs/product/analysis/presentation-link-lisa-user-journey/source/error-frame-review-contract.json",
   },

@@ -116,6 +116,10 @@ test("главный архив по умолчанию остаётся обр�
 });
 
 test("специальный архив CO-2026-003 содержит актуальные исходники Q4_2026 для приёмки", () => {
+  const schema = JSON.parse(fs.readFileSync(
+    path.join(repositoryRoot, "schemas/documentation-archive-contract.schema.json"),
+    "utf8",
+  ));
   const contract = JSON.parse(fs.readFileSync(
     path.join(repositoryRoot, "docs/release/co-2026-003-prototype-delivery-archive-contract.json"),
     "utf8",
@@ -129,11 +133,23 @@ test("специальный архив CO-2026-003 содержит актуа�
   assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), true);
   assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"), false);
   assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md"), false);
+  assert.equal(
+    additionalPaths.has("docs/release/co-2026-003-visual-prototype-rca.md"),
+    false,
+    "исторический RCA с локальными ссылками не должен попадать в публичную чистовую поставку",
+  );
   assert.equal(additionalPaths.has("docs/product/change-orders/co-2026-003-release-approval-ledger.md"), true);
-  assert.equal(additionalPaths.has("docs/release/co-2026-003-current-release-evidence.json"), true);
+  assert.equal(additionalPaths.has("docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json"), true);
+  assert.equal(additionalPaths.has("docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html"), true);
+  assert.equal(additionalPaths.has("docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-3.png"), true);
   assert.equal(contract.data_class, "public_authorized");
   assert.equal(contract.visibility, "public");
   assert.equal(contract.release_gate.required_final_release_status, "owner_final_approved");
+  assert.equal(contract.release_gate.prototype_check, "browser_native_phone_prototype");
+  assert.deepEqual(schema.properties.release_gate.properties.prototype_check.enum, [
+    "presentation_link_lisa_user_journey",
+    "browser_native_phone_prototype",
+  ]);
   for (const artifactPath of [
     "docs/product/specs/generated-spec-package-manifest.json",
     "docs/product/specs/feature-spec-q4-profile-mail.json",
@@ -149,6 +165,14 @@ test("специальный архив CO-2026-003 содержит актуа�
   ]) {
     assert.equal(additionalPaths.has(artifactPath), true, `в архиве отсутствует исходник Q4_2026: ${artifactPath}`);
   }
+});
+
+test("публичный RCA чистового выпуска не содержит локальные URL", () => {
+  const rca = fs.readFileSync(
+    path.join(repositoryRoot, "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md"),
+    "utf8",
+  );
+  assert.doesNotMatch(rca, /file:\/\//u);
 });
 
 test("контракт поставки с неутверждёнными статусами не создаёт архив и сообщает оба статуса", () => {

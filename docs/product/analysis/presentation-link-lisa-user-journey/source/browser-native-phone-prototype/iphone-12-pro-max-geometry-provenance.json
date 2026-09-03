@@ -1,0 +1,28 @@
+{
+  "model": "iPhone 12 Pro Max",
+  "checked_at": "2026-09-02",
+  "official_sources": [
+    {
+      "url": "https://support.apple.com/en-us/111874",
+      "fact": "Габариты корпуса 78,1 × 160,8 мм и разрешение дисплея 2778 × 1284."
+    },
+    {
+      "url": "https://developer.apple.com/download/files/accessories/dimensional-drawings/iphone-12-pro-max.pdf",
+      "fact": "Контур корпуса, стекла, активной области дисплея, вырез и разговорный динамик."
+    }
+  ],
+  "logical_units": "Единицы viewBox повторяют миллиметровые размеры официального чертежа; это не CSS-миллиметры.",
+  "owner_requested_visual_adaptation": {
+    "side_controls_removed": true,
+    "visible_bezel_reduced_from_logical_units": 3.47,
+    "visible_bezel_reduced_to_logical_units": 1.1567,
+    "reason": "Браузерный мок должен быть визуально тоньше, без боковых аппаратных кнопок; это не утверждение о серийной геометрии устройства."
+  },
+  "derived_bounds": {
+    "assembly": {"x": 0, "y": 0, "width": 78.1, "height": 160.8},
+    "body": {"x": 0, "y": 0, "width": 78.1, "height": 160.8},
+    "glass": {"x": 0.35, "y": 0.35, "width": 77.4, "height": 160.1},
+    "active_display": {"x": 1.1567, "y": 1.1567, "width": 75.7866, "height": 158.4866, "rx": 10.2},
+    "notch": {"x": 21.12, "y": 1.1567, "width": 34.83, "height": 5.32}
+  }
+}

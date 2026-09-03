@@ -66,7 +66,7 @@ test("текущая навигация ведет к принятым бизн�
   ]);
 });
 
-test("входные документы ведут к принятому обзору диаграмм без изменения маршрута архива", () => {
+test("входные документы ведут к принятому обзору диаграмм и чистовому архиву", () => {
   const entrypointLinks = [
     ["README.md", "docs/product/requirements/sequence-diagrams/README.md"],
     ["docs/README.md", "product/requirements/sequence-diagrams/README.md"],
@@ -87,11 +87,16 @@ test("входные документы ведут к принятому обз�
   }
 
   const archiveLinks = [
-    ["README.md", "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true"],
-    ["docs/README.md", "product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip?raw=true"],
+    ["README.md", "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true"],
+    ["docs/README.md", "../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true"],
   ];
   for (const [entrypoint, archivePath] of archiveLinks) {
     assert.match(readText(entrypoint), new RegExp(escapeRegExp(archivePath)));
+    assert.doesNotMatch(
+      readText(entrypoint),
+      /co-2026-003-current-documentation-draft\.zip|candidate-evidence\/prototype-draft\/index\.html/u,
+      `${entrypoint} не должен вести к историческому черновому прототипу`,
+    );
   }
 });
 

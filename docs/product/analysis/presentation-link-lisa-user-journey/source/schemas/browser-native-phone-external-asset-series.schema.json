@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "browser-native-phone-external-asset-series.schema.json",
+  "title": "Серия внешних 4K-ресурсов браузерного кандидата CO-2026-003",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "status", "series_id", "owner_decision", "source_paths_stored", "raw_pdf_served_by_demo", "active_release_mutation_prohibited", "assets"],
+  "properties": {
+    "$schema": {"const": "../../../source/schemas/browser-native-phone-external-asset-series.schema.json"},
+    "version": {"const": "1.0.0"},
+    "status": {"const": "owner_series_approved"},
+    "series_id": {"const": "browser-native-phone-external-4k"},
+    "owner_decision": {"const": "approved"},
+    "source_paths_stored": {"const": false},
+    "raw_pdf_served_by_demo": {"const": false},
+    "active_release_mutation_prohibited": {"const": true},
+    "assets": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/asset"}
+    }
+  },
+  "$defs": {
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width", "height"],
+      "properties": {"width": {"type": "integer", "minimum": 1}, "height": {"type": "integer", "minimum": 1}}
+    },
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_id", "content_type", "asset_format", "runtime_asset_paths", "runtime_asset_sha256", "intrinsic_page", "review_asset_path", "review_asset_sha256", "review_dimensions"],
+      "properties": {
+        "state_id": {"enum": ["lisa-presentation-email", "lisa-presentation-slidedoc", "lisa-presentation-sber2025", "lisa-presentation-mag"]},
+        "content_type": {"enum": ["email", "presentation"]},
+        "asset_format": {"enum": ["svg", "png"]},
+        "runtime_asset_paths": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"type": "string", "pattern": "^assets/external/[a-z0-9-]+(?:-page-[123])?\\.(?:svg|png)$"}},
+        "runtime_asset_sha256": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/sha256"}},
+        "intrinsic_page": {"$ref": "#/$defs/dimensions"},
+        "review_asset_path": {"type": "string", "pattern": "^external-4k-series-review/[a-z0-9-]+(?:-pages-3840x6480|-3840x2880)\\.png$"},
+        "review_asset_sha256": {"$ref": "#/$defs/sha256"},
+        "review_dimensions": {"$ref": "#/$defs/dimensions"},
+        "source_svg_sha256": {"$ref": "#/$defs/sha256"},
+        "source_file_name": {"type": "string", "pattern": "^vodoley_dense_[a-z0-9]+\\.pdf$"},
+        "source_pdf_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

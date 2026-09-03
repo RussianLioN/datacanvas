@@ -4,10 +4,10 @@
   "title": "Договор контролируемого импорта PDF-презентаций CO-2026-003",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "version", "change_order_id", "status", "import_mode", "source_svg_required", "raw_pdf_committed_to_git", "raw_pdf_served_by_demo", "controlled_importer", "high_resolution_render_status", "render_scales", "draft_prototype_integration", "per_frame_review", "variants"],
+  "required": ["$schema", "version", "change_order_id", "status", "import_mode", "source_svg_required", "raw_pdf_committed_to_git", "raw_pdf_served_by_demo", "controlled_importer", "high_resolution_render_status", "render_scales", "draft_prototype_integration", "per_frame_review", "browser_native_4k_candidate", "variants"],
   "properties": {
     "$schema": { "const": "schemas/presentation-pdf-raster-import-contract.schema.json" },
-    "version": { "const": "1.3.0" },
+    "version": { "const": "1.4.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "all_presentation_drafts_authorized" },
     "import_mode": { "const": "approved_pdf_to_png" },
@@ -61,6 +61,18 @@
         "batch_draft_preparation_authorized_by_owner": { "const": true },
         "next_variant_blocked_until_owner_approval": { "const": false },
         "active_release_mutation_prohibited": { "const": true }
+      }
+    },
+    "browser_native_4k_candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["series_review_authorized_by_owner", "series_review_status", "runtime_page_dimensions", "review_stack_dimensions", "active_release_mutation_prohibited"],
+      "properties": {
+        "series_review_authorized_by_owner": {"const": true},
+        "series_review_status": {"const": "owner_series_approved"},
+        "runtime_page_dimensions": {"const": {"width": 3840, "height": 2160}},
+        "review_stack_dimensions": {"const": {"width": 3840, "height": 6480}},
+        "active_release_mutation_prohibited": {"const": true}
       }
     },
     "variants": {

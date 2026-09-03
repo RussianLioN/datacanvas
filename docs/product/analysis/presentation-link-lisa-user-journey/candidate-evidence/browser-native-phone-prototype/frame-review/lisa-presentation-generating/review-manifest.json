@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "status": "draft_png_rendered_pending_owner_approval",
+  "frame_id": "lisa-presentation-generating",
+  "product_text_source": "semantic_svg",
+  "phone_raster_content_forbidden": true,
+  "renderer": "playwright-chromium-page-screenshot",
+  "png_path": "candidate-evidence/browser-native-phone-prototype/frame-review/lisa-presentation-generating/draft-current-resolution.png",
+  "png_dimensions": {
+    "width": 1440,
+    "height": 900
+  },
+  "png_sha256": "274a6cc39c5f20ed9593bdb13afd274526d22b65cc854ead6dbea6b8a2ea38a6",
+  "high_resolution_release_allowed": false,
+  "active_release_switch_allowed": false,
+  "owner_frame_approval_required": true
+}

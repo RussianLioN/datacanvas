@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; connect-src 'none'; form-action 'none'; frame-src 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'">
+    <title id="viewer-document-title"></title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="prototype-layout">
+      <aside id="review-panel" class="review-panel" data-testid="review-panel" aria-labelledby="viewer-title">
+        <h1 id="viewer-title"></h1>
+        <p id="viewer-subtitle" data-testid="review-subtitle"></p>
+        <div id="review-controls" class="review-controls"></div>
+      </aside>
+      <main id="prototype-root" class="prototype-stage" aria-live="polite"></main>
+    </div>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

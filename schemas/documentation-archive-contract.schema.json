@@ -90,7 +90,10 @@
         },
         "required_content_review_status": { "type": "string", "const": "approved_product_owner" },
         "required_visual_release_status": { "type": "string", "const": "approved_product_owner" },
-        "prototype_check": { "type": "string", "const": "presentation_link_lisa_user_journey" },
+        "prototype_check": {
+          "type": "string",
+          "enum": ["presentation_link_lisa_user_journey", "browser_native_phone_prototype"]
+        },
         "release_approval_ledger_path": {
           "type": "string",
           "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"

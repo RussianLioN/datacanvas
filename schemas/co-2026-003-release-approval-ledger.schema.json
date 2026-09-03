@@ -18,7 +18,7 @@
   ],
   "properties": {
     "$schema": { "const": "../../../schemas/co-2026-003-release-approval-ledger.schema.json" },
-    "version": { "const": "1.1.0" },
+    "version": { "const": "1.2.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "public_data_authorization": {
       "type": "object",
@@ -72,11 +72,11 @@
           "additionalProperties": false,
           "required": ["status", "public_allowed", "creation_allowed", "owner_decision", "creation_blocker"],
           "properties": {
-            "status": { "const": "owner_allowed_public_but_creation_blocked" },
+            "status": { "enum": ["owner_allowed_public_but_creation_blocked", "owner_final_approved"] },
             "public_allowed": { "const": true },
-            "creation_allowed": { "const": false },
-            "owner_decision": { "const": "Архив поставки разрешён и публичен по решению владельца." },
-            "creation_blocker": { "const": "Создание архива поставки блокируется до отдельного входа в чистовой визуальный выпуск." }
+            "creation_allowed": { "type": "boolean" },
+            "owner_decision": { "type": "string", "minLength": 1 },
+            "creation_blocker": { "type": ["string", "null"] }
           }
         },
         "publicity": {
@@ -94,10 +94,10 @@
           "additionalProperties": false,
           "required": ["status", "switch_allowed", "owner_decision", "blocking_reason"],
           "properties": {
-            "status": { "const": "blocked_until_separate_owner_approval" },
-            "switch_allowed": { "const": false },
-            "owner_decision": { "const": "Переключение активного выпуска требует отдельного решения владельца и не включается итоговой приёмкой само по себе." },
-            "blocking_reason": { "const": "Чистовой визуальный выпуск ожидает отдельные вводные владельца и свежие доказательства." }
+            "status": { "enum": ["blocked_until_separate_owner_approval", "owner_final_approved"] },
+            "switch_allowed": { "type": "boolean" },
+            "owner_decision": { "type": "string", "minLength": 1 },
+            "blocking_reason": { "type": ["string", "null"] }
           }
         },
         "high_resolution_render": {
@@ -105,10 +105,10 @@
           "additionalProperties": false,
           "required": ["status", "render_allowed", "owner_decision", "current_render_allowed"],
           "properties": {
-            "status": { "const": "waiting_owner_input" },
-            "render_allowed": { "const": false },
-            "owner_decision": { "const": "Высокоразрешённый рендер ожидает отдельные вводные владельца." },
-            "current_render_allowed": { "const": false }
+            "status": { "enum": ["waiting_owner_input", "owner_final_approved"] },
+            "render_allowed": { "type": "boolean" },
+            "owner_decision": { "type": "string", "minLength": 1 },
+            "current_render_allowed": { "type": "boolean" }
           }
         }
       }
@@ -129,7 +129,7 @@
         "execution_status": { "enum": ["in_progress", "completed"] },
         "accepted_at": { "const": "2026-08-24T00:00:00Z" },
         "scope": { "const": "documentation_cascade_only" },
-        "candidate_manifest_path": { "const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json" },
+        "candidate_manifest_path": { "const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json" },
         "candidate_fingerprint": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
       }
     },
@@ -180,7 +180,7 @@
         "delivery_archive_allowed": { "type": "boolean" },
         "candidate_fingerprint": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
         "prototype_package_manifest_path": {
-          "const": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json"
+          "const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json"
         },
         "fresh_evidence_path": { "type": ["string", "null"], "minLength": 1 }
       },

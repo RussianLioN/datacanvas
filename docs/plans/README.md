@@ -28,6 +28,7 @@
 - [План формирования полного BA-пакета DataCanvas](datacanvas-ba-package-completion-plan.md)
 - [План каскадного обновления документации CO-2026-003](co-2026-003-documentation-cascade-remediation-plan.md)
 - [План детализации пользовательских историй и диаграмм последовательности CO-2026-003](co-2026-003-user-story-decomposition-and-sequence-diagrams-plan.md)
+- [План исправления мока, статусных подписей и навигации браузерного прототипа Лисы](co-2026-003-browser-native-phone-prototype-remediation-plan.md)
 
 ## Правило
 

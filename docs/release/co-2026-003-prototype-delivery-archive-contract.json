@@ -1,9 +1,9 @@
 {
   "$schema": "../../schemas/documentation-archive-contract.schema.json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "status": "active",
   "archive_id": "co-2026-003-q4-lisa-profile-delivery",
-  "title": "Пакет поставки CO-2026-003: Лиса, Профиль сотрудника и почтовая доставка",
+  "title": "Пакет поставки CO-2026-003: чистовой браузерный прототип заказа презентации",
   "source_chain_path": "docs/process/universal-documentation-workflow/main-artifact-lifecycle-chain.json",
   "output_path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
   "data_class": "public_authorized",
@@ -87,24 +87,104 @@
       "label": "Машиночитаемое состояние кандидата обновления прототипа"
     },
     {
-      "path": "docs/release/co-2026-003-visual-prototype-rca.md",
-      "label": "Разбор корневой причины и защита качества визуального прототипа"
-    },
-    {
       "path": "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
       "label": "Разбор причины неполного каскадного обновления дополнений CO-2026-003"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
+      "label": "Разбор причины недостаточного разрешения внешних экранов браузерного прототипа"
+    },
+    {
+      "path": "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
+      "label": "Разбор причины рассинхронизации статуса чистового выпуска и его проверок"
     },
     {
       "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
       "label": "План поэтапной отрисовки и приёмки SVG-прототипа"
     },
     {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
-      "label": "Переносимый прототип пути пользователя"
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
+      "label": "Описание чистового браузерного прототипа"
     },
     {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
-      "label": "Манифест состава и целостности прототипа"
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html",
+      "label": "Открыть чистовой браузерный прототип"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/app.js",
+      "label": "Логика чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/data.js",
+      "label": "Модель экранов чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/styles.css",
+      "label": "Стили чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json",
+      "label": "Манифест состава и целостности чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/NotoSans[wdth,wght].ttf",
+      "label": "Шрифт чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-email.svg",
+      "label": "Векторный экран письма"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-1.png",
+      "label": "SlideDoc: страница 1 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-2.png",
+      "label": "SlideDoc: страница 2 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-3.png",
+      "label": "SlideDoc: страница 3 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-1.png",
+      "label": "Sber 2025: страница 1 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-2.png",
+      "label": "Sber 2025: страница 2 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-3.png",
+      "label": "Sber 2025: страница 3 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-1.png",
+      "label": "MAG: страница 1 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-2.png",
+      "label": "MAG: страница 2 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-3.png",
+      "label": "MAG: страница 3 в 4K"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/series-manifest.json",
+      "label": "Манифест принятой серии внешних 4K-экранов"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
+      "label": "Договор чистового браузерного прототипа"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json",
+      "label": "Итоговое решение владельца по чистовому прототипу"
+    },
+    {
+      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/external-4k-series-owner-approval.json",
+      "label": "Решение владельца по внешней 4K-серии"
     },
     {
       "path": "docs/product/specs/generated-spec-package-manifest.json",
@@ -151,12 +231,12 @@
       "label": "Инструкция агенту для статусов Q4_2026"
     },
     {
-      "path": "docs/release/co-2026-003-current-release-evidence.md",
-      "label": "Актуальный отчёт доказательств чистового выпуска CO-2026-003"
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
+      "label": "Отчёт доказательств чистового браузерного прототипа"
     },
     {
-      "path": "docs/release/co-2026-003-current-release-evidence.json",
-      "label": "Машиночитаемое доказательство чистового выпуска CO-2026-003"
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json",
+      "label": "Машиночитаемое доказательство чистового браузерного прототипа"
     }
   ],
   "embedded_navigation": [
@@ -178,10 +258,10 @@
     "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
     "required_content_review_status": "approved_product_owner",
     "required_visual_release_status": "approved_product_owner",
-    "prototype_check": "presentation_link_lisa_user_journey",
+    "prototype_check": "browser_native_phone_prototype",
     "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
     "required_final_release_status": "owner_final_approved",
-    "prototype_package_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
-    "fresh_evidence_path": "docs/release/co-2026-003-current-release-evidence.json"
+    "prototype_package_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json",
+    "fresh_evidence_path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json"
   }
 }

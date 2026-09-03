@@ -9,6 +9,7 @@ struct RenderArguments {
     let pageWidth: Int
     let pageHeight: Int
     let scale: Int
+    let pageIndex: Int?
 }
 
 enum RenderError: Error, CustomStringConvertible {
@@ -24,7 +25,7 @@ enum RenderError: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .usage:
-            return "использование: swift scripts/render-presentation-link-lisa-pdf-slides.swift --input <pdf> --output <png> --expected-pages 3 --page-width 960 --page-height 540 --scale 4"
+            return "использование: swift scripts/render-presentation-link-lisa-pdf-slides.swift --input <pdf> --output <png> --expected-pages 3 --page-width 960 --page-height 540 --scale 4 [--page-index 1]"
         case .invalidValue(let name):
             return "\(name): неверное значение"
         case .pdfOpenFailed:
@@ -62,17 +63,21 @@ func parseArguments(_ arguments: [String]) throws -> RenderArguments {
     else {
         throw RenderError.usage
     }
+    let pageIndex = values["--page-index"].flatMap(Int.init)
     guard expectedPages > 0 else { throw RenderError.invalidValue("--expected-pages") }
     guard pageWidth > 0 else { throw RenderError.invalidValue("--page-width") }
     guard pageHeight > 0 else { throw RenderError.invalidValue("--page-height") }
     guard scale > 0 else { throw RenderError.invalidValue("--scale") }
+    if values["--page-index"] != nil && pageIndex == nil { throw RenderError.invalidValue("--page-index") }
+    if let pageIndex, (pageIndex < 1 || pageIndex > expectedPages) { throw RenderError.invalidValue("--page-index") }
     return RenderArguments(
         input: input,
         output: output,
         expectedPages: expectedPages,
         pageWidth: pageWidth,
         pageHeight: pageHeight,
-        scale: scale
+        scale: scale,
+        pageIndex: pageIndex
     )
 }
 
@@ -93,7 +98,8 @@ func render(_ arguments: RenderArguments) throws {
     let targetPageWidth = arguments.pageWidth * arguments.scale
     let targetPageHeight = arguments.pageHeight * arguments.scale
     let canvasWidth = targetPageWidth
-    let canvasHeight = targetPageHeight * arguments.expectedPages
+    let renderedPages = arguments.pageIndex.map { [$0] } ?? Array(1...arguments.expectedPages)
+    let canvasHeight = targetPageHeight * renderedPages.count
     let bytesPerPixel = 4
     let bytesPerRow = canvasWidth * bytesPerPixel
     var bitmap = Data(count: bytesPerRow * canvasHeight)
@@ -118,7 +124,7 @@ func render(_ arguments: RenderArguments) throws {
         context.fill(CGRect(x: 0, y: 0, width: canvasWidth, height: canvasHeight))
         context.interpolationQuality = .high
 
-        for pageNumber in 1...arguments.expectedPages {
+        for (renderIndex, pageNumber) in renderedPages.enumerated() {
             guard let page = document.page(at: pageNumber) else {
                 throw RenderError.pageMissing(pageNumber)
             }
@@ -129,7 +135,7 @@ func render(_ arguments: RenderArguments) throws {
             }
             let destination = CGRect(
                 x: 0,
-                y: CGFloat(arguments.expectedPages - pageNumber) * CGFloat(targetPageHeight),
+                y: CGFloat(renderedPages.count - renderIndex - 1) * CGFloat(targetPageHeight),
                 width: CGFloat(targetPageWidth),
                 height: CGFloat(targetPageHeight)
             )
@@ -153,7 +159,7 @@ func render(_ arguments: RenderArguments) throws {
         }
     }
 
-    print("{\"width\":\(canvasWidth),\"height\":\(canvasHeight),\"pages\":\(arguments.expectedPages)}")
+    print("{\"width\":\(canvasWidth),\"height\":\(canvasHeight),\"pages\":\(renderedPages.count)}")
 }
 
 do {
