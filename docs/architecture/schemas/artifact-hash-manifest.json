@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "414c1852f35ead1410df1cc1671aa75a6a92c5a0ac3c70fc9aeefbc86060f95c"
+      "sha256": "26d2a9ee0b78eebfc77a3df340e5753f403ba4c1742c1cd72cd960db96c6d5ee"
     },
     {
       "artifact_id": "ART-742",
@@ -4467,7 +4467,7 @@
     {
       "artifact_id": "ART-895",
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
-      "sha256": "08a6b3d8079c2f585580ff471d6fe1c30a2b80c73e1f685f081fea7239275f48"
+      "sha256": "5e5a98fa0e546adb458b01ba45ed07367d6c327982c0ac74dbec29b56313dae6"
     },
     {
       "artifact_id": "ART-896",
