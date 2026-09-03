@@ -8,7 +8,9 @@ import addFormats from "ajv-formats";
 import {
   buildDocumentationArchive,
   readStoredZip,
+  readStoredZipWithMetadata,
   resolveArchiveMembers,
+  resolveActiveArchiveCreatedAt,
   resolveDocumentationArchiveCandidateFingerprint,
 } from "./lib/documentation-archive.mjs";
 import { assertDocumentationArchiveReleaseGate } from "./lib/documentation-archive-release-gate.mjs";
@@ -76,10 +78,12 @@ function main() {
   const outputPath = assertSafeRelativePath(root, contract.output_path, "выходного архива");
   if (!fs.existsSync(outputPath)) fail(`архив отсутствует: ${contract.output_path}`);
   const current = fs.readFileSync(outputPath);
-  const expected = buildDocumentationArchive(root, contract, chain);
+  const archiveCreatedAt = resolveActiveArchiveCreatedAt({ root, contract, chain, currentArchive: current, check: true });
+  const expected = buildDocumentationArchive(root, contract, chain, { archiveCreatedAt });
   if (!current.equals(expected)) fail("архив не соответствует текущим входным файлам");
 
   const archive = readStoredZip(current);
+  const metadata = readStoredZipWithMetadata(current);
   const members = resolveArchiveMembers(root, contract, chain);
   const expectedNames = new Set([
     ...contract.embedded_navigation,
@@ -89,6 +93,11 @@ function main() {
   for (const name of expectedNames) if (!archive.has(name)) fail(`в архиве отсутствует файл: ${name}`);
 
   const manifest = JSON.parse(archive.get("manifest.json").toString("utf8"));
+  if (contract.zip_timestamp_policy === "release_time_moscow") {
+    if (manifest.archive_created_at !== archiveCreatedAt || metadata.timestamp.archive_created_at !== archiveCreatedAt) {
+      fail("активный ZIP не содержит согласованное время Europe/Moscow");
+    }
+  }
   const expectedCandidateFingerprint = resolveDocumentationArchiveCandidateFingerprint(root, contract);
   if (expectedCandidateFingerprint === null) {
     if (Object.hasOwn(manifest, "candidate_fingerprint")) {

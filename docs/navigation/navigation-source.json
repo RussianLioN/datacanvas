@@ -1639,6 +1639,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
+      "route_id": "co-2026-003-browser-native-phone-prototype-download",
+      "section": "release-evidence",
+      "owner_role": "Documentation Owner / QA Lead / Security Lead",
+      "lifecycle": "active",
+      "data_class": "public",
+      "visibility": "public",
+      "searchable": true,
+      "navigable": true,
+      "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется состав ZIP чистового прототипа, инструкция локального запуска или политика времени выпуска.",
+      "critical": true,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "delivery",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
       "route_id": "co-2026-003-browser-native-phone-prototype-release-evidence",
       "section": "release-evidence",
@@ -3395,11 +3415,11 @@
       "navigation_group": "governance",
       "navigation_domain": "documentation_operations",
       "owner_role": "Product Owner / QA Lead / Documentation Owner",
-      "lifecycle": "active",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
-      "searchable": true,
-      "navigable": true,
+      "searchable": false,
+      "navigable": false,
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
@@ -5224,6 +5244,7 @@
       "next_paths": [
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.md",
+        "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/knowledge/evidence-index.md"
       ],
@@ -5803,6 +5824,11 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
       "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
+    },
+    {
+      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+      "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
+      "description": "Отдельный ZIP чистового браузерного прототипа для локального запуска из корневого index.html."
     },
     {
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",

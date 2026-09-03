@@ -54,8 +54,8 @@
 ## Пользовательские пути и интерактивные прототипы
 
 - [Путь заказа и получения презентации в Лисе](analysis/presentation-link-lisa-user-journey/README.md) — описание сценария, состояний и границ прототипа.
-- [Открыть чистовой браузерный прототип](analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html) — 11 экранов для ООО «Водолей Трейд» с рабочей навигацией и внешними 4K-экранами.
-- [Скачать полный архив поставки](../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true) — автономный ZIP с актуальной документацией и чистовым прототипом.
+- [Скачать чистовой браузерный прототип](../../artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1) — ZIP для локального запуска 11 экранов ООО «Водолей Трейд» с рабочей навигацией и внешними 4K-экранами.
+- [Скачать полный архив поставки](../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1) — отдельный ZIP с актуальной документацией и чистовым прототипом.
 
 ## Исходные Данные 2026 Года
 

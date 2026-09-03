@@ -7,7 +7,9 @@ import test from "node:test";
 import {
   buildDocumentationArchive,
   createStoredZip,
+  dosTimestampFromMoscowReleaseTime,
   readStoredZip,
+  readStoredZipWithMetadata,
   resolveArchiveMembers,
 } from "../scripts/lib/documentation-archive.mjs";
 
@@ -43,6 +45,17 @@ test("повторная сборка архива побайтно детерм
   const first = buildDocumentationArchive(root, contract, chain);
   const second = buildDocumentationArchive(root, contract, chain);
   assert.deepEqual(first, second);
+});
+
+test("активный архив хранит дату выпуска Europe/Moscow одинаково в ZIP и манифесте", () => {
+  const archiveCreatedAt = "2026-09-03T14:36:28+03:00";
+  const archive = buildDocumentationArchive(root, contract, chain, { archiveCreatedAt });
+  const metadata = readStoredZipWithMetadata(archive);
+  const expectedTimestamp = dosTimestampFromMoscowReleaseTime(archiveCreatedAt);
+  assert.equal(metadata.timestamp.dosTime, expectedTimestamp.dosTime);
+  assert.equal(metadata.timestamp.dosDate, expectedTimestamp.dosDate);
+  assert.equal(metadata.timestamp.archive_created_at, archiveCreatedAt);
+  assert.equal(JSON.parse(metadata.entries.get("manifest.json").toString("utf8")).archive_created_at, archiveCreatedAt);
 });
 
 test("архив содержит локальную навигацию и точные исходные пути", () => {

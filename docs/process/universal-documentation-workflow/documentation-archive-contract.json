@@ -51,7 +51,7 @@
   "archive_root": "repository",
   "integrity_algorithm": "sha256",
   "zip_method": "store",
-  "fixed_zip_timestamp": "1980-01-01T00:00:00Z",
+  "zip_timestamp_policy": "release_time_moscow",
   "refresh_policy": {
     "trigger": "any_byte_change_in_resolved_member_or_contract",
     "generate_command": "npm run generate:documentation-archive",

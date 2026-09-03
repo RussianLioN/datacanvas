@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/co-2026-003-browser-native-phone-prototype-archive-contract.schema.json",
+  "title": "CO2026003BrowserNativePhonePrototypeArchiveContract",
+  "type": "object",
+  "required": ["$schema", "version", "status", "archive_id", "title", "output_path", "runtime_root", "font_license_path", "data_class", "visibility", "zip_timestamp_policy", "refresh_policy", "release_gate"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {"type": "string"},
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "status": {"const": "active"},
+    "archive_id": {"const": "co-2026-003-browser-native-phone-prototype"},
+    "title": {"type": "string", "minLength": 1},
+    "output_path": {"const": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip"},
+    "runtime_root": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype"},
+    "font_license_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/source/fonts/OFL.txt"},
+    "data_class": {"const": "public_authorized"},
+    "visibility": {"const": "public"},
+    "zip_timestamp_policy": {"const": "release_time_moscow"},
+    "refresh_policy": {
+      "type": "object",
+      "required": ["generate_command", "check_command", "validation_command"],
+      "additionalProperties": false,
+      "properties": {
+        "generate_command": {"const": "npm run generate:co-2026-003-browser-native-phone-prototype-archive"},
+        "check_command": {"const": "npm run check:co-2026-003-browser-native-phone-prototype-archive"},
+        "validation_command": {"const": "npm run validate:co-2026-003-browser-native-phone-prototype-archive"}
+      }
+    },
+    "release_gate": {
+      "type": "object",
+      "required": ["journey_contract_path", "required_content_review_status", "required_visual_release_status", "prototype_check", "release_approval_ledger_path", "required_final_release_status", "prototype_package_manifest_path", "fresh_evidence_path"],
+      "additionalProperties": false,
+      "properties": {
+        "journey_contract_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json"},
+        "required_content_review_status": {"const": "approved_product_owner"},
+        "required_visual_release_status": {"const": "approved_product_owner"},
+        "prototype_check": {"const": "browser_native_phone_prototype"},
+        "release_approval_ledger_path": {"const": "docs/product/change-orders/co-2026-003-release-approval-ledger.json"},
+        "required_final_release_status": {"const": "owner_final_approved"},
+        "prototype_package_manifest_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json"},
+        "fresh_evidence_path": {"const": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json"}
+      }
+    }
+  }
+}

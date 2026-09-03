@@ -537,6 +537,10 @@ const cases = [
     data: "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
   },
   {
+    schema: "schemas/co-2026-003-browser-native-phone-prototype-archive-contract.schema.json",
+    data: "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
+  },
+  {
     schema: "schemas/co-2026-003-release-approval-ledger.schema.json",
     data: "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
   },

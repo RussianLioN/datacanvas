@@ -438,6 +438,7 @@ function validateFrameReviewSession(contract) {
 
 function validateEmailReviewEvidence(contractPath) {
   const packageDirectory = path.join(path.dirname(contractPath), "..");
+  const approvedTextsPath = path.join(packageDirectory, "source", "owner-approved-texts.json");
   const reviewDirectory = path.join(packageDirectory, "candidate-evidence/frame-review/lisa-presentation-email");
   const manifest = readJson(path.join(reviewDirectory, "review-source-manifest.json"));
   const approval = readJson(path.join(reviewDirectory, "owner-approval.json"));
@@ -458,6 +459,8 @@ function validateEmailReviewEvidence(contractPath) {
     manifest.visual_reference_id !== "owner_supplied_outlook_corporate_email_screenshot_2026_08_19" ||
     manifest.visual_reference_persisted_in_repository !== false ||
     manifest.source_svg_sha256 !== sha256File(sourcePath) ||
+    manifest.approved_texts_path !== "source/owner-approved-texts.json" ||
+    manifest.approved_texts_sha256 !== sha256File(approvedTextsPath) ||
     manifest.draft_png_sha256 !== sha256File(draftPath) ||
     manifest.draft_png_dimensions?.width !== 1280 ||
     manifest.draft_png_dimensions?.height !== 960 ||

@@ -87,8 +87,10 @@ test("входные документы ведут к принятому обз�
   }
 
   const archiveLinks = [
-    ["README.md", "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true"],
-    ["docs/README.md", "../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true"],
+    ["README.md", "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1"],
+    ["README.md", "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1"],
+    ["docs/README.md", "../artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1"],
+    ["docs/README.md", "../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1"],
   ];
   for (const [entrypoint, archivePath] of archiveLinks) {
     assert.match(readText(entrypoint), new RegExp(escapeRegExp(archivePath)));
@@ -97,6 +99,7 @@ test("входные документы ведут к принятому обз�
       /co-2026-003-current-documentation-draft\.zip|candidate-evidence\/prototype-draft\/index\.html/u,
       `${entrypoint} не должен вести к историческому черновому прототипу`,
     );
+    assert.doesNotMatch(readText(entrypoint), /browser-native-phone-prototype\/index\.html/u);
   }
 });
 

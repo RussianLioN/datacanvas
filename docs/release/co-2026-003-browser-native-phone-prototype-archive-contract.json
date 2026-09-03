@@ -1,0 +1,28 @@
+{
+  "$schema": "../../schemas/co-2026-003-browser-native-phone-prototype-archive-contract.schema.json",
+  "version": "1.0.0",
+  "status": "active",
+  "archive_id": "co-2026-003-browser-native-phone-prototype",
+  "title": "Браузерный прототип заказа презентации из агента «Справка по клиенту»",
+  "output_path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+  "runtime_root": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype",
+  "font_license_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/fonts/OFL.txt",
+  "data_class": "public_authorized",
+  "visibility": "public",
+  "zip_timestamp_policy": "release_time_moscow",
+  "refresh_policy": {
+    "generate_command": "npm run generate:co-2026-003-browser-native-phone-prototype-archive",
+    "check_command": "npm run check:co-2026-003-browser-native-phone-prototype-archive",
+    "validation_command": "npm run validate:co-2026-003-browser-native-phone-prototype-archive"
+  },
+  "release_gate": {
+    "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+    "required_content_review_status": "approved_product_owner",
+    "required_visual_release_status": "approved_product_owner",
+    "prototype_check": "browser_native_phone_prototype",
+    "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+    "required_final_release_status": "owner_final_approved",
+    "prototype_package_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json",
+    "fresh_evidence_path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json"
+  }
+}

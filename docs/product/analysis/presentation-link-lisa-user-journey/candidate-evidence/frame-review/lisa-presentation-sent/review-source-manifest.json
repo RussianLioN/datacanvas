@@ -13,7 +13,7 @@
   "source_svg_path": "candidate-evidence/frame-review/lisa-presentation-sent/source.svg",
   "source_svg_sha256": "f1e5c91172996d013cbc65d79039f6e0187d4f5b04029a0b8055cd969a6427de",
   "approved_texts_path": "source/owner-approved-texts.json",
-  "approved_texts_sha256": "efb9c0273de1e6079ecbce42eb08640870a3151546ac5364a0c8588fa0300d59",
+  "approved_texts_sha256": "b29601038dd55c4daa73c143ecb0bfeadc2710dcfe38a2c24c276ddb08a0b79a",
   "button_label_text": "Создать презентацию по справке",
   "mock_phone_status_time_value": "13:40",
   "dynamic_footer": {

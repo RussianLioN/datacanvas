@@ -619,7 +619,7 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
   },
   "positive-lisa-prototype-discoverable-and-downloadable": () => {
     const packageReadme = "docs/product/analysis/presentation-link-lisa-user-journey/README.md";
-    const cleanEntrypoint = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html";
+    const prototypeArchive = "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip";
     const deliveryArchive = "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip";
     const historicalPrefixes = [
       "docs/product/analysis/presentation-link-lisa-user-journey/demo/",
@@ -638,18 +638,21 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     for (const navigationEntry of navigationEntries) {
       const markdown = readText(navigationEntry);
       const linkedPaths = new Set(parseMarkdownLinks(markdown, navigationEntry));
-      for (const requiredPath of [packageReadme, cleanEntrypoint, deliveryArchive]) {
+      for (const requiredPath of [packageReadme, prototypeArchive, deliveryArchive]) {
         if (!linkedPaths.has(requiredPath)) {
           fail(`Lisa prototype route is missing from ${navigationEntry}: ${requiredPath}`);
         }
       }
-      const relativeArchive = path.posix.relative(
+      for (const archivePath of [prototypeArchive, deliveryArchive]) {
+        const relativeArchive = path.posix.relative(
         path.posix.dirname(navigationEntry),
-        deliveryArchive,
-      );
-      if (!markdown.includes(`(${relativeArchive}?raw=true)`)) {
-        fail(`GitHub Lisa delivery archive download link is missing from ${navigationEntry}`);
+          archivePath,
+        );
+        if (!markdown.includes(`(${relativeArchive}?raw=1)`)) {
+          fail(`GitHub Lisa archive download link is missing from ${navigationEntry}: ${archivePath}`);
+        }
       }
+      if (markdown.includes("browser-native-phone-prototype/index.html")) fail(`current Lisa route links HTML source from ${navigationEntry}`);
       for (const historicalPrefix of historicalPrefixes) {
         if ([...linkedPaths].some((linkedPath) => linkedPath.startsWith(historicalPrefix))) {
           fail(`current Lisa route still links historical material from ${navigationEntry}: ${historicalPrefix}`);
@@ -659,11 +662,7 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
 
     const packageMarkdown = readText(packageReadme);
     const packageLinks = new Set(parseMarkdownLinks(packageMarkdown, packageReadme));
-    for (const requiredPath of [cleanEntrypoint]) {
-      if (!packageLinks.has(requiredPath)) {
-        fail(`Lisa prototype package entrypoint is missing: ${requiredPath}`);
-      }
-    }
+    if (packageMarkdown.includes("browser-native-phone-prototype/index.html")) fail("Lisa package README links HTML source instead of the ZIP route");
     for (const historicalPrefix of historicalPrefixes) {
       if ([...packageLinks].some((linkedPath) => linkedPath.startsWith(historicalPrefix))) {
         fail(`Lisa package README still links historical material: ${historicalPrefix}`);
@@ -681,9 +680,8 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
     }
 
-    const archiveIndexEntry = indexByPath.get(deliveryArchive);
-    if (archiveIndexEntry?.format !== "zip") {
-      fail("Lisa delivery archive must be classified as ZIP in the documentation index");
+    for (const archivePath of [prototypeArchive, deliveryArchive]) {
+      if (indexByPath.get(archivePath)?.format !== "zip") fail(`Lisa archive must be classified as ZIP: ${archivePath}`);
     }
 
     const map = readText("docs/navigation/navigation-map.md");

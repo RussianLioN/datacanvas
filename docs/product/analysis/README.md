@@ -13,8 +13,8 @@
 ## Пользовательские пути и интерактивные прототипы
 
 - [Контекст и вход в путь](presentation-link-lisa-user-journey/README.md) — состав чистового прототипа, его состояния и границы данных.
-- [Открыть чистовой браузерный прототип](presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html) — 11 экранов для ООО «Водолей Трейд».
-- [Скачать полный архив поставки](../../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=true) — автономный ZIP с актуальной документацией и чистовым прототипом.
+- [Скачать чистовой браузерный прототип](../../../artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1) — ZIP для локального запуска 11 экранов ООО «Водолей Трейд».
+- [Скачать полный архив поставки](../../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1) — отдельный ZIP с актуальной документацией и чистовым прототипом.
 
 ## Документы
 

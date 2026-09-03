@@ -340,8 +340,15 @@
       "id": "DLT-054",
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
       "sink": "evidence",
-      "data_class": "internal",
+      "data_class": "public",
       "release_gate_contract_path": "docs/release/co-2026-003-prototype-delivery-archive-contract.json"
+    },
+    {
+      "id": "DLT-056",
+      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+      "sink": "evidence",
+      "data_class": "public",
+      "release_gate_contract_path": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json"
     },
     {
       "id": "DLT-055",

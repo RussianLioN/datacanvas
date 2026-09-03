@@ -10,8 +10,8 @@ const ZIP_VERSION_NEEDED = 20;
 const ZIP_VERSION_MADE_BY = 0x0314;
 const ZIP_UTF8_FLAGS = 0x0800;
 const ZIP_STORED_METHOD = 0;
-const ZIP_DOS_TIME = 0;
-const ZIP_DOS_DATE = 0x0021;
+const LEGACY_ZIP_DOS_TIME = 0;
+const LEGACY_ZIP_DOS_DATE = 0x0021;
 const ZIP_EXTERNAL_FILE_ATTRIBUTES = (0o100644 << 16) >>> 0;
 const strictUtf8Decoder = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true });
 
@@ -29,6 +29,51 @@ function crc32(buffer) {
 
 function sha256(buffer) {
   return crypto.createHash("sha256").update(buffer).digest("hex");
+}
+
+function pad(value) {
+  return String(value).padStart(2, "0");
+}
+
+function assertMoscowReleaseTime(value) {
+  if (typeof value !== "string" || !/^20\d{2}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+03:00$/u.test(value)) {
+    throw new Error("время выпуска ZIP должно быть задано в формате Europe/Moscow");
+  }
+  const [date, time] = value.split("T");
+  const [year, month, day] = date.split("-").map(Number);
+  const [hour, minute, second] = time.slice(0, 8).split(":").map(Number);
+  if (
+    year < 1980 || year > 2107 || month < 1 || month > 12 || day < 1 || day > 31 ||
+    hour > 23 || minute > 59 || second > 58 || second % 2 !== 0
+  ) throw new Error("время выпуска ZIP не представимо в DOS-формате");
+  return { year, month, day, hour, minute, second };
+}
+
+export function createMoscowReleaseTimestamp(now = new Date()) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Moscow",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now).filter((part) => part.type !== "literal").map((part) => [part.type, part.value]));
+  const second = Number(parts.second) - (Number(parts.second) % 2);
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${pad(second)}+03:00`;
+}
+
+export function dosTimestampFromMoscowReleaseTime(value) {
+  const { year, month, day, hour, minute, second } = assertMoscowReleaseTime(value);
+  return {
+    dosTime: (hour << 11) | (minute << 5) | (second / 2),
+    dosDate: ((year - 1980) << 9) | (month << 5) | day,
+  };
+}
+
+function legacyTimestamp() {
+  return { dosTime: LEGACY_ZIP_DOS_TIME, dosDate: LEGACY_ZIP_DOS_DATE };
 }
 
 function assertSafeRelativePath(relativePath) {
@@ -117,7 +162,16 @@ export function resolveArchiveMembers(root, contract, chain) {
   return members;
 }
 
-function renderManifest(contract, chain, memberData, candidateFingerprint) {
+function sourceFingerprint(contract, chain, memberData, candidateFingerprint) {
+  return sha256(Buffer.from(JSON.stringify({
+    contract,
+    chain,
+    candidate_fingerprint: candidateFingerprint,
+    entries: memberData.map((entry) => ({ path: entry.path, sha256: sha256(entry.content) })),
+  }), "utf8"));
+}
+
+function renderManifest(contract, chain, memberData, candidateFingerprint, archiveCreatedAt) {
   const manifest = {
     version: contract.version,
     archive_id: contract.archive_id,
@@ -128,12 +182,14 @@ function renderManifest(contract, chain, memberData, candidateFingerprint) {
     contract_fingerprint: sha256(Buffer.from(JSON.stringify(contract), "utf8")),
     source_chain_fingerprint: sha256(Buffer.from(JSON.stringify(chain), "utf8")),
     integrity_algorithm: contract.integrity_algorithm,
+    source_fingerprint: sourceFingerprint(contract, chain, memberData, candidateFingerprint),
     stages: chain.stages.map((stage) => ({ order: stage.order, stage_id: stage.stage_id, name: stage.name })),
     entries: memberData.map(({ content, ...entry }) => ({ ...entry, size: content.length, sha256: sha256(content), media_type: mediaType(entry.path) })),
   };
   if (candidateFingerprint !== null) {
     manifest.candidate_fingerprint = { algorithm: "sha256", sha256: candidateFingerprint };
   }
+  if (archiveCreatedAt !== null) manifest.archive_created_at = archiveCreatedAt;
   return Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
 
@@ -180,7 +236,10 @@ function renderHtml(contract, chain, memberData) {
 <section><h2>Дополнительные материалы</h2><ul>${derivatives}</ul></section></body></html>\n`, "utf8");
 }
 
-export function createStoredZip(entries) {
+export function createStoredZip(entries, { timestamp = legacyTimestamp() } = {}) {
+  if (!timestamp || !Number.isInteger(timestamp.dosTime) || !Number.isInteger(timestamp.dosDate)) {
+    throw new Error("некорректная временная метка ZIP");
+  }
   const localParts = [];
   const centralParts = [];
   let offset = 0;
@@ -193,8 +252,8 @@ export function createStoredZip(entries) {
     local.writeUInt16LE(ZIP_VERSION_NEEDED, 4);
     local.writeUInt16LE(ZIP_UTF8_FLAGS, 6);
     local.writeUInt16LE(ZIP_STORED_METHOD, 8);
-    local.writeUInt16LE(ZIP_DOS_TIME, 10);
-    local.writeUInt16LE(ZIP_DOS_DATE, 12);
+    local.writeUInt16LE(timestamp.dosTime, 10);
+    local.writeUInt16LE(timestamp.dosDate, 12);
     local.writeUInt32LE(checksum, 14);
     local.writeUInt32LE(entry.content.length, 18);
     local.writeUInt32LE(entry.content.length, 22);
@@ -207,8 +266,8 @@ export function createStoredZip(entries) {
     central.writeUInt16LE(ZIP_VERSION_NEEDED, 6);
     central.writeUInt16LE(ZIP_UTF8_FLAGS, 8);
     central.writeUInt16LE(ZIP_STORED_METHOD, 10);
-    central.writeUInt16LE(ZIP_DOS_TIME, 12);
-    central.writeUInt16LE(ZIP_DOS_DATE, 14);
+    central.writeUInt16LE(timestamp.dosTime, 12);
+    central.writeUInt16LE(timestamp.dosDate, 14);
     central.writeUInt32LE(checksum, 16);
     central.writeUInt32LE(entry.content.length, 20);
     central.writeUInt32LE(entry.content.length, 24);
@@ -236,20 +295,49 @@ export function resolveDocumentationArchiveCandidateFingerprint(root, contract) 
   return typeof fingerprint === "string" ? fingerprint : null;
 }
 
-export function buildDocumentationArchive(root, contract, chain) {
+export function resolveDocumentationArchiveSourceFingerprint(root, contract, chain) {
+  const members = resolveArchiveMembers(root, contract, chain);
+  const memberData = members.map((member) => ({ ...member, content: fs.readFileSync(path.join(root, member.path)) }));
+  return sourceFingerprint(contract, chain, memberData, resolveDocumentationArchiveCandidateFingerprint(root, contract));
+}
+
+export function resolveActiveArchiveCreatedAt({ root, contract, chain, currentArchive = null, check = false, now = new Date() }) {
+  if (contract.zip_timestamp_policy !== "release_time_moscow") return null;
+  const expectedFingerprint = resolveDocumentationArchiveSourceFingerprint(root, contract, chain);
+  if (currentArchive !== null) {
+    const { entries, timestamp } = readStoredZipWithMetadata(currentArchive);
+    const manifestBuffer = entries.get("manifest.json");
+    if (manifestBuffer) {
+      const manifest = JSON.parse(manifestBuffer.toString("utf8"));
+      if (typeof manifest.archive_created_at === "string") {
+        const expectedTimestamp = dosTimestampFromMoscowReleaseTime(manifest.archive_created_at);
+        if (timestamp.dosTime !== expectedTimestamp.dosTime || timestamp.dosDate !== expectedTimestamp.dosDate) {
+          throw new Error("временная метка ZIP не совпадает со встроенным манифестом");
+        }
+        if (check || manifest.source_fingerprint === expectedFingerprint) return manifest.archive_created_at;
+      }
+    }
+  }
+  if (check) throw new Error("активный ZIP требует выпуска с датой и временем Europe/Moscow");
+  return createMoscowReleaseTimestamp(now);
+}
+
+export function buildDocumentationArchive(root, contract, chain, { archiveCreatedAt = null } = {}) {
   const members = resolveArchiveMembers(root, contract, chain);
   const memberData = members.map((member) => ({ ...member, content: fs.readFileSync(path.join(root, member.path)) }));
   const candidateFingerprint = resolveDocumentationArchiveCandidateFingerprint(root, contract);
   const entries = [
     { name: "index.html", content: renderHtml(contract, chain, memberData) },
     { name: "README.md", content: renderMarkdown(contract, chain, memberData) },
-    { name: "manifest.json", content: renderManifest(contract, chain, memberData, candidateFingerprint) },
+    { name: "manifest.json", content: renderManifest(contract, chain, memberData, candidateFingerprint, archiveCreatedAt) },
     ...memberData.map((entry) => ({ name: `${contract.archive_root}/${entry.path}`, content: entry.content })),
   ];
-  return createStoredZip(entries);
+  return createStoredZip(entries, {
+    timestamp: archiveCreatedAt === null ? legacyTimestamp() : dosTimestampFromMoscowReleaseTime(archiveCreatedAt),
+  });
 }
 
-export function readStoredZip(buffer) {
+export function readStoredZipWithMetadata(buffer) {
   const requireBytes = (start, length, label) => {
     if (start < 0 || length < 0 || start + length > buffer.length) {
       throw new Error(`повреждена структура ZIP: ${label}`);
@@ -261,6 +349,7 @@ export function readStoredZip(buffer) {
   const entries = new Map();
   const localRecords = new Map();
   const localOrder = [];
+  let archiveTimestamp = null;
   let offset = 0;
   while (offset + 4 <= buffer.length && buffer.readUInt32LE(offset) === ZIP_LOCAL) {
     const localOffset = offset;
@@ -273,8 +362,11 @@ export function readStoredZip(buffer) {
     requireCanonical(versionNeeded === ZIP_VERSION_NEEDED, "версия локальной записи");
     requireCanonical(flags === ZIP_UTF8_FLAGS, "флаги локальной записи");
     if (method !== ZIP_STORED_METHOD) throw new Error("архив использует неподдерживаемое сжатие");
-    requireCanonical(modifiedTime === ZIP_DOS_TIME, "время локальной записи");
-    requireCanonical(modifiedDate === ZIP_DOS_DATE, "дата локальной записи");
+    if (archiveTimestamp === null) archiveTimestamp = { dosTime: modifiedTime, dosDate: modifiedDate };
+    requireCanonical(
+      modifiedTime === archiveTimestamp.dosTime && modifiedDate === archiveTimestamp.dosDate,
+      "единая временная метка локальных записей",
+    );
     const checksum = buffer.readUInt32LE(offset + 14);
     const compressedSize = buffer.readUInt32LE(offset + 18);
     const size = buffer.readUInt32LE(offset + 22);
@@ -299,7 +391,7 @@ export function readStoredZip(buffer) {
     if (crc32(content) !== checksum) throw new Error(`повреждён член ZIP: ${name}`);
     if (entries.has(name)) throw new Error(`дублирующийся член ZIP: ${name}`);
     entries.set(name, Buffer.from(content));
-    const localRecord = { offset: localOffset, name, flags, method, checksum, size };
+    const localRecord = { offset: localOffset, name, flags, method, checksum, size, modifiedTime, modifiedDate };
     localRecords.set(localOffset, localRecord);
     localOrder.push(localRecord);
     offset = contentStart + compressedSize;
@@ -336,8 +428,10 @@ export function readStoredZip(buffer) {
     requireCanonical(versionNeeded === ZIP_VERSION_NEEDED, "версия центральной записи");
     requireCanonical(flags === ZIP_UTF8_FLAGS, "флаги центральной записи");
     requireCanonical(method === ZIP_STORED_METHOD, "метод центральной записи");
-    requireCanonical(modifiedTime === ZIP_DOS_TIME, "время центральной записи");
-    requireCanonical(modifiedDate === ZIP_DOS_DATE, "дата центральной записи");
+    requireCanonical(
+      modifiedTime === archiveTimestamp?.dosTime && modifiedDate === archiveTimestamp?.dosDate,
+      "временная метка центральной записи",
+    );
     requireCanonical(extraLength === 0, "дополнительное поле центральной записи");
     requireCanonical(commentLength === 0, "комментарий центральной записи");
     requireCanonical(diskNumber === 0, "номер диска центральной записи");
@@ -376,7 +470,7 @@ export function readStoredZip(buffer) {
       method !== local.method ||
       checksum !== local.checksum ||
       compressedSize !== local.size ||
-      size !== local.size
+      size !== local.size || modifiedTime !== local.modifiedTime || modifiedDate !== local.modifiedDate
     ) {
       throw new Error(`метаданные центрального каталога не совпадают: ${name}`);
     }
@@ -419,5 +513,19 @@ export function readStoredZip(buffer) {
   ) {
     throw new Error("границы центрального каталога ZIP не совпадают");
   }
-  return entries;
+  let archiveCreatedAt = null;
+  for (const manifestPath of ["archive-manifest.json", "manifest.json"]) {
+    if (!entries.has(manifestPath)) continue;
+    try {
+      archiveCreatedAt = JSON.parse(entries.get(manifestPath).toString("utf8")).archive_created_at ?? null;
+    } catch {
+      archiveCreatedAt = null;
+    }
+    break;
+  }
+  return { entries, timestamp: { ...archiveTimestamp, archive_created_at: archiveCreatedAt } };
+}
+
+export function readStoredZip(buffer) {
+  return readStoredZipWithMetadata(buffer).entries;
 }

@@ -20,6 +20,7 @@ const activeReleaseOutputPaths = Object.freeze([
   `${packagePath}/evidence`,
   "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
 ]);
+const finalPrototypeEvidencePrefix = "candidate-evidence/browser-native-phone-prototype/";
 const textFileExtensions = new Set([".css", ".html", ".js", ".json", ".md", ".mjs", ".txt"]);
 
 const expectedGroupIds = Object.freeze([
@@ -744,7 +745,9 @@ function validateInactiveCandidateBoundary(root) {
 
   for (const releasePath of activeReleaseOutputPaths) {
     for (const filePath of listTextFiles(path.join(root, releasePath))) {
-      if (fs.readFileSync(filePath, "utf8").includes("candidate-evidence/")) {
+      const references = [...fs.readFileSync(filePath, "utf8").matchAll(/candidate-evidence\/[^\s"'`)}\]]+/gu)]
+        .map((match) => match[0]);
+      if (references.some((reference) => !reference.startsWith(finalPrototypeEvidencePrefix))) {
         throw new Error("candidate evidence must not be wired into active release outputs");
       }
     }

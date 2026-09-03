@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import process from "node:process";
 
 const PROTOTYPE_CHECK_COMMANDS = Object.freeze({
   presentation_link_lisa_user_journey: ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"],
@@ -83,7 +84,7 @@ export function assertDocumentationArchiveReleaseGate({ root, contract, readJson
     fail(`неподдерживаемая встроенная проверка прототипа: ${String(gate.prototype_check)}`);
   }
   readRegularFile(root, prototypeCheckCommand[0], "встроенная проверка прототипа");
-  const check = spawnSync("node", prototypeCheckCommand, { cwd: root, encoding: "utf8" });
+  const check = spawnSync(process.execPath, prototypeCheckCommand, { cwd: root, encoding: "utf8" });
   if (check.error) fail(`не удалось запустить встроенную проверку прототипа: ${check.error.message}`);
   if (check.status !== 0) {
     const details = `${check.stdout}${check.stderr}`.trim();

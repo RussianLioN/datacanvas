@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 
-import { buildDocumentationArchive } from "./lib/documentation-archive.mjs";
+import { buildDocumentationArchive, resolveActiveArchiveCreatedAt } from "./lib/documentation-archive.mjs";
 import { assertDocumentationArchiveReleaseGate } from "./lib/documentation-archive-release-gate.mjs";
 
 const DEFAULT_CONTRACT_PATH = "docs/process/universal-documentation-workflow/documentation-archive-contract.json";
@@ -62,11 +62,12 @@ function main() {
   const contract = readJson(root, contractPath, "контракта архива");
   const chain = readJson(root, contract.source_chain_path, "цепочки исходных материалов");
   assertDocumentationArchiveReleaseGate({ root, contract, readJson, readRegularFile });
-  const expected = buildDocumentationArchive(root, contract, chain);
   const outputPath = assertSafeRelativePath(root, contract.output_path, "выходного архива");
+  const current = fs.existsSync(outputPath) ? fs.readFileSync(outputPath) : null;
+  const archiveCreatedAt = resolveActiveArchiveCreatedAt({ root, contract, chain, currentArchive: current, check });
+  const expected = buildDocumentationArchive(root, contract, chain, { archiveCreatedAt });
 
   if (check) {
-    const current = fs.existsSync(outputPath) ? fs.readFileSync(outputPath) : null;
     if (!current || !current.equals(expected)) {
       console.error(`ERROR: архив документации устарел: ${contract.output_path}`);
       console.error("Запустите команду генерации, указанную в договоре архива.");
@@ -77,7 +78,13 @@ function main() {
     return;
   }
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  fs.writeFileSync(outputPath, expected);
+  const temporaryPath = path.join(path.dirname(outputPath), `.${path.basename(outputPath)}.${process.pid}.tmp`);
+  try {
+    fs.writeFileSync(temporaryPath, expected, { flag: "wx" });
+    fs.renameSync(temporaryPath, outputPath);
+  } finally {
+    if (fs.existsSync(temporaryPath)) fs.rmSync(temporaryPath, { force: true });
+  }
   console.log(`архив документации записан: ${contract.output_path}`);
 }
 
