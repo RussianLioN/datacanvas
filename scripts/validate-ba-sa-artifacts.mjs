@@ -270,6 +270,35 @@ export function validateQ4DeliveryProblemClosure({ baSpec, businessRules, saSpec
   requireText(errors.get("ERR-009")?.rollback_signal, /закрыть сеанс.*новый заказ/iu, "ERR-009 must close the session and block a new order");
 }
 
+export function validateQ4RequirementRoleSeparation(baSpec) {
+  const requirements = new Map(baSpec.requirements.map((requirement) => [requirement.requirement_id, requirement.summary]));
+  const summary = (id) => {
+    const value = requirements.get(id);
+    if (typeof value !== "string" || value.length === 0) {
+      throw new Error(`BA spec is missing current requirement role: ${id}`);
+    }
+    return value;
+  };
+
+  const bt015 = summary("BT-015");
+  if (!/заказ/iu.test(bt015) || !/сеанс/iu.test(bt015) || !/пользовател/iu.test(bt015)) {
+    throw new Error("BT-015 must describe receiving and linking the order to the user/session context");
+  }
+
+  const bt016 = summary("BT-016");
+  if (!/Профиль сотрудника|адрес/iu.test(bt016) || !/SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu.test(bt016)) {
+    throw new Error("BT-016 must describe authorized addresses through employee profile for SIGMA and OMEGA");
+  }
+  if (/входн[^.]*пакет/iu.test(bt016)) {
+    throw new Error("BT-016 must not be reused as an input package requirement");
+  }
+
+  const bt017 = summary("BT-017");
+  if (!/недоверенн|недостаточн|непол|небезопасн|неразреш[её]нн/iu.test(bt017)) {
+    throw new Error("BT-017 must describe admissibility checks before order acceptance");
+  }
+}
+
 function validateInterview() {
   const session = validateSchema("schemas/interview-session.schema.json", paths.session);
   const answers = validateSchema("schemas/interview-answer-set.schema.json", paths.answers);
@@ -383,6 +412,11 @@ function validateBaSpec() {
     if (claimById.get(claimId).trust_status !== "confirmed") {
       fail(`Q4 claim must be confirmed: ${claimId}`);
     }
+  }
+  try {
+    validateQ4RequirementRoleSeparation(baSpec);
+  } catch (error) {
+    fail(error.message);
   }
 
   console.log("BA spec validation passed");

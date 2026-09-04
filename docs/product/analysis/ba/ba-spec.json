@@ -199,23 +199,23 @@
   "requirements": [
     {
       "requirement_id": "BT-015",
-      "summary": "Запуск другим агентом получает отдельный прием запроса и проверяемую заявку до входного пакета.",
-      "source_claim_ids": ["BASA-CLM-003"],
-      "acceptance_refs": ["AC-BASA-001"],
+      "summary": "DataCanvas принимает безопасно связанный заказ с пользователем, сеансом и вызывающим агентом до начала подготовки презентации.",
+      "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-012", "BASA-CLM-014"],
+      "acceptance_refs": ["q4_lisa_order"],
       "coverage_status": "covered"
     },
     {
       "requirement_id": "BT-016",
-      "summary": "Запуск другим агентом получает отдельный входной пакет с задачей, источником запроса и параметрами презентации.",
-      "source_claim_ids": ["BASA-CLM-003"],
-      "acceptance_refs": ["AC-BASA-001"],
+      "summary": "Адреса получателей определяются только через сервис «Профиль сотрудника»; для «Справки по клиенту» обязательны SIGMA и OMEGA.",
+      "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-014"],
+      "acceptance_refs": ["q4_profile_delivery"],
       "coverage_status": "covered"
     },
     {
       "requirement_id": "BT-017",
-      "summary": "Недоверенный или недостаточный вход от другого агента останавливается до генерации.",
-      "source_claim_ids": ["BASA-CLM-005"],
-      "acceptance_refs": ["AC-BASA-002"],
+      "summary": "Неполный, неразрешённый или небезопасный заказ останавливается до принятия и не переходит к подготовке презентации.",
+      "source_claim_ids": ["BASA-CLM-005", "BASA-CLM-011"],
+      "acceptance_refs": ["q4_lisa_order"],
       "coverage_status": "covered"
     },
     {

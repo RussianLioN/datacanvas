@@ -72,6 +72,16 @@ test("Q4_2026 BA/SA фиксирует обязательные SIGMA и OMEGA �
   assert.doesNotMatch(text, /доставки PPTX и PDF по допустимому одному или двум контурам/iu);
 });
 
+test("BA-спецификация сохраняет роли BT-015, BT-016 и BT-017 из утверждённых БТ", () => {
+  const requirements = new Map(baSpec.requirements.map((item) => [item.requirement_id, item.summary]));
+
+  assert.match(requirements.get("BT-015"), /заказ|сеанс|пользовател/iu);
+  assert.match(requirements.get("BT-016"), /Профиль сотрудника|адрес/iu);
+  assert.match(requirements.get("BT-016"), /SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu);
+  assert.doesNotMatch(requirements.get("BT-016"), /входн[^.]*пакет/iu);
+  assert.match(requirements.get("BT-017"), /недоверенн|недостаточн|непол/iu);
+});
+
 test("Q4_2026 BA/SA задаёт ровно пять повторов SIGMA через 10 минут в пределах часа", () => {
   const text = JSON.stringify({ baSpec, businessRules, saSpec, stateModel, errorTaxonomy, taskSpec, promptSpec });
 
