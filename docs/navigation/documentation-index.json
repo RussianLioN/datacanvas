@@ -4366,6 +4366,47 @@
       "click_depth": 3
     },
     {
+      "path": "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md",
+      "title": "RCA: Смешение Текущего Выпуска И Исторического Снимка CO-2026-003",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "rca-смешение-текущего-выпуска-и-исторического-снимка-co-2026-003",
+        "симптом",
+        "воспроизведение",
+        "пять-почему",
+        "корневая-причина",
+        "затронутые-границы",
+        "исправление",
+        "отрицательные-проверки",
+        "остаточный-риск"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/knowledge/rca/README.md",
       "title": "RCA",
       "section": "knowledge",
@@ -4403,7 +4444,8 @@
         "docs/knowledge/rca/2026-08-28-stale-xlsx-source-reentry.md",
         "docs/knowledge/rca/2026-09-02-browser-native-phone-prototype-navigation.md",
         "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
-        "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md"
+        "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
+        "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md"
       ],
       "anchors": [
         "rca",
@@ -4610,7 +4652,7 @@
     },
     {
       "path": "docs/plans/co-2026-003-documentation-cascade-remediation-plan.md",
-      "title": "План каскадного обновления документации CO-2026-003",
+      "title": "План каскадного исправления документации CO-2026-003",
       "section": "plans",
       "navigation_domain": "documentation_operations",
       "navigation_group": "governance",
@@ -4629,17 +4671,24 @@
       "artifact_registry_id": null,
       "outgoing_links": [
         "docs/plans/README.md",
-        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
-        "план-каскадного-обновления-документации-co-2026-003",
-        "назначение",
-        "границы",
-        "порядок-выполнения",
-        "условия-следующего-визуального-этапа",
-        "проверяемые-результаты"
+        "план-каскадного-исправления-документации-co-2026-003",
+        "цель",
+        "архитектура-каскада",
+        "общие-ограничения",
+        "задача-1-развести-актуальное-и-историческое-состояния-выпуска",
+        "задача-2-отвязать-архивный-снимок-черновика-от-живого-финального-реестра",
+        "задача-3-перевести-13-кадровый-маршрут-в-исторический-контур",
+        "задача-4-зафиксировать-действующую-область-2026-года-во-всех-потребителях",
+        "задача-5-синхронизировать-бизнесовые-документы-истории-и-диаграммы",
+        "задача-6-довести-системный-анализ-до-обзора-команды",
+        "задача-7-пересобрать-подготовленный-пакет-jira",
+        "задача-8-собрать-один-актуальный-публичный-архив-и-обновить-навигацию",
+        "задача-9-добавить-каскадные-предохранители-и-завершить-валидацию",
+        "передача-результата"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -14870,7 +14919,8 @@
         "правило-источника-истины",
         "дословные-формулировки",
         "исторические-согласованные-тексты-сообщений",
-        "дополнения-владельца-после-интервью-от-2026-08-24"
+        "дополнения-владельца-после-интервью-от-2026-08-24",
+        "дополнение-владельца-от-2026-09-03"
       ],
       "reachable_from_root": true,
       "click_depth": 1
@@ -14930,7 +14980,7 @@
       "outgoing_links": [],
       "anchors": [],
       "reachable_from_root": true,
-      "click_depth": 3
+      "click_depth": 2
     },
     {
       "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
@@ -14952,6 +15002,7 @@
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": null,
       "outgoing_links": [
+        "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
         "docs/README.md",
@@ -15229,15 +15280,18 @@
       "parent_readme": "docs/product/change-orders/README.md",
       "artifact_registry_id": "ART-885",
       "outgoing_links": [
+        "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
         "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
         "docs/product/change-orders/README.md",
         "docs/product/README.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
         "docs/README.md",
         "README.md"
       ],
       "anchors": [
         "реестр-приёмок-и-разрешений-выпуска-co-2026-003",
         "что-уже-разрешено",
+        "готовность-документации",
         "что-остаётся-открытым",
         "правило-использования"
       ],
@@ -16516,8 +16570,8 @@
       "artifact_registry_id": null,
       "outgoing_links": [],
       "anchors": [],
-      "reachable_from_root": false,
-      "click_depth": null
+      "reachable_from_root": true,
+      "click_depth": 2
     },
     {
       "path": "docs/product/sources/co-2026-003-current-2026-scope.md",
@@ -41075,14 +41129,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1402,
-    "manual_entries": 1390,
+    "total_entries": 1403,
+    "manual_entries": 1391,
     "generated_entries": 12,
     "public_navigable_entries": 37,
-    "searchable_entries": 1273,
+    "searchable_entries": 1274,
     "confidential_or_sensitive_entries": 31,
     "unclassified_entries": 2,
-    "reachable_from_root": 264,
+    "reachable_from_root": 266,
     "orphan_entries": 3
   },
   "ignored_paths": [
