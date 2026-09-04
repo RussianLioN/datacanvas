@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-09-04T13:17:51+03:00",
+  "updated_at": "2026-09-04T14:19:24+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -153,6 +153,33 @@
         "scripts/validate-co-2026-003-release-state.mjs"
       ],
       "notes": "Единый реестр отделяет принятие черновика для документационного каскада от права на чистовой выпуск. Он фиксирует явное разрешение владельца на публичное размещение согласованных демонстрационных данных и визуальных производных, сохраняет запрет на исходные внешние PDF и блокирует выпуск, пока не приняты варианты презентаций и не выбран текст полной непоставки."
+    },
+    {
+      "source_id": "SRC-DC-CO-2026-003-BT-AMENDMENT",
+      "path": "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+      "source_role": "accepted_product_decision",
+      "owner_role": "Product Owner",
+      "lifecycle": "accepted",
+      "trust_level": "accepted_current",
+      "effective_date": "2026-09-04",
+      "upstream_decision": "CO-2026-003",
+      "allowed_downstream_use": [
+        "business_requirements_delta",
+        "approved_text_trace",
+        "current_delivery_scope",
+        "documentation_cascade"
+      ],
+      "affected_artifacts": [
+        "docs/product/requirements/business-requirements.md",
+        "docs/product/requirements/acceptance-criteria.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/requirements/user-story-decomposition-map.json",
+        "docs/product/requirements/business-claim-map.json",
+        "docs/architecture/system-analysis/srs-v0.1.md",
+        "docs/architecture/system-analysis/srs-v0.1.json",
+        "docs/architecture/system-analysis/sa-spec.json"
+      ],
+      "notes": "Принятое дополнение к бизнес-требованиям CO-2026-003: фиксирует текущую границу 2026 года, ответственность DataCanvas и агента «Справка по клиенту», доставку PPTX и PDF в SIGMA и OMEGA, пять повторов IRM в SIGMA и дословные тексты статусов доставки."
     },
     {
       "source_id": "SRC-DC-CO-2026-003-OWNER-APPROVED-TEXTS",

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "change_order_id": "CO-2026-003",
-  "status": "owner_approved",
+  "status": "candidate_pending_owner_review",
   "source_document_path": "docs/product/requirements/user-stories.md",
   "renderer": {
     "name": "PlantUML",
@@ -16,7 +16,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-009-01.svg",
       "svg_sha256": "eeb69c0070c995962bab88da423d31847adf53f81fb76aa197d1fc5fa6282ab9",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-009-01.png",
-      "png_sha256": "0ce08c5d866202d0bf366768bc945b6e2c3ae856e2b9f55af70cc01d5bd84fcc"
+      "png_sha256": "ca109e7ccd5939a0c4fcce12674ec2fd5305227befa3d89a548edf8601730e5c"
     },
     {
       "story_id": "US-023-01",
@@ -36,7 +36,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-023-02.svg",
       "svg_sha256": "13e7ff936df855e354d892ca91b09c6eb86048b3eb6edee70193301e39c575ae",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-023-02.png",
-      "png_sha256": "8da03e24db5317ad347656594d2f79a629b8c92c0b1c68ab9c2f2db6969057df"
+      "png_sha256": "0b139cb311e0298221474c1e2bc955b57eaf8473fe39bd93ae36cc3190e55512"
     },
     {
       "story_id": "US-023-03",
@@ -56,7 +56,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-01.svg",
       "svg_sha256": "b216aad8ef6228646c803929ba00a9e7148c3e2ca35d84ad60e801bdb2c988cd",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-01.png",
-      "png_sha256": "b07aa7404bf2169c4b5a7b831da385ad32ef6bbf22bc9d3a928266ca0c3fff48"
+      "png_sha256": "296e7af9ff666783c7bf57039e3c71dc834ff2df6739144648761ce1b8778728"
     },
     {
       "story_id": "US-024-02",
@@ -66,7 +66,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-024-02.svg",
       "svg_sha256": "f14df498655c1da5a3606d71dcffc47f0af2a3f227cde3e19cb966349c7d989a",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-024-02.png",
-      "png_sha256": "e4ec6f728d75fd1434fbaac042dab83464ddae2ba212a17deddca6178ccb4865"
+      "png_sha256": "7a486f48a42e6167b20c91fd6955fe5d3ca767bd2b6537293a7038295d595970"
     },
     {
       "story_id": "US-025-01",
@@ -86,7 +86,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-025-02.svg",
       "svg_sha256": "b43a0614a7c8bccbe822c73804e8214d2ecde6dfeb0293f4564aed43686b2bce",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-025-02.png",
-      "png_sha256": "bd07ff2be2a427177553ce605a66d0084c0d469e3aa8714d1f2dc3435fde467f"
+      "png_sha256": "6467094041047f94f043d60b4ff823a234a7f11c3ef3e925aa27ee9870f9369d"
     },
     {
       "story_id": "US-026-01",
@@ -96,7 +96,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-01.svg",
       "svg_sha256": "760b5f578d10e049dbfb7424ba816a46a1dbe0d1abcc648462291bb789306447",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-01.png",
-      "png_sha256": "9e24b152eb44a6fd6019362fb939c272a13105509f8ab4f56037114d5fd680d4"
+      "png_sha256": "6469d303a69e890a081d68ab0b508545159de6bda3a8b2b4dab80d13148c9d0a"
     },
     {
       "story_id": "US-026-02",
@@ -106,7 +106,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-02.svg",
       "svg_sha256": "139dd1fe4792b563a07477b0ab29b284ddbb325e40fc867c4fdbb8a1f6947267",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-02.png",
-      "png_sha256": "80925461b3c0f5a1ee3862e1170a119123b5ffa047073b7ef11962aa581b069e"
+      "png_sha256": "2a06eadbc9337317d812cd63f9697c9ae758e54dbd71257d6071c7bc33a1c5cc"
     },
     {
       "story_id": "US-026-03",
@@ -116,7 +116,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-026-03.svg",
       "svg_sha256": "2c45ea4132f52b2e54cd69193753f18987f71bfa1375c29d1466248026459894",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-026-03.png",
-      "png_sha256": "3198e7024d61920e31169318d0379978252b28f527a503db4d8ceb50133f3d70"
+      "png_sha256": "b4cbd0c94ce0ee181ff118e298f074fdca7db507c02df8b41bd8f8b58453c3d1"
     },
     {
       "story_id": "US-027-01",
@@ -126,17 +126,17 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-01.svg",
       "svg_sha256": "d53bc1e2dcd6ab71baa64ec9aac1095822d8fb701f67c7c91da60622670d0124",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-01.png",
-      "png_sha256": "ca70c7c90b3492cef97c5f270851469ad854550d8e641cfee3f98ff0912c7320"
+      "png_sha256": "37a45a670bb27ee4a61a5d552443e421ad29050e52c04bdef17e43022b55f67f"
     },
     {
       "story_id": "US-027-02",
       "title": "Сообщение о задержке и успехе после повтора",
       "puml_path": "docs/product/requirements/sequence-diagrams/us-027-02.puml",
-      "puml_sha256": "b74fcdf4900efd6eb7d67860d8af9eae22cc805bdebc487a7c3e3143af58bdb3",
+      "puml_sha256": "574c99b9be5a71debfe49f5c8b324810f9715f2a9a6b832f6173f17ec97ce9ac",
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-02.svg",
-      "svg_sha256": "716094875392c979f96e22b4ddc89f64cf608fbfa454d18caeb19d9c82a5acd7",
+      "svg_sha256": "a4410b8f7249eeb68d16b7329c74ce5b798fc2cce0ddecc2840218dc3c905c48",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-02.png",
-      "png_sha256": "d54a7ed801d03adbbc741c081db3bddc4c6b09e7fcdf4f6108df734d918141a9"
+      "png_sha256": "7af0cf5435ef206a5880296f4752099931c0c9201a9447ae7906215695bcad04"
     },
     {
       "story_id": "US-027-03",
@@ -146,7 +146,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-027-03.svg",
       "svg_sha256": "bb03fd8f8ef594c3a71a39917cb71b464ade262ce0c0737a7fb668ac75adaf93",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-027-03.png",
-      "png_sha256": "d01312151c6368c1756ab387cf981c23c019cb7c9dc5b3c055198dfd1caa17cb"
+      "png_sha256": "96deab2226d771e6387a3c79abad58c2b13ef4e96c185944073289e8cd5cc2e5"
     },
     {
       "story_id": "US-028-01",
@@ -166,7 +166,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-028-02.svg",
       "svg_sha256": "ec63944351393c6baaf019f91c51b5f91c98b24a4ea09b5182bb2fd77ba8ef88",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-028-02.png",
-      "png_sha256": "0e9d17619dd5f7f78a626911c65b5d353b69587232ff3cd0f4743f59cd6848b7"
+      "png_sha256": "d8f5fa747cb5b1f3f83eeda4b44a8d9031b79bdb818adb696db16923fdb72acc"
     },
     {
       "story_id": "US-029-01",
@@ -176,7 +176,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-01.svg",
       "svg_sha256": "36994ca50629c02c9fdff0500740a685cd018b3ac5a68bb9f50a276a5dce2610",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-01.png",
-      "png_sha256": "a1eca0c46fc04dcb6ed6c7d714f4226a573517dc4101693806eadfee5381ff52"
+      "png_sha256": "43626327f50f717722ce7f9c36430f0a81f907153cfc317d281ec390a6feb0ed"
     },
     {
       "story_id": "US-029-02",
@@ -186,7 +186,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-02.svg",
       "svg_sha256": "70dd237cdbeceefeb0764d29db6280d85e972c4e6bd9d34ce2618624833d7a4c",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-02.png",
-      "png_sha256": "b3232015c1c2edc783b40bd15edd1499a79861d0dfdc7cc06d62040b521e97aa"
+      "png_sha256": "c34802a1aff1d8be343ede127a76b1d089d9808587ef088c35ec51137442dbc2"
     },
     {
       "story_id": "US-029-03",
@@ -196,7 +196,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-029-03.svg",
       "svg_sha256": "0d017079216346789b2a5d73a5134ee92784ee4455061fee838a2f1d2171e491",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-029-03.png",
-      "png_sha256": "b37d8306e03f58d937686ef774b82d8869ea7afd710126939d1d81f48da505a6"
+      "png_sha256": "01f2fe95b6c128da75d168c29730e2467dbd09f60864f86ff4f8c0f65b71b6e1"
     },
     {
       "story_id": "US-030-01",
@@ -206,7 +206,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-01.svg",
       "svg_sha256": "9e4ea1d02c163fd9ec994b1b9c2dbbbb569b13968f3539cd302ace3aef8f9588",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-01.png",
-      "png_sha256": "e06df475ec825ff35834936f574f2fe2de40fef0adb8553cada5d912acea72f4"
+      "png_sha256": "1018852ef226415549a8f9c712876063535f87dddffbd3a86823784ef82e2cd1"
     },
     {
       "story_id": "US-030-02",
@@ -216,17 +216,17 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-02.svg",
       "svg_sha256": "500f9f03c4e6a58ea575c134b66d2b6ddc1ffefbcd48e78b6742a446712fd1b8",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-02.png",
-      "png_sha256": "6f7e5ea72d40a74eca215bcd596053a7ad10f50ed5d37667a1ba776b7ff07e6a"
+      "png_sha256": "d2f2c59d928d8eb23bcec24e9d98b64d55203c31743b2acf07bdf63a731eb1a6"
     },
     {
       "story_id": "US-030-03",
       "title": "Повторные попытки IRM для SIGMA",
       "puml_path": "docs/product/requirements/sequence-diagrams/us-030-03.puml",
-      "puml_sha256": "04a2f366c49e70d43292e4ab09260e38b8462ea5c4e58588d1cc340e619137b8",
+      "puml_sha256": "d734d6695cad01f73d67af6d67a41e727fcef0493c0e76066f360ba1bda69aac",
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-03.svg",
-      "svg_sha256": "6556205d57011a560eabb37ef243d6238eb12a0ecfa3dceba95486b77cee7615",
+      "svg_sha256": "30cb8330cd53f9d57525bc31d2e667e73b2df44f9cd8083c0fca37fa8b6bf918",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-03.png",
-      "png_sha256": "ef22904a8839477ae05505f7049a2a5e50339f1b4f7abd3ebdde064440e4584d"
+      "png_sha256": "9c42378dae0c5083ee6ebecbb1c095f45ac97965f491384797892bfc39b6093a"
     },
     {
       "story_id": "US-030-04",
@@ -236,7 +236,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-04.svg",
       "svg_sha256": "83ac5972479448c024924b7e848bdfa70543ac0bb304fccd2598c3036fd14672",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-04.png",
-      "png_sha256": "2a8153f9b8cc199561c909f1373371ff9fc11b05866c92b618a3abdc9d638871"
+      "png_sha256": "e4efa73abc7097dedcef667ad0d8f22e2127aec9d97ca5b511dbab2c5ff76760"
     },
     {
       "story_id": "US-030-05",
@@ -246,7 +246,7 @@
       "svg_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/svg/us-030-05.svg",
       "svg_sha256": "054e583b12354940f3ef48f238d1652d4430dfcb847849a9777e45e1336fca16",
       "png_path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/png/us-030-05.png",
-      "png_sha256": "5bd1d1105e0da1b47face31de3c7f6c3e62ee578fc0c2eba9d9884364a9a1009"
+      "png_sha256": "024123962b25b491f8774018243b74b4b0cb83df466d55f9178f7cae63736295"
     }
   ]
 }

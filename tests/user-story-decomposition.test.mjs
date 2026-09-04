@@ -9,7 +9,7 @@ import {
   validateStoryDecomposition,
 } from "../scripts/validate-user-story-decomposition.mjs";
 
-test("принятая детализация хранит сценарии в действующем едином документе", () => {
+test("принятая детализация хранит сценарии в действующем едином документе, а изменённые диаграммы ожидают отдельной приёмки", () => {
   const decomposition = loadStoryDecomposition();
 
   assert.equal(
@@ -25,7 +25,7 @@ test("принятая детализация хранит сценарии в �
   );
   assert.ok(
     decomposition.child_stories.every(
-      (story) => story.sequence_diagram_status === "owner_approved",
+      (story) => story.sequence_diagram_status === "candidate_pending_owner_review",
     ),
   );
   assert.ok(

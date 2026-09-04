@@ -4,7 +4,10 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 
-import { validateUserStorySequenceDiagrams } from "../scripts/render-user-story-sequence-diagrams.mjs";
+import {
+  validateUserStorySequenceDiagrams,
+  waitForRenderedFile,
+} from "../scripts/render-user-story-sequence-diagrams.mjs";
 
 const root = process.cwd();
 const mapPath = "docs/product/requirements/user-story-decomposition-map.json";
@@ -12,20 +15,53 @@ const sourceDirectory = "docs/product/requirements/sequence-diagrams";
 const artifactDirectory = "artifacts/evidence/co-2026-003/user-story-sequence-diagrams";
 const overviewPath = `${sourceDirectory}/README.md`;
 
-test("принятый набор содержит диаграммы для всех принятых детализированных историй", () => {
+test("рендерер ждёт завершения PlantUML, а не первого неполного заголовка PNG", async () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-sequence-render-"));
+  const outputPath = path.join(temporaryRoot, "diagram.png");
+  const writerPath = path.join(temporaryRoot, "slow-png-writer.mjs");
+  const pngSignature = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+
+  try {
+    fs.writeFileSync(
+      writerPath,
+      [
+        'import fs from "node:fs";',
+        'const [outputPath] = process.argv.slice(2);',
+        `fs.writeFileSync(outputPath, Buffer.from([${[...pngSignature].join(", ")}]))`,
+        'setTimeout(() => { fs.appendFileSync(outputPath, "COMPLETE"); }, 180);',
+        'setTimeout(() => { process.exit(0); }, 220);',
+      ].join("\n"),
+      "utf8",
+    );
+
+    await waitForRenderedFile(
+      process.execPath,
+      [writerPath, outputPath],
+      outputPath,
+      "TEST-PARTIAL-PNG",
+      (filePath) => fs.existsSync(filePath) && fs.readFileSync(filePath).subarray(0, pngSignature.length).equals(pngSignature),
+    );
+
+    assert.equal(fs.readFileSync(outputPath, "utf8").endsWith("COMPLETE"), true);
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("черновой набор содержит диаграммы для всех принятых детализированных историй", () => {
   validateUserStorySequenceDiagrams();
   const decomposition = JSON.parse(fs.readFileSync(path.join(root, mapPath), "utf8"));
   const manifest = JSON.parse(fs.readFileSync(path.join(root, artifactDirectory, "manifest.json"), "utf8"));
-  assert.ok(decomposition.child_stories.every((story) => story.sequence_diagram_status === "owner_approved"));
-  assert.equal(manifest.status, "owner_approved");
+  assert.ok(decomposition.child_stories.every((story) => story.sequence_diagram_status === "candidate_pending_owner_review"));
+  assert.equal(manifest.status, "candidate_pending_owner_review");
 });
 
-test("GitHub-обзор связывает каждый принятый сценарий с исходником и рендерами", () => {
+test("GitHub-обзор связывает каждый сценарий, ожидающий приёмки диаграммы, с исходником и рендерами", () => {
   const decomposition = JSON.parse(fs.readFileSync(path.join(root, mapPath), "utf8"));
   const overview = fs.readFileSync(path.join(root, overviewPath), "utf8");
 
   assert.match(overview, /Диаграммы последовательности пользовательских историй 2026/u);
-  assert.match(overview, /принятый набор/ui);
+  assert.match(overview, /черновой набор для отдельной приёмки/ui);
   assert.match(overview, /manifest\.json/u);
   for (const story of decomposition.child_stories) {
     assert.match(overview, new RegExp(story.child_story_id));

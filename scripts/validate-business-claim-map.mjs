@@ -102,10 +102,24 @@ try {
     (claim) => claim.claim_id === "BCLM-CO-2026-003-CURRENT-2026-SCOPE",
   );
   if (
-    currentScopeClaim.precedence_source_id !== "SRC-DC-BACKLOG-DRAFT-PSHE-2026-08-19" ||
+    currentScopeClaim.precedence_source_id !== "SRC-DC-CO-2026-003-BT-AMENDMENT" ||
+    !currentScopeClaim.supporting_source_ids.includes("SRC-DC-CO-2026-003-OWNER-APPROVED-TEXTS") ||
     !currentScopeClaim.supersedes_claim_ids.includes("BCLM-CO-2026-002-P2-LINK-DELIVERY")
   ) {
-    throw new Error("current 2026 scope claim must replace the historical P2 link-delivery claim");
+    throw new Error("current 2026 scope claim must use the BT amendment, owner-approved texts and replace the historical P2 link-delivery claim");
+  }
+  const requiredCurrentScopeFragments = [
+    "SIGMA",
+    "OMEGA",
+    "PPTX",
+    "PDF",
+    "пять повторов",
+    "Хранение результата, передача ссылки и уведомление по ссылке остаются за пределами периода",
+  ];
+  for (const fragment of requiredCurrentScopeFragments) {
+    if (!currentScopeClaim.statement.includes(fragment)) {
+      throw new Error(`current 2026 scope claim statement is missing: ${fragment}`);
+    }
   }
 
   console.log("business claim map validation passed");

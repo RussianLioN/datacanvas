@@ -167,34 +167,32 @@ function writeManifest(root, stories, renderer, status) {
   fs.writeFileSync(path.join(root, manifestPath), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
 }
 
-function waitForRenderedFile(command, args, outputFile, storyId, isComplete) {
+export function waitForRenderedFile(command, args, outputFile, storyId, isComplete) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: ["ignore", "ignore", "pipe"] });
     let stderr = "";
     let completed = false;
+    let timeout;
     const stop = (callback) => {
       if (completed) return;
       completed = true;
-      clearInterval(poll);
-      clearTimeout(timeout);
+      if (timeout) clearTimeout(timeout);
       callback();
     };
     const rejectWith = (message) => stop(() => reject(new Error(`${storyId}: ${message}${stderr ? ` (${stderr.trim()})` : ""}`)));
     child.stderr.on("data", (chunk) => { stderr += chunk.toString("utf8"); });
     child.on("error", (error) => rejectWith(`не удалось запустить PlantUML: ${error.message}`));
     child.on("close", (code) => {
-      if (!completed && !isComplete(outputFile)) {
-        rejectWith(`PlantUML завершился до создания файла, код ${code}`);
+      if (completed) return;
+      if (code !== 0) {
+        rejectWith(`PlantUML завершился с кодом ${code}`);
+      } else if (!isComplete(outputFile)) {
+        rejectWith("PlantUML завершился без корректного файла");
+      } else {
+        stop(resolve);
       }
     });
-    const poll = setInterval(() => {
-      if (!isComplete(outputFile)) return;
-      stop(() => {
-        child.kill("SIGTERM");
-        resolve();
-      });
-    }, 100);
-    const timeout = setTimeout(() => {
+    timeout = setTimeout(() => {
       child.kill("SIGTERM");
       rejectWith("PlantUML не создал файл за 30 секунд");
     }, 30_000);

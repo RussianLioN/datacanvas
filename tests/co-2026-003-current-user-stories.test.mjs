@@ -17,6 +17,15 @@ const expectedStories = [
   ["DC-ST-30", "P2"],
 ];
 
+const approvedDeliveryTexts = {
+  delay:
+    "Отправка презентации в SIGMA задерживается. В течение часа будут выполнены повторные попытки. Сообщу здесь, если отправка будет подтверждена.",
+  retrySuccess:
+    "Презентация готова и направлена по электронной почте в SIGMA в ЧЧ:ММ.",
+  fullFailure:
+    "Презентация сформирована, но отправка по электронной почте в SIGMA и OMEGA не подтверждена. Задача передана в сопровождение.",
+};
+
 function read(relativePath) {
   return fs.readFileSync(path.join(root, relativePath), "utf8");
 }
@@ -78,4 +87,24 @@ test("CO-2026-003 не оставляет в актуальной трассир
     [...new Set(tracedIds.filter((storyId) => !activeIds.has(storyId)))],
     [],
   );
+});
+
+test("CO-2026-003 дословно проводит утверждённые тексты доставки в активные истории и критерии приёмки", () => {
+  const userStories = read("docs/product/requirements/user-stories.md");
+  const acceptanceCriteria = read("docs/product/requirements/acceptance-criteria.md");
+  const diagramSources = [
+    "docs/product/requirements/sequence-diagrams/us-027-02.puml",
+    "docs/product/requirements/sequence-diagrams/us-030-03.puml",
+    "docs/product/requirements/sequence-diagrams/us-030-04.puml",
+    "docs/product/requirements/sequence-diagrams/us-030-05.puml",
+  ]
+    .map(read)
+    .join("\n");
+
+  for (const [label, text] of Object.entries(approvedDeliveryTexts)) {
+    const exactText = new RegExp(text.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"), "u");
+    assert.match(userStories, exactText, `${label}: user stories`);
+    assert.match(acceptanceCriteria, exactText, `${label}: acceptance criteria`);
+    assert.match(diagramSources, exactText, `${label}: sequence diagrams`);
+  }
 });
