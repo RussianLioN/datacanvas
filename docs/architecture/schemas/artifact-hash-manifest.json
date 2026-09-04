@@ -1682,7 +1682,7 @@
     {
       "artifact_id": "ART-337",
       "path": "schemas/bmc-derived-manifest.schema.json",
-      "sha256": "2279077080646ce31d4bbd985b91488a1508fcc6c1e9a4922ad06ccc8295efcf"
+      "sha256": "c8fec31ddc9cb9c66d0ceffa427fd414994a9f092c150a263ed3994dcf88b7d1"
     },
     {
       "artifact_id": "ART-338",
@@ -1867,7 +1867,7 @@
     {
       "artifact_id": "ART-374",
       "path": "schemas/bmc-validation-needs.schema.json",
-      "sha256": "bd9f01851d7f38ba088d8b916838a1b06b8c32bba972d44c0438cb8bfbbcb6a7"
+      "sha256": "2981e1bd93def58d46840ffd6ecf450f1df4df0b79e9fccb3c4b41eba95956ef"
     },
     {
       "artifact_id": "ART-375",
@@ -1882,17 +1882,17 @@
     {
       "artifact_id": "ART-377",
       "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
-      "sha256": "3ed3006d3724af83b4bb51cd5c64dbe47f98880fbaebeb14af32f46d2776be12"
+      "sha256": "d92cfcaf5c714fbece0055500676e6a11487fcef8b0472a2fbf9dac0a04283fa"
     },
     {
       "artifact_id": "ART-378",
       "path": "schemas/bmc-visual-acceptance.schema.json",
-      "sha256": "c144f8257aea4aa8b083a54506f44bab23e96467e27a28cab19299380ba399c1"
+      "sha256": "eeae1a15a98fd23ab07db14af5004f92cbd4a195d39ad94950abed040f06fb88"
     },
     {
       "artifact_id": "ART-379",
       "path": "schemas/bmc-package-manifest.schema.json",
-      "sha256": "ec73477f39ba755c75b61a398351905110a8f898ea4abb8f758ce3cd1c45c627"
+      "sha256": "db23dc783f05b29ebf457e5ff9d2764b2a82daee47d83014d6fccff0d9043829"
     },
     {
       "artifact_id": "ART-380",
@@ -1957,7 +1957,7 @@
     {
       "artifact_id": "ART-392",
       "path": "scripts/validate-bmc-package.mjs",
-      "sha256": "f41fa2bb724e2fbfe8cc6ccc488b7d5dc232768c701730dbccc1d41a03713186"
+      "sha256": "c1e4ad11b14e91d3fc6e6ef7f4c1952380e1f723d60009d3653a82c5d9437089"
     },
     {
       "artifact_id": "ART-393",
@@ -2047,7 +2047,7 @@
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "a4720ed855faf66f7af857f2f8c30666696d2b4bb3c042a553196328365bf27e"
+      "sha256": "b004b8e6f19b4cfc7116df5f64acabb738b923f9e062e3ab70ff35496538c233"
     },
     {
       "artifact_id": "ART-411",
@@ -2327,7 +2327,7 @@
     {
       "artifact_id": "ART-466",
       "path": "scripts/validate-ba-sa-artifacts.mjs",
-      "sha256": "4e158d28a4b84b5de17aa10b5b8af6760f2f0592efca20a0e303e406ee8a5bc7"
+      "sha256": "759b07ee20bdad2768bc7a4c62dae0e6b0b711617d10cc42d8050265e240d915"
     },
     {
       "artifact_id": "ART-467",
@@ -2382,7 +2382,7 @@
     {
       "artifact_id": "ART-477",
       "path": "docs/product/analysis/ba/ba-spec.json",
-      "sha256": "8469bec6ae9ec6d1788734860a693934330fb182846e6be53a49bf82bc557d29"
+      "sha256": "5d524edab8b1540e60948bd91eaf91ffe831123f525be360230fabfbc804a5d6"
     },
     {
       "artifact_id": "ART-478",
@@ -2417,7 +2417,7 @@
     {
       "artifact_id": "ART-484",
       "path": "docs/product/analysis/ba/business-requirements-delta.md",
-      "sha256": "f1ca901a5b0f88ac5d288c88537d122fc575adf06e4f4aaa9f66cc84f0722e49"
+      "sha256": "c44bbb987453493875e2aa85ca5809af5f84d7400ccb7b3bc981878265c442a9"
     },
     {
       "artifact_id": "ART-485",
@@ -4477,7 +4477,7 @@
     {
       "artifact_id": "ART-897",
       "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
-      "sha256": "42273c40f74bae065e49b6861aaca7c110bc266c09a342f56276ba3d588f2520"
+      "sha256": "a7bb4995fac8fa29b460e15de044cd2387a91f90828fb03108805cb4bee4ac19"
     },
     {
       "artifact_id": "ART-898",
@@ -4487,7 +4487,7 @@
     {
       "artifact_id": "ART-899",
       "path": "tests/bmc-evidence-honesty.test.mjs",
-      "sha256": "32158e21e7bd75080be14ae6f70bd07c49b6e0582c96bee35253b7191aa7fced"
+      "sha256": "14a8a4833dcecf4c3fb4aceb40575326c3b3c52fa0852f23fa0a2a48af9eb7ee"
     }
   ],
   "exclusions": [
