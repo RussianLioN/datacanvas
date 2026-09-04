@@ -40,6 +40,8 @@ function fail(message) {
 }
 
 function requiresLiveCurrentExcerpt(edit) {
+  // Применённая правка хранит исторический срез; актуальность живого документа
+  // подтверждают профильные валидаторы соответствующего артефакта.
   return edit.apply_status !== "applied";
 }
 
@@ -74,11 +76,13 @@ try {
   }
 
   const editIds = new Set();
+  const editById = new Map();
   for (const edit of changeSet.proposed_edits) {
     if (editIds.has(edit.edit_id)) {
       throw new Error(`duplicate edit_id: ${edit.edit_id}`);
     }
     editIds.add(edit.edit_id);
+    editById.set(edit.edit_id, edit);
     requireFile(edit.artifact_path);
     for (const downstreamPath of edit.downstream_paths) {
       requireFile(downstreamPath);
@@ -95,11 +99,33 @@ try {
     if (edit.acceptance_record_id && !acceptanceById.has(edit.acceptance_record_id)) {
       throw new Error(`edit references missing acceptance record: ${edit.edit_id}/${edit.acceptance_record_id}`);
     }
+    if (
+      edit.acceptance_record_id &&
+      !acceptanceById.get(edit.acceptance_record_id).related_edit_ids.includes(edit.edit_id)
+    ) {
+      throw new Error(`acceptance record does not confirm edit: ${edit.edit_id}/${edit.acceptance_record_id}`);
+    }
     if (edit.approval_status === "approved" && !edit.acceptance_record_id) {
       throw new Error(`approved edit must reference acceptance record: ${edit.edit_id}`);
     }
     if (edit.change_kind === "no_change_rationale" && edit.approval_status !== "not_required") {
       throw new Error(`no_change_rationale edit must be not_required: ${edit.edit_id}`);
+    }
+  }
+
+  for (const acceptanceRecord of acceptanceById.values()) {
+    for (const relatedEditId of acceptanceRecord.related_edit_ids) {
+      const relatedEdit = editById.get(relatedEditId);
+      if (!relatedEdit) {
+        throw new Error(
+          `acceptance record references missing edit: ${acceptanceRecord.acceptance_id}/${relatedEditId}`,
+        );
+      }
+      if (relatedEdit.acceptance_record_id !== acceptanceRecord.acceptance_id) {
+        throw new Error(
+          `acceptance record does not match edit: ${acceptanceRecord.acceptance_id}/${relatedEditId}`,
+        );
+      }
     }
   }
 

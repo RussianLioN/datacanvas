@@ -3082,7 +3082,7 @@
     {
       "artifact_id": "ART-617",
       "path": "scripts/validate-change-set-approval.mjs",
-      "sha256": "042febe82d971eba3328b82df28e4b656d1f4fddbb3af74fd7a23d7973541ea9"
+      "sha256": "fee1915d56b17b77155bbc9e64c6afba987e78afd4297e42b938e86ab9513cf8"
     },
     {
       "artifact_id": "ART-618",
