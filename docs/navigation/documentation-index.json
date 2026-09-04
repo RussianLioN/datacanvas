@@ -125,32 +125,6 @@
       "click_depth": 3
     },
     {
-      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
-      "title": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
-      "section": "root",
-      "navigation_domain": "documentation_operations",
-      "navigation_group": "governance",
-      "format": "zip",
-      "owner_role": "Documentation Owner",
-      "lifecycle": "generated",
-      "status": "generated",
-      "data_class": "confidential",
-      "visibility": "restricted",
-      "searchable": false,
-      "navigable": false,
-      "generated": true,
-      "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
-      "generated_from": [
-        "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json"
-      ],
-      "parent_readme": "artifacts/README.md",
-      "artifact_registry_id": "ART-896",
-      "outgoing_links": [],
-      "anchors": [],
-      "reachable_from_root": true,
-      "click_depth": 1
-    },
-    {
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
       "title": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
       "section": "root",
@@ -10308,6 +10282,7 @@
       "parent_readme": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
       "artifact_registry_id": "ART-891",
       "outgoing_links": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/series-manifest.json",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
@@ -10315,8 +10290,7 @@
         "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/iphone-12-pro-max-geometry.svg",
         "docs/product/analysis/README.md",
         "docs/product/README.md",
-        "docs/README.md",
-        "docs/release/co-2026-003-browser-native-phone-prototype-download.md"
+        "docs/README.md"
       ],
       "anchors": [
         "браузерный-прототип-заказа-презентации-из-агента-справка-по-клиенту",
@@ -12149,6 +12123,7 @@
       "parent_readme": "docs/product/analysis/README.md",
       "artifact_registry_id": "ART-835",
       "outgoing_links": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
@@ -12162,7 +12137,6 @@
         "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/product/README.md",
         "docs/README.md",
-        "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
         "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "README.md"
@@ -13648,7 +13622,6 @@
       "parent_readme": "docs/product/README.md",
       "artifact_registry_id": "ART-476",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
         "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
@@ -16003,7 +15976,6 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-401",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/architecture/system-analysis/README.md",
         "docs/process/current/process-backlog.md",
@@ -18326,7 +18298,6 @@
       "parent_readme": "README.md",
       "artifact_registry_id": "ART-399",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
         "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
@@ -18401,35 +18372,34 @@
     },
     {
       "path": "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
-      "title": "Скачать браузерный прототип заказа презентации",
+      "title": "Исторический маршрут отдельного ZIP браузерного прототипа",
       "section": "release-evidence",
       "navigation_domain": "documentation_operations",
       "navigation_group": "delivery",
       "format": "md",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "active",
-      "status": "active",
-      "data_class": "public",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "lifecycle": "historical",
+      "status": "historical",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
       "generated": false,
       "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
       "generated_from": [],
       "parent_readme": "docs/release/README.md",
       "artifact_registry_id": "ART-894",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/README.md",
-        "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/release/README.md",
         "README.md"
       ],
       "anchors": [
-        "скачать-браузерный-прототип-заказа-презентации"
+        "исторический-маршрут-отдельного-zip-браузерного-прототипа"
       ],
-      "reachable_from_root": true,
-      "click_depth": 2
+      "reachable_from_root": false,
+      "click_depth": null
     },
     {
       "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
@@ -18600,11 +18570,11 @@
       "parent_readme": "docs/release/README.md",
       "artifact_registry_id": "ART-892",
       "outgoing_links": [
+        "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
         "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
         "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
         "docs/README.md",
-        "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
         "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
         "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
         "docs/release/README.md",
@@ -19088,7 +19058,6 @@
       "parent_readme": "docs/README.md",
       "artifact_registry_id": "ART-404",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
         "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
@@ -40712,7 +40681,6 @@
       "parent_readme": null,
       "artifact_registry_id": "ART-395",
       "outgoing_links": [
-        "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
         "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
@@ -40878,7 +40846,6 @@
         "next_paths": [
           "docs/release/commit-pr-evidence.md",
           "docs/release/mvp-release-evidence-pack.md",
-          "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
           "docs/release/co-2026-003-prototype-delivery-archive.md",
           "docs/knowledge/evidence-index.md"
         ],
@@ -41311,17 +41278,21 @@
     }
   },
   "coverage": {
-    "total_entries": 1408,
+    "total_entries": 1407,
     "manual_entries": 1396,
-    "generated_entries": 12,
-    "public_navigable_entries": 37,
-    "searchable_entries": 1277,
-    "confidential_or_sensitive_entries": 31,
-    "unclassified_entries": 2,
-    "reachable_from_root": 273,
+    "generated_entries": 11,
+    "public_navigable_entries": 36,
+    "searchable_entries": 1276,
+    "confidential_or_sensitive_entries": 30,
+    "unclassified_entries": 1,
+    "reachable_from_root": 271,
     "orphan_entries": 3
   },
   "ignored_paths": [
+    {
+      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+      "reason": "Отдельный ZIP сохранён как исторический вспомогательный выпуск; основной маршрут GitHub ведёт только к полному архиву поставки CO-2026-003."
+    },
     {
       "path": "docs/product/requirements/user-story-decomposition-map.json",
       "reason": "Машиночитаемая карта действующего единого документа проверяет полноту связей и не является документом для чтения командой."

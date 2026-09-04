@@ -1,8 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
+import { spawnSync } from "node:child_process";
 
-import { buildDocumentationArchive, resolveActiveArchiveCreatedAt } from "./lib/documentation-archive.mjs";
+import {
+  buildDocumentationArchive,
+  publishDocumentationArchiveCandidate,
+  resolveActiveArchiveCreatedAt,
+} from "./lib/documentation-archive.mjs";
 import { assertDocumentationArchiveReleaseGate } from "./lib/documentation-archive-release-gate.mjs";
 
 const DEFAULT_CONTRACT_PATH = "docs/process/universal-documentation-workflow/documentation-archive-contract.json";
@@ -56,6 +61,26 @@ function readJson(root, relativePath, description) {
   return JSON.parse(fs.readFileSync(readRegularFile(root, relativePath, description), "utf8"));
 }
 
+function validateCandidate(root, contractPath, contract, candidatePath) {
+  const relativeCandidatePath = path.relative(root, candidatePath).split(path.sep).join("/");
+  const commands = [[
+    path.join(import.meta.dirname, "validate-documentation-archive.mjs"),
+    ["--contract", contractPath, "--archive", relativeCandidatePath],
+  ]];
+  if (contract.release_gate?.prototype_check === "browser_native_phone_prototype") {
+    commands.push([
+      path.join(import.meta.dirname, "validate-browser-native-phone-prototype-delivery-archive.mjs"),
+      ["--archive", relativeCandidatePath],
+    ]);
+  }
+  for (const [scriptPath, arguments_] of commands) {
+    const result = spawnSync(process.execPath, [scriptPath, ...arguments_], { cwd: root, encoding: "utf8" });
+    if (result.status !== 0) {
+      throw new Error(`кандидат ZIP не прошёл проверку ${path.basename(scriptPath)}:\n${result.stdout}${result.stderr}`);
+    }
+  }
+}
+
 function main() {
   const root = process.cwd();
   const { check, contractPath } = parseArguments(process.argv.slice(2));
@@ -77,14 +102,11 @@ function main() {
     console.log("архив документации актуален");
     return;
   }
-  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
-  const temporaryPath = path.join(path.dirname(outputPath), `.${path.basename(outputPath)}.${process.pid}.tmp`);
-  try {
-    fs.writeFileSync(temporaryPath, expected, { flag: "wx" });
-    fs.renameSync(temporaryPath, outputPath);
-  } finally {
-    if (fs.existsSync(temporaryPath)) fs.rmSync(temporaryPath, { force: true });
-  }
+  publishDocumentationArchiveCandidate({
+    outputPath,
+    content: expected,
+    validateCandidate: (candidatePath) => validateCandidate(root, contractPath, contract, candidatePath),
+  });
   console.log(`архив документации записан: ${contract.output_path}`);
 }
 

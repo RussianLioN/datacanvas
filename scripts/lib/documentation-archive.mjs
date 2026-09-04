@@ -133,19 +133,41 @@ function mediaType(relativePath) {
 export function resolveArchiveMembers(root, contract, chain) {
   const members = [];
   const seen = new Set();
-  const excludedPrimaryArtifacts = new Set(contract.exclude_primary_artifacts ?? []);
-  for (const relativePath of excludedPrimaryArtifacts) assertSafeRelativePath(relativePath);
-  for (const stage of chain.stages) {
-    for (const relativePath of stage.primary_artifacts) {
-      if (excludedPrimaryArtifacts.has(relativePath)) continue;
-      members.push({
-        path: relativePath,
-        label: stage.name,
-        role: "primary",
-        stage_id: stage.stage_id,
-        stage_order: stage.order,
-      });
+  const primarySource = new Map();
+  for (const stage of chain.stages) for (const relativePath of stage.primary_artifacts) {
+    if (primarySource.has(relativePath)) throw new Error(`основной материал указан в цепочке больше одного раза: ${relativePath}`);
+    primarySource.set(relativePath, stage);
+  }
+  let primaryPaths;
+  if (contract.primary_selection === "all_stage_primary_artifacts") {
+    if (Object.hasOwn(contract, "primary_artifacts")) {
+      throw new Error("широкий выбор основных материалов нельзя смешивать с точным разрешающим списком");
     }
+    const excludedPrimaryArtifacts = new Set(contract.exclude_primary_artifacts ?? []);
+    for (const relativePath of excludedPrimaryArtifacts) assertSafeRelativePath(relativePath);
+    primaryPaths = [...primarySource.keys()].filter((relativePath) => !excludedPrimaryArtifacts.has(relativePath));
+  } else if (contract.primary_selection === "explicit_stage_primary_allowlist") {
+    if (!Array.isArray(contract.primary_artifacts) || contract.primary_artifacts.length === 0) {
+      throw new Error("точный разрешающий список основных материалов не задан");
+    }
+    if (Array.isArray(contract.exclude_primary_artifacts) && contract.exclude_primary_artifacts.length > 0) {
+      throw new Error("точный разрешающий список нельзя смешивать с исключениями основных материалов");
+    }
+    primaryPaths = contract.primary_artifacts;
+  } else {
+    throw new Error(`неподдерживаемый способ выбора основных материалов: ${contract.primary_selection}`);
+  }
+  for (const relativePath of primaryPaths) {
+    assertSafeRelativePath(relativePath);
+    const stage = primarySource.get(relativePath);
+    if (!stage) throw new Error(`точный разрешающий список содержит материал вне основной цепочки: ${relativePath}`);
+    members.push({
+      path: relativePath,
+      label: stage.name,
+      role: "primary",
+      stage_id: stage.stage_id,
+      stage_order: stage.order,
+    });
   }
   for (const artifact of contract.additional_artifacts) {
     members.push({ ...artifact, role: "derivative", stage_id: null, stage_order: null });
@@ -158,6 +180,12 @@ export function resolveArchiveMembers(root, contract, chain) {
     if (!fs.existsSync(absolutePath)) throw new Error(`вход архива отсутствует: ${member.path}`);
     const stat = fs.lstatSync(absolutePath);
     if (!stat.isFile() || stat.isSymbolicLink()) throw new Error(`вход архива не является обычным файлом: ${member.path}`);
+  }
+  if (contract.local_entrypoint) {
+    assertSafeRelativePath(contract.local_entrypoint.path);
+    if (!members.some((member) => member.path === contract.local_entrypoint.path)) {
+      throw new Error(`стартовая локальная точка не включена в архив: ${contract.local_entrypoint.path}`);
+    }
   }
   return members;
 }
@@ -219,6 +247,15 @@ function escapeHtml(value) {
 }
 
 function renderHtml(contract, chain, memberData) {
+  if (contract.local_entrypoint) {
+    const target = `${contract.archive_root}/${contract.local_entrypoint.path}`;
+    const label = escapeHtml(contract.local_entrypoint.label);
+    const escapedTarget = escapeHtml(target);
+    return Buffer.from(`<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="refresh" content="0; url=${escapedTarget}"><title>${escapeHtml(contract.title)}</title></head>
+<body><p>Открывается локальный прототип. Если переход не начался, <a href="${escapedTarget}">${label}</a>.</p><p><a href="README.md">Состав архива</a></p></body></html>\n`, "utf8");
+  }
   const sections = chain.stages.map((stage) => {
     const links = memberData
       .filter((item) => item.stage_id === stage.stage_id)
@@ -335,6 +372,24 @@ export function buildDocumentationArchive(root, contract, chain, { archiveCreate
   return createStoredZip(entries, {
     timestamp: archiveCreatedAt === null ? legacyTimestamp() : dosTimestampFromMoscowReleaseTime(archiveCreatedAt),
   });
+}
+
+export function publishDocumentationArchiveCandidate({ outputPath, content, validateCandidate }) {
+  if (typeof outputPath !== "string" || !path.isAbsolute(outputPath)) {
+    throw new Error("путь публикуемого ZIP должен быть абсолютным");
+  }
+  if (!Buffer.isBuffer(content)) throw new Error("кандидат ZIP должен быть буфером");
+  if (typeof validateCandidate !== "function") throw new Error("не задана проверка кандидата ZIP");
+  const outputDirectory = path.dirname(outputPath);
+  fs.mkdirSync(outputDirectory, { recursive: true });
+  const temporaryPath = path.join(outputDirectory, `.${path.basename(outputPath)}.${process.pid}.tmp`);
+  try {
+    fs.writeFileSync(temporaryPath, content, { flag: "wx" });
+    validateCandidate(temporaryPath);
+    fs.renameSync(temporaryPath, outputPath);
+  } finally {
+    if (fs.existsSync(temporaryPath)) fs.rmSync(temporaryPath, { force: true });
+  }
 }
 
 export function readStoredZipWithMetadata(buffer) {

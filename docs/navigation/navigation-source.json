@@ -1639,15 +1639,15 @@
       "route_id": "co-2026-003-browser-native-phone-prototype-download",
       "section": "release-evidence",
       "owner_role": "Documentation Owner / QA Lead / Security Lead",
-      "lifecycle": "active",
-      "data_class": "public",
-      "visibility": "public",
-      "searchable": true,
-      "navigable": true,
+      "lifecycle": "historical",
+      "data_class": "internal",
+      "visibility": "restricted",
+      "searchable": false,
+      "navigable": false,
       "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняется состав ZIP чистового прототипа, инструкция локального запуска или политика времени выпуска.",
+      "update_trigger": "Исторический отдельный ZIP сохранён только как след выпуска; активный маршрут ведёт к полному архиву поставки.",
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": true,
@@ -5260,7 +5260,6 @@
       "next_paths": [
         "docs/release/commit-pr-evidence.md",
         "docs/release/mvp-release-evidence-pack.md",
-        "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
         "docs/release/co-2026-003-prototype-delivery-archive.md",
         "docs/knowledge/evidence-index.md"
       ],
@@ -5684,6 +5683,10 @@
   ],
   "ignored_paths": [
     {
+      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+      "reason": "Отдельный ZIP сохранён как исторический вспомогательный выпуск; основной маршрут GitHub ведёт только к полному архиву поставки CO-2026-003."
+    },
+    {
       "path": "docs/product/requirements/user-story-decomposition-map.json",
       "reason": "Машиночитаемая карта действующего единого документа проверяет полноту связей и не является документом для чтения командой."
     },
@@ -5840,11 +5843,6 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
       "description": "Исторический переносимый архив прежней автономной HTML-демонстрации Лисы."
-    },
-    {
-      "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
-      "canonical_source": "docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json",
-      "description": "Отдельный ZIP чистового браузерного прототипа для локального запуска из корневого index.html."
     },
     {
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",

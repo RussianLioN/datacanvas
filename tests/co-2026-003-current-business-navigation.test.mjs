@@ -87,9 +87,7 @@ test("входные документы ведут к принятому обз�
   }
 
   const archiveLinks = [
-    ["README.md", "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1"],
     ["README.md", "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1"],
-    ["docs/README.md", "../artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1"],
     ["docs/README.md", "../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1"],
   ];
   for (const [entrypoint, archivePath] of archiveLinks) {
@@ -100,6 +98,33 @@ test("входные документы ведут к принятому обз�
       `${entrypoint} не должен вести к историческому черновому прототипу`,
     );
     assert.doesNotMatch(readText(entrypoint), /browser-native-phone-prototype\/index\.html/u);
+    assert.doesNotMatch(readText(entrypoint), /co-2026-003-browser-native-phone-prototype\.zip/u);
+  }
+});
+
+test("отдельный ZIP прототипа и его страница загрузки остаются историческими во всех реестрах", () => {
+  const source = readJson("docs/navigation/navigation-source.json");
+  const registry = readJson("docs/architecture/schemas/artifact-registry.json");
+  const downloadGuide = "docs/release/co-2026-003-browser-native-phone-prototype-download.md";
+  const prototypeArchive = "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip";
+  const navigationEntry = source.managed_entries.find((entry) => entry.path === downloadGuide);
+  assert.equal(navigationEntry?.lifecycle, "historical", `${downloadGuide} должен быть историческим в источнике навигации`);
+  assert.equal(navigationEntry?.data_class, "internal", `${downloadGuide} не должен оставаться публичным источником`);
+  assert.equal(navigationEntry?.visibility, "restricted", `${downloadGuide} должен быть ограниченным маршрутом`);
+  assert.equal(navigationEntry?.searchable, false, `${downloadGuide} не должен попадать в поиск`);
+  assert.equal(navigationEntry?.navigable, false, `${downloadGuide} не должен оставаться навигационным маршрутом`);
+  assert.ok(
+    source.ignored_paths.some((entry) => entry.path === prototypeArchive && /историческ/u.test(entry.reason)),
+    `${prototypeArchive} должен быть явно отмечен историческим в игнорируемых путях`,
+  );
+
+  for (const artifactPath of [downloadGuide, prototypeArchive]) {
+    const registryEntry = registry.artifacts.find((entry) => entry.path === artifactPath);
+    assert.equal(registryEntry?.status, "historical", `${artifactPath} должен быть историческим в реестре артефактов`);
+    assert.equal(registryEntry?.data_class, "internal", `${artifactPath} не должен оставаться публичным в реестре артефактов`);
+    assert.equal(registryEntry?.visibility, "restricted", `${artifactPath} должен быть ограниченным в реестре артефактов`);
+    assert.equal(registryEntry?.searchable, false, `${artifactPath} не должен попадать в поиск из реестра артефактов`);
+    assert.equal(registryEntry?.navigable, false, `${artifactPath} не должен оставаться маршрутом в реестре артефактов`);
   }
 });
 

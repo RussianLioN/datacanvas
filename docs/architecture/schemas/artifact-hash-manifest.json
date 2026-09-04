@@ -992,12 +992,12 @@
     {
       "artifact_id": "ART-199",
       "path": "docs/process/current/process-metrics-snapshot.json",
-      "sha256": "db6d0a3697d6fb755de895c309021ac5584fe9019d090d54541ef18daf954f3d"
+      "sha256": "04d2e352a8b5373f50906f239678aa43d37247c780e6bf216e715209f6b57435"
     },
     {
       "artifact_id": "ART-200",
       "path": "docs/process/current/process-metrics-snapshot.md",
-      "sha256": "02fee4e4d5e75afba4047d820251d6f28c410809b016bed6103ef6c9ce86e98c"
+      "sha256": "64400e9e1de66cdffd1f7778f7ebbc6fae31928b6e47e8d5ab66989c56ffb56d"
     },
     {
       "artifact_id": "ART-201",
@@ -1972,7 +1972,7 @@
     {
       "artifact_id": "ART-395",
       "path": "README.md",
-      "sha256": "53f4038b6388e14d4feb46f89e26df17845df0a6495cd4e5ce2fcd1ca7e7c54d"
+      "sha256": "11b3ecfc26c351409803612513dee2d69e9ae73678a363a8f5be1ee7598c99a2"
     },
     {
       "artifact_id": "ART-396",
@@ -1992,7 +1992,7 @@
     {
       "artifact_id": "ART-399",
       "path": "docs/README.md",
-      "sha256": "818ed7bbf6dc49ebf6f9069bce38f31f69c0bd92bb6a3cda0736dc86386309d6"
+      "sha256": "75c4a9509045db3ab91ea3e6fc8bbe47d39cc0e7857197267052c4a0f2fdb0e1"
     },
     {
       "artifact_id": "ART-400",
@@ -2002,7 +2002,7 @@
     {
       "artifact_id": "ART-401",
       "path": "docs/product/README.md",
-      "sha256": "a0e7d13a513936d4811f4bd63442808ec6a8d8887695a79fc2c299d6f15e685d"
+      "sha256": "f1a78dc9737ac7bc90ef84920d6334fe5611a8c4cbb0899ace33985a9ae76ab3"
     },
     {
       "artifact_id": "ART-402",
@@ -2017,7 +2017,7 @@
     {
       "artifact_id": "ART-404",
       "path": "docs/release/README.md",
-      "sha256": "2629b6a4ad33536dbc40f33c10c31d696616a3997720c3ff58f11476004ad35c"
+      "sha256": "6fda2748d58ad0ef8ab2d30666d7f1a5a0ab203d5019f43f7c81b198b2e3ed87"
     },
     {
       "artifact_id": "ART-405",
@@ -2042,22 +2042,22 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "dc071c4e7de77cc87cc735b5b2d603d098fe2488079dd55e614280e6c28d6ca2"
+      "sha256": "a4c0f6411ee4e2f37af43cbcc4063ce1efeb8a9ba0ada2b0e080d9dda0a6e264"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "24340c3a88f4ab0e1c9e1280eb4703077af838239d117e2a6ba76e105eddd70e"
+      "sha256": "a1ed77a605fecd51056642d23515a9acb3fbde63dc75cec0409f88a53a8342e1"
     },
     {
       "artifact_id": "ART-411",
       "path": "docs/navigation/navigation-map.md",
-      "sha256": "e4af3844b683b6f7c6c8b666262af3f4f9ecb574dd627a828b89b4140573cddb"
+      "sha256": "16f3d4491378be7c259179be5308b1942d111116238063983280c82fdfda7bfa"
     },
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "1c60b622bfae753609c389d208bfa7ed6245e9af2b58f5f400cb76db5eb71665"
+      "sha256": "787d413a318900734d2b293a8a8d02243396e5186cde23e8a7836ad725a69975"
     },
     {
       "artifact_id": "ART-413",
@@ -2087,7 +2087,7 @@
     {
       "artifact_id": "ART-418",
       "path": "scripts/validate-docs-navigation.mjs",
-      "sha256": "83af41760c6eccff8b3fd72f1121e6cef1b4978ff065857d1040f68fd873b075"
+      "sha256": "b8993bfffe9c47b3c15559e47ada7cbf2a06b0f18ddf7e977c8dc800e50e7f5e"
     },
     {
       "artifact_id": "ART-419",
@@ -2377,7 +2377,7 @@
     {
       "artifact_id": "ART-476",
       "path": "docs/product/analysis/README.md",
-      "sha256": "0f9bf8a1bd4a769c2820012ddec69c042815e53d82a63d979e7aefdd6423f5f9"
+      "sha256": "f62af40ff3e312f8f45f52d1cb4e1f987cfc07db3f6b8db02ab0255a6ec47b78"
     },
     {
       "artifact_id": "ART-477",
@@ -4107,27 +4107,27 @@
     {
       "artifact_id": "ART-822",
       "path": "schemas/documentation-archive-contract.schema.json",
-      "sha256": "73844456122fa27bb283265f13944f5382b0813be28235cacb8d174678308c01"
+      "sha256": "9332fa6dec6a81e75fd5f42db01836a030ace72185c3b1752025efa4c75fa9f1"
     },
     {
       "artifact_id": "ART-823",
       "path": "scripts/lib/documentation-archive.mjs",
-      "sha256": "a3479ec1001ab2045bdceae2210cf497bb1c582b67416512bb886280b0b33f77"
+      "sha256": "9ccb7749a86d4c03172b4ac7b9a5c95861634470a0ec028ed5c67549a9cbc3b8"
     },
     {
       "artifact_id": "ART-824",
       "path": "scripts/generate-documentation-archive.mjs",
-      "sha256": "2dcef174e29245f86e0cab36672527b6bfbdfeef3abf7ec0c95345059ae8bb21"
+      "sha256": "598885941c98fc67bc257ee534d53f1d5e9ca1ed7ed7d8d6f55b850b9a7d09b0"
     },
     {
       "artifact_id": "ART-825",
       "path": "scripts/validate-documentation-archive.mjs",
-      "sha256": "84e82cb22596b40a09b7b824225eb471955cc4bb9be162c7f0d9d2c89da97b85"
+      "sha256": "517d0d81d954c3c12266cba9267e5aaee6f44efaad6c21f6656ac302730392b4"
     },
     {
       "artifact_id": "ART-826",
       "path": "tests/documentation-archive.test.mjs",
-      "sha256": "2c4141892d5d5f6a15e6b886e050b98ea3faacd73f37c1af93c66e4b10b113e1"
+      "sha256": "3d171b2bdbb24b23b4b9edf79e64229043ba1cc5b25d738b7fc8f7b7db5b55a7"
     },
     {
       "artifact_id": "ART-828",
@@ -4167,7 +4167,7 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "902bd0a7a3dd3d7faeeb21bd0084f13240472b86e530d88cfc1b1db7963fad30"
+      "sha256": "a1ffecafbae168b832560b02d753743d528312984eda607f3b993b77785ff3bb"
     },
     {
       "artifact_id": "ART-836",
@@ -4447,12 +4447,12 @@
     {
       "artifact_id": "ART-891",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
-      "sha256": "59737de70918108ee06869498d51eefc18e51d7e16ed3294cfc33e7604856d29"
+      "sha256": "66c4bbf6894b741e674f77770187877371b732af6f8a00816601f9834c7b302c"
     },
     {
       "artifact_id": "ART-892",
       "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
-      "sha256": "d1b02190bd806c987c5fa30c4fe9f5085fedcc4106450a794ddbf399a0427f64"
+      "sha256": "dfc095af9cf5e7fa520516ddc04294a267ed4e9e88319ffe8004cf8d4bf85720"
     },
     {
       "artifact_id": "ART-893",
@@ -4462,12 +4462,12 @@
     {
       "artifact_id": "ART-894",
       "path": "docs/release/co-2026-003-browser-native-phone-prototype-download.md",
-      "sha256": "3ab5ccc0cec882f3f511e78022dde286ef9224fc13614e0e3a6922ec4130f7ae"
+      "sha256": "ffa71fc0cbc905c1738c089cfdba94dc98a924ba387ecee3ad9250332d345f13"
     },
     {
       "artifact_id": "ART-895",
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
-      "sha256": "5e5a98fa0e546adb458b01ba45ed07367d6c327982c0ac74dbec29b56313dae6"
+      "sha256": "17ac2b5ea1b828323f96c4eddbe019962dc417cd169c24368561362b9999d5de"
     },
     {
       "artifact_id": "ART-896",

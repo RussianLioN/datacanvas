@@ -5,9 +5,16 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import test from "node:test";
 
+import {
+  buildDocumentationArchive,
+  publishDocumentationArchiveCandidate,
+  readStoredZip,
+} from "../scripts/lib/documentation-archive.mjs";
+
 const repositoryRoot = path.resolve(import.meta.dirname, "..");
 const generatorPath = path.join(repositoryRoot, "scripts/generate-documentation-archive.mjs");
 const validatorPath = path.join(repositoryRoot, "scripts/validate-documentation-archive.mjs");
+const browserRuntimeRoot = "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype";
 
 function runGenerator(root, ...arguments_) {
   return spawnSync(process.execPath, [generatorPath, ...arguments_], {
@@ -115,7 +122,7 @@ test("главный архив по умолчанию остаётся обр�
   assert.match(result.stdout, /архив документации актуален/u);
 });
 
-test("специальный архив CO-2026-003 содержит актуальные исходники Q4_2026 для приёмки", () => {
+test("специальный архив CO-2026-003 использует точный разрешающий список и происхождение книги 2026-08-19", () => {
   const schema = JSON.parse(fs.readFileSync(
     path.join(repositoryRoot, "schemas/documentation-archive-contract.schema.json"),
     "utf8",
@@ -125,12 +132,18 @@ test("специальный архив CO-2026-003 содержит актуа�
     "utf8",
   ));
   const additionalPaths = new Set(contract.additional_artifacts.map((artifact) => artifact.path));
-  assert.deepEqual(contract.exclude_primary_artifacts, [
-    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
-    "docs/product/requirements/traceability-matrix.json",
+  assert.equal(contract.primary_selection, "explicit_stage_primary_allowlist");
+  assert.deepEqual(contract.primary_artifacts, [
+    "docs/product-vision.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/requirements/business-requirements.md",
   ]);
-  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"), true);
-  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), true);
+  assert.equal(Object.hasOwn(contract, "exclude_primary_artifacts"), false);
+  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json"), true);
+  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx"), false);
+  assert.equal(additionalPaths.has("docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json"), false);
+  assert.equal([...additionalPaths].some((artifactPath) => artifactPath.endsWith(".xlsx")), false);
   assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-acceptance-packet.md"), false);
   assert.equal(additionalPaths.has("docs/release/co-2026-003-q4-lisa-profile-validation-evidence.md"), false);
   assert.equal(
@@ -146,6 +159,10 @@ test("специальный архив CO-2026-003 содержит актуа�
   assert.equal(contract.visibility, "public");
   assert.equal(contract.release_gate.required_final_release_status, "owner_final_approved");
   assert.equal(contract.release_gate.prototype_check, "browser_native_phone_prototype");
+  assert.deepEqual(contract.local_entrypoint, {
+    path: `${browserRuntimeRoot}/index.html`,
+    label: "Запустить браузерный прототип",
+  });
   assert.deepEqual(schema.properties.release_gate.properties.prototype_check.enum, [
     "presentation_link_lisa_user_journey",
     "browser_native_phone_prototype",
@@ -158,12 +175,50 @@ test("специальный архив CO-2026-003 содержит актуа�
     "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
     "docs/product/specs/task-spec-q4-lisa-order-state.json",
     "docs/product/specs/task-spec-q4-lisa-status-state.json",
-    "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
-    "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
-    "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
-    "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
   ]) {
     assert.equal(additionalPaths.has(artifactPath), true, `в архиве отсутствует исходник Q4_2026: ${artifactPath}`);
+  }
+});
+
+test("полный архив открывает прототип из корневого index.html", () => {
+  const contract = JSON.parse(fs.readFileSync(
+    path.join(repositoryRoot, "docs/release/co-2026-003-prototype-delivery-archive-contract.json"),
+    "utf8",
+  ));
+  const chain = JSON.parse(fs.readFileSync(
+    path.join(repositoryRoot, contract.source_chain_path),
+    "utf8",
+  ));
+  const archive = readStoredZip(buildDocumentationArchive(repositoryRoot, contract, chain, {
+    archiveCreatedAt: "2026-09-04T12:00:00+03:00",
+  }));
+  const rootIndex = archive.get("index.html").toString("utf8");
+
+  assert.ok(archive.has(`repository/${browserRuntimeRoot}/index.html`));
+  assert.match(rootIndex, new RegExp(`http-equiv="refresh" content="0; url=repository/${browserRuntimeRoot}/index\\.html"`));
+  assert.match(rootIndex, new RegExp(`href="repository/${browserRuntimeRoot}/index\\.html"`));
+});
+
+test("сбой проверки кандидата не заменяет уже опубликованный ZIP", () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-candidate-"));
+  const outputPath = path.join(temporaryRoot, "delivery.zip");
+  fs.writeFileSync(outputPath, "предыдущий архив", "utf8");
+
+  try {
+    assert.throws(
+      () => publishDocumentationArchiveCandidate({
+        outputPath,
+        content: Buffer.from("новый архив", "utf8"),
+        validateCandidate: () => {
+          throw new Error("кандидат не прошёл проверку");
+        },
+      }),
+      /кандидат не прошёл проверку/u,
+    );
+    assert.equal(fs.readFileSync(outputPath, "utf8"), "предыдущий архив");
+    assert.deepEqual(fs.readdirSync(temporaryRoot), ["delivery.zip"]);
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
 });
 

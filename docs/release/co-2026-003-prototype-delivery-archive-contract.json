@@ -1,6 +1,6 @@
 {
   "$schema": "../../schemas/documentation-archive-contract.schema.json",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "status": "active",
   "archive_id": "co-2026-003-q4-lisa-profile-delivery",
   "title": "Пакет поставки CO-2026-003: чистовой браузерный прототип заказа презентации",
@@ -8,242 +8,58 @@
   "output_path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
   "data_class": "public_authorized",
   "visibility": "public",
-  "primary_selection": "all_stage_primary_artifacts",
-  "exclude_primary_artifacts": [
-    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
-    "docs/product/requirements/traceability-matrix.json"
+  "primary_selection": "explicit_stage_primary_allowlist",
+  "primary_artifacts": [
+    "docs/product-vision.md",
+    "docs/product/bmc/bmc-v0.2.md",
+    "docs/product/requirements/user-stories.md",
+    "docs/product/requirements/business-requirements.md"
   ],
   "additional_artifacts": [
-    {
-      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.xlsx",
-      "label": "Очищенная рабочая книга с актуальными сроками и ресурсами 2026-08-17"
-    },
-    {
-      "path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-17.provenance.json",
-      "label": "Происхождение очищенной рабочей книги 2026-08-17"
-    },
-    {
-      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
-      "label": "Заявка на изменение Q4_2026"
-    },
-    {
-      "path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md",
-      "label": "Реестр согласованных решений интервью"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md",
-      "label": "Реестр выбранных текстов будущего прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json",
-      "label": "Машиночитаемый реестр выбранных текстов будущего прототипа"
-    },
-    {
-      "path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-impact.md",
-      "label": "Карта влияния изменения"
-    },
-    {
-      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
-      "label": "Текущий реестр разрешений и приёмок выпуска CO-2026-003"
-    },
-    {
-      "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
-      "label": "Машиночитаемый реестр разрешений и приёмок выпуска CO-2026-003"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-      "label": "Путь пользователя в Лисе"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
-      "label": "Исходный договор пути пользователя"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/visual-components-contract.json",
-      "label": "Договор изготовления визуальных экранов из SVG-источников"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.md",
-      "label": "Договор поэкранной подготовки и приёмки канонических SVG"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/canonical-svg-frame-pipeline-contract.json",
-      "label": "Машиночитаемый договор поэкранной подготовки и приёмки канонических SVG"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/presentation-pdf-donor-register.json",
-      "label": "Реестр PDF-доноров вариантов презентации ООО «Водолей Трейд»"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json",
-      "label": "Очищенные данные справки ООО «Водолей Трейд» для замены в SVG"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
-      "label": "Кандидат обновления прототипа и состояние поэкранной приёмки"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
-      "label": "Машиночитаемое состояние кандидата обновления прототипа"
-    },
-    {
-      "path": "docs/knowledge/rca/2026-08-25-co-2026-003-amendment-cascade-drift.md",
-      "label": "Разбор причины неполного каскадного обновления дополнений CO-2026-003"
-    },
-    {
-      "path": "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
-      "label": "Разбор причины недостаточного разрешения внешних экранов браузерного прототипа"
-    },
-    {
-      "path": "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
-      "label": "Разбор причины рассинхронизации статуса чистового выпуска и его проверок"
-    },
-    {
-      "path": "docs/plans/co-2026-003-svg-prototype-revision-implementation-plan.md",
-      "label": "План поэтапной отрисовки и приёмки SVG-прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md",
-      "label": "Описание чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html",
-      "label": "Открыть чистовой браузерный прототип"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/app.js",
-      "label": "Логика чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/data.js",
-      "label": "Модель экранов чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/styles.css",
-      "label": "Стили чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json",
-      "label": "Манифест состава и целостности чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/NotoSans[wdth,wght].ttf",
-      "label": "Шрифт чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-email.svg",
-      "label": "Векторный экран письма"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-1.png",
-      "label": "SlideDoc: страница 1 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-2.png",
-      "label": "SlideDoc: страница 2 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-3.png",
-      "label": "SlideDoc: страница 3 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-1.png",
-      "label": "Sber 2025: страница 1 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-2.png",
-      "label": "Sber 2025: страница 2 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-3.png",
-      "label": "Sber 2025: страница 3 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-1.png",
-      "label": "MAG: страница 1 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-2.png",
-      "label": "MAG: страница 2 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-3.png",
-      "label": "MAG: страница 3 в 4K"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/external-4k-series-review/series-manifest.json",
-      "label": "Манифест принятой серии внешних 4K-экранов"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
-      "label": "Договор чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json",
-      "label": "Итоговое решение владельца по чистовому прототипу"
-    },
-    {
-      "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/external-4k-series-owner-approval.json",
-      "label": "Решение владельца по внешней 4K-серии"
-    },
-    {
-      "path": "docs/product/specs/generated-spec-package-manifest.json",
-      "label": "Манифест набора спецификаций Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/feature-spec-q4-profile-mail.json",
-      "label": "Спецификация адресов и почтовой доставки Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/feature-spec-q4-lisa-states.json",
-      "label": "Спецификация состояния заказа в Лисе Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/task-spec-q4-profile-addresses.json",
-      "label": "Задача получения адресов Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json",
-      "label": "Задача почтовой доставки Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/task-spec-q4-lisa-order-state.json",
-      "label": "Задача принятия заказа в Лисе Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/task-spec-q4-lisa-status-state.json",
-      "label": "Задача статусов в Лисе Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/agent-prompt-spec-q4-profile-addresses.json",
-      "label": "Инструкция агенту для получения адресов Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/agent-prompt-spec-q4-profile-mail-delivery.json",
-      "label": "Инструкция агенту для почтовой доставки Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-order-state.json",
-      "label": "Инструкция агенту для принятия заказа Q4_2026"
-    },
-    {
-      "path": "docs/product/specs/agent-prompt-spec-q4-lisa-status-state.json",
-      "label": "Инструкция агенту для статусов Q4_2026"
-    },
-    {
-      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md",
-      "label": "Отчёт доказательств чистового браузерного прототипа"
-    },
-    {
-      "path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json",
-      "label": "Машиночитаемое доказательство чистового браузерного прототипа"
-    }
+    {"path": "docs/product/sources/co-2026-003-current-2026-scope.md", "label": "Граница реализации 2026 года"},
+    {"path": "docs/product/sources/co-2026-003-current-2026-scope.json", "label": "Машиночитаемая граница реализации 2026 года"},
+    {"path": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-08-19.provenance.json", "label": "Происхождение очищенной рабочей книги 2026-08-19"},
+    {"path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md", "label": "Заявка на изменение Q4_2026"},
+    {"path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md", "label": "Реестр согласованных решений интервью"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md", "label": "Реестр выбранных текстов прототипа"},
+    {"path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md", "label": "Реестр разрешений и приёмок выпуска"},
+    {"path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json", "label": "Машиночитаемый реестр разрешений и приёмок выпуска"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json", "label": "Очищенные данные справки ООО «Водолей Трейд»"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md", "label": "Описание чистового браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html", "label": "Локальная стартовая страница браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/app.js", "label": "Логика браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/data.js", "label": "Модель экранов браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/styles.css", "label": "Стили браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/manifest.json", "label": "Манифест состава браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/NotoSans[wdth,wght].ttf", "label": "Шрифт браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-email.svg", "label": "Векторный экран письма"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-1.png", "label": "SlideDoc: страница 1 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-2.png", "label": "SlideDoc: страница 2 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-slidedoc-page-3.png", "label": "SlideDoc: страница 3 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-1.png", "label": "Sber 2025: страница 1 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-2.png", "label": "Sber 2025: страница 2 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-sber2025-page-3.png", "label": "Sber 2025: страница 3 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-1.png", "label": "MAG: страница 1 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-2.png", "label": "MAG: страница 2 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/assets/external/lisa-presentation-mag-page-3.png", "label": "MAG: страница 3 в 4K"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json", "label": "Договор чистового браузерного прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/owner-final-approval.json", "label": "Итоговое решение владельца по браузерному прототипу"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/external-4k-series-owner-approval.json", "label": "Решение владельца по внешней 4K-серии"},
+    {"path": "docs/product/specs/generated-spec-package-manifest.json", "label": "Манифест набора спецификаций Q4_2026"},
+    {"path": "docs/product/specs/feature-spec-q4-profile-mail.json", "label": "Спецификация адресов и почтовой доставки Q4_2026"},
+    {"path": "docs/product/specs/feature-spec-q4-lisa-states.json", "label": "Спецификация состояния заказа в Лисе Q4_2026"},
+    {"path": "docs/product/specs/task-spec-q4-profile-addresses.json", "label": "Задача получения адресов Q4_2026"},
+    {"path": "docs/product/specs/task-spec-q4-profile-mail-delivery.json", "label": "Задача почтовой доставки Q4_2026"},
+    {"path": "docs/product/specs/task-spec-q4-lisa-order-state.json", "label": "Задача принятия заказа в Лисе Q4_2026"},
+    {"path": "docs/product/specs/task-spec-q4-lisa-status-state.json", "label": "Задача статусов в Лисе Q4_2026"},
+    {"path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.md", "label": "Отчёт доказательств чистового браузерного прототипа"},
+    {"path": "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json", "label": "Машиночитаемое доказательство чистового браузерного прототипа"}
   ],
-  "embedded_navigation": [
-    "index.html",
-    "README.md",
-    "manifest.json"
-  ],
+  "embedded_navigation": ["index.html", "README.md", "manifest.json"],
+  "local_entrypoint": {
+    "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/index.html",
+    "label": "Запустить браузерный прототип"
+  },
   "archive_root": "repository",
   "integrity_algorithm": "sha256",
   "zip_method": "store",

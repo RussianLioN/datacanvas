@@ -37,15 +37,26 @@ function assertSafeRelativePath(root, relativePath, description) {
 
 function parseArguments(arguments_) {
   let contractPath = DEFAULT_CONTRACT_PATH;
+  let archivePath = null;
   for (let index = 0; index < arguments_.length; index += 1) {
-    if (arguments_[index] !== "--contract") fail(`неизвестный аргумент: ${arguments_[index]}`);
-    if (contractPath !== DEFAULT_CONTRACT_PATH) fail("аргумент --contract указан больше одного раза");
-    const suppliedPath = arguments_[index + 1];
-    if (!suppliedPath || suppliedPath.startsWith("--")) fail("после --contract требуется относительный путь");
-    contractPath = suppliedPath;
-    index += 1;
+    const argument = arguments_[index];
+    if (argument === "--contract") {
+      if (contractPath !== DEFAULT_CONTRACT_PATH) fail("аргумент --contract указан больше одного раза");
+      const suppliedPath = arguments_[index + 1];
+      if (!suppliedPath || suppliedPath.startsWith("--")) fail("после --contract требуется относительный путь");
+      contractPath = suppliedPath;
+      index += 1;
+    } else if (argument === "--archive") {
+      if (archivePath !== null) fail("аргумент --archive указан больше одного раза");
+      const suppliedPath = arguments_[index + 1];
+      if (!suppliedPath || suppliedPath.startsWith("--")) fail("после --archive требуется относительный путь");
+      archivePath = suppliedPath;
+      index += 1;
+    } else {
+      fail(`неизвестный аргумент: ${argument}`);
+    }
   }
-  return contractPath;
+  return { contractPath, archivePath };
 }
 
 function readRegularFile(root, relativePath, description) {
@@ -65,7 +76,7 @@ function sha256(buffer) {
 
 function main() {
   const root = process.cwd();
-  const contractPath = parseArguments(process.argv.slice(2));
+  const { contractPath, archivePath: archivePathOverride } = parseArguments(process.argv.slice(2));
   const contract = readJson(root, contractPath, "контракта архива");
   const schema = readJson(root, "schemas/documentation-archive-contract.schema.json", "схемы контракта архива");
   const chain = readJson(root, contract.source_chain_path, "цепочки исходных материалов");
@@ -75,7 +86,7 @@ function main() {
   if (!validate(contract)) fail(`контракт архива не соответствует схеме:\n${JSON.stringify(validate.errors, null, 2)}`);
   assertDocumentationArchiveReleaseGate({ root, contract, readJson, readRegularFile });
 
-  const outputPath = assertSafeRelativePath(root, contract.output_path, "выходного архива");
+  const outputPath = assertSafeRelativePath(root, archivePathOverride ?? contract.output_path, "выходного архива");
   if (!fs.existsSync(outputPath)) fail(`архив отсутствует: ${contract.output_path}`);
   const current = fs.readFileSync(outputPath);
   const archiveCreatedAt = resolveActiveArchiveCreatedAt({ root, contract, chain, currentArchive: current, check: true });

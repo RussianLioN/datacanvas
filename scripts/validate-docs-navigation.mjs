@@ -638,12 +638,12 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
     for (const navigationEntry of navigationEntries) {
       const markdown = readText(navigationEntry);
       const linkedPaths = new Set(parseMarkdownLinks(markdown, navigationEntry));
-      for (const requiredPath of [packageReadme, prototypeArchive, deliveryArchive]) {
+      for (const requiredPath of [packageReadme, deliveryArchive]) {
         if (!linkedPaths.has(requiredPath)) {
           fail(`Lisa prototype route is missing from ${navigationEntry}: ${requiredPath}`);
         }
       }
-      for (const archivePath of [prototypeArchive, deliveryArchive]) {
+      for (const archivePath of [deliveryArchive]) {
         const relativeArchive = path.posix.relative(
         path.posix.dirname(navigationEntry),
           archivePath,
@@ -651,6 +651,9 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
         if (!markdown.includes(`(${relativeArchive}?raw=1)`)) {
           fail(`GitHub Lisa archive download link is missing from ${navigationEntry}: ${archivePath}`);
         }
+      }
+      if (linkedPaths.has(prototypeArchive) || markdown.includes(prototypeArchive)) {
+        fail(`Lisa prototype route still promotes the separate ZIP from ${navigationEntry}`);
       }
       if (markdown.includes("browser-native-phone-prototype/index.html")) fail(`current Lisa route links HTML source from ${navigationEntry}`);
       for (const historicalPrefix of historicalPrefixes) {
@@ -662,6 +665,10 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
 
     const packageMarkdown = readText(packageReadme);
     const packageLinks = new Set(parseMarkdownLinks(packageMarkdown, packageReadme));
+    if (!packageLinks.has(deliveryArchive)) fail("Lisa package README must link the full delivery ZIP");
+    if (packageLinks.has(prototypeArchive) || packageMarkdown.includes(prototypeArchive)) {
+      fail("Lisa package README still promotes the separate ZIP");
+    }
     if (packageMarkdown.includes("browser-native-phone-prototype/index.html")) fail("Lisa package README links HTML source instead of the ZIP route");
     for (const historicalPrefix of historicalPrefixes) {
       if ([...packageLinks].some((linkedPath) => linkedPath.startsWith(historicalPrefix))) {
@@ -680,8 +687,29 @@ assertFixtureCases("positive docs navigation", "tests/docs-navigation/positive/c
       fail("Lisa prototype package README must be marked as navigable in source and artifact registry");
     }
 
-    for (const archivePath of [prototypeArchive, deliveryArchive]) {
-      if (indexByPath.get(archivePath)?.format !== "zip") fail(`Lisa archive must be classified as ZIP: ${archivePath}`);
+    if (indexByPath.get(deliveryArchive)?.format !== "zip") fail(`Lisa archive must be classified as ZIP: ${deliveryArchive}`);
+    if (source.generated_output_paths.some((entry) => entry.path === prototypeArchive)) {
+      fail("separate prototype ZIP must not be a generated active navigation output");
+    }
+    if (!source.ignored_paths.some((entry) => entry.path === prototypeArchive)) {
+      fail("separate prototype ZIP must be explicitly classified as historical");
+    }
+    const isHistoricalNonPublic = (entry, statusKey) => entry?.[statusKey] === "historical" &&
+      entry.data_class === "internal" &&
+      entry.visibility === "restricted" &&
+      entry.searchable === false &&
+      entry.navigable === false;
+    const prototypeDownloadGuide = "docs/release/co-2026-003-browser-native-phone-prototype-download.md";
+    if (!isHistoricalNonPublic(sourceManagedByPath.get(prototypeDownloadGuide), "lifecycle")) {
+      fail("separate prototype download guide must be historical and non-public in navigation source");
+    }
+    if (!source.ignored_paths.some((entry) => entry.path === prototypeArchive && /историческ/u.test(entry.reason))) {
+      fail("separate prototype ZIP must be explicitly marked historical in ignored paths");
+    }
+    for (const historicalPath of [prototypeDownloadGuide, prototypeArchive]) {
+      if (!isHistoricalNonPublic(registryByPath.get(historicalPath), "status")) {
+        fail(`separate prototype artifact must be historical and non-public in artifact registry: ${historicalPath}`);
+      }
     }
 
     const map = readText("docs/navigation/navigation-map.md");

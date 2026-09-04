@@ -58,6 +58,13 @@ test("активный архив хранит дату выпуска Europe/Mo
   assert.equal(JSON.parse(metadata.entries.get("manifest.json").toString("utf8")).archive_created_at, archiveCreatedAt);
 });
 
+test("дата-заглушка 1 января 1980 года не допускается для выпуска", () => {
+  assert.throws(
+    () => dosTimestampFromMoscowReleaseTime("1980-01-01T00:00:00+03:00"),
+    /Europe\/Moscow|не представимо/u,
+  );
+});
+
 test("архив содержит локальную навигацию и точные исходные пути", () => {
   const archive = readStoredZip(buildDocumentationArchive(root, contract, chain));
   assert.equal(archive.size, 30);

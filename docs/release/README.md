@@ -14,8 +14,7 @@
 - [Pilot report](pilot-report.md)
 - [Pilot execution handoff](pilot-execution-handoff.md)
 - [Архив поставки чистового прототипа CO-2026-003](co-2026-003-prototype-delivery-archive.md) — текущий состав документов и автономного браузерного прототипа.
-- [Скачать браузерный прототип](../../artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip?raw=1) — отдельный ZIP для локального запуска 11 принятых экранов.
-- [Скачать полный архив поставки](../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1) — автономный ZIP с текущими документами и прототипом.
+- [Скачать полный архив поставки](../../artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip?raw=1) — единый автономный ZIP с текущими документами и локальным запуском прототипа.
 - [Доказательства чистового браузерного прототипа](co-2026-003-browser-native-phone-prototype-release-evidence.md) — единый отпечаток кандидата, 4K-ресурсы и границы данных.
 - [RCA визуального выпуска CO-2026-003](co-2026-003-visual-prototype-rca.md) — причина дефекта наложения и обязательный порядок SVG → PNG → HTML → архив.
 - [RCA импорта презентаций CO-2026-003](co-2026-003-presentation-pdf-import-rca.md) — причина неверной SVG-реконструкции и правило контролируемого PDF → PNG для трёх вариантов презентации.
