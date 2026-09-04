@@ -15,6 +15,12 @@ const expectedStoryIds = [
   "DC-ST-30",
 ];
 
+const expectedExcludedStoryIds = [
+  "DC-ST-31",
+  "DC-ST-32",
+  "DC-ST-33",
+];
+
 const expectedPriorityByStory = new Map([
   ["DC-ST-09", "P2"],
   ["DC-ST-23", "P1"],
@@ -75,6 +81,9 @@ export function validateBtInterviewArtifacts(artifacts) {
   if (scope.stories.length !== expectedStoryIds.length) {
     fail("scope must contain exactly nine active 2026 stories");
   }
+  if (JSON.stringify(scope.stories.map((story) => story.story_id)) !== JSON.stringify(expectedStoryIds)) {
+    fail("stories must contain exactly nine active 2026 stories in the approved order");
+  }
   for (const story of scope.stories) {
     if (!expectedPriorityByStory.has(story.story_id)) {
       fail(`unexpected active story: ${story.story_id}`);
@@ -83,8 +92,8 @@ export function validateBtInterviewArtifacts(artifacts) {
       fail(`invalid priority or period for active story: ${story.story_id}`);
     }
   }
-  if (scope.excluded_story_ids.some((storyId) => scope.active_story_ids.includes(storyId))) {
-    fail("excluded future stories must not be active");
+  if (JSON.stringify(scope.excluded_story_ids) !== JSON.stringify(expectedExcludedStoryIds)) {
+    fail("scope must preserve exactly the approved excluded future stories");
   }
   if (scope.source.original_sha256 !== provenance.original_sha256) {
     fail("scope source hash must match controlled source provenance");

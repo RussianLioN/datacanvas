@@ -5,6 +5,7 @@
   "type": "object",
   "required": [
     "analysis_id",
+    "analysis_role",
     "status",
     "current_step",
     "current_story_or_artifact",
@@ -24,6 +25,9 @@
     "analysis_id": {
       "type": "string",
       "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$"
+    },
+    "analysis_role": {
+      "const": "historical_snapshot"
     },
     "status": {
       "type": "string",

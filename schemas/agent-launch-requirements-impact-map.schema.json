@@ -5,6 +5,7 @@
   "type": "object",
   "required": [
     "analysis_id",
+    "analysis_role",
     "status",
     "source_change_order",
     "story_range",
@@ -20,6 +21,9 @@
     "analysis_id": {
       "type": "string",
       "pattern": "^ALRA-[0-9]{4}-[0-9]{3}$"
+    },
+    "analysis_role": {
+      "const": "historical_snapshot"
     },
     "status": {
       "type": "string",

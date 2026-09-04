@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-08-28T00:00:00+03:00",
+  "updated_at": "2026-09-04T13:17:51+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -448,8 +448,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "backlog",
         "priority_review",
@@ -459,22 +459,20 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/roadmap/roadmap-v0.1.md"
       ],
-      "notes": "Содержит PBI-007 как P1 основной маршрут запуска DataCanvas другим агентом по DC-ST-23..DC-ST-29 и PBI-008 как P2 расширенную доставку, защищенное хранение, ссылку и уведомление по DC-ST-30..DC-ST-33. Sprint backlog требует проверки емкости, порядка работ и вытеснения."
+      "notes": "Содержит PBI-007 как P1-маршрут заказа, проверки, подготовки и сообщений о состоянии по DC-ST-23..DC-ST-29, а также PBI-009 как P2-получение результата и почтовую доставку по DC-ST-09 и DC-ST-30. В список включены только девять историй границы 2026 года; хранение, ссылка и уведомление по ссылке остаются за её пределами. Sprint backlog требует проверки емкости, порядка работ и вытеснения."
     },
     {
       "source_id": "SRC-DC-BACKLOG-AGENT-LAUNCH-CANDIDATES",
       "path": "docs/product/backlog/agent-launch-candidate-stories-2026-q3.md",
-      "source_role": "product_planning",
+      "source_role": "historical_snapshot",
       "owner_role": "Product Owner",
-      "lifecycle": "draft",
-      "trust_level": "current",
+      "lifecycle": "historical",
+      "trust_level": "historical",
       "effective_date": "2026-07-10",
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
-        "p1_story_source",
-        "backlog",
-        "traceability",
-        "estimation_input"
+        "historical_comparison",
+        "archival_evidence"
       ],
       "affected_artifacts": [
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
@@ -483,29 +481,27 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Производный срез приоритетов строк DC-ST-23..DC-ST-33 для backlog и оценки командой после CO-2026-002. Файл не задает календарный срок до подтверждения трудозатрат командой. Полный текст историй хранится в каноническом каталоге пользовательских историй."
+      "notes": "Исторический производный срез прежней границы CO-2026-002. Он сохранен только для сравнения и архивного свидетельства; источником действующего состава 2026 года не является. Полный текст действующих историй хранится в каноническом каталоге пользовательских историй."
     },
     {
       "source_id": "SRC-DC-SPRINT-CANDIDATE-PLAN",
       "path": "docs/product/analysis/documentation-consistency-audit/sprint-candidate-plan.md",
-      "source_role": "product_planning",
+      "source_role": "historical_snapshot",
       "owner_role": "Product Owner / Scrum Master / Delivery Lead",
-      "lifecycle": "draft",
-      "trust_level": "current",
+      "lifecycle": "historical",
+      "trust_level": "historical",
       "effective_date": "2026-07-10",
       "upstream_decision": "CO-2026-002",
       "allowed_downstream_use": [
-        "sprint_planning_input",
-        "jira_mapping_preparation",
-        "confluence_export_context",
-        "traceability_review"
+        "historical_comparison",
+        "archival_evidence"
       ],
       "affected_artifacts": [
         "docs/process/cascading-governance/jira-import-package-manifest.json",
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md",
         "docs/product/requirements/traceability-matrix.json"
       ],
-      "notes": "Кандидатный план ближайших спринтов строится из принятой Product Owner рабочей Excel-редакции, продуктового backlog и CO-2026-002. ПШЕ остаются черновыми до проверки команды реализации; документ не является sprint backlog без подтверждения трудозатрат, емкости, порядка работ и вытеснения."
+      "notes": "Исторический кандидатный план на основе прежней границы CO-2026-002. Он сохранен только для сравнения и архивного свидетельства и не является входом в текущее планирование 2026 года."
     },
     {
       "source_id": "SRC-DC-ROADMAP-V0-1",
@@ -609,8 +605,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "acceptance",
         "traceability",
@@ -621,7 +617,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Обновлен по CO-2026-002: бизнес-требования разделяют P1-маршрут запуска другим агентом, диалоговый режим в Лисе и P2-этап дорожной карты расширенной доставки, хранилища, ссылки и уведомления."
+      "notes": "Действующие бизнес-требования CO-2026-003 описывают только девять историй границы 2026 года: заказ, проверку, подготовку PPTX и PDF, статусы и почтовую доставку. Хранение результата, передача ссылки и уведомление по ссылке остаются вне текущего периода."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-NFR",
@@ -652,8 +648,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "acceptance",
         "traceability",
@@ -663,7 +659,7 @@
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/specs/feature-spec-a2a-launch.json"
       ],
-      "notes": "Обновлен по CO-2026-002: критерии приемки разделяют P1-маршрут запуска другим агентом, диалоговый режим в Лисе и P2-этап дорожной карты расширенной доставки, хранения, ссылки и уведомления."
+      "notes": "Действующие критерии приемки CO-2026-003 подтверждают заказ, проверку, подготовку PPTX и PDF, статусы и почтовую доставку для девяти историй границы 2026 года. Хранение результата, передача ссылки и уведомление по ссылке относятся к будущему контексту."
     },
     {
       "source_id": "SRC-DC-REQUIREMENTS-TRACEABILITY",
@@ -672,8 +668,8 @@
       "owner_role": "Product Owner",
       "lifecycle": "draft",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "traceability",
         "impact_analysis",
@@ -683,7 +679,7 @@
         "docs/product/specs/feature-spec-a2a-launch.json",
         "docs/architecture/system-analysis/sa-spec.json"
       ],
-      "notes": "Обновлен по CO-2026-002: traceability связывает DC-ST-23..DC-ST-33 с BT-002, BT-012, BT-014..BT-021, критериями приемки, рабочей Excel-версией и будущим планированием."
+      "notes": "Трассировка CO-2026-003 связывает девять действующих историй границы 2026 года — DC-ST-09 и DC-ST-23..DC-ST-30 — с BT-002, BT-012, BT-014..BT-019 и BT-022..BT-024, критериями приемки и проверками."
     },
     {
       "source_id": "SRC-DC-BUSINESS-CLAIM-MAP",
@@ -692,8 +688,8 @@
       "owner_role": "Product Owner / Documentation Owner",
       "lifecycle": "active",
       "trust_level": "current",
-      "effective_date": "2026-07-10",
-      "upstream_decision": "CO-2026-002",
+      "effective_date": "2026-08-26",
+      "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "consistency_validation",
         "change_order_traceability",
@@ -708,11 +704,12 @@
         "docs/product/bmc/bmc-v0.2.md",
         "docs/product/analysis/documentation-consistency-audit/confluence-import-map.md"
       ],
-      "notes": "Внутренняя машинная карта ключевых бизнес-утверждений CO-2026-001 и CO-2026-002. Используется валидатором для проверки, что основные бизнес-артефакты отражают принятые change orders без служебной трассировки в человекочитаемом тексте.",
+      "notes": "Внутренняя машинная карта ключевых бизнес-утверждений CO-2026-001, исторического CO-2026-002 и действующей границы CO-2026-003. Используется валидатором для проверки, что основные бизнес-артефакты отражают принятые заявки на изменение без служебной трассировки в человекочитаемом тексте.",
       "sha256": null,
       "derived_from": [
         "SRC-DC-CO-2026-001",
-        "SRC-DC-CO-2026-002"
+        "SRC-DC-CO-2026-002",
+        "SRC-DC-CO-2026-003-AUTHORITATIVE-REGISTER"
       ],
       "verifier_command": "npm run validate:business-claim-map",
       "allowed_delta": "Меняется при принятии нового Product Change Order или при изменении состава основных бизнес-артефактов.",

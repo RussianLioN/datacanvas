@@ -28,32 +28,61 @@
       "type": "array",
       "minItems": 9,
       "maxItems": 9,
-      "uniqueItems": true,
-      "items": { "type": "string", "pattern": "^DC-ST-\\d{2}$" }
+      "prefixItems": [
+        { "const": "DC-ST-09" },
+        { "const": "DC-ST-23" },
+        { "const": "DC-ST-24" },
+        { "const": "DC-ST-25" },
+        { "const": "DC-ST-26" },
+        { "const": "DC-ST-27" },
+        { "const": "DC-ST-28" },
+        { "const": "DC-ST-29" },
+        { "const": "DC-ST-30" }
+      ],
+      "items": false
     },
     "stories": {
       "type": "array",
       "minItems": 9,
       "maxItems": 9,
-      "items": {
-        "type": "object",
-        "required": ["story_id", "priority", "target_period", "source_row", "summary"],
-        "additionalProperties": false,
-        "properties": {
-          "story_id": { "type": "string", "pattern": "^DC-ST-\\d{2}$" },
-          "priority": { "enum": ["P1", "P2"] },
-          "target_period": { "const": "2026-Q4" },
-          "source_row": { "type": "integer", "minimum": 1 },
-          "summary": { "type": "string", "minLength": 1 }
-        }
-      }
+      "prefixItems": [
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-09" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-23" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-24" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-25" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-26" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-27" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-28" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-29" } } }] },
+        { "allOf": [{ "$ref": "#/$defs/current_2026_story" }, { "type": "object", "properties": { "story_id": { "const": "DC-ST-30" } } }] }
+      ],
+      "items": false
     },
     "excluded_story_ids": {
       "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": { "type": "string", "pattern": "^DC-ST-\\d{2}$" }
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        { "const": "DC-ST-31" },
+        { "const": "DC-ST-32" },
+        { "const": "DC-ST-33" }
+      ],
+      "items": false
     },
     "approval_status": { "enum": ["candidate_pending_owner_review", "owner_approved"] }
+  },
+  "$defs": {
+    "current_2026_story": {
+      "type": "object",
+      "required": ["story_id", "priority", "target_period", "source_row", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "story_id": { "type": "string", "pattern": "^DC-ST-\\d{2}$" },
+        "priority": { "enum": ["P1", "P2"] },
+        "target_period": { "const": "2026-Q4" },
+        "source_row": { "type": "integer", "minimum": 1 },
+        "summary": { "type": "string", "minLength": 1 }
+      }
+    }
   }
 }

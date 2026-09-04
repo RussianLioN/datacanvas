@@ -265,7 +265,7 @@ const xlsxProvenance = readJson(
 const planningProblems = planningReadinessProblems({
   teamValidationStatus: xlsxProvenance.workbook.team_validation_status,
   backlogStatuses: Object.fromEntries(
-    ["PBI-007", "PBI-008"].map((itemId) => [itemId, centralItems.get(itemId)?.row?.["Статус"]]),
+    ["PBI-007", "PBI-009"].map((itemId) => [itemId, centralItems.get(itemId)?.row?.["Статус"]]),
   ),
 });
 if (planningProblems.length > 0) {

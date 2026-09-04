@@ -82,14 +82,6 @@ const impactMap = validateWithSchema(
   impactMapPath,
   "requirements impact map",
 );
-const currentBtInterviewState = readJson(
-  "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
-);
-const isHistoricalDuringCurrentBtCascade =
-  ["business_requirements_owner_approved", "user_stories_owner_approved"].includes(currentBtInterviewState.status) &&
-  currentBtInterviewState.documentation_cascade.business_requirements === "owner_approved" &&
-  ["pending", "owner_approved"].includes(currentBtInterviewState.documentation_cascade.user_stories) &&
-  currentBtInterviewState.documentation_cascade.system_requirements === "pending";
 
 if (state.analysis_id !== impactMap.analysis_id) {
   fail("analysis_id mismatch between state and impact map");
@@ -107,8 +99,12 @@ if (state.status !== "completed" || impactMap.status !== "completed") {
   fail("analysis package must be completed before final handoff");
 }
 
+if (state.analysis_role !== "historical_snapshot" || impactMap.analysis_role !== "historical_snapshot") {
+  fail("analysis package must be explicitly marked as a historical snapshot");
+}
+
 if (impactMap.source_change_order !== "CO-2026-002") {
-  fail("analysis package must use CO-2026-002 as current source change order");
+  fail("historical analysis package must preserve CO-2026-002 as its source change order");
 }
 
 if (state.last_open_checkpoint !== null) {
@@ -138,25 +134,13 @@ if (completedStories.size !== requiredStories.length || impactStories.size !== r
   fail("analysis package must cover exactly DC-ST-23..DC-ST-33");
 }
 
-const businessRequirements = isHistoricalDuringCurrentBtCascade
-  ? null
-  : readText("docs/product/requirements/business-requirements.md");
-const traceabilityMatrix = isHistoricalDuringCurrentBtCascade
-  ? null
-  : readText("docs/product/requirements/traceability-matrix.json");
 for (const story of impactMap.stories) {
   if (story.blockers.length > 0) {
     fail(`story has unresolved blockers: ${story.story_id}`);
   }
   for (const requirementId of story.affected_requirements) {
-    if (isHistoricalDuringCurrentBtCascade) {
-      continue;
-    }
-    if (!businessRequirements.includes(requirementId)) {
-      fail(`affected requirement is missing from business-requirements.md: ${requirementId}`);
-    }
-    if (!traceabilityMatrix.includes(requirementId)) {
-      fail(`affected requirement is missing from traceability-matrix.json: ${requirementId}`);
+    if (!/^BT-\d{3}$/.test(requirementId)) {
+      fail(`historical analysis has invalid requirement ID: ${requirementId}`);
     }
   }
   for (const sourcePath of story.source_paths) {
@@ -209,8 +193,4 @@ for (const requirementId of expectedNewRequirements) {
   }
 }
 
-if (isHistoricalDuringCurrentBtCascade) {
-  console.log("исторический аналитический пакет проверен на целостность; текущий каскад ожидает пользовательские и системные требования");
-} else {
-  console.log("agent launch requirements analysis validation passed");
-}
+console.log("исторический аналитический пакет проверен на целостность; действующая граница 2026 года проверяется отдельными валидаторами");

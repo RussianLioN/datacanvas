@@ -249,7 +249,7 @@ test("pending team review blocks sprint and Jira use", () => {
 test("pending estimates require team-review backlog status", () => {
   const problems = planningReadinessProblems({
     teamValidationStatus: "pending_team_review",
-    backlogStatuses: { "PBI-007": "ready", "PBI-008": "ready_for_team_review" },
+    backlogStatuses: { "PBI-007": "ready", "PBI-009": "ready_for_team_review" },
   });
   assert.deepEqual(problems, ["PBI-007 must be ready_for_team_review while team validation is pending"]);
 });
@@ -371,7 +371,7 @@ test("human owner queue must reflect an accepted machine decision", () => {
 test("sprint candidate plan cannot claim that no PBI exist after they were created", () => {
   const problems = sprintCandidatePlanProblems({
     planText: "- Не создаются новые `PBI-*` — элементы продуктового бэклога.",
-    existingCandidatePbiIds: ["PBI-007", "PBI-008"],
+    existingCandidatePbiIds: ["PBI-007", "PBI-009"],
   });
   assert.equal(problems.length, 1);
 });

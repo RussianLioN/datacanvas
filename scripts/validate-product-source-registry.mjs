@@ -18,6 +18,7 @@ import {
   storySlicePlanningProblems,
   traceabilityVisionAuthorityProblems,
 } from "./lib/product-document-consistency.mjs";
+import { current2026ScopeConsumerProblems } from "./lib/current-2026-scope-consumers.mjs";
 import { assertNoSensitiveRecoveryContent } from "./lib/recovery-index-security.mjs";
 
 const root = process.cwd();
@@ -286,6 +287,17 @@ function assertCurrent2026ScopeConsistency(registry) {
   }
 }
 
+function assertCurrent2026ScopeConsumerConsistency(registry) {
+  const problems = current2026ScopeConsumerProblems({
+    registry,
+    traceability: readJson(traceabilityPath),
+    matrixText: readText(consistencyMatrixPath),
+  });
+  if (problems.length > 0) {
+    throw new Error(`current 2026 scope consumer violation: ${problems[0]}`);
+  }
+}
+
 function assertXlsxDownstreamUseNegativeMutations(registry) {
   const source = registry.sources.find(
     (candidate) => candidate.source_id === "SRC-DC-BACKLOG-DRAFT-PSHE-2026-07-08",
@@ -522,6 +534,7 @@ try {
   assertRoadmapSourceConsistency(registry);
   assertXlsxApprovalConsistency(registry);
   assertCurrent2026ScopeConsistency(registry);
+  assertCurrent2026ScopeConsumerConsistency(registry);
   assertXlsxDownstreamUseNegativeMutations(registry);
   assertTraceabilityVisionAuthority(registry);
   assertBmcAcceptanceStatus(registry);

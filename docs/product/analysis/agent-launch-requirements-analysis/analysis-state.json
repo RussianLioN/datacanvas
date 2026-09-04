@@ -1,8 +1,9 @@
 {
   "$schema": "../../../../schemas/agent-launch-requirements-analysis-state.schema.json",
   "analysis_id": "ALRA-2026-001",
+  "analysis_role": "historical_snapshot",
   "status": "completed",
-  "current_step": "final_validation_ready_after_co_2026_002_p2_extension",
+  "current_step": "historical_snapshot_after_co_2026_002_p2_extension",
   "current_story_or_artifact": null,
   "log_path": "docs/product/analysis/agent-launch-requirements-analysis/analysis-log.md",
   "requirements_impact_map_path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",

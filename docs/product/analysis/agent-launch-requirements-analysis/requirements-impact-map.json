@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../schemas/agent-launch-requirements-impact-map.schema.json",
   "analysis_id": "ALRA-2026-001",
+  "analysis_role": "historical_snapshot",
   "status": "completed",
   "source_change_order": "CO-2026-002",
   "story_range": {
