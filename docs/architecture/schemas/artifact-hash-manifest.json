@@ -2327,7 +2327,7 @@
     {
       "artifact_id": "ART-466",
       "path": "scripts/validate-ba-sa-artifacts.mjs",
-      "sha256": "759b07ee20bdad2768bc7a4c62dae0e6b0b711617d10cc42d8050265e240d915"
+      "sha256": "8671b37004aa26fd37f979dde2df804a2071766f3034286447abfa2c93d06b1b"
     },
     {
       "artifact_id": "ART-467",
