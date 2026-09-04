@@ -208,7 +208,7 @@
       "requirement_id": "BT-016",
       "summary": "Адреса получателей определяются только через сервис «Профиль сотрудника»; для «Справки по клиенту» обязательны SIGMA и OMEGA.",
       "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-014"],
-      "acceptance_refs": ["q4_profile_delivery"],
+      "acceptance_refs": ["q4_profile_addresses"],
       "coverage_status": "covered"
     },
     {
@@ -243,7 +243,7 @@
       "requirement_id": "BT-019",
       "summary": "DataCanvas отправляет PPTX и PDF в обязательные контуры SIGMA и OMEGA, определенные через «Профиль сотрудника», без принятия произвольного адреса из запроса.",
       "source_claim_ids": ["BASA-CLM-011", "BASA-CLM-014"],
-      "acceptance_refs": ["q4_profile_delivery"],
+      "acceptance_refs": ["q4_profile_email_delivery", "q4_delayed_or_partial_delivery"],
       "coverage_status": "covered"
     },
     {

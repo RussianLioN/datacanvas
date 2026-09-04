@@ -271,32 +271,42 @@ export function validateQ4DeliveryProblemClosure({ baSpec, businessRules, saSpec
 }
 
 export function validateQ4RequirementRoleSeparation(baSpec) {
-  const requirements = new Map(baSpec.requirements.map((requirement) => [requirement.requirement_id, requirement.summary]));
-  const summary = (id) => {
+  const requirements = new Map(baSpec.requirements.map((requirement) => [requirement.requirement_id, requirement]));
+  const requirement = (id) => {
     const value = requirements.get(id);
-    if (typeof value !== "string" || value.length === 0) {
+    if (!value || typeof value.summary !== "string" || value.summary.length === 0) {
       throw new Error(`BA spec is missing current requirement role: ${id}`);
     }
     return value;
   };
+  const requireExactAcceptanceRefs = (id, expected) => {
+    const actual = requirement(id).acceptance_refs;
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      throw new Error(`${id} must reference the authoritative acceptance scenarios: ${expected.join(", ")}`);
+    }
+  };
 
-  const bt015 = summary("BT-015");
-  if (!/заказ/iu.test(bt015) || !/сеанс/iu.test(bt015) || !/пользовател/iu.test(bt015)) {
+  const bt015 = requirement("BT-015").summary;
+  if (!/заказ/iu.test(bt015) || !/сеанс/iu.test(bt015) || !/пользовател/iu.test(bt015) || !/вызывающ/iu.test(bt015)) {
     throw new Error("BT-015 must describe receiving and linking the order to the user/session context");
   }
+  requireExactAcceptanceRefs("BT-015", ["q4_lisa_order"]);
 
-  const bt016 = summary("BT-016");
-  if (!/Профиль сотрудника|адрес/iu.test(bt016) || !/SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu.test(bt016)) {
+  const bt016 = requirement("BT-016").summary;
+  if (!/Профиль сотрудника/iu.test(bt016) || !/адрес/iu.test(bt016) || !/SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu.test(bt016)) {
     throw new Error("BT-016 must describe authorized addresses through employee profile for SIGMA and OMEGA");
   }
   if (/входн[^.]*пакет/iu.test(bt016)) {
     throw new Error("BT-016 must not be reused as an input package requirement");
   }
+  requireExactAcceptanceRefs("BT-016", ["q4_profile_addresses"]);
 
-  const bt017 = summary("BT-017");
-  if (!/недоверенн|недостаточн|непол|небезопасн|неразреш[её]нн/iu.test(bt017)) {
+  const bt017 = requirement("BT-017").summary;
+  if (!/недоверенн|недостаточн|непол|небезопасн|неразреш[её]нн/iu.test(bt017) || !/до принятия/iu.test(bt017) || !/не переходит[^.]*подготовк/iu.test(bt017)) {
     throw new Error("BT-017 must describe admissibility checks before order acceptance");
   }
+  requireExactAcceptanceRefs("BT-017", ["q4_lisa_order"]);
+  requireExactAcceptanceRefs("BT-019", ["q4_profile_email_delivery", "q4_delayed_or_partial_delivery"]);
 }
 
 function validateInterview() {

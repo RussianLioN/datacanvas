@@ -73,13 +73,25 @@ test("Q4_2026 BA/SA фиксирует обязательные SIGMA и OMEGA �
 });
 
 test("BA-спецификация сохраняет роли BT-015, BT-016 и BT-017 из утверждённых БТ", () => {
-  const requirements = new Map(baSpec.requirements.map((item) => [item.requirement_id, item.summary]));
+  const requirements = new Map(baSpec.requirements.map((item) => [item.requirement_id, item]));
 
-  assert.match(requirements.get("BT-015"), /заказ|сеанс|пользовател/iu);
-  assert.match(requirements.get("BT-016"), /Профиль сотрудника|адрес/iu);
-  assert.match(requirements.get("BT-016"), /SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu);
-  assert.doesNotMatch(requirements.get("BT-016"), /входн[^.]*пакет/iu);
-  assert.match(requirements.get("BT-017"), /недоверенн|недостаточн|непол/iu);
+  assert.match(requirements.get("BT-015").summary, /заказ/iu);
+  assert.match(requirements.get("BT-015").summary, /сеанс/iu);
+  assert.match(requirements.get("BT-015").summary, /пользовател/iu);
+  assert.match(requirements.get("BT-015").summary, /вызывающ/iu);
+  assert.deepEqual(requirements.get("BT-015").acceptance_refs, ["q4_lisa_order"]);
+
+  assert.match(requirements.get("BT-016").summary, /Профиль сотрудника/iu);
+  assert.match(requirements.get("BT-016").summary, /адрес/iu);
+  assert.match(requirements.get("BT-016").summary, /SIGMA[^.]*OMEGA|OMEGA[^.]*SIGMA/iu);
+  assert.doesNotMatch(requirements.get("BT-016").summary, /входн[^.]*пакет/iu);
+  assert.deepEqual(requirements.get("BT-016").acceptance_refs, ["q4_profile_addresses"]);
+
+  assert.match(requirements.get("BT-017").summary, /недоверенн|недостаточн|непол/iu);
+  assert.match(requirements.get("BT-017").summary, /до принятия/iu);
+  assert.match(requirements.get("BT-017").summary, /не переходит[^.]*подготовк/iu);
+  assert.deepEqual(requirements.get("BT-017").acceptance_refs, ["q4_lisa_order"]);
+  assert.deepEqual(requirements.get("BT-019").acceptance_refs, ["q4_profile_email_delivery", "q4_delayed_or_partial_delivery"]);
 });
 
 test("Q4_2026 BA/SA задаёт ровно пять повторов SIGMA через 10 минут в пределах часа", () => {
