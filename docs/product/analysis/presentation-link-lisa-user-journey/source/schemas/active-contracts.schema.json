@@ -1,35 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "active-contracts.schema.json",
-  "title": "Реестр активных договоров тринадцатиэкранного маршрута Лисы",
+  "title": "Активный договор финального браузерного маршрута Лисы",
   "type": "object",
   "additionalProperties": false,
   "required": [
+    "$schema",
     "version",
     "status",
     "route_id",
+    "route_kind",
     "active_state_ids",
-    "active_contracts",
-    "inactive_contract_policy"
+    "active_contract",
+    "release_bindings",
+    "historical_routes"
   ],
   "properties": {
-    "$schema": {
-      "const": "schemas/active-contracts.schema.json"
-    },
-    "version": {
-      "const": "3.0.0"
-    },
-    "status": {
-      "const": "active"
-    },
-    "route_id": {
-      "const": "lisa-presentation-thirteen-screen-route"
-    },
+    "$schema": {"const": "schemas/active-contracts.schema.json"},
+    "version": {"const": "4.0.0"},
+    "status": {"const": "active"},
+    "route_id": {"const": "lisa-presentation-browser-native-eleven-screen-route"},
+    "route_kind": {"const": "browser_native_final"},
     "active_state_ids": {
       "const": [
-        "lisa-materials-summary",
         "lisa-materials-full-reference",
-        "lisa-presentation-order",
         "lisa-presentation-generating",
         "lisa-presentation-chat-list",
         "lisa-presentation-sent",
@@ -42,197 +36,34 @@
         "lisa-delivery-partial"
       ]
     },
-    "active_contracts": {
-      "type": "array",
-      "minItems": 6,
-      "maxItems": 6,
-      "prefixItems": [
-        {
-          "$ref": "#/$defs/journey"
-        },
-        {
-          "$ref": "#/$defs/frame"
-        },
-        {
-          "$ref": "#/$defs/source_render_catalog"
-        },
-        {
-          "$ref": "#/$defs/visual_basis"
-        },
-        {
-          "$ref": "#/$defs/prototype_package"
-        },
-        {
-          "$ref": "#/$defs/scope"
-        }
-      ],
-      "items": false
-    },
-    "inactive_contract_policy": {
+    "active_contract": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "old_twenty_state_route_active",
-        "inactive_contracts_are_not_generator_inputs",
-        "active_registry_is_single_source"
-      ],
+      "required": ["id", "path", "schema"],
       "properties": {
-        "old_twenty_state_route_active": {
-          "const": false
-        },
-        "inactive_contracts_are_not_generator_inputs": {
-          "const": true
-        },
-        "active_registry_is_single_source": {
-          "const": true
-        }
+        "id": {"const": "browser-native-phone-prototype"},
+        "path": {"const": "source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json"},
+        "schema": {"const": "source/schemas/browser-native-phone-prototype-contract.schema.json"}
       }
-    }
-  },
-  "$defs": {
-    "descriptor": {
+    },
+    "release_bindings": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "id",
-        "path",
-        "schema"
-      ],
+      "required": ["runtime_root", "runtime_manifest_path", "owner_final_approval_path", "candidate_fingerprint"],
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "path": {
-          "type": "string"
-        },
-        "schema": {
-          "type": "string"
-        }
+        "runtime_root": {"const": "candidate-evidence/browser-native-phone-prototype"},
+        "runtime_manifest_path": {"const": "candidate-evidence/browser-native-phone-prototype/manifest.json"},
+        "owner_final_approval_path": {"const": "source/browser-native-phone-prototype/owner-final-approval.json"},
+        "candidate_fingerprint": {"const": "7f77dc92b3dcd9913bf3496b741d61304457dd65c9d90135b59cecdc986dcc25"}
       }
     },
-    "journey": {
-      "allOf": [
+    "historical_routes": {
+      "const": [
         {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "journey"
-            },
-            "path": {
-              "const": "source/journey-contract.json"
-            },
-            "schema": {
-              "const": "source/schemas/journey-contract.schema.json"
-            }
-          }
-        }
-      ]
-    },
-    "frame": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "frame"
-            },
-            "path": {
-              "const": "source/frame-contract.json"
-            },
-            "schema": {
-              "const": "source/schemas/frame-contract.schema.json"
-            }
-          }
-        }
-      ]
-    },
-    "source_render_catalog": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "source-render-catalog"
-            },
-            "path": {
-              "const": "source/source-render-catalog.json"
-            },
-            "schema": {
-              "const": "source/schemas/source-render-catalog.schema.json"
-            }
-          }
-        }
-      ]
-    },
-    "visual_basis": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "visual-basis"
-            },
-            "path": {
-              "const": "source/visual-basis-contract.json"
-            },
-            "schema": {
-              "const": "source/schemas/visual-basis-contract.schema.json"
-            }
-          }
-        }
-      ]
-    },
-    "prototype_package": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "prototype-package"
-            },
-            "path": {
-              "const": "source/prototype-package-contract.json"
-            },
-            "schema": {
-              "const": "source/schemas/prototype-package-contract.schema.json"
-            }
-          }
-        }
-      ]
-    },
-    "scope": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/descriptor"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "id": {
-              "const": "scope"
-            },
-            "path": {
-              "const": "source/prototype-scope-contract.json"
-            },
-            "schema": {
-              "const": "source/schemas/prototype-scope-contract.schema.json"
-            }
-          }
+          "route_id": "lisa-presentation-thirteen-screen-route",
+          "record_path": "source/historical-thirteen-screen-contracts.json",
+          "generator_eligible": false,
+          "primary_navigation_allowed": false
         }
       ]
     }

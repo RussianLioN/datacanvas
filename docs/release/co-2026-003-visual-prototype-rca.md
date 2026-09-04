@@ -460,7 +460,9 @@ WebKit. Сценарий последовательно открывал все 
 
 ## Связанные материалы
 
-- [Пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md)
-- [Технический паспорт визуальной основы](../product/analysis/presentation-link-lisa-user-journey/donor-options.md)
-- [Договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json)
+- [Чистовой браузерный прототип](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md)
+- [Действующий договор браузерного прототипа](../product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json)
+- [Исторический пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md)
+- [Исторический технический паспорт](../product/analysis/presentation-link-lisa-user-journey/donor-options.md)
+- [Исторический договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json)
 - [Договор поставочного архива](co-2026-003-prototype-delivery-archive.md)

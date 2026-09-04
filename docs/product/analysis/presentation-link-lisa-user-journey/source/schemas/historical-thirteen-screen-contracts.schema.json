@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "historical-thirteen-screen-contracts.schema.json",
+  "title": "Историческая запись тринадцатикадрового маршрута Лисы",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "status", "route_id", "former_active_state_ids", "former_active_contract_ids", "historical_policy"],
+  "properties": {
+    "$schema": {"const": "schemas/historical-thirteen-screen-contracts.schema.json"},
+    "version": {"const": "1.0.0"},
+    "status": {"const": "historical"},
+    "route_id": {"const": "lisa-presentation-thirteen-screen-route"},
+    "former_active_state_ids": {
+      "const": [
+        "lisa-materials-summary",
+        "lisa-materials-full-reference",
+        "lisa-presentation-order",
+        "lisa-presentation-generating",
+        "lisa-presentation-chat-list",
+        "lisa-presentation-sent",
+        "lisa-presentation-email",
+        "lisa-presentation-slidedoc",
+        "lisa-presentation-sber2025",
+        "lisa-presentation-mag",
+        "lisa-order-not-accepted",
+        "lisa-delivery-delayed",
+        "lisa-delivery-partial"
+      ]
+    },
+    "former_active_contract_ids": {
+      "const": ["journey", "frame", "source-render-catalog", "visual-basis", "prototype-package", "scope"]
+    },
+    "historical_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generator_eligible", "primary_navigation_allowed", "automatic_reactivation_allowed", "successor_active_contract_path"],
+      "properties": {
+        "generator_eligible": {"const": false},
+        "primary_navigation_allowed": {"const": false},
+        "automatic_reactivation_allowed": {"const": false},
+        "successor_active_contract_path": {"const": "source/active-contracts.json"}
+      }
+    }
+  }
+}

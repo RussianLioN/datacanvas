@@ -230,17 +230,15 @@
       "defaults": {
         "section": "generated-artifacts",
         "owner_role": "Documentation Owner / QA Lead",
-        "lifecycle": "generated",
+        "lifecycle": "historical",
         "data_class": "internal",
         "visibility": "internal",
         "searchable": false,
         "navigable": false,
-        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-        "generated_from": [
-          "scripts/generate-presentation-link-lisa-user-journey.mjs"
-        ],
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+        "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Канонический визуальный источник, договор кадров или генератор пользовательского пути меняются.",
+        "update_trigger": "Только уточняется сохранённый исторический 13-кадровый выпуск; повторная генерация запрещена.",
         "navigation_domain": "documentation_operations",
         "navigation_group": "generated"
       }
@@ -251,17 +249,15 @@
       "defaults": {
         "section": "release-evidence",
         "owner_role": "QA Lead / Documentation Owner",
-        "lifecycle": "generated",
+        "lifecycle": "historical",
         "data_class": "internal",
         "visibility": "internal",
         "searchable": false,
         "navigable": false,
-        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-        "generated_from": [
-          "scripts/update-presentation-link-lisa-seven-screen-evidence.mjs"
-        ],
+        "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+        "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "HTML-прототип, браузерная матрица, доказательный валидатор или набор снимков меняются.",
+        "update_trigger": "Только уточняется сохранённое историческое доказательство; повторный выпуск не допускается.",
         "navigation_domain": "documentation_operations",
         "navigation_group": "evidence"
       }
@@ -272,7 +268,7 @@
       "defaults": {
         "section": "release-evidence",
         "owner_role": "Product Owner / Documentation Owner",
-        "lifecycle": "draft",
+        "lifecycle": "historical",
         "data_class": "internal",
         "visibility": "internal",
         "searchable": true,
@@ -280,7 +276,7 @@
         "canonical_source": null,
         "generated_from": [],
         "redaction_status": "not_required",
-        "update_trigger": "Неактивные результаты брейншторма CO-2026-003 меняются.",
+        "update_trigger": "Только уточняются исторические результаты обсуждений и черновиков CO-2026-003.",
         "navigation_domain": "documentation_operations",
         "navigation_group": "evidence"
       }
@@ -1688,10 +1684,10 @@
       "visibility": "internal",
       "searchable": true,
       "navigable": true,
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Обнаружен визуальный дефект, меняются SVG-источники, визуальные проверки или порядок генерации прототипа.",
+      "update_trigger": "Обнаружен повторный визуальный дефект или меняются действующие договоры, проверки и порядок выпуска браузерного прототипа.",
       "critical": true,
       "breadcrumb_required": true,
       "artifact_registry_required": false,
@@ -4233,15 +4229,15 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
       "section": "product",
       "owner_role": "Product Owner / Documentation Owner",
-      "lifecycle": "accepted",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
-      "navigable": true,
-      "canonical_source": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md",
+      "navigable": false,
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняется согласованное поведение одного заказа, статусы в чате или условие визуального выпуска Q4_2026.",
+      "update_trigger": "Только уточняется историческая граница 13-кадрового маршрута; действующий выпуск не меняется.",
       "navigation_group": "business",
       "navigation_domain": "product",
       "critical": true,
@@ -4253,7 +4249,7 @@
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md",
       "section": "product",
       "owner_role": "Product Owner / Documentation Owner",
-      "lifecycle": "draft",
+      "lifecycle": "historical",
       "data_class": "internal",
       "visibility": "internal",
       "searchable": true,
@@ -4261,7 +4257,7 @@
       "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-revision-candidate.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняется кандидат пересборки прототипа, договор брейншторма, очищенная модель справки по клиенту или условия визуальной приёмки.",
+      "update_trigger": "Только уточняется исторический снимок кандидата; действующий браузерный маршрут не меняется.",
       "navigation_group": "business",
       "navigation_domain": "product",
       "critical": true,
@@ -5807,23 +5803,23 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/projection-map.json",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
-      "description": "Производное сопоставление устойчивых состояний HTML-демонстрации и кадров."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Историческое производное сопоставление состояний прежней HTML-демонстрации и кадров."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-      "description": "Производный манифест HTML, SVG, PNG и контрольных сумм визуального пакета."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Исторический производный манифест прежнего визуального пакета."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/canonical-raster-manifest.json",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-      "description": "Производный манифест канонических WebKit PNG, их трёх независимых запусков и отпечатка кандидатной сборки."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Исторический производный манифест прежних растровых кадров и доказательств."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-      "description": "Переносимый производный архив автономной HTML-демонстрации Лисы."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Исторический переносимый архив прежней автономной HTML-демонстрации Лисы."
     },
     {
       "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
@@ -5837,13 +5833,13 @@
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-      "description": "Производный отчёт браузерных, геометрических и проверок доступности."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Исторический отчёт браузерных, геометрических и проверок доступности."
     },
     {
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json",
-      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json",
-      "description": "Производный отчёт приёмки визуального пакета и ограничений проверочного инструментария."
+      "canonical_source": "docs/product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json",
+      "description": "Исторический отчёт приёмки визуального пакета и ограничений проверочного инструментария."
     }
   ],
   "current_pointers": {

@@ -19,6 +19,7 @@ const approvedTextsMarkdownPath = path.join(packagePath, "owner-approved-texts.m
 const candidateMarkdownPath = path.join(packagePath, "prototype-revision-candidate.md");
 const activeContractsPath = path.join(sourcePath, "active-contracts.json");
 const journeyContractPath = path.join(sourcePath, "journey-contract.json");
+const historicalThirteenScreenContractsPath = path.join(sourcePath, "historical-thirteen-screen-contracts.json");
 const unsafeDemoPath = path.join(packagePath, "demo", "unsafe-candidate-reference.js");
 const schemaPaths = [
   path.join(sourcePath, "schemas/client-reference-data.schema.json"),
@@ -27,6 +28,7 @@ const schemaPaths = [
   path.join(sourcePath, "schemas/owner-approved-texts.schema.json"),
   path.join(sourcePath, "schemas/canonical-svg-frame-pipeline-contract.schema.json"),
   path.join(sourcePath, "schemas/presentation-pdf-donor-register.schema.json"),
+  path.join(sourcePath, "schemas/historical-thirteen-screen-contracts.schema.json"),
 ];
 const validatorPath = "scripts/validate-co-2026-003-prototype-revision.mjs";
 const negativeFixturePath = "tests/fixtures/co-2026-003-prototype-revision-negative.json";
@@ -127,11 +129,9 @@ function applyMutation(base, scenario) {
   } else if (scenario.mutation === "docx_in_markdown") {
     data[candidateMarkdownPath] = `${data[candidateMarkdownPath]}\n\nВременная ссылка на source.docx.\n`;
   } else if (scenario.mutation === "candidate_added_to_active_contracts") {
-    data[activeContractsPath].active_contracts.push({
-      id: "prototype-revision-candidate",
-      path: "source/prototype-revision-candidate.json",
-      schema: "source/schemas/prototype-revision-candidate.schema.json",
-    });
+    data[activeContractsPath].active_contract.path = "source/prototype-revision-candidate.json";
+  } else if (scenario.mutation === "candidate_historical_snapshot_drift") {
+    data[candidatePath].historical_snapshot.primary_navigation_allowed = true;
   } else if (scenario.mutation === "active_journey_contract_drift") {
     data[journeyContractPath].actions[0].source_state_ids = ["lisa-materials-full-reference"];
   } else if (scenario.mutation === "wrong_delivery_success_historical_source") {
@@ -190,6 +190,13 @@ test("кандидат пересборки CO-2026-003 фиксирует кл�
     ],
   );
   assert.deepEqual(candidate.historical_inactive_frame_ids, []);
+  assert.deepEqual(candidate.historical_snapshot, {
+    status: "historical",
+    successor_active_route_path: "source/active-contracts.json",
+    successor_route_id: "lisa-presentation-browser-native-eleven-screen-route",
+    generator_eligible: false,
+    primary_navigation_allowed: false,
+  });
   assert.equal(candidate.active_button.action_definition_count, 1);
   assert.equal(candidate.active_button.button_instances_count, 3);
   assert.deepEqual(candidate.active_button.source_state_ids, [
@@ -420,6 +427,7 @@ test("узкий валидатор отклоняет известные нар
     [approvedTextsPath]: readJson(approvedTextsPath),
     [activeContractsPath]: readJson(activeContractsPath),
     [journeyContractPath]: readJson(journeyContractPath),
+    [historicalThirteenScreenContractsPath]: readJson(historicalThirteenScreenContractsPath),
     [candidateMarkdownPath]: fs.readFileSync(path.join(root, candidateMarkdownPath), "utf8"),
     [unsafeDemoPath]: "",
   };

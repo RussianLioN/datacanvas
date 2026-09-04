@@ -1,0 +1,35 @@
+{
+  "$schema": "schemas/historical-thirteen-screen-contracts.schema.json",
+  "version": "1.0.0",
+  "status": "historical",
+  "route_id": "lisa-presentation-thirteen-screen-route",
+  "former_active_state_ids": [
+    "lisa-materials-summary",
+    "lisa-materials-full-reference",
+    "lisa-presentation-order",
+    "lisa-presentation-generating",
+    "lisa-presentation-chat-list",
+    "lisa-presentation-sent",
+    "lisa-presentation-email",
+    "lisa-presentation-slidedoc",
+    "lisa-presentation-sber2025",
+    "lisa-presentation-mag",
+    "lisa-order-not-accepted",
+    "lisa-delivery-delayed",
+    "lisa-delivery-partial"
+  ],
+  "former_active_contract_ids": [
+    "journey",
+    "frame",
+    "source-render-catalog",
+    "visual-basis",
+    "prototype-package",
+    "scope"
+  ],
+  "historical_policy": {
+    "generator_eligible": false,
+    "primary_navigation_allowed": false,
+    "automatic_reactivation_allowed": false,
+    "successor_active_contract_path": "source/active-contracts.json"
+  }
+}

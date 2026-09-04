@@ -29,6 +29,12 @@ test("отдельный ZIP прототипа открывается из ко
   const contract = readJson(contractPath);
   assert.equal(contract.release_gate.prototype_check, "browser_native_phone_prototype");
   assert.equal(contract.release_gate.required_final_release_status, "owner_final_approved");
+  assert.equal(
+    contract.release_gate.active_visual_route_path,
+    "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+  );
+  assert.equal(contract.release_gate.required_active_route_id, "lisa-presentation-browser-native-eleven-screen-route");
+  assert.equal("journey_contract_path" in contract.release_gate, false);
   const sourceManifest = readJson(`${runtimeRoot}/manifest.json`);
   const archivePath = path.join(root, contract.output_path);
   const { entries, timestamp } = readStoredZipWithMetadata(fs.readFileSync(archivePath));

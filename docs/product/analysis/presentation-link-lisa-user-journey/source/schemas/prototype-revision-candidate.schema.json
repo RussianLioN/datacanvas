@@ -9,6 +9,7 @@
     "version",
     "change_order_id",
     "status",
+    "historical_snapshot",
     "client_reference_source",
     "brainstorming_contract_source",
     "approved_texts_source",
@@ -31,6 +32,18 @@
     "version": { "const": "1.2.0" },
     "change_order_id": { "const": "CO-2026-003" },
     "status": { "const": "draft_prototype_accepted_for_documentation_cascade" },
+    "historical_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "successor_active_route_path", "successor_route_id", "generator_eligible", "primary_navigation_allowed"],
+      "properties": {
+        "status": { "const": "historical" },
+        "successor_active_route_path": { "const": "source/active-contracts.json" },
+        "successor_route_id": { "const": "lisa-presentation-browser-native-eleven-screen-route" },
+        "generator_eligible": { "const": false },
+        "primary_navigation_allowed": { "const": false }
+      }
+    },
     "client_reference_source": { "const": "source/client-reference-data.json" },
     "brainstorming_contract_source": { "const": "source/brainstorming-contract.json" },
     "approved_texts_source": { "const": "source/owner-approved-texts.json" },

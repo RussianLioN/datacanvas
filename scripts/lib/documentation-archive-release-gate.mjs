@@ -1,6 +1,12 @@
 import { spawnSync } from "node:child_process";
 import process from "node:process";
 
+import {
+  ACTIVE_ROUTE_ID,
+  ACTIVE_ROUTE_PATH,
+  assertCo2026003ActiveVisualRoute,
+} from "./co-2026-003-active-visual-route.mjs";
+
 const PROTOTYPE_CHECK_COMMANDS = Object.freeze({
   presentation_link_lisa_user_journey: ["scripts/generate-presentation-link-lisa-user-journey.mjs", "--check"],
   browser_native_phone_prototype: ["scripts/validate-browser-native-phone-prototype.mjs"],
@@ -64,20 +70,41 @@ function assertFinalReleaseBinding(root, gate, readJson) {
   return ledgerFingerprint;
 }
 
+function assertActiveVisualRouteBinding(root, gate, candidateFingerprint) {
+  if (!gate.active_visual_route_path) return null;
+  if (
+    gate.active_visual_route_path !== ACTIVE_ROUTE_PATH ||
+    gate.required_active_route_id !== ACTIVE_ROUTE_ID ||
+    gate.journey_contract_path ||
+    gate.required_content_review_status ||
+    gate.required_visual_release_status
+  ) {
+    fail("выпускной барьер browser-native прототипа должен ссылаться только на активный визуальный маршрут");
+  }
+  const activeRoute = assertCo2026003ActiveVisualRoute(root);
+  if (candidateFingerprint && activeRoute.candidateFingerprint !== candidateFingerprint) {
+    fail("активный визуальный маршрут не совпадает с отпечатком итоговой приёмки");
+  }
+  return activeRoute;
+}
+
 export function assertDocumentationArchiveReleaseGate({ root, contract, readJson, readRegularFile }) {
   if (!contract.release_gate) return { candidateFingerprint: null };
   const gate = contract.release_gate;
   const candidateFingerprint = assertFinalReleaseBinding(root, gate, readJson);
+  const activeRoute = assertActiveVisualRouteBinding(root, gate, candidateFingerprint);
 
-  const journeyContract = readJson(root, gate.journey_contract_path, "договор пути пользователя");
-  const lifecycle = journeyContract.lifecycle ?? {};
-  const mismatches = [
-    ["content_review_status", gate.required_content_review_status],
-    ["visual_release_status", gate.required_visual_release_status],
-  ].filter(([field, expected]) => lifecycle[field] !== expected)
-    .map(([field, expected]) => `${field}: ${String(lifecycle[field])} (требуется ${expected})`);
-  if (mismatches.length > 0) {
-    fail(`статусы договора пути пользователя не прошли выпускной барьер: ${mismatches.join("; ")}`);
+  if (!activeRoute) {
+    const journeyContract = readJson(root, gate.journey_contract_path, "договор пути пользователя");
+    const lifecycle = journeyContract.lifecycle ?? {};
+    const mismatches = [
+      ["content_review_status", gate.required_content_review_status],
+      ["visual_release_status", gate.required_visual_release_status],
+    ].filter(([field, expected]) => lifecycle[field] !== expected)
+      .map(([field, expected]) => `${field}: ${String(lifecycle[field])} (требуется ${expected})`);
+    if (mismatches.length > 0) {
+      fail(`статусы договора пути пользователя не прошли выпускной барьер: ${mismatches.join("; ")}`);
+    }
   }
   const prototypeCheckCommand = PROTOTYPE_CHECK_COMMANDS[gate.prototype_check];
   if (!prototypeCheckCommand) {
@@ -90,5 +117,5 @@ export function assertDocumentationArchiveReleaseGate({ root, contract, readJson
     const details = `${check.stdout}${check.stderr}`.trim();
     fail(`встроенная проверка прототипа не пройдена${details ? `:\n${details}` : ""}`);
   }
-  return { candidateFingerprint };
+  return { candidateFingerprint, activeRoute };
 }

@@ -29,12 +29,11 @@
     },
     "release_gate": {
       "type": "object",
-      "required": ["journey_contract_path", "required_content_review_status", "required_visual_release_status", "prototype_check", "release_approval_ledger_path", "required_final_release_status", "prototype_package_manifest_path", "fresh_evidence_path"],
+      "required": ["active_visual_route_path", "required_active_route_id", "prototype_check", "release_approval_ledger_path", "required_final_release_status", "prototype_package_manifest_path", "fresh_evidence_path"],
       "additionalProperties": false,
       "properties": {
-        "journey_contract_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json"},
-        "required_content_review_status": {"const": "approved_product_owner"},
-        "required_visual_release_status": {"const": "approved_product_owner"},
+        "active_visual_route_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json"},
+        "required_active_route_id": {"const": "lisa-presentation-browser-native-eleven-screen-route"},
         "prototype_check": {"const": "browser_native_phone_prototype"},
         "release_approval_ledger_path": {"const": "docs/product/change-orders/co-2026-003-release-approval-ledger.json"},
         "required_final_release_status": {"const": "owner_final_approved"},

@@ -47,6 +47,46 @@ test("два принятых решения требуют наличия пр�
   });
 });
 
+test("browser-native выпуск разрешается через активный визуальный маршрут", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-release-gate-"));
+  try {
+    writeJson(root, "docs/release/archive.json", {
+      release_gate: {
+        active_visual_route_path: "docs/product/active-contracts.json",
+        required_active_route_id: "lisa-presentation-browser-native-eleven-screen-route",
+        required_final_release_status: "owner_final_approved",
+      },
+    });
+    writeJson(root, "docs/product/active-contracts.json", {
+      status: "active",
+      route_id: "lisa-presentation-browser-native-eleven-screen-route",
+      active_contract: {
+        path: "docs/product/browser-native-phone-prototype-contract.json",
+      },
+      release_bindings: {
+        owner_final_approval_path: "docs/product/owner-final-approval.json",
+      },
+    });
+    writeJson(root, "docs/product/browser-native-phone-prototype-contract.json", {
+      status: "owner_final_approved",
+    });
+    writeJson(root, "docs/product/owner-final-approval.json", {
+      decision: "approved",
+      authorizations: {
+        active_release_switch_allowed: true,
+        delivery_archive_allowed: true,
+      },
+    });
+
+    assert.deepEqual(readReleaseGateState(root, "docs/release/archive.json"), {
+      approved: true,
+      summary: "выпуск разрешён",
+    });
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("контракт с небезопасным путём выпуска отклоняется", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-release-gate-"));
   try {

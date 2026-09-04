@@ -3,6 +3,13 @@
   "version": "1.2.0",
   "change_order_id": "CO-2026-003",
   "status": "draft_prototype_accepted_for_documentation_cascade",
+  "historical_snapshot": {
+    "status": "historical",
+    "successor_active_route_path": "source/active-contracts.json",
+    "successor_route_id": "lisa-presentation-browser-native-eleven-screen-route",
+    "generator_eligible": false,
+    "primary_navigation_allowed": false
+  },
   "client_reference_source": "source/client-reference-data.json",
   "brainstorming_contract_source": "source/brainstorming-contract.json",
   "approved_texts_source": "source/owner-approved-texts.json",

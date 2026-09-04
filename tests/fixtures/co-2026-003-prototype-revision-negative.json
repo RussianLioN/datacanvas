@@ -101,9 +101,14 @@
       "expected_error": "prototype revision candidate must not be listed in active-contracts.json"
     },
     {
+      "id": "candidate-historical-snapshot-drift",
+      "mutation": "candidate_historical_snapshot_drift",
+      "expected_error": "/historical_snapshot/primary_navigation_allowed: must be equal to constant"
+    },
+    {
       "id": "active-journey-contract-drift",
       "mutation": "active_journey_contract_drift",
-      "expected_error": "active journey contract must keep the temporary 13-frame and 3-action-source invariant"
+      "expected_error": "historical journey contract must preserve the former 13-frame and 3-action-source snapshot"
     },
     {
       "id": "wrong-delivery-success-historical-source",

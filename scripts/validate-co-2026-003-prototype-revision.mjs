@@ -14,6 +14,7 @@ const approvedTextsPath = `${sourcePath}/owner-approved-texts.json`;
 const candidateMarkdownPath = `${packagePath}/prototype-revision-candidate.md`;
 const activeContractsPath = `${sourcePath}/active-contracts.json`;
 const journeyContractPath = `${sourcePath}/journey-contract.json`;
+const historicalThirteenScreenContractsPath = `${sourcePath}/historical-thirteen-screen-contracts.json`;
 const activeReleaseOutputPaths = Object.freeze([
   `${packagePath}/demo`,
   `${packagePath}/derived`,
@@ -434,6 +435,15 @@ function validateApprovedTexts(approvedTexts) {
 function validateCandidate(candidate, approvedTexts) {
   assertNoLocalOrRawSourcePaths(candidate);
   assertNoRawSourceTracesInJson(candidate);
+  if (JSON.stringify(candidate.historical_snapshot) !== JSON.stringify({
+    status: "historical",
+    successor_active_route_path: "source/active-contracts.json",
+    successor_route_id: "lisa-presentation-browser-native-eleven-screen-route",
+    generator_eligible: false,
+    primary_navigation_allowed: false,
+  })) {
+    throw new Error("candidate must preserve its historical-only boundary and final browser-native successor");
+  }
   if (!sameArray(candidate.active_future_frame_ids, expectedActiveFutureFrameIds)) {
     throw new Error("candidate active future frame list must contain all ten original frames and three error frames");
   }
@@ -706,11 +716,31 @@ function validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdf
   }
 }
 
-function validateInactiveCandidateBoundary(root) {
+function validateInactiveCandidateBoundary(root, historicalThirteenScreenContracts) {
   const activeContracts = readJson(root, activeContractsPath);
   const activeContractText = JSON.stringify(activeContracts);
   if (activeContractText.includes("prototype-revision-candidate")) {
     throw new Error("prototype revision candidate must not be listed in active-contracts.json");
+  }
+  if (
+    activeContracts.route_id !== "lisa-presentation-browser-native-eleven-screen-route" ||
+    activeContracts.route_kind !== "browser_native_final" ||
+    activeContracts.active_state_ids?.length !== 11 ||
+    activeContracts.active_state_ids.includes("lisa-materials-summary") ||
+    activeContracts.active_state_ids.includes("lisa-presentation-order")
+  ) {
+    throw new Error("active contracts must contain only the final browser-native 11-frame route");
+  }
+
+  if (
+    historicalThirteenScreenContracts.status !== "historical" ||
+    historicalThirteenScreenContracts.route_id !== "lisa-presentation-thirteen-screen-route" ||
+    !sameArray(historicalThirteenScreenContracts.former_active_state_ids, expectedActiveFutureFrameIds) ||
+    historicalThirteenScreenContracts.historical_policy?.generator_eligible !== false ||
+    historicalThirteenScreenContracts.historical_policy?.primary_navigation_allowed !== false ||
+    historicalThirteenScreenContracts.historical_policy?.automatic_reactivation_allowed !== false
+  ) {
+    throw new Error("historical 13-frame record must remain inactive and excluded from primary navigation");
   }
 
   const journey = readJson(root, journeyContractPath);
@@ -740,7 +770,7 @@ function validateInactiveCandidateBoundary(root) {
     journey.actions.length !== 1 ||
     !sameArray(journey.actions[0].source_state_ids, expectedActionSources)
   ) {
-    throw new Error("active journey contract must keep the temporary 13-frame and 3-action-source invariant");
+    throw new Error("historical journey contract must preserve the former 13-frame and 3-action-source snapshot");
   }
 
   for (const releasePath of activeReleaseOutputPaths) {
@@ -762,6 +792,7 @@ try {
   const presentationPdfDonorRegister = validateAgainstSchema(root, presentationPdfDonorRegisterPath, `${sourcePath}/schemas/presentation-pdf-donor-register.schema.json`);
   const brainstorming = validateAgainstSchema(root, brainstormingPath, `${sourcePath}/schemas/brainstorming-contract.schema.json`);
   const approvedTexts = validateAgainstSchema(root, approvedTextsPath, `${sourcePath}/schemas/owner-approved-texts.schema.json`);
+  const historicalThirteenScreenContracts = validateAgainstSchema(root, historicalThirteenScreenContractsPath, `${sourcePath}/schemas/historical-thirteen-screen-contracts.schema.json`);
   const candidateMarkdown = readText(root, candidateMarkdownPath);
 
   validateClientData(clientData);
@@ -770,7 +801,7 @@ try {
   validateCandidate(candidate, approvedTexts);
   validateSvgPipelineContract(svgPipeline, approvedTexts, presentationPdfDonorRegister);
   assertNoRawSourceTracesInText(candidateMarkdown);
-  validateInactiveCandidateBoundary(root);
+  validateInactiveCandidateBoundary(root, historicalThirteenScreenContracts);
 
   process.stdout.write("Проверка кандидата пересборки прототипа CO-2026-003 пройдена.\n");
 } catch (error) {

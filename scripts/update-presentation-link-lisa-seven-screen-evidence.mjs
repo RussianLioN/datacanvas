@@ -13,6 +13,9 @@ const VISUAL_MANIFEST_PATH = `${PACKAGE_PATH}/evidence/visual-screenshot-manifes
 const SCREENSHOTS_PATH = `${PACKAGE_PATH}/evidence/screenshots`;
 const CONFIG_PATH = "tests/presentation-link-lisa-user-journey.playwright.config.mjs";
 const SPEC_PATH = "tests/presentation-link-lisa-seven-screen-prototype.browser.spec.mjs";
+const DISABLED_MESSAGE =
+  "исторический browser-evidence updater выведен из эксплуатации; " +
+  "активный 11-кадровый browser-native выпуск проверяется командами validate:co-2026-003-active-visual-route и check:browser-native-phone-prototype:release-evidence";
 const VISUAL_VIEWPORTS = Object.freeze([
   Object.freeze({ id: "desktop-1280x720", width: 1280, height: 720 }),
   Object.freeze({ id: "mobile-390x844", width: 390, height: 844 }),
@@ -240,6 +243,7 @@ function parseArguments(args) {
 }
 
 try {
+  throw new Error(DISABLED_MESSAGE);
   const root = process.cwd();
   const mode = parseArguments(process.argv.slice(2));
   runBrowsers(root);

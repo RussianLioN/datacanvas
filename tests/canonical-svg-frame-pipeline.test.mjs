@@ -315,11 +315,7 @@ function mutate(contract, activeContracts, mutation) {
       contract.external_sources[0].sha256 = "a".repeat(64);
       break;
     case "add-contract-to-active-registry":
-      activeContracts.active_contracts.push({
-        id: "canonical-svg-frame-pipeline",
-        path: "source/canonical-svg-frame-pipeline-contract.json",
-        schema: "source/schemas/canonical-svg-frame-pipeline-contract.schema.json",
-      });
+      activeContracts.active_contract.path = "source/canonical-svg-frame-pipeline-contract.json";
       break;
     case "replace-approved-continuation-base":
       contract.frame_review_session.base_svg_path = "editable-sources/7.2 — Длинное название клиента + холдинг.svg";

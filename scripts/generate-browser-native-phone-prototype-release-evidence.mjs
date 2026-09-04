@@ -5,6 +5,7 @@ const root = path.resolve(import.meta.dirname, "..");
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const sourceRoot = path.join(root, packagePath, "source/browser-native-phone-prototype");
 const runtimeRoot = path.join(root, packagePath, "candidate-evidence/browser-native-phone-prototype");
+const activeRoutePath = path.join(root, packagePath, "source/active-contracts.json");
 const outputPath = path.join(root, "docs/release/co-2026-003-browser-native-phone-prototype-release-evidence.json");
 const check = process.argv.slice(2).includes("--check");
 
@@ -22,10 +23,19 @@ function main() {
   const approval = json(path.join(sourceRoot, contract.release_boundary.final_approval_path));
   const manifest = json(path.join(runtimeRoot, "manifest.json"));
   const series = json(path.join(runtimeRoot, "external-4k-series-review/series-manifest.json"));
+  const activeRoute = json(activeRoutePath);
   if (contract.status !== "owner_final_approved" || approval.decision !== "approved" || approval.authorizations?.delivery_archive_allowed !== true || manifest.status !== contract.status || series.status !== "owner_series_approved" || series.owner_decision !== "approved") {
     fail("источники не подтверждают итоговый выпуск браузерного прототипа");
   }
   if (manifest.candidate_fingerprint?.algorithm !== "sha256" || !/^[a-f0-9]{64}$/u.test(manifest.candidate_fingerprint.sha256)) fail("манифест прототипа не содержит корректный отпечаток кандидата");
+  if (
+    activeRoute.route_id !== "lisa-presentation-browser-native-eleven-screen-route" ||
+    activeRoute.route_kind !== "browser_native_final" ||
+    !Array.isArray(activeRoute.active_state_ids) ||
+    activeRoute.active_state_ids.length !== 11
+  ) {
+    fail("активный маршрут не подтверждает финальный browser-native выпуск из 11 кадров");
+  }
   const evidence = {
     version: "1.0.0",
     status: "owner_final_approved",
@@ -37,6 +47,9 @@ function main() {
     runtime_mode: manifest.runtime_mode,
     phone_text_mode: manifest.product_text_source,
     raw_pdf_included: false,
+    active_visual_route_path: `${packagePath}/source/active-contracts.json`,
+    active_route_id: activeRoute.route_id,
+    active_state_ids: activeRoute.active_state_ids,
     active_release_switch_allowed: contract.release_boundary.active_release_switch_allowed,
     delivery_archive_allowed: contract.release_boundary.archive_update_allowed
   };

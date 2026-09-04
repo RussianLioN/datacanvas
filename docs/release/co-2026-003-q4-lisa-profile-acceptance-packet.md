@@ -1,6 +1,6 @@
 # Пакет Приёмки Документации CO-2026-003
 
-> **Исторический пакет:** результаты ниже относятся к выпуску от 18 августа 2026 года. Они не принимают чистовой выпуск ООО «Водолей Трейд». Для него действуют [реестр утверждённых текстов](../product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md) и [манифест принятого изолированного черновика](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json): до завершения документального каскада и отдельного итогового подтверждения SVG, PNG, HTML и архив не пересобираются.
+> **Исторический пакет:** результаты ниже относятся к выпуску от 18 августа 2026 года. Они не принимают чистовой выпуск ООО «Водолей Трейд». Действующий результат закреплён в [чистовом браузерном прототипе из 11 кадров](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md) и [реестре приёмок](../product/change-orders/co-2026-003-release-approval-ledger.md); этот пакет не может вернуть исторический маршрут в выпуск.
 
 Навигация: [DataCanvas](../../README.md) / [Документация](../README.md) / [Выпуск и доказательства](README.md) / пакет приёмки CO-2026-003
 
@@ -19,7 +19,7 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 журнал ответов владельца продукта. Для будущего кандидата пять текстов имеют
 позднейший отдельный источник — реестр утверждённых текстов.
 
-## Текущий Документальный Каскад
+## Документальный Каскад На Момент Исторической Приёмки
 
 Текущий каскад относится к принятому изолированному черновику ООО «Водолей
 Трейд», а не к историческому выпуску. Его исходная точка — [реестр решений
@@ -35,9 +35,9 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 черновика активным выпуском и несвязанный архив теперь отклоняются проверками.
 Текущий порядок и фактические разрешения фиксирует [реестр приёмок](../product/change-orders/co-2026-003-release-approval-ledger.md).
 
-Чистовые SVG и PNG, действующая демонстрация, браузерные снимки и архив поставки
-в этот этап не входят. Они остаются следующей отдельной вехой после документального
-каскада и итогового подтверждения владельца.
+На момент этой исторической приёмки чистовые SVG и PNG, действующая демонстрация,
+браузерные снимки и архив поставки не входили в этап. Теперь этот раздел не
+заменяет отдельное итоговое принятие браузерного прототипа.
 
 ## 1. Источник Решений И Планирования
 
@@ -83,19 +83,20 @@ Q4_2026 для Лисы, «Профиля сотрудника» и почтов
 Исторические спецификации запуска другим агентом остаются в репозитории как
 предыдущий контур и не являются заменой десяти Q4_2026-артефактов выше.
 
-## 5. Пользовательский Путь И Прототип
+## 5. Исторический Пользовательский Путь И Прототип
 
-- [Пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — десять исходных экранов в исходном порядке и три экрана статусов после демонстрации успешного пути.
-- [Кандидат обновления прототипа](../product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md) и [пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — текущий маршрут из 13 экранов, покадровые приёмки и границы будущего выпуска.
-- [Интерактивная демонстрация](../product/analysis/presentation-link-lisa-user-journey/demo/index.html) и [переносимый архив прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) — исторический результат; они не подтверждают будущий выпуск ООО «Водолей Трейд».
+- [Исторический пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — десять исходных экранов в исходном порядке и три экрана статусов после демонстрации успешного пути.
+- [Исторический кандидат обновления прототипа](../product/analysis/presentation-link-lisa-user-journey/prototype-revision-candidate.md) и [исторический пользовательский путь](../product/analysis/presentation-link-lisa-user-journey/user-journey.md) — сохранённый маршрут из 13 экранов, покадровые приёмки и границы прошлого выпуска.
+- [Чистовой браузерный прототип](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md) — действующий маршрут из 11 кадров; он не зависит от исторической демонстрации.
+- [Интерактивная демонстрация](../product/analysis/presentation-link-lisa-user-journey/demo/index.html) и [переносимый архив прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/lisa-presentation-user-journey-demo.zip) — исторический результат; они не подтверждают действующий выпуск ООО «Водолей Трейд».
 
-Машиночитаемые подтверждения: [договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json), [договор состава прототипа](../product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json), [активные договоры](../product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json), [манифест прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json), [отчёт браузерной проверки](../product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json) и [отчёт приёмки прототипа](../product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json).
+Машиночитаемые подтверждения исторического этапа: [договор пути](../product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json), [договор состава прототипа](../product/analysis/presentation-link-lisa-user-journey/source/prototype-package-contract.json), [историческая запись маршрута](../product/analysis/presentation-link-lisa-user-journey/source/historical-thirteen-screen-contracts.json), [манифест прототипа](../product/analysis/presentation-link-lisa-user-journey/derived/prototype-package-manifest.json), [отчёт браузерной проверки](../product/analysis/presentation-link-lisa-user-journey/evidence/browser-report.json) и [отчёт приёмки прототипа](../product/analysis/presentation-link-lisa-user-journey/evidence/acceptance-report.json). Действующий реестр — [active-contracts.json](../product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json).
 
 ## 6. Доказательства, Архив И Контроль Целостности
 
 - [Доказательства проверок Q4_2026](co-2026-003-q4-lisa-profile-validation-evidence.md) — результаты профильных и полных проверок, включая браузерную проверку 13 состояний.
 - [Порядок поставки прототипа](co-2026-003-prototype-delivery-archive.md) — обязательная последовательность: согласование → генерация прототипа → доказательства → архив.
-- Текущий архив поставки намеренно отсутствует: он создаётся только после отдельного итогового подтверждения владельца, чистовой генерации прототипа и успешной проверки пути. Его будущий состав и выпускной барьер зафиксированы в [договоре архива поставки](co-2026-003-prototype-delivery-archive-contract.json).
+- На момент исторической приёмки текущий архив поставки намеренно отсутствовал. Действующий отдельный ZIP доступен через [страницу загрузки браузерного прототипа](co-2026-003-browser-native-phone-prototype-download.md); полный документальный архив будет опубликован после проверки его состава по действующему маршруту.
 
 Машиночитаемые подтверждения: [договор архива поставки](co-2026-003-prototype-delivery-archive-contract.json), [манифест хэшей](../architecture/schemas/artifact-hash-manifest.json) и [манифест контроля утечек](../architecture/security/data-leakage-manifest.json).
 

@@ -1,6 +1,6 @@
 {
   "$schema": "../../schemas/co-2026-003-browser-native-phone-prototype-archive-contract.schema.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "status": "active",
   "archive_id": "co-2026-003-browser-native-phone-prototype",
   "title": "Браузерный прототип заказа презентации из агента «Справка по клиенту»",
@@ -16,9 +16,8 @@
     "validation_command": "npm run validate:co-2026-003-browser-native-phone-prototype-archive"
   },
   "release_gate": {
-    "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
-    "required_content_review_status": "approved_product_owner",
-    "required_visual_release_status": "approved_product_owner",
+    "active_visual_route_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
+    "required_active_route_id": "lisa-presentation-browser-native-eleven-screen-route",
     "prototype_check": "browser_native_phone_prototype",
     "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
     "required_final_release_status": "owner_final_approved",
