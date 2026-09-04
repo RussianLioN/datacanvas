@@ -17,7 +17,7 @@
   "required_interface_ids": ["IF-006", "IF-007", "IF-008", "IF-009"],
   "required_lifecycle_state_ids": ["eligible", "validating", "rejected_retryable", "accepted_locked", "generating", "delivery_confirmed", "delayed", "delivery_partial", "support_pending", "session_closed"],
   "required_error_ids": ["ERR-004", "ERR-005", "ERR-006", "ERR-007", "ERR-008", "ERR-009", "ERR-010"],
-  "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/journey-contract.json",
+  "journey_contract_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
   "visual_release_gate": {
     "content_review_status": "approved_product_owner",
     "visual_release_status": "approved_product_owner",

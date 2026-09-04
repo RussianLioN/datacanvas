@@ -7,10 +7,10 @@ import {
   validateQ4ReferenceBoundary,
   validateQ4TraceabilityReferences,
 } from "../scripts/validate-ba-sa-artifacts.mjs";
-import { loadSevenScreenContracts } from "../scripts/lib/presentation-link-lisa-seven-screen-prototype.mjs";
 
 const root = new URL("../", import.meta.url);
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(new URL(relativePath, root), "utf8"));
+const packageRoot = "docs/product/analysis/presentation-link-lisa-user-journey/";
 const fixture = readJson("tests/fixtures/co-2026-003-q4-lisa-profile-integrity.json");
 const negativeReferences = readJson("tests/fixtures/co-2026-003-q4-lisa-profile-negative-references.json");
 
@@ -63,7 +63,24 @@ test("Q4_2026 связывает безопасный Excel, требовани�
     "таксономия не содержит обязательную ошибку",
   );
 
-  assert.doesNotThrow(() => loadSevenScreenContracts(new URL("../", import.meta.url).pathname));
+  const activeContracts = readJson(fixture.journey_contract_path);
+  assert.equal(activeContracts.route_id, "lisa-presentation-browser-native-eleven-screen-route");
+  assert.equal(activeContracts.route_kind, "browser_native_final");
+  assert.equal(activeContracts.active_state_ids.length, 11, "активный договор должен сохранять принятые 11 кадров");
+  assert.equal(activeContracts.historical_routes[0].primary_navigation_allowed, false);
+  assert.equal(activeContracts.historical_routes[0].generator_eligible, false);
+
+  const activeBrowserContract = readJson(`${packageRoot}${activeContracts.active_contract.path}`);
+  assert.deepEqual(
+    activeBrowserContract.viewer_navigation.frame_sequence,
+    activeContracts.active_state_ids,
+    "активный браузерный договор должен совпадать с 11-кадровым реестром",
+  );
+  assert.deepEqual(
+    [...activeBrowserContract.phone_state_ids, ...activeBrowserContract.external_state_ids].toSorted(),
+    activeContracts.active_state_ids.toSorted(),
+    "телефонные и внешние экраны должны вместе давать ровно состав активного 11-кадрового маршрута",
+  );
 });
 
 test("Q4_2026 отклоняет неизвестные ссылки SSD на требования, решения, интерфейсы и правила", () => {
