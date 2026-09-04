@@ -102,6 +102,42 @@ function assertPng(absolutePath, storyId) {
   if (content.length < pngSignature.length || !content.subarray(0, pngSignature.length).equals(pngSignature)) {
     fail(`${storyId}: PNG-рендер имеет неверную сигнатуру`);
   }
+  let offset = pngSignature.length;
+  let sawHeader = false;
+  let sawImageData = false;
+  let sawEnd = false;
+  while (offset < content.length) {
+    if (offset + 12 > content.length) {
+      fail(`${storyId}: PNG-рендер повреждён: обрезан заголовок блока`);
+    }
+    const length = content.readUInt32BE(offset);
+    const type = content.subarray(offset + 4, offset + 8).toString("ascii");
+    const nextOffset = offset + 12 + length;
+    if (nextOffset > content.length) {
+      fail(`${storyId}: PNG-рендер повреждён: обрезан блок ${type}`);
+    }
+    if (!sawHeader) {
+      if (type !== "IHDR" || length !== 13) {
+        fail(`${storyId}: PNG-рендер повреждён: отсутствует корректный IHDR`);
+      }
+      if (content.readUInt32BE(offset + 8) === 0 || content.readUInt32BE(offset + 12) === 0) {
+        fail(`${storyId}: PNG-рендер повреждён: нулевой размер холста`);
+      }
+      sawHeader = true;
+    } else if (type === "IDAT") {
+      sawImageData = true;
+    } else if (type === "IEND") {
+      if (length !== 0 || nextOffset !== content.length) {
+        fail(`${storyId}: PNG-рендер повреждён: некорректный IEND`);
+      }
+      sawEnd = true;
+      break;
+    }
+    offset = nextOffset;
+  }
+  if (!sawHeader || !sawImageData || !sawEnd) {
+    fail(`${storyId}: PNG-рендер повреждён: нет полного набора IHDR, IDAT и IEND`);
+  }
 }
 
 function assertOverview(root, stories) {

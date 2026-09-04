@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -107,6 +108,35 @@ test("проверка отклоняет устаревший рендер по
     assert.throws(
       () => validateUserStorySequenceDiagrams(temporaryRoot),
       /не соответствует текущим исходнику и рендерам/u,
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
+});
+
+test("проверка отклоняет обрезанный PNG, даже если его контрольная сумма совпадает с манифестом", () => {
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-sequence-"));
+  try {
+    fs.mkdirSync(path.join(temporaryRoot, path.dirname(mapPath)), { recursive: true });
+    fs.copyFileSync(path.join(root, mapPath), path.join(temporaryRoot, mapPath));
+    fs.mkdirSync(path.dirname(path.join(temporaryRoot, sourceDirectory)), { recursive: true });
+    fs.cpSync(path.join(root, sourceDirectory), path.join(temporaryRoot, sourceDirectory), { recursive: true });
+    fs.mkdirSync(path.dirname(path.join(temporaryRoot, artifactDirectory)), { recursive: true });
+    fs.cpSync(path.join(root, artifactDirectory), path.join(temporaryRoot, artifactDirectory), { recursive: true });
+    const pngPath = path.join(temporaryRoot, artifactDirectory, "png", "us-009-01.png");
+    const truncatedPng = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00]);
+    fs.writeFileSync(pngPath, truncatedPng);
+    const manifestPath = path.join(temporaryRoot, artifactDirectory, "manifest.json");
+    const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+    manifest.artifacts.find((artifact) => artifact.story_id === "US-009-01").png_sha256 = crypto
+      .createHash("sha256")
+      .update(truncatedPng)
+      .digest("hex");
+    fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+
+    assert.throws(
+      () => validateUserStorySequenceDiagrams(temporaryRoot),
+      /PNG-рендер повреждён/u,
     );
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
