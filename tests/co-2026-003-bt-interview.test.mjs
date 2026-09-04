@@ -25,6 +25,18 @@ test("CO-2026-003 фиксирует ровно девять действующ�
   assert.equal(artifacts.scope.source.original_sha256, "9b7d6e2bfb19eb943ad5a989c76a83ac58b63cfefecaaa33c6644dd1352fbfc5");
 });
 
+test("CO-2026-003 сохраняет интервью как исторический снимок с указателем на актуальный реестр", () => {
+  const artifacts = loadBtInterviewArtifacts();
+
+  assert.equal(artifacts.state.state_role, "historical_stage_snapshot");
+  assert.equal(
+    artifacts.state.current_release_approval_ledger_path,
+    "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+  );
+  assert.equal(artifacts.state.documentation_cascade.prototype, "accepted_11_frame_draft_unchanged");
+  assert.equal(artifacts.state.documentation_cascade.final_release, "pending");
+});
+
 test("CO-2026-003 не принимает будущую историю в границу 2026 года", () => {
   const artifacts = loadBtInterviewArtifacts();
   const invalidArtifacts = structuredClone(artifacts);

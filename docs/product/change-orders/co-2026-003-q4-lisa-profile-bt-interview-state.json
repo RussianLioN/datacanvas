@@ -1,7 +1,9 @@
 {
   "$schema": "../../../schemas/co-2026-003-bt-interview-state.schema.json",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "change_order_id": "CO-2026-003",
+  "state_role": "historical_stage_snapshot",
+  "current_release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
   "status": "user_stories_owner_approved",
   "transcript_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-transcript.md",
   "scope_path": "docs/product/sources/co-2026-003-current-2026-scope.json",

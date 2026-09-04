@@ -95,6 +95,12 @@ export function validateBtInterviewArtifacts(artifacts) {
   if (state.change_order_id !== "CO-2026-003" || state.scope_path !== "docs/product/sources/co-2026-003-current-2026-scope.json") {
     fail("interview state must point to the current 2026 scope");
   }
+  if (
+    state.state_role !== "historical_stage_snapshot" ||
+    state.current_release_approval_ledger_path !== "docs/product/change-orders/co-2026-003-release-approval-ledger.json"
+  ) {
+    fail("interview state must remain a historical stage snapshot linked to the current release ledger");
+  }
   const userStoriesApproved = state.status === "user_stories_owner_approved";
   const businessRequirementsApproved = userStoriesApproved || state.status === "business_requirements_owner_approved";
   const expectedBusinessRequirementsStatus = businessRequirementsApproved

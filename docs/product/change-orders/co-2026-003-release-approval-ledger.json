@@ -1,6 +1,6 @@
 {
   "$schema": "../../../schemas/co-2026-003-release-approval-ledger.schema.json",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "change_order_id": "CO-2026-003",
   "public_data_authorization": {
     "decision_date": "2026-08-25",
@@ -45,6 +45,12 @@
       "owner_decision": "Владелец принял внешние 4K-экраны как часть финального чистового результата.",
       "current_render_allowed": true
     }
+  },
+  "documentation_readiness": {
+    "status": "reconciliation_in_progress",
+    "scope_source_path": "docs/product/sources/co-2026-003-current-2026-scope.json",
+    "historical_snapshot_path": "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json",
+    "external_dependencies": []
   },
   "documentation_cascade": {
     "scope_acceptance_status": "owner_approved",

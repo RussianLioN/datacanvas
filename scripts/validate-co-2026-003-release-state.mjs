@@ -5,6 +5,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 
 const ledgerPath = "docs/product/change-orders/co-2026-003-release-approval-ledger.json";
 const ledgerSchemaPath = "schemas/co-2026-003-release-approval-ledger.schema.json";
+const interviewStatePath = "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json";
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const candidatePath = `${packagePath}/source/prototype-revision-candidate.json`;
 const clientDataPath = `${packagePath}/source/client-reference-data.json`;
@@ -170,10 +171,43 @@ function validateIndependentReleaseDecisions(ledger) {
   ) throw new Error("разрешения чистового выпуска должны совпадать с итоговым решением владельца");
 }
 
+function validateDocumentationReadiness(ledger) {
+  const readiness = ledger.documentation_readiness;
+  if (
+    !["reconciliation_in_progress", "ready_for_team_review", "blocked_external_contracts"].includes(readiness.status) ||
+    readiness.scope_source_path !== "docs/product/sources/co-2026-003-current-2026-scope.json" ||
+    readiness.historical_snapshot_path !== interviewStatePath ||
+    !Array.isArray(readiness.external_dependencies)
+  ) {
+    throw new Error("готовность документации должна быть явной, связанной с актуальной областью и историческим снимком");
+  }
+}
+
+function validateHistoricalInterviewSnapshot(root, ledger) {
+  const snapshot = readJson(root, interviewStatePath);
+  if (
+    snapshot.state_role !== "historical_stage_snapshot" ||
+    snapshot.current_release_approval_ledger_path !== ledgerPath
+  ) {
+    throw new Error("исторический снимок интервью должен иметь роль historical_stage_snapshot и ссылку на актуальный реестр выпуска");
+  }
+  if (
+    snapshot.documentation_cascade?.prototype !== "accepted_11_frame_draft_unchanged" ||
+    snapshot.documentation_cascade?.final_release !== "pending"
+  ) {
+    throw new Error("исторический снимок интервью должен сохранять исходные значения чернового прототипа и ожидающего выпуска");
+  }
+  if (ledger.documentation_readiness.historical_snapshot_path !== interviewStatePath) {
+    throw new Error("актуальный реестр должен ссылаться на исторический снимок интервью");
+  }
+}
+
 function validateFinalReleaseBoundary(root, ledger, { requireFinalRelease }) {
   const finalRelease = ledger.final_release;
   validateAcceptedFullDeliveryText(ledger);
   validateIndependentReleaseDecisions(ledger);
+  validateDocumentationReadiness(ledger);
+  validateHistoricalInterviewSnapshot(root, ledger);
   if (finalRelease.status === "pending_owner_approval") {
     if (
       finalRelease.active_release_switch_allowed ||

@@ -9,6 +9,7 @@ import Ajv2020 from "ajv/dist/2020.js";
 const root = path.resolve(new URL("../", import.meta.url).pathname);
 const packagePath = "docs/product/analysis/presentation-link-lisa-user-journey";
 const ledgerPath = "docs/product/change-orders/co-2026-003-release-approval-ledger.json";
+const interviewStatePath = "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json";
 const candidatePath = `${packagePath}/source/prototype-revision-candidate.json`;
 const validatorPath = "scripts/validate-co-2026-003-release-state.mjs";
 const generatorPath = "scripts/generate-presentation-link-lisa-user-journey.mjs";
@@ -31,6 +32,31 @@ function validateLedgerAgainstSchema(ledger) {
     valid: validate(ledger),
     errors: validate.errors,
   };
+}
+
+function writeReleaseValidatorFixture(directory, ledger, interviewState) {
+  writeJson(directory, ledgerPath, ledger);
+  writeJson(directory, "schemas/co-2026-003-release-approval-ledger.schema.json", readJson("schemas/co-2026-003-release-approval-ledger.schema.json"));
+  writeJson(directory, candidatePath, readJson(candidatePath));
+  writeJson(directory, `${packagePath}/source/client-reference-data.json`, readJson(`${packagePath}/source/client-reference-data.json`));
+  writeJson(directory, `${packagePath}/source/visual-components-contract.json`, readJson(`${packagePath}/source/visual-components-contract.json`));
+  writeJson(directory, interviewStatePath, interviewState);
+  writeJson(directory, ledger.final_release.prototype_package_manifest_path, {
+    candidate_fingerprint: { sha256: ledger.final_release.candidate_fingerprint },
+  });
+  writeJson(directory, ledger.final_release.fresh_evidence_path, {
+    candidate_fingerprint: { sha256: ledger.final_release.candidate_fingerprint },
+  });
+  for (const frame of ledger.frame_approvals) {
+    if (frame.review_manifest_path === null) continue;
+    writeJson(directory, frame.review_manifest_path, {
+      frame_id: frame.frame_id,
+      status: "owner_frame_approved",
+      owner_frame_approval: {
+        record_path: frame.owner_approval_record_path?.replace(`${packagePath}/`, "") ?? null,
+      },
+    });
+  }
 }
 
 test("стенограмма закрепляет текст полной неподтверждённой доставки и снимает ложную блокировку выбора", () => {
@@ -84,6 +110,71 @@ test("CO-2026-003 хранит итоговое решение выпуска р
   });
   assert.equal(ledger.final_release.delivery_archive_allowed, true);
   assert.equal(ledger.final_release.high_resolution_render_allowed, true);
+});
+
+test("готовность документации не понижает принятое финальное визуальное решение", () => {
+  const ledger = readJson(ledgerPath);
+
+  assert.deepEqual(ledger.documentation_readiness, {
+    status: "reconciliation_in_progress",
+    scope_source_path: "docs/product/sources/co-2026-003-current-2026-scope.json",
+    historical_snapshot_path: interviewStatePath,
+    external_dependencies: [],
+  });
+  assert.equal(ledger.final_release.status, "owner_final_approved");
+  assert.equal(ledger.final_release.active_release_switch_allowed, true);
+  assert.equal(ledger.final_release.high_resolution_render_allowed, true);
+  assert.equal(ledger.final_release.delivery_archive_allowed, true);
+});
+
+test("валидатор допускает финальный визуальный выпуск при заблокированных внешних договорах документации", () => {
+  const ledger = readJson(ledgerPath);
+  const interviewState = readJson(interviewStatePath);
+  const fixtureLedger = structuredClone(ledger);
+  fixtureLedger.documentation_readiness.status = "blocked_external_contracts";
+  fixtureLedger.documentation_readiness.external_dependencies = ["почтовый договор"];
+
+  const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-documentation-readiness-"));
+  try {
+    writeReleaseValidatorFixture(temporaryDirectory, fixtureLedger, interviewState);
+
+    const result = spawnSync(process.execPath, [path.join(root, validatorPath)], {
+      cwd: temporaryDirectory,
+      encoding: "utf8",
+    });
+    assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+  } finally {
+    fs.rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
+});
+
+test("валидатор отклоняет финальный визуальный выпуск без роли исторического снимка", () => {
+  const ledger = readJson(ledgerPath);
+  const interviewState = readJson(interviewStatePath);
+  const fixtureLedger = structuredClone(ledger);
+  fixtureLedger.documentation_readiness = {
+    status: "reconciliation_in_progress",
+    scope_source_path: "docs/product/sources/co-2026-003-current-2026-scope.json",
+    historical_snapshot_path: interviewStatePath,
+    external_dependencies: [],
+  };
+  const snapshotWithoutRole = structuredClone(interviewState);
+  delete snapshotWithoutRole.state_role;
+  delete snapshotWithoutRole.current_release_approval_ledger_path;
+
+  const temporaryDirectory = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-historical-snapshot-"));
+  try {
+    writeReleaseValidatorFixture(temporaryDirectory, fixtureLedger, snapshotWithoutRole);
+
+    const result = spawnSync(process.execPath, [path.join(root, validatorPath)], {
+      cwd: temporaryDirectory,
+      encoding: "utf8",
+    });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /историческ.*сним.*роль/iu);
+  } finally {
+    fs.rmSync(temporaryDirectory, { recursive: true, force: true });
+  }
 });
 
 test("реестр хранит 11 принятых экранов и итоговое разрешение чистового выпуска", () => {
