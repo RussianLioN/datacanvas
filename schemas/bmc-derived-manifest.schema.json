@@ -8,7 +8,7 @@
   "properties": {
     "version": { "type": "string" },
     "status": { "type": "string", "enum": ["generated"] },
-    "source_trace_path": { "type": "string", "minLength": 1 },
+    "source_trace_path": { "type": "string", "const": "docs/product/bmc/bmc-trace.v0.1.json" },
     "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "source_revision_at": { "type": "string", "format": "date-time" },
     "source_revision_kind": { "type": "string", "const": "declared_trace_revision" },

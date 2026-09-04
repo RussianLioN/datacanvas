@@ -34,7 +34,7 @@
     "source_lock_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "source_revision_at": { "type": "string", "format": "date-time" },
     "source_revision_kind": { "type": "string", "const": "declared_trace_revision" },
-    "canonical_visual_path": { "type": "string", "minLength": 1 },
+    "canonical_visual_path": { "type": "string", "const": "docs/product/bmc/source/derived/datacanvas-bmc.svg" },
     "input_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "output_sha256": {
       "type": "object",

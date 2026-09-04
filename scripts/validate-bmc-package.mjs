@@ -116,6 +116,21 @@ for (const [schemaPath, dataPath] of [
 }
 
 const manifest = readJson(packageManifestPath);
+const trace = readJson(tracePath);
+if (manifest.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
+  fail("BMC package manifest points to the wrong canonical visual source");
+}
+if (manifest.source_trace_path !== tracePath) {
+  fail("BMC package manifest points to the wrong canonical source trace");
+}
+assertEmbeddedEvidenceHash(
+  "BMC package manifest source trace",
+  manifest.source_trace_sha256,
+  manifest.source_trace_path,
+);
+if (manifest.source_revision_at !== trace.source_revision_at || manifest.source_revision_kind !== trace.source_revision_kind) {
+  fail("BMC package manifest source revision does not match the canonical trace");
+}
 const manifestPaths = new Set(manifest.artifacts.map((artifact) => artifact.path));
 for (const filePath of requiredFiles.filter((item) => item !== packageManifestPath)) {
   if (!manifestPaths.has(filePath)) {
@@ -177,7 +192,6 @@ const automatedVisualChecks = readJson(automatedVisualChecksPath);
 if (automatedVisualChecks.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
   fail("BMC automated visual checks point to the wrong canonical visual source");
 }
-const trace = readJson(tracePath);
 if (automatedVisualChecks.source_trace_path !== tracePath) {
   fail("BMC automated visual checks point to the wrong canonical source trace");
 }

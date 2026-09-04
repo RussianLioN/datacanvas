@@ -195,6 +195,15 @@ test("сводка BMC явно показывает открытые ссылк
 
 test("валидатор BMC сверяет вложенные отпечатки автоматической проверки и статуса независимого просмотра", () => {
   assertPackageRejectsEmbeddedHashMutation(
+    "docs/product/bmc/manifest.json",
+    (manifest) => {
+      manifest.canonical_visual_path = "docs/product/bmc/text-alternative.md";
+      manifest.source_trace_path = "docs/product/bmc/source-lock.json";
+      manifest.source_trace_sha256 = sha256("docs/product/bmc/source-lock.json");
+    },
+    /wrong canonical package source|schema validation failed|must be equal to constant/u,
+  );
+  assertPackageRejectsEmbeddedHashMutation(
     "docs/product/bmc/evidence/bmc-visual-acceptance.json",
     (evidence) => {
       evidence.output_sha256.png = "0".repeat(64);
