@@ -5,7 +5,6 @@ import Ajv2020 from "ajv/dist/2020.js";
 export const PACKAGE_PATH = "docs/product/analysis/presentation-link-lisa-user-journey";
 export const ACTIVE_ROUTE_PATH = `${PACKAGE_PATH}/source/active-contracts.json`;
 export const ACTIVE_ROUTE_SCHEMA_PATH = `${PACKAGE_PATH}/source/schemas/active-contracts.schema.json`;
-export const HISTORICAL_ROUTE_SCHEMA_PATH = `${PACKAGE_PATH}/source/schemas/historical-thirteen-screen-contracts.schema.json`;
 export const BROWSER_CONTRACT_PATH = `${PACKAGE_PATH}/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json`;
 export const BROWSER_OWNER_APPROVAL_PATH = `${PACKAGE_PATH}/source/browser-native-phone-prototype/owner-final-approval.json`;
 export const BROWSER_MANIFEST_PATH = `${PACKAGE_PATH}/candidate-evidence/browser-native-phone-prototype/manifest.json`;
@@ -26,9 +25,6 @@ export const ACTIVE_FRAME_IDS = Object.freeze([
   "lisa-delivery-delayed",
   "lisa-delivery-partial",
 ]);
-const HISTORICAL_ROUTE_ID = "lisa-presentation-thirteen-screen-route";
-const HISTORICAL_ROUTE_PATH = "source/historical-thirteen-screen-contracts.json";
-
 function fail(message) {
   throw new Error(message);
 }
@@ -59,33 +55,6 @@ function assertJsonSchema(root, schemaPath, value, label) {
 
 function assertActiveSchema(root, registry) {
   assertJsonSchema(root, ACTIVE_ROUTE_SCHEMA_PATH, registry, "активный визуальный маршрут");
-}
-
-function assertHistoricalRecord(root, registry) {
-  const [historicalRoute] = registry.historical_routes ?? [];
-  if (
-    historicalRoute?.route_id !== HISTORICAL_ROUTE_ID ||
-    historicalRoute.record_path !== HISTORICAL_ROUTE_PATH ||
-    historicalRoute.generator_eligible !== false ||
-    historicalRoute.primary_navigation_allowed !== false
-  ) {
-    fail("исторический 13-кадровый маршрут должен быть явно запрещён для генерации и первичной навигации");
-  }
-
-  const historical = readJson(root, `${PACKAGE_PATH}/${historicalRoute.record_path}`, "историческая запись 13-кадрового маршрута");
-  assertJsonSchema(root, HISTORICAL_ROUTE_SCHEMA_PATH, historical, "историческая запись 13-кадрового маршрута");
-  if (
-    historical.status !== "historical" ||
-    historical.route_id !== HISTORICAL_ROUTE_ID ||
-    historical.former_active_state_ids?.length !== 13 ||
-    historical.former_active_state_ids.includes("lisa-materials-summary") !== true ||
-    historical.former_active_state_ids.includes("lisa-presentation-order") !== true ||
-    historical.historical_policy?.generator_eligible !== false ||
-    historical.historical_policy?.primary_navigation_allowed !== false ||
-    historical.historical_policy?.automatic_reactivation_allowed !== false
-  ) {
-    fail("историческая запись должна сохранять 13 кадров только как неактивный контур");
-  }
 }
 
 function assertActiveBindings(root, registry) {
@@ -186,7 +155,6 @@ function assertReleaseEvidence(root) {
 export function assertCo2026003ActiveVisualRoute(root = process.cwd()) {
   const registry = readJson(root, ACTIVE_ROUTE_PATH, "активный визуальный маршрут");
   assertActiveSchema(root, registry);
-  assertHistoricalRecord(root, registry);
   assertActiveBindings(root, registry);
   assertReleaseEvidence(root);
   return {

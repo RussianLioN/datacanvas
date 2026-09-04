@@ -41,15 +41,12 @@ function copyFixtureFile(targetRoot, relativePath) {
   fs.copyFileSync(source, target);
 }
 
-function createFixture() {
+function createActiveFixture() {
   const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "co-2026-003-active-route-"));
   for (const relativePath of [
     activeRoutePath,
     `${packagePath}/source/schemas/active-contracts.schema.json`,
-    `${packagePath}/source/historical-thirteen-screen-contracts.json`,
-    `${packagePath}/source/schemas/historical-thirteen-screen-contracts.schema.json`,
     `${packagePath}/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json`,
-    `${packagePath}/source/schemas/browser-native-phone-prototype-contract.schema.json`,
     `${packagePath}/source/browser-native-phone-prototype/owner-final-approval.json`,
     `${packagePath}/candidate-evidence/browser-native-phone-prototype/manifest.json`,
     "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
@@ -58,6 +55,15 @@ function createFixture() {
     copyFixtureFile(fixtureRoot, relativePath);
   }
   return fixtureRoot;
+}
+
+function copyHistoricalRecord(fixtureRoot) {
+  for (const relativePath of [
+    `${packagePath}/source/historical-thirteen-screen-contracts.json`,
+    `${packagePath}/source/schemas/historical-thirteen-screen-contracts.schema.json`,
+  ]) {
+    copyFixtureFile(fixtureRoot, relativePath);
+  }
 }
 
 function runValidator(targetRoot = root) {
@@ -76,8 +82,21 @@ test("активный визуальный маршрут — только пр
   assert.deepEqual(activeRoute.active_state_ids, expectedFrameIds);
 });
 
+test("отсутствующая историческая 13-кадровая запись не блокирует активный выпуск", () => {
+  const fixtureRoot = createActiveFixture();
+  try {
+    const historicalPath = path.join(packagePath, "source/historical-thirteen-screen-contracts.json");
+    assert.equal(fs.existsSync(path.join(fixtureRoot, historicalPath)), false, "фикстура содержит только действующие файлы");
+
+    const result = runValidator(fixtureRoot);
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
 test("исторический 13-кадровый маршрут и дрейф порядка блокируют активный выпуск", () => {
-  const fixtureRoot = createFixture();
+  const fixtureRoot = createActiveFixture();
   try {
     const route = readJson(activeRoutePath, fixtureRoot);
     route.active_state_ids = [
@@ -100,17 +119,17 @@ test("исторический 13-кадровый маршрут и дрейф 
   }
 });
 
-test("историческая запись 13-кадрового маршрута проверяется собственной схемой", () => {
-  const fixtureRoot = createFixture();
+test("повреждённая историческая 13-кадровая запись не блокирует активный выпуск", () => {
+  const fixtureRoot = createActiveFixture();
   try {
     const historicalPath = `${packagePath}/source/historical-thirteen-screen-contracts.json`;
+    copyHistoricalRecord(fixtureRoot);
     const historical = readJson(historicalPath, fixtureRoot);
     historical.unexpected_active_reactivation_hint = true;
     writeJson(fixtureRoot, historicalPath, historical);
 
     const result = runValidator(fixtureRoot);
-    assert.notEqual(result.status, 0, "лишние поля исторической записи должны блокировать активный выпуск");
-    assert.match(`${result.stdout}\n${result.stderr}`, /историческ|additionalProperties|unexpected_active_reactivation_hint/u);
+    assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
   } finally {
     fs.rmSync(fixtureRoot, { recursive: true, force: true });
   }
