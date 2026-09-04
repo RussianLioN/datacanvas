@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://datacanvas.local/schemas/bmc-independent-review-status.schema.json",
+  "title": "BmcIndependentReviewStatus",
+  "type": "object",
+  "required": [
+    "version",
+    "status",
+    "review_origin",
+    "reason",
+    "canonical_visual_path",
+    "input_sha256",
+    "output_sha256"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "status": { "type": "string", "enum": ["not_run"] },
+    "review_origin": { "type": "string", "enum": ["not_generated"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "canonical_visual_path": { "type": "string", "const": "docs/product/bmc/source/derived/datacanvas-bmc.svg" },
+    "input_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "output_sha256": {
+      "type": "object",
+      "required": ["png", "pdf", "plantuml"],
+      "additionalProperties": false,
+      "properties": {
+        "png": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "pdf": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "plantuml": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}

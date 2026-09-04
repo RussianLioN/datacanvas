@@ -9,6 +9,7 @@
   ],
   "derived_manifest_path": "docs/product/bmc/bmc-derived-manifest.json",
   "source_revision_at": "2026-09-04T11:49:04Z",
+  "source_revision_kind": "declared_trace_revision",
   "blocks": [
     {
       "id": "B1",

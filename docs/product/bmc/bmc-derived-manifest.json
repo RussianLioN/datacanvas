@@ -2,8 +2,9 @@
   "version": "0.1.0",
   "status": "generated",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
-  "source_trace_sha256": "56e8313207a6c46ba80a41ece8beffd803e4658accca5ca4121ab7cdf0db51fc",
+  "source_trace_sha256": "d2625469bcd9a57c179d97b026aad580995a7fed1874b224a0e784bc995a7146",
   "source_revision_at": "2026-09-04T11:49:04Z",
+  "source_revision_kind": "declared_trace_revision",
   "generated_by": "scripts/generate-bmc-artifacts.mjs",
   "outputs": [
     {
@@ -34,7 +35,7 @@
     {
       "format": "validation_needs_json",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "90a28a0c2c8a31526ec67e92df595f4cc076866f488ca3b7d07f2f2489675114"
+      "sha256": "f2c15857b195eccb453e84dcb3a2ffa5811e5e0d7131cbce76fba0b037b1445b"
     }
   ]
 }

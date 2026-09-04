@@ -12,6 +12,7 @@
     "interview_result_paths",
     "derived_manifest_path",
     "source_revision_at",
+    "source_revision_kind",
     "blocks",
     "items",
     "claims",
@@ -35,7 +36,12 @@
       "items": { "type": "string", "minLength": 1 }
     },
     "derived_manifest_path": { "type": "string", "minLength": 1 },
-    "source_revision_at": { "type": "string", "format": "date-time" },
+    "source_revision_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Заявленная вручную дата редакции канонической трассировки, не время запуска генератора."
+    },
+    "source_revision_kind": { "type": "string", "const": "declared_trace_revision" },
     "blocks": {
       "type": "array",
       "minItems": 9,

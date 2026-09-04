@@ -1,56 +1,13 @@
 {
-  "version": "0.1.0",
-  "status": "accepted",
-  "checked_at": "2026-09-04T11:49:04Z",
-  "verdict": "ready_for_user_acceptance",
-  "severity_summary": {
-    "blocker": 0,
-    "major": 0,
-    "minor": 0
-  },
-  "roles": [
-    {
-      "role": "BMC method reviewer",
-      "verdict": "accepted",
-      "note": "The layout preserves the classical Business Model Canvas blocks and adapted B5 semantics."
-    },
-    {
-      "role": "Information designer",
-      "verdict": "accepted",
-      "note": "The hierarchy gives visual center to B2 while keeping partner, activity, channel and segment blocks readable."
-    },
-    {
-      "role": "Enterprise UX reviewer",
-      "verdict": "accepted",
-      "note": "The package is calm, operational and suitable for repeated product discussion."
-    },
-    {
-      "role": "Data traceability reviewer",
-      "verdict": "accepted",
-      "note": "Public statements stay clean while trace and validation needs remain in JSON evidence."
-    },
-    {
-      "role": "QA visual gate reviewer",
-      "verdict": "accepted",
-      "note": "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators."
-    }
-  ],
-  "checked_artifacts": [
-    {
-      "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "3611772e593a08f4b3866e6d56d39a9662cf772198c7c96ac210d054ebcd0946"
-    },
-    {
-      "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "131e22db124afe19d27ab470ac6e3baf73e0a11d24aa2cb95f66df9877e63908"
-    },
-    {
-      "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "555561060f2c14311d4919bebee83a772999f543fa0f7cda7d3060b015e4b6c5"
-    },
-    {
-      "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "2d6266183a047a37e111f7fdc1b33775fc90cfb6340961e68d2ddc7f1974eace"
-    }
-  ]
+  "version": "0.2.0",
+  "status": "not_run",
+  "review_origin": "not_generated",
+  "reason": "Штатный генератор не выполняет независимую визуальную проверку и не формирует результат консилиума.",
+  "canonical_visual_path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
+  "input_sha256": "3611772e593a08f4b3866e6d56d39a9662cf772198c7c96ac210d054ebcd0946",
+  "output_sha256": {
+    "png": "131e22db124afe19d27ab470ac6e3baf73e0a11d24aa2cb95f66df9877e63908",
+    "pdf": "555561060f2c14311d4919bebee83a772999f543fa0f7cda7d3060b015e4b6c5",
+    "plantuml": "2d6266183a047a37e111f7fdc1b33775fc90cfb6340961e68d2ddc7f1974eace"
+  }
 }

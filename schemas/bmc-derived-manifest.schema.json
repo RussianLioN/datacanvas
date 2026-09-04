@@ -3,7 +3,7 @@
   "$id": "https://datacanvas.local/schemas/bmc-derived-manifest.schema.json",
   "title": "BmcDerivedManifest",
   "type": "object",
-  "required": ["version", "status", "source_trace_path", "source_trace_sha256", "source_revision_at", "generated_by", "outputs"],
+  "required": ["version", "status", "source_trace_path", "source_trace_sha256", "source_revision_at", "source_revision_kind", "generated_by", "outputs"],
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string" },
@@ -11,6 +11,7 @@
     "source_trace_path": { "type": "string", "minLength": 1 },
     "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "source_revision_at": { "type": "string", "format": "date-time" },
+    "source_revision_kind": { "type": "string", "const": "declared_trace_revision" },
     "generated_by": { "type": "string", "minLength": 1 },
     "outputs": {
       "type": "array",

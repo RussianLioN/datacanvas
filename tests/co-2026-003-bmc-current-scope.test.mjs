@@ -74,10 +74,12 @@ test("BMC не оставляет DataCanvas возможность вести �
   assert.doesNotMatch(text, /не применяется как обязательный шаг/iu);
 });
 
-test("производные BMC-файлы несут явную дату редакции канонического источника", () => {
+test("производные BMC-файлы несут заявленную дату редакции канонического источника", () => {
   const trace = readJson(tracePath);
   const sourceRevisionAt = trace.source_revision_at;
+  const sourceRevisionKind = trace.source_revision_kind;
   assert.match(sourceRevisionAt, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/u);
+  assert.equal(sourceRevisionKind, "declared_trace_revision");
   const generatedMetadata = [
     [derivedManifestPath, "source_revision_at"],
     [packageManifestPath, "source_revision_at"],
@@ -88,8 +90,9 @@ test("производные BMC-файлы несут явную дату ре�
     assert.equal(
       readJson(path)[field],
       sourceRevisionAt,
-      `${path.pathname} должен хранить дату редакции канонического источника`,
+      `${path.pathname} должен хранить заявленную дату редакции канонического источника`,
     );
+    assert.equal(readJson(path).source_revision_kind, sourceRevisionKind);
     assert.equal(
       Object.hasOwn(readJson(path), "generated_at"),
       false,
@@ -98,7 +101,7 @@ test("производные BMC-файлы несут явную дату ре�
   }
   assert.match(
     fs.readFileSync(visualReviewPath, "utf8"),
-    new RegExp(`Редакция источника: ${sourceRevisionAt}`, "u"),
+    new RegExp(`Заявленная редакция источника: ${sourceRevisionAt}`, "u"),
   );
 });
 

@@ -101,9 +101,15 @@
 - `docs/product/bmc/source-map.md` - связь BMC-блоков с trace/source refs;
 - `docs/product/bmc/text-alternative.md` - текстовая альтернатива SVG/PNG/PDF;
 - `docs/product/bmc/manifest.json` - SHA, размеры, форматы, генератор, validator versions;
-- `docs/product/bmc/evidence/visual-review.md` - ручной визуальный вердикт;
-- `docs/product/bmc/evidence/designer-consilium.json` - минимум 5 дизайн-ролей, verdict, SHA проверенных файлов, отсутствие blocker/major;
-- `docs/product/bmc/evidence/bmc-visual-acceptance.json` - machine-readable evidence по SVG/PNG/PDF/PlantUML.
+- `docs/product/bmc/evidence/visual-review.md` - сгенерированная краткая сводка автоматических проверок, не являющаяся ручным визуальным вердиктом;
+- `docs/product/bmc/evidence/designer-consilium.json` - только явный статус того, что штатный генератор не запускал независимый дизайнерский консилиум; реальный протокол такой проверки создаётся отдельно и не формируется генератором;
+- `docs/product/bmc/evidence/bmc-visual-acceptance.json` - машиночитаемый результат автоматических проверок SVG/PNG/PDF/PlantUML, не заменяющий независимую визуальную приёмку.
+
+Генератор собирает полный BMC-пакет во временном каталоге и заменяет целевой
+каталог только после успешной проверки рендера. До замены он сверяет снимок
+всего исходного каталога BMC с текущим состоянием: параллельная ручная правка
+отменяет публикацию. При ошибке прежний пакет и его доказательства остаются
+без изменений.
 
 ## Validators
 
@@ -133,6 +139,7 @@
 - `scripts/validate-bmc-package.mjs`:
   - наличие README/source-map/text-alternative/manifest/evidence;
   - согласованность SHA;
+  - сверка вложенных SHA и путей автоматической проверки и статуса независимого просмотра с каноническими SVG/PNG/PDF/PlantUML и входными источниками;
   - отсутствие служебных данных в публичных артефактах.
 
 ## Схемы и манифесты
@@ -172,13 +179,14 @@
 
 - `docs/sprints/2026-W26-bmc-interview/sprint-evidence-manifest.json` - заменить старую цель на BMC visual contract implementation;
 - устаревшие ограничения про `real interview not conducted`, если runtime state уже completed;
-- machine-readable evidence fields:
-  - `checked_at`;
-  - `command`;
-  - `exit_code`;
+- машиночитаемые поля доказательств:
+  - статус автоматической проверки и отдельный статус независимой приёмки;
+  - вид проверки и штатный генератор;
+  - SHA-256 входной трассировки, исходного реестра и канонических выходов;
   - `input_sha256`;
   - `output_sha256`;
   - `artifact_paths`;
+- запрет на генерируемые поля времени внешнего просмотра, команды, кода завершения, ролей и вердиктов независимого консилиума.
 - process metrics/hash manifests после генерации.
 
 ## Rollback и Stop Rules
@@ -188,7 +196,7 @@
 - если `validate:bmc-visual` падает, не публиковать BMC как визуальный результат;
 - если `validate:bmc-render-parity` падает, не публиковать BMC как визуальный результат;
 - если source refresh не выполнен, не повышать статус выше `draft_working`;
-- если visual review содержит blocker или major, не переводить пакет в `ready_for_user_acceptance`.
+- если отдельная независимая визуальная проверка содержит blocker или major, не переводить пакет в `ready_for_user_acceptance`.
 
 Rollback:
 

@@ -492,7 +492,7 @@
     {
       "artifact_id": "ART-098",
       "path": "scripts/validate-backlog-registry.mjs",
-      "sha256": "a0bf9b49d62cdd4b1cdcadb796f370abfd5e05f2c532826be4edd1733f1d206d"
+      "sha256": "afa8140f6a7c7a7bbf9d044dca01cfcad0f96dc2d2dc9a4604edd40df65202c6"
     },
     {
       "artifact_id": "ART-099",
@@ -1677,17 +1677,17 @@
     {
       "artifact_id": "ART-336",
       "path": "schemas/bmc-trace.schema.json",
-      "sha256": "dd009aa2c0d56be01b865f3c3f0809d4f75f9e2c3919c517422bb265e6ebec3f"
+      "sha256": "54037414219fbb4ced6094ba10daf7df0cedc5e58042a06ed479c0e65f376f98"
     },
     {
       "artifact_id": "ART-337",
       "path": "schemas/bmc-derived-manifest.schema.json",
-      "sha256": "cca2560408fbe84094776698add602869004dbebb2eeb22f78b71f670fe23705"
+      "sha256": "2279077080646ce31d4bbd985b91488a1508fcc6c1e9a4922ad06ccc8295efcf"
     },
     {
       "artifact_id": "ART-338",
       "path": "docs/product/bmc/source-lock.json",
-      "sha256": "0401677208dc620914b0c165d75536978dac3751f75ae67498a28c0abbaa170d"
+      "sha256": "fc24df3645a9586e48bc58ac0e3eeff57b36b3d6c068536ac29f9448bdc11e9e"
     },
     {
       "artifact_id": "ART-339",
@@ -1742,37 +1742,37 @@
     {
       "artifact_id": "ART-349",
       "path": "docs/product/bmc/bmc-trace.v0.1.json",
-      "sha256": "0540ac541bf6412dbfa296e675bb426b1ea466c1147c6f389ab618bf1c83f779"
+      "sha256": "d2625469bcd9a57c179d97b026aad580995a7fed1874b224a0e784bc995a7146"
     },
     {
       "artifact_id": "ART-350",
       "path": "docs/product/bmc/bmc-derived-manifest.json",
-      "sha256": "002f2fdaf7d8e9625c3270634daf5273ed5de12d8f1c890639d8dab7cc904b67"
+      "sha256": "b86762034bd3c573b5255bf41d2c328dd0b7922b58081573007cf10402ffd271"
     },
     {
       "artifact_id": "ART-351",
       "path": "docs/product/bmc/bmc-v0.2.md",
-      "sha256": "f48651f350d959531c014b6aef67ab241961a7d9fc0ebbc3bf1f105184cc9230"
+      "sha256": "61a573e450ffd9deebc2d4ee5f2227a882311bbdf166bb068cbb618992339c5b"
     },
     {
       "artifact_id": "ART-352",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.puml",
-      "sha256": "ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019"
+      "sha256": "2d6266183a047a37e111f7fdc1b33775fc90cfb6340961e68d2ddc7f1974eace"
     },
     {
       "artifact_id": "ART-353",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.svg",
-      "sha256": "f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8"
+      "sha256": "3611772e593a08f4b3866e6d56d39a9662cf772198c7c96ac210d054ebcd0946"
     },
     {
       "artifact_id": "ART-354",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.png",
-      "sha256": "e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2"
+      "sha256": "131e22db124afe19d27ab470ac6e3baf73e0a11d24aa2cb95f66df9877e63908"
     },
     {
       "artifact_id": "ART-355",
       "path": "scripts/generate-bmc-artifacts.mjs",
-      "sha256": "936740b38b792b253681b6b1f8be38969c26de8044c4b64d42dc314e44070fcc"
+      "sha256": "90c5ad50ae0051b69e869ddfadc7faa5d96fe443167b2932467a129e5eb7c67d"
     },
     {
       "artifact_id": "ART-356",
@@ -1782,7 +1782,7 @@
     {
       "artifact_id": "ART-357",
       "path": "scripts/validate-bmc-trace.mjs",
-      "sha256": "bf7c9eb9f353184f791a5b55e10337f7f3709030461050b4ef58ad8ee06ab4db"
+      "sha256": "f6711210b63b5791ef5138e241034b3374692df16a565186e4ef6bf47ff266b4"
     },
     {
       "artifact_id": "ART-358",
@@ -1867,12 +1867,12 @@
     {
       "artifact_id": "ART-374",
       "path": "schemas/bmc-validation-needs.schema.json",
-      "sha256": "a2b876b905cf8c0d5db5098195608085046f880dc6b75a13ab6cc5d4d570579c"
+      "sha256": "bd9f01851d7f38ba088d8b916838a1b06b8c32bba972d44c0438cb8bfbbcb6a7"
     },
     {
       "artifact_id": "ART-375",
       "path": "docs/product/bmc/bmc-validation-needs.json",
-      "sha256": "5b8500f922ffb06bdcb268932a0407e8686033f7f2c6c802157aa0e2bf69bfc7"
+      "sha256": "f2c15857b195eccb453e84dcb3a2ffa5811e5e0d7131cbce76fba0b037b1445b"
     },
     {
       "artifact_id": "ART-376",
@@ -1882,17 +1882,17 @@
     {
       "artifact_id": "ART-377",
       "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
-      "sha256": "c63012e48f9519ad59a5a7d4fcb2e3c481588018375938c6a4170175a6c3922a"
+      "sha256": "9dc00bcfa9a5f955e8652f6a4701a559a80c8d0f3b8ec6bc771a23bec36b49b9"
     },
     {
       "artifact_id": "ART-378",
       "path": "schemas/bmc-visual-acceptance.schema.json",
-      "sha256": "26b67af226abdcfb9ef2d67ac8054794bd364f5d095ac0d528cea9a047ce3f60"
+      "sha256": "c144f8257aea4aa8b083a54506f44bab23e96467e27a28cab19299380ba399c1"
     },
     {
       "artifact_id": "ART-379",
       "path": "schemas/bmc-package-manifest.schema.json",
-      "sha256": "ef89d2329cb08312b1b4005705066f52a06e285e0be95599344736ffb52e6c12"
+      "sha256": "ec73477f39ba755c75b61a398351905110a8f898ea4abb8f758ce3cd1c45c627"
     },
     {
       "artifact_id": "ART-380",
@@ -1902,32 +1902,32 @@
     {
       "artifact_id": "ART-381",
       "path": "docs/product/bmc/source-map.md",
-      "sha256": "d937fc2265c2bbb6d6938d77f901480410c11c72f2d0ba15d07d4b9fddfa848c"
+      "sha256": "39d1b22bfc6eb8317703d9a76eead1972315fee4df83ed013b0c3695b9931ab0"
     },
     {
       "artifact_id": "ART-382",
       "path": "docs/product/bmc/text-alternative.md",
-      "sha256": "e47c19e81850bb6f3c07526df0ecc8b67f26ffbde4391481e26d4a23e0985c6d"
+      "sha256": "60ff93ae90c8941df1398f307da6fb8773494f93bfabbbba5deac62e6a39376c"
     },
     {
       "artifact_id": "ART-383",
       "path": "docs/product/bmc/manifest.json",
-      "sha256": "ac1329b0f6836d1bed791c8a45d2e768807bcf35ad0fd90c5c2bc4c52da9452c"
+      "sha256": "8e8f6d88fa9e36b44dacb103551e16367225a5f02384e3fd013b425c944952a4"
     },
     {
       "artifact_id": "ART-384",
       "path": "docs/product/bmc/evidence/visual-review.md",
-      "sha256": "b37108b2fedcd3c479fc17c1775fde8e46bf24495ccb2e5e1b9c73f0b8f41acb"
+      "sha256": "31886ae45d4af003935e932613c9a1c155b756b15e96d114513f8d210b29f18d"
     },
     {
       "artifact_id": "ART-385",
       "path": "docs/product/bmc/evidence/designer-consilium.json",
-      "sha256": "7244df45239d0fd3b1d035a654a334f635596a51457e400696cdcb7891e13fde"
+      "sha256": "47eddbc6aaa6ea4ace3a2b2266f2d65b0a867c85417a0ac95e4d0066ad233e6f"
     },
     {
       "artifact_id": "ART-386",
       "path": "docs/product/bmc/evidence/bmc-visual-acceptance.json",
-      "sha256": "235af0034c12a48cb562bf69a20e2e3d8396ea5661ba006e2d442600efdee526"
+      "sha256": "e282f1a0763f4e953813988b2fca91f722ddd49c0152172a65d8f9af024122c7"
     },
     {
       "artifact_id": "ART-387",
@@ -1937,7 +1937,7 @@
     {
       "artifact_id": "ART-388",
       "path": "docs/product/bmc/source/derived/datacanvas-bmc.pdf",
-      "sha256": "8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e"
+      "sha256": "555561060f2c14311d4919bebee83a772999f543fa0f7cda7d3060b015e4b6c5"
     },
     {
       "artifact_id": "ART-389",
@@ -1957,7 +1957,7 @@
     {
       "artifact_id": "ART-392",
       "path": "scripts/validate-bmc-package.mjs",
-      "sha256": "1dc312eb0511833bf0b8fe5447240c7f686b3add49c31889f8490bf3b87f3b29"
+      "sha256": "f41fa2bb724e2fbfe8cc6ccc488b7d5dc232768c701730dbccc1d41a03713186"
     },
     {
       "artifact_id": "ART-393",
@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "48e774128cfb27c12eefb154f7531f78cf3d7727675b64d2362598da196d8985"
+      "sha256": "de04a956827fbff270a40c899d722987fe358a7fba27001897001f1b36f76dda"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "038a2e2051e4b0a224eaa88e9998dd2a82efcd78b4e434b756dd36c3d2d121e2"
+      "sha256": "a4720ed855faf66f7af857f2f8c30666696d2b4bb3c042a553196328365bf27e"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "ee5bb98ac8f1a6f12cb731dda6f7a4a4b6d87138a5beb26bc10da45bed1f5012"
+      "sha256": "77b4efd4a0fa4bc90751933ca41bcf7f086371e6e910299f8930d70fb45873a6"
     },
     {
       "artifact_id": "ART-413",
@@ -2142,7 +2142,7 @@
     {
       "artifact_id": "ART-429",
       "path": "docs/product/requirements/user-stories.md",
-      "sha256": "510509e07714b626f8e0e17cb4792cf9502874556b89e9d92494565f95e4392e"
+      "sha256": "40d7bb0fb11c34fb1ec758b376f53d71c08402434abf7aa68e2a956a92b2ccb7"
     },
     {
       "artifact_id": "ART-430",
@@ -2152,7 +2152,7 @@
     {
       "artifact_id": "ART-431",
       "path": "docs/product/requirements/acceptance-criteria.md",
-      "sha256": "02f39fe3a7290ed06620bec51b883cdb96e27c5f5a77f0a53d145732bddd0d21"
+      "sha256": "49fdc78cb31b2e54ddefe386ce9826ebfb8df6112f359e754de85371d0d9b3c6"
     },
     {
       "artifact_id": "ART-432",
@@ -2532,7 +2532,7 @@
     {
       "artifact_id": "ART-507",
       "path": "docs/architecture/system-analysis/datacanvas-lifecycle-state-model.md",
-      "sha256": "db4c90a18ebf68093916fcec05605321f959ac5074ca6e39505ec6d678600102"
+      "sha256": "9b2a38215aed821abb2daa9a28b5504d87a732a0edd38d21ba94403aaf59e56e"
     },
     {
       "artifact_id": "ART-508",
@@ -2542,7 +2542,7 @@
     {
       "artifact_id": "ART-509",
       "path": "docs/architecture/system-analysis/error-taxonomy.md",
-      "sha256": "9872bcc1262d94f7d47d242125eb439748af1d38fcbed6764ac6c1f7e2f3acde"
+      "sha256": "12e4b55634c88dd8d77066cee86c210ff44c4a51804f8448708ba3b695fd5741"
     },
     {
       "artifact_id": "ART-510",
@@ -2567,7 +2567,7 @@
     {
       "artifact_id": "ART-514",
       "path": "tests/evals/ba-sa-eval-cases.json",
-      "sha256": "d2a73c3cd1139f1453fdceeb05bf65e386404529a4d0a884654a060bf6d63a24"
+      "sha256": "0e735d61a84aadc485100f4ba15b0e64c99d1909100c9d445ab72ef022773d99"
     },
     {
       "artifact_id": "ART-515",
@@ -2837,7 +2837,7 @@
     {
       "artifact_id": "ART-568",
       "path": "scripts/validate-json-schema.mjs",
-      "sha256": "49e5d3ea5f61484c01801f33076f13d31c42c7ff875d989d85fb6dedb60e0963"
+      "sha256": "6ec6961d1591071ece792b2b9af0033fc080a9e5ae6425410b3cdcb247bfc461"
     },
     {
       "artifact_id": "ART-569",
@@ -3037,7 +3037,7 @@
     {
       "artifact_id": "ART-608",
       "path": "docs/product/sources/product-source-registry.json",
-      "sha256": "becd9c7a29f4d6a7753d0337bbc8d019a385683981df11c02aea21fbec828d54"
+      "sha256": "a246b193d765078b78d31cd4757217ef92dc063de216283f63d5ec1d6c899302"
     },
     {
       "artifact_id": "ART-609",
@@ -3077,7 +3077,7 @@
     {
       "artifact_id": "ART-616",
       "path": "scripts/validate-product-source-registry.mjs",
-      "sha256": "aa55dd55937c40ce2275f63dc39b1f4c5834286801b5ce1fa593b421bb131753"
+      "sha256": "900d2e58a212db0954651183b2c8516f70ef99c571e33f7c8e7fe23edca2523d"
     },
     {
       "artifact_id": "ART-617",
@@ -3102,12 +3102,12 @@
     {
       "artifact_id": "ART-621",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/README.md",
-      "sha256": "f6f56098e7bdedb80b8940b37c2660e096ee37e6330a1604b34747fbd8487bde"
+      "sha256": "f033db973a31a356e69f3a0316382e75ae4c4da12e87db0c11ff9b95fd557a8e"
     },
     {
       "artifact_id": "ART-622",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/analysis-state.json",
-      "sha256": "1d396bae7eac9fc4b7508d6d0319c544e1933505531be147e2b6ee5e0ec3724d"
+      "sha256": "0b41d49e0155d441b9db1c1c8ebb1181da5ffda64b9150a4c6f0112589054aa9"
     },
     {
       "artifact_id": "ART-623",
@@ -3127,7 +3127,7 @@
     {
       "artifact_id": "ART-626",
       "path": "docs/product/analysis/agent-launch-requirements-analysis/requirements-impact-map.json",
-      "sha256": "cf6a334f84c5a3cda28536235cd052431b5cfbd8481ed25ea6973977ff2edce4"
+      "sha256": "20970675012b078935cbb6319b3866a4dd1cafc4ef46a051bac808c3b46f9f02"
     },
     {
       "artifact_id": "ART-627",
@@ -3147,17 +3147,17 @@
     {
       "artifact_id": "ART-630",
       "path": "schemas/agent-launch-requirements-analysis-state.schema.json",
-      "sha256": "25c69350b292d2151ffe8db7196029d054648c898aee037f04da9d64b1dd5694"
+      "sha256": "2b58ee8281bd934641a408fd07b30459f20e688ec867a9fb49d8456e7cfc0d4a"
     },
     {
       "artifact_id": "ART-631",
       "path": "schemas/agent-launch-requirements-impact-map.schema.json",
-      "sha256": "7e46c4e30b0d62a61b5f88d3d927bdba50b3699a1714aa1a4a75bc75a3e47acb"
+      "sha256": "dd2284f603e75f3cb0bb52caa51fd84be8e7140c2c5e1a672f8211e9c42fd01c"
     },
     {
       "artifact_id": "ART-632",
       "path": "scripts/validate-agent-launch-requirements-analysis.mjs",
-      "sha256": "e3895b993177ad7bd053856dc2a59722157838dd76f83a7dae22a13af2e623c7"
+      "sha256": "0ea72ff071f1362b9157b639b5ce4f3ca0c85eafece025b28f62317bcf1c2ce1"
     },
     {
       "artifact_id": "ART-633",
@@ -3427,7 +3427,7 @@
     {
       "artifact_id": "ART-686",
       "path": "docs/product/analysis/documentation-consistency-audit/consistency-matrix.md",
-      "sha256": "faf0fb9e0ccb9d25f0324c32abf923dc54e02feaa64970fd3d5bdb6ea85a851f"
+      "sha256": "918931205d96ca2df03a3d9d79d71edf1ad4d5ab38b538639342b693c8f027f1"
     },
     {
       "artifact_id": "ART-687",
@@ -3612,7 +3612,7 @@
     {
       "artifact_id": "ART-723",
       "path": "docs/product/requirements/business-claim-map.json",
-      "sha256": "5946152ddfaeeb57d67b8c3d030b0d00d224162df194e7a728dffd33f01ccfbc"
+      "sha256": "b784a06faee1413a26ea79f5b2f6bc59dacd57be07160376a2bb9856f51ace76"
     },
     {
       "artifact_id": "ART-724",
@@ -3622,7 +3622,7 @@
     {
       "artifact_id": "ART-725",
       "path": "scripts/validate-business-claim-map.mjs",
-      "sha256": "ddb194567733f784e99386f63b5887112eeef1af2b6a391972dbda96c9166b8d"
+      "sha256": "4d6112562c3b6202c0ac44cc7112a93557f698cbd5367481255318f7a24d1fd1"
     },
     {
       "artifact_id": "ART-726",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "26d2a9ee0b78eebfc77a3df340e5753f403ba4c1742c1cd72cd960db96c6d5ee"
+      "sha256": "b3a596aba9ecf852633e05ac557ad6fe20374d074f09bc34509a8cd288fa42d7"
     },
     {
       "artifact_id": "ART-742",
@@ -4087,7 +4087,7 @@
     {
       "artifact_id": "ART-818",
       "path": "tests/product-document-consistency.test.mjs",
-      "sha256": "87d86fdf7770f195556937fbb11aa2fde74535ced521a030cfcb0d8d9e433ade"
+      "sha256": "34b3dfbfe95c24c6f04c045cef39571cd07b2d0dcfba9ee8065dbfd9943560bd"
     },
     {
       "artifact_id": "ART-819",
@@ -4167,17 +4167,17 @@
     {
       "artifact_id": "ART-835",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/README.md",
-      "sha256": "aa906d8faf20e0ea62b1e62511ffc4752ed3235a4f634789d9d866e984438535"
+      "sha256": "902bd0a7a3dd3d7faeeb21bd0084f13240472b86e530d88cfc1b1db7963fad30"
     },
     {
       "artifact_id": "ART-836",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/donor-options.md",
-      "sha256": "44b506f28da51e6f99e5d5e792cf4acffc326f09d2f7550d8ec0aaf165938373"
+      "sha256": "9fcd104e1e4af1492501564b1ecc9fb65fbf86a989344bc76a09c6a9b2711c8b"
     },
     {
       "artifact_id": "ART-837",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/user-journey.md",
-      "sha256": "49dbac657986dbd4a0b88d9c605d049456fcfdf5ca56ef3a9685531bbfb08dc3"
+      "sha256": "4757172da6f748f53f4159c5ca99e8bcde4f0e6486a56c6697e59ad5761a2aa7"
     },
     {
       "artifact_id": "ART-838",
@@ -4267,7 +4267,7 @@
     {
       "artifact_id": "ART-855",
       "path": "scripts/generate-presentation-link-lisa-user-journey.mjs",
-      "sha256": "69baf5d658b0e4ec91572f1a36d093944b969882e503edb1002dbf43f268e37a"
+      "sha256": "65e375c1ffa28f9d8fe3994cf5d56fc03143e0c6e8c2fdbf42de2395821b26cf"
     },
     {
       "artifact_id": "ART-856",
@@ -4292,7 +4292,7 @@
     {
       "artifact_id": "ART-860",
       "path": "scripts/validate-presentation-link-lisa-user-journey.mjs",
-      "sha256": "e901fca08f5f09b0885bc331a1e24d9fac68ad70435633f8ab11e603eb5841ff"
+      "sha256": "dd647b3b9e8ab74c6bc09becaccf9437b37f8c2c75aebfd6490a57deebf9cd67"
     },
     {
       "artifact_id": "ART-861",
@@ -4302,7 +4302,7 @@
     {
       "artifact_id": "ART-862",
       "path": "tests/presentation-link-lisa-user-journey.test.mjs",
-      "sha256": "32676d51c0b32a20ccfa87fd758cb23554194c10f826a917c8e55d97dcaaee4a"
+      "sha256": "448754a7f43b39a82f26f397de5971ec5edc0ae982ca7b21d438c72df63d6cb0"
     },
     {
       "artifact_id": "ART-863",
@@ -4337,12 +4337,12 @@
     {
       "artifact_id": "ART-869",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/active-contracts.json",
-      "sha256": "e3a0bb3fd18ffa31b8c33ca6e8f9abb50012deb1e871c6028f58b2b09b504686"
+      "sha256": "24e2fdc74dae734ae4861b8522cefe8049e213f88b8b8bb3537d5729bc62a7a3"
     },
     {
       "artifact_id": "ART-870",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/source/schemas/active-contracts.schema.json",
-      "sha256": "edae7172c2519c9df81bb5586ba59ead0d0f296a339e0f53e4cb822b5c7bb102"
+      "sha256": "5540af71549934e21c26a1d1fa79efb8eb94a9970142d0331cc0dc9eb250f37f"
     },
     {
       "artifact_id": "ART-871",
@@ -4417,32 +4417,32 @@
     {
       "artifact_id": "ART-885",
       "path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md",
-      "sha256": "ec648c2862c5bd1c96b030c278906201388ccdf37c15be010b0fe54f2eb519ef"
+      "sha256": "137e86bd15f9489d39208f4f5b49bdc5a4c2279da5c9533de4c4452c11460cd3"
     },
     {
       "artifact_id": "ART-886",
       "path": "docs/release/co-2026-003-draft-documentation-archive.md",
-      "sha256": "438881c366418765e62ddc851c5a266a6b56168eacdf3ea52a232135cd5664b3"
+      "sha256": "f41ffba895a54f54f9a2119d53c0e01a9437ba551eedcafd4f04b18c5e3fa4b6"
     },
     {
       "artifact_id": "ART-887",
       "path": "docs/release/co-2026-003-draft-documentation-archive-contract.json",
-      "sha256": "60fdc401fcfece4dc4986d940ddefc53009762e6b949b45cc35030209d021b45"
+      "sha256": "023fed201040820415bddd19704c9cdd1a4d41c2cd36f2b1490640e325c1247a"
     },
     {
       "artifact_id": "ART-888",
       "path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/co-2026-003-current-documentation-draft.zip",
-      "sha256": "299698a64e4402461f870b1d628ce639f45c5eb620246d390e2f3898f1b610ff"
+      "sha256": "f52750cfa0b2669bc32f0bee46ecd45f4a1629d9b6af58ae6f4a3d03e3f43cb3"
     },
     {
       "artifact_id": "ART-889",
       "path": "docs/product/requirements/sequence-diagrams/README.md",
-      "sha256": "09ad61a41ddb94cd855547030a8140ba5cc1909ed3d1d51d5518502c4543e536"
+      "sha256": "fec7ea3370d20e7a6852d5d71eca2d7ff4be215dc09d97003faf98ac619039bd"
     },
     {
       "artifact_id": "ART-890",
       "path": "artifacts/evidence/co-2026-003/user-story-sequence-diagrams/manifest.json",
-      "sha256": "88cc604241721daf5290eb8b9b1890bb0ca5b19c5c38cf5c1c774472e7c30f47"
+      "sha256": "f92f4fadbb2ec0b0698e44a722d8d14df2acb580ffa65db7c48344ff1d04e7bd"
     },
     {
       "artifact_id": "ART-891",
@@ -4472,7 +4472,22 @@
     {
       "artifact_id": "ART-896",
       "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
-      "sha256": "ae666cf6665e804f13e864f8ebe184d7bf73965239d47e41fbb7e4740bee974e"
+      "sha256": "3ce4c65ee44de15401944aa3aba9cffe9b4201160448da97607c6796c9643fb2"
+    },
+    {
+      "artifact_id": "ART-897",
+      "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+      "sha256": "3b494fd5b488c523d7abbc1ffb014e0d692de80fd8b486e7e6a31f9ed72b90ec"
+    },
+    {
+      "artifact_id": "ART-898",
+      "path": "schemas/bmc-independent-review-status.schema.json",
+      "sha256": "b764aab6aad05e8506766c0ce96e2fe57bfd47a6861a017aa132c2ef6991265e"
+    },
+    {
+      "artifact_id": "ART-899",
+      "path": "tests/bmc-evidence-honesty.test.mjs",
+      "sha256": "32158e21e7bd75080be14ae6f70bd07c49b6e0582c96bee35253b7191aa7fced"
     }
   ],
   "exclusions": [

@@ -4366,6 +4366,44 @@
       "click_depth": 3
     },
     {
+      "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+      "title": "2026-09-04: сгенерированное доказательство приемки BMC",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": "docs/product/bmc/bmc-trace.v0.1.json",
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": "ART-897",
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "2026-09-04-сгенерированное-доказательство-приемки-bmc",
+        "контекст",
+        "симптом",
+        "корневая-причина",
+        "проверка-причины",
+        "исправление",
+        "профилактика",
+        "ограничение"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md",
       "title": "RCA: Смешение Текущего Выпуска И Исторического Снимка CO-2026-003",
       "section": "knowledge",
@@ -4404,7 +4442,45 @@
         "остаточный-риск",
         "повторное-проявление-и-профилактика",
         "повторное-проявление-в-выпускном-барьере",
-        "повторное-проявление-в-старых-командах-evidence"
+        "повторное-проявление-в-старых-командах-evidence",
+        "повторное-проявление-в-потребителях-границы-2026-года",
+        "повторное-проявление-в-историческом-пакете-анализа"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
+      "path": "docs/knowledge/rca/2026-09-04-plantuml-renderer-premature-png-completion.md",
+      "title": "2026-09-04: преждевременное принятие PNG-рендера PlantUML",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "2026-09-04-преждевременное-принятие-png-рендера-plantuml",
+        "контекст",
+        "симптом",
+        "корневая-причина",
+        "исправление",
+        "профилактика"
       ],
       "reachable_from_root": true,
       "click_depth": 3
@@ -4448,7 +4524,9 @@
         "docs/knowledge/rca/2026-09-02-browser-native-phone-prototype-navigation.md",
         "docs/knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md",
         "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
-        "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md"
+        "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+        "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md",
+        "docs/knowledge/rca/2026-09-04-plantuml-renderer-premature-png-completion.md"
       ],
       "anchors": [
         "rca",
@@ -9133,6 +9211,7 @@
         "docs/product/requirements/business-requirements.md",
         "docs/product/requirements/traceability-matrix.json",
         "docs/product/requirements/user-stories.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/product/specs/README.md",
         "docs/README.md",
         "README.md"
@@ -41190,14 +41269,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1405,
-    "manual_entries": 1393,
+    "total_entries": 1407,
+    "manual_entries": 1395,
     "generated_entries": 12,
     "public_navigable_entries": 37,
-    "searchable_entries": 1274,
+    "searchable_entries": 1276,
     "confidential_or_sensitive_entries": 31,
     "unclassified_entries": 2,
-    "reachable_from_root": 270,
+    "reachable_from_root": 272,
     "orphan_entries": 3
   },
   "ignored_paths": [

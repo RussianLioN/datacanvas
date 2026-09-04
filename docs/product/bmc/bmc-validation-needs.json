@@ -1,11 +1,13 @@
 {
   "version": "0.1.0",
-  "status": "generated",
+  "status": "generated_with_open_references",
   "source_trace_path": "docs/product/bmc/bmc-trace.v0.1.json",
   "source_revision_at": "2026-09-04T11:49:04Z",
+  "source_revision_kind": "declared_trace_revision",
   "summary": {
     "total_items": 9,
     "items_requiring_action": 0,
+    "unresolved_reference_count": 10,
     "evidence_request_ids": [
       "EVD-REQ-001",
       "EVD-REQ-003",

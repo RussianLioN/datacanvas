@@ -9960,6 +9960,54 @@
       "generated_from": ["scripts/generate-browser-native-phone-prototype-archive.mjs"],
       "redaction_status": "not_required",
       "update_trigger": "Меняется принятый runtime прототипа, внешний ресурс, лицензия или политика времени ZIP."
+    },
+    {
+      "id": "ART-897",
+      "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+      "type": "root-cause-analysis",
+      "owner_role": "Documentation Owner / QA Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/bmc/bmc-trace.v0.1.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется достоверность автоматических BMC-проверок, граница независимой приёмки или защита от самосертификации."
+    },
+    {
+      "id": "ART-898",
+      "path": "schemas/bmc-independent-review-status.schema.json",
+      "type": "schema",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/product/bmc/bmc-trace.v0.1.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется формат статуса независимой BMC-проверки или запрет генератора на самосертификацию."
+    },
+    {
+      "id": "ART-899",
+      "path": "tests/bmc-evidence-honesty.test.mjs",
+      "type": "test",
+      "owner_role": "QA/Evals Lead",
+      "status": "active",
+      "sprint_id": "SPRINT-2026-W27",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": false,
+      "navigable": false,
+      "canonical_source": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Меняется защита от ложного статуса независимой BMC-приёмки или консилиума."
     }
   ]
 }

@@ -1875,6 +1875,26 @@
       "navigation_domain": "documentation_operations"
     },
     {
+      "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
+      "route_id": "rca-2026-09-04-bmc-generated-acceptance-evidence",
+      "section": "knowledge",
+      "owner_role": "Documentation Owner / QA Lead",
+      "lifecycle": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "canonical_source": "docs/product/bmc/bmc-trace.v0.1.json",
+      "generated_from": [],
+      "redaction_status": "not_required",
+      "update_trigger": "Изменение BMC evidence, контракта независимой проверки или защиты от самосертификации.",
+      "critical": false,
+      "breadcrumb_required": true,
+      "artifact_registry_required": true,
+      "navigation_group": "evidence",
+      "navigation_domain": "documentation_operations"
+    },
+    {
       "path": "docs/product/bmc/README.md",
       "route_id": "bmc-readme",
       "section": "bmc",

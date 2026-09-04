@@ -6,9 +6,10 @@ import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const root = process.cwd();
+const tracePath = "docs/product/bmc/bmc-trace.v0.1.json";
 const packageManifestPath = "docs/product/bmc/manifest.json";
-const visualAcceptancePath = "docs/product/bmc/evidence/bmc-visual-acceptance.json";
-const designerConsiliumPath = "docs/product/bmc/evidence/designer-consilium.json";
+const automatedVisualChecksPath = "docs/product/bmc/evidence/bmc-visual-acceptance.json";
+const independentReviewStatusPath = "docs/product/bmc/evidence/designer-consilium.json";
 
 function absolute(relativePath) {
   return path.join(root, relativePath);
@@ -31,6 +32,23 @@ function fail(message) {
   process.exit(1);
 }
 
+function assertEmbeddedEvidenceHash(label, expectedHash, relativePath) {
+  if (expectedHash !== sha256File(relativePath)) {
+    fail(`embedded BMC evidence hash is stale: ${label} (${relativePath})`);
+  }
+}
+
+function assertVisualOutputHashes(label, evidence) {
+  assertEmbeddedEvidenceHash(`${label} canonical SVG`, evidence.input_sha256, evidence.canonical_visual_path);
+  for (const [format, relativePath] of [
+    ["png", "docs/product/bmc/source/derived/datacanvas-bmc.png"],
+    ["pdf", "docs/product/bmc/source/derived/datacanvas-bmc.pdf"],
+    ["plantuml", "docs/product/bmc/source/derived/datacanvas-bmc.puml"],
+  ]) {
+    assertEmbeddedEvidenceHash(`${label} ${format}`, evidence.output_sha256[format], relativePath);
+  }
+}
+
 const requiredFiles = [
   "docs/product/bmc/README.md",
   "docs/product/bmc/bmc-v0.2.md",
@@ -38,8 +56,8 @@ const requiredFiles = [
   "docs/product/bmc/text-alternative.md",
   packageManifestPath,
   "docs/product/bmc/evidence/visual-review.md",
-  designerConsiliumPath,
-  visualAcceptancePath,
+  independentReviewStatusPath,
+  automatedVisualChecksPath,
   "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
   "docs/product/bmc/source/derived/datacanvas-bmc.svg",
   "docs/product/bmc/source/derived/datacanvas-bmc.png",
@@ -86,7 +104,8 @@ addFormats(ajv);
 
 for (const [schemaPath, dataPath] of [
   ["schemas/bmc-package-manifest.schema.json", packageManifestPath],
-  ["schemas/bmc-visual-acceptance.schema.json", visualAcceptancePath],
+  ["schemas/bmc-visual-acceptance.schema.json", automatedVisualChecksPath],
+  ["schemas/bmc-independent-review-status.schema.json", independentReviewStatusPath],
 ]) {
   const validate = ajv.compile(readJson(schemaPath));
   const data = readJson(dataPath);
@@ -131,7 +150,8 @@ for (const serviceStorage of [
   packageManifestPath,
   "docs/product/bmc/bmc-derived-manifest.json",
   "docs/product/bmc/bmc-validation-needs.json",
-  "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+  automatedVisualChecksPath,
+  independentReviewStatusPath,
 ]) {
   if (!manifest.public_content_policy.service_information_storage.includes(serviceStorage)) {
     fail(`BMC package manifest public content policy is missing service storage: ${serviceStorage}`);
@@ -153,11 +173,32 @@ for (const artifact of manifest.artifacts) {
   }
 }
 
-const visualAcceptance = readJson(visualAcceptancePath);
-if (visualAcceptance.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
-  fail("BMC visual acceptance points to the wrong canonical visual source");
+const automatedVisualChecks = readJson(automatedVisualChecksPath);
+if (automatedVisualChecks.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
+  fail("BMC automated visual checks point to the wrong canonical visual source");
 }
-const visualCheckById = new Map(visualAcceptance.checks.map((check) => [check.id, check]));
+const trace = readJson(tracePath);
+if (automatedVisualChecks.source_trace_path !== tracePath) {
+  fail("BMC automated visual checks point to the wrong canonical source trace");
+}
+if (automatedVisualChecks.source_lock_path !== trace.source_lock_path) {
+  fail("BMC automated visual checks point to the wrong canonical source lock");
+}
+if (automatedVisualChecks.status !== "automated_checks_passed" || automatedVisualChecks.independent_acceptance_status !== "pending") {
+  fail("BMC generated visual checks must not claim independent acceptance");
+}
+assertEmbeddedEvidenceHash(
+  "automated visual checks source trace",
+  automatedVisualChecks.source_trace_sha256,
+  automatedVisualChecks.source_trace_path,
+);
+assertEmbeddedEvidenceHash(
+  "automated visual checks source lock",
+  automatedVisualChecks.source_lock_sha256,
+  automatedVisualChecks.source_lock_path,
+);
+assertVisualOutputHashes("automated visual checks", automatedVisualChecks);
+const visualCheckById = new Map(automatedVisualChecks.checks.map((check) => [check.id, check]));
 for (const checkId of [
   "svg_text_fit",
   "balanced_grid",
@@ -167,17 +208,18 @@ for (const checkId of [
   "plantuml_layout",
 ]) {
   if (visualCheckById.get(checkId)?.status !== "passed") {
-    fail(`BMC visual acceptance is missing passed geometry check: ${checkId}`);
+    fail(`BMC automated visual checks are missing passed geometry check: ${checkId}`);
   }
 }
 
-const designerConsilium = readJson(designerConsiliumPath);
-if (designerConsilium.roles.length < 5) {
-  fail("designer consilium must include at least 5 design/review roles");
+const independentReviewStatus = readJson(independentReviewStatusPath);
+if (independentReviewStatus.status !== "not_run" || independentReviewStatus.review_origin !== "not_generated") {
+  fail("BMC generated package must not claim an independent review or consilium");
 }
-if (designerConsilium.severity_summary.blocker !== 0 || designerConsilium.severity_summary.major !== 0) {
-  fail("designer consilium contains blocker or major findings");
+if (independentReviewStatus.canonical_visual_path !== "docs/product/bmc/source/derived/datacanvas-bmc.svg") {
+  fail("BMC independent review status points to the wrong canonical visual source");
 }
+assertVisualOutputHashes("independent review status", independentReviewStatus);
 
 for (const publicPath of [
   "docs/product/bmc/bmc-v0.2.md",

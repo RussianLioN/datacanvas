@@ -3,20 +3,22 @@
   "$id": "https://datacanvas.local/schemas/bmc-validation-needs.schema.json",
   "title": "BmcValidationNeeds",
   "type": "object",
-  "required": ["version", "status", "source_trace_path", "source_revision_at", "summary", "items"],
+  "required": ["version", "status", "source_trace_path", "source_revision_at", "source_revision_kind", "summary", "items"],
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string" },
-    "status": { "type": "string", "enum": ["generated"] },
+    "status": { "type": "string", "enum": ["generated", "generated_with_open_references"] },
     "source_trace_path": { "type": "string", "minLength": 1 },
     "source_revision_at": { "type": "string", "format": "date-time" },
+    "source_revision_kind": { "type": "string", "const": "declared_trace_revision" },
     "summary": {
       "type": "object",
-      "required": ["total_items", "items_requiring_action", "evidence_request_ids", "open_question_ids"],
+      "required": ["total_items", "items_requiring_action", "unresolved_reference_count", "evidence_request_ids", "open_question_ids"],
       "additionalProperties": false,
       "properties": {
         "total_items": { "type": "integer", "minimum": 0 },
         "items_requiring_action": { "type": "integer", "minimum": 0 },
+        "unresolved_reference_count": { "type": "integer", "minimum": 0 },
         "evidence_request_ids": {
           "type": "array",
           "items": { "type": "string", "pattern": "^EVD-REQ-\\d{3}$" }

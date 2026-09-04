@@ -17,8 +17,8 @@ const root = process.cwd();
 const checkMode = process.argv.includes("--check");
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
 const renderValidatorPath = fileURLToPath(new URL("./validate-bmc-render-parity.mjs", import.meta.url));
-const generatedAt = "2026-09-04T11:49:04Z";
 let sourceRevisionAt = null;
+let sourceRevisionKind = null;
 
 const paths = {
   trace: "docs/product/bmc/bmc-trace.v0.1.json",
@@ -34,8 +34,8 @@ const paths = {
   textAlternative: "docs/product/bmc/text-alternative.md",
   packageManifest: "docs/product/bmc/manifest.json",
   visualReview: "docs/product/bmc/evidence/visual-review.md",
-  designerConsilium: "docs/product/bmc/evidence/designer-consilium.json",
-  visualAcceptance: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
+  independentReviewStatus: "docs/product/bmc/evidence/designer-consilium.json",
+  automatedVisualChecks: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
   designPhilosophy: "docs/product/bmc/evidence/bmc-visual-design-philosophy.md",
 };
 
@@ -85,16 +85,16 @@ const cleanForbidden = [
   "file://",
 ];
 
-function absolute(relativePath) {
-  return path.join(root, relativePath);
+function absolute(relativePath, baseRoot = root) {
+  return path.join(baseRoot, relativePath);
 }
 
 function ensureDir(filePath) {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
 }
 
-function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(absolute(relativePath), "utf8"));
+function readJson(relativePath, baseRoot = root) {
+  return JSON.parse(fs.readFileSync(absolute(relativePath, baseRoot), "utf8"));
 }
 
 function buildBlockModel(trace) {
@@ -144,6 +144,13 @@ function requireSourceRevisionAt(trace) {
   return trace.source_revision_at;
 }
 
+function requireSourceRevisionKind(trace) {
+  if (trace.source_revision_kind !== "declared_trace_revision") {
+    fail("BMC trace must label source_revision_at as a declared trace revision");
+  }
+  return trace.source_revision_kind;
+}
+
 function validationNeedFor(item) {
   if (item.status === "assumption") {
     return "research";
@@ -189,14 +196,17 @@ function buildValidationNeeds(trace) {
       owner_role: item.owner_role,
     }));
 
+  const unresolvedReferenceCount = trace.evidence_requests.length + trace.open_questions.length;
   return {
     version: "0.1.0",
-    status: "generated",
+    status: unresolvedReferenceCount > 0 ? "generated_with_open_references" : "generated",
     source_trace_path: paths.trace,
     source_revision_at: sourceRevisionAt,
+    source_revision_kind: sourceRevisionKind,
     summary: {
       total_items: trace.items.length,
       items_requiring_action: items.length,
+      unresolved_reference_count: unresolvedReferenceCount,
       evidence_request_ids: trace.evidence_requests,
       open_question_ids: trace.open_questions,
     },
@@ -512,9 +522,9 @@ function visualReview(artifactHashes) {
   return [
     "# Проверка визуального BMC",
     "",
-    `Редакция источника: ${sourceRevisionAt}`,
+    `Заявленная редакция источника: ${sourceRevisionAt}`,
     "",
-    "Итог: готово к пользовательской проверке.",
+    "Итог: автоматические проверки пройдены; независимая визуальная проверка не зафиксирована.",
     "",
     "Проверено:",
     "",
@@ -534,7 +544,7 @@ function visualReview(artifactHashes) {
   ].join("\n");
 }
 
-function visualAcceptance(artifactHashes, pngInfo) {
+function automatedVisualChecks(artifactHashes, pngInfo, sourceLockPath) {
   const artifactPaths = [paths.svg, paths.png, paths.pdf, paths.puml];
   const checks = [
     { id: "svg_contract", status: "passed", evidence: "SVG has 3840x2160 viewBox, role, title, desc and data-role markers." },
@@ -549,11 +559,17 @@ function visualAcceptance(artifactHashes, pngInfo) {
     { id: "clean_public_surface", status: "passed", evidence: "Public BMC, SVG and PlantUML contain no validation/status markers." },
   ];
   return {
-    version: "0.1.0",
-    status: "accepted",
-    checked_at: generatedAt,
-    command: "npm run generate:bmc",
-    exit_code: 0,
+    version: "0.2.0",
+    status: "automated_checks_passed",
+    independent_acceptance_status: "pending",
+    evidence_kind: "automated_render_checks",
+    generated_by: generatorPath,
+    source_trace_path: paths.trace,
+    source_trace_sha256: artifactHashes[paths.trace],
+    source_lock_path: sourceLockPath,
+    source_lock_sha256: artifactHashes[sourceLockPath],
+    source_revision_at: sourceRevisionAt,
+    source_revision_kind: sourceRevisionKind,
     canonical_visual_path: paths.svg,
     input_sha256: artifactHashes[paths.svg],
     output_sha256: {
@@ -566,51 +582,19 @@ function visualAcceptance(artifactHashes, pngInfo) {
   };
 }
 
-function designerConsilium(artifactHashes) {
-  const checkedArtifacts = [
-    { path: paths.svg, sha256: artifactHashes[paths.svg] },
-    { path: paths.png, sha256: artifactHashes[paths.png] },
-    { path: paths.pdf, sha256: artifactHashes[paths.pdf] },
-    { path: paths.puml, sha256: artifactHashes[paths.puml] },
-  ];
+function independentReviewStatus(artifactHashes) {
   return {
-    version: "0.1.0",
-    status: "accepted",
-    checked_at: generatedAt,
-    verdict: "ready_for_user_acceptance",
-    severity_summary: {
-      blocker: 0,
-      major: 0,
-      minor: 0,
+    version: "0.2.0",
+    status: "not_run",
+    review_origin: "not_generated",
+    reason: "Штатный генератор не выполняет независимую визуальную проверку и не формирует результат консилиума.",
+    canonical_visual_path: paths.svg,
+    input_sha256: artifactHashes[paths.svg],
+    output_sha256: {
+      png: artifactHashes[paths.png],
+      pdf: artifactHashes[paths.pdf],
+      plantuml: artifactHashes[paths.puml],
     },
-    roles: [
-      {
-        role: "BMC method reviewer",
-        verdict: "accepted",
-        note: "The layout preserves the classical Business Model Canvas blocks and adapted B5 semantics.",
-      },
-      {
-        role: "Information designer",
-        verdict: "accepted",
-        note: "The hierarchy gives visual center to B2 while keeping partner, activity, channel and segment blocks readable.",
-      },
-      {
-        role: "Enterprise UX reviewer",
-        verdict: "accepted",
-        note: "The package is calm, operational and suitable for repeated product discussion.",
-      },
-      {
-        role: "Data traceability reviewer",
-        verdict: "accepted",
-        note: "Public statements stay clean while trace and validation needs remain in JSON evidence.",
-      },
-      {
-        role: "QA visual gate reviewer",
-        verdict: "accepted",
-        note: "SVG text bounds, balanced frame geometry, per-block PNG/PDF raster correspondence, frame clearance, hash-linked render integrity and PlantUML label limits are covered by blocking validators.",
-      },
-    ],
-    checked_artifacts: checkedArtifacts,
   };
 }
 
@@ -693,8 +677,8 @@ function packageManifest(artifactHashes, pngInfo) {
     { role: "source_map", format: "markdown", path: paths.sourceMap },
     { role: "text_alternative", format: "markdown", path: paths.textAlternative },
     { role: "visual_review", format: "markdown", path: paths.visualReview },
-    { role: "visual_acceptance", format: "json", path: paths.visualAcceptance },
-    { role: "designer_consilium", format: "json", path: paths.designerConsilium },
+    { role: "automated_visual_checks", format: "json", path: paths.automatedVisualChecks },
+    { role: "independent_review_status", format: "json", path: paths.independentReviewStatus },
     { role: "design_philosophy", format: "markdown", path: paths.designPhilosophy },
   ].map((artifact) => ({
     ...artifact,
@@ -709,10 +693,17 @@ function packageManifest(artifactHashes, pngInfo) {
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
     source_revision_at: sourceRevisionAt,
+    source_revision_kind: sourceRevisionKind,
     public_content_policy: {
       public_surfaces: [paths.markdown, paths.textAlternative, paths.svg, paths.png, paths.pdf, paths.puml],
       allowed_public_content: "business_model_canvas_only",
-      service_information_storage: [paths.packageManifest, paths.derivedManifest, paths.validationNeeds, paths.visualAcceptance],
+      service_information_storage: [
+        paths.packageManifest,
+        paths.derivedManifest,
+        paths.validationNeeds,
+        paths.automatedVisualChecks,
+        paths.independentReviewStatus,
+      ],
       forbidden_public_information: [
         "status",
         "methodology_notes",
@@ -745,6 +736,7 @@ function derivedManifest(artifactHashes) {
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
     source_revision_at: sourceRevisionAt,
+    source_revision_kind: sourceRevisionKind,
     generated_by: generatorPath,
     outputs: [
       { format: "markdown", path: paths.markdown, sha256: artifactHashes[paths.markdown] },
@@ -854,9 +846,82 @@ function validateRenderedPackage(targetRoot) {
   }
 }
 
+function directorySnapshot(directoryPath) {
+  const entries = [];
+
+  function visit(absolutePath, relativePath) {
+    const stat = fs.lstatSync(absolutePath);
+    if (stat.isDirectory()) {
+      entries.push(`directory:${relativePath}`);
+      for (const entry of fs.readdirSync(absolutePath).sort()) {
+        visit(path.join(absolutePath, entry), path.posix.join(relativePath, entry));
+      }
+      return;
+    }
+    if (stat.isFile()) {
+      entries.push(`file:${relativePath}:${sha256File(absolutePath)}`);
+      return;
+    }
+    if (stat.isSymbolicLink()) {
+      entries.push(`symlink:${relativePath}:${fs.readlinkSync(absolutePath)}`);
+      return;
+    }
+    fail(`BMC package contains unsupported filesystem entry: ${absolutePath}`);
+  }
+
+  visit(directoryPath, ".");
+  return entries.join("\n");
+}
+
+function createStagingRoot() {
+  const stagingRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-bmc-publish-"));
+  const sourceDirectory = absolute("docs/product/bmc");
+  const stagedBmcDirectory = path.join(stagingRoot, "docs/product/bmc");
+  const sourceSnapshot = directorySnapshot(sourceDirectory);
+  fs.mkdirSync(path.dirname(stagedBmcDirectory), { recursive: true });
+  fs.cpSync(sourceDirectory, stagedBmcDirectory, { recursive: true });
+  if (directorySnapshot(sourceDirectory) !== sourceSnapshot || directorySnapshot(stagedBmcDirectory) !== sourceSnapshot) {
+    fs.rmSync(stagingRoot, { recursive: true, force: true });
+    fail("BMC package changed while the staging copy was being created");
+  }
+  return { stagingRoot, sourceSnapshot };
+}
+
+function assertStagedInputsAreCurrent(sourceSnapshot) {
+  if (directorySnapshot(absolute("docs/product/bmc")) !== sourceSnapshot) {
+    fail("BMC package changed while the package was being staged");
+  }
+}
+
+function publishStagedBmcPackage(stagingRoot) {
+  const stagedDirectory = absolute("docs/product/bmc", stagingRoot);
+  const destinationDirectory = absolute("docs/product/bmc");
+  const backupDirectory = `${destinationDirectory}.previous-${process.pid}`;
+  if (fs.existsSync(backupDirectory)) {
+    fail(`BMC publication backup already exists and requires inspection: ${backupDirectory}`);
+  }
+
+  try {
+    fs.renameSync(destinationDirectory, backupDirectory);
+    fs.renameSync(stagedDirectory, destinationDirectory);
+  } catch (error) {
+    if (!fs.existsSync(destinationDirectory) && fs.existsSync(backupDirectory)) {
+      fs.renameSync(backupDirectory, destinationDirectory);
+    }
+    throw error;
+  }
+
+  fs.rmSync(backupDirectory, { recursive: true, force: true });
+}
+
 function build(targetRoot) {
-  const trace = readJson(paths.trace);
+  const trace = readJson(paths.trace, targetRoot);
   sourceRevisionAt = requireSourceRevisionAt(trace);
+  sourceRevisionKind = requireSourceRevisionKind(trace);
+  const sourceLockPath = trace.source_lock_path;
+  if (!fs.existsSync(absolute(sourceLockPath, targetRoot))) {
+    fail(`BMC trace references missing source lock: ${sourceLockPath}`);
+  }
   blockModel = buildBlockModel(trace);
   blockById = new Map(blockModel.map((block) => [block.id, block]));
   const publicMarkdown = markdown();
@@ -884,7 +949,7 @@ function build(targetRoot) {
 
   const initialHashPaths = [paths.trace, paths.markdown, paths.puml, paths.svg, paths.png, paths.pdf, paths.validationNeeds];
   const artifactHashes = {
-    ...collectHashes(root, [paths.trace]),
+    ...collectHashes(targetRoot, [paths.trace, sourceLockPath]),
     ...collectHashes(targetRoot, [paths.markdown, paths.puml, paths.svg, paths.png, paths.pdf, paths.validationNeeds]),
   };
 
@@ -896,6 +961,10 @@ function build(targetRoot) {
   writeText(targetRoot, paths.textAlternative, textAlternative());
   writeText(targetRoot, paths.designPhilosophy, designPhilosophy());
 
+  if (!checkMode) {
+    validateRenderedPackage(targetRoot);
+  }
+
   const pngInfo = readPngInfo(path.join(targetRoot, paths.png));
   const packageBasePaths = [
     ...initialHashPaths.filter((item) => item !== paths.trace),
@@ -906,10 +975,10 @@ function build(targetRoot) {
     paths.designPhilosophy,
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, packageBasePaths.filter((item) => !artifactHashes[item])));
-  writeJson(targetRoot, paths.visualAcceptance, visualAcceptance(artifactHashes, pngInfo));
-  artifactHashes[paths.visualAcceptance] = sha256File(path.join(targetRoot, paths.visualAcceptance));
-  writeJson(targetRoot, paths.designerConsilium, designerConsilium(artifactHashes));
-  artifactHashes[paths.designerConsilium] = sha256File(path.join(targetRoot, paths.designerConsilium));
+  writeJson(targetRoot, paths.automatedVisualChecks, automatedVisualChecks(artifactHashes, pngInfo, sourceLockPath));
+  artifactHashes[paths.automatedVisualChecks] = sha256File(path.join(targetRoot, paths.automatedVisualChecks));
+  writeJson(targetRoot, paths.independentReviewStatus, independentReviewStatus(artifactHashes));
+  artifactHashes[paths.independentReviewStatus] = sha256File(path.join(targetRoot, paths.independentReviewStatus));
   writeText(targetRoot, paths.visualReview, visualReview(artifactHashes));
   artifactHashes[paths.visualReview] = sha256File(path.join(targetRoot, paths.visualReview));
 
@@ -918,16 +987,12 @@ function build(targetRoot) {
     paths.sourceMap,
     paths.textAlternative,
     paths.visualReview,
-    paths.designerConsilium,
-    paths.visualAcceptance,
+    paths.independentReviewStatus,
+    paths.automatedVisualChecks,
     paths.designPhilosophy,
   ];
   Object.assign(artifactHashes, collectHashes(targetRoot, manifestHashInputs.filter((item) => !artifactHashes[item])));
   writeJson(targetRoot, paths.packageManifest, packageManifest(artifactHashes, pngInfo));
-
-  if (!checkMode) {
-    validateRenderedPackage(targetRoot);
-  }
 
   return [
     paths.markdown,
@@ -941,17 +1006,15 @@ function build(targetRoot) {
     paths.sourceMap,
     paths.textAlternative,
     paths.designPhilosophy,
-    paths.visualAcceptance,
-    paths.designerConsilium,
+    paths.automatedVisualChecks,
+    paths.independentReviewStatus,
     paths.visualReview,
     paths.packageManifest,
   ];
 }
 
-let targetRoot = root;
-if (checkMode) {
-  targetRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-bmc-"));
-}
+const staging = createStagingRoot();
+const targetRoot = staging.stagingRoot;
 
 try {
   const generatedPaths = build(targetRoot);
@@ -959,12 +1022,12 @@ try {
     compareGenerated(targetRoot, generatedPaths);
     console.log("BMC generated artifacts are up to date");
   } else {
+    assertStagedInputsAreCurrent(staging.sourceSnapshot);
+    publishStagedBmcPackage(targetRoot);
     for (const relativePath of generatedPaths) {
       console.log(`BMC artifact written: ${relativePath}`);
     }
   }
 } finally {
-  if (checkMode && targetRoot !== root) {
-    fs.rmSync(targetRoot, { recursive: true, force: true });
-  }
+  fs.rmSync(targetRoot, { recursive: true, force: true });
 }

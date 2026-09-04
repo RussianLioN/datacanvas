@@ -230,6 +230,16 @@ for (const itemId of expectedNeeds) {
     fail(`validation-needs JSON is missing BMC item: ${itemId}`);
   }
 }
+const expectedUnresolvedReferenceCount = trace.evidence_requests.length + trace.open_questions.length;
+const expectedValidationNeedsStatus = expectedUnresolvedReferenceCount > 0
+  ? "generated_with_open_references"
+  : "generated";
+if (validationNeeds.summary.unresolved_reference_count !== expectedUnresolvedReferenceCount) {
+  fail("validation-needs JSON has a stale unresolved reference count");
+}
+if (validationNeeds.status !== expectedValidationNeedsStatus) {
+  fail("validation-needs JSON must disclose whether open references remain");
+}
 
 const co2026003RequiredSnippets = ["PPTX", "PDF", "SIGMA", "OMEGA"];
 if (!sourceIds.has(currentCo2026003BmcSource)) {

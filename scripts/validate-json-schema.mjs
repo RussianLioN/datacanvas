@@ -205,6 +205,10 @@ const cases = [
     data: "docs/product/bmc/evidence/bmc-visual-acceptance.json",
   },
   {
+    schema: "schemas/bmc-independent-review-status.schema.json",
+    data: "docs/product/bmc/evidence/designer-consilium.json",
+  },
+  {
     schema: "schemas/bmc-validation-needs.schema.json",
     data: "docs/product/bmc/bmc-validation-needs.json",
   },
