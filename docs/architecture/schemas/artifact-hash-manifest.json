@@ -1882,7 +1882,7 @@
     {
       "artifact_id": "ART-377",
       "path": "docs/plans/datacanvas-bmc-classic-generation-contract-plan.md",
-      "sha256": "9dc00bcfa9a5f955e8652f6a4701a559a80c8d0f3b8ec6bc771a23bec36b49b9"
+      "sha256": "3ed3006d3724af83b4bb51cd5c64dbe47f98880fbaebeb14af32f46d2776be12"
     },
     {
       "artifact_id": "ART-378",
@@ -4477,7 +4477,7 @@
     {
       "artifact_id": "ART-897",
       "path": "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
-      "sha256": "3b494fd5b488c523d7abbc1ffb014e0d692de80fd8b486e7e6a31f9ed72b90ec"
+      "sha256": "42273c40f74bae065e49b6861aaca7c110bc266c09a342f56276ba3d588f2520"
     },
     {
       "artifact_id": "ART-898",
