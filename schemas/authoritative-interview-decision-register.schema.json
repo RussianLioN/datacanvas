@@ -67,11 +67,18 @@
       ]
     },
     "post_interview_amendment": {
+      "oneOf": [
+        {"$ref": "#/$defs/delivery_formats_amendment"},
+        {"$ref": "#/$defs/isolated_draft_amendment"},
+        {"$ref": "#/$defs/final_visual_release_amendment"}
+      ]
+    },
+    "delivery_formats_amendment": {
       "type": "object",
-      "required": ["amendment_id", "recorded_at", "source", "supersedes", "affected_artifacts"],
+      "required": ["amendment_id", "recorded_at", "source", "supersedes", "delivery_formats", "affected_artifacts"],
       "additionalProperties": false,
       "properties": {
-        "amendment_id": {"type": "string", "pattern": "^CO3-AMND-\\d{3}$"},
+        "amendment_id": {"const": "CO3-AMND-001"},
         "recorded_at": {"type": "string", "format": "date"},
         "source": {"const": "owner_follow_up_confirmation"},
         "supersedes": {
@@ -79,8 +86,8 @@
           "required": ["decision_id", "scope"],
           "additionalProperties": false,
           "properties": {
-            "decision_id": {"type": "string", "pattern": "^CO3-DEC-\\d{3}$"},
-            "scope": {"type": "string", "minLength": 1}
+            "decision_id": {"const": "CO3-DEC-001"},
+            "scope": {"const": "delivery_formats_only"}
           }
         },
         "delivery_formats": {
@@ -89,35 +96,57 @@
           "maxItems": 2,
           "items": {"enum": ["PPTX", "PDF"]}
         },
-        "accepted_scope": {"enum": ["isolated_draft_only"]},
-        "active_release_switch_allowed": {"type": "boolean"},
-        "next_gate": {"const": "documentation_cascade_then_explicit_final_owner_approval"},
         "affected_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
-      },
-      "allOf": [
-        {
-          "if": {"properties": {"amendment_id": {"const": "CO3-AMND-001"}}, "required": ["amendment_id"]},
-          "then": {
-            "required": ["delivery_formats"],
-            "properties": {
-              "delivery_formats": {"type": "array"},
-              "supersedes": {"type": "object", "properties": {"decision_id": {"const": "CO3-DEC-001"}, "scope": {"const": "delivery_formats_only"}}}
-            }
+      }
+    },
+    "isolated_draft_amendment": {
+      "type": "object",
+      "required": ["amendment_id", "recorded_at", "source", "supersedes", "accepted_scope", "active_release_switch_allowed", "next_gate", "affected_artifacts"],
+      "additionalProperties": false,
+      "properties": {
+        "amendment_id": {"const": "CO3-AMND-002"},
+        "recorded_at": {"type": "string", "format": "date"},
+        "source": {"const": "owner_follow_up_confirmation"},
+        "supersedes": {
+          "type": "object",
+          "required": ["decision_id", "scope"],
+          "additionalProperties": false,
+          "properties": {
+            "decision_id": {"const": "CO3-DEC-010"},
+            "scope": {"const": "active_visual_release_only"}
           }
         },
-        {
-          "if": {"properties": {"amendment_id": {"const": "CO3-AMND-002"}}, "required": ["amendment_id"]},
-          "then": {
-            "required": ["accepted_scope", "active_release_switch_allowed", "next_gate"],
-            "properties": {
-              "accepted_scope": {"type": "string"},
-              "active_release_switch_allowed": {"type": "boolean"},
-              "next_gate": {"type": "string"},
-              "supersedes": {"type": "object", "properties": {"decision_id": {"const": "CO3-DEC-010"}, "scope": {"const": "active_visual_release_only"}}}
-            }
+        "accepted_scope": {"const": "isolated_draft_only"},
+        "active_release_switch_allowed": {"const": false},
+        "next_gate": {"const": "documentation_cascade_then_explicit_final_owner_approval"},
+        "affected_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "final_visual_release_amendment": {
+      "type": "object",
+      "required": ["amendment_id", "recorded_at", "source", "supersedes", "visual_release_status", "active_release_switch_allowed", "high_resolution_render_allowed", "delivery_archive_allowed", "current_release_ledger_path", "preserves_historical_snapshot", "affected_artifacts"],
+      "additionalProperties": false,
+      "properties": {
+        "amendment_id": {"const": "CO3-AMND-003"},
+        "recorded_at": {"const": "2026-09-03"},
+        "source": {"const": "owner_final_visual_release_acceptance"},
+        "supersedes": {
+          "type": "object",
+          "required": ["amendment_id", "scope"],
+          "additionalProperties": false,
+          "properties": {
+            "amendment_id": {"const": "CO3-AMND-002"},
+            "scope": {"const": "final_visual_release_and_delivery_archive_only"}
           }
-        }
-      ]
+        },
+        "visual_release_status": {"const": "owner_final_approved"},
+        "active_release_switch_allowed": {"const": true},
+        "high_resolution_render_allowed": {"const": true},
+        "delivery_archive_allowed": {"const": true},
+        "current_release_ledger_path": {"const": "docs/product/change-orders/co-2026-003-release-approval-ledger.json"},
+        "preserves_historical_snapshot": {"const": true},
+        "affected_artifacts": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
     },
     "visual_release_gate": {
       "type": "object",

@@ -24,7 +24,7 @@ test('CO-2026-003 keeps interview history and records operational amendments', a
   assert.equal(register.decisions.at(-1).decision_id, 'CO3-DEC-010');
   assert.deepEqual(
     register.post_interview_amendments.map((amendment) => amendment.amendment_id),
-    ['CO3-AMND-001', 'CO3-AMND-002'],
+    ['CO3-AMND-001', 'CO3-AMND-002', 'CO3-AMND-003'],
   );
 
   const deliveryAmendment = register.post_interview_amendments[0];
@@ -41,10 +41,26 @@ test('CO-2026-003 keeps interview history and records operational amendments', a
     draftAmendment.next_gate,
     'documentation_cascade_then_explicit_final_owner_approval',
   );
+
+  const finalVisualAmendment = register.post_interview_amendments[2];
+  assert.equal(finalVisualAmendment.source, 'owner_final_visual_release_acceptance');
+  assert.deepEqual(finalVisualAmendment.supersedes, {
+    amendment_id: 'CO3-AMND-002',
+    scope: 'final_visual_release_and_delivery_archive_only',
+  });
+  assert.equal(finalVisualAmendment.visual_release_status, 'owner_final_approved');
+  assert.equal(finalVisualAmendment.active_release_switch_allowed, true);
+  assert.equal(finalVisualAmendment.high_resolution_render_allowed, true);
+  assert.equal(finalVisualAmendment.delivery_archive_allowed, true);
+  assert.equal(
+    finalVisualAmendment.current_release_ledger_path,
+    'docs/product/change-orders/co-2026-003-release-approval-ledger.json',
+  );
+  assert.equal(finalVisualAmendment.preserves_historical_snapshot, true);
   assert.equal(
     existsSync(path.join(projectRoot, 'artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip')),
-    false,
-    'ожидающий выпуск не должен хранить активный архив поставки',
+    true,
+    'финально принятый выпуск должен хранить архив поставки',
   );
 
   assert.match(

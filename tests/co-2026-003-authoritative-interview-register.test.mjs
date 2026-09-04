@@ -21,12 +21,31 @@ test("CO-2026-003 хранит безопасный реестр согласо�
   assert.deepEqual(register.unresolved_authoritative_text_ids, []);
   assert.deepEqual(
     register.post_interview_amendments.map((amendment) => amendment.amendment_id),
-    ["CO3-AMND-001", "CO3-AMND-002"],
+    ["CO3-AMND-001", "CO3-AMND-002", "CO3-AMND-003"],
   );
   assert.deepEqual(register.visual_release_gate, {
-    content_review_status: "pending_product_owner",
-    visual_release_status: "pending_product_owner",
+    content_review_status: "approved_product_owner",
+    visual_release_status: "approved_product_owner",
     release_condition: "explicit_product_owner_visual_approval",
+  });
+  assert.deepEqual(register.post_interview_amendments[2], {
+    amendment_id: "CO3-AMND-003",
+    recorded_at: "2026-09-03",
+    source: "owner_final_visual_release_acceptance",
+    supersedes: {
+      amendment_id: "CO3-AMND-002",
+      scope: "final_visual_release_and_delivery_archive_only",
+    },
+    visual_release_status: "owner_final_approved",
+    active_release_switch_allowed: true,
+    high_resolution_render_allowed: true,
+    delivery_archive_allowed: true,
+    current_release_ledger_path: "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+    preserves_historical_snapshot: true,
+    affected_artifacts: [
+      "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+      "docs/release/co-2026-003-prototype-delivery-archive-contract.json",
+    ],
   });
   assert.deepEqual(
     register.authoritative_messages,
@@ -56,11 +75,11 @@ test("активные документы CO-2026-003 отделяют прин�
   for (const entrypoint of activeEntrypoints) {
     assert.match(entrypoint, /PPTX/u);
     assert.match(entrypoint, /PDF/u);
-    assert.match(entrypoint, /(?:изолированн(?:ый|ого) черновик|каскадн(?:ое|ого) обновлен)/iu);
   }
+  assert.match(activeEntrypoints.join("\n"), /чистов(?:ой|ого).*прототип|финальн.*прототип/iu);
+  assert.match(activeEntrypoints.join("\n"), /архив поставки/iu);
 
-  assert.match(journeyReadme, /исторический базовый выпуск/u);
+  assert.match(journeyReadme, /чистовой браузерный прототип.*принят/u);
   assert.match(journeyReadme, /ООО «Водолей Трейд»/u);
-  assert.match(journeyReadme, /изолированн(?:ый|ая) черновик/iu);
-  assert.match(journeyReadme, /(?:отдельной|покадровой) приёмки/u);
+  assert.match(journeyReadme, /архив поставки/u);
 });
