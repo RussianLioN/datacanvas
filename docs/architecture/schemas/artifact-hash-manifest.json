@@ -2042,12 +2042,12 @@
     {
       "artifact_id": "ART-409",
       "path": "docs/navigation/navigation-source.json",
-      "sha256": "a4c0f6411ee4e2f37af43cbcc4063ce1efeb8a9ba0ada2b0e080d9dda0a6e264"
+      "sha256": "118edbcd0bd8f741e1a06239a44cd111083e8143092e88019ed2ead483429c8d"
     },
     {
       "artifact_id": "ART-410",
       "path": "docs/navigation/documentation-index.json",
-      "sha256": "a1ed77a605fecd51056642d23515a9acb3fbde63dc75cec0409f88a53a8342e1"
+      "sha256": "4b2254f8da8168c934d65a6aacaaf7e8f9245dc6aa67ee44636057b97631bde5"
     },
     {
       "artifact_id": "ART-411",
@@ -2057,7 +2057,7 @@
     {
       "artifact_id": "ART-412",
       "path": "docs/navigation/orphan-docs-report.md",
-      "sha256": "787d413a318900734d2b293a8a8d02243396e5186cde23e8a7836ad725a69975"
+      "sha256": "00299a7921048a40de5884438e1204839cff1b8f5b38c1dd3b3cf85bd0a2890a"
     },
     {
       "artifact_id": "ART-413",
@@ -3082,7 +3082,7 @@
     {
       "artifact_id": "ART-617",
       "path": "scripts/validate-change-set-approval.mjs",
-      "sha256": "93b17758b92b2ecc98fc80cc9af74794aaff79ce33f0af909f7d107b162b3be1"
+      "sha256": "042febe82d971eba3328b82df28e4b656d1f4fddbb3af74fd7a23d7973541ea9"
     },
     {
       "artifact_id": "ART-618",
@@ -3702,7 +3702,7 @@
     {
       "artifact_id": "ART-741",
       "path": "package.json",
-      "sha256": "b3a596aba9ecf852633e05ac557ad6fe20374d074f09bc34509a8cd288fa42d7"
+      "sha256": "e1526b05c5922378124d2a37e55d7bc5b41bb3fb34bd11d3bef2bdc277041816"
     },
     {
       "artifact_id": "ART-742",
@@ -4112,7 +4112,7 @@
     {
       "artifact_id": "ART-823",
       "path": "scripts/lib/documentation-archive.mjs",
-      "sha256": "9ccb7749a86d4c03172b4ac7b9a5c95861634470a0ec028ed5c67549a9cbc3b8"
+      "sha256": "bfc7e946e07b74d57dcf38a52f26969d909028342d941a800fe1b87e728f081e"
     },
     {
       "artifact_id": "ART-824",
@@ -4452,7 +4452,7 @@
     {
       "artifact_id": "ART-892",
       "path": "docs/release/co-2026-003-prototype-delivery-archive.md",
-      "sha256": "dfc095af9cf5e7fa520516ddc04294a267ed4e9e88319ffe8004cf8d4bf85720"
+      "sha256": "9750a159cf4dbb4143c8fad7036e1866a4ab75eda8ee8d2d6bddb7ca3950a7d9"
     },
     {
       "artifact_id": "ART-893",
@@ -4467,12 +4467,12 @@
     {
       "artifact_id": "ART-895",
       "path": "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
-      "sha256": "17ac2b5ea1b828323f96c4eddbe019962dc417cd169c24368561362b9999d5de"
+      "sha256": "f0e7d9dbe4258e0d1a56bb3cf1b454c0f2ceb54ca9d5f9054ef6c538b8fae41a"
     },
     {
       "artifact_id": "ART-896",
       "path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
-      "sha256": "3ce4c65ee44de15401944aa3aba9cffe9b4201160448da97607c6796c9643fb2"
+      "sha256": "ddcda19bfc3ae07ca3a1bc3eca3c41c479afd64fc303255ef010a9ed908a021c"
     },
     {
       "artifact_id": "ART-897",

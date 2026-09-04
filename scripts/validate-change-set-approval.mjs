@@ -7,7 +7,6 @@ import addFormats from "ajv-formats";
 const root = process.cwd();
 const schemaPath = "schemas/proposed-change-set.schema.json";
 const changeSetPath = "docs/product/revisions/co-2026-001-source-revision/proposed-change-set.json";
-const currentBtInterviewStatePath = "docs/product/change-orders/co-2026-003-q4-lisa-profile-bt-interview-state.json";
 
 const semanticKinds = new Set([
   "point_semantic",
@@ -40,23 +39,8 @@ function fail(message) {
   process.exit(1);
 }
 
-function isAcceptedBusinessRequirementsStage() {
-  if (!fs.existsSync(absolute(currentBtInterviewStatePath))) return false;
-  const state = readJson(currentBtInterviewStatePath);
-  return (
-    state.documentation_cascade?.business_requirements === "owner_approved" &&
-    ["business_requirements_owner_approved", "user_stories_owner_approved"].includes(state.status) &&
-    ["pending", "owner_approved"].includes(state.documentation_cascade?.user_stories) &&
-    state.documentation_cascade?.system_requirements === "pending"
-  );
-}
-
-function isSupersededHistoricalRequirementEdit(changeSet, edit) {
-  return (
-    changeSet.change_order_id === "CO-2026-001" &&
-    edit.artifact_path === "docs/product/requirements/business-requirements.md" &&
-    isAcceptedBusinessRequirementsStage()
-  );
+function requiresLiveCurrentExcerpt(edit) {
+  return edit.apply_status !== "applied";
 }
 
 try {
@@ -101,7 +85,7 @@ try {
     }
 
     const artifactText = readText(edit.artifact_path);
-    if (!artifactText.includes(edit.current_excerpt) && !isSupersededHistoricalRequirementEdit(changeSet, edit)) {
+    if (requiresLiveCurrentExcerpt(edit) && !artifactText.includes(edit.current_excerpt)) {
       throw new Error(`current_excerpt not found in ${edit.artifact_path} for ${edit.edit_id}`);
     }
 

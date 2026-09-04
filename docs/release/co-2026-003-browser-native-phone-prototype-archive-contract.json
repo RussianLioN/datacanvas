@@ -1,14 +1,14 @@
 {
   "$schema": "../../schemas/co-2026-003-browser-native-phone-prototype-archive-contract.schema.json",
-  "version": "1.1.0",
-  "status": "active",
+  "version": "1.2.0",
+  "status": "historical",
   "archive_id": "co-2026-003-browser-native-phone-prototype",
   "title": "Браузерный прототип заказа презентации из агента «Справка по клиенту»",
   "output_path": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
   "runtime_root": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype",
   "font_license_path": "docs/product/analysis/presentation-link-lisa-user-journey/source/fonts/OFL.txt",
-  "data_class": "public_authorized",
-  "visibility": "public",
+  "data_class": "internal",
+  "visibility": "restricted",
   "zip_timestamp_policy": "release_time_moscow",
   "refresh_policy": {
     "generate_command": "npm run generate:co-2026-003-browser-native-phone-prototype-archive",

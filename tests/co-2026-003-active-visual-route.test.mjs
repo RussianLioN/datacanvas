@@ -82,6 +82,22 @@ test("активный визуальный маршрут — только пр
   assert.deepEqual(activeRoute.active_state_ids, expectedFrameIds);
 });
 
+test("активный browser-native договор со статусом draft блокирует выпуск", () => {
+  const fixtureRoot = createActiveFixture();
+  try {
+    const contractPath = `${packagePath}/source/browser-native-phone-prototype/browser-native-phone-prototype-contract.json`;
+    const contract = readJson(contractPath, fixtureRoot);
+    contract.status = "draft";
+    writeJson(fixtureRoot, contractPath, contract);
+
+    const result = runValidator(fixtureRoot);
+    assert.notEqual(result.status, 0, "черновой договор не может быть активным визуальным маршрутом");
+    assert.match(`${result.stdout}\n${result.stderr}`, /draft|owner_final_approved|договор финального browser-native/u);
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
 test("отсутствующая историческая 13-кадровая запись не блокирует активный выпуск", () => {
   const fixtureRoot = createActiveFixture();
   try {

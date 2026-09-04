@@ -128,6 +128,14 @@ test("отдельный ZIP прототипа и его страница за�
   }
 });
 
+test("договор отдельного ZIP прототипа не противоречит его историческому статусу", () => {
+  const contract = readJson("docs/release/co-2026-003-browser-native-phone-prototype-archive-contract.json");
+
+  assert.equal(contract.status, "historical");
+  assert.equal(contract.data_class, "internal");
+  assert.equal(contract.visibility, "restricted");
+});
+
 test("активные маршруты и входные документы не ссылаются на старые бизнес-требования", () => {
   const source = readJson("docs/navigation/navigation-source.json");
   const obsoletePrefixes = [

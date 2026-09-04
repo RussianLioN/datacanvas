@@ -7,6 +7,8 @@ import test from "node:test";
 
 import {
   buildDocumentationArchive,
+  createStoredZip,
+  dosTimestampFromMoscowReleaseTime,
   publishDocumentationArchiveCandidate,
   readStoredZip,
 } from "../scripts/lib/documentation-archive.mjs";
@@ -220,6 +222,92 @@ test("сбой проверки кандидата не заменяет уже 
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
+});
+
+test("валидатор --archive отклоняет ZIP с временной меткой, не совпадающей с манифестом", () => {
+  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-archive-timestamp-"));
+  try {
+    writeFixture(fixtureRoot, {
+      contentReviewStatus: "approved_product_owner",
+      visualReleaseStatus: "approved_product_owner",
+      prototypeCheckSource: "process.exit(0);\n",
+    });
+    const generated = runGenerator(fixtureRoot, "--contract", "docs/release/delivery-archive-contract.json");
+    assert.equal(generated.status, 0, `${generated.stdout}\n${generated.stderr}`);
+
+    const outputPath = "artifacts/delivery/co-2026-003-delivery.zip";
+    const forgedPath = "artifacts/delivery/co-2026-003-delivery-timestamp-mismatch.zip";
+    const entries = readStoredZip(fs.readFileSync(path.join(fixtureRoot, outputPath)));
+    const archiveCreatedAt = JSON.parse(entries.get("manifest.json").toString("utf8")).archive_created_at;
+    const forgedCreatedAt = `${archiveCreatedAt.startsWith("2000-") ? "2002" : "2000"}${archiveCreatedAt.slice(4)}`;
+    const forgedArchive = createStoredZip(
+      [...entries].map(([name, content]) => ({ name, content })),
+      { timestamp: dosTimestampFromMoscowReleaseTime(forgedCreatedAt) },
+    );
+    fs.writeFileSync(path.join(fixtureRoot, forgedPath), forgedArchive);
+
+    const result = runValidator(
+      fixtureRoot,
+      "--contract",
+      "docs/release/delivery-archive-contract.json",
+      "--archive",
+      forgedPath,
+    );
+    assert.notEqual(result.status, 0, "валидатор не должен принимать ZIP с другой временной меткой");
+    assert.match(`${result.stdout}\n${result.stderr}`, /временная метка ZIP не совпадает со встроенным манифестом/u);
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+});
+
+function assertPublicArchiveArtifactRejected(rejectedArtifact) {
+  const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "datacanvas-co-2026-003-public-archive-"));
+  try {
+    writeFixture(fixtureRoot, {
+      contentReviewStatus: "approved_product_owner",
+      visualReleaseStatus: "approved_product_owner",
+      prototypeCheckSource: "process.exit(0);\n",
+    });
+    const contractPath = "docs/release/delivery-archive-contract.json";
+    const contract = JSON.parse(fs.readFileSync(path.join(fixtureRoot, contractPath), "utf8"));
+    contract.data_class = "public_authorized";
+    contract.visibility = "public";
+    contract.additional_artifacts.push({
+      path: rejectedArtifact.path,
+      label: rejectedArtifact.label,
+    });
+    writeJson(fixtureRoot, contractPath, contract);
+    const artifactPath = path.join(fixtureRoot, rejectedArtifact.path);
+    fs.mkdirSync(path.dirname(artifactPath), { recursive: true });
+    fs.writeFileSync(artifactPath, "существующий недопустимый вход", "utf8");
+
+    const result = runGenerator(fixtureRoot, "--contract", contractPath);
+    assert.notEqual(result.status, 0, `публичный архив не должен включать ${rejectedArtifact.path}`);
+    assert.match(`${result.stdout}\n${result.stderr}`, rejectedArtifact.expectedError);
+    assert.equal(
+      fs.existsSync(path.join(fixtureRoot, "artifacts/delivery/co-2026-003-delivery.zip")),
+      false,
+      "недопустимый вход должен быть остановлен до построения и публикации ZIP",
+    );
+  } finally {
+    fs.rmSync(fixtureRoot, { recursive: true, force: true });
+  }
+}
+
+test("публичный полный архив отклоняет существующую XLSX до публикации", () => {
+  assertPublicArchiveArtifactRejected({
+    path: "docs/product/sources/working/current-backlog.xlsx",
+    label: "Исходная рабочая книга",
+    expectedError: /xlsx|рабочая книга|публичн/u,
+  });
+});
+
+test("публичный полный архив отклоняет отдельный исторический ZIP до публикации", () => {
+  assertPublicArchiveArtifactRejected({
+    path: "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
+    label: "Исторический отдельный ZIP прототипа",
+    expectedError: /историческ|отдельн|ZIP|публичн/u,
+  });
 });
 
 test("публичный RCA чистового выпуска не содержит локальные URL", () => {

@@ -8,14 +8,14 @@
   "properties": {
     "$schema": {"type": "string"},
     "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
-    "status": {"const": "active"},
+    "status": {"const": "historical"},
     "archive_id": {"const": "co-2026-003-browser-native-phone-prototype"},
     "title": {"type": "string", "minLength": 1},
     "output_path": {"const": "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip"},
     "runtime_root": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype"},
     "font_license_path": {"const": "docs/product/analysis/presentation-link-lisa-user-journey/source/fonts/OFL.txt"},
-    "data_class": {"const": "public_authorized"},
-    "visibility": {"const": "public"},
+    "data_class": {"const": "internal"},
+    "visibility": {"const": "restricted"},
     "zip_timestamp_policy": {"const": "release_time_moscow"},
     "refresh_policy": {
       "type": "object",

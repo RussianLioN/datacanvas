@@ -25,6 +25,7 @@
 ## Связанные источники
 
 - [Браузерный прототип](../product/analysis/presentation-link-lisa-user-journey/candidate-evidence/browser-native-phone-prototype/README.md) — обычная HTML-страница и описание навигации.
+- [Реестр утверждённых текстов](../product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md) — единственный источник текста кнопки, сообщений и письма.
 - [Реестр разрешений и приёмок](../product/change-orders/co-2026-003-release-approval-ledger.md) — решение владельца о чистовом выпуске и архиве.
 - [Доказательства чистового выпуска](co-2026-003-browser-native-phone-prototype-release-evidence.md) — отпечаток кандидата и границы данных.
 - [RCA статуса чистового выпуска](../knowledge/rca/2026-09-03-browser-final-acceptance-gate-drift.md) — предотвращение повторного сохранения принятого результата в статусе черновика.

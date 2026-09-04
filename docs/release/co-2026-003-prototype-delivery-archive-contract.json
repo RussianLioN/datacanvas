@@ -22,6 +22,7 @@
     {"path": "docs/product/change-orders/co-2026-003-q4-lisa-profile.md", "label": "Заявка на изменение Q4_2026"},
     {"path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.md", "label": "Реестр согласованных решений интервью"},
     {"path": "docs/product/analysis/presentation-link-lisa-user-journey/owner-approved-texts.md", "label": "Реестр выбранных текстов прототипа"},
+    {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json", "label": "Машиночитаемый источник выбранных текстов прототипа"},
     {"path": "docs/product/change-orders/co-2026-003-release-approval-ledger.md", "label": "Реестр разрешений и приёмок выпуска"},
     {"path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json", "label": "Машиночитаемый реестр разрешений и приёмок выпуска"},
     {"path": "docs/product/analysis/presentation-link-lisa-user-journey/source/client-reference-data.json", "label": "Очищенные данные справки ООО «Водолей Трейд»"},

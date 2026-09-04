@@ -130,6 +130,22 @@ function mediaType(relativePath) {
   })[path.extname(relativePath).toLowerCase()] ?? "application/octet-stream";
 }
 
+function assertPublicDeliveryArtifactAllowed(contract, artifact) {
+  const isPublicDeliveryArchive =
+    contract.data_class === "public_authorized" &&
+    contract.visibility === "public" &&
+    contract.release_gate !== undefined;
+  if (!isPublicDeliveryArchive) return;
+
+  const extension = path.posix.extname(artifact.path).toLowerCase();
+  if (extension === ".pdf" || extension === ".xlsx") {
+    throw new Error(`публичный архив поставки не допускает PDF/XLSX как дополнительный материал: ${artifact.path}`);
+  }
+  if (extension === ".zip") {
+    throw new Error(`публичный архив поставки не допускает отдельный исторический ZIP как дополнительный материал: ${artifact.path}`);
+  }
+}
+
 export function resolveArchiveMembers(root, contract, chain) {
   const members = [];
   const seen = new Set();
@@ -170,6 +186,8 @@ export function resolveArchiveMembers(root, contract, chain) {
     });
   }
   for (const artifact of contract.additional_artifacts) {
+    assertSafeRelativePath(artifact.path);
+    assertPublicDeliveryArtifactAllowed(contract, artifact);
     members.push({ ...artifact, role: "derivative", stage_id: null, stage_order: null });
   }
   for (const member of members) {
