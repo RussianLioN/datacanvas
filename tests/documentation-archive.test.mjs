@@ -23,7 +23,7 @@ const jiraImportArtifacts = [
     label: "Руководство по массовому импорту пользовательских историй DataCanvas в Jira",
   },
   {
-    path: "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+    path: "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
     label: "Подготовленный CSV для импорта пользовательских историй DataCanvas в Jira",
   },
 ];

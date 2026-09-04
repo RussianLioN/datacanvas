@@ -4451,6 +4451,43 @@
       "click_depth": 3
     },
     {
+      "path": "docs/knowledge/rca/2026-09-04-generated-refresh-sequencing.md",
+      "title": "RCA: параллельный запуск зависимых генераторов",
+      "section": "knowledge",
+      "navigation_domain": "documentation_operations",
+      "navigation_group": "evidence",
+      "format": "md",
+      "owner_role": "Documentation Owner",
+      "lifecycle": "active",
+      "status": "active",
+      "data_class": "internal",
+      "visibility": "internal",
+      "searchable": true,
+      "navigable": false,
+      "generated": false,
+      "canonical_source": null,
+      "generated_from": [],
+      "parent_readme": "docs/knowledge/rca/README.md",
+      "artifact_registry_id": null,
+      "outgoing_links": [
+        "docs/knowledge/rca/README.md",
+        "docs/knowledge/README.md",
+        "docs/README.md",
+        "README.md"
+      ],
+      "anchors": [
+        "rca-параллельный-запуск-зависимых-генераторов",
+        "симптом",
+        "корневая-причина",
+        "почему-проверка-не-остановила-это-раньше",
+        "предотвращающее-действие",
+        "проверочный-минимум",
+        "остаточный-риск"
+      ],
+      "reachable_from_root": true,
+      "click_depth": 3
+    },
+    {
       "path": "docs/knowledge/rca/2026-09-04-plantuml-renderer-premature-png-completion.md",
       "title": "2026-09-04: преждевременное принятие PNG-рендера PlantUML",
       "section": "knowledge",
@@ -4527,6 +4564,7 @@
         "docs/knowledge/rca/2026-09-03-browser-native-phone-external-asset-resolution.md",
         "docs/knowledge/rca/2026-09-04-bmc-generated-acceptance-evidence.md",
         "docs/knowledge/rca/2026-09-04-co-2026-003-lifecycle-state-drift.md",
+        "docs/knowledge/rca/2026-09-04-generated-refresh-sequencing.md",
         "docs/knowledge/rca/2026-09-04-plantuml-renderer-premature-png-completion.md"
       ],
       "anchors": [
@@ -7279,12 +7317,15 @@
       "searchable": true,
       "navigable": true,
       "generated": false,
-      "canonical_source": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "canonical_source": "docs/process/cascading-governance/jira-story-import-contract.json",
       "generated_from": [],
       "parent_readme": "docs/process/README.md",
       "artifact_registry_id": "ART-834",
       "outgoing_links": [
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
         "docs/process/README.md",
+        "docs/product/requirements/user-stories.md",
+        "docs/product/sources/co-2026-003-current-2026-scope.md",
         "docs/README.md",
         "README.md"
       ],
@@ -18288,7 +18329,7 @@
         "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
         "docs/architecture/README.md",
         "docs/architecture/schemas/schema-registry.md",
         "docs/architecture/system-analysis/README.md",
@@ -40674,7 +40715,7 @@
         "artifacts/delivery/co-2026-003-browser-native-phone-prototype.zip",
         "artifacts/delivery/co-2026-003-q4-lisa-profile-delivery.zip",
         "artifacts/documentation-archive/datacanvas-main-documentation.zip",
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
         "docs/architecture/README.md",
         "docs/architecture/system-analysis/README.md",
         "docs/knowledge/evidence-index.md",
@@ -41270,14 +41311,14 @@
     }
   },
   "coverage": {
-    "total_entries": 1407,
-    "manual_entries": 1395,
+    "total_entries": 1408,
+    "manual_entries": 1396,
     "generated_entries": 12,
     "public_navigable_entries": 37,
-    "searchable_entries": 1276,
+    "searchable_entries": 1277,
     "confidential_or_sensitive_entries": 31,
     "unclassified_entries": 2,
-    "reachable_from_root": 272,
+    "reachable_from_root": 273,
     "orphan_entries": 3
   },
   "ignored_paths": [

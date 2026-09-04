@@ -1789,11 +1789,11 @@
       "data_class": "internal",
       "visibility": "internal",
       "inputs": [
-        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
-        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/requirements/user-stories.md"
       ],
       "outputs": [
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
       ],
       "validation_commands": [
         "npm run validate:schemas",
@@ -1831,10 +1831,11 @@
       "visibility": "internal",
       "inputs": [
         "docs/process/cascading-governance/jira-story-import-contract.json",
-        "scripts/validate-datacanvas-xlsx-backlog.py"
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/requirements/user-stories.md"
       ],
       "outputs": [
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
       ],
       "validation_commands": [
         "npm run generate:jira-stories -- --check",
@@ -1855,7 +1856,8 @@
       "inputs": [
         "docs/process/cascading-governance/jira-story-import-contract.json",
         "schemas/jira-story-import-contract.schema.json",
-        "scripts/validate-datacanvas-xlsx-backlog.py"
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/requirements/user-stories.md"
       ],
       "outputs": [],
       "validation_commands": [
@@ -1884,7 +1886,7 @@
     },
     {
       "artifact_id": "UDW-A086",
-      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "path": "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
       "artifact_type": "jira_story_import_csv",
       "owner_role": "Product Owner / Process Owner",
       "domain": "documentation_operations",
@@ -1895,7 +1897,8 @@
       "visibility": "restricted",
       "inputs": [
         "docs/process/cascading-governance/jira-story-import-contract.json",
-        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/requirements/user-stories.md"
       ],
       "outputs": [],
       "validation_commands": [

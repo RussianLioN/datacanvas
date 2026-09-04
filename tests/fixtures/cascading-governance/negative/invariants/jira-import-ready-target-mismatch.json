@@ -3,7 +3,7 @@
   "package_id": "JIP-2026-07-02-203",
   "status": "ready",
   "target_project": "DATACANVAS",
-  "csv_path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+  "csv_path": "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
   "mapping_request_path": "tests/fixtures/cascading-governance/jira-field-mapping-ignored-by-design.json",
   "field_mapping_status": "approved",
   "import_completion_claim": "prepared",

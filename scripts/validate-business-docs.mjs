@@ -245,8 +245,8 @@ const classRules = {
     },
     {
       id: "stale-story-range",
-      pattern: /DC-ST-23\.\.DC-ST-2[89]/u,
-      message: "карта импорта должна учитывать актуальный диапазон DC-ST-23..DC-ST-33",
+      pattern: /DC-ST-23\.\.DC-ST-(?:2[89]|33)/u,
+      message: "карта импорта должна учитывать DC-ST-09 и полный диапазон DC-ST-23..DC-ST-30",
     },
   ],
 };

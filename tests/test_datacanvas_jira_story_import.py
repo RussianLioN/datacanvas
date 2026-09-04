@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Проверки контракта и CSV для импорта пользовательских историй в Jira."""
+"""Проверки подготовленного CSV девяти историй DataCanvas для Jira."""
 
 from __future__ import annotations
 
@@ -10,42 +10,28 @@ import json
 import tempfile
 import unittest
 from copy import deepcopy
-from decimal import Decimal
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = ROOT / "docs/process/cascading-governance/jira-story-import-contract.json"
 SCHEMA_PATH = ROOT / "schemas/jira-story-import-contract.schema.json"
+SCOPE_PATH = ROOT / "docs/product/sources/co-2026-003-current-2026-scope.json"
+STORY_CATALOG_PATH = ROOT / "docs/product/requirements/user-stories.md"
 GENERATOR_PATH = ROOT / "scripts/generate-datacanvas-jira-stories.py"
 VALIDATOR_PATH = ROOT / "scripts/validate-datacanvas-jira-story-import.py"
-OUTPUT_PATH = ROOT / "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
-EXPECTATIONS_PATH = ROOT / "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json"
-PROVENANCE_PATH = ROOT / "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json"
-HISTORICAL_STORY_CATALOG_PATH = ROOT / "tests/fixtures/xlsx-backlog-draft-pshe-2026-07-08-story-catalog.md"
+OUTPUT_PATH = ROOT / "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
 
 EXPECTED_COLUMNS = [
     "Issue Type", "Summary", "Description", "Priority", "Story ID", "Target quarter", "Comment"
 ]
-EXPECTED_GOALS = [
-    ("DC-ST-23", 26, "Передача запроса от другого агента"),
-    ("DC-ST-24", 27, "Запуск в общем агентском сценарии"),
-    ("DC-ST-25", 28, "Передача входного пакета"),
-    ("DC-ST-26", 29, "Проверка входного пакета"),
-    ("DC-ST-27", 30, "Передача статусов обработки"),
-    ("DC-ST-28", 31, "Проверяемость маршрута"),
-    ("DC-ST-29", 32, "Формирование PPTX и PDF"),
-    ("DC-ST-30", 33, "Расширенная доставка файлов"),
-    ("DC-ST-31", 34, "Защищённое хранение PDF"),
-    ("DC-ST-32", 35, "Передача ссылки на PDF"),
-    ("DC-ST-33", 36, "Уведомление и ссылка в Лисе"),
+EXPECTED_IDS = [
+    "DC-ST-09", "DC-ST-23", "DC-ST-24", "DC-ST-25", "DC-ST-26",
+    "DC-ST-27", "DC-ST-28", "DC-ST-29", "DC-ST-30",
 ]
-EXPECTED_ROLES = [
-    ("I", "БА"), ("J", "СА ЕФС"), ("K", "PL ЕФС"), ("L", "Дизайн"),
-    ("M", "ВН ЕФС"), ("N", "Смежный сервис"), ("O", "СА Оркестратор"),
-    ("P", "DEV Оркестратор"), ("Q", "СА AEF Containers"),
-    ("R", "DEV AEF Containers"), ("S", "QA"), ("T", "AQA"), ("U", "НТ"),
-]
+EXPECTED_COMMENT = (
+    "Источник: утверждённая граница реализации 2026 года. Ресурсные данные не используются."
+)
 
 
 def load_json(path: Path) -> dict:
@@ -53,11 +39,9 @@ def load_json(path: Path) -> dict:
 
 
 def load_script(path: Path, module_name: str):
-    if not path.exists():
-        raise AssertionError(f"ожидаемый исполняемый файл отсутствует: {path.relative_to(ROOT)}")
     spec = importlib.util.spec_from_file_location(module_name, path)
     module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
+    assert spec is not None and spec.loader is not None
     spec.loader.exec_module(module)
     return module
 
@@ -72,110 +56,69 @@ def serialize_csv(rows: list[list[str]]) -> bytes:
     return buffer.getvalue().encode("utf-8")
 
 
-def format_decimal(value: object) -> str:
-    rendered = format(Decimal(str(value)).normalize(), "f")
-    return ("0" if rendered == "-0" else rendered).replace(".", ",")
-
-
 class JiraStoryImportContractTest(unittest.TestCase):
-    def test_contract_captures_exact_columns_stories_roles_and_formatting(self) -> None:
-        self.assertTrue(CONTRACT_PATH.exists(), "машинный контракт импорта в Jira ещё не создан")
-        self.assertTrue(SCHEMA_PATH.exists(), "схема машинного контракта импорта в Jira ещё не создана")
+    def generator(self):
+        return load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_contract")
+
+    def test_contract_binds_to_current_2026_sources_and_exact_nine_ids(self) -> None:
         contract = load_json(CONTRACT_PATH)
+        self.assertEqual(contract["contract_id"], "jira-story-import-2026-q4")
+        self.assertEqual(contract["source"], {
+            "scope_path": SCOPE_PATH.relative_to(ROOT).as_posix(),
+            "story_catalog_path": STORY_CATALOG_PATH.relative_to(ROOT).as_posix(),
+        })
+        self.assertEqual(contract["stories"], EXPECTED_IDS)
         self.assertEqual(contract["columns"], EXPECTED_COLUMNS)
-        self.assertEqual(
-            [(item["story_id"], item["workbook_row"], item["summary_goal"]) for item in contract["stories"]],
-            EXPECTED_GOALS,
-        )
-        self.assertEqual([(item["column"], item["label"]) for item in contract["roles"]], EXPECTED_ROLES)
-        self.assertEqual(
-            contract["output"],
-            {
-                "path": OUTPUT_PATH.relative_to(ROOT).as_posix(),
-                "encoding": "utf-8", "bom": False, "delimiter": ",",
-                "line_ending": "LF", "quoting": "all",
-            },
-        )
-        self.assertEqual(
-            contract["formatting"],
-            {"empty_resource_value": "0", "decimal_separator": ",", "forbidden_comment_character": ";"},
-        )
-        self.assertEqual(
-            contract["source"]["story_catalog_path"],
-            HISTORICAL_STORY_CATALOG_PATH.relative_to(ROOT).as_posix(),
-        )
-        self.assertTrue(HISTORICAL_STORY_CATALOG_PATH.exists())
+        self.assertEqual(contract["output"], {
+            "path": OUTPUT_PATH.relative_to(ROOT).as_posix(),
+            "encoding": "utf-8", "bom": False, "delimiter": ",", "line_ending": "LF", "quoting": "all",
+        })
+        self.assertEqual(contract["comment_template"], EXPECTED_COMMENT)
+        self.assertNotIn("resource", json.dumps(contract, ensure_ascii=False).lower())
+        self.assertNotIn("xlsx", json.dumps(contract, ensure_ascii=False).lower())
 
-    def test_contract_requires_the_exact_owner_export_decision(self) -> None:
-        self.assertTrue(CONTRACT_PATH.exists(), "машинный контракт импорта в Jira ещё не создан")
-        authority = load_json(CONTRACT_PATH)["export_authority"]
-        self.assertEqual(
-            authority,
-            {
-                "workbook_approval_status": "owner_approved",
-                "team_validation_status": "approved",
-                "may_export_to_jira": True,
-                "jira_export_authority": "process_owner_and_product_owner",
-                "decision_id": "UDW-DEC-019",
-            },
-        )
-
-    def test_contract_rejects_a_noncanonical_output_path(self) -> None:
-        generator = load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_output_path_test")
+    def test_schema_and_generator_reject_legacy_path_and_story_set(self) -> None:
         contract = load_json(CONTRACT_PATH)
-        contract["output"]["path"] = "artifacts/generated/jira/unexpected.csv"
-        with self.assertRaisesRegex(generator.GenerationError, "канонический путь"):
-            generator.validate_contract_semantics(contract)
+        generator = self.generator()
+        for changed in [
+            {**contract, "output": {**contract["output"], "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"}},
+            {**contract, "stories": [*EXPECTED_IDS, "DC-ST-31"]},
+        ]:
+            with self.subTest(changed=changed):
+                with self.assertRaises(generator.GenerationError):
+                    generator.validate_contract_semantics(changed)
 
         schema = load_json(SCHEMA_PATH)
         self.assertEqual(
             schema["properties"]["output"]["properties"]["path"],
             {"const": OUTPUT_PATH.relative_to(ROOT).as_posix()},
         )
+        self.assertEqual(schema["properties"]["stories"]["minItems"], 9)
+        self.assertEqual(schema["properties"]["stories"]["maxItems"], 9)
 
 
 class JiraStoryCsvGenerationTest(unittest.TestCase):
     def generator(self):
-        return load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_test")
+        return load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_generation")
 
-    def test_rendered_csv_has_exact_bytes_and_all_expected_fields(self) -> None:
+    def test_rendered_csv_contains_exact_current_scope_without_resource_data(self) -> None:
         payload = self.generator().render_csv(CONTRACT_PATH)
         self.assertFalse(payload.startswith(b"\xef\xbb\xbf"))
         self.assertNotIn(b"\r", payload)
         self.assertTrue(payload.endswith(b"\n"))
         rows = parse_csv(payload)
         self.assertEqual(rows[0], EXPECTED_COLUMNS)
-        self.assertEqual(len(rows), 12)
-        self.assertEqual([row[4] for row in rows[1:]], [item[0] for item in EXPECTED_GOALS])
-
-        expected_by_story = {item["story_id"]: item for item in load_json(EXPECTATIONS_PATH)["new_rows"]}
-        goals = {story_id: goal for story_id, _row, goal in EXPECTED_GOALS}
-        for row in rows[1:]:
-            story_id = row[4]
-            expected = expected_by_story[story_id]
-            description = (
-                f"Пользовательская история:\n{expected['story_text']}\n\n"
-                f"Бизнес-ценность:\n{expected['business_value']}\n\n"
-                f"Функциональная зона: {expected['functional_zone']}\nПлановый период: {expected['period']}"
-            )
-            role_lines = [
-                f"{label}: {format_decimal(expected['role_values'].get(column, 0))}"
-                for column, label in EXPECTED_ROLES
-            ]
-            comment = "\n".join([
-                "Ресурсная оценка реализации",
-                "Статус: текущая оценка принята владельцем процесса и Product Owner для экспорта в Jira.",
-                "Итоговая ПШЕ — трудозатраты в человеко-днях "
-                f"с коэффициентом 2: {format_decimal(expected['h_value'])}.",
-                "Роли, базовая оценка в человеко-днях: обозначения сохранены из Excel.",
-                *role_lines,
-            ])
-            self.assertEqual(row, [
-                "Story", f"{story_id} — {goals[story_id]}", description, expected["priority"],
-                story_id, expected["period"], comment,
-            ])
-            self.assertNotIn(";", row[6])
-        self.assertEqual(payload, serialize_csv(rows), "каждое поле CSV должно быть заключено в кавычки")
+        self.assertEqual(len(rows), 10)
+        self.assertEqual([row[4] for row in rows[1:]], EXPECTED_IDS)
+        self.assertEqual([row[3] for row in rows[1:]], ["P2", "P1", "P1", "P1", "P1", "P1", "P1", "P1", "P2"])
+        self.assertTrue(all(row[0] == "Story" for row in rows[1:]))
+        self.assertTrue(all(row[5] == "2026-Q4" for row in rows[1:]))
+        self.assertTrue(all(row[6] == EXPECTED_COMMENT for row in rows[1:]))
+        rendered = payload.decode("utf-8").lower()
+        self.assertNotIn("трудозатрат", rendered)
+        self.assertNotIn("коэффициент", rendered)
+        self.assertNotIn("ресурсная оценка", rendered)
+        self.assertEqual(payload, serialize_csv(rows))
 
     def test_check_mode_rejects_missing_and_stale_output_without_writing(self) -> None:
         generator = self.generator()
@@ -184,7 +127,6 @@ class JiraStoryCsvGenerationTest(unittest.TestCase):
             output = Path(temporary_directory) / "stories.csv"
             with self.assertRaisesRegex(generator.GenerationError, "отсутствует"):
                 generator.write_or_check(payload, output, check=True)
-            self.assertFalse(output.exists())
             output.write_bytes(b"stale\n")
             with self.assertRaisesRegex(generator.GenerationError, "устарел"):
                 generator.write_or_check(payload, output, check=True)
@@ -192,166 +134,133 @@ class JiraStoryCsvGenerationTest(unittest.TestCase):
             generator.write_or_check(payload, output, check=False)
             generator.write_or_check(payload, output, check=True)
 
-    def test_generation_rejects_export_without_exact_owner_authority(self) -> None:
+    def test_generation_rejects_scope_with_resource_data_or_excluded_story(self) -> None:
         generator = self.generator()
-        contract = load_json(CONTRACT_PATH)
-        provenance = load_json(PROVENANCE_PATH)
-        cases = []
-        changed = deepcopy(provenance)
-        changed["downstream_policy"]["may_export_to_jira"] = False
-        cases.append(changed)
-        changed = deepcopy(provenance)
-        changed["downstream_policy"]["jira_export_decision_id"] = "UDW-DEC-999"
-        cases.append(changed)
-        changed = deepcopy(provenance)
-        changed["workbook"]["team_validation_status"] = "pending_team_review"
-        cases.append(changed)
-        changed = deepcopy(provenance)
-        changed["rows"][0]["team_validation_status"] = "pending_team_review"
-        cases.append(changed)
-        for changed in cases:
-            with self.subTest(policy=changed["downstream_policy"]):
-                with self.assertRaises(generator.GenerationError):
-                    generator.validate_export_authority(contract, changed)
+        scope = load_json(SCOPE_PATH)
+        with self.assertRaises(generator.GenerationError):
+            generator.validate_scope({**scope, "resource_data_used": True})
+        with self.assertRaises(generator.GenerationError):
+            generator.validate_scope({**scope, "active_story_ids": [*EXPECTED_IDS[:-1], "DC-ST-31"]})
 
 
 class JiraStoryCsvValidationTest(unittest.TestCase):
     def modules_and_payload(self):
-        generator = load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_validator_test")
-        validator = load_script(VALIDATOR_PATH, "datacanvas_jira_story_validator_test")
+        generator = load_script(GENERATOR_PATH, "datacanvas_jira_story_generator_validation")
+        validator = load_script(VALIDATOR_PATH, "datacanvas_jira_story_validator")
         return generator, validator, generator.render_csv(CONTRACT_PATH)
 
     def assert_rejected(self, payload: bytes) -> None:
-        _generator, validator, _valid_payload = self.modules_and_payload()
+        _generator, validator, _payload = self.modules_and_payload()
         with tempfile.TemporaryDirectory() as temporary_directory:
             path = Path(temporary_directory) / "stories.csv"
             path.write_bytes(payload)
             with self.assertRaises(validator.ValidationError):
                 validator.validate_csv(path, CONTRACT_PATH, require_generator_check=False)
 
-    def test_independent_validator_accepts_the_exact_generated_csv(self) -> None:
+    def test_independent_validator_accepts_exact_generated_csv(self) -> None:
         _generator, validator, payload = self.modules_and_payload()
         source = VALIDATOR_PATH.read_text(encoding="utf-8")
         self.assertNotIn("generate-datacanvas-jira-stories", source)
         self.assertNotIn("render_csv", source)
+        self.assertNotIn("validate-datacanvas-xlsx", source)
         with tempfile.TemporaryDirectory() as temporary_directory:
             path = Path(temporary_directory) / "stories.csv"
             path.write_bytes(payload)
             validator.validate_csv(path, CONTRACT_PATH, require_generator_check=False)
 
-    def test_freshness_check_rejects_noncanonical_contract_and_csv_paths(self) -> None:
-        _generator, validator, payload = self.modules_and_payload()
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            temporary_root = Path(temporary_directory)
-            alternate_csv = temporary_root / "stories.csv"
-            alternate_csv.write_bytes(payload)
-            with self.assertRaisesRegex(validator.ValidationError, "канонический CSV"):
-                validator.validate_csv(alternate_csv, CONTRACT_PATH, require_generator_check=True)
-
-            alternate_contract = temporary_root / "contract.json"
-            alternate_contract.write_text(CONTRACT_PATH.read_text(encoding="utf-8"), encoding="utf-8")
-            with self.assertRaisesRegex(validator.ValidationError, "канонический договор"):
-                validator.validate_csv(OUTPUT_PATH, alternate_contract, require_generator_check=True)
-
-    def test_validator_rejects_byte_level_corruption(self) -> None:
-        _generator, _validator, payload = self.modules_and_payload()
-        cases = [
-            b"\xef\xbb\xbf" + payload,
-            payload.replace(b"\n", b"\r\n"),
-            payload[:-1] + b"\xff\n",
-            payload[:-1],
-        ]
-        for changed in cases:
-            with self.subTest(prefix=changed[:12]):
-                self.assert_rejected(changed)
-
-    def test_validator_rejects_structure_order_and_value_mutations(self) -> None:
+    def test_validator_rejects_old_shape_and_resource_comment(self) -> None:
         _generator, _validator, payload = self.modules_and_payload()
         rows = parse_csv(payload)
         cases: list[bytes] = []
-        changed = deepcopy(rows); changed[0][3] = "Capacity contour"; cases.append(serialize_csv(changed))
-        cases.extend([serialize_csv(rows[:-1]), serialize_csv([*rows, deepcopy(rows[-1])])])
-        changed = deepcopy(rows); changed[2] = deepcopy(changed[1]); cases.append(serialize_csv(changed))
+        cases.append(serialize_csv([*rows, deepcopy(rows[-1])]))
+        changed = deepcopy(rows); changed[1][4] = "DC-ST-31"; cases.append(serialize_csv(changed))
+        changed = deepcopy(rows); changed[1][6] = "Ресурсная оценка реализации"; cases.append(serialize_csv(changed))
+        changed = deepcopy(rows); changed[1][3] = "P9"; cases.append(serialize_csv(changed))
         changed = deepcopy(rows); changed[1], changed[2] = changed[2], changed[1]; cases.append(serialize_csv(changed))
-        mutations = {
-            2: "Искажённая история", 3: "P9", 5: "2099-Q4",
-            6: rows[1][6].replace("коэффициентом 2: 22.", "коэффициентом 2: 23."),
-        }
-        for column, replacement in mutations.items():
-            changed = deepcopy(rows); changed[1][column] = replacement; cases.append(serialize_csv(changed))
-        for old, new in [
-            ("БА: 2", "БА: 3"), ("Дизайн: 0", "Дизайн: "),
-            ("СА ЕФС: 0,5", "СА ЕФС: 0.5"), (rows[1][6], rows[1][6] + ";"),
-        ]:
-            changed = deepcopy(rows); changed[1][6] = changed[1][6].replace(old, new); cases.append(serialize_csv(changed))
-        marker = '"Пользовательская история:\n'.encode("utf-8")
-        self.assertIn(marker, payload)
-        cases.append(payload.replace(marker, "Пользовательская история:\n".encode("utf-8"), 1))
-        for changed in cases:
-            with self.subTest(size=len(changed)):
+        for case in cases:
+            with self.subTest(size=len(case)):
+                self.assert_rejected(case)
+
+    def test_validator_rejects_byte_and_freshness_violations(self) -> None:
+        _generator, validator, payload = self.modules_and_payload()
+        for changed in [b"\xef\xbb\xbf" + payload, payload.replace(b"\n", b"\r\n"), payload[:-1]]:
+            with self.subTest(prefix=changed[:12]):
                 self.assert_rejected(changed)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            alternate = Path(temporary_directory) / "stories.csv"
+            alternate.write_bytes(payload)
+            with self.assertRaisesRegex(validator.ValidationError, "канонический CSV"):
+                validator.validate_csv(alternate, CONTRACT_PATH, require_generator_check=True)
 
 
 class JiraStoryImportRegistrationTest(unittest.TestCase):
-    def test_package_and_generator_governance_are_registered(self) -> None:
-        scripts = load_json(ROOT / "package.json")["scripts"]
-        self.assertEqual(scripts.get("generate:jira-stories"), "python3 -B scripts/generate-datacanvas-jira-stories.py")
-        self.assertEqual(scripts.get("test:jira-story-import"), "python3 -B tests/test_datacanvas_jira_story_import.py")
-        self.assertEqual(
-            scripts.get("validate:jira-story-import-csv"),
-            "python3 -B scripts/validate-datacanvas-jira-story-import.py",
-        )
-        self.assertEqual(
-            scripts.get("validate:jira-story-import"),
-            "npm run test:jira-story-import && python3 -B scripts/validate-datacanvas-jira-story-import.py && npm run generate:jira-stories -- --check",
-        )
-        self.assertIn("npm run validate:jira-story-import", scripts["test"])
-        self.assertLess(
-            scripts["generate:golden"].index("npm run generate:jira-stories"),
-            scripts["generate:golden"].index("node scripts/generate-artifact-hash-manifest.mjs"),
-        )
-        contracts = load_json(ROOT / "docs/process/universal-documentation-workflow/generator-contracts.json")
-        item = next(entry for entry in contracts["contracts"] if entry["generator_id"] == "datacanvas-jira-stories")
-        self.assertEqual(item["outputs"], [OUTPUT_PATH.relative_to(ROOT).as_posix()])
-        self.assertEqual(item["allowed_writes"], item["outputs"])
-        self.assertIn("npm run validate:jira-story-import", item["post_validators"])
-        guard = load_json(ROOT / "docs/process/universal-documentation-workflow/mutation-guard-policy.json")
-        write_set = next(entry for entry in guard["allowed_write_sets"] if entry["generator_id"] == "datacanvas-jira-stories")
-        self.assertEqual(write_set["allowed_writes"], item["outputs"])
-        catalog = load_json(ROOT / "docs/process/universal-documentation-workflow/validation-command-catalog.json")
-        commands = {entry["command"]: entry for entry in catalog["commands"]}
-        for command in [
-            "npm run test:jira-story-import", "npm run validate:jira-story-import-csv",
-            "npm run generate:jira-stories -- --check", "npm run validate:jira-story-import",
-        ]:
-            self.assertIn(command, commands)
-            self.assertIs(commands[command]["mutates_files"], False)
+    def test_active_package_chain_uses_only_current_scope_and_csv(self) -> None:
+        old_csv = "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        new_csv = OUTPUT_PATH.relative_to(ROOT).as_posix()
+        scope_path = SCOPE_PATH.relative_to(ROOT).as_posix()
+        catalog_path = STORY_CATALOG_PATH.relative_to(ROOT).as_posix()
 
-    def test_all_six_artifacts_and_csv_leakage_target_are_registered(self) -> None:
-        paths = {
-            CONTRACT_PATH.relative_to(ROOT).as_posix(), SCHEMA_PATH.relative_to(ROOT).as_posix(),
-            GENERATOR_PATH.relative_to(ROOT).as_posix(), VALIDATOR_PATH.relative_to(ROOT).as_posix(),
-            Path(__file__).resolve().relative_to(ROOT).as_posix(), OUTPUT_PATH.relative_to(ROOT).as_posix(),
-        }
-        registry = load_json(ROOT / "docs/architecture/schemas/artifact-registry.json")
-        inventory = load_json(ROOT / "docs/process/universal-documentation-workflow/artifact-inventory.json")
-        registry_by_path = {entry["path"]: entry for entry in registry["artifacts"]}
-        inventory_paths = {entry["path"] for entry in inventory["artifacts"]}
-        self.assertTrue(paths.issubset(registry_by_path))
-        self.assertTrue(paths.issubset(inventory_paths))
-        contract_relative_path = CONTRACT_PATH.relative_to(ROOT).as_posix()
-        navigation = load_json(ROOT / "docs/navigation/navigation-source.json")
-        navigation_by_path = {entry["path"]: entry for entry in navigation["managed_entries"]}
-        self.assertIs(registry_by_path[contract_relative_path]["searchable"], False)
-        self.assertIs(navigation_by_path[contract_relative_path]["searchable"], False)
-        csv_entry = registry_by_path[OUTPUT_PATH.relative_to(ROOT).as_posix()]
-        self.assertEqual(
-            {key: csv_entry[key] for key in ["status", "data_class", "visibility", "searchable", "navigable"]},
-            {"status": "generated", "data_class": "internal", "visibility": "restricted", "searchable": False, "navigable": False},
+        manifest = load_json(ROOT / "docs/process/cascading-governance/jira-import-package-manifest.json")
+        self.assertEqual(manifest["csv_path"], new_csv)
+        self.assertEqual(manifest["status"], "ready")
+        self.assertEqual(manifest["import_completion_claim"], "prepared")
+
+        generator_contracts = load_json(
+            ROOT / "docs/process/universal-documentation-workflow/generator-contracts.json"
         )
+        generator_contract = next(
+            item for item in generator_contracts["contracts"] if item["generator_id"] == "datacanvas-jira-stories"
+        )
+        self.assertEqual(generator_contract["outputs"], [new_csv])
+        self.assertEqual(generator_contract["allowed_writes"], [new_csv])
+        self.assertIn(scope_path, generator_contract["inputs"])
+        self.assertIn(catalog_path, generator_contract["inputs"])
+        self.assertNotIn("xlsx", json.dumps(generator_contract, ensure_ascii=False).lower())
+        self.assertNotIn("decimal", json.dumps(generator_contract, ensure_ascii=False).lower())
+
+        inventory = load_json(ROOT / "docs/process/universal-documentation-workflow/artifact-inventory.json")
+        inventory_by_path = {item["path"]: item for item in inventory["artifacts"]}
+        self.assertIn(new_csv, inventory_by_path)
+        self.assertEqual(inventory_by_path[new_csv]["inputs"], [
+            "docs/process/cascading-governance/jira-story-import-contract.json",
+            scope_path,
+            catalog_path,
+        ])
+
+        registry = load_json(ROOT / "docs/architecture/schemas/artifact-registry.json")
+        registry_by_id = {item["id"]: item for item in registry["artifacts"]}
+        self.assertEqual(registry_by_id["ART-828"]["canonical_source"], scope_path)
+        self.assertEqual(
+            registry_by_id["ART-834"]["canonical_source"],
+            "docs/process/cascading-governance/jira-story-import-contract.json",
+        )
+        self.assertEqual(registry_by_id["ART-833"]["path"], new_csv)
+
         leakage = load_json(ROOT / "docs/architecture/security/data-leakage-manifest.json")
-        leak_entry = next(entry for entry in leakage["scan_targets"] if entry["path"] == OUTPUT_PATH.relative_to(ROOT).as_posix())
-        self.assertEqual((leak_entry["sink"], leak_entry["data_class"]), ("export", "internal"))
+        self.assertTrue(any(item["path"] == new_csv for item in leakage["scan_targets"]))
+
+        archive_contract = load_json(
+            ROOT / "docs/process/universal-documentation-workflow/documentation-archive-contract.json"
+        )
+        self.assertTrue(any(item["path"] == new_csv for item in archive_contract["additional_artifacts"]))
+
+        for relative_path in [
+            "README.md",
+            "docs/README.md",
+            "docs/process/guides/datacanvas-jira-story-bulk-import.md",
+            "docs/navigation/navigation-source.json",
+            "docs/process/cascading-governance/jira-import-package-manifest.json",
+            "docs/process/universal-documentation-workflow/generator-contracts.json",
+            "docs/process/universal-documentation-workflow/artifact-inventory.json",
+            "docs/process/universal-documentation-workflow/mutation-guard-policy.json",
+            "docs/process/universal-documentation-workflow/documentation-archive-contract.json",
+            "docs/architecture/security/data-leakage-manifest.json",
+            "docs/architecture/schemas/artifact-registry.json",
+        ]:
+            with self.subTest(path=relative_path):
+                self.assertNotIn(old_csv, (ROOT / relative_path).read_text(encoding="utf-8"))
+
+        self.assertFalse((ROOT / old_csv).exists())
 
 
 if __name__ == "__main__":

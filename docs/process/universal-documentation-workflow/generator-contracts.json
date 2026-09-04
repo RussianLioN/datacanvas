@@ -113,38 +113,32 @@
       "inputs": [
         "docs/process/cascading-governance/jira-story-import-contract.json",
         "schemas/jira-story-import-contract.schema.json",
-        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx",
-        "tests/golden/xlsx-backlog-draft-pshe-2026-07-08.json",
-        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
         "docs/product/requirements/user-stories.md",
-        "scripts/validate-datacanvas-xlsx-backlog.py",
         "scripts/generate-datacanvas-jira-stories.py",
         "scripts/validate-datacanvas-jira-story-import.py"
       ],
       "outputs": [
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
       ],
       "allowed_writes": [
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
       ],
       "generate_command": "npm run generate:jira-stories",
       "check_command": "npm run generate:jira-stories -- --check",
-      "deterministic_environment": "Python 3, стандартная библиотека, байтово закреплённая рабочая XLSX-книга и её эталон, UTF-8 без BOM, CSV QUOTE_ALL с LF, без сети",
-      "dependencies": [
-        "datacanvas-xlsx-sanitized-reference",
-        "scripts/validate-datacanvas-xlsx-backlog.py"
-      ],
+      "deterministic_environment": "Python 3, стандартная библиотека, утверждённая граница CO-2026-003 на 2026-Q4, каталог пользовательских историй, UTF-8 без BOM, CSV QUOTE_ALL с LF, без сети",
+      "dependencies": [],
       "post_validators": [
         "npm run validate:jira-story-import",
-        "npm run validate:xlsx-backlog",
+        "npm run validate:product-source-consistency",
         "npm run validate:schemas",
         "npm run validate:data-leakage"
       ],
       "failure_modes": [
-        "jira_export_not_authorized",
-        "story_row_mapping_mismatch",
-        "xlsx_source_validation_failed",
-        "invalid_decimal_value",
+        "future_story_leaked_into_current_scope",
+        "story_catalog_record_mismatch",
+        "story_catalog_scope_mismatch",
+        "invalid_scope_metadata",
         "invalid_csv_bytes",
         "stale_generated_output"
       ]
@@ -578,7 +572,7 @@
         "docs/product/backlog/agent-launch-candidate-stories-2026-q3.csv",
         "docs/product/sources/reference/datacanvas-backlog-source-sanitized.xlsx",
         "docs/process/guides/datacanvas-jira-story-bulk-import.md",
-        "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv"
+        "artifacts/generated/jira/datacanvas-stories-2026-q4.csv"
       ],
       "post_validators": [
         "npm run validate:documentation-archive",

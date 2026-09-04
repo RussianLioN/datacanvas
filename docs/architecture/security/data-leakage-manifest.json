@@ -326,7 +326,7 @@
     },
     {
       "id": "DLT-052",
-      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "path": "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
       "sink": "export",
       "data_class": "internal"
     },

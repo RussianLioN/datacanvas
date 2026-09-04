@@ -4,45 +4,22 @@
   "title": "JiraStoryImportContract",
   "type": "object",
   "required": [
-    "$schema", "version", "status", "contract_id", "source", "export_authority",
-    "output", "columns", "field_sources", "description_template", "comment_header_lines",
-    "role_line_template", "roles", "formatting", "stories"
+    "$schema", "version", "status", "contract_id", "source", "output", "columns",
+    "field_sources", "description_template", "comment_template", "stories"
   ],
   "additionalProperties": false,
   "properties": {
     "$schema": { "const": "../../../schemas/jira-story-import-contract.schema.json" },
     "version": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/semver" },
-    "status": { "type": "string", "enum": ["active", "retired"] },
-    "contract_id": { "type": "string", "pattern": "^jira-story-import-[a-z0-9-]+$" },
+    "status": { "const": "active" },
+    "contract_id": { "const": "jira-story-import-2026-q4" },
     "source": {
       "type": "object",
-      "required": [
-        "workbook_path", "expectations_path", "provenance_path", "story_catalog_path",
-        "worksheet_part", "multiplier_cell"
-      ],
+      "required": ["scope_path", "story_catalog_path"],
       "additionalProperties": false,
       "properties": {
-        "workbook_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "expectations_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "provenance_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "story_catalog_path": { "$ref": "https://datacanvas.local/schemas/common-defs.schema.json#/$defs/repoPath" },
-        "worksheet_part": { "type": "string", "pattern": "^xl/[A-Za-z0-9_./-]+\\.xml$" },
-        "multiplier_cell": { "type": "string", "pattern": "^[A-Z]+[1-9][0-9]*$" }
-      }
-    },
-    "export_authority": {
-      "type": "object",
-      "required": [
-        "workbook_approval_status", "team_validation_status", "may_export_to_jira",
-        "jira_export_authority", "decision_id"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "workbook_approval_status": { "const": "owner_approved" },
-        "team_validation_status": { "const": "approved" },
-        "may_export_to_jira": { "const": true },
-        "jira_export_authority": { "const": "process_owner_and_product_owner" },
-        "decision_id": { "const": "UDW-DEC-019" }
+        "scope_path": { "const": "docs/product/sources/co-2026-003-current-2026-scope.json" },
+        "story_catalog_path": { "const": "docs/product/requirements/user-stories.md" }
       }
     },
     "output": {
@@ -50,7 +27,7 @@
       "required": ["path", "encoding", "bom", "delimiter", "line_ending", "quoting"],
       "additionalProperties": false,
       "properties": {
-        "path": { "const": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv" },
+        "path": { "const": "artifacts/generated/jira/datacanvas-stories-2026-q4.csv" },
         "encoding": { "const": "utf-8" },
         "bom": { "const": false },
         "delimiter": { "const": "," },
@@ -71,59 +48,33 @@
     },
     "field_sources": {
       "type": "object",
-      "required": [
-        "issue_type_value", "story_text_column", "functional_zone_column", "business_value_column",
-        "priority_column", "target_quarter_column", "total_effort_column", "multiplier_cell"
-      ],
+      "required": ["issue_type_value"],
       "additionalProperties": false,
       "properties": {
-        "issue_type_value": { "const": "Story" },
-        "story_text_column": { "const": "C" },
-        "functional_zone_column": { "const": "D" },
-        "business_value_column": { "const": "E" },
-        "priority_column": { "const": "F" },
-        "target_quarter_column": { "const": "G" },
-        "total_effort_column": { "const": "H" },
-        "multiplier_cell": { "const": "C1" }
+        "issue_type_value": { "const": "Story" }
       }
     },
     "description_template": { "type": "string", "minLength": 1 },
-    "comment_header_lines": {
-      "type": "array", "minItems": 4, "maxItems": 4,
-      "items": { "type": "string", "minLength": 1 }
-    },
-    "role_line_template": { "const": "{label}: {value}" },
-    "roles": {
-      "type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true,
-      "items": {
-        "type": "object", "required": ["column", "label"], "additionalProperties": false,
-        "properties": {
-          "column": { "type": "string", "pattern": "^[I-U]$" },
-          "label": { "type": "string", "minLength": 1 }
-        }
-      }
-    },
-    "formatting": {
-      "type": "object",
-      "required": ["empty_resource_value", "decimal_separator", "forbidden_comment_character"],
-      "additionalProperties": false,
-      "properties": {
-        "empty_resource_value": { "const": "0" },
-        "decimal_separator": { "const": "," },
-        "forbidden_comment_character": { "const": ";" }
-      }
+    "comment_template": {
+      "const": "Источник: утверждённая граница реализации 2026 года. Ресурсные данные не используются."
     },
     "stories": {
-      "type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true,
-      "items": {
-        "type": "object", "required": ["story_id", "workbook_row", "summary_goal"],
-        "additionalProperties": false,
-        "properties": {
-          "story_id": { "type": "string", "pattern": "^DC-ST-[0-9]+$" },
-          "workbook_row": { "type": "integer", "minimum": 1 },
-          "summary_goal": { "type": "string", "minLength": 1 }
-        }
-      }
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true,
+      "prefixItems": [
+        { "const": "DC-ST-09" },
+        { "const": "DC-ST-23" },
+        { "const": "DC-ST-24" },
+        { "const": "DC-ST-25" },
+        { "const": "DC-ST-26" },
+        { "const": "DC-ST-27" },
+        { "const": "DC-ST-28" },
+        { "const": "DC-ST-29" },
+        { "const": "DC-ST-30" }
+      ],
+      "items": false
     }
   }
 }

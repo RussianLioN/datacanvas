@@ -9062,10 +9062,10 @@
       "visibility": "internal",
       "searchable": false,
       "navigable": false,
-      "canonical_source": "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.provenance.json",
+      "canonical_source": "docs/product/sources/co-2026-003-current-2026-scope.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняются строки, поля, формат CSV или полномочие владельцев на экспорт в Jira."
+      "update_trigger": "Меняются утверждённая граница CO-2026-003 на 2026-Q4, каталог пользовательских историй или договорный формат CSV."
     },
     {
       "id": "ART-829",
@@ -9101,7 +9101,7 @@
     },
     {
       "id": "ART-833",
-      "path": "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+      "path": "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
       "type": "jira-story-import-csv",
       "owner_role": "Product Owner / Process Owner",
       "status": "generated",
@@ -9114,10 +9114,11 @@
       "generated_from": [
         "docs/process/cascading-governance/jira-story-import-contract.json",
         "scripts/generate-datacanvas-jira-stories.py",
-        "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+        "docs/product/sources/co-2026-003-current-2026-scope.json",
+        "docs/product/requirements/user-stories.md"
       ],
       "redaction_status": "metadata_only",
-      "update_trigger": "Меняется договор, рабочая XLSX-книга, эталон или полномочие на экспорт в Jira."
+      "update_trigger": "Меняется договор, утверждённая граница CO-2026-003 на 2026-Q4 или каталог пользовательских историй."
     },
     {
       "id": "ART-834",
@@ -9130,10 +9131,10 @@
       "visibility": "internal",
       "searchable": true,
       "navigable": true,
-      "canonical_source": "docs/process/cascading-governance/jira-import-package-manifest.json",
+      "canonical_source": "docs/process/cascading-governance/jira-story-import-contract.json",
       "generated_from": [],
       "redaction_status": "not_required",
-      "update_trigger": "Меняются CSV, сопоставление полей или порядок ручного массового импорта в Jira."
+      "update_trigger": "Меняются договор CSV, утверждённая граница CO-2026-003 на 2026-Q4, каталог пользовательских историй или сопоставление полей Jira."
     },
     {
       "id": "ART-835",

@@ -276,7 +276,7 @@ const currentBusinessNavigationTargets = [
 
 const jiraImportNavigationTargets = [
   "docs/process/guides/datacanvas-jira-story-bulk-import.md",
-  "artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv",
+  "artifacts/generated/jira/datacanvas-stories-2026-q4.csv",
 ];
 
 function jiraImportQuickRouteDiagnostic(markdown, fromPath) {
@@ -780,7 +780,7 @@ assertFixtureCases("negative docs navigation", "tests/docs-navigation/negative/c
       "|---|---|",
       "| Импортировать пользовательские истории в Jira | Ссылки вынесены из этой строки. |",
       "| Открыть руководство | [Руководство](docs/process/guides/datacanvas-jira-story-bulk-import.md) |",
-      "| Скачать пакет | [CSV](artifacts/generated/jira/datacanvas-stories-dc-st-23-dc-st-33.csv) |",
+      "| Скачать пакет | [CSV](artifacts/generated/jira/datacanvas-stories-2026-q4.csv) |",
       "",
       "## Другой раздел",
     ].join("\n");
