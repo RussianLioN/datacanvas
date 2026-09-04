@@ -110,14 +110,20 @@ test("актуальный набор проверок опирается на �
   assert.doesNotMatch(command, /presentation-link-lisa-user-journey\.test\.mjs/u);
 });
 
-test("устаревший профиль проверки маршрута Лисы теперь является только защитой исторической границы", () => {
+test("официальные команды не позволяют записывать исторические 13 кадров как активный маршрут", () => {
   const packageJson = readJson(path.join(root, "package.json"));
-  const command = packageJson.scripts["validate:presentation-link-lisa-user-journey:ci"];
+  const scripts = packageJson.scripts;
+  const workflow = fs.readFileSync(path.join(root, ".github/workflows/docs-check.yml"), "utf8");
 
-  assert.equal(typeof command, "string");
-  assert.match(command, /validate:co-2026-003-active-visual-route/u);
-  assert.doesNotMatch(command, /test:presentation-link-lisa-user-journey:browser/u);
-  assert.doesNotMatch(command, /validate-presentation-link-lisa-user-journey\.mjs/u);
+  assert.equal(scripts["generate:presentation-link-lisa-user-journey:rasters"], undefined);
+  assert.equal(scripts["check:presentation-link-lisa-user-journey:pdf-slides"], undefined);
+  assert.equal(
+    scripts["check:presentation-link-lisa-user-journey:historical-pdf-slides"],
+    "node scripts/import-presentation-link-lisa-pdf-slides.mjs --check",
+  );
+  assert.match(workflow, /Проверить активный визуальный маршрут Лисы/u);
+  assert.match(workflow, /npm run validate:co-2026-003-active-visual-route/u);
+  assert.doesNotMatch(workflow, /validate:presentation-link-lisa-user-journey:ci/u);
 });
 
 test("сохранённая команда проверки исторического маршрута проверяет действующий выпуск и ничего не пересобирает", () => {

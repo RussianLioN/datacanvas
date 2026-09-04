@@ -35,8 +35,8 @@ jobs:
         run: npm test
       - name: Установить браузеры Playwright
         run: npx playwright install --with-deps chromium webkit
-      - name: Проверить пользовательский путь Лисы в браузерах
-        run: npm run validate:presentation-link-lisa-user-journey:ci
+      - name: Проверить активный визуальный маршрут Лисы
+        run: npm run validate:co-2026-003-active-visual-route
       - name: Проверить браузерный черновик мока телефона
         run: npm run validate:browser-native-phone-prototype:profile
       - name: Check deterministic docs navigation generation
