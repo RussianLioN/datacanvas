@@ -4,6 +4,11 @@ import process from "node:process";
 import crypto from "node:crypto";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import {
+  currentCo2026003BmcItemIds,
+  currentCo2026003BmcSource,
+  currentCo2026003ForbiddenActiveMeaning,
+} from "./lib/bmc-current-scope-policy.mjs";
 
 const root = process.cwd();
 const tracePath = "docs/product/bmc/bmc-trace.v0.1.json";
@@ -108,6 +113,12 @@ for (const item of trace.items) {
       fail(`BMC item references unknown source ref ${sourceRef}: ${item.item_id}`);
     }
   }
+  if (!sourceIds.has(item.primary_source_ref)) {
+    fail(`BMC item references unknown primary_source_ref ${item.primary_source_ref}: ${item.item_id}`);
+  }
+  if (!item.source_refs.includes(item.primary_source_ref)) {
+    fail(`BMC item primary_source_ref must be included in source_refs: ${item.item_id}`);
+  }
   if (item.status === "confirmed" && item.source_refs.length === 0 && item.evidence_ids.length === 0) {
     fail(`confirmed BMC item has no source or evidence: ${item.item_id}`);
   }
@@ -126,6 +137,12 @@ for (const claim of trace.claims) {
   }
   if (JSON.stringify(claim.source_refs) !== JSON.stringify(item.source_refs)) {
     fail(`BMC claim source_refs must match item source_refs: ${claim.claim_id}`);
+  }
+  if (!claim.source_refs.includes(claim.primary_source_ref)) {
+    fail(`BMC claim primary_source_ref must be included in source_refs: ${claim.claim_id}`);
+  }
+  if (claim.primary_source_ref !== item.primary_source_ref) {
+    fail(`BMC claim primary_source_ref must match item primary_source_ref: ${claim.claim_id}`);
   }
   if (claim.public_inclusion_policy !== "include_clean_statement_only") {
     fail(`BMC public inclusion policy must keep only clean public statements: ${claim.claim_id}`);
@@ -214,34 +231,25 @@ for (const itemId of expectedNeeds) {
   }
 }
 
-const co2026003BmcSource = "SRC-DC-CO-2026-003-BT-AMENDMENT";
-const co2026003CurrentBmcItems = [
-  "BMC-CLM-002",
-  "BMC-CLM-003",
-  "BMC-CLM-004",
-  "BMC-CLM-006",
-  "BMC-CLM-007",
-  "BMC-CLM-008",
-];
 const co2026003RequiredSnippets = ["PPTX", "PDF", "SIGMA", "OMEGA"];
-const co2026003ForbiddenActiveMeaning = [
-  /защищ[её]нн(?:ое|ого|ом|ым)\s+хранилищ/iu,
-  /хранилищ[ае][^.\n]*(?:PDF|презентац|результат)/iu,
-  /ссылк[ау][^.\n]*(?:PDF|презентац|результат|пользовател)/iu,
-  /уведомлени[ея][^.\n]*(?:ссылк|результат)/iu,
-  /показ(?:ать|ывает|ывают|а)[^.\n]*ссылк/iu,
-];
-if (!sourceIds.has(co2026003BmcSource)) {
-  fail(`BMC source lock is missing current CO-2026-003 source: ${co2026003BmcSource}`);
+if (!sourceIds.has(currentCo2026003BmcSource)) {
+  fail(`BMC source lock is missing current CO-2026-003 source: ${currentCo2026003BmcSource}`);
 }
-const co2026003CurrentText = co2026003CurrentBmcItems
+const co2026003CurrentText = currentCo2026003BmcItemIds
   .map((itemId) => {
     const item = itemById.get(itemId);
+    const claim = trace.claims.find((candidate) => candidate.claim_id === itemId);
     if (!item) {
       fail(`BMC trace is missing current CO-2026-003 item: ${itemId}`);
     }
-    if (!item.source_refs.includes(co2026003BmcSource)) {
+    if (!item.source_refs.includes(currentCo2026003BmcSource)) {
       fail(`BMC item must reference current CO-2026-003 source: ${itemId}`);
+    }
+    if (item.primary_source_ref !== currentCo2026003BmcSource) {
+      fail(`BMC item must name current CO-2026-003 source as primary_source_ref: ${itemId}`);
+    }
+    if (!claim || claim.primary_source_ref !== currentCo2026003BmcSource) {
+      fail(`BMC claim must name current CO-2026-003 source as primary_source_ref: ${itemId}`);
     }
     return [item.statement, ...item.bullets, ...item.detail].join("\n");
   })
@@ -258,7 +266,13 @@ if (!/вложени[яй]|прикладыва(?:ются|ет)/iu.test(co20260
   fail("BMC current CO-2026-003 content must describe PPTX/PDF as email attachments");
 }
 const co2026003PublicText = `${markdown}\n${readText("docs/product/bmc/text-alternative.md")}`;
-for (const forbidden of co2026003ForbiddenActiveMeaning) {
+if (!/DataCanvas не вед[её]т в Лисе уточняющий диалог/iu.test(co2026003CurrentText)) {
+  fail("BMC must state that DataCanvas does not run a Lisa clarification dialogue in the Client Brief route");
+}
+if (/не применяется как обязательный шаг/iu.test(co2026003CurrentText)) {
+  fail("BMC must not keep the ambiguous obsolete wording about an optional Lisa step");
+}
+for (const forbidden of currentCo2026003ForbiddenActiveMeaning) {
   if (forbidden.test(co2026003CurrentText)) {
     fail(`BMC current CO-2026-003 trace returned obsolete active meaning: ${forbidden}`);
   }

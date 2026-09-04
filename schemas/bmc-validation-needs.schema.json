@@ -3,13 +3,13 @@
   "$id": "https://datacanvas.local/schemas/bmc-validation-needs.schema.json",
   "title": "BmcValidationNeeds",
   "type": "object",
-  "required": ["version", "status", "source_trace_path", "generated_at", "summary", "items"],
+  "required": ["version", "status", "source_trace_path", "source_revision_at", "summary", "items"],
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string" },
     "status": { "type": "string", "enum": ["generated"] },
     "source_trace_path": { "type": "string", "minLength": 1 },
-    "generated_at": { "type": "string", "format": "date-time" },
+    "source_revision_at": { "type": "string", "format": "date-time" },
     "summary": {
       "type": "object",
       "required": ["total_items", "items_requiring_action", "evidence_request_ids", "open_question_ids"],

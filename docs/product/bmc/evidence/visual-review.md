@@ -1,6 +1,6 @@
 # Проверка визуального BMC
 
-Проверено: 2026-07-12T00:00:00Z
+Редакция источника: 2026-09-04T11:49:04Z
 
 Итог: готово к пользовательской проверке.
 
@@ -14,7 +14,7 @@
 
 Проверенные файлы:
 
-- docs/product/bmc/source/derived/datacanvas-bmc.svg: 0a40dd33804ff29fa791055de6a66e4eb3ab225835f1099c41c3d4a7736c41e0
-- docs/product/bmc/source/derived/datacanvas-bmc.png: 0335eb3861d1a6ea4145da340f923b2084cd4b519b950312b8b1de3dbfa61de4
-- docs/product/bmc/source/derived/datacanvas-bmc.pdf: 595affc63052846b526ea3eb8cdd3f74deb831ebd78e4cd9f68caaece356b88f
-- docs/product/bmc/source/derived/datacanvas-bmc.puml: bac7d90d9f13f6d7b89e3090a1c8307fcd98438eb1ea0ee5fcdcf4bac14c1858
+- docs/product/bmc/source/derived/datacanvas-bmc.svg: 3611772e593a08f4b3866e6d56d39a9662cf772198c7c96ac210d054ebcd0946
+- docs/product/bmc/source/derived/datacanvas-bmc.png: 131e22db124afe19d27ab470ac6e3baf73e0a11d24aa2cb95f66df9877e63908
+- docs/product/bmc/source/derived/datacanvas-bmc.pdf: 555561060f2c14311d4919bebee83a772999f543fa0f7cda7d3060b015e4b6c5
+- docs/product/bmc/source/derived/datacanvas-bmc.puml: 2d6266183a047a37e111f7fdc1b33775fc90cfb6340961e68d2ddc7f1974eace

@@ -17,7 +17,8 @@ const root = process.cwd();
 const checkMode = process.argv.includes("--check");
 const generatorPath = "scripts/generate-bmc-artifacts.mjs";
 const renderValidatorPath = fileURLToPath(new URL("./validate-bmc-render-parity.mjs", import.meta.url));
-const generatedAt = "2026-07-12T00:00:00Z";
+const generatedAt = "2026-09-04T11:49:04Z";
+let sourceRevisionAt = null;
 
 const paths = {
   trace: "docs/product/bmc/bmc-trace.v0.1.json",
@@ -136,6 +137,13 @@ function fail(message) {
   process.exit(1);
 }
 
+function requireSourceRevisionAt(trace) {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/u.test(trace.source_revision_at ?? "")) {
+    fail("BMC trace must define source_revision_at as an explicit UTC timestamp");
+  }
+  return trace.source_revision_at;
+}
+
 function validationNeedFor(item) {
   if (item.status === "assumption") {
     return "research";
@@ -185,7 +193,7 @@ function buildValidationNeeds(trace) {
     version: "0.1.0",
     status: "generated",
     source_trace_path: paths.trace,
-    generated_at: generatedAt,
+    source_revision_at: sourceRevisionAt,
     summary: {
       total_items: trace.items.length,
       items_requiring_action: items.length,
@@ -420,15 +428,16 @@ function sourceMap(trace) {
   const byItem = new Map(trace.items.map((item) => [item.block, item]));
   const rows = blockModel.map((block) => {
     const item = byItem.get(block.id);
-    return `| ${block.id} | ${block.title} | ${item?.item_id ?? ""} | ${(item?.source_refs ?? []).join(", ")} | ${block.statement} |`;
+    const supportingSources = (item?.source_refs ?? []).filter((sourceRef) => sourceRef !== item?.primary_source_ref);
+    return `| ${block.id} | ${block.title} | ${item?.item_id ?? ""} | ${item?.primary_source_ref ?? ""} | ${supportingSources.join(", ")} | ${block.statement} |`;
   });
   return [
     "# BMC Source Map",
     "",
     "Документ связывает публичные блоки BMC с внутренней трассировкой. Он не является пользовательским BMC-рендером.",
     "",
-    "| Блок | Раздел | Trace item | Source refs | Clean statement |",
-    "|---|---|---|---|---|",
+    "| Блок | Раздел | Пункт трассировки | Основной источник | Поддерживающие источники | Очищенная формулировка |",
+    "|---|---|---|---|---|---|",
     ...rows,
     "",
   ].join("\n");
@@ -503,7 +512,7 @@ function visualReview(artifactHashes) {
   return [
     "# Проверка визуального BMC",
     "",
-    `Проверено: ${generatedAt}`,
+    `Редакция источника: ${sourceRevisionAt}`,
     "",
     "Итог: готово к пользовательской проверке.",
     "",
@@ -695,11 +704,11 @@ function packageManifest(artifactHashes, pngInfo) {
   return {
     version: "0.1.0",
     status: "ready_for_user_acceptance",
-    generated_at: generatedAt,
     generated_by: generatorPath,
     canonical_visual_path: paths.svg,
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
+    source_revision_at: sourceRevisionAt,
     public_content_policy: {
       public_surfaces: [paths.markdown, paths.textAlternative, paths.svg, paths.png, paths.pdf, paths.puml],
       allowed_public_content: "business_model_canvas_only",
@@ -735,8 +744,8 @@ function derivedManifest(artifactHashes) {
     status: "generated",
     source_trace_path: paths.trace,
     source_trace_sha256: artifactHashes[paths.trace],
+    source_revision_at: sourceRevisionAt,
     generated_by: generatorPath,
-    generated_at: generatedAt,
     outputs: [
       { format: "markdown", path: paths.markdown, sha256: artifactHashes[paths.markdown] },
       { format: "plantuml", path: paths.puml, sha256: artifactHashes[paths.puml] },
@@ -847,6 +856,7 @@ function validateRenderedPackage(targetRoot) {
 
 function build(targetRoot) {
   const trace = readJson(paths.trace);
+  sourceRevisionAt = requireSourceRevisionAt(trace);
   blockModel = buildBlockModel(trace);
   blockById = new Map(blockModel.map((block) => [block.id, block]));
   const publicMarkdown = markdown();

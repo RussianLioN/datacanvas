@@ -3,15 +3,15 @@
   "$id": "https://datacanvas.local/schemas/bmc-derived-manifest.schema.json",
   "title": "BmcDerivedManifest",
   "type": "object",
-  "required": ["version", "status", "source_trace_path", "source_trace_sha256", "generated_by", "generated_at", "outputs"],
+  "required": ["version", "status", "source_trace_path", "source_trace_sha256", "source_revision_at", "generated_by", "outputs"],
   "additionalProperties": false,
   "properties": {
     "version": { "type": "string" },
     "status": { "type": "string", "enum": ["generated"] },
     "source_trace_path": { "type": "string", "minLength": 1 },
     "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source_revision_at": { "type": "string", "format": "date-time" },
     "generated_by": { "type": "string", "minLength": 1 },
-    "generated_at": { "type": "string", "format": "date-time" },
     "outputs": {
       "type": "array",
       "minItems": 6,

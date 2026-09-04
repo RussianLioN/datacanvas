@@ -6,11 +6,11 @@
   "required": [
     "version",
     "status",
-    "generated_at",
     "generated_by",
     "canonical_visual_path",
     "source_trace_path",
     "source_trace_sha256",
+    "source_revision_at",
     "public_content_policy",
     "artifacts",
     "validators"
@@ -19,11 +19,11 @@
   "properties": {
     "version": { "type": "string" },
     "status": { "type": "string", "enum": ["ready_for_user_acceptance"] },
-    "generated_at": { "type": "string", "format": "date-time" },
     "generated_by": { "type": "string", "minLength": 1 },
     "canonical_visual_path": { "type": "string", "minLength": 1 },
     "source_trace_path": { "type": "string", "minLength": 1 },
     "source_trace_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source_revision_at": { "type": "string", "format": "date-time" },
     "public_content_policy": {
       "type": "object",
       "required": [

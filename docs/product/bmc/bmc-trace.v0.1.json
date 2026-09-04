@@ -8,6 +8,7 @@
     "docs/product/bmc/interviews/2026-W26-bmc-interview-results.json"
   ],
   "derived_manifest_path": "docs/product/bmc/bmc-derived-manifest.json",
+  "source_revision_at": "2026-09-04T11:49:04Z",
   "blocks": [
     {
       "id": "B1",
@@ -72,6 +73,7 @@
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-VISION-ACTIVE",
       "source_refs": [
         "SRC-DC-VISION-ACTIVE",
         "SRC-DC-STORIES-CURRENT"
@@ -109,6 +111,7 @@
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT",
         "SRC-DC-VISION-BRANCH-SNAPSHOT",
@@ -131,7 +134,7 @@
       ],
       "backlog_item_ids": [],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
         "Готовый путь от проверенного контекста к рабочей презентации",
         "Переиспользование DataCanvas другим агентом вместо отдельного презентационного модуля",
@@ -152,6 +155,7 @@
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -171,7 +175,7 @@
       "requirement_ids": [],
       "backlog_item_ids": [],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
         "Лиса как пользовательский канал показа заказа и статусов через агент «Справка по клиенту»",
         "Запуск другим агентом как канал передачи подготовленного контекста",
@@ -188,10 +192,11 @@
     {
       "item_id": "BMC-CLM-004",
       "block": "B4",
-      "statement": "Взаимодействие с пользователем зависит от режима: в Лисе это управляемый диалог до подготовки презентации, при запуске из агента «Справка по клиенту» — автоматическое выполнение по подготовленному контексту с показом статусов в том же чате.",
+      "statement": "Взаимодействие с пользователем зависит от режима: самостоятельный диалоговый режим Лисы сохраняет управляемый диалог до подготовки презентации; при запуске из агента «Справка по клиенту» экран, кнопка и сообщения принадлежат этому агенту, а DataCanvas автоматически работает по подготовленному контексту и не ведёт в Лисе уточняющий диалог.",
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -214,18 +219,18 @@
       "requirement_ids": [],
       "backlog_item_ids": [],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
-        "Управляемый диалог в Лисе",
+        "Самостоятельный диалоговый режим Лисы",
         "Уточнения и правки описания до подготовки презентации",
-        "Автоматическое выполнение при запуске агентом «Справка по клиенту»",
+        "Автоматическое выполнение по подготовленному контексту при запуске агентом «Справка по клиенту»",
         "Показ начала, успеха и ошибок в том же пользовательском чате",
         "Самостоятельное редактирование файла после доставки"
       ],
       "detail": [
-        "В диалоговом режиме пользователь может уточнять задачу и править описание будущей презентации до подготовки файла.",
-        "При запуске агентом «Справка по клиенту» DataCanvas работает по уже подготовленному контексту без дополнительного подтверждения пользователя.",
-        "Агент «Справка по клиенту» показывает пользователю состояние заказа презентации в том же чате.",
+        "Самостоятельный диалоговый режим Лисы сохраняет уточнения задачи и правки описания будущей презентации до подготовки файла.",
+        "При запуске агентом «Справка по клиенту» экран, кнопка и сообщения принадлежат этому агенту.",
+        "В маршруте агента «Справка по клиенту» DataCanvas автоматически работает по уже подготовленному контексту и не ведёт в Лисе уточняющий диалог.",
         "После получения файла пользователь редактирует презентацию самостоятельно."
       ]
     },
@@ -236,6 +241,7 @@
       "status": "confirmed",
       "confidence": "medium",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-BMC-CURRENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT"
       ],
@@ -272,6 +278,7 @@
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -296,7 +303,7 @@
         "PBI-001"
       ],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
         "Подготовленный входной контекст",
         "Данные для определения получателя результата",
@@ -315,10 +322,11 @@
     {
       "item_id": "BMC-CLM-007",
       "block": "B7",
-      "statement": "Ключевые активности DataCanvas: принять задачу и контекст, проверить пригодность входа, определить получателя результата, подготовить PPTX- и PDF-файлы, отправить оба файла по электронной почте в SIGMA и OMEGA и вернуть другому агенту состояние для показа пользователю.",
+      "statement": "Ключевые активности DataCanvas: принять задачу и подготовленный контекст от агента «Справка по клиенту», проверить пригодность входа, определить получателя результата, подготовить PPTX- и PDF-файлы, отправить оба файла по электронной почте в SIGMA и OMEGA и вернуть другому агенту состояние для показа пользователю.",
       "status": "confirmed",
       "confidence": "high",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -343,9 +351,9 @@
         "PBI-001"
       ],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
-        "Прием задачи и подготовленного контекста",
+        "Прием задачи и подготовленного контекста от агента «Справка по клиенту»",
         "Проверка пригодности входных данных",
         "Определение получателя результата из входного пакета",
         "Подготовка PPTX/PDF-результата и отправка по электронной почте",
@@ -353,8 +361,8 @@
         "Возврат состояния заказа другому агенту для показа пользователю в Лисе"
       ],
       "detail": [
-        "DataCanvas выполняет основные действия от получения контекста до доставки готового файла.",
-        "Уточняющий диалог относится к режиму Лисы и не применяется как обязательный шаг при запуске другим агентом.",
+        "DataCanvas выполняет основные действия от получения подготовленного контекста до доставки готового файла.",
+        "В маршруте агента «Справка по клиенту» DataCanvas не ведёт в Лисе уточняющий диалог.",
         "Для текущего сценария результат считается полностью доставленным после подтверждения отправки в SIGMA и OMEGA.",
         "Ключевые активности описываются на бизнесовом уровне без детализации внутренней реализации."
       ]
@@ -366,6 +374,7 @@
       "status": "confirmed",
       "confidence": "medium",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -388,7 +397,7 @@
       "requirement_ids": [],
       "backlog_item_ids": [],
       "risk_ids": [],
-      "last_reviewed_at": "2026-09-04T10:58:19Z",
+      "last_reviewed_at": "2026-09-04T11:49:04Z",
       "bullets": [
         "Лиса как контур пользовательского взаимодействия",
         "Агент «Справка по клиенту» или контур оркестрации как источник подготовленного контекста",
@@ -410,6 +419,7 @@
       "status": "confirmed",
       "confidence": "medium",
       "owner_role": "Product Owner",
+      "primary_source_ref": "SRC-DC-BMC-CURRENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT"
       ],
@@ -444,6 +454,7 @@
     {
       "claim_id": "BMC-CLM-001",
       "item_id": "BMC-CLM-001",
+      "primary_source_ref": "SRC-DC-VISION-ACTIVE",
       "source_refs": [
         "SRC-DC-VISION-ACTIVE",
         "SRC-DC-STORIES-CURRENT"
@@ -456,6 +467,7 @@
     {
       "claim_id": "BMC-CLM-002",
       "item_id": "BMC-CLM-002",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT",
         "SRC-DC-VISION-BRANCH-SNAPSHOT",
@@ -469,6 +481,7 @@
     {
       "claim_id": "BMC-CLM-003",
       "item_id": "BMC-CLM-003",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -483,6 +496,7 @@
     {
       "claim_id": "BMC-CLM-004",
       "item_id": "BMC-CLM-004",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -497,6 +511,7 @@
     {
       "claim_id": "BMC-CLM-005",
       "item_id": "BMC-CLM-005",
+      "primary_source_ref": "SRC-DC-BMC-CURRENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT"
       ],
@@ -508,6 +523,7 @@
     {
       "claim_id": "BMC-CLM-006",
       "item_id": "BMC-CLM-006",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -522,6 +538,7 @@
     {
       "claim_id": "BMC-CLM-007",
       "item_id": "BMC-CLM-007",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -536,6 +553,7 @@
     {
       "claim_id": "BMC-CLM-008",
       "item_id": "BMC-CLM-008",
+      "primary_source_ref": "SRC-DC-CO-2026-003-BT-AMENDMENT",
       "source_refs": [
         "SRC-DC-CO-2026-001",
         "SRC-DC-CO-2026-003-BT-AMENDMENT",
@@ -550,6 +568,7 @@
     {
       "claim_id": "BMC-CLM-009",
       "item_id": "BMC-CLM-009",
+      "primary_source_ref": "SRC-DC-BMC-CURRENT",
       "source_refs": [
         "SRC-DC-BMC-CURRENT"
       ],
