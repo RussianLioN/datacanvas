@@ -4,7 +4,7 @@
   "registry_id": "PSR-DC-2026-07-03-001",
   "status": "active",
   "owner_role": "Product Owner",
-  "updated_at": "2026-09-04T14:19:24+03:00",
+  "updated_at": "2026-09-04T14:30:02+03:00",
   "precedence_order": [
     "accepted_product_decision",
     "current_vision",
@@ -161,7 +161,7 @@
       "owner_role": "Product Owner",
       "lifecycle": "accepted",
       "trust_level": "accepted_current",
-      "effective_date": "2026-09-04",
+      "effective_date": "2026-08-26",
       "upstream_decision": "CO-2026-003",
       "allowed_downstream_use": [
         "business_requirements_delta",

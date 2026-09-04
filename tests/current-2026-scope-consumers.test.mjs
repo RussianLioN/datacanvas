@@ -56,3 +56,11 @@ test("проверка отклоняет исключённую историю 
 
   assert.ok(problems.some((problem) => problem.includes("метаданные действующего источника")));
 });
+
+test("реестр сохраняет дату принятия дополнения к бизнес-требованиям, а не дату технической правки", () => {
+  const amendment = loadConsumers().registry.sources.find(
+    (source) => source.source_id === "SRC-DC-CO-2026-003-BT-AMENDMENT",
+  );
+
+  assert.equal(amendment.effective_date, "2026-08-26");
+});
