@@ -14,7 +14,7 @@
 
 Проверенные файлы:
 
-- docs/product/bmc/source/derived/datacanvas-bmc.svg: f5e47e6985c00b9f93a2c32ef96216fb98819e57ee4208870c59256d096e95b8
-- docs/product/bmc/source/derived/datacanvas-bmc.png: e17dcdfd24120e19994b83c45ee0453446671a132a271eb1d46925bfc42debe2
-- docs/product/bmc/source/derived/datacanvas-bmc.pdf: 8c234ae066ab9bcba56f9233e99f7d0c3622ffa0ff652bea63585e384ac9db9e
-- docs/product/bmc/source/derived/datacanvas-bmc.puml: ee21f5cf866c64f51540c8ac561758bd65554d052dbfc9ada5aff1c19aa2a019
+- docs/product/bmc/source/derived/datacanvas-bmc.svg: 0a40dd33804ff29fa791055de6a66e4eb3ab225835f1099c41c3d4a7736c41e0
+- docs/product/bmc/source/derived/datacanvas-bmc.png: 0335eb3861d1a6ea4145da340f923b2084cd4b519b950312b8b1de3dbfa61de4
+- docs/product/bmc/source/derived/datacanvas-bmc.pdf: 595affc63052846b526ea3eb8cdd3f74deb831ebd78e4cd9f68caaece356b88f
+- docs/product/bmc/source/derived/datacanvas-bmc.puml: bac7d90d9f13f6d7b89e3090a1c8307fcd98438eb1ea0ee5fcdcf4bac14c1858

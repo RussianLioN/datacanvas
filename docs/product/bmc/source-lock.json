@@ -47,7 +47,15 @@
       "path": "docs/product/change-orders/co-2026-002-agent-launch-delivery-scope.md",
       "status": "available",
       "trust_level": "accepted_current",
-      "allowed_use": "Accepted product decision for P1 email delivery and P2 protected PDF link with Lisa notification through an adjacent route."
+      "allowed_use": "Accepted historical product decision for earlier delivery scope; active 2026 BMC delivery scope is superseded by CO-2026-003."
+    },
+    {
+      "id": "SRC-DC-CO-2026-003-BT-AMENDMENT",
+      "kind": "repo_file",
+      "path": "docs/product/change-orders/co-2026-003-bt-interview-amendment.md",
+      "status": "available",
+      "trust_level": "direct_product_owner_acceptance",
+      "allowed_use": "Accepted current source for the 2026 scope: presentation order from the «Справка по клиенту» agent, PPTX/PDF email delivery to SIGMA and OMEGA, SIGMA IRM, retries and approved user-visible messages."
     },
     {
       "id": "SRC-DC-REVISION-EDIT-002",

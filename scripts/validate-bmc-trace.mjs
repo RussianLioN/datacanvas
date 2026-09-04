@@ -214,4 +214,57 @@ for (const itemId of expectedNeeds) {
   }
 }
 
+const co2026003BmcSource = "SRC-DC-CO-2026-003-BT-AMENDMENT";
+const co2026003CurrentBmcItems = [
+  "BMC-CLM-002",
+  "BMC-CLM-003",
+  "BMC-CLM-004",
+  "BMC-CLM-006",
+  "BMC-CLM-007",
+  "BMC-CLM-008",
+];
+const co2026003RequiredSnippets = ["PPTX", "PDF", "SIGMA", "OMEGA"];
+const co2026003ForbiddenActiveMeaning = [
+  /защищ[её]нн(?:ое|ого|ом|ым)\s+хранилищ/iu,
+  /хранилищ[ае][^.\n]*(?:PDF|презентац|результат)/iu,
+  /ссылк[ау][^.\n]*(?:PDF|презентац|результат|пользовател)/iu,
+  /уведомлени[ея][^.\n]*(?:ссылк|результат)/iu,
+  /показ(?:ать|ывает|ывают|а)[^.\n]*ссылк/iu,
+];
+if (!sourceIds.has(co2026003BmcSource)) {
+  fail(`BMC source lock is missing current CO-2026-003 source: ${co2026003BmcSource}`);
+}
+const co2026003CurrentText = co2026003CurrentBmcItems
+  .map((itemId) => {
+    const item = itemById.get(itemId);
+    if (!item) {
+      fail(`BMC trace is missing current CO-2026-003 item: ${itemId}`);
+    }
+    if (!item.source_refs.includes(co2026003BmcSource)) {
+      fail(`BMC item must reference current CO-2026-003 source: ${itemId}`);
+    }
+    return [item.statement, ...item.bullets, ...item.detail].join("\n");
+  })
+  .join("\n");
+for (const snippet of co2026003RequiredSnippets) {
+  if (!co2026003CurrentText.includes(snippet)) {
+    fail(`BMC current CO-2026-003 content must include: ${snippet}`);
+  }
+}
+if (!/электронн(?:ой|ую)\s+почт/iu.test(co2026003CurrentText)) {
+  fail("BMC current CO-2026-003 content must keep email delivery");
+}
+if (!/вложени[яй]|прикладыва(?:ются|ет)/iu.test(co2026003CurrentText)) {
+  fail("BMC current CO-2026-003 content must describe PPTX/PDF as email attachments");
+}
+const co2026003PublicText = `${markdown}\n${readText("docs/product/bmc/text-alternative.md")}`;
+for (const forbidden of co2026003ForbiddenActiveMeaning) {
+  if (forbidden.test(co2026003CurrentText)) {
+    fail(`BMC current CO-2026-003 trace returned obsolete active meaning: ${forbidden}`);
+  }
+  if (forbidden.test(co2026003PublicText)) {
+    fail(`BMC current CO-2026-003 public output returned obsolete active meaning: ${forbidden}`);
+  }
+}
+
 console.log("BMC trace validation passed");
