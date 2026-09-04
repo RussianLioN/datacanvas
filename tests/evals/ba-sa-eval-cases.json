@@ -95,7 +95,7 @@
       "requirement_id": "BT-024",
       "fixture_id": "BASA-FIX-008",
       "executable_evidence": ["npm run validate:state-model", "npm run validate:error-taxonomy"],
-      "expected": "Задержанная, частичная и неподтвержденная доставка ведут через support_pending в session_closed без числового лимита повторов; новый заказ в закрытом сеансе не создается."
+      "expected": "Задержанная, частичная и неподтвержденная доставка ведут через support_pending в session_closed; для IRM-сбоя SIGMA выполняются пять повторных попыток через 10 минут в пределах часа, для иных почтовых ошибок автоматические повторы не задаются, новый заказ в закрытом сеансе не создается."
     }
   ]
 }

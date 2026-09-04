@@ -8,12 +8,12 @@
   "constraints": [
     "Не использовать чувствительные сырые данные; использовать реестр решений CO-2026-003 для продуктовой семантики, а docs/product/analysis/presentation-link-lisa-user-journey/source/owner-approved-texts.json для текстов начала и успеха будущего кандидата",
     "Не записывать адреса, личные сведения, полные идентификаторы, содержание запроса или технические ответы внешних сервисов",
-    "Не включать системный PUSH, ссылку на файл, отдельное хранилище, прямой маршрут DataCanvas в Лису, число повторов или канал сопровождения",
+    "Не включать системный PUSH, ссылку на файл, отдельное хранилище, прямой маршрут DataCanvas в Лису, неутвержденные повторы или канал сопровождения; разрешенное исключение — пять повторных попыток IRM-отправки в SIGMA через 10 минут в пределах часа",
     "Не создавать новый заказ после закрытия сеанса"
   ],
   "validation_commands": ["npm run validate:spec-task-prompt-readiness", "npm run validate:state-model", "npm run validate:error-taxonomy", "npm run validate:interface-contracts", "npm run validate:data-leakage"],
   "forbidden_inputs": ["sensitive raw interview data", "recipient email address", "full session or user identifier", "unreviewed support contract"],
-  "forbidden_behaviors": ["Раскрывать личные сведения или содержание запроса", "Изобретать прямую доставку DataCanvas в Лису", "Задавать число повторов или канал сопровождения"],
+  "forbidden_behaviors": ["Раскрывать личные сведения или содержание запроса", "Изобретать прямую доставку DataCanvas в Лису", "Задавать неутвержденные повторы или канал сопровождения"],
   "raw_transcript_included": false,
   "traceability_refs": {
     "decision_ids": ["CO3-DEC-004", "CO3-DEC-006", "CO3-DEC-007", "CO3-DEC-009"],
