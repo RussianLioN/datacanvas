@@ -64,6 +64,22 @@ test("задержанная доставка закрывает сеанс и �
   }));
 });
 
+test("таксономия Q4 отклоняет числовые повторы вне ERR-009", () => {
+  const invalidErrorTaxonomy = structuredClone(errorTaxonomy);
+  invalidErrorTaxonomy.errors.find(({ error_id }) => error_id === "ERR-010").retry_policy = "Выполнить 5 повторов.";
+
+  assert.throws(
+    () => validateQ4DeliveryProblemClosure({
+      baSpec,
+      businessRules,
+      saSpec,
+      stateModel,
+      errorTaxonomy: invalidErrorTaxonomy,
+    }),
+    /ERR-010.*numeric retry policy|numeric retry policy.*ERR-010/i,
+  );
+});
+
 test("Q4_2026 BA/SA фиксирует обязательные SIGMA и OMEGA без одного контура для «Справки по клиенту»", () => {
   const text = JSON.stringify({ baSpec, saSpec, taskSpec, promptSpec });
 

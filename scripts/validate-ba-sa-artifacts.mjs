@@ -245,6 +245,13 @@ export function validateQ4DeliveryProblemClosure({ baSpec, businessRules, saSpec
   const lifecycleStates = byId(stateModel.states, "name");
   const saLifecycleStates = byId(saSpec.lifecycle_states, "name");
   const errors = byId(errorTaxonomy.errors, "error_id");
+  const numericRetryError = errorTaxonomy.errors.find((error) =>
+    ["ERR-004", "ERR-005", "ERR-006", "ERR-007", "ERR-008", "ERR-010"].includes(error.error_id) &&
+    /\b[0-9]+\s*(?:раз|повтор)/iu.test(error.retry_policy ?? ""),
+  );
+  if (numericRetryError) {
+    throw new Error(`Q4 error taxonomy must not define a numeric retry policy outside ERR-009: ${numericRetryError.error_id}`);
+  }
 
   requireText(
     baRequirements.get("BT-024")?.summary,
@@ -550,11 +557,7 @@ function validateErrorTaxonomy() {
   }
   const q4 = q4Fixture();
   requireIds(ids(taxonomy.errors, "error_id"), q4.required_error_ids, "Q4 errors");
-  const q4Errors = taxonomy.errors.filter((error) => q4.required_error_ids.includes(error.error_id));
-  if (q4Errors.some((error) => /\\b[0-9]+\\s*(?:раз|повтор)/iu.test(error.retry_policy))) {
-    fail("Q4 error taxonomy must not invent a numeric retry policy");
-  }
-  if (!q4Errors.find((error) => error.error_id === "ERR-010")?.rollback_signal.includes("Закрыть сеанс")) {
+  if (!taxonomy.errors.find((error) => error.error_id === "ERR-010")?.rollback_signal.includes("Закрыть сеанс")) {
     fail("ERR-010 must close the session");
   }
   try {
