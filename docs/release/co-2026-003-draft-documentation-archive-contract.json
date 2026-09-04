@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "archive_id": "co-2026-003-current-documentation-draft",
   "release_kind": "draft_documentation_evidence_only",
   "title": "Черновой пакет документации CO-2026-003 и прототип ООО «Водолей Трейд»",
@@ -8,7 +8,19 @@
   "archive_root": "repository",
   "prototype_root": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft",
   "required_prototype_frame_count": 11,
-  "release_approval_ledger_path": "docs/product/change-orders/co-2026-003-release-approval-ledger.json",
+  "historical_snapshot": {
+    "amendment_id": "CO3-AMND-002",
+    "decision_register_path": "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+    "prototype_manifest_path": "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+    "prototype_status": "draft_prototype_accepted_for_documentation_cascade",
+    "accepted_scope": "isolated_draft_only",
+    "active_release_switch_allowed": false,
+    "high_resolution_render_allowed": false,
+    "delivery_archive_allowed": false
+  },
+  "exclude_primary_artifacts": [
+    "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx"
+  ],
   "data_class": "public_authorized",
   "visibility": "public",
   "additional_artifacts": [
@@ -177,7 +189,7 @@
     "co-2026-003-q4-lisa-profile-acceptance-packet.md",
     "co-2026-003-q4-lisa-profile-validation-evidence.md"
   ],
-  "forbidden_extensions": [".pdf"],
+  "forbidden_extensions": [".pdf", ".xlsx"],
   "refresh_policy": {
     "generate_command": "npm run generate:co-2026-003-draft-documentation-archive",
     "check_command": "npm run check:co-2026-003-draft-documentation-archive",

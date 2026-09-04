@@ -11,6 +11,7 @@ import { readStoredZip } from "../scripts/lib/documentation-archive.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
+const primaryXlsxPath = "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx";
 
 test("архив черновика CO-2026-003 содержит автономный прототип и полный объявленный состав", () => {
   const contract = readCo2026003DraftDocumentationArchiveContract(root);
@@ -18,6 +19,19 @@ test("архив черновика CO-2026-003 содержит автоном�
 
   assert.match(contract.archive_id, /^co-2026-003-/u);
   assert.equal(contract.release_kind, "draft_documentation_evidence_only");
+  assert.equal(contract.release_approval_ledger_path, undefined);
+  assert.deepEqual(contract.historical_snapshot, {
+    amendment_id: "CO3-AMND-002",
+    decision_register_path: "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json",
+    prototype_manifest_path: "docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/prototype-draft/manifest.json",
+    prototype_status: "draft_prototype_accepted_for_documentation_cascade",
+    accepted_scope: "isolated_draft_only",
+    active_release_switch_allowed: false,
+    high_resolution_render_allowed: false,
+    delivery_archive_allowed: false,
+  });
+  assert.deepEqual(contract.exclude_primary_artifacts, [primaryXlsxPath]);
+  assert.ok(contract.forbidden_extensions.includes(".xlsx"));
   assert.ok(archive.has("index.html"));
   assert.ok(archive.has("README.md"));
   assert.ok(archive.has("manifest.json"));
@@ -48,8 +62,33 @@ test("архив черновика CO-2026-003 содержит автоном�
   assert.match(manifest.draft_snapshot_fingerprint, /^[a-f0-9]{64}$/u);
   assert.ok(manifest.entries.every((entry) => archive.has(entry.archive_path)));
 
-  for (const forbiddenSuffix of [".pdf", "lisa-presentation-user-journey-demo.zip"]) {
+  for (const forbiddenSuffix of [".pdf", ".xlsx", "lisa-presentation-user-journey-demo.zip"]) {
     assert.equal([...archive.keys()].some((entry) => entry.endsWith(forbiddenSuffix)), false, `архив не должен содержать ${forbiddenSuffix}`);
+  }
+});
+
+test("исторический архив собирается при финальном текущем выпуске", () => {
+  const contract = readCo2026003DraftDocumentationArchiveContract(root);
+  const currentLedger = readJson("docs/product/change-orders/co-2026-003-release-approval-ledger.json");
+
+  assert.equal(currentLedger.final_release.status, "owner_final_approved");
+  assert.doesNotThrow(() => buildCo2026003DraftDocumentationArchive(root, contract));
+});
+
+test("подмена каждого запрета замороженного снимка блокирует сборку исторического архива", () => {
+  const contract = readCo2026003DraftDocumentationArchiveContract(root);
+  for (const [flag, expectedError] of [
+    ["active_release_switch_allowed", /замороженн.*сним.*переключение/u],
+    ["high_resolution_render_allowed", /замороженн.*сним.*высокоразреш/u],
+    ["delivery_archive_allowed", /замороженн.*сним.*архив поставки/u],
+  ]) {
+    const tamperedContract = structuredClone(contract);
+    tamperedContract.historical_snapshot[flag] = true;
+    assert.throws(
+      () => buildCo2026003DraftDocumentationArchive(root, tamperedContract),
+      expectedError,
+      `подмена ${flag} должна блокировать сборку`,
+    );
   }
 });
 

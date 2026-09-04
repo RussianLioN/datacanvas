@@ -49,9 +49,44 @@ function assertDraftBoundary(root, contract) {
   if (contract.release_kind !== "draft_documentation_evidence_only") fail("договор не определяет архивный снимок черновика");
   if (contract.data_class !== "public_authorized" || contract.visibility !== "public") fail("договор не фиксирует разрешённую видимость чернового архива");
   if (!contract.output_path.startsWith("docs/product/analysis/presentation-link-lisa-user-journey/candidate-evidence/")) fail("архив черновика должен находиться среди кандидатных доказательств");
-  const ledger = JSON.parse(fs.readFileSync(resolveRegularFile(root, contract.release_approval_ledger_path, "реестр согласований"), "utf8"));
-  if (ledger.documentation_cascade?.scope_acceptance_status !== "owner_approved" || ledger.documentation_cascade?.scope !== "documentation_cascade_only") fail("реестр не разрешает документальный каскад");
-  if (ledger.final_release?.active_release_switch_allowed !== false || ledger.final_release?.high_resolution_render_allowed !== false || ledger.final_release?.delivery_archive_allowed !== false) fail("архивный снимок не должен разрешать чистовой выпуск");
+  if (Object.hasOwn(contract, "release_approval_ledger_path")) fail("архивный снимок не должен зависеть от живого реестра выпуска");
+  const snapshot = contract.historical_snapshot;
+  const expectedPrototypeManifestPath = `${contract.prototype_root}/manifest.json`;
+  if (
+    !snapshot ||
+    snapshot.amendment_id !== "CO3-AMND-002" ||
+    snapshot.decision_register_path !== "docs/product/change-orders/co-2026-003-authoritative-interview-decision-register.json" ||
+    snapshot.prototype_manifest_path !== expectedPrototypeManifestPath ||
+    snapshot.prototype_status !== "draft_prototype_accepted_for_documentation_cascade" ||
+    snapshot.accepted_scope !== "isolated_draft_only"
+  ) fail("замороженный снимок должен сохранять запреты исторического черновика");
+  if (snapshot.active_release_switch_allowed !== false) fail("замороженный снимок должен запрещать переключение действующего маршрута");
+  if (snapshot.high_resolution_render_allowed !== false) fail("замороженный снимок должен запрещать высокоразрешённый рендер");
+  if (snapshot.delivery_archive_allowed !== false) fail("замороженный снимок должен запрещать архив поставки");
+  if (
+    !Array.isArray(contract.exclude_primary_artifacts) ||
+    contract.exclude_primary_artifacts.length !== 1 ||
+    contract.exclude_primary_artifacts[0] !== "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx" ||
+    !contract.forbidden_extensions.includes(".xlsx")
+  ) fail("исторический архив должен исключать единственный первичный XLSX и запрещать формат .xlsx");
+
+  const prototypeManifest = JSON.parse(fs.readFileSync(resolveRegularFile(root, snapshot.prototype_manifest_path, "исторический манифест прототипа"), "utf8"));
+  if (
+    prototypeManifest.status !== snapshot.prototype_status ||
+    prototypeManifest.owner_acceptance?.scope !== snapshot.accepted_scope ||
+    prototypeManifest.owner_acceptance?.active_release_switch_allowed !== false
+  ) fail("замороженный снимок не совпадает с историческим манифестом прототипа");
+
+  const decisionRegister = JSON.parse(fs.readFileSync(resolveRegularFile(root, snapshot.decision_register_path, "исторический реестр решений"), "utf8"));
+  const amendment = decisionRegister.post_interview_amendments?.find((item) => item.amendment_id === snapshot.amendment_id);
+  if (
+    amendment?.source !== "owner_follow_up_confirmation" ||
+    amendment.supersedes?.decision_id !== "CO3-DEC-010" ||
+    amendment.supersedes?.scope !== "active_visual_release_only" ||
+    amendment.accepted_scope !== snapshot.accepted_scope ||
+    amendment.active_release_switch_allowed !== false ||
+    amendment.next_gate !== "documentation_cascade_then_explicit_final_owner_approval"
+  ) fail("замороженный снимок не совпадает с историческим дополнением CO3-AMND-002");
 }
 
 function assertSafeContent(content, sourcePath, contract) {
@@ -99,7 +134,10 @@ export function readCo2026003DraftDocumentationArchiveContract(root = process.cw
 export function buildCo2026003DraftDocumentationArchive(root = process.cwd(), contract = readCo2026003DraftDocumentationArchiveContract(root)) {
   assertDraftBoundary(root, contract);
   const chain = JSON.parse(fs.readFileSync(resolveRegularFile(root, contract.source_chain_path, "цепочка исходных материалов"), "utf8"));
-  const members = resolveArchiveMembers(root, { additional_artifacts: contract.additional_artifacts, exclude_primary_artifacts: [] }, chain);
+  const members = resolveArchiveMembers(root, {
+    additional_artifacts: contract.additional_artifacts,
+    exclude_primary_artifacts: contract.exclude_primary_artifacts,
+  }, chain);
   const entries = [];
   for (const member of members) {
     const sourcePath = member.path;
@@ -126,6 +164,7 @@ export function buildCo2026003DraftDocumentationArchive(root = process.cwd(), co
     archive_id: contract.archive_id,
     release_kind: contract.release_kind,
     final_release_authorized: false,
+    historical_snapshot: contract.historical_snapshot,
     prototype_frame_count: prototypeManifest.frames.length,
     draft_snapshot_fingerprint: fingerprint,
     entries: entries.map(({ content, ...item }) => item),

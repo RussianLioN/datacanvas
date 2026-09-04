@@ -18,6 +18,13 @@ function validate() {
   const contract = readCo2026003DraftDocumentationArchiveContract(root);
   const outputPath = path.resolve(root, contract.output_path);
   if (!fs.existsSync(outputPath)) fail("архивный снимок черновика отсутствует");
+  if (
+    Object.hasOwn(contract, "release_approval_ledger_path") ||
+    !Array.isArray(contract.exclude_primary_artifacts) ||
+    contract.exclude_primary_artifacts.length !== 1 ||
+    contract.exclude_primary_artifacts[0] !== "docs/product/sources/working/datacanvas-backlog-draft-pshe-2026-07-08.xlsx" ||
+    !contract.forbidden_extensions.includes(".xlsx")
+  ) fail("договор исторического архива должен исключать первичный XLSX и не зависеть от живого реестра выпуска");
   const expected = buildCo2026003DraftDocumentationArchive(root, contract);
   const actual = fs.readFileSync(outputPath);
   if (!actual.equals(expected)) fail("архивный снимок черновика не совпадает с текущими источниками");
@@ -37,6 +44,7 @@ function validate() {
     manifest.archive_id !== contract.archive_id ||
     manifest.release_kind !== "draft_documentation_evidence_only" ||
     manifest.final_release_authorized !== false ||
+    JSON.stringify(manifest.historical_snapshot) !== JSON.stringify(contract.historical_snapshot) ||
     manifest.prototype_frame_count !== contract.required_prototype_frame_count ||
     !/^[a-f0-9]{64}$/u.test(manifest.draft_snapshot_fingerprint) ||
     !Array.isArray(manifest.entries)
@@ -45,7 +53,7 @@ function validate() {
     if (!archive.has(entry.archive_path) || archive.get(entry.archive_path).length !== entry.size) fail(`манифест архивного снимка не соответствует члену ${entry.archive_path}`);
   }
   for (const name of archive.keys()) {
-    if (/\.pdf$/iu.test(name) || name.includes("lisa-presentation-user-journey-demo.zip") || /\/(?:demo|derived|evidence)\//u.test(`/${name}`)) {
+    if (/\.(?:pdf|xlsx)$/iu.test(name) || name.includes("lisa-presentation-user-journey-demo.zip") || /\/(?:demo|derived|evidence)\//u.test(`/${name}`)) {
       fail(`архивный снимок содержит запрещённый материал: ${name}`);
     }
   }
